@@ -1,0 +1,2162 @@
+[숨기기 <#>]
+
+  * 4월 7일부터 30일까지 과학의 달 에디터톤
+    <https://ko.wikipedia.org/wiki/%EC%9C%84%ED%82%A4%EB%B0%B1%EA%B3%BC:
+    %EA%B3%BC%ED%95%99%EC%9D%98_%EB%8B%AC_%EC%97%90%EB%94%94%ED%84%B0%ED
+    %86%A4>이 열립니다. 지금 참여해 보세요!
+
+
+  한국어
+
+위키백과, 우리 모두의 백과사전.
+이동: 둘러보기 <#mw-head>, 검색 <#p-search>
+<https://ko.wikipedia.org/wiki/%EC%9C%84%ED%82%A4%EB%B0%B1%EA%B3%BC:%EB%8F%99%EC%9D%8C%EC%9D%B4%EC%9D%98%EC%96%B4_%EB%AC%B8%EC%84%9C>
+이 문서는 언어에 관한 것입니다. 문자에 대해서는 한글
+<https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B8%80> 문서를 참조하십시오.
+한국어
+(IPA
+<https://ko.wikipedia.org/wiki/%EA%B5%AD%EC%A0%9C_%EC%9D%8C%EC%84%B1_%EA%B8%B0%ED%98%B8>:
+[ha(ː)n.ɡu.ɡʌ]) 사용 국가 	대한민국
+<https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD>, 조
+선민주주의인민공화국
+<https://ko.wikipedia.org/wiki/%EC%A1%B0%EC%84%A0%EB%AF%BC%EC%A3%BC%EC%A3%BC%EC%9D%98%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD>,
+중화인민공화국
+<https://ko.wikipedia.org/wiki/%EC%A4%91%ED%99%94%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD>
+
+사용 민족 	한민족
+<https://ko.wikipedia.org/wiki/%ED%95%9C%EB%AF%BC%EC%A1%B1>
+언어 인구 	약 7,720만 명^[1] <#cite_note-Ethnologue-1>
+어순 	주어-목적어-서술어 (SOV)
+형용사-명사 후치사 사용
+문자 	한글 <https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B8%80> • 한자
+<https://ko.wikipedia.org/wiki/%ED%95%9C%EC%9E%90> (혼용) • 한글 점자
+<https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B8%80_%EC%A0%90%EC%9E%90>
+언어 계통 <https://ko.wikipedia.org/wiki/%EC%96%B4%EC%A1%B1> 	한국어족
+<https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4%EC%A1%B1>^[2]
+<#cite_note-google15-2> ^[3] <#cite_note-3> ^[4] <#cite_note-4> ^[5]
+<#cite_note-5> ^[6] <#cite_note-6> ^[7] <#cite_note-7>
+ *한국어*
+초기형태 	고대 한국어
+<https://ko.wikipedia.org/wiki/%EA%B3%A0%EB%8C%80_%ED%95%9C%EA%B5%AD%EC%96%B4>
+(고구려어
+<https://ko.wikipedia.org/wiki/%EA%B3%A0%EA%B5%AC%EB%A0%A4%EC%96%B4>·백
+제어 <https://ko.wikipedia.org/wiki/%EB%B0%B1%EC%A0%9C%EC%96%B4>·신라어
+<https://ko.wikipedia.org/wiki/%EC%8B%A0%EB%9D%BC%EC%96%B4>)
+중세 한국어
+<https://ko.wikipedia.org/wiki/%EC%A4%91%EC%84%B8_%ED%95%9C%EA%B5%AD%EC%96%B4>
+(고려어
+<https://ko.wikipedia.org/wiki/%EA%B3%A0%EB%A0%A4%EC%96%B4_(%EA%B3%A0%EB
+%8C%80%EC%96%B4)>·조선어
+<https://ko.wikipedia.org/wiki/%EC%A1%B0%EC%84%A0%EC%96%B4>)
+공용어 및 표준
+공용어로 쓰는 나라 	대한민국의 기
+<https://ko.wikipedia.org/wiki/%ED%8C%8C%EC%9D%BC:Flag_of_South_Korea.svg>
+대한민국
+<https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD>
+조선민주주의인민공화국의 기
+<https://ko.wikipedia.org/wiki/%ED%8C%8C%EC%9D%BC:Flag_of_North_Korea.svg>
+조선민주주의인민공화국
+<https://ko.wikipedia.org/wiki/%EC%A1%B0%EC%84%A0%EB%AF%BC%EC%A3%BC%EC%A3%BC%EC%9D%98%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD>
+중화인민공화국
+<https://ko.wikipedia.org/wiki/%EC%A4%91%ED%99%94%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD>
+연변 조선족 자치주
+<https://ko.wikipedia.org/wiki/%EC%97%B0%EB%B3%80_%EC%A1%B0%EC%84%A0%EC%A1%B1_%EC%9E%90%EC%B9%98%EC%A3%BC>
+
+표준 	대한민국
+<https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD> 국
+립국어원
+<https://ko.wikipedia.org/wiki/%EA%B5%AD%EB%A6%BD%EA%B5%AD%EC%96%B4%EC%9B%90>
+조선민주주의인민공화국
+<https://ko.wikipedia.org/wiki/%EC%A1%B0%EC%84%A0%EB%AF%BC%EC%A3%BC%EC%A3%BC%EC%9D%98%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD>
+사회과학원 언어학연구소
+중화인민공화국
+<https://ko.wikipedia.org/wiki/%EC%A4%91%ED%99%94%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD>
+조선어규범위원회
+언어 부호
+ISO 639-1 <https://ko.wikipedia.org/wiki/ISO_639-1> 	|ko|
+ISO 639-2 <https://ko.wikipedia.org/wiki/ISO_639-2> 	|kor|
+ISO 639-3 <https://ko.wikipedia.org/wiki/ISO_639-3> 	|kor
+<http://www-01.sil.org/iso639-3/documentation.asp?id=kor>|
+한국어와 제주어를 주로 사용하는 지역
+<https://ko.wikipedia.org/wiki/%ED%8C%8C%EC%9D%BC:Idioma_coreano.png>
+한국어와 제주어를 주로 사용하는 지역
+
+<https://ko.wikipedia.org/wiki/%ED%8C%8C%EC%9D%BC:Map_of_Korean_language.png>
+
+<https://ko.wikipedia.org/wiki/%ED%8C%8C%EC%9D%BC:Map_of_Korean_language.png>
+한국어의 세계 분포를 나타낸 그림.
+
+*한국어*(韓國語) 또는 *조선말*(朝鮮말)은 대한민국
+<https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD>과
+조선민주주의인민공화국
+<https://ko.wikipedia.org/wiki/%EC%A1%B0%EC%84%A0%EB%AF%BC%EC%A3%BC%EC
+%A3%BC%EC%9D%98%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD>의 공용어
+<https://ko.wikipedia.org/wiki/%EA%B3%B5%EC%9A%A9%EC%96%B4>로, 대한민국
+에서는 *한국어*, *한국말*이라고 부르고, 조선민주주의인민공화국에서는 *조
+선말*, 중화인민공화국
+<https://ko.wikipedia.org/wiki/%EC%A4%91%ED%99%94%EC%9D%B8%EB%AF%BC%EA
+%B3%B5%ED%99%94%EA%B5%AD>과 일본
+<https://ko.wikipedia.org/wiki/%EC%9D%BC%EB%B3%B8>에서는 *조선어*(朝鮮
+語)라고 부르며, 러시아
+<https://ko.wikipedia.org/wiki/%EB%9F%AC%EC%8B%9C%EC%95%84>와 중앙아시아
+<https://ko.wikipedia.org/wiki/%EC%A4%91%EC%95%99%EC%95%84%EC%8B%9C%EC
+%95%84>의 고려인 <https://ko.wikipedia.org/wiki/%EA%B3%A0%EB%A0%A4%EC%9D
+%B8>들 사이에서는 *고려말
+<https://ko.wikipedia.org/wiki/%EC%A4%91%EC%95%99%EC%95%84%EC%8B%9C%EC
+%95%84_%ED%95%9C%EA%B5%AD%EC%96%B4>*(高麗말)이라고 부른다.
+
+19세기 <https://ko.wikipedia.org/wiki/19%EC%84%B8%EA%B8%B0> 중반 이후 한
+반도와 주변 정세의 혼란, 20세기
+<https://ko.wikipedia.org/wiki/20%EC%84%B8%EA%B8%B0> 전반 일본 제국
+<https://ko.wikipedia.org/wiki/%EC%9D%BC%EB%B3%B8_%EC%A0%9C%EA%B5%AD>의
+침략, 20세기 <https://ko.wikipedia.org/wiki/20%EC%84%B8%EA%B8%B0> 후반
+대한민국의 해외 이민 <https://ko.wikipedia.org/wiki/%EC%9D%B4%EB%AF%BC>
+등의 요인으로 중화인민공화국
+<https://ko.wikipedia.org/wiki/%EC%A4%91%ED%99%94%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD>,
+일본 <https://ko.wikipedia.org/wiki/%EC%9D%BC%EB%B3%B8>, 러시아
+<https://ko.wikipedia.org/wiki/%EB%9F%AC%EC%8B%9C%EC%95%84>, 우즈베키스
+탄
+<https://ko.wikipedia.org/wiki/%EC%9A%B0%EC%A6%88%EB%B2%A0%ED%82%A4%EC%8A%A4%ED%83%84>,
+미국 <https://ko.wikipedia.org/wiki/%EB%AF%B8%EA%B5%AD>, 캐나다
+<https://ko.wikipedia.org/wiki/%EC%BA%90%EB%82%98%EB%8B%A4>, 오스트레일
+리아
+<https://ko.wikipedia.org/wiki/%EC%98%A4%EC%8A%A4%ED%8A%B8%EB%A0%88%EC%9D%BC%EB%A6%AC%EC%95%84>,
+필리핀 <https://ko.wikipedia.org/wiki/%ED%95%84%EB%A6%AC%ED%95%80>, 베트
+남 <https://ko.wikipedia.org/wiki/%EB%B2%A0%ED%8A%B8%EB%82%A8> 등 세계
+여러 지역에 한민족
+<https://ko.wikipedia.org/wiki/%ED%95%9C%EB%AF%BC%EC%A1%B1>이 이주하면서
+이들 한민족이 거주하는 지역에서도 한국어가 사용되고 있다. 2016년 1월 초
+기준
+<https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%EC
+%9D%98_%EC%9D%B8%EA%B5%AC>으로 한국어 사용 인구는 약 7,720만 명으로 추산
+된다.^[1] <#cite_note-Ethnologue-1>
+
+
+목차
+
+ [숨기기] 
+
+  * 1 '한국어'의 여러 명칭 <#'한국어'의_여러_명칭>
+      o 1.1 동아시아 <#동아시아>
+      o 1.2 인도유럽어족 <#인도유럽어족>
+  * 2 계통 <#계통>
+      o 2.1 알타이어족설 <#알타이어족설>
+      o 2.2 한-일어족설 <#한-일어족설>
+      o 2.3 극동아시아어족설 <#극동아시아어족설>
+      o 2.4 비알타이어 기층설 <#비알타이어_기층설>
+  * 3 음운 <#음운>
+      o 3.1 모음 <#모음>
+      o 3.2 자음 <#자음>
+      o 3.3 형태 음소론 <#형태_음소론>
+  * 4 문법 <#문법>
+      o 4.1 존비어 체계 <#존비어_체계>
+  * 5 어휘 <#어휘>
+  * 6 문자 <#문자>
+  * 7 방언 <#방언>
+      o 7.1 한국어의 남북 간 차이 <#한국어의_남북_간_차이>
+  * 8 외국인 한국어 학습자 및 자격 시험 <#외국인_한국어_학습자_및_자격_
+    시험>
+      o 8.1 한국어 검정시험 <#한국어_검정시험>
+          + 8.1.1 대한민국 <#대한민국>
+          + 8.1.2 일본 <#일본>
+  * 9 인터넷에서의 한국어 <#인터넷에서의_한국어>
+  * 10 한국어 사용국가 <#한국어_사용국가>
+  * 11 관련 항목 <#관련_항목>
+  * 12 각주 <#각주>
+  * 13 외부 링크 <#외부_링크>
+
+
+    '한국어'의 여러 명칭[편집
+    <https://ko.wikipedia.org/w/index.php?title=%ED%95%9C%EA%B5%AD%EC%96%B4&action=edit&section=1>]
+
+이 부분의 본문은 한국어의 호칭 문제
+<https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4%EC%9D%98_%ED
+%98%B8%EC%B9%AD_%EB%AC%B8%EC%A0%9C>입니다.
+
+'*한국어'*(韓國語)는 대한민국
+<https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD>에서
+쓰는 명칭이고 조선민주주의인민공화국
+<https://ko.wikipedia.org/wiki/%EC%A1%B0%EC%84%A0%EB%AF%BC%EC%A3%BC%EC
+%A3%BC%EC%9D%98%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD>에서는 *조
+선말*이라고 한다. 대한민국
+<https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD>과
+조선민주주의인민공화국
+<https://ko.wikipedia.org/wiki/%EC%A1%B0%EC%84%A0%EB%AF%BC%EC%A3%BC%EC
+%A3%BC%EC%9D%98%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD>이 공동으로
+만드는 사전의 이름은 《겨레말 큰사전》이다. 1994년
+<https://ko.wikipedia.org/wiki/1994%EB%85%84>부터 열리는 대한민국
+<https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD>·조
+선민주주의인민공화국
+<https://ko.wikipedia.org/wiki/%EC%A1%B0%EC%84%A0%EB%AF%BC%EC%A3%BC%EC
+%A3%BC%EC%9D%98%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD>·중화인민공
+화국
+<https://ko.wikipedia.org/wiki/%EC%A4%91%ED%99%94%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD>
+간의 한글과 한국어 컴퓨터
+<https://ko.wikipedia.org/wiki/%EC%BB%B4%ED%93%A8%ED%84%B0> 처리를 표준
+화하려는 학회명은 '코리안 컴퓨터처리 국제학술대회'이다.
+
+
+      동아시아
+      <https://ko.wikipedia.org/wiki/%EB%8F%99%EC%95%84%EC%8B%9C%EC%95
+      %84>[편집
+      <https://ko.wikipedia.org/w/index.php?title=%ED%95%9C%EA%B5%AD%EC%96%B4&action=edit&section=2>]
+
+중국
+<https://ko.wikipedia.org/wiki/%EC%A4%91%ED%99%94%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD>,
+일본 <https://ko.wikipedia.org/wiki/%EC%9D%BC%EB%B3%B8>, 베트남
+<https://ko.wikipedia.org/wiki/%EB%B2%A0%ED%8A%B8%EB%82%A8> 등 한자 문화
+권
+<https://ko.wikipedia.org/wiki/%ED%95%9C%EC%9E%90_%EB%AC%B8%ED%99%94%EA
+%B6%8C>에 속하는 아시아 여러 국가에서는 한국어를 가리키는 명칭으로 *조선
+어*(朝鮮語)가 주로 사용되어왔으나, 최근에는 *한국어*로 부르는 경향이 늘
+고 있다.
+
+중화인민공화국
+<https://ko.wikipedia.org/wiki/%EC%A4%91%ED%99%94%EC%9D%B8%EB%AF%BC%EA
+%B3%B5%ED%99%94%EA%B5%AD>은 조선민주주의인민공화국
+<https://ko.wikipedia.org/wiki/%EC%A1%B0%EC%84%A0%EB%AF%BC%EC%A3%BC%EC
+%A3%BC%EC%9D%98%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD>과의 밀접한
+관계에 따라 한국어를 주로 '*차오셴위*(중국어
+<https://ko.wikipedia.org/wiki/%EC%A4%91%EA%B5%AD%EC%96%B4>: 朝鲜语, 한
+어 병음
+<https://ko.wikipedia.org/wiki/%ED%95%9C%EC%96%B4_%EB%B3%91%EC%9D%8C>:
+Cháoxiǎnyǔ, 조선어)'라고 부른다. 1992년
+<https://ko.wikipedia.org/wiki/1992%EB%85%84> 대한민국
+<https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD>과의
+수교 이후에 양국이 활발한 교류를 하게 되면서 '한궈위(중국어
+<https://ko.wikipedia.org/wiki/%EC%A4%91%EA%B5%AD%EC%96%B4>: 韩国语, 한
+어 병음
+<https://ko.wikipedia.org/wiki/%ED%95%9C%EC%96%B4_%EB%B3%91%EC%9D%8C>:
+Hánguóyǔ, 한국어)' 또는 '한위'(韓語, 한어) 등의 명칭이 쓰이기도 하나, 학
+술상으로는 여전히 문화어 계열 어휘를 많이 사용한다.
+
+일본 <https://ko.wikipedia.org/wiki/%EC%9D%BC%EB%B3%B8>에서는 한국어를 '
+조센고(조선어)'라고 불렀으나, 근래에는 '간코쿠고(한국어)'라고 부르는 경
+향이 강하다. 일본 내의 한인(韓人) 교포 사회는 재일본대한민국민단
+<https://ko.wikipedia.org/wiki/%EC%9E%AC%EC%9D%BC%EB%B3%B8%EB%8C%80%ED
+%95%9C%EB%AF%BC%EA%B5%AD%EB%AF%BC%EB%8B%A8>(민단)과 재일본조선인총련합회
+<https://ko.wikipedia.org/wiki/%EC%9E%AC%EC%9D%BC%EB%B3%B8%EC%A1%B0%EC
+%84%A0%EC%9D%B8%EC%B4%9D%EB%A0%A8%ED%95%A9%ED%9A%8C>(총련)로 갈라져 각각
+표준어 <https://ko.wikipedia.org/wiki/%ED%91%9C%EC%A4%80%EC%96%B4>와 문
+화어 <https://ko.wikipedia.org/wiki/%EB%AC%B8%ED%99%94%EC%96%B4>를 지지
+하는 경향이 있으므로 NHK <https://ko.wikipedia.org/wiki/NHK>는 한국어 회
+화 명칭을 '간코쿠고(한국어)', '조센고(조선어)' 대신 '한구루 고자'(ハング
+ル講座, 한글 강좌)라고 하였다. 그 밖에도 중립성을 고려하여 '고리아고'(コ
+リア語, 코리아어)나 '가라노쿠니노코토바'(韓の国のことば, からのくにのこ
+とば, 한나라말) 등의 명칭을 쓰기도 한다. '고리아고(코리아어)'는 1977년
+<https://ko.wikipedia.org/wiki/1977%EB%85%84> 조치 대학교
+<https://ko.wikipedia.org/wiki/%EC%A1%B0%EC%B9%98_%EB%8C%80%ED%95%99%EA
+%B5%90>가 처음으로 전공 학과를 개설한 이후 일부 대학교에서 쓴다.
+
+중화민국
+<https://ko.wikipedia.org/wiki/%EC%A4%91%ED%99%94%EB%AF%BC%EA%B5%AD>(타
+이완 <https://ko.wikipedia.org/wiki/%ED%83%80%EC%9D%B4%EC%99%84>)은 한국
+어를 '한궈위(중국어
+<https://ko.wikipedia.org/wiki/%EC%A4%91%EA%B5%AD%EC%96%B4>: 韓國語, 한
+어 병음
+<https://ko.wikipedia.org/wiki/%ED%95%9C%EC%96%B4_%EB%B3%91%EC%9D%8C>:
+Hánguóyǔ, 한국어)'나 '한위(중국어
+<https://ko.wikipedia.org/wiki/%EC%A4%91%EA%B5%AD%EC%96%B4>: 韓語, 한어
+병음
+<https://ko.wikipedia.org/wiki/%ED%95%9C%EC%96%B4_%EB%B3%91%EC%9D%8C>:
+Hányǔ, 한어)'로 부른다.
+
+베트남에서의 용법은 중국과 거의 비슷하다. 현재는 한자를 사용하지 않지만,
+과거에 한자 문화권
+<https://ko.wikipedia.org/wiki/%ED%95%9C%EC%9E%90_%EB%AC%B8%ED%99%94%EA
+%B6%8C>에 속했던 베트남은 한국을 '쩨우띠엔'(베트남어
+<https://ko.wikipedia.org/wiki/%EB%B2%A0%ED%8A%B8%EB%82%A8%EC%96%B4>:
+Triều Tiên, 朝鮮)이라고 불렀고, 대한민국은 '남쩨우띠엔'(베트남어
+<https://ko.wikipedia.org/wiki/%EB%B2%A0%ED%8A%B8%EB%82%A8%EC%96%B4>:
+Nam Triều Tiên, 南朝鮮), 한국어는 '띠엥쩨우띠엔'(Tiếng Triều Tiên, 朝鮮
+語)으로 불렀다. 한국에 관련된 일반 어휘는 문화어 계열의 어휘가 더 많이
+쓰인다. 대한민국의 표준어는 '띠엥한'(Tiếng Hàn, 韓語)이라고 부른다.
+
+
+      인도유럽어족
+      <https://ko.wikipedia.org/wiki/%EC%9D%B8%EB%8F%84%EC%9C%A0%EB%9F
+      %BD%EC%96%B4%EC%A1%B1>[편집
+      <https://ko.wikipedia.org/w/index.php?title=%ED%95%9C%EA%B5%AD%EC%96%B4&action=edit&section=3>]
+
+한국어는 영어 <https://ko.wikipedia.org/wiki/%EC%98%81%EC%96%B4>로
+'Korean', 프랑스어
+<https://ko.wikipedia.org/wiki/%ED%94%84%EB%9E%91%EC%8A%A4%EC%96%B4>로
+'Coréen', 스페인어
+<https://ko.wikipedia.org/wiki/%EC%8A%A4%ED%8E%98%EC%9D%B8%EC%96%B4>로
+'Coreano'로 불린다.
+
+
+    계통[편집
+    <https://ko.wikipedia.org/w/index.php?title=%ED%95%9C%EA%B5%AD%EC%96%B4&action=edit&section=4>]
+
+이 부분의 본문은 한국어의 계통
+<https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4%EC%9D%98_%EA
+%B3%84%ED%86%B5>입니다.
+
+한국어 계통에 대해서는 핀란드 언어학자 람스테드가 알타이어족
+<https://ko.wikipedia.org/wiki/%EC%95%8C%ED%83%80%EC%9D%B4%EC%96%B4%EC
+%A1%B1>설을 처음으로 제시한 것을 비롯하여 일본어
+<https://ko.wikipedia.org/wiki/%EC%9D%BC%EB%B3%B8%EC%96%B4>, 티벳어
+<https://ko.wikipedia.org/wiki/%ED%8B%B0%EB%B2%B3%EC%96%B4>, 아이누어
+<https://ko.wikipedia.org/wiki/%EC%95%84%EC%9D%B4%EB%88%84%EC%96%B4>, 드
+라비다어족
+<https://ko.wikipedia.org/wiki/%EB%93%9C%EB%9D%BC%EB%B9%84%EB%8B%A4%EC
+%96%B4%EC%A1%B1>과의 동계설은 물론, 인도유럽어족
+<https://ko.wikipedia.org/wiki/%EC%9D%B8%EB%8F%84%EC%9C%A0%EB%9F%BD%EC
+%96%B4%EC%A1%B1>의 동계설까지 제기되었다.
+
+20세기 후반까지는 우랄-알타이 계통설이 지지를 받았는데, 우랄-알타이어족
+이 우랄어족과 알타이어족으로 나뉘게 된 뒤에는 알타이 계통설이 가장 가능
+성이 큰 것으로 여겨지고 있다. 그러나 알타이어족을 이루는 주요 언어인 튀
+르크어와 몽골어 사이의 유사관계가 많은 부분 어휘차용에 근거하는 등 알타
+이어족 사이에서도 눈에 띄는 유사점을 발견하기 어렵고, 결정적으로 기초 어
+휘의 일치 및 음운대응규칙이 보이지 않기 때문에 고립된 언어
+<https://ko.wikipedia.org/wiki/%EA%B3%A0%EB%A6%BD%EB%90%9C_%EC%96%B8%EC%96%B4>
+내지는 한국어족
+<https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4%EC%A1%B1>으로
+보고 있다.
+
+
+      알타이어족설[편집
+      <https://ko.wikipedia.org/w/index.php?title=%ED%95%9C%EA%B5%AD%EC%96%B4&action=edit&section=5>]
+
+한국어가 몽골어
+<https://ko.wikipedia.org/wiki/%EB%AA%BD%EA%B3%A8%EC%96%B4>, 퉁구스어
+<https://ko.wikipedia.org/wiki/%ED%89%81%EA%B5%AC%EC%8A%A4%EC%96%B4>, 터
+키어 <https://ko.wikipedia.org/wiki/%ED%84%B0%ED%82%A4%EC%96%B4> 등과 함
+께 알타이어족
+<https://ko.wikipedia.org/wiki/%EC%95%8C%ED%83%80%EC%9D%B4%EC%96%B4%EC
+%A1%B1>에 속한다고 보는 견해이다. 한국어를 알타이어족의 하나로 보는 입장
+에서는 한국어의 다음과 같은 속성을 근거로 든다.
+
+ 1. 모음조화
+    <https://ko.wikipedia.org/wiki/%EB%AA%A8%EC%9D%8C%EC%A1%B0%ED%99%94>
+    가 존재한다.
+ 2. 용언에 굴절이 있는 교착어
+    <https://ko.wikipedia.org/wiki/%EA%B5%90%EC%B0%A9%EC%96%B4>이다.
+ 3. 주어, 목적어, 동사의 어순을 가지는 S-O-V 어순의 언어이다.
+ 4. 어두에 특정 자음이 쓰이지 않는 두음법칙이 존재한다.
+ 5. 모음교체, 자음교체, 문법적 성(性), 어두자음군이 없다.
+ 6. 관계대명사와 접속사가 없고 접속사의 결여를 보충하기 위해 부동사를 사
+    용한다.^[8] <#cite_note-8> 
+
+그러나 한국어는 알타이어족이 가지는 전형적인 특성 외에 다른 특성을 공유
+하지 못하기도 한다. 이는 한국어가 조기에 알타이조어에서 분리되었다는 가
+설을 성립하게 하였다. 한국어가 알타이어족에 속하는 언어임을 부정하는 주
+장은 다음과 같다. 대부분 알타이 어족 가설 자체에 해당하는 것이기도 하다.
+
+ 1. 알타이 제어에는 기초 어휘인 신체 지칭이나 친족 명칭어가 유사한 것이
+    거의 없다.
+ 2. 기초 어휘로서 대명사 일부만이 유사하고, 수사가 거의 다르다.
+ 3. 음운대응의 규칙성이 정확하지 못하고, 믿을만한 것이 부족하다.
+ 4. 알타이 제어의 언어 구조는 매우 유사하지만, 차용어를 제외하면 공통된
+    요소가 매우 적다.
+ 5. 문법 요소의 일부 유사성으로는 알타이 제어의 친근성을 증명하기에 충분
+    하지 않다. 역사적으로 밀접한 접촉을 했고, 서로 강력한 영향력을 끼친
+    결과, 언어구조가 유사
+    <https://ko.wikipedia.org/wiki/%EC%96%B8%EC%96%B4%EB%8F%99%EC%A1%B0
+    %EB%8C%80>해졌고, 차용어로 인하여 공통요소가 생겼을 가능성이 있다.
+
+한국어가 알타이어족에 속하는 언어임을 부정하는 주장의 근거 중 하나가 음
+운대응의 규칙성의 부족이다. 많은 연구에도 불구하고 알타이 제어와 한국어
+의 음운대응 관계가 적게 밝혀진 것은 사실이다. 특히 모음의 대응은 매우 불
+규칙하다. 하지만 자음 중에서는 몇 가지 밝혀진 대응관계가 있다.^[9]
+<#cite_note-9>
+
+한국인은 형질 인류 상으로는 몽골 인종이고, 언어상으로는 알타이어를 쓰고
+있다. 한국의 학교에서는 2006년 기준 한국어가 알타이 어족과 가까운 관계에
+있는 것으로 가르치고 있다.^[10] <#cite_note-histsb-10>
+
+
+      한-일어족설[편집
+      <https://ko.wikipedia.org/w/index.php?title=%ED%95%9C%EA%B5%AD%EC%96%B4&action=edit&section=6>]
+
+한국어와 일본어 사이의 문법적인 유사성이 많다는 데에서 나오는 설이다. 부
+여어족 <https://ko.wikipedia.org/wiki/%EB%B6%80%EC%97%AC%EC%96%B4%EC%A1
+%B1>설 등의 구체적인 가설이 나왔으나, 고대 한국어 자료가 부족하여 가설
+단계에 머물러 있다. 이노우에 키요시(井上 淸)는 일본어가 친족관계를 가질
+가능성이 있는 것은 오직 한국어 뿐이고, 그렇다면 공통의 조어에서 갈라진
+시기를 언어연대학으로 조몬시대
+<https://ko.wikipedia.org/wiki/%EC%A1%B0%EB%AA%AC%EC%8B%9C%EB%8C%80> 중
+기 이전으로 추정했다.^[11] <#cite_note-11>
+
+
+      극동아시아어족설[편집
+      <https://ko.wikipedia.org/w/index.php?title=%ED%95%9C%EA%B5%AD%EC%96%B4&action=edit&section=7>]
+
+한국어 이외에도 몽골어
+<https://ko.wikipedia.org/wiki/%EB%AA%BD%EA%B3%A8%EC%96%B4>, 퉁구스어
+<https://ko.wikipedia.org/wiki/%ED%89%81%EA%B5%AC%EC%8A%A4%EC%96%B4>, 터
+키어 <https://ko.wikipedia.org/wiki/%ED%84%B0%ED%82%A4%EC%96%B4>, 일본어
+<https://ko.wikipedia.org/wiki/%EC%9D%BC%EB%B3%B8%EC%96%B4>, 만주어
+<https://ko.wikipedia.org/wiki/%EB%A7%8C%EC%A3%BC%EC%96%B4>까지 한 어족
+으로 보며, 해당 다섯 개의 언어와, 한국어가 유사하다는 점을 근거로 제시하
+고 있다.
+
+
+      비알타이어 기층설[편집
+      <https://ko.wikipedia.org/w/index.php?title=%ED%95%9C%EA%B5%AD%EC%96%B4&action=edit&section=8>]
+
+한국의 언어학자인 김방한이 제시한 가설로, 한국어 기층에 원시 한반도어라
+고 부르는 정체불명의 비알타이어 기층이 있고, 그 위에 알타이어계 요소가
+덮인 것이거나, 그 반대로 비알타이어가 알타이 기층에 덮여서 한국어의 뼈대
+가 형성되었다고 보는 가설이다. 그는 원시 한반도어와 계통적 친연성이 있는
+언어로 편의상 고시베리아어족으로 분류되어 있는 니브히어
+<https://ko.wikipedia.org/wiki/%EB%8B%88%EB%B8%8C%ED%9E%88%EC%96%B4>(길
+랴크어)를 지목하였다.
+
+
+    음운[편집
+    <https://ko.wikipedia.org/w/index.php?title=%ED%95%9C%EA%B5%AD%EC%96%B4&action=edit&section=9>]
+
+이 부분의 본문은 한국어 음운론
+<https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EC%9D%8C%EC
+%9A%B4%EB%A1%A0>입니다.
+
+
+      모음[편집
+      <https://ko.wikipedia.org/w/index.php?title=%ED%95%9C%EA%B5%AD%EC%96%B4&action=edit&section=10>]
+
+다음은 대한민국 표준어
+<https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD_%ED
+%91%9C%EC%A4%80%EC%96%B4>를 기준으로 한 모음
+<https://ko.wikipedia.org/wiki/%EB%AA%A8%EC%9D%8C>의 표기이다.
+
+음소 	대표적인 음성 	적요 	예
+/ㅏ/ 	[a] 	전설 비원순 저모음
+<https://ko.wikipedia.org/wiki/%EC%A0%84%EC%84%A4_%EB%B9%84%EC%9B%90%EC%88%9C_%EC%A0%80%EB%AA%A8%EC%9D%8C>,
+중설 근저모음
+<https://ko.wikipedia.org/wiki/%EC%A4%91%EC%84%A4_%EA%B7%BC%EC%A0%80%EB%AA%A8%EC%9D%8C>^[vn
+1] <#cite_note-12> 	/*a*i/ 아이 [ai]
+/ㅓ/ 	[ʌ] 	후설 비원순 중저모음
+<https://ko.wikipedia.org/wiki/%ED%9B%84%EC%84%A4_%EB%B9%84%EC%9B%90%EC%88%9C_%EC%A4%91%EC%A0%80%EB%AA%A8%EC%9D%8C>^[vn
+2] <#cite_note-13> 	/*ʌ*di/ 어디 [ʌdi]
+/ㅗ/ 	[o] 	후설 원순 중고모음
+<https://ko.wikipedia.org/wiki/%ED%9B%84%EC%84%A4_%EC%9B%90%EC%88%9C_%EC%A4%91%EA%B3%A0%EB%AA%A8%EC%9D%8C>
+	/*o*i/ 오이 [oi]
+/ㅜ/ 	[u] 	후설 원순 고모음
+<https://ko.wikipedia.org/wiki/%ED%9B%84%EC%84%A4_%EC%9B%90%EC%88%9C_%EA%B3%A0%EB%AA%A8%EC%9D%8C>
+	/*u*ɾi/ 우리 [uɾi]
+/ㅡ/ 	[ɯ] 	후설 비원순 고모음
+<https://ko.wikipedia.org/wiki/%ED%9B%84%EC%84%A4_%EB%B9%84%EC%9B%90%EC%88%9C_%EA%B3%A0%EB%AA%A8%EC%9D%8C>
+	/g*ɯ*/ 그 [kɯ]
+/ㅣ/ 	[i] 	전설 비원순 고모음
+<https://ko.wikipedia.org/wiki/%EC%A0%84%EC%84%A4_%EB%B9%84%EC%9B%90%EC%88%9C_%EA%B3%A0%EB%AA%A8%EC%9D%8C>
+	/*i*ma/ 이마 [ima]
+/ㅐ/ 	[ɛ] 	전설 비원순 중저모음
+<https://ko.wikipedia.org/wiki/%EC%A0%84%EC%84%A4_%EB%B9%84%EC%9B%90%EC%88%9C_%EC%A4%91%EC%A0%80%EB%AA%A8%EC%9D%8C>^[vn
+3] <#cite_note-n3-14> 	/h*ɛ*/ 해 [hɛ]
+/ㅔ/ 	[e] 	전설 비원순 중고모음
+<https://ko.wikipedia.org/wiki/%EC%A0%84%EC%84%A4_%EB%B9%84%EC%9B%90%EC%88%9C_%EC%A4%91%EA%B3%A0%EB%AA%A8%EC%9D%8C>^[vn
+3] <#cite_note-n3-14> 	/nu*e*/ 누에 [nue]
+/ㅚ/ 	[ø] ([we] 허용) 	전설 원순 중고모음
+<https://ko.wikipedia.org/wiki/%EC%A0%84%EC%84%A4_%EC%9B%90%EC%88%9C_%EC%A4%91%EA%B3%A0%EB%AA%A8%EC%9D%8C>^[vn
+3] <#cite_note-n3-14> 	/s*ø*/ 쇠 [sø]
+/ㅟ/ 	[y] ([wi] 허용) 	전설 원순 고모음
+<https://ko.wikipedia.org/wiki/%EC%A0%84%EC%84%A4_%EC%9B%90%EC%88%9C_%EA%B3%A0%EB%AA%A8%EC%9D%8C>^[vn
+3] <#cite_note-n3-14> 	/*y*/ 위 [y]
+
+ 1. 이동 ↑ <#cite_ref-12> 전설 모음 기호 a는 전통적으로 한국어의 중설 모
+    음을 나타내는 데 쓰인다. 일반적으로 [ɐ]와 비슷한 소리를 낸다.
+ 2. 이동 ↑ <#cite_ref-13> 서울 방언의 /ㅓ/는 완전한 비원순 모음이 아니라
+    원순과 비원순의 중간적인 발음이다. 또한 문화어
+    <https://ko.wikipedia.org/wiki/%EB%AC%B8%ED%99%94%EC%96%B4>에서는 이
+    모음을 [ɔ]로 소리 낸다.
+ 3. ↑ ^이동: 가 <#cite_ref-n3_14-0> ^나 <#cite_ref-n3_14-1> ^다
+    <#cite_ref-n3_14-2> ^라 <#cite_ref-n3_14-3> 한국에서는 거의 모든 지
+    역에서 노년층을 제외하고 /ㅐ/와 /ㅔ/의 구별이 상실되어 같은 소리로
+    발음된다. 그 음성은 [ɛ] 와 [e] 의 중간 소리다. 또 서울 방언과 평양
+    방언 모두 단모음 음소로서 /ㅚ/, /ㅟ/가 존재하지 않는다. 이들 방언에
+    서 /ㅚ/는 보통 [we](평양 방언에서는 [wɛ])로 나타나며 /ㅟ/는 [wi]로
+    나타난다. 따라서 단모음의 종류가 가장 적은 서울 방언 화자의 경우 단
+    모음은 일곱 가지(/ㅏ, ㅓ, ㅗ, ㅜ, ㅡ, ㅣ, ㅔ/)밖에 없다.
+
+
+      자음[편집
+      <https://ko.wikipedia.org/w/index.php?title=%ED%95%9C%EA%B5%AD%EC%96%B4&action=edit&section=11>]
+
+  	양순 <https://ko.wikipedia.org/wiki/%EC%96%91%EC%88%9C%EC%9D%8C> 	치
+경 <https://ko.wikipedia.org/wiki/%EC%B9%98%EA%B2%BD%EC%9D%8C> 	치경구개
+<https://ko.wikipedia.org/wiki/%EC%B9%98%EA%B2%BD%EA%B5%AC%EA%B0%9C%EC%9D%8C>
+	권설 <https://ko.wikipedia.org/wiki/%EA%B6%8C%EC%84%A4%EC%9D%8C> 	경구
+개
+<https://ko.wikipedia.org/wiki/%EA%B2%BD%EA%B5%AC%EA%B0%9C%EC%9D%8C> 	연
+구개
+<https://ko.wikipedia.org/wiki/%EC%97%B0%EA%B5%AC%EA%B0%9C%EC%9D%8C> 	성
+문 <https://ko.wikipedia.org/wiki/%EC%84%B1%EB%AC%B8%EC%9D%8C>
+비음 <https://ko.wikipedia.org/wiki/%EB%B9%84%EC%9D%8C> 	m 	n 				ŋ 	
+파열음 <https://ko.wikipedia.org/wiki/%ED%8C%8C%EC%97%B4%EC%9D%8C> 	p
+b 	t d 				k ɡ 	
+마찰음 <https://ko.wikipedia.org/wiki/%EB%A7%88%EC%B0%B0%EC%9D%8C> 		s
+   	ɕ    		ç    	x    	h ɦ
+파찰음
+<https://ko.wikipedia.org/wiki/%ED%8C%8C%EC%B0%B0%EC%9D%8C> 			ʨ ʥ 				
+탄음 <https://ko.wikipedia.org/wiki/%ED%83%84%EC%9D%8C> 		ɾ 					
+접근음
+<https://ko.wikipedia.org/wiki/%EC%A0%91%EA%B7%BC%EC%9D%8C> 	w 				j 	ɰ 	
+설측음
+<https://ko.wikipedia.org/wiki/%EC%84%A4%EC%B8%A1%EC%9D%8C> 				ɭ 	ʎ 		
+
+음운 체계 	양순음
+<https://ko.wikipedia.org/wiki/%EC%96%91%EC%88%9C%EC%9D%8C> 	치경음
+<https://ko.wikipedia.org/wiki/%EC%B9%98%EA%B2%BD%EC%9D%8C> 	경구개음
+<https://ko.wikipedia.org/wiki/%EA%B2%BD%EA%B5%AC%EA%B0%9C%EC%9D%8C> 	연
+구개음
+<https://ko.wikipedia.org/wiki/%EC%97%B0%EA%B5%AC%EA%B0%9C%EC%9D%8C> 	성
+문음 <https://ko.wikipedia.org/wiki/%EC%84%B1%EB%AC%B8%EC%9D%8C>
+파열음 <https://ko.wikipedia.org/wiki/%ED%8C%8C%EC%97%B4%EC%9D%8C> 	평음
+<https://ko.wikipedia.org/wiki/%ED%8F%89%EC%9D%8C> 	ㅂ (b/p) 	ㄷ (d/t)
+ㅈ (ʥ/ʨ) 	ㄱ (g/k) 	
+경음 <https://ko.wikipedia.org/wiki/%EA%B2%BD%EC%9D%8C> 	ㅃ (p͈) 	ㄸ
+(t͈) 	ㅉ (ʨ͈) 	ㄲ (k͈) 	
+격음 <https://ko.wikipedia.org/wiki/%EA%B2%A9%EC%9D%8C> 	ㅍ (pʰ/bʱ) 	ㅌ
+(tʰ/dʱ) 	ㅊ (ʨʰ/ʥʱ) 	ㅋ (kʰ/gʱ) 	
+마찰음 <https://ko.wikipedia.org/wiki/%EB%A7%88%EC%B0%B0%EC%9D%8C>
+평음 		ㅅ (sʰ/ʂ/ʃ) 			ㅎ (h)
+경음 		ㅆ (s͈) 			
+비음 <https://ko.wikipedia.org/wiki/%EB%B9%84%EC%9D%8C> 	ㅁ (m) 	ㄴ
+(n) 		ㅇ (ŋ) 	
+유음 <https://ko.wikipedia.org/wiki/%EC%9C%A0%EC%9D%8C> 		ㄹ (l) 			
+
+  * /ㅅ/는 [sʰ], [j]나 [i] 앞에서는 [ɕʰ]가 된다.
+  * /ㅎ/는 [h]. [j]나 [i] 앞에서는 [ç], [w]나 [u] 앞에서는 [ɸ], [ɰ] 앞에
+    서는 [x]가 된다. 비음 앞에서는 [ɦ]로 발음되며, 비음 뒤에서는 음가가
+    사라진다.
+  * /ㅂ, ㄷ, ㅈ, ㄱ/는 [p], [t], [ʨ], [k]. 모음 사이, 비음 뒤에서는 [b],
+    [d], [ʥ], [ɡ]가 된다.
+  * /ㄹ/는 모음 사이에서는 [ɾ], 어말에서 또는 겹으로 날 때는 [ɭ]. 겹으로
+    날 때 [i]나 [j] 앞에서는 [ʎ]가 된다. 어두에서는 음가가 없어진다
+    <https://ko.wikipedia.org/wiki/%EB%91%90%EC%9D%8C%EB%B2%95%EC%B9%99>.
+  * 위의 표에서 평음 <https://ko.wikipedia.org/wiki/%ED%8F%89%EC%9D%8C>.
+    경음 <https://ko.wikipedia.org/wiki/%EA%B2%BD%EC%9D%8C>, 격음
+    <https://ko.wikipedia.org/wiki/%EA%B2%A9%EC%9D%8C>은 기식성
+    <https://ko.wikipedia.org/w/index.php?title=%EA%B8%B0%EC%8B%9D%EC%84
+    %B1&action=edit&redlink=1>에 의해 나눈 것이고, 긴장성
+    <https://ko.wikipedia.org/w/index.php?title=%EA%B8%B4%EC%9E%A5%EC%84
+    %B1&action=edit&redlink=1>에 의해 무기 연음
+    <https://ko.wikipedia.org/w/index.php?title=%EB%AC%B4%EA%B8%B0_%EC%97%B0%EC%9D%8C&action=edit&redlink=1>.
+    무기 경음
+    <https://ko.wikipedia.org/w/index.php?title=%EB%AC%B4%EA%B8%B0_%EA%B2%BD%EC%9D%8C&action=edit&redlink=1>.
+    유기 경음
+    <https://ko.wikipedia.org/w/index.php?title=%EC%9C%A0%EA%B8%B0_%EA
+    %B2%BD%EC%9D%8C&action=edit&redlink=1>으로 분류할 수 있다.
+
+
+      형태 음소론[편집
+      <https://ko.wikipedia.org/w/index.php?title=%ED%95%9C%EA%B5%AD%EC%96%B4&action=edit&section=12>]
+
+조사의 형태는 앞의 소리의 영향을 받을 수 있다. 은/는, 이/가, 을/를과 같
+이 음절이 바뀌는 경우도 있고, 에서/서, 으로/로와 같이 음절이 끼어드는 경
+우도 있다. 은/는, 이/가, 을/를의 경우, 모음이 연쇄되는 것을 피하고자 자
+음이 삽입되는 규칙적인 경우이나, 와/과, 으로/로의 경우는 예외적이다. 으
+로/로는 ㄹ 뒤에서 독특한 분포를 보인다. 와/과 역시 중세 한국어에서는 으
+로/로와 마찬가지로 ㄹ뒤에서 '와'가 쓰이는 독특한 분포를 보였으나 현대한
+국어에서는 그렇지 않다. 와/과의 경우 이중모음/ㅘ/가 모음이 아니라는 점에
+서 모음 연쇄 환경이 아니고 사용빈도에 따라 분포가 설명된다.^[12]
+<#cite_note-15>
+
+한국어 조사 자음 뒤 	ㄹ 뒤 	모음 뒤
+-의 	-의 	-의
+-은 	-은 	-는
+-이 	-이 	-가
+-을 	-을 	-를
+-과 	-과 	-와
+-으로 	-로 	-로
+
+형태 음소론적 차이는 일부 동사에서도 관찰된다.
+
+
+    문법[편집
+    <https://ko.wikipedia.org/w/index.php?title=%ED%95%9C%EA%B5%AD%EC%96%B4&action=edit&section=13>]
+
+이 부분의 본문은 한국어 문법
+<https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%AC%B8%EB
+%B2%95>입니다.
+
+
+      존비어 체계[편집
+      <https://ko.wikipedia.org/w/index.php?title=%ED%95%9C%EA%B5%AD%EC%96%B4&action=edit&section=14>]
+
+낮춤말과 평어, 높임말을 포함하는 비교적 복잡하게 구성된 존비어체계는 한
+국어의 특징적인 부분이다. 한국어에서 사용하는 대부분의 동사와 명사는 존
+비어체계에 따라 단계별로 구분되어 있다. 따라서 화자 간에 존댓말(높임말)
+과 반말(낮춤말, 평어)에 대한 합의가 명확하게 이루어지지 않은 상태에서 의
+사소통을 할 때 어색하고 혼란스러운 상황이 발생할 수 있다.^[13]
+<#cite_note-16> 언어와 호칭선택 문제 때문에 갈등과 폭력이 유발되기도 한
+다.^[14] <#cite_note-17> 따라서 한국어의 호칭과 어법이 권위적, 계급적이
+라는 지적도 나오고 있다.^[15] <#cite_note-18>
+
+
+    어휘[편집
+    <https://ko.wikipedia.org/w/index.php?title=%ED%95%9C%EA%B5%AD%EC%96%B4&action=edit&section=15>]
+
+이 부분의 본문은 한국어의 고유어
+<https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4%EC%9D%98_%EA%B3%A0%EC%9C%A0%EC%96%B4>,
+한국어의 한자어
+<https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4%EC%9D%98_%ED%95%9C%EC%9E%90%EC%96%B4>,
+한국어의 외래어
+<https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4%EC%9D%98_%EC
+%99%B8%EB%9E%98%EC%96%B4>입니다.
+
+한국어의 어휘 <https://ko.wikipedia.org/wiki/%EC%96%B4%ED%9C%98>는 크게
+고유어 <https://ko.wikipedia.org/wiki/%EA%B3%A0%EC%9C%A0%EC%96%B4>("순우
+리말"), 한자어
+<https://ko.wikipedia.org/wiki/%ED%95%9C%EC%9E%90%EC%96%B4>, 외래어
+<https://ko.wikipedia.org/wiki/%EC%99%B8%EB%9E%98%EC%96%B4>로 분류된다.
+고유어는 한국어의 기층을 형성하는 고유의 어휘로, 보통 한자어와 외래어를
+제외한 단어그룹을 가리킨다. 사용 빈도가 높은 일상어
+<https://ko.wikipedia.org/w/index.php?title=%EC%9D%BC%EC%83%81%EC%96%B4&
+action=edit&redlink=1>가 대부분 고유어에 속한다. 고유어 일부는 매우 이른
+시기에 들어온 상고 중국어
+<https://ko.wikipedia.org/wiki/%EC%83%81%EA%B3%A0_%EC%A4%91%EA%B5%AD%EC
+%96%B4>에서 유래되어 고유어로 인식되는 어휘가 있고(붓-筆, 먹-墨), 후대에
+한자어 <https://ko.wikipedia.org/wiki/%ED%95%9C%EC%9E%90%EC%96%B4>의 형
+태가 일그러지면서 본디 말과 다른 의미를 획득하여 고유어로 인식되는 어휘
+도 있다(사냥>山行, 짐승>衆生). 고유어는 익숙하고 친근하게 느껴지지만, 같
+은 뜻의 한자어와의 경쟁에서 밀려나 단어의 위상이 하락한 경우도 있다. 음
+운적으로는 ㄹ 소리로 시작되는 토착어휘가 없으며, 이는 알타이 제어
+<https://ko.wikipedia.org/wiki/%EC%95%8C%ED%83%80%EC%9D%B4_%EC%A0%9C%EC
+%96%B4>의 음운론적 특징의 하나이기도 하다.
+
+한자어는 고전 중국어에서 유래된 어휘군으로 중국과의 접촉에 따라 지속해서
+한국어에 유입되었으나 한자어의 비율은 사전이나 자료마다 차이가 있다. 적
+으면 50%에서 많으면 70%까지로 추산된 것은 일제강점기에 만들어진 것으로
+가능한 많은 낱말을 한자로 표기하면서 과장되었다는 주장도 있다.^[16]
+<#cite_note-19> 또한, 국어사전이 수록하는 한자어의 상당수는 한문 문장에
+만 용례가 있고, 한국어에서는 용례가 발견되지 않는 단어들이다. 국립국어연
+구원이 2002년 발표한 '현대 국어 사용 빈도 조사'를 보면 우리말의 낱말 사
+용 비율은 토박이말이 54%, 한자어 35%, 외래어가 2%였다.
+
+이는 중국에서 받아들인 지 오래되어 외래어처럼 인식되지 않는 고전 한어(한
+문) 기원의 한자어와 한국에서 독자 조어된 한국제 한자어, 메이지 시대의 일
+본이 서양문물을 받아들이면서 서양의 개념을 번역해낸 일본제 한자어 등을
+모두 포함하는 것이다. 한자어는 본질에서는 외래어이지만, 한국어에서 차지
+하는 위상이 특수하고, 비중이 매우 크기 때문에 다른 외래어와 달리 별도 분
+류한다. 마치 영어 <https://ko.wikipedia.org/wiki/%EC%98%81%EC%96%B4>에서
+라틴어 <https://ko.wikipedia.org/wiki/%EB%9D%BC%ED%8B%B4%EC%96%B4>, 프랑
+스어 <https://ko.wikipedia.org/wiki/%ED%94%84%EB%9E%91%EC%8A%A4%EC%96
+%B4>를 거쳐 들어온 문화어휘가 차지하는 비중과 비슷하다.
+
+근대 이전에 중국어
+<https://ko.wikipedia.org/wiki/%EC%A4%91%EA%B5%AD%EC%96%B4> 이외의 외국
+어 <https://ko.wikipedia.org/wiki/%EC%99%B8%EA%B5%AD%EC%96%B4>에서 받아
+들인 어휘는 불경을 통하여 간접 차용된 산스크리트어
+<https://ko.wikipedia.org/wiki/%EC%82%B0%EC%8A%A4%ED%81%AC%EB%A6%AC%ED
+%8A%B8%EC%96%B4>(한자어 형태로 들어왔기 때문에 한자어로 분류되기도 함),
+몽골어 <https://ko.wikipedia.org/wiki/%EB%AA%BD%EA%B3%A8%EC%96%B4>, 만주
+어 <https://ko.wikipedia.org/wiki/%EB%A7%8C%EC%A3%BC%EC%96%B4>, 일본어
+<https://ko.wikipedia.org/wiki/%EC%9D%BC%EB%B3%B8%EC%96%B4> 등에서 소수
+의 차용어 <https://ko.wikipedia.org/wiki/%EC%B0%A8%EC%9A%A9%EC%96%B4>가
+있다.
+
+외래어는 중국어 이외의 외국어에서 받아들인 어휘로 특히 개화기 이후에 유
+럽어에서 들어온 말이 주로 여기에 해당한다. 그 대부분^[출처 필요
+<https://ko.wikipedia.org/wiki/%EC%9C%84%ED%82%A4%EB%B0%B1%EA%B3%BC:%EC%B6%9C%EC%B2%98_%EB%B0%9D%ED%9E%88%EA%B8%B0>]
+은 영어에서 받아들인 단어이지만, 프랑스어
+<https://ko.wikipedia.org/wiki/%ED%94%84%EB%9E%91%EC%8A%A4%EC%96%B4>, 독
+일어 <https://ko.wikipedia.org/wiki/%EB%8F%85%EC%9D%BC%EC%96%B4>, 스페인
+어 <https://ko.wikipedia.org/wiki/%EC%8A%A4%ED%8E%98%EC%9D%B8%EC%96%B4>,
+포르투갈어
+<https://ko.wikipedia.org/wiki/%ED%8F%AC%EB%A5%B4%ED%88%AC%EA%B0%88%EC%96%B4>,
+네덜란드어
+<https://ko.wikipedia.org/wiki/%EB%84%A4%EB%8D%9C%EB%9E%80%EB%93%9C%EC%96%B4>
+단어 같은 기타 유럽어 단어에서 온 단어도 있으며, 일본어를 거쳐서 들어온
+경우, 원어의 의미와 달라진 경우도 있다. (이를테면 아르바이트(Arbeit))
+
+
+    문자[편집
+    <https://ko.wikipedia.org/w/index.php?title=%ED%95%9C%EA%B5%AD%EC%96%B4&action=edit&section=16>]
+
+이 부분의 본문은 한글 <https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B8
+%80>, 이두 <https://ko.wikipedia.org/wiki/%EC%9D%B4%EB%91%90>, 향찰
+<https://ko.wikipedia.org/wiki/%ED%96%A5%EC%B0%B0>, 구결
+<https://ko.wikipedia.org/wiki/%EA%B5%AC%EA%B2%B0>입니다.
+
+한반도에서 처음 사용된 문자체계는 한자이다. 한문과 한자 문화가 중국으로
+부터 전래한 시기는 확실치 않으나, 대략 한사군 시절을 전후하여 이미 한반
+도에서 한자, 한문이 유입되어 있었던 것으로 추측된다. 한문 유입 이후, 고
+유명사 표기 등 한국어 표기의 필요성이 대두하였으며, 1934년 경주에서 발견
+된 임신서기석
+<https://ko.wikipedia.org/wiki/%EC%9E%84%EC%8B%A0%EC%84%9C%EA%B8%B0%EC
+%84%9D>(壬申誓記石)은 어순이 한문 어순이 아닌 한국어 어순에 따라 배열되
+어 한자를 이용하여 한국어를 표기하기 위한 여러 고안이 행해졌음을 알 수
+있다. 이 임신서기석에 사용된 변칙한문체를 서기체(誓記體) 또는 의국체(擬
+國體)라고 한다.
+
+단음절어이며 고립어
+<https://ko.wikipedia.org/wiki/%EA%B3%A0%EB%A6%BD%EC%96%B4_(%EC%96%B8%EC
+%96%B4%EC%9C%A0%ED%98%95%ED%95%99)>인 중국어
+<https://ko.wikipedia.org/wiki/%EC%A4%91%EA%B5%AD%EC%96%B4>를 표기하는
+한자 <https://ko.wikipedia.org/wiki/%ED%95%9C%EC%9E%90>는 다음절어이면서
+교착어 <https://ko.wikipedia.org/wiki/%EA%B5%90%EC%B0%A9%EC%96%B4>인 한
+국어의 표기에 적합하지 않아 한자를 이용하여 한국어를 표기하는 방법 중에
+서 이두 <https://ko.wikipedia.org/wiki/%EC%9D%B4%EB%91%90>, 구결
+<https://ko.wikipedia.org/wiki/%EA%B5%AC%EA%B2%B0>은 제한적인 쓰임새 외
+에는 일반화되지 못했고, 향찰
+<https://ko.wikipedia.org/wiki/%ED%96%A5%EC%B0%B0>은 소멸하였다. 지배계
+급은 한자를 이용하여 구어인 한국어를 표기하기보다는 문어체의 한문을 고수
+하려는 경향이 있었기 때문에, 구어(한국어)와 문어(한문)의 이중체계가 오랫
+동안 지속하였다. 현재 한국어 표기에 쓰이는 문자인 한글
+<https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B8%80>은 세종대왕
+<https://ko.wikipedia.org/wiki/%EC%84%B8%EC%A2%85%EB%8C%80%EC%99%95>이
+창제하여 훈민정음
+<https://ko.wikipedia.org/wiki/%ED%9B%88%EB%AF%BC%EC%A0%95%EC%9D%8C>이라
+는 이름으로 1446년 <https://ko.wikipedia.org/wiki/1446%EB%85%84>에 반포
+한 것이다.
+
+훈민정음 창제 원리에 대한 설이 여러 가지 있었으나, 1940년에 《세종어제훈
+민정음》이 발견되면서 발성 기관을 본떠 만들어졌다는 것이 밝혀졌다. 정인지
+<https://ko.wikipedia.org/wiki/%EC%A0%95%EC%9D%B8%EC%A7%80>는 훈민정음
+<https://ko.wikipedia.org/wiki/%ED%9B%88%EB%AF%BC%EC%A0%95%EC%9D%8C> 반
+포 서문에서 "계해년 겨울에 우리 전하께서 비로소 정음 28자를 창제하시다"
+(癸亥冬, 我殿下創制正音二十八字.)라고 적고 있다.
+
+최만리 <https://ko.wikipedia.org/wiki/%EC%B5%9C%EB%A7%8C%EB%A6%AC> 등은
+1444년 <https://ko.wikipedia.org/wiki/1444%EB%85%84>(세종 26년) 2월에 한
+글 창제 반대 상소에서 "신 등이 엎드려 보건대, 언문(諺文)을 제작하신 것이
+지극히 신묘하와 만물을 창조하시고 지혜를 운전하심이 천고에 뛰어나시다."
+(臣等伏覩諺文制作, 至爲神妙, 創物運智, 夐出千古.)라고 하며, 세종대왕
+<https://ko.wikipedia.org/wiki/%EC%84%B8%EC%A2%85%EB%8C%80%EC%99%95>이
+한글 <https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B8%80>을 직접 만들었음
+을 밝히고 있다.(세종실록
+<https://ko.wikipedia.org/wiki/%EC%84%B8%EC%A2%85%EC%8B%A4%EB%A1%9D> 26
+년 2월 20일) 같은 상소에서는 "글자의 형상은 비록 옛날의 전문(篆文)을 모
+방하였을지라도, 음을 쓰고 글자를 합하는 것은 모두 옛것에 반대된다."(字形
+雖倣古之篆文, 用音合字, 盡反於古.)고 했는데, 이는 오랑캐
+<https://ko.wikipedia.org/wiki/%EC%98%A4%EB%9E%91%EC%BA%90>(몽골
+<https://ko.wikipedia.org/wiki/%EB%AA%BD%EA%B3%A8>·여진
+<https://ko.wikipedia.org/wiki/%EC%97%AC%EC%A7%84>·일본
+<https://ko.wikipedia.org/wiki/%EC%9D%BC%EB%B3%B8> 등)처럼 새로운 글자를
+만들었다고 비판할 중화주의
+<https://ko.wikipedia.org/wiki/%EC%A4%91%ED%99%94%EC%A3%BC%EC%9D%98>자들
+을 의식해 '언문은 옛글자(한자
+<https://ko.wikipedia.org/wiki/%ED%95%9C%EC%9E%90>의 옛 서체)를 본떠서
+만들었다'는 식으로 해명한 것에 대해 자음
+<https://ko.wikipedia.org/wiki/%EC%9E%90%EC%9D%8C>과 모음
+<https://ko.wikipedia.org/wiki/%EB%AA%A8%EC%9D%8C>을 결합해 음절
+<https://ko.wikipedia.org/wiki/%EC%9D%8C%EC%A0%88>을 구성하는 한글의 표
+기방식이 표의문자인 한자 <https://ko.wikipedia.org/wiki/%ED%95%9C%EC%9E
+%90>와는 근본적으로 다르다고 비난한 내용으로, 한글 이전에는 조선
+<https://ko.wikipedia.org/wiki/%EC%A1%B0%EC%84%A0>에 한글과 같은 문자가
+없었음을 확인시켜 준다.
+
+한자는 훈민정음 창제 이후에도 공문서에 사용하는 유일한 문자로 계속 사용
+되었으며, 1894년 <https://ko.wikipedia.org/wiki/1894%EB%85%84> 갑오개혁
+<https://ko.wikipedia.org/wiki/%EA%B0%91%EC%98%A4%EA%B0%9C%ED%98%81> 이
+후에야 공문서에 한글이 쓰이기 시작하였다.(국한문혼용
+<https://ko.wikipedia.org/wiki/%EA%B5%AD%ED%95%9C%EB%AC%B8%ED%98%BC%EC%9A%A9>)
+현재 대한민국에서는 한글이 공식문자이고, 일부 한자어는 한자를 괄호에 넣
+어 병기(竝記)하기도 하지만 한자의 사용은 갈수록 줄어드는 추세이다. 조선
+민주주의인민공화국
+<https://ko.wikipedia.org/wiki/%EC%A1%B0%EC%84%A0%EB%AF%BC%EC%A3%BC%EC
+%A3%BC%EC%9D%98%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD>과 중국 연
+변 조선족 자치주
+<https://ko.wikipedia.org/wiki/%EC%97%B0%EB%B3%80_%EC%A1%B0%EC%84%A0%EC%A1%B1_%EC%9E%90%EC%B9%98%EC%A3%BC>,
+구 소련 지역에서는 한자를 거의 쓰지 않고 가급적 순한글로 한국어를 표기한다.
+
+1930년대 초반 소련에서는 여러 소수 민족 언어를 대상으로 한 로마자 표기
+정책의 일환으로 한국어를 로마자
+<https://ko.wikipedia.org/wiki/%EB%A1%9C%EB%A7%88%EC%9E%90>로 표기하는
+방안을 승인했지만, 실제 로마자 표기안이 마련되어 생활에 적용되지는 않는
+것으로 보인다. 이는 한국어 문자생활에서 로마자로 한글·한자를 대체하려던
+방안으로 외국인들을 위한 한국어 고유명사의 표기에 쓰는 현재의 로마자 표
+기 규범과는 큰 차이가 있다. 다만, 현대 한국어에서는 로마자 두문자어
+<https://ko.wikipedia.org/wiki/%EB%91%90%EB%AC%B8%EC%9E%90%EC%96%B4> 표
+기와 일부 고유 명사 표기에 로마자를 제한적으로 사용하고 있기도 하다.
+
+
+    방언[편집
+    <https://ko.wikipedia.org/w/index.php?title=%ED%95%9C%EA%B5%AD%EC%96%B4&action=edit&section=17>]
+
+이 부분의 본문은 한국어의 방언
+<https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4%EC%9D%98_%EB
+%B0%A9%EC%96%B8>입니다.
+<https://ko.wikipedia.org/wiki/%ED%8C%8C%EC%9D%BC:Korean_dialect_dragonfly.png>
+
+<https://ko.wikipedia.org/wiki/%ED%8C%8C%EC%9D%BC:Korean_dialect_dragonfly.png>
+'잠자리 <https://ko.wikipedia.org/wiki/%EC%9E%A0%EC%9E%90%EB%A6%AC>'를
+부르는 여러 가지 말.
+<https://ko.wikipedia.org/wiki/%ED%8C%8C%EC%9D%BC:Koreandialects.png>
+<https://ko.wikipedia.org/wiki/%ED%8C%8C%EC%9D%BC:Koreandialects.png>
+한국어의 지역별 방언 구분
+
+한국어의 방언
+<https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4%EC%9D%98_%EB
+%B0%A9%EC%96%B8>은 경기 방언
+<https://ko.wikipedia.org/wiki/%EA%B2%BD%EA%B8%B0_%EB%B0%A9%EC%96%B8>,
+영동 방언
+<https://ko.wikipedia.org/wiki/%EC%98%81%EB%8F%99_%EB%B0%A9%EC%96%B8>,
+서북 방언
+<https://ko.wikipedia.org/wiki/%EC%84%9C%EB%B6%81_%EB%B0%A9%EC%96%B8>,
+충청 방언
+<https://ko.wikipedia.org/wiki/%EC%B6%A9%EC%B2%AD_%EB%B0%A9%EC%96%B8>,
+서남 방언
+<https://ko.wikipedia.org/wiki/%EC%84%9C%EB%82%A8_%EB%B0%A9%EC%96%B8>,
+동남 방언
+<https://ko.wikipedia.org/wiki/%EB%8F%99%EB%82%A8_%EB%B0%A9%EC%96%B8>,
+동북 방언
+<https://ko.wikipedia.org/wiki/%EB%8F%99%EB%B6%81_%EB%B0%A9%EC%96%B8>,
+재미 한국어
+<https://ko.wikipedia.org/wiki/%EC%9E%AC%EB%AF%B8_%ED%95%9C%EA%B5%AD%EC%96%B4>,
+재중 한국어
+<https://ko.wikipedia.org/wiki/%EC%9E%AC%EC%A4%91_%ED%95%9C%EA%B5%AD%EC%96%B4>,
+재일 한국어
+<https://ko.wikipedia.org/wiki/%EC%9E%AC%EC%9D%BC_%ED%95%9C%EA%B5%AD%EC%96%B4>
+등으로 나눈다. 경기 방언과 충청 방언을 중부 말로 합쳐 일컫기도 한다. 모
+든 방언이 서로 의사소통이 가능한 정도의 차이를 보인다. 대한민국의 표준어
+는 경기 방언을 바탕으로 하고 있고 조선민주주의인민공화국의 표준어인 문화
+어 <https://ko.wikipedia.org/wiki/%EB%AC%B8%ED%99%94%EC%96%B4>는 서북 방
+언을 바탕으로 하고 있다. 최근에는 미국 등 영어 사용 국가로의 이민이 늘어
+나면서 이민 2세와 같이 영어를 모국어로 하는 한국계 외국인들이 영어를 번
+역한 듯한 한국어(번역체)를 사용하기도 한다.^[17] <#cite_note-20>
+
+
+      한국어의 남북 간 차이[편집
+      <https://ko.wikipedia.org/w/index.php?title=%ED%95%9C%EA%B5%AD%EC%96%B4&action=edit&section=18>]
+
+이 부분의 본문은 한국어의 남북 간 차이
+<https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4%EC%9D%98_%EB
+%82%A8%EB%B6%81_%EA%B0%84_%EC%B0%A8%EC%9D%B4>입니다.
+이 문단의 *내용*은 *출처
+<https://ko.wikipedia.org/wiki/%EC%9C%84%ED%82%A4%EB%B0%B1%EA%B3%BC:%EC
+%B6%9C%EC%B2%98_%EB%B0%9D%ED%9E%88%EA%B8%B0>가 분명하지 않습니다.* 지금
+바로 이 문단을 편집
+<https://ko.wikipedia.org/w/index.php?title=%ED%95%9C%EA%B5%AD%EC%96%B4&
+action=edit>하여, 참고하신 문헌이나 신뢰할 수 있는 출처
+<https://ko.wikipedia.org/wiki/%EC%9C%84%ED%82%A4%EB%B0%B1%EA%B3%BC:%EC
+%8B%A0%EB%A2%B0%ED%95%A0_%EC%88%98_%EC%9E%88%EB%8A%94_%EC%B6%9C%EC%B2
+%98>를 각주 등으로 표기해 주세요. 검증
+<https://ko.wikipedia.org/wiki/%EC%9C%84%ED%82%A4%EB%B0%B1%EA%B3%BC:%ED
+%99%95%EC%9D%B8_%EA%B0%80%EB%8A%A5>되지 않은 내용은 삭제될 수도 있습니
+다. 내용에 대한 의견이 있으시다면 토론 문서
+<https://ko.wikipedia.org/wiki/%ED%86%A0%EB%A1%A0:%ED%95%9C%EA%B5%AD%EC
+%96%B4>에서 나누어 주세요. (2010년 5월 29일에 문단의 출처가 요청되었습니
+다.)
+
+대한민국
+<https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD>과
+조선민주주의인민공화국
+<https://ko.wikipedia.org/wiki/%EC%A1%B0%EC%84%A0%EB%AF%BC%EC%A3%BC%EC
+%A3%BC%EC%9D%98%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD>은 약 80년
+가까이 분단된 만큼 언어상의 특징도 차이가 있다. 가령 조선민주주의인민공
+화국에서는 건데기나 지팽이와 같이 'ㅣ'의 모음 역행 동화를 인정하는 경향
+이 크며, 대한민국에서 인정하는 두음 법칙이 관찰되지 않기 때문에 여자, 염
+원, 노동 대신 녀자, 념원, 로동과 같은 낱말을 사용한다.
+
+대한민국
+<https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD>에서
+는 상황에 따라 다양한 성격의 문체나 구어체를 활용하고, 조선민주주의인민
+공화국에서는 어감이 강한 표현을 많이 쓴다. 또, 조선민주주의인민공화국에
+서는 '찔리우다'와 같이 대한민국보다 보조용언을 겹쳐 쓰는 경우가 많으며,
+접미사 '들'을 많이 쓰는 경향도 있다.
+
+어휘 면에서는 특히 많은 차이를 보이며, 외래어 수용에 큰 거리낌이 없는 대
+한민국에 반해, 조선민주주의인민공화국에서는 말다듬기로 고유어가 많지만,
+과거 '얼음보숭이'를 쓰던 것에 비하면 오늘날 대부분 '아이스크림'이라고 쓰
+는 것을 볼 때, 외래어도 어느 정도 받아들이는 추세다.
+
+
+    외국인 한국어 학습자 및 자격 시험[편집
+    <https://ko.wikipedia.org/w/index.php?title=%ED%95%9C%EA%B5%AD%EC%96%B4&action=edit&section=19>]
+
+미국 <https://ko.wikipedia.org/wiki/%EB%AF%B8%EA%B5%AD>, 중국
+<https://ko.wikipedia.org/wiki/%EC%A4%91%ED%99%94%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD>,
+일본 <https://ko.wikipedia.org/wiki/%EC%9D%BC%EB%B3%B8>, 프랑스
+<https://ko.wikipedia.org/wiki/%ED%94%84%EB%9E%91%EC%8A%A4>, 폴란드
+<https://ko.wikipedia.org/wiki/%ED%8F%B4%EB%9E%80%EB%93%9C>, 카자흐스탄
+<https://ko.wikipedia.org/wiki/%EC%B9%B4%EC%9E%90%ED%9D%90%EC%8A%A4%ED%83%84>,
+러시아 <https://ko.wikipedia.org/wiki/%EB%9F%AC%EC%8B%9C%EC%95%84> 등지
+에서는 한국어를 배우려는 사람들도 생겼다. 이는 한국의 경제 성장에 따른
+국제적 위상의 확대와 한류
+<https://ko.wikipedia.org/wiki/%ED%95%9C%EB%A5%98_(%EB%AC%B8%ED%99%94)>
+등의 문화적 영향력의 전파에 힘입은 바가 크다. 그러나 아직 아시아 언어 중
+에서는 중국어나 일본어보다 학습자의 수가 적은 편이며, 체계적인 교수법이
+나 교재도 부족한 형편이다. 과거에는 영어, 일본어 등 유럽, 미주 및 일본을
+중심으로만 한국어 학습용 교재가 발간되었으나, 근래에는 한국어 학습 동기
+의 다변화와 국내 외국인 수의 증가로 중국어, 타이어, 인도네시아어, 베트남
+어 등 다양한 언어로 한국어 교재가 발간되고 있다.
+
+미국 <https://ko.wikipedia.org/wiki/%EB%AF%B8%EA%B5%AD> 정부회계감사원
+<https://ko.wikipedia.org/w/index.php?title=%EC%A0%95%EB%B6%80%ED%9A%8C
+%EA%B3%84%EA%B0%90%EC%82%AC%EC%9B%90&action=edit&redlink=1>이 발표한 '미
+국 국무부 외국어 직무수행 평가서'에 따르면, 중국어
+<https://ko.wikipedia.org/wiki/%EC%A4%91%EA%B5%AD%EC%96%B4>, 일본어
+<https://ko.wikipedia.org/wiki/%EC%9D%BC%EB%B3%B8%EC%96%B4>, 아랍어
+<https://ko.wikipedia.org/wiki/%EC%95%84%EB%9E%8D%EC%96%B4>와 더불어 한
+국어를 미국인이 가장 배우기 힘든 언어(superhard language)로 분류하고 있
+는데, 이는 인도유럽어족인 영어와 한국어의 여러 상이점에 따른 것이
+다.^[18] <#cite_note-21>
+
+한편, 한국어를 배우는 대부분의 외국인은 한국어를 학문으로서 배운다는 의
+견도 존재한다.^[19] <#cite_note-22>
+
+
+      한국어 검정시험[편집
+      <https://ko.wikipedia.org/w/index.php?title=%ED%95%9C%EA%B5%AD%EC%96%B4&action=edit&section=20>]
+
+
+        대한민국[편집
+        <https://ko.wikipedia.org/w/index.php?title=%ED%95%9C%EA%B5%AD%EC%96%B4&action=edit&section=21>]
+
+대한민국에는 현재 한국어 능력을 검정하기 위한 시험이 몇 가지 있다. 국어
+능력인증시험
+<https://ko.wikipedia.org/wiki/%EA%B5%AD%EC%96%B4%EB%8A%A5%EB%A0%A5%EC%9D%B8%EC%A6%9D%EC%8B%9C%ED%97%98>(Test
+of Korean Language;TOKL), 한국어능력시험
+<https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4%EB%8A%A5%EB%A0%A5%EC%8B%9C%ED%97%98>(Test
+Of Proficiency in Korean ; TOPIK), KBS 한국어능력시험
+<https://ko.wikipedia.org/wiki/KBS_%ED%95%9C%EA%B5%AD%EC%96%B4%EB%8A%A5%EB%A0%A5%EC%8B%9C%ED%97%98>(Korean
+Language Test) 등이 있다.
+
+
+        일본[편집
+        <https://ko.wikipedia.org/w/index.php?title=%ED%95%9C%EA%B5%AD%EC%96%B4&action=edit&section=22>]
+
+일본의 네 가지 한국어 시험 가운데 일본에서 비교적 널리 알려진 시험은 한
+글능력검정시험과 한국어능력시험이다. 한글능력검정시험을 뺀 나머지 모든
+시험은 대한민국 표준어 시험이기 때문에 표준어가 기준이며, 이와 다른 문화
+어의 맞춤법이나 어법은 오답으로 처리된다. 이외 일본의 대학 입시 센터 시
+험
+<https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%99_%EC%9E%85%EC%8B%9C_%EC
+%84%BC%ED%84%B0_%EC%8B%9C%ED%97%98>에는 2002년
+<https://ko.wikipedia.org/wiki/2002%EB%85%84>부터 한국어가 포함되었다.
+
+  * 한글능력검정시험
+    <https://ko.wikipedia.org/w/index.php?title=%ED%95%9C%EA%B8%80%EB%8A%A5%EB%A0%A5%EA%B2%80%EC%A0%95%EC%8B%9C%ED%97%98&action=edit&redlink=1>
+
+
+        일본의 특정 비영리법인 한글능력검정협회가 주최하는 자격시험으로
+        6월경(연 2회)에 실시한다. 일본의 한국어 학습자에게 가장 잘 알려
+        진 시험이다. 5급이 가장 낮은 급수이고 4급<3급<준2급<2급<1급순으
+        로 급수가 올라간다. 일본국내에서만 통용되며 등급이 영어검정(일
+        본)시험과 거의 같으므로 영어검정시험과 비교 대조되는 경우가 있
+        다. 2006년부터 "준 1급"이 없어졌다. 1, 2급은 문제의 지문을 포함
+        하여 모든 글이 한국어로 표기되어 있다. 또한, 이 시험은 답을 적을
+        때 대한민국이든 조선민주주의인민공화국이든 어느 한쪽으로 일관성
+        있게 통일되어 있으면 정답으로 간주한다. 근래 한류 붐의 영향으로
+        초급 수험자는 상당히 증가했으나 반대로 1, 2급 등 고급 레벨에서는
+        수험자 수가 매우 적다. 2004년 전후에 상급의 시험 문제는 난도가
+        계속 상승하는 반면, 3급 이하의 급수는 합격률이 90%를 넘나들게 쉬
+        워지는 현상이 일어났다. 그러나 2006년 다시 출제 기준과 난이도 조
+        정이 이루어진 결과, 낮은 급수도 난도가 대폭 상승하여 현재에 이른
+        다. 이러한 난이도의 유동에 따라 자격시험으로서 신뢰도가 떨어진다
+        는 지적도 있다.^[출처 필요
+        <https://ko.wikipedia.org/wiki/%EC%9C%84%ED%82%A4%EB%B0%B1%EA%B3%BC:%EC%B6%9C%EC%B2%98_%EB%B0%9D%ED%9E%88%EA%B8%B0>]
+
+
+  * 한국어능력시험
+    <https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4%EB%8A%A5%EB%A0%A5%EC%8B%9C%ED%97%98>(TOPIK)
+
+
+        국립국제교육원이 주최하고 교육과학기술부가 인정하는 자격시험으로
+        매년 4월과 9월에 시행된다. (한국에서는 2007년부터 일본에서는
+        2008년부터 연 2회 볼 수 있게 되었다) 한글능력검정시험과 달리 1,
+        2급이 초급이고 3, 4급이 중급, 5, 6급이 고급단계이다. 한국, 일본
+        외에 세계 28개국에서 실시되는 국제적 시험이다. 수험자 수가 가장
+        많은 국가는 중국이고 두 번째가 일본이다. 외국인이 한국의 대학교,
+        대학원에 입학할 때 이 시험의 성적증명서 제출이 요구되는 경우가
+        많다. 또한, 한국의 많은 외국인 대상 어학당에서 이 시험의 결과로
+        반을 편성한다.
+
+  * 세계한국말인증시험
+    <https://ko.wikipedia.org/wiki/%EC%84%B8%EA%B3%84%ED%95%9C%EA%B5%AD%EB%A7%90%EC%9D%B8%EC%A6%9D%EC%8B%9C%ED%97%98>^[20]
+    <#cite_note-23> (KLPT)(世界韓国語認証試験)
+
+        한글학회가 주최하는 자격시험으로 4월 10월에 시행된다. 2006년까지
+        는 1,4,7,10월의 연 4회 시행되었으나, 2007년부터 연 2회로 단축되
+        었다. (수험자 수가 적은 것이 원인으로 추측된다) 평가는 500점 만
+        점의 점수제로 토익과 같은 형태이다.
+
+  * 한국어 레벨테스트
+    <https://ko.wikipedia.org/w/index.php?title=%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%A0%88%EB%B2%A8%ED%85%8C%EC%8A%A4%ED%8A%B8&action=edit&redlink=1>(KLT)
+
+
+        점수제이고 1000점 만점이다. 시험시간은 90분이고 비교적 단시간에
+        시험을 볼 수 있다. 한국,일본외에 중국과 미국에서도 수험이 가능하
+        다. 2004년부터 개시되었지만 2009년 1월 시험 시행이 정지되었다.
+
+
+    인터넷에서의 한국어[편집
+    <https://ko.wikipedia.org/w/index.php?title=%ED%95%9C%EA%B5%AD%EC%96%B4&action=edit&section=23>]
+
+한국어 문서가 전 세계 웹
+<https://ko.wikipedia.org/wiki/%EC%9B%94%EB%93%9C%EC%99%80%EC%9D%B4%EB
+%93%9C%EC%9B%B9>에서 차지하는 비중은 2004년
+<https://ko.wikipedia.org/wiki/2004%EB%85%84>에 4.1%로, 이는 영어
+(35.8%), 중국어(14.1%), 일본어(9.6%), 스페인어(9%), 독일어(7%)에 이어 전
+세계 6위이다.^[21] <#cite_note-dtimes20050316-24> 웹상에서의 한국어 사용
+인구는 전 세계 75억여 명의 인구^[22]
+<#cite_note-un_worldpopulation2008-25> 중 약 1%^[23] <#cite_note-26> 에
+해당한다.
+
+
+    한국어 사용국가[편집
+    <https://ko.wikipedia.org/w/index.php?title=%ED%95%9C%EA%B5%AD%EC%96%B4&action=edit&section=24>]
+
+  * 대한민국
+    <https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD>
+    대한민국
+    <https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD>
+    (국가 공용어)
+  * 조선민주주의인민공화국
+    <https://ko.wikipedia.org/wiki/%EC%A1%B0%EC%84%A0%EB%AF%BC%EC%A3%BC%EC%A3%BC%EC%9D%98%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD>
+    조선민주주의인민공화국
+    <https://ko.wikipedia.org/wiki/%EC%A1%B0%EC%84%A0%EB%AF%BC%EC%A3%BC%EC%A3%BC%EC%9D%98%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD>
+    (국가 공용어)
+  * 중국 <https://ko.wikipedia.org/wiki/%EC%A4%91%EA%B5%AD> 중화인민공화
+    국
+    <https://ko.wikipedia.org/wiki/%EC%A4%91%ED%99%94%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD>
+    (연변조선족자치주
+    <https://ko.wikipedia.org/wiki/%EC%97%B0%EB%B3%80%EC%A1%B0%EC%84%A0
+    %EC%A1%B1%EC%9E%90%EC%B9%98%EC%A3%BC>의 공용어) (주요 외국어, 제2외
+    국어 과목 채택)
+  * 일본 <https://ko.wikipedia.org/wiki/%EC%9D%BC%EB%B3%B8> 일본
+    <https://ko.wikipedia.org/wiki/%EC%9D%BC%EB%B3%B8> (인구의 약 0.8%
+    사용. 주요 외국어, 제2외국어 과목 채택. 공항 및 지하철 안내 언어)
+  * 미국 <https://ko.wikipedia.org/wiki/%EB%AF%B8%EA%B5%AD> 미국
+    <https://ko.wikipedia.org/wiki/%EB%AF%B8%EA%B5%AD> (한인타운 등지에
+    서 사용. SAT <https://ko.wikipedia.org/wiki/SAT> 제2외국어 과목 채택)
+  * 러시아 <https://ko.wikipedia.org/wiki/%EB%9F%AC%EC%8B%9C%EC%95%84>
+    러시아 <https://ko.wikipedia.org/wiki/%EB%9F%AC%EC%8B%9C%EC%95%84>
+    (중앙아시아 및 러시아 전역 분포.)
+      o 우즈베키스탄
+        <https://ko.wikipedia.org/wiki/%EC%9A%B0%EC%A6%88%EB%B2%A0%ED%82%A4%EC%8A%A4%ED%83%84>
+        우즈베키스탄
+        <https://ko.wikipedia.org/wiki/%EC%9A%B0%EC%A6%88%EB%B2%A0%ED%82%A4%EC%8A%A4%ED%83%84>
+      o 카자흐스탄
+        <https://ko.wikipedia.org/wiki/%EC%B9%B4%EC%9E%90%ED%9D%90%EC%8A%A4%ED%83%84>
+        카자흐스탄
+        <https://ko.wikipedia.org/wiki/%EC%B9%B4%EC%9E%90%ED%9D%90%EC%8A%A4%ED%83%84>
+
+
+    관련 항목[편집
+    <https://ko.wikipedia.org/w/index.php?title=%ED%95%9C%EA%B5%AD%EC%96%B4&action=edit&section=25>]
+
+  * 한문 <https://ko.wikipedia.org/wiki/%ED%95%9C%EB%AC%B8>
+  * 한자 <https://ko.wikipedia.org/wiki/%ED%95%9C%EC%9E%90>
+  * 한자어 <https://ko.wikipedia.org/wiki/%ED%95%9C%EC%9E%90%EC%96%B4>
+  * 한자 문화권
+    <https://ko.wikipedia.org/wiki/%ED%95%9C%EC%9E%90_%EB%AC%B8%ED%99%94%EA%B6%8C>
+  * 한국어 순화
+    <https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EC%88%9C%ED%99%94>
+  * 한국어의 품사
+    <https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4%EC%9D%98_%ED%92%88%EC%82%AC>
+  * 발음하기 힘든 한국어 문장
+    <https://ko.wikipedia.org/wiki/%EB%B0%9C%EC%9D%8C%ED%95%98%EA%B8%B0_%ED%9E%98%EB%93%A0_%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%AC%B8%EC%9E%A5>
+  * 긴 한국어 낱말
+    <https://ko.wikipedia.org/wiki/%EA%B8%B4_%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%82%B1%EB%A7%90>
+  * 한국어 사전
+    <https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EC%82%AC%EC%A0%84>
+  * 한글 <https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B8%80>
+  * 한글날 <https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B8%80%EB%82%A0>
+  * 훈민정음
+    <https://ko.wikipedia.org/wiki/%ED%9B%88%EB%AF%BC%EC%A0%95%EC%9D%8C>
+  * 한국어 위키백과
+    <https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EC%9C%84%ED%82%A4%EB%B0%B1%EA%B3%BC>
+
+
+    각주[편집
+    <https://ko.wikipedia.org/w/index.php?title=%ED%95%9C%EA%B5%AD%EC%96%B4&action=edit&section=26>]
+
+ 1. ↑ ^이동: 가 <#cite_ref-Ethnologue_1-0> ^나
+    <#cite_ref-Ethnologue_1-1> “Korean language” [Ethnologue, languages
+    of the world] <http://www.ethnologue.com/language/kor>. 《에스놀로그
+    <https://ko.wikipedia.org/wiki/%EC%97%90%EC%8A%A4%EB%86%80%EB%A1%9C
+    %EA%B7%B8>》. 2010년. 2015년 2월 11일에 확인함. 
+ 2. 이동 ↑ <#cite_ref-google15_2-0> Song, Jae Jung (2005), 《The Korean
+    language: structure, use and context》
+    <https://books.google.com/books?id=rIk52cJ1vDEC&pg=PA15>, Routledge,
+    15쪽, ISBN
+    <https://ko.wikipedia.org/wiki/%EA%B5%AD%EC%A0%9C_%ED%91%9C%EC%A4%80_%EB%8F%84%EC%84%9C_%EB%B2%88%ED%98%B8> 978-0-415-32802-9
+    <https://ko.wikipedia.org/wiki/%ED%8A%B9%EC%88%98:%EC%B1%85%EC%B0%BE%EA%B8%B0/978-0-415-32802-9> .
+
+ 3. 이동 ↑ <#cite_ref-3> Campbell, Lyle; Mixco, Mauricio (2007),
+    〈Korean, A language isolate〉, 《A Glossary of Historical
+    Linguistics》, University of Utah Press, 7, 90–91쪽, "most
+    specialists... no longer believe that the... Altaic groups... are
+    related […] Korean is often said to belong with the Altaic
+    hypothesis, often also with Japanese, though this is not widely
+    supported" .
+ 4. 이동 ↑ <#cite_ref-4> Dalby, David (1999–2000), 《The Register of the
+    World's Languages and Speech Communities》, Linguasphere Press .
+ 5. 이동 ↑ <#cite_ref-5> Kim, Nam-Kil (1992), 〈Korean〉, 《International
+    Encyclopedia of Linguistics》 *2*, 282–86쪽, "scholars have tried to
+    establish genetic relationships between Korean and other languages
+    and major language families, but with little success" .
+ 6. 이동 ↑ <#cite_ref-6> Róna-Tas, András (1998), 〈The Reconstruction
+    of Proto-Turkic and the Genetic Question〉, 《The Turkic Languages》,
+    Routledge, 67–80쪽, "[Ramstedt's comparisons of Korean and Altaic]
+    have been heavily criticised in more recent studies, though the idea
+    of a genetic relationship has not been totally abandoned" .
+ 7. 이동 ↑ <#cite_ref-7> Schönig, Claus (2003), 〈Turko-Mongolic
+    Relations〉, 《The Mongolic Languages》, Routledge, 403–19쪽, "the
+    'Altaic' languages do not seem to share a common basic vocabulary of
+    the type normally present in cases of genetic relationship" .
+ 8. 이동 ↑ <#cite_ref-8> 이기문·이호권 『국어사』 방송통신대학출판부
+    2008 20쪽
+ 9. 이동 ↑ <#cite_ref-9> 이기문·이호권 『국어사』 방송통신대학출판부
+    2008 22쪽
+10. 이동 ↑ <#cite_ref-histsb_10-0> 국사 편찬 위원회; 국정 도서 편찬 위원
+    회 (2006년 3월 2일). 《고등학교 국사》. 서울: (주)교학사. 19쪽쪽. 
+11. 이동 ↑ <#cite_ref-11> 박경리, 박경리 선생 유고 '일본산고(日本散考)'
+    전문 <http://news.donga.com/fbin/output?n=200807180159>, 동아일보
+    <https://ko.wikipedia.org/wiki/%EB%8F%99%EC%95%84%EC%9D%BC%EB%B3%B4>
+12. 이동 ↑ <#cite_ref-15> 남, 성현; 김, 선회 (2015). “제약서열과 사용빈
+    도”
+    <https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002049997>.
+    《언어연구》 (한국현대언어학회). doi
+    <https://ko.wikipedia.org/wiki/%EB%94%94%EC%A7%80%ED%84%B8_%EA%B0%9D%EC%B2%B4_%EC%8B%9D%EB%B3%84%EC%9E%90>:10.18627/jslg.31.3.201511.605
+    <https://dx.doi.org/10.18627%2Fjslg.31.3.201511.605>. 2016년 7월 17
+    일에 확인함. 
+13. 이동 ↑ <#cite_ref-16>
+    http://www.newsen.com/news_view.php?uid=200804080132361001
+14. 이동 ↑ <#cite_ref-17>
+    http://news.khan.co.kr/kh_news/khan_art_view.html?artid=201101021911275&code=990000
+
+15. 이동 ↑ <#cite_ref-18>
+    http://dna.naver.com/viewer/index.nhn?articleId=1999100700329119001&edtNo=40&printCount=1&publishDate=1999-10-07&officeId=00032&pageNo=19&printNo=16872&publishType=00010&doNotReadAnyMore=notClose
+
+16. 이동 ↑ <#cite_ref-19> "우리말 70%가 한자말? 일제가 왜곡", 한겨레,
+    http://hani.co.kr/arti/culture/religion/376204.html
+17. 이동 ↑ <#cite_ref-20> 한국 방언 자료집
+    <http://yoksa.aks.ac.kr/jsp/ll/Directory.jsp?gb=1> - ASX, 한국역사정
+    보통합시스템
+18. 이동 ↑ <#cite_ref-21> 이은주 기자 (2006년 8월 13일). “joins.com”
+    <http://news.joins.com/article/2417248>. 《미국인들 배우기 가장 어려
+    운 언어는 한국·중국·일본·아랍어》 (중앙일보). 2017년 12월 6일에 확인함. 
+19. 이동 ↑ <#cite_ref-22> Koh Young-aah (2010년 7월 20일). “More
+    foreigners study Korean academically”
+    <http://www.koreaherald.com/lifestyle/Detail.jsp?newsMLId=20100720000729>
+    (영어). The Korean Herald. 2010년 8월 5일에 확인함. 
+20. 이동 ↑ <#cite_ref-23> 세계한국말인증시험 웹사이트
+    <http://www.klpt.org/> 2000년에 위원회를 발족한 세계한국말인증시험
+    (KLPT)은 2001년부터 한글학회 주관하에 미주, 유럽, 동남아 등 40여 곳
+    에서 시험을 시행해 왔다.
+21. 이동 ↑ <#cite_ref-dtimes20050316_24-0> 이택수 (2005년 6월 16일). “한
+    글 홈피 점유 4.1% 중국·일본어 이어 6위”
+    <http://www.dt.co.kr
+    /contents.htm?article_no=2005031602010731671002>. 디지털타임스
+    <https://ko.wikipedia.org/wiki/%EB%94%94%EC%A7%80%ED%84%B8%ED%83%80%EC%9E%84%EC%8A%A4>.
+    2011년 1월 10일에 확인함. "온라인에서의 언어 분포는 영어가 35.8%로 1
+    위를 차지했고. 중국어가 14.1%, 일본어가 9.6%, 스페인어가 9%를 차지했
+    으며, 한글은 독일어(7%)에 이어 4.1%로 6위에 올랐다." 
+22. 이동 ↑ <#cite_ref-un_worldpopulation2008_25-0> “World Population
+    Prospects: The 2008 Revision” <http://esa.un.org/unpp> (영어). 국제
+    연합
+    <https://ko.wikipedia.org/wiki/%EA%B5%AD%EC%A0%9C_%EC%97%B0%ED%95%A9>.
+    2009. 2011년 1월 10일에 확인함.  해당 웹페이지의 지역 항목에서
+    'World'를 선택하면 조회 가능.
+23. 이동 ↑ <#cite_ref-26> “Ethnologue - Korean”
+    <http://www.ethnologue.com/show_language.asp?code=kor> (영어).
+    Summer Institute of Linguistics
+    <https://ko.wikipedia.org/wiki/%EA%B5%AD%EC%A0%9C_SIL>. 2011년 1월
+    10일에 확인함. "Population 42,000,000 in Korea, South (1986).
+    Population total all countries: 66,305,890." 
+
+
+    외부 링크[편집
+    <https://ko.wikipedia.org/w/index.php?title=%ED%95%9C%EA%B5%AD%EC%96%B4&action=edit&section=27>]
+
+  * 한국 고전 번역원 <http://www.itkc.or.kr/>
+  * 국립국어원 <http://www.korean.go.kr/>
+
+[보이기 <#>]
+v
+<https://ko.wikipedia.org/wiki/%ED%8B%80:%ED%95%9C%EA%B5%AD%EC%96%B4> • d <https://ko.wikipedia.org/w/index.php?title=%ED%8B%80%ED%86%A0%EB%A1%A0:%ED%95%9C%EA%B5%AD%EC%96%B4&action=edit&redlink=1> • e
+<https://ko.wikipedia.org/w/index.php?title=%ED%8B%80:%ED%95%9C%EA%B5%AD%EC%96%B4&action=edit> • h
+<https://ko.wikipedia.org/w/index.php?title=%ED%8B%80:%ED%95%9C%EA%B5%AD%EC%96%B4&action=history>
+한국어
+공식어	
+
+  * 표준어
+    <https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD_%ED%91%9C%EC%A4%80%EC%96%B4>
+  * 문화어 <https://ko.wikipedia.org/wiki/%EB%AC%B8%ED%99%94%EC%96%B4>
+
+표기법	
+# 한글 <https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B8%80>
+# 향찰 <https://ko.wikipedia.org/wiki/%ED%96%A5%EC%B0%B0>
+# 이두 <https://ko.wikipedia.org/wiki/%EC%9D%B4%EB%91%90>
+# 구결 <https://ko.wikipedia.org/wiki/%EA%B5%AC%EA%B2%B0>
+# 한글전용과 국한문혼용
+<https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B8%80%EC%A0%84%EC%9A%A9%EA%B3%BC_%EA%B5%AD%ED%95%9C%EB%AC%B8%ED%98%BC%EC%9A%A9>
+# 풀어쓰기
+<https://ko.wikipedia.org/wiki/%ED%92%80%EC%96%B4%EC%93%B0%EA%B8%B0>
+# 한글 맞춤법
+<https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B8%80_%EB%A7%9E%EC%B6%A4%EB%B2%95>
+# 띄어쓰기
+<https://ko.wikipedia.org/wiki/%EB%9D%84%EC%96%B4%EC%93%B0%EA%B8%B0>
+# 문장 부호
+<https://ko.wikipedia.org/wiki/%EB%AC%B8%EC%9E%A5_%EB%B6%80%ED%98%B8>
+# 표준어 규정
+<https://ko.wikipedia.org/wiki/%ED%91%9C%EC%A4%80%EC%96%B4_%EA%B7%9C%EC%A0%95>
+# 외래어 표기법
+<https://ko.wikipedia.org/wiki/%EC%99%B8%EB%9E%98%EC%96%B4_%ED%91%9C%EA%B8%B0%EB%B2%95>
+# 한국어 로마자 표기법
+<https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%A1%9C%EB%A7%88%EC%9E%90_%ED%91%9C%EA%B8%B0%EB%B2%95>
+옛말	
+# 고대 한국어
+<https://ko.wikipedia.org/wiki/%EA%B3%A0%EB%8C%80_%ED%95%9C%EA%B5%AD%EC%96%B4>
+
+
+  * 고구려어
+    <https://ko.wikipedia.org/wiki/%EA%B3%A0%EA%B5%AC%EB%A0%A4%EC%96%B4>
+  * 백제어 <https://ko.wikipedia.org/wiki/%EB%B0%B1%EC%A0%9C%EC%96%B4>
+  * 신라어 <https://ko.wikipedia.org/wiki/%EC%8B%A0%EB%9D%BC%EC%96%B4>
+
+# 중세 한국어
+<https://ko.wikipedia.org/wiki/%EC%A4%91%EC%84%B8_%ED%95%9C%EA%B5%AD%EC%96%B4>
+# 근대 한국어
+<https://ko.wikipedia.org/wiki/%EA%B7%BC%EB%8C%80_%ED%95%9C%EA%B5%AD%EC%96%B4>
+국어학	
+# 문법
+<https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4%EC%9D%98_%EB%AC%B8%EB%B2%95>
+# 문장 성분
+<https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4%EC%9D%98_%EB%AC%B8%EC%9E%A5_%EC%84%B1%EB%B6%84>
+# 어절 <https://ko.wikipedia.org/wiki/%EC%96%B4%EC%A0%88>
+# 음절의 끝소리 규칙
+<https://ko.wikipedia.org/wiki/%EC%9D%8C%EC%A0%88%EC%9D%98_%EB%81%9D%EC%86%8C%EB%A6%AC_%EA%B7%9C%EC%B9%99>
+# 사잇소리 현상
+<https://ko.wikipedia.org/wiki/%EC%82%AC%EC%9E%87%EC%86%8C%EB%A6%AC_%ED%98%84%EC%83%81>
+# 한국어의 불규칙 활용
+<https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4%EC%9D%98_%EB%B6%88%EA%B7%9C%EC%B9%99_%ED%99%9C%EC%9A%A9>
+# 두음 법칙
+<https://ko.wikipedia.org/wiki/%EB%91%90%EC%9D%8C_%EB%B2%95%EC%B9%99>
+# 비음화
+<https://ko.wikipedia.org/wiki/%EC%9D%8C%EC%9A%B4%EC%9D%98_%EB%B3%80%EB%8F%99#%EB%B9%84%EC%9D%8C%ED%99%94>
+# 유음화
+<https://ko.wikipedia.org/wiki/%EC%9D%8C%EC%9A%B4%EC%9D%98_%EB%B3%80%EB%8F%99#%EC%9C%A0%EC%9D%8C%ED%99%94>
+# 자음축약
+<https://ko.wikipedia.org/wiki/%EC%9D%8C%EC%9A%B4%EC%9D%98_%EB%B3%80%EB%8F%99#%EC%9E%90%EC%9D%8C%EC%B6%95%EC%95%BD>
+# 모음축약
+<https://ko.wikipedia.org/wiki/%EC%9D%8C%EC%9A%B4%EC%9D%98_%EB%B3%80%EB%8F%99#%EB%AA%A8%EC%9D%8C%EC%B6%95%EC%95%BD>
+# 자음탈락
+<https://ko.wikipedia.org/wiki/%EC%9D%8C%EC%9A%B4%EC%9D%98_%EB%B3%80%EB%8F%99#%EC%9E%90%EC%9D%8C%ED%83%88%EB%9D%BD>
+# 모음탈락
+<https://ko.wikipedia.org/wiki/%EC%9D%8C%EC%9A%B4%EC%9D%98_%EB%B3%80%EB%8F%99#%EB%AA%A8%EC%9D%8C%ED%83%88%EB%9D%BD>
+# 구개음화
+<https://ko.wikipedia.org/wiki/%EA%B5%AC%EA%B0%9C%EC%9D%8C%ED%99%94>
+방언
+<https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4%EC%9D%98_%EB%B0%A9%EC%96%B8>
+
+국내 	
+
+  * 중부 방언
+    <https://ko.wikipedia.org/wiki/%EC%A4%91%EB%B6%80_%EB%B0%A9%EC%96%B8>
+      o 경기 방언
+        <https://ko.wikipedia.org/wiki/%EA%B2%BD%EA%B8%B0_%EB%B0%A9%EC%96%B8>
+      o 충청도 방언
+        <https://ko.wikipedia.org/wiki/%EC%B6%A9%EC%B2%AD%EB%8F%84_%EB%B0%A9%EC%96%B8>
+      o 황해도 방언
+        <https://ko.wikipedia.org/wiki/%ED%99%A9%ED%95%B4%EB%8F%84_%EB%B0%A9%EC%96%B8>
+      o 영서 방언
+        <https://ko.wikipedia.org/wiki/%EC%98%81%EC%84%9C_%EB%B0%A9%EC%96%B8>
+      o 영동 방언
+        <https://ko.wikipedia.org/wiki/%EC%98%81%EB%8F%99_%EB%B0%A9%EC%96%B8>
+  * 서북 방언
+    <https://ko.wikipedia.org/wiki/%EC%84%9C%EB%B6%81_%EB%B0%A9%EC%96%B8>
+  * 동북 방언
+    <https://ko.wikipedia.org/wiki/%EB%8F%99%EB%B6%81_%EB%B0%A9%EC%96%B8>
+      o 육진 방언
+        <https://ko.wikipedia.org/wiki/%EC%9C%A1%EC%A7%84_%EB%B0%A9%EC%96%B8>
+  * 서남 방언
+    <https://ko.wikipedia.org/wiki/%EC%84%9C%EB%82%A8_%EB%B0%A9%EC%96%B8>
+  * 동남 방언
+    <https://ko.wikipedia.org/wiki/%EB%8F%99%EB%82%A8_%EB%B0%A9%EC%96%B8>
+
+국외 	
+
+  * 재중 한국어
+    <https://ko.wikipedia.org/wiki/%EC%9E%AC%EC%A4%91_%ED%95%9C%EA%B5%AD%EC%96%B4>
+  * 중앙아시아 한국어
+    <https://ko.wikipedia.org/wiki/%EC%A4%91%EC%95%99%EC%95%84%EC%8B%9C%EC%95%84_%ED%95%9C%EA%B5%AD%EC%96%B4>
+  * 재일 한국어
+    <https://ko.wikipedia.org/wiki/%EC%9E%AC%EC%9D%BC_%ED%95%9C%EA%B5%AD%EC%96%B4>
+
+[보이기 <#>]
+v
+<https://ko.wikipedia.org/wiki/%ED%8B%80:%EA%B3%A0%EB%A6%BD%EB%90%9C_%EC%96%B8%EC%96%B4> • d
+<https://ko.wikipedia.org/wiki/%ED%8B%80%ED%86%A0%EB%A1%A0:%EA%B3%A0%EB%A6%BD%EB%90%9C_%EC%96%B8%EC%96%B4> • e
+<https://ko.wikipedia.org/w/index.php?title=%ED%8B%80:%EA%B3%A0%EB%A6%BD%EB%90%9C_%EC%96%B8%EC%96%B4&action=edit> • h
+<https://ko.wikipedia.org/w/index.php?title=%ED%8B%80:%EA%B3%A0%EB%A6%BD%EB%90%9C_%EC%96%B8%EC%96%B4&action=history>
+고립어
+<https://ko.wikipedia.org/wiki/%EA%B3%A0%EB%A6%BD%EC%96%B4_(%EB%B9%84%EA%B5%90%EC%96%B8%EC%96%B4%ED%95%99)>
+아시아 <https://ko.wikipedia.org/wiki/%EC%95%84%EC%8B%9C%EC%95%84>	
+
+  * 부르샤스키어
+    <https://ko.wikipedia.org/wiki/%EB%B6%80%EB%A5%B4%EC%83%A4%EC%8A%A4%ED%82%A4%EC%96%B4>
+  * 수메르어
+    <https://ko.wikipedia.org/wiki/%EC%88%98%EB%A9%94%EB%A5%B4%EC%96%B4>†
+  * 아이누어
+    <https://ko.wikipedia.org/wiki/%EC%95%84%EC%9D%B4%EB%88%84%EC%96%B4>
+  * 엘람어 <https://ko.wikipedia.org/wiki/%EC%97%98%EB%9E%8C%EC%96%B4>†
+  * 니할리어
+    <https://ko.wikipedia.org/wiki/%EB%8B%88%ED%95%A0%EB%A6%AC%EC%96%B4>
+  * 쿠순다어
+    <https://ko.wikipedia.org/wiki/%EC%BF%A0%EC%88%9C%EB%8B%A4%EC%96%B4>
+  * 한국어^1 
+
+유럽 <https://ko.wikipedia.org/wiki/%EC%9C%A0%EB%9F%BD>	
+# 바스크어
+<https://ko.wikipedia.org/wiki/%EB%B0%94%EC%8A%A4%ED%81%AC%EC%96%B4>
+# 이베리아어
+<https://ko.wikipedia.org/wiki/%EC%9D%B4%EB%B2%A0%EB%A6%AC%EC%95%84%EC%96%B4>†
+# 에트루리아어
+<https://ko.wikipedia.org/wiki/%EC%97%90%ED%8A%B8%EB%A3%A8%EB%A6%AC%EC%95%84%EC%96%B4>†
+# 레트어
+<https://ko.wikipedia.org/w/index.php?title=%EB%A0%88%ED%8A%B8%EC%96%B4&action=edit&redlink=1>†
+# 렘노스어
+<https://ko.wikipedia.org/w/index.php?title=%EB%A0%98%EB%85%B8%EC%8A%A4%EC%96%B4&action=edit&redlink=1>†
+# 티레니아어
+<https://ko.wikipedia.org/w/index.php?title=%ED%8B%B0%EB%A0%88%EB%8B%88%EC%95%84%EC%96%B4&action=edit&redlink=1>†
+아프리카
+<https://ko.wikipedia.org/wiki/%EC%95%84%ED%94%84%EB%A6%AC%EC%B9%B4>	
+# 산다웨어
+<https://ko.wikipedia.org/w/index.php?title=%EC%82%B0%EB%8B%A4%EC%9B%A8%EC%96%B4&action=edit&redlink=1>
+# 하쟈어
+<https://ko.wikipedia.org/w/index.php?title=%ED%95%98%EC%9F%88%EC%96%B4&action=edit&redlink=1>
+아메리카
+<https://ko.wikipedia.org/wiki/%EC%95%84%EB%A9%94%EB%A6%AC%EC%B9%B4>	
+북아메리카
+<https://ko.wikipedia.org/wiki/%EB%B6%81%EC%95%84%EB%A9%94%EB%A6%AC%EC%B9%B4>
+	
+
+  * 베오투크어
+    <https://ko.wikipedia.org/wiki/%EB%B2%A0%EC%98%A4%ED%88%AC%ED%81%AC%EC%96%B4>†
+  * 세리어 <https://ko.wikipedia.org/wiki/%EC%84%B8%EB%A6%AC%EC%96%B4>
+  * 주니어
+    <https://ko.wikipedia.org/w/index.php?title=%EC%A3%BC%EB%8B%88%EC%96%B4_(%EC%96%B8%EC%96%B4)&action=edit&redlink=1>
+  * 쿠테나이어
+    <https://ko.wikipedia.org/w/index.php?title=%EC%BF%A0%ED%85%8C%EB%82%98%EC%9D%B4%EC%96%B4&action=edit&redlink=1>
+  * 하이다어
+    <https://ko.wikipedia.org/w/index.php?title=%ED%95%98%EC%9D%B4%EB%8B%A4%EC%96%B4&action=edit&redlink=1>
+
+남아메리카
+<https://ko.wikipedia.org/wiki/%EB%82%A8%EC%95%84%EB%A9%94%EB%A6%AC%EC%B9%B4>
+	
+
+  * 마푸체어
+    <https://ko.wikipedia.org/wiki/%EB%A7%88%ED%91%B8%EC%B2%B4%EC%96%B4>
+  * 이토나마어
+    <https://ko.wikipedia.org/w/index.php?title=%EC%9D%B4%ED%86%A0%EB%82%98%EB%A7%88%EC%96%B4&action=edit&redlink=1>
+  * 피라항어
+    <https://ko.wikipedia.org/wiki/%ED%94%BC%EB%9D%BC%ED%95%AD%EC%96%B4>
+  * 푸키나어
+    <https://ko.wikipedia.org/wiki/%ED%91%B8%ED%82%A4%EB%82%98%EC%96%B4>†
+
+오세아니아
+<https://ko.wikipedia.org/wiki/%EC%98%A4%EC%84%B8%EC%95%84%EB%8B%88%EC%95%84>
+
+# 부사어
+<https://ko.wikipedia.org/w/index.php?title=%EB%B6%80%EC%82%AC%EC%96%B4&action=edit&redlink=1>
+# 이시라와어
+<https://ko.wikipedia.org/w/index.php?title=%EC%9D%B4%EC%8B%9C%EB%9D%BC%EC%99%80%EC%96%B4&action=edit&redlink=1>
+# 타이압어
+<https://ko.wikipedia.org/w/index.php?title=%ED%83%80%EC%9D%B4%EC%95%95%EC%96%B4&action=edit&redlink=1>
+† : 소멸된 언어 <https://ko.wikipedia.org/wiki/%EC%82%AC%EC%96%B4> 1: 상
+호의사소통성
+<https://ko.wikipedia.org/wiki/%EC%83%81%ED%98%B8%EC%9D%98%EC%82%AC%EC
+%86%8C%ED%86%B5%EC%84%B1>이 떨어지는 방언과 함께 독립된 어족
+<https://ko.wikipedia.org/wiki/%EC%96%B4%EC%A1%B1>으로 분류되기도 하는 언어.
+
+[보이기 <#>]
+v
+<https://ko.wikipedia.org/wiki/%ED%8B%80:%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD_%EC%A3%BC%EC%A0%9C> • d
+<https://ko.wikipedia.org/w/index.php?title=%ED%8B%80%ED%86%A0%EB%A1%A0:%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD_%EC%A3%BC%EC%A0%9C&action=edit&redlink=1> • e
+<https://ko.wikipedia.org/w/index.php?title=%ED%8B%80:%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD_%EC%A3%BC%EC%A0%9C&action=edit> • h
+<https://ko.wikipedia.org/w/index.php?title=%ED%8B%80:%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD_%EC%A3%BC%EC%A0%9C&action=history>
+한국 <https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD> 둘러보기
+
+  * 대한민국
+    <https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD>
+  * 조선민주주의인민공화국
+    <https://ko.wikipedia.org/wiki/%EC%A1%B0%EC%84%A0%EB%AF%BC%EC%A3%BC%EC%A3%BC%EC%9D%98%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD>
+
+[보이기 <#>]
+역사
+<https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%9D%98_%EC%97%AD%EC%82%AC>
+일반 	
+
+  * 연표
+    <https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%82%AC_%EC%97%B0%ED%91%9C>
+  * 군주 목록
+    <https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%9D%98_%EA%B5%B0%EC%A3%BC_%EB%AA%A9%EB%A1%9D>
+  * 군사사
+    <https://ko.wikipedia.org/w/index.php?title=%ED%95%9C%EA%B5%AD%EC%9D%98_%EA%B5%B0%EC%82%AC%EC%82%AC&action=edit&redlink=1>
+
+연대순 국가 	
+
+  * 고조선 <https://ko.wikipedia.org/wiki/%EA%B3%A0%EC%A1%B0%EC%84%A0>
+      o 위만 조선
+        <https://ko.wikipedia.org/wiki/%EC%9C%84%EB%A7%8C_%EC%A1%B0%EC%84%A0>
+      o 진국 <https://ko.wikipedia.org/wiki/%EC%A7%84%EA%B5%AD>
+  * 원삼국 시대
+    <https://ko.wikipedia.org/wiki/%EC%9B%90%EC%82%BC%EA%B5%AD_%EC%8B%9C%EB%8C%80>
+
+      o 부여 <https://ko.wikipedia.org/wiki/%EB%B6%80%EC%97%AC>
+      o 옥저 <https://ko.wikipedia.org/wiki/%EC%98%A5%EC%A0%80>
+      o 동예 <https://ko.wikipedia.org/wiki/%EB%8F%99%EC%98%88>
+      o 삼한 <https://ko.wikipedia.org/wiki/%EC%82%BC%ED%95%9C>
+      o 한사군 <https://ko.wikipedia.org/wiki/%ED%95%9C%EC%82%AC%EA%B5%B0>
+  * 삼국 시대
+    <https://ko.wikipedia.org/wiki/%EC%82%BC%EA%B5%AD_%EC%8B%9C%EB%8C%80>
+      o 고구려 <https://ko.wikipedia.org/wiki/%EA%B3%A0%EA%B5%AC%EB%A0%A4>
+      o 백제 <https://ko.wikipedia.org/wiki/%EB%B0%B1%EC%A0%9C>
+      o 신라 <https://ko.wikipedia.org/wiki/%EC%8B%A0%EB%9D%BC>
+      o 가야 <https://ko.wikipedia.org/wiki/%EA%B0%80%EC%95%BC>
+  * 남북국 시대
+    <https://ko.wikipedia.org/wiki/%EB%82%A8%EB%B6%81%EA%B5%AD_%EC%8B%9C%EB%8C%80>
+
+      o 통일신라
+        <https://ko.wikipedia.org/wiki/%ED%86%B5%EC%9D%BC%EC%8B%A0%EB%9D%BC>
+      o 발해 <https://ko.wikipedia.org/wiki/%EB%B0%9C%ED%95%B4>
+  * 후삼국 시대
+    <https://ko.wikipedia.org/wiki/%ED%9B%84%EC%82%BC%EA%B5%AD_%EC%8B%9C%EB%8C%80>
+
+      o 태봉 <https://ko.wikipedia.org/wiki/%ED%83%9C%EB%B4%89>
+      o 후백제 <https://ko.wikipedia.org/wiki/%ED%9B%84%EB%B0%B1%EC%A0%9C>
+      o 신라 <https://ko.wikipedia.org/wiki/%EC%8B%A0%EB%9D%BC>
+  * 고려 <https://ko.wikipedia.org/wiki/%EA%B3%A0%EB%A0%A4>
+  * 조선 <https://ko.wikipedia.org/wiki/%EC%A1%B0%EC%84%A0>
+  * 대한제국
+    <https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EC%A0%9C%EA%B5%AD>
+  * 일제 강점기
+    <https://ko.wikipedia.org/wiki/%EC%9D%BC%EC%A0%9C_%EA%B0%95%EC%A0%90%EA%B8%B0>
+
+      o 대한민국 임시 정부
+        <https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD_%EC%9E%84%EC%8B%9C_%EC%A0%95%EB%B6%80>
+  * 한반도 분단
+    <https://ko.wikipedia.org/wiki/%ED%95%9C%EB%B0%98%EB%8F%84_%EB%B6%84%EB%8B%A8>
+
+      o 미
+        <https://ko.wikipedia.org/wiki/%EC%9E%AC%EC%A1%B0%EC%84%A0%EB%AF
+        %B8%EC%9C%A1%EA%B5%B0%EC%82%AC%EB%A0%B9%EB%B6%80%EA%B5%B0%EC%A0
+        %95%EC%B2%AD>/소
+        <https://ko.wikipedia.org/wiki/%EC%86%8C%EB%B9%84%EC%97%90%ED%8A%B8_%EB%AF%BC%EC%A0%95%EC%B2%AD>
+        군정
+        <https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%9D%98_%EA%B5%B0%EC%A0%95%EA%B8%B0>
+      o 한국 전쟁
+        <https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD_%EC%A0%84%EC%9F%81>
+  * 남한
+    <https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD>
+    /북한
+    <https://ko.wikipedia.org/wiki/%EC%A1%B0%EC%84%A0%EB%AF%BC%EC%A3%BC%EC%A3%BC%EC%9D%98%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD>
+
+[보이기 <#>]
+지리
+<https://ko.wikipedia.org/w/index.php?title=%ED%95%9C%EA%B5%AD%EC%9D%98_%EC%A7%80%EB%A6%AC&action=edit&redlink=1>
+일반 	
+
+  * 한반도 비무장 지대
+    <https://ko.wikipedia.org/wiki/%ED%95%9C%EB%B0%98%EB%8F%84_%EB%B9%84%EB%AC%B4%EC%9E%A5_%EC%A7%80%EB%8C%80>
+    (DMZ)
+  * 섬 목록
+    <https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%9D%98_%EC%84%AC_%EB%AA%A9%EB%A1%9D>
+  * 한반도 <https://ko.wikipedia.org/wiki/%ED%95%9C%EB%B0%98%EB%8F%84>
+  * 호수
+    <https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%9D%98_%ED%98%B8%EC%88%98>
+  * 산 <https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%9D%98_%EC%82%B0>
+  * 행정 구역
+    <https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%9D%98_%ED%96%89%EC%A0%95_%EA%B5%AC%EC%97%AD>
+  * 지방 구분
+    <https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%9D%98_%EC%A7%80%EB%B0%A9_%EA%B5%AC%EB%B6%84>
+  * 강 <https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%9D%98_%EA%B0%95>
+
+대한민국
+<https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%EC%9D%98_%EC%A7%80%EB%A6%AC>
+	
+
+  * 행정 구역
+    <https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%EC%9D%98_%ED%96%89%EC%A0%95_%EA%B5%AC%EC%97%AD>
+
+      o 목록
+        <https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%EC%9D%98_%ED%96%89%EC%A0%95_%EA%B5%AC%EC%97%AD_%EB%AA%A9%EB%A1%9D>
+  * 도시 목록
+    <https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%EC%9D%98_%EC%84%A4%EC%B9%98%EC%88%9C_%EB%8F%84%EC%8B%9C_%EB%AA%A9%EB%A1%9D>
+  * 환경
+    <https://ko.wikipedia.org/w/index.php?title=%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%EC%9D%98_%ED%99%98%EA%B2%BD&action=edit&redlink=1>
+
+조선민주주의인민공화국
+<https://ko.wikipedia.org/w/index.php?title=%EC%A1%B0%EC%84%A0%EB%AF%BC%EC%A3%BC%EC%A3%BC%EC%9D%98%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD%EC%9D%98_%EC%A7%80%EB%A6%AC&action=edit&redlink=1>
+	
+
+  * 행정 구역
+    <https://ko.wikipedia.org/wiki/%EC%A1%B0%EC%84%A0%EB%AF%BC%EC%A3%BC%EC%A3%BC%EC%9D%98%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD%EC%9D%98_%ED%96%89%EC%A0%95_%EA%B5%AC%EC%97%AD>
+  * 도시 목록
+    <https://ko.wikipedia.org/wiki/%EC%A1%B0%EC%84%A0%EB%AF%BC%EC%A3%BC%EC%A3%BC%EC%9D%98%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD%EC%9D%98_%EC%9D%B8%EA%B5%AC%EC%88%9C_%EB%8F%84%EC%8B%9C_%EB%AA%A9%EB%A1%9D>
+  * 환경
+    <https://ko.wikipedia.org/w/index.php?title=%EC%A1%B0%EC%84%A0%EB%AF%BC%EC%A3%BC%EC%A3%BC%EC%9D%98%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD%EC%9D%98_%ED%99%98%EA%B2%BD&action=edit&redlink=1>
+
+[보이기 <#>]
+정치
+대한민국
+<https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%EC%9D%98_%EC%A0%95%EC%B9%98>
+	
+
+  * 헌법
+    <https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD_%ED%97%8C%EB%B2%95>
+  * 대외 관계
+    <https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%EC%9D%98_%EB%8C%80%EC%99%B8_%EA%B4%80%EA%B3%84>
+  * 정부
+    <https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD_%EC%A0%95%EB%B6%80>
+
+      o 대통령
+        <https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%EC%9D%98_%EB%8C%80%ED%86%B5%EB%A0%B9>
+      o 국무총리
+        <https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%EC%9D%98_%EA%B5%AD%EB%AC%B4%EC%B4%9D%EB%A6%AC>
+  * 인권
+    <https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%EC%9D%98_%EC%9D%B8%EA%B6%8C>
+
+      o LGBT 인권
+        <https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%EC%9D%98_%EC%84%B1%EC%86%8C%EC%88%98%EC%9E%90_%EA%B6%8C%EB%A6%AC>
+  * 군사
+    <https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD_%EA%B5%AD%EA%B5%B0>
+  * 국회
+    <https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD_%EA%B5%AD%ED%9A%8C>
+  * 여권
+    <https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD_%EC%97%AC%EA%B6%8C>
+  * 정치
+    <https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%EC%9D%98_%EC%A0%95%EC%B9%98>
+
+      o 선거
+        <https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%EC%9D%98_%EC%84%A0%EA%B1%B0>
+      o 정당
+        <https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%EC%9D%98_%EC%A0%95%EB%8B%B9>
+
+조선민주주의인민공화국
+<https://ko.wikipedia.org/wiki/%EC%A1%B0%EC%84%A0%EB%AF%BC%EC%A3%BC%EC%A3%BC%EC%9D%98%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD%EC%9D%98_%EC%A0%95%EC%B9%98>
+	
+
+  * 헌법
+    <https://ko.wikipedia.org/wiki/%EC%A1%B0%EC%84%A0%EB%AF%BC%EC%A3%BC%EC%A3%BC%EC%9D%98%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD_%EC%82%AC%ED%9A%8C%EC%A3%BC%EC%9D%98%ED%97%8C%EB%B2%95>
+  * 대외 관계
+    <https://ko.wikipedia.org/wiki/%EC%A1%B0%EC%84%A0%EB%AF%BC%EC%A3%BC%EC%A3%BC%EC%9D%98%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD%EC%9D%98_%EB%8C%80%EC%99%B8_%EA%B4%80%EA%B3%84>
+  * 내각
+    <https://ko.wikipedia.org/wiki/%EC%A1%B0%EC%84%A0%EB%AF%BC%EC%A3%BC%EC%A3%BC%EC%9D%98%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD_%EB%82%B4%EA%B0%81>
+
+      o 국가 원수
+        <https://ko.wikipedia.org/wiki/%EC%A1%B0%EC%84%A0%EB%AF%BC%EC%A3%BC%EC%A3%BC%EC%9D%98%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD%EC%9D%98_%EA%B5%AD%EA%B0%80_%EC%9B%90%EC%88%98>
+      o 영원한 주석
+        <https://ko.wikipedia.org/wiki/%EA%B3%B5%ED%99%94%EA%B5%AD%EC%9D%98_%EC%98%81%EC%9B%90%ED%95%9C_%EC%A3%BC%EC%84%9D>
+  * 인권
+    <https://ko.wikipedia.org/wiki/%EC%A1%B0%EC%84%A0%EB%AF%BC%EC%A3%BC%EC%A3%BC%EC%9D%98%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD%EC%9D%98_%EC%9D%B8%EA%B6%8C>
+
+      o LGBT 인권
+        <https://ko.wikipedia.org/wiki/%EC%A1%B0%EC%84%A0%EB%AF%BC%EC%A3%BC%EC%A3%BC%EC%9D%98%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD%EC%9D%98_%EC%84%B1%EC%86%8C%EC%88%98%EC%9E%90_%EA%B6%8C%EB%A6%AC>
+  * 주체사상
+    <https://ko.wikipedia.org/wiki/%EC%A3%BC%EC%B2%B4%EC%82%AC%EC%83%81>
+  * 선군정치
+    <https://ko.wikipedia.org/wiki/%EC%84%A0%EA%B5%B0%EC%A0%95%EC%B9%98>
+  * 군사
+    <https://ko.wikipedia.org/wiki/%EC%A1%B0%EC%84%A0%EC%9D%B8%EB%AF%BC%EA%B5%B0>
+  * 국방위원회
+    <https://ko.wikipedia.org/wiki/%EC%A1%B0%EC%84%A0%EB%AF%BC%EC%A3%BC%EC%A3%BC%EC%9D%98%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD_%EA%B5%AD%EB%B0%A9%EC%9C%84%EC%9B%90%ED%9A%8C>
+  * 대량살상무기
+    <https://ko.wikipedia.org/wiki/%EC%A1%B0%EC%84%A0%EB%AF%BC%EC%A3%BC%EC%A3%BC%EC%9D%98%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD%EC%9D%98_%EB%8C%80%EB%9F%89%EC%82%B4%EC%83%81%EB%AC%B4%EA%B8%B0>
+  * 여권
+    <https://ko.wikipedia.org/wiki/%EC%A1%B0%EC%84%A0%EB%AF%BC%EC%A3%BC%EC%A3%BC%EC%9D%98%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD_%EC%97%AC%EA%B6%8C>
+  * 정치
+    <https://ko.wikipedia.org/wiki/%EC%A1%B0%EC%84%A0%EB%AF%BC%EC%A3%BC%EC%A3%BC%EC%9D%98%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD%EC%9D%98_%EC%A0%95%EC%B9%98>
+
+      o 선거
+        <https://ko.wikipedia.org/wiki/%EC%A1%B0%EC%84%A0%EB%AF%BC%EC%A3%BC%EC%A3%BC%EC%9D%98%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD%EC%9D%98_%EC%84%A0%EA%B1%B0>
+      o 정당
+        <https://ko.wikipedia.org/wiki/%EC%A1%B0%EC%84%A0%EB%AF%BC%EC%A3%BC%EC%A3%BC%EC%9D%98%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD%EC%9D%98_%EC%A0%95%EB%8B%B9>
+      o 조선로동당
+        <https://ko.wikipedia.org/wiki/%EC%A1%B0%EC%84%A0%EB%A1%9C%EB%8F%99%EB%8B%B9>
+  * 최고인민회의
+    <https://ko.wikipedia.org/wiki/%EC%B5%9C%EA%B3%A0%EC%9D%B8%EB%AF%BC%ED%9A%8C%EC%9D%98>
+
+[보이기 <#>]
+사회
+대한민국 	
+
+  * 국기
+    <https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%EC%9D%98_%EA%B5%AD%EA%B8%B0>
+  * 문장
+    <https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%EC%9D%98_%EB%AC%B8%EC%9E%A5>
+  * 국가
+    <https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%EC%9D%98_%EA%B5%AD%EA%B0%80>
+  * 라디오 방송
+    <https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%EC%9D%98_%EB%9D%BC%EB%94%94%EC%98%A4_%EB%B0%A9%EC%86%A1%EC%82%AC_%EB%AA%A9%EB%A1%9D>
+
+조선민주주의인민공화국 	
+
+  * 국기
+    <https://ko.wikipedia.org/wiki/%EC%A1%B0%EC%84%A0%EB%AF%BC%EC%A3%BC%EC%A3%BC%EC%9D%98%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD%EC%9D%98_%EA%B5%AD%EA%B8%B0>
+  * 문장
+    <https://ko.wikipedia.org/w/index.php?title=%EC%A1%B0%EC%84%A0%EB%AF%BC%EC%A3%BC%EC%A3%BC%EC%9D%98%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD%EC%9D%98_%EB%AC%B8%EC%9E%A5&action=edit&redlink=1>
+  * 국가
+    <https://ko.wikipedia.org/wiki/%EC%A1%B0%EC%84%A0%EB%AF%BC%EC%A3%BC%EC%A3%BC%EC%9D%98%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD%EC%9D%98_%EA%B5%AD%EA%B0%80>
+
+[보이기 <#>]
+경제
+<https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%9D%98_%EA%B2%BD%EC%A0%9C>
+대한민국
+<https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%EC%9D%98_%EA%B2%BD%EC%A0%9C>
+	
+
+  * 농업
+    <https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%EC%9D%98_%EB%86%8D%EC%97%85>
+  * 자동차 산업
+    <https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%EC%9D%98_%EC%9E%90%EB%8F%99%EC%B0%A8_%EC%82%B0%EC%97%85>
+  * 재벌 <https://ko.wikipedia.org/wiki/%EC%9E%AC%EB%B2%8C>
+  * 에너지
+    <https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%EC%9D%98_%EC%97%90%EB%84%88%EC%A7%80>
+  * 금융업
+    <https://ko.wikipedia.org/w/index.php?title=%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%EC%9D%98_%EA%B8%88%EC%9C%B5%EC%97%85&action=edit&redlink=1>
+  * 어업
+    <https://ko.wikipedia.org/w/index.php?title=%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%EC%9D%98_%EC%96%B4%EC%97%85&action=edit&redlink=1>
+  * 교역 정책
+    <https://ko.wikipedia.org/w/index.php?title=%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%EC%9D%98_%EA%B5%90%EC%97%AD_%EC%A0%95%EC%B1%85&action=edit&redlink=1>
+  * 한강의 기적
+    <https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B0%95%EC%9D%98_%EA%B8%B0%EC%A0%81>
+  * 부동산
+    <https://ko.wikipedia.org/w/index.php?title=%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%EC%9D%98_%EB%B6%80%EB%8F%99%EC%82%B0&action=edit&redlink=1>
+  * 통신업
+    <https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%EC%9D%98_%ED%86%B5%EC%8B%A0%EC%97%85>
+  * 관광업
+    <https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%EC%9D%98_%EA%B4%80%EA%B4%91>
+  * 교통
+    <https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%EC%9D%98_%EA%B5%90%ED%86%B5>
+  * 노동 조합
+    <https://ko.wikipedia.org/w/index.php?title=%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%EC%9D%98_%EB%85%B8%EB%8F%99_%EC%A1%B0%ED%95%A9&action=edit&redlink=1>
+  * 대한민국 원
+    <https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD_%EC%9B%90>
+  * 아시아 금융 위기
+    <https://ko.wikipedia.org/wiki/%EC%95%84%EC%8B%9C%EC%95%84_%EA%B8%88%EC%9C%B5_%EC%9C%84%EA%B8%B0>
+
+조선민주주의인민공화국
+<https://ko.wikipedia.org/wiki/%EC%A1%B0%EC%84%A0%EB%AF%BC%EC%A3%BC%EC%A3%BC%EC%9D%98%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD%EC%9D%98_%EA%B2%BD%EC%A0%9C>
+	
+
+  * 농업
+    <https://ko.wikipedia.org/w/index.php?title=%EC%A1%B0%EC%84%A0%EB%AF%BC%EC%A3%BC%EC%A3%BC%EC%9D%98%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD%EC%9D%98_%EB%86%8D%EC%97%85&action=edit&redlink=1>
+  * 자동차 산업
+    <https://ko.wikipedia.org/w/index.php?title=%EC%A1%B0%EC%84%A0%EB%AF%BC%EC%A3%BC%EC%A3%BC%EC%9D%98%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD%EC%9D%98_%EC%9E%90%EB%8F%99%EC%B0%A8_%EC%82%B0%EC%97%85&action=edit&redlink=1>
+  * 에너지
+    <https://ko.wikipedia.org/w/index.php?title=%EC%A1%B0%EC%84%A0%EB%AF%BC%EC%A3%BC%EC%A3%BC%EC%9D%98%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD%EC%9D%98_%EC%97%90%EB%84%88%EC%A7%80&action=edit&redlink=1>
+  * 고난의 행군
+    <https://ko.wikipedia.org/wiki/%EA%B3%A0%EB%82%9C%EC%9D%98_%ED%96%89%EA%B5%B0>
+  * 장마당 <https://ko.wikipedia.org/wiki/%EC%9E%A5%EB%A7%88%EB%8B%B9>
+  * 광업
+    <https://ko.wikipedia.org/w/index.php?title=%EC%A1%B0%EC%84%A0%EB%AF%BC%EC%A3%BC%EC%A3%BC%EC%9D%98%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD%EC%9D%98%EC%9D%98_%EA%B4%91%EC%97%85&action=edit&redlink=1>
+  * 라진선봉 경제특구
+    <https://ko.wikipedia.org/w/index.php?title=%EB%9D%BC%EC%A7%84%EC%84%A0%EB%B4%89_%EA%B2%BD%EC%A0%9C%ED%8A%B9%EA%B5%AC&action=edit&redlink=1>
+  * 통신
+    <https://ko.wikipedia.org/wiki/%EC%A1%B0%EC%84%A0%EB%AF%BC%EC%A3%BC%EC%A3%BC%EC%9D%98%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD%EC%9D%98_%ED%86%B5%EC%8B%A0>
+  * 관광
+    <https://ko.wikipedia.org/w/index.php?title=%EC%A1%B0%EC%84%A0%EB%AF%BC%EC%A3%BC%EC%A3%BC%EC%9D%98%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD%EC%9D%98_%EA%B4%80%EA%B4%91&action=edit&redlink=1>
+  * 교통
+    <https://ko.wikipedia.org/w/index.php?title=%EC%A1%B0%EC%84%A0%EB%AF%BC%EC%A3%BC%EC%A3%BC%EC%9D%98%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD%EC%9D%98_%EA%B5%90%ED%86%B5&action=edit&redlink=1>
+  * 조선민주주의인민공화국 원
+    <https://ko.wikipedia.org/wiki/%EC%A1%B0%EC%84%A0%EB%AF%BC%EC%A3%BC%EC%A3%BC%EC%9D%98%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD_%EC%9B%90>
+
+[보이기 <#>]
+인구 통계
+
+  * 한민족 <https://ko.wikipedia.org/wiki/%ED%95%9C%EB%AF%BC%EC%A1%B1>
+      o 목록
+        <https://ko.wikipedia.org/wiki/%EB%B6%84%EB%A5%98:%ED%95%9C%EA%B5%AD%EA%B3%84_%EC%82%AC%EB%9E%8C>
+  * 코리아타운
+    <https://ko.wikipedia.org/wiki/%EC%BD%94%EB%A6%AC%EC%95%84%ED%83%80%EC%9A%B4>
+  * 한국어
+      o 한글 <https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B8%80>
+      o 한자 <https://ko.wikipedia.org/wiki/%ED%95%9C%EC%9E%90>
+  * 이름과 성씨
+    <https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%9D%98_%EC%84%B1%EC%94%A8%EC%99%80_%EC%9D%B4%EB%A6%84>
+  * 대한민국
+    <https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%EC%9D%98_%EC%9D%B8%EA%B5%AC>
+
+      o 국제 입양
+        <https://ko.wikipedia.org/w/index.php?title=%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD_%EC%95%84%EC%9D%B4%EC%9D%98_%EA%B5%AD%EC%A0%9C_%EC%9E%85%EC%96%91&action=edit&redlink=1>
+      o 2010년 인구주택총조사
+        <https://ko.wikipedia.org/w/index.php?title=2010%EB%85%84_%EC%9D%B8%EA%B5%AC%EC%A3%BC%ED%83%9D%EC%B4%9D%EC%A1%B0%EC%82%AC&action=edit&redlink=1>
+      o 고령화 문제
+        <https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%EC%9D%98_%EA%B3%A0%EB%A0%B9%ED%99%94_%EB%AC%B8%EC%A0%9C>
+  * 조선민주주의인민공화국
+    <https://ko.wikipedia.org/w/index.php?title=%EC%A1%B0%EC%84%A0%EB%AF%BC%EC%A3%BC%EC%A3%BC%EC%9D%98%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD%EC%9D%98_%EC%9D%B8%EA%B5%AC&action=edit&redlink=1>
+
+[보이기 <#>]
+문화
+<https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%9D%98_%EB%AC%B8%ED%99%94>
+일반 	
+
+  * 영화
+    <https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%9D%98_%EC%98%81%ED%99%94>
+  * 요리
+    <https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD_%EC%9A%94%EB%A6%AC>
+  * 무술
+    <https://ko.wikipedia.org/w/index.php?title=%ED%95%9C%EA%B5%AD_%EB%AC%B4%EC%88%A0&action=edit&redlink=1>
+  * 신화
+    <https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD_%EC%8B%A0%ED%99%94>
+  * 철학
+    <https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD_%EC%B2%A0%ED%95%99>
+  * 종교
+    <https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%9D%98_%EC%A2%85%EA%B5%90>
+  * 씨름 <https://ko.wikipedia.org/wiki/%EC%94%A8%EB%A6%84>
+  * 검
+    <https://ko.wikipedia.org/w/index.php?title=%ED%95%9C%EA%B5%AD_%EA%B2%80&action=edit&redlink=1>
+  * 다례 <https://ko.wikipedia.org/wiki/%EB%8B%A4%EB%A1%80>
+
+미술
+<https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%9D%98_%EB%AF%B8%EC%88%A0>
+	
+
+  * 건축
+    <https://ko.wikipedia.org/w/index.php?title=%ED%95%9C%EA%B5%AD%EC%9D%98_%EA%B1%B4%EC%B6%95&action=edit&redlink=1>
+  * 서예
+    <https://ko.wikipedia.org/w/index.php?title=%ED%95%9C%EA%B5%AD%EC%9D%98_%EC%84%9C%EC%98%88&action=edit&redlink=1>
+  * 드라마
+    <https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%EC%9D%98_%ED%85%94%EB%A0%88%EB%B9%84%EC%A0%84_%EB%93%9C%EB%9D%BC%EB%A7%88>
+  * 문학
+    <https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD_%EB%AC%B8%ED%95%99>
+  * 음악
+    <https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%9D%8C%EC%95%85>
+  * 한국화 <https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%ED%99%94>
+  * 도자기
+    <https://ko.wikipedia.org/w/index.php?title=%ED%95%9C%EA%B5%AD%EC%9D%98_%EB%8F%84%EC%9E%90%EA%B8%B0&action=edit&redlink=1>
+
+대한민국
+<https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%EC%9D%98_%EB%AC%B8%ED%99%94>
+	
+
+  * 교육
+    <https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%EC%9D%98_%EA%B5%90%EC%9C%A1>
+  * K-pop <https://ko.wikipedia.org/wiki/K-pop>
+  * 한류
+    <https://ko.wikipedia.org/wiki/%ED%95%9C%EB%A5%98_(%EB%AC%B8%ED%99%94)>
+  * 결혼
+    <https://ko.wikipedia.org/w/index.php?title=%ED%95%9C%EA%B5%AD%EC%9D%98_%EA%B2%B0%ED%98%BC_%EB%AC%B8%ED%99%94&action=edit&redlink=1>
+  * 종교
+    <https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%EC%9D%98_%EC%A2%85%EA%B5%90>
+  * 성 관념
+    <https://ko.wikipedia.org/w/index.php?title=%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%EC%9D%98_%EC%84%B1_%EA%B4%80%EB%85%90&action=edit&redlink=1>
+
+      o 여성주의
+        <https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%EC%9D%98_%EC%97%AC%EC%84%B1%EC%A3%BC%EC%9D%98>
+      o LGBT 역사
+        <https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%EC%9D%98_%EC%84%B1%EC%86%8C%EC%88%98%EC%9E%90_%EC%97%AD%EC%82%AC>
+  * 흡연
+    <https://ko.wikipedia.org/w/index.php?title=%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%EC%9D%98_%ED%9D%A1%EC%97%B0&action=edit&redlink=1>
+  * 스포츠
+    <https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%EC%9D%98_%EC%8A%A4%ED%8F%AC%EC%B8%A0>
+
+조선민주주의인민공화국
+<https://ko.wikipedia.org/wiki/%EC%A1%B0%EC%84%A0%EB%AF%BC%EC%A3%BC%EC%A3%BC%EC%9D%98%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD%EC%9D%98_%EB%AC%B8%ED%99%94>
+	
+
+  * 아리랑 축제
+    <https://ko.wikipedia.org/wiki/%EC%95%84%EB%A6%AC%EB%9E%91_%EC%B6%95%EC%A0%9C>
+  * 교육
+    <https://ko.wikipedia.org/wiki/%EC%A1%B0%EC%84%A0%EB%AF%BC%EC%A3%BC%EC%A3%BC%EC%9D%98%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD%EC%9D%98_%EA%B5%90%EC%9C%A1>
+  * 주체사상
+    <https://ko.wikipedia.org/wiki/%EC%A3%BC%EC%B2%B4%EC%82%AC%EC%83%81>
+  * 프로파간다
+    <https://ko.wikipedia.org/w/index.php?title=%EC%A1%B0%EC%84%A0%EB%AF%BC%EC%A3%BC%EC%A3%BC%EC%9D%98%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD%EC%9D%98_%ED%94%84%EB%A1%9C%ED%8C%8C%EA%B0%84%EB%8B%A4&action=edit&redlink=1>
+  * 종교
+    <https://ko.wikipedia.org/wiki/%EC%A1%B0%EC%84%A0%EB%AF%BC%EC%A3%BC%EC%A3%BC%EC%9D%98%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD%EC%9D%98_%EC%A2%85%EA%B5%90>
+  * 스포츠
+    <https://ko.wikipedia.org/w/index.php?title=%EC%A1%B0%EC%84%A0%EB%AF%BC%EC%A3%BC%EC%A3%BC%EC%9D%98%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD%EC%9D%98_%EC%8A%A4%ED%8F%AC%EC%B8%A0&action=edit&redlink=1>
+
+전거 통제
+<https://ko.wikipedia.org/wiki/%EC%A0%84%EA%B1%B0_%ED%86%B5%EC%A0%9C>	
+
+  * NDL
+    <https://ko.wikipedia.org/wiki/%EA%B5%AD%EB%A6%BD%EA%B5%AD%ED%9A%8C%EB%8F%84%EC%84%9C%EA%B4%80>:
+    00573711 <http://id.ndl.go.jp/auth/ndlna/00573711>
+
+원본 주소 "https://ko.wikipedia.org/w/index.php?title=한국어&
+oldid=21066599
+<https://ko.wikipedia.org/w/index.php?title=%ED%95%9C%EA%B5%AD%EC%96%B4&oldid=21066599>"
+
+분류 <https://ko.wikipedia.org/wiki/%ED%8A%B9%EC%88%98:%EB%B6%84%EB%A5%98>:
+
+  * 출처가 필요한 글/2007년 11월
+    <https://ko.wikipedia.org/wiki/%EB%B6%84%EB%A5%98:%EC%B6%9C%EC%B2%98%EA%B0%80_%ED%95%84%EC%9A%94%ED%95%9C_%EA%B8%80/2007%EB%85%84_11%EC%9B%94>
+  * 출처가 필요한 글/2010년 5월
+    <https://ko.wikipedia.org/wiki/%EB%B6%84%EB%A5%98:%EC%B6%9C%EC%B2%98%EA%B0%80_%ED%95%84%EC%9A%94%ED%95%9C_%EA%B8%80/2010%EB%85%84_5%EC%9B%94>
+  * 출처가 필요한 글/2017년 12월
+    <https://ko.wikipedia.org/wiki/%EB%B6%84%EB%A5%98:%EC%B6%9C%EC%B2%98%EA%B0%80_%ED%95%84%EC%9A%94%ED%95%9C_%EA%B8%80/2017%EB%85%84_12%EC%9B%94>
+  * 한국어
+    <https://ko.wikipedia.org/wiki/%EB%B6%84%EB%A5%98:%ED%95%9C%EA%B5%AD%EC%96%B4>
+  * 대한민국의 언어
+    <https://ko.wikipedia.org/wiki/%EB%B6%84%EB%A5%98:%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%EC%9D%98_%EC%96%B8%EC%96%B4>
+  * 조선민주주의인민공화국의 언어
+    <https://ko.wikipedia.org/wiki/%EB%B6%84%EB%A5%98:%EC%A1%B0%EC%84%A0%EB%AF%BC%EC%A3%BC%EC%A3%BC%EC%9D%98%EC%9D%B8%EB%AF%BC%EA%B3%B5%ED%99%94%EA%B5%AD%EC%9D%98_%EC%96%B8%EC%96%B4>
+  * 중국의 언어
+    <https://ko.wikipedia.org/wiki/%EB%B6%84%EB%A5%98:%EC%A4%91%EA%B5%AD%EC%9D%98_%EC%96%B8%EC%96%B4>
+  * 일본의 언어
+    <https://ko.wikipedia.org/wiki/%EB%B6%84%EB%A5%98:%EC%9D%BC%EB%B3%B8%EC%9D%98_%EC%96%B8%EC%96%B4>
+  * 미국의 언어
+    <https://ko.wikipedia.org/wiki/%EB%B6%84%EB%A5%98:%EB%AF%B8%EA%B5%AD%EC%9D%98_%EC%96%B8%EC%96%B4>
+  * 캐나다의 언어
+    <https://ko.wikipedia.org/wiki/%EB%B6%84%EB%A5%98:%EC%BA%90%EB%82%98%EB%8B%A4%EC%9D%98_%EC%96%B8%EC%96%B4>
+  * 한국의 상징
+    <https://ko.wikipedia.org/wiki/%EB%B6%84%EB%A5%98:%ED%95%9C%EA%B5%AD%EC%9D%98_%EC%83%81%EC%A7%95>
+  * 교착어
+    <https://ko.wikipedia.org/wiki/%EB%B6%84%EB%A5%98:%EA%B5%90%EC%B0%A9%EC%96%B4>
+  * SOV형 언어
+    <https://ko.wikipedia.org/wiki/%EB%B6%84%EB%A5%98:SOV%ED%98%95_%EC%96%B8%EC%96%B4>
+
+숨은 분류:
+
+  * CS1 - 영어 인용 (en)
+    <https://ko.wikipedia.org/wiki/%EB%B6%84%EB%A5%98:CS1_-_%EC%98%81%EC%96%B4_%EC%9D%B8%EC%9A%A9_(en)>
+  * 중국어 표기를 포함한 문서
+    <https://ko.wikipedia.org/wiki/%EB%B6%84%EB%A5%98:%EC%A4%91%EA%B5%AD%EC%96%B4_%ED%91%9C%EA%B8%B0%EB%A5%BC_%ED%8F%AC%ED%95%A8%ED%95%9C_%EB%AC%B8%EC%84%9C>
+  * 일본어 표기를 포함한 문서
+    <https://ko.wikipedia.org/wiki/%EB%B6%84%EB%A5%98:%EC%9D%BC%EB%B3%B8%EC%96%B4_%ED%91%9C%EA%B8%B0%EB%A5%BC_%ED%8F%AC%ED%95%A8%ED%95%9C_%EB%AC%B8%EC%84%9C>
+  * 베트남어 표기를 포함한 문서
+    <https://ko.wikipedia.org/wiki/%EB%B6%84%EB%A5%98:%EB%B2%A0%ED%8A%B8%EB%82%A8%EC%96%B4_%ED%91%9C%EA%B8%B0%EB%A5%BC_%ED%8F%AC%ED%95%A8%ED%95%9C_%EB%AC%B8%EC%84%9C>
+  * 출처가 필요한 글
+    <https://ko.wikipedia.org/wiki/%EB%B6%84%EB%A5%98:%EC%B6%9C%EC%B2%98%EA%B0%80_%ED%95%84%EC%9A%94%ED%95%9C_%EA%B8%80>
+  * 출처가 필요한 모든 글
+    <https://ko.wikipedia.org/wiki/%EB%B6%84%EB%A5%98:%EC%B6%9C%EC%B2%98%EA%B0%80_%ED%95%84%EC%9A%94%ED%95%9C_%EB%AA%A8%EB%93%A0_%EA%B8%80>
+  * 문장에 출처가 필요한 글
+    <https://ko.wikipedia.org/wiki/%EB%B6%84%EB%A5%98:%EB%AC%B8%EC%9E%A5%EC%97%90_%EC%B6%9C%EC%B2%98%EA%B0%80_%ED%95%84%EC%9A%94%ED%95%9C_%EA%B8%80>
+  * 문단에 출처가 필요한 글
+    <https://ko.wikipedia.org/wiki/%EB%B6%84%EB%A5%98:%EB%AC%B8%EB%8B%A8%EC%97%90_%EC%B6%9C%EC%B2%98%EA%B0%80_%ED%95%84%EC%9A%94%ED%95%9C_%EA%B8%80>
+
+
+    둘러보기 메뉴
+
+
+개인 도구
+
+  * 로그인하지 않음
+  * 토론
+    <https://ko.wikipedia.org/wiki/%ED%8A%B9%EC%88%98:%EB%82%B4%EC%82%AC%EC%9A%A9%EC%9E%90%ED%86%A0%EB%A1%A0>
+  * 기여
+    <https://ko.wikipedia.org/wiki/%ED%8A%B9%EC%88%98:%EB%82%B4%EA%B8%B0%EC%97%AC>
+  * 계정 만들기
+    <https://ko.wikipedia.org/w/index.php?title=%ED%8A%B9%EC%88%98:%EA%B3%84%EC%A0%95%EB%A7%8C%EB%93%A4%EA%B8%B0&returnto=%ED%95%9C%EA%B5%AD%EC%96%B4>
+  * 로그인
+    <https://ko.wikipedia.org/w/index.php?title=%ED%8A%B9%EC%88%98:%EB%A1%9C%EA%B7%B8%EC%9D%B8&returnto=%ED%95%9C%EA%B5%AD%EC%96%B4>
+
+
+이름공간
+
+  * 문서 <https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4>
+  * 토론
+    <https://ko.wikipedia.org/wiki/%ED%86%A0%EB%A1%A0:%ED%95%9C%EA%B5%AD%EC%96%B4>
+
+
+      변수
+
+
+보기
+
+  * 읽기 <https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4>
+  * 편집
+    <https://ko.wikipedia.org/w/index.php?title=%ED%95%9C%EA%B5%AD%EC%96%B4&action=edit>
+  * 역사 보기
+    <https://ko.wikipedia.org/w/index.php?title=%ED%95%9C%EA%B5%AD%EC%96%B4&action=history>
+
+
+      더 보기
+
+
+      검색
+
+<https://ko.wikipedia.org/wiki/%EC%9C%84%ED%82%A4%EB%B0%B1%EA%B3%BC:%EB%8C%80%EB%AC%B8>
+
+
+둘러보기
+
+  * 대문
+    <https://ko.wikipedia.org/wiki/%EC%9C%84%ED%82%A4%EB%B0%B1%EA%B3%BC:%EB%8C%80%EB%AC%B8>
+  * 사용자 모임
+    <https://ko.wikipedia.org/wiki/%EC%9C%84%ED%82%A4%EB%B0%B1%EA%B3%BC:%EC%82%AC%EC%9A%A9%EC%9E%90_%EB%AA%A8%EC%9E%84>
+  * 요즘 화제
+    <https://ko.wikipedia.org/wiki/%ED%8F%AC%ED%84%B8:%EC%9A%94%EC%A6%98_%ED%99%94%EC%A0%9C>
+  * 최근 바뀜
+    <https://ko.wikipedia.org/wiki/%ED%8A%B9%EC%88%98:%EC%B5%9C%EA%B7%BC%EB%B0%94%EB%80%9C>
+  * 모든 문서 보기
+    <https://ko.wikipedia.org/wiki/%ED%8A%B9%EC%88%98:%EB%AA%A8%EB%93%A0%EB%AC%B8%EC%84%9C>
+  * 임의 문서로
+    <https://ko.wikipedia.org/wiki/%ED%8A%B9%EC%88%98:%EC%9E%84%EC%9D%98%EB%AC%B8%EC%84%9C>
+  * 도움말
+    <https://ko.wikipedia.org/wiki/%EC%9C%84%ED%82%A4%EB%B0%B1%EA%B3%BC:%EB%8F%84%EC%9B%80%EB%A7%90>
+  * 기부
+    <https://donate.wikimedia.org/wiki/Special:FundraiserRedirector?utm_source=donate&utm_medium=sidebar&utm_campaign=C13_ko.wikipedia.org&uselang=ko>
+
+
+      도구
+
+  * 여기를 가리키는 문서
+    <https://ko.wikipedia.org/wiki/%ED%8A%B9%EC%88%98:%EA%B0%80%EB%A6%AC%ED%82%A4%EB%8A%94%EB%AC%B8%EC%84%9C/%ED%95%9C%EA%B5%AD%EC%96%B4>
+  * 가리키는 글의 최근 바뀜
+    <https://ko.wikipedia.org/wiki/%ED%8A%B9%EC%88%98:%EB%A7%81%ED%81%AC%EC%B5%9C%EA%B7%BC%EB%B0%94%EB%80%9C/%ED%95%9C%EA%B5%AD%EC%96%B4>
+  * 파일 올리기
+    <https://ko.wikipedia.org/wiki/%EC%9C%84%ED%82%A4%EB%B0%B1%EA%B3%BC:%ED%8C%8C%EC%9D%BC_%EC%98%AC%EB%A6%AC%EA%B8%B0>
+  * 특수 문서 목록
+    <https://ko.wikipedia.org/wiki/%ED%8A%B9%EC%88%98:%ED%8A%B9%EC%88%98%EB%AC%B8%EC%84%9C>
+  * 고유 링크
+    <https://ko.wikipedia.org/w/index.php?title=%ED%95%9C%EA%B5%AD%EC%96%B4&oldid=21066599>
+  * 문서 정보
+    <https://ko.wikipedia.org/w/index.php?title=%ED%95%9C%EA%B5%AD%EC%96%B4&action=info>
+  * 위키데이터 항목 <https://www.wikidata.org/wiki/Special:EntityPage/Q9176>
+  * 이 문서 인용하기
+    <https://ko.wikipedia.org/w/index.php?title=%ED%8A%B9%EC%88%98:%EC%9D%B4%EB%AC%B8%EC%84%9C%EC%9D%B8%EC%9A%A9&page=%ED%95%9C%EA%B5%AD%EC%96%B4&id=21066599>
+
+
+      인쇄/내보내기
+
+  * 책 만들기
+    <https://ko.wikipedia.org/w/index.php?title=%ED%8A%B9%EC%88%98:%EC%B1%85&bookcmd=book_creator&referer=%ED%95%9C%EA%B5%AD%EC%96%B4>
+  * PDF로 다운로드
+    <https://ko.wikipedia.org/w/index.php?title=%ED%8A%B9%EC%88%98:ElectronPdf&page=%ED%95%9C%EA%B5%AD%EC%96%B4&action=show-download-screen>
+  * 인쇄용 판
+    <https://ko.wikipedia.org/w/index.php?title=%ED%95%9C%EA%B5%AD%EC%96%B4&printable=yes>
+
+
+      다른 프로젝트
+
+  * 위키미디어 공용
+    <https://commons.wikimedia.org/wiki/Category:Korean_language>
+  * 위키책
+    <https://ko.wikibooks.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EC%9E%85%EB%AC%B8>
+
+
+      다른 언어
+
+  * Аҧсшәа
+    <https://ab.wikipedia.org/wiki/%D0%90%D0%BA%D0%BE%D1%80%D0%B5%D0%B8_%D0%B1%D1%8B%D0%B7%D1%88%D3%99%D0%B0>
+  * Afrikaans <https://af.wikipedia.org/wiki/Koreaans>
+  * አማርኛ
+    <https://am.wikipedia.org/wiki/%E1%8A%AE%E1%88%AA%E1%8B%AD%E1%8A%9B>
+  * Aragonés <https://an.wikipedia.org/wiki/Idioma_cori%C3%A1n>
+  * العربية
+    <https://ar.wikipedia.org/wiki/%D9%84%D8%BA%D8%A9_%D9%83%D9%88%D8%B1%D9%8A%D8%A9>
+  * Asturianu <https://ast.wikipedia.org/wiki/Idioma_coreanu>
+  * Azərbaycanca <https://az.wikipedia.org/wiki/Koreya_dili>
+  * تۆرکجه
+    <https://azb.wikipedia.org/wiki/%DA%A9%D9%88%D8%B1%D9%87_%D8%AF%DB%8C%D9%84%DB%8C>
+  * Башҡортса
+    <https://ba.wikipedia.org/wiki/%D0%9A%D0%BE%D1%80%D0%B5%D0%B9_%D1%82%D0%B5%D0%BB%D0%B5>
+  * Bikol Central <https://bcl.wikipedia.org/wiki/Koreano>
+  * Беларуская
+    <https://be.wikipedia.org/wiki/%D0%9A%D0%B0%D1%80%D1%8D%D0%B9%D1%81%D0%BA%D0%B0%D1%8F_%D0%BC%D0%BE%D0%B2%D0%B0>
+  * Беларуская (тарашкевіца)‎
+    <https://be-x-old.wikipedia.org/wiki/%D0%9A%D0%B0%D1%80%D1%8D%D0%B9%D1%81%D0%BA%D0%B0%D1%8F_%D0%BC%D0%BE%D0%B2%D0%B0>
+  * Български
+    <https://bg.wikipedia.org/wiki/%D0%9A%D0%BE%D1%80%D0%B5%D0%B9%D1%81%D0%BA%D0%B8_%D0%B5%D0%B7%D0%B8%D0%BA>
+  * বাংলা
+    <https://bn.wikipedia.org/wiki/%E0%A6%95%E0%A7%8B%E0%A6%B0%E0%A7%80%E0%A6%AF%E0%A6%BC_%E0%A6%AD%E0%A6%BE%E0%A6%B7%E0%A6%BE>
+  * Brezhoneg <https://br.wikipedia.org/wiki/Koreaneg>
+  * Bosanski <https://bs.wikipedia.org/wiki/Korejski_jezik>
+  * Буряад
+    <https://bxr.wikipedia.org/wiki/%D0%A1%D0%BE%D0%BB%D0%BE%D0%BD%D0%B3%D0%BE%D1%81_%D1%85%D1%8D%D0%BB%D1%8D%D0%BD>
+  * Català <https://ca.wikipedia.org/wiki/Core%C3%A0>
+  * Mìng-dĕ̤ng-ngṳ̄
+    <https://cdo.wikipedia.org/wiki/H%C3%A0ng-gu%C3%B3k-ng%E1%B9%B3%CC%84>
+  * Нохчийн
+    <https://ce.wikipedia.org/wiki/%D0%9A%D0%BE%D1%80%D0%B5%D0%B9%D1%85%D0%BE%D0%B9%D0%BD_%D0%BC%D0%BE%D1%82%D1%82>
+  * Cebuano <https://ceb.wikipedia.org/wiki/Pinulongang_Koreano>
+  * ᏣᎳᎩ <https://chr.wikipedia.org/wiki/%E1%8E%AA%E1%8E%B5%E1%8E%A5>
+  * کوردی <https://ckb.wikipedia.org/wiki/%DA%A9%DB%86%D8%B1%DB%8C>
+  * Čeština <https://cs.wikipedia.org/wiki/Korej%C5%A1tina>
+  * Kaszëbsczi
+    <https://csb.wikipedia.org/wiki/K%C3%B2reja%C5%84sczi_j%C3%A3z%C3%ABk>
+  * Cymraeg <https://cy.wikipedia.org/wiki/Coreeg>
+  * Dansk <https://da.wikipedia.org/wiki/Koreansk_(sprog)>
+  * Deutsch <https://de.wikipedia.org/wiki/Koreanische_Sprache>
+  * ދިވެހިބަސް
+    <https://dv.wikipedia.org/wiki/%DE%86%DE%AE%DE%83%DE%AC%DE%94%DE%A7_%DE%84%DE%A6%DE%90%DE%B0>
+  * Ελληνικά
+    <https://el.wikipedia.org/wiki/%CE%9A%CE%BF%CF%81%CE%B5%CE%B1%CF%84%CE%B9%CE%BA%CE%AE_%CE%B3%CE%BB%CF%8E%CF%83%CF%83%CE%B1>
+  * English <https://en.wikipedia.org/wiki/Korean_language>
+  * Esperanto <https://eo.wikipedia.org/wiki/Korea_lingvo>
+  * Español <https://es.wikipedia.org/wiki/Idioma_coreano>
+  * Eesti <https://et.wikipedia.org/wiki/Korea_keel>
+  * Euskara <https://eu.wikipedia.org/wiki/Koreera>
+  * فارسی
+    <https://fa.wikipedia.org/wiki/%D8%B2%D8%A8%D8%A7%D9%86_%DA%A9%D8%B1%D9%87%E2%80%8C%D8%A7%DB%8C>
+  * Suomi <https://fi.wikipedia.org/wiki/Korean_kieli>
+  * Võro <https://fiu-vro.wikipedia.org/wiki/Korea_kiil>
+  * Føroyskt <https://fo.wikipedia.org/wiki/Koreanskt_m%C3%A1l>
+  * Français <https://fr.wikipedia.org/wiki/Cor%C3%A9en>
+  * Nordfriisk <https://frr.wikipedia.org/wiki/Koreaans>
+  * Frysk <https://fy.wikipedia.org/wiki/Koreaansk>
+  * Gaeilge <https://ga.wikipedia.org/wiki/An_Ch%C3%B3ir%C3%A9is>
+  * 贛語
+    <https://gan.wikipedia.org/wiki/Th%C3%A0nh_vi%C3%AAn:MBGR-Wikipedia>
+  * Galego <https://gl.wikipedia.org/wiki/Lingua_coreana>
+  * Avañe'ẽ <https://gn.wikipedia.org/wiki/Korea%C3%B1e%27%E1%BA%BD>
+  * 客家語/Hak-kâ-ngî
+    <https://hak.wikipedia.org/wiki/H%C3%B2n-koet-ng%C3%AE>
+  * עברית
+    <https://he.wikipedia.org/wiki/%D7%A7%D7%95%D7%A8%D7%99%D7%90%D7%A0%D7%99%D7%AA>
+  * हिन्दी
+    <https://hi.wikipedia.org/wiki/%E0%A4%95%E0%A5%8B%E0%A4%B0%E0%A4%BF%E0%A4%AF%E0%A4%BE%E0%A4%88_%E0%A4%AD%E0%A4%BE%E0%A4%B7%E0%A4%BE>
+  * Fiji Hindi <https://hif.wikipedia.org/wiki/Korean_bhasa>
+  * Hrvatski <https://hr.wikipedia.org/wiki/Korejski_jezik>
+  * Hornjoserbsce <https://hsb.wikipedia.org/wiki/Korej%C5%A1%C4%87ina>
+  * Kreyòl ayisyen <https://ht.wikipedia.org/wiki/Lang_kore>
+  * Magyar <https://hu.wikipedia.org/wiki/Koreai_nyelv>
+  * Հայերեն
+    <https://hy.wikipedia.org/wiki/%D4%BF%D5%B8%D6%80%D5%A5%D5%A5%D6%80%D5%A5%D5%B6>
+  * Interlingua <https://ia.wikipedia.org/wiki/Lingua_corean>
+  * Bahasa Indonesia <https://id.wikipedia.org/wiki/Bahasa_Korea>
+  * Ilokano <https://ilo.wikipedia.org/wiki/Pagsasao_a_Koreano>
+  * Ido <https://io.wikipedia.org/wiki/Koreana_linguo>
+  * Íslenska <https://is.wikipedia.org/wiki/K%C3%B3reska>
+  * Italiano <https://it.wikipedia.org/wiki/Lingua_coreana>
+  * ᐃᓄᒃᑎᑐᑦ/inuktitut
+    <https://iu.wikipedia.org/wiki/%E1%91%AF%E1%95%86%E1%90%8A%E1%91%8E%E1%91%90%E1%91%A6>
+  * 日本語 <https://ja.wikipedia.org/wiki/%E6%9C%9D%E9%AE%AE%E8%AA%9E>
+  * Basa Jawa <https://jv.wikipedia.org/wiki/Basa_Kor%C3%A9a>
+  * ქართული
+    <https://ka.wikipedia.org/wiki/%E1%83%99%E1%83%9D%E1%83%A0%E1%83%94%E1%83%A3%E1%83%9A%E1%83%98_%E1%83%94%E1%83%9C%E1%83%90>
+  * Qaraqalpaqsha <https://kaa.wikipedia.org/wiki/Koreys_tili>
+  * Kabɩyɛ
+    <https://kbp.wikipedia.org/wiki/Koorey%C9%9B_k%CA%8An%CA%8A%C5%8B>
+  * Қазақша
+    <https://kk.wikipedia.org/wiki/%D0%9A%D0%BE%D1%80%D0%B5%D0%B9_%D1%82%D1%96%D0%BB%D1%96>
+  * Kalaallisut <https://kl.wikipedia.org/wiki/Koreamiusut>
+  * ភាសាខ្មែរ
+    <https://km.wikipedia.org/wiki/%E1%9E%97%E1%9E%B6%E1%9E%9F%E1%9E%B6%E1%9E%80%E1%9E%BC%E1%9E%9A%E1%9F%89%E1%9F%81>
+  * ಕನ್ನಡ
+    <https://kn.wikipedia.org/wiki/%E0%B2%95%E0%B3%8A%E0%B2%B0%E0%B2%BF%E0%B2%AF%E0%B2%BE%E0%B2%A6_%E0%B2%AD%E0%B2%BE%E0%B2%B7%E0%B3%86>
+  * Kurdî <https://ku.wikipedia.org/wiki/Ziman%C3%AA_kor%C3%AAy%C3%AE>
+  * Коми
+    <https://kv.wikipedia.org/wiki/%D0%9A%D0%BE%D1%80%D0%B5%D1%8F_%D0%BA%D1%8B%D0%B2>
+  * Kernowek <https://kw.wikipedia.org/wiki/Koreek>
+  * Кыргызча
+    <https://ky.wikipedia.org/wiki/%D0%9A%D0%BE%D1%80%D0%B5%D0%B9_%D1%82%D0%B8%D0%BB%D0%B8>
+  * Latina <https://la.wikipedia.org/wiki/Lingua_Coreana>
+  * Лезги
+    <https://lez.wikipedia.org/wiki/%D0%9A%D0%BE%D1%80%D0%B5%D0%B9_%D1%87%D3%80%D0%B0%D0%BB>
+  * Limburgs <https://li.wikipedia.org/wiki/Koreaans>
+  * ລາວ
+    <https://lo.wikipedia.org/wiki/%E0%BA%9E%E0%BA%B2%E0%BA%AA%E0%BA%B2%E0%BB%80%E0%BA%81%E0%BA%BB%E0%BA%B2%E0%BA%AB%E0%BA%BC%E0%BA%B5>
+  * Lietuvių <https://lt.wikipedia.org/wiki/Kor%C4%97jie%C4%8Di%C5%B3_kalba>
+  * Latviešu <https://lv.wikipedia.org/wiki/Korejie%C5%A1u_valoda>
+  * Malagasy <https://mg.wikipedia.org/wiki/Fiteny_koreanina>
+  * Олык марий
+    <https://mhr.wikipedia.org/wiki/%D0%9A%D0%BE%D1%80%D0%B5%D0%B9_%D0%B9%D1%8B%D0%BB%D0%BC%D0%B5>
+  * Māori <https://mi.wikipedia.org/wiki/Reo_K%C5%8Drea>
+  * Македонски
+    <https://mk.wikipedia.org/wiki/%D0%9A%D0%BE%D1%80%D0%B5%D1%98%D1%81%D0%BA%D0%B8_%D1%98%D0%B0%D0%B7%D0%B8%D0%BA>
+  * മലയാളം
+    <https://ml.wikipedia.org/wiki/%E0%B4%95%E0%B5%8A%E0%B4%B1%E0%B4%BF%E0%B4%AF%E0%B5%BB_%E0%B4%AD%E0%B4%BE%E0%B4%B7>
+  * Монгол
+    <https://mn.wikipedia.org/wiki/%D0%A1%D0%BE%D0%BB%D0%BE%D0%BD%D0%B3%D0%BE%D1%81_%D1%85%D1%8D%D0%BB>
+  * मराठी
+    <https://mr.wikipedia.org/wiki/%E0%A4%95%E0%A5%8B%E0%A4%B0%E0%A4%BF%E0%A4%AF%E0%A4%A8_%E0%A4%AD%E0%A4%BE%E0%A4%B7%E0%A4%BE>
+  * Bahasa Melayu <https://ms.wikipedia.org/wiki/Bahasa_Korea>
+  * မြန်မာဘာသာ
+    <https://my.wikipedia.org/wiki/%E1%80%80%E1%80%AD%E1%80%AF%E1%80%9B%E1%80%AE%E1%80%B8%E1%80%9A%E1%80%AC%E1%80%B8%E1%80%98%E1%80%AC%E1%80%9E%E1%80%AC%E1%80%85%E1%80%80%E1%80%AC%E1%80%B8>
+  * Эрзянь
+    <https://myv.wikipedia.org/wiki/%D0%9A%D0%BE%D1%80%D0%B5%D1%8F%D0%BD%D1%8C_%D0%BA%D0%B5%D0%BB%D1%8C>
+  * مازِرونی
+    <https://mzn.wikipedia.org/wiki/%DA%A9%D8%B1%D9%87%E2%80%8C%DB%8C%DB%8C>
+  * Dorerin Naoero <https://na.wikipedia.org/wiki/Dorerin_Korea>
+  * Nāhuatl <https://nah.wikipedia.org/wiki/Coreatlahtolli>
+  * Napulitano <https://nap.wikipedia.org/wiki/Lengua_coreana>
+  * Plattdüütsch <https://nds.wikipedia.org/wiki/Koreaansche_Spraak>
+  * नेपाली
+    <https://ne.wikipedia.org/wiki/%E0%A4%95%E0%A5%8B%E0%A4%B0%E0%A4%BF%E0%A4%AF%E0%A4%BE%E0%A4%B2%E0%A5%80_%E0%A4%AD%E0%A4%BE%E0%A4%B7%E0%A4%BE>
+  * नेपाल भाषा
+    <https://new.wikipedia.org/wiki/%E0%A4%95%E0%A5%8B%E0%A4%B0%E0%A4%BF%E0%A4%AF%E0%A4%A8_%E0%A4%AD%E0%A4%BE%E0%A4%B7%E0%A4%BE>
+  * Nederlands <https://nl.wikipedia.org/wiki/Koreaans>
+  * Norsk nynorsk <https://nn.wikipedia.org/wiki/Koreansk>
+  * Norsk <https://no.wikipedia.org/wiki/Koreansk>
+  * Occitan <https://oc.wikipedia.org/wiki/Corean>
+  * ਪੰਜਾਬੀ
+    <https://pa.wikipedia.org/wiki/%E0%A8%95%E0%A9%8B%E0%A8%B0%E0%A9%80%E0%A8%85%E0%A8%A8_%E0%A8%AD%E0%A8%BE%E0%A8%B8%E0%A8%BC%E0%A8%BE>
+  * Kapampangan <https://pam.wikipedia.org/wiki/Amanung_Koreanu>
+  * Polski <https://pl.wikipedia.org/wiki/J%C4%99zyk_korea%C5%84ski>
+  * Piemontèis <https://pms.wikipedia.org/wiki/Lenga_corean>
+  * پنجابی
+    <https://pnb.wikipedia.org/wiki/%DA%A9%D9%88%D8%B1%DB%8C%D8%A7%D8%A6%DB%8C>
+  * Português <https://pt.wikipedia.org/wiki/L%C3%ADngua_coreana>
+  * Runa Simi <https://qu.wikipedia.org/wiki/Kuryu_simi>
+  * Română <https://ro.wikipedia.org/wiki/Limba_coreean%C4%83>
+  * Русский
+    <https://ru.wikipedia.org/wiki/%D0%9A%D0%BE%D1%80%D0%B5%D0%B9%D1%81%D0%BA%D0%B8%D0%B9_%D1%8F%D0%B7%D1%8B%D0%BA>
+  * संस्कृतम्
+    <https://sa.wikipedia.org/wiki/%E0%A4%95%E0%A5%8B%E0%A4%B0%E0%A4%BF%E0%A4%AF%E0%A4%BE%E0%A4%B2%E0%A4%BF_%E0%A4%AD%E0%A4%BE%E0%A4%B7%E0%A4%BE>
+  * Саха тыла
+    <https://sah.wikipedia.org/wiki/%D0%9A%D1%8D%D1%80%D0%B8%D1%8D%D0%B9_%D1%82%D1%8B%D0%BB%D0%B0>
+  * Sardu <https://sc.wikipedia.org/wiki/Limba_coreana>
+  * Scots <https://sco.wikipedia.org/wiki/Korean_leid>
+  * Davvisámegiella <https://se.wikipedia.org/wiki/Koreagiella>
+  * Srpskohrvatski / српскохрватски
+    <https://sh.wikipedia.org/wiki/Korejski_jezik>
+  * සිංහල
+    <https://si.wikipedia.org/wiki/%E0%B6%9A%E0%B7%9C%E0%B6%BB%E0%B7%92%E0%B6%BA%E0%B7%8F%E0%B6%B1%E0%B7%94_%E0%B6%B7%E0%B7%8F%E0%B7%82%E0%B7%8F%E0%B7%80>
+  * Simple English <https://simple.wikipedia.org/wiki/Korean_language>
+  * Slovenčina <https://sk.wikipedia.org/wiki/K%C3%B3rej%C4%8Dina>
+  * Slovenščina <https://sl.wikipedia.org/wiki/Korej%C5%A1%C4%8Dina>
+  * Gagana Samoa <https://sm.wikipedia.org/wiki/Fa%27aKolea>
+  * Shqip <https://sq.wikipedia.org/wiki/Gjuha_koreane>
+  * Српски / srpski
+    <https://sr.wikipedia.org/wiki/%D0%9A%D0%BE%D1%80%D0%B5%D1%98%D1%81%D0%BA%D0%B8_%D1%98%D0%B5%D0%B7%D0%B8%D0%BA>
+  * Basa Sunda <https://su.wikipedia.org/wiki/Basa_Kor%C3%A9a>
+  * Svenska <https://sv.wikipedia.org/wiki/Koreanska>
+  * Kiswahili <https://sw.wikipedia.org/wiki/Kikorea>
+  * Ślůnski <https://szl.wikipedia.org/wiki/Koryja%C5%84sk%C5%8F_g%C5%8Fdka>
+  * தமிழ்
+    <https://ta.wikipedia.org/wiki/%E0%AE%95%E0%AF%8A%E0%AE%B0%E0%AE%BF%E0%AE%AF_%E0%AE%AE%E0%AF%8A%E0%AE%B4%E0%AE%BF>
+  * ไทย
+    <https://th.wikipedia.org/wiki/%E0%B8%A0%E0%B8%B2%E0%B8%A9%E0%B8%B2%E0%B9%80%E0%B8%81%E0%B8%B2%E0%B8%AB%E0%B8%A5%E0%B8%B5>
+  * Türkmençe <https://tk.wikipedia.org/wiki/Kore%C3%BD_dili>
+  * Tagalog <https://tl.wikipedia.org/wiki/Wikang_Koreano>
+  * Tok Pisin <https://tpi.wikipedia.org/wiki/Tok_Koria>
+  * Türkçe <https://tr.wikipedia.org/wiki/Korece>
+  * Татарча/tatarça
+    <https://tt.wikipedia.org/wiki/%D0%9A%D0%BE%D1%80%D0%B5%D0%B9_%D1%82%D0%B5%D0%BB%D0%B5>
+  * Тыва дыл
+    <https://tyv.wikipedia.org/wiki/%D0%9A%D3%A9%D1%80%D0%B5%D0%B9_%D0%B4%D1%8B%D0%BB>
+  * ئۇيغۇرچە / Uyghurche
+    <https://ug.wikipedia.org/wiki/%D9%83%D9%88%D8%B1%D9%89%D9%8A%DB%95%DA%86%DB%95>
+  * Українська
+    <https://uk.wikipedia.org/wiki/%D0%9A%D0%BE%D1%80%D0%B5%D0%B9%D1%81%D1%8C%D0%BA%D0%B0_%D0%BC%D0%BE%D0%B2%D0%B0>
+  * اردو
+    <https://ur.wikipedia.org/wiki/%DA%A9%D9%88%D8%B1%DB%8C%D8%A7%D8%A6%DB%8C_%D8%B2%D8%A8%D8%A7%D9%86>
+  * Oʻzbekcha/ўзбекча <https://uz.wikipedia.org/wiki/Koreys_tili>
+  * Tiếng Việt
+    <https://vi.wikipedia.org/wiki/Ti%E1%BA%BFng_H%C3%A0n_Qu%E1%BB%91c>
+  * Volapük <https://vo.wikipedia.org/wiki/Korey%C3%A4nap%C3%BCk>
+  * Winaray <https://war.wikipedia.org/wiki/Kinoreano_nga_pinulongan>
+  * 吴语 <https://wuu.wikipedia.org/wiki/%E9%9F%A9%E8%AF%AD>
+  * მარგალური
+    <https://xmf.wikipedia.org/wiki/%E1%83%99%E1%83%9D%E1%83%A0%E1%83%94%E1%83%A3%E1%83%9A%E1%83%98_%E1%83%9C%E1%83%98%E1%83%9C%E1%83%90>
+  * ייִדיש
+    <https://yi.wikipedia.org/wiki/%D7%A7%D7%90%D7%A8%D7%A2%D7%99%D7%A9>
+  * 中文 <https://zh.wikipedia.org/wiki/%E6%9C%9D%E9%AE%AE%E8%AA%9E>
+  * 文言
+    <https://zh-classical.wikipedia.org/wiki/%E6%9C%9D%E9%AE%AE%E8%AA%9E>
+  * Bân-lâm-gú <https://zh-min-nan.wikipedia.org/wiki/H%C3%A2n-kok-g%C3%AD>
+  * 粵語 <https://zh-yue.wikipedia.org/wiki/%E9%9F%93%E6%96%87>
+    141개 더 보기
+
+링크 편집
+<https://www.wikidata.org/wiki/Special:EntityPage/Q9176#sitelinks-wikipedia>
+
+  * 이 문서는 2018년 4월 8일 (일) 10:56에 마지막으로 편집되었습니다.
+  * 모든 문서는 크리에이티브 커먼즈 저작자표시-동일조건변경허락 3.0
+    <https://ko.wikipedia.org/wiki/%EC%9C%84%ED%82%A4%EB%B0%B1%EA%B3
+    %BC:Creative_Commons_Attribution-ShareAlike_3.0_Unported_License>에
+    따라 사용할 수 있으며, 추가적인 조건이 적용될 수 있습니다. 자세한 내
+    용은 이용 약관 <https://wikimediafoundation.org/wiki/Terms_of_Use
+    /ko>을 참고하십시오.
+    Wikipedia®는 미국 및 다른 국가에 등록되어 있는 Wikimedia Foundation,
+    Inc. <http://www.wikimediafoundation.org/> 소유의 등록 상표입니다.
+
+  * 개인정보 정책 <https://wikimediafoundation.org/wiki/Privacy_policy>
+  * 위키백과 소개
+    <https://ko.wikipedia.org/wiki/%EC%9C%84%ED%82%A4%EB%B0%B1%EA%B3%BC:%EC%86%8C%EA%B0%9C>
+  * 면책 조항
+    <https://ko.wikipedia.org/wiki/%EC%9C%84%ED%82%A4%EB%B0%B1%EA%B3%BC:%EB%A9%B4%EC%B1%85_%EC%A1%B0%ED%95%AD>
+  * 개발자
+    <https://www.mediawiki.org/wiki/Special:MyLanguage/How_to_contribute>
+  * 쿠키 정책 <https://wikimediafoundation.org/wiki/Cookie_statement>
+  * 모바일 보기
+    <https://ko.m.wikipedia.org/w/index.php?title=%ED%95%9C%EA%B5%AD%EC%96%B4&mobileaction=toggle_view_mobile>
+  * 미리 보기 활성화 <#>
+
+  * Wikimedia Foundation <https://wikimediafoundation.org/>	
+  * Powered by MediaWiki <https://www.mediawiki.org/>	
+
+<https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4?action=edit>

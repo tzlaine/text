@@ -11,6 +11,19 @@ macro(add_perf_executable name)
     if (clang_on_linux)
         target_link_libraries(${name} c++)
     endif ()
+
+    if (NOT "${ARGN}" STREQUAL "")
+        foreach(arg ${ARGN})
+            add_custom_command(
+                TARGET ${name}
+                POST_BUILD
+                COMMAND
+                    ${CMAKE_COMMAND} -E copy
+                        ${CMAKE_CURRENT_SOURCE_DIR}/${arg}
+                        ${CMAKE_CURRENT_BINARY_DIR}
+            )
+        endforeach()
+    endif ()
 endmacro()
 
 add_perf_executable(ctor_dtor_perf)
@@ -32,7 +45,8 @@ add_perf_executable(collation_perf_001)
 add_perf_executable(collation_perf_002)
 add_perf_executable(collation_perf_003)
 add_perf_executable(text_set_compare_vs_collate_perf)
-add_perf_executable(collation_search_perf)
+add_perf_executable(collation_search_perf) 
+add_perf_executable(transcoding_perf portuguese_wiki.txt korean_wiki.txt hindi_wiki_in_russian.txt) 
 
 add_custom_target(perf
     COMMAND ctor_dtor_perf --benchmark_out=ctor_dtor_perf.json --benchmark_out_format=json
