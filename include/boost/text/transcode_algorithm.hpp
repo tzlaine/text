@@ -103,27 +103,6 @@ namespace boost { namespace text {
             return out;
         }
 
-        template<typename InputIter, typename Sentinel, typename OutIter>
-        OutIter transcode_utf_8_to_16(
-            InputIter first,
-            Sentinel last,
-            OutIter out,
-            std::input_iterator_tag)
-        {
-            while (first != last) {
-                unsigned char const c = *first;
-                if (c < 0x80) {
-                    *out = *first;
-                    ++first;
-                    ++out;
-                } else {
-                    auto const cp = utf8::detail::advance(first, last);
-                    out = detail::read_into_utf16_iter(cp, out);
-                }
-            }
-            return out;
-        }
-
 #if BOOST_TEXT_USE_SIMD
         template<typename Iter>
         __m128i load_chars_for_sse(Iter it) noexcept
@@ -208,10 +187,28 @@ namespace boost { namespace text {
             InputIter first,
             Sentinel last,
             OutIter out,
-            std::random_access_iterator_tag)
+            std::input_iterator_tag)
+        {
+            while (first != last) {
+                unsigned char const c = *first;
+                if (c < 0x80) {
+                    *out = *first;
+                    ++first;
+                    ++out;
+                } else {
+                    auto const cp = utf8::detail::advance(first, last);
+                    out = detail::read_into_utf16_iter(cp, out);
+                }
+            }
+            return out;
+        }
+
+        template<typename Iter, typename OutIter>
+        OutIter transcode_utf_8_to_16(
+            Iter first, Iter last, OutIter out, std::random_access_iterator_tag)
         {
 #if BOOST_TEXT_USE_SIMD
-            while (first < (last - sizeof(__m128i))) {
+            while (last - first < (int)sizeof(__m128i)) {
                 if ((unsigned char)*first < 0x80) {
                     __m128i chunk = load_chars_for_sse(first);
                     int32_t mask = _mm_movemask_epi8(chunk);
@@ -262,7 +259,7 @@ namespace boost { namespace text {
             Iter first, Iter last, OutIter out, std::random_access_iterator_tag)
         {
 #if BOOST_TEXT_USE_SIMD
-            while (first < (last - sizeof(__m128i))) {
+            while (last - first < (int)sizeof(__m128i)) {
                 if ((unsigned char)*first < 0x80) {
                     __m128i zero = _mm_set1_epi8(0);
                     __m128i chunk = load_chars_for_sse(first);
