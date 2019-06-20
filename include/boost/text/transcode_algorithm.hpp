@@ -53,7 +53,8 @@ namespace boost { namespace text {
 
     namespace detail {
         template<typename OutIter>
-        OutIter read_into_utf8_iter(uint32_t cp, OutIter out)
+        BOOST_TEXT_CXX14_CONSTEXPR OutIter
+        read_into_utf8_iter(uint32_t cp, OutIter out)
         {
             if (cp < 0x80) {
                 *out = static_cast<char>(cp);
@@ -84,7 +85,8 @@ namespace boost { namespace text {
         }
 
         template<typename OutIter>
-        OutIter read_into_utf16_iter(uint32_t cp, OutIter out)
+        BOOST_TEXT_CXX14_CONSTEXPR OutIter
+        read_into_utf16_iter(uint32_t cp, OutIter out)
         {
             uint16_t const high_surrogate_base = 0xd7c0;
             uint16_t const low_surrogate_base = 0xdc00;
@@ -101,158 +103,6 @@ namespace boost { namespace text {
             return out;
         }
 
-        enum utf8_char_class : uint8_t {
-            ill = 0,
-            asc = 1,
-            cr1 = 2,
-            cr2 = 3,
-            cr3 = 4,
-            l2a = 5,
-            l3a = 6,
-            l3b = 7,
-            l3c = 8,
-            l4a = 9,
-            l4b = 10,
-            l4c = 11,
-        };
-
-        enum utf8_table_state : uint8_t {
-            bgn = 0,
-            end = bgn,
-            err = 12,
-            cs1 = 24,
-            cs2 = 36,
-            cs3 = 48,
-            p3a = 60,
-            p3b = 72,
-            p4a = 84,
-            p4b = 96,
-        };
-
-        struct first_cu
-        {
-            unsigned char initial_octet;
-            utf8_table_state next;
-        };
-
-        template<typename InputIter, typename Sentinel>
-        uint32_t utf8_advance(InputIter & first, Sentinel last)
-        {
-            uint32_t retval = 0;
-
-            constexpr static first_cu first_cus[256] = {
-                {0x00, bgn}, {0x01, bgn}, {0x02, bgn}, {0x03, bgn}, {0x04, bgn},
-                {0x05, bgn}, {0x06, bgn}, {0x07, bgn}, {0x08, bgn}, {0x09, bgn},
-                {0x0a, bgn}, {0x0b, bgn}, {0x0c, bgn}, {0x0d, bgn}, {0x0e, bgn},
-                {0x0f, bgn}, {0x10, bgn}, {0x11, bgn}, {0x12, bgn}, {0x13, bgn},
-                {0x14, bgn}, {0x15, bgn}, {0x16, bgn}, {0x17, bgn}, {0x18, bgn},
-                {0x19, bgn}, {0x1a, bgn}, {0x1b, bgn}, {0x1c, bgn}, {0x1d, bgn},
-                {0x1e, bgn}, {0x1f, bgn}, {0x20, bgn}, {0x21, bgn}, {0x22, bgn},
-                {0x23, bgn}, {0x24, bgn}, {0x25, bgn}, {0x26, bgn}, {0x27, bgn},
-                {0x28, bgn}, {0x29, bgn}, {0x2a, bgn}, {0x2b, bgn}, {0x2c, bgn},
-                {0x2d, bgn}, {0x2e, bgn}, {0x2f, bgn}, {0x30, bgn}, {0x31, bgn},
-                {0x32, bgn}, {0x33, bgn}, {0x34, bgn}, {0x35, bgn}, {0x36, bgn},
-                {0x37, bgn}, {0x38, bgn}, {0x39, bgn}, {0x3a, bgn}, {0x3b, bgn},
-                {0x3c, bgn}, {0x3d, bgn}, {0x3e, bgn}, {0x3f, bgn}, {0x40, bgn},
-                {0x41, bgn}, {0x42, bgn}, {0x43, bgn}, {0x44, bgn}, {0x45, bgn},
-                {0x46, bgn}, {0x47, bgn}, {0x48, bgn}, {0x49, bgn}, {0x4a, bgn},
-                {0x4b, bgn}, {0x4c, bgn}, {0x4d, bgn}, {0x4e, bgn}, {0x4f, bgn},
-                {0x50, bgn}, {0x51, bgn}, {0x52, bgn}, {0x53, bgn}, {0x54, bgn},
-                {0x55, bgn}, {0x56, bgn}, {0x57, bgn}, {0x58, bgn}, {0x59, bgn},
-                {0x5a, bgn}, {0x5b, bgn}, {0x5c, bgn}, {0x5d, bgn}, {0x5e, bgn},
-                {0x5f, bgn}, {0x60, bgn}, {0x61, bgn}, {0x62, bgn}, {0x63, bgn},
-                {0x64, bgn}, {0x65, bgn}, {0x66, bgn}, {0x67, bgn}, {0x68, bgn},
-                {0x69, bgn}, {0x6a, bgn}, {0x6b, bgn}, {0x6c, bgn}, {0x6d, bgn},
-                {0x6e, bgn}, {0x6f, bgn}, {0x70, bgn}, {0x71, bgn}, {0x72, bgn},
-                {0x73, bgn}, {0x74, bgn}, {0x75, bgn}, {0x76, bgn}, {0x77, bgn},
-                {0x78, bgn}, {0x79, bgn}, {0x7a, bgn}, {0x7b, bgn}, {0x7c, bgn},
-                {0x7d, bgn}, {0x7e, bgn}, {0x7f, bgn}, {0x00, err}, {0x01, err},
-                {0x02, err}, {0x03, err}, {0x04, err}, {0x05, err}, {0x06, err},
-                {0x07, err}, {0x08, err}, {0x09, err}, {0x0a, err}, {0x0b, err},
-                {0x0c, err}, {0x0d, err}, {0x0e, err}, {0x0f, err}, {0x10, err},
-                {0x11, err}, {0x12, err}, {0x13, err}, {0x14, err}, {0x15, err},
-                {0x16, err}, {0x17, err}, {0x18, err}, {0x19, err}, {0x1a, err},
-                {0x1b, err}, {0x1c, err}, {0x1d, err}, {0x1e, err}, {0x1f, err},
-                {0x20, err}, {0x21, err}, {0x22, err}, {0x23, err}, {0x24, err},
-                {0x25, err}, {0x26, err}, {0x27, err}, {0x28, err}, {0x29, err},
-                {0x2a, err}, {0x2b, err}, {0x2c, err}, {0x2d, err}, {0x2e, err},
-                {0x2f, err}, {0x30, err}, {0x31, err}, {0x32, err}, {0x33, err},
-                {0x34, err}, {0x35, err}, {0x36, err}, {0x37, err}, {0x38, err},
-                {0x39, err}, {0x3a, err}, {0x3b, err}, {0x3c, err}, {0x3d, err},
-                {0x3e, err}, {0x3f, err}, {0xc0, err}, {0xc1, err}, {0x02, cs1},
-                {0x03, cs1}, {0x04, cs1}, {0x05, cs1}, {0x06, cs1}, {0x07, cs1},
-                {0x08, cs1}, {0x09, cs1}, {0x0a, cs1}, {0x0b, cs1}, {0x0c, cs1},
-                {0x0d, cs1}, {0x0e, cs1}, {0x0f, cs1}, {0x10, cs1}, {0x11, cs1},
-                {0x12, cs1}, {0x13, cs1}, {0x14, cs1}, {0x15, cs1}, {0x16, cs1},
-                {0x17, cs1}, {0x18, cs1}, {0x19, cs1}, {0x1a, cs1}, {0x1b, cs1},
-                {0x1c, cs1}, {0x1d, cs1}, {0x1e, cs1}, {0x1f, cs1}, {0x00, p3a},
-                {0x01, cs2}, {0x02, cs2}, {0x03, cs2}, {0x04, cs2}, {0x05, cs2},
-                {0x06, cs2}, {0x07, cs2}, {0x08, cs2}, {0x09, cs2}, {0x0a, cs2},
-                {0x0b, cs2}, {0x0c, cs2}, {0x0d, p3b}, {0x0e, cs2}, {0x0f, cs2},
-                {0x00, p4a}, {0x01, cs3}, {0x02, cs3}, {0x03, cs3}, {0x04, p4b},
-                {0xf5, err}, {0xf6, err}, {0xf7, err}, {0xf8, err}, {0xf9, err},
-                {0xfa, err}, {0xfb, err}, {0xfc, err}, {0xfd, err}, {0xfe, err},
-                {0xff, err},
-            };
-
-            constexpr static utf8_char_class octet_classes[256] = {
-                asc, asc, asc, asc, asc, asc, asc, asc, asc, asc, asc, asc, asc,
-                asc, asc, asc, asc, asc, asc, asc, asc, asc, asc, asc, asc, asc,
-                asc, asc, asc, asc, asc, asc, asc, asc, asc, asc, asc, asc, asc,
-                asc, asc, asc, asc, asc, asc, asc, asc, asc, asc, asc, asc, asc,
-                asc, asc, asc, asc, asc, asc, asc, asc, asc, asc, asc, asc, asc,
-                asc, asc, asc, asc, asc, asc, asc, asc, asc, asc, asc, asc, asc,
-                asc, asc, asc, asc, asc, asc, asc, asc, asc, asc, asc, asc, asc,
-                asc, asc, asc, asc, asc, asc, asc, asc, asc, asc, asc, asc, asc,
-                asc, asc, asc, asc, asc, asc, asc, asc, asc, asc, asc, asc, asc,
-                asc, asc, asc, asc, asc, asc, asc, asc, asc, asc, asc, cr1, cr1,
-                cr1, cr1, cr1, cr1, cr1, cr1, cr1, cr1, cr1, cr1, cr1, cr1, cr1,
-                cr1, cr2, cr2, cr2, cr2, cr2, cr2, cr2, cr2, cr2, cr2, cr2, cr2,
-                cr2, cr2, cr2, cr2, cr3, cr3, cr3, cr3, cr3, cr3, cr3, cr3, cr3,
-                cr3, cr3, cr3, cr3, cr3, cr3, cr3, cr3, cr3, cr3, cr3, cr3, cr3,
-                cr3, cr3, cr3, cr3, cr3, cr3, cr3, cr3, cr3, cr3, ill, ill, l2a,
-                l2a, l2a, l2a, l2a, l2a, l2a, l2a, l2a, l2a, l2a, l2a, l2a, l2a,
-                l2a, l2a, l2a, l2a, l2a, l2a, l2a, l2a, l2a, l2a, l2a, l2a, l2a,
-                l2a, l2a, l2a, l3a, l3b, l3b, l3b, l3b, l3b, l3b, l3b, l3b, l3b,
-                l3b, l3b, l3b, l3c, l3b, l3b, l4a, l4b, l4b, l4b, l4c, ill, ill,
-                ill, ill, ill, ill, ill, ill, ill, ill, ill,
-            };
-
-            constexpr static utf8_table_state transitions[108] = {
-                err, end, err, err, err, cs1, p3a, cs2, p3b, p4a, cs3, p4b,
-                err, err, err, err, err, err, err, err, err, err, err, err,
-                err, err, end, end, end, err, err, err, err, err, err, err,
-                err, err, cs1, cs1, cs1, err, err, err, err, err, err, err,
-                err, err, cs2, cs2, cs2, err, err, err, err, err, err, err,
-                err, err, err, err, cs1, err, err, err, err, err, err, err,
-                err, err, cs1, cs1, err, err, err, err, err, err, err, err,
-                err, err, err, cs2, cs2, err, err, err, err, err, err, err,
-                err, err, cs2, err, err, err, err, err, err, err, err, err,
-            };
-
-            first_cu const info = first_cus[(unsigned char)*first];
-            ++first;
-
-            retval = info.initial_octet;
-            int state = info.next;
-
-            while (state != bgn) {
-                if (first != last) {
-                    unsigned char const cu = *first;
-                    retval = (retval << 6) | (cu & 0x3f);
-                    utf8_char_class const class_ = octet_classes[cu];
-                    state = transitions[state + class_];
-                    if (state == err)
-                        return utf8::replacement_character();
-                    ++first;
-                } else {
-                    return utf8::replacement_character();
-                }
-            }
-
-            return retval;
-        }
-
         template<typename InputIter, typename Sentinel, typename OutIter>
         OutIter transcode_utf_8_to_16(
             InputIter first,
@@ -267,7 +117,7 @@ namespace boost { namespace text {
                     ++first;
                     ++out;
                 } else {
-                    auto const cp = detail::utf8_advance(first, last);
+                    auto const cp = utf8::detail::advance(first, last);
                     out = detail::read_into_utf16_iter(cp, out);
                 }
             }
@@ -376,7 +226,7 @@ namespace boost { namespace text {
                     first += incr;
                     finalize_sse_out(out, temp, incr);
                 } else {
-                    auto const cp = detail::utf8_advance(first, last);
+                    auto const cp = utf8::detail::advance(first, last);
                     out = detail::read_into_utf16_iter(cp, out);
                 }
             }
@@ -400,7 +250,7 @@ namespace boost { namespace text {
                     ++first;
                     ++out;
                 } else {
-                    *out = detail::utf8_advance(first, last);
+                    *out = utf8::detail::advance(first, last);
                     ++out;
                 }
             }
@@ -436,7 +286,7 @@ namespace boost { namespace text {
                     first += incr;
                     finalize_sse_out(out, temp, incr);
                 } else {
-                    *out = detail::utf8_advance(first, last);
+                    *out = utf8::detail::advance(first, last);
                     ++out;
                 }
             }

@@ -21,12 +21,20 @@ std::string file_slurp(std::string filename)
     return retval;
 }
 
-std::string const utf8_text = file_slurp("portuguese_wiki.txt") +
-                              file_slurp("korean_wiki.txt") +
-                              file_slurp("hindi_wiki_in_russian.txt") +
-                              file_slurp("perf/portuguese_wiki.txt") +
-                              file_slurp("perf/korean_wiki.txt") +
-                              file_slurp("perf/hindi_wiki_in_russian.txt");
+std::string get_utf8_text()
+{
+    std::string retval = file_slurp("portuguese_wiki.txt") +
+                         file_slurp("korean_wiki.txt") +
+                         file_slurp("chinese_wiki.txt") +
+                         file_slurp("hindi_wiki_in_russian.txt") +
+                         file_slurp("perf/portuguese_wiki.txt") +
+                         file_slurp("perf/korean_wiki.txt") +
+                         file_slurp("perf/chinese_wiki.txt") +
+                         file_slurp("perf/hindi_wiki_in_russian.txt");
+    return retval;
+}
+
+std::string const utf8_text = get_utf8_text();
 
 using namespace boost;
 

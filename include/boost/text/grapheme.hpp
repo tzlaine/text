@@ -137,8 +137,6 @@ namespace boost { namespace text {
             first_(first),
             last_(last)
         {
-            auto last_it = next_grapheme_break(first_, last_);
-            BOOST_ASSERT(last_it == last_);
             BOOST_ASSERT(next_grapheme_break(first_, last_) == last_);
             BOOST_ASSERT(fcd_form(first_, last_));
         }
