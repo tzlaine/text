@@ -144,6 +144,7 @@ add_custom_target(find_string_insert_max
 # Perf comparisons against ICU   #
 ##################################
 if (NOT ICU_FOUND OR LIMIT_TESTING_FOR_CI)
+    target_compile_definitions(transcoding_perf PRIVATE -DNO_ICU)
     return()
 endif()
 
@@ -154,6 +155,9 @@ macro(add_icu_perf_executable name)
 endmacro()
 
 add_icu_perf_executable(icu_normalization)
+
+target_include_directories(transcoding_perf PRIVATE ${ICU_INCLUDE_DIRS})
+target_link_libraries(transcoding_perf ${ICU_LIBRARIES})
 
 if (0) # useful for running all the perf tests in a batch.
 include(CTest)
