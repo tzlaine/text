@@ -7,6 +7,7 @@
 #include <boost/container/small_vector.hpp>
 
 #include <array>
+#include <list>
 #include <unordered_map>
 #include <unordered_set>
 
@@ -82,9 +83,11 @@ namespace boost { namespace text { namespace detail {
         return retval.data();
     }
 
+    // TODO: Remove.
     BOOST_TEXT_DECL std::unordered_map<uint64_t, uint32_t>
     make_composition_map();
 
+    // TODO: Remove.
     inline std::unordered_map<uint64_t, uint32_t> const & composition_map()
     {
         static auto const retval = make_composition_map();
@@ -104,13 +107,66 @@ namespace boost { namespace text { namespace detail {
 
     static_assert(sizeof(cp_props) == 12, "");
 
+    // TODO: Remove.
     BOOST_TEXT_DECL std::unordered_map<uint32_t, cp_props> make_cp_props_map();
 
+    // TODO: Remove.
     inline std::unordered_map<uint32_t, cp_props> const & cp_props_map()
     {
         static auto const retval = make_cp_props_map();
         return retval;
     }
+
+    template<typename T, int TotalBits, int HighBits>
+    struct two_stage_table
+    {
+        static_assert(TotalBits <= 63, "");
+        static_assert(HighBits < TotalBits, "");
+
+        static const int high_size = uint64_t(1) << HighBits;
+        static const int low_bits = TotalBits - HighBits;
+        static const int low_size = uint64_t(1) << low_bits;
+        static const uint64_t low_mask = low_size - 1;
+
+        template<typename Iter, typename KeyProj, typename ValueProj>
+        two_stage_table(
+            Iter first,
+            Iter last,
+            KeyProj && key_proj,
+            ValueProj && value_proj,
+            T default_value = T()) :
+            high_table_(high_size),
+            default_(default_value)
+        {
+            for (; first != last; ++first) {
+                uint64_t const key = key_proj(first->first);
+                BOOST_ASSERT(key < (uint64_t(1) << TotalBits));
+                auto const hi = key >> low_bits;
+                auto const lo = key & low_mask;
+                if (!high_table_[hi]) {
+                    high_table_[hi] =
+                        &*low_tables_.insert(low_tables_.end(), low_table_t{});
+                }
+                low_table_t & low_table = *high_table_[hi];
+                low_table[lo] = value_proj(first->second);
+            }
+        }
+
+        T const & operator[](uint64_t key) const noexcept
+        {
+            auto const hi = key >> low_bits;
+            auto const lo = key & low_mask;
+            if (high_table_.size() <= hi)
+                return default_;
+            low_table_t * low_table = high_table_[hi];
+            return low_table ? (*low_table)[lo] : default_;
+        }
+
+        using low_table_t = std::array<T, low_size>;
+        std::list<low_table_t> low_tables_;
+        std::vector<low_table_t *> high_table_;
+        T default_;
+    };
 
     inline constexpr bool hangul_syllable(uint32_t cp) noexcept
     {
@@ -287,64 +343,97 @@ namespace boost { namespace text { namespace detail {
 
     inline uint32_t compose_unblocked(uint32_t cp0, uint32_t cp1) noexcept
     {
-        auto const & map = detail::composition_map();
-        auto const it = map.find(detail::key(cp0, cp1));
-        if (it == map.end())
-            return 0;
-        return it->second;
+        static const two_stage_table<uint32_t, 34, 18> table(
+            detail::composition_map().begin(),
+            detail::composition_map().end(),
+            [](uint64_t key) {
+                uint32_t cp0 = key >> 32;
+                uint32_t cp1 = key & 0xffffffff;
+                BOOST_ASSERT(cp0 < (uint32_t(1) << 17));
+                BOOST_ASSERT(cp1 < (uint32_t(1) << 17));
+                return (cp0 << 17) | cp1;
+            },
+            [](uint32_t value) { return value; },
+            0);
+        return table[(cp0 << 17) | cp1];
     }
 
     inline int ccc(uint32_t cp) noexcept
     {
-        auto const & map = detail::cp_props_map();
-        auto const it = map.find(cp);
-        if (it == map.end())
-            return 0;
-        return it->second.ccc_;
+        static const two_stage_table<int, 18, 10> table(
+            detail::cp_props_map().begin(),
+            detail::cp_props_map().end(),
+            [](uint32_t key) {
+                BOOST_ASSERT(key < (uint32_t(1) << 18));
+                return key;
+            },
+            [](cp_props props) { return props.ccc_; },
+            0);
+        return table[cp];
     }
 
     /** Returns yes, no, or maybe if the given code point indicates that the
         sequence in which it is found is normalized NFD. */
     inline quick_check quick_check_nfd_code_point(uint32_t cp) noexcept
     {
-        auto const & map = detail::cp_props_map();
-        auto const it = map.find(cp);
-        if (it == map.end())
-            return quick_check::yes;
-        return quick_check(it->second.nfd_quick_check_);
+        static const two_stage_table<quick_check, 18, 10> table(
+            detail::cp_props_map().begin(),
+            detail::cp_props_map().end(),
+            [](uint32_t key) {
+                BOOST_ASSERT(key < (uint32_t(1) << 18));
+                return key;
+            },
+            [](cp_props props) { return quick_check(props.nfd_quick_check_); },
+            quick_check::yes);
+        return table[cp];
     }
 
     /** Returns yes, no, or maybe if the given code point indicates that the
         sequence in which it is found is normalized NFKD. */
     inline quick_check quick_check_nfkd_code_point(uint32_t cp) noexcept
     {
-        auto const & map = detail::cp_props_map();
-        auto const it = map.find(cp);
-        if (it == map.end())
-            return quick_check::yes;
-        return quick_check(it->second.nfkd_quick_check_);
+        static const two_stage_table<quick_check, 18, 10> table(
+            detail::cp_props_map().begin(),
+            detail::cp_props_map().end(),
+            [](uint32_t key) {
+                BOOST_ASSERT(key < (uint32_t(1) << 18));
+                return key;
+            },
+            [](cp_props props) { return quick_check(props.nfkd_quick_check_); },
+            quick_check::yes);
+        return table[cp];
     }
 
     /** Returns yes, no, or maybe if the given code point indicates that the
         sequence in which it is found is normalized NFC. */
     inline quick_check quick_check_nfc_code_point(uint32_t cp) noexcept
     {
-        auto const & map = detail::cp_props_map();
-        auto const it = map.find(cp);
-        if (it == map.end())
-            return quick_check::yes;
-        return quick_check(it->second.nfc_quick_check_);
+        static const two_stage_table<quick_check, 18, 10> table(
+            detail::cp_props_map().begin(),
+            detail::cp_props_map().end(),
+            [](uint32_t key) {
+                BOOST_ASSERT(key < (uint32_t(1) << 18));
+                return key;
+            },
+            [](cp_props props) { return quick_check(props.nfc_quick_check_); },
+            quick_check::yes);
+        return table[cp];
     }
 
     /** Returns yes, no, or maybe if the given code point indicates that the
         sequence in which it is found is normalized NFKC. */
     inline quick_check quick_check_nfkc_code_point(uint32_t cp) noexcept
     {
-        auto const & map = detail::cp_props_map();
-        auto const it = map.find(cp);
-        if (it == map.end())
-            return quick_check::yes;
-        return quick_check(it->second.nfkc_quick_check_);
+        static const two_stage_table<quick_check, 18, 10> table(
+            detail::cp_props_map().begin(),
+            detail::cp_props_map().end(),
+            [](uint32_t key) {
+                BOOST_ASSERT(key < (uint32_t(1) << 18));
+                return key;
+            },
+            [](cp_props props) { return quick_check(props.nfkc_quick_check_); },
+            quick_check::yes);
+        return table[cp];
     }
 
     /** Returns true iff cp is a stable code point under FCC normalization
@@ -353,12 +442,7 @@ namespace boost { namespace text { namespace detail {
         \see https://www.unicode.org/reports/tr15/#Stable_Code_Points */
     inline bool stable_fcc_code_point(uint32_t cp) noexcept
     {
-        auto const & map = detail::cp_props_map();
-        auto const it = map.find(cp);
-        if (it == map.end())
-            return true;
-        return it->second.ccc_ == 0 &&
-               quick_check(it->second.nfc_quick_check_) == quick_check::yes;
+        return ccc(cp) && quick_check_nfc_code_point(cp) == quick_check::yes;
     }
 
     struct lzw_to_cp_props_iter
