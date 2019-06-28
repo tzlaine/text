@@ -23,8 +23,8 @@ NONINFRINGEMENT. IN NO EVENT SHALL THE CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIAB
 DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS WITH THE SOFTWARE. 
 */
-// The copyright notice above applies to the tables and enums used int the
-// SSE2-specific optimization.
+// The copyright notice above applies to the tables and enums used in the
+// table-based UTF-8 conversion code, and in the SSE2-specific optimization.
 #ifndef BOOST_TEXT_TRANSCODE_ALGORITHM_HPP
 #define BOOST_TEXT_TRANSCODE_ALGORITHM_HPP
 
@@ -208,7 +208,7 @@ namespace boost { namespace text {
             Iter first, Iter last, OutIter out, std::random_access_iterator_tag)
         {
 #if BOOST_TEXT_USE_SIMD
-            while (last - first < (int)sizeof(__m128i)) {
+            while ((int)sizeof(__m128i) <= last - first) {
                 if ((unsigned char)*first < 0x80) {
                     __m128i chunk = load_chars_for_sse(first);
                     int32_t mask = _mm_movemask_epi8(chunk);
@@ -259,7 +259,7 @@ namespace boost { namespace text {
             Iter first, Iter last, OutIter out, std::random_access_iterator_tag)
         {
 #if BOOST_TEXT_USE_SIMD
-            while (last - first < (int)sizeof(__m128i)) {
+            while ((int)sizeof(__m128i) <= last - first) {
                 if ((unsigned char)*first < 0x80) {
                     __m128i zero = _mm_set1_epi8(0);
                     __m128i chunk = load_chars_for_sse(first);
