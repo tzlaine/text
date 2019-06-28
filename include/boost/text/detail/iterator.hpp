@@ -8,19 +8,36 @@
 
 namespace boost { namespace text { namespace detail {
 
-    template<typename Iter>
-    auto invoke_op_arrow(Iter it) noexcept -> decltype(it.operator->())
+    template<typename T>
+    struct arrow_proxy
     {
-        return it.operator->();
-    }
+        T * operator->() noexcept { return &value_; }
+        T const * operator->() const noexcept { return &value_; }
+
+        explicit arrow_proxy(T value) noexcept : value_(std::move(value)) {}
+
+    private:
+        T value_;
+    };
+
+    template<typename T, bool IterIsProxy>
+    struct invoke_op_arrow
+    {
+        template<typename U>
+        static arrow_proxy<T> call(U && value) noexcept
+        {
+            return arrow_proxy<T>(std::forward<U>(value));
+        }
+    };
 
     template<typename T>
-    T * invoke_op_arrow(T * it) noexcept
+    struct invoke_op_arrow<T, false>
     {
-        return it;
-    }
+        static T * call(T & value) noexcept { return &value; }
+    };
 
-    template<typename Iter>
+
+    template<typename Iter, bool IterIsProxy = false>
     struct reverse_iterator
     {
         using iterator_category =
@@ -28,7 +45,10 @@ namespace boost { namespace text { namespace detail {
         using value_type = typename std::iterator_traits<Iter>::value_type;
         using difference_type =
             typename std::iterator_traits<Iter>::difference_type;
-        using pointer = typename std::iterator_traits<Iter>::pointer;
+        using pointer = typename std::conditional<
+            IterIsProxy,
+            arrow_proxy<value_type>,
+            typename std::iterator_traits<Iter>::pointer>::type;
         using reference = typename std::iterator_traits<Iter>::reference;
         using iterator_type = Iter;
 
@@ -57,7 +77,7 @@ namespace boost { namespace text { namespace detail {
         constexpr pointer operator->() const noexcept
         {
             Iter temp = it_;
-            return invoke_op_arrow(--temp);
+            return invoke_op_arrow<value_type, IterIsProxy>::call(*--temp);
         }
 
         constexpr reference operator[](difference_type n) const noexcept
@@ -119,106 +139,134 @@ namespace boost { namespace text { namespace detail {
         Iter it_;
     };
 
-    template<typename Iter>
+    template<typename Iter, bool IterIsProxy>
     constexpr bool operator==(
-        reverse_iterator<Iter> const & lhs,
-        reverse_iterator<Iter> const & rhs) noexcept
+        reverse_iterator<Iter, IterIsProxy> const & lhs,
+        reverse_iterator<Iter, IterIsProxy> const & rhs) noexcept
     {
         return lhs.base() == rhs.base();
     }
 
-    template<typename Iter>
+    template<typename Iter, bool IterIsProxy>
     constexpr bool operator<(
-        reverse_iterator<Iter> const & lhs,
-        reverse_iterator<Iter> const & rhs) noexcept
+        reverse_iterator<Iter, IterIsProxy> const & lhs,
+        reverse_iterator<Iter, IterIsProxy> const & rhs) noexcept
     {
         return rhs.base() < lhs.base();
     }
 
-    template<typename Iter>
+    template<typename Iter, bool IterIsProxy>
     constexpr bool operator!=(
-        reverse_iterator<Iter> const & lhs,
-        reverse_iterator<Iter> const & rhs) noexcept
+        reverse_iterator<Iter, IterIsProxy> const & lhs,
+        reverse_iterator<Iter, IterIsProxy> const & rhs) noexcept
     {
         return !(lhs == rhs);
     }
 
-    template<typename Iter>
+    template<typename Iter, bool IterIsProxy>
     constexpr bool operator>(
-        reverse_iterator<Iter> const & lhs,
-        reverse_iterator<Iter> const & rhs) noexcept
+        reverse_iterator<Iter, IterIsProxy> const & lhs,
+        reverse_iterator<Iter, IterIsProxy> const & rhs) noexcept
     {
         return rhs < lhs;
     }
 
-    template<typename Iter>
+    template<typename Iter, bool IterIsProxy>
     constexpr bool operator<=(
-        reverse_iterator<Iter> const & lhs,
-        reverse_iterator<Iter> const & rhs) noexcept
+        reverse_iterator<Iter, IterIsProxy> const & lhs,
+        reverse_iterator<Iter, IterIsProxy> const & rhs) noexcept
     {
         return !(rhs < lhs);
     }
 
-    template<typename Iter>
+    template<typename Iter, bool IterIsProxy>
     constexpr bool operator>=(
-        reverse_iterator<Iter> const & lhs,
-        reverse_iterator<Iter> const & rhs) noexcept
+        reverse_iterator<Iter, IterIsProxy> const & lhs,
+        reverse_iterator<Iter, IterIsProxy> const & rhs) noexcept
     {
         return !(lhs < rhs);
     }
 
-    template<typename Iter1, typename Iter2>
+    template<
+        typename Iter1,
+        bool Iter1IsProxy,
+        typename Iter2,
+        bool Iter2IsProxy>
     constexpr bool operator==(
-        reverse_iterator<Iter1> const & lhs,
-        reverse_iterator<Iter2> const & rhs) noexcept
+        reverse_iterator<Iter1, Iter1IsProxy> const & lhs,
+        reverse_iterator<Iter2, Iter2IsProxy> const & rhs) noexcept
     {
         return lhs.base() == rhs.base();
     }
 
-    template<typename Iter1, typename Iter2>
+    template<
+        typename Iter1,
+        bool Iter1IsProxy,
+        typename Iter2,
+        bool Iter2IsProxy>
     constexpr bool operator<(
-        reverse_iterator<Iter1> const & lhs,
-        reverse_iterator<Iter2> const & rhs) noexcept
+        reverse_iterator<Iter1, Iter1IsProxy> const & lhs,
+        reverse_iterator<Iter2, Iter2IsProxy> const & rhs) noexcept
     {
         return rhs.base() < lhs.base();
     }
 
-    template<typename Iter1, typename Iter2>
+    template<
+        typename Iter1,
+        bool Iter1IsProxy,
+        typename Iter2,
+        bool Iter2IsProxy>
     constexpr bool operator!=(
-        reverse_iterator<Iter1> const & lhs,
-        reverse_iterator<Iter2> const & rhs) noexcept
+        reverse_iterator<Iter1, Iter1IsProxy> const & lhs,
+        reverse_iterator<Iter2, Iter2IsProxy> const & rhs) noexcept
     {
         return !(lhs == rhs);
     }
 
-    template<typename Iter1, typename Iter2>
+    template<
+        typename Iter1,
+        bool Iter1IsProxy,
+        typename Iter2,
+        bool Iter2IsProxy>
     constexpr bool operator>(
-        reverse_iterator<Iter1> const & lhs,
-        reverse_iterator<Iter2> const & rhs) noexcept
+        reverse_iterator<Iter1, Iter1IsProxy> const & lhs,
+        reverse_iterator<Iter2, Iter2IsProxy> const & rhs) noexcept
     {
         return rhs < lhs;
     }
 
-    template<typename Iter1, typename Iter2>
+    template<
+        typename Iter1,
+        bool Iter1IsProxy,
+        typename Iter2,
+        bool Iter2IsProxy>
     constexpr bool operator<=(
-        reverse_iterator<Iter1> const & lhs,
-        reverse_iterator<Iter2> const & rhs) noexcept
+        reverse_iterator<Iter1, Iter1IsProxy> const & lhs,
+        reverse_iterator<Iter2, Iter2IsProxy> const & rhs) noexcept
     {
         return !(rhs < lhs);
     }
 
-    template<typename Iter1, typename Iter2>
+    template<
+        typename Iter1,
+        bool Iter1IsProxy,
+        typename Iter2,
+        bool Iter2IsProxy>
     constexpr bool operator>=(
-        reverse_iterator<Iter1> const & lhs,
-        reverse_iterator<Iter2> const & rhs) noexcept
+        reverse_iterator<Iter1, Iter1IsProxy> const & lhs,
+        reverse_iterator<Iter2, Iter2IsProxy> const & rhs) noexcept
     {
         return !(lhs < rhs);
     }
 
-    template<typename Iter1, typename Iter2>
+    template<
+        typename Iter1,
+        bool Iter1IsProxy,
+        typename Iter2,
+        bool Iter2IsProxy>
     constexpr auto operator-(
-        reverse_iterator<Iter1> const & lhs,
-        reverse_iterator<Iter2> const & rhs) noexcept
+        reverse_iterator<Iter1, Iter1IsProxy> const & lhs,
+        reverse_iterator<Iter2, Iter2IsProxy> const & rhs) noexcept
         -> decltype(rhs.base() - lhs.base())
     {
         return rhs.base() - lhs.base();

@@ -43,7 +43,7 @@ namespace boost { namespace text {
         using iterator = grapheme_iterator<
             utf8::to_utf32_iterator<detail::const_rope_iterator>>;
         using const_iterator = iterator;
-        using reverse_iterator = detail::reverse_iterator<iterator>;
+        using reverse_iterator = detail::reverse_iterator<iterator, true>;
         using const_reverse_iterator = reverse_iterator;
 
         /** Default ctor. */

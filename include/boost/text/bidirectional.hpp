@@ -9,6 +9,7 @@
 #include <boost/text/utility.hpp>
 #include <boost/text/detail/normalization_data.hpp>
 #include <boost/text/detail/bidirectional.hpp>
+#include <boost/text/detail/iterator.hpp>
 
 #include <boost/container/small_vector.hpp>
 #include <boost/container/static_vector.hpp>
@@ -2358,17 +2359,6 @@ namespace boost { namespace text {
                 state.out_values_it_ = state.out_values_.begin();
                 state.out_values_last_ = state.out_values_.end();
             }
-        };
-
-        template<typename T>
-        struct arrow_proxy
-        {
-            T * operator->() const noexcept { return &value_; }
-
-            explicit arrow_proxy(T value) : value_(std::move(value)) {}
-
-        private:
-            T value_;
         };
 
         template<
