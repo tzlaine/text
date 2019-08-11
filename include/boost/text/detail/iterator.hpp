@@ -281,7 +281,7 @@ namespace boost { namespace text { namespace detail {
         using value_type = char;
         using difference_type = std::ptrdiff_t;
         using pointer = char const *;
-        using reference = char const;
+        using reference = char;
         using iterator_category = std::random_access_iterator_tag;
 
         constexpr const_repeated_chars_iterator() noexcept :
