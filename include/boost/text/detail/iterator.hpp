@@ -382,7 +382,7 @@ namespace boost { namespace text { namespace detail {
             const_repeated_chars_iterator lhs,
             const_repeated_chars_iterator rhs) noexcept
         {
-            return lhs <= rhs;
+            return rhs <= lhs;
         }
 
         friend BOOST_TEXT_CXX14_CONSTEXPR const_repeated_chars_iterator
