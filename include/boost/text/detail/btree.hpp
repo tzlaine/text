@@ -3,15 +3,13 @@
 
 #include <boost/text/detail/utility.hpp>
 
-#if !BOOST_TEXT_THREAD_UNSAFE
-#include <atomic>
-#endif
 #include <boost/align/align.hpp>
 #include <boost/align/aligned_alloc.hpp>
 #include <boost/align/aligned_delete.hpp>
 #include <boost/container/static_vector.hpp>
 #include <boost/smart_ptr/intrusive_ptr.hpp>
 
+#include <atomic>
 #include <vector>
 
 
@@ -85,11 +83,7 @@ namespace boost { namespace text { namespace detail {
         node_t(node_t const & rhs) noexcept : leaf_(rhs.leaf_) { refs_ = 0; }
         node_t & operator=(node_t const & rhs) = delete;
 
-#if BOOST_TEXT_THREAD_UNSAFE
-        mutable int refs_;
-#else
         mutable std::atomic<int> refs_;
-#endif
         bool leaf_;
     };
 
@@ -290,27 +284,6 @@ namespace boost { namespace text { namespace detail {
             static_cast<interior_node_t<T> const *>(ptr_.get()));
     }
 
-#if BOOST_TEXT_THREAD_UNSAFE
-
-    template<typename T>
-    inline void intrusive_ptr_add_ref(node_t<T> const * node)
-    {
-        ++node->refs_;
-    }
-
-    template<typename T>
-    inline void intrusive_ptr_release(node_t<T> const * node)
-    {
-        if (!--node->refs_) {
-            if (node->leaf_)
-                delete static_cast<leaf_node_t<T> const *>(node);
-            else
-                alignment::aligned_delete{}((interior_node_t<T> *)(node));
-        }
-    }
-
-#else
-
     // These functions were implemented following the "Reference counting"
     // example from Boost.Atomic.
 
@@ -331,8 +304,6 @@ namespace boost { namespace text { namespace detail {
                 alignment::aligned_delete{}((interior_node_t<T> *)(node));
         }
     }
-
-#endif
 
     template<typename T>
     inline std::ptrdiff_t size(node_t<T> const * node) noexcept

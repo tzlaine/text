@@ -4,13 +4,6 @@
 #include <boost/config.hpp>
 
 
-#ifndef BOOST_TEXT_THREAD_UNSAFE
-/** By default, rope uses atomic reference counts internally.  If you don't
-care about thread safety, and want to remove the performance overhead of
-using atomics, #define this macro to a nonzero value. */
-#    define BOOST_TEXT_THREAD_UNSAFE 0
-#endif
-
 /** When you insert into a rope, the incoming sequence may be inserted as a
     new segment, or if it falls within an existing string-segment, it may be
     inserted into the string object used to represent that segment.  This only
