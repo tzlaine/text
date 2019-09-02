@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+project(boost_text)
 
 ################################################## 
 # C++ standard version selection
@@ -56,7 +57,7 @@ set(boost_components)
 # include here.
 set(BUILD_EDITOR false CACHE BOOL "Set to true to build ncurses-based text editor.")
 if (BUILD_EDITOR)
-  set(boost_components filesystem system)
+    set(boost_components filesystem system)
 endif()
 
 include(dependencies)
@@ -89,6 +90,9 @@ if (link_flags)
 endif ()
 if (NOT MSVC)
     target_compile_options(text PRIVATE -Wall)
+endif ()
+if (ICU_FOUND)
+    target_compile_options(text PUBLIC -DBOOST_TEXT_HAS_ICU)
 endif ()
 
 

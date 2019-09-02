@@ -4,6 +4,20 @@
 #include <boost/config.hpp>
 
 
+/** There are ICU-based implementations of many operations, but those are only
+    defined when BOOST_TEXT_HAS_ICU is nonzero.  If you define this, you must
+    make sure the the ICU headers are in your path, and that your build
+    properly links in ICU. */
+#ifndef BOOST_TEXT_HAS_ICU
+#    define BOOST_TEXT_HAS_ICU 0
+#endif
+
+/** There are ICU-based implementations of many operations, but those are only
+    used when BOOST_TEXT_HAS_ICU and BOOST_TEXT_USE_ICU are both nonzero. */
+#ifndef BOOST_TEXT_USE_ICU
+#    define BOOST_TEXT_USE_ICU 0
+#endif
+
 /** When you insert into a rope, the incoming sequence may be inserted as a
     new segment, or if it falls within an existing string-segment, it may be
     inserted into the string object used to represent that segment.  This only
