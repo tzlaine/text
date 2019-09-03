@@ -12,15 +12,15 @@ namespace boost { namespace text {
 
     /** Returns a UTF-8-encoded string constructed from [first, last).
 
-        This function only participates in overload resolution if
-        <code>CPIter</code> models the CPIter concept. */
+        This function only participates in overload resolution if `CPIter`
+        models the CPIter concept. */
     template<typename CPIter, typename Sentinel>
     string to_string(CPIter first, Sentinel last);
 
     /** Returns a UTF-8-encoded string constructed from range.
 
-        This function only participates in overload resolution if
-        <code>CPRange</code> models the CPRange concept. */
+        This function only participates in overload resolution if `CPRange`
+        models the CPRange concept. */
     template<typename CPRange>
     string to_string(CPRange & range);
 

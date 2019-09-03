@@ -41,7 +41,7 @@ namespace boost { namespace text {
     }
 
     /** Returns the bidirectional algorithm property associated with code
-        point <code>cp</code>. */
+        point `cp`. */
     inline bidi_property bidi_prop(uint32_t cp) noexcept
     {
         static auto const map = detail::make_bidi_prop_map();
@@ -2452,21 +2452,20 @@ namespace boost { namespace text {
 
 #ifdef BOOST_TEXT_DOXYGEN
 
-    /** Returns a lazy range of code point subranges in <code>[first,
-        last)</code>; each subrange is one of three kinds: a forward-subrange;
-        a reverse-subrange; or a one-code-point subrange used to subtitute a
-        reversed bracketing code point (e.g. <code>'['</code>) for its
-        couterpart (e.g. <code>']'</code>).  There is a single iterator type
-        used in the resulting subranges, so this distinction is not exposed in
-        the subrange API.
+    /** Returns a lazy range of code point subranges in `[first, last)`; each
+        subrange is one of three kinds: a forward-subrange; a
+        reverse-subrange; or a one-code-point subrange used to subtitute a
+        reversed bracketing code point (e.g. `'['`) for its couterpart
+        (e.g. `']'`).  There is a single iterator type used in the resulting
+        subranges, so this distinction is not exposed in the subrange API.
 
         Line breaks are determined within the algorithm by calling
-        <code>lines(first, last)</code>; only hard line breaks are considered.
+        `lines(first, last)`; only hard line breaks are considered.
 
-        If a non-negative <code>paragraph_embedding_level</code> is provided,
-        it will be used instead of the initial paragraph embedding level
-        computed by the bidirectional algorithm.  This applies to all
-        paragraphs found in <code>[first, last)</code>.
+        If a non-negative `paragraph_embedding_level` is provided, it will be
+        used instead of the initial paragraph embedding level computed by the
+        bidirectional algorithm.  This applies to all paragraphs found in
+        `[first, last)`.
 
         Code points that are used to control the left-to-right or
         right-to-left direction of code points within the text will not appear
@@ -2478,21 +2477,20 @@ namespace boost { namespace text {
     detail::unspecified bidirectional_subranges(
         CPIter first, Sentinel last, int paragraph_embedding_level = -1);
 
-    /** Returns a lazy range of code point subranges in <code>range</code>;
-        each subrange is one of three kinds: a forward-subrange; a
-        reverse-subrange; or a one-code-point subrange used to subtitute a
-        reversed bracketing code point (e.g. <code>'['</code>) for its
-        couterpart (e.g. <code>']'</code>).  There is a single iterator type
-        used in the resulting subranges, so this distinction is not exposed in
-        the subrange API.
+    /** Returns a lazy range of code point subranges in `range`; each subrange
+        is one of three kinds: a forward-subrange; a reverse-subrange; or a
+        one-code-point subrange used to subtitute a reversed bracketing code
+        point (e.g. `'['`) for its couterpart (e.g. `']'`).  There is a single
+        iterator type used in the resulting subranges, so this distinction is
+        not exposed in the subrange API.
 
         Line breaks are determined within the algorithm by calling
-        <code>lines(first, last)</code>; only hard line breaks are considered.
+        `lines(first, last)`; only hard line breaks are considered.
 
-        If a non-negative <code>paragraph_embedding_level</code> is provided,
-        it will be used instead of the initial paragraph embedding level
-        computed by the bidirectional algorithm.  This applies to all
-        paragraphs found in <code>range</code>.
+        If a non-negative `paragraph_embedding_level` is provided, it will be
+        used instead of the initial paragraph embedding level computed by the
+        bidirectional algorithm.  This applies to all paragraphs found in
+        `range`.
 
         Code points that are used to control the left-to-right or
         right-to-left direction of code points within the text will not appear
@@ -2501,27 +2499,26 @@ namespace boost { namespace text {
         the output; this implementation additionally removes code points with
         classes FSI, LRI, RLI, and PDI.
 
-        This function only participates in overload resolution if
-        <code>CPRange</code> models the CPRange concept. */
+        This function only participates in overload resolution if `CPRange`
+        models the CPRange concept. */
     template<typename CPRange>
     detail::unspecified bidirectional_subranges(
         CPRange & range, int paragraph_embedding_level = -1);
 
-    /** Returns a lazy range of grapheme subranges in <code>range</code>; each
-        subrange is one of three kinds: a forward-subrange; a
-        reverse-subrange; or a one-grapheme subrange used to subtitute a
-        reversed bracketing grapheme (e.g. <code>'['</code>) for its
-        couterpart (e.g. <code>']'</code>).  There is a single iterator type
-        used in the resulting subranges, so this distinction is not exposed in
-        the subrange API.
+    /** Returns a lazy range of grapheme subranges in `range`; each subrange
+        is one of three kinds: a forward-subrange; a reverse-subrange; or a
+        one-grapheme subrange used to subtitute a reversed bracketing grapheme
+        (e.g. `'['`) for its couterpart (e.g. `']'`).  There is a single
+        iterator type used in the resulting subranges, so this distinction is
+        not exposed in the subrange API.
 
         Line breaks are determined within the algorithm by calling
-        <code>lines(first, last)</code>; only hard line breaks are considered.
+        `lines(first, last)`; only hard line breaks are considered.
 
-        If a non-negative <code>paragraph_embedding_level</code> is provided,
-        it will be used instead of the initial paragraph embedding level
-        computed by the bidirectional algorithm.  This applies to all
-        paragraphs found in <code>range</code>.
+        If a non-negative `paragraph_embedding_level` is provided, it will be
+        used instead of the initial paragraph embedding level computed by the
+        bidirectional algorithm.  This applies to all paragraphs found in
+        `range`.
 
         Graphemes that are used to control the left-to-right or right-to-left
         direction of graphemes within the text will not appear in the output.
@@ -2531,30 +2528,28 @@ namespace boost { namespace text {
         RLI, and PDI.
 
         This function only participates in overload resolution if
-        <code>GraphemeRange</code> models the GraphemeRange concept. */
+        `GraphemeRange` models the GraphemeRange concept. */
     template<typename GraphemeRange>
     detail::unspecified bidirectional_subranges(
         GraphemeRange const & range, int paragraph_embedding_level = -1);
 
-    /** Returns a lazy range of code point subranges in <code>[first,
-        last)</code>; each subrange is one of three kinds: a forward-subrange;
-        a reverse-subrange; or a one-code-point subrange used to subtitute a
-        reversed bracketing code point (e.g. <code>'['</code>) for its
-        couterpart (e.g. <code>']'</code>).  There is a single iterator type
-        used in the resulting subranges, so this distinction is not exposed in
-        the subrange API.
+    /** Returns a lazy range of code point subranges in `[first, last)`; each
+        subrange is one of three kinds: a forward-subrange; a
+        reverse-subrange; or a one-code-point subrange used to subtitute a
+        reversed bracketing code point (e.g. `'['`) for its couterpart
+        (e.g. `']'`).  There is a single iterator type used in the resulting
+        subranges, so this distinction is not exposed in the subrange API.
 
         Line breaks are determined within the algorithm by calling
-        <code>lines(first, last, max_extent, cp_extent,
-        break_overlong_lines)</code>.  Note that CPExtentFunc must have a
-        polymorphic call operator.  That is, it must be a template or generic
-        lambda that accepts two parameters whose type models the CPIter
-        concept.
+        `lines(first, last, max_extent, cp_extent, break_overlong_lines)`.
+        Note that CPExtentFunc must have a polymorphic call operator.  That
+        is, it must be a template or generic lambda that accepts two
+        parameters whose type models the CPIter concept.
 
-        If a non-negative <code>paragraph_embedding_level</code> is provided,
-        it will be used instead of the initial paragraph embedding level
-        computed by the bidirectional algorithm.  This applies to all
-        paragraphs found in <code>[first, last)</code>.
+        If a non-negative `paragraph_embedding_level` is provided, it will be
+        used instead of the initial paragraph embedding level computed by the
+        bidirectional algorithm.  This applies to all paragraphs found in
+        `[first, last)`.
 
         Code points that are used to control the left-to-right or
         right-to-left direction of code points within the text will not appear
@@ -2575,25 +2570,23 @@ namespace boost { namespace text {
         int paragraph_embedding_level = -1,
         bool break_overlong_lines = true);
 
-    /** Returns a lazy range of code point subranges in <code>range</code>;
-        each subrange is one of three kinds: a forward-subrange; a
-        reverse-subrange; or a one-code-point subrange used to subtitute a
-        reversed bracketing code point (e.g. <code>'['</code>) for its
-        couterpart (e.g. <code>']'</code>).  There is a single iterator type
-        used in the resulting subranges, so this distinction is not exposed in
-        the subrange API.
+    /** Returns a lazy range of code point subranges in `range`; each subrange
+        is one of three kinds: a forward-subrange; a reverse-subrange; or a
+        one-code-point subrange used to subtitute a reversed bracketing code
+        point (e.g. `'['`) for its couterpart (e.g. `']'`).  There is a single
+        iterator type used in the resulting subranges, so this distinction is
+        not exposed in the subrange API.
 
         Line breaks are determined within the algorithm by calling
-        <code>lines(first, last, max_extent, cp_extent,
-        break_overlong_lines)</code>.  Note that CPExtentFunc must have a
-        polymorphic call operator.  That is, it must be a template or generic
-        lambda that accepts two parameters whose type models the CPIter
-        concept.
+        `lines(first, last, max_extent, cp_extent, break_overlong_lines)`.
+        Note that CPExtentFunc must have a polymorphic call operator.  That
+        is, it must be a template or generic lambda that accepts two
+        parameters whose type models the CPIter concept.
 
-        If a non-negative <code>paragraph_embedding_level</code> is provided,
-        it will be used instead of the initial paragraph embedding level
-        computed by the bidirectional algorithm.  This applies to all
-        paragraphs found in <code>range</code>.
+        If a non-negative `paragraph_embedding_level` is provided, it will be
+        used instead of the initial paragraph embedding level computed by the
+        bidirectional algorithm.  This applies to all paragraphs found in
+        `range`.
 
         Code points that are used to control the left-to-right or
         right-to-left direction of code points within the text will not appear
@@ -2602,8 +2595,8 @@ namespace boost { namespace text {
         the output; this implementation additionally removes code points with
         classes FSI, LRI, RLI, and PDI.
 
-        This function only participates in overload resolution if
-        <code>CPRange</code> models the CPRange concept. */
+        This function only participates in overload resolution if `CPRange`
+        models the CPRange concept. */
     template<typename CPRange, typename Extent, typename CPExtentFunc>
     detail::unspecified bidirectional_subranges(
         CPRange & range,
@@ -2612,25 +2605,23 @@ namespace boost { namespace text {
         int paragraph_embedding_level = -1,
         bool break_overlong_lines = true);
 
-    /** Returns a lazy range of grapheme subranges in <code>range</code>; each
-        subrange is one of three kinds: a forward-subrange; a
-        reverse-subrange; or a one-grapheme subrange used to subtitute a
-        reversed bracketing grapheme (e.g. <code>'['</code>) for its
-        couterpart (e.g. <code>']'</code>).  There is a single iterator type
-        used in the resulting subranges, so this distinction is not exposed in
-        the subrange API.
+    /** Returns a lazy range of grapheme subranges in `range`; each subrange
+        is one of three kinds: a forward-subrange; a reverse-subrange; or a
+        one-grapheme subrange used to subtitute a reversed bracketing grapheme
+        (e.g. `'['`) for its couterpart (e.g. `']'`).  There is a single
+        iterator type used in the resulting subranges, so this distinction is
+        not exposed in the subrange API.
 
         Line breaks are determined within the algorithm by calling
-        <code>lines(first, last, max_extent, cp_extent,
-        break_overlong_lines)</code>.  Note that CPExtentFunc must have a
-        polymorphic call operator.  That is, it must be a template or generic
-        lambda that accepts two parameters whose type models the CPIter
-        concept.
+        `lines(first, last, max_extent, cp_extent, break_overlong_lines)`.
+        Note that CPExtentFunc must have a polymorphic call operator.  That
+        is, it must be a template or generic lambda that accepts two
+        parameters whose type models the CPIter concept.
 
-        If a non-negative <code>paragraph_embedding_level</code> is provided,
-        it will be used instead of the initial paragraph embedding level
-        computed by the bidirectional algorithm.  This applies to all
-        paragraphs found in <code>range</code>.
+        If a non-negative `paragraph_embedding_level` is provided, it will be
+        used instead of the initial paragraph embedding level computed by the
+        bidirectional algorithm.  This applies to all paragraphs found in
+        `range`.
 
         Graphemes that are used to control the left-to-right or right-to-left
         direction of graphemes within the text will not appear in the output.
@@ -2640,7 +2631,7 @@ namespace boost { namespace text {
         RLI, and PDI.
 
         This function only participates in overload resolution if
-        <code>GraphemeRange</code> models the GraphemeRange concept. */
+        `GraphemeRange` models the GraphemeRange concept. */
     template<typename GraphemeRange, typename Extent, typename CPExtentFunc>
     detail::unspecified bidirectional_subranges(
         GraphemeRange const & range,

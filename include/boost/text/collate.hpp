@@ -58,9 +58,8 @@ namespace boost { namespace text {
     }
 #endif
 
-    /** Returns 0 if the given sort keys are equal, a value < 0 if
-        <code>lhs</code> is less than <code>rhs</code>, and a value > 0
-        otherwise. */
+    /** Returns 0 if the given sort keys are equal, a value < 0 if `lhs` is
+        less than `rhs`, and a value > 0 otherwise. */
     inline int
     compare(text_sort_key const & lhs, text_sort_key const & rhs) noexcept
     {
@@ -821,18 +820,18 @@ namespace boost { namespace text {
 
 #ifdef BOOST_TEXT_DOXYGEN
 
-    /** Returns a collation sort key for the code points in <code>[first,
-        last)</code>, using the given collation table.  Any optional settings
-        such as <code>case_1st</code> will be honored, so long as they do not
-        conflict with the settings on the given table.
+    /** Returns a collation sort key for the code points in `[first, last)`,
+        using the given collation table.  Any optional settings such as
+        `case_1st` will be honored, so long as they do not conflict with the
+        settings on the given table.
 
         Consider using one of the overloads that takes collation_flags
         instead.
 
-        This function only participates in overload resolution if
-        <code>CPIter</code> models the CPIter concept.
+        This function only participates in overload resolution if `CPIter`
+        models the CPIter concept.
 
-        \pre <code>[first, last)</code> is normalized FCC. */
+        \pre `[first, last)` is normalized FCC. */
     template<typename CPIter, typename Sentinel>
     text_sort_key collation_sort_key(
         CPIter first,
@@ -844,15 +843,15 @@ namespace boost { namespace text {
         variable_weighting weighting = variable_weighting::non_ignorable,
         l2_weight_order l2_order = l2_weight_order::forward);
 
-    /** Returns a collation sort key for the code points in <code>[first,
-        last)</code>, using the given collation table.  Any optional settings
-        flags will be honored, so long as they do not conflict with the
-        settings on the given table.
+    /** Returns a collation sort key for the code points in `[first, last)`,
+        using the given collation table.  Any optional settings flags will be
+        honored, so long as they do not conflict with the settings on the
+        given table.
 
-        This function only participates in overload resolution if
-        <code>CPIter</code> models the CPIter concept.
+        This function only participates in overload resolution if `CPIter`
+        models the CPIter concept.
 
-        \pre <code>[first, last)</code> is normalized FCC. */
+        \pre `[first, last)` is normalized FCC. */
     template<typename CPIter, typename Sentinel>
     text_sort_key collation_sort_key(
         CPIter first,
@@ -860,13 +859,12 @@ namespace boost { namespace text {
         collation_table const & table,
         collation_flags flags = collation_flags::none);
 
-    /** Returns a collation sort key for the code points in <code>r</code>,
-        using the given collation table.  Any optional settings flags will be
-        honored, so long as they do not conflict with the settings on the
-        given table.
+    /** Returns a collation sort key for the code points in `r`, using the
+        given collation table.  Any optional settings flags will be honored,
+        so long as they do not conflict with the settings on the given table.
 
-        This function only participates in overload resolution if
-        <code>CPRange</code> models the CPRange concept.
+        This function only participates in overload resolution if `CPRange`
+        models the CPRange concept.
 
         \pre r is normalized FCC. */
     template<typename CPRange>
@@ -875,13 +873,12 @@ namespace boost { namespace text {
         collation_table const & table,
         collation_flags flags = collation_flags::none);
 
-    /** Returns a collation sort key for the graphemes in <code>r</code>,
-        using the given collation table.  Any optional settings flags will be
-        honored, so long as they do not conflict with the settings on the
-        given table.
+    /** Returns a collation sort key for the graphemes in `r`, using the given
+        collation table.  Any optional settings flags will be honored, so long
+        as they do not conflict with the settings on the given table.
 
         This function only participates in overload resolution if
-        <code>GraphemeRange</code> models the GraphemeRange concept.
+        `GraphemeRange` models the GraphemeRange concept.
 
         \pre r is normalized FCC. */
     template<typename GraphemeRange>
@@ -890,20 +887,19 @@ namespace boost { namespace text {
         collation_table const & table,
         collation_flags flags = collation_flags::none);
 
-    /** Creates sort keys for <code>[lhs_first, lhs_last)</code> and
-        <code>[rhs_first, rhs_last)</code>, then returns the result of calling
-        compare() on the keys. Any optional settings such as
-        <code>case_1st</code> will be honored, so long as they do not conflict
-        with the settings on the given table.
+    /** Creates sort keys for `[lhs_first, lhs_last)` and `[rhs_first,
+        rhs_last)`, then returns the result of calling compare() on the
+        keys. Any optional settings such as `case_1st` will be honored, so
+        long as they do not conflict with the settings on the given table.
 
         Consider using one of the overloads that takes collation_flags
         instead.
 
-        This function only participates in overload resolution if
-        <code>CPIter1</code> models the CPIter concept.
+        This function only participates in overload resolution if `CPIter1`
+        models the CPIter concept.
 
-        \pre <code>[lhs_first, lhs_last)</code> is normalized FCC.
-        \pre <code>[rhs_first, rhs_last)</code> is normalized FCC. */
+        \pre `[lhs_first, lhs_last)` is normalized FCC.
+        \pre `[rhs_first, rhs_last)` is normalized FCC. */
     template<
         typename CPIter1,
         typename Sentinel1,
@@ -921,16 +917,16 @@ namespace boost { namespace text {
         variable_weighting weighting = variable_weighting::non_ignorable,
         l2_weight_order l2_order = l2_weight_order::forward);
 
-    /** Creates sort keys for <code>[lhs_first, lhs_last)</code> and
-        <code>[rhs_first, rhs_last)</code>, then returns the result of calling
-        compare() on the keys.  Any optional settings flags will be honored,
-        so long as they do not conflict with the settings on the given table.
+    /** Creates sort keys for `[lhs_first, lhs_last)` and `[rhs_first,
+        rhs_last)`, then returns the result of calling compare() on the keys.
+        Any optional settings flags will be honored, so long as they do not
+        conflict with the settings on the given table.
 
-        This function only participates in overload resolution if
-        <code>CPIter1</code> models the CPIter concept.
+        This function only participates in overload resolution if `CPIter1`
+        models the CPIter concept.
 
-        \pre <code>[lhs_first, lhs_last)</code> is normalized FCC.
-        \pre <code>[rhs_first, rhs_last)</code> is normalized FCC. */
+        \pre `[lhs_first, lhs_last)` is normalized FCC.
+        \pre `[rhs_first, rhs_last)` is normalized FCC. */
     template<
         typename CPIter1,
         typename Sentinel1,
@@ -944,16 +940,16 @@ namespace boost { namespace text {
         collation_table const & table,
         collation_flags flags = collation_flags::none);
 
-    /** Creates sort keys for <code>r1</code> and <code>r2</code>, then
-        returns the result of calling compare() on the keys.  Any optional
-        settings flags will be honored, so long as they do not conflict with
-        the settings on the given table.
+    /** Creates sort keys for `r1` and `r2`, then returns the result of
+        calling compare() on the keys.  Any optional settings flags will be
+        honored, so long as they do not conflict with the settings on the
+        given table.
 
-        This function only participates in overload resolution if
-        <code>CPRange1</code> models the CPRange concept.
+        This function only participates in overload resolution if `CPRange1`
+        models the CPRange concept.
 
-        \pre <code>r1</code> is normalized FCC.
-        \pre <code>r2</code> is normalized FCC. */
+        \pre `r1` is normalized FCC.
+        \pre `r2` is normalized FCC. */
     template<typename CPRange1, typename CPRange2>
     int collate(
         CPRange1 const & r1,
@@ -961,16 +957,16 @@ namespace boost { namespace text {
         collation_table const & table,
         collation_flags flags = collation_flags::none);
 
-    /** Creates sort keys for <code>r1</code> and <code>r2</code>, then
-        returns the result of calling compare() on the keys.  Any optional
-        settings flags will be honored, so long as they do not conflict with
-        the settings on the given table.
+    /** Creates sort keys for `r1` and `r2`, then returns the result of
+        calling compare() on the keys.  Any optional settings flags will be
+        honored, so long as they do not conflict with the settings on the
+        given table.
 
         This function only participates in overload resolution if
-        <code>GraphemeRange1</code> models the GraphemeRange concept.
+        `GraphemeRange1` models the GraphemeRange concept.
 
-        \pre <code>r1</code> is normalized FCC.
-        \pre <code>r2</code> is normalized FCC. */
+        \pre `r1` is normalized FCC.
+        \pre `r2` is normalized FCC. */
     template<typename GraphemeRange1, typename GraphemeRange2>
     int collate(
         GraphemeRange1 const & r1,

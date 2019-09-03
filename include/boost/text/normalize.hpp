@@ -405,11 +405,11 @@ namespace boost { namespace text {
         }
     }
 
-    /** Writes sequence <code>[first, last)</code> in Unicode normalization
-        form NFD to <code>out</code>.
+    /** Writes sequence `[first, last)` in Unicode normalization form NFD to
+        `out`.
 
-        This function only participates in overload resolution if
-        <code>CPIter</code> models the CPIter concept. */
+        This function only participates in overload resolution if `CPIter`
+        models the CPIter concept. */
     template<typename CPIter, typename Sentinel, typename OutIter>
     inline auto normalize_to_nfd(CPIter first, Sentinel last, OutIter out)
         -> detail::cp_iter_ret_t<OutIter, CPIter>
@@ -420,19 +420,18 @@ namespace boost { namespace text {
             });
     }
 
-    /** Writes sequence <code>r</code> in Unicode normalization form NFD to
-        <code>out</code>. */
+    /** Writes sequence `r` in Unicode normalization form NFD to `out`. */
     template<typename CPRange, typename OutIter>
     inline OutIter normalize_to_nfd(CPRange const & r, OutIter out)
     {
         return normalize_to_nfd(std::begin(r), std::end(r), out);
     }
 
-    /** Writes sequence <code>[first, last)</code> in Unicode normalization
-        form NFKD to <code>out</code>.
+    /** Writes sequence `[first, last)` in Unicode normalization form NFKD to
+        `out`.
 
-        This function only participates in overload resolution if
-        <code>CPIter</code> models the CPIter concept. */
+        This function only participates in overload resolution if `CPIter`
+        models the CPIter concept. */
     template<typename CPIter, typename Sentinel, typename OutIter>
     inline auto normalize_to_nfkd(CPIter first, Sentinel last, OutIter out)
         -> detail::cp_iter_ret_t<OutIter, CPIter>
@@ -443,19 +442,18 @@ namespace boost { namespace text {
             });
     }
 
-    /** Writes sequence <code>r</code> in Unicode normalization form NFKD to
-     * <code>out</code>. */
+    /** Writes sequence `r` in Unicode normalization form NFKD to `out`. */
     template<typename CPRange, typename OutIter>
     inline OutIter normalize_to_nfkd(CPRange const & r, OutIter out)
     {
         return normalize_to_nfkd(std::begin(r), std::end(r), out);
     }
 
-    /** Writes sequence <code>[first, last)</code> in Unicode normalization
-        form NFC to <code>out</code>.
+    /** Writes sequence `[first, last)` in Unicode normalization form NFC to
+        `out`.
 
-        This function only participates in overload resolution if
-        <code>CPIter</code> models the CPIter concept. */
+        This function only participates in overload resolution if `CPIter`
+        models the CPIter concept. */
     template<typename CPIter, typename Sentinel, typename OutIter>
     inline auto normalize_to_nfc(CPIter first, Sentinel last, OutIter out)
         -> detail::cp_iter_ret_t<OutIter, CPIter>
@@ -468,19 +466,18 @@ namespace boost { namespace text {
             [](uint32_t cp) { return detail::quick_check_nfc_code_point(cp); });
     }
 
-    /** Writes sequence <code>r</code> in Unicode normalization form NFC to
-     * <code>out</code>. */
+    /** Writes sequence `r` in Unicode normalization form NFC to `out`. */
     template<typename CPRange, typename OutIter>
     inline OutIter normalize_to_nfc(CPRange const & r, OutIter out)
     {
         return normalize_to_nfc(std::begin(r), std::end(r), out);
     }
 
-    /** Writes sequence <code>[first, last)</code> in Unicode normalization
-        form NFKC to <code>out</code>.
+    /** Writes sequence `[first, last)` in Unicode normalization form NFKC to
+        `out`.
 
-        This function only participates in overload resolution if
-        <code>CPIter</code> models the CPIter concept. */
+        This function only participates in overload resolution if `CPIter`
+        models the CPIter concept. */
     template<typename CPIter, typename Sentinel, typename OutIter>
     inline auto normalize_to_nfkc(CPIter first, Sentinel last, OutIter out)
         -> detail::cp_iter_ret_t<OutIter, CPIter>
@@ -495,19 +492,17 @@ namespace boost { namespace text {
             });
     }
 
-    /** Writes sequence <code>r</code> in Unicode normalization form NFKC to
-     * <code>out</code>. */
+    /** Writes sequence `r` in Unicode normalization form NFKC to `out`. */
     template<typename CPRange, typename OutIter>
     inline OutIter normalize_to_nfkc(CPRange const & r, OutIter out)
     {
         return normalize_to_nfkc(std::begin(r), std::end(r), out);
     }
 
-    /** Returns true iff the given sequence of code points is normalized
-        NFD.
+    /** Returns true iff the given sequence of code points is normalized NFD.
 
-        This function only participates in overload resolution if
-        <code>CPIter</code> models the CPIter concept. */
+        This function only participates in overload resolution if `CPIter`
+        models the CPIter concept. */
     template<typename CPIter, typename Sentinel>
     auto normalized_nfd(CPIter first, Sentinel last) noexcept
         -> detail::cp_iter_ret_t<bool, CPIter>
@@ -519,19 +514,17 @@ namespace boost { namespace text {
             [](uint32_t cp) { return detail::quick_check_nfd_code_point(cp); });
     }
 
-    /** Returns true iff the given range of code points is normalized
-        NFD. */
+    /** Returns true iff the given range of code points is normalized NFD. */
     template<typename CPRange>
     bool normalized_nfd(CPRange const & r) noexcept
     {
         return normalized_nfd(std::begin(r), std::end(r));
     }
 
-    /** Returns true iff the given sequence of code points is normalized
-        NFKD.
+    /** Returns true iff the given sequence of code points is normalized NFKD.
 
-        This function only participates in overload resolution if
-        <code>CPIter</code> models the CPIter concept. */
+        This function only participates in overload resolution if `CPIter`
+        models the CPIter concept. */
     template<typename CPIter, typename Sentinel>
     auto normalized_nfkd(CPIter first, Sentinel last) noexcept
         -> detail::cp_iter_ret_t<bool, CPIter>
@@ -545,19 +538,17 @@ namespace boost { namespace text {
             });
     }
 
-    /** Returns true iff the given range of code points is normalized
-        NFKD. */
+    /** Returns true iff the given range of code points is normalized NFKD. */
     template<typename CPRange>
     bool normalized_nfkd(CPRange const & r) noexcept
     {
         return normalized_nfkd(std::begin(r), std::end(r));
     }
 
-    /** Returns true iff the given sequence of code points is normalized
-        NFC.
+    /** Returns true iff the given sequence of code points is normalized NFC.
 
-        This function only participates in overload resolution if
-        <code>CPIter</code> models the CPIter concept. */
+        This function only participates in overload resolution if `CPIter`
+        models the CPIter concept. */
     template<typename CPIter, typename Sentinel>
     auto normalized_nfc(CPIter first, Sentinel last) noexcept
         -> detail::cp_iter_ret_t<bool, CPIter>
@@ -569,19 +560,17 @@ namespace boost { namespace text {
             [](uint32_t cp) { return detail::quick_check_nfc_code_point(cp); });
     }
 
-    /** Returns true iff the given range of code points is normalized
-        NFC. */
+    /** Returns true iff the given range of code points is normalized NFC. */
     template<typename CPRange>
     bool normalized_nfc(CPRange const & r) noexcept
     {
         return normalized_nfc(std::begin(r), std::end(r));
     }
 
-    /** Returns true iff the given sequence of code points is normalized
-        NFKC.
+    /** Returns true iff the given sequence of code points is normalized NFKC.
 
-        This function only participates in overload resolution if
-        <code>CPIter</code> models the CPIter concept. */
+        This function only participates in overload resolution if `CPIter`
+        models the CPIter concept. */
     template<typename CPIter, typename Sentinel>
     auto normalized_nfkc(CPIter first, Sentinel last) noexcept
         -> detail::cp_iter_ret_t<bool, CPIter>
@@ -595,19 +584,17 @@ namespace boost { namespace text {
             });
     }
 
-    /** Returns true iff the given range of code points is normalized
-        NFKC. */
+    /** Returns true iff the given range of code points is normalized NFKC. */
     template<typename CPRange>
     bool normalized_nfkc(CPRange const & r) noexcept
     {
         return normalized_nfkc(std::begin(r), std::end(r));
     }
 
-    /** Returns true iff the given sequence of code points is in an FCD
-        form.
+    /** Returns true iff the given sequence of code points is in an FCD form.
 
-        This function only participates in overload resolution if
-        <code>CPIter</code> models the CPIter concept. */
+        This function only participates in overload resolution if `CPIter`
+        models the CPIter concept. */
     template<typename CPIter, typename Sentinel>
     auto fcd_form(CPIter first, Sentinel last) noexcept
         -> detail::cp_iter_ret_t<bool, CPIter>
@@ -634,11 +621,10 @@ namespace boost { namespace text {
         return fcd_form(std::begin(r), std::end(r));
     }
 
-    /** Writes sequence <code>[first, last)</code> in normalization
-        form FCC to <code>out</code>.
+    /** Writes sequence `[first, last)` in normalization form FCC to `out`.
 
-        This function only participates in overload resolution if
-        <code>CPIter</code> models the CPIter concept.
+        This function only participates in overload resolution if `CPIter`
+        models the CPIter concept.
 
         \see https://unicode.org/notes/tn5
     */
@@ -654,8 +640,7 @@ namespace boost { namespace text {
             [](uint32_t cp) { return detail::quick_check_nfc_code_point(cp); });
     }
 
-    /** Writes sequence <code>r</code> in normalization form FCC to
-       <code>out</code>.
+    /** Writes sequence `r` in normalization form FCC to `out`
 
         \see https://unicode.org/notes/tn5
     */

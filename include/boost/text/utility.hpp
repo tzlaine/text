@@ -8,8 +8,8 @@
 
 namespace boost { namespace text {
 
-    /** A range that adapts a sequence of <code>char const *</code> to a
-        sequence of code points. */
+    /** A range that adapts a sequence of `char const *` to a sequence of code
+        points. */
     struct utf32_range
     {
         using iterator = utf8::to_utf32_iterator<char const *>;
@@ -170,24 +170,24 @@ namespace boost { namespace text {
     /** Returns a range of code points transcoded from the given range of
         UTF-8 code units.
 
-        This function only participates in overload resolution if
-        <code>CharRange</code> models the CharRange concept. */
+        This function only participates in overload resolution if `CharRange`
+        models the CharRange concept. */
     template<typename CharRange>
     detail::unspecified make_to_utf32_range(CharRange const & r) noexcept;
 
     /** Returns a range of UTF-8 code units transcoded from the given range of
         code points.
 
-        This function only participates in overload resolution if
-        <code>CPRange</code> models the CPRange concept. */
+        This function only participates in overload resolution if `CPRange`
+        models the CPRange concept. */
     template<typename CPRange>
     detail::unspecified make_from_utf32_range(CPRange const & r) noexcept;
 
     /** Returns a range of UTF-16 code units transcoded from the given range
         of UTF-8 code units.
 
-        This function only participates in overload resolution if
-        <code>CharRange</code> models the CharRange concept. */
+        This function only participates in overload resolution if `CharRange`
+        models the CharRange concept. */
     template<typename CharRange>
     detail::unspecified make_to_utf16_range(CharRange const & r) noexcept;
 
@@ -195,8 +195,8 @@ namespace boost { namespace text {
         UTF-16 code units.
 
         This function only participates in overload resolution if
-        <code>Char16Range</code> is a range of 16-bit integral values, each of
-        which is convertible to <code>uint16_t</code>. */
+        `Char16Range` is a range of 16-bit integral values, each of which is
+        convertible to `uint16_t`. */
     template<typename Char16Range>
     detail::unspecified make_from_utf16_range(Char16Range const & r) noexcept;
 

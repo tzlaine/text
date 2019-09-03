@@ -7,7 +7,7 @@
 namespace boost { namespace text {
 
     /** The major, minor, and patch elements of a library version number of
-        the form <code>"major.minor.patch"</code>. */
+        the form `"major.minor.patch"`. */
     struct library_version
     {
         int major;

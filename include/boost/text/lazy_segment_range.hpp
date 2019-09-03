@@ -171,11 +171,11 @@ namespace boost { namespace text {
 
     /** Represents a range of non-overlapping subranges.  Each subrange
         represents some semantically significant segment, the semantics of
-        which are controlled by the <code>NextFunc</code> template parameter.
-        For instance, if <code>NextFunc</code> is next_paragraph_break, the
-        subranges produced by lazy_segment_range will be paragraphs.  Each
-        subrange is lazily produced; an output subrange is not produced until
-        a lazy range iterator is dereferenced. */
+        which are controlled by the `NextFunc` template parameter.  For
+        instance, if `NextFunc` is next_paragraph_break, the subranges
+        produced by lazy_segment_range will be paragraphs.  Each subrange is
+        lazily produced; an output subrange is not produced until a lazy range
+        iterator is dereferenced. */
     template<
         typename CPIter,
         typename Sentinel,
@@ -204,7 +204,7 @@ namespace boost { namespace text {
         }
         iterator end() const noexcept { return last_; }
 
-        /** Moves the contained <code>NextFunc</code> out of *this. */
+        /** Moves the contained `NextFunc` out of *this. */
         NextFunc && next_func() && noexcept { return std::move(next_func_); }
 
     private:

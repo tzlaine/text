@@ -77,14 +77,14 @@ namespace boost { namespace text {
         /** Constructs a text from a range of char.
 
             This function only participates in overload resolution if
-            <code>CharRange</code> models the CharRange concept. */
+            `CharRange` models the CharRange concept. */
         template<typename CharRange>
         explicit text(CharRange const & r);
 
         /** Constructs a text from a sequence of char.
 
             This function only participates in overload resolution if
-            <code>CharIter</code> models the CharIter concept. */
+            `CharIter` models the CharIter concept. */
         template<typename CharIter, typename Sentinel>
         text(CharIter first, Iter Charlast);
 
@@ -92,7 +92,7 @@ namespace boost { namespace text {
             range of char.
 
             This function only participates in overload resolution if
-            <code>GraphemeRange</code> models the GraphemeRange concept. */
+            `GraphemeRange` models the GraphemeRange concept. */
         template<typename GraphemeRange>
         explicit text(GraphemeRange const & r);
 
@@ -135,7 +135,7 @@ namespace boost { namespace text {
         /** Assignment from a range of char.
 
             This function only participates in overload resolution if
-            <code>CharRange</code> models the CharRange concept. */
+            `CharRange` models the CharRange concept. */
         template<typename CharRange>
         text & operator=(CharRange const & r);
 
@@ -143,7 +143,7 @@ namespace boost { namespace text {
             char.
 
             This function only participates in overload resolution if
-            <code>GraphemeRange</code> models the GraphemeRange concept. */
+            `GraphemeRange` models the GraphemeRange concept. */
         template<typename GraphemeRange>
         text & operator=(GraphemeRange const & r);
 
@@ -248,7 +248,7 @@ namespace boost { namespace text {
         /** Inserts the char range r into *this starting at position at.
 
             This function only participates in overload resolution if
-            <code>CharRange</code> models the CharRange concept. */
+            `CharRange` models the CharRange concept. */
         template<typename CharRange>
         iterator insert(iterator at, CharRange const & r);
 
@@ -256,7 +256,7 @@ namespace boost { namespace text {
             position at.
 
             This function only participates in overload resolution if
-            <code>CharIter</code> models the CharIter concept. */
+            `CharIter` models the CharIter concept. */
         template<typename CharIter, typename Sentinel>
         iterator insert(iterator at, CharIter first, Sentinel last);
 
@@ -348,7 +348,7 @@ namespace boost { namespace text {
             char range r.
 
             This function only participates in overload resolution if
-            <code>CharRange</code> models the CharRange concept.
+            `CharRange` models the CharRange concept.
 
             \pre !std::less(old_substr.begin().base().base(),
             begin().base().base()) && !std::less(end().base().base(),
@@ -360,7 +360,7 @@ namespace boost { namespace text {
             char sequence [first, last).
 
             This function only participates in overload resolution if
-            <code>CharIter</code> models the CharIter concept.
+            `CharIter` models the CharIter concept.
 
             \pre !std::less(old_substr.begin().base().base(),
             begin().base().base()) && !std::less(end().base().base(),
@@ -426,7 +426,7 @@ namespace boost { namespace text {
         /** Appends the char range r to *this.
 
             This function only participates in overload resolution if
-            <code>CharRange</code> models the CharRange concept. */
+            `CharRange` models the CharRange concept. */
         template<typename CharRange>
         text & operator+=(CharRange const & r);
 
@@ -1129,15 +1129,15 @@ namespace boost { namespace text {
 
     /** Creates a new text object that is the concatenation of t and r.
 
-        This function only participates in overload resolution if
-        <code>CharRange</code> models the CharRange concept. */
+        This function only participates in overload resolution if `CharRange`
+        models the CharRange concept. */
     template<typename CharRange>
     text operator+(text t, CharRange const & r);
 
     /** Creates a new text object that is the concatenation of r and t.
 
-        This function only participates in overload resolution if
-        <code>CharRange</code> models the CharRange concept. */
+        This function only participates in overload resolution if `CharRange`
+        models the CharRange concept. */
     template<typename CharRange>
     text operator+(CharRange const & r, text const & t);
 

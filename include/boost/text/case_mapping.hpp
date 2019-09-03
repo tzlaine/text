@@ -22,9 +22,9 @@ namespace boost { namespace text {
         dutch
     };
 
-    /** A callable type that returns the next possible word break in
-        <code>[first, last)</code>.  This is the default line break callable
-        type used with the case mapping functions. */
+    /** A callable type that returns the next possible word break in `[first,
+        last)`.  This is the default line break callable type used with the
+        case mapping functions. */
     struct next_word_break_callable
     {
 #ifdef BOOST_TEXT_DOXYGEN
@@ -774,8 +774,8 @@ namespace boost { namespace text {
         }
     }
 
-    /** Returns true if no code point in <code>[first, last)</code> would
-        change in a call to to_lower(), and false otherwise. */
+    /** Returns true if no code point in `[first, last)` would change in a
+        call to to_lower(), and false otherwise. */
     template<typename CPIter, typename Sentinel>
     bool is_lower(CPIter first, Sentinel last) noexcept
     {
@@ -786,19 +786,19 @@ namespace boost { namespace text {
 
 #ifdef BOOST_TEXT_DOXYGEN
 
-    /** Returns true if no code point in <code>range</code> would change in a
-        call to to_lower(), and false otherwise.
+    /** Returns true if no code point in `range` would change in a call to
+        to_lower(), and false otherwise.
 
-        This function only participates in overload resolution if
-        <code>CPRange</code> models the CPRange concept. */
+        This function only participates in overload resolution if `CPRange`
+        models the CPRange concept. */
     template<typename CPRange>
     bool is_lower(CPRange const & range) noexcept;
 
-    /** Returns true if no grapheme in <code>range</code> would change in a
-        call to to_lower(), and false otherwise.
+    /** Returns true if no grapheme in `range` would change in a call to
+        to_lower(), and false otherwise.
 
         This function only participates in overload resolution if
-        <code>GraphemeRange</code> models the GraphemeRange concept. */
+        `GraphemeRange` models the GraphemeRange concept. */
     template<typename GraphemeRange>
     bool is_lower(GraphemeRange const & range) noexcept;
 
@@ -821,9 +821,8 @@ namespace boost { namespace text {
 #endif
 
     /** Writes the code point sequence comprising the lower-case form of
-        <code>[first, last)</code> to <code>out</code>, using
-        language-specific handling as indicated by <code>lang</code>.  The
-        normalization of the result is undefined. */
+        `[first, last)` to `out`, using language-specific handling as
+        indicated by `lang`.  The normalization of the result is undefined. */
     template<typename CPIter, typename Sentinel, typename OutIter>
     OutIter to_lower(
         CPIter first,
@@ -845,12 +844,11 @@ namespace boost { namespace text {
 #ifdef BOOST_TEXT_DOXYGEN
 
     /** Writes the code point sequence comprising the lower-case form of
-        <code>range</code> to <code>out</code>, using language-specific
-        handling as indicated by <code>lang</code>.  The normalization of the
-        result is undefined.
+        `range` to `out`, using language-specific handling as indicated by
+        `lang`.  The normalization of the result is undefined.
 
-        This function only participates in overload resolution if
-        <code>CPRange</code> models the CPRange concept. */
+        This function only participates in overload resolution if `CPRange`
+        models the CPRange concept. */
     template<typename CPRange, typename OutIter>
     OutIter to_lower(
         CPRange const & range,
@@ -858,12 +856,11 @@ namespace boost { namespace text {
         case_language lang = case_language::other) noexcept;
 
     /** Writes the code point sequence comprising the lower-case form of
-        <code>range</code> to <code>out</code>, using language-specific
-        handling as indicated by <code>lang</code>.  The normalization of the
-        result is undefined.
+        `range` to `out`, using language-specific handling as indicated by
+        `lang`.  The normalization of the result is undefined.
 
         This function only participates in overload resolution if
-        <code>GraphemeRange</code> models the GraphemeRange concept. */
+        `GraphemeRange` models the GraphemeRange concept. */
     template<typename GraphemeRange, typename OutIter>
     OutIter to_lower(
         GraphemeRange const & range,
@@ -900,8 +897,8 @@ namespace boost { namespace text {
 
 #endif
 
-    /** Returns true if no code point in <code>[first, last)</code> would
-        change in a call to to_title(), and false otherwise. */
+    /** Returns true if no code point in `[first, last)` would change in a
+        call to to_title(), and false otherwise. */
     template<
         typename CPIter,
         typename Sentinel,
@@ -926,11 +923,11 @@ namespace boost { namespace text {
 
 #ifdef BOOST_TEXT_DOXYGEN
 
-    /** Returns true if no code point in <code>range</code> would change in a
-        call to to_title(), and false otherwise.
+    /** Returns true if no code point in `range` would change in a call to
+        to_title(), and false otherwise.
 
-        This function only participates in overload resolution if
-        <code>CPRange</code> models the CPRange concept. */
+        This function only participates in overload resolution if `CPRange`
+        models the CPRange concept. */
     template<
         typename CPRange,
         typename NextWordBreakFunc = next_word_break_callable>
@@ -938,11 +935,11 @@ namespace boost { namespace text {
         CPRange const & range,
         NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept;
 
-    /** Returns true if no grapheme in <code>range</code> would change in a
-        call to to_title(), and false otherwise.
+    /** Returns true if no grapheme in `range` would change in a call to
+        to_title(), and false otherwise.
 
         This function only participates in overload resolution if
-        <code>GraphemeRange</code> models the GraphemeRange concept. */
+        `GraphemeRange` models the GraphemeRange concept. */
     template<
         typename GraphemeRange,
         typename NextWordBreakFunc = next_word_break_callable>
@@ -978,9 +975,8 @@ namespace boost { namespace text {
 #endif
 
     /** Writes the code point sequence comprising the title-case form of
-        <code>[first, last)</code> to <code>out</code>, using
-        language-specific handling as indicated by <code>lang</code>.  The
-        normalization of the result is undefined. */
+        `[first, last)` to `out`, using language-specific handling as
+        indicated by `lang`.  The normalization of the result is undefined. */
     template<
         typename CPIter,
         typename Sentinel,
@@ -1015,12 +1011,11 @@ namespace boost { namespace text {
 #ifdef BOOST_TEXT_DOXYGEN
 
     /** Writes the code point sequence comprising the title-case form of
-        <code>range</code> to <code>out</code>, using language-specific
-        handling as indicated by <code>lang</code>.  The normalization of the
-        result is undefined.
+        `range` to `out`, using language-specific handling as indicated by
+        `lang`.  The normalization of the result is undefined.
 
-        This function only participates in overload resolution if
-        <code>CPRange</code> models the CPRange concept. */
+        This function only participates in overload resolution if `CPRange`
+        models the CPRange concept. */
     template<
         typename CPRange,
         typename OutIter,
@@ -1032,12 +1027,11 @@ namespace boost { namespace text {
         NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept;
 
     /** Writes the code point sequence comprising the title-case form of
-        <code>range</code> to <code>out</code>, using language-specific
-        handling as indicated by <code>lang</code>.  The normalization of the
-        result is undefined.
+        `range` to `out`, using language-specific handling as indicated by
+        `lang`.  The normalization of the result is undefined.
 
         This function only participates in overload resolution if
-        <code>GraphemeRange</code> models the GraphemeRange concept. */
+        `GraphemeRange` models the GraphemeRange concept. */
     template<
         typename GraphemeRange,
         typename OutIter,
@@ -1092,8 +1086,8 @@ namespace boost { namespace text {
 
 #endif
 
-    /** Returns true if no code point in <code>[first, last)</code> would
-        change in a call to to_upper(), and false otherwise. */
+    /** Returns true if no code point in `[first, last)` would change in a
+        call to to_upper(), and false otherwise. */
     template<typename CPIter, typename Sentinel>
     bool is_upper(CPIter first, Sentinel last) noexcept
     {
@@ -1104,19 +1098,19 @@ namespace boost { namespace text {
 
 #ifdef BOOST_TEXT_DOXYGEN
 
-    /** Returns true if no code point in <code>range</code> would change in a
-        call to to_upper(), and false otherwise.
+    /** Returns true if no code point in `range` would change in a call to
+        to_upper(), and false otherwise.
 
-        This function only participates in overload resolution if
-        <code>CPRange</code> models the CPRange concept. */
+        This function only participates in overload resolution if `CPRange`
+        models the CPRange concept. */
     template<typename CPRange>
     bool is_upper(CPRange const & range) noexcept;
 
-    /** Returns true if no grapheme in <code>range</code> would change in a
-        call to to_upper(), and false otherwise.
+    /** Returns true if no grapheme in `range` would change in a call to
+        to_upper(), and false otherwise.
 
         This function only participates in overload resolution if
-        <code>GraphemeRange</code> models the GraphemeRange concept. */
+        `GraphemeRange` models the GraphemeRange concept. */
     template<typename GraphemeRange>
     bool is_upper(GraphemeRange const & range) noexcept;
 
@@ -1139,9 +1133,8 @@ namespace boost { namespace text {
 #endif
 
     /** Writes code point sequence comprising the the upper-case form of
-        <code>[first, last)</code> to <code>out</code>, using language-specific
-        handling as indicated by <code>lang</code>.  The normalization of the
-        result is undefined. */
+        `[first, last)` to `out`, using language-specific handling as
+        indicated by `lang`.  The normalization of the result is undefined. */
     template<typename CPIter, typename Sentinel, typename OutIter>
     OutIter to_upper(
         CPIter first,
@@ -1163,12 +1156,11 @@ namespace boost { namespace text {
 #ifdef BOOST_TEXT_DOXYGEN
 
     /** Writes code point sequence comprising the the upper-case form of
-        <code>range</code> to <code>out</code>, using language-specific
-        handling as indicated by <code>lang</code>.  The normalization of the
-        result is undefined.
+        `range` to `out`, using language-specific handling as indicated by
+        `lang`.  The normalization of the result is undefined.
 
-        This function only participates in overload resolution if
-        <code>CPRange</code> models the CPRange concept. */
+        This function only participates in overload resolution if `CPRange`
+        models the CPRange concept. */
     template<typename CPRange, typename OutIter>
     OutIter to_upper(
         CPRange const & range,
@@ -1176,12 +1168,11 @@ namespace boost { namespace text {
         case_language lang = case_language::other) noexcept;
 
     /** Writes the code point sequence comprising the upper-case form of
-        <code>range</code> to <code>out</code>, using language-specific
-        handling as indicated by <code>lang</code>.  The normalization of the
-        result is undefined.
+        `range` to `out`, using language-specific handling as indicated by
+        `lang`.  The normalization of the result is undefined.
 
         This function only participates in overload resolution if
-        <code>GraphemeRange</code> models the GraphemeRange concept. */
+        `GraphemeRange` models the GraphemeRange concept. */
     template<typename GraphemeRange, typename OutIter>
     OutIter to_upper(
         GraphemeRange const & range,

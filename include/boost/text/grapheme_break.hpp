@@ -54,8 +54,7 @@ namespace boost { namespace text {
         make_grapheme_prop_map();
     }
 
-    /** Returns the grapheme property associated with code point
-        <code>cp</code>. */
+    /** Returns the grapheme property associated with code point `cp`. */
     inline grapheme_property grapheme_prop(uint32_t cp) noexcept
     {
         static auto const map = detail::make_grapheme_prop_map();
@@ -162,47 +161,44 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
 
 #ifdef BOOST_TEXT_DOXYGEN
 
-    /** Finds the nearest grapheme break at or before before <code>it</code>.
-        If <code>it == first</code>, that is returned.  Otherwise, the first
-        code point of the grapheme that <code>it</code> is within is returned
-        (even if <code>it</code> is already at the first code point of a
-        grapheme).
+    /** Finds the nearest grapheme break at or before before `it`.  If `it ==
+        first`, that is returned.  Otherwise, the first code point of the
+        grapheme that `it` is within is returned (even if `it` is already at
+        the first code point of a grapheme).
 
-        This function only participates in overload resolution if
-        <code>CPIter</code> models the CPIter concept. */
+        This function only participates in overload resolution if `CPIter`
+        models the CPIter concept. */
     template<typename CPIter, typename Sentinel>
     CPIter prev_grapheme_break(CPIter first, CPIter it, Sentinel last) noexcept;
 
-    /** Finds the next word break after <code>first</code>.  This will be the
-        first code point after the current word, or <code>last</code> if no
-        next word exists.
+    /** Finds the next word break after `first`.  This will be the first code
+        point after the current word, or `last` if no next word exists.
 
-        This function only participates in overload resolution if
-        <code>CPIter</code> models the CPIter concept.
+        This function only participates in overload resolution if `CPIter`
+        models the CPIter concept.
 
-        \pre <code>first</code> is at the beginning of a word. */
+        \pre `first` is at the beginning of a word. */
     template<typename CPIter, typename Sentinel>
     CPIter next_grapheme_break(CPIter first, Sentinel last) noexcept;
 
-    /** Finds the nearest grapheme break at or before before <code>it</code>.
-        If <code>it == range.begin()</code>, that is returned.  Otherwise, the
-        first code point of the grapheme that <code>it</code> is within is
-        returned (even if <code>it</code> is already at the first code point
-        of a grapheme).
+    /** Finds the nearest grapheme break at or before before `it`.  If `it ==
+        range.begin()`, that is returned.  Otherwise, the first code point of
+        the grapheme that `it` is within is returned (even if `it` is already
+        at the first code point of a grapheme).
 
-        This function only participates in overload resolution if
-        <code>CPRange</code> models the CPRange concept. */
+        This function only participates in overload resolution if `CPRange`
+        models the CPRange concept. */
     template<typename CPRange, typename CPIter>
     detail::undefined prev_grapheme_break(CPRange & range, CPIter it) noexcept;
 
-    /** Finds the next grapheme break after <code>it</code>.  This will be the
-        first code point after the current grapheme, or
-        <code>range.end()</code> if no next grapheme exists.
+    /** Finds the next grapheme break after `it`.  This will be the first code
+        point after the current grapheme, or `range.end()` if no next grapheme
+        exists.
 
-        This function only participates in overload resolution if
-        <code>CPRange</code> models the CPRange concept.
+        This function only participates in overload resolution if `CPRange`
+        models the CPRange concept.
 
-        \pre <code>it</code> is at the beginning of a grapheme. */
+        \pre `it` is at the beginning of a grapheme. */
     template<typename CPRange, typename CPIter>
     detail::undefined next_grapheme_break(CPRange & range, CPIter it) noexcept;
 
@@ -371,7 +367,7 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
     }
 
 #if 0
-    /** Returns the bounds of the grapheme that <code>it</code> lies within. */
+    /** Returns the bounds of the grapheme that `it` lies within. */
     template<typename CPIter, typename Sentinel>
     cp_range<CPIter> grapheme(CPIter first, CPIter it, Sentinel last) noexcept
     {
@@ -383,29 +379,29 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
 #ifdef BOOST_TEXT_DOXYGEN
 
 #if 0
-    /** Returns the bounds of the grapheme that <code>it</code> lies within,
+    /** Returns the bounds of the grapheme that `it` lies within,
         as a cp_range. */
     template<typename CPRange, typename CPIter>
     detail::undefined grapheme(CPRange & range, CPIter it) noexcept;
 #endif
 
     /** Returns a lazy range of the code point ranges delimiting graphemes in
-        <code>[first, last)</code>. */
+        `[first, last)`. */
     template<typename CPIter, typename Sentinel>
     detail::undefined graphemes(CPIter first, Sentinel last) noexcept;
 
     /** Returns a lazy range of the code point ranges delimiting graphemes in
-        <code>range</code>. */
+        `range`. */
     template<typename CPRange>
     detail::undefined graphemes(CPRange & range) noexcept;
 
     /** Returns a lazy range of the code point ranges delimiting graphemes in
-        <code>[first, last)</code>, in reverse. */
+        `[first, last)`, in reverse. */
     template<typename CPIter>
     detail::undefined reversed_graphemes(CPIter first, CPIter last) noexcept;
 
     /** Returns a lazy range of the code point ranges delimiting graphemes in
-        <code>range</code>, in reverse. */
+        `range`, in reverse. */
     template<typename CPRange>
     detail::undefined reversed_graphemes(CPRange & range) noexcept;
 
