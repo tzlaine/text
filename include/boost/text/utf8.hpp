@@ -1757,24 +1757,20 @@ namespace boost { namespace text { namespace utf8 {
         using reference = void;
         using iterator_category = std::output_iterator_tag;
 
+        from_utf32_insert_iterator() noexcept {}
+
         from_utf32_insert_iterator(
             Container & c, typename Container::iterator it) noexcept :
-            c_(&c),
-            it_(it)
+            it_(c, it)
         {}
 
         from_utf32_insert_iterator & operator=(uint32_t cp)
         {
             uint32_t cps[1] = {cp};
-            char chars[4];
-            auto const chars_end = std::copy(
+            it_ = std::copy(
                 from_utf32_iterator<uint32_t const *>(cps, cps, cps + 1),
                 from_utf32_iterator<uint32_t const *>(cps, cps + 1, cps + 1),
-                chars);
-            for (char * char_it = chars; char_it != chars_end; ++char_it) {
-                it_ = c_->insert(it_, *char_it);
-                ++it_;
-            }
+                it_);
             return *this;
         }
 
@@ -1782,9 +1778,10 @@ namespace boost { namespace text { namespace utf8 {
         from_utf32_insert_iterator & operator++() noexcept { return *this; }
         from_utf32_insert_iterator operator++(int)noexcept { return *this; }
 
+        std::insert_iterator<Container> base() const { return it_; }
+
     private:
-        Container * c_;
-        typename Container::iterator it_;
+        std::insert_iterator<Container> it_;
     };
 
     /** Returns a from_utf32_insert_iterator<Container> constructed from the
@@ -1807,19 +1804,17 @@ namespace boost { namespace text { namespace utf8 {
         using reference = void;
         using iterator_category = std::output_iterator_tag;
 
-        from_utf32_back_insert_iterator(Container & c) noexcept : c_(&c) {}
+        from_utf32_back_insert_iterator() noexcept {}
+
+        from_utf32_back_insert_iterator(Container & c) noexcept : it_(c) {}
 
         from_utf32_back_insert_iterator & operator=(uint32_t cp)
         {
             uint32_t cps[1] = {cp};
-            char chars[4];
-            auto const chars_end = std::copy(
+            it_ = std::copy(
                 from_utf32_iterator<uint32_t const *>(cps, cps, cps + 1),
                 from_utf32_iterator<uint32_t const *>(cps, cps + 1, cps + 1),
-                chars);
-            for (char * it = chars; it < chars_end; ++it) {
-                c_->push_back(*it);
-            }
+                it_);
             return *this;
         }
 
@@ -1833,8 +1828,10 @@ namespace boost { namespace text { namespace utf8 {
             return *this;
         }
 
+        std::back_insert_iterator<Container> base() const { return it_; }
+
     private:
-        Container * c_;
+        std::back_insert_iterator<Container> it_;
     };
 
     /** Returns a from_utf32_insert_iterator<Container> constructed from the

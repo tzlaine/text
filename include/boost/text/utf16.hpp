@@ -568,19 +568,18 @@ namespace boost { namespace text { namespace utf16 {
         using reference = void;
         using iterator_category = std::output_iterator_tag;
 
+        from_utf32_insert_iterator() noexcept {}
+
         from_utf32_insert_iterator(
             Container & c, typename Container::iterator it) noexcept :
-            c_(&c),
-            it_(it)
+            it_(c, it)
         {}
 
         from_utf32_insert_iterator & operator=(uint32_t cp)
         {
-            it_ = c_->insert(
-                it_, static_cast<uint16_t>(cp >> 10) + high_surrogate_base);
+            *it_ = static_cast<uint16_t>(cp >> 10) + high_surrogate_base;
             ++it_;
-            it_ = c_->insert(
-                it_, static_cast<uint16_t>(cp & 0x3ff) + low_surrogate_base);
+            *it_ = static_cast<uint16_t>(cp & 0x3ff) + low_surrogate_base;
             ++it_;
             return *this;
         }
@@ -589,12 +588,13 @@ namespace boost { namespace text { namespace utf16 {
         from_utf32_insert_iterator & operator++() noexcept { return *this; }
         from_utf32_insert_iterator operator++(int)noexcept { return *this; }
 
+        std::insert_iterator<Container> base() const { return it_; }
+
     private:
         static uint16_t const high_surrogate_base = 0xd7c0;
         static uint16_t const low_surrogate_base = 0xdc00;
 
-        Container * c_;
-        typename Container::iterator it_;
+        std::insert_iterator<Container> it_;
     };
 
     /** Returns a from_utf32_insert_iterator<Container> constructed from the
@@ -617,14 +617,16 @@ namespace boost { namespace text { namespace utf16 {
         using reference = void;
         using iterator_category = std::output_iterator_tag;
 
-        from_utf32_back_insert_iterator(Container & c) noexcept : c_(&c) {}
+        from_utf32_back_insert_iterator() noexcept {}
+
+        from_utf32_back_insert_iterator(Container & c) noexcept : it_(c) {}
 
         from_utf32_back_insert_iterator & operator=(uint32_t cp)
         {
-            c_->push_back(
-                static_cast<uint16_t>(cp >> 10) + high_surrogate_base);
-            c_->push_back(
-                static_cast<uint16_t>(cp & 0x3ff) + low_surrogate_base);
+            *it_ = static_cast<uint16_t>(cp >> 10) + high_surrogate_base;
+            ++it_;
+            *it_ = static_cast<uint16_t>(cp & 0x3ff) + low_surrogate_base;
+            ++it_;
             return *this;
         }
 
@@ -638,11 +640,13 @@ namespace boost { namespace text { namespace utf16 {
             return *this;
         }
 
+        std::back_insert_iterator<Container> base() const { return it_; }
+
     private:
         static uint16_t const high_surrogate_base = 0xd7c0;
         static uint16_t const low_surrogate_base = 0xdc00;
 
-        Container * c_;
+        std::back_insert_iterator<Container> it_;
     };
 
     /** Returns a from_utf32_insert_iterator<Container> constructed from the
