@@ -149,65 +149,73 @@ namespace boost { namespace text { namespace utf8 {
                 return optional_iter<Iter>{};
 
             if (in(0xc2, *it, 0xdf)) {
-                if (!continuation(*(it + 1)))
-                    return it + 1;
+                auto next = it;
+                if (!continuation(*++next))
+                    return next;
                 return optional_iter<Iter>{};
             }
 
             if (in(0xe0, *it, 0xe0)) {
-                if (!continuation(*(it + 1), 0xa0, 0xbf))
-                    return it + 1;
-                if (!continuation(*(it + 2)))
-                    return it + 2;
+                auto next = it;
+                if (!continuation(*++next, 0xa0, 0xbf))
+                    return next;
+                if (!continuation(*++next))
+                    return next;
                 return optional_iter<Iter>{};
             }
             if (in(0xe1, *it, 0xec)) {
-                if (!continuation(*(it + 1)))
-                    return it + 1;
-                if (!continuation(*(it + 2)))
-                    return it + 2;
+                auto next = it;
+                if (!continuation(*++next))
+                    return next;
+                if (!continuation(*++next))
+                    return next;
                 return optional_iter<Iter>{};
             }
             if (in(0xed, *it, 0xed)) {
-                if (!continuation(*(it + 1), 0x80, 0x9f))
-                    return it + 1;
-                if (!continuation(*(it + 2)))
-                    return it + 2;
+                auto next = it;
+                if (!continuation(*++next, 0x80, 0x9f))
+                    return next;
+                if (!continuation(*++next))
+                    return next;
                 return optional_iter<Iter>{};
             }
             if (in(0xee, *it, 0xef)) {
-                if (!continuation(*(it + 1)))
-                    return it + 1;
-                if (!continuation(*(it + 2)))
-                    return it + 2;
+                auto next = it;
+                if (!continuation(*++next))
+                    return next;
+                if (!continuation(*++next))
+                    return next;
                 return optional_iter<Iter>{};
             }
 
             if (in(0xf0, *it, 0xf0)) {
-                if (!continuation(*(it + 1), 0x90, 0xbf))
-                    return it + 1;
-                if (!continuation(*(it + 2)))
-                    return it + 2;
-                if (!continuation(*(it + 3)))
-                    return it + 3;
+                auto next = it;
+                if (!continuation(*++next, 0x90, 0xbf))
+                    return next;
+                if (!continuation(*++next))
+                    return next;
+                if (!continuation(*++next))
+                    return next;
                 return optional_iter<Iter>{};
             }
             if (in(0xf1, *it, 0xf3)) {
-                if (!continuation(*(it + 1)))
-                    return it + 1;
-                if (!continuation(*(it + 2)))
-                    return it + 2;
-                if (!continuation(*(it + 3)))
-                    return it + 3;
+                auto next = it;
+                if (!continuation(*++next))
+                    return next;
+                if (!continuation(*++next))
+                    return next;
+                if (!continuation(*++next))
+                    return next;
                 return optional_iter<Iter>{};
             }
             if (in(0xf4, *it, 0xf4)) {
-                if (!continuation(*(it + 1), 0x80, 0x8f))
-                    return it + 1;
-                if (!continuation(*(it + 2)))
-                    return it + 2;
-                if (!continuation(*(it + 3)))
-                    return it + 3;
+                auto next = it;
+                if (!continuation(*++next, 0x80, 0x8f))
+                    return next;
+                if (!continuation(*++next))
+                    return next;
+                if (!continuation(*++next))
+                    return next;
                 return optional_iter<Iter>{};
             }
 
@@ -257,7 +265,7 @@ namespace boost { namespace text { namespace utf8 {
             while (backup < 4 && it != first && continuation(*--retval)) {
                 ++backup;
             }
-            backup = it - retval;
+            backup = std::distance(retval, it);
 
             if (continuation(*retval)) {
                 if (it != first)
@@ -268,8 +276,9 @@ namespace boost { namespace text { namespace utf8 {
             optional_iter<Iter> first_invalid = end_of_invalid_utf8(retval);
             if (first_invalid == retval)
                 ++*first_invalid;
-            while (first_invalid && (*first_invalid - retval) < backup) {
-                backup -= *first_invalid - retval;
+            while (first_invalid &&
+                   std::distance(retval, *first_invalid) < backup) {
+                backup -= std::distance(retval, *first_invalid);
                 retval = *first_invalid;
                 first_invalid = end_of_invalid_utf8(retval);
                 if (first_invalid == retval)
