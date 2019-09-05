@@ -148,7 +148,7 @@ namespace boost { namespace text { namespace utf16 {
         typename ErrorHandler = utf8::use_replacement_character>
     struct from_utf32_iterator
     {
-        using value_type = char;
+        using value_type = uint16_t;
         using difference_type = int;
         using pointer = uint16_t *;
         using reference = uint16_t;
