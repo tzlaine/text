@@ -59,6 +59,7 @@ void BM_8_to_16_algorithm_no_alloc(benchmark::State & state)
     std::vector<uint16_t> utf16_result(utf8_text.size());
     while (state.KeepRunning()) {
         auto out = text::transcode_utf_8_to_16(utf8_text, utf16_result.begin());
+        (void)out;
         benchmark::ClobberMemory();
     }
 }
@@ -72,6 +73,7 @@ void BM_8_to_16_algorithm_no_simd_no_alloc(benchmark::State & state)
             utf8_text.end(),
             utf16_result.begin(),
             std::input_iterator_tag{});
+        (void)out;
         benchmark::ClobberMemory();
     }
 }
@@ -82,6 +84,7 @@ void BM_8_to_16_algorithm_no_alloc_pointer(benchmark::State & state)
     while (state.KeepRunning()) {
         auto out = text::transcode_utf_8_to_16(
             &*utf8_text.begin(), &*utf8_text.end(), &*utf16_result.begin());
+        (void)out;
         benchmark::ClobberMemory();
     }
 }
@@ -194,6 +197,7 @@ void BM_8_to_32_algorithm_no_alloc(benchmark::State & state)
     std::vector<uint16_t> utf16_result(utf8_text.size());
     while (state.KeepRunning()) {
         auto out = text::transcode_utf_8_to_32(utf8_text, utf16_result.begin());
+        (void)out;
         benchmark::ClobberMemory();
     }
 }
@@ -207,6 +211,7 @@ void BM_8_to_32_algorithm_no_simd_no_alloc(benchmark::State & state)
             utf8_text.end(),
             utf16_result.begin(),
             std::input_iterator_tag{});
+        (void)out;
         benchmark::ClobberMemory();
     }
 }
@@ -217,6 +222,7 @@ void BM_8_to_32_algorithm_no_alloc_pointer(benchmark::State & state)
     while (state.KeepRunning()) {
         auto out = text::transcode_utf_8_to_32(
             &*utf8_text.begin(), &*utf8_text.end(), &*utf16_result.begin());
+        (void)out;
         benchmark::ClobberMemory();
     }
 }

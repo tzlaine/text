@@ -568,8 +568,6 @@ namespace boost { namespace text { namespace utf16 {
         using reference = void;
         using iterator_category = std::output_iterator_tag;
 
-        from_utf32_insert_iterator() noexcept {}
-
         from_utf32_insert_iterator(
             Container & c, typename Container::iterator it) noexcept :
             it_(c, it)
@@ -616,8 +614,6 @@ namespace boost { namespace text { namespace utf16 {
         using pointer = void;
         using reference = void;
         using iterator_category = std::output_iterator_tag;
-
-        from_utf32_back_insert_iterator() noexcept {}
 
         from_utf32_back_insert_iterator(Container & c) noexcept : it_(c) {}
 

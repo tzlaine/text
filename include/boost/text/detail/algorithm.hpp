@@ -341,6 +341,66 @@ namespace boost { namespace text { namespace detail {
     using cp_iter_ret_t = typename cp_iter_ret<T, R1>::type;
 
 
+    template<typename T>
+    using is_16_code_unit = std::integral_constant<
+        bool,
+        (std::is_unsigned<T>::value && std::is_integral<T>::value &&
+         sizeof(T) == 2)>;
+
+    template<typename T>
+    using is_16_iter = std::integral_constant<
+        bool,
+        ((std::is_pointer<T>::value &&
+          is_16_code_unit<typename std::remove_cv<
+              typename std::remove_pointer<T>::type>::type>::value) ||
+         (is_detected<has_deref_and_incr, T>::value &&
+          is_16_code_unit<typename std::remove_cv<
+              detected_t<value_type_, T>>::type>::value))>;
+
+    template<typename T, typename R1, bool R1IsCPRange = is_16_iter<R1>::value>
+    struct _16_iter_ret
+    {
+    };
+
+    template<typename T, typename R1>
+    struct _16_iter_ret<T, R1, true>
+    {
+        using type = T;
+    };
+
+    template<typename T, typename R1>
+    using _16_iter_ret_t = typename _16_iter_ret<T, R1>::type;
+
+
+    template<typename T>
+    using is_8_code_unit = std::
+        integral_constant<bool, std::is_integral<T>::value && sizeof(T) == 1>;
+
+    template<typename T>
+    using is_8_iter = std::integral_constant<
+        bool,
+        ((std::is_pointer<T>::value &&
+          is_8_code_unit<typename std::remove_cv<
+              typename std::remove_pointer<T>::type>::type>::value) ||
+         (is_detected<has_deref_and_incr, T>::value &&
+          is_8_code_unit<typename std::remove_cv<
+              detected_t<value_type_, T>>::type>::value))>;
+
+    template<typename T, typename R1, bool R1IsCPRange = is_8_iter<R1>::value>
+    struct _8_iter_ret
+    {
+    };
+
+    template<typename T, typename R1>
+    struct _8_iter_ret<T, R1, true>
+    {
+        using type = T;
+    };
+
+    template<typename T, typename R1>
+    using _8_iter_ret_t = typename _8_iter_ret<T, R1>::type;
+
+
 
     template<typename T, typename U>
     using comparable_ = decltype(std::declval<T>() == std::declval<U>());

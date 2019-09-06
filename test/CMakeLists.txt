@@ -54,6 +54,9 @@ macro(add_test_executable name group)
     add_executable(${local_name} ${name}.cpp)
     target_compile_options(${local_name} PRIVATE ${warnings_flag})
     target_link_libraries(${local_name} text gtest gtest_main)
+    if (ICU_FOUND)
+        target_link_libraries(${local_name} ${ICU_LIBRARIES})
+    endif ()
     if (NOT MSVC AND NOT LIMIT_TESTING_FOR_CI) # Boost auto-linking handles this with MSVC.
         target_link_libraries(${local_name} boost_system boost_filesystem)
     endif ()
@@ -361,6 +364,7 @@ set(compile_sources
     compile_detail_is_char_iter.cpp
     compile_detail_is_char_range.cpp
     compile_detail_is_cp_iter.cpp
+    compile_detail_icu.cpp
     compile_trie_conversions.cpp
 )
 

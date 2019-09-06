@@ -7,6 +7,9 @@ macro(add_perf_executable name)
     add_executable(${name} ${name}.cpp)
     target_compile_options(${name} PRIVATE ${warnings_flag})
     target_link_libraries(${name} text benchmark)
+    if (ICU_FOUND)
+        target_link_libraries(${name} ${ICU_LIBRARIES})
+    endif ()
     set_property(TARGET ${name} PROPERTY CXX_STANDARD ${CXX_STD})
     if (clang_on_linux)
         target_link_libraries(${name} c++)
@@ -143,7 +146,7 @@ add_custom_target(find_string_insert_max
 ##################################
 # Perf comparisons against ICU   #
 ##################################
-if (NOT ICU_FOUND OR LIMIT_TESTING_FOR_CI)
+if (NOT ICU_FOUND)# OR LIMIT_TESTING_FOR_CI)
     target_compile_definitions(transcoding_perf PRIVATE -DNO_ICU)
     return()
 endif()
