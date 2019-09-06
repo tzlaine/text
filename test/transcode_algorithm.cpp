@@ -24,6 +24,69 @@ constexpr char utf8[11] = {
     char(0x82),
     0,
 };
+uint32_t const cps[] = {
+    0x1053B, 0x0062, 0x1053C, 0x0021, 0x1053C, 0x003F, 0x1053C, 0x0334,
+    0x1053C, 0x0061, 0x1053C, 0x0041, 0x1053C, 0x0062, 0x1053D, 0x0021,
+    0x1053D, 0x003F, 0x1053D, 0x0334, 0x1053D, 0x0061, 0x1053D, 0x0041,
+    0x1053D, 0x0062, 0x1053E, 0x0021, 0x1053E, 0x003F, 0x1053E, 0x0334,
+    0x1053E, 0x0061, 0x1053E, 0x0041, 0x1053E, 0x0062, 0x1053F, 0x0021,
+    0x1053F, 0x003F, 0x1053F, 0x0334, 0x1053F, 0x0061, 0x1053F, 0x0041,
+    0x1053F, 0x0062, 0x10540, 0x0021, 0x10540, 0x003F, 0x10540, 0x0334,
+    0x10540, 0x0061, 0x10540, 0x0041, 0x10540, 0x0062, 0x10541, 0x0021,
+    0x10541, 0x003F, 0x10541, 0x0334, 0x10541, 0x0061, 0x10541, 0x0041,
+    0x10541, 0x0062, 0x10542, 0x0021, 0x10542, 0x003F, 0x10542, 0x0334,
+    0x10542, 0x0061, 0x10542, 0x0041, 0x10542, 0x0062, 0x10543, 0x0021,
+    0x10543, 0x003F, 0x10543, 0x0334, 0x10543, 0x0061, 0x10543, 0x0041,
+    0x10543, 0x0062, 0x10544, 0x0021, 0x10544, 0x003F, 0x10544, 0x0334,
+    0x10544, 0x0061, 0x10544, 0x0041, 0x10544, 0x0062, 0x10545, 0x0021,
+    0x10545, 0x003F, 0x10545, 0x0334, 0x10545, 0x0061, 0x10545, 0x0041,
+    0x10545, 0x0062, 0x10546, 0x0021, 0x10546, 0x003F, 0x10546, 0x0334,
+    0x10546, 0x0061, 0x10546, 0x0041, 0x10546, 0x0062, 0x10547, 0x0021,
+    0x10547, 0x003F, 0x10547, 0x0334, 0x10547, 0x0061, 0x10547, 0x0041,
+    0x10547, 0x0062, 0x10548, 0x0021, 0x10548, 0x003F, 0x10548, 0x0334,
+    0x10548, 0x0061, 0x10548, 0x0041, 0x10548, 0x0062, 0x10549, 0x0021,
+    0x10549, 0x003F, 0x10549, 0x0334, 0x10549, 0x0061, 0x10549, 0x0041,
+    0x10549, 0x0062, 0x1054A, 0x0021, 0x1054A, 0x003F, 0x1054A, 0x0334,
+    0x1054A, 0x0061, 0x1054A, 0x0041, 0x1054A, 0x0062, 0x1054B, 0x0021,
+    0x1054B, 0x003F, 0x1054B, 0x0334, 0x1054B, 0x0061, 0x1054B, 0x0041,
+    0x1054B, 0x0062, 0x1054C, 0x0021, 0x1054C, 0x003F, 0x1054C, 0x0334,
+    0x1054C, 0x0061, 0x1054C, 0x0041, 0x1054C, 0x0062, 0x1054D, 0x0021,
+    0x1054D, 0x003F, 0x1054D, 0x0334, 0x1054D, 0x0061, 0x1054D, 0x0041,
+    0x1054D, 0x0062, 0x1054E, 0x0021, 0x1054E, 0x003F, 0x1054E, 0x0334,
+    0x1054E, 0x0061, 0x1054E, 0x0041, 0x1054E, 0x0062, 0x1054F, 0x0021,
+    0x1054F, 0x003F, 0x1054F, 0x0334, 0x1054F, 0x0061, 0x1054F, 0x0041,
+    0x1054F, 0x0062, 0x10550, 0x0021, 0x10550, 0x003F, 0x10550, 0x0334,
+    0x10550, 0x0061, 0x10550, 0x0041, 0x10550, 0x0062, 0x10551, 0x0021,
+    0x10551, 0x003F, 0x10551, 0x0334, 0x10551, 0x0061, 0x10551, 0x0041,
+    0x10551, 0x0062, 0x10552, 0x0021, 0x10552, 0x003F, 0x10552, 0x0334,
+    0x10552, 0x0061, 0x10552, 0x0041, 0x10552, 0x0062, 0x10553, 0x0021,
+    0x10553, 0x003F, 0x10553, 0x0334, 0x10553, 0x0061, 0x10553, 0x0041,
+    0x10553, 0x0062, 0x10554, 0x0021, 0x10554, 0x003F, 0x10554, 0x0334,
+    0x10554, 0x0061, 0x10554, 0x0041, 0x10554, 0x0062, 0x10555, 0x0021,
+    0x10555, 0x003F, 0x10555, 0x0334, 0x10555, 0x0061, 0x10555, 0x0041,
+    0x10555, 0x0062, 0x10556, 0x0021, 0x10556, 0x003F, 0x10556, 0x0334,
+    0x10556, 0x0061, 0x10556, 0x0041, 0x10556, 0x0062, 0x10557, 0x0021,
+    0x10557, 0x003F, 0x10557, 0x0334, 0x10557, 0x0061, 0x10557, 0x0041,
+    0x10557, 0x0062, 0x10558, 0x0021, 0x10558, 0x003F, 0x10558, 0x0334,
+    0x10558, 0x0061, 0x10558, 0x0041, 0x10558, 0x0062, 0x10559, 0x0021,
+    0x10559, 0x003F, 0x10559, 0x0334, 0x10559, 0x0061, 0x10559, 0x0041,
+    0x10559, 0x0062, 0x1055A, 0x0021, 0x1055A, 0x003F, 0x1055A, 0x0334,
+    0x1055A, 0x0061, 0x1055A, 0x0041, 0x1055A, 0x0062, 0x1055B, 0x0021,
+    0x1055B, 0x003F, 0x1055B, 0x0334, 0x1055B, 0x0061, 0x1055B, 0x0041,
+    0x1055B, 0x0062, 0x1055C, 0x0021, 0x1055C, 0x003F, 0x1055C, 0x0334,
+    0x1055C, 0x0061, 0x1055C, 0x0041, 0x1055C, 0x0062, 0x1055D, 0x0021,
+    0x1055D, 0x003F, 0x1055D, 0x0334, 0x1055D, 0x0061, 0x1055D, 0x0041,
+    0x1055D, 0x0062, 0x1055E, 0x0021, 0x1055E, 0x003F, 0x1055E, 0x0334,
+    0x1055E, 0x0061, 0x1055E, 0x0041, 0x1055E, 0x0062, 0x1055F, 0x0021,
+    0x1055F, 0x003F, 0x1055F, 0x0334, 0x1055F, 0x0061, 0x1055F, 0x0041,
+    0x1055F, 0x0062, 0x10560, 0x0021, 0x10560, 0x003F, 0x10560, 0x0334,
+    0x10560, 0x0061, 0x10560, 0x0041, 0x10560, 0x0062, 0x10561, 0x0021,
+    0x10561, 0x003F, 0x10561, 0x0334, 0x10561, 0x0061, 0x10561, 0x0041,
+    0x10561, 0x0062, 0x10562, 0x0021, 0x10562, 0x003F, 0x10562, 0x0334,
+    0x10562, 0x0061, 0x10562, 0x0041, 0x10562, 0x0062, 0x10563, 0x0021,
+    0x10563, 0x003F, 0x10563, 0x0334, 0x10563, 0x0061, 0x10563, 0x0041,
+    0x10563, 0x0062, 0x110D0, 0x0021, 0x110D0, 0x003F, 0x110D0, 0x0334,
+    0x110D0, 0x0061, 0x110D0, 0x0041, 0x110D0, 0x0062, 0x110D1, 0x0021};
 
 TEST(transcode_algorthm, from_utf8_non_error)
 {
@@ -736,6 +799,112 @@ TEST(transcode_algorthm, from_utf16_non_error)
     }
 }
 
+TEST(transcode_algorthm, from_long_utf16_sequence)
+{
+    std::vector<uint16_t> cus;
+    auto const utf16_first = text::utf16::make_from_utf32_iterator(
+        std::begin(cps), std::begin(cps), std::end(cps));
+    auto const utf16_last = text::utf16::make_from_utf32_iterator(
+        std::begin(cps), std::end(cps), std::end(cps));
+    std::copy(utf16_first, utf16_last, std::back_inserter(cus));
+
+    std::vector<uint32_t> const cps_copy(std::begin(cps), std::end(cps));
+
+    // UTF-16 pointer -> UTF-32 pointer
+    {
+        std::vector<uint32_t> result(10000);
+        auto const out_first = &result[0];
+        auto const out_last =
+            text::transcode_utf_16_to_32(cus.begin(), cus.end(), &result[0]);
+        result.resize(out_last - out_first);
+        EXPECT_EQ(result, cps_copy);
+    }
+    // UTF-16 non-pointer -> UTF-32 pointer
+    {
+        std::vector<uint32_t> result(10000);
+        std::list<uint16_t> cus_list(cus.begin(), cus.end());
+        auto const out_first = &result[0];
+        auto const out_last = text::transcode_utf_16_to_32(
+            cus_list.begin(), cus_list.end(), &result[0]);
+        result.resize(out_last - out_first);
+        EXPECT_EQ(result, cps_copy);
+    }
+    // UTF-16 pointer -> UTF-32 non-pointer
+    {
+        std::vector<uint32_t> result;
+        text::transcode_utf_16_to_32(
+            cus.begin(), cus.end(), std::back_inserter(result));
+        EXPECT_EQ(result, cps_copy);
+    }
+    // UTF-16 non-pointer -> UTF-32 non-pointer
+    {
+        std::vector<uint32_t> result;
+        std::list<uint16_t> cus_list(cus.begin(), cus.end());
+        text::transcode_utf_16_to_32(
+            cus_list.begin(), cus_list.end(), std::back_inserter(result));
+        EXPECT_EQ(result, cps_copy);
+    }
+
+    // UTF-16 non-pointer -> UTF-32 non-pointer
+    {
+        std::vector<uint32_t> result;
+        text::transcode_utf_16_to_32(
+            utf16_first, utf16_last, std::back_inserter(result));
+        EXPECT_EQ(result, cps_copy);
+    }
+
+    std::vector<char> cps_to_8;
+    std::copy(
+        text::utf8::make_from_utf32_iterator(
+            std::begin(cps), std::begin(cps), std::end(cps)),
+        text::utf8::make_from_utf32_iterator(
+            std::begin(cps), std::end(cps), std::end(cps)),
+        std::back_inserter(cps_to_8));
+
+    // UTF-16 pointer -> UTF-8 pointer
+    {
+        std::vector<char> result(10000);
+        auto const out_first = &result[0];
+        auto const out_last =
+            text::transcode_utf_16_to_8(cus.begin(), cus.end(), &result[0]);
+        result.resize(out_last - out_first);
+        EXPECT_EQ(result, cps_to_8);
+    }
+    // UTF-16 non-pointer -> UTF-8 pointer
+    {
+        std::vector<char> result(10000);
+        std::list<uint16_t> cus_list(cus.begin(), cus.end());
+        auto const out_first = &result[0];
+        auto const out_last = text::transcode_utf_16_to_8(
+            cus_list.begin(), cus_list.end(), &result[0]);
+        result.resize(out_last - out_first);
+        EXPECT_EQ(result, cps_to_8);
+    }
+    // UTF-16 pointer -> UTF-8 non-pointer
+    {
+        std::vector<char> result;
+        text::transcode_utf_16_to_8(
+            cus.begin(), cus.end(), std::back_inserter(result));
+        EXPECT_EQ(result, cps_to_8);
+    }
+    // UTF-16 non-pointer -> UTF-8 non-pointer
+    {
+        std::vector<char> result;
+        std::list<uint16_t> cus_list(cus.begin(), cus.end());
+        text::transcode_utf_16_to_8(
+            cus_list.begin(), cus_list.end(), std::back_inserter(result));
+        EXPECT_EQ(result, cps_to_8);
+    }
+
+    // UTF-16 non-pointer -> UTF-8 non-pointer
+    {
+        std::vector<char> result;
+        text::transcode_utf_16_to_8(
+            utf16_first, utf16_last, std::back_inserter(result));
+        EXPECT_EQ(result, cps_to_8);
+    }
+}
+
 // The tests using this struct cover the boundaries of all the cases in Table
 // 3-7 in Unicode 9, 3.9/D91
 template<int Size>
@@ -996,5 +1165,94 @@ TEST(transcode_algorthm, from_utf32)
                                char(0x90),
                                char(0x8c),
                                char(0x82)}));
+    }
+}
+
+TEST(transcode_algorthm, from_long_utf32_sequence)
+{
+    std::vector<uint16_t> cps_to_16;
+    std::copy(
+        text::utf16::make_from_utf32_iterator(
+            std::begin(cps), std::begin(cps), std::end(cps)),
+        text::utf16::make_from_utf32_iterator(
+            std::begin(cps), std::end(cps), std::end(cps)),
+        std::back_inserter(cps_to_16));
+
+    // UTF-32 pointer -> UTF-16 pointer
+    {
+        std::vector<uint16_t> result(10000);
+        auto const out_first = &result[0];
+        auto const out_last = text::transcode_utf_32_to_16(
+            std::begin(cps), std::end(cps), &result[0]);
+        result.resize(out_last - out_first);
+        EXPECT_EQ(result, cps_to_16);
+    }
+    // UTF-32 non-pointer -> UTF-16 pointer
+    {
+        std::vector<uint16_t> result(10000);
+        std::list<uint32_t> cps_list(std::begin(cps), std::end(cps));
+        auto const out_first = &result[0];
+        auto const out_last = text::transcode_utf_32_to_16(
+            cps_list.begin(), cps_list.end(), &result[0]);
+        result.resize(out_last - out_first);
+        EXPECT_EQ(result, cps_to_16);
+    }
+    // UTF-32 pointer -> UTF-16 non-pointer
+    {
+        std::vector<uint16_t> result;
+        text::transcode_utf_32_to_16(
+            std::begin(cps), std::end(cps), std::back_inserter(result));
+        EXPECT_EQ(result, cps_to_16);
+    }
+    // UTF-32 non-pointer -> UTF-16 non-pointer
+    {
+        std::vector<uint16_t> result;
+        std::list<uint32_t> cps_list(std::begin(cps), std::end(cps));
+        text::transcode_utf_32_to_16(
+            cps_list.begin(), cps_list.end(), std::back_inserter(result));
+        EXPECT_EQ(result, cps_to_16);
+    }
+
+    std::vector<char> cps_to_8;
+    std::copy(
+        text::utf8::make_from_utf32_iterator(
+            std::begin(cps), std::begin(cps), std::end(cps)),
+        text::utf8::make_from_utf32_iterator(
+            std::begin(cps), std::end(cps), std::end(cps)),
+        std::back_inserter(cps_to_8));
+
+    // UTF-32 pointer -> UTF-8 pointer
+    {
+        std::vector<char> result(10000);
+        auto const out_first = &result[0];
+        auto const out_last = text::transcode_utf_32_to_8(
+            std::begin(cps), std::end(cps), &result[0]);
+        result.resize(out_last - out_first);
+        EXPECT_EQ(result, cps_to_8);
+    }
+    // UTF-32 non-pointer -> UTF-8 pointer
+    {
+        std::vector<char> result(10000);
+        std::list<uint32_t> cps_list(std::begin(cps), std::end(cps));
+        auto const out_first = &result[0];
+        auto const out_last = text::transcode_utf_32_to_8(
+            cps_list.begin(), cps_list.end(), &result[0]);
+        result.resize(out_last - out_first);
+        EXPECT_EQ(result, cps_to_8);
+    }
+    // UTF-32 pointer -> UTF-8 non-pointer
+    {
+        std::vector<char> result;
+        text::transcode_utf_32_to_8(
+            std::begin(cps), std::end(cps), std::back_inserter(result));
+        EXPECT_EQ(result, cps_to_8);
+    }
+    // UTF-32 non-pointer -> UTF-8 non-pointer
+    {
+        std::vector<char> result;
+        std::list<uint32_t> cps_list(std::begin(cps), std::end(cps));
+        text::transcode_utf_32_to_8(
+            cps_list.begin(), cps_list.end(), std::back_inserter(result));
+        EXPECT_EQ(result, cps_to_8);
     }
 }
