@@ -310,8 +310,6 @@ namespace boost { namespace text {
         }
 #endif
 
-        // TODO: Experiment with writing out the ccc values for reuse in case
-        // the result is not quick_check::yes.
         template<typename Iter, typename Sentinel, typename QuickCheckFunc>
         quick_check normalized_quick_check(
             Iter first, Sentinel last, QuickCheckFunc && quick_check_) noexcept
