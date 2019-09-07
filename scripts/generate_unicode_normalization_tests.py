@@ -185,7 +185,7 @@ def generate_norm_check(normalization, from_, to_):
             boost::text::string str = boost::text::to_string({1}.begin(), {1}.end());
             boost::text::normalize_to_{0}(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), {2}.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t){2}.size());
             auto {2}_it = {2}.begin();
             int i = 0;
             for (auto x : utf32_range) {{

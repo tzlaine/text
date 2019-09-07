@@ -46,7 +46,7 @@ TEST(normalization, nfc_086_000)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -60,7 +60,7 @@ TEST(normalization, nfc_086_000)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -74,7 +74,7 @@ TEST(normalization, nfc_086_000)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -88,7 +88,7 @@ TEST(normalization, nfc_086_000)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -102,7 +102,7 @@ TEST(normalization, nfc_086_000)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -153,7 +153,7 @@ TEST(normalization, nfc_086_001)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -167,7 +167,7 @@ TEST(normalization, nfc_086_001)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -181,7 +181,7 @@ TEST(normalization, nfc_086_001)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -195,7 +195,7 @@ TEST(normalization, nfc_086_001)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -209,7 +209,7 @@ TEST(normalization, nfc_086_001)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -260,7 +260,7 @@ TEST(normalization, nfc_086_002)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -274,7 +274,7 @@ TEST(normalization, nfc_086_002)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -288,7 +288,7 @@ TEST(normalization, nfc_086_002)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -302,7 +302,7 @@ TEST(normalization, nfc_086_002)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -316,7 +316,7 @@ TEST(normalization, nfc_086_002)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -359,7 +359,7 @@ TEST(normalization, nfc_086_003)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -373,7 +373,7 @@ TEST(normalization, nfc_086_003)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -387,7 +387,7 @@ TEST(normalization, nfc_086_003)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -401,7 +401,7 @@ TEST(normalization, nfc_086_003)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -415,7 +415,7 @@ TEST(normalization, nfc_086_003)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -466,7 +466,7 @@ TEST(normalization, nfc_086_004)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -480,7 +480,7 @@ TEST(normalization, nfc_086_004)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -494,7 +494,7 @@ TEST(normalization, nfc_086_004)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -508,7 +508,7 @@ TEST(normalization, nfc_086_004)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -522,7 +522,7 @@ TEST(normalization, nfc_086_004)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -565,7 +565,7 @@ TEST(normalization, nfc_086_005)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -579,7 +579,7 @@ TEST(normalization, nfc_086_005)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -593,7 +593,7 @@ TEST(normalization, nfc_086_005)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -607,7 +607,7 @@ TEST(normalization, nfc_086_005)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -621,7 +621,7 @@ TEST(normalization, nfc_086_005)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -672,7 +672,7 @@ TEST(normalization, nfc_086_006)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -686,7 +686,7 @@ TEST(normalization, nfc_086_006)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -700,7 +700,7 @@ TEST(normalization, nfc_086_006)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -714,7 +714,7 @@ TEST(normalization, nfc_086_006)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -728,7 +728,7 @@ TEST(normalization, nfc_086_006)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -771,7 +771,7 @@ TEST(normalization, nfc_086_007)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -785,7 +785,7 @@ TEST(normalization, nfc_086_007)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -799,7 +799,7 @@ TEST(normalization, nfc_086_007)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -813,7 +813,7 @@ TEST(normalization, nfc_086_007)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -827,7 +827,7 @@ TEST(normalization, nfc_086_007)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -878,7 +878,7 @@ TEST(normalization, nfc_086_008)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -892,7 +892,7 @@ TEST(normalization, nfc_086_008)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -906,7 +906,7 @@ TEST(normalization, nfc_086_008)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -920,7 +920,7 @@ TEST(normalization, nfc_086_008)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -934,7 +934,7 @@ TEST(normalization, nfc_086_008)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -977,7 +977,7 @@ TEST(normalization, nfc_086_009)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -991,7 +991,7 @@ TEST(normalization, nfc_086_009)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -1005,7 +1005,7 @@ TEST(normalization, nfc_086_009)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -1019,7 +1019,7 @@ TEST(normalization, nfc_086_009)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -1033,7 +1033,7 @@ TEST(normalization, nfc_086_009)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -1084,7 +1084,7 @@ TEST(normalization, nfc_086_010)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -1098,7 +1098,7 @@ TEST(normalization, nfc_086_010)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -1112,7 +1112,7 @@ TEST(normalization, nfc_086_010)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -1126,7 +1126,7 @@ TEST(normalization, nfc_086_010)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -1140,7 +1140,7 @@ TEST(normalization, nfc_086_010)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -1191,7 +1191,7 @@ TEST(normalization, nfc_086_011)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -1205,7 +1205,7 @@ TEST(normalization, nfc_086_011)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -1219,7 +1219,7 @@ TEST(normalization, nfc_086_011)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -1233,7 +1233,7 @@ TEST(normalization, nfc_086_011)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -1247,7 +1247,7 @@ TEST(normalization, nfc_086_011)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -1298,7 +1298,7 @@ TEST(normalization, nfc_086_012)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -1312,7 +1312,7 @@ TEST(normalization, nfc_086_012)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -1326,7 +1326,7 @@ TEST(normalization, nfc_086_012)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -1340,7 +1340,7 @@ TEST(normalization, nfc_086_012)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -1354,7 +1354,7 @@ TEST(normalization, nfc_086_012)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -1397,7 +1397,7 @@ TEST(normalization, nfc_086_013)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -1411,7 +1411,7 @@ TEST(normalization, nfc_086_013)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -1425,7 +1425,7 @@ TEST(normalization, nfc_086_013)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -1439,7 +1439,7 @@ TEST(normalization, nfc_086_013)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -1453,7 +1453,7 @@ TEST(normalization, nfc_086_013)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -1504,7 +1504,7 @@ TEST(normalization, nfc_086_014)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -1518,7 +1518,7 @@ TEST(normalization, nfc_086_014)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -1532,7 +1532,7 @@ TEST(normalization, nfc_086_014)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -1546,7 +1546,7 @@ TEST(normalization, nfc_086_014)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -1560,7 +1560,7 @@ TEST(normalization, nfc_086_014)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -1603,7 +1603,7 @@ TEST(normalization, nfc_086_015)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -1617,7 +1617,7 @@ TEST(normalization, nfc_086_015)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -1631,7 +1631,7 @@ TEST(normalization, nfc_086_015)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -1645,7 +1645,7 @@ TEST(normalization, nfc_086_015)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -1659,7 +1659,7 @@ TEST(normalization, nfc_086_015)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -1710,7 +1710,7 @@ TEST(normalization, nfc_086_016)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -1724,7 +1724,7 @@ TEST(normalization, nfc_086_016)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -1738,7 +1738,7 @@ TEST(normalization, nfc_086_016)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -1752,7 +1752,7 @@ TEST(normalization, nfc_086_016)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -1766,7 +1766,7 @@ TEST(normalization, nfc_086_016)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -1809,7 +1809,7 @@ TEST(normalization, nfc_086_017)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -1823,7 +1823,7 @@ TEST(normalization, nfc_086_017)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -1837,7 +1837,7 @@ TEST(normalization, nfc_086_017)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -1851,7 +1851,7 @@ TEST(normalization, nfc_086_017)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -1865,7 +1865,7 @@ TEST(normalization, nfc_086_017)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -1916,7 +1916,7 @@ TEST(normalization, nfc_086_018)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -1930,7 +1930,7 @@ TEST(normalization, nfc_086_018)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -1944,7 +1944,7 @@ TEST(normalization, nfc_086_018)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -1958,7 +1958,7 @@ TEST(normalization, nfc_086_018)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -1972,7 +1972,7 @@ TEST(normalization, nfc_086_018)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -2023,7 +2023,7 @@ TEST(normalization, nfc_086_019)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -2037,7 +2037,7 @@ TEST(normalization, nfc_086_019)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -2051,7 +2051,7 @@ TEST(normalization, nfc_086_019)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -2065,7 +2065,7 @@ TEST(normalization, nfc_086_019)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -2079,7 +2079,7 @@ TEST(normalization, nfc_086_019)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -2130,7 +2130,7 @@ TEST(normalization, nfc_086_020)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -2144,7 +2144,7 @@ TEST(normalization, nfc_086_020)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -2158,7 +2158,7 @@ TEST(normalization, nfc_086_020)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -2172,7 +2172,7 @@ TEST(normalization, nfc_086_020)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -2186,7 +2186,7 @@ TEST(normalization, nfc_086_020)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -2237,7 +2237,7 @@ TEST(normalization, nfc_086_021)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -2251,7 +2251,7 @@ TEST(normalization, nfc_086_021)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -2265,7 +2265,7 @@ TEST(normalization, nfc_086_021)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -2279,7 +2279,7 @@ TEST(normalization, nfc_086_021)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -2293,7 +2293,7 @@ TEST(normalization, nfc_086_021)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -2344,7 +2344,7 @@ TEST(normalization, nfc_086_022)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -2358,7 +2358,7 @@ TEST(normalization, nfc_086_022)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -2372,7 +2372,7 @@ TEST(normalization, nfc_086_022)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -2386,7 +2386,7 @@ TEST(normalization, nfc_086_022)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -2400,7 +2400,7 @@ TEST(normalization, nfc_086_022)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -2443,7 +2443,7 @@ TEST(normalization, nfc_086_023)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -2457,7 +2457,7 @@ TEST(normalization, nfc_086_023)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -2471,7 +2471,7 @@ TEST(normalization, nfc_086_023)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -2485,7 +2485,7 @@ TEST(normalization, nfc_086_023)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -2499,7 +2499,7 @@ TEST(normalization, nfc_086_023)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -2550,7 +2550,7 @@ TEST(normalization, nfc_086_024)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -2564,7 +2564,7 @@ TEST(normalization, nfc_086_024)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -2578,7 +2578,7 @@ TEST(normalization, nfc_086_024)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -2592,7 +2592,7 @@ TEST(normalization, nfc_086_024)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -2606,7 +2606,7 @@ TEST(normalization, nfc_086_024)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -2649,7 +2649,7 @@ TEST(normalization, nfc_086_025)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -2663,7 +2663,7 @@ TEST(normalization, nfc_086_025)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -2677,7 +2677,7 @@ TEST(normalization, nfc_086_025)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -2691,7 +2691,7 @@ TEST(normalization, nfc_086_025)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -2705,7 +2705,7 @@ TEST(normalization, nfc_086_025)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -2756,7 +2756,7 @@ TEST(normalization, nfc_086_026)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -2770,7 +2770,7 @@ TEST(normalization, nfc_086_026)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -2784,7 +2784,7 @@ TEST(normalization, nfc_086_026)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -2798,7 +2798,7 @@ TEST(normalization, nfc_086_026)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -2812,7 +2812,7 @@ TEST(normalization, nfc_086_026)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -2855,7 +2855,7 @@ TEST(normalization, nfc_086_027)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -2869,7 +2869,7 @@ TEST(normalization, nfc_086_027)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -2883,7 +2883,7 @@ TEST(normalization, nfc_086_027)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -2897,7 +2897,7 @@ TEST(normalization, nfc_086_027)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -2911,7 +2911,7 @@ TEST(normalization, nfc_086_027)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -2962,7 +2962,7 @@ TEST(normalization, nfc_086_028)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -2976,7 +2976,7 @@ TEST(normalization, nfc_086_028)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -2990,7 +2990,7 @@ TEST(normalization, nfc_086_028)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -3004,7 +3004,7 @@ TEST(normalization, nfc_086_028)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -3018,7 +3018,7 @@ TEST(normalization, nfc_086_028)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -3061,7 +3061,7 @@ TEST(normalization, nfc_086_029)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -3075,7 +3075,7 @@ TEST(normalization, nfc_086_029)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -3089,7 +3089,7 @@ TEST(normalization, nfc_086_029)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -3103,7 +3103,7 @@ TEST(normalization, nfc_086_029)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -3117,7 +3117,7 @@ TEST(normalization, nfc_086_029)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -3168,7 +3168,7 @@ TEST(normalization, nfc_086_030)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -3182,7 +3182,7 @@ TEST(normalization, nfc_086_030)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -3196,7 +3196,7 @@ TEST(normalization, nfc_086_030)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -3210,7 +3210,7 @@ TEST(normalization, nfc_086_030)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -3224,7 +3224,7 @@ TEST(normalization, nfc_086_030)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -3267,7 +3267,7 @@ TEST(normalization, nfc_086_031)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -3281,7 +3281,7 @@ TEST(normalization, nfc_086_031)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -3295,7 +3295,7 @@ TEST(normalization, nfc_086_031)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -3309,7 +3309,7 @@ TEST(normalization, nfc_086_031)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -3323,7 +3323,7 @@ TEST(normalization, nfc_086_031)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -3374,7 +3374,7 @@ TEST(normalization, nfc_086_032)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -3388,7 +3388,7 @@ TEST(normalization, nfc_086_032)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -3402,7 +3402,7 @@ TEST(normalization, nfc_086_032)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -3416,7 +3416,7 @@ TEST(normalization, nfc_086_032)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -3430,7 +3430,7 @@ TEST(normalization, nfc_086_032)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -3473,7 +3473,7 @@ TEST(normalization, nfc_086_033)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -3487,7 +3487,7 @@ TEST(normalization, nfc_086_033)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -3501,7 +3501,7 @@ TEST(normalization, nfc_086_033)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -3515,7 +3515,7 @@ TEST(normalization, nfc_086_033)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -3529,7 +3529,7 @@ TEST(normalization, nfc_086_033)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -3580,7 +3580,7 @@ TEST(normalization, nfc_086_034)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -3594,7 +3594,7 @@ TEST(normalization, nfc_086_034)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -3608,7 +3608,7 @@ TEST(normalization, nfc_086_034)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -3622,7 +3622,7 @@ TEST(normalization, nfc_086_034)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -3636,7 +3636,7 @@ TEST(normalization, nfc_086_034)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -3687,7 +3687,7 @@ TEST(normalization, nfc_086_035)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -3701,7 +3701,7 @@ TEST(normalization, nfc_086_035)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -3715,7 +3715,7 @@ TEST(normalization, nfc_086_035)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -3729,7 +3729,7 @@ TEST(normalization, nfc_086_035)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -3743,7 +3743,7 @@ TEST(normalization, nfc_086_035)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -3794,7 +3794,7 @@ TEST(normalization, nfc_086_036)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -3808,7 +3808,7 @@ TEST(normalization, nfc_086_036)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -3822,7 +3822,7 @@ TEST(normalization, nfc_086_036)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -3836,7 +3836,7 @@ TEST(normalization, nfc_086_036)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -3850,7 +3850,7 @@ TEST(normalization, nfc_086_036)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -3901,7 +3901,7 @@ TEST(normalization, nfc_086_037)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -3915,7 +3915,7 @@ TEST(normalization, nfc_086_037)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -3929,7 +3929,7 @@ TEST(normalization, nfc_086_037)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -3943,7 +3943,7 @@ TEST(normalization, nfc_086_037)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -3957,7 +3957,7 @@ TEST(normalization, nfc_086_037)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -4008,7 +4008,7 @@ TEST(normalization, nfc_086_038)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -4022,7 +4022,7 @@ TEST(normalization, nfc_086_038)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -4036,7 +4036,7 @@ TEST(normalization, nfc_086_038)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -4050,7 +4050,7 @@ TEST(normalization, nfc_086_038)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -4064,7 +4064,7 @@ TEST(normalization, nfc_086_038)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -4115,7 +4115,7 @@ TEST(normalization, nfc_086_039)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -4129,7 +4129,7 @@ TEST(normalization, nfc_086_039)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -4143,7 +4143,7 @@ TEST(normalization, nfc_086_039)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -4157,7 +4157,7 @@ TEST(normalization, nfc_086_039)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -4171,7 +4171,7 @@ TEST(normalization, nfc_086_039)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -4222,7 +4222,7 @@ TEST(normalization, nfc_086_040)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -4236,7 +4236,7 @@ TEST(normalization, nfc_086_040)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -4250,7 +4250,7 @@ TEST(normalization, nfc_086_040)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -4264,7 +4264,7 @@ TEST(normalization, nfc_086_040)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -4278,7 +4278,7 @@ TEST(normalization, nfc_086_040)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -4329,7 +4329,7 @@ TEST(normalization, nfc_086_041)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -4343,7 +4343,7 @@ TEST(normalization, nfc_086_041)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -4357,7 +4357,7 @@ TEST(normalization, nfc_086_041)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -4371,7 +4371,7 @@ TEST(normalization, nfc_086_041)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -4385,7 +4385,7 @@ TEST(normalization, nfc_086_041)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -4436,7 +4436,7 @@ TEST(normalization, nfc_086_042)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -4450,7 +4450,7 @@ TEST(normalization, nfc_086_042)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -4464,7 +4464,7 @@ TEST(normalization, nfc_086_042)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -4478,7 +4478,7 @@ TEST(normalization, nfc_086_042)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -4492,7 +4492,7 @@ TEST(normalization, nfc_086_042)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -4543,7 +4543,7 @@ TEST(normalization, nfc_086_043)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -4557,7 +4557,7 @@ TEST(normalization, nfc_086_043)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -4571,7 +4571,7 @@ TEST(normalization, nfc_086_043)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -4585,7 +4585,7 @@ TEST(normalization, nfc_086_043)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -4599,7 +4599,7 @@ TEST(normalization, nfc_086_043)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -4650,7 +4650,7 @@ TEST(normalization, nfc_086_044)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -4664,7 +4664,7 @@ TEST(normalization, nfc_086_044)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -4678,7 +4678,7 @@ TEST(normalization, nfc_086_044)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -4692,7 +4692,7 @@ TEST(normalization, nfc_086_044)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -4706,7 +4706,7 @@ TEST(normalization, nfc_086_044)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -4757,7 +4757,7 @@ TEST(normalization, nfc_086_045)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -4771,7 +4771,7 @@ TEST(normalization, nfc_086_045)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -4785,7 +4785,7 @@ TEST(normalization, nfc_086_045)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -4799,7 +4799,7 @@ TEST(normalization, nfc_086_045)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -4813,7 +4813,7 @@ TEST(normalization, nfc_086_045)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -4864,7 +4864,7 @@ TEST(normalization, nfc_086_046)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -4878,7 +4878,7 @@ TEST(normalization, nfc_086_046)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -4892,7 +4892,7 @@ TEST(normalization, nfc_086_046)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -4906,7 +4906,7 @@ TEST(normalization, nfc_086_046)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -4920,7 +4920,7 @@ TEST(normalization, nfc_086_046)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -4963,7 +4963,7 @@ TEST(normalization, nfc_086_047)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -4977,7 +4977,7 @@ TEST(normalization, nfc_086_047)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -4991,7 +4991,7 @@ TEST(normalization, nfc_086_047)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -5005,7 +5005,7 @@ TEST(normalization, nfc_086_047)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -5019,7 +5019,7 @@ TEST(normalization, nfc_086_047)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -5070,7 +5070,7 @@ TEST(normalization, nfc_086_048)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -5084,7 +5084,7 @@ TEST(normalization, nfc_086_048)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -5098,7 +5098,7 @@ TEST(normalization, nfc_086_048)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -5112,7 +5112,7 @@ TEST(normalization, nfc_086_048)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -5126,7 +5126,7 @@ TEST(normalization, nfc_086_048)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -5169,7 +5169,7 @@ TEST(normalization, nfc_086_049)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -5183,7 +5183,7 @@ TEST(normalization, nfc_086_049)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -5197,7 +5197,7 @@ TEST(normalization, nfc_086_049)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -5211,7 +5211,7 @@ TEST(normalization, nfc_086_049)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -5225,7 +5225,7 @@ TEST(normalization, nfc_086_049)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -5276,7 +5276,7 @@ TEST(normalization, nfc_086_050)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -5290,7 +5290,7 @@ TEST(normalization, nfc_086_050)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -5304,7 +5304,7 @@ TEST(normalization, nfc_086_050)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -5318,7 +5318,7 @@ TEST(normalization, nfc_086_050)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -5332,7 +5332,7 @@ TEST(normalization, nfc_086_050)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -5383,7 +5383,7 @@ TEST(normalization, nfc_086_051)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -5397,7 +5397,7 @@ TEST(normalization, nfc_086_051)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -5411,7 +5411,7 @@ TEST(normalization, nfc_086_051)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -5425,7 +5425,7 @@ TEST(normalization, nfc_086_051)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -5439,7 +5439,7 @@ TEST(normalization, nfc_086_051)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -5490,7 +5490,7 @@ TEST(normalization, nfc_086_052)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -5504,7 +5504,7 @@ TEST(normalization, nfc_086_052)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -5518,7 +5518,7 @@ TEST(normalization, nfc_086_052)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -5532,7 +5532,7 @@ TEST(normalization, nfc_086_052)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -5546,7 +5546,7 @@ TEST(normalization, nfc_086_052)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -5589,7 +5589,7 @@ TEST(normalization, nfc_086_053)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -5603,7 +5603,7 @@ TEST(normalization, nfc_086_053)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -5617,7 +5617,7 @@ TEST(normalization, nfc_086_053)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -5631,7 +5631,7 @@ TEST(normalization, nfc_086_053)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -5645,7 +5645,7 @@ TEST(normalization, nfc_086_053)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -5696,7 +5696,7 @@ TEST(normalization, nfc_086_054)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -5710,7 +5710,7 @@ TEST(normalization, nfc_086_054)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -5724,7 +5724,7 @@ TEST(normalization, nfc_086_054)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -5738,7 +5738,7 @@ TEST(normalization, nfc_086_054)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -5752,7 +5752,7 @@ TEST(normalization, nfc_086_054)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -5795,7 +5795,7 @@ TEST(normalization, nfc_086_055)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -5809,7 +5809,7 @@ TEST(normalization, nfc_086_055)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -5823,7 +5823,7 @@ TEST(normalization, nfc_086_055)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -5837,7 +5837,7 @@ TEST(normalization, nfc_086_055)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -5851,7 +5851,7 @@ TEST(normalization, nfc_086_055)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -5902,7 +5902,7 @@ TEST(normalization, nfc_086_056)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -5916,7 +5916,7 @@ TEST(normalization, nfc_086_056)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -5930,7 +5930,7 @@ TEST(normalization, nfc_086_056)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -5944,7 +5944,7 @@ TEST(normalization, nfc_086_056)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -5958,7 +5958,7 @@ TEST(normalization, nfc_086_056)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -6009,7 +6009,7 @@ TEST(normalization, nfc_086_057)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -6023,7 +6023,7 @@ TEST(normalization, nfc_086_057)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -6037,7 +6037,7 @@ TEST(normalization, nfc_086_057)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -6051,7 +6051,7 @@ TEST(normalization, nfc_086_057)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -6065,7 +6065,7 @@ TEST(normalization, nfc_086_057)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -6116,7 +6116,7 @@ TEST(normalization, nfc_086_058)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -6130,7 +6130,7 @@ TEST(normalization, nfc_086_058)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -6144,7 +6144,7 @@ TEST(normalization, nfc_086_058)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -6158,7 +6158,7 @@ TEST(normalization, nfc_086_058)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -6172,7 +6172,7 @@ TEST(normalization, nfc_086_058)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -6215,7 +6215,7 @@ TEST(normalization, nfc_086_059)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -6229,7 +6229,7 @@ TEST(normalization, nfc_086_059)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -6243,7 +6243,7 @@ TEST(normalization, nfc_086_059)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -6257,7 +6257,7 @@ TEST(normalization, nfc_086_059)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -6271,7 +6271,7 @@ TEST(normalization, nfc_086_059)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -6314,7 +6314,7 @@ TEST(normalization, nfc_086_060)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -6328,7 +6328,7 @@ TEST(normalization, nfc_086_060)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -6342,7 +6342,7 @@ TEST(normalization, nfc_086_060)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -6356,7 +6356,7 @@ TEST(normalization, nfc_086_060)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -6370,7 +6370,7 @@ TEST(normalization, nfc_086_060)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -6413,7 +6413,7 @@ TEST(normalization, nfc_086_061)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -6427,7 +6427,7 @@ TEST(normalization, nfc_086_061)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -6441,7 +6441,7 @@ TEST(normalization, nfc_086_061)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -6455,7 +6455,7 @@ TEST(normalization, nfc_086_061)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -6469,7 +6469,7 @@ TEST(normalization, nfc_086_061)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -6520,7 +6520,7 @@ TEST(normalization, nfc_086_062)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -6534,7 +6534,7 @@ TEST(normalization, nfc_086_062)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -6548,7 +6548,7 @@ TEST(normalization, nfc_086_062)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -6562,7 +6562,7 @@ TEST(normalization, nfc_086_062)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -6576,7 +6576,7 @@ TEST(normalization, nfc_086_062)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -6627,7 +6627,7 @@ TEST(normalization, nfc_086_063)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -6641,7 +6641,7 @@ TEST(normalization, nfc_086_063)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -6655,7 +6655,7 @@ TEST(normalization, nfc_086_063)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -6669,7 +6669,7 @@ TEST(normalization, nfc_086_063)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -6683,7 +6683,7 @@ TEST(normalization, nfc_086_063)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -6734,7 +6734,7 @@ TEST(normalization, nfc_086_064)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -6748,7 +6748,7 @@ TEST(normalization, nfc_086_064)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -6762,7 +6762,7 @@ TEST(normalization, nfc_086_064)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -6776,7 +6776,7 @@ TEST(normalization, nfc_086_064)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -6790,7 +6790,7 @@ TEST(normalization, nfc_086_064)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -6841,7 +6841,7 @@ TEST(normalization, nfc_086_065)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -6855,7 +6855,7 @@ TEST(normalization, nfc_086_065)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -6869,7 +6869,7 @@ TEST(normalization, nfc_086_065)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -6883,7 +6883,7 @@ TEST(normalization, nfc_086_065)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -6897,7 +6897,7 @@ TEST(normalization, nfc_086_065)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -6948,7 +6948,7 @@ TEST(normalization, nfc_086_066)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -6962,7 +6962,7 @@ TEST(normalization, nfc_086_066)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -6976,7 +6976,7 @@ TEST(normalization, nfc_086_066)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -6990,7 +6990,7 @@ TEST(normalization, nfc_086_066)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -7004,7 +7004,7 @@ TEST(normalization, nfc_086_066)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -7055,7 +7055,7 @@ TEST(normalization, nfc_086_067)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -7069,7 +7069,7 @@ TEST(normalization, nfc_086_067)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -7083,7 +7083,7 @@ TEST(normalization, nfc_086_067)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -7097,7 +7097,7 @@ TEST(normalization, nfc_086_067)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -7111,7 +7111,7 @@ TEST(normalization, nfc_086_067)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -7162,7 +7162,7 @@ TEST(normalization, nfc_086_068)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -7176,7 +7176,7 @@ TEST(normalization, nfc_086_068)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -7190,7 +7190,7 @@ TEST(normalization, nfc_086_068)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -7204,7 +7204,7 @@ TEST(normalization, nfc_086_068)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -7218,7 +7218,7 @@ TEST(normalization, nfc_086_068)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -7269,7 +7269,7 @@ TEST(normalization, nfc_086_069)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -7283,7 +7283,7 @@ TEST(normalization, nfc_086_069)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -7297,7 +7297,7 @@ TEST(normalization, nfc_086_069)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -7311,7 +7311,7 @@ TEST(normalization, nfc_086_069)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -7325,7 +7325,7 @@ TEST(normalization, nfc_086_069)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -7376,7 +7376,7 @@ TEST(normalization, nfc_086_070)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -7390,7 +7390,7 @@ TEST(normalization, nfc_086_070)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -7404,7 +7404,7 @@ TEST(normalization, nfc_086_070)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -7418,7 +7418,7 @@ TEST(normalization, nfc_086_070)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -7432,7 +7432,7 @@ TEST(normalization, nfc_086_070)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -7483,7 +7483,7 @@ TEST(normalization, nfc_086_071)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -7497,7 +7497,7 @@ TEST(normalization, nfc_086_071)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -7511,7 +7511,7 @@ TEST(normalization, nfc_086_071)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -7525,7 +7525,7 @@ TEST(normalization, nfc_086_071)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -7539,7 +7539,7 @@ TEST(normalization, nfc_086_071)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -7590,7 +7590,7 @@ TEST(normalization, nfc_086_072)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -7604,7 +7604,7 @@ TEST(normalization, nfc_086_072)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -7618,7 +7618,7 @@ TEST(normalization, nfc_086_072)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -7632,7 +7632,7 @@ TEST(normalization, nfc_086_072)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -7646,7 +7646,7 @@ TEST(normalization, nfc_086_072)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -7697,7 +7697,7 @@ TEST(normalization, nfc_086_073)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -7711,7 +7711,7 @@ TEST(normalization, nfc_086_073)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -7725,7 +7725,7 @@ TEST(normalization, nfc_086_073)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -7739,7 +7739,7 @@ TEST(normalization, nfc_086_073)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -7753,7 +7753,7 @@ TEST(normalization, nfc_086_073)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -7804,7 +7804,7 @@ TEST(normalization, nfc_086_074)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -7818,7 +7818,7 @@ TEST(normalization, nfc_086_074)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -7832,7 +7832,7 @@ TEST(normalization, nfc_086_074)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -7846,7 +7846,7 @@ TEST(normalization, nfc_086_074)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -7860,7 +7860,7 @@ TEST(normalization, nfc_086_074)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -7911,7 +7911,7 @@ TEST(normalization, nfc_086_075)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -7925,7 +7925,7 @@ TEST(normalization, nfc_086_075)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -7939,7 +7939,7 @@ TEST(normalization, nfc_086_075)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -7953,7 +7953,7 @@ TEST(normalization, nfc_086_075)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -7967,7 +7967,7 @@ TEST(normalization, nfc_086_075)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -8018,7 +8018,7 @@ TEST(normalization, nfc_086_076)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -8032,7 +8032,7 @@ TEST(normalization, nfc_086_076)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -8046,7 +8046,7 @@ TEST(normalization, nfc_086_076)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -8060,7 +8060,7 @@ TEST(normalization, nfc_086_076)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -8074,7 +8074,7 @@ TEST(normalization, nfc_086_076)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -8125,7 +8125,7 @@ TEST(normalization, nfc_086_077)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -8139,7 +8139,7 @@ TEST(normalization, nfc_086_077)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -8153,7 +8153,7 @@ TEST(normalization, nfc_086_077)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -8167,7 +8167,7 @@ TEST(normalization, nfc_086_077)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -8181,7 +8181,7 @@ TEST(normalization, nfc_086_077)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -8232,7 +8232,7 @@ TEST(normalization, nfc_086_078)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -8246,7 +8246,7 @@ TEST(normalization, nfc_086_078)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -8260,7 +8260,7 @@ TEST(normalization, nfc_086_078)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -8274,7 +8274,7 @@ TEST(normalization, nfc_086_078)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -8288,7 +8288,7 @@ TEST(normalization, nfc_086_078)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -8339,7 +8339,7 @@ TEST(normalization, nfc_086_079)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -8353,7 +8353,7 @@ TEST(normalization, nfc_086_079)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -8367,7 +8367,7 @@ TEST(normalization, nfc_086_079)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -8381,7 +8381,7 @@ TEST(normalization, nfc_086_079)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -8395,7 +8395,7 @@ TEST(normalization, nfc_086_079)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -8446,7 +8446,7 @@ TEST(normalization, nfc_086_080)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -8460,7 +8460,7 @@ TEST(normalization, nfc_086_080)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -8474,7 +8474,7 @@ TEST(normalization, nfc_086_080)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -8488,7 +8488,7 @@ TEST(normalization, nfc_086_080)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -8502,7 +8502,7 @@ TEST(normalization, nfc_086_080)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -8553,7 +8553,7 @@ TEST(normalization, nfc_086_081)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -8567,7 +8567,7 @@ TEST(normalization, nfc_086_081)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -8581,7 +8581,7 @@ TEST(normalization, nfc_086_081)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -8595,7 +8595,7 @@ TEST(normalization, nfc_086_081)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -8609,7 +8609,7 @@ TEST(normalization, nfc_086_081)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -8660,7 +8660,7 @@ TEST(normalization, nfc_086_082)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -8674,7 +8674,7 @@ TEST(normalization, nfc_086_082)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -8688,7 +8688,7 @@ TEST(normalization, nfc_086_082)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -8702,7 +8702,7 @@ TEST(normalization, nfc_086_082)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -8716,7 +8716,7 @@ TEST(normalization, nfc_086_082)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -8767,7 +8767,7 @@ TEST(normalization, nfc_086_083)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -8781,7 +8781,7 @@ TEST(normalization, nfc_086_083)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -8795,7 +8795,7 @@ TEST(normalization, nfc_086_083)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -8809,7 +8809,7 @@ TEST(normalization, nfc_086_083)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -8823,7 +8823,7 @@ TEST(normalization, nfc_086_083)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -8874,7 +8874,7 @@ TEST(normalization, nfc_086_084)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -8888,7 +8888,7 @@ TEST(normalization, nfc_086_084)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -8902,7 +8902,7 @@ TEST(normalization, nfc_086_084)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -8916,7 +8916,7 @@ TEST(normalization, nfc_086_084)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -8930,7 +8930,7 @@ TEST(normalization, nfc_086_084)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -8981,7 +8981,7 @@ TEST(normalization, nfc_086_085)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -8995,7 +8995,7 @@ TEST(normalization, nfc_086_085)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -9009,7 +9009,7 @@ TEST(normalization, nfc_086_085)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -9023,7 +9023,7 @@ TEST(normalization, nfc_086_085)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -9037,7 +9037,7 @@ TEST(normalization, nfc_086_085)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -9088,7 +9088,7 @@ TEST(normalization, nfc_086_086)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -9102,7 +9102,7 @@ TEST(normalization, nfc_086_086)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -9116,7 +9116,7 @@ TEST(normalization, nfc_086_086)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -9130,7 +9130,7 @@ TEST(normalization, nfc_086_086)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -9144,7 +9144,7 @@ TEST(normalization, nfc_086_086)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -9195,7 +9195,7 @@ TEST(normalization, nfc_086_087)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -9209,7 +9209,7 @@ TEST(normalization, nfc_086_087)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -9223,7 +9223,7 @@ TEST(normalization, nfc_086_087)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -9237,7 +9237,7 @@ TEST(normalization, nfc_086_087)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -9251,7 +9251,7 @@ TEST(normalization, nfc_086_087)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -9302,7 +9302,7 @@ TEST(normalization, nfc_086_088)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -9316,7 +9316,7 @@ TEST(normalization, nfc_086_088)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -9330,7 +9330,7 @@ TEST(normalization, nfc_086_088)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -9344,7 +9344,7 @@ TEST(normalization, nfc_086_088)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -9358,7 +9358,7 @@ TEST(normalization, nfc_086_088)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -9409,7 +9409,7 @@ TEST(normalization, nfc_086_089)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -9423,7 +9423,7 @@ TEST(normalization, nfc_086_089)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -9437,7 +9437,7 @@ TEST(normalization, nfc_086_089)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -9451,7 +9451,7 @@ TEST(normalization, nfc_086_089)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -9465,7 +9465,7 @@ TEST(normalization, nfc_086_089)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -9516,7 +9516,7 @@ TEST(normalization, nfc_086_090)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -9530,7 +9530,7 @@ TEST(normalization, nfc_086_090)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -9544,7 +9544,7 @@ TEST(normalization, nfc_086_090)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -9558,7 +9558,7 @@ TEST(normalization, nfc_086_090)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -9572,7 +9572,7 @@ TEST(normalization, nfc_086_090)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -9623,7 +9623,7 @@ TEST(normalization, nfc_086_091)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -9637,7 +9637,7 @@ TEST(normalization, nfc_086_091)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -9651,7 +9651,7 @@ TEST(normalization, nfc_086_091)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -9665,7 +9665,7 @@ TEST(normalization, nfc_086_091)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -9679,7 +9679,7 @@ TEST(normalization, nfc_086_091)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -9730,7 +9730,7 @@ TEST(normalization, nfc_086_092)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -9744,7 +9744,7 @@ TEST(normalization, nfc_086_092)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -9758,7 +9758,7 @@ TEST(normalization, nfc_086_092)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -9772,7 +9772,7 @@ TEST(normalization, nfc_086_092)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -9786,7 +9786,7 @@ TEST(normalization, nfc_086_092)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -9837,7 +9837,7 @@ TEST(normalization, nfc_086_093)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -9851,7 +9851,7 @@ TEST(normalization, nfc_086_093)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -9865,7 +9865,7 @@ TEST(normalization, nfc_086_093)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -9879,7 +9879,7 @@ TEST(normalization, nfc_086_093)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -9893,7 +9893,7 @@ TEST(normalization, nfc_086_093)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -9944,7 +9944,7 @@ TEST(normalization, nfc_086_094)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -9958,7 +9958,7 @@ TEST(normalization, nfc_086_094)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -9972,7 +9972,7 @@ TEST(normalization, nfc_086_094)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -9986,7 +9986,7 @@ TEST(normalization, nfc_086_094)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -10000,7 +10000,7 @@ TEST(normalization, nfc_086_094)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -10051,7 +10051,7 @@ TEST(normalization, nfc_086_095)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -10065,7 +10065,7 @@ TEST(normalization, nfc_086_095)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -10079,7 +10079,7 @@ TEST(normalization, nfc_086_095)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -10093,7 +10093,7 @@ TEST(normalization, nfc_086_095)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -10107,7 +10107,7 @@ TEST(normalization, nfc_086_095)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -10158,7 +10158,7 @@ TEST(normalization, nfc_086_096)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -10172,7 +10172,7 @@ TEST(normalization, nfc_086_096)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -10186,7 +10186,7 @@ TEST(normalization, nfc_086_096)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -10200,7 +10200,7 @@ TEST(normalization, nfc_086_096)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -10214,7 +10214,7 @@ TEST(normalization, nfc_086_096)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -10257,7 +10257,7 @@ TEST(normalization, nfc_086_097)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -10271,7 +10271,7 @@ TEST(normalization, nfc_086_097)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -10285,7 +10285,7 @@ TEST(normalization, nfc_086_097)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -10299,7 +10299,7 @@ TEST(normalization, nfc_086_097)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -10313,7 +10313,7 @@ TEST(normalization, nfc_086_097)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -10364,7 +10364,7 @@ TEST(normalization, nfc_086_098)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -10378,7 +10378,7 @@ TEST(normalization, nfc_086_098)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -10392,7 +10392,7 @@ TEST(normalization, nfc_086_098)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -10406,7 +10406,7 @@ TEST(normalization, nfc_086_098)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -10420,7 +10420,7 @@ TEST(normalization, nfc_086_098)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -10471,7 +10471,7 @@ TEST(normalization, nfc_086_099)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -10485,7 +10485,7 @@ TEST(normalization, nfc_086_099)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -10499,7 +10499,7 @@ TEST(normalization, nfc_086_099)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -10513,7 +10513,7 @@ TEST(normalization, nfc_086_099)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -10527,7 +10527,7 @@ TEST(normalization, nfc_086_099)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -10578,7 +10578,7 @@ TEST(normalization, nfc_086_100)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -10592,7 +10592,7 @@ TEST(normalization, nfc_086_100)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -10606,7 +10606,7 @@ TEST(normalization, nfc_086_100)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -10620,7 +10620,7 @@ TEST(normalization, nfc_086_100)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -10634,7 +10634,7 @@ TEST(normalization, nfc_086_100)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -10685,7 +10685,7 @@ TEST(normalization, nfc_086_101)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -10699,7 +10699,7 @@ TEST(normalization, nfc_086_101)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -10713,7 +10713,7 @@ TEST(normalization, nfc_086_101)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -10727,7 +10727,7 @@ TEST(normalization, nfc_086_101)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -10741,7 +10741,7 @@ TEST(normalization, nfc_086_101)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -10792,7 +10792,7 @@ TEST(normalization, nfc_086_102)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -10806,7 +10806,7 @@ TEST(normalization, nfc_086_102)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -10820,7 +10820,7 @@ TEST(normalization, nfc_086_102)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -10834,7 +10834,7 @@ TEST(normalization, nfc_086_102)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -10848,7 +10848,7 @@ TEST(normalization, nfc_086_102)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -10891,7 +10891,7 @@ TEST(normalization, nfc_086_103)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -10905,7 +10905,7 @@ TEST(normalization, nfc_086_103)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -10919,7 +10919,7 @@ TEST(normalization, nfc_086_103)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -10933,7 +10933,7 @@ TEST(normalization, nfc_086_103)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -10947,7 +10947,7 @@ TEST(normalization, nfc_086_103)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -10998,7 +10998,7 @@ TEST(normalization, nfc_086_104)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -11012,7 +11012,7 @@ TEST(normalization, nfc_086_104)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -11026,7 +11026,7 @@ TEST(normalization, nfc_086_104)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -11040,7 +11040,7 @@ TEST(normalization, nfc_086_104)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -11054,7 +11054,7 @@ TEST(normalization, nfc_086_104)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -11097,7 +11097,7 @@ TEST(normalization, nfc_086_105)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -11111,7 +11111,7 @@ TEST(normalization, nfc_086_105)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -11125,7 +11125,7 @@ TEST(normalization, nfc_086_105)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -11139,7 +11139,7 @@ TEST(normalization, nfc_086_105)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -11153,7 +11153,7 @@ TEST(normalization, nfc_086_105)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -11204,7 +11204,7 @@ TEST(normalization, nfc_086_106)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -11218,7 +11218,7 @@ TEST(normalization, nfc_086_106)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -11232,7 +11232,7 @@ TEST(normalization, nfc_086_106)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -11246,7 +11246,7 @@ TEST(normalization, nfc_086_106)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -11260,7 +11260,7 @@ TEST(normalization, nfc_086_106)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -11303,7 +11303,7 @@ TEST(normalization, nfc_086_107)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -11317,7 +11317,7 @@ TEST(normalization, nfc_086_107)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -11331,7 +11331,7 @@ TEST(normalization, nfc_086_107)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -11345,7 +11345,7 @@ TEST(normalization, nfc_086_107)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -11359,7 +11359,7 @@ TEST(normalization, nfc_086_107)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -11410,7 +11410,7 @@ TEST(normalization, nfc_086_108)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -11424,7 +11424,7 @@ TEST(normalization, nfc_086_108)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -11438,7 +11438,7 @@ TEST(normalization, nfc_086_108)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -11452,7 +11452,7 @@ TEST(normalization, nfc_086_108)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -11466,7 +11466,7 @@ TEST(normalization, nfc_086_108)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -11509,7 +11509,7 @@ TEST(normalization, nfc_086_109)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -11523,7 +11523,7 @@ TEST(normalization, nfc_086_109)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -11537,7 +11537,7 @@ TEST(normalization, nfc_086_109)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -11551,7 +11551,7 @@ TEST(normalization, nfc_086_109)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -11565,7 +11565,7 @@ TEST(normalization, nfc_086_109)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -11616,7 +11616,7 @@ TEST(normalization, nfc_086_110)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -11630,7 +11630,7 @@ TEST(normalization, nfc_086_110)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -11644,7 +11644,7 @@ TEST(normalization, nfc_086_110)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -11658,7 +11658,7 @@ TEST(normalization, nfc_086_110)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -11672,7 +11672,7 @@ TEST(normalization, nfc_086_110)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -11715,7 +11715,7 @@ TEST(normalization, nfc_086_111)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -11729,7 +11729,7 @@ TEST(normalization, nfc_086_111)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -11743,7 +11743,7 @@ TEST(normalization, nfc_086_111)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -11757,7 +11757,7 @@ TEST(normalization, nfc_086_111)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -11771,7 +11771,7 @@ TEST(normalization, nfc_086_111)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -11822,7 +11822,7 @@ TEST(normalization, nfc_086_112)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -11836,7 +11836,7 @@ TEST(normalization, nfc_086_112)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -11850,7 +11850,7 @@ TEST(normalization, nfc_086_112)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -11864,7 +11864,7 @@ TEST(normalization, nfc_086_112)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -11878,7 +11878,7 @@ TEST(normalization, nfc_086_112)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -11921,7 +11921,7 @@ TEST(normalization, nfc_086_113)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -11935,7 +11935,7 @@ TEST(normalization, nfc_086_113)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -11949,7 +11949,7 @@ TEST(normalization, nfc_086_113)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -11963,7 +11963,7 @@ TEST(normalization, nfc_086_113)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -11977,7 +11977,7 @@ TEST(normalization, nfc_086_113)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -12028,7 +12028,7 @@ TEST(normalization, nfc_086_114)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -12042,7 +12042,7 @@ TEST(normalization, nfc_086_114)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -12056,7 +12056,7 @@ TEST(normalization, nfc_086_114)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -12070,7 +12070,7 @@ TEST(normalization, nfc_086_114)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -12084,7 +12084,7 @@ TEST(normalization, nfc_086_114)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -12127,7 +12127,7 @@ TEST(normalization, nfc_086_115)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -12141,7 +12141,7 @@ TEST(normalization, nfc_086_115)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -12155,7 +12155,7 @@ TEST(normalization, nfc_086_115)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -12169,7 +12169,7 @@ TEST(normalization, nfc_086_115)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -12183,7 +12183,7 @@ TEST(normalization, nfc_086_115)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -12234,7 +12234,7 @@ TEST(normalization, nfc_086_116)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -12248,7 +12248,7 @@ TEST(normalization, nfc_086_116)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -12262,7 +12262,7 @@ TEST(normalization, nfc_086_116)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -12276,7 +12276,7 @@ TEST(normalization, nfc_086_116)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -12290,7 +12290,7 @@ TEST(normalization, nfc_086_116)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -12333,7 +12333,7 @@ TEST(normalization, nfc_086_117)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -12347,7 +12347,7 @@ TEST(normalization, nfc_086_117)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -12361,7 +12361,7 @@ TEST(normalization, nfc_086_117)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -12375,7 +12375,7 @@ TEST(normalization, nfc_086_117)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -12389,7 +12389,7 @@ TEST(normalization, nfc_086_117)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -12440,7 +12440,7 @@ TEST(normalization, nfc_086_118)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -12454,7 +12454,7 @@ TEST(normalization, nfc_086_118)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -12468,7 +12468,7 @@ TEST(normalization, nfc_086_118)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -12482,7 +12482,7 @@ TEST(normalization, nfc_086_118)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -12496,7 +12496,7 @@ TEST(normalization, nfc_086_118)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -12547,7 +12547,7 @@ TEST(normalization, nfc_086_119)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -12561,7 +12561,7 @@ TEST(normalization, nfc_086_119)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -12575,7 +12575,7 @@ TEST(normalization, nfc_086_119)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -12589,7 +12589,7 @@ TEST(normalization, nfc_086_119)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -12603,7 +12603,7 @@ TEST(normalization, nfc_086_119)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -12654,7 +12654,7 @@ TEST(normalization, nfc_086_120)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -12668,7 +12668,7 @@ TEST(normalization, nfc_086_120)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -12682,7 +12682,7 @@ TEST(normalization, nfc_086_120)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -12696,7 +12696,7 @@ TEST(normalization, nfc_086_120)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -12710,7 +12710,7 @@ TEST(normalization, nfc_086_120)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -12761,7 +12761,7 @@ TEST(normalization, nfc_086_121)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -12775,7 +12775,7 @@ TEST(normalization, nfc_086_121)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -12789,7 +12789,7 @@ TEST(normalization, nfc_086_121)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -12803,7 +12803,7 @@ TEST(normalization, nfc_086_121)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -12817,7 +12817,7 @@ TEST(normalization, nfc_086_121)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -12868,7 +12868,7 @@ TEST(normalization, nfc_086_122)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -12882,7 +12882,7 @@ TEST(normalization, nfc_086_122)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -12896,7 +12896,7 @@ TEST(normalization, nfc_086_122)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -12910,7 +12910,7 @@ TEST(normalization, nfc_086_122)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -12924,7 +12924,7 @@ TEST(normalization, nfc_086_122)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -12975,7 +12975,7 @@ TEST(normalization, nfc_086_123)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -12989,7 +12989,7 @@ TEST(normalization, nfc_086_123)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -13003,7 +13003,7 @@ TEST(normalization, nfc_086_123)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -13017,7 +13017,7 @@ TEST(normalization, nfc_086_123)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -13031,7 +13031,7 @@ TEST(normalization, nfc_086_123)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -13082,7 +13082,7 @@ TEST(normalization, nfc_086_124)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -13096,7 +13096,7 @@ TEST(normalization, nfc_086_124)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -13110,7 +13110,7 @@ TEST(normalization, nfc_086_124)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -13124,7 +13124,7 @@ TEST(normalization, nfc_086_124)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -13138,7 +13138,7 @@ TEST(normalization, nfc_086_124)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -13189,7 +13189,7 @@ TEST(normalization, nfc_086_125)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -13203,7 +13203,7 @@ TEST(normalization, nfc_086_125)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -13217,7 +13217,7 @@ TEST(normalization, nfc_086_125)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -13231,7 +13231,7 @@ TEST(normalization, nfc_086_125)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -13245,7 +13245,7 @@ TEST(normalization, nfc_086_125)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -13296,7 +13296,7 @@ TEST(normalization, nfc_086_126)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -13310,7 +13310,7 @@ TEST(normalization, nfc_086_126)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -13324,7 +13324,7 @@ TEST(normalization, nfc_086_126)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -13338,7 +13338,7 @@ TEST(normalization, nfc_086_126)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -13352,7 +13352,7 @@ TEST(normalization, nfc_086_126)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -13403,7 +13403,7 @@ TEST(normalization, nfc_086_127)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -13417,7 +13417,7 @@ TEST(normalization, nfc_086_127)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -13431,7 +13431,7 @@ TEST(normalization, nfc_086_127)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -13445,7 +13445,7 @@ TEST(normalization, nfc_086_127)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -13459,7 +13459,7 @@ TEST(normalization, nfc_086_127)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -13510,7 +13510,7 @@ TEST(normalization, nfc_086_128)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -13524,7 +13524,7 @@ TEST(normalization, nfc_086_128)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -13538,7 +13538,7 @@ TEST(normalization, nfc_086_128)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -13552,7 +13552,7 @@ TEST(normalization, nfc_086_128)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -13566,7 +13566,7 @@ TEST(normalization, nfc_086_128)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -13617,7 +13617,7 @@ TEST(normalization, nfc_086_129)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -13631,7 +13631,7 @@ TEST(normalization, nfc_086_129)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -13645,7 +13645,7 @@ TEST(normalization, nfc_086_129)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -13659,7 +13659,7 @@ TEST(normalization, nfc_086_129)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -13673,7 +13673,7 @@ TEST(normalization, nfc_086_129)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -13724,7 +13724,7 @@ TEST(normalization, nfc_086_130)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -13738,7 +13738,7 @@ TEST(normalization, nfc_086_130)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -13752,7 +13752,7 @@ TEST(normalization, nfc_086_130)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -13766,7 +13766,7 @@ TEST(normalization, nfc_086_130)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -13780,7 +13780,7 @@ TEST(normalization, nfc_086_130)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -13831,7 +13831,7 @@ TEST(normalization, nfc_086_131)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -13845,7 +13845,7 @@ TEST(normalization, nfc_086_131)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -13859,7 +13859,7 @@ TEST(normalization, nfc_086_131)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -13873,7 +13873,7 @@ TEST(normalization, nfc_086_131)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -13887,7 +13887,7 @@ TEST(normalization, nfc_086_131)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -13938,7 +13938,7 @@ TEST(normalization, nfc_086_132)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -13952,7 +13952,7 @@ TEST(normalization, nfc_086_132)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -13966,7 +13966,7 @@ TEST(normalization, nfc_086_132)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -13980,7 +13980,7 @@ TEST(normalization, nfc_086_132)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -13994,7 +13994,7 @@ TEST(normalization, nfc_086_132)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -14045,7 +14045,7 @@ TEST(normalization, nfc_086_133)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -14059,7 +14059,7 @@ TEST(normalization, nfc_086_133)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -14073,7 +14073,7 @@ TEST(normalization, nfc_086_133)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -14087,7 +14087,7 @@ TEST(normalization, nfc_086_133)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -14101,7 +14101,7 @@ TEST(normalization, nfc_086_133)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -14152,7 +14152,7 @@ TEST(normalization, nfc_086_134)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -14166,7 +14166,7 @@ TEST(normalization, nfc_086_134)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -14180,7 +14180,7 @@ TEST(normalization, nfc_086_134)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -14194,7 +14194,7 @@ TEST(normalization, nfc_086_134)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -14208,7 +14208,7 @@ TEST(normalization, nfc_086_134)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -14259,7 +14259,7 @@ TEST(normalization, nfc_086_135)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -14273,7 +14273,7 @@ TEST(normalization, nfc_086_135)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -14287,7 +14287,7 @@ TEST(normalization, nfc_086_135)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -14301,7 +14301,7 @@ TEST(normalization, nfc_086_135)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -14315,7 +14315,7 @@ TEST(normalization, nfc_086_135)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -14366,7 +14366,7 @@ TEST(normalization, nfc_086_136)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -14380,7 +14380,7 @@ TEST(normalization, nfc_086_136)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -14394,7 +14394,7 @@ TEST(normalization, nfc_086_136)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -14408,7 +14408,7 @@ TEST(normalization, nfc_086_136)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -14422,7 +14422,7 @@ TEST(normalization, nfc_086_136)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -14473,7 +14473,7 @@ TEST(normalization, nfc_086_137)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -14487,7 +14487,7 @@ TEST(normalization, nfc_086_137)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -14501,7 +14501,7 @@ TEST(normalization, nfc_086_137)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -14515,7 +14515,7 @@ TEST(normalization, nfc_086_137)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -14529,7 +14529,7 @@ TEST(normalization, nfc_086_137)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -14580,7 +14580,7 @@ TEST(normalization, nfc_086_138)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -14594,7 +14594,7 @@ TEST(normalization, nfc_086_138)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -14608,7 +14608,7 @@ TEST(normalization, nfc_086_138)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -14622,7 +14622,7 @@ TEST(normalization, nfc_086_138)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -14636,7 +14636,7 @@ TEST(normalization, nfc_086_138)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -14687,7 +14687,7 @@ TEST(normalization, nfc_086_139)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -14701,7 +14701,7 @@ TEST(normalization, nfc_086_139)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -14715,7 +14715,7 @@ TEST(normalization, nfc_086_139)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -14729,7 +14729,7 @@ TEST(normalization, nfc_086_139)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -14743,7 +14743,7 @@ TEST(normalization, nfc_086_139)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -14794,7 +14794,7 @@ TEST(normalization, nfc_086_140)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -14808,7 +14808,7 @@ TEST(normalization, nfc_086_140)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -14822,7 +14822,7 @@ TEST(normalization, nfc_086_140)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -14836,7 +14836,7 @@ TEST(normalization, nfc_086_140)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -14850,7 +14850,7 @@ TEST(normalization, nfc_086_140)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -14893,7 +14893,7 @@ TEST(normalization, nfc_086_141)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -14907,7 +14907,7 @@ TEST(normalization, nfc_086_141)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -14921,7 +14921,7 @@ TEST(normalization, nfc_086_141)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -14935,7 +14935,7 @@ TEST(normalization, nfc_086_141)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -14949,7 +14949,7 @@ TEST(normalization, nfc_086_141)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -15000,7 +15000,7 @@ TEST(normalization, nfc_086_142)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -15014,7 +15014,7 @@ TEST(normalization, nfc_086_142)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -15028,7 +15028,7 @@ TEST(normalization, nfc_086_142)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -15042,7 +15042,7 @@ TEST(normalization, nfc_086_142)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -15056,7 +15056,7 @@ TEST(normalization, nfc_086_142)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -15099,7 +15099,7 @@ TEST(normalization, nfc_086_143)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -15113,7 +15113,7 @@ TEST(normalization, nfc_086_143)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -15127,7 +15127,7 @@ TEST(normalization, nfc_086_143)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -15141,7 +15141,7 @@ TEST(normalization, nfc_086_143)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -15155,7 +15155,7 @@ TEST(normalization, nfc_086_143)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -15206,7 +15206,7 @@ TEST(normalization, nfc_086_144)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -15220,7 +15220,7 @@ TEST(normalization, nfc_086_144)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -15234,7 +15234,7 @@ TEST(normalization, nfc_086_144)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -15248,7 +15248,7 @@ TEST(normalization, nfc_086_144)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -15262,7 +15262,7 @@ TEST(normalization, nfc_086_144)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -15313,7 +15313,7 @@ TEST(normalization, nfc_086_145)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -15327,7 +15327,7 @@ TEST(normalization, nfc_086_145)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -15341,7 +15341,7 @@ TEST(normalization, nfc_086_145)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -15355,7 +15355,7 @@ TEST(normalization, nfc_086_145)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -15369,7 +15369,7 @@ TEST(normalization, nfc_086_145)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -15420,7 +15420,7 @@ TEST(normalization, nfc_086_146)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -15434,7 +15434,7 @@ TEST(normalization, nfc_086_146)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -15448,7 +15448,7 @@ TEST(normalization, nfc_086_146)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -15462,7 +15462,7 @@ TEST(normalization, nfc_086_146)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -15476,7 +15476,7 @@ TEST(normalization, nfc_086_146)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -15527,7 +15527,7 @@ TEST(normalization, nfc_086_147)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -15541,7 +15541,7 @@ TEST(normalization, nfc_086_147)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -15555,7 +15555,7 @@ TEST(normalization, nfc_086_147)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -15569,7 +15569,7 @@ TEST(normalization, nfc_086_147)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -15583,7 +15583,7 @@ TEST(normalization, nfc_086_147)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -15634,7 +15634,7 @@ TEST(normalization, nfc_086_148)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -15648,7 +15648,7 @@ TEST(normalization, nfc_086_148)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -15662,7 +15662,7 @@ TEST(normalization, nfc_086_148)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -15676,7 +15676,7 @@ TEST(normalization, nfc_086_148)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -15690,7 +15690,7 @@ TEST(normalization, nfc_086_148)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -15733,7 +15733,7 @@ TEST(normalization, nfc_086_149)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -15747,7 +15747,7 @@ TEST(normalization, nfc_086_149)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -15761,7 +15761,7 @@ TEST(normalization, nfc_086_149)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -15775,7 +15775,7 @@ TEST(normalization, nfc_086_149)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -15789,7 +15789,7 @@ TEST(normalization, nfc_086_149)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -15840,7 +15840,7 @@ TEST(normalization, nfc_086_150)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -15854,7 +15854,7 @@ TEST(normalization, nfc_086_150)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -15868,7 +15868,7 @@ TEST(normalization, nfc_086_150)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -15882,7 +15882,7 @@ TEST(normalization, nfc_086_150)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -15896,7 +15896,7 @@ TEST(normalization, nfc_086_150)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -15939,7 +15939,7 @@ TEST(normalization, nfc_086_151)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -15953,7 +15953,7 @@ TEST(normalization, nfc_086_151)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -15967,7 +15967,7 @@ TEST(normalization, nfc_086_151)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -15981,7 +15981,7 @@ TEST(normalization, nfc_086_151)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -15995,7 +15995,7 @@ TEST(normalization, nfc_086_151)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -16046,7 +16046,7 @@ TEST(normalization, nfc_086_152)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -16060,7 +16060,7 @@ TEST(normalization, nfc_086_152)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -16074,7 +16074,7 @@ TEST(normalization, nfc_086_152)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -16088,7 +16088,7 @@ TEST(normalization, nfc_086_152)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -16102,7 +16102,7 @@ TEST(normalization, nfc_086_152)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -16145,7 +16145,7 @@ TEST(normalization, nfc_086_153)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -16159,7 +16159,7 @@ TEST(normalization, nfc_086_153)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -16173,7 +16173,7 @@ TEST(normalization, nfc_086_153)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -16187,7 +16187,7 @@ TEST(normalization, nfc_086_153)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -16201,7 +16201,7 @@ TEST(normalization, nfc_086_153)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -16252,7 +16252,7 @@ TEST(normalization, nfc_086_154)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -16266,7 +16266,7 @@ TEST(normalization, nfc_086_154)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -16280,7 +16280,7 @@ TEST(normalization, nfc_086_154)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -16294,7 +16294,7 @@ TEST(normalization, nfc_086_154)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -16308,7 +16308,7 @@ TEST(normalization, nfc_086_154)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -16351,7 +16351,7 @@ TEST(normalization, nfc_086_155)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -16365,7 +16365,7 @@ TEST(normalization, nfc_086_155)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -16379,7 +16379,7 @@ TEST(normalization, nfc_086_155)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -16393,7 +16393,7 @@ TEST(normalization, nfc_086_155)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -16407,7 +16407,7 @@ TEST(normalization, nfc_086_155)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -16458,7 +16458,7 @@ TEST(normalization, nfc_086_156)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -16472,7 +16472,7 @@ TEST(normalization, nfc_086_156)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -16486,7 +16486,7 @@ TEST(normalization, nfc_086_156)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -16500,7 +16500,7 @@ TEST(normalization, nfc_086_156)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -16514,7 +16514,7 @@ TEST(normalization, nfc_086_156)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -16557,7 +16557,7 @@ TEST(normalization, nfc_086_157)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -16571,7 +16571,7 @@ TEST(normalization, nfc_086_157)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -16585,7 +16585,7 @@ TEST(normalization, nfc_086_157)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -16599,7 +16599,7 @@ TEST(normalization, nfc_086_157)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -16613,7 +16613,7 @@ TEST(normalization, nfc_086_157)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -16664,7 +16664,7 @@ TEST(normalization, nfc_086_158)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -16678,7 +16678,7 @@ TEST(normalization, nfc_086_158)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -16692,7 +16692,7 @@ TEST(normalization, nfc_086_158)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -16706,7 +16706,7 @@ TEST(normalization, nfc_086_158)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -16720,7 +16720,7 @@ TEST(normalization, nfc_086_158)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -16771,7 +16771,7 @@ TEST(normalization, nfc_086_159)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -16785,7 +16785,7 @@ TEST(normalization, nfc_086_159)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -16799,7 +16799,7 @@ TEST(normalization, nfc_086_159)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -16813,7 +16813,7 @@ TEST(normalization, nfc_086_159)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -16827,7 +16827,7 @@ TEST(normalization, nfc_086_159)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -16878,7 +16878,7 @@ TEST(normalization, nfc_086_160)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -16892,7 +16892,7 @@ TEST(normalization, nfc_086_160)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -16906,7 +16906,7 @@ TEST(normalization, nfc_086_160)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -16920,7 +16920,7 @@ TEST(normalization, nfc_086_160)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -16934,7 +16934,7 @@ TEST(normalization, nfc_086_160)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -16977,7 +16977,7 @@ TEST(normalization, nfc_086_161)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -16991,7 +16991,7 @@ TEST(normalization, nfc_086_161)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -17005,7 +17005,7 @@ TEST(normalization, nfc_086_161)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -17019,7 +17019,7 @@ TEST(normalization, nfc_086_161)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -17033,7 +17033,7 @@ TEST(normalization, nfc_086_161)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -17084,7 +17084,7 @@ TEST(normalization, nfc_086_162)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -17098,7 +17098,7 @@ TEST(normalization, nfc_086_162)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -17112,7 +17112,7 @@ TEST(normalization, nfc_086_162)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -17126,7 +17126,7 @@ TEST(normalization, nfc_086_162)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -17140,7 +17140,7 @@ TEST(normalization, nfc_086_162)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -17183,7 +17183,7 @@ TEST(normalization, nfc_086_163)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -17197,7 +17197,7 @@ TEST(normalization, nfc_086_163)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -17211,7 +17211,7 @@ TEST(normalization, nfc_086_163)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -17225,7 +17225,7 @@ TEST(normalization, nfc_086_163)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -17239,7 +17239,7 @@ TEST(normalization, nfc_086_163)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -17290,7 +17290,7 @@ TEST(normalization, nfc_086_164)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -17304,7 +17304,7 @@ TEST(normalization, nfc_086_164)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -17318,7 +17318,7 @@ TEST(normalization, nfc_086_164)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -17332,7 +17332,7 @@ TEST(normalization, nfc_086_164)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -17346,7 +17346,7 @@ TEST(normalization, nfc_086_164)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -17397,7 +17397,7 @@ TEST(normalization, nfc_086_165)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -17411,7 +17411,7 @@ TEST(normalization, nfc_086_165)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -17425,7 +17425,7 @@ TEST(normalization, nfc_086_165)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -17439,7 +17439,7 @@ TEST(normalization, nfc_086_165)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -17453,7 +17453,7 @@ TEST(normalization, nfc_086_165)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -17504,7 +17504,7 @@ TEST(normalization, nfc_086_166)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -17518,7 +17518,7 @@ TEST(normalization, nfc_086_166)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -17532,7 +17532,7 @@ TEST(normalization, nfc_086_166)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -17546,7 +17546,7 @@ TEST(normalization, nfc_086_166)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -17560,7 +17560,7 @@ TEST(normalization, nfc_086_166)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -17611,7 +17611,7 @@ TEST(normalization, nfc_086_167)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -17625,7 +17625,7 @@ TEST(normalization, nfc_086_167)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -17639,7 +17639,7 @@ TEST(normalization, nfc_086_167)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -17653,7 +17653,7 @@ TEST(normalization, nfc_086_167)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -17667,7 +17667,7 @@ TEST(normalization, nfc_086_167)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -17718,7 +17718,7 @@ TEST(normalization, nfc_086_168)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -17732,7 +17732,7 @@ TEST(normalization, nfc_086_168)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -17746,7 +17746,7 @@ TEST(normalization, nfc_086_168)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -17760,7 +17760,7 @@ TEST(normalization, nfc_086_168)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -17774,7 +17774,7 @@ TEST(normalization, nfc_086_168)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -17817,7 +17817,7 @@ TEST(normalization, nfc_086_169)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -17831,7 +17831,7 @@ TEST(normalization, nfc_086_169)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -17845,7 +17845,7 @@ TEST(normalization, nfc_086_169)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -17859,7 +17859,7 @@ TEST(normalization, nfc_086_169)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -17873,7 +17873,7 @@ TEST(normalization, nfc_086_169)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -17924,7 +17924,7 @@ TEST(normalization, nfc_086_170)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -17938,7 +17938,7 @@ TEST(normalization, nfc_086_170)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -17952,7 +17952,7 @@ TEST(normalization, nfc_086_170)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -17966,7 +17966,7 @@ TEST(normalization, nfc_086_170)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -17980,7 +17980,7 @@ TEST(normalization, nfc_086_170)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -18023,7 +18023,7 @@ TEST(normalization, nfc_086_171)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -18037,7 +18037,7 @@ TEST(normalization, nfc_086_171)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -18051,7 +18051,7 @@ TEST(normalization, nfc_086_171)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -18065,7 +18065,7 @@ TEST(normalization, nfc_086_171)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -18079,7 +18079,7 @@ TEST(normalization, nfc_086_171)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -18130,7 +18130,7 @@ TEST(normalization, nfc_086_172)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -18144,7 +18144,7 @@ TEST(normalization, nfc_086_172)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -18158,7 +18158,7 @@ TEST(normalization, nfc_086_172)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -18172,7 +18172,7 @@ TEST(normalization, nfc_086_172)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -18186,7 +18186,7 @@ TEST(normalization, nfc_086_172)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -18229,7 +18229,7 @@ TEST(normalization, nfc_086_173)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -18243,7 +18243,7 @@ TEST(normalization, nfc_086_173)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -18257,7 +18257,7 @@ TEST(normalization, nfc_086_173)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -18271,7 +18271,7 @@ TEST(normalization, nfc_086_173)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -18285,7 +18285,7 @@ TEST(normalization, nfc_086_173)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -18336,7 +18336,7 @@ TEST(normalization, nfc_086_174)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -18350,7 +18350,7 @@ TEST(normalization, nfc_086_174)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -18364,7 +18364,7 @@ TEST(normalization, nfc_086_174)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -18378,7 +18378,7 @@ TEST(normalization, nfc_086_174)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -18392,7 +18392,7 @@ TEST(normalization, nfc_086_174)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -18435,7 +18435,7 @@ TEST(normalization, nfc_086_175)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -18449,7 +18449,7 @@ TEST(normalization, nfc_086_175)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -18463,7 +18463,7 @@ TEST(normalization, nfc_086_175)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -18477,7 +18477,7 @@ TEST(normalization, nfc_086_175)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -18491,7 +18491,7 @@ TEST(normalization, nfc_086_175)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -18542,7 +18542,7 @@ TEST(normalization, nfc_086_176)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -18556,7 +18556,7 @@ TEST(normalization, nfc_086_176)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -18570,7 +18570,7 @@ TEST(normalization, nfc_086_176)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -18584,7 +18584,7 @@ TEST(normalization, nfc_086_176)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -18598,7 +18598,7 @@ TEST(normalization, nfc_086_176)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -18641,7 +18641,7 @@ TEST(normalization, nfc_086_177)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -18655,7 +18655,7 @@ TEST(normalization, nfc_086_177)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -18669,7 +18669,7 @@ TEST(normalization, nfc_086_177)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -18683,7 +18683,7 @@ TEST(normalization, nfc_086_177)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -18697,7 +18697,7 @@ TEST(normalization, nfc_086_177)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -18748,7 +18748,7 @@ TEST(normalization, nfc_086_178)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -18762,7 +18762,7 @@ TEST(normalization, nfc_086_178)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -18776,7 +18776,7 @@ TEST(normalization, nfc_086_178)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -18790,7 +18790,7 @@ TEST(normalization, nfc_086_178)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -18804,7 +18804,7 @@ TEST(normalization, nfc_086_178)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -18847,7 +18847,7 @@ TEST(normalization, nfc_086_179)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -18861,7 +18861,7 @@ TEST(normalization, nfc_086_179)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -18875,7 +18875,7 @@ TEST(normalization, nfc_086_179)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -18889,7 +18889,7 @@ TEST(normalization, nfc_086_179)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -18903,7 +18903,7 @@ TEST(normalization, nfc_086_179)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -18954,7 +18954,7 @@ TEST(normalization, nfc_086_180)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -18968,7 +18968,7 @@ TEST(normalization, nfc_086_180)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -18982,7 +18982,7 @@ TEST(normalization, nfc_086_180)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -18996,7 +18996,7 @@ TEST(normalization, nfc_086_180)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -19010,7 +19010,7 @@ TEST(normalization, nfc_086_180)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -19053,7 +19053,7 @@ TEST(normalization, nfc_086_181)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -19067,7 +19067,7 @@ TEST(normalization, nfc_086_181)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -19081,7 +19081,7 @@ TEST(normalization, nfc_086_181)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -19095,7 +19095,7 @@ TEST(normalization, nfc_086_181)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -19109,7 +19109,7 @@ TEST(normalization, nfc_086_181)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -19160,7 +19160,7 @@ TEST(normalization, nfc_086_182)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -19174,7 +19174,7 @@ TEST(normalization, nfc_086_182)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -19188,7 +19188,7 @@ TEST(normalization, nfc_086_182)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -19202,7 +19202,7 @@ TEST(normalization, nfc_086_182)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -19216,7 +19216,7 @@ TEST(normalization, nfc_086_182)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -19259,7 +19259,7 @@ TEST(normalization, nfc_086_183)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -19273,7 +19273,7 @@ TEST(normalization, nfc_086_183)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -19287,7 +19287,7 @@ TEST(normalization, nfc_086_183)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -19301,7 +19301,7 @@ TEST(normalization, nfc_086_183)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -19315,7 +19315,7 @@ TEST(normalization, nfc_086_183)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -19366,7 +19366,7 @@ TEST(normalization, nfc_086_184)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -19380,7 +19380,7 @@ TEST(normalization, nfc_086_184)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -19394,7 +19394,7 @@ TEST(normalization, nfc_086_184)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -19408,7 +19408,7 @@ TEST(normalization, nfc_086_184)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -19422,7 +19422,7 @@ TEST(normalization, nfc_086_184)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -19465,7 +19465,7 @@ TEST(normalization, nfc_086_185)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -19479,7 +19479,7 @@ TEST(normalization, nfc_086_185)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -19493,7 +19493,7 @@ TEST(normalization, nfc_086_185)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -19507,7 +19507,7 @@ TEST(normalization, nfc_086_185)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -19521,7 +19521,7 @@ TEST(normalization, nfc_086_185)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -19572,7 +19572,7 @@ TEST(normalization, nfc_086_186)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -19586,7 +19586,7 @@ TEST(normalization, nfc_086_186)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -19600,7 +19600,7 @@ TEST(normalization, nfc_086_186)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -19614,7 +19614,7 @@ TEST(normalization, nfc_086_186)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -19628,7 +19628,7 @@ TEST(normalization, nfc_086_186)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -19671,7 +19671,7 @@ TEST(normalization, nfc_086_187)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -19685,7 +19685,7 @@ TEST(normalization, nfc_086_187)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -19699,7 +19699,7 @@ TEST(normalization, nfc_086_187)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -19713,7 +19713,7 @@ TEST(normalization, nfc_086_187)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -19727,7 +19727,7 @@ TEST(normalization, nfc_086_187)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -19778,7 +19778,7 @@ TEST(normalization, nfc_086_188)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -19792,7 +19792,7 @@ TEST(normalization, nfc_086_188)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -19806,7 +19806,7 @@ TEST(normalization, nfc_086_188)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -19820,7 +19820,7 @@ TEST(normalization, nfc_086_188)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -19834,7 +19834,7 @@ TEST(normalization, nfc_086_188)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -19877,7 +19877,7 @@ TEST(normalization, nfc_086_189)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -19891,7 +19891,7 @@ TEST(normalization, nfc_086_189)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -19905,7 +19905,7 @@ TEST(normalization, nfc_086_189)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -19919,7 +19919,7 @@ TEST(normalization, nfc_086_189)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -19933,7 +19933,7 @@ TEST(normalization, nfc_086_189)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -19984,7 +19984,7 @@ TEST(normalization, nfc_086_190)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -19998,7 +19998,7 @@ TEST(normalization, nfc_086_190)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -20012,7 +20012,7 @@ TEST(normalization, nfc_086_190)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -20026,7 +20026,7 @@ TEST(normalization, nfc_086_190)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -20040,7 +20040,7 @@ TEST(normalization, nfc_086_190)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -20091,7 +20091,7 @@ TEST(normalization, nfc_086_191)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -20105,7 +20105,7 @@ TEST(normalization, nfc_086_191)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -20119,7 +20119,7 @@ TEST(normalization, nfc_086_191)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -20133,7 +20133,7 @@ TEST(normalization, nfc_086_191)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -20147,7 +20147,7 @@ TEST(normalization, nfc_086_191)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -20198,7 +20198,7 @@ TEST(normalization, nfc_086_192)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -20212,7 +20212,7 @@ TEST(normalization, nfc_086_192)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -20226,7 +20226,7 @@ TEST(normalization, nfc_086_192)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -20240,7 +20240,7 @@ TEST(normalization, nfc_086_192)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -20254,7 +20254,7 @@ TEST(normalization, nfc_086_192)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -20297,7 +20297,7 @@ TEST(normalization, nfc_086_193)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -20311,7 +20311,7 @@ TEST(normalization, nfc_086_193)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -20325,7 +20325,7 @@ TEST(normalization, nfc_086_193)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -20339,7 +20339,7 @@ TEST(normalization, nfc_086_193)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -20353,7 +20353,7 @@ TEST(normalization, nfc_086_193)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -20404,7 +20404,7 @@ TEST(normalization, nfc_086_194)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -20418,7 +20418,7 @@ TEST(normalization, nfc_086_194)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -20432,7 +20432,7 @@ TEST(normalization, nfc_086_194)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -20446,7 +20446,7 @@ TEST(normalization, nfc_086_194)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -20460,7 +20460,7 @@ TEST(normalization, nfc_086_194)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -20503,7 +20503,7 @@ TEST(normalization, nfc_086_195)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -20517,7 +20517,7 @@ TEST(normalization, nfc_086_195)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -20531,7 +20531,7 @@ TEST(normalization, nfc_086_195)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -20545,7 +20545,7 @@ TEST(normalization, nfc_086_195)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -20559,7 +20559,7 @@ TEST(normalization, nfc_086_195)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -20610,7 +20610,7 @@ TEST(normalization, nfc_086_196)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -20624,7 +20624,7 @@ TEST(normalization, nfc_086_196)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -20638,7 +20638,7 @@ TEST(normalization, nfc_086_196)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -20652,7 +20652,7 @@ TEST(normalization, nfc_086_196)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -20666,7 +20666,7 @@ TEST(normalization, nfc_086_196)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -20709,7 +20709,7 @@ TEST(normalization, nfc_086_197)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -20723,7 +20723,7 @@ TEST(normalization, nfc_086_197)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -20737,7 +20737,7 @@ TEST(normalization, nfc_086_197)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -20751,7 +20751,7 @@ TEST(normalization, nfc_086_197)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -20765,7 +20765,7 @@ TEST(normalization, nfc_086_197)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -20816,7 +20816,7 @@ TEST(normalization, nfc_086_198)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -20830,7 +20830,7 @@ TEST(normalization, nfc_086_198)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -20844,7 +20844,7 @@ TEST(normalization, nfc_086_198)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -20858,7 +20858,7 @@ TEST(normalization, nfc_086_198)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -20872,7 +20872,7 @@ TEST(normalization, nfc_086_198)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -20923,7 +20923,7 @@ TEST(normalization, nfc_086_199)
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -20937,7 +20937,7 @@ TEST(normalization, nfc_086_199)
             boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -20951,7 +20951,7 @@ TEST(normalization, nfc_086_199)
             boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c2.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c2.size());
             auto c2_it = c2.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -20965,7 +20965,7 @@ TEST(normalization, nfc_086_199)
             boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
@@ -20979,7 +20979,7 @@ TEST(normalization, nfc_086_199)
             boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize_to_nfc(str);
             boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), (std::ptrdiff_t)c4.size());
             auto c4_it = c4.begin();
             int i = 0;
             for (auto x : utf32_range) {
