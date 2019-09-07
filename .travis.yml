@@ -81,52 +81,6 @@ matrix:
 
         # Gcc
 
-        - env: GCC_VERSION=4.9 CPP=14 BUILD_TYPE=Debug JOBS=4
-          os: linux
-          compiler: gcc-4.9
-          addons: &gcc49
-            apt:
-              packages:
-                - g++-4.9
-                - libboost-filesystem-dev
-                - libboost-system-dev
-              sources:
-                - ubuntu-toolchain-r-test
-        - env: GCC_VERSION=4.9 CPP=14 BUILD_TYPE=Release JOBS=4
-          os: linux
-          compiler: gcc-4.9
-          addons: &gcc49
-            apt:
-              packages:
-                - g++-4.9
-                - libboost-filesystem-dev
-                - libboost-system-dev
-              sources:
-                - ubuntu-toolchain-r-test
-
-        - env: GCC_VERSION=4.9 CPP=11 BUILD_TYPE=Debug JOBS=4
-          os: linux
-          compiler: gcc-4.9
-          addons: &gcc49
-            apt:
-              packages:
-                - g++-4.9
-                - libboost-filesystem-dev
-                - libboost-system-dev
-              sources:
-                - ubuntu-toolchain-r-test
-        - env: GCC_VERSION=4.9 CPP=11 BUILD_TYPE=Release JOBS=4
-          os: linux
-          compiler: gcc-4.9
-          addons: &gcc49
-            apt:
-              packages:
-                - g++-4.9
-                - libboost-filesystem-dev
-                - libboost-system-dev
-              sources:
-                - ubuntu-toolchain-r-test
-
         - env: GCC_VERSION=5 CPP=14 BUILD_TYPE=Debug JOBS=4
           os: linux
           compiler: gcc-5
