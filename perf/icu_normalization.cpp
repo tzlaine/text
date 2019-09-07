@@ -23,7 +23,36 @@ U_NAMESPACE_QUALIFIER Normalizer2 const * const to_nfkd =
     U_NAMESPACE_QUALIFIER Normalizer2::getNFKDInstance(ec);
 U_NAMESPACE_QUALIFIER Normalizer2 const * const to_nfkc =
     U_NAMESPACE_QUALIFIER Normalizer2::getNFKCInstance(ec);
+U_NAMESPACE_QUALIFIER Normalizer2 const * const to_fcc =
+    U_NAMESPACE_QUALIFIER Normalizer2::getInstance(
+        nullptr, "nfc", UNORM2_COMPOSE_CONTIGUOUS, ec);
 
+
+void BM_icu_utf8_fcc(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+        std::string result;
+        U_NAMESPACE_QUALIFIER StringByteSink<std::string> sink(&result);
+        to_fcc->normalizeUTF8(
+            0,
+            U_NAMESPACE_QUALIFIER StringPiece(file_contents),
+            sink,
+            nullptr,
+            ec);
+        benchmark::ClobberMemory();
+    }
+}
+
+void BM_text_utf8_fcc(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+        std::vector<char> normalized;
+        auto r = boost::text::make_to_utf32_range(
+            boost::text::string_view(file_contents));
+        benchmark::DoNotOptimize(boost::text::normalize_to_fcc(
+            r, boost::text::utf8::from_utf32_back_inserter(normalized)));
+    }
+}
 
 void BM_icu_utf8_nfd(benchmark::State & state)
 {
@@ -193,6 +222,8 @@ void BM_text_utf32_nfkc(benchmark::State & state)
     }
 }
 
+BENCHMARK(BM_icu_utf8_fcc);
+BENCHMARK(BM_text_utf8_fcc);
 BENCHMARK(BM_icu_utf8_nfd);
 BENCHMARK(BM_icu_utf16_nfd);
 BENCHMARK(BM_text_utf8_nfd);
