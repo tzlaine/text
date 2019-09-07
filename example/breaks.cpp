@@ -179,7 +179,7 @@ std::array<uint32_t, 5> cps = {{'a', ' ', 'b', '\n', 'c'}};
 /* Prints:
 "c"
 "b
-""a "
+"a "
 */
 for (auto line : boost::text::reversed_allowed_lines(cps)) {
     std::cout << '"' << boost::text::to_string(line.begin(), line.end()) << '"';

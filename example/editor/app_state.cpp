@@ -453,7 +453,7 @@ namespace {
     };
 
 //[ editor_app_state_insertion_deltas
-    // Ok, this is a little wierd.  When you insert a grapheme into text,
+    // Ok, this is a little weird.  When you insert a grapheme into text,
     // sometimes it just vanishes, sort of.  Unicode!  In particular, a
     // combining code point like a 'COMBINING DIAERESIS' (U+0308) is a
     // grapheme when it's all by itself.  So, if you insert this particular
@@ -503,7 +503,7 @@ namespace {
             auto & snapshot = state.buffer_.snapshot_;
             state.buffer_.history_.push_back(snapshot);
 
-            // Determine the line we're at, the iteratos into the text for
+            // Determine the line we're at, the iterators into the text for
             // that line and poisition, and the offset within the line, in
             // terms of code units and graphemes.
             auto const line_index = cursor_line(snapshot);

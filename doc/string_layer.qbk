@@ -6,14 +6,12 @@ _sv_ is the type at the center of _Text_.  It is used everywhere you would
 have used `char const *` before C++17, and everywhere you would use
 `std::string_view` in C++17 and later.
 
-Analogouly to `std::string_view`, it defines implicit conversions from `char
+Analogously to `std::string_view`, it defines implicit conversions from `char
 const *` and _s_, so it can be used in interfaces that accept either.
 
 _sv_ is fully _ce_ in everything it does, if you have the compiler support
 (C++14 _ce_).  You can write very extensive compile-time operations using
 _sv_.
-
-[string_view_lotsa_constexpr]
 
 _sv_ is a nearly immutable type; there are no mutating member functions,
 besides assignment and `swap()`.  It is small (the size of two pointers on
@@ -173,7 +171,7 @@ In this tree, we have three interior nodes: the root and its two children.  We
 also have at least one of each type of leaf node.
 
 Copying even this _ur_ is very cheap, requiring only copying a pointer and
-incrementing a reference count:
+incriminating a reference count:
 
 [$../../doc/rope_copy_add_ref.svg]
 
@@ -224,11 +222,12 @@ within the `capacity()` of the _s_, *or*
 * the inserted object would cause an allocation if copied (i.e. it is a
   _s_).
 
-One more thing.  _urs_ are meant to be passed by value.  Some of their
-thread-safety guarantees may not be fulfilled if they are *not* passed by
-value.  If you do not care about thread-safe use of _ur_, you can pass _urs_
-by `const &` if you like.  If you care about thread-safety, *always* pass them
-by value.
+[important One more thing.  _urs_ are meant to be passed by value.  In
+particular, their thread-safety guarantees might not be fulfilled if they are
+*not* passed by value across thread boundaries.  If you do not care about
+thread-safe use of _ur_, you can pass _urs_ by `const &` at thread boundaries
+if you like.  If you care about thread-safety, *always* pass them by value at
+thread boundaries!]
 
 _ur_ contains logic like the pseudocode below to determine when to create a
 partial copy of a _ur_'s tree, or when to mutate the tree in-place when
@@ -262,7 +261,7 @@ Were we to write references/pointers to `R` into our code, a thread other than
 of its nodes, and when we decided to mutate `R` in place or not.
 
 [important Therefore, if you care about using _urs_ in a thread-safe manner,
-always pass them by value.]
+always pass them by value across thread boundaries.]
 
 [note A major use case for _urs_ is for building undo/redo systems for text
 editing that are simple and performant.  See the example in the _seg_vec_docs_

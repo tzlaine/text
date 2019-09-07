@@ -62,9 +62,9 @@ algorithms that take a pair of iterators.  The Unicode algorithms all operate
 on _cps_, so they take _CPIter_ iterator parameters.  The range overloads take
 _CPRng_ parameters.  For convenience, overloads are provided for many of the
 Unicode layer algorithms that take _GrRng_ and _GrIter_ parameters.  This
-provides convenient compatability with the text layer types, like _t_ and _r_.
+provides convenient compatibility with the text layer types, like _t_ and _r_.
 
-[heading Memory Allcoations]
+[heading Memory Allocations]
 
 Many of the Unicode algorithms require that intermediate results be
 accumulated in side buffers at various times during their operation.
@@ -85,7 +85,7 @@ a highly context-sensitive way; each algorithm has its own set of properties
 it associates with code points.  For instance, the word breaking algorithm is
 concerned with single quotes and double quotes, and so has a property for
 each, but other punctuation is spread out among its other properties.  It has
-no property that maps to something like "puntuation".
+no property that maps to something like "punctuation".
 
 So if you want to know if a code point is whitespace or not, you might have to
 look it up on a Unicode reference website (and implement a function for
@@ -107,7 +107,7 @@ UTF-32, via four converting iterators:
 * _to_16_iter_
 
 By default, these produce the Unicode replacement character `0xFFFD` when
-encoutering an invalid encoding.  This replacement character error handling
+encountering an invalid encoding.  This replacement character error handling
 strategy is used internally within _Text_ when performing conversions.  The
 exact error handling behavior can be controlled via the `ErrorHandler`
 template parameter.
@@ -222,7 +222,7 @@ First, we can use `prev_X_break(first, it, last) == it` as a predicate that
 `it` is at a break.  Second, we can use `prev_X_break()` followed by
 `next_X_break()` to find the nearest breaks that include `it`.
 
-Note that `prev_X_break()` requires `last` because in the genereal case, the
+Note that `prev_X_break()` requires `last` because in the general case, the
 algorithm needs to know context after `it` to determine where the breaks are
 at or before `it`.
 
@@ -302,7 +302,7 @@ of _cps_, though it is not useful to do so.  This creates a problem for
 algorithms like normalization or _gr_ breaking, because they may be required
 to look ahead a very long way in order to determine how to handle the current
 _gr_.  To address this, Unicode allows a conforming implementation to assume
-that an sequence of _cps_ contains _grs_ of at most 32 _cps_.  This is known
+that a sequence of _cps_ contains _grs_ of at most 32 _cps_.  This is known
 as the _str_safe_ assumption; _Text_ makes this assumption.
 
 [heading Stream-Safe Format and Security]
@@ -374,7 +374,7 @@ the rules specified in this annex supply a well-defined default.]
 French and Italian words are not broken after an apostrophe; the default
 algorithm finds `"l’objectif"` to be a single word.
 
-Breaking on dashes is the default; the default algorithm finds
+Breaking on dashes is the default.  For example, the default algorithm finds
 `"out-of-the-box"` to be seven words.
 
 There are other rarer failure cases in that document you might want to look at
@@ -382,7 +382,7 @@ too.
 
 [heading Word Break Tailoring]
 
-Forunately, unlike _gr_ breaking, word breaking is tailorable in two ways.
+Fortunately, unlike _gr_ breaking, word breaking is tailorable in two ways.
 
 Each break algorithm is defined in terms of _cp_ properties; each _cp_ is a
 letter, digit, punctuation, etc.  All the work break functions accept an
@@ -449,7 +449,7 @@ function is this:
 
 Returning `true` indicates that `[prev, curr]` straddles a word break; `prev`
 is the last _cp_ of one word, and `curr` is the first _cp_ of the next.  If
-provided, this cusomt break function is evaluated before any of the Unicode
+provided, this custom break function is evaluated before any of the Unicode
 word break rules.
 
 [word_breaks_3]
@@ -494,8 +494,8 @@ two flavors.  There are `hard_line` versions and `allowed_line` versions.  For
 the `allowed` overloads, you may need to know, once you have the break
 position, whether it was a hard line break.  The `allowed` overloads therefore
 return a struct, _line_brk_res_.  It has an `.iter` member to indicate the
-location, and a `.hard_break` member ot indicate whether that location is a
-hard line break.  Overloads of `operator==()` ans `operator!=()` are defined
+location, and a `.hard_break` member to indicate whether that location is a
+hard line break.  Overloads of `operator==()` and `operator!=()` are defined
 between _line_brk_res_ and its iterator type so that you can treat it as an
 iterator in generic code if you don't care about the hard line break
 information:
@@ -503,7 +503,7 @@ information:
 [line_breaks_1]
 
 The `hard` naming is only present in these low-level functions; the rest of
-the line breaking APi uses `line` for the hard break version, and
+the line breaking API uses `line` for the hard break version, and
 `allowed_line` for the other.  The rest of the line breaking API should be
 familiar by now; it parallels the other breaking APIs, but with the hard
 vs. allowed overloads.
@@ -579,7 +579,7 @@ lexicographically compared to another sequence's sort key.
 Why can't we just lexicographically compare two Unicode strings?  Because
 Unicode.  Consider two _cps_ `A` and `B`.  There may be some languages for
 which the proper ordering of `A` and `B` is `A < B`.  There may also be other
-languages for which `B < A` is the proper order.  Ther may be yet other
+languages for which `B < A` is the proper order.  There may be yet other
 languages for which `A == B` is the proper order.  As a concrete example, in
 Swedish `z < ö`, whereas in German `ö < z`.
 
@@ -607,7 +607,7 @@ represents differences in accent; the tertiary level (/L3/) represents
 differences in case, or variants of symbols; and the quaternary level (/L4/)
 represents differences in punctuation.
 
-From the Unicde documentation:
+From the Unicode documentation:
 
 [table Comparison Levels
     [[Level] [Description]     [Examples]]
@@ -646,7 +646,7 @@ simple and convenient format is:
     &l<ll<<<Ll<<<LL
 
 You should never need to write one of these tailoring scripts, but if you do,
-there's a full parser of the tailoring scripting language built in to _Text_.
+there's a full parser of the tailoring scripting language built into _Text_.
 For most users, it should be sufficient to use one of the canned tailoring
 scripts in the `boost/text/data/` directory.  These come from _cldr_, and the
 files use the _cldr_ locale naming scheme.  Just rummage about until you find
@@ -697,7 +697,7 @@ table:
 
 [important The default Unicode collation algorithm requires the NFD
 normalization form, one of the least compact normalization forms.  This means
-either keeping your data is a memory-hogging normalization form, or paying the
+either keeping your data in a memory-hogging normalization form, or paying the
 cost of normalization every time you do a collation.  However, there is a
 variant of the default algorithm that is defined in _tn5_ that allows one to
 use an alternate normalization form called FCC.
@@ -863,7 +863,7 @@ However, we can just drag around the sort keys, though it's a bit more work:
 [collation_sorting_2]
 
 This is something close to the optimal approach, as clunky as it is.
-Alternatievly, we could sort the _ts_ using a comparator that does a lookup in
+Alternatively, we could sort the _ts_ using a comparator that does a lookup in
 some side data structure containing keys, but that seems even more clunky.
 
 [endsect]
@@ -934,7 +934,7 @@ arbitrary ordering of combining marks with the same canonical combining class
 (CCC).  This does not matter in the whole-_gr_ case, which handles this
 correctly.  It will only matter in _cp_ level searches, because you may search
 for partial _grs_, as in `collation_search("a\u0300", "a\u0300\u0301")`
-example.
+for example.
 
 If none of that made sense to you, don't worry.  Just use the text layer
 types, which are always normalized FCC and always deal in graphemes, and
@@ -952,13 +952,14 @@ you want to present this text to the user, say by printing it to a terminal or
 showing it in a GUI, it becomes necessary to produce an ordering on the _cps_
 in the text that reverses the RTL subsequences, so they appear in their proper
 readable order, not in memory-order.  For example, if the capital letters in
-the string "car means CAR." were RTL, the end-user should see "car means RAC."
+the string "car means CAR." were from an RTL script, the end-user should see
+"car means RAC."
 
 There are also times when you find RTL nested within LTR nested within RTL
 nested within LTR.  Unicode is hard.
 
 _Text_ has an implementation of the Unicode bidirectional algorithm.  The
-interface for simple uses is straightfoward; you just call the algorithm with
+interface for simple uses is straightforward; you just call the algorithm with
 a sequence of _cps_, and it returns a lazy range of subranges.  Each subrange
 is a _bidi_cp_subrng_ (or _bidi_gr_subrng_ for the _GrRng_ overload):
 
@@ -966,7 +967,7 @@ is a _bidi_cp_subrng_ (or _bidi_gr_subrng_ for the _GrRng_ overload):
 
 [note By default, `bidirectional_subranges()` auto-detects the overall
 direction of the text _emdash_ LTR or RTL.  This is known as the /embedding
-level/; even embedding levels are RTL, and odd embedding levels are RTL.  Even
+level/; even embedding levels are LTR, and odd embedding levels are RTL.  Even
 levels above `0` are found nested within RTL text.  Odd levels above `1` are
 found nested within LTR text.  This is what the /embedding/ part of /embedding
 level/ means.
@@ -987,7 +988,7 @@ break overloads.
 This form is necessary because the locations of line breaks within the text
 can affect the output of the bidirectional algorithm.  Therefore, the
 bidirectional algorithm needs to know the positions of line breaks in order to
-operate corerctly.  For example:
+operate correctly.  For example:
 
 [bidi_with_line_breaks]
 

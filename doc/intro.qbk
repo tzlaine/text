@@ -33,7 +33,7 @@ _emdash_ including those who know next to nothing about Unicode.
 
 - Iterators converting UTF-8 to and from UTF-16 and UTF-32.
 
-- An implemenation of the Unicode algorithms for dealing with encodings,
+- An implementation of the Unicode algorithms for dealing with encodings,
   normalization, etc.  It is not necessary to use any of _Text_'s string types
   to make use of the Unicode algorithms.
 

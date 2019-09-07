@@ -61,8 +61,8 @@ for for making character-based UIs suitable for terminals.  It stores the file
 to edit in a single _r_, and uses _Text_'s line breaking algorithm to
 determine what portions of the _r_ are on each line.  Each character cell in
 the editor is a grapheme, not a _cp_ or _cu_.  It probably mis-renders _grs_
-containing multiple combining _cps_ _emdash_ it's very minimal.  However, all
-the logic is done in terms of _grs_.
+containing multiple combining _cps_ _emdash_ again, it's very minimal.
+However, all the logic is done in terms of _grs_.
 
 [editor_main]
 
@@ -103,11 +103,11 @@ a time; you can click on a spot to move the cursor there; you can use
 backspace and delete; you can undo; and you can save and exit.
 
 As for `update()`, it simply calls `eval_input()`, and if `eval_input()`
-indicates that a command should be excecuted, it executes that command.
+indicates that a command should be executed, it executes that command.
 
 [editor_app_state_eval_input]
 
-As it says inline, this function simply proceses keyboard input as it occurs,
+As it says inline, this function simply processes keyboard input as it occurs,
 indicating that a command should be executed when the input matches one of the
 sequences defined in the key bindings.  Now let's look at the implementations
 of two of the cursor movement actions:
@@ -116,7 +116,7 @@ of two of the cursor movement actions:
 [editor_app_state_move_right]
 
 The details here are not that important, but what I'm trying to show here is
-how relatively simple these implementations are.  There are multple cases that
+how relatively simple these implementations are.  There are multiple cases that
 must be dealt with, but those are inherent to moving a cursor around in
 variable-length rows.  What we *don't* have to deal with are all the cases
 that would come up if we dealt with text as _cps_ or _cus_.
@@ -125,7 +125,7 @@ that would come up if we dealt with text as _cps_ or _cus_.
 
 Even this implementation, which is certainly more complicated than the
 previous two, is relatively simple thanks to the grapheme-based overload of
-`boost::text::prev_word_brek()`.
+`boost::text::prev_word_break()`.
 
 [editor_app_state_erase_at]
 
@@ -147,7 +147,7 @@ line breaks all the way to line N + 1000.  Notice that again the logic is
 pretty straightforward.  Almost all the logic is devoted to figuring out the
 range of _grs_ we want to re-break.  The actual line breaking is just a call
 to `get_lines()`, which is itself just a single call to
-`boost::text::lines()`, as we saw earier.
+`boost::text::lines()`, as we saw earlier.
 
 [editor_app_state_insert]
 
@@ -176,7 +176,7 @@ and the `3` is the number of _grs_ we're working with.]
 
 [editor_app_state_undo_save_quit]
 
-The implementation of `undo()` is a punch line of sorts.  If you look back at
+The implementation of `undo()` is a punchline of sorts.  If you look back at
 all the branches required to implement all the actions in the editor, it seems
 stunning that the undo action could be so simple.  It's also surprising that
 it does what looks like a bulk copy in `O(1)`, making it efficient as well.

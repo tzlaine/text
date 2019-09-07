@@ -7,7 +7,7 @@ has a single data member _emdash_ an object of the corresponding string layer
 type.
 
 Let's consider one of the text layer types in particular, _t_.  It's
-underlying stoage is a _s_, as mentioned before.  The `char`s in the _s_ are
+underlying storage is a _s_, as mentioned before.  The `char`s in the _s_ are
 UTF-8 encoded.  The _cp_ view of those UTF-8 encoded `char`s is available by
 using _to_32_iter_.  Since _to_32_iter_ generates replacement characters when
 it encounters a broken encoding, no runtime checks ever need to be performed
@@ -45,7 +45,7 @@ construct a _grapheme_ (either from a _gr_view_, or by some other means).
 
 [note _grapheme_ has a small-buffer optimization so that using it seldom
 involves allocations.  This also implies that an array of _graphemes_ is
-likely to be wasteful of storage.  If you want a bunch of _grs_, you chould
+likely to be wasteful of storage.  If you want a bunch of _grs_, you should
 probably be using a _t_.]
 
 An Individual _gr_, in the form of a _grapheme_ or _gr_view_, can be inserted
@@ -62,14 +62,14 @@ the text layer types return _gr_its_ from `begin()` and `end()`.  But what
 about the times when you actually want to deal with sequences of _cps_ or
 `char`s?  This comes up often when you need to use legacy interfaces.
 
-Fotunately, that's really easy.  _gr_it_ has a `base()` member that returns
+Fortunately, that's really easy.  _gr_it_ has a `base()` member that returns
 its underlying _cp_ iterator.  The _cp_ iterator used in the text layer types
 is always _to_32_iter_, which also has a `base()` member that returns /it's/
 underlying `char` iterator:
 
 [graphemes_iterator_bases]
 
-if you remember from the discucssion of the string layer types, _s_ is always
+if you remember from the discussion of the string layer types, _s_ is always
 null-terminated, and its iterator is just a `char *`.  This means that any _t_
 object `t` is null-terminated too, as long as you access it's underlying
 `char` iterator directly:
@@ -96,11 +96,11 @@ There are two things to note here:
 [heading The Text Layer Types]
 
 As mentioned before, this layer has four types (_t_, _tv_, _r_, and _rv_) that
-are directly analogous to the four major types in the strig layer (_s_, _sv_,
+are directly analogous to the four major types in the string layer (_s_, _sv_,
 _ur_, and _urv_).  The high-level semantics of these types is the same:
 
 * _s_ and _t_ are owning and contiguous.
-* _sv_ and _tv_ and non-owning and continguous.
+* _sv_ and _tv_ and non-owning and contiguous.
 * _ur_ and _r_ are owning and discontiguous.
 * _urv_ and _rv_ are non-owning and discontiguous.
 

@@ -14,7 +14,7 @@ _trie_\/_trie_m_\/_trie_s_.
 [heading The _s_ Layer]
 
 The types in this layer are encoding-agnostic.  Together, they form an
-ecosystem of types that consitutes "a better `std::string`".  The types in
+ecosystem of types that constitutes "a better `std::string`".  The types in
 this layer are: _s_, _sv_, _rsv_, _ur_, and _urv_.
 
 

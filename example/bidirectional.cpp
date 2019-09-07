@@ -91,8 +91,9 @@ for (auto range :
     // With the example for line breaking, our predicate in this spot was
     // !hard_break().  In this case though, there are some subranges that have
     // no line breaks at all.  Since we don't want double line breaks, we
-    // still don't add a line break after a hard_break().  That leaves the
-    // need to break only after allowed breaks.
+    // still don't add a line break after a hard_break() (because those will
+    // come after a sequence that already causes a line break, like "\r\n").
+    // That leaves the need to break only after allowed breaks.
     if (range.allowed_break())
         std::cout << "\n";
 }
