@@ -365,7 +365,11 @@ namespace boost { namespace text {
             if (first == last)
                 return *this;
 
-            insert_iter_impl(at, first, last);
+            insert_iter_impl(
+                at,
+                first,
+                last,
+                typename std::iterator_traits<CharIter>::iterator_category{});
 
             return *this;
         }
@@ -379,7 +383,11 @@ namespace boost { namespace text {
             if (first == last)
                 return at;
 
-            return insert_iter_impl(at - begin(), first, last);
+            return insert_iter_impl(
+                at - begin(),
+                first,
+                last,
+                typename std::iterator_traits<CharIter>::iterator_category{});
         }
 
         template<typename GraphemeRange>
@@ -722,8 +730,8 @@ namespace boost { namespace text {
             ++size_;
         }
 
-        template<typename CharIter, typename Sentinel>
-        auto insert_iter_impl(int at, CharIter first, Sentinel last)
+        template<typename CharIter, typename Sentinel, typename IterTag>
+        auto insert_iter_impl(int at, CharIter first, Sentinel last, IterTag)
             -> detail::char_iter_ret_t<iterator, CharIter>
         {
             auto const initial_size = size_;
@@ -743,6 +751,32 @@ namespace boost { namespace text {
             ptr()[size_] = '\0';
 
             return begin() + at + (size_ - initial_size);
+        }
+
+        template<typename CharIter>
+        auto insert_iter_impl(
+            int at,
+            CharIter first,
+            CharIter last,
+            std::random_access_iterator_tag)
+            -> detail::char_iter_ret_t<iterator, CharIter>
+        {
+            int const available = capacity() - size_;
+            int const new_bytes = last - first;
+            if (available < new_bytes) {
+                heap_t new_data = get_new_data(new_bytes - available);
+                auto out =
+                    std::copy(cbegin(), cbegin() + at, new_data.data_.get());
+                out = std::copy(first, last, out);
+                std::copy(cbegin() + at, cend(), out);
+                set_heap(std::move(new_data));
+            } else {
+                std::copy_backward(cbegin() + at, cend(), end() + new_bytes);
+                std::copy(first, last, begin() + at);
+            }
+            size_ += new_bytes;
+            ptr()[size_] = '\0';
+            return begin() + at;
         }
 
         template<typename CharIter>
