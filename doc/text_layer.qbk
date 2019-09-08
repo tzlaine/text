@@ -9,13 +9,13 @@ type.
 Let's consider one of the text layer types in particular, _t_.  It's
 underlying storage is a _s_, as mentioned before.  The `char`s in the _s_ are
 UTF-8 encoded.  The _cp_ view of those UTF-8 encoded `char`s is available by
-using _to_32_iter_.  Since _to_32_iter_ generates replacement characters when
-it encounters a broken encoding, no runtime checks ever need to be performed
-on the encoding of the `char`s in a _t_'s _s_ data member.
+using _8_to_32_iter_.  Since _8_to_32_iter_ generates replacement characters
+when it encounters a broken encoding, no runtime checks ever need to be
+performed on the encoding of the `char`s in a _t_'s _s_ data member.
 
 [note To be absolutely clear, all the text layer types use UTF-8 encoding.
 There are no other options.  Transcoding to UTF-16 is still possible using
-_to_16_iter_ and _from_16_iter_.]
+_8_to_16_iter_ and _16_to_8_iter_.]
 
 All the text layer types are kept in the FCC normalization form at all times.
 There is a runtime cost associated with normalizing text that is inserted into
@@ -64,7 +64,7 @@ about the times when you actually want to deal with sequences of _cps_ or
 
 Fortunately, that's really easy.  _gr_it_ has a `base()` member that returns
 its underlying _cp_ iterator.  The _cp_ iterator used in the text layer types
-is always _to_32_iter_, which also has a `base()` member that returns /it's/
+is always _8_to_32_iter_, which also has a `base()` member that returns /it's/
 underlying `char` iterator:
 
 [graphemes_iterator_bases]

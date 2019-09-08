@@ -96,15 +96,18 @@ algorithms fits your needs and use that algorithm's `*_prop()` function
 
 [section Encoding and Normalization]
 
-[heading Encoding]
+[heading Transcoding Iterators]
 
-_Text_ provides conversions between UTF-8 and UTF-16, and between UTF-8 and
-UTF-32, via four converting iterators:
+_Text_ provides conversions among the UTF-8, UTF-16, and UTF-32 encodings, via
+converting iterators.  The conversion among UTF formats is referred to as
+transcoding.  The converting iterators are:
 
-* _from_32_iter_
-* _to_32_iter_
-* _from_16_iter_
-* _to_16_iter_
+* _8_to_16_iter_
+* _8_to_32_iter_
+* _16_to_8_iter_
+* _16_to_32_iter_
+* _32_to_8_iter_
+* _32_to_16_iter_
 
 By default, these produce the Unicode replacement character `0xFFFD` when
 encountering an invalid encoding.  This replacement character error handling
@@ -126,9 +129,8 @@ the result of reading several bytes of a multi-byte encoding, post-increment
 and post-decrement can be quite a bit more expensive than pre-increment and
 pre-decrement.
 
-To use a converting iterator, you must provide it with an underlying iterator
-that models the _CPIter_ concept.  Note that these converting iterators each
-model _CPIter_ too.  An example of use:
+To use a converting iterator, you must provide it with an underlying iterator.
+An example of use:
 
 [to_utf32_verbose]
 
@@ -137,29 +139,66 @@ _u32_rng_:
 
 [to_utf32_terse]
 
-There are two output iterator adapters, [funcref
-boost::text::utf8::from_utf32_inserter `from_utf32_inserter`] and [funcref
-boost::text::utf8::from_utf32_back_inserter `from_utf32_back_inserter`], that
-do UTF-8 -> UTF-32 conversion and `push_back()` or `insert()` in one step.
+There are output iterator adapters that convert from UTF-32, [funcref
+boost::text::utf32_to_utf8_inserter `utf32_to_utf8_inserter`] [funcref
+boost::text::utf32_to_utf8_back_inserter `utf32_to_utf8_back_inserter`],
+[funcref boost::text::utf32_to_utf16_inserter `utf32_to_utf16_inserter`], and
+[funcref boost::text::utf32_to_utf16_back_inserter
+`utf32_to_utf16_back_inserter`], that do conversion from UTF-32 and `insert()`
+or `push_back()` in one step.
 
 Finally, there is [funcref boost::text::to_string `to_string`], which takes
 two UTF-32 iterators and returns a _s_ containing the given sequence,
 UTF-8-encoded.
 
+[note The transcoding iterators are available for flexibility.  In particular,
+they can be used with the standard algorithms.  However, this flexibility
+comes at a cost.  When doing a bulk-transcoding operation, using these
+iterators can be substantially slower than using the transcoding algorithms.]
+
+
+[heading Transcoding Algorithms]
+
+When you only need to transcode from one UTF encoding to another, use the
+transcoding algorithms instead of the transcoding iterators.  The algorithms
+are quite a bit faster in most cases (_tc_8_to_32_ is particularly fast, as it
+uses SIMD instructions when available).
+
+There are six of these, just as there are six transcoding iterators:
+
+* _tc_8_to_16_
+* _tc_8_to_32_
+* _tc_16_to_8_
+* _tc_16_to_32_
+* _tc_32_to_8_
+* _tc_32_to_16_
+
+Like the default behavior of the transcoding iterators, these algorithms
+produce the Unicode replacement character `0xFFFD` when encountering an
+invalid encoding.  Unlike the iterators, the algorithms are not configurable
+to handle errors in any other way.
+
+These are fully generic algorithms, and there are overloads that take
+iterator-sentinel pairs as well as ones that take ranges.
+
+[important Though these algorithms are generic, some of the optimizations in
+them require pointers on both the input and output iterators for maximum
+performance.  In performance-critical code paths, stick to pointers.]
+
 
 [heading Accessing the Underlying UTF-8 chars]
 
-When using _to_32_iter_ or _u32_rng_, it is often desirable to get access to
+When using _8_to_32_iter_ or _u32_rng_, it is often desirable to get access to
 the underlying sequence of `char`s (e.g. for copying into a buffer or
 constructing a `std::string`).
 
-_to_32_iter_ exposes, and in fact all the converting iterators expose, the
+_8_to_32_iter_ exposes, and in fact all the converting iterators expose, the
 iterator they are parameterized with, via the member function `base()`.  You
 can always get at the sequence of `char` underlying the _cp_ sequence exposed
-by _to_32_iter_ like this:
+by _8_to_32_iter_ like this:
 
-    boost::text::utf8::to_utf32_iterator first = /* ... */;
-    boost::text::utf8::to_utf32_iterator last = /* ... */;
+    boost::text::utf8_to_utf32_iterator first = /* ... */;
+    boost::text::utf8_to_utf32_iterator last = /* ... */;
 
     // Copy [first, last) as code points.
     std::vector<uint32_t> cp_vec;
