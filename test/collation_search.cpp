@@ -40,7 +40,7 @@ void do_simple_search(
     // Exercise cases where !std::is_same<CPIter, Sentinel>::value:
 
     using sentinel_cp_range_iter =
-        utf8_to_utf32_iterator<char const *, null_sentinel>;
+        utf_8_to_32_iterator<char const *, null_sentinel>;
     using sentinel_cp_range = cp_range<sentinel_cp_range_iter, null_sentinel>;
 
     sentinel_cp_range str_cp_range{
@@ -103,7 +103,7 @@ void do_boyer_moore_search(
     // Exercise cases where !std::is_same<CPIter, Sentinel>::value:
 
     using sentinel_cp_range_iter =
-        utf8_to_utf32_iterator<char const *, null_sentinel>;
+        utf_8_to_32_iterator<char const *, null_sentinel>;
     using sentinel_cp_range = cp_range<sentinel_cp_range_iter, null_sentinel>;
 
     sentinel_cp_range str_cp_range{
@@ -159,7 +159,7 @@ void do_boyer_moore_horspool_search(
     // Exercise cases where !std::is_same<CPIter, Sentinel>::value:
 
     using sentinel_cp_range_iter =
-        utf8_to_utf32_iterator<char const *, null_sentinel>;
+        utf_8_to_32_iterator<char const *, null_sentinel>;
     using sentinel_cp_range = cp_range<sentinel_cp_range_iter, null_sentinel>;
 
     sentinel_cp_range str_cp_range{
@@ -791,7 +791,7 @@ void do_simple_word_search(
     // Exercise cases where !std::is_same<CPIter, Sentinel>::value:
 
     using sentinel_cp_range_iter =
-        utf8_to_utf32_iterator<char const *, null_sentinel>;
+        utf_8_to_32_iterator<char const *, null_sentinel>;
     using sentinel_cp_range = cp_range<sentinel_cp_range_iter, null_sentinel>;
 
     sentinel_cp_range str_cp_range{
@@ -860,7 +860,7 @@ void do_simple_word_search_not_found(
     // Exercise cases where !std::is_same<CPIter, Sentinel>::value:
 
     using sentinel_cp_range_iter =
-        utf8_to_utf32_iterator<char const *, null_sentinel>;
+        utf_8_to_32_iterator<char const *, null_sentinel>;
     using sentinel_cp_range = cp_range<sentinel_cp_range_iter, null_sentinel>;
 
     sentinel_cp_range str_cp_range{

@@ -84,14 +84,14 @@ TEST(rope_btree, test_btree_split_child)
     EXPECT_EQ(keys(root_2)[2], max_children * 2 * 2 + (max_children - 1) * 5);
 
     EXPECT_EQ(num_children(children(root_2)[0]), min_children);
-    EXPECT_EQ(keys(children(root_2)[0]).size(), min_children);
+    EXPECT_EQ((std::ptrdiff_t)keys(children(root_2)[0]).size(), min_children);
     EXPECT_EQ(keys(children(root_2)[0])[0], 4);
     EXPECT_EQ(keys(children(root_2)[0])[1], 8);
     EXPECT_EQ(keys(children(root_2)[0])[2], 12);
     EXPECT_EQ(keys(children(root_2)[0])[3], 16);
 
     EXPECT_EQ(num_children(children(root_2)[1]), min_children);
-    EXPECT_EQ(keys(children(root_2)[1]).size(), min_children);
+    EXPECT_EQ((std::ptrdiff_t)keys(children(root_2)[1]).size(), min_children);
     EXPECT_EQ(keys(children(root_2)[1])[0], 4);
     EXPECT_EQ(keys(children(root_2)[1])[1], 8);
     EXPECT_EQ(keys(children(root_2)[1])[2], 12);
@@ -113,14 +113,14 @@ TEST(rope_btree, test_btree_split_child_extra_ref)
     EXPECT_EQ(keys(root_2)[2], max_children * 2 * 2 + (max_children - 1) * 5);
 
     EXPECT_EQ(num_children(children(root_2)[0]), min_children);
-    EXPECT_EQ(keys(children(root_2)[0]).size(), min_children);
+    EXPECT_EQ((std::ptrdiff_t)keys(children(root_2)[0]).size(), min_children);
     EXPECT_EQ(keys(children(root_2)[0])[0], 4);
     EXPECT_EQ(keys(children(root_2)[0])[1], 8);
     EXPECT_EQ(keys(children(root_2)[0])[2], 12);
     EXPECT_EQ(keys(children(root_2)[0])[3], 16);
 
     EXPECT_EQ(num_children(children(root_2)[1]), min_children);
-    EXPECT_EQ(keys(children(root_2)[1]).size(), min_children);
+    EXPECT_EQ((std::ptrdiff_t)keys(children(root_2)[1]).size(), min_children);
     EXPECT_EQ(keys(children(root_2)[1])[0], 4);
     EXPECT_EQ(keys(children(root_2)[1])[1], 8);
     EXPECT_EQ(keys(children(root_2)[1])[2], 12);
@@ -1540,7 +1540,8 @@ TEST(rope_btree, test_btree_erase)
 
             unencoded_rope const r(root);
 
-            EXPECT_EQ(size(root.get()), str.size()) << "i=" << i << " j=" << j;
+            EXPECT_EQ(size(root.get()), (std::ptrdiff_t)str.size())
+                << "i=" << i << " j=" << j;
             EXPECT_TRUE(std::equal(str.begin(), str.end(), r.begin()))
                 << "i=" << i << " j=" << j;
             check_leaf_heights(root);

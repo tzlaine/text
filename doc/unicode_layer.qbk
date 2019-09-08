@@ -140,11 +140,11 @@ _u32_rng_:
 [to_utf32_terse]
 
 There are output iterator adapters that convert from UTF-32, [funcref
-boost::text::utf32_to_utf8_inserter `utf32_to_utf8_inserter`] [funcref
-boost::text::utf32_to_utf8_back_inserter `utf32_to_utf8_back_inserter`],
-[funcref boost::text::utf32_to_utf16_inserter `utf32_to_utf16_inserter`], and
-[funcref boost::text::utf32_to_utf16_back_inserter
-`utf32_to_utf16_back_inserter`], that do conversion from UTF-32 and `insert()`
+boost::text::utf_32_to_8_inserter `utf_32_to_8_inserter`] [funcref
+boost::text::utf_32_to_8_back_inserter `utf_32_to_8_back_inserter`],
+[funcref boost::text::utf_32_to_16_inserter `utf_32_to_16_inserter`], and
+[funcref boost::text::utf_32_to_16_back_inserter
+`utf_32_to_16_back_inserter`], that do conversion from UTF-32 and `insert()`
 or `push_back()` in one step.
 
 Finally, there is [funcref boost::text::to_string `to_string`], which takes
@@ -197,8 +197,8 @@ iterator they are parameterized with, via the member function `base()`.  You
 can always get at the sequence of `char` underlying the _cp_ sequence exposed
 by _8_to_32_iter_ like this:
 
-    boost::text::utf8_to_utf32_iterator first = /* ... */;
-    boost::text::utf8_to_utf32_iterator last = /* ... */;
+    boost::text::utf_8_to_32_iterator first = /* ... */;
+    boost::text::utf_8_to_32_iterator last = /* ... */;
 
     // Copy [first, last) as code points.
     std::vector<uint32_t> cp_vec;

@@ -36,7 +36,7 @@ static_assert(
     "");
 
 static_assert(
-    text::detail::is_cp_iter<text::utf8_to_utf32_iterator<char const *>>{}, "");
+    text::detail::is_cp_iter<text::utf_8_to_32_iterator<char const *>>{}, "");
 static_assert(text::detail::is_cp_iter<text::utf32_range::iterator>{}, "");
 
 static_assert(

@@ -42,7 +42,7 @@ TEST(detail, canonical_closure)
                 equivalent_strings[i].end(),
                 std::back_inserter(results[i]));
             std::sort(results[i].begin(), results[i].end());
-            EXPECT_EQ(results[i].size(), N);
+            EXPECT_EQ((int)results[i].size(), N);
         }
 
         std::sort(std::begin(equivalent_strings), std::end(equivalent_strings));
@@ -83,7 +83,7 @@ TEST(detail, canonical_closure)
                 equivalent_strings[i].end(),
                 std::back_inserter(results[i]));
             std::sort(results[i].begin(), results[i].end());
-            EXPECT_EQ(results[i].size(), N);
+            EXPECT_EQ((int)results[i].size(), N);
         }
 
         std::sort(std::begin(equivalent_strings), std::end(equivalent_strings));
@@ -115,7 +115,7 @@ TEST(detail, canonical_closure)
                 equivalent_strings[i].end(),
                 std::back_inserter(results[i]));
             std::sort(results[i].begin(), results[i].end());
-            EXPECT_EQ(results[i].size(), N);
+            EXPECT_EQ((int)results[i].size(), N);
         }
 
         std::sort(std::begin(equivalent_strings), std::end(equivalent_strings));
@@ -145,7 +145,7 @@ TEST(detail, canonical_closure)
                 equivalent_strings[i].end(),
                 std::back_inserter(results[i]));
             std::sort(results[i].begin(), results[i].end());
-            EXPECT_EQ(results[i].size(), N);
+            EXPECT_EQ((int)results[i].size(), N);
         }
 
         std::sort(std::begin(equivalent_strings), std::end(equivalent_strings));
@@ -178,7 +178,7 @@ TEST(detail, canonical_closure)
                 equivalent_strings[i].end(),
                 std::back_inserter(results[i]));
             std::sort(results[i].begin(), results[i].end());
-            EXPECT_EQ(results[i].size(), N);
+            EXPECT_EQ((int)results[i].size(), N);
         }
 
         std::sort(std::begin(equivalent_strings), std::end(equivalent_strings));
@@ -212,7 +212,7 @@ TEST(detail, canonical_closure)
                 equivalent_strings[i].end(),
                 std::back_inserter(results[i]));
             std::sort(results[i].begin(), results[i].end());
-            EXPECT_EQ(results[i].size(), N);
+            EXPECT_EQ((int)results[i].size(), N);
         }
 
         std::sort(std::begin(equivalent_strings), std::end(equivalent_strings));

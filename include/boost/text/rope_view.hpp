@@ -24,18 +24,18 @@ namespace boost { namespace text {
     struct rope_view
     {
         using value_type =
-            cp_range<utf8_to_utf32_iterator<detail::const_rope_view_iterator>>;
+            cp_range<utf_8_to_32_iterator<detail::const_rope_view_iterator>>;
         using size_type = std::ptrdiff_t;
         using iterator = grapheme_iterator<
-            utf8_to_utf32_iterator<detail::const_rope_view_iterator>>;
+            utf_8_to_32_iterator<detail::const_rope_view_iterator>>;
         using const_iterator = iterator;
         using reverse_iterator = detail::reverse_iterator<iterator>;
         using const_reverse_iterator = reverse_iterator;
 
         using rope_iterator =
-            grapheme_iterator<utf8_to_utf32_iterator<detail::rope_iterator>>;
+            grapheme_iterator<utf_8_to_32_iterator<detail::rope_iterator>>;
         using const_rope_iterator = grapheme_iterator<
-            utf8_to_utf32_iterator<detail::const_rope_iterator>>;
+            utf_8_to_32_iterator<detail::const_rope_iterator>>;
 
         /** Default ctor. */
         rope_view() noexcept {}
@@ -226,13 +226,12 @@ namespace boost { namespace text {
         detail::const_rope_view_iterator it,
         detail::const_rope_view_iterator last) noexcept
     {
-        return iterator{
-            utf8_to_utf32_iterator<detail::const_rope_view_iterator>{
-                first, first, last},
-            utf8_to_utf32_iterator<detail::const_rope_view_iterator>{
-                first, it, last},
-            utf8_to_utf32_iterator<detail::const_rope_view_iterator>{
-                first, last, last}};
+        return iterator{utf_8_to_32_iterator<detail::const_rope_view_iterator>{
+                            first, first, last},
+                        utf_8_to_32_iterator<detail::const_rope_view_iterator>{
+                            first, it, last},
+                        utf_8_to_32_iterator<detail::const_rope_view_iterator>{
+                            first, last, last}};
     }
 
 }}

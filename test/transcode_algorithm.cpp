@@ -802,9 +802,9 @@ TEST(transcode_algorthm, from_utf16_non_error)
 TEST(transcode_algorthm, from_long_utf16_sequence)
 {
     std::vector<uint16_t> cus;
-    auto const utf16_first = text::make_utf32_to_utf16_iterator(
+    auto const utf16_first = text::make_utf_32_to_16_iterator(
         std::begin(cps), std::begin(cps), std::end(cps));
-    auto const utf16_last = text::make_utf32_to_utf16_iterator(
+    auto const utf16_last = text::make_utf_32_to_16_iterator(
         std::begin(cps), std::end(cps), std::end(cps));
     std::copy(utf16_first, utf16_last, std::back_inserter(cus));
 
@@ -855,9 +855,9 @@ TEST(transcode_algorthm, from_long_utf16_sequence)
 
     std::vector<char> cps_to_8;
     std::copy(
-        text::make_utf32_to_utf8_iterator(
+        text::make_utf_32_to_8_iterator(
             std::begin(cps), std::begin(cps), std::end(cps)),
-        text::make_utf32_to_utf8_iterator(
+        text::make_utf_32_to_8_iterator(
             std::begin(cps), std::end(cps), std::end(cps)),
         std::back_inserter(cps_to_8));
 
@@ -1172,9 +1172,9 @@ TEST(transcode_algorthm, from_long_utf32_sequence)
 {
     std::vector<uint16_t> cps_to_16;
     std::copy(
-        text::make_utf32_to_utf16_iterator(
+        text::make_utf_32_to_16_iterator(
             std::begin(cps), std::begin(cps), std::end(cps)),
-        text::make_utf32_to_utf16_iterator(
+        text::make_utf_32_to_16_iterator(
             std::begin(cps), std::end(cps), std::end(cps)),
         std::back_inserter(cps_to_16));
 
@@ -1215,9 +1215,9 @@ TEST(transcode_algorthm, from_long_utf32_sequence)
 
     std::vector<char> cps_to_8;
     std::copy(
-        text::make_utf32_to_utf8_iterator(
+        text::make_utf_32_to_8_iterator(
             std::begin(cps), std::begin(cps), std::end(cps)),
-        text::make_utf32_to_utf8_iterator(
+        text::make_utf_32_to_8_iterator(
             std::begin(cps), std::end(cps), std::end(cps)),
         std::back_inserter(cps_to_8));
 

@@ -19,9 +19,9 @@ char const utf8[] = {0x4d,
                      char(0x8c),
                      char(0x82)};
 int i = 0;
-for (auto it = boost::text::make_utf8_to_utf32_iterator(
+for (auto it = boost::text::make_utf_8_to_32_iterator(
               std::begin(utf8), std::begin(utf8), std::end(utf8)),
-          end = boost::text::make_utf8_to_utf32_iterator(
+          end = boost::text::make_utf_8_to_32_iterator(
               std::begin(utf8), std::end(utf8), std::end(utf8));
      it != end;
      ++it) {

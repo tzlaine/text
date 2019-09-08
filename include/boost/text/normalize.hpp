@@ -465,24 +465,23 @@ namespace boost { namespace text {
             return out_iter_sink<OutIter, OutIter>(out);
         }
         template<typename C>
-        auto make_byte_sink(utf32_to_utf8_insert_iterator<C> & out)
-            -> decltype(out_iter_sink<
-                        decltype(out.base()),
-                        utf32_to_utf8_insert_iterator<C>>(out.base(), out))
+        auto make_byte_sink(utf_32_to_8_insert_iterator<C> & out) -> decltype(
+            out_iter_sink<decltype(out.base()), utf_32_to_8_insert_iterator<C>>(
+                out.base(), out))
         {
             return out_iter_sink<
                 decltype(out.base()),
-                utf32_to_utf8_insert_iterator<C>>(out.base(), out);
+                utf_32_to_8_insert_iterator<C>>(out.base(), out);
         }
         template<typename C>
-        auto make_byte_sink(utf32_to_utf8_back_insert_iterator<C> & out)
+        auto make_byte_sink(utf_32_to_8_back_insert_iterator<C> & out)
             -> decltype(out_iter_sink<
                         decltype(out.base()),
-                        utf32_to_utf8_back_insert_iterator<C>>(out.base(), out))
+                        utf_32_to_8_back_insert_iterator<C>>(out.base(), out))
         {
             return out_iter_sink<
                 decltype(out.base()),
-                utf32_to_utf8_back_insert_iterator<C>>(out.base(), out);
+                utf_32_to_8_back_insert_iterator<C>>(out.base(), out);
         }
 
         template<typename Iter>
@@ -567,21 +566,20 @@ namespace boost { namespace text {
         }
         template<typename Iter>
         U_NAMESPACE_QUALIFIER StringPiece make_string_piece(
-            utf8_to_utf32_iterator<Iter> first,
-            utf8_to_utf32_iterator<Iter> last)
+            utf_8_to_32_iterator<Iter> first, utf_8_to_32_iterator<Iter> last)
         {
             return U_NAMESPACE_QUALIFIER StringPiece(
                 first.base(), last.base() - first.base());
         }
         template<typename Iter, typename Sentinel>
         U_NAMESPACE_QUALIFIER StringPiece make_string_piece(
-            utf8_to_utf32_iterator<Iter, Sentinel> first, Sentinel last)
+            utf_8_to_32_iterator<Iter, Sentinel> first, Sentinel last)
         {
             return U_NAMESPACE_QUALIFIER StringPiece(first.base());
         }
         template<typename Iter, typename Sentinel>
         U_NAMESPACE_QUALIFIER StringPiece
-        make_string_piece(utf8_to_utf32_iterator<Iter> first, Sentinel last)
+        make_string_piece(utf_8_to_32_iterator<Iter> first, Sentinel last)
         {
             return U_NAMESPACE_QUALIFIER StringPiece(first.base());
         }
@@ -634,7 +632,7 @@ namespace boost { namespace text {
         {
             static_assert(64 + 1 <= N, "Safe-stream format");
             std::ptrdiff_t count = 0;
-            auto it = text::make_utf8_to_utf16_iterator(first, first, last);
+            auto it = text::make_utf_8_to_16_iterator(first, first, last);
             char16_t prev_cu = 0;
             for (; it.base() != last && count < N - 64 - 1;
                  ++it, ++out, ++count) {
@@ -685,7 +683,7 @@ namespace boost { namespace text {
             static_assert(64 + 1 <= N, "Safe-stream format");
             std::ptrdiff_t count = 0;
             char16_t prev_cu = 0;
-            auto it = text::make_utf32_to_utf16_iterator(first, first, last);
+            auto it = text::make_utf_32_to_16_iterator(first, first, last);
             for (; it.base() != last && count < N - 64 - 1;
                  ++it, ++out, ++count) {
                 prev_cu = *it;

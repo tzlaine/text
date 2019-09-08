@@ -9,7 +9,7 @@
 using namespace boost::text;
 using namespace boost::text::detail;
 
-using u32_iter = utf8_to_utf32_iterator<char const *, char const *>;
+using u32_iter = utf_8_to_32_iterator<char const *, char const *>;
 using sentinel_cp_range_t = boost::text::cp_range<u32_iter, null_sentinel>;
 
 void to_sentinel_cp_range(
@@ -179,10 +179,10 @@ TEST(normalization_detail, make_string_piece_)
         char const * cstr = foo;
         char * str = foo;
 
-        utf8_to_utf32_iterator<char const *> cit(cstr, cstr, cstr + 8);
-        utf8_to_utf32_iterator<char const *> cit_last(cstr, cstr + 8, cstr + 8);
-        utf8_to_utf32_iterator<char *> it(str, str, str + 8);
-        utf8_to_utf32_iterator<char *> it_last(str, str + 8, str + 8);
+        utf_8_to_32_iterator<char const *> cit(cstr, cstr, cstr + 8);
+        utf_8_to_32_iterator<char const *> cit_last(cstr, cstr + 8, cstr + 8);
+        utf_8_to_32_iterator<char *> it(str, str, str + 8);
+        utf_8_to_32_iterator<char *> it_last(str, str + 8, str + 8);
 
         auto cit_string_piece = detail::make_string_piece(cit, cit_last);
         auto it_string_piece = detail::make_string_piece(it, it_last);
@@ -198,9 +198,9 @@ TEST(normalization_detail, make_string_piece_)
         char const * cstr = foo;
         char * str = foo;
 
-        utf8_to_utf32_iterator<char const *, null_sentinel> cit(
+        utf_8_to_32_iterator<char const *, null_sentinel> cit(
             cstr, cstr, null_sentinel{});
-        utf8_to_utf32_iterator<char *, null_sentinel> it(
+        utf_8_to_32_iterator<char *, null_sentinel> it(
             str, str, null_sentinel{});
 
         auto cit_string_piece = detail::make_string_piece(cit, null_sentinel{});
@@ -516,16 +516,16 @@ TEST(normalization_detail, fill_buffer_to_last_noncombiner_)
 
             if (first_8_1 != cus_8_1.end()) {
                 EXPECT_EQ(
-                    ccc(*make_utf8_to_utf32_iterator(
+                    ccc(*make_utf_8_to_32_iterator(
                         first_8_1, first_8_1, cus_8_1.end())),
                     0);
             }
         }
 
-        // UTF8 input, via utf32_to_utf8_iterator
-        auto const cus_8_2_first = make_utf32_to_utf8_iterator(
+        // UTF8 input, via utf_32_to_8_iterator
+        auto const cus_8_2_first = make_utf_32_to_8_iterator(
             std::begin(cps), std::begin(cps), std::end(cps));
-        auto const cus_8_2_last = make_utf32_to_utf8_iterator(
+        auto const cus_8_2_last = make_utf_32_to_8_iterator(
             std::begin(cps), std::end(cps), std::end(cps));
         std::array<char16_t, 140> out_array_8_2;
 
@@ -548,7 +548,7 @@ TEST(normalization_detail, fill_buffer_to_last_noncombiner_)
 
             if (first_8_2 != cus_8_2_last) {
                 EXPECT_EQ(
-                    ccc(*make_utf8_to_utf32_iterator(
+                    ccc(*make_utf_8_to_32_iterator(
                         first_8_2, first_8_2, cus_8_2_last)),
                     0);
             }
@@ -557,9 +557,9 @@ TEST(normalization_detail, fill_buffer_to_last_noncombiner_)
         // UTF16 input, via uint16_t *
         std::vector<uint16_t> cus_16_1;
         std::copy(
-            make_utf32_to_utf16_iterator(
+            make_utf_32_to_16_iterator(
                 std::begin(cps), std::begin(cps), std::end(cps)),
-            make_utf32_to_utf16_iterator(
+            make_utf_32_to_16_iterator(
                 std::begin(cps), std::end(cps), std::end(cps)),
             std::back_inserter(cus_16_1));
         std::array<char16_t, 140> out_array_16_1;
@@ -585,16 +585,16 @@ TEST(normalization_detail, fill_buffer_to_last_noncombiner_)
 
             if (first_16_1 != cus_16_1.end()) {
                 EXPECT_EQ(
-                    ccc(*make_utf16_to_utf32_iterator(
+                    ccc(*make_utf_16_to_32_iterator(
                         first_16_1, first_16_1, cus_16_1.end())),
                     0);
             }
         }
 
         // UTF16 input, via utf16::from_utf32_iterator
-        auto const cus_16_2_first = make_utf32_to_utf16_iterator(
+        auto const cus_16_2_first = make_utf_32_to_16_iterator(
             std::begin(cps), std::begin(cps), std::end(cps));
-        auto const cus_16_2_last = make_utf32_to_utf16_iterator(
+        auto const cus_16_2_last = make_utf_32_to_16_iterator(
             std::begin(cps), std::end(cps), std::end(cps));
         std::array<char16_t, 140> out_array_16_2;
 
@@ -619,7 +619,7 @@ TEST(normalization_detail, fill_buffer_to_last_noncombiner_)
 
             if (first_16_2 != cus_16_2_last) {
                 EXPECT_EQ(
-                    ccc(*make_utf16_to_utf32_iterator(
+                    ccc(*make_utf_16_to_32_iterator(
                         first_16_2, first_16_2, cus_16_2_last)),
                     0);
             }
@@ -653,11 +653,11 @@ TEST(normalization_detail, fill_buffer_to_last_noncombiner_)
             }
         }
 
-        // UTF32 input, via utf8_to_utf32_iterator
+        // UTF32 input, via utf_8_to_32_iterator
         string as_utf8 = to_string(std::begin(cps), std::end(cps));
-        auto const cus_32_2_first = make_utf8_to_utf32_iterator(
+        auto const cus_32_2_first = make_utf_8_to_32_iterator(
             std::begin(as_utf8), std::begin(as_utf8), std::end(as_utf8));
-        auto const cus_32_2_last = make_utf8_to_utf32_iterator(
+        auto const cus_32_2_last = make_utf_8_to_32_iterator(
             std::begin(as_utf8), std::end(as_utf8), std::end(as_utf8));
         std::array<char16_t, 140> out_array_32_2;
 

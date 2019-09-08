@@ -96,12 +96,12 @@
 [def _gr_                  grapheme]
 [def _grs_                 graphemes]
 
-[def _32_to_8_iter_        [classref boost::text::utf32_to_utf8_iterator  `utf32_to_utf8_iterator`]]
-[def _32_to_16_iter_       [classref boost::text::utf32_to_utf16_iterator `utf32_to_utf16_iterator`]]
-[def _16_to_8_iter_        [classref boost::text::utf16_to_utf8_iterator  `utf16_to_utf8_iterator`]]
-[def _16_to_32_iter_       [classref boost::text::utf16_to_utf32_iterator `utf16_to_utf32_iterator`]]
-[def _8_to_16_iter_        [classref boost::text::utf8_to_utf16_iterator  `utf8_to_utf16_iterator`]]
-[def _8_to_32_iter_        [classref boost::text::utf8_to_utf32_iterator  `utf8_to_utf32_iterator`]]
+[def _32_to_8_iter_        [classref boost::text::utf_32_to_8_iterator  `utf_32_to_8_iterator`]]
+[def _32_to_16_iter_       [classref boost::text::utf_32_to_16_iterator `utf_32_to_16_iterator`]]
+[def _16_to_8_iter_        [classref boost::text::utf_16_to_8_iterator  `utf_16_to_8_iterator`]]
+[def _16_to_32_iter_       [classref boost::text::utf_16_to_32_iterator `utf_16_to_32_iterator`]]
+[def _8_to_16_iter_        [classref boost::text::utf_8_to_16_iterator  `utf_8_to_16_iterator`]]
+[def _8_to_32_iter_        [classref boost::text::utf_8_to_32_iterator  `utf_8_to_32_iterator`]]
 
 [def _tc_8_to_16_          [funcref boost::text::transcode_utf_8_to_16  `transcode_utf_8_to_16()`]]
 [def _tc_8_to_32_          [funcref boost::text::transcode_utf_8_to_32  `transcode_utf_8_to_32()`]]

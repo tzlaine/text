@@ -209,7 +209,7 @@ TEST(break_apis, grapheme_break)
 TEST(break_apis, grapheme_break_sentinel)
 {
     using u32_iter =
-        boost::text::utf8_to_utf32_iterator<char const *, char const *>;
+        boost::text::utf_8_to_32_iterator<char const *, char const *>;
 
     // ÷ 1F3FB × 0308 ÷ 1100 ÷
     // ÷ [0.2] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) × [9.0]
@@ -219,9 +219,9 @@ TEST(break_apis, grapheme_break_sentinel)
         // 4,2,3 code units, respectively.
         std::array<uint32_t, 3> cps = {{0x1f3fb, 0x308, 0x1100}};
         s = boost::text::string(
-            boost::text::make_utf32_to_utf8_iterator(
+            boost::text::make_utf_32_to_8_iterator(
                 cps.begin(), cps.begin(), cps.end()),
-            boost::text::make_utf32_to_utf8_iterator(
+            boost::text::make_utf_32_to_8_iterator(
                 cps.begin(), cps.end(), cps.end()));
         assert(s.size() == 9);
         assert(boost::algorithm::equal(
@@ -497,7 +497,7 @@ TEST(break_apis, word_break)
 TEST(break_apis, word_break_sentinel)
 {
     using u32_iter =
-        boost::text::utf8_to_utf32_iterator<char const *, char const *>;
+        boost::text::utf_8_to_32_iterator<char const *, char const *>;
 
     // ÷ 0061 × 005F × 0061 ÷ 002E ÷ 003A ÷ 0061 ÷
     // ÷ [0.2] LATIN SMALL LETTER A (ALetter) × [13.1] LOW LINE (ExtendNumLet) ×
@@ -508,9 +508,9 @@ TEST(break_apis, word_break_sentinel)
     {
         std::array<uint32_t, 6> cps = {{0x61, 0x5f, 0x61, 0x2e, 0x3a, 0x61}};
         s = boost::text::string(
-            boost::text::make_utf32_to_utf8_iterator(
+            boost::text::make_utf_32_to_8_iterator(
                 cps.begin(), cps.begin(), cps.end()),
-            boost::text::make_utf32_to_utf8_iterator(
+            boost::text::make_utf_32_to_8_iterator(
                 cps.begin(), cps.end(), cps.end()));
         assert(boost::algorithm::equal(
             cps.begin(),
@@ -794,7 +794,7 @@ TEST(break_apis, word_tailoring_MidLetter)
 TEST(break_apis, word_tailoring_MidLetter_sentinel)
 {
     using u32_iter =
-        boost::text::utf8_to_utf32_iterator<char const *, char const *>;
+        boost::text::utf_8_to_32_iterator<char const *, char const *>;
 
     boost::text::string const s = "multi-part words with dashes";
 
@@ -1018,7 +1018,7 @@ TEST(break_apis, word_tailoring_cp_break)
 TEST(break_apis, word_tailoring_cp_break_sentinel)
 {
     using u32_iter =
-        boost::text::utf8_to_utf32_iterator<char const *, char const *>;
+        boost::text::utf_8_to_32_iterator<char const *, char const *>;
 
     boost::text::string const s = "snake_case camelCase";
 
@@ -1237,7 +1237,7 @@ TEST(break_apis, sentence_break)
 TEST(break_apis, sentence_break_sentinel)
 {
     using u32_iter =
-        boost::text::utf8_to_utf32_iterator<char const *, char const *>;
+        boost::text::utf_8_to_32_iterator<char const *, char const *>;
 
     // ÷ 5B57 × 3002 ÷ 5B83 ÷
     // ÷ [0.2] CJK UNIFIED IDEOGRAPH-5B57 (OLetter) × [998.0] IDEOGRAPHIC FULL
@@ -1246,9 +1246,9 @@ TEST(break_apis, sentence_break_sentinel)
     {
         std::array<uint32_t, 3> cps = {{0x5b57, 0x3002, 0x5b83}};
         s = boost::text::string(
-            boost::text::make_utf32_to_utf8_iterator(
+            boost::text::make_utf_32_to_8_iterator(
                 cps.begin(), cps.begin(), cps.end()),
-            boost::text::make_utf32_to_utf8_iterator(
+            boost::text::make_utf_32_to_8_iterator(
                 cps.begin(), cps.end(), cps.end()));
         assert(boost::algorithm::equal(
             cps.begin(),
@@ -1724,7 +1724,7 @@ std::vector<int> line_stateful_cp_extent::index_counts;
 TEST(break_apis, line_break_sentinel)
 {
     using u32_iter =
-        boost::text::utf8_to_utf32_iterator<char const *, char const *>;
+        boost::text::utf_8_to_32_iterator<char const *, char const *>;
 
     // × 200B × 0020 ÷ 0030 ÷
     // × [0.3] ZERO WIDTH SPACE (ZW) × [7.01] SPACE (SP) ÷ [8.0] DIGIT ZERO (NU)
@@ -1733,9 +1733,9 @@ TEST(break_apis, line_break_sentinel)
     {
         std::array<uint32_t, 3> cps = {{0x200b, 0x20, 0x30}};
         s = boost::text::string(
-            boost::text::make_utf32_to_utf8_iterator(
+            boost::text::make_utf_32_to_8_iterator(
                 cps.begin(), cps.begin(), cps.end()),
-            boost::text::make_utf32_to_utf8_iterator(
+            boost::text::make_utf_32_to_8_iterator(
                 cps.begin(), cps.end(), cps.end()));
         assert(boost::algorithm::equal(
             cps.begin(),
@@ -2416,16 +2416,16 @@ TEST(break_apis, paragraph_break)
 TEST(break_apis, paragraph_break_sentinel)
 {
     using u32_iter =
-        boost::text::utf8_to_utf32_iterator<char const *, char const *>;
+        boost::text::utf_8_to_32_iterator<char const *, char const *>;
 
     // ÷ 0061 × 000D × 000A ÷ 002E × 000A ÷ 0061 ÷
     boost::text::string s;
     {
         std::array<uint32_t, 6> cps = {{0x61, 0xd, 0xa, 0x2e, 0xa, 0x61}};
         s = boost::text::string(
-            boost::text::make_utf32_to_utf8_iterator(
+            boost::text::make_utf_32_to_8_iterator(
                 cps.begin(), cps.begin(), cps.end()),
-            boost::text::make_utf32_to_utf8_iterator(
+            boost::text::make_utf_32_to_8_iterator(
                 cps.begin(), cps.end(), cps.end()));
         assert(boost::algorithm::equal(
             cps.begin(),
@@ -2810,7 +2810,7 @@ TEST(break_apis, bidi)
 TEST(break_apis, bidi_sentinel)
 {
     using u32_iter =
-        boost::text::utf8_to_utf32_iterator<char const *, char const *>;
+        boost::text::utf_8_to_32_iterator<char const *, char const *>;
 
     boost::text::string s;
 
@@ -2833,9 +2833,9 @@ TEST(break_apis, bidi_sentinel)
         0, 11, 10, 9, 7, 5, 4, 3, 2, 13};
     {
         s = boost::text::string(
-            boost::text::make_utf32_to_utf8_iterator(
+            boost::text::make_utf_32_to_8_iterator(
                 cps.begin(), cps.begin(), cps.end()),
-            boost::text::make_utf32_to_utf8_iterator(
+            boost::text::make_utf_32_to_8_iterator(
                 cps.begin(), cps.end(), cps.end()));
         assert(boost::algorithm::equal(
             cps.begin(),

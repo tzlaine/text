@@ -66,7 +66,7 @@ TEST(detail_btree_util, test_make_node)
         std::vector<int> v(9, 3);
         node_ptr<int> p_text = make_node(v);
 
-        EXPECT_EQ(size(p_text.get()), v.size());
+        EXPECT_EQ(size(p_text.get()), (std::ptrdiff_t)v.size());
         EXPECT_EQ(p_text.as_leaf()->as_vec(), v);
 
         {
@@ -209,7 +209,7 @@ TEST(detail_btree_util, test_find)
             find_leaf(root, 0, found);
             EXPECT_EQ(found.leaf_->as_leaf()->as_vec(), std::vector<int>(9, 0));
             EXPECT_EQ(found.offset_, 0);
-            EXPECT_EQ(found.path_.size(), 2);
+            EXPECT_EQ(found.path_.size(), 2u);
             EXPECT_EQ(found.path_[0], int_root);
             EXPECT_EQ(found.path_[1], int_left);
         }
@@ -219,7 +219,7 @@ TEST(detail_btree_util, test_find)
             find_leaf(root, 8, found);
             EXPECT_EQ(found.leaf_->as_leaf()->as_vec(), std::vector<int>(9, 0));
             EXPECT_EQ(found.offset_, 8);
-            EXPECT_EQ(found.path_.size(), 2);
+            EXPECT_EQ(found.path_.size(), 2u);
             EXPECT_EQ(found.path_[0], int_root);
             EXPECT_EQ(found.path_[1], int_left);
         }
@@ -230,7 +230,7 @@ TEST(detail_btree_util, test_find)
             EXPECT_EQ(
                 found.leaf_->as_leaf()->as_vec(), std::vector<int>(10, 1));
             EXPECT_EQ(found.offset_, 0);
-            EXPECT_EQ(found.path_.size(), 2);
+            EXPECT_EQ(found.path_.size(), 2u);
             EXPECT_EQ(found.path_[0], int_root);
             EXPECT_EQ(found.path_[1], int_left);
         }
@@ -241,7 +241,7 @@ TEST(detail_btree_util, test_find)
             EXPECT_EQ(
                 found.leaf_->as_leaf()->as_vec(), std::vector<int>(10, 1));
             EXPECT_EQ(found.offset_, 1);
-            EXPECT_EQ(found.path_.size(), 2);
+            EXPECT_EQ(found.path_.size(), 2u);
             EXPECT_EQ(found.path_[0], int_root);
             EXPECT_EQ(found.path_[1], int_left);
         }
@@ -252,7 +252,7 @@ TEST(detail_btree_util, test_find)
             EXPECT_EQ(
                 found.leaf_->as_leaf()->as_vec(), std::vector<int>(10, 1));
             EXPECT_EQ(found.offset_, 4);
-            EXPECT_EQ(found.path_.size(), 2);
+            EXPECT_EQ(found.path_.size(), 2u);
             EXPECT_EQ(found.path_[0], int_root);
             EXPECT_EQ(found.path_[1], int_left);
         }
@@ -263,7 +263,7 @@ TEST(detail_btree_util, test_find)
             EXPECT_EQ(
                 found.leaf_->as_leaf()->as_vec(), std::vector<int>(10, 1));
             EXPECT_EQ(found.offset_, 9);
-            EXPECT_EQ(found.path_.size(), 2);
+            EXPECT_EQ(found.path_.size(), 2u);
             EXPECT_EQ(found.path_[0], int_root);
             EXPECT_EQ(found.path_[1], int_left);
         }
@@ -274,7 +274,7 @@ TEST(detail_btree_util, test_find)
             EXPECT_EQ(
                 found.leaf_->as_leaf()->as_vec(), std::vector<int>(10, 2));
             EXPECT_EQ(found.offset_, 0);
-            EXPECT_EQ(found.path_.size(), 2);
+            EXPECT_EQ(found.path_.size(), 2u);
             EXPECT_EQ(found.path_[0], int_root);
             EXPECT_EQ(found.path_[1], int_right);
         }
@@ -285,7 +285,7 @@ TEST(detail_btree_util, test_find)
             EXPECT_EQ(
                 found.leaf_->as_leaf()->as_vec(), std::vector<int>(10, 2));
             EXPECT_EQ(found.offset_, 9);
-            EXPECT_EQ(found.path_.size(), 2);
+            EXPECT_EQ(found.path_.size(), 2u);
             EXPECT_EQ(found.path_[0], int_root);
             EXPECT_EQ(found.path_[1], int_right);
         }
@@ -296,7 +296,7 @@ TEST(detail_btree_util, test_find)
             EXPECT_EQ(
                 found.leaf_->as_leaf()->as_vec(), std::vector<int>(11, 3));
             EXPECT_EQ(found.offset_, 0);
-            EXPECT_EQ(found.path_.size(), 2);
+            EXPECT_EQ(found.path_.size(), 2u);
             EXPECT_EQ(found.path_[0], int_root);
             EXPECT_EQ(found.path_[1], int_right);
         }
@@ -307,7 +307,7 @@ TEST(detail_btree_util, test_find)
             EXPECT_EQ(
                 found.leaf_->as_leaf()->as_vec(), std::vector<int>(11, 3));
             EXPECT_EQ(found.offset_, 11);
-            EXPECT_EQ(found.path_.size(), 2);
+            EXPECT_EQ(found.path_.size(), 2u);
             EXPECT_EQ(found.path_[0], int_root);
             EXPECT_EQ(found.path_[1], int_right);
         }

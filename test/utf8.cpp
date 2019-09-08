@@ -26,12 +26,11 @@ TEST(utf_8, test_consecutive)
 
     // UTF-8 -> UTF-32
     {
-        auto it =
-            text::utf8_to_utf32_iterator<char const *, text::null_sentinel>(
-                utf8, utf8, text::null_sentinel{});
+        auto it = text::utf_8_to_32_iterator<char const *, text::null_sentinel>(
+            utf8, utf8, text::null_sentinel{});
 
         auto const end =
-            text::utf8_to_utf32_iterator<char const *, text::null_sentinel>(
+            text::utf_8_to_32_iterator<char const *, text::null_sentinel>(
                 utf8, utf8 + 10, text::null_sentinel{});
 
         auto const zero = it;
@@ -96,10 +95,10 @@ TEST(utf_8, test_consecutive)
 
     // UTF-32 -> UTF-8
     {
-        auto it = text::utf32_to_utf8_iterator<uint32_t const *>(
+        auto it = text::utf_32_to_8_iterator<uint32_t const *>(
             utf32, utf32, utf32 + 4);
 
-        auto const end = text::utf32_to_utf8_iterator<uint32_t const *>(
+        auto const end = text::utf_32_to_8_iterator<uint32_t const *>(
             utf32, utf32 + 4, utf32 + 4);
 
         auto const zero = it;
@@ -226,10 +225,10 @@ TEST(utf_8, test_consecutive)
 
     // UTF-8 -> UTF-16
     {
-        auto it = text::utf8_to_utf16_iterator<char const *>(
+        auto it = text::utf_8_to_16_iterator<char const *>(
             utf8, utf8, utf8 + sizeof(utf8));
 
-        auto const end = text::utf8_to_utf16_iterator<char const *>(
+        auto const end = text::utf_8_to_16_iterator<char const *>(
             utf8, utf8 + 10, utf8 + sizeof(utf8));
 
         auto const zero = it;
@@ -306,10 +305,10 @@ TEST(utf_8, test_consecutive)
 
     // UTF-16 -> UTF-8
     {
-        auto it = text::utf16_to_utf8_iterator<uint16_t const *>(
+        auto it = text::utf_16_to_8_iterator<uint16_t const *>(
             utf16, utf16, utf16 + 5);
 
-        auto const end = text::utf16_to_utf8_iterator<uint16_t const *>(
+        auto const end = text::utf_16_to_8_iterator<uint16_t const *>(
             utf16, utf16 + 5, utf16 + 5);
 
         auto const zero = it;
@@ -454,9 +453,8 @@ TEST(utf_8, test_back_and_forth)
 
     // UTF-8 -> UTF-32
     for (int iterations = 1; iterations <= 4; ++iterations) {
-        auto it =
-            text::utf8_to_utf32_iterator<char const *, text::null_sentinel>(
-                utf8, utf8, text::null_sentinel{});
+        auto it = text::utf_8_to_32_iterator<char const *, text::null_sentinel>(
+            utf8, utf8, text::null_sentinel{});
         for (int i = 0; i < iterations; ++i) {
             EXPECT_EQ(*it++, utf32[i])
                 << "iterations=" << iterations << " i=" << i;
@@ -468,9 +466,8 @@ TEST(utf_8, test_back_and_forth)
     }
 
     for (int iterations = 0; iterations < 4; ++iterations) {
-        auto it =
-            text::utf8_to_utf32_iterator<char const *, text::null_sentinel>(
-                utf8, utf8 + 10, text::null_sentinel{});
+        auto it = text::utf_8_to_32_iterator<char const *, text::null_sentinel>(
+            utf8, utf8 + 10, text::null_sentinel{});
         int i = 4;
         for (; i-- > iterations;) {
             EXPECT_EQ(*--it, utf32[i])
@@ -485,7 +482,7 @@ TEST(utf_8, test_back_and_forth)
 
     // UTF-32 -> UTF-8
     for (int iterations = 1; iterations <= 10; ++iterations) {
-        auto it = text::utf32_to_utf8_iterator<uint32_t const *>(
+        auto it = text::utf_32_to_8_iterator<uint32_t const *>(
             utf32, utf32, utf32 + 4);
         for (int i = 0; i < iterations; ++i) {
             EXPECT_EQ(*it++, utf8[i])
@@ -498,7 +495,7 @@ TEST(utf_8, test_back_and_forth)
     }
 
     for (int iterations = 0; iterations < 10; ++iterations) {
-        auto it = text::utf32_to_utf8_iterator<uint32_t const *>(
+        auto it = text::utf_32_to_8_iterator<uint32_t const *>(
             utf32, utf32 + 4, utf32 + 4);
         int i = 10;
         for (; i-- > iterations;) {
@@ -514,7 +511,7 @@ TEST(utf_8, test_back_and_forth)
 
     // UTF-8 -> UTF-16
     for (int iterations = 1; iterations <= 5; ++iterations) {
-        auto it = text::utf8_to_utf16_iterator<char const *>(
+        auto it = text::utf_8_to_16_iterator<char const *>(
             utf8, utf8, utf8 + sizeof(utf8));
         for (int i = 0; i < iterations; ++i) {
             EXPECT_EQ(*it++, utf16[i])
@@ -527,7 +524,7 @@ TEST(utf_8, test_back_and_forth)
     }
 
     for (int iterations = 0; iterations < 5; ++iterations) {
-        auto it = text::utf8_to_utf16_iterator<char const *>(
+        auto it = text::utf_8_to_16_iterator<char const *>(
             utf8, utf8 + 10, utf8 + sizeof(utf8));
         int i = 5;
         for (; i-- > iterations;) {
@@ -543,7 +540,7 @@ TEST(utf_8, test_back_and_forth)
 
     // UTF-16 -> UTF-8
     for (int iterations = 1; iterations <= 10; ++iterations) {
-        auto it = text::utf16_to_utf8_iterator<uint16_t const *>(
+        auto it = text::utf_16_to_8_iterator<uint16_t const *>(
             utf16, utf16, utf16 + 5);
         for (int i = 0; i < iterations; ++i) {
             EXPECT_EQ(*it++, utf8[i])
@@ -556,7 +553,7 @@ TEST(utf_8, test_back_and_forth)
     }
 
     for (int iterations = 0; iterations < 10; ++iterations) {
-        auto it = text::utf16_to_utf8_iterator<uint16_t const *>(
+        auto it = text::utf_16_to_8_iterator<uint16_t const *>(
             utf16, utf16 + 5, utf16 + 5);
         int i = 10;
         for (; i-- > iterations;) {
@@ -589,7 +586,7 @@ TEST(utf_8, test_utf8_coverage_length_1)
     };
 
     for (auto c : cases) {
-        text::utf8_to_utf32_iterator<char const *, char const *> it(
+        text::utf_8_to_32_iterator<char const *, char const *> it(
             c.str_, c.str_, c.str_ + sizeof(c.str_));
         EXPECT_EQ(*it, c.utf32_);
     }
@@ -609,7 +606,7 @@ TEST(utf_8, test_utf8_coverage_length_2)
     };
 
     for (auto c : cases) {
-        text::utf8_to_utf32_iterator<char const *, char const *> it(
+        text::utf_8_to_32_iterator<char const *, char const *> it(
             c.str_, c.str_, c.str_ + sizeof(c.str_));
         EXPECT_EQ(*it, c.utf32_);
     }
@@ -625,7 +622,7 @@ TEST(utf_8, test_utf8_coverage_length_3_a)
     };
 
     for (auto c : cases) {
-        text::utf8_to_utf32_iterator<char const *, char const *> it(
+        text::utf_8_to_32_iterator<char const *, char const *> it(
             c.str_, c.str_, c.str_ + sizeof(c.str_));
         EXPECT_EQ(*it, c.utf32_);
     }
@@ -646,7 +643,7 @@ TEST(utf_8, test_utf8_coverage_length_3_b)
     };
 
     for (auto c : cases) {
-        text::utf8_to_utf32_iterator<char const *, char const *> it(
+        text::utf_8_to_32_iterator<char const *, char const *> it(
             c.str_, c.str_, c.str_ + sizeof(c.str_));
         EXPECT_EQ(*it, c.utf32_);
     }
@@ -662,7 +659,7 @@ TEST(utf_8, test_utf8_coverage_length_3_c)
     };
 
     for (auto c : cases) {
-        text::utf8_to_utf32_iterator<char const *, char const *> it(
+        text::utf_8_to_32_iterator<char const *, char const *> it(
             c.str_, c.str_, c.str_ + sizeof(c.str_));
         EXPECT_EQ(*it, c.utf32_);
     }
@@ -683,7 +680,7 @@ TEST(utf_8, test_utf8_coverage_length_3_d)
     };
 
     for (auto c : cases) {
-        text::utf8_to_utf32_iterator<char const *, char const *> it(
+        text::utf_8_to_32_iterator<char const *, char const *> it(
             c.str_, c.str_, c.str_ + sizeof(c.str_));
         EXPECT_EQ(*it, c.utf32_);
     }
@@ -704,7 +701,7 @@ TEST(utf_8, test_utf8_coverage_length_4_a)
     };
 
     for (auto c : cases) {
-        text::utf8_to_utf32_iterator<char const *, char const *> it(
+        text::utf_8_to_32_iterator<char const *, char const *> it(
             c.str_, c.str_, c.str_ + sizeof(c.str_));
         EXPECT_EQ(*it, c.utf32_);
     }
@@ -739,7 +736,7 @@ TEST(utf_8, test_utf8_coverage_length_4_b)
     };
 
     for (auto c : cases) {
-        text::utf8_to_utf32_iterator<char const *, char const *> it(
+        text::utf_8_to_32_iterator<char const *, char const *> it(
             c.str_, c.str_, c.str_ + sizeof(c.str_));
         EXPECT_EQ(*it, c.utf32_);
     }
@@ -770,7 +767,7 @@ TEST(utf_8, test_utf8_coverage_length_4_c)
     };
 
     for (auto c : cases) {
-        text::utf8_to_utf32_iterator<char const *, char const *> it(
+        text::utf_8_to_32_iterator<char const *, char const *> it(
             c.str_, c.str_, c.str_ + sizeof(c.str_));
         EXPECT_EQ(*it, c.utf32_);
     }
@@ -806,7 +803,7 @@ TEST(utf_8, test_0xfffd)
                                  0xfffd,
                                  0x0064};
 
-    auto it = text::utf8_to_utf32_iterator<char const *, text::null_sentinel>(
+    auto it = text::utf_8_to_32_iterator<char const *, text::null_sentinel>(
         bad_utf8, bad_utf8, text::null_sentinel{});
 
     EXPECT_EQ(*it++, expected[0]);
@@ -820,7 +817,7 @@ TEST(utf_8, test_0xfffd)
     EXPECT_EQ(*it++, expected[8]);
     EXPECT_EQ(*it++, expected[9]);
 
-    it = text::utf8_to_utf32_iterator<char const *, text::null_sentinel>(
+    it = text::utf_8_to_32_iterator<char const *, text::null_sentinel>(
         bad_utf8, bad_utf8 + 13, text::null_sentinel{});
 
     EXPECT_EQ(*--it, expected[9]);
@@ -905,39 +902,38 @@ TEST(utf_8, iterator_conversions)
                    0};
 
     {
-        text::utf8_to_utf32_iterator<char *, text::null_sentinel> const it =
-            text::utf8_to_utf32_iterator<char *, text::null_sentinel>(
+        text::utf_8_to_32_iterator<char *, text::null_sentinel> const it =
+            text::utf_8_to_32_iterator<char *, text::null_sentinel>(
                 utf8, utf8, text::null_sentinel{});
 
-        text::utf8_to_utf32_iterator<char const *, text::null_sentinel> const
+        text::utf_8_to_32_iterator<char const *, text::null_sentinel> const
             it_const = it;
 
         EXPECT_EQ(it_const, it);
     }
 
     {
-        text::utf32_to_utf8_iterator<uint32_t *> const it =
-            text::utf32_to_utf8_iterator<uint32_t *>(utf32, utf32, utf32 + 4);
+        text::utf_32_to_8_iterator<uint32_t *> const it =
+            text::utf_32_to_8_iterator<uint32_t *>(utf32, utf32, utf32 + 4);
 
-        text::utf32_to_utf8_iterator<uint32_t const *> const it_const = it;
+        text::utf_32_to_8_iterator<uint32_t const *> const it_const = it;
 
         EXPECT_EQ(it_const, it);
     }
 
     {
-        text::utf8_to_utf16_iterator<char *> it =
-            text::utf8_to_utf16_iterator<char *>(
-                utf8, utf8, utf8 + sizeof(utf8));
+        text::utf_8_to_16_iterator<char *> it =
+            text::utf_8_to_16_iterator<char *>(utf8, utf8, utf8 + sizeof(utf8));
 
-        text::utf8_to_utf16_iterator<char const *> it_const = it;
+        text::utf_8_to_16_iterator<char const *> it_const = it;
 
         EXPECT_EQ(it_const, it);
     }
     {
-        text::utf16_to_utf8_iterator<uint16_t *> const it =
-            text::utf16_to_utf8_iterator<uint16_t *>(utf16, utf16, utf16 + 5);
+        text::utf_16_to_8_iterator<uint16_t *> const it =
+            text::utf_16_to_8_iterator<uint16_t *>(utf16, utf16, utf16 + 5);
 
-        text::utf16_to_utf8_iterator<uint16_t const *> const it_const = it;
+        text::utf_16_to_8_iterator<uint16_t const *> const it_const = it;
 
         EXPECT_EQ(it_const, it);
     }

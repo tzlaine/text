@@ -242,9 +242,9 @@ TEST(text_tests, test_insert)
 
     {
         text::text const ct("string");
-        auto const first = text::utf32_to_utf8_iterator<uint32_t const *>(
+        auto const first = text::utf_32_to_8_iterator<uint32_t const *>(
             utf32, utf32, utf32 + 4);
-        auto const last = text::utf32_to_utf8_iterator<uint32_t const *>(
+        auto const last = text::utf_32_to_8_iterator<uint32_t const *>(
             utf32, utf32 + 4, utf32 + 4);
 
         text::text t0 = ct;
@@ -507,10 +507,10 @@ TEST(text_tests, test_replace_iter)
     // Unicode 9, 3.9/D90
     uint32_t const utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
     auto const first =
-        text::utf32_to_utf8_iterator<uint32_t const *>(utf32, utf32, utf32 + 4);
-    auto const final_cp = text::utf32_to_utf8_iterator<uint32_t const *>(
+        text::utf_32_to_8_iterator<uint32_t const *>(utf32, utf32, utf32 + 4);
+    auto const final_cp = text::utf_32_to_8_iterator<uint32_t const *>(
         utf32, utf32 + 3, utf32 + 4);
-    auto const last = text::utf32_to_utf8_iterator<uint32_t const *>(
+    auto const last = text::utf_32_to_8_iterator<uint32_t const *>(
         utf32, utf32 + 4, utf32 + 4);
 
     text::text const ct_string("string");
@@ -585,12 +585,12 @@ TEST(text_tests, test_replace_iter_large_insertions)
         utf32_repeated.insert(utf32_repeated.end(), utf32, utf32 + 4);
     }
     auto const first =
-        text::utf32_to_utf8_iterator<std::vector<uint32_t>::iterator>(
+        text::utf_32_to_8_iterator<std::vector<uint32_t>::iterator>(
             utf32_repeated.begin(),
             utf32_repeated.begin(),
             utf32_repeated.end());
     auto const last =
-        text::utf32_to_utf8_iterator<std::vector<uint32_t>::iterator>(
+        text::utf_32_to_8_iterator<std::vector<uint32_t>::iterator>(
             utf32_repeated.begin(), utf32_repeated.end(), utf32_repeated.end());
 
     {
