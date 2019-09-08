@@ -149,6 +149,8 @@ TEST(sentinel_apis, collation)
     collate(cps, other_cps, default_collation_table(), collation_flags{});
 }
 
+#if BOOST_TEXT_HAS_ICU
+
 TEST(normalization_detail, make_string_piece_)
 {
     {
@@ -693,3 +695,5 @@ TEST(normalization_detail, fill_buffer_to_last_noncombiner_)
         EXPECT_EQ(results[0], results[i]) << "i=" << i;
     }
 }
+
+#endif
