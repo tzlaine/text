@@ -402,8 +402,6 @@ namespace boost { namespace text {
                         first, last, [](uint32_t cp) { return ccc(cp) == 0; });
                 }
 
-                // TODO: Optimize the ccc() calls.
-
                 // S2.1.2
                 auto nonstarter_first = first;
                 while (!collation_.leaf &&

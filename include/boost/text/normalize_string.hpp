@@ -7,6 +7,300 @@
 
 namespace boost { namespace text {
 
+    namespace detail {
+#if BOOST_TEXT_HAS_ICU
+        template<typename Container>
+        struct end_insert_sink : U_NAMESPACE_QUALIFIER ByteSink
+        {
+            explicit end_insert_sink(Container & c) : c_(&c) {}
+
+            end_insert_sink(end_insert_sink const & other) : c_(other.c_) {}
+            end_insert_sink & operator=(end_insert_sink const & other)
+            {
+                c_ = other.c_;
+            }
+
+            virtual void Append(char const * bytes, int32_t n) override
+            {
+                c_->insert(c_->end(), bytes, bytes + n);
+            }
+
+        private:
+            Container * c_;
+        };
+
+        namespace {
+            constexpr char const * ncstr = nullptr;
+        }
+
+        template<
+            typename Iter,
+            typename Sentinel,
+            typename String,
+            bool FastUTF8 = icu_utf8_in_fast_path<Iter, Sentinel>::value>
+        struct icu_normalize_append
+        {
+            static void call(
+                U_NAMESPACE_QUALIFIER Normalizer2 const & norm,
+                Iter first,
+                Sentinel last,
+                String & s)
+            {
+                auto out = utf_32_to_8_inserter(s, s.end());
+                icu_normalize<Iter, Sentinel, decltype(out), false>::call(
+                    norm, first, last, out);
+            }
+        };
+
+        template<typename Iter, typename Sentinel, typename String>
+        struct icu_normalize_append<Iter, Sentinel, String, true>
+        {
+            static void call(
+                U_NAMESPACE_QUALIFIER Normalizer2 const & norm,
+                Iter first,
+                Sentinel last,
+                String & s)
+            {
+                UErrorCode ec = U_ZERO_ERROR;
+                end_insert_sink<String> sink(s);
+                norm.normalizeUTF8(
+                    0,
+                    detail::make_string_piece(first, last),
+                    sink,
+                    nullptr,
+                    ec);
+                BOOST_ASSERT(U_SUCCESS(ec));
+            }
+        };
+#endif
+    }
+
+    /** Appends sequence `[first, last)` in normalization form NFD to `s`, in
+        UTF-8 encoding.
+
+        This function only participates in overload resolution if `CPIter`
+        models the CPIter concept.
+
+        \see https://unicode.org/notes/tn5 */
+    template<typename CPIter, typename Sentinel, typename String>
+    inline auto
+    normalize_to_nfd_append_utf8(CPIter first, Sentinel last, String & s)
+        -> detail::cp_iter_ret_t<
+            decltype(s.insert(s.end(), detail::ncstr, detail::ncstr), s),
+            CPIter>
+    {
+#if BOOST_TEXT_HAS_ICU
+        if (BOOST_TEXT_USE_ICU) {
+            UErrorCode ec = U_ZERO_ERROR;
+            U_NAMESPACE_QUALIFIER Normalizer2 const * const norm =
+                U_NAMESPACE_QUALIFIER Normalizer2::getNFDInstance(ec);
+            BOOST_ASSERT(U_SUCCESS(ec));
+            detail::icu_normalize_append<CPIter, Sentinel, String>::call(
+                *norm, first, last, s);
+            return s;
+        }
+#endif
+        detail::normalize_to_decomposed(
+            first,
+            last,
+            utf_32_to_8_inserter(s, s.end()),
+            [](uint32_t cp) { return detail::canonical_decompose(cp); });
+
+        return s;
+    }
+
+    /** Appends sequence `r` in normalization form NFD to `s`, in UTF-8
+        encoding.
+
+        \see https://unicode.org/notes/tn5 */
+    template<typename CPRange, typename String>
+    inline String & normalize_to_nfd_append_utf8(CPRange const & r, String & s)
+    {
+        return normalize_to_nfd_append_utf8(std::begin(r), std::end(r), s);
+    }
+
+    /** Appends sequence `[first, last)` in normalization form NFKD to `s`, in
+        UTF-8 encoding.
+
+        This function only participates in overload resolution if `CPIter`
+        models the CPIter concept.
+
+        \see https://unicode.org/notes/tn5 */
+    template<typename CPIter, typename Sentinel, typename String>
+    inline auto
+    normalize_to_nfkd_append_utf8(CPIter first, Sentinel last, String & s)
+        -> detail::cp_iter_ret_t<
+            decltype(s.insert(s.end(), detail::ncstr, detail::ncstr), s),
+            CPIter>
+    {
+#if BOOST_TEXT_HAS_ICU
+        if (BOOST_TEXT_USE_ICU) {
+            UErrorCode ec = U_ZERO_ERROR;
+            U_NAMESPACE_QUALIFIER Normalizer2 const * const norm =
+                U_NAMESPACE_QUALIFIER Normalizer2::getNFKDInstance(ec);
+            BOOST_ASSERT(U_SUCCESS(ec));
+            detail::icu_normalize_append<CPIter, Sentinel, String>::call(
+                *norm, first, last, s);
+            return s;
+        }
+#endif
+        detail::normalize_to_decomposed(
+            first,
+            last,
+            utf_32_to_8_inserter(s, s.end()),
+            [](uint32_t cp) { return detail::compatible_decompose(cp); });
+
+        return s;
+    }
+
+    /** Appends sequence `r` in normalization form NFKD to `s`, in UTF-8
+        encoding.
+
+        \see https://unicode.org/notes/tn5 */
+    template<typename CPRange, typename String>
+    inline String & normalize_to_nfkd_append_utf8(CPRange const & r, String & s)
+    {
+        return normalize_to_nfkd_append_utf8(std::begin(r), std::end(r), s);
+    }
+
+    /** Appends sequence `[first, last)` in normalization form NFC to `s`, in
+        UTF-8 encoding.
+
+        This function only participates in overload resolution if `CPIter`
+        models the CPIter concept.
+
+        \see https://unicode.org/notes/tn5 */
+    template<typename CPIter, typename Sentinel, typename String>
+    inline auto
+    normalize_to_nfc_append_utf8(CPIter first, Sentinel last, String & s)
+        -> detail::cp_iter_ret_t<
+            decltype(s.insert(s.end(), detail::ncstr, detail::ncstr), s),
+            CPIter>
+    {
+#if BOOST_TEXT_HAS_ICU
+        if (BOOST_TEXT_USE_ICU) {
+            UErrorCode ec = U_ZERO_ERROR;
+            U_NAMESPACE_QUALIFIER Normalizer2 const * const norm =
+                U_NAMESPACE_QUALIFIER Normalizer2::getNFCInstance(ec);
+            BOOST_ASSERT(U_SUCCESS(ec));
+            detail::icu_normalize_append<CPIter, Sentinel, String>::call(
+                *norm, first, last, s);
+            return s;
+        }
+#endif
+        detail::normalize_to_composed<false>(
+            first,
+            last,
+            utf_32_to_8_inserter(s, s.end()),
+            [](uint32_t cp) { return detail::canonical_decompose(cp); },
+            [](uint32_t cp) { return detail::quick_check_nfc_code_point(cp); });
+
+        return s;
+    }
+
+    /** Appends sequence `r` in normalization form NFC to `s`, in UTF-8
+        encoding.
+
+        \see https://unicode.org/notes/tn5 */
+    template<typename CPRange, typename String>
+    inline String & normalize_to_nfc_append_utf8(CPRange const & r, String & s)
+    {
+        return normalize_to_nfc_append_utf8(std::begin(r), std::end(r), s);
+    }
+
+    /** Appends sequence `[first, last)` in normalization form NFKC to `s`, in
+        UTF-8 encoding.
+
+        This function only participates in overload resolution if `CPIter`
+        models the CPIter concept.
+
+        \see https://unicode.org/notes/tn5 */
+    template<typename CPIter, typename Sentinel, typename String>
+    inline auto
+    normalize_to_nfkc_append_utf8(CPIter first, Sentinel last, String & s)
+        -> detail::cp_iter_ret_t<
+            decltype(s.insert(s.end(), detail::ncstr, detail::ncstr), s),
+            CPIter>
+    {
+#if BOOST_TEXT_HAS_ICU
+        if (BOOST_TEXT_USE_ICU) {
+            UErrorCode ec = U_ZERO_ERROR;
+            U_NAMESPACE_QUALIFIER Normalizer2 const * const norm =
+                U_NAMESPACE_QUALIFIER Normalizer2::getNFKCInstance(ec);
+            BOOST_ASSERT(U_SUCCESS(ec));
+            detail::icu_normalize_append<CPIter, Sentinel, String>::call(
+                *norm, first, last, s);
+            return s;
+        }
+#endif
+        detail::normalize_to_composed<false>(
+            first,
+            last,
+            utf_32_to_8_inserter(s, s.end()),
+            [](uint32_t cp) { return detail::compatible_decompose(cp); },
+            [](uint32_t cp) {
+                return detail::quick_check_nfkc_code_point(cp);
+            });
+
+        return s;
+    }
+
+    /** Appends sequence `r` in normalization form NFKC to `s`, in UTF-8
+        encoding.
+
+        \see https://unicode.org/notes/tn5 */
+    template<typename CPRange, typename String>
+    inline String & normalize_to_nfkc_append_utf8(CPRange const & r, String & s)
+    {
+        return normalize_to_nfkc_append_utf8(std::begin(r), std::end(r), s);
+    }
+
+    /** Appends sequence `[first, last)` in normalization form FCC to `s`, in
+        UTF-8 encoding.
+
+        This function only participates in overload resolution if `CPIter`
+        models the CPIter concept.
+
+        \see https://unicode.org/notes/tn5 */
+    template<typename CPIter, typename Sentinel, typename String>
+    inline auto
+    normalize_to_fcc_append_utf8(CPIter first, Sentinel last, String & s)
+        -> detail::cp_iter_ret_t<
+            decltype(s.insert(s.end(), detail::ncstr, detail::ncstr), s),
+            CPIter>
+    {
+#if BOOST_TEXT_HAS_ICU
+        if (BOOST_TEXT_USE_ICU) {
+            UErrorCode ec = U_ZERO_ERROR;
+            U_NAMESPACE_QUALIFIER Normalizer2 const * const norm =
+                U_NAMESPACE_QUALIFIER Normalizer2::getInstance(
+                    nullptr, "nfc", UNORM2_COMPOSE_CONTIGUOUS, ec);
+            BOOST_ASSERT(U_SUCCESS(ec));
+            detail::icu_normalize_append<CPIter, Sentinel, String>::call(
+                *norm, first, last, s);
+            return s;
+        }
+#endif
+        detail::normalize_to_composed<true>(
+            first,
+            last,
+            utf_32_to_8_inserter(s, s.end()),
+            [](uint32_t cp) { return detail::canonical_decompose(cp); },
+            [](uint32_t cp) { return detail::quick_check_nfc_code_point(cp); });
+
+        return s;
+    }
+
+    /** Appends sequence `r` in normalization form FCC to `s`, in UTF-8
+        encoding.
+
+        \see https://unicode.org/notes/tn5 */
+    template<typename CPRange, typename String>
+    inline String & normalize_to_fcc_append_utf8(CPRange const & r, String & s)
+    {
+        return normalize_to_fcc_append_utf8(std::begin(r), std::end(r), s);
+    }
+
     /** Puts the contents of `s` in Unicode normalization form NFD.
         Normalization is not performed if `s` passes a normalization
         quick-check. */
@@ -21,12 +315,9 @@ namespace boost { namespace text {
         }
 
         string temp;
-        temp.reserve(s.size());
+        temp.reserve(s.size() / 2 * 3);
 
-        normalize_to_nfd(
-            as_utf32.begin(),
-            as_utf32.end(),
-            utf_32_to_8_inserter(temp, temp.end()));
+        normalize_to_nfd_append_utf8(as_utf32.begin(), as_utf32.end(), temp);
 
         if (temp.size() <= s.capacity())
             s = temp;
@@ -48,12 +339,9 @@ namespace boost { namespace text {
         }
 
         string temp;
-        temp.reserve(s.size());
+        temp.reserve(s.size() / 2 * 3);
 
-        normalize_to_nfkd(
-            as_utf32.begin(),
-            as_utf32.end(),
-            utf_32_to_8_inserter(temp, temp.end()));
+        normalize_to_nfkd_append_utf8(as_utf32.begin(), as_utf32.end(), temp);
 
         if (temp.size() <= s.capacity())
             s = temp;
@@ -77,10 +365,7 @@ namespace boost { namespace text {
         string temp;
         temp.reserve(temp.size());
 
-        normalize_to_nfc(
-            as_utf32.begin(),
-            as_utf32.end(),
-            utf_32_to_8_inserter(temp, temp.end()));
+        normalize_to_nfc_append_utf8(as_utf32.begin(), as_utf32.end(), temp);
 
         if (temp.size() <= s.capacity())
             s = temp;
@@ -104,10 +389,7 @@ namespace boost { namespace text {
         string temp;
         temp.reserve(s.size());
 
-        normalize_to_nfkc(
-            as_utf32.begin(),
-            as_utf32.end(),
-            utf_32_to_8_inserter(temp, temp.end()));
+        normalize_to_nfkc_append_utf8(as_utf32.begin(), as_utf32.end(), temp);
 
         if (temp.size() <= s.capacity())
             s = temp;
@@ -124,10 +406,7 @@ namespace boost { namespace text {
         string temp;
         temp.reserve(s.size());
 
-        normalize_to_fcc(
-            as_utf32.begin(),
-            as_utf32.end(),
-            utf_32_to_8_inserter(temp, temp.end()));
+        normalize_to_fcc_append_utf8(as_utf32.begin(), as_utf32.end(), temp);
 
         if (temp.size() <= s.capacity())
             s = temp;
