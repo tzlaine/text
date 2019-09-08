@@ -2,7 +2,7 @@
 #define BOOST_TEXT_NORMALIZE_HPP
 
 #include <boost/text/transcode_algorithm.hpp>
-#include <boost/text/utf16.hpp>
+#include <boost/text/transcode_iterator.hpp>
 #include <boost/text/utility.hpp>
 #include <boost/text/detail/normalization_data.hpp>
 
@@ -465,25 +465,24 @@ namespace boost { namespace text {
             return out_iter_sink<OutIter, OutIter>(out);
         }
         template<typename C>
-        auto make_byte_sink(utf8::from_utf32_insert_iterator<C> & out)
+        auto make_byte_sink(utf32_to_utf8_insert_iterator<C> & out)
             -> decltype(out_iter_sink<
                         decltype(out.base()),
-                        utf8::from_utf32_insert_iterator<C>>(out.base(), out))
+                        utf32_to_utf8_insert_iterator<C>>(out.base(), out))
         {
             return out_iter_sink<
                 decltype(out.base()),
-                utf8::from_utf32_insert_iterator<C>>(out.base(), out);
+                utf32_to_utf8_insert_iterator<C>>(out.base(), out);
         }
         template<typename C>
-        auto make_byte_sink(utf8::from_utf32_back_insert_iterator<C> & out)
-            -> decltype(
-                out_iter_sink<
-                    decltype(out.base()),
-                    utf8::from_utf32_back_insert_iterator<C>>(out.base(), out))
+        auto make_byte_sink(utf32_to_utf8_back_insert_iterator<C> & out)
+            -> decltype(out_iter_sink<
+                        decltype(out.base()),
+                        utf32_to_utf8_back_insert_iterator<C>>(out.base(), out))
         {
             return out_iter_sink<
                 decltype(out.base()),
-                utf8::from_utf32_back_insert_iterator<C>>(out.base(), out);
+                utf32_to_utf8_back_insert_iterator<C>>(out.base(), out);
         }
 
         template<typename Iter>
@@ -568,21 +567,21 @@ namespace boost { namespace text {
         }
         template<typename Iter>
         U_NAMESPACE_QUALIFIER StringPiece make_string_piece(
-            utf8::to_utf32_iterator<Iter> first,
-            utf8::to_utf32_iterator<Iter> last)
+            utf8_to_utf32_iterator<Iter> first,
+            utf8_to_utf32_iterator<Iter> last)
         {
             return U_NAMESPACE_QUALIFIER StringPiece(
                 first.base(), last.base() - first.base());
         }
         template<typename Iter, typename Sentinel>
         U_NAMESPACE_QUALIFIER StringPiece make_string_piece(
-            utf8::to_utf32_iterator<Iter, Sentinel> first, Sentinel last)
+            utf8_to_utf32_iterator<Iter, Sentinel> first, Sentinel last)
         {
             return U_NAMESPACE_QUALIFIER StringPiece(first.base());
         }
         template<typename Iter, typename Sentinel>
         U_NAMESPACE_QUALIFIER StringPiece
-        make_string_piece(utf8::to_utf32_iterator<Iter> first, Sentinel last)
+        make_string_piece(utf8_to_utf32_iterator<Iter> first, Sentinel last)
         {
             return U_NAMESPACE_QUALIFIER StringPiece(first.base());
         }
@@ -601,7 +600,7 @@ namespace boost { namespace text {
             while (!comp(it, last)) {
                 BOOST_ASSERT(out != out_last); // Safe stream format assumption.
                 auto const cu = *it;
-                if (utf8::high_surrogate(cu)) {
+                if (text::high_surrogate(cu)) {
                     auto next = std::next(it);
                     if (comp(next, last)) {
                         *out++ = cu;
@@ -635,14 +634,14 @@ namespace boost { namespace text {
         {
             static_assert(64 + 1 <= N, "Safe-stream format");
             std::ptrdiff_t count = 0;
-            auto it = utf8::make_to_utf16_iterator(first, first, last);
+            auto it = text::make_utf8_to_utf16_iterator(first, first, last);
             char16_t prev_cu = 0;
             for (; it.base() != last && count < N - 64 - 1;
                  ++it, ++out, ++count) {
                 prev_cu = *it;
                 *out = prev_cu;
             }
-            if (it.base() != last && utf8::high_surrogate(prev_cu)) {
+            if (it.base() != last && high_surrogate(prev_cu)) {
                 *out++ = *it;
                 ++it;
             }
@@ -667,7 +666,7 @@ namespace boost { namespace text {
                 prev_cu = *first;
                 *out = prev_cu;
             }
-            if (first != last && utf8::high_surrogate(prev_cu)) {
+            if (first != last && high_surrogate(prev_cu)) {
                 *out++ = *first;
                 ++first;
             }
@@ -686,13 +685,13 @@ namespace boost { namespace text {
             static_assert(64 + 1 <= N, "Safe-stream format");
             std::ptrdiff_t count = 0;
             char16_t prev_cu = 0;
-            auto it = utf16::make_from_utf32_iterator(first, first, last);
+            auto it = text::make_utf32_to_utf16_iterator(first, first, last);
             for (; it.base() != last && count < N - 64 - 1;
                  ++it, ++out, ++count) {
                 prev_cu = *it;
                 *out = prev_cu;
             }
-            if (it.base() != last && utf8::high_surrogate(prev_cu)) {
+            if (it.base() != last && high_surrogate(prev_cu)) {
                 *out++ = *it;
                 ++it;
             }
@@ -742,8 +741,8 @@ namespace boost { namespace text {
                 Sentinel last)
             {
                 UErrorCode ec = U_ZERO_ERROR;
-                auto const retval =
-                    norm.isNormalizedUTF8(make_string_piece(first, last), ec);
+                auto const retval = norm.isNormalizedUTF8(
+                    detail::make_string_piece(first, last), ec);
                 BOOST_ASSERT(U_SUCCESS(ec));
                 return retval;
             }
@@ -794,9 +793,13 @@ namespace boost { namespace text {
                 OutIter out)
             {
                 UErrorCode ec = U_ZERO_ERROR;
-                auto sink = make_byte_sink(out);
+                auto sink = detail::make_byte_sink(out);
                 norm.normalizeUTF8(
-                    0, make_string_piece(first, last), sink, nullptr, ec);
+                    0,
+                    detail::make_string_piece(first, last),
+                    sink,
+                    nullptr,
+                    ec);
                 BOOST_ASSERT(U_SUCCESS(ec));
                 return sink.iter();
             }

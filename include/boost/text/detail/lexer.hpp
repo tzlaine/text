@@ -4,7 +4,7 @@
 #include <boost/text/parser_fwd.hpp>
 #include <boost/text/string.hpp>
 #include <boost/text/string_utility.hpp>
-#include <boost/text/utf8.hpp>
+#include <boost/text/transcode_iterator.hpp>
 #include <boost/text/utility.hpp>
 
 #include <boost/throw_exception.hpp>
@@ -260,7 +260,7 @@ namespace boost { namespace text { namespace detail {
         };
 
         auto is_space = [&](char initial_char) {
-            auto const code_units = utf8::code_point_bytes(initial_char);
+            auto const code_units = code_point_bytes(initial_char);
             if (code_units < 0 || last - first < code_units - 1)
                 return 0;
             utf32_range as_utf32(first - 1, first - 1 + code_units);
@@ -343,7 +343,7 @@ namespace boost { namespace text { namespace detail {
 
         auto lex_utf8 = [&](char initial_char) {
             // UTF-8 encoded code point.
-            auto const code_units = utf8::code_point_bytes(initial_char);
+            auto const code_units = code_point_bytes(initial_char);
             if (code_units < 0)
                 report_error("Invalid initial UTF-8 code unit", initial_column);
             *buf = initial_char;

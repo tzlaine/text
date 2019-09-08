@@ -2,33 +2,35 @@
 Copyright (c) 2018 Robert N. Steagall and KEWB Computing
 All rights reserved.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
-associated documentation files (the "Software"), to deal with the Software without restriction,
-including without limitation the rights to use, copy, modify, merge, publish, distribute, 
-sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
-furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal with
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
 
- 1. Redistributions of source code must retain the above copyright notice, this list of conditions
-    and the following disclaimers.
- 2. Redistributions in binary form must reproduce the above copyright notice, this list of 
-    conditions and the following disclaimers in the documentation and/or other materials provided
-    with the distribution.
- 3. Neither the names of the copyright holder, nor the names of its contributors may be used 
-    to endorse or promote products derived from this Software without specific prior written
-    permission. 
+ 1. Redistributions of source code must retain the above copyright notice, this
+list of conditions and the following disclaimers.
+ 2. Redistributions in binary form must reproduce the above copyright notice,
+this list of conditions and the following disclaimers in the documentation
+and/or other materials provided with the distribution.
+ 3. Neither the names of the copyright holder, nor the names of its contributors
+may be used to endorse or promote products derived from this Software without
+specific prior written permission.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT 
-NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-NONINFRINGEMENT. IN NO EVENT SHALL THE CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS WITH THE SOFTWARE. 
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE CONTRIBUTORS
+OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS WITH THE SOFTWARE.
 */
 // The copyright notice above applies to the tables and enums used in the
 // table-based UTF-8 conversion code, and in the SSE2-specific optimization.
 #ifndef BOOST_TEXT_TRANSCODE_ALGORITHM_HPP
 #define BOOST_TEXT_TRANSCODE_ALGORITHM_HPP
 
-#include <boost/text/utf8.hpp>
+#include <boost/text/transcode_iterator.hpp>
 
 #include <boost/config.hpp>
 #include <boost/predef/hardware/simd.h>
@@ -196,7 +198,7 @@ namespace boost { namespace text {
                     ++first;
                     ++out;
                 } else {
-                    auto const cp = utf8::detail::advance(first, last);
+                    auto const cp = detail::advance(first, last);
                     out = detail::read_into_utf16_iter(cp, out);
                 }
             }
@@ -223,7 +225,7 @@ namespace boost { namespace text {
                     first += incr;
                     finalize_sse_out(out, temp, incr);
                 } else {
-                    auto const cp = utf8::detail::advance(first, last);
+                    auto const cp = detail::advance(first, last);
                     out = detail::read_into_utf16_iter(cp, out);
                 }
             }
@@ -247,7 +249,7 @@ namespace boost { namespace text {
                     ++first;
                     ++out;
                 } else {
-                    *out = utf8::detail::advance(first, last);
+                    *out = detail::advance(first, last);
                     ++out;
                 }
             }
@@ -283,7 +285,7 @@ namespace boost { namespace text {
                     first += incr;
                     finalize_sse_out(out, temp, incr);
                 } else {
-                    *out = utf8::detail::advance(first, last);
+                    *out = detail::advance(first, last);
                     ++out;
                 }
             }
@@ -345,25 +347,24 @@ namespace boost { namespace text {
 
         for (; first != last; ++first) {
             uint32_t const hi = *first;
-            if (utf8::surrogate(hi)) {
+            if (surrogate(hi)) {
                 if (hi <= high_surrogate_max) {
                     ++first;
                     if (first == last) {
-                        uint32_t const cp = utf8::replacement_character();
+                        uint32_t const cp = replacement_character();
                         out = detail::read_into_utf8_iter(cp, out);
                         ++out;
                         return out;
                     }
                     uint32_t const lo = *first;
-                    if (utf8::low_surrogate(lo)) {
+                    if (low_surrogate(lo)) {
                         uint32_t const cp = ((hi - high_surrogate_base) << 10) +
                                             (lo - low_surrogate_base);
                         out = detail::read_into_utf8_iter(cp, out);
                         continue;
                     }
                 }
-                out = detail::read_into_utf8_iter(
-                    utf8::replacement_character(), out);
+                out = detail::read_into_utf8_iter(replacement_character(), out);
             } else {
                 out = detail::read_into_utf8_iter(hi, out);
             }
@@ -391,16 +392,16 @@ namespace boost { namespace text {
 
         for (; first != last; ++first) {
             uint32_t const hi = *first;
-            if (utf8::surrogate(hi)) {
+            if (surrogate(hi)) {
                 if (hi <= high_surrogate_max) {
                     ++first;
                     if (first == last) {
-                        *out = utf8::replacement_character();
+                        *out = replacement_character();
                         ++out;
                         return out;
                     }
                     uint32_t const lo = *first;
-                    if (utf8::low_surrogate(lo)) {
+                    if (low_surrogate(lo)) {
                         uint32_t const cp = ((hi - high_surrogate_base) << 10) +
                                             (lo - low_surrogate_base);
                         *out = cp;
@@ -408,7 +409,7 @@ namespace boost { namespace text {
                         continue;
                     }
                 }
-                *out = utf8::replacement_character();
+                *out = replacement_character();
                 ++out;
             } else {
                 *out = hi;

@@ -35,9 +35,9 @@ int main(int argc, char * argv[])
         code_point[0] += value;
     }
 
-    boost::text::utf8::from_utf32_iterator<uint32_t const *> const cp_first(
+    boost::text::utf32_to_utf8_iterator<uint32_t const *> const cp_first(
         code_point, code_point, code_point + 1);
-    boost::text::utf8::from_utf32_iterator<uint32_t const *> const cp_last(
+    boost::text::utf32_to_utf8_iterator<uint32_t const *> const cp_last(
         code_point, code_point + 1, code_point + 1);
     unsigned char code_units[4];
     auto code_units_end = std::copy(cp_first, cp_last, code_units);
@@ -48,9 +48,9 @@ int main(int argc, char * argv[])
     std::cout << "\n";
 
 #if 0
-    boost::text::utf8::to_utf32_iterator<unsigned char const *> const cu_first(
+    boost::text::utf8_to_utf32_iterator<unsigned char const *> const cu_first(
         code_units);
-    boost::text::utf8::to_utf32_iterator<unsigned char const *> const cu_last(
+    boost::text::utf8_to_utf32_iterator<unsigned char const *> const cu_last(
         code_units_end);
     std::copy(cu_first, cu_last, code_point);
     std::cout << "Round-trips back to: 0x" << std::hex << code_point[0] << "\n";

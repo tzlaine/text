@@ -1,6 +1,6 @@
 #include <boost/text/string_view.hpp>
 #include <boost/text/utility.hpp>
-#include <boost/text/utf16.hpp>
+#include <boost/text/transcode_iterator.hpp>
 
 #include <gtest/gtest.h>
 
@@ -16,10 +16,10 @@ TEST(utf_16, test_consecutive)
 
     // UTF-16 -> UTF-32
     {
-        auto it = text::utf16::to_utf32_iterator<uint16_t const *>(
+        auto it = text::utf16_to_utf32_iterator<uint16_t const *>(
             std::begin(utf16), std::begin(utf16), std::end(utf16));
 
-        auto end = text::utf16::to_utf32_iterator<uint16_t const *>(
+        auto end = text::utf16_to_utf32_iterator<uint16_t const *>(
             std::begin(utf16), std::end(utf16), std::end(utf16));
 
         auto const zero = it;
@@ -84,10 +84,10 @@ TEST(utf_16, test_consecutive)
 
     // UTF-32 -> UTF-16
     {
-        auto it = text::utf16::from_utf32_iterator<uint32_t const *>(
+        auto it = text::utf32_to_utf16_iterator<uint32_t const *>(
             std::begin(utf32), std::begin(utf32), std::end(utf32));
 
-        auto end = text::utf16::from_utf32_iterator<uint32_t const *>(
+        auto end = text::utf32_to_utf16_iterator<uint32_t const *>(
             std::begin(utf32), std::end(utf32), std::end(utf32));
 
         auto const zero = it;
@@ -166,7 +166,7 @@ TEST(utf_16, test_back_and_forth)
 
     // UTF-16 -> UTF-32
     for (int iterations = 1; iterations <= 4; ++iterations) {
-        auto it = text::utf16::to_utf32_iterator<uint16_t const *>(
+        auto it = text::utf16_to_utf32_iterator<uint16_t const *>(
             std::begin(utf16), std::begin(utf16), std::end(utf16));
         for (int i = 0; i < iterations; ++i) {
             EXPECT_EQ(*it++, utf32[i])
@@ -179,7 +179,7 @@ TEST(utf_16, test_back_and_forth)
     }
 
     for (int iterations = 0; iterations < 4; ++iterations) {
-        auto it = text::utf16::to_utf32_iterator<uint16_t const *>(
+        auto it = text::utf16_to_utf32_iterator<uint16_t const *>(
             std::begin(utf16), std::end(utf16), std::end(utf16));
         int i = 4;
         for (; i-- > iterations;) {
@@ -195,7 +195,7 @@ TEST(utf_16, test_back_and_forth)
 
     // UTF-32 -> UTF-16
     for (int iterations = 1; iterations <= 5; ++iterations) {
-        auto it = text::utf16::from_utf32_iterator<uint32_t const *>(
+        auto it = text::utf32_to_utf16_iterator<uint32_t const *>(
             std::begin(utf32), std::begin(utf32), std::end(utf32));
         for (int i = 0; i < iterations; ++i) {
             EXPECT_EQ(*it++, utf16[i])
@@ -208,7 +208,7 @@ TEST(utf_16, test_back_and_forth)
     }
 
     for (int iterations = 0; iterations < 5; ++iterations) {
-        auto it = text::utf16::from_utf32_iterator<uint32_t const *>(
+        auto it = text::utf32_to_utf16_iterator<uint32_t const *>(
             std::begin(utf32), std::end(utf32), std::end(utf32));
         int i = 5;
         for (; i-- > iterations;) {

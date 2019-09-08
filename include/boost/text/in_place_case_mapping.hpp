@@ -18,7 +18,7 @@ namespace boost { namespace text {
             t.begin().base(),
             t.begin().base(),
             t.end().base(),
-            utf8::from_utf32_inserter(s, s.end()),
+            utf32_to_utf8_inserter(s, s.end()),
             lang);
         if (s.size() < t.storage_bytes()) {
             t = s;
@@ -38,7 +38,7 @@ namespace boost { namespace text {
             r.begin().base(),
             r.begin().base(),
             r.end().base(),
-            utf8::from_utf32_inserter(s, s.end()),
+            utf32_to_utf8_inserter(s, s.end()),
             lang);
         r = s;
     }
@@ -56,7 +56,7 @@ namespace boost { namespace text {
             t.begin().base(),
             t.begin().base(),
             t.end().base(),
-            utf8::from_utf32_inserter(s, s.end()),
+            utf32_to_utf8_inserter(s, s.end()),
             lang,
             next_word_break);
         if (s.size() < t.storage_bytes()) {
@@ -80,7 +80,7 @@ namespace boost { namespace text {
             r.begin().base(),
             r.begin().base(),
             r.end().base(),
-            utf8::from_utf32_inserter(s, s.end()),
+            utf32_to_utf8_inserter(s, s.end()),
             lang,
             next_word_break);
         r = s;
@@ -96,7 +96,7 @@ namespace boost { namespace text {
             t.begin().base(),
             t.begin().base(),
             t.end().base(),
-            utf8::from_utf32_inserter(s, s.end()),
+            utf32_to_utf8_inserter(s, s.end()),
             lang);
         if (s.size() < t.storage_bytes()) {
             t = s;
@@ -116,7 +116,7 @@ namespace boost { namespace text {
             r.begin().base(),
             r.begin().base(),
             r.end().base(),
-            utf8::from_utf32_inserter(s, s.end()),
+            utf32_to_utf8_inserter(s, s.end()),
             lang);
         r = s;
     }

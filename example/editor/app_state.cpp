@@ -1,6 +1,6 @@
 #include "app_state.hpp"
 
-#include <boost/text/utf8.hpp>
+#include <boost/text/transcode_iterator.hpp>
 
 #include <boost/algorithm/cxx14/mismatch.hpp>
 

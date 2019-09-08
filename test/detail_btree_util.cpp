@@ -49,7 +49,7 @@ TEST(detail_btree_util, test_make_node)
         std::vector<int> v(9, 3);
         node_ptr<int> p = make_node(v);
 
-        EXPECT_EQ(size(p.get()), v.size());
+        EXPECT_EQ(size(p.get()), (std::ptrdiff_t)v.size());
         EXPECT_EQ(p.as_leaf()->as_vec(), v);
     }
 
@@ -58,7 +58,7 @@ TEST(detail_btree_util, test_make_node)
         node_ptr<int> p = make_node(std::move(v));
 
         EXPECT_EQ(size(p.get()), 9);
-        EXPECT_EQ(v.size(), 0);
+        EXPECT_EQ(v.size(), 0u);
         EXPECT_EQ(p.as_leaf()->as_vec(), std::vector<int>(9, 3));
     }
 

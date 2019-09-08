@@ -2,7 +2,7 @@
 #define BOOST_TEXT_TEXT_VIEW_HPP
 
 #include <boost/text/grapheme_iterator.hpp>
-#include <boost/text/utf8.hpp>
+#include <boost/text/transcode_iterator.hpp>
 #include <boost/text/detail/utility.hpp>
 
 #include <boost/assert.hpp>
@@ -22,16 +22,15 @@ namespace boost { namespace text {
         storage is a string that is UTF-8-encoded and FCC-normalized. */
     struct text_view
     {
-        using value_type = cp_range<utf8::to_utf32_iterator<char const *>>;
+        using value_type = cp_range<utf8_to_utf32_iterator<char const *>>;
         using size_type = int;
         using iterator =
-            grapheme_iterator<utf8::to_utf32_iterator<char const *>>;
+            grapheme_iterator<utf8_to_utf32_iterator<char const *>>;
         using const_iterator = iterator;
         using reverse_iterator = detail::reverse_iterator<const_iterator>;
         using const_reverse_iterator = reverse_iterator;
 
-        using text_iterator =
-            grapheme_iterator<utf8::to_utf32_iterator<char *>>;
+        using text_iterator = grapheme_iterator<utf8_to_utf32_iterator<char *>>;
         using const_text_iterator = const_iterator;
 
         /** Default ctor. */
@@ -44,7 +43,7 @@ namespace boost { namespace text {
         text_view(text && t) noexcept = delete;
 
         /** Constructs a text_view from a grapheme_range. */
-        template <typename CPIter>
+        template<typename CPIter>
         text_view(grapheme_range<CPIter> range) noexcept;
 
         /** Constructs a text_view from a pair of const_text_iterators. */
@@ -115,9 +114,9 @@ namespace boost { namespace text {
         static iterator make_iter(char * first, char * it, char * last) noexcept
         {
             return iterator{
-                utf8::to_utf32_iterator<char const *>{first, first, last},
-                utf8::to_utf32_iterator<char const *>{first, it, last},
-                utf8::to_utf32_iterator<char const *>{first, last, last}};
+                utf8_to_utf32_iterator<char const *>{first, first, last},
+                utf8_to_utf32_iterator<char const *>{first, it, last},
+                utf8_to_utf32_iterator<char const *>{first, last, last}};
         }
 
         iterator first_;

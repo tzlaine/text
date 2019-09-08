@@ -4,7 +4,7 @@
 #include <boost/text/grapheme.hpp>
 #include <boost/text/grapheme_iterator.hpp>
 #include <boost/text/normalize_string.hpp>
-#include <boost/text/utf8.hpp>
+#include <boost/text/transcode_iterator.hpp>
 
 #include <boost/algorithm/cxx14/equal.hpp>
 #include <boost/container/small_vector.hpp>
@@ -42,9 +42,9 @@ namespace boost { namespace text {
     {
         using value_type = grapheme;
         using size_type = int;
-        using iterator = grapheme_iterator<utf8::to_utf32_iterator<char *>>;
+        using iterator = grapheme_iterator<utf8_to_utf32_iterator<char *>>;
         using const_iterator =
-            grapheme_iterator<utf8::to_utf32_iterator<char const *>>;
+            grapheme_iterator<utf8_to_utf32_iterator<char const *>>;
         using reverse_iterator = detail::reverse_iterator<iterator>;
         using const_reverse_iterator = detail::reverse_iterator<const_iterator>;
 
@@ -456,18 +456,18 @@ namespace boost { namespace text {
     private:
         static iterator make_iter(char * first, char * it, char * last) noexcept
         {
-            return iterator{utf8::to_utf32_iterator<char *>{first, first, last},
-                            utf8::to_utf32_iterator<char *>{first, it, last},
-                            utf8::to_utf32_iterator<char *>{first, last, last}};
+            return iterator{utf8_to_utf32_iterator<char *>{first, first, last},
+                            utf8_to_utf32_iterator<char *>{first, it, last},
+                            utf8_to_utf32_iterator<char *>{first, last, last}};
         }
 
         static const_iterator make_iter(
             char const * first, char const * it, char const * last) noexcept
         {
             return const_iterator{
-                utf8::to_utf32_iterator<char const *>{first, first, last},
-                utf8::to_utf32_iterator<char const *>{first, it, last},
-                utf8::to_utf32_iterator<char const *>{first, last, last}};
+                utf8_to_utf32_iterator<char const *>{first, first, last},
+                utf8_to_utf32_iterator<char const *>{first, it, last},
+                utf8_to_utf32_iterator<char const *>{first, last, last}};
         }
 
         template<typename Iter>
@@ -477,7 +477,7 @@ namespace boost { namespace text {
             return detail::reverse_iterator<Iter>{it};
         }
 
-        using mutable_utf32_iter = utf8::to_utf32_iterator<char *>;
+        using mutable_utf32_iter = utf8_to_utf32_iterator<char *>;
 
         mutable_utf32_iter prev_stable_cp(mutable_utf32_iter last) noexcept;
         mutable_utf32_iter next_stable_cp(mutable_utf32_iter first) noexcept;
@@ -506,12 +506,12 @@ namespace boost { namespace text {
             string_view new_substr,
             bool new_substr_normalized);
 
-        template <typename CPIter>
+        template<typename CPIter>
         struct insert_grapheme_view_impl;
 
         string str_;
 
-        template <typename CPIter>
+        template<typename CPIter>
         friend struct insert_grapheme_view_impl;
 
 #endif // Doxygen
@@ -519,7 +519,7 @@ namespace boost { namespace text {
 
 #ifndef BOOST_TEXT_DOXYGEN
 
-    template <typename CPIter>
+    template<typename CPIter>
     struct text::insert_grapheme_view_impl
     {
         static text::iterator
@@ -532,7 +532,7 @@ namespace boost { namespace text {
             std::copy(
                 g.begin(),
                 g.end(),
-                utf8::from_utf32_back_inserter(grapheme_chars));
+                utf32_to_utf8_back_inserter(grapheme_chars));
             return t.insert_impl(
                 at,
                 string_view(&grapheme_chars[0], grapheme_chars.size()),
@@ -542,14 +542,13 @@ namespace boost { namespace text {
 
     template<typename Sentinel, typename ErrorHandler>
     struct text::insert_grapheme_view_impl<
-        utf8::to_utf32_iterator<char const *, Sentinel, ErrorHandler>>
+        utf8_to_utf32_iterator<char const *, Sentinel, ErrorHandler>>
     {
         static text::iterator call(
             text & t,
             text::iterator at,
             grapheme_view<
-                utf8::to_utf32_iterator<char const *, Sentinel, ErrorHandler>>
-                g)
+                utf8_to_utf32_iterator<char const *, Sentinel, ErrorHandler>> g)
         {
             return t.insert_impl(
                 at,
@@ -561,13 +560,13 @@ namespace boost { namespace text {
 
     template<typename Sentinel, typename ErrorHandler>
     struct text::insert_grapheme_view_impl<
-        utf8::to_utf32_iterator<char *, Sentinel, ErrorHandler>>
+        utf8_to_utf32_iterator<char *, Sentinel, ErrorHandler>>
     {
         static text::iterator call(
             text & t,
             text::iterator at,
             grapheme_view<
-                utf8::to_utf32_iterator<char *, Sentinel, ErrorHandler>> g)
+                utf8_to_utf32_iterator<char *, Sentinel, ErrorHandler>> g)
         {
             return t.insert_impl(
                 at,
@@ -930,9 +929,9 @@ namespace boost { namespace text {
             return from_near_offset;
 
         container::small_vector<char, 256> buf;
-        normalize_to_fcc(first, last, utf8::from_utf32_back_inserter(buf));
+        normalize_to_fcc(first, last, utf32_to_utf8_back_inserter(buf));
         auto const initial_cp =
-            *utf8::make_to_utf32_iterator(&buf[0], &buf[0], &*buf.end());
+            *make_utf8_to_utf32_iterator(&buf[0], &buf[0], &*buf.end());
         auto const prev_initial_cp = *first;
 
         str_.replace(

@@ -773,9 +773,9 @@ TEST(string, test_insert)
 
     {
         text::string const ct("string");
-        auto const first = text::utf8::from_utf32_iterator<uint32_t const *>(
+        auto const first = text::utf32_to_utf8_iterator<uint32_t const *>(
             utf32, utf32, utf32 + 4);
-        auto const last = text::utf8::from_utf32_iterator<uint32_t const *>(
+        auto const last = text::utf32_to_utf8_iterator<uint32_t const *>(
             utf32, utf32 + 4, utf32 + 4);
 
         text::string t0 = ct;
@@ -967,11 +967,11 @@ TEST(string, test_replace_iter)
 {
     // Unicode 9, 3.9/D90
     uint32_t const utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
-    auto const first = text::utf8::from_utf32_iterator<uint32_t const *>(
-        utf32, utf32, utf32 + 4);
-    auto const final_cp = text::utf8::from_utf32_iterator<uint32_t const *>(
+    auto const first =
+        text::utf32_to_utf8_iterator<uint32_t const *>(utf32, utf32, utf32 + 4);
+    auto const final_cp = text::utf32_to_utf8_iterator<uint32_t const *>(
         utf32, utf32 + 3, utf32 + 4);
-    auto const last = text::utf8::from_utf32_iterator<uint32_t const *>(
+    auto const last = text::utf32_to_utf8_iterator<uint32_t const *>(
         utf32, utf32 + 4, utf32 + 4);
 
     text::string const ct_string("string");
@@ -1047,12 +1047,12 @@ TEST(string, test_replace_iter_large_insertions)
         utf32_repeated.insert(utf32_repeated.end(), utf32, utf32 + 4);
     }
     auto const first =
-        text::utf8::from_utf32_iterator<std::vector<uint32_t>::iterator>(
+        text::utf32_to_utf8_iterator<std::vector<uint32_t>::iterator>(
             utf32_repeated.begin(),
             utf32_repeated.begin(),
             utf32_repeated.end());
     auto const last =
-        text::utf8::from_utf32_iterator<std::vector<uint32_t>::iterator>(
+        text::utf32_to_utf8_iterator<std::vector<uint32_t>::iterator>(
             utf32_repeated.begin(), utf32_repeated.end(), utf32_repeated.end());
 
     {
@@ -1090,31 +1090,31 @@ TEST(string, test_sentinel_api)
 {
     {
         char const * chars = "chars";
-        text::string s(chars, text::utf8::null_sentinel{});
+        text::string s(chars, text::null_sentinel{});
         EXPECT_EQ(s, chars);
     }
     {
         char const * chars = "chars";
         text::string s;
-        s.insert(0, chars, text::utf8::null_sentinel{});
+        s.insert(0, chars, text::null_sentinel{});
         EXPECT_EQ(s, chars);
     }
     {
         char const * chars = "chars";
         text::string s;
-        s.insert(s.end(), chars, text::utf8::null_sentinel{});
+        s.insert(s.end(), chars, text::null_sentinel{});
         EXPECT_EQ(s, chars);
     }
     {
         char const * chars = "chars";
         text::string s;
-        s.replace(s(0, 0), chars, text::utf8::null_sentinel{});
+        s.replace(s(0, 0), chars, text::null_sentinel{});
         EXPECT_EQ(s, chars);
     }
     {
         char const * chars = "chars";
         text::string s;
-        s.replace(s.begin(), s.begin(), chars, text::utf8::null_sentinel{});
+        s.replace(s.begin(), s.begin(), chars, text::null_sentinel{});
         EXPECT_EQ(s, chars);
     }
 }

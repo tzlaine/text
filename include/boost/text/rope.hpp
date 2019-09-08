@@ -4,7 +4,7 @@
 #include <boost/text/grapheme.hpp>
 #include <boost/text/grapheme_iterator.hpp>
 #include <boost/text/unencoded_rope.hpp>
-#include <boost/text/utf8.hpp>
+#include <boost/text/transcode_iterator.hpp>
 
 #include <iterator>
 
@@ -41,7 +41,7 @@ namespace boost { namespace text {
         using value_type = grapheme;
         using size_type = std::ptrdiff_t;
         using iterator = grapheme_iterator<
-            utf8::to_utf32_iterator<detail::const_rope_iterator>>;
+            utf8_to_utf32_iterator<detail::const_rope_iterator>>;
         using const_iterator = iterator;
         using reverse_iterator = detail::reverse_iterator<iterator, true>;
         using const_reverse_iterator = reverse_iterator;
@@ -376,7 +376,7 @@ namespace boost { namespace text {
             detail::const_rope_iterator last) noexcept;
 
         using mutable_utf32_iter =
-            utf8::to_utf32_iterator<detail::const_rope_iterator>;
+            utf8_to_utf32_iterator<detail::const_rope_iterator>;
 
         mutable_utf32_iter prev_stable_cp(mutable_utf32_iter last) noexcept;
         mutable_utf32_iter next_stable_cp(mutable_utf32_iter first) noexcept;
@@ -386,14 +386,14 @@ namespace boost { namespace text {
         const_iterator
         replace_impl(rope_view old_substr, string str, bool str_normalized);
 
-        template <typename CPIter>
+        template<typename CPIter>
         struct insert_grapheme_view_impl;
 
         unencoded_rope rope_;
 
         friend struct ::boost::text::rope_view;
 
-        template <typename CPIter>
+        template<typename CPIter>
         friend struct insert_grapheme_view_impl;
 
 #endif // Doxygen
@@ -411,22 +411,20 @@ namespace boost { namespace text {
                 return at;
 
             string s;
-            std::copy(
-                g.begin(), g.end(), utf8::from_utf32_inserter(s, s.end()));
+            std::copy(g.begin(), g.end(), utf32_to_utf8_inserter(s, s.end()));
             return r.insert_impl(at, std::move(s), true);
         }
     };
 
     template<typename Sentinel, typename ErrorHandler>
     struct rope::insert_grapheme_view_impl<
-        utf8::to_utf32_iterator<char const *, Sentinel, ErrorHandler>>
+        utf8_to_utf32_iterator<char const *, Sentinel, ErrorHandler>>
     {
         static rope::const_iterator call(
             rope & r,
             rope::const_iterator at,
             grapheme_view<
-                utf8::to_utf32_iterator<char const *, Sentinel, ErrorHandler>>
-                g)
+                utf8_to_utf32_iterator<char const *, Sentinel, ErrorHandler>> g)
         {
             return r.insert_impl(
                 at, string(g.begin().base(), g.end().base()), true);
@@ -435,13 +433,13 @@ namespace boost { namespace text {
 
     template<typename Sentinel, typename ErrorHandler>
     struct rope::insert_grapheme_view_impl<
-        utf8::to_utf32_iterator<char *, Sentinel, ErrorHandler>>
+        utf8_to_utf32_iterator<char *, Sentinel, ErrorHandler>>
     {
         static rope::const_iterator call(
             rope & r,
             rope::const_iterator at,
             grapheme_view<
-                utf8::to_utf32_iterator<char *, Sentinel, ErrorHandler>> g)
+                utf8_to_utf32_iterator<char *, Sentinel, ErrorHandler>> g)
         {
             return r.insert_impl(
                 at, string(g.begin().base(), g.end().base()), true);
@@ -685,7 +683,7 @@ namespace boost { namespace text {
         auto const rv_last = rv.end().base().base();
 
         using mutable_utf32_view_iter =
-            utf8::to_utf32_iterator<detail::const_rope_view_iterator>;
+            utf8_to_utf32_iterator<detail::const_rope_view_iterator>;
 
         mutable_utf32_view_iter first(this_rv_first, rv_first, this_rv_last);
         first = find_if_backward(
@@ -820,11 +818,11 @@ namespace boost { namespace text {
         detail::const_rope_iterator last) noexcept
     {
         return const_iterator{
-            utf8::to_utf32_iterator<detail::const_rope_iterator>{
+            utf8_to_utf32_iterator<detail::const_rope_iterator>{
                 first, first, last},
-            utf8::to_utf32_iterator<detail::const_rope_iterator>{
+            utf8_to_utf32_iterator<detail::const_rope_iterator>{
                 first, it, last},
-            utf8::to_utf32_iterator<detail::const_rope_iterator>{
+            utf8_to_utf32_iterator<detail::const_rope_iterator>{
                 first, last, last}};
     }
 
@@ -877,7 +875,7 @@ namespace boost { namespace text {
         str.insert(str.end(), rope_last, last.base());
 
         if (str_normalized) {
-            using utf32_string_iter = utf8::to_utf32_iterator<char const *>;
+            using utf32_string_iter = utf8_to_utf32_iterator<char const *>;
 
             if (last.base() != rope_last) {
                 auto const str_first = str.begin() + initial_str_end_offset;
@@ -891,7 +889,7 @@ namespace boost { namespace text {
                 container::small_vector<char, 256> buf;
                 normalize_to_fcc(
                     utf32_range(suffix.begin(), suffix.end()),
-                    utf8::from_utf32_back_inserter(buf));
+                    utf32_to_utf8_back_inserter(buf));
                 str.replace(suffix, string_view(buf));
             }
 
@@ -908,7 +906,7 @@ namespace boost { namespace text {
                 container::small_vector<char, 256> buf;
                 normalize_to_fcc(
                     utf32_range(prefix.begin(), prefix.end()),
-                    utf8::from_utf32_back_inserter(buf));
+                    utf32_to_utf8_back_inserter(buf));
                 str.replace(prefix, string_view(buf));
             }
         } else {
@@ -917,7 +915,7 @@ namespace boost { namespace text {
 
         auto const prev_initial_cp = *first;
         auto const initial_cp =
-            *utf8::make_to_utf32_iterator(str.begin(), str.begin(), str.end());
+            *make_utf8_to_utf32_iterator(str.begin(), str.begin(), str.end());
         auto const new_lo =
             initial_cp == prev_initial_cp ? lo : first.base() - rope_.begin();
 

@@ -1,7 +1,7 @@
 #ifndef BOOST_TEXT_UTILITY_HPP
 #define BOOST_TEXT_UTILITY_HPP
 
-#include <boost/text/utf8.hpp>
+#include <boost/text/transcode_iterator.hpp>
 #include <boost/text/detail/algorithm.hpp>
 #include <boost/text/detail/sentinel_tag.hpp>
 
@@ -12,7 +12,7 @@ namespace boost { namespace text {
         points. */
     struct utf32_range
     {
-        using iterator = utf8::to_utf32_iterator<char const *>;
+        using iterator = utf8_to_utf32_iterator<char const *>;
 
         utf32_range() :
             first_(nullptr, nullptr, nullptr),
@@ -127,7 +127,7 @@ namespace boost { namespace text {
         struct make_range_impl_t
         {
             using iter_t =
-                IterTemplate<Iter, Sentinel, utf8::use_replacement_character>;
+                IterTemplate<Iter, Sentinel, use_replacement_character>;
             static range<iter_t, Sentinel>
             call(Iter first, Sentinel last) noexcept
             {
@@ -140,8 +140,7 @@ namespace boost { namespace text {
             typename Iter>
         struct make_range_impl_t<IterTemplate, Iter, Iter>
         {
-            using iter_t =
-                IterTemplate<Iter, Iter, utf8::use_replacement_character>;
+            using iter_t = IterTemplate<Iter, Iter, use_replacement_character>;
             static range<iter_t, iter_t> call(Iter first, Iter last) noexcept
             {
                 return {iter_t{first, first, last}, iter_t{first, last, last}};
@@ -206,45 +205,41 @@ namespace boost { namespace text {
     auto
     make_to_utf32_range(CharRange const & r) noexcept -> detail::rng_alg_ret_t<
         decltype(
-            detail::make_range_t<utf8::to_utf32_iterator, CharRange>::call(r)),
+            detail::make_range_t<utf8_to_utf32_iterator, CharRange>::call(r)),
         CharRange>
     {
-        return detail::make_range_t<utf8::to_utf32_iterator, CharRange>::call(
-            r);
+        return detail::make_range_t<utf8_to_utf32_iterator, CharRange>::call(r);
     }
 
     template<typename CPRange>
     auto make_from_utf32_range(CPRange const & r) noexcept
         -> detail::cp_rng_alg_ret_t<
-            decltype(detail::make_range_t<utf8::from_utf32_iterator, CPRange>::
-                         call(r)),
+            decltype(
+                detail::make_range_t<utf32_to_utf8_iterator, CPRange>::call(r)),
             CPRange>
     {
-        return detail::make_range_t<utf8::from_utf32_iterator, CPRange>::call(
-            r);
+        return detail::make_range_t<utf32_to_utf8_iterator, CPRange>::call(r);
     }
 
     template<typename CharRange>
     auto
     make_to_utf16_range(CharRange const & r) noexcept -> detail::rng_alg_ret_t<
         decltype(
-            detail::make_range_t<utf8::to_utf16_iterator, CharRange>::call(r)),
+            detail::make_range_t<utf8_to_utf16_iterator, CharRange>::call(r)),
         CharRange>
     {
-        return detail::make_range_t<utf8::to_utf16_iterator, CharRange>::call(
-            r);
+        return detail::make_range_t<utf8_to_utf16_iterator, CharRange>::call(r);
     }
 
     template<typename Char16Range>
     auto make_from_utf16_range(Char16Range const & r) noexcept
         -> detail::rng16_alg_ret_t<
-            decltype(detail::make_range_t<
-                     utf8::from_utf16_iterator,
-                     Char16Range>::call(r)),
+            decltype(detail::make_range_t<utf16_to_utf8_iterator, Char16Range>::
+                         call(r)),
             Char16Range>
     {
-        return detail::make_range_t<utf8::from_utf16_iterator, Char16Range>::
-            call(r);
+        return detail::make_range_t<utf16_to_utf8_iterator, Char16Range>::call(
+            r);
     }
 
 #endif

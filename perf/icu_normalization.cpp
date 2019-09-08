@@ -52,7 +52,7 @@ void BM_text_utf8_fcc(benchmark::State & state)
         auto r = boost::text::make_to_utf32_range(
             boost::text::string_view(file_contents));
         benchmark::DoNotOptimize(boost::text::normalize_to_fcc(
-            r, boost::text::utf8::from_utf32_back_inserter(normalized)));
+            r, boost::text::utf32_to_utf8_back_inserter(normalized)));
     }
 }
 
@@ -96,7 +96,7 @@ void BM_text_utf8_nfd(benchmark::State & state)
         auto r = boost::text::make_to_utf32_range(
             boost::text::string_view(file_contents));
         benchmark::DoNotOptimize(boost::text::normalize_to_nfd(
-            r, boost::text::utf8::from_utf32_back_inserter(normalized)));
+            r, boost::text::utf32_to_utf8_back_inserter(normalized)));
     }
 }
 
@@ -149,7 +149,7 @@ void BM_text_utf8_nfc(benchmark::State & state)
         auto r = boost::text::make_to_utf32_range(
             boost::text::string_view(file_contents));
         benchmark::DoNotOptimize(boost::text::normalize_to_nfc(
-            r, boost::text::utf8::from_utf32_back_inserter(normalized)));
+            r, boost::text::utf32_to_utf8_back_inserter(normalized)));
     }
 }
 
@@ -202,7 +202,7 @@ void BM_text_utf8_nfkd(benchmark::State & state)
         auto r = boost::text::make_to_utf32_range(
             boost::text::string_view(file_contents));
         benchmark::DoNotOptimize(boost::text::normalize_to_nfkd(
-            r, boost::text::utf8::from_utf32_back_inserter(normalized)));
+            r, boost::text::utf32_to_utf8_back_inserter(normalized)));
     }
 }
 
@@ -255,7 +255,7 @@ void BM_text_utf8_nfkc(benchmark::State & state)
         auto r = boost::text::make_to_utf32_range(
             boost::text::string_view(file_contents));
         benchmark::DoNotOptimize(boost::text::normalize_to_nfkc(
-            r, boost::text::utf8::from_utf32_back_inserter(normalized)));
+            r, boost::text::utf32_to_utf8_back_inserter(normalized)));
     }
 }
 

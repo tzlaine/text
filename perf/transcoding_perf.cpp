@@ -1,6 +1,5 @@
 #include <boost/text/string.hpp>
-#include <boost/text/utf8.hpp>
-#include <boost/text/utf16.hpp>
+#include <boost/text/transcode_iterator.hpp>
 #include <boost/text/transcode_algorithm.hpp>
 
 #ifndef NO_ICU
@@ -145,9 +144,9 @@ void BM_8_to_16_iterator_prealloc(benchmark::State & state)
     while (state.KeepRunning()) {
         std::vector<uint16_t> utf16_result(utf8_text.size());
         auto out = std::copy(
-            text::utf8::make_to_utf16_iterator(
+            text::make_utf8_to_utf16_iterator(
                 utf8_text.begin(), utf8_text.begin(), utf8_text.end()),
-            text::utf8::make_to_utf16_iterator(
+            text::make_utf8_to_utf16_iterator(
                 utf8_text.begin(), utf8_text.end(), utf8_text.end()),
             utf16_result.begin());
         utf16_result.resize(out - utf16_result.begin());
@@ -183,9 +182,9 @@ void BM_8_to_16_iterator(benchmark::State & state)
     while (state.KeepRunning()) {
         std::vector<uint16_t> utf16_result;
         std::copy(
-            text::utf8::make_to_utf16_iterator(
+            text::make_utf8_to_utf16_iterator(
                 utf8_text.begin(), utf8_text.begin(), utf8_text.end()),
-            text::utf8::make_to_utf16_iterator(
+            text::make_utf8_to_utf16_iterator(
                 utf8_text.begin(), utf8_text.end(), utf8_text.end()),
             std::back_inserter(utf16_result));
         benchmark::ClobberMemory();
@@ -283,9 +282,9 @@ void BM_8_to_32_iterator_prealloc(benchmark::State & state)
     while (state.KeepRunning()) {
         std::vector<uint32_t> utf32_result(utf8_text.size());
         auto out = std::copy(
-            text::utf8::make_to_utf32_iterator(
+            text::make_utf8_to_utf32_iterator(
                 utf8_text.begin(), utf8_text.begin(), utf8_text.end()),
-            text::utf8::make_to_utf32_iterator(
+            text::make_utf8_to_utf32_iterator(
                 utf8_text.begin(), utf8_text.end(), utf8_text.end()),
             utf32_result.begin());
         utf32_result.resize(out - utf32_result.begin());
@@ -321,9 +320,9 @@ void BM_8_to_32_iterator(benchmark::State & state)
     while (state.KeepRunning()) {
         std::vector<uint32_t> utf32_result;
         std::copy(
-            text::utf8::make_to_utf32_iterator(
+            text::make_utf8_to_utf32_iterator(
                 utf8_text.begin(), utf8_text.begin(), utf8_text.end()),
-            text::utf8::make_to_utf32_iterator(
+            text::make_utf8_to_utf32_iterator(
                 utf8_text.begin(), utf8_text.end(), utf8_text.end()),
             std::back_inserter(utf32_result));
         benchmark::ClobberMemory();

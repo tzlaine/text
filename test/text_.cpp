@@ -242,9 +242,9 @@ TEST(text_tests, test_insert)
 
     {
         text::text const ct("string");
-        auto const first = text::utf8::from_utf32_iterator<uint32_t const *>(
+        auto const first = text::utf32_to_utf8_iterator<uint32_t const *>(
             utf32, utf32, utf32 + 4);
-        auto const last = text::utf8::from_utf32_iterator<uint32_t const *>(
+        auto const last = text::utf32_to_utf8_iterator<uint32_t const *>(
             utf32, utf32 + 4, utf32 + 4);
 
         text::text t0 = ct;
@@ -506,11 +506,11 @@ TEST(text_tests, test_replace_iter)
 
     // Unicode 9, 3.9/D90
     uint32_t const utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
-    auto const first = text::utf8::from_utf32_iterator<uint32_t const *>(
-        utf32, utf32, utf32 + 4);
-    auto const final_cp = text::utf8::from_utf32_iterator<uint32_t const *>(
+    auto const first =
+        text::utf32_to_utf8_iterator<uint32_t const *>(utf32, utf32, utf32 + 4);
+    auto const final_cp = text::utf32_to_utf8_iterator<uint32_t const *>(
         utf32, utf32 + 3, utf32 + 4);
-    auto const last = text::utf8::from_utf32_iterator<uint32_t const *>(
+    auto const last = text::utf32_to_utf8_iterator<uint32_t const *>(
         utf32, utf32 + 4, utf32 + 4);
 
     text::text const ct_string("string");
@@ -585,12 +585,12 @@ TEST(text_tests, test_replace_iter_large_insertions)
         utf32_repeated.insert(utf32_repeated.end(), utf32, utf32 + 4);
     }
     auto const first =
-        text::utf8::from_utf32_iterator<std::vector<uint32_t>::iterator>(
+        text::utf32_to_utf8_iterator<std::vector<uint32_t>::iterator>(
             utf32_repeated.begin(),
             utf32_repeated.begin(),
             utf32_repeated.end());
     auto const last =
-        text::utf8::from_utf32_iterator<std::vector<uint32_t>::iterator>(
+        text::utf32_to_utf8_iterator<std::vector<uint32_t>::iterator>(
             utf32_repeated.begin(), utf32_repeated.end(), utf32_repeated.end());
 
     {
@@ -612,7 +612,7 @@ TEST(text_tests, normalization)
 {
     using namespace text::literals;
 
-    uint32_t const circumflex_utf32[] = {0x302}; // ◌̂
+    uint32_t const circumflex_utf32[] = {0x302};       // ◌̂
     uint32_t const a_with_circumflex_utf32[] = {0xe2}; // â
 
     text::string const s_circumflex =
@@ -622,53 +622,71 @@ TEST(text_tests, normalization)
 
     text::text const t_circumflex(s_circumflex);
     text::text const t_a_with_circumflex(s_a_with_circumflex);
-    text::text const t_a_with_circumflex_2("a\xcc\x82"/*a◌̂*/);
+    text::text const t_a_with_circumflex_2("a\xcc\x82" /*a◌̂*/);
 
     EXPECT_EQ(t_circumflex.distance(), 1);
     EXPECT_EQ(t_a_with_circumflex.distance(), 1);
     EXPECT_EQ(t_a_with_circumflex_2.distance(), 1);
 
-    EXPECT_EQ(t_circumflex, "\xcc\x82"_t/*◌̂*/);
-    EXPECT_EQ(t_a_with_circumflex, "\xc3\xa2"_t/*â*/);
-    EXPECT_EQ(t_a_with_circumflex_2, "\xc3\xa2"_t/*â*/);
+    EXPECT_EQ(t_circumflex, "\xcc\x82"_t /*◌̂*/);
+    EXPECT_EQ(t_a_with_circumflex, "\xc3\xa2"_t /*â*/);
+    EXPECT_EQ(t_a_with_circumflex_2, "\xc3\xa2"_t /*â*/);
 
     // insert()
 
     {
         text::text t = "aa";
-        t.insert(std::next(t.begin(), 0), "\xcc\x82"/*◌̂*/);
-        EXPECT_EQ(t, text::text("\xcc\x82""aa")/*◌̂aa*/);
+        t.insert(std::next(t.begin(), 0), "\xcc\x82" /*◌̂*/);
+        EXPECT_EQ(
+            t,
+            text::text("\xcc\x82"
+                       "aa") /*◌̂aa*/);
         EXPECT_EQ(t.distance(), 3);
     }
     {
         text::text t = "aa";
-        t.insert(std::next(t.begin(), 1), "\xcc\x82"/*◌̂*/);
-        EXPECT_EQ(t, text::text("\xc3\xa2""a")/*âa*/);
+        t.insert(std::next(t.begin(), 1), "\xcc\x82" /*◌̂*/);
+        EXPECT_EQ(
+            t,
+            text::text("\xc3\xa2"
+                       "a") /*âa*/);
         EXPECT_EQ(t.distance(), 2);
     }
     {
         text::text t = "aa";
-        t.insert(std::next(t.begin(), 2), "\xcc\x82"/*◌̂*/);
-        EXPECT_EQ(t, text::text("a\xc3\xa2")/*aâ*/);
+        t.insert(std::next(t.begin(), 2), "\xcc\x82" /*◌̂*/);
+        EXPECT_EQ(t, text::text("a\xc3\xa2") /*aâ*/);
         EXPECT_EQ(t.distance(), 2);
     }
 
     {
-        text::text t = "\xc3\xa2""a";
-        t.insert(std::next(t.begin(), 0), "\xcc\x82"/*◌̂*/);
-        EXPECT_EQ(t, text::text("\xcc\x82\xc3\xa2""a")/*◌̂âa*/);
+        text::text t =
+            "\xc3\xa2"
+            "a";
+        t.insert(std::next(t.begin(), 0), "\xcc\x82" /*◌̂*/);
+        EXPECT_EQ(
+            t,
+            text::text("\xcc\x82\xc3\xa2"
+                       "a") /*◌̂âa*/);
         EXPECT_EQ(t.distance(), 3);
     }
     {
-        text::text t = "\xc3\xa2""a";
-        t.insert(std::next(t.begin(), 1), "\xcc\x82"/*◌̂*/);
-        EXPECT_EQ(t, text::text("\xc3\xa2\xcc\x82""a")/*â◌̂a*/);
+        text::text t =
+            "\xc3\xa2"
+            "a";
+        t.insert(std::next(t.begin(), 1), "\xcc\x82" /*◌̂*/);
+        EXPECT_EQ(
+            t,
+            text::text("\xc3\xa2\xcc\x82"
+                       "a") /*â◌̂a*/);
         EXPECT_EQ(t.distance(), 2); // not 3 because â◌̂ is a single grapheme
     }
     {
-        text::text t = "\xc3\xa2""a";
-        t.insert(std::next(t.begin(), 2), "\xcc\x82"/*◌̂*/);
-        EXPECT_EQ(t, text::text("\xc3\xa2\xc3\xa2")/*ââ*/);
+        text::text t =
+            "\xc3\xa2"
+            "a";
+        t.insert(std::next(t.begin(), 2), "\xcc\x82" /*◌̂*/);
+        EXPECT_EQ(t, text::text("\xc3\xa2\xc3\xa2") /*ââ*/);
         EXPECT_EQ(t.distance(), 2);
     }
 
@@ -676,43 +694,61 @@ TEST(text_tests, normalization)
         text::text t = "aa";
         t.insert(
             std::next(t.begin(), 0), s_circumflex.begin(), s_circumflex.end());
-        EXPECT_EQ(t, text::text("\xcc\x82""aa")/*◌̂aa*/);
+        EXPECT_EQ(
+            t,
+            text::text("\xcc\x82"
+                       "aa") /*◌̂aa*/);
         EXPECT_EQ(t.distance(), 3);
     }
     {
         text::text t = "aa";
         t.insert(
             std::next(t.begin(), 1), s_circumflex.begin(), s_circumflex.end());
-        EXPECT_EQ(t, text::text("\xc3\xa2""a")/*âa*/);
+        EXPECT_EQ(
+            t,
+            text::text("\xc3\xa2"
+                       "a") /*âa*/);
         EXPECT_EQ(t.distance(), 2);
     }
     {
         text::text t = "aa";
         t.insert(
             std::next(t.begin(), 2), s_circumflex.begin(), s_circumflex.end());
-        EXPECT_EQ(t, text::text("a\xc3\xa2")/*aâ*/);
+        EXPECT_EQ(t, text::text("a\xc3\xa2") /*aâ*/);
         EXPECT_EQ(t.distance(), 2);
     }
 
     {
-        text::text t = "\xc3\xa2""a";
+        text::text t =
+            "\xc3\xa2"
+            "a";
         t.insert(
             std::next(t.begin(), 0), s_circumflex.begin(), s_circumflex.end());
-        EXPECT_EQ(t, text::text("\xcc\x82\xc3\xa2""a")/*◌̂âa*/);
+        EXPECT_EQ(
+            t,
+            text::text("\xcc\x82\xc3\xa2"
+                       "a") /*◌̂âa*/);
         EXPECT_EQ(t.distance(), 3);
     }
     {
-        text::text t = "\xc3\xa2""a";
+        text::text t =
+            "\xc3\xa2"
+            "a";
         t.insert(
             std::next(t.begin(), 1), s_circumflex.begin(), s_circumflex.end());
-        EXPECT_EQ(t, text::text("\xc3\xa2\xcc\x82""a")/*â◌̂a*/);
+        EXPECT_EQ(
+            t,
+            text::text("\xc3\xa2\xcc\x82"
+                       "a") /*â◌̂a*/);
         EXPECT_EQ(t.distance(), 2); // not 3 because â◌̂ is a single grapheme
     }
     {
-        text::text t = "\xc3\xa2""a";
+        text::text t =
+            "\xc3\xa2"
+            "a";
         t.insert(
             std::next(t.begin(), 2), s_circumflex.begin(), s_circumflex.end());
-        EXPECT_EQ(t, text::text("\xc3\xa2\xc3\xa2")/*ââ*/);
+        EXPECT_EQ(t, text::text("\xc3\xa2\xc3\xa2") /*ââ*/);
         EXPECT_EQ(t.distance(), 2);
     }
 
@@ -731,77 +767,113 @@ TEST(text_tests, normalization)
 
     {
         text::text t = "aaa";
-        t.replace(first(t), "\xcc\x82"/*◌̂*/);
-        EXPECT_EQ(t, text::text("\xcc\x82""aa")/*◌̂aa*/);
+        t.replace(first(t), "\xcc\x82" /*◌̂*/);
+        EXPECT_EQ(
+            t,
+            text::text("\xcc\x82"
+                       "aa") /*◌̂aa*/);
         EXPECT_EQ(t.distance(), 3);
     }
     {
         text::text t = "aaa";
-        t.replace(second(t), "\xcc\x82"/*◌̂*/);
-        EXPECT_EQ(t, text::text("\xc3\xa2""a")/*âa*/);
+        t.replace(second(t), "\xcc\x82" /*◌̂*/);
+        EXPECT_EQ(
+            t,
+            text::text("\xc3\xa2"
+                       "a") /*âa*/);
         EXPECT_EQ(t.distance(), 2);
     }
     {
         text::text t = "aaa";
-        t.replace(third(t), "\xcc\x82"/*◌̂*/);
-        EXPECT_EQ(t, text::text("a\xc3\xa2")/*aâ*/);
+        t.replace(third(t), "\xcc\x82" /*◌̂*/);
+        EXPECT_EQ(t, text::text("a\xc3\xa2") /*aâ*/);
         EXPECT_EQ(t.distance(), 2);
     }
 
     {
-        text::text t = "\xc3\xa2""aa";
-        t.replace(first(t), "\xcc\x82"/*◌̂*/);
-        EXPECT_EQ(t, text::text("\xcc\x82""aa")/*◌̂aa*/);
+        text::text t =
+            "\xc3\xa2"
+            "aa";
+        t.replace(first(t), "\xcc\x82" /*◌̂*/);
+        EXPECT_EQ(
+            t,
+            text::text("\xcc\x82"
+                       "aa") /*◌̂aa*/);
         EXPECT_EQ(t.distance(), 3);
     }
     {
-        text::text t = "\xc3\xa2""aa";
-        t.replace(second(t), "\xcc\x82"/*◌̂*/);
-        EXPECT_EQ(t, text::text("\xc3\xa2\xcc\x82""a")/*â◌̂a*/);
+        text::text t =
+            "\xc3\xa2"
+            "aa";
+        t.replace(second(t), "\xcc\x82" /*◌̂*/);
+        EXPECT_EQ(
+            t,
+            text::text("\xc3\xa2\xcc\x82"
+                       "a") /*â◌̂a*/);
         EXPECT_EQ(t.distance(), 2); // not 3 because â◌̂ is a single grapheme
     }
     {
-        text::text t = "\xc3\xa2""aa";
-        t.replace(third(t), "\xcc\x82"/*◌̂*/);
-        EXPECT_EQ(t, text::text("\xc3\xa2\xc3\xa2")/*ââ*/);
+        text::text t =
+            "\xc3\xa2"
+            "aa";
+        t.replace(third(t), "\xcc\x82" /*◌̂*/);
+        EXPECT_EQ(t, text::text("\xc3\xa2\xc3\xa2") /*ââ*/);
         EXPECT_EQ(t.distance(), 2);
     }
 
     {
         text::text t = "aaa";
         t.replace(first(t), s_circumflex.begin(), s_circumflex.end());
-        EXPECT_EQ(t, text::text("\xcc\x82""aa")/*◌̂aa*/);
+        EXPECT_EQ(
+            t,
+            text::text("\xcc\x82"
+                       "aa") /*◌̂aa*/);
         EXPECT_EQ(t.distance(), 3);
     }
     {
         text::text t = "aaa";
         t.replace(second(t), s_circumflex.begin(), s_circumflex.end());
-        EXPECT_EQ(t, text::text("\xc3\xa2""a")/*âa*/);
+        EXPECT_EQ(
+            t,
+            text::text("\xc3\xa2"
+                       "a") /*âa*/);
         EXPECT_EQ(t.distance(), 2);
     }
     {
         text::text t = "aaa";
         t.replace(third(t), s_circumflex.begin(), s_circumflex.end());
-        EXPECT_EQ(t, text::text("a\xc3\xa2")/*aâ*/);
+        EXPECT_EQ(t, text::text("a\xc3\xa2") /*aâ*/);
         EXPECT_EQ(t.distance(), 2);
     }
 
     {
-        text::text t = "\xc3\xa2""aa";
+        text::text t =
+            "\xc3\xa2"
+            "aa";
         t.replace(first(t), s_circumflex.begin(), s_circumflex.end());
-        EXPECT_EQ(t, text::text("\xcc\x82""aa")/*◌̂aa*/);
+        EXPECT_EQ(
+            t,
+            text::text("\xcc\x82"
+                       "aa") /*◌̂aa*/);
         EXPECT_EQ(t.distance(), 3);
     }
     {
-        text::text t = "\xc3\xa2""aa";
+        text::text t =
+            "\xc3\xa2"
+            "aa";
         t.replace(second(t), s_circumflex.begin(), s_circumflex.end());
-        EXPECT_EQ(t, text::text("\xc3\xa2\xcc\x82""a")/*â◌̂a*/);
+        EXPECT_EQ(
+            t,
+            text::text("\xc3\xa2\xcc\x82"
+                       "a") /*â◌̂a*/);
         EXPECT_EQ(t.distance(), 2); // not 3 because â◌̂ is a single grapheme
     }
     {
-        text::text t = "\xc3\xa2""aa";
+        text::text t =
+            "\xc3\xa2"
+            "aa";
         t.replace(third(t), s_circumflex.begin(), s_circumflex.end());
-        EXPECT_EQ(t, text::text("\xc3\xa2\xc3\xa2")/*ââ*/);
+        EXPECT_EQ(t, text::text("\xc3\xa2\xc3\xa2") /*ââ*/);
         EXPECT_EQ(t.distance(), 2);
     }
 }
@@ -810,13 +882,13 @@ TEST(text, test_sentinel_api)
 {
     {
         char const * chars = "chars";
-        text::text s(chars, text::utf8::null_sentinel{});
+        text::text s(chars, text::null_sentinel{});
         EXPECT_EQ(s, text::text(chars));
     }
     {
         char const * chars = "chars";
         text::text s;
-        s.insert(s.end(), chars, text::utf8::null_sentinel{});
+        s.insert(s.end(), chars, text::null_sentinel{});
         EXPECT_EQ(s, text::text(chars));
     }
     {
@@ -825,7 +897,7 @@ TEST(text, test_sentinel_api)
         s.replace(
             text::text_view(s.begin(), s.begin()),
             chars,
-            text::utf8::null_sentinel{});
+            text::null_sentinel{});
         EXPECT_EQ(s, text::text(chars));
     }
 }

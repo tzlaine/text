@@ -1,6 +1,6 @@
 #include <boost/text/case_mapping.hpp>
 #include <boost/text/string_utility.hpp>
-#include <boost/text/utf8.hpp>
+#include <boost/text/transcode_iterator.hpp>
 
 #include <gtest/gtest.h>
 
@@ -8,16 +8,15 @@
 using namespace boost::text;
 using namespace boost::text::detail;
 
-using u32_iter = utf8::to_utf32_iterator<char const *, char const *>;
-using sentinel_cp_range_t =
-    boost::text::cp_range<u32_iter, utf8::null_sentinel>;
+using u32_iter = utf8_to_utf32_iterator<char const *, char const *>;
+using sentinel_cp_range_t = boost::text::cp_range<u32_iter, null_sentinel>;
 
 void to_sentinel_cp_range(
     string & s, sentinel_cp_range_t & r, std::vector<uint32_t> cps)
 {
     s = to_string(cps.begin(), cps.end());
     r = sentinel_cp_range_t{u32_iter(s.begin(), s.begin(), s.end()),
-                   utf8::null_sentinel{}};
+                            null_sentinel{}};
 }
 
 
@@ -100,8 +99,12 @@ TEST(case_mapping_api, all)
     { // to_title
         string from_;
         sentinel_cp_range_t from;
-        to_sentinel_cp_range(from_, from, {0x0020, 0x0020, 0x0020, 0x00DF, 0x0020, 0x0020, 0x0020});
-        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0053, 0x0073, 0x0020, 0x0020, 0x0020});
+        to_sentinel_cp_range(
+            from_,
+            from,
+            {0x0020, 0x0020, 0x0020, 0x00DF, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title(
+            {0x0020, 0x0020, 0x0020, 0x0053, 0x0073, 0x0020, 0x0020, 0x0020});
         std::vector<uint32_t> result;
 
         EXPECT_FALSE(is_lower(title));
@@ -114,8 +117,12 @@ TEST(case_mapping_api, all)
     { // to_title
         string from_;
         sentinel_cp_range_t from;
-        to_sentinel_cp_range(from_, from, {0x0020, 0x0020, 0x0020, 0x00DF, 0x0061, 0x0061, 0x0061});
-        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0053, 0x0073, 0x0061, 0x0061, 0x0061});
+        to_sentinel_cp_range(
+            from_,
+            from,
+            {0x0020, 0x0020, 0x0020, 0x00DF, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title(
+            {0x0020, 0x0020, 0x0020, 0x0053, 0x0073, 0x0061, 0x0061, 0x0061});
         std::vector<uint32_t> result;
 
         EXPECT_FALSE(is_lower(title));
@@ -142,8 +149,12 @@ TEST(case_mapping_api, all)
     { // to_title
         string from_;
         sentinel_cp_range_t from;
-        to_sentinel_cp_range(from_, from, {0x0061, 0x0061, 0x0061, 0x00DF, 0x0020, 0x0020, 0x0020});
-        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x00DF, 0x0020, 0x0020, 0x0020});
+        to_sentinel_cp_range(
+            from_,
+            from,
+            {0x0061, 0x0061, 0x0061, 0x00DF, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title(
+            {0x0041, 0x0061, 0x0061, 0x00DF, 0x0020, 0x0020, 0x0020});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
@@ -152,8 +163,12 @@ TEST(case_mapping_api, all)
     { // to_title
         string from_;
         sentinel_cp_range_t from;
-        to_sentinel_cp_range(from_, from, {0x0061, 0x0061, 0x0061, 0x00DF, 0x0061, 0x0061, 0x0061});
-        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x00DF, 0x0061, 0x0061, 0x0061});
+        to_sentinel_cp_range(
+            from_,
+            from,
+            {0x0061, 0x0061, 0x0061, 0x00DF, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title(
+            {0x0041, 0x0061, 0x0061, 0x00DF, 0x0061, 0x0061, 0x0061});
         std::vector<uint32_t> result;
 
         EXPECT_FALSE(is_lower(title));
@@ -262,7 +277,7 @@ TEST(case_mapping_api, greek_special_casing)
         string const to = u8"ΑΔΙΚΟΣ, ΚΕΙΜΕΝΟ, ΙΡΙΔΑ";
         string result;
         to_upper(
-            utf32_range(from), utf8::from_utf32_inserter(result, result.end()));
+            utf32_range(from), utf32_to_utf8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
@@ -271,7 +286,7 @@ TEST(case_mapping_api, greek_special_casing)
         string const to = u8"ΠΑΤΑΤΑ";
         string result;
         to_upper(
-            utf32_range(from), utf8::from_utf32_inserter(result, result.end()));
+            utf32_range(from), utf32_to_utf8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
@@ -280,7 +295,7 @@ TEST(case_mapping_api, greek_special_casing)
         string const to = u8"ΑΕΡΑΣ, ΜΥΣΤΗΡΙΟ, ΩΡΑΙΟ";
         string result;
         to_upper(
-            utf32_range(from), utf8::from_utf32_inserter(result, result.end()));
+            utf32_range(from), utf32_to_utf8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
@@ -289,7 +304,7 @@ TEST(case_mapping_api, greek_special_casing)
         string const to = u8"ΜΑΪΟΥ, ΠΟΡΟΣ, ΡΥΘΜΙΣΗ";
         string result;
         to_upper(
-            utf32_range(from), utf8::from_utf32_inserter(result, result.end()));
+            utf32_range(from), utf32_to_utf8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
@@ -298,7 +313,7 @@ TEST(case_mapping_api, greek_special_casing)
         string const to = u8"Ϋ, ΤΗΡΩ, ΜΑΪΟΣ";
         string result;
         to_upper(
-            utf32_range(from), utf8::from_utf32_inserter(result, result.end()));
+            utf32_range(from), utf32_to_utf8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
@@ -307,7 +322,7 @@ TEST(case_mapping_api, greek_special_casing)
         string const to = u8"ΑΫΛΟΣ";
         string result;
         to_upper(
-            utf32_range(from), utf8::from_utf32_inserter(result, result.end()));
+            utf32_range(from), utf32_to_utf8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
@@ -316,7 +331,7 @@ TEST(case_mapping_api, greek_special_casing)
         string const to = u8"ΑΫΛΟΣ";
         string result;
         to_upper(
-            utf32_range(from), utf8::from_utf32_inserter(result, result.end()));
+            utf32_range(from), utf32_to_utf8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
@@ -325,7 +340,7 @@ TEST(case_mapping_api, greek_special_casing)
         string const to = u8"ΑΚΛΙΤΑ ΡΗΜΑΤΑ Ή ΑΚΛΙΤΕΣ ΜΕΤΟΧΕΣ";
         string result;
         to_upper(
-            utf32_range(from), utf8::from_utf32_inserter(result, result.end()));
+            utf32_range(from), utf32_to_utf8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
@@ -334,7 +349,7 @@ TEST(case_mapping_api, greek_special_casing)
         string const to = u8"ΕΠΕΙΔΗ Η ΑΝΑΓΝΩΡΙΣΗ ΤΗΣ ΑΞΙΟΠΡΕΠΕΙΑΣ";
         string result;
         to_upper(
-            utf32_range(from), utf8::from_utf32_inserter(result, result.end()));
+            utf32_range(from), utf32_to_utf8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
@@ -343,7 +358,7 @@ TEST(case_mapping_api, greek_special_casing)
         string const to = u8"ΝΟΜΙΚΟΥ Ή ΔΙΕΘΝΟΥΣ";
         string result;
         to_upper(
-            utf32_range(from), utf8::from_utf32_inserter(result, result.end()));
+            utf32_range(from), utf32_to_utf8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
@@ -352,7 +367,7 @@ TEST(case_mapping_api, greek_special_casing)
         string const to = u8"ΕΠΕΙΔΗ Η ΑΝΑΓΝΩΡΙΣΗ";
         string result;
         to_upper(
-            utf32_range(from), utf8::from_utf32_inserter(result, result.end()));
+            utf32_range(from), utf32_to_utf8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
@@ -361,7 +376,7 @@ TEST(case_mapping_api, greek_special_casing)
         string const to = u8"ΝΟΜΙΚΟΥ Ή ΔΙΕΘΝΟΥΣ";
         string result;
         to_upper(
-            utf32_range(from), utf8::from_utf32_inserter(result, result.end()));
+            utf32_range(from), utf32_to_utf8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
@@ -370,7 +385,7 @@ TEST(case_mapping_api, greek_special_casing)
         string const to = u8"ΝΕΟ, ΔΗΜΙΟΥΡΓΙΑ";
         string result;
         to_upper(
-            utf32_range(from), utf8::from_utf32_inserter(result, result.end()));
+            utf32_range(from), utf32_to_utf8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
@@ -379,7 +394,7 @@ TEST(case_mapping_api, greek_special_casing)
         string const to = u8"ΕΛΑΤΕ ΝΑ ΦΑΤΕ ΤΑ ΚΑΛΥΤΕΡΑ ΠΑΪΔΑΚΙΑ!";
         string result;
         to_upper(
-            utf32_range(from), utf8::from_utf32_inserter(result, result.end()));
+            utf32_range(from), utf32_to_utf8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
@@ -388,7 +403,7 @@ TEST(case_mapping_api, greek_special_casing)
         string const to = u8"ΜΑΪΟΥ, ΤΡΟΛΕΪ";
         string result;
         to_upper(
-            utf32_range(from), utf8::from_utf32_inserter(result, result.end()));
+            utf32_range(from), utf32_to_utf8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
@@ -397,7 +412,7 @@ TEST(case_mapping_api, greek_special_casing)
         string const to = u8"ΤΟ ΕΝΑ Ή ΤΟ ΑΛΛΟ.";
         string result;
         to_upper(
-            utf32_range(from), utf8::from_utf32_inserter(result, result.end()));
+            utf32_range(from), utf32_to_utf8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
@@ -406,7 +421,7 @@ TEST(case_mapping_api, greek_special_casing)
         string const to = u8"ΡΩΜΕΪΚΑ";
         string result;
         to_upper(
-            utf32_range(from), utf8::from_utf32_inserter(result, result.end()));
+            utf32_range(from), utf32_to_utf8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 }

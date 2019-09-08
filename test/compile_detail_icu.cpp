@@ -30,8 +30,7 @@ void make_byte_sink_()
             "");
     }
     {
-        using char_it =
-            text::utf8::from_utf32_insert_iterator<std::vector<char>>;
+        using char_it = text::utf32_to_utf8_insert_iterator<std::vector<char>>;
         std::vector<char> vec;
         char_it ci(vec, vec.begin());
         using char_bytes_sink = decltype(text::detail::make_byte_sink(ci));
@@ -46,7 +45,7 @@ void make_byte_sink_()
     }
     {
         using char_it =
-            text::utf8::from_utf32_back_insert_iterator<std::vector<char>>;
+            text::utf32_to_utf8_back_insert_iterator<std::vector<char>>;
         std::vector<char> vec;
         char_it ci(vec);
         using char_bytes_sink = decltype(text::detail::make_byte_sink(ci));
@@ -86,21 +85,20 @@ void char_ptr_or_base_char_ptr_()
     static_assert(text::detail::char_ptr_or_base_char_ptr<char *>::value, "");
     static_assert(
         text::detail::char_ptr_or_base_char_ptr<
-            text::utf8::to_utf32_iterator<char const *>>::value,
+            text::utf8_to_utf32_iterator<char const *>>::value,
         "");
     static_assert(
         text::detail::char_ptr_or_base_char_ptr<
-            text::utf8::to_utf32_iterator<char *>>::value,
-        "");
-    static_assert(
-        text::detail::char_ptr_or_base_char_ptr<text::utf8::to_utf32_iterator<
-            char const *,
-            text::utf8::null_sentinel>>::value,
+            text::utf8_to_utf32_iterator<char *>>::value,
         "");
     static_assert(
         text::detail::char_ptr_or_base_char_ptr<
-            text::utf8::to_utf32_iterator<char *, text::utf8::null_sentinel>>::
+            text::utf8_to_utf32_iterator<char const *, text::null_sentinel>>::
             value,
+        "");
+    static_assert(
+        text::detail::char_ptr_or_base_char_ptr<
+            text::utf8_to_utf32_iterator<char *, text::null_sentinel>>::value,
         "");
 
     // negative tests
@@ -131,8 +129,8 @@ void char_out_iter_()
     }
     {
         static_assert(
-            text::detail::char_out_iter<text::utf8::from_utf32_insert_iterator<
-                std::vector<char>>>::value,
+            text::detail::char_out_iter<
+                text::utf32_to_utf8_insert_iterator<std::vector<char>>>::value,
             "");
         static_assert(
             text::detail::char_out_iter<
@@ -142,8 +140,8 @@ void char_out_iter_()
     {
         static_assert(
             text::detail::char_out_iter<
-                text::utf8::from_utf32_back_insert_iterator<
-                    std::vector<char>>>::value,
+                text::utf32_to_utf8_back_insert_iterator<std::vector<char>>>::
+                value,
             "");
         static_assert(
             text::detail::char_out_iter<
@@ -171,7 +169,7 @@ void fast_path()
     std::vector<char> normalized;
     std::string file_contents;
     auto r = boost::text::make_to_utf32_range(text::string_view(file_contents));
-    auto out = text::utf8::from_utf32_back_inserter(normalized);
+    auto out = text::utf32_to_utf8_back_inserter(normalized);
 
     static_assert(
         text::detail::char_ptr_or_base_char_ptr<decltype(r.begin())>::value,

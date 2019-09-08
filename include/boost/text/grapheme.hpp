@@ -3,7 +3,7 @@
 
 #include <boost/text/grapheme_break.hpp>
 #include <boost/text/normalize.hpp>
-#include <boost/text/utf8.hpp>
+#include <boost/text/transcode_iterator.hpp>
 #include <boost/text/utility.hpp>
 
 #include <boost/algorithm/cxx14/equal.hpp>
@@ -22,7 +22,7 @@ namespace boost { namespace text {
     /** An owning sequence of code points that comprise a grapheme. */
     struct grapheme
     {
-        using const_iterator = utf8::to_utf32_iterator<char const *>;
+        using const_iterator = utf8_to_utf32_iterator<char const *>;
 
         /** Default ctor. */
         grapheme() {}
@@ -35,7 +35,7 @@ namespace boost { namespace text {
         template<typename CPIter>
         grapheme(CPIter first, CPIter last)
         {
-            std::copy(first, last, utf8::from_utf32_back_inserter(chars_));
+            std::copy(first, last, utf32_to_utf8_back_inserter(chars_));
             BOOST_ASSERT(next_grapheme_break(begin(), end()) == end());
             BOOST_ASSERT(fcd_form(begin(), end()));
         }
@@ -44,7 +44,7 @@ namespace boost { namespace text {
         grapheme(uint32_t cp)
         {
             uint32_t cps[1] = {cp};
-            std::copy(cps, cps + 1, utf8::from_utf32_back_inserter(chars_));
+            std::copy(cps, cps + 1, utf32_to_utf8_back_inserter(chars_));
         }
 
         /** Constructs *this from r.
@@ -56,8 +56,7 @@ namespace boost { namespace text {
         template<typename CPIter>
         grapheme(cp_range<CPIter> r)
         {
-            std::copy(
-                r.begin(), r.end(), utf8::from_utf32_back_inserter(chars_));
+            std::copy(r.begin(), r.end(), utf32_to_utf8_back_inserter(chars_));
             BOOST_ASSERT(next_grapheme_break(begin(), end()) == end());
             BOOST_ASSERT(fcd_form(begin(), end()));
         }
@@ -66,8 +65,7 @@ namespace boost { namespace text {
         template<typename CPIter>
         grapheme(grapheme_view<CPIter> g)
         {
-            std::copy(
-                g.begin(), g.end(), utf8::from_utf32_back_inserter(chars_));
+            std::copy(g.begin(), g.end(), utf32_to_utf8_back_inserter(chars_));
         }
 
         /** Returns true if *this contains no code points. */
@@ -172,8 +170,8 @@ namespace boost { namespace text {
             for (auto cp : gv) {
                 uint32_t cps[1] = {cp};
                 auto const end = std::copy(
-                    utf8::make_from_utf32_iterator(cps, cps, cps + 1),
-                    utf8::make_from_utf32_iterator(cps, cps + 1, cps + 1),
+                    make_utf32_to_utf8_iterator(cps, cps, cps + 1),
+                    make_utf32_to_utf8_iterator(cps, cps + 1, cps + 1),
                     buf);
                 os.write(buf, end - buf);
             }

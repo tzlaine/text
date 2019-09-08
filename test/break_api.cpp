@@ -6,7 +6,7 @@
 #include <boost/text/bidirectional.hpp>
 #include <boost/text/string_utility.hpp>
 #include <boost/text/text.hpp>
-#include <boost/text/utf8.hpp>
+#include <boost/text/transcode_iterator.hpp>
 
 #include <boost/algorithm/cxx14/equal.hpp>
 
@@ -19,24 +19,59 @@ using namespace boost::text::detail;
 
 TEST(break_apis, grapheme_break)
 {
-    // ÷ 1F3FB × 0308 ÷ 1100 ÷	
-    // ÷ [0.2] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL CHOSEONG KIYEOK (L) ÷ [0.3]
+    // ÷ 1F3FB × 0308 ÷ 1100 ÷
+    // ÷ [0.2] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) × [9.0]
+    // COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL CHOSEONG KIYEOK (L) ÷ [0.3]
     std::array<uint32_t, 3> cps = {{0x1f3fb, 0x308, 0x1100}};
 
     {
-        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(
+            boost::text::prev_grapheme_break(
+                cps.begin(), cps.begin() + 0, cps.end()) -
+                cps.begin(),
+            0);
+        EXPECT_EQ(
+            boost::text::next_grapheme_break(cps.begin() + 0, cps.end()) -
+                cps.begin(),
+            2);
+        EXPECT_EQ(
+            boost::text::prev_grapheme_break(
+                cps.begin(), cps.begin() + 1, cps.end()) -
+                cps.begin(),
+            0);
+        EXPECT_EQ(
+            boost::text::next_grapheme_break(cps.begin() + 0, cps.end()) -
+                cps.begin(),
+            2);
+        EXPECT_EQ(
+            boost::text::prev_grapheme_break(
+                cps.begin(), cps.begin() + 2, cps.end()) -
+                cps.begin(),
+            2);
+        EXPECT_EQ(
+            boost::text::next_grapheme_break(cps.begin() + 2, cps.end()) -
+                cps.begin(),
+            3);
+        EXPECT_EQ(
+            boost::text::prev_grapheme_break(
+                cps.begin(), cps.begin() + 3, cps.end()) -
+                cps.begin(),
+            2);
+        EXPECT_EQ(
+            boost::text::next_grapheme_break(cps.begin() + 2, cps.end()) -
+                cps.begin(),
+            3);
     }
     // Range API
     {
-        EXPECT_EQ(boost::text::prev_grapheme_break(cps, cps.begin() + 0) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_grapheme_break(cps, cps.begin() + 0) - cps.begin(), 2);
+        EXPECT_EQ(
+            boost::text::prev_grapheme_break(cps, cps.begin() + 0) -
+                cps.begin(),
+            0);
+        EXPECT_EQ(
+            boost::text::next_grapheme_break(cps, cps.begin() + 0) -
+                cps.begin(),
+            2);
     }
 
 #if 0
@@ -174,18 +209,19 @@ TEST(break_apis, grapheme_break)
 TEST(break_apis, grapheme_break_sentinel)
 {
     using u32_iter =
-        boost::text::utf8::to_utf32_iterator<char const *, char const *>;
+        boost::text::utf8_to_utf32_iterator<char const *, char const *>;
 
-    // ÷ 1F3FB × 0308 ÷ 1100 ÷	
-    // ÷ [0.2] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL CHOSEONG KIYEOK (L) ÷ [0.3]
+    // ÷ 1F3FB × 0308 ÷ 1100 ÷
+    // ÷ [0.2] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) × [9.0]
+    // COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL CHOSEONG KIYEOK (L) ÷ [0.3]
     boost::text::string s;
     {
         // 4,2,3 code units, respectively.
         std::array<uint32_t, 3> cps = {{0x1f3fb, 0x308, 0x1100}};
         s = boost::text::string(
-            boost::text::utf8::make_from_utf32_iterator(
+            boost::text::make_utf32_to_utf8_iterator(
                 cps.begin(), cps.begin(), cps.end()),
-            boost::text::utf8::make_from_utf32_iterator(
+            boost::text::make_utf32_to_utf8_iterator(
                 cps.begin(), cps.end(), cps.end()));
         assert(s.size() == 9);
         assert(boost::algorithm::equal(
@@ -197,8 +233,8 @@ TEST(break_apis, grapheme_break_sentinel)
 
     char const * c_str = s.begin();
 
-    boost::text::cp_range<u32_iter, boost::text::utf8::null_sentinel> cp_range{
-        u32_iter(c_str, c_str, s.end()), boost::text::utf8::null_sentinel{}};
+    boost::text::cp_range<u32_iter, boost::text::null_sentinel> cp_range{
+        u32_iter(c_str, c_str, s.end()), boost::text::null_sentinel{}};
 
     auto const begin = cp_range.begin();
     auto const one = std::next(begin);
@@ -207,19 +243,45 @@ TEST(break_apis, grapheme_break_sentinel)
     auto const end = cp_range.end();
 
     {
-        EXPECT_EQ(std::distance(begin, boost::text::prev_grapheme_break(begin, begin, end)), 0);
-        EXPECT_EQ(std::distance(begin, boost::text::next_grapheme_break(begin, end)), 2);
-        EXPECT_EQ(std::distance(begin, boost::text::prev_grapheme_break(begin, one, end)), 0);
-        EXPECT_EQ(std::distance(begin, boost::text::next_grapheme_break(begin, end)), 2);
-        EXPECT_EQ(std::distance(begin, boost::text::prev_grapheme_break(begin, two, end)), 2);
-        EXPECT_EQ(std::distance(begin, boost::text::next_grapheme_break(two, end)), 3);
-        EXPECT_EQ(std::distance(begin, boost::text::prev_grapheme_break(begin, three, end)), 2);
-        EXPECT_EQ(std::distance(begin, boost::text::next_grapheme_break(two, end)), 3);
+        EXPECT_EQ(
+            std::distance(
+                begin, boost::text::prev_grapheme_break(begin, begin, end)),
+            0);
+        EXPECT_EQ(
+            std::distance(begin, boost::text::next_grapheme_break(begin, end)),
+            2);
+        EXPECT_EQ(
+            std::distance(
+                begin, boost::text::prev_grapheme_break(begin, one, end)),
+            0);
+        EXPECT_EQ(
+            std::distance(begin, boost::text::next_grapheme_break(begin, end)),
+            2);
+        EXPECT_EQ(
+            std::distance(
+                begin, boost::text::prev_grapheme_break(begin, two, end)),
+            2);
+        EXPECT_EQ(
+            std::distance(begin, boost::text::next_grapheme_break(two, end)),
+            3);
+        EXPECT_EQ(
+            std::distance(
+                begin, boost::text::prev_grapheme_break(begin, three, end)),
+            2);
+        EXPECT_EQ(
+            std::distance(begin, boost::text::next_grapheme_break(two, end)),
+            3);
     }
     // Range API
     {
-        EXPECT_EQ(std::distance(begin, boost::text::prev_grapheme_break(cp_range, begin)), 0);
-        EXPECT_EQ(std::distance(begin, boost::text::next_grapheme_break(cp_range, begin)), 2);
+        EXPECT_EQ(
+            std::distance(
+                begin, boost::text::prev_grapheme_break(cp_range, begin)),
+            0);
+        EXPECT_EQ(
+            std::distance(
+                begin, boost::text::next_grapheme_break(cp_range, begin)),
+            2);
     }
 
 #if 0
@@ -245,7 +307,8 @@ TEST(break_apis, grapheme_break_sentinel)
         int i = 0;
         for (auto grapheme : all_graphemes) {
             EXPECT_EQ(
-                std::distance(begin, grapheme.begin()), grapheme_bounds[i].first)
+                std::distance(begin, grapheme.begin()),
+                grapheme_bounds[i].first)
                 << "i=" << i;
             EXPECT_EQ(
                 std::distance(begin, grapheme.end()), grapheme_bounds[i].second)
@@ -264,7 +327,8 @@ TEST(break_apis, grapheme_break_sentinel)
         int i = 0;
         for (auto grapheme : all_graphemes) {
             EXPECT_EQ(
-                std::distance(begin, grapheme.begin()), grapheme_bounds[i].first)
+                std::distance(begin, grapheme.begin()),
+                grapheme_bounds[i].first)
                 << "i=" << i;
             EXPECT_EQ(
                 std::distance(begin, grapheme.end()), grapheme_bounds[i].second)
@@ -277,30 +341,86 @@ TEST(break_apis, grapheme_break_sentinel)
 
 TEST(break_apis, word_break)
 {
-    // ÷ 0061 × 005F × 0061 ÷ 002E ÷ 003A ÷ 0061 ÷	
-    // ÷ [0.2] LATIN SMALL LETTER A (ALetter) × [13.1] LOW LINE (ExtendNumLet) × [13.2] LATIN SMALL LETTER A (ALetter) ÷ [999.0] FULL STOP (MidNumLet) ÷ [999.0] COLON (MidLetter) ÷ [999.0] LATIN SMALL LETTER A (ALetter) ÷ [0.3]
+    // ÷ 0061 × 005F × 0061 ÷ 002E ÷ 003A ÷ 0061 ÷
+    // ÷ [0.2] LATIN SMALL LETTER A (ALetter) × [13.1] LOW LINE (ExtendNumLet) ×
+    // [13.2] LATIN SMALL LETTER A (ALetter) ÷ [999.0] FULL STOP (MidNumLet) ÷
+    // [999.0] COLON (MidLetter) ÷ [999.0] LATIN SMALL LETTER A (ALetter) ÷
+    // [0.3]
     std::array<uint32_t, 6> cps = {{0x61, 0x5f, 0x61, 0x2e, 0x3a, 0x61}};
 
     {
-        EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 4, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 5, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 5, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(
+            boost::text::prev_word_break(
+                cps.begin(), cps.begin() + 0, cps.end()) -
+                cps.begin(),
+            0);
+        EXPECT_EQ(
+            boost::text::next_word_break(cps.begin() + 0, cps.end()) -
+                cps.begin(),
+            3);
+        EXPECT_EQ(
+            boost::text::prev_word_break(
+                cps.begin(), cps.begin() + 1, cps.end()) -
+                cps.begin(),
+            0);
+        EXPECT_EQ(
+            boost::text::next_word_break(cps.begin() + 0, cps.end()) -
+                cps.begin(),
+            3);
+        EXPECT_EQ(
+            boost::text::prev_word_break(
+                cps.begin(), cps.begin() + 2, cps.end()) -
+                cps.begin(),
+            0);
+        EXPECT_EQ(
+            boost::text::next_word_break(cps.begin() + 0, cps.end()) -
+                cps.begin(),
+            3);
+        EXPECT_EQ(
+            boost::text::prev_word_break(
+                cps.begin(), cps.begin() + 3, cps.end()) -
+                cps.begin(),
+            3);
+        EXPECT_EQ(
+            boost::text::next_word_break(cps.begin() + 3, cps.end()) -
+                cps.begin(),
+            4);
+        EXPECT_EQ(
+            boost::text::prev_word_break(
+                cps.begin(), cps.begin() + 4, cps.end()) -
+                cps.begin(),
+            4);
+        EXPECT_EQ(
+            boost::text::next_word_break(cps.begin() + 4, cps.end()) -
+                cps.begin(),
+            5);
+        EXPECT_EQ(
+            boost::text::prev_word_break(
+                cps.begin(), cps.begin() + 5, cps.end()) -
+                cps.begin(),
+            5);
+        EXPECT_EQ(
+            boost::text::next_word_break(cps.begin() + 5, cps.end()) -
+                cps.begin(),
+            6);
+        EXPECT_EQ(
+            boost::text::prev_word_break(
+                cps.begin(), cps.begin() + 6, cps.end()) -
+                cps.begin(),
+            5);
+        EXPECT_EQ(
+            boost::text::next_word_break(cps.begin() + 5, cps.end()) -
+                cps.begin(),
+            6);
     }
     // Range API
     {
-        EXPECT_EQ(boost::text::prev_word_break(cps, cps.begin() + 0) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps, cps.begin() + 0) - cps.begin(), 3);
+        EXPECT_EQ(
+            boost::text::prev_word_break(cps, cps.begin() + 0) - cps.begin(),
+            0);
+        EXPECT_EQ(
+            boost::text::next_word_break(cps, cps.begin() + 0) - cps.begin(),
+            3);
     }
 
     {
@@ -377,17 +497,20 @@ TEST(break_apis, word_break)
 TEST(break_apis, word_break_sentinel)
 {
     using u32_iter =
-        boost::text::utf8::to_utf32_iterator<char const *, char const *>;
+        boost::text::utf8_to_utf32_iterator<char const *, char const *>;
 
-    // ÷ 0061 × 005F × 0061 ÷ 002E ÷ 003A ÷ 0061 ÷	
-    // ÷ [0.2] LATIN SMALL LETTER A (ALetter) × [13.1] LOW LINE (ExtendNumLet) × [13.2] LATIN SMALL LETTER A (ALetter) ÷ [999.0] FULL STOP (MidNumLet) ÷ [999.0] COLON (MidLetter) ÷ [999.0] LATIN SMALL LETTER A (ALetter) ÷ [0.3]
+    // ÷ 0061 × 005F × 0061 ÷ 002E ÷ 003A ÷ 0061 ÷
+    // ÷ [0.2] LATIN SMALL LETTER A (ALetter) × [13.1] LOW LINE (ExtendNumLet) ×
+    // [13.2] LATIN SMALL LETTER A (ALetter) ÷ [999.0] FULL STOP (MidNumLet) ÷
+    // [999.0] COLON (MidLetter) ÷ [999.0] LATIN SMALL LETTER A (ALetter) ÷
+    // [0.3]
     boost::text::string s;
     {
         std::array<uint32_t, 6> cps = {{0x61, 0x5f, 0x61, 0x2e, 0x3a, 0x61}};
         s = boost::text::string(
-            boost::text::utf8::make_from_utf32_iterator(
+            boost::text::make_utf32_to_utf8_iterator(
                 cps.begin(), cps.begin(), cps.end()),
-            boost::text::utf8::make_from_utf32_iterator(
+            boost::text::make_utf32_to_utf8_iterator(
                 cps.begin(), cps.end(), cps.end()));
         assert(boost::algorithm::equal(
             cps.begin(),
@@ -398,8 +521,8 @@ TEST(break_apis, word_break_sentinel)
 
     char const * c_str = s.begin();
 
-    boost::text::cp_range<u32_iter, boost::text::utf8::null_sentinel> cp_range{
-        u32_iter(c_str, c_str, s.end()), boost::text::utf8::null_sentinel{}};
+    boost::text::cp_range<u32_iter, boost::text::null_sentinel> cp_range{
+        u32_iter(c_str, c_str, s.end()), boost::text::null_sentinel{}};
 
     auto const begin = cp_range.begin();
     auto const one = std::next(begin);
@@ -411,25 +534,54 @@ TEST(break_apis, word_break_sentinel)
     auto const end = cp_range.end();
 
     {
-        EXPECT_EQ(std::distance(begin, boost::text::prev_word_break(begin, begin, end)), 0);
-        EXPECT_EQ(std::distance(begin, boost::text::next_word_break(begin, end)), 3);
-        EXPECT_EQ(std::distance(begin, boost::text::prev_word_break(begin, one, end)), 0);
-        EXPECT_EQ(std::distance(begin, boost::text::next_word_break(begin, end)), 3);
-        EXPECT_EQ(std::distance(begin, boost::text::prev_word_break(begin, two, end)), 0);
-        EXPECT_EQ(std::distance(begin, boost::text::next_word_break(two, end)), 3);
-        EXPECT_EQ(std::distance(begin, boost::text::prev_word_break(begin, three, end)), 3);
-        EXPECT_EQ(std::distance(begin, boost::text::next_word_break(three, end)), 4);
-        EXPECT_EQ(std::distance(begin, boost::text::prev_word_break(begin, four, end)), 4);
-        EXPECT_EQ(std::distance(begin, boost::text::next_word_break(four, end)), 5);
-        EXPECT_EQ(std::distance(begin, boost::text::prev_word_break(begin, five, end)), 5);
-        EXPECT_EQ(std::distance(begin, boost::text::next_word_break(five, end)), 6);
-        EXPECT_EQ(std::distance(begin, boost::text::prev_word_break(begin, six, end)), 5);
-        EXPECT_EQ(std::distance(begin, boost::text::next_word_break(five, end)), 6);
+        EXPECT_EQ(
+            std::distance(
+                begin, boost::text::prev_word_break(begin, begin, end)),
+            0);
+        EXPECT_EQ(
+            std::distance(begin, boost::text::next_word_break(begin, end)), 3);
+        EXPECT_EQ(
+            std::distance(begin, boost::text::prev_word_break(begin, one, end)),
+            0);
+        EXPECT_EQ(
+            std::distance(begin, boost::text::next_word_break(begin, end)), 3);
+        EXPECT_EQ(
+            std::distance(begin, boost::text::prev_word_break(begin, two, end)),
+            0);
+        EXPECT_EQ(
+            std::distance(begin, boost::text::next_word_break(two, end)), 3);
+        EXPECT_EQ(
+            std::distance(
+                begin, boost::text::prev_word_break(begin, three, end)),
+            3);
+        EXPECT_EQ(
+            std::distance(begin, boost::text::next_word_break(three, end)), 4);
+        EXPECT_EQ(
+            std::distance(
+                begin, boost::text::prev_word_break(begin, four, end)),
+            4);
+        EXPECT_EQ(
+            std::distance(begin, boost::text::next_word_break(four, end)), 5);
+        EXPECT_EQ(
+            std::distance(
+                begin, boost::text::prev_word_break(begin, five, end)),
+            5);
+        EXPECT_EQ(
+            std::distance(begin, boost::text::next_word_break(five, end)), 6);
+        EXPECT_EQ(
+            std::distance(begin, boost::text::prev_word_break(begin, six, end)),
+            5);
+        EXPECT_EQ(
+            std::distance(begin, boost::text::next_word_break(five, end)), 6);
     }
     // Range API
     {
-        EXPECT_EQ(std::distance(begin, boost::text::prev_word_break(cp_range, begin)), 0);
-        EXPECT_EQ(std::distance(begin, boost::text::next_word_break(cp_range, begin)), 3);
+        EXPECT_EQ(
+            std::distance(begin, boost::text::prev_word_break(cp_range, begin)),
+            0);
+        EXPECT_EQ(
+            std::distance(begin, boost::text::next_word_break(cp_range, begin)),
+            3);
     }
 
     {
@@ -495,15 +647,33 @@ TEST(break_apis, word_tailoring_MidLetter)
 
     // Default breaks.
     {
-        EXPECT_EQ(std::distance(begin, boost::text::prev_word_break(cps, begin)), 0);
-        EXPECT_EQ(std::distance(begin, boost::text::prev_word_break(cps, std::next(begin, 4))), 0);
-        EXPECT_EQ(std::distance(begin, boost::text::next_word_break(cps, begin)), 5);
+        EXPECT_EQ(
+            std::distance(begin, boost::text::prev_word_break(cps, begin)), 0);
+        EXPECT_EQ(
+            std::distance(
+                begin, boost::text::prev_word_break(cps, std::next(begin, 4))),
+            0);
+        EXPECT_EQ(
+            std::distance(begin, boost::text::next_word_break(cps, begin)), 5);
     }
     // MidLetter tailoring.
     {
-        EXPECT_EQ(std::distance(begin, boost::text::prev_word_break(cps, begin, midletter_dash)), 0);
-        EXPECT_EQ(std::distance(begin, boost::text::prev_word_break(cps, std::next(begin, 9), midletter_dash)), 0);
-        EXPECT_EQ(std::distance(begin, boost::text::next_word_break(cps, begin, midletter_dash)), 10);
+        EXPECT_EQ(
+            std::distance(
+                begin,
+                boost::text::prev_word_break(cps, begin, midletter_dash)),
+            0);
+        EXPECT_EQ(
+            std::distance(
+                begin,
+                boost::text::prev_word_break(
+                    cps, std::next(begin, 9), midletter_dash)),
+            0);
+        EXPECT_EQ(
+            std::distance(
+                begin,
+                boost::text::next_word_break(cps, begin, midletter_dash)),
+            10);
     }
 
     // Default breaks.
@@ -624,15 +794,14 @@ TEST(break_apis, word_tailoring_MidLetter)
 TEST(break_apis, word_tailoring_MidLetter_sentinel)
 {
     using u32_iter =
-        boost::text::utf8::to_utf32_iterator<char const *, char const *>;
+        boost::text::utf8_to_utf32_iterator<char const *, char const *>;
 
     boost::text::string const s = "multi-part words with dashes";
 
     char const * c_str = s.begin();
 
-    boost::text::cp_range<u32_iter, boost::text::utf8::null_sentinel> const
-        cp_range{u32_iter(c_str, c_str, s.end()),
-                 boost::text::utf8::null_sentinel{}};
+    boost::text::cp_range<u32_iter, boost::text::null_sentinel> const cp_range{
+        u32_iter(c_str, c_str, s.end()), boost::text::null_sentinel{}};
 
     auto const begin = cp_range.begin();
     auto const end = cp_range.end();
@@ -849,15 +1018,14 @@ TEST(break_apis, word_tailoring_cp_break)
 TEST(break_apis, word_tailoring_cp_break_sentinel)
 {
     using u32_iter =
-        boost::text::utf8::to_utf32_iterator<char const *, char const *>;
+        boost::text::utf8_to_utf32_iterator<char const *, char const *>;
 
     boost::text::string const s = "snake_case camelCase";
 
     char const * c_str = s.begin();
 
-    boost::text::cp_range<u32_iter, boost::text::utf8::null_sentinel> const
-        cp_range{u32_iter(c_str, c_str, s.end()),
-                 boost::text::utf8::null_sentinel{}};
+    boost::text::cp_range<u32_iter, boost::text::null_sentinel> const cp_range{
+        u32_iter(c_str, c_str, s.end()), boost::text::null_sentinel{}};
 
     auto const begin = cp_range.begin();
     auto const end = cp_range.end();
@@ -938,24 +1106,59 @@ TEST(break_apis, word_tailoring_cp_break_sentinel)
 
 TEST(break_apis, sentence_break)
 {
-    // ÷ 5B57 × 3002 ÷ 5B83 ÷	
-    // ÷ [0.2] CJK UNIFIED IDEOGRAPH-5B57 (OLetter) × [998.0] IDEOGRAPHIC FULL STOP (STerm) ÷ [11.0] CJK UNIFIED IDEOGRAPH-5B83 (OLetter) ÷ [0.3]
+    // ÷ 5B57 × 3002 ÷ 5B83 ÷
+    // ÷ [0.2] CJK UNIFIED IDEOGRAPH-5B57 (OLetter) × [998.0] IDEOGRAPHIC FULL
+    // STOP (STerm) ÷ [11.0] CJK UNIFIED IDEOGRAPH-5B83 (OLetter) ÷ [0.3]
     std::array<uint32_t, 3> cps = {{0x5b57, 0x3002, 0x5b83}};
 
     {
-        EXPECT_EQ(boost::text::prev_sentence_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_sentence_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_sentence_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_sentence_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_sentence_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_sentence_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_sentence_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_sentence_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(
+            boost::text::prev_sentence_break(
+                cps.begin(), cps.begin() + 0, cps.end()) -
+                cps.begin(),
+            0);
+        EXPECT_EQ(
+            boost::text::next_sentence_break(cps.begin() + 0, cps.end()) -
+                cps.begin(),
+            2);
+        EXPECT_EQ(
+            boost::text::prev_sentence_break(
+                cps.begin(), cps.begin() + 1, cps.end()) -
+                cps.begin(),
+            0);
+        EXPECT_EQ(
+            boost::text::next_sentence_break(cps.begin() + 0, cps.end()) -
+                cps.begin(),
+            2);
+        EXPECT_EQ(
+            boost::text::prev_sentence_break(
+                cps.begin(), cps.begin() + 2, cps.end()) -
+                cps.begin(),
+            2);
+        EXPECT_EQ(
+            boost::text::next_sentence_break(cps.begin() + 2, cps.end()) -
+                cps.begin(),
+            3);
+        EXPECT_EQ(
+            boost::text::prev_sentence_break(
+                cps.begin(), cps.begin() + 3, cps.end()) -
+                cps.begin(),
+            2);
+        EXPECT_EQ(
+            boost::text::next_sentence_break(cps.begin() + 2, cps.end()) -
+                cps.begin(),
+            3);
     }
     // Range API
     {
-        EXPECT_EQ(boost::text::prev_sentence_break(cps, cps.begin() + 0) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_sentence_break(cps, cps.begin() + 0) - cps.begin(), 2);
+        EXPECT_EQ(
+            boost::text::prev_sentence_break(cps, cps.begin() + 0) -
+                cps.begin(),
+            0);
+        EXPECT_EQ(
+            boost::text::next_sentence_break(cps, cps.begin() + 0) -
+                cps.begin(),
+            2);
     }
 
     {
@@ -972,7 +1175,8 @@ TEST(break_apis, sentence_break)
     }
 
     {
-        auto const all_sentences = boost::text::sentences(cps.begin(), cps.end());
+        auto const all_sentences =
+            boost::text::sentences(cps.begin(), cps.end());
 
         std::array<std::pair<int, int>, 2> const sentence_bounds = {
             {{0, 2}, {2, 3}}};
@@ -1033,17 +1237,18 @@ TEST(break_apis, sentence_break)
 TEST(break_apis, sentence_break_sentinel)
 {
     using u32_iter =
-        boost::text::utf8::to_utf32_iterator<char const *, char const *>;
+        boost::text::utf8_to_utf32_iterator<char const *, char const *>;
 
-    // ÷ 5B57 × 3002 ÷ 5B83 ÷	
-    // ÷ [0.2] CJK UNIFIED IDEOGRAPH-5B57 (OLetter) × [998.0] IDEOGRAPHIC FULL STOP (STerm) ÷ [11.0] CJK UNIFIED IDEOGRAPH-5B83 (OLetter) ÷ [0.3]
+    // ÷ 5B57 × 3002 ÷ 5B83 ÷
+    // ÷ [0.2] CJK UNIFIED IDEOGRAPH-5B57 (OLetter) × [998.0] IDEOGRAPHIC FULL
+    // STOP (STerm) ÷ [11.0] CJK UNIFIED IDEOGRAPH-5B83 (OLetter) ÷ [0.3]
     boost::text::string s;
     {
         std::array<uint32_t, 3> cps = {{0x5b57, 0x3002, 0x5b83}};
         s = boost::text::string(
-            boost::text::utf8::make_from_utf32_iterator(
+            boost::text::make_utf32_to_utf8_iterator(
                 cps.begin(), cps.begin(), cps.end()),
-            boost::text::utf8::make_from_utf32_iterator(
+            boost::text::make_utf32_to_utf8_iterator(
                 cps.begin(), cps.end(), cps.end()));
         assert(boost::algorithm::equal(
             cps.begin(),
@@ -1054,8 +1259,8 @@ TEST(break_apis, sentence_break_sentinel)
 
     char const * c_str = s.begin();
 
-    boost::text::cp_range<u32_iter, boost::text::utf8::null_sentinel> cp_range{
-        u32_iter(c_str, c_str, s.end()), boost::text::utf8::null_sentinel{}};
+    boost::text::cp_range<u32_iter, boost::text::null_sentinel> cp_range{
+        u32_iter(c_str, c_str, s.end()), boost::text::null_sentinel{}};
 
     auto const begin = cp_range.begin();
     auto const one = std::next(begin);
@@ -1064,19 +1269,45 @@ TEST(break_apis, sentence_break_sentinel)
     auto const end = cp_range.end();
 
     {
-        EXPECT_EQ(std::distance(begin, boost::text::prev_sentence_break(begin, begin, end)), 0);
-        EXPECT_EQ(std::distance(begin, boost::text::next_sentence_break(begin, end)), 2);
-        EXPECT_EQ(std::distance(begin, boost::text::prev_sentence_break(begin, one, end)), 0);
-        EXPECT_EQ(std::distance(begin, boost::text::next_sentence_break(begin, end)), 2);
-        EXPECT_EQ(std::distance(begin, boost::text::prev_sentence_break(begin, two, end)), 2);
-        EXPECT_EQ(std::distance(begin, boost::text::next_sentence_break(two, end)), 3);
-        EXPECT_EQ(std::distance(begin, boost::text::prev_sentence_break(begin, three, end)), 2);
-        EXPECT_EQ(std::distance(begin, boost::text::next_sentence_break(two, end)), 3);
+        EXPECT_EQ(
+            std::distance(
+                begin, boost::text::prev_sentence_break(begin, begin, end)),
+            0);
+        EXPECT_EQ(
+            std::distance(begin, boost::text::next_sentence_break(begin, end)),
+            2);
+        EXPECT_EQ(
+            std::distance(
+                begin, boost::text::prev_sentence_break(begin, one, end)),
+            0);
+        EXPECT_EQ(
+            std::distance(begin, boost::text::next_sentence_break(begin, end)),
+            2);
+        EXPECT_EQ(
+            std::distance(
+                begin, boost::text::prev_sentence_break(begin, two, end)),
+            2);
+        EXPECT_EQ(
+            std::distance(begin, boost::text::next_sentence_break(two, end)),
+            3);
+        EXPECT_EQ(
+            std::distance(
+                begin, boost::text::prev_sentence_break(begin, three, end)),
+            2);
+        EXPECT_EQ(
+            std::distance(begin, boost::text::next_sentence_break(two, end)),
+            3);
     }
     // Range API
     {
-        EXPECT_EQ(std::distance(begin, boost::text::prev_sentence_break(cp_range, begin)), 0);
-        EXPECT_EQ(std::distance(begin, boost::text::next_sentence_break(cp_range, begin)), 2);
+        EXPECT_EQ(
+            std::distance(
+                begin, boost::text::prev_sentence_break(cp_range, begin)),
+            0);
+        EXPECT_EQ(
+            std::distance(
+                begin, boost::text::next_sentence_break(cp_range, begin)),
+            2);
     }
 
     {
@@ -1099,9 +1330,12 @@ TEST(break_apis, sentence_break_sentinel)
 
         int i = 0;
         for (auto sentence : all_sentences) {
-            EXPECT_EQ(std::distance(begin, sentence.begin()), sentence_bounds[i].first)
+            EXPECT_EQ(
+                std::distance(begin, sentence.begin()),
+                sentence_bounds[i].first)
                 << "i=" << i;
-            EXPECT_EQ(std::distance(begin, sentence.end()), sentence_bounds[i].second)
+            EXPECT_EQ(
+                std::distance(begin, sentence.end()), sentence_bounds[i].second)
                 << "i=" << i;
             ++i;
         }
@@ -1116,9 +1350,12 @@ TEST(break_apis, sentence_break_sentinel)
 
         int i = 0;
         for (auto sentence : all_sentences) {
-            EXPECT_EQ(std::distance(begin, sentence.begin()), sentence_bounds[i].first)
+            EXPECT_EQ(
+                std::distance(begin, sentence.begin()),
+                sentence_bounds[i].first)
                 << "i=" << i;
-            EXPECT_EQ(std::distance(begin, sentence.end()), sentence_bounds[i].second)
+            EXPECT_EQ(
+                std::distance(begin, sentence.end()), sentence_bounds[i].second)
                 << "i=" << i;
             ++i;
         }
@@ -1128,24 +1365,67 @@ TEST(break_apis, sentence_break_sentinel)
 
 TEST(break_apis, line_break)
 {
-    // × 200B × 0020 ÷ 0030 ÷	
-    // × [0.3] ZERO WIDTH SPACE (ZW) × [7.01] SPACE (SP) ÷ [8.0] DIGIT ZERO (NU) ÷ [0.3]
+    // × 200B × 0020 ÷ 0030 ÷
+    // × [0.3] ZERO WIDTH SPACE (ZW) × [7.01] SPACE (SP) ÷ [8.0] DIGIT ZERO (NU)
+    // ÷ [0.3]
     std::array<uint32_t, 3> cps = {{0x200b, 0x20, 0x30}};
 
     {
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(
+            boost::text::prev_allowed_line_break(
+                cps.begin(), cps.begin() + 0, cps.end())
+                    .iter -
+                cps.begin(),
+            0);
+        EXPECT_EQ(
+            boost::text::next_allowed_line_break(cps.begin() + 0, cps.end())
+                    .iter -
+                cps.begin(),
+            2);
+        EXPECT_EQ(
+            boost::text::prev_allowed_line_break(
+                cps.begin(), cps.begin() + 1, cps.end())
+                    .iter -
+                cps.begin(),
+            0);
+        EXPECT_EQ(
+            boost::text::next_allowed_line_break(cps.begin() + 0, cps.end())
+                    .iter -
+                cps.begin(),
+            2);
+        EXPECT_EQ(
+            boost::text::prev_allowed_line_break(
+                cps.begin(), cps.begin() + 2, cps.end())
+                    .iter -
+                cps.begin(),
+            2);
+        EXPECT_EQ(
+            boost::text::next_allowed_line_break(cps.begin() + 2, cps.end())
+                    .iter -
+                cps.begin(),
+            3);
+        EXPECT_EQ(
+            boost::text::prev_allowed_line_break(
+                cps.begin(), cps.begin() + 3, cps.end())
+                    .iter -
+                cps.begin(),
+            2);
+        EXPECT_EQ(
+            boost::text::next_allowed_line_break(cps.begin() + 2, cps.end())
+                    .iter -
+                cps.begin(),
+            3);
     }
     // Range API
     {
-        EXPECT_EQ(boost::text::prev_allowed_line_break(cps, cps.begin() + 0).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_allowed_line_break(cps, cps.begin() + 0).iter - cps.begin(), 2);
+        EXPECT_EQ(
+            boost::text::prev_allowed_line_break(cps, cps.begin() + 0).iter -
+                cps.begin(),
+            0);
+        EXPECT_EQ(
+            boost::text::next_allowed_line_break(cps, cps.begin() + 0).iter -
+                cps.begin(),
+            2);
     }
 
     {
@@ -1162,7 +1442,8 @@ TEST(break_apis, line_break)
     }
 
     {
-        auto const all_lines = boost::text::allowed_lines(cps.begin(), cps.end());
+        auto const all_lines =
+            boost::text::allowed_lines(cps.begin(), cps.end());
 
         std::array<std::pair<int, int>, 2> const line_bounds = {
             {{0, 2}, {2, 3}}};
@@ -1279,23 +1560,71 @@ TEST(break_apis, line_break_hard)
     std::array<uint32_t, 5> cps = {{'a', ' ', 'b', '\n', 'c'}};
 
     {
-        EXPECT_EQ(boost::text::prev_hard_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_hard_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_hard_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_hard_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_hard_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_hard_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_hard_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_hard_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_hard_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_hard_line_break(cps.begin() + 4, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_hard_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_hard_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(
+            boost::text::prev_hard_line_break(
+                cps.begin(), cps.begin() + 0, cps.end()) -
+                cps.begin(),
+            0);
+        EXPECT_EQ(
+            boost::text::next_hard_line_break(cps.begin() + 0, cps.end()) -
+                cps.begin(),
+            4);
+        EXPECT_EQ(
+            boost::text::prev_hard_line_break(
+                cps.begin(), cps.begin() + 1, cps.end()) -
+                cps.begin(),
+            0);
+        EXPECT_EQ(
+            boost::text::next_hard_line_break(cps.begin() + 1, cps.end()) -
+                cps.begin(),
+            4);
+        EXPECT_EQ(
+            boost::text::prev_hard_line_break(
+                cps.begin(), cps.begin() + 2, cps.end()) -
+                cps.begin(),
+            0);
+        EXPECT_EQ(
+            boost::text::next_hard_line_break(cps.begin() + 2, cps.end()) -
+                cps.begin(),
+            4);
+        EXPECT_EQ(
+            boost::text::prev_hard_line_break(
+                cps.begin(), cps.begin() + 3, cps.end()) -
+                cps.begin(),
+            0);
+        EXPECT_EQ(
+            boost::text::next_hard_line_break(cps.begin() + 3, cps.end()) -
+                cps.begin(),
+            4);
+        EXPECT_EQ(
+            boost::text::prev_hard_line_break(
+                cps.begin(), cps.begin() + 4, cps.end()) -
+                cps.begin(),
+            4);
+        EXPECT_EQ(
+            boost::text::next_hard_line_break(cps.begin() + 4, cps.end()) -
+                cps.begin(),
+            5);
+        EXPECT_EQ(
+            boost::text::prev_hard_line_break(
+                cps.begin(), cps.begin() + 5, cps.end()) -
+                cps.begin(),
+            4);
+        EXPECT_EQ(
+            boost::text::next_hard_line_break(cps.begin() + 5, cps.end()) -
+                cps.begin(),
+            5);
     }
     // Range API
     {
-        EXPECT_EQ(boost::text::prev_hard_line_break(cps, cps.begin() + 0) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_hard_line_break(cps, cps.begin() + 0) - cps.begin(), 4);
+        EXPECT_EQ(
+            boost::text::prev_hard_line_break(cps, cps.begin() + 0) -
+                cps.begin(),
+            0);
+        EXPECT_EQ(
+            boost::text::next_hard_line_break(cps, cps.begin() + 0) -
+                cps.begin(),
+            4);
     }
 
     {
@@ -1395,17 +1724,18 @@ std::vector<int> line_stateful_cp_extent::index_counts;
 TEST(break_apis, line_break_sentinel)
 {
     using u32_iter =
-        boost::text::utf8::to_utf32_iterator<char const *, char const *>;
+        boost::text::utf8_to_utf32_iterator<char const *, char const *>;
 
-    // × 200B × 0020 ÷ 0030 ÷	
-    // × [0.3] ZERO WIDTH SPACE (ZW) × [7.01] SPACE (SP) ÷ [8.0] DIGIT ZERO (NU) ÷ [0.3]
+    // × 200B × 0020 ÷ 0030 ÷
+    // × [0.3] ZERO WIDTH SPACE (ZW) × [7.01] SPACE (SP) ÷ [8.0] DIGIT ZERO (NU)
+    // ÷ [0.3]
     boost::text::string s;
     {
         std::array<uint32_t, 3> cps = {{0x200b, 0x20, 0x30}};
         s = boost::text::string(
-            boost::text::utf8::make_from_utf32_iterator(
+            boost::text::make_utf32_to_utf8_iterator(
                 cps.begin(), cps.begin(), cps.end()),
-            boost::text::utf8::make_from_utf32_iterator(
+            boost::text::make_utf32_to_utf8_iterator(
                 cps.begin(), cps.end(), cps.end()));
         assert(boost::algorithm::equal(
             cps.begin(),
@@ -1416,8 +1746,8 @@ TEST(break_apis, line_break_sentinel)
 
     char const * c_str = s.begin();
 
-    boost::text::cp_range<u32_iter, boost::text::utf8::null_sentinel> cp_range{
-        u32_iter(c_str, c_str, s.end()), boost::text::utf8::null_sentinel{}};
+    boost::text::cp_range<u32_iter, boost::text::null_sentinel> cp_range{
+        u32_iter(c_str, c_str, s.end()), boost::text::null_sentinel{}};
 
     auto const begin = cp_range.begin();
     auto const one = std::next(begin);
@@ -1426,19 +1756,55 @@ TEST(break_apis, line_break_sentinel)
     auto const end = cp_range.end();
 
     {
-        EXPECT_EQ(std::distance(begin, boost::text::prev_allowed_line_break(begin, begin, end).iter), 0);
-        EXPECT_EQ(std::distance(begin, boost::text::next_allowed_line_break(begin, end).iter), 2);
-        EXPECT_EQ(std::distance(begin, boost::text::prev_allowed_line_break(begin, one, end).iter), 0);
-        EXPECT_EQ(std::distance(begin, boost::text::next_allowed_line_break(begin, end).iter), 2);
-        EXPECT_EQ(std::distance(begin, boost::text::prev_allowed_line_break(begin, two, end).iter), 2);
-        EXPECT_EQ(std::distance(begin, boost::text::next_allowed_line_break(two, end).iter), 3);
-        EXPECT_EQ(std::distance(begin, boost::text::prev_allowed_line_break(begin, three, end).iter), 2);
-        EXPECT_EQ(std::distance(begin, boost::text::next_allowed_line_break(two, end).iter), 3);
+        EXPECT_EQ(
+            std::distance(
+                begin,
+                boost::text::prev_allowed_line_break(begin, begin, end).iter),
+            0);
+        EXPECT_EQ(
+            std::distance(
+                begin, boost::text::next_allowed_line_break(begin, end).iter),
+            2);
+        EXPECT_EQ(
+            std::distance(
+                begin,
+                boost::text::prev_allowed_line_break(begin, one, end).iter),
+            0);
+        EXPECT_EQ(
+            std::distance(
+                begin, boost::text::next_allowed_line_break(begin, end).iter),
+            2);
+        EXPECT_EQ(
+            std::distance(
+                begin,
+                boost::text::prev_allowed_line_break(begin, two, end).iter),
+            2);
+        EXPECT_EQ(
+            std::distance(
+                begin, boost::text::next_allowed_line_break(two, end).iter),
+            3);
+        EXPECT_EQ(
+            std::distance(
+                begin,
+                boost::text::prev_allowed_line_break(begin, three, end).iter),
+            2);
+        EXPECT_EQ(
+            std::distance(
+                begin, boost::text::next_allowed_line_break(two, end).iter),
+            3);
     }
     // Range API
     {
-        EXPECT_EQ(std::distance(begin, boost::text::prev_allowed_line_break(cp_range, begin).iter), 0);
-        EXPECT_EQ(std::distance(begin, boost::text::next_allowed_line_break(cp_range, begin).iter), 2);
+        EXPECT_EQ(
+            std::distance(
+                begin,
+                boost::text::prev_allowed_line_break(cp_range, begin).iter),
+            0);
+        EXPECT_EQ(
+            std::distance(
+                begin,
+                boost::text::next_allowed_line_break(cp_range, begin).iter),
+            2);
     }
 
     {
@@ -1577,13 +1943,32 @@ TEST(break_apis, line_break_sentinel)
         EXPECT_EQ(i, (int)line_bounds.size());
     }
 
-    std::array<uint32_t, 17> lb15_cps = {{0x0061, 0x006D, 0x0062, 0x0069, 0x0067, 0x0075, 0x0028, 0x00AB, 0x0020, 0x0308, 0x0020, 0x00BB, 0x0029, 0x0028, 0x0065, 0x0308, 0x0029}};
+    std::array<uint32_t, 17> lb15_cps = {{0x0061,
+                                          0x006D,
+                                          0x0062,
+                                          0x0069,
+                                          0x0067,
+                                          0x0075,
+                                          0x0028,
+                                          0x00AB,
+                                          0x0020,
+                                          0x0308,
+                                          0x0020,
+                                          0x00BB,
+                                          0x0029,
+                                          0x0028,
+                                          0x0065,
+                                          0x0308,
+                                          0x0029}};
 
     // Exercise detail::skip_forward() code.
     {
         // × 0024 × 0308 × 0020 ÷ 002D ÷ 0061 ÷
-        // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) ÷ [18.0] HYPHEN-MINUS (HY) ÷ [0.3] LATIN SMALL LETTER A (AL) ÷ [0.3]
-        std::array<uint32_t, 5> cps = {{0x0024, 0x0308, 0x0020, 0x002D, 0x0061}};
+        // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) ×
+        // [7.01] SPACE (SP) ÷ [18.0] HYPHEN-MINUS (HY) ÷ [0.3] LATIN SMALL
+        // LETTER A (AL) ÷ [0.3]
+        std::array<uint32_t, 5> cps = {
+            {0x0024, 0x0308, 0x0020, 0x002D, 0x0061}};
 
         using cp_iter_t = decltype(cps)::iterator;
         auto const _5_column_lines =
@@ -1612,7 +1997,8 @@ TEST(break_apis, line_break_sentinel)
     {
         // LB13/LB16
         // × 007D × 0020 × 17D6 ÷ 0061 ÷
-        // × [0.3] RIGHT CURLY BRACKET (CL) × [7.01] SPACE (SP) × [16.0] KHMER SIGN CAMNUC PII KUUH (NS) ÷ [0.3] LATIN SMALL LETTER A (AL) ÷ [0.3]
+        // × [0.3] RIGHT CURLY BRACKET (CL) × [7.01] SPACE (SP) × [16.0] KHMER
+        // SIGN CAMNUC PII KUUH (NS) ÷ [0.3] LATIN SMALL LETTER A (AL) ÷ [0.3]
         std::array<uint32_t, 4> cps = {{0x007D, 0x0020, 0x17D6, 0x0061}};
 
         using cp_iter_t = decltype(cps)::iterator;
@@ -1640,7 +2026,8 @@ TEST(break_apis, line_break_sentinel)
     {
         // LB14
         // × 0028 × 0020 × FFFC ÷ 0061 ÷
-        // × [0.3] LEFT PARENTHESIS (OP) × [7.01] SPACE (SP) × [14.0] OBJECT REPLACEMENT CHARACTER (CB) ÷ [0.3] LATIN SMALL LETTER A (AL) ÷ [0.3]
+        // × [0.3] LEFT PARENTHESIS (OP) × [7.01] SPACE (SP) × [14.0] OBJECT
+        // REPLACEMENT CHARACTER (CB) ÷ [0.3] LATIN SMALL LETTER A (AL) ÷ [0.3]
         std::array<uint32_t, 4> cps = {{0x0028, 0x0020, 0xFFFC, 0x0061}};
 
         using cp_iter_t = decltype(cps)::iterator;
@@ -1667,8 +2054,17 @@ TEST(break_apis, line_break_sentinel)
     }
     {
         // LB15
-        // × 0061 × 006D × 0062 × 0069 × 0067 × 0075 × 0028 × 00AB × 0020 ÷ 0308 × 0020 ÷ 00BB × 0029 ÷ 0028 × 0065 × 0308 × 0029 ÷
-        // × [0.3] LATIN SMALL LETTER A (AL) × [28.0] LATIN SMALL LETTER M (AL) × [28.0] LATIN SMALL LETTER B (AL) × [28.0] LATIN SMALL LETTER I (AL) × [28.0] LATIN SMALL LETTER G (AL) × [28.0] LATIN SMALL LETTER U (AL) × [30.01] LEFT PARENTHESIS (OP) × [14.0] LEFT-POINTING DOUBLE ANGLE QUOTATION MARK (QU) × [7.01] SPACE (SP) ÷ [18.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) ÷ [18.0] RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK (QU) × [13.02] RIGHT PARENTHESIS (CP) ÷ [999.0] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER E (AL) × [9.0] COMBINING DIAERESIS (CM1_CM) × [13.03] RIGHT PARENTHESIS (CP) ÷ [0.3]
+        // × 0061 × 006D × 0062 × 0069 × 0067 × 0075 × 0028 × 00AB × 0020 ÷ 0308
+        // × 0020 ÷ 00BB × 0029 ÷ 0028 × 0065 × 0308 × 0029 ÷ × [0.3] LATIN
+        // SMALL LETTER A (AL) × [28.0] LATIN SMALL LETTER M (AL) × [28.0] LATIN
+        // SMALL LETTER B (AL) × [28.0] LATIN SMALL LETTER I (AL) × [28.0] LATIN
+        // SMALL LETTER G (AL) × [28.0] LATIN SMALL LETTER U (AL) × [30.01] LEFT
+        // PARENTHESIS (OP) × [14.0] LEFT-POINTING DOUBLE ANGLE QUOTATION MARK
+        // (QU) × [7.01] SPACE (SP) ÷ [18.0] COMBINING DIAERESIS (CM1_CM) ×
+        // [7.01] SPACE (SP) ÷ [18.0] RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK
+        // (QU) × [13.02] RIGHT PARENTHESIS (CP) ÷ [999.0] LEFT PARENTHESIS (OP)
+        // × [14.0] LATIN SMALL LETTER E (AL) × [9.0] COMBINING DIAERESIS
+        // (CM1_CM) × [13.03] RIGHT PARENTHESIS (CP) ÷ [0.3]
 
         using cp_iter_t = decltype(lb15_cps)::iterator;
         auto const _17_column_lines =
@@ -1697,7 +2093,8 @@ TEST(break_apis, line_break_sentinel)
     {
         // LB16
         // × 2014 × 0020 × 2014 ÷ 0061 ÷
-        // × [0.3] EM DASH (B2) × [7.01] SPACE (SP) × [17.0] EM DASH (B2) ÷ [0.3] LATIN SMALL LETTER A (AL) ÷ [0.3]
+        // × [0.3] EM DASH (B2) × [7.01] SPACE (SP) × [17.0] EM DASH (B2) ÷
+        // [0.3] LATIN SMALL LETTER A (AL) ÷ [0.3]
         std::array<uint32_t, 4> cps = {{0x2014, 0x0020, 0x2014, 0x0061}};
 
         using cp_iter_t = decltype(cps)::iterator;
@@ -1724,7 +2121,8 @@ TEST(break_apis, line_break_sentinel)
     }
 
     {
-        // × 0061 × 006D × 0062    × 0069 × 0067 × 0075 ×    0028 × 00AB × 0020 ÷    0308 × 0020 ÷    00BB × 0029 ÷    0028 × 0065 × 0308 ×    0029 ÷
+        // × 0061 × 006D × 0062    × 0069 × 0067 × 0075 ×    0028 × 00AB × 0020
+        // ÷    0308 × 0020 ÷    00BB × 0029 ÷    0028 × 0065 × 0308 ×    0029 ÷
         using cp_iter_t = decltype(lb15_cps)::iterator;
         auto const _3_column_lines =
             boost::text::lines(lb15_cps, 3, [](cp_iter_t it, cp_iter_t last) {
@@ -1760,7 +2158,8 @@ TEST(break_apis, line_break_sentinel)
     {
         line_stateful_cp_extent::index_counts.clear();
 
-        // × 0061 × 006D × 0062    × 0069 × 0067 × 0075 ×    0028 × 00AB × 0020 ÷    0308 × 0020 ÷    00BB × 0029 ÷    0028 × 0065 × 0308 ×    0029 ÷
+        // × 0061 × 006D × 0062    × 0069 × 0067 × 0075 ×    0028 × 00AB × 0020
+        // ÷    0308 × 0020 ÷    00BB × 0029 ÷    0028 × 0065 × 0308 ×    0029 ÷
         auto const _3_column_lines =
             boost::text::lines(lb15_cps, 3, line_stateful_cp_extent{});
 
@@ -1797,7 +2196,9 @@ TEST(break_apis, line_break_sentinel)
     }
 
     {
-        // × 0061 × 006D ×    0062 × 0069 ×    0067 × 0075 ×    0028 × 00AB ×    0020 ÷    0308 × 0020 ÷    00BB × 0029 ÷    0028 × 0065 ×    0308 × 0029 ÷
+        // × 0061 × 006D ×    0062 × 0069 ×    0067 × 0075 ×    0028 × 00AB ×
+        // 0020 ÷    0308 × 0020 ÷    00BB × 0029 ÷    0028 × 0065 ×    0308 ×
+        // 0029 ÷
         using cp_iter_t = decltype(lb15_cps)::iterator;
         auto const _3_column_lines =
             boost::text::lines(lb15_cps, 5, [](cp_iter_t it, cp_iter_t last) {
@@ -1859,25 +2260,80 @@ TEST(break_apis, paragraph_break)
     std::vector<uint32_t> const cps = {0x61, 0xd, 0xa, 0x2e, 0xa, 0x61};
 
     {
-        EXPECT_EQ(boost::text::prev_paragraph_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_paragraph_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_paragraph_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_paragraph_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_paragraph_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_paragraph_break(cps.begin() + 3, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_paragraph_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_paragraph_break(cps.begin() + 3, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_paragraph_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_paragraph_break(cps.begin() + 3, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_paragraph_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_paragraph_break(cps.begin() + 5, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_paragraph_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_paragraph_break(cps.begin() + 5, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(
+            boost::text::prev_paragraph_break(
+                cps.begin(), cps.begin() + 0, cps.end()) -
+                cps.begin(),
+            0);
+        EXPECT_EQ(
+            boost::text::next_paragraph_break(cps.begin() + 0, cps.end()) -
+                cps.begin(),
+            3);
+        EXPECT_EQ(
+            boost::text::prev_paragraph_break(
+                cps.begin(), cps.begin() + 1, cps.end()) -
+                cps.begin(),
+            0);
+        EXPECT_EQ(
+            boost::text::next_paragraph_break(cps.begin() + 0, cps.end()) -
+                cps.begin(),
+            3);
+        EXPECT_EQ(
+            boost::text::prev_paragraph_break(
+                cps.begin(), cps.begin() + 2, cps.end()) -
+                cps.begin(),
+            0);
+        EXPECT_EQ(
+            boost::text::next_paragraph_break(cps.begin() + 3, cps.end()) -
+                cps.begin(),
+            5);
+        EXPECT_EQ(
+            boost::text::prev_paragraph_break(
+                cps.begin(), cps.begin() + 3, cps.end()) -
+                cps.begin(),
+            3);
+        EXPECT_EQ(
+            boost::text::next_paragraph_break(cps.begin() + 3, cps.end()) -
+                cps.begin(),
+            5);
+        EXPECT_EQ(
+            boost::text::prev_paragraph_break(
+                cps.begin(), cps.begin() + 4, cps.end()) -
+                cps.begin(),
+            3);
+        EXPECT_EQ(
+            boost::text::next_paragraph_break(cps.begin() + 3, cps.end()) -
+                cps.begin(),
+            5);
+        EXPECT_EQ(
+            boost::text::prev_paragraph_break(
+                cps.begin(), cps.begin() + 5, cps.end()) -
+                cps.begin(),
+            5);
+        EXPECT_EQ(
+            boost::text::next_paragraph_break(cps.begin() + 5, cps.end()) -
+                cps.begin(),
+            6);
+        EXPECT_EQ(
+            boost::text::prev_paragraph_break(
+                cps.begin(), cps.begin() + 6, cps.end()) -
+                cps.begin(),
+            5);
+        EXPECT_EQ(
+            boost::text::next_paragraph_break(cps.begin() + 5, cps.end()) -
+                cps.begin(),
+            6);
     }
     // Range API
     {
-        EXPECT_EQ(boost::text::prev_paragraph_break(cps, cps.begin() + 0) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_paragraph_break(cps, cps.begin() + 0) - cps.begin(), 3);
+        EXPECT_EQ(
+            boost::text::prev_paragraph_break(cps, cps.begin() + 0) -
+                cps.begin(),
+            0);
+        EXPECT_EQ(
+            boost::text::next_paragraph_break(cps, cps.begin() + 0) -
+                cps.begin(),
+            3);
     }
 
     {
@@ -1894,7 +2350,8 @@ TEST(break_apis, paragraph_break)
     }
 
     {
-        auto const all_paragraphs = boost::text::paragraphs(cps.begin(), cps.end());
+        auto const all_paragraphs =
+            boost::text::paragraphs(cps.begin(), cps.end());
 
         std::array<std::pair<int, int>, 3> const paragraph_bounds = {
             {{0, 3}, {3, 5}, {5, 6}}};
@@ -1959,16 +2416,16 @@ TEST(break_apis, paragraph_break)
 TEST(break_apis, paragraph_break_sentinel)
 {
     using u32_iter =
-        boost::text::utf8::to_utf32_iterator<char const *, char const *>;
+        boost::text::utf8_to_utf32_iterator<char const *, char const *>;
 
     // ÷ 0061 × 000D × 000A ÷ 002E × 000A ÷ 0061 ÷
     boost::text::string s;
     {
         std::array<uint32_t, 6> cps = {{0x61, 0xd, 0xa, 0x2e, 0xa, 0x61}};
         s = boost::text::string(
-            boost::text::utf8::make_from_utf32_iterator(
+            boost::text::make_utf32_to_utf8_iterator(
                 cps.begin(), cps.begin(), cps.end()),
-            boost::text::utf8::make_from_utf32_iterator(
+            boost::text::make_utf32_to_utf8_iterator(
                 cps.begin(), cps.end(), cps.end()));
         assert(boost::algorithm::equal(
             cps.begin(),
@@ -1979,8 +2436,8 @@ TEST(break_apis, paragraph_break_sentinel)
 
     char const * c_str = s.begin();
 
-    boost::text::cp_range<u32_iter, boost::text::utf8::null_sentinel> cp_range{
-        u32_iter(c_str, c_str, s.end()), boost::text::utf8::null_sentinel{}};
+    boost::text::cp_range<u32_iter, boost::text::null_sentinel> cp_range{
+        u32_iter(c_str, c_str, s.end()), boost::text::null_sentinel{}};
 
     auto const begin = cp_range.begin();
     auto const one = std::next(begin);
@@ -1992,25 +2449,66 @@ TEST(break_apis, paragraph_break_sentinel)
     auto const end = cp_range.end();
 
     {
-        EXPECT_EQ(std::distance(begin, boost::text::prev_paragraph_break(begin, begin, end)), 0);
-        EXPECT_EQ(std::distance(begin, boost::text::next_paragraph_break(begin, end)), 3);
-        EXPECT_EQ(std::distance(begin, boost::text::prev_paragraph_break(begin, one, end)), 0);
-        EXPECT_EQ(std::distance(begin, boost::text::next_paragraph_break(begin, end)), 3);
-        EXPECT_EQ(std::distance(begin, boost::text::prev_paragraph_break(begin, two, end)), 0);
-        EXPECT_EQ(std::distance(begin, boost::text::next_paragraph_break(begin, end)), 3);
-        EXPECT_EQ(std::distance(begin, boost::text::prev_paragraph_break(begin, three, end)), 3);
-        EXPECT_EQ(std::distance(begin, boost::text::next_paragraph_break(three, end)), 5);
-        EXPECT_EQ(std::distance(begin, boost::text::prev_paragraph_break(begin, four, end)), 3);
-        EXPECT_EQ(std::distance(begin, boost::text::next_paragraph_break(three, end)), 5);
-        EXPECT_EQ(std::distance(begin, boost::text::prev_paragraph_break(begin, five, end)), 5);
-        EXPECT_EQ(std::distance(begin, boost::text::next_paragraph_break(five, end)), 6);
-        EXPECT_EQ(std::distance(begin, boost::text::prev_paragraph_break(begin, six, end)), 5);
-        EXPECT_EQ(std::distance(begin, boost::text::next_paragraph_break(five, end)), 6);
+        EXPECT_EQ(
+            std::distance(
+                begin, boost::text::prev_paragraph_break(begin, begin, end)),
+            0);
+        EXPECT_EQ(
+            std::distance(begin, boost::text::next_paragraph_break(begin, end)),
+            3);
+        EXPECT_EQ(
+            std::distance(
+                begin, boost::text::prev_paragraph_break(begin, one, end)),
+            0);
+        EXPECT_EQ(
+            std::distance(begin, boost::text::next_paragraph_break(begin, end)),
+            3);
+        EXPECT_EQ(
+            std::distance(
+                begin, boost::text::prev_paragraph_break(begin, two, end)),
+            0);
+        EXPECT_EQ(
+            std::distance(begin, boost::text::next_paragraph_break(begin, end)),
+            3);
+        EXPECT_EQ(
+            std::distance(
+                begin, boost::text::prev_paragraph_break(begin, three, end)),
+            3);
+        EXPECT_EQ(
+            std::distance(begin, boost::text::next_paragraph_break(three, end)),
+            5);
+        EXPECT_EQ(
+            std::distance(
+                begin, boost::text::prev_paragraph_break(begin, four, end)),
+            3);
+        EXPECT_EQ(
+            std::distance(begin, boost::text::next_paragraph_break(three, end)),
+            5);
+        EXPECT_EQ(
+            std::distance(
+                begin, boost::text::prev_paragraph_break(begin, five, end)),
+            5);
+        EXPECT_EQ(
+            std::distance(begin, boost::text::next_paragraph_break(five, end)),
+            6);
+        EXPECT_EQ(
+            std::distance(
+                begin, boost::text::prev_paragraph_break(begin, six, end)),
+            5);
+        EXPECT_EQ(
+            std::distance(begin, boost::text::next_paragraph_break(five, end)),
+            6);
     }
     // Range API
     {
-        EXPECT_EQ(std::distance(begin, boost::text::prev_paragraph_break(cp_range, begin)), 0);
-        EXPECT_EQ(std::distance(begin, boost::text::next_paragraph_break(cp_range, begin)), 3);
+        EXPECT_EQ(
+            std::distance(
+                begin, boost::text::prev_paragraph_break(cp_range, begin)),
+            0);
+        EXPECT_EQ(
+            std::distance(
+                begin, boost::text::next_paragraph_break(cp_range, begin)),
+            3);
     }
 
     {
@@ -2033,9 +2531,13 @@ TEST(break_apis, paragraph_break_sentinel)
 
         int i = 0;
         for (auto paragraph : all_paragraphs) {
-            EXPECT_EQ(std::distance(begin, paragraph.begin()), paragraph_bounds[i].first)
+            EXPECT_EQ(
+                std::distance(begin, paragraph.begin()),
+                paragraph_bounds[i].first)
                 << "i=" << i;
-            EXPECT_EQ(std::distance(begin, paragraph.end()), paragraph_bounds[i].second)
+            EXPECT_EQ(
+                std::distance(begin, paragraph.end()),
+                paragraph_bounds[i].second)
                 << "i=" << i;
             ++i;
         }
@@ -2050,9 +2552,13 @@ TEST(break_apis, paragraph_break_sentinel)
 
         int i = 0;
         for (auto paragraph : all_paragraphs) {
-            EXPECT_EQ(std::distance(begin, paragraph.begin()), paragraph_bounds[i].first)
+            EXPECT_EQ(
+                std::distance(begin, paragraph.begin()),
+                paragraph_bounds[i].first)
                 << "i=" << i;
-            EXPECT_EQ(std::distance(begin, paragraph.end()), paragraph_bounds[i].second)
+            EXPECT_EQ(
+                std::distance(begin, paragraph.end()),
+                paragraph_bounds[i].second)
                 << "i=" << i;
             ++i;
         }
@@ -2086,8 +2592,22 @@ std::vector<int> bidi_stateful_cp_extent::index_counts;
 TEST(break_apis, bidi)
 {
     // ON RLE ON FSI ON R RLO L PDF ON PDI ON PDF ON; 3 ('LTR') (line 496999)
-    std::vector<uint32_t> const cps = { 0x0021, 0x202B, 0x0021, 0x2068, 0x0021, 0x05BE, 0x202E, 0x0041, 0x202C, 0x0021, 0x2069, 0x0021, 0x202C, 0x0021 };
-    std::vector<uint32_t> const expected_reordered_indices = { 0, 11, 10, 9, 7, 5, 4, 3, 2, 13 };
+    std::vector<uint32_t> const cps = {0x0021,
+                                       0x202B,
+                                       0x0021,
+                                       0x2068,
+                                       0x0021,
+                                       0x05BE,
+                                       0x202E,
+                                       0x0041,
+                                       0x202C,
+                                       0x0021,
+                                       0x2069,
+                                       0x0021,
+                                       0x202C,
+                                       0x0021};
+    std::vector<uint32_t> const expected_reordered_indices = {
+        0, 11, 10, 9, 7, 5, 4, 3, 2, 13};
 
     {
         std::vector<uint32_t> reordered;
@@ -2101,9 +2621,7 @@ TEST(break_apis, bidi)
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
                 EXPECT_EQ(reordered[i], cps[idx])
-                    << std::hex
-                    << " 0x" << reordered[i]
-                    << " 0x" << cps[idx]
+                    << std::hex << " 0x" << reordered[i] << " 0x" << cps[idx]
                     << std::dec << " i=" << i;
             }
             ++i;
@@ -2123,9 +2641,7 @@ TEST(break_apis, bidi)
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
                 EXPECT_EQ(reordered[i], cps[idx])
-                    << std::hex
-                    << " 0x" << reordered[i]
-                    << " 0x" << cps[idx]
+                    << std::hex << " 0x" << reordered[i] << " 0x" << cps[idx]
                     << std::dec << " i=" << i;
             }
             ++i;
@@ -2145,9 +2661,7 @@ TEST(break_apis, bidi)
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
                 EXPECT_EQ(reordered[i], cps[idx])
-                    << std::hex
-                    << " 0x" << reordered[i]
-                    << " 0x" << cps[idx]
+                    << std::hex << " 0x" << reordered[i] << " 0x" << cps[idx]
                     << std::dec << " i=" << i;
             }
             ++i;
@@ -2166,9 +2680,7 @@ TEST(break_apis, bidi)
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
                 EXPECT_EQ(reordered[i], cps[idx])
-                    << std::hex
-                    << " 0x" << reordered[i]
-                    << " 0x" << cps[idx]
+                    << std::hex << " 0x" << reordered[i] << " 0x" << cps[idx]
                     << std::dec << " i=" << i;
             }
             ++i;
@@ -2191,9 +2703,7 @@ TEST(break_apis, bidi)
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
                 EXPECT_EQ(reordered[i], cps[idx])
-                    << std::hex
-                    << " 0x" << reordered[i]
-                    << " 0x" << cps[idx]
+                    << std::hex << " 0x" << reordered[i] << " 0x" << cps[idx]
                     << std::dec << " i=" << i;
             }
             ++i;
@@ -2222,9 +2732,7 @@ TEST(break_apis, bidi)
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
                 EXPECT_EQ(reordered[i], cps[idx])
-                    << std::hex
-                    << " 0x" << reordered[i]
-                    << " 0x" << cps[idx]
+                    << std::hex << " 0x" << reordered[i] << " 0x" << cps[idx]
                     << std::dec << " i=" << i;
             }
             ++i;
@@ -2254,9 +2762,7 @@ TEST(break_apis, bidi)
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
                 EXPECT_EQ(reordered[i], cps[idx])
-                    << std::hex
-                    << " 0x" << reordered[i]
-                    << " 0x" << cps[idx]
+                    << std::hex << " 0x" << reordered[i] << " 0x" << cps[idx]
                     << std::dec << " i=" << i;
             }
             ++i;
@@ -2285,9 +2791,7 @@ TEST(break_apis, bidi)
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
                 EXPECT_EQ(reordered[i], cps[idx])
-                    << std::hex
-                    << " 0x" << reordered[i]
-                    << " 0x" << cps[idx]
+                    << std::hex << " 0x" << reordered[i] << " 0x" << cps[idx]
                     << std::dec << " i=" << i;
             }
             ++i;
@@ -2306,18 +2810,32 @@ TEST(break_apis, bidi)
 TEST(break_apis, bidi_sentinel)
 {
     using u32_iter =
-        boost::text::utf8::to_utf32_iterator<char const *, char const *>;
+        boost::text::utf8_to_utf32_iterator<char const *, char const *>;
 
     boost::text::string s;
 
     // ON RLE ON FSI ON R RLO L PDF ON PDI ON PDF ON; 3 ('LTR') (line 496999)
-    std::vector<uint32_t> const cps = { 0x0021, 0x202B, 0x0021, 0x2068, 0x0021, 0x05BE, 0x202E, 0x0041, 0x202C, 0x0021, 0x2069, 0x0021, 0x202C, 0x0021 };
-    std::vector<uint32_t> const expected_reordered_indices = { 0, 11, 10, 9, 7, 5, 4, 3, 2, 13 };
+    std::vector<uint32_t> const cps = {0x0021,
+                                       0x202B,
+                                       0x0021,
+                                       0x2068,
+                                       0x0021,
+                                       0x05BE,
+                                       0x202E,
+                                       0x0041,
+                                       0x202C,
+                                       0x0021,
+                                       0x2069,
+                                       0x0021,
+                                       0x202C,
+                                       0x0021};
+    std::vector<uint32_t> const expected_reordered_indices = {
+        0, 11, 10, 9, 7, 5, 4, 3, 2, 13};
     {
         s = boost::text::string(
-            boost::text::utf8::make_from_utf32_iterator(
+            boost::text::make_utf32_to_utf8_iterator(
                 cps.begin(), cps.begin(), cps.end()),
-            boost::text::utf8::make_from_utf32_iterator(
+            boost::text::make_utf32_to_utf8_iterator(
                 cps.begin(), cps.end(), cps.end()));
         assert(boost::algorithm::equal(
             cps.begin(),
@@ -2328,8 +2846,8 @@ TEST(break_apis, bidi_sentinel)
 
     char const * c_str = s.begin();
 
-    boost::text::cp_range<u32_iter, boost::text::utf8::null_sentinel> cp_range{
-        u32_iter(c_str, c_str, s.end()), boost::text::utf8::null_sentinel{}};
+    boost::text::cp_range<u32_iter, boost::text::null_sentinel> cp_range{
+        u32_iter(c_str, c_str, s.end()), boost::text::null_sentinel{}};
 
     auto const begin = cp_range.begin();
     auto const end = cp_range.end();
@@ -2346,9 +2864,7 @@ TEST(break_apis, bidi_sentinel)
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
                 EXPECT_EQ(reordered[i], cps[idx])
-                    << std::hex
-                    << " 0x" << reordered[i]
-                    << " 0x" << cps[idx]
+                    << std::hex << " 0x" << reordered[i] << " 0x" << cps[idx]
                     << std::dec << " i=" << i;
             }
             ++i;
@@ -2367,9 +2883,7 @@ TEST(break_apis, bidi_sentinel)
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
                 EXPECT_EQ(reordered[i], cps[idx])
-                    << std::hex
-                    << " 0x" << reordered[i]
-                    << " 0x" << cps[idx]
+                    << std::hex << " 0x" << reordered[i] << " 0x" << cps[idx]
                     << std::dec << " i=" << i;
             }
             ++i;
@@ -2380,7 +2894,8 @@ TEST(break_apis, bidi_sentinel)
     // Range API
     {
         std::vector<uint32_t> reordered;
-        for (auto subrange : boost::text::bidirectional_subranges(cp_range, 0)) {
+        for (auto subrange :
+             boost::text::bidirectional_subranges(cp_range, 0)) {
             for (auto cp : subrange) {
                 reordered.push_back(cp);
             }
@@ -2389,9 +2904,7 @@ TEST(break_apis, bidi_sentinel)
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
                 EXPECT_EQ(reordered[i], cps[idx])
-                    << std::hex
-                    << " 0x" << reordered[i]
-                    << " 0x" << cps[idx]
+                    << std::hex << " 0x" << reordered[i] << " 0x" << cps[idx]
                     << std::dec << " i=" << i;
             }
             ++i;
@@ -2410,9 +2923,7 @@ TEST(break_apis, bidi_sentinel)
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
                 EXPECT_EQ(reordered[i], cps[idx])
-                    << std::hex
-                    << " 0x" << reordered[i]
-                    << " 0x" << cps[idx]
+                    << std::hex << " 0x" << reordered[i] << " 0x" << cps[idx]
                     << std::dec << " i=" << i;
             }
             ++i;
@@ -2435,9 +2946,7 @@ TEST(break_apis, bidi_sentinel)
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
                 EXPECT_EQ(reordered[i], cps[idx])
-                    << std::hex
-                    << " 0x" << reordered[i]
-                    << " 0x" << cps[idx]
+                    << std::hex << " 0x" << reordered[i] << " 0x" << cps[idx]
                     << std::dec << " i=" << i;
             }
             ++i;
@@ -2466,9 +2975,7 @@ TEST(break_apis, bidi_sentinel)
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
                 EXPECT_EQ(reordered[i], cps[idx])
-                    << std::hex
-                    << " 0x" << reordered[i]
-                    << " 0x" << cps[idx]
+                    << std::hex << " 0x" << reordered[i] << " 0x" << cps[idx]
                     << std::dec << " i=" << i;
             }
             ++i;
@@ -2498,9 +3005,7 @@ TEST(break_apis, bidi_sentinel)
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
                 EXPECT_EQ(reordered[i], cps[idx])
-                    << std::hex
-                    << " 0x" << reordered[i]
-                    << " 0x" << cps[idx]
+                    << std::hex << " 0x" << reordered[i] << " 0x" << cps[idx]
                     << std::dec << " i=" << i;
             }
             ++i;
@@ -2529,9 +3034,7 @@ TEST(break_apis, bidi_sentinel)
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
                 EXPECT_EQ(reordered[i], cps[idx])
-                    << std::hex
-                    << " 0x" << reordered[i]
-                    << " 0x" << cps[idx]
+                    << std::hex << " 0x" << reordered[i] << " 0x" << cps[idx]
                     << std::dec << " i=" << i;
             }
             ++i;

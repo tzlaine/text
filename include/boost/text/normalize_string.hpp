@@ -26,7 +26,7 @@ namespace boost { namespace text {
         normalize_to_nfd(
             as_utf32.begin(),
             as_utf32.end(),
-            utf8::from_utf32_inserter(temp, temp.end()));
+            utf32_to_utf8_inserter(temp, temp.end()));
 
         if (temp.size() <= s.capacity())
             s = temp;
@@ -53,7 +53,7 @@ namespace boost { namespace text {
         normalize_to_nfkd(
             as_utf32.begin(),
             as_utf32.end(),
-            utf8::from_utf32_inserter(temp, temp.end()));
+            utf32_to_utf8_inserter(temp, temp.end()));
 
         if (temp.size() <= s.capacity())
             s = temp;
@@ -80,7 +80,7 @@ namespace boost { namespace text {
         normalize_to_nfc(
             as_utf32.begin(),
             as_utf32.end(),
-            utf8::from_utf32_inserter(temp, temp.end()));
+            utf32_to_utf8_inserter(temp, temp.end()));
 
         if (temp.size() <= s.capacity())
             s = temp;
@@ -107,7 +107,7 @@ namespace boost { namespace text {
         normalize_to_nfkc(
             as_utf32.begin(),
             as_utf32.end(),
-            utf8::from_utf32_inserter(temp, temp.end()));
+            utf32_to_utf8_inserter(temp, temp.end()));
 
         if (temp.size() <= s.capacity())
             s = temp;
@@ -127,7 +127,7 @@ namespace boost { namespace text {
         normalize_to_fcc(
             as_utf32.begin(),
             as_utf32.end(),
-            utf8::from_utf32_inserter(temp, temp.end()));
+            utf32_to_utf8_inserter(temp, temp.end()));
 
         if (temp.size() <= s.capacity())
             s = temp;

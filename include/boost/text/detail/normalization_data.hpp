@@ -1,7 +1,7 @@
 #ifndef BOOST_TEXT_DETAIL_NORMALIZATION_DATA_HPP
 #define BOOST_TEXT_DETAIL_NORMALIZATION_DATA_HPP
 
-#include <boost/text/utf8.hpp>
+#include <boost/text/transcode_iterator.hpp>
 #include <boost/text/detail/lzw.hpp>
 
 #include <boost/container/small_vector.hpp>

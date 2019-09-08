@@ -1,5 +1,5 @@
 #include <boost/text/transcode_algorithm.hpp>
-#include <boost/text/utf16.hpp>
+#include <boost/text/transcode_iterator.hpp>
 
 #include <gtest/gtest.h>
 
@@ -105,7 +105,7 @@ TEST(transcode_algorthm, from_utf8_non_error)
         std::vector<uint32_t> result(10);
         auto const out_first = &result[0];
         auto const out_last = text::transcode_utf_8_to_32(
-            std::begin(utf8), text::utf8::null_sentinel{}, &result[0]);
+            std::begin(utf8), text::null_sentinel{}, &result[0]);
         result.resize(out_last - out_first);
         EXPECT_EQ(
             result, std::vector<uint32_t>({0x004d, 0x0430, 0x4e8c, 0x10302}));
@@ -134,7 +134,7 @@ TEST(transcode_algorthm, from_utf8_non_error)
         std::vector<uint32_t> result;
         text::transcode_utf_8_to_32(
             std::begin(utf8),
-            text::utf8::null_sentinel{},
+            text::null_sentinel{},
             std::back_inserter(result));
         EXPECT_EQ(
             result, std::vector<uint32_t>({0x004d, 0x0430, 0x4e8c, 0x10302}));
@@ -165,7 +165,7 @@ TEST(transcode_algorthm, from_utf8_non_error)
         std::vector<uint16_t> result(10);
         auto const out_first = &result[0];
         auto const out_last = text::transcode_utf_8_to_16(
-            std::begin(utf8), text::utf8::null_sentinel{}, &result[0]);
+            std::begin(utf8), text::null_sentinel{}, &result[0]);
         result.resize(out_last - out_first);
         EXPECT_EQ(
             result,
@@ -197,7 +197,7 @@ TEST(transcode_algorthm, from_utf8_non_error)
         std::vector<uint16_t> result;
         text::transcode_utf_8_to_16(
             std::begin(utf8),
-            text::utf8::null_sentinel{},
+            text::null_sentinel{},
             std::back_inserter(result));
         EXPECT_EQ(
             result,
@@ -259,7 +259,7 @@ TEST(transcode_algorthm, from_utf8_errors_0)
         std::vector<uint32_t> result(10);
         auto const out_first = &result[0];
         auto const out_last = text::transcode_utf_8_to_32(
-            std::begin(bad_utf8), text::utf8::null_sentinel{}, &result[0]);
+            std::begin(bad_utf8), text::null_sentinel{}, &result[0]);
         result.resize(out_last - out_first);
         EXPECT_EQ(
             result,
@@ -320,7 +320,7 @@ TEST(transcode_algorthm, from_utf8_errors_0)
         std::vector<uint32_t> result;
         text::transcode_utf_8_to_32(
             std::begin(bad_utf8),
-            text::utf8::null_sentinel{},
+            text::null_sentinel{},
             std::back_inserter(result));
         EXPECT_EQ(
             result,
@@ -802,9 +802,9 @@ TEST(transcode_algorthm, from_utf16_non_error)
 TEST(transcode_algorthm, from_long_utf16_sequence)
 {
     std::vector<uint16_t> cus;
-    auto const utf16_first = text::utf16::make_from_utf32_iterator(
+    auto const utf16_first = text::make_utf32_to_utf16_iterator(
         std::begin(cps), std::begin(cps), std::end(cps));
-    auto const utf16_last = text::utf16::make_from_utf32_iterator(
+    auto const utf16_last = text::make_utf32_to_utf16_iterator(
         std::begin(cps), std::end(cps), std::end(cps));
     std::copy(utf16_first, utf16_last, std::back_inserter(cus));
 
@@ -855,9 +855,9 @@ TEST(transcode_algorthm, from_long_utf16_sequence)
 
     std::vector<char> cps_to_8;
     std::copy(
-        text::utf8::make_from_utf32_iterator(
+        text::make_utf32_to_utf8_iterator(
             std::begin(cps), std::begin(cps), std::end(cps)),
-        text::utf8::make_from_utf32_iterator(
+        text::make_utf32_to_utf8_iterator(
             std::begin(cps), std::end(cps), std::end(cps)),
         std::back_inserter(cps_to_8));
 
@@ -1172,9 +1172,9 @@ TEST(transcode_algorthm, from_long_utf32_sequence)
 {
     std::vector<uint16_t> cps_to_16;
     std::copy(
-        text::utf16::make_from_utf32_iterator(
+        text::make_utf32_to_utf16_iterator(
             std::begin(cps), std::begin(cps), std::end(cps)),
-        text::utf16::make_from_utf32_iterator(
+        text::make_utf32_to_utf16_iterator(
             std::begin(cps), std::end(cps), std::end(cps)),
         std::back_inserter(cps_to_16));
 
@@ -1215,9 +1215,9 @@ TEST(transcode_algorthm, from_long_utf32_sequence)
 
     std::vector<char> cps_to_8;
     std::copy(
-        text::utf8::make_from_utf32_iterator(
+        text::make_utf32_to_utf8_iterator(
             std::begin(cps), std::begin(cps), std::end(cps)),
-        text::utf8::make_from_utf32_iterator(
+        text::make_utf32_to_utf8_iterator(
             std::begin(cps), std::end(cps), std::end(cps)),
         std::back_inserter(cps_to_8));
 
