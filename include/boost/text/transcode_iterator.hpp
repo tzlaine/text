@@ -153,9 +153,9 @@ namespace boost { namespace text {
     BOOST_TEXT_CXX14_CONSTEXPR detail::enable_utf16_cp_t<T, int>
     code_point_units(T first) noexcept
     {
-        if (text::low_surrogate(first))
+        if (boost::text::low_surrogate(first))
             return -1;
-        if (text::high_surrogate(first))
+        if (boost::text::high_surrogate(first))
             return 2;
         return 1;
     }
@@ -216,7 +216,7 @@ namespace boost { namespace text {
         BOOST_TEXT_CXX14_CONSTEXPR optional_iter<Iter>
         end_of_invalid_utf8(Iter it) noexcept
         {
-            BOOST_ASSERT(!text::continuation(*it));
+            BOOST_ASSERT(!boost::text::continuation(*it));
 
             using detail::in;
 
@@ -225,71 +225,71 @@ namespace boost { namespace text {
 
             if (in(0xc2, *it, 0xdf)) {
                 auto next = it;
-                if (!text::continuation(*++next))
+                if (!boost::text::continuation(*++next))
                     return next;
                 return optional_iter<Iter>{};
             }
 
             if (in(0xe0, *it, 0xe0)) {
                 auto next = it;
-                if (!text::continuation(*++next, 0xa0, 0xbf))
+                if (!boost::text::continuation(*++next, 0xa0, 0xbf))
                     return next;
-                if (!text::continuation(*++next))
+                if (!boost::text::continuation(*++next))
                     return next;
                 return optional_iter<Iter>{};
             }
             if (in(0xe1, *it, 0xec)) {
                 auto next = it;
-                if (!text::continuation(*++next))
+                if (!boost::text::continuation(*++next))
                     return next;
-                if (!text::continuation(*++next))
+                if (!boost::text::continuation(*++next))
                     return next;
                 return optional_iter<Iter>{};
             }
             if (in(0xed, *it, 0xed)) {
                 auto next = it;
-                if (!text::continuation(*++next, 0x80, 0x9f))
+                if (!boost::text::continuation(*++next, 0x80, 0x9f))
                     return next;
-                if (!text::continuation(*++next))
+                if (!boost::text::continuation(*++next))
                     return next;
                 return optional_iter<Iter>{};
             }
             if (in(0xee, *it, 0xef)) {
                 auto next = it;
-                if (!text::continuation(*++next))
+                if (!boost::text::continuation(*++next))
                     return next;
-                if (!text::continuation(*++next))
+                if (!boost::text::continuation(*++next))
                     return next;
                 return optional_iter<Iter>{};
             }
 
             if (in(0xf0, *it, 0xf0)) {
                 auto next = it;
-                if (!text::continuation(*++next, 0x90, 0xbf))
+                if (!boost::text::continuation(*++next, 0x90, 0xbf))
                     return next;
-                if (!text::continuation(*++next))
+                if (!boost::text::continuation(*++next))
                     return next;
-                if (!text::continuation(*++next))
+                if (!boost::text::continuation(*++next))
                     return next;
                 return optional_iter<Iter>{};
             }
             if (in(0xf1, *it, 0xf3)) {
                 auto next = it;
-                if (!text::continuation(*++next))
+                if (!boost::text::continuation(*++next))
                     return next;
-                if (!text::continuation(*++next))
+                if (!boost::text::continuation(*++next))
                     return next;
-                if (!text::continuation(*++next))
+                if (!boost::text::continuation(*++next))
                     return next;
                 return optional_iter<Iter>{};
             }
             if (in(0xf4, *it, 0xf4)) {
                 auto next = it;
-                if (!text::continuation(*++next, 0x80, 0x8f))
+                if (!boost::text::continuation(*++next, 0x80, 0x8f))
                     return next;
-                if (!text::continuation(*++next))
+                if (!boost::text::continuation(*++next))
                     return next;
-                if (!text::continuation(*++next))
+                if (!boost::text::continuation(*++next))
                     return next;
                 return optional_iter<Iter>{};
             }
@@ -303,12 +303,12 @@ namespace boost { namespace text {
             Iter retval = it;
 
             int backup = 0;
-            while (backup < 4 && text::continuation(*--retval)) {
+            while (backup < 4 && boost::text::continuation(*--retval)) {
                 ++backup;
             }
             backup = it - retval;
 
-            if (text::continuation(*retval))
+            if (boost::text::continuation(*retval))
                 return it - 1;
 
             optional_iter<Iter> first_invalid = end_of_invalid_utf8(retval);
@@ -323,7 +323,7 @@ namespace boost { namespace text {
             }
 
             if (1 < backup) {
-                int const cp_bytes = text::code_point_bytes(*retval);
+                int const cp_bytes = boost::text::code_point_bytes(*retval);
                 if (cp_bytes < backup)
                     retval = it - 1;
             }
@@ -337,12 +337,13 @@ namespace boost { namespace text {
             Iter retval = it;
 
             int backup = 0;
-            while (backup < 4 && it != first && text::continuation(*--retval)) {
+            while (backup < 4 && it != first &&
+                   boost::text::continuation(*--retval)) {
                 ++backup;
             }
             backup = std::distance(retval, it);
 
-            if (text::continuation(*retval)) {
+            if (boost::text::continuation(*retval)) {
                 if (it != first)
                     --it;
                 return it;
@@ -361,7 +362,7 @@ namespace boost { namespace text {
             }
 
             if (1 < backup) {
-                int const cp_bytes = text::code_point_bytes(*retval);
+                int const cp_bytes = boost::text::code_point_bytes(*retval);
                 if (cp_bytes < backup) {
                     if (it != first)
                         --it;
@@ -533,7 +534,7 @@ namespace boost { namespace text {
     find_invalid_encoding(char const * first, char const * last) noexcept
     {
         while (first != last) {
-            int const cp_bytes = text::code_point_bytes(*first);
+            int const cp_bytes = boost::text::code_point_bytes(*first);
             if (cp_bytes == -1 || last - first < cp_bytes)
                 return first;
 
@@ -555,11 +556,11 @@ namespace boost { namespace text {
     find_invalid_encoding(T const * first, T const * last) noexcept
     {
         while (first != last) {
-            int const cp_units = text::code_point_units(*first);
+            int const cp_units = boost::text::code_point_units(*first);
             if (cp_units == -1 || last - first < cp_units)
                 return first;
 
-            if (cp_units == 2 && !text::low_surrogate(*(first + 1)))
+            if (cp_units == 2 && !boost::text::low_surrogate(*(first + 1)))
                 return first;
 
             first += cp_units;
@@ -575,7 +576,7 @@ namespace boost { namespace text {
     inline BOOST_TEXT_CXX14_CONSTEXPR bool
     encoded(char const * first, char const * last) noexcept
     {
-        return text::find_invalid_encoding(first, last) == last;
+        return boost::text::find_invalid_encoding(first, last) == last;
     }
 
     /** Returns true if [first, last) is properly UTF-16 encoded, or false
@@ -586,7 +587,7 @@ namespace boost { namespace text {
     BOOST_TEXT_CXX14_CONSTEXPR detail::enable_utf16_cp_t<T, bool>
     encoded(T const * first, T const * last) noexcept
     {
-        return text::find_invalid_encoding(first, last) == last;
+        return boost::text::find_invalid_encoding(first, last) == last;
     }
 
     /** Returns true if [first, last) is empty or the initial code units in
@@ -599,7 +600,7 @@ namespace boost { namespace text {
         if (first == last)
             return true;
 
-        int const cp_bytes = text::code_point_bytes(*first);
+        int const cp_bytes = boost::text::code_point_bytes(*first);
         if (cp_bytes == -1 || last - first < cp_bytes)
             return false;
 
@@ -617,11 +618,11 @@ namespace boost { namespace text {
         if (first == last)
             return true;
 
-        int const cp_units = text::code_point_units(*first);
+        int const cp_units = boost::text::code_point_units(*first);
         if (cp_units == -1 || last - first < cp_units)
             return false;
 
-        return cp_units == 1 || text::low_surrogate(*(first + 1));
+        return cp_units == 1 || boost::text::low_surrogate(*(first + 1));
     }
 
     /** Returns true if [first, last) is empty or the final code units in
@@ -635,7 +636,7 @@ namespace boost { namespace text {
             return true;
 
         auto it = last;
-        while (first != --it && text::continuation(*it))
+        while (first != --it && boost::text::continuation(*it))
             ;
 
         return starts_encoded(it, last);
@@ -653,7 +654,7 @@ namespace boost { namespace text {
             return true;
 
         auto it = last;
-        if (text::low_surrogate(*--it))
+        if (boost::text::low_surrogate(*--it))
             --it;
 
         return starts_encoded(it, last);
@@ -667,7 +668,7 @@ namespace boost { namespace text {
         if (first == last)
             return true;
 
-        int const cp_bytes = text::code_point_bytes(*first);
+        int const cp_bytes = boost::text::code_point_bytes(*first);
         if (cp_bytes == -1 || last - first < cp_bytes)
             return false;
 
@@ -690,11 +691,11 @@ namespace boost { namespace text {
         if (first == last)
             return true;
 
-        int const cp_units = text::code_point_units(*first);
+        int const cp_units = boost::text::code_point_units(*first);
         if (cp_units == -1 || last - first < cp_units)
             return false;
 
-        return cp_units == 1 || text::low_surrogate(*(first + 1));
+        return cp_units == 1 || boost::text::low_surrogate(*(first + 1));
     }
 
     /** Returns true if [first, last) is empty or the final code units in
@@ -706,10 +707,10 @@ namespace boost { namespace text {
             return true;
 
         auto it = last;
-        while (first != --it && text::continuation(*it))
+        while (first != --it && boost::text::continuation(*it))
             ;
 
-        return text::starts_encoded(it, last);
+        return boost::text::starts_encoded(it, last);
     }
 
     /** Returns true if [first, last) is empty or the final code units in
@@ -722,10 +723,10 @@ namespace boost { namespace text {
             return true;
 
         auto it = last;
-        if (text::low_surrogate(*--it))
+        if (boost::text::low_surrogate(*--it))
             --it;
 
-        return text::starts_encoded(it, last);
+        return boost::text::starts_encoded(it, last);
     }
 
     /** An error handler type that can be used with the converting iterators;
@@ -1010,8 +1011,7 @@ namespace boost { namespace text {
         static bool const throw_on_error =
             !noexcept(std::declval<ErrorHandler>()(0));
 
-        constexpr utf_8_to_32_iterator() noexcept : first_(), it_(), last_()
-        {}
+        constexpr utf_8_to_32_iterator() noexcept : first_(), it_(), last_() {}
         explicit constexpr utf_8_to_32_iterator(
             Iter first, Iter it, Sentinel last) noexcept :
             first_(first),
@@ -1117,7 +1117,7 @@ namespace boost { namespace text {
             unsigned char lo = 0x80,
             unsigned char hi = 0xbf) const noexcept(!throw_on_error)
         {
-            if (text::continuation(c, lo, hi)) {
+            if (continuation(c, lo, hi)) {
                 return true;
             } else {
                 ErrorHandler{}(
@@ -1638,8 +1638,7 @@ namespace boost { namespace text {
             "utf_16_to_32_iterator requires its Iter parameter to produce a "
             "2-byte value_type.");
 
-        constexpr utf_16_to_32_iterator() noexcept : first_(), it_(), last_()
-        {}
+        constexpr utf_16_to_32_iterator() noexcept : first_(), it_(), last_() {}
         explicit constexpr utf_16_to_32_iterator(
             Iter first, Iter it, Sentinel last) noexcept :
             first_(first),
@@ -1688,8 +1687,9 @@ namespace boost { namespace text {
         BOOST_TEXT_CXX14_CONSTEXPR utf_16_to_32_iterator &
         operator--() noexcept(!throw_on_error)
         {
-            if (text::low_surrogate(*--it_)) {
-                if (it_ != first_ && text::high_surrogate(*std::prev(it_)))
+            if (boost::text::low_surrogate(*--it_)) {
+                if (it_ != first_ &&
+                    boost::text::high_surrogate(*std::prev(it_)))
                     --it_;
             }
             return *this;
@@ -2104,12 +2104,12 @@ namespace boost { namespace text {
             uint32_t first = static_cast<uint32_t>(*next);
             uint32_t second = 0;
             uint32_t cp = first;
-            if (text::high_surrogate(first)) {
+            if (boost::text::high_surrogate(first)) {
                 if (at_end())
                     cp = replacement_character();
                 else {
                     second = static_cast<uint32_t>(*++next);
-                    if (!text::low_surrogate(second)) {
+                    if (!boost::text::low_surrogate(second)) {
                         ErrorHandler{}(
                             "Invalid UTF-16 sequence; expected low surrogate "
                             "after high surrogate.");
@@ -2118,7 +2118,7 @@ namespace boost { namespace text {
                         cp = (first << 10) + second + surrogate_offset;
                     }
                 }
-            } else if (text::surrogate(first)) {
+            } else if (boost::text::surrogate(first)) {
                 ErrorHandler{}("Invalid initial UTF-16 code unit.");
                 cp = replacement_character();
             }
@@ -2128,9 +2128,9 @@ namespace boost { namespace text {
 
         BOOST_TEXT_CXX14_CONSTEXPR void increment() noexcept
         {
-            if (text::high_surrogate(*it_)) {
+            if (boost::text::high_surrogate(*it_)) {
                 ++it_;
-                if (it_ != last_ && text::low_surrogate(*it_))
+                if (it_ != last_ && boost::text::low_surrogate(*it_))
                     ++it_;
             } else {
                 ++it_;
@@ -2139,7 +2139,7 @@ namespace boost { namespace text {
 
         BOOST_TEXT_CXX14_CONSTEXPR void decrement() noexcept
         {
-            if (text::low_surrogate(*--it_)) {
+            if (boost::text::low_surrogate(*--it_)) {
                 if (it_ != first_)
                     --it_;
             }
@@ -2216,8 +2216,7 @@ namespace boost { namespace text {
         static bool const throw_on_error =
             !noexcept(std::declval<ErrorHandler>()(0));
 
-        constexpr utf_8_to_16_iterator() noexcept : it_(), index_(2), buf_()
-        {}
+        constexpr utf_8_to_16_iterator() noexcept : it_(), index_(2), buf_() {}
         explicit BOOST_TEXT_CXX14_CONSTEXPR
         utf_8_to_16_iterator(Iter first, Iter it, Sentinel last) noexcept :
             it_(first, it, last),
