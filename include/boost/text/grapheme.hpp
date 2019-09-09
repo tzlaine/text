@@ -35,7 +35,7 @@ namespace boost { namespace text {
         template<typename CPIter>
         grapheme(CPIter first, CPIter last)
         {
-            std::copy(first, last, utf_32_to_8_back_inserter(chars_));
+            transcode_utf_32_to_8(first, last, std::back_inserter(chars_));
             BOOST_ASSERT(next_grapheme_break(begin(), end()) == end());
             BOOST_ASSERT(fcd_form(begin(), end()));
         }
@@ -44,7 +44,7 @@ namespace boost { namespace text {
         grapheme(uint32_t cp)
         {
             uint32_t cps[1] = {cp};
-            std::copy(cps, cps + 1, utf_32_to_8_back_inserter(chars_));
+            transcode_utf_32_to_8(cps, cps + 1, std::back_inserter(chars_));
         }
 
         /** Constructs *this from r.
@@ -56,7 +56,8 @@ namespace boost { namespace text {
         template<typename CPIter>
         grapheme(cp_range<CPIter> r)
         {
-            std::copy(r.begin(), r.end(), utf_32_to_8_back_inserter(chars_));
+            transcode_utf_32_to_8(
+                r.begin(), r.end(), std::back_inserter(chars_));
             BOOST_ASSERT(next_grapheme_break(begin(), end()) == end());
             BOOST_ASSERT(fcd_form(begin(), end()));
         }
@@ -65,7 +66,8 @@ namespace boost { namespace text {
         template<typename CPIter>
         grapheme(grapheme_view<CPIter> g)
         {
-            std::copy(g.begin(), g.end(), utf_32_to_8_back_inserter(chars_));
+            transcode_utf_32_to_8(
+                g.begin(), g.end(), std::back_inserter(chars_));
         }
 
         /** Returns true if *this contains no code points. */
@@ -166,15 +168,9 @@ namespace boost { namespace text {
         /** Stream inserter; performs unformatted output, in UTF-8 encoding. */
         friend std::ostream & operator<<(std::ostream & os, grapheme_view gv)
         {
-            char buf[4];
-            for (auto cp : gv) {
-                uint32_t cps[1] = {cp};
-                auto const end = std::copy(
-                    make_utf_32_to_8_iterator(cps, cps, cps + 1),
-                    make_utf_32_to_8_iterator(cps, cps + 1, cps + 1),
-                    buf);
-                os.write(buf, end - buf);
-            }
+            std::array<char, 1024> buf;
+            auto out = transcode_utf_32_to_8(gv.begin(), gv.end(), buf.data());
+            os.write(buf.data(), out - buf.data());
             return os;
         }
 

@@ -528,13 +528,10 @@ namespace boost { namespace text {
             if (g.empty())
                 return at;
 
-            container::small_vector<char, 16> grapheme_chars;
-            std::copy(
-                g.begin(), g.end(), utf_32_to_8_back_inserter(grapheme_chars));
+            std::array<char, 1024> buf;
+            auto out = transcode_utf_32_to_8(g.begin(), g.end(), buf.data());
             return t.insert_impl(
-                at,
-                string_view(&grapheme_chars[0], grapheme_chars.size()),
-                true);
+                at, string_view(buf.data(), out - buf.data()), true);
         }
     };
 

@@ -2420,11 +2420,11 @@ namespace boost { namespace text {
 
         utf_32_to_8_insert_iterator & operator=(uint32_t cp)
         {
-            uint32_t cps[1] = {cp};
-            it_ = std::copy(
-                utf_32_to_8_iterator<uint32_t const *>(cps, cps, cps + 1),
-                utf_32_to_8_iterator<uint32_t const *>(cps, cps + 1, cps + 1),
-                it_);
+            char buf[5];
+            detail::read_into_buf(cp, buf);
+            for (char const *it = buf; it != null_sentinel{}; ++it, ++it_) {
+                *it_ = *it;
+            }
             return *this;
         }
 
@@ -2462,11 +2462,11 @@ namespace boost { namespace text {
 
         utf_32_to_8_back_insert_iterator & operator=(uint32_t cp)
         {
-            uint32_t cps[1] = {cp};
-            it_ = std::copy(
-                utf_32_to_8_iterator<uint32_t const *>(cps, cps, cps + 1),
-                utf_32_to_8_iterator<uint32_t const *>(cps, cps + 1, cps + 1),
-                it_);
+            char buf[5];
+            detail::read_into_buf(cp, buf);
+            for (char const *it = buf; it != null_sentinel{}; ++it, ++it_) {
+                *it_ = *it;
+            }
             return *this;
         }
 

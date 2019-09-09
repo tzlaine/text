@@ -411,7 +411,8 @@ namespace boost { namespace text {
                 return at;
 
             string s;
-            std::copy(g.begin(), g.end(), utf_32_to_8_inserter(s, s.end()));
+            transcode_utf_32_to_8(
+                g.begin(), g.end(), std::inserter(s, s.end()));
             return r.insert_impl(at, std::move(s), true);
         }
     };
