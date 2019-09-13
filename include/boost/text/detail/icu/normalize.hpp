@@ -84,7 +84,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
 #else
         string_sink<String> sink(s);
         nfc_norm().composeUTF8(
-            0, false, (uint8_t const *)first, (uint8_t const *)last, &sink, ec);
+            false, (uint8_t const *)first, (uint8_t const *)last, &sink, ec);
 #endif
         BOOST_ASSERT(U_SUCCESS(ec));
     }
@@ -108,7 +108,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
 #else
         string_sink<String> sink(s);
         nfc_norm().composeUTF8(
-            0, true, (uint8_t const *)first, (uint8_t const *)last, &sink, ec);
+            true, (uint8_t const *)first, (uint8_t const *)last, &sink, ec);
 #endif
         BOOST_ASSERT(U_SUCCESS(ec));
     }

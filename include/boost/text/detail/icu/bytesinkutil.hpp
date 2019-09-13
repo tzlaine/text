@@ -100,11 +100,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                 return FALSE;
             }
             return appendChange(
-                (int32_t)(limit - s),
-                s16,
-                s16Length,
-                sink,
-                /*edits, */ errorCode);
+                (int32_t)(limit - s), s16, s16Length, sink, errorCode);
         }
 
         /** (length) bytes were mapped/changed to valid code point c. */
@@ -124,7 +120,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
             UChar32 c,
             ByteSink & sink)
         {
-            appendCodePoint((int32_t)(nextSrc - src), c, sink /* TODO, edits*/);
+            appendCodePoint((int32_t)(nextSrc - src), c, sink);
         }
 
         /** Append the two-byte character (U+0080..U+07FF). */
@@ -139,15 +135,13 @@ namespace boost { namespace text { namespace detail { namespace icu {
             const uint8_t * s,
             int32_t length,
             ByteSink & sink,
-            uint32_t options,
             UErrorCode & errorCode)
         {
             if (U_FAILURE(errorCode)) {
                 return FALSE;
             }
             if (length > 0) {
-                appendNonEmptyUnchanged(
-                    s, length, sink, options /* TODO , edits*/);
+                appendNonEmptyUnchanged(s, length, sink);
             }
             return TRUE;
         }
@@ -156,7 +150,6 @@ namespace boost { namespace text { namespace detail { namespace icu {
             const uint8_t * s,
             const uint8_t * limit,
             ByteSink & sink,
-            uint32_t options,
             UErrorCode & errorCode)
         {
             if (U_FAILURE(errorCode)) {
@@ -168,7 +161,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
             }
             int32_t length = (int32_t)(limit - s);
             if (length > 0) {
-                appendNonEmptyUnchanged(s, length, sink, options /*, edits*/);
+                appendNonEmptyUnchanged(s, length, sink);
             }
             return TRUE;
         }
@@ -185,10 +178,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
         }
 
         static void appendNonEmptyUnchanged(
-            const uint8_t * s,
-            int32_t length,
-            ByteSink & sink,
-            uint32_t options)
+            const uint8_t * s, int32_t length, ByteSink & sink)
         {
             BOOST_ASSERT(length > 0);
             sink.Append(reinterpret_cast<const char *>(s), length);

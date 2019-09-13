@@ -1238,7 +1238,6 @@ namespace boost { namespace text { namespace detail { namespace icu {
 
         /** sink==nullptr: isNormalized() */
         UBool composeUTF8(
-            uint32_t options,
             UBool onlyContiguous,
             const uint8_t * src,
             const uint8_t * limit,
@@ -1260,11 +1259,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                     if (src == limit) {
                         if (prevBoundary != limit && sink != nullptr) {
                             ByteSinkUtil::appendUnchanged(
-                                prevBoundary,
-                                limit,
-                                *sink,
-                                options /* TODO , edits*/,
-                                errorCode);
+                                prevBoundary, limit, *sink, errorCode);
                         }
                         return TRUE;
                     }
@@ -1303,18 +1298,14 @@ namespace boost { namespace text { namespace detail { namespace icu {
                             hasCompBoundaryBefore(src, limit)) {
                             if (prevBoundary != prevSrc &&
                                 !ByteSinkUtil::appendUnchanged(
-                                    prevBoundary,
-                                    prevSrc,
-                                    *sink,
-                                    options /* TODO , edits*/,
-                                    errorCode)) {
+                                    prevBoundary, prevSrc, *sink, errorCode)) {
                                 break;
                             }
                             appendCodePointDelta(
                                 prevSrc,
                                 src,
                                 getAlgorithmicDelta(norm16),
-                                *sink /* TODO , edits*/);
+                                *sink);
                             prevBoundary = src;
                             continue;
                         }
@@ -1326,11 +1317,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                             hasCompBoundaryBefore(src, limit)) {
                             if (prevBoundary != prevSrc &&
                                 !ByteSinkUtil::appendUnchanged(
-                                    prevBoundary,
-                                    prevSrc,
-                                    *sink,
-                                    options /* TODO , edits*/,
-                                    errorCode)) {
+                                    prevBoundary, prevSrc, *sink, errorCode)) {
                                 break;
                             }
                             const uint16_t * mapping = getMapping(norm16);
@@ -1340,7 +1327,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                                     src,
                                     (const UChar *)mapping,
                                     length,
-                                    *sink /* TODO , edits*/,
+                                    *sink,
                                     errorCode)) {
                                 break;
                             }
@@ -1357,11 +1344,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                                 prevBoundary, prevSrc, onlyContiguous)) {
                             if (prevBoundary != prevSrc &&
                                 !ByteSinkUtil::appendUnchanged(
-                                    prevBoundary,
-                                    prevSrc,
-                                    *sink,
-                                    options /* TODO , edits*/,
-                                    errorCode)) {
+                                    prevBoundary, prevSrc, *sink, errorCode)) {
                                 break;
                             }
                             prevBoundary = src;
@@ -1405,15 +1388,11 @@ namespace boost { namespace text { namespace detail { namespace icu {
                                         prevBoundary,
                                         prevSrc,
                                         *sink,
-                                        options /* TODO , edits*/,
                                         errorCode)) {
                                     break;
                                 }
                                 ByteSinkUtil::appendCodePoint(
-                                    prevSrc,
-                                    src,
-                                    syllable,
-                                    *sink /* TODO , edits*/);
+                                    prevSrc, src, syllable, *sink);
                                 prevBoundary = src;
                                 continue;
                             }
@@ -1438,15 +1417,11 @@ namespace boost { namespace text { namespace detail { namespace icu {
                         prevSrc -= 3; // Replace the Hangul LV as well.
                         if (prevBoundary != prevSrc &&
                             !ByteSinkUtil::appendUnchanged(
-                                prevBoundary,
-                                prevSrc,
-                                *sink,
-                                options /* TODO , edits*/,
-                                errorCode)) {
+                                prevBoundary, prevSrc, *sink, errorCode)) {
                             break;
                         }
                         ByteSinkUtil::appendCodePoint(
-                            prevSrc, src, syllable, *sink /* TODO , edits*/);
+                            prevSrc, src, syllable, *sink);
                         prevBoundary = src;
                         continue;
                     }
@@ -1474,11 +1449,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                             if (src == limit) {
                                 if (sink != nullptr) {
                                     ByteSinkUtil::appendUnchanged(
-                                        prevBoundary,
-                                        limit,
-                                        *sink,
-                                        options /* TODO , edits*/,
-                                        errorCode);
+                                        prevBoundary, limit, *sink, errorCode);
                                 }
                                 return TRUE;
                             }
@@ -1559,11 +1530,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                     }
                     if (prevBoundary != prevSrc &&
                         !ByteSinkUtil::appendUnchanged(
-                            prevBoundary,
-                            prevSrc,
-                            *sink,
-                            options /* TODO , edits*/,
-                            errorCode)) {
+                            prevBoundary, prevSrc, *sink, errorCode)) {
                         break;
                     }
                     if (!ByteSinkUtil::appendChange(
@@ -1571,7 +1538,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                             src,
                             buffer.getStart(),
                             buffer.length(),
-                            *sink /* TODO , edits*/,
+                            *sink,
                             errorCode)) {
                         break;
                     }

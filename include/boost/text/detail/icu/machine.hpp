@@ -8,7 +8,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
 
     using UChar32 = int32_t;
     using UChar = char16_t;
-    using UBool = bool;
+    using UBool = int8_t;
 
     namespace {
         constexpr bool TRUE = true;
