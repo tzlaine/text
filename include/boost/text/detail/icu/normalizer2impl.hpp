@@ -19,7 +19,6 @@
 #ifndef NORMALIZER2IMPL_H_
 #define NORMALIZER2IMPL_H_
 
-#include "bytestream.hpp"
 #include "bytesinkutil.hpp"
 #include "machine.hpp"
 #include "ucptrie.hpp"
@@ -1237,11 +1236,11 @@ namespace boost { namespace text { namespace detail { namespace icu {
         }
 
         /** sink==nullptr: isNormalized() */
+        template<bool OnlyContiguous, bool WriteToOut, typename UTF8Appender>
         UBool composeUTF8(
-            UBool onlyContiguous,
             const uint8_t * src,
             const uint8_t * limit,
-            ByteSink * sink,
+            UTF8Appender appender,
             UErrorCode & errorCode) const
         {
             BOOST_ASSERT(limit != nullptr);
@@ -1257,9 +1256,9 @@ namespace boost { namespace text { namespace detail { namespace icu {
                 uint16_t norm16 = 0;
                 for (;;) {
                     if (src == limit) {
-                        if (prevBoundary != limit && sink != nullptr) {
+                        if (prevBoundary != limit && WriteToOut) {
                             ByteSinkUtil::appendUnchanged(
-                                prevBoundary, limit, *sink, errorCode);
+                                prevBoundary, limit, appender, errorCode);
                         }
                         return TRUE;
                     }
@@ -1284,7 +1283,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                 // decomposition and recomposition.
                 if (!isMaybeOrNonZeroCC(
                         norm16)) { // minNoNo <= norm16 < minMaybeYes
-                    if (sink == nullptr) {
+                    if (!WriteToOut) {
                         return FALSE;
                     }
                     // Fast path for mapping a character that is immediately
@@ -1294,18 +1293,18 @@ namespace boost { namespace text { namespace detail { namespace icu {
                         // Maps to a single isCompYesAndZeroCC character
                         // which also implies hasCompBoundaryBefore.
                         if (norm16HasCompBoundaryAfter(
-                                norm16, onlyContiguous) ||
+                                norm16, OnlyContiguous) ||
                             hasCompBoundaryBefore(src, limit)) {
                             if (prevBoundary != prevSrc &&
                                 !ByteSinkUtil::appendUnchanged(
-                                    prevBoundary, prevSrc, *sink, errorCode)) {
+                                    prevBoundary, prevSrc, appender, errorCode)) {
                                 break;
                             }
                             appendCodePointDelta(
                                 prevSrc,
                                 src,
                                 getAlgorithmicDelta(norm16),
-                                *sink);
+                                appender);
                             prevBoundary = src;
                             continue;
                         }
@@ -1313,11 +1312,11 @@ namespace boost { namespace text { namespace detail { namespace icu {
                         // The mapping is comp-normalized which also implies
                         // hasCompBoundaryBefore.
                         if (norm16HasCompBoundaryAfter(
-                                norm16, onlyContiguous) ||
+                                norm16, OnlyContiguous) ||
                             hasCompBoundaryBefore(src, limit)) {
                             if (prevBoundary != prevSrc &&
                                 !ByteSinkUtil::appendUnchanged(
-                                    prevBoundary, prevSrc, *sink, errorCode)) {
+                                    prevBoundary, prevSrc, appender, errorCode)) {
                                 break;
                             }
                             const uint16_t * mapping = getMapping(norm16);
@@ -1327,7 +1326,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                                     src,
                                     (const UChar *)mapping,
                                     length,
-                                    *sink,
+                                    appender,
                                     errorCode)) {
                                 break;
                             }
@@ -1341,10 +1340,10 @@ namespace boost { namespace text { namespace detail { namespace icu {
                         // boundaries.
                         if (hasCompBoundaryBefore(src, limit) ||
                             hasCompBoundaryAfter(
-                                prevBoundary, prevSrc, onlyContiguous)) {
+                                prevBoundary, prevSrc, OnlyContiguous)) {
                             if (prevBoundary != prevSrc &&
                                 !ByteSinkUtil::appendUnchanged(
-                                    prevBoundary, prevSrc, *sink, errorCode)) {
+                                    prevBoundary, prevSrc, appender, errorCode)) {
                                 break;
                             }
                             prevBoundary = src;
@@ -1364,7 +1363,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                         // compose with previous Jamo L and following Jamo T.
                         UChar32 l = prev - Hangul::JAMO_L_BASE;
                         if ((uint32_t)l < Hangul::JAMO_L_COUNT) {
-                            if (sink == nullptr) {
+                            if (!WriteToOut) {
                                 return FALSE;
                             }
                             int32_t t = getJamoTMinusBase(src, limit);
@@ -1387,12 +1386,12 @@ namespace boost { namespace text { namespace detail { namespace icu {
                                     !ByteSinkUtil::appendUnchanged(
                                         prevBoundary,
                                         prevSrc,
-                                        *sink,
+                                        appender,
                                         errorCode)) {
                                     break;
                                 }
                                 ByteSinkUtil::appendCodePoint(
-                                    prevSrc, src, syllable, *sink);
+                                    prevSrc, src, syllable, appender);
                                 prevBoundary = src;
                                 continue;
                             }
@@ -1409,7 +1408,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                         // The current character is a Jamo Trailing consonant,
                         // compose with previous Hangul LV that does not contain
                         // a Jamo T.
-                        if (sink == nullptr) {
+                        if (!WriteToOut) {
                             return FALSE;
                         }
                         UChar32 syllable =
@@ -1417,11 +1416,11 @@ namespace boost { namespace text { namespace detail { namespace icu {
                         prevSrc -= 3; // Replace the Hangul LV as well.
                         if (prevBoundary != prevSrc &&
                             !ByteSinkUtil::appendUnchanged(
-                                prevBoundary, prevSrc, *sink, errorCode)) {
+                                prevBoundary, prevSrc, appender, errorCode)) {
                             break;
                         }
                         ByteSinkUtil::appendCodePoint(
-                            prevSrc, src, syllable, *sink);
+                            prevSrc, src, syllable, appender);
                         prevBoundary = src;
                         continue;
                     }
@@ -1432,24 +1431,24 @@ namespace boost { namespace text { namespace detail { namespace icu {
                     // Check for canonical order, copy unchanged if ok and
                     // if followed by a character with a boundary-before.
                     uint8_t cc = getCCFromNormalYesOrMaybe(norm16); // cc!=0
-                    if (onlyContiguous /* FCC */ &&
+                    if (OnlyContiguous /* FCC */ &&
                         getPreviousTrailCC(prevBoundary, prevSrc) > cc) {
                         // Fails FCD test, need to decompose and contiguously
                         // recompose.
-                        if (sink == nullptr) {
+                        if (!WriteToOut) {
                             return FALSE;
                         }
                     } else {
-                        // If !onlyContiguous (not FCC), then we ignore the tccc
+                        // If !OnlyContiguous (not FCC), then we ignore the tccc
                         // of the previous character which passed the quick
                         // check "yes && ccc==0" test.
                         const uint8_t * nextSrc;
                         uint16_t n16;
                         for (;;) {
                             if (src == limit) {
-                                if (sink != nullptr) {
+                                if (WriteToOut) {
                                     ByteSinkUtil::appendUnchanged(
-                                        prevBoundary, limit, *sink, errorCode);
+                                        prevBoundary, limit, appender, errorCode);
                                 }
                                 return TRUE;
                             }
@@ -1460,7 +1459,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                             if (n16 >= MIN_YES_YES_WITH_CC) {
                                 cc = getCCFromNormalYesOrMaybe(n16);
                                 if (prevCC > cc) {
-                                    if (sink == nullptr) {
+                                    if (!WriteToOut) {
                                         return FALSE;
                                     }
                                     break;
@@ -1491,7 +1490,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                     const uint8_t * p = prevSrc;
                     UCPTRIE_FAST_U8_PREV(
                         normTrie, UCPTRIE_16, prevBoundary, p, norm16);
-                    if (!norm16HasCompBoundaryAfter(norm16, onlyContiguous)) {
+                    if (!norm16HasCompBoundaryAfter(norm16, OnlyContiguous)) {
                         prevSrc = p;
                     }
                 }
@@ -1504,7 +1503,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                     prevSrc,
                     src,
                     FALSE /* !stopAtCompBoundary */,
-                    onlyContiguous,
+                    OnlyContiguous,
                     buffer,
                     errorCode);
                 // Decompose until the next boundary.
@@ -1512,7 +1511,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                     src,
                     limit,
                     TRUE /* stopAtCompBoundary */,
-                    onlyContiguous,
+                    OnlyContiguous,
                     buffer,
                     errorCode);
                 if (U_FAILURE(errorCode)) {
@@ -1523,14 +1522,14 @@ namespace boost { namespace text { namespace detail { namespace icu {
                     errorCode = U_INDEX_OUTOFBOUNDS_ERROR;
                     return TRUE;
                 }
-                recompose(buffer, 0, onlyContiguous);
+                recompose(buffer, 0, OnlyContiguous);
                 if (!buffer.equals(prevSrc, src)) {
-                    if (sink == nullptr) {
+                    if (!WriteToOut) {
                         return FALSE;
                     }
                     if (prevBoundary != prevSrc &&
                         !ByteSinkUtil::appendUnchanged(
-                            prevBoundary, prevSrc, *sink, errorCode)) {
+                            prevBoundary, prevSrc, appender, errorCode)) {
                         break;
                     }
                     if (!ByteSinkUtil::appendChange(
@@ -1538,7 +1537,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                             src,
                             buffer.getStart(),
                             buffer.length(),
-                            *sink,
+                            appender,
                             errorCode)) {
                         break;
                     }
@@ -1675,11 +1674,12 @@ namespace boost { namespace text { namespace detail { namespace icu {
             return -1;
         }
 
+        template<typename UTF8Appender>
         static void appendCodePointDelta(
             const uint8_t * cpStart,
             const uint8_t * cpLimit,
             int32_t delta,
-            ByteSink & sink)
+            UTF8Appender & appender)
         {
             char buffer[U8_MAX_LENGTH];
             int32_t length;
@@ -1706,7 +1706,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                     U8_APPEND_UNSAFE(buffer, length, c);
                 }
             }
-            sink.Append(buffer, length);
+            appender.append(buffer, length);
         }
 
         UBool isMaybe(uint16_t norm16) const
@@ -2399,8 +2399,6 @@ namespace boost { namespace text { namespace detail { namespace icu {
                         : *getMapping(norm16) <= 0x1ff);
         }
 
-        // UVersionInfo dataVersion;
-
         // BMP code point thresholds for quick check loops looking at single
         // UTF-16 code units.
         UChar minDecompNoCP;
@@ -2494,222 +2492,5 @@ namespace boost { namespace text { namespace detail { namespace icu {
     }
 
 }}}}
-
-    /**
-     * Format of Normalizer2 .nrm data files.
-     * Format version 4.0.
-     *
-     * Normalizer2 .nrm data files provide data for the Unicode Normalization
-     * algorithms. ICU ships with data files for standard Unicode Normalization
-     * Forms NFC and NFD (nfc.nrm), NFKC and NFKD (nfkc.nrm) and NFKC_Casefold
-     * (nfkc_cf.nrm). Custom (application-specific) data can be built into
-     * additional .nrm files with the gennorm2 build tool. ICU ships with one
-     * such file, uts46.nrm, for the implementation of UTS #46.
-     *
-     * Normalizer2.getInstance() causes a .nrm file to be loaded, unless it has
-     * been cached already. Internally, Normalizer2Impl.load() reads the .nrm
-     * file.
-     *
-     * A .nrm file begins with a standard ICU data file header
-     * (DataHeader, see ucmndata.h and unicode/udata.h).
-     * The UDataInfo.dataVersion field usually contains the Unicode version
-     * for which the data was generated.
-     *
-     * After the header, the file contains the following parts.
-     * Constants are defined as enum values of the Normalizer2Impl class.
-     *
-     * Many details of the data structures are described in the design doc
-     * which is at http://site.icu-project.org/design/normalization/custom
-     *
-     * int32_t indexes[indexesLength]; --
-     * indexesLength=indexes[IX_NORM_TRIE_OFFSET]/4;
-     *
-     *      The first eight indexes are byte offsets in ascending order.
-     *      Each byte offset marks the start of the next part in the data file,
-     *      and the end of the previous one.
-     *      When two consecutive byte offsets are the same, then the
-     * corresponding part is empty. Byte offsets are offsets from after the
-     * header, that is, from the beginning of the indexes[]. Each part
-     * starts at an offset with proper alignment for its data. If
-     * necessary, the previous part may include padding bytes to achieve
-     * this alignment.
-     *
-     *      minDecompNoCP=indexes[IX_MIN_DECOMP_NO_CP] is the lowest code point
-     *      with a decomposition mapping, that is, with NF*D_QC=No.
-     *      minCompNoMaybeCP=indexes[IX_MIN_COMP_NO_MAYBE_CP] is the lowest code
-     * point with NF*C_QC=No (has a one-way mapping) or Maybe (combines
-     * backward). minLcccCP=indexes[IX_MIN_LCCC_CP] (index 18, new in
-     * formatVersion 3) is the lowest code point with lccc!=0.
-     *
-     *      The next eight indexes are thresholds of 16-bit trie values for
-     * ranges of values indicating multiple normalization properties. They are
-     * listed here in threshold order, not in the order they are stored in
-     * the indexes. minYesNo=indexes[IX_MIN_YES_NO];
-     *          minYesNoMappingsOnly=indexes[IX_MIN_YES_NO_MAPPINGS_ONLY];
-     *          minNoNo=indexes[IX_MIN_NO_NO];
-     *          minNoNoCompBoundaryBefore=indexes[IX_MIN_NO_NO_COMP_BOUNDARY_BEFORE];
-     *          minNoNoCompNoMaybeCC=indexes[IX_MIN_NO_NO_COMP_NO_MAYBE_CC];
-     *          minNoNoEmpty=indexes[IX_MIN_NO_NO_EMPTY];
-     *          limitNoNo=indexes[IX_LIMIT_NO_NO];
-     *          minMaybeYes=indexes[IX_MIN_MAYBE_YES];
-     *      See the normTrie description below and the design doc for details.
-     *
-     * UCPTrie normTrie; -- see ucptrie_impl.h and ucptrie.h, same as Java
-     * CodePointTrie
-     *
-     *      The trie holds the main normalization data. Each code point is
-     * mapped to a 16-bit value. Rather than using independent bits in the value
-     * (which would require more than 16 bits), information is extracted
-     * primarily via range checks. Except, format version 3 uses bit 0 for
-     * hasCompBoundaryAfter(). For example, a 16-bit value norm16 in the
-     * range minYesNo<=norm16<minNoNo means that the character has
-     * NF*C_QC=Yes and NF*D_QC=No properties, which means it has a two-way
-     * (round-trip) decomposition mapping. Values in the range
-     * 2<=norm16<limitNoNo are also directly indexes into the extraData
-     *      pointing to mappings, compositions lists, or both.
-     *      Value norm16==INERT (0 in versions 1 & 2, 1 in version 3)
-     *      means that the character is normalization-inert, that is,
-     *      it does not have a mapping, does not participate in composition, has
-     * a zero canonical combining class, and forms a boundary where text before
-     * it and after it can be normalized independently. For details about
-     * how multiple properties are encoded in 16-bit values see the design
-     * doc. Note that the encoding cannot express all combinations of the
-     * properties involved; it only supports those combinations that are
-     * allowed by the Unicode Normalization algorithms. Details are in the
-     * design doc as well. The gennorm2 tool only builds .nrm files for
-     * data that conforms to the limitations.
-     *
-     *      The trie has a value for each lead surrogate code unit representing
-     * the "worst case" properties of the 1024 supplementary characters whose
-     * UTF-16 form starts with the lead surrogate. If all of the 1024
-     * supplementary characters are normalization-inert, then their lead
-     * surrogate code unit has the trie value INERT. When the lead
-     * surrogate unit's value exceeds the quick check minimum during
-     * processing, the properties for the full supplementary code point need to
-     * be looked up.
-     *
-     * uint16_t maybeYesCompositions[MIN_NORMAL_MAYBE_YES-minMaybeYes];
-     * uint16_t extraData[];
-     *
-     *      There is only one byte offset for the end of these two arrays.
-     *      The split between them is given by the constant and variable
-     * mentioned above. In version 3, the difference must be shifted right by
-     * OFFSET_SHIFT.
-     *
-     *      The maybeYesCompositions array contains compositions lists for
-     * characters that combine both forward (as starters in composition pairs)
-     *      and backward (as trailing characters in composition pairs).
-     *      Such characters do not occur in Unicode 5.2 but are allowed by
-     *      the Unicode Normalization algorithms.
-     *      If there are no such characters, then
-     * minMaybeYes==MIN_NORMAL_MAYBE_YES and the maybeYesCompositions array is
-     * empty. If there are such characters, then minMaybeYes is subtracted
-     * from their norm16 values to get the index into this array.
-     *
-     *      The extraData array contains compositions lists for "YesYes"
-     * characters, followed by mappings and optional compositions lists for
-     * "YesNo" characters, followed by only mappings for "NoNo" characters.
-     *      (Referring to pairs of NFC/NFD quick check values.)
-     *      The norm16 values of those characters are directly indexes into the
-     * extraData array. In version 3, the norm16 values must be shifted right by
-     * OFFSET_SHIFT for accessing extraData.
-     *
-     *      The data structures for compositions lists and mappings are
-     * described in the design doc.
-     *
-     * uint8_t smallFCD[0x100]; -- new in format version 2
-     *
-     *      This is a bit set to help speed up FCD value lookups in the absence
-     * of a full UTrie2 or other large data structure with the full FCD value
-     * mapping.
-     *
-     *      Each smallFCD bit is set if any of the corresponding 32 BMP code
-     * points has a non-zero FCD value (lccc!=0 or tccc!=0). Bit 0 of
-     * smallFCD[0] is for U+0000..U+001F. Bit 7 of smallFCD[0xff] is for
-     * U+FFE0..U+FFFF. A bit for 32 lead surrogates is set if any of the 32k
-     * corresponding _supplementary_ code points has a non-zero FCD value.
-     *
-     *      This bit set is most useful for the large blocks of CJK characters
-     * with FCD=0.
-     *
-     * Changes from format version 1 to format version 2
-     * ---------------------------
-     *
-     * - Addition of data for raw (not recursively decomposed) mappings.
-     *   + The MAPPING_NO_COMP_BOUNDARY_AFTER bit in the extraData is now also
-     * set when the mapping is to an empty string or when the character
-     * combines-forward. This subsumes the one actual use of the
-     * MAPPING_PLUS_COMPOSITION_LIST bit which is then repurposed for the
-     * MAPPING_HAS_RAW_MAPPING bit.
-     *   + For details see the design doc.
-     * - Addition of indexes[IX_MIN_YES_NO_MAPPINGS_ONLY] and separation of the
-     * yesNo extraData into distinct ranges (combines-forward vs. not) so that a
-     * range check can be used to find out if there is a compositions list.
-     *   This is fully equivalent with formatVersion 1's
-     * MAPPING_PLUS_COMPOSITION_LIST flag. It is needed for the new (in ICU 49)
-     * composePair(), not for other normalization.
-     * - Addition of the smallFCD[] bit set.
-     *
-     * Changes from format version 2 to format version 3 (ICU 60)
-     * ------------------
-     *
-     * - norm16 bit 0 indicates hasCompBoundaryAfter(),
-     *   except that for contiguous composition (FCC) the tccc must be checked
-     * as well. Data indexes and ccc values are shifted left by one
-     * (OFFSET_SHIFT). Thresholds like minNoNo are tested before shifting.
-     *
-     * - Algorithmic mapping deltas are shifted left by two more bits (total
-     * DELTA_SHIFT), to make room for two bits (three values) indicating whether
-     * the tccc is 0, 1, or greater. See DELTA_TCCC_MASK etc. This helps with
-     * fetching tccc/FCD values and FCC hasCompBoundaryAfter(). minMaybeYes is
-     * 8-aligned so that the DELTA_TCCC_MASK bits can be tested directly.
-     *
-     * - Algorithmic mappings are only used for mapping to "comp yes and ccc=0"
-     * characters, and ASCII characters are mapped algorithmically only to other
-     * ASCII characters. This helps with hasCompBoundaryBefore() and compose()
-     * fast paths. It is never necessary any more to loop for algorithmic
-     * mappings.
-     *
-     * - Addition of indexes[IX_MIN_NO_NO_COMP_BOUNDARY_BEFORE],
-     *   indexes[IX_MIN_NO_NO_COMP_NO_MAYBE_CC], and
-     * indexes[IX_MIN_NO_NO_EMPTY], and separation of the noNo extraData into
-     * distinct ranges. With this, the noNo norm16 value indicates whether the
-     * mapping is compose-normalized, not normalized but
-     * hasCompBoundaryBefore(), not even that, or maps to an empty string.
-     *   hasCompBoundaryBefore() can be determined solely from the norm16 value.
-     *
-     * - The norm16 value for Hangul LVT is now different from that for Hangul
-     * LV, so that hasCompBoundaryAfter() need not check for the syllable type.
-     *   For Hangul LV, minYesNo continues to be used (no comp-boundary-after).
-     *   For Hangul LVT, minYesNoMappingsOnly|HAS_COMP_BOUNDARY_AFTER is used.
-     *   The extraData units at these indexes are set to firstUnit=2 and
-     * firstUnit=3, respectively, to simplify some code.
-     *
-     * - The extraData firstUnit bit 5 is no longer necessary
-     *   (norm16 bit 0 used instead of firstUnit
-     * MAPPING_NO_COMP_BOUNDARY_AFTER), is reserved again, and always set to 0.
-     *
-     * - Addition of indexes[IX_MIN_LCCC_CP], the first code point where
-     * lccc!=0. This used to be hardcoded to U+0300, but in data like
-     * NFKC_Casefold it is lower: U+00AD Soft Hyphen maps to an empty string,
-     *   which is artificially assigned "worst case" values lccc=1 and tccc=255.
-     *
-     * - A mapping to an empty string has explicit lccc=1 and tccc=255 values.
-     *
-     * Changes from format version 3 to format version 4 (ICU 63)
-     * ------------------
-     *
-     * Switched from UTrie2 to UCPTrie/CodePointTrie.
-     *
-     * The new trie no longer stores different values for surrogate code *units*
-     * vs. surrogate code *points*. Lead surrogates still have values for
-     * optimized UTF-16 string processing. When looking up code point
-     * properties, the code now checks for lead surrogates and treats them as
-     * inert.
-     *
-     * gennorm2 now has to reject mappings for surrogate code points.
-     * UTS #46 maps unpaired surrogates to U+FFFD in code rather than via its
-     * custom normalization data file.
-     */
 
 #endif

@@ -6,8 +6,6 @@
 #include <boost/text/detail/icu/norm2_nfc_data.hpp>
 #include <boost/text/detail/icu/norm2_nfkc_data.hpp>
 
-#include "bytestream.hpp"
-
 
 namespace boost { namespace text { namespace detail { namespace icu {
 
@@ -27,21 +25,6 @@ namespace boost { namespace text { namespace detail { namespace icu {
     }
 
     // TODO: nfkc
-
-    // TODO: Remove.
-    template<typename String>
-    struct string_sink : ByteSink
-    {
-        explicit string_sink(String & s) : s_(&s) {}
-
-        virtual void Append(const char * bytes, int32_t n) override
-        {
-            s_->insert(s_->end(), bytes, bytes + n);
-        }
-
-    private:
-        String * s_;
-    };
 
     template<typename String>
     struct string_appender
@@ -82,9 +65,11 @@ namespace boost { namespace text { namespace detail { namespace icu {
         nfc_norm().composeUTF8<false, true>(
             first, last, string_appender<String>(s), ec);
 #else
-        string_sink<String> sink(s);
-        nfc_norm().composeUTF8(
-            false, (uint8_t const *)first, (uint8_t const *)last, &sink, ec);
+        nfc_norm().composeUTF8<false, true>(
+            (uint8_t const *)first,
+            (uint8_t const *)last,
+            string_appender<String>(s),
+            ec);
 #endif
         BOOST_ASSERT(U_SUCCESS(ec));
     }
@@ -106,9 +91,11 @@ namespace boost { namespace text { namespace detail { namespace icu {
             string_appender<String>(s),
             ec);
 #else
-        string_sink<String> sink(s);
-        nfc_norm().composeUTF8(
-            true, (uint8_t const *)first, (uint8_t const *)last, &sink, ec);
+        nfc_norm().composeUTF8<false, true>(
+            (uint8_t const *)first,
+            (uint8_t const *)last,
+            string_appender<String>(s),
+            ec);
 #endif
         BOOST_ASSERT(U_SUCCESS(ec));
     }

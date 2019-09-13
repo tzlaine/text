@@ -7,7 +7,6 @@
 #define BYTESINKUTIL_H_
 
 #include "utypes.hpp"
-#include "bytestream.hpp"
 #include "utf8.hpp"
 #include "utf16.hpp"
 
@@ -36,11 +35,12 @@ namespace boost { namespace text { namespace detail { namespace icu {
         ByteSinkUtil() = delete; // all static
 
         /** (length) bytes were mapped to valid (s16, s16Length). */
+        template<typename UTF8Appender>
         static UBool appendChange(
             int32_t length,
             const char16_t * s16,
             int32_t s16Length,
-            ByteSink & sink,
+            UTF8Appender & appender,
             UErrorCode & errorCode)
         {
             if (U_FAILURE(errorCode)) {
@@ -59,12 +59,22 @@ namespace boost { namespace text { namespace detail { namespace icu {
                 } else {
                     desiredCapacity = INT32_MAX;
                 }
+#if 1
+                char * buffer = scratch;
+                if (U8_MAX_LENGTH < 1 ||
+                    UPRV_LENGTHOF(scratch) < U8_MAX_LENGTH) {
+                    capacity = 0;
+                    buffer = nullptr;
+                }
+                capacity = UPRV_LENGTHOF(scratch);
+#else
                 char * buffer = sink.GetAppendBuffer(
                     U8_MAX_LENGTH,
                     desiredCapacity,
                     scratch,
                     UPRV_LENGTHOF(scratch),
                     &capacity);
+#endif
                 capacity -= U8_MAX_LENGTH - 1;
                 int32_t j = 0;
                 for (; i < s16Length && j < capacity;) {
@@ -76,7 +86,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                     errorCode = U_INDEX_OUTOFBOUNDS_ERROR;
                     return FALSE;
                 }
-                sink.Append(buffer, j);
+                appender.append(buffer, j);
                 s8Length += j;
             }
             return TRUE;
@@ -84,12 +94,13 @@ namespace boost { namespace text { namespace detail { namespace icu {
 
 
         /** The bytes at [s, limit[ were mapped to valid (s16, s16Length). */
+        template<typename UTF8Appender>
         static UBool appendChange(
             const uint8_t * s,
             const uint8_t * limit,
             const char16_t * s16,
             int32_t s16Length,
-            ByteSink & sink,
+            UTF8Appender & appender,
             UErrorCode & errorCode)
         {
             if (U_FAILURE(errorCode)) {
@@ -100,56 +111,62 @@ namespace boost { namespace text { namespace detail { namespace icu {
                 return FALSE;
             }
             return appendChange(
-                (int32_t)(limit - s), s16, s16Length, sink, errorCode);
+                (int32_t)(limit - s), s16, s16Length, appender, errorCode);
         }
 
         /** (length) bytes were mapped/changed to valid code point c. */
-        static void appendCodePoint(int32_t length, UChar32 c, ByteSink & sink)
+        template<typename UTF8Appender>
+        static void
+        appendCodePoint(int32_t length, UChar32 c, UTF8Appender & appender)
         {
             char s8[U8_MAX_LENGTH];
             int32_t s8Length = 0;
             U8_APPEND_UNSAFE(s8, s8Length, c);
-            sink.Append(s8, s8Length);
+            appender.append(s8, s8Length);
         }
 
         /** The few bytes at [src, nextSrc[ were mapped/changed to valid code
          * point c. */
+        template<typename UTF8Appender>
         static inline void appendCodePoint(
             const uint8_t * src,
             const uint8_t * nextSrc,
             UChar32 c,
-            ByteSink & sink)
+            UTF8Appender & appender)
         {
-            appendCodePoint((int32_t)(nextSrc - src), c, sink);
+            appendCodePoint((int32_t)(nextSrc - src), c, appender);
         }
 
         /** Append the two-byte character (U+0080..U+07FF). */
-        static void appendTwoBytes(UChar32 c, ByteSink & sink)
+        template<typename UTF8Appender>
+        static void appendTwoBytes(UChar32 c, UTF8Appender & appender)
         {
             BOOST_ASSERT(0x80 <= c && c <= 0x7ff); // 2-byte UTF-8
             char s8[2] = {(char)getTwoByteLead(c), (char)getTwoByteTrail(c)};
-            sink.Append(s8, 2);
+            appender.append(s8, 2);
         }
 
+        template<typename UTF8Appender>
         static UBool appendUnchanged(
             const uint8_t * s,
             int32_t length,
-            ByteSink & sink,
+            UTF8Appender & appender,
             UErrorCode & errorCode)
         {
             if (U_FAILURE(errorCode)) {
                 return FALSE;
             }
             if (length > 0) {
-                appendNonEmptyUnchanged(s, length, sink);
+                appendNonEmptyUnchanged(s, length, appender);
             }
             return TRUE;
         }
 
+        template<typename UTF8Appender>
         static UBool appendUnchanged(
             const uint8_t * s,
             const uint8_t * limit,
-            ByteSink & sink,
+            UTF8Appender & appender,
             UErrorCode & errorCode)
         {
             if (U_FAILURE(errorCode)) {
@@ -161,7 +178,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
             }
             int32_t length = (int32_t)(limit - s);
             if (length > 0) {
-                appendNonEmptyUnchanged(s, length, sink);
+                appendNonEmptyUnchanged(s, length, appender);
             }
             return TRUE;
         }
@@ -177,11 +194,13 @@ namespace boost { namespace text { namespace detail { namespace icu {
             return (uint8_t)((c & 0x3f) | 0x80);
         }
 
+        template<typename UTF8Appender>
         static void appendNonEmptyUnchanged(
-            const uint8_t * s, int32_t length, ByteSink & sink)
+            const uint8_t * s, int32_t length, UTF8Appender & appender)
         {
             BOOST_ASSERT(length > 0);
-            sink.Append(reinterpret_cast<const char *>(s), length);
+            auto const first = reinterpret_cast<const char *>(s);
+            appender.append(first, length);
         }
     };
 
