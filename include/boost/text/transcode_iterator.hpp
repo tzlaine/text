@@ -524,6 +524,33 @@ namespace boost { namespace text {
 
             return retval;
         }
+
+        template<typename Container>
+        using cont_value_t = typename std::decay<decltype(
+            *std::begin(std::declval<Container>()))>::type;
+
+        template<typename Derived, typename Iter, typename ValueType>
+        struct trans_ins_iter
+        {
+            using value_type = void;
+            using difference_type = void;
+            using pointer = void;
+            using reference = void;
+            using iterator_category = std::output_iterator_tag;
+
+            trans_ins_iter(Iter it) : it_(it) {}
+            Derived & operator*() noexcept { return derived(); }
+            Derived & operator++() noexcept { return derived(); }
+            Derived operator++(int)noexcept { return derived(); }
+            Iter base() const { return it_; }
+
+        protected:
+            Iter & iter() { return it_; }
+
+        private:
+            Derived & derived() { return static_cast<Derived &>(*this); }
+            Iter it_;
+        };
     }
 
     /** Returns the first code unit in [first, last) that is not properly
@@ -1821,41 +1848,34 @@ namespace boost { namespace text {
 
 
     /** An insert-iterator analogous to std::insert_iterator, that also
-        converts UTF-32 to UTF-16.*/
+        converts UTF-32 to UTF-16. */
     template<typename Container>
     struct utf_32_to_16_insert_iterator
+        : detail::trans_ins_iter<
+              utf_32_to_16_insert_iterator<Container>,
+              std::insert_iterator<Container>,
+              detail::cont_value_t<Container>>
     {
-        using value_type = void;
-        using difference_type = void;
-        using pointer = void;
-        using reference = void;
-        using iterator_category = std::output_iterator_tag;
-
         utf_32_to_16_insert_iterator(
             Container & c, typename Container::iterator it) noexcept :
-            it_(c, it)
+            detail::trans_ins_iter<
+                utf_32_to_16_insert_iterator<Container>,
+                std::insert_iterator<Container>,
+                detail::cont_value_t<Container>>(
+                std::insert_iterator<Container>(c, it))
         {}
 
         utf_32_to_16_insert_iterator & operator=(uint32_t cp)
         {
-            *it_ = static_cast<uint16_t>(cp >> 10) + high_surrogate_base;
-            ++it_;
-            *it_ = static_cast<uint16_t>(cp & 0x3ff) + low_surrogate_base;
-            ++it_;
+            uint16_t const high_surrogate_base = 0xd7c0;
+            uint16_t const low_surrogate_base = 0xdc00;
+            auto & out = this->iter();
+            *out = static_cast<uint16_t>(cp >> 10) + high_surrogate_base;
+            ++out;
+            *out = static_cast<uint16_t>(cp & 0x3ff) + low_surrogate_base;
+            ++out;
             return *this;
         }
-
-        utf_32_to_16_insert_iterator & operator*() noexcept { return *this; }
-        utf_32_to_16_insert_iterator & operator++() noexcept { return *this; }
-        utf_32_to_16_insert_iterator operator++(int)noexcept { return *this; }
-
-        std::insert_iterator<Container> base() const { return it_; }
-
-    private:
-        static uint16_t const high_surrogate_base = 0xd7c0;
-        static uint16_t const low_surrogate_base = 0xdc00;
-
-        std::insert_iterator<Container> it_;
     };
 
     /** Returns a utf_32_to_16_insert_iterator<Container> constructed from the
@@ -1867,52 +1887,77 @@ namespace boost { namespace text {
         return utf_32_to_16_insert_iterator<Container>(c, it);
     }
 
-    /** An insert-iterator analogous to std::back_insert_iterator, that also
-        converts UTF-32 to UTF-16.*/
+    /** An insert-iterator analogous to std::front_insert_iterator, that also
+        converts UTF-32 to UTF-16. */
     template<typename Container>
-    struct utf_32_to_16_back_insert_iterator
+    struct utf_32_to_16_front_insert_iterator
+        : detail::trans_ins_iter<
+              utf_32_to_16_front_insert_iterator<Container>,
+              std::front_insert_iterator<Container>,
+              detail::cont_value_t<Container>>
     {
-        using value_type = void;
-        using difference_type = void;
-        using pointer = void;
-        using reference = void;
-        using iterator_category = std::output_iterator_tag;
+        utf_32_to_16_front_insert_iterator(Container & c) noexcept :
+            detail::trans_ins_iter<
+                utf_32_to_16_front_insert_iterator<Container>,
+                std::front_insert_iterator<Container>,
+                detail::cont_value_t<Container>>(
+                std::front_insert_iterator<Container>(c))
+        {}
 
-        utf_32_to_16_back_insert_iterator(Container & c) noexcept : it_(c) {}
-
-        utf_32_to_16_back_insert_iterator & operator=(uint32_t cp)
+        utf_32_to_16_front_insert_iterator & operator=(uint32_t cp)
         {
-            *it_ = static_cast<uint16_t>(cp >> 10) + high_surrogate_base;
-            ++it_;
-            *it_ = static_cast<uint16_t>(cp & 0x3ff) + low_surrogate_base;
-            ++it_;
+            uint16_t const high_surrogate_base = 0xd7c0;
+            uint16_t const low_surrogate_base = 0xdc00;
+            auto & out = this->iter();
+            *out = static_cast<uint16_t>(cp >> 10) + high_surrogate_base;
+            ++out;
+            *out = static_cast<uint16_t>(cp & 0x3ff) + low_surrogate_base;
+            ++out;
             return *this;
         }
-
-        utf_32_to_16_back_insert_iterator & operator*() noexcept
-        {
-            return *this;
-        }
-        utf_32_to_16_back_insert_iterator & operator++() noexcept
-        {
-            return *this;
-        }
-        utf_32_to_16_back_insert_iterator operator++(int)noexcept
-        {
-            return *this;
-        }
-
-        std::back_insert_iterator<Container> base() const { return it_; }
-
-    private:
-        static uint16_t const high_surrogate_base = 0xd7c0;
-        static uint16_t const low_surrogate_base = 0xdc00;
-
-        std::back_insert_iterator<Container> it_;
     };
 
     /** Returns a utf_32_to_16_insert_iterator<Container> constructed from the
-        given container and iterator. */
+        given container. */
+    template<typename Container>
+    utf_32_to_16_front_insert_iterator<Container>
+    utf_32_to_16_front_inserter(Container & c) noexcept
+    {
+        return utf_32_to_16_front_insert_iterator<Container>(c);
+    }
+
+    /** An insert-iterator analogous to std::back_insert_iterator, that also
+        converts UTF-32 to UTF-16. */
+    template<typename Container>
+    struct utf_32_to_16_back_insert_iterator
+        : detail::trans_ins_iter<
+              utf_32_to_16_back_insert_iterator<Container>,
+              std::back_insert_iterator<Container>,
+              detail::cont_value_t<Container>>
+    {
+        utf_32_to_16_back_insert_iterator(Container & c) noexcept :
+            detail::trans_ins_iter<
+                utf_32_to_16_back_insert_iterator<Container>,
+                std::back_insert_iterator<Container>,
+                detail::cont_value_t<Container>>(
+                std::back_insert_iterator<Container>(c))
+        {}
+
+        utf_32_to_16_back_insert_iterator & operator=(uint32_t cp)
+        {
+            uint16_t const high_surrogate_base = 0xd7c0;
+            uint16_t const low_surrogate_base = 0xdc00;
+            auto & out = this->iter();
+            *out = static_cast<uint16_t>(cp >> 10) + high_surrogate_base;
+            ++out;
+            *out = static_cast<uint16_t>(cp & 0x3ff) + low_surrogate_base;
+            ++out;
+            return *this;
+        }
+    };
+
+    /** Returns a utf_32_to_16_insert_iterator<Container> constructed from the
+        given container. */
     template<typename Container>
     utf_32_to_16_back_insert_iterator<Container>
     utf_32_to_16_back_inserter(Container & c) noexcept
@@ -2403,39 +2448,33 @@ namespace boost { namespace text {
 
 
     /** An insert-iterator analogous to std::insert_iterator, that also
-        converts UTF-32 to UTF-8.*/
+        converts UTF-32 to UTF-8. */
     template<typename Container>
     struct utf_32_to_8_insert_iterator
+        : detail::trans_ins_iter<
+              utf_32_to_8_insert_iterator<Container>,
+              std::insert_iterator<Container>,
+              detail::cont_value_t<Container>>
     {
-        using value_type = void;
-        using difference_type = void;
-        using pointer = void;
-        using reference = void;
-        using iterator_category = std::output_iterator_tag;
-
         utf_32_to_8_insert_iterator(
             Container & c, typename Container::iterator it) noexcept :
-            it_(c, it)
+            detail::trans_ins_iter<
+                utf_32_to_8_insert_iterator<Container>,
+                std::insert_iterator<Container>,
+                detail::cont_value_t<Container>>(
+                std::insert_iterator<Container>(c, it))
         {}
 
         utf_32_to_8_insert_iterator & operator=(uint32_t cp)
         {
             char buf[5];
             detail::read_into_buf(cp, buf);
-            for (char const *it = buf; it != null_sentinel{}; ++it, ++it_) {
-                *it_ = *it;
+            auto & out = this->iter();
+            for (char const *it = buf; it != null_sentinel{}; ++it, ++out) {
+                *out = *it;
             }
             return *this;
         }
-
-        utf_32_to_8_insert_iterator & operator*() noexcept { return *this; }
-        utf_32_to_8_insert_iterator & operator++() noexcept { return *this; }
-        utf_32_to_8_insert_iterator operator++(int)noexcept { return *this; }
-
-        std::insert_iterator<Container> base() const { return it_; }
-
-    private:
-        std::insert_iterator<Container> it_;
     };
 
     /** Returns a utf_32_to_8_insert_iterator<Container> constructed from the
@@ -2447,50 +2486,75 @@ namespace boost { namespace text {
         return utf_32_to_8_insert_iterator<Container>(c, it);
     }
 
+    /** An insert-iterator analogous to std::front_insert_iterator, that also
+        converts UTF-32 to UTF-8. */
+    template<typename Container>
+    struct utf_32_to_8_front_insert_iterator
+        : detail::trans_ins_iter<
+              utf_32_to_8_front_insert_iterator<Container>,
+              std::front_insert_iterator<Container>,
+              detail::cont_value_t<Container>>
+    {
+        utf_32_to_8_front_insert_iterator(Container & c) noexcept :
+            detail::trans_ins_iter<
+                utf_32_to_8_front_insert_iterator<Container>,
+                std::front_insert_iterator<Container>,
+                detail::cont_value_t<Container>>(
+                std::front_insert_iterator<Container>(c))
+        {}
+
+        utf_32_to_8_front_insert_iterator & operator=(uint32_t cp)
+        {
+            char buf[5];
+            detail::read_into_buf(cp, buf);
+            auto & out = this->iter();
+            for (char const *it = buf; it != null_sentinel{}; ++it, ++out) {
+                *out = *it;
+            }
+            return *this;
+        }
+    };
+
+    /** Returns a utf_32_to_8_insert_iterator<Container> constructed from the
+        given container. */
+    template<typename Container>
+    utf_32_to_8_front_insert_iterator<Container>
+    utf_32_to_8_front_inserter(Container & c) noexcept
+    {
+        return utf_32_to_8_front_insert_iterator<Container>(c);
+    }
+
     /** An insert-iterator analogous to std::back_insert_iterator, that also
-        converts UTF-32 to UTF-8.*/
+        converts UTF-32 to UTF-8. */
     template<typename Container>
     struct utf_32_to_8_back_insert_iterator
+        : detail::trans_ins_iter<
+              utf_32_to_8_back_insert_iterator<Container>,
+              std::back_insert_iterator<Container>,
+              detail::cont_value_t<Container>>
     {
-        using value_type = void;
-        using difference_type = void;
-        using pointer = void;
-        using reference = void;
-        using iterator_category = std::output_iterator_tag;
-
-        utf_32_to_8_back_insert_iterator(Container & c) noexcept : it_(c) {}
+        utf_32_to_8_back_insert_iterator(Container & c) noexcept :
+            detail::trans_ins_iter<
+                utf_32_to_8_back_insert_iterator<Container>,
+                std::back_insert_iterator<Container>,
+                detail::cont_value_t<Container>>(
+                std::back_insert_iterator<Container>(c))
+        {}
 
         utf_32_to_8_back_insert_iterator & operator=(uint32_t cp)
         {
             char buf[5];
             detail::read_into_buf(cp, buf);
-            for (char const *it = buf; it != null_sentinel{}; ++it, ++it_) {
-                *it_ = *it;
+            auto & out = this->iter();
+            for (char const *it = buf; it != null_sentinel{}; ++it, ++out) {
+                *out = *it;
             }
             return *this;
         }
-
-        utf_32_to_8_back_insert_iterator & operator*() noexcept
-        {
-            return *this;
-        }
-        utf_32_to_8_back_insert_iterator & operator++() noexcept
-        {
-            return *this;
-        }
-        utf_32_to_8_back_insert_iterator operator++(int)noexcept
-        {
-            return *this;
-        }
-
-        std::back_insert_iterator<Container> base() const { return it_; }
-
-    private:
-        std::back_insert_iterator<Container> it_;
     };
 
     /** Returns a utf_32_to_8_insert_iterator<Container> constructed from the
-        given container and iterator. */
+        given container. */
     template<typename Container>
     utf_32_to_8_back_insert_iterator<Container>
     utf_32_to_8_back_inserter(Container & c) noexcept

@@ -2279,38 +2279,38 @@ TEST(common_operations, copy_assign)
     text::string const t(tv);
     text::unencoded_rope const r(tv);
 
-    EXPECT_NO_THROW(text::unencoded_rope_view(tv));
-    EXPECT_NO_THROW(text::unencoded_rope_view(rtv));
-    EXPECT_NO_THROW(text::unencoded_rope_view(t));
+    EXPECT_NO_THROW(text::unencoded_rope_view{tv});
+    EXPECT_NO_THROW(text::unencoded_rope_view{rtv});
+    EXPECT_NO_THROW(text::unencoded_rope_view{t});
 
     text::unencoded_rope_view const rv(r);
 
-    EXPECT_NO_THROW(text::string_view(tv));
-    EXPECT_NO_THROW(text::string_view(t));
-    EXPECT_NO_THROW(text::string_view(t));
+    EXPECT_NO_THROW(text::string_view{tv});
+    EXPECT_NO_THROW(text::string_view{t});
+    EXPECT_NO_THROW(text::string_view{t});
 
     EXPECT_NO_THROW(text::repeated_string_view(tv, 2));
-    EXPECT_NO_THROW(text::repeated_string_view(rtv));
+    EXPECT_NO_THROW(text::repeated_string_view{rtv});
 
-    EXPECT_NO_THROW(text::string(tv));
-    EXPECT_NO_THROW(text::string(rtv));
-    EXPECT_NO_THROW(text::string(t));
+    EXPECT_NO_THROW(text::string{tv});
+    EXPECT_NO_THROW(text::string{rtv});
+    EXPECT_NO_THROW(text::string{t});
     EXPECT_NO_THROW(text::string(text::string(t)));
 
-    EXPECT_NO_THROW(text::unencoded_rope(tv));
-    EXPECT_NO_THROW(text::unencoded_rope(rtv));
-    EXPECT_NO_THROW(text::unencoded_rope(t));
+    EXPECT_NO_THROW(text::unencoded_rope{tv});
+    EXPECT_NO_THROW(text::unencoded_rope{rtv});
+    EXPECT_NO_THROW(text::unencoded_rope{t});
     EXPECT_NO_THROW(text::unencoded_rope(text::string(t)));
-    EXPECT_NO_THROW(text::unencoded_rope(r));
+    EXPECT_NO_THROW(text::unencoded_rope{r});
     EXPECT_NO_THROW(text::unencoded_rope(text::unencoded_rope(r)));
-    EXPECT_NO_THROW(text::unencoded_rope(rv));
+    EXPECT_NO_THROW(text::unencoded_rope{rv});
 
-    EXPECT_NO_THROW(text::unencoded_rope_view(tv));
-    EXPECT_NO_THROW(text::unencoded_rope_view(rtv));
-    EXPECT_NO_THROW(text::unencoded_rope_view(t));
-    EXPECT_NO_THROW(text::unencoded_rope_view(t));
-    EXPECT_NO_THROW(text::unencoded_rope_view(r));
-    EXPECT_NO_THROW(text::unencoded_rope_view(rv));
+    EXPECT_NO_THROW(text::unencoded_rope_view{tv});
+    EXPECT_NO_THROW(text::unencoded_rope_view{rtv});
+    EXPECT_NO_THROW(text::unencoded_rope_view{t});
+    EXPECT_NO_THROW(text::unencoded_rope_view{t});
+    EXPECT_NO_THROW(text::unencoded_rope_view{r});
+    EXPECT_NO_THROW(text::unencoded_rope_view{rv});
 
     EXPECT_NO_THROW(text::string_view() = tv);
     EXPECT_NO_THROW(text::string_view() = t);
