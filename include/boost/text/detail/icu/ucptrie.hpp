@@ -510,12 +510,16 @@ namespace boost { namespace text { namespace detail { namespace icu {
      * @param result (out) variable for the trie lookup result
      * @draft ICU 63
      */
-    template<typename AccessFunc, typename Uchar, typename Out>
+    template<
+        typename AccessFunc,
+        typename Uchar,
+        typename Sentinel,
+        typename Out>
     void UCPTRIE_FAST_U8_NEXT(
         const UCPTrie * trie,
         AccessFunc dataAccess,
         Uchar *& src,
-        Uchar * limit,
+        Sentinel limit,
         Out & result)
     {
         int32_t lead_ = (uint8_t) * (src)++;

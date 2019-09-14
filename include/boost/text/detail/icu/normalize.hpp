@@ -31,8 +31,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
     {
         explicit string_appender(String & s) : s_(&s) {}
 
-        template<typename CharIter>
-        void append(CharIter bytes, int32_t n)
+        void append(char const * bytes, int32_t n) // TODO: char const * -> CharIter
         {
             s_->insert(s_->end(), bytes, bytes + n);
         }
@@ -49,7 +48,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
         template<typename CharIter>
         void append(CharIter bytes, int32_t n)
         {
-            out_ = std::copy(bytes, bytes + n, out_);
+            out_ = std::copy((char const *)bytes, (char const *)bytes + n, out_);
         }
 
     private:
@@ -61,16 +60,8 @@ namespace boost { namespace text { namespace detail { namespace icu {
     utf8_normalize_to_nfc_append(CharIter first, Sentinel last, String & s)
     {
         UErrorCode ec = U_ZERO_ERROR;
-#if 0
         nfc_norm().composeUTF8<false, true>(
             first, last, string_appender<String>(s), ec);
-#else
-        nfc_norm().composeUTF8<false, true>(
-            (uint8_t const *)first,
-            (uint8_t const *)last,
-            string_appender<String>(s),
-            ec);
-#endif
         BOOST_ASSERT(U_SUCCESS(ec));
     }
 
@@ -79,24 +70,8 @@ namespace boost { namespace text { namespace detail { namespace icu {
     utf8_normalize_to_fcc_append(CharIter first, Sentinel last, String & s)
     {
         UErrorCode ec = U_ZERO_ERROR;
-#if 0
-        nfc_norm().composeUTF8<true, true>(
-#if 1
-            first,
-            last,
-#else
-            (uint8_t const *)first,
-            (uint8_t const *)last,
-#endif
-            string_appender<String>(s),
-            ec);
-#else
         nfc_norm().composeUTF8<false, true>(
-            (uint8_t const *)first,
-            (uint8_t const *)last,
-            string_appender<String>(s),
-            ec);
-#endif
+            first, last, string_appender<String>(s), ec);
         BOOST_ASSERT(U_SUCCESS(ec));
     }
 

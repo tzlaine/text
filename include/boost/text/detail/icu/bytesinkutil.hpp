@@ -29,6 +29,22 @@ namespace boost { namespace text { namespace detail { namespace icu {
         return (int32_t)(sizeof(array) / sizeof(array[0]));
     }
 
+    template<typename Iter, typename Sentinel>
+    std::ptrdiff_t dist(Iter first, Sentinel last)
+    {
+        std::ptrdiff_t retval = 0;
+        for (; first != last; ++first) {
+            ++retval;
+        }
+        return retval;
+    }
+
+    template<typename Iter>
+    std::ptrdiff_t dist(Iter first, Iter last)
+    {
+        return std::distance(first, last);
+    }
+
     class ByteSinkUtil
     {
     public:
@@ -59,7 +75,6 @@ namespace boost { namespace text { namespace detail { namespace icu {
                 } else {
                     desiredCapacity = INT32_MAX;
                 }
-#if 1
                 char * buffer = scratch;
                 if (U8_MAX_LENGTH < 1 ||
                     UPRV_LENGTHOF(scratch) < U8_MAX_LENGTH) {
@@ -67,14 +82,6 @@ namespace boost { namespace text { namespace detail { namespace icu {
                     buffer = nullptr;
                 }
                 capacity = UPRV_LENGTHOF(scratch);
-#else
-                char * buffer = sink.GetAppendBuffer(
-                    U8_MAX_LENGTH,
-                    desiredCapacity,
-                    scratch,
-                    UPRV_LENGTHOF(scratch),
-                    &capacity);
-#endif
                 capacity -= U8_MAX_LENGTH - 1;
                 int32_t j = 0;
                 for (; i < s16Length && j < capacity;) {
@@ -94,10 +101,10 @@ namespace boost { namespace text { namespace detail { namespace icu {
 
 
         /** The bytes at [s, limit[ were mapped to valid (s16, s16Length). */
-        template<typename UTF8Appender>
+        template<typename CharIter, typename UTF8Appender>
         static UBool appendChange(
-            const uint8_t * s,
-            const uint8_t * limit,
+            CharIter s,
+            CharIter limit,
             const char16_t * s16,
             int32_t s16Length,
             UTF8Appender & appender,
@@ -127,12 +134,9 @@ namespace boost { namespace text { namespace detail { namespace icu {
 
         /** The few bytes at [src, nextSrc[ were mapped/changed to valid code
          * point c. */
-        template<typename UTF8Appender>
+        template<typename CharIter, typename UTF8Appender>
         static inline void appendCodePoint(
-            const uint8_t * src,
-            const uint8_t * nextSrc,
-            UChar32 c,
-            UTF8Appender & appender)
+            CharIter src, CharIter nextSrc, UChar32 c, UTF8Appender & appender)
         {
             appendCodePoint((int32_t)(nextSrc - src), c, appender);
         }
@@ -146,9 +150,9 @@ namespace boost { namespace text { namespace detail { namespace icu {
             appender.append(s8, 2);
         }
 
-        template<typename UTF8Appender>
+        template<typename CharIter, typename UTF8Appender>
         static UBool appendUnchanged(
-            const uint8_t * s,
+            CharIter s,
             int32_t length,
             UTF8Appender & appender,
             UErrorCode & errorCode)
@@ -162,21 +166,21 @@ namespace boost { namespace text { namespace detail { namespace icu {
             return TRUE;
         }
 
-        template<typename UTF8Appender>
+        template<typename CharIter, typename Sentinel, typename UTF8Appender>
         static UBool appendUnchanged(
-            const uint8_t * s,
-            const uint8_t * limit,
+            CharIter s,
+            Sentinel limit,
             UTF8Appender & appender,
             UErrorCode & errorCode)
         {
             if (U_FAILURE(errorCode)) {
                 return FALSE;
             }
-            if ((limit - s) > INT32_MAX) {
+            if (detail::icu::dist(s, limit) > INT32_MAX) {
                 errorCode = U_INDEX_OUTOFBOUNDS_ERROR;
                 return FALSE;
             }
-            int32_t length = (int32_t)(limit - s);
+            int32_t length = (int32_t)detail::icu::dist(s, limit);
             if (length > 0) {
                 appendNonEmptyUnchanged(s, length, appender);
             }
@@ -194,13 +198,12 @@ namespace boost { namespace text { namespace detail { namespace icu {
             return (uint8_t)((c & 0x3f) | 0x80);
         }
 
-        template<typename UTF8Appender>
+        template<typename CharIter, typename UTF8Appender>
         static void appendNonEmptyUnchanged(
-            const uint8_t * s, int32_t length, UTF8Appender & appender)
+            CharIter s, int32_t length, UTF8Appender & appender)
         {
             BOOST_ASSERT(length > 0);
-            auto const first = reinterpret_cast<const char *>(s);
-            appender.append(first, length);
+            appender.append((char const *)s, length); // TODO: Remvoe cast.
         }
     };
 

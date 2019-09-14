@@ -325,8 +325,8 @@ namespace boost { namespace text { namespace detail { namespace icu {
             return length == (int32_t)(otherLimit - otherStart) &&
                    0 == memcmp(start, otherStart, length);
         }
-        UBool
-        equals(const uint8_t * otherStart, const uint8_t * otherLimit) const
+        template<typename CharIter>
+        UBool equals(CharIter otherStart, CharIter otherLimit) const
         {
             BOOST_ASSERT(
                 (otherLimit - otherStart) <= INT32_MAX); // ensured by caller
@@ -568,7 +568,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
     {
     public:
         Normalizer2Impl() : normTrie(nullptr) {}
-        virtual ~Normalizer2Impl() {}
+        ~Normalizer2Impl() {}
 
         void init(
             const int32_t * inIndexes,
@@ -1236,23 +1236,27 @@ namespace boost { namespace text { namespace detail { namespace icu {
         }
 
         /** sink==nullptr: isNormalized() */
-        template<bool OnlyContiguous, bool WriteToOut, typename UTF8Appender>
+        template<
+            bool OnlyContiguous,
+            bool WriteToOut,
+            typename CharIter,
+            typename Sentinel,
+            typename UTF8Appender>
         UBool composeUTF8(
-            const uint8_t * src,
-            const uint8_t * limit,
+            CharIter src,
+            Sentinel limit,
             UTF8Appender appender,
             UErrorCode & errorCode) const
         {
-            BOOST_ASSERT(limit != nullptr);
             UnicodeString s16;
             uint8_t minNoMaybeLead = leadByteForCP(minCompNoMaybeCP);
-            const uint8_t * prevBoundary = src;
+            CharIter prevBoundary = src;
 
             for (;;) {
                 // Fast path: Scan over a sequence of characters below the
                 // minimum "no or maybe" code point, or with (compYes && ccc==0)
                 // properties.
-                const uint8_t * prevSrc;
+                CharIter prevSrc;
                 uint16_t norm16 = 0;
                 for (;;) {
                     if (src == limit) {
@@ -1262,7 +1266,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                         }
                         return TRUE;
                     }
-                    if (*src < minNoMaybeLead) {
+                    if ((uint8_t)*src < minNoMaybeLead) {
                         ++src;
                     } else {
                         prevSrc = src;
@@ -1294,7 +1298,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                         // which also implies hasCompBoundaryBefore.
                         if (norm16HasCompBoundaryAfter(
                                 norm16, OnlyContiguous) ||
-                            hasCompBoundaryBefore(src, limit)) {
+                            hasCompBoundaryBefore_utf8(src, limit)) {
                             if (prevBoundary != prevSrc &&
                                 !ByteSinkUtil::appendUnchanged(
                                     prevBoundary, prevSrc, appender, errorCode)) {
@@ -1313,7 +1317,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                         // hasCompBoundaryBefore.
                         if (norm16HasCompBoundaryAfter(
                                 norm16, OnlyContiguous) ||
-                            hasCompBoundaryBefore(src, limit)) {
+                            hasCompBoundaryBefore_utf8(src, limit)) {
                             if (prevBoundary != prevSrc &&
                                 !ByteSinkUtil::appendUnchanged(
                                     prevBoundary, prevSrc, appender, errorCode)) {
@@ -1338,7 +1342,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                         // Simply omit it from the output if there is a boundary
                         // before _or_ after it. The character itself implies no
                         // boundaries.
-                        if (hasCompBoundaryBefore(src, limit) ||
+                        if (hasCompBoundaryBefore_utf8(src, limit) ||
                             hasCompBoundaryAfter(
                                 prevBoundary, prevSrc, OnlyContiguous)) {
                             if (prevBoundary != prevSrc &&
@@ -1356,9 +1360,10 @@ namespace boost { namespace text { namespace detail { namespace icu {
                     // Jamo L: E1 84 80..92
                     // Jamo V: E1 85 A1..B5
                     // Jamo T: E1 86 A8..E1 87 82
-                    BOOST_ASSERT((src - prevSrc) == 3 && *prevSrc == 0xe1);
+                    BOOST_ASSERT(
+                        (src - prevSrc) == 3 && (uint8_t)*prevSrc == 0xe1);
                     UChar32 prev = previousHangulOrJamo(prevBoundary, prevSrc);
-                    if (prevSrc[1] == 0x85) {
+                    if ((uint8_t)prevSrc[1] == 0x85) {
                         // The current character is a Jamo Vowel,
                         // compose with previous Jamo L and following Jamo T.
                         UChar32 l = prev - Hangul::JAMO_L_BASE;
@@ -1370,7 +1375,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                             if (t >= 0) {
                                 // The next character is a Jamo T.
                                 src += 3;
-                            } else if (hasCompBoundaryBefore(src, limit)) {
+                            } else if (hasCompBoundaryBefore_utf8(src, limit)) {
                                 // No Jamo T follows, not even via
                                 // decomposition.
                                 t = 0;
@@ -1378,7 +1383,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                             if (t >= 0) {
                                 UChar32 syllable = Hangul::HANGUL_BASE +
                                                    (l * Hangul::JAMO_V_COUNT +
-                                                    (prevSrc[2] - 0xa1)) *
+                                                    ((uint8_t)prevSrc[2] - 0xa1)) *
                                                        Hangul::JAMO_T_COUNT +
                                                    t;
                                 prevSrc -= 3; // Replace the Jamo L as well.
@@ -1442,7 +1447,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                         // If !OnlyContiguous (not FCC), then we ignore the tccc
                         // of the previous character which passed the quick
                         // check "yes && ccc==0" test.
-                        const uint8_t * nextSrc;
+                        CharIter nextSrc;
                         uint16_t n16;
                         for (;;) {
                             if (src == limit) {
@@ -1487,7 +1492,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                 // character, decompose and recompose.
                 if (prevBoundary != prevSrc &&
                     !norm16HasCompBoundaryBefore(norm16)) {
-                    const uint8_t * p = prevSrc;
+                    CharIter p = prevSrc;
                     UCPTRIE_FAST_U8_PREV(
                         normTrie, UCPTRIE_16, prevBoundary, p, norm16);
                     if (!norm16HasCompBoundaryAfter(norm16, OnlyContiguous)) {
@@ -1603,24 +1608,25 @@ namespace boost { namespace text { namespace detail { namespace icu {
          * Illegal sequences yield the error value norm16==0 just like real
          * normalization-inert code points.
          */
-        static UChar32
-        codePointFromValidUTF8(const uint8_t * cpStart, const uint8_t * cpLimit)
+        template<typename CharIter>
+        static UChar32 codePointFromValidUTF8(CharIter cpStart, CharIter cpLimit)
         {
             // Similar to U8_NEXT_UNSAFE(s, i, c).
             BOOST_ASSERT(cpStart < cpLimit);
             uint8_t c = *cpStart;
             switch (cpLimit - cpStart) {
             case 1: return c;
-            case 2: return ((c & 0x1f) << 6) | (cpStart[1] & 0x3f);
+            case 2: return ((c & 0x1f) << 6) | ((uint8_t)cpStart[1] & 0x3f);
             case 3:
                 // no need for (c&0xf) because the upper bits are truncated
                 // after <<12 in the cast to (UChar)
                 return (UChar)(
-                    (c << 12) | ((cpStart[1] & 0x3f) << 6) |
-                    (cpStart[2] & 0x3f));
+                    (c << 12) | (((uint8_t)cpStart[1] & 0x3f) << 6) |
+                    ((uint8_t)cpStart[2] & 0x3f));
             case 4:
-                return ((c & 7) << 18) | ((cpStart[1] & 0x3f) << 12) |
-                       ((cpStart[2] & 0x3f) << 6) | (cpStart[3] & 0x3f);
+                return ((c & 7) << 18) | (((uint8_t)cpStart[1] & 0x3f) << 12) |
+                       (((uint8_t)cpStart[2] & 0x3f) << 6) |
+                       ((uint8_t)cpStart[3] & 0x3f);
             default:
                 BOOST_ASSERT(FALSE); // Should not occur.
                 return U_SENTINEL;
@@ -1631,16 +1637,16 @@ namespace boost { namespace text { namespace detail { namespace icu {
          * Returns the last code point in [start, p[ if it is valid and in
          * U+1000..U+D7FF. Otherwise returns a negative value.
          */
-        static UChar32
-        previousHangulOrJamo(const uint8_t * start, const uint8_t * p)
+        template<typename CharIter>
+        static UChar32 previousHangulOrJamo(CharIter start, CharIter p)
         {
             if ((p - start) >= 3) {
                 p -= 3;
                 uint8_t l = *p;
                 uint8_t t1, t2;
                 if (0xe1 <= l && l <= 0xed &&
-                    (t1 = (uint8_t)(p[1] - 0x80)) <= 0x3f &&
-                    (t2 = (uint8_t)(p[2] - 0x80)) <= 0x3f &&
+                    (t1 = (uint8_t)((uint8_t)p[1] - 0x80)) <= 0x3f &&
+                    (t2 = (uint8_t)((uint8_t)p[2] - 0x80)) <= 0x3f &&
                     (l < 0xed || t1 <= 0x1f)) {
                     return ((l & 0xf) << 12) | (t1 << 6) | t2;
                 }
@@ -1652,19 +1658,19 @@ namespace boost { namespace text { namespace detail { namespace icu {
          * Returns the offset from the Jamo T base if [src, limit[ starts with a
          * single Jamo T code point. Otherwise returns a negative value.
          */
-        static int32_t
-        getJamoTMinusBase(const uint8_t * src, const uint8_t * limit)
+        template<typename CharIter, typename Sentinel>
+        static int32_t getJamoTMinusBase(CharIter src, Sentinel limit)
         {
             // Jamo T: E1 86 A8..E1 87 82
-            if ((limit - src) >= 3 && *src == 0xe1) {
-                if (src[1] == 0x86) {
+            if (detail::icu::dist(src, limit) >= 3 && (uint8_t)*src == 0xe1) {
+                if ((uint8_t)src[1] == 0x86) {
                     uint8_t t = src[2];
                     // The first Jamo T is U+11A8 but JAMO_T_BASE is 11A7.
                     // Offset 0 does not correspond to any conjoining Jamo.
                     if (0xa8 <= t && t <= 0xbf) {
                         return t - 0xa7;
                     }
-                } else if (src[1] == 0x87) {
+                } else if ((uint8_t)src[1] == 0x87) {
                     uint8_t t = src[2];
                     if ((int8_t)t <= (int8_t)0x82u) {
                         return t - (0xa7 - 0x40);
@@ -1674,19 +1680,16 @@ namespace boost { namespace text { namespace detail { namespace icu {
             return -1;
         }
 
-        template<typename UTF8Appender>
+        template<typename CharIter, typename UTF8Appender>
         static void appendCodePointDelta(
-            const uint8_t * cpStart,
-            const uint8_t * cpLimit,
-            int32_t delta,
-            UTF8Appender & appender)
+            CharIter cpStart, CharIter cpLimit, int32_t delta, UTF8Appender & appender)
         {
             char buffer[U8_MAX_LENGTH];
             int32_t length;
-            int32_t cpLength = (int32_t)(cpLimit - cpStart);
+            int32_t cpLength = (int32_t)(cpStart - cpLimit);
             if (cpLength == 1) {
                 // The builder makes ASCII map to ASCII.
-                buffer[0] = (uint8_t)(*cpStart + delta);
+                buffer[0] = (uint8_t)((uint8_t)*cpStart + delta);
                 length = 1;
             } else {
                 int32_t trail = *(cpLimit - 1) + delta;
@@ -1799,8 +1802,8 @@ namespace boost { namespace text { namespace detail { namespace icu {
             U16_PREV(start, 0, i, c);
             return (uint8_t)getFCD16(c);
         }
-        uint8_t
-        getPreviousTrailCC(const uint8_t * start, const uint8_t * p) const
+        template<typename CharIter>
+        uint8_t getPreviousTrailCC(CharIter start, CharIter p) const
         {
             if (start == p) {
                 return 0;
@@ -1968,9 +1971,10 @@ namespace boost { namespace text { namespace detail { namespace icu {
                 errorCode);
         }
 
-        const uint8_t * decomposeShort(
-            const uint8_t * src,
-            const uint8_t * limit,
+        template<typename CharIter, typename Sentinel>
+        CharIter decomposeShort(
+            CharIter src,
+            Sentinel limit,
             UBool stopAtCompBoundary,
             UBool onlyContiguous,
             ReorderingBuffer & buffer,
@@ -1979,8 +1983,8 @@ namespace boost { namespace text { namespace detail { namespace icu {
             if (U_FAILURE(errorCode)) {
                 return nullptr;
             }
-            while (src < limit) {
-                const uint8_t * prevSrc = src;
+            while (src != limit) {
+                CharIter prevSrc = src;
                 uint16_t norm16;
                 UCPTRIE_FAST_U8_NEXT(normTrie, UCPTRIE_16, src, limit, norm16);
                 // Get the decomposition and the lead and trail cc's.
@@ -2350,8 +2354,8 @@ namespace boost { namespace text { namespace detail { namespace icu {
             UCPTRIE_FAST_U16_NEXT(normTrie, UCPTRIE_16, src, limit, c, norm16);
             return norm16HasCompBoundaryBefore(norm16);
         }
-        UBool
-        hasCompBoundaryBefore(const uint8_t * src, const uint8_t * limit) const
+        template<typename CharIter, typename Sentinel>
+        UBool hasCompBoundaryBefore_utf8(CharIter src, Sentinel limit) const
         {
             if (src == limit) {
                 return TRUE;
@@ -2371,10 +2375,9 @@ namespace boost { namespace text { namespace detail { namespace icu {
             UCPTRIE_FAST_U16_PREV(normTrie, UCPTRIE_16, start, p, c, norm16);
             return norm16HasCompBoundaryAfter(norm16, onlyContiguous);
         }
-        UBool hasCompBoundaryAfter(
-            const uint8_t * start,
-            const uint8_t * p,
-            UBool onlyContiguous) const
+        template<typename CharIter>
+        UBool
+        hasCompBoundaryAfter(CharIter start, CharIter p, UBool onlyContiguous) const
         {
             if (start == p) {
                 return TRUE;
