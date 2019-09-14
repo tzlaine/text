@@ -102,8 +102,8 @@ namespace boost { namespace text {
                 Utf16NormFunc &&,
                 Utf8NormFunc && norm_func)
             {
-                auto const sv = make_string_view(first, last);
-                norm_func(sv.begin(), sv.end());
+                auto const r = make_utf8_range(first, last);
+                norm_func(r.begin(), r.end());
             }
         };
 #endif

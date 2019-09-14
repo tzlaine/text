@@ -56,8 +56,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
     };
 
     template<typename CharIter, typename Sentinel, typename String>
-    inline void
-    utf8_normalize_to_nfc_append(CharIter first, Sentinel last, String & s)
+    void utf8_normalize_to_nfc_append(CharIter first, Sentinel last, String & s)
     {
         UErrorCode ec = U_ZERO_ERROR;
         nfc_norm().composeUTF8<false, true>(
@@ -66,8 +65,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
     }
 
     template<typename CharIter, typename Sentinel, typename String>
-    inline void
-    utf8_normalize_to_fcc_append(CharIter first, Sentinel last, String & s)
+    void utf8_normalize_to_fcc_append(CharIter first, Sentinel last, String & s)
     {
         UErrorCode ec = U_ZERO_ERROR;
         nfc_norm().composeUTF8<false, true>(

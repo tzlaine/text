@@ -1,7 +1,6 @@
 #ifndef BOOST_TEXT_NORMALIZE_HPP
 #define BOOST_TEXT_NORMALIZE_HPP
 
-#include <boost/text/string_view.hpp>
 #include <boost/text/transcode_algorithm.hpp>
 #include <boost/text/transcode_iterator.hpp>
 #include <boost/text/utility.hpp>
@@ -804,35 +803,46 @@ namespace boost { namespace text {
             }
         };
 #else
-        template<typename Iter>
-        typename std::enable_if<char_ptr<Iter>::value, string_view>::type
-        make_string_view(Iter first, Iter last)
+        template<typename CharIter, typename Sentinel = CharIter>
+        struct utf8_range
         {
-            return string_view(first, last - first);
+            CharIter begin() const noexcept { return first_; }
+            Sentinel end() const noexcept { return last_; }
+
+            CharIter first_;
+            Sentinel last_;
+        };
+
+        template<typename Iter>
+        typename std::enable_if<char_ptr<Iter>::value, utf8_range<Iter>>::type
+        make_utf8_range(Iter first, Iter last)
+        {
+            return utf8_range<Iter>{first, last};
         }
         template<typename Iter, typename Sentinel>
-        typename std::enable_if<char_ptr<Iter>::value, string_view>::type
-        make_string_view(Iter first, Sentinel last)
+        typename std::
+            enable_if<char_ptr<Iter>::value, utf8_range<Iter, Sentinel>>::type
+            make_utf8_range(Iter first, Sentinel last)
         {
-            return string_view(first);
+            return utf8_range<Iter, Sentinel>{first, last};
         }
         template<typename Iter>
-        string_view make_string_view(
+        utf8_range<char const *> make_utf8_range(
             utf_8_to_32_iterator<Iter> first, utf_8_to_32_iterator<Iter> last)
         {
-            return string_view(first.base(), last.base() - first.base());
+            return utf8_range<char const *>{first.base(), last.base()};
         }
         template<typename Iter, typename Sentinel>
-        string_view make_string_view(
+        utf8_range<char const *, Sentinel> make_utf8_range(
             utf_8_to_32_iterator<Iter, Sentinel> first, Sentinel last)
         {
-            return string_view(first.base());
+            return utf8_range<char const *, Sentinel>{first.base(), last};
         }
         template<typename Iter, typename Sentinel>
-        string_view
-        make_string_view(utf_8_to_32_iterator<Iter> first, Sentinel last)
+        utf8_range<char const *, Sentinel>
+        make_utf8_range(utf_8_to_32_iterator<Iter> first, Sentinel last)
         {
-            return string_view(first.base());
+            return utf8_range<char const *, Sentinel>{first.base(), last};
         }
 #endif
     }
