@@ -74,18 +74,25 @@ namespace boost { namespace text {
             }
         };
 #else
+        enum norm : bool {
+            norm_utf8_fast_path = true,
+            norm_compose = true,
+            norm_decompose = false
+        };
+
         template<
             typename Iter,
             typename Sentinel,
+            bool Compose,
             bool FastUTF8 = icu_utf8_in_fast_path<Iter, Sentinel>::value>
         struct dispatch_normalize_append
         {
-            template<typename Utf16NormFunc, typename Utf8NormFunc>
+            template<typename Utf16NormFunc, typename Utf8ComposeFunc>
             static void call(
                 Iter first,
                 Sentinel last,
                 Utf16NormFunc && norm_func,
-                Utf8NormFunc &&)
+                Utf8ComposeFunc &&)
             {
                 // TODO: Normalize UTF16 chunks.
                 norm_func(first, last);
@@ -93,14 +100,18 @@ namespace boost { namespace text {
         };
 
         template<typename Iter, typename Sentinel>
-        struct dispatch_normalize_append<Iter, Sentinel, true>
+        struct dispatch_normalize_append<
+            Iter,
+            Sentinel,
+            norm_compose,
+            norm_utf8_fast_path>
         {
-            template<typename Utf16NormFunc, typename Utf8NormFunc>
+            template<typename Utf16NormFunc, typename Utf8ComposeFunc>
             static void call(
                 Iter first,
                 Sentinel last,
                 Utf16NormFunc &&,
-                Utf8NormFunc && norm_func)
+                Utf8ComposeFunc && norm_func)
             {
                 auto const r = make_utf8_range(first, last);
                 norm_func(r.begin(), r.end());
@@ -217,8 +228,10 @@ namespace boost { namespace text {
         auto utf8_norm = [&s](char const * first, char const * last) {
             detail::icu::utf8_normalize_to_nfc_append(first, last, s);
         };
-        detail::dispatch_normalize_append<CPIter, Sentinel>::call(
-            first, last, utf16_norm, utf8_norm);
+        detail::dispatch_normalize_append<
+            CPIter,
+            Sentinel,
+            detail::norm_compose>::call(first, last, utf16_norm, utf8_norm);
         return s;
     }
 
