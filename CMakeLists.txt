@@ -91,9 +91,9 @@ endif ()
 if (NOT MSVC)
     target_compile_options(text PRIVATE -Wall)
 endif ()
-if (ICU_FOUND)
-    target_compile_options(text PUBLIC -DBOOST_TEXT_HAS_ICU -DBOOST_TEXT_USE_ICU)
-endif ()
+#if (ICU_FOUND)
+#    target_compile_options(text PUBLIC -DBOOST_TEXT_HAS_ICU -DBOOST_TEXT_USE_ICU)
+#endif ()
 
 
 ##################################################

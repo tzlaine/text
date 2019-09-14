@@ -1,6 +1,7 @@
 #ifndef BOOST_TEXT_NORMALIZE_HPP
 #define BOOST_TEXT_NORMALIZE_HPP
 
+#include <boost/text/string_view.hpp>
 #include <boost/text/transcode_algorithm.hpp>
 #include <boost/text/transcode_iterator.hpp>
 #include <boost/text/utility.hpp>
@@ -408,7 +409,6 @@ namespace boost { namespace text {
             return check == quick_check::yes;
         }
 
-#if BOOST_TEXT_HAS_ICU
         template<typename Iter>
         using char_ptr = std::integral_constant<
             bool,
@@ -418,6 +418,71 @@ namespace boost { namespace text {
                         typename std::remove_pointer<Iter>::type>::type,
                     char>::value>;
 
+        template<typename Iter>
+        using char_ptr_base = char_ptr<decltype(std::declval<Iter>().base())>;
+
+        template<typename Iter>
+        struct char_ptr_or_base_char_ptr
+            : std::integral_constant<
+                  bool,
+                  char_ptr<Iter>::value
+                      ? true
+                      : detected_or<std::false_type, char_ptr_base, Iter>::
+                            value>
+        {
+        };
+
+        template<typename Iter>
+        using char_writable_expr = decltype(*std::declval<Iter &>() = char());
+
+        template<typename Iter>
+        using char_iterator_expr =
+            std::is_same<typename std::iterator_traits<Iter>::value_type, char>;
+
+        template<typename Iter>
+        using char_container_expr =
+            std::is_same<typename Iter::container_type::value_type, char>;
+
+        template<typename Iter>
+        using base_char_container_expr = std::is_same<
+            typename decltype(
+                std::declval<Iter>().base())::container_type::value_type,
+            char>;
+
+        template<typename Iter>
+        struct char_out_iter
+            : std::integral_constant<
+                  bool,
+                  is_detected<char_writable_expr, Iter>::value &&
+                      (detected_or<std::false_type, char_iterator_expr, Iter>::
+                           value ||
+                       detected_or<std::false_type, char_container_expr, Iter>::
+                           value ||
+                       detected_or<
+                           std::false_type,
+                           base_char_container_expr,
+                           Iter>::value)>
+        {
+        };
+
+        template<typename Iter, typename Sentinel>
+        struct icu_utf8_in_fast_path
+            : std::integral_constant<
+                  bool,
+                  char_ptr_or_base_char_ptr<Iter>::value>
+        {
+        };
+
+        template<typename Iter, typename Sentinel, typename OutIter>
+        struct icu_utf8_inout_fast_path
+            : std::integral_constant<
+                  bool,
+                  char_ptr_or_base_char_ptr<Iter>::value &&
+                      char_out_iter<OutIter>::value>
+        {
+        };
+
+#if BOOST_TEXT_HAS_ICU
         template<typename OutIter, typename OriginalIter>
         void self_assign_it_(OutIter & out, OriginalIter *& it)
         {}
@@ -483,70 +548,6 @@ namespace boost { namespace text {
                 decltype(out.base()),
                 utf_32_to_8_back_insert_iterator<C>>(out.base(), out);
         }
-
-        template<typename Iter>
-        using char_ptr_base = char_ptr<decltype(std::declval<Iter>().base())>;
-
-        template<typename Iter>
-        struct char_ptr_or_base_char_ptr
-            : std::integral_constant<
-                  bool,
-                  char_ptr<Iter>::value
-                      ? true
-                      : detected_or<std::false_type, char_ptr_base, Iter>::
-                            value>
-        {
-        };
-
-        template<typename Iter>
-        using char_writable_expr = decltype(*std::declval<Iter &>() = char());
-
-        template<typename Iter>
-        using char_iterator_expr =
-            std::is_same<typename std::iterator_traits<Iter>::value_type, char>;
-
-        template<typename Iter>
-        using char_container_expr =
-            std::is_same<typename Iter::container_type::value_type, char>;
-
-        template<typename Iter>
-        using base_char_container_expr = std::is_same<
-            typename decltype(
-                std::declval<Iter>().base())::container_type::value_type,
-            char>;
-
-        template<typename Iter>
-        struct char_out_iter
-            : std::integral_constant<
-                  bool,
-                  is_detected<char_writable_expr, Iter>::value &&
-                      (detected_or<std::false_type, char_iterator_expr, Iter>::
-                           value ||
-                       detected_or<std::false_type, char_container_expr, Iter>::
-                           value ||
-                       detected_or<
-                           std::false_type,
-                           base_char_container_expr,
-                           Iter>::value)>
-        {
-        };
-
-        template<typename Iter, typename Sentinel>
-        struct icu_utf8_in_fast_path
-            : std::integral_constant<
-                  bool,
-                  char_ptr_or_base_char_ptr<Iter>::value>
-        {
-        };
-
-        template<typename Iter, typename Sentinel, typename OutIter>
-        struct icu_utf8_inout_fast_path
-            : std::integral_constant<
-                  bool,
-                  char_ptr_or_base_char_ptr<Iter>::value &&
-                      char_out_iter<OutIter>::value>
-        {
-        };
 
         template<typename Iter>
         typename std::enable_if<
@@ -802,6 +803,37 @@ namespace boost { namespace text {
                 return sink.iter();
             }
         };
+#else
+        template<typename Iter>
+        typename std::enable_if<char_ptr<Iter>::value, string_view>::type
+        make_string_view(Iter first, Iter last)
+        {
+            return string_view(first, last - first);
+        }
+        template<typename Iter, typename Sentinel>
+        typename std::enable_if<char_ptr<Iter>::value, string_view>::type
+        make_string_view(Iter first, Sentinel last)
+        {
+            return string_view(first);
+        }
+        template<typename Iter>
+        string_view make_string_view(
+            utf_8_to_32_iterator<Iter> first, utf_8_to_32_iterator<Iter> last)
+        {
+            return string_view(first.base(), last.base() - first.base());
+        }
+        template<typename Iter, typename Sentinel>
+        string_view make_string_view(
+            utf_8_to_32_iterator<Iter, Sentinel> first, Sentinel last)
+        {
+            return string_view(first.base());
+        }
+        template<typename Iter, typename Sentinel>
+        string_view
+        make_string_view(utf_8_to_32_iterator<Iter> first, Sentinel last)
+        {
+            return string_view(first.base());
+        }
 #endif
     }
 
