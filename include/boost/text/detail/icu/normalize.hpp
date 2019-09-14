@@ -24,7 +24,20 @@ namespace boost { namespace text { namespace detail { namespace icu {
         return retval;
     }
 
-    // TODO: nfkc
+    inline Normalizer2Impl & nfkc_norm()
+    {
+        static Normalizer2Impl retval;
+        static bool once = true;
+        if (once) {
+            retval.init(
+                norm2_nfkc_data_indexes,
+                &norm2_nfkc_data_trie,
+                norm2_nfkc_data_extraData,
+                norm2_nfkc_data_smallFCD);
+            once = false;
+        }
+        return retval;
+    }
 
     template<typename String>
     struct string_appender
@@ -60,6 +73,15 @@ namespace boost { namespace text { namespace detail { namespace icu {
     {
         UErrorCode ec = U_ZERO_ERROR;
         nfc_norm().composeUTF8<false, true>(
+            first, last, string_appender<String>(s), ec);
+        BOOST_ASSERT(U_SUCCESS(ec));
+    }
+
+    template<typename CharIter, typename Sentinel, typename String>
+    void utf8_normalize_to_nfkc_append(CharIter first, Sentinel last, String & s)
+    {
+        UErrorCode ec = U_ZERO_ERROR;
+        nfkc_norm().composeUTF8<false, true>(
             first, last, string_appender<String>(s), ec);
         BOOST_ASSERT(U_SUCCESS(ec));
     }

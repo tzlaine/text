@@ -26,6 +26,18 @@ namespace boost { namespace text {
         };
 
         template<typename String>
+        struct utf8_norm_nfkc
+        {
+            utf8_norm_nfkc(String & s) : s_(&s) {}
+            template<typename CharIter, typename Sentinel>
+            void operator()(CharIter first, Sentinel last)
+            {
+                detail::icu::utf8_normalize_to_nfkc_append(first, last, *s_);
+            }
+            String * s_;
+        };
+
+        template<typename String>
         struct utf8_norm_fcc
         {
             utf8_norm_fcc(String & s) : s_(&s) {}
@@ -217,17 +229,15 @@ namespace boost { namespace text {
             decltype(s.insert(s.end(), detail::ncstr, detail::ncstr), s),
             CPIter>
     {
-#if BOOST_TEXT_HAS_ICU
-        if (BOOST_TEXT_USE_ICU) {
-            UErrorCode ec = U_ZERO_ERROR;
-            U_NAMESPACE_QUALIFIER Normalizer2 const * const norm =
-                U_NAMESPACE_QUALIFIER Normalizer2::getNFKCInstance(ec);
-            BOOST_ASSERT(U_SUCCESS(ec));
-            detail::icu_normalize_append<CPIter, Sentinel, String>::call(
-                *norm, first, last, s);
-            return s;
-        }
-#endif
+#if 0 // TODO: Badly broken!
+        auto utf16_norm = [&s](CPIter first, Sentinel last) {
+            normalize_to_nfkc(first, last, utf_32_to_8_inserter(s, s.end()));
+        };
+        detail::
+            dispatch_normalize_append<CPIter, Sentinel, detail::norm_compose>::
+                call(
+                    first, last, utf16_norm, detail::utf8_norm_nfkc<String>(s));
+#else
         detail::normalize_to_composed<false>(
             first,
             last,
@@ -236,7 +246,7 @@ namespace boost { namespace text {
             [](uint32_t cp) {
                 return detail::quick_check_nfkc_code_point(cp);
             });
-
+#endif
         return s;
     }
 
