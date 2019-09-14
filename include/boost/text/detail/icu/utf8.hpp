@@ -80,7 +80,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
      * @param leadByte The first byte of a UTF-8 sequence. Must be 0..0xff.
      * @internal
      */
-    inline uint8_t U8_COUNT_TRAIL_BYTES(uint8_t leadByte)
+    inline int U8_COUNT_TRAIL_BYTES(uint8_t leadByte)
     {
         return U8_IS_LEAD(leadByte) ? ((uint8_t)(leadByte) >= 0xe0) +
                                           ((uint8_t)(leadByte) >= 0xf0) + 1
@@ -99,24 +99,10 @@ namespace boost { namespace text { namespace detail { namespace icu {
      * @param leadByte The first byte of a UTF-8 sequence. Must be 0..0xff.
      * @internal
      */
-    inline uint8_t U8_COUNT_TRAIL_BYTES_UNSAFE(uint8_t leadByte)
+    inline int U8_COUNT_TRAIL_BYTES_UNSAFE(uint8_t leadByte)
     {
         return ((uint8_t)(leadByte) >= 0xc2) + ((uint8_t)(leadByte) >= 0xe0) +
                ((uint8_t)(leadByte) >= 0xf0);
-    }
-
-    /**
-     * Mask a UTF-8 lead byte, leave only the lower bits that form part of the
-     * code point value.
-     *
-     * This is internal since it is not meant to be called directly by external
-     * clients; however it is called by public macros in this file and thus must
-     * remain stable.
-     * @internal
-     */
-    inline uint8_t U8_MASK_LEAD_BYTE(uint8_t leadByte, uint8_t countTrailBytes)
-    {
-        return ((leadByte) &= (1 << (6 - (countTrailBytes))) - 1);
     }
 
     /**
@@ -129,7 +115,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
      * @internal
      */
     namespace {
-        constexpr char const * U8_LEAD3_T1_BITS =
+        constexpr char U8_LEAD3_T1_BITS[] =
             "\x20\x30\x30\x30\x30\x30\x30\x30\x30\x30\x30\x30\x30\x10\x30\x30";
     }
 
@@ -154,7 +140,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
      * @internal
      */
     namespace {
-        constexpr char const * U8_LEAD4_T1_BITS =
+        constexpr char U8_LEAD4_T1_BITS[] =
             "\x00\x00\x00\x00\x00\x00\x00\x00\x1E\x0F\x0F\x0F\x00\x00\x00\x00";
     }
 
@@ -167,30 +153,6 @@ namespace boost { namespace text { namespace detail { namespace icu {
     inline bool U8_IS_VALID_LEAD4_AND_T1(uint8_t lead, uint8_t t1)
     {
         return (U8_LEAD4_T1_BITS[(uint8_t)(t1) >> 4] & (1 << ((lead)&7)));
-    }
-
-    /* single-code point definitions
-     * -------------------------------------------- */
-
-    /**
-     * How many code units (bytes) are used for the UTF-8 encoding
-     * of this Unicode code point?
-     * @param c 32-bit code point
-     * @return 1..4, or 0 if c is a surrogate or not a Unicode code point
-     * @stable ICU 2.4
-     */
-    inline int U8_LENGTH(UChar32 c)
-    {
-        return (uint32_t)(c) <= 0x7f
-                   ? 1
-                   : ((uint32_t)(c) <= 0x7ff
-                          ? 2
-                          : ((uint32_t)(c) <= 0xd7ff
-                                 ? 3
-                                 : ((uint32_t)(c) <= 0xdfff ||
-                                            (uint32_t)(c) > 0x10ffff
-                                        ? 0
-                                        : ((uint32_t)(c) <= 0xffff ? 3 : 4))));
     }
 
 
@@ -214,7 +176,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
      * @see U8_NEXT
      * @stable ICU 2.4
      */
-    inline void U8_NEXT_UNSAFE(const uint8_t * s, int i, UChar32 & c)
+    inline void U8_NEXT_UNSAFE(const uint8_t * s, int32_t & i, UChar32 & c)
     {
         (c) = (uint8_t)(s)[(i)++];
         if (!U8_IS_SINGLE(c)) {
@@ -250,7 +212,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
      * @stable ICU 2.4
      */
     template<typename Char>
-    void U8_APPEND_UNSAFE(Char * s, int i, UChar32 c)
+    void U8_APPEND_UNSAFE(Char * s, int32_t & i, UChar32 c)
     {
         uint32_t uc_ = (c);
         if (uc_ <= 0x7f) {
@@ -393,7 +355,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
      * @see U8_PREV_UNSAFE
      * @stable ICU 2.4
      */
-    inline void U8_PREV(const uint8_t * s, int start, int i, UChar32 & c)
+    inline void U8_PREV(const uint8_t * s, int start, int32_t & i, UChar32 & c)
     {
         (c) = (uint8_t)(s)[--(i)];
         if (!U8_IS_SINGLE(c)) {
