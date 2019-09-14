@@ -120,7 +120,7 @@
 #ifndef UTF_H_
 #define UTF_H_
 
-#include "machine.hpp"
+#include <boost/text/detail/icu/machine.hpp>
 
 
 /* single-code point definitions -------------------------------------------- */

@@ -19,12 +19,12 @@
 #ifndef NORMALIZER2IMPL_H_
 #define NORMALIZER2IMPL_H_
 
-#include "bytesinkutil.hpp"
-#include "machine.hpp"
-#include "ucptrie.hpp"
-#include "utypes.hpp"
-#include "utf8.hpp"
-#include "utf16.hpp"
+#include <boost/text/detail/icu/bytesinkutil.hpp>
+#include <boost/text/detail/icu/machine.hpp>
+#include <boost/text/detail/icu/ucptrie.hpp>
+#include <boost/text/detail/icu/utypes.hpp>
+#include <boost/text/detail/icu/utf8.hpp>
+#include <boost/text/detail/icu/utf16.hpp>
 
 #include <boost/assert.hpp>
 

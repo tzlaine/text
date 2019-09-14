@@ -6,9 +6,9 @@
 #ifndef BYTESINKUTIL_H_
 #define BYTESINKUTIL_H_
 
-#include "utypes.hpp"
-#include "utf8.hpp"
-#include "utf16.hpp"
+#include <boost/text/detail/icu/utypes.hpp>
+#include <boost/text/detail/icu/utf8.hpp>
+#include <boost/text/detail/icu/utf16.hpp>
 
 #include <boost/assert.hpp>
 

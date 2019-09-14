@@ -34,7 +34,7 @@
 #ifndef UTYPES_H_
 #define UTYPES_H_
 
-#include "machine.hpp"
+#include <boost/text/detail/icu/machine.hpp>
 
 
 namespace boost { namespace text { namespace detail { namespace icu {

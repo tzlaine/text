@@ -36,7 +36,7 @@
 #ifndef UTF16_H_
 #define UTF16_H_
 
-#include "utf.hpp"
+#include <boost/text/detail/icu/utf.hpp>
 
 
 namespace boost { namespace text { namespace detail { namespace icu {

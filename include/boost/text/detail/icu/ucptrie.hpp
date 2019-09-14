@@ -7,10 +7,10 @@
 #ifndef UCPTRIE_H_
 #define UCPTRIE_H_
 
-#include "ucpmap.hpp"
-#include "utypes.hpp"
-#include "utf8.hpp"
-#include "utf16.hpp"
+#include <boost/text/detail/icu/ucpmap.hpp>
+#include <boost/text/detail/icu/utypes.hpp>
+#include <boost/text/detail/icu/utf8.hpp>
+#include <boost/text/detail/icu/utf16.hpp>
 
 #include <boost/assert.hpp>
 

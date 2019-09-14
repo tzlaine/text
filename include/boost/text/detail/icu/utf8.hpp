@@ -36,8 +36,8 @@
 #ifndef UTF8_H_
 #define UTF8_H_
 
-#include "machine.hpp"
-#include "utf.hpp"
+#include <boost/text/detail/icu/machine.hpp>
+#include <boost/text/detail/icu/utf.hpp>
 
 
 namespace boost { namespace text { namespace detail { namespace icu {

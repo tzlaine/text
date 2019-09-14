@@ -11,7 +11,7 @@
 #ifndef NORM2_NFKD_DATA_H_
 #define NORM2_NFKD_DATA_H_
 
-#include "normalizer2impl.hpp"
+#include <boost/text/detail/icu/normalizer2impl.hpp>
 
 namespace boost { namespace text { namespace detail { namespace icu {
 
