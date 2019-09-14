@@ -13,67 +13,30 @@ namespace boost { namespace text {
             constexpr char const * ncstr = nullptr;
         }
 
-#if BOOST_TEXT_HAS_ICU
-        template<typename Container>
-        struct end_insert_sink : U_NAMESPACE_QUALIFIER ByteSink
+        template<typename String>
+        struct utf8_norm_nfc
         {
-            explicit end_insert_sink(Container & c) : c_(&c) {}
-
-            end_insert_sink(end_insert_sink const & other) : c_(other.c_) {}
-            end_insert_sink & operator=(end_insert_sink const & other)
+            utf8_norm_nfc(String & s) : s_(&s) {}
+            template<typename CharIter, typename Sentinel>
+            void operator()(CharIter first, Sentinel last)
             {
-                c_ = other.c_;
+                detail::icu::utf8_normalize_to_nfc_append(first, last, *s_);
             }
-
-            virtual void Append(char const * bytes, int32_t n) override
-            {
-                c_->insert(c_->end(), bytes, bytes + n);
-            }
-
-        private:
-            Container * c_;
+            String * s_;
         };
 
-        template<
-            typename Iter,
-            typename Sentinel,
-            typename String,
-            bool FastUTF8 = icu_utf8_in_fast_path<Iter, Sentinel>::value>
-        struct icu_normalize_append
+        template<typename String>
+        struct utf8_norm_fcc
         {
-            static void call(
-                U_NAMESPACE_QUALIFIER Normalizer2 const & norm,
-                Iter first,
-                Sentinel last,
-                String & s)
+            utf8_norm_fcc(String & s) : s_(&s) {}
+            template<typename CharIter, typename Sentinel>
+            void operator()(CharIter first, Sentinel last)
             {
-                auto out = utf_32_to_8_inserter(s, s.end());
-                icu_normalize<Iter, Sentinel, decltype(out), false>::call(
-                    norm, first, last, out);
+                detail::icu::utf8_normalize_to_fcc_append(first, last, *s_);
             }
+            String * s_;
         };
 
-        template<typename Iter, typename Sentinel, typename String>
-        struct icu_normalize_append<Iter, Sentinel, String, true>
-        {
-            static void call(
-                U_NAMESPACE_QUALIFIER Normalizer2 const & norm,
-                Iter first,
-                Sentinel last,
-                String & s)
-            {
-                UErrorCode ec = U_ZERO_ERROR;
-                end_insert_sink<String> sink(s);
-                norm.normalizeUTF8(
-                    0,
-                    detail::make_string_piece(first, last),
-                    sink,
-                    nullptr,
-                    ec);
-                BOOST_ASSERT(U_SUCCESS(ec));
-            }
-        };
-#else
         enum norm : bool {
             norm_utf8_fast_path = true,
             norm_compose = true,
@@ -117,7 +80,6 @@ namespace boost { namespace text {
                 norm_func(r.begin(), r.end());
             }
         };
-#endif
     }
 
     /** Appends sequence `[first, last)` in normalization form NFD to `s`, in
@@ -225,13 +187,9 @@ namespace boost { namespace text {
         auto utf16_norm = [&s](CPIter first, Sentinel last) {
             normalize_to_nfc(first, last, utf_32_to_8_inserter(s, s.end()));
         };
-        auto utf8_norm = [&s](char const * first, char const * last) {
-            detail::icu::utf8_normalize_to_nfc_append(first, last, s);
-        };
-        detail::dispatch_normalize_append<
-            CPIter,
-            Sentinel,
-            detail::norm_compose>::call(first, last, utf16_norm, utf8_norm);
+        detail::
+            dispatch_normalize_append<CPIter, Sentinel, detail::norm_compose>::
+                call(first, last, utf16_norm, detail::utf8_norm_nfc<String>(s));
         return s;
     }
 
@@ -306,25 +264,12 @@ namespace boost { namespace text {
             decltype(s.insert(s.end(), detail::ncstr, detail::ncstr), s),
             CPIter>
     {
-#if BOOST_TEXT_HAS_ICU
-        if (BOOST_TEXT_USE_ICU) {
-            UErrorCode ec = U_ZERO_ERROR;
-            U_NAMESPACE_QUALIFIER Normalizer2 const * const norm =
-                U_NAMESPACE_QUALIFIER Normalizer2::getInstance(
-                    nullptr, "nfc", UNORM2_COMPOSE_CONTIGUOUS, ec);
-            BOOST_ASSERT(U_SUCCESS(ec));
-            detail::icu_normalize_append<CPIter, Sentinel, String>::call(
-                *norm, first, last, s);
-            return s;
-        }
-#endif
-        detail::normalize_to_composed<true>(
-            first,
-            last,
-            utf_32_to_8_inserter(s, s.end()),
-            [](uint32_t cp) { return detail::canonical_decompose(cp); },
-            [](uint32_t cp) { return detail::quick_check_nfc_code_point(cp); });
-
+        auto utf16_norm = [&s](CPIter first, Sentinel last) {
+            normalize_to_fcc(first, last, utf_32_to_8_inserter(s, s.end()));
+        };
+        detail::
+            dispatch_normalize_append<CPIter, Sentinel, detail::norm_compose>::
+                call(first, last, utf16_norm, detail::utf8_norm_fcc<String>(s));
         return s;
     }
 

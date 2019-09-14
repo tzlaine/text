@@ -68,17 +68,6 @@ void BM_text_utf8_fcc_string_append(benchmark::State & state)
     }
 }
 
-void BM_text_icu_utf8_fcc_string_append(benchmark::State & state)
-{
-    while (state.KeepRunning()) {
-        std::string result;
-        auto sv = boost::text::string_view(file_contents);
-        boost::text::detail::icu::utf8_normalize_to_fcc_append(
-            sv.begin(), sv.end(), result);
-        benchmark::ClobberMemory();
-    }
-}
-
 void BM_text_utf8_fcc_string(benchmark::State & state)
 {
     while (state.KeepRunning()) {
@@ -173,6 +162,17 @@ void BM_text_utf8_nfc(benchmark::State & state)
             boost::text::string_view(file_contents));
         benchmark::DoNotOptimize(boost::text::normalize_to_nfc(
             r, boost::text::utf_32_to_8_back_inserter(normalized)));
+    }
+}
+
+void BM_text_utf8_nfc_string_append(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+        std::string result;
+        auto r = boost::text::make_to_utf32_range(
+            boost::text::string_view(file_contents));
+        normalize_to_nfc_append_utf8(r, result);
+        benchmark::ClobberMemory();
     }
 }
 
@@ -305,7 +305,6 @@ void BM_text_utf32_nfkc(benchmark::State & state)
 BENCHMARK(BM_icu_utf8_fcc);
 BENCHMARK(BM_text_utf8_fcc);
 BENCHMARK(BM_text_utf8_fcc_string_append);
-BENCHMARK(BM_text_icu_utf8_fcc_string_append);
 BENCHMARK(BM_text_utf8_fcc_string);
 BENCHMARK(BM_icu_utf8_nfd);
 BENCHMARK(BM_icu_utf16_nfd);
@@ -315,6 +314,7 @@ BENCHMARK(BM_text_utf32_nfd);
 BENCHMARK(BM_icu_utf8_nfc);
 BENCHMARK(BM_icu_utf16_nfc);
 BENCHMARK(BM_text_utf8_nfc);
+BENCHMARK(BM_text_utf8_nfc_string_append);
 BENCHMARK(BM_text_utf8_nfc_string);
 BENCHMARK(BM_text_utf32_nfc);
 BENCHMARK(BM_icu_utf8_nfkd);
