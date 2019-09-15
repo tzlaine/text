@@ -44,7 +44,8 @@ namespace boost { namespace text { namespace detail { namespace icu {
     {
         explicit string_appender(String & s) : s_(&s) {}
 
-        void append(char const * bytes, int32_t n) // TODO: char const * -> CharIter
+        template<typename CharIter>
+        void append(CharIter bytes, int32_t n)
         {
             s_->insert(s_->end(), bytes, bytes + n);
         }
@@ -90,7 +91,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
     void utf8_normalize_to_fcc_append(CharIter first, Sentinel last, String & s)
     {
         UErrorCode ec = U_ZERO_ERROR;
-        nfc_norm().composeUTF8<false, true>(
+        nfc_norm().composeUTF8<true, true>(
             first, last, string_appender<String>(s), ec);
         BOOST_ASSERT(U_SUCCESS(ec));
     }

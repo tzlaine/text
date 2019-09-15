@@ -326,7 +326,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                    0 == memcmp(start, otherStart, length);
         }
         template<typename CharIter>
-        UBool equals(CharIter otherStart, CharIter otherLimit) const
+        UBool equals_utf8(CharIter otherStart, CharIter otherLimit) const
         {
             BOOST_ASSERT(
                 (otherLimit - otherStart) <= INT32_MAX); // ensured by caller
@@ -1343,7 +1343,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                         // before _or_ after it. The character itself implies no
                         // boundaries.
                         if (hasCompBoundaryBefore_utf8(src, limit) ||
-                            hasCompBoundaryAfter(
+                            hasCompBoundaryAfter_utf8(
                                 prevBoundary, prevSrc, OnlyContiguous)) {
                             if (prevBoundary != prevSrc &&
                                 !ByteSinkUtil::appendUnchanged(
@@ -1437,7 +1437,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                     // if followed by a character with a boundary-before.
                     uint8_t cc = getCCFromNormalYesOrMaybe(norm16); // cc!=0
                     if (OnlyContiguous /* FCC */ &&
-                        getPreviousTrailCC(prevBoundary, prevSrc) > cc) {
+                        getPreviousTrailCC_utf8(prevBoundary, prevSrc) > cc) {
                         // Fails FCD test, need to decompose and contiguously
                         // recompose.
                         if (!WriteToOut) {
@@ -1528,7 +1528,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                     return TRUE;
                 }
                 recompose(buffer, 0, OnlyContiguous);
-                if (!buffer.equals(prevSrc, src)) {
+                if (!buffer.equals_utf8(prevSrc, src)) {
                     if (!WriteToOut) {
                         return FALSE;
                     }
@@ -1803,7 +1803,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
             return (uint8_t)getFCD16(c);
         }
         template<typename CharIter>
-        uint8_t getPreviousTrailCC(CharIter start, CharIter p) const
+        uint8_t getPreviousTrailCC_utf8(CharIter start, CharIter p) const
         {
             if (start == p) {
                 return 0;
@@ -2376,8 +2376,8 @@ namespace boost { namespace text { namespace detail { namespace icu {
             return norm16HasCompBoundaryAfter(norm16, onlyContiguous);
         }
         template<typename CharIter>
-        UBool
-        hasCompBoundaryAfter(CharIter start, CharIter p, UBool onlyContiguous) const
+        UBool hasCompBoundaryAfter_utf8(
+            CharIter start, CharIter p, UBool onlyContiguous) const
         {
             if (start == p) {
                 return TRUE;
