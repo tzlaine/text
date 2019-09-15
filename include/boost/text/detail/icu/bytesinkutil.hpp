@@ -44,14 +44,28 @@ namespace boost { namespace text { namespace detail { namespace icu {
         return std::distance(first, last);
     }
 
-    class ByteSinkUtil
-    {
-    public:
-        ByteSinkUtil() = delete; // all static
+    namespace ByteSinkUtil {
+        // See unicode/utf8.h U8_APPEND_UNSAFE().
+        inline uint8_t getTwoByteLead(UChar32 c)
+        {
+            return (uint8_t)((c >> 6) | 0xc0);
+        }
+        inline uint8_t getTwoByteTrail(UChar32 c)
+        {
+            return (uint8_t)((c & 0x3f) | 0x80);
+        }
+
+        template<typename CharIter, typename UTF8Appender>
+        void appendNonEmptyUnchanged(
+            CharIter s, int32_t length, UTF8Appender & appender)
+        {
+            BOOST_ASSERT(length > 0);
+            appender.append((char const *)s, length); // TODO: Remvoe cast.
+        }
 
         /** (length) bytes were mapped to valid (s16, s16Length). */
         template<typename UTF8Appender>
-        static UBool appendChange(
+        UBool appendChange(
             int32_t length,
             const char16_t * s16,
             int32_t s16Length,
@@ -96,7 +110,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
 
         /** The bytes at [s, limit[ were mapped to valid (s16, s16Length). */
         template<typename CharIter, typename UTF8Appender>
-        static UBool appendChange(
+        UBool appendChange(
             CharIter s,
             CharIter limit,
             const char16_t * s16,
@@ -111,8 +125,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
 
         /** (length) bytes were mapped/changed to valid code point c. */
         template<typename UTF8Appender>
-        static void
-        appendCodePoint(int32_t length, UChar32 c, UTF8Appender & appender)
+        void appendCodePoint(int32_t length, UChar32 c, UTF8Appender & appender)
         {
             char s8[U8_MAX_LENGTH];
             int32_t s8Length = 0;
@@ -123,7 +136,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
         /** The few bytes at [src, nextSrc[ were mapped/changed to valid code
          * point c. */
         template<typename CharIter, typename UTF8Appender>
-        static inline void appendCodePoint(
+        void appendCodePoint(
             CharIter src, CharIter nextSrc, UChar32 c, UTF8Appender & appender)
         {
             appendCodePoint((int32_t)(nextSrc - src), c, appender);
@@ -131,7 +144,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
 
         /** Append the two-byte character (U+0080..U+07FF). */
         template<typename UTF8Appender>
-        static void appendTwoBytes(UChar32 c, UTF8Appender & appender)
+        void appendTwoBytes(UChar32 c, UTF8Appender & appender)
         {
             BOOST_ASSERT(0x80 <= c && c <= 0x7ff); // 2-byte UTF-8
             char s8[2] = {(char)getTwoByteLead(c), (char)getTwoByteTrail(c)};
@@ -139,7 +152,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
         }
 
         template<typename CharIter, typename UTF8Appender>
-        static UBool
+        UBool
         appendUnchanged(CharIter s, int32_t length, UTF8Appender & appender)
         {
             if (length > 0) {
@@ -149,7 +162,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
         }
 
         template<typename CharIter, typename Sentinel, typename UTF8Appender>
-        static UBool
+        UBool
         appendUnchanged(CharIter s, Sentinel limit, UTF8Appender & appender)
         {
             if (detail::icu::dist(s, limit) > INT32_MAX) {
@@ -161,26 +174,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
             }
             return TRUE;
         }
-
-    private:
-        // See unicode/utf8.h U8_APPEND_UNSAFE().
-        static uint8_t getTwoByteLead(UChar32 c)
-        {
-            return (uint8_t)((c >> 6) | 0xc0);
-        }
-        static uint8_t getTwoByteTrail(UChar32 c)
-        {
-            return (uint8_t)((c & 0x3f) | 0x80);
-        }
-
-        template<typename CharIter, typename UTF8Appender>
-        static void appendNonEmptyUnchanged(
-            CharIter s, int32_t length, UTF8Appender & appender)
-        {
-            BOOST_ASSERT(length > 0);
-            appender.append((char const *)s, length); // TODO: Remvoe cast.
-        }
-    };
+    }
 
 }}}}
 

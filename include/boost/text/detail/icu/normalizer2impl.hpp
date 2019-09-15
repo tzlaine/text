@@ -145,9 +145,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
 
     using UnicodeString = container::small_vector<UChar, 1024>;
 
-    class Hangul
-    {
-    public:
+    namespace Hangul {
         /* Korean Hangul and Jamo constants */
         enum {
             JAMO_L_BASE = 0x1100, /* "lead" jamo */
@@ -170,29 +168,29 @@ namespace boost { namespace text { namespace detail { namespace icu {
             HANGUL_LIMIT = HANGUL_BASE + HANGUL_COUNT
         };
 
-        static inline UBool isHangul(UChar32 c)
+        inline UBool isHangul(UChar32 c)
         {
             return HANGUL_BASE <= c && c < HANGUL_LIMIT;
         }
-        static inline UBool isHangulLV(UChar32 c)
+        inline UBool isHangulLV(UChar32 c)
         {
             c -= HANGUL_BASE;
             return 0 <= c && c < HANGUL_COUNT && c % JAMO_T_COUNT == 0;
         }
-        static inline UBool isJamoL(UChar32 c)
+        inline UBool isJamoL(UChar32 c)
         {
             return (uint32_t)(c - JAMO_L_BASE) < JAMO_L_COUNT;
         }
-        static inline UBool isJamoV(UChar32 c)
+        inline UBool isJamoV(UChar32 c)
         {
             return (uint32_t)(c - JAMO_V_BASE) < JAMO_V_COUNT;
         }
-        static inline UBool isJamoT(UChar32 c)
+        inline UBool isJamoT(UChar32 c)
         {
             int32_t t = c - JAMO_T_BASE;
             return 0 < t && t < JAMO_T_COUNT; // not JAMO_T_BASE itself
         }
-        static UBool isJamo(UChar32 c)
+        inline UBool isJamo(UChar32 c)
         {
             return JAMO_L_BASE <= c && c <= JAMO_T_END &&
                    (c <= JAMO_L_END || (JAMO_V_BASE <= c && c <= JAMO_V_END) ||
@@ -203,7 +201,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
          * Decomposes c, which must be a Hangul syllable, into buffer
          * and returns the length of the decomposition (2 or 3).
          */
-        static inline int32_t decompose(UChar32 c, UChar buffer[3])
+        inline int32_t decompose(UChar32 c, UChar buffer[3])
         {
             c -= HANGUL_BASE;
             UChar32 c2 = c % JAMO_T_COUNT;
@@ -223,7 +221,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
          * This is the raw, not recursive, decomposition. Its length is
          * always 2.
          */
-        static inline void getRawDecomposition(UChar32 c, UChar buffer[2])
+        inline void getRawDecomposition(UChar32 c, UChar buffer[2])
         {
             UChar32 orig = c;
             c -= HANGUL_BASE;
@@ -237,10 +235,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                 buffer[1] = (UChar)(JAMO_T_BASE + c2);
             }
         }
-
-    private:
-        Hangul(); // no instantiation
-    };
+    }
 
     class Normalizer2Impl;
 
