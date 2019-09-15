@@ -72,28 +72,22 @@ namespace boost { namespace text { namespace detail { namespace icu {
     template<typename CharIter, typename Sentinel, typename String>
     void utf8_normalize_to_nfc_append(CharIter first, Sentinel last, String & s)
     {
-        UErrorCode ec = U_ZERO_ERROR;
         nfc_norm().composeUTF8<false, true>(
-            first, last, string_appender<String>(s), ec);
-        BOOST_ASSERT(U_SUCCESS(ec));
+            first, last, string_appender<String>(s));
     }
 
     template<typename CharIter, typename Sentinel, typename String>
     void utf8_normalize_to_nfkc_append(CharIter first, Sentinel last, String & s)
     {
-        UErrorCode ec = U_ZERO_ERROR;
         nfkc_norm().composeUTF8<false, true>(
-            first, last, string_appender<String>(s), ec);
-        BOOST_ASSERT(U_SUCCESS(ec));
+            first, last, string_appender<String>(s));
     }
 
     template<typename CharIter, typename Sentinel, typename String>
     void utf8_normalize_to_fcc_append(CharIter first, Sentinel last, String & s)
     {
-        UErrorCode ec = U_ZERO_ERROR;
         nfc_norm().composeUTF8<true, true>(
-            first, last, string_appender<String>(s), ec);
-        BOOST_ASSERT(U_SUCCESS(ec));
+            first, last, string_appender<String>(s));
     }
 
 }}}}

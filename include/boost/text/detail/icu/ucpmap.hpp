@@ -7,8 +7,6 @@
 #ifndef UCPMAP_H_
 #define UCPMAP_H_
 
-#include <boost/text/detail/icu/utypes.hpp>
-
 
 namespace boost { namespace text { namespace detail { namespace icu {
 

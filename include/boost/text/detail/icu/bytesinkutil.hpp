@@ -6,7 +6,6 @@
 #ifndef BYTESINKUTIL_H_
 #define BYTESINKUTIL_H_
 
-#include <boost/text/detail/icu/utypes.hpp>
 #include <boost/text/detail/icu/utf8.hpp>
 #include <boost/text/detail/icu/utf16.hpp>
 
@@ -56,12 +55,8 @@ namespace boost { namespace text { namespace detail { namespace icu {
             int32_t length,
             const char16_t * s16,
             int32_t s16Length,
-            UTF8Appender & appender,
-            UErrorCode & errorCode)
+            UTF8Appender & appender)
         {
-            if (U_FAILURE(errorCode)) {
-                return FALSE;
-            }
             char scratch[200];
             int32_t s8Length = 0;
             for (int32_t i = 0; i < s16Length;) {
@@ -90,7 +85,6 @@ namespace boost { namespace text { namespace detail { namespace icu {
                     U8_APPEND_UNSAFE(buffer, j, c);
                 }
                 if (j > (INT32_MAX - s8Length)) {
-                    errorCode = U_INDEX_OUTOFBOUNDS_ERROR;
                     return FALSE;
                 }
                 appender.append(buffer, j);
@@ -107,18 +101,12 @@ namespace boost { namespace text { namespace detail { namespace icu {
             CharIter limit,
             const char16_t * s16,
             int32_t s16Length,
-            UTF8Appender & appender,
-            UErrorCode & errorCode)
+            UTF8Appender & appender)
         {
-            if (U_FAILURE(errorCode)) {
-                return FALSE;
-            }
             if ((limit - s) > INT32_MAX) {
-                errorCode = U_INDEX_OUTOFBOUNDS_ERROR;
                 return FALSE;
             }
-            return appendChange(
-                (int32_t)(limit - s), s16, s16Length, appender, errorCode);
+            return appendChange((int32_t)(limit - s), s16, s16Length, appender);
         }
 
         /** (length) bytes were mapped/changed to valid code point c. */
@@ -151,15 +139,9 @@ namespace boost { namespace text { namespace detail { namespace icu {
         }
 
         template<typename CharIter, typename UTF8Appender>
-        static UBool appendUnchanged(
-            CharIter s,
-            int32_t length,
-            UTF8Appender & appender,
-            UErrorCode & errorCode)
+        static UBool
+        appendUnchanged(CharIter s, int32_t length, UTF8Appender & appender)
         {
-            if (U_FAILURE(errorCode)) {
-                return FALSE;
-            }
             if (length > 0) {
                 appendNonEmptyUnchanged(s, length, appender);
             }
@@ -167,17 +149,10 @@ namespace boost { namespace text { namespace detail { namespace icu {
         }
 
         template<typename CharIter, typename Sentinel, typename UTF8Appender>
-        static UBool appendUnchanged(
-            CharIter s,
-            Sentinel limit,
-            UTF8Appender & appender,
-            UErrorCode & errorCode)
+        static UBool
+        appendUnchanged(CharIter s, Sentinel limit, UTF8Appender & appender)
         {
-            if (U_FAILURE(errorCode)) {
-                return FALSE;
-            }
             if (detail::icu::dist(s, limit) > INT32_MAX) {
-                errorCode = U_INDEX_OUTOFBOUNDS_ERROR;
                 return FALSE;
             }
             int32_t length = (int32_t)detail::icu::dist(s, limit);

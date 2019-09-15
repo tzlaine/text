@@ -19,19 +19,17 @@
 #ifndef NORMALIZER2IMPL_H_
 #define NORMALIZER2IMPL_H_
 
+#include <boost/assert.hpp>
+#include <boost/container/small_vector.hpp>
+
 #include <boost/text/detail/icu/bytesinkutil.hpp>
 #include <boost/text/detail/icu/machine.hpp>
 #include <boost/text/detail/icu/ucptrie.hpp>
-#include <boost/text/detail/icu/utypes.hpp>
 #include <boost/text/detail/icu/utf8.hpp>
 #include <boost/text/detail/icu/utf16.hpp>
 
-#include <boost/assert.hpp>
-
 #include <cstring>
 #include <mutex>
-
-#include <vector> // TODO
 
 
 namespace boost { namespace text { namespace detail { namespace icu {
@@ -145,7 +143,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
         UNORM_MODE_COUNT
     } UNormalizationMode;
 
-    using UnicodeString = std::vector<UChar>; // TODO
+    using UnicodeString = container::small_vector<UChar, 1024>;
 
     class Hangul
     {
@@ -249,22 +247,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
     class ReorderingBuffer
     {
     public:
-        /** Constructs only; init() should be called. */
         ReorderingBuffer(const Normalizer2Impl & ni, UnicodeString & dest) :
-            impl(ni),
-            str(dest),
-            start(nullptr),
-            reorderStart(nullptr),
-            limit(nullptr),
-            remainingCapacity(0),
-            lastCC(0)
-        {}
-        /** Constructs, removes the string contents, and initializes for a small
-         * initial capacity. */
-        ReorderingBuffer(
-            const Normalizer2Impl & ni,
-            UnicodeString & dest,
-            UErrorCode & errorCode) :
             impl(ni),
             str(dest),
             start((str.resize(8), str.data())),
@@ -272,46 +255,8 @@ namespace boost { namespace text { namespace detail { namespace icu {
             limit(start),
             remainingCapacity(str.capacity()),
             lastCC(0)
-        {
-            if (start == nullptr && U_SUCCESS(errorCode)) {
-                // getBuffer() already did str.setToBogus()
-                errorCode = U_MEMORY_ALLOCATION_ERROR;
-            }
-        }
-        ~ReorderingBuffer()
-        {
-            if (start != nullptr) {
-                str.resize((int32_t)(limit - start));
-            }
-        }
-        UBool init(int32_t destCapacity, UErrorCode & errorCode)
-        {
-            int32_t length = str.size();
-            str.resize(destCapacity);
-            start = str.data();
-            if (start == nullptr) {
-                // getBuffer() already did str.setToBogus()
-                errorCode = U_MEMORY_ALLOCATION_ERROR;
-                return FALSE;
-            }
-            limit = start + length;
-            remainingCapacity = str.capacity() - length;
-            reorderStart = start;
-            if (start == limit) {
-                lastCC = 0;
-            } else {
-                setIterator();
-                lastCC = previousCC();
-                // Set reorderStart after the last code point with cc<=1 if
-                // there is one.
-                if (lastCC > 1) {
-                    while (previousCC() > 1) {
-                    }
-                }
-                reorderStart = codePointLimit;
-            }
-            return TRUE;
-        }
+        {}
+        ~ReorderingBuffer() { str.resize((int32_t)(limit - start)); }
 
         UBool isEmpty() const { return start == limit; }
         int32_t length() const { return (int32_t)(limit - start); }
@@ -355,23 +300,21 @@ namespace boost { namespace text { namespace detail { namespace icu {
             }
         }
 
-        UBool append(UChar32 c, uint8_t cc, UErrorCode & errorCode)
+        UBool append(UChar32 c, uint8_t cc)
         {
-            return (c <= 0xffff) ? appendBMP((UChar)c, cc, errorCode)
-                                 : appendSupplementary(c, cc, errorCode);
+            return (c <= 0xffff) ? appendBMP((UChar)c, cc)
+                                 : appendSupplementary(c, cc);
         }
         UBool append(
             const UChar * s,
             int32_t length,
             UBool isNFD,
             uint8_t leadCC,
-            uint8_t trailCC,
-            UErrorCode & errorCode);
-        UBool appendBMP(UChar c, uint8_t cc, UErrorCode & errorCode)
+            uint8_t trailCC);
+        UBool appendBMP(UChar c, uint8_t cc)
         {
-            if (remainingCapacity == 0 && !resize(1, errorCode)) {
-                return FALSE;
-            }
+            if (remainingCapacity == 0)
+                resize(1);
             if (lastCC <= cc || cc == 0) {
                 *limit++ = c;
                 lastCC = cc;
@@ -384,12 +327,11 @@ namespace boost { namespace text { namespace detail { namespace icu {
             --remainingCapacity;
             return TRUE;
         }
-        UBool appendZeroCC(UChar32 c, UErrorCode & errorCode)
+        UBool appendZeroCC(UChar32 c)
         {
             int32_t cpLength = U16_LENGTH(c);
-            if (remainingCapacity < cpLength && !resize(cpLength, errorCode)) {
-                return FALSE;
-            }
+            if (remainingCapacity < cpLength)
+                resize(cpLength);
             remainingCapacity -= cpLength;
             if (cpLength == 1) {
                 *limit++ = (UChar)c;
@@ -402,16 +344,14 @@ namespace boost { namespace text { namespace detail { namespace icu {
             reorderStart = limit;
             return TRUE;
         }
-        UBool appendZeroCC(
-            const UChar * s, const UChar * sLimit, UErrorCode & errorCode)
+        UBool appendZeroCC(const UChar * s, const UChar * sLimit)
         {
             if (s == sLimit) {
                 return TRUE;
             }
             int32_t length = (int32_t)(sLimit - s);
-            if (remainingCapacity < length && !resize(length, errorCode)) {
-                return FALSE;
-            }
+            if (remainingCapacity < length)
+                resize(length);
             memcpy(limit, s, length);
             limit += length;
             remainingCapacity -= length;
@@ -463,11 +403,10 @@ namespace boost { namespace text { namespace detail { namespace icu {
          * We probably need it for UNORM_SIMPLE_APPEND.
          */
 
-        UBool appendSupplementary(UChar32 c, uint8_t cc, UErrorCode & errorCode)
+        UBool appendSupplementary(UChar32 c, uint8_t cc)
         {
-            if (remainingCapacity < 2 && !resize(2, errorCode)) {
-                return FALSE;
-            }
+            if (remainingCapacity < 2)
+                resize(2);
             if (lastCC <= cc || cc == 0) {
                 limit[0] = U16_LEAD(c);
                 limit[1] = U16_TRAIL(c);
@@ -508,7 +447,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                 p[1] = U16_TRAIL(c);
             }
         }
-        UBool resize(int32_t appendLength, UErrorCode & errorCode)
+        void resize(int32_t appendLength)
         {
             int32_t reorderStartIndex = (int32_t)(reorderStart - start);
             int32_t length = (int32_t)(limit - start);
@@ -523,15 +462,9 @@ namespace boost { namespace text { namespace detail { namespace icu {
             }
             str.resize(newCapacity);
             start = str.data();
-            if (start == nullptr) {
-                // getBuffer() already did str.setToBogus()
-                errorCode = U_MEMORY_ALLOCATION_ERROR;
-                return FALSE;
-            }
             reorderStart = start + reorderStartIndex;
             limit = start + length;
             remainingCapacity = str.capacity() - length;
-            return TRUE;
         }
 
         const Normalizer2Impl & impl;
@@ -821,16 +754,11 @@ namespace boost { namespace text { namespace detail { namespace icu {
         const UChar * decompose(
             const UChar * src,
             const UChar * limit,
-            ReorderingBuffer * buffer,
-            UErrorCode & errorCode) const
+            ReorderingBuffer * buffer) const
         {
             UChar32 minNoCP = minDecompNoCP;
             if (limit == nullptr) {
-                src = copyLowPrefixFromNulTerminated(
-                    src, minNoCP, buffer, errorCode);
-                if (U_FAILURE(errorCode)) {
-                    return src;
-                }
+                src = copyLowPrefixFromNulTerminated(src, minNoCP, buffer);
                 limit = u_strchr(src, 0);
             }
 
@@ -872,7 +800,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                 // copy these code units all at once
                 if (src != prevSrc) {
                     if (buffer != nullptr) {
-                        if (!buffer->appendZeroCC(prevSrc, src, errorCode)) {
+                        if (!buffer->appendZeroCC(prevSrc, src)) {
                             break;
                         }
                     } else {
@@ -887,7 +815,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                 // Check one above-minimum, relevant code point.
                 src += U16_LENGTH(c);
                 if (buffer != nullptr) {
-                    if (!decompose(c, norm16, *buffer, errorCode)) {
+                    if (!decompose(c, norm16, *buffer)) {
                         break;
                     }
                 } else {
@@ -914,20 +842,13 @@ namespace boost { namespace text { namespace detail { namespace icu {
             const UChar * limit,
             UBool onlyContiguous,
             UBool doCompose,
-            ReorderingBuffer & buffer,
-            UErrorCode & errorCode) const
+            ReorderingBuffer & buffer) const
         {
             const UChar * prevBoundary = src;
             UChar32 minNoMaybeCP = minCompNoMaybeCP;
             if (limit == nullptr) {
                 src = copyLowPrefixFromNulTerminated(
-                    src,
-                    minNoMaybeCP,
-                    doCompose ? &buffer : nullptr,
-                    errorCode);
-                if (U_FAILURE(errorCode)) {
-                    return FALSE;
-                }
+                    src, minNoMaybeCP, doCompose ? &buffer : nullptr);
                 limit = u_strchr(src, 0);
                 if (prevBoundary != src) {
                     if (hasCompBoundaryAfter(*(src - 1), onlyContiguous)) {
@@ -949,7 +870,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                 for (;;) {
                     if (src == limit) {
                         if (prevBoundary != limit && doCompose) {
-                            buffer.appendZeroCC(prevBoundary, limit, errorCode);
+                            buffer.appendZeroCC(prevBoundary, limit);
                         }
                         return TRUE;
                     }
@@ -999,12 +920,10 @@ namespace boost { namespace text { namespace detail { namespace icu {
                                 norm16, onlyContiguous) ||
                             hasCompBoundaryBefore(src, limit)) {
                             if (prevBoundary != prevSrc &&
-                                !buffer.appendZeroCC(
-                                    prevBoundary, prevSrc, errorCode)) {
+                                !buffer.appendZeroCC(prevBoundary, prevSrc)) {
                                 break;
                             }
-                            if (!buffer.append(
-                                    mapAlgorithmic(c, norm16), 0, errorCode)) {
+                            if (!buffer.append(mapAlgorithmic(c, norm16), 0)) {
                                 break;
                             }
                             prevBoundary = src;
@@ -1017,8 +936,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                                 norm16, onlyContiguous) ||
                             hasCompBoundaryBefore(src, limit)) {
                             if (prevBoundary != prevSrc &&
-                                !buffer.appendZeroCC(
-                                    prevBoundary, prevSrc, errorCode)) {
+                                !buffer.appendZeroCC(prevBoundary, prevSrc)) {
                                 break;
                             }
                             const UChar * mapping =
@@ -1026,7 +944,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                                     getMapping(norm16));
                             int32_t length = *mapping++ & MAPPING_LENGTH_MASK;
                             if (!buffer.appendZeroCC(
-                                    mapping, mapping + length, errorCode)) {
+                                    mapping, mapping + length)) {
                                 break;
                             }
                             prevBoundary = src;
@@ -1041,8 +959,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                             hasCompBoundaryAfter(
                                 prevBoundary, prevSrc, onlyContiguous)) {
                             if (prevBoundary != prevSrc &&
-                                !buffer.appendZeroCC(
-                                    prevBoundary, prevSrc, errorCode)) {
+                                !buffer.appendZeroCC(prevBoundary, prevSrc)) {
                                 break;
                             }
                             prevBoundary = src;
@@ -1085,11 +1002,10 @@ namespace boost { namespace text { namespace detail { namespace icu {
                                 --prevSrc; // Replace the Jamo L as well.
                                 if (prevBoundary != prevSrc &&
                                     !buffer.appendZeroCC(
-                                        prevBoundary, prevSrc, errorCode)) {
+                                        prevBoundary, prevSrc)) {
                                     break;
                                 }
-                                if (!buffer.appendBMP(
-                                        (UChar)syllable, 0, errorCode)) {
+                                if (!buffer.appendBMP((UChar)syllable, 0)) {
                                     break;
                                 }
                                 prevBoundary = src;
@@ -1114,11 +1030,10 @@ namespace boost { namespace text { namespace detail { namespace icu {
                         UChar32 syllable = prev + c - Hangul::JAMO_T_BASE;
                         --prevSrc; // Replace the Hangul LV as well.
                         if (prevBoundary != prevSrc &&
-                            !buffer.appendZeroCC(
-                                prevBoundary, prevSrc, errorCode)) {
+                            !buffer.appendZeroCC(prevBoundary, prevSrc)) {
                             break;
                         }
-                        if (!buffer.appendBMP((UChar)syllable, 0, errorCode)) {
+                        if (!buffer.appendBMP((UChar)syllable, 0)) {
                             break;
                         }
                         prevBoundary = src;
@@ -1147,8 +1062,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                         for (;;) {
                             if (src == limit) {
                                 if (doCompose) {
-                                    buffer.appendZeroCC(
-                                        prevBoundary, limit, errorCode);
+                                    buffer.appendZeroCC(prevBoundary, limit);
                                 }
                                 return TRUE;
                             }
@@ -1195,7 +1109,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                     }
                 }
                 if (doCompose && prevBoundary != prevSrc &&
-                    !buffer.appendZeroCC(prevBoundary, prevSrc, errorCode)) {
+                    !buffer.appendZeroCC(prevBoundary, prevSrc)) {
                     break;
                 }
                 int32_t recomposeStartIndex = buffer.length();
@@ -1205,24 +1119,15 @@ namespace boost { namespace text { namespace detail { namespace icu {
                     src,
                     FALSE /* !stopAtCompBoundary */,
                     onlyContiguous,
-                    buffer,
-                    errorCode);
+                    buffer);
                 // Decompose until the next boundary.
                 src = decomposeShort(
                     src,
                     limit,
                     TRUE /* stopAtCompBoundary */,
                     onlyContiguous,
-                    buffer,
-                    errorCode);
-                if (U_FAILURE(errorCode)) {
-                    break;
-                }
-                if ((src - prevSrc) >
-                    INT32_MAX) { // guard before buffer.equals()
-                    errorCode = U_INDEX_OUTOFBOUNDS_ERROR;
-                    return TRUE;
-                }
+                    buffer);
+                BOOST_ASSERT(src - prevSrc <= INT32_MAX);
                 recompose(buffer, recomposeStartIndex, onlyContiguous);
                 if (!doCompose) {
                     if (!buffer.equals(prevSrc, src)) {
@@ -1242,11 +1147,8 @@ namespace boost { namespace text { namespace detail { namespace icu {
             typename CharIter,
             typename Sentinel,
             typename UTF8Appender>
-        UBool composeUTF8(
-            CharIter src,
-            Sentinel limit,
-            UTF8Appender appender,
-            UErrorCode & errorCode) const
+        UBool
+        composeUTF8(CharIter src, Sentinel limit, UTF8Appender appender) const
         {
             UnicodeString s16;
             uint8_t minNoMaybeLead = leadByteForCP(minCompNoMaybeCP);
@@ -1262,7 +1164,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                     if (src == limit) {
                         if (prevBoundary != limit && WriteToOut) {
                             ByteSinkUtil::appendUnchanged(
-                                prevBoundary, limit, appender, errorCode);
+                                prevBoundary, limit, appender);
                         }
                         return TRUE;
                     }
@@ -1301,7 +1203,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                             hasCompBoundaryBefore_utf8(src, limit)) {
                             if (prevBoundary != prevSrc &&
                                 !ByteSinkUtil::appendUnchanged(
-                                    prevBoundary, prevSrc, appender, errorCode)) {
+                                    prevBoundary, prevSrc, appender)) {
                                 break;
                             }
                             appendCodePointDelta(
@@ -1320,7 +1222,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                             hasCompBoundaryBefore_utf8(src, limit)) {
                             if (prevBoundary != prevSrc &&
                                 !ByteSinkUtil::appendUnchanged(
-                                    prevBoundary, prevSrc, appender, errorCode)) {
+                                    prevBoundary, prevSrc, appender)) {
                                 break;
                             }
                             const uint16_t * mapping = getMapping(norm16);
@@ -1330,8 +1232,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                                     src,
                                     (const UChar *)mapping,
                                     length,
-                                    appender,
-                                    errorCode)) {
+                                    appender)) {
                                 break;
                             }
                             prevBoundary = src;
@@ -1347,7 +1248,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                                 prevBoundary, prevSrc, OnlyContiguous)) {
                             if (prevBoundary != prevSrc &&
                                 !ByteSinkUtil::appendUnchanged(
-                                    prevBoundary, prevSrc, appender, errorCode)) {
+                                    prevBoundary, prevSrc, appender)) {
                                 break;
                             }
                             prevBoundary = src;
@@ -1381,18 +1282,16 @@ namespace boost { namespace text { namespace detail { namespace icu {
                                 t = 0;
                             }
                             if (t >= 0) {
-                                UChar32 syllable = Hangul::HANGUL_BASE +
-                                                   (l * Hangul::JAMO_V_COUNT +
-                                                    ((uint8_t)prevSrc[2] - 0xa1)) *
-                                                       Hangul::JAMO_T_COUNT +
-                                                   t;
+                                UChar32 syllable =
+                                    Hangul::HANGUL_BASE +
+                                    (l * Hangul::JAMO_V_COUNT +
+                                     ((uint8_t)prevSrc[2] - 0xa1)) *
+                                        Hangul::JAMO_T_COUNT +
+                                    t;
                                 prevSrc -= 3; // Replace the Jamo L as well.
                                 if (prevBoundary != prevSrc &&
                                     !ByteSinkUtil::appendUnchanged(
-                                        prevBoundary,
-                                        prevSrc,
-                                        appender,
-                                        errorCode)) {
+                                        prevBoundary, prevSrc, appender)) {
                                     break;
                                 }
                                 ByteSinkUtil::appendCodePoint(
@@ -1421,7 +1320,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                         prevSrc -= 3; // Replace the Hangul LV as well.
                         if (prevBoundary != prevSrc &&
                             !ByteSinkUtil::appendUnchanged(
-                                prevBoundary, prevSrc, appender, errorCode)) {
+                                prevBoundary, prevSrc, appender)) {
                             break;
                         }
                         ByteSinkUtil::appendCodePoint(
@@ -1453,7 +1352,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                             if (src == limit) {
                                 if (WriteToOut) {
                                     ByteSinkUtil::appendUnchanged(
-                                        prevBoundary, limit, appender, errorCode);
+                                        prevBoundary, limit, appender);
                                 }
                                 return TRUE;
                             }
@@ -1499,34 +1398,22 @@ namespace boost { namespace text { namespace detail { namespace icu {
                         prevSrc = p;
                     }
                 }
-                ReorderingBuffer buffer(*this, s16, errorCode);
-                if (U_FAILURE(errorCode)) {
-                    break;
-                }
+                ReorderingBuffer buffer(*this, s16);
                 // We know there is not a boundary here.
                 decomposeShort(
                     prevSrc,
                     src,
                     FALSE /* !stopAtCompBoundary */,
                     OnlyContiguous,
-                    buffer,
-                    errorCode);
+                    buffer);
                 // Decompose until the next boundary.
                 src = decomposeShort(
                     src,
                     limit,
                     TRUE /* stopAtCompBoundary */,
                     OnlyContiguous,
-                    buffer,
-                    errorCode);
-                if (U_FAILURE(errorCode)) {
-                    break;
-                }
-                if ((src - prevSrc) >
-                    INT32_MAX) { // guard before buffer.equals()
-                    errorCode = U_INDEX_OUTOFBOUNDS_ERROR;
-                    return TRUE;
-                }
+                    buffer);
+                BOOST_ASSERT(src - prevSrc <= INT32_MAX);
                 recompose(buffer, 0, OnlyContiguous);
                 if (!buffer.equals_utf8(prevSrc, src)) {
                     if (!WriteToOut) {
@@ -1534,7 +1421,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                     }
                     if (prevBoundary != prevSrc &&
                         !ByteSinkUtil::appendUnchanged(
-                            prevBoundary, prevSrc, appender, errorCode)) {
+                            prevBoundary, prevSrc, appender)) {
                         break;
                     }
                     if (!ByteSinkUtil::appendChange(
@@ -1542,8 +1429,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                             src,
                             buffer.getStart(),
                             buffer.length(),
-                            appender,
-                            errorCode)) {
+                            appender)) {
                         break;
                     }
                     prevBoundary = src;
@@ -1609,7 +1495,8 @@ namespace boost { namespace text { namespace detail { namespace icu {
          * normalization-inert code points.
          */
         template<typename CharIter>
-        static UChar32 codePointFromValidUTF8(CharIter cpStart, CharIter cpLimit)
+        static UChar32
+        codePointFromValidUTF8(CharIter cpStart, CharIter cpLimit)
         {
             // Similar to U8_NEXT_UNSAFE(s, i, c).
             BOOST_ASSERT(cpStart < cpLimit);
@@ -1682,7 +1569,10 @@ namespace boost { namespace text { namespace detail { namespace icu {
 
         template<typename CharIter, typename UTF8Appender>
         static void appendCodePointDelta(
-            CharIter cpStart, CharIter cpLimit, int32_t delta, UTF8Appender & appender)
+            CharIter cpStart,
+            CharIter cpLimit,
+            int32_t delta,
+            UTF8Appender & appender)
         {
             char buffer[U8_MAX_LENGTH];
             int32_t length;
@@ -1868,8 +1758,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
         const UChar * copyLowPrefixFromNulTerminated(
             const UChar * src,
             UChar32 minNeedDataCP,
-            ReorderingBuffer * buffer,
-            UErrorCode & errorCode) const
+            ReorderingBuffer * buffer) const
         {
             // Make some effort to support NUL-terminated strings reasonably.
             // Take the part of the fast quick check loop that does not look up
@@ -1884,7 +1773,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
             // Copy this prefix.
             if (--src != prevSrc) {
                 if (buffer != nullptr) {
-                    buffer->appendZeroCC(prevSrc, src, errorCode);
+                    buffer->appendZeroCC(prevSrc, src);
                 }
             }
             return src;
@@ -1898,12 +1787,8 @@ namespace boost { namespace text { namespace detail { namespace icu {
             const UChar * limit,
             UBool stopAtCompBoundary,
             UBool onlyContiguous,
-            ReorderingBuffer & buffer,
-            UErrorCode & errorCode) const
+            ReorderingBuffer & buffer) const
         {
-            if (U_FAILURE(errorCode)) {
-                return nullptr;
-            }
             while (src < limit) {
                 if (stopAtCompBoundary && *src < minCompNoMaybeCP) {
                     return src;
@@ -1916,7 +1801,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                 if (stopAtCompBoundary && norm16HasCompBoundaryBefore(norm16)) {
                     return prevSrc;
                 }
-                if (!decompose(c, norm16, buffer, errorCode)) {
+                if (!decompose(c, norm16, buffer)) {
                     return nullptr;
                 }
                 if (stopAtCompBoundary &&
@@ -1926,17 +1811,13 @@ namespace boost { namespace text { namespace detail { namespace icu {
             }
             return src;
         }
-        UBool decompose(
-            UChar32 c,
-            uint16_t norm16,
-            ReorderingBuffer & buffer,
-            UErrorCode & errorCode) const
+        UBool
+        decompose(UChar32 c, uint16_t norm16, ReorderingBuffer & buffer) const
         {
             // get the decomposition and the lead and trail cc's
             if (norm16 >= limitNoNo) {
                 if (isMaybeOrNonZeroCC(norm16)) {
-                    return buffer.append(
-                        c, getCCFromYesOrMaybe(norm16), errorCode);
+                    return buffer.append(c, getCCFromYesOrMaybe(norm16));
                 }
                 // Maps to an isCompYesAndZeroCC.
                 c = mapAlgorithmic(c, norm16);
@@ -1944,12 +1825,12 @@ namespace boost { namespace text { namespace detail { namespace icu {
             }
             if (norm16 < minYesNo) {
                 // c does not decompose
-                return buffer.append(c, 0, errorCode);
+                return buffer.append(c, 0);
             } else if (isHangulLV(norm16) || isHangulLVT(norm16)) {
                 // Hangul syllable: decompose algorithmically
                 UChar jamos[3];
                 return buffer.appendZeroCC(
-                    jamos, jamos + Hangul::decompose(c, jamos), errorCode);
+                    jamos, jamos + Hangul::decompose(c, jamos));
             }
             // c decomposes, get everything from the variable-length extra data
             const uint16_t * mapping = getMapping(norm16);
@@ -1963,12 +1844,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                 leadCC = 0;
             }
             return buffer.append(
-                (const UChar *)mapping + 1,
-                length,
-                TRUE,
-                leadCC,
-                trailCC,
-                errorCode);
+                (const UChar *)mapping + 1, length, TRUE, leadCC, trailCC);
         }
 
         template<typename CharIter, typename Sentinel>
@@ -1977,12 +1853,8 @@ namespace boost { namespace text { namespace detail { namespace icu {
             Sentinel limit,
             UBool stopAtCompBoundary,
             UBool onlyContiguous,
-            ReorderingBuffer & buffer,
-            UErrorCode & errorCode) const
+            ReorderingBuffer & buffer) const
         {
-            if (U_FAILURE(errorCode)) {
-                return nullptr;
-            }
             while (src != limit) {
                 CharIter prevSrc = src;
                 uint16_t norm16;
@@ -1993,8 +1865,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                     if (isMaybeOrNonZeroCC(norm16)) {
                         // No boundaries around this character.
                         c = codePointFromValidUTF8(prevSrc, src);
-                        if (!buffer.append(
-                                c, getCCFromYesOrMaybe(norm16), errorCode)) {
+                        if (!buffer.append(c, getCCFromYesOrMaybe(norm16))) {
                             return nullptr;
                         }
                         continue;
@@ -2021,7 +1892,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                         c = codePointFromValidUTF8(prevSrc, src);
                     }
                     // does not decompose
-                    if (!buffer.append(c, 0, errorCode)) {
+                    if (!buffer.append(c, 0)) {
                         return nullptr;
                     }
                 } else if (isHangulLV(norm16) || isHangulLVT(norm16)) {
@@ -2031,9 +1902,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                     }
                     char16_t jamos[3];
                     if (!buffer.appendZeroCC(
-                            jamos,
-                            jamos + Hangul::decompose(c, jamos),
-                            errorCode)) {
+                            jamos, jamos + Hangul::decompose(c, jamos))) {
                         return nullptr;
                     }
                 } else {
@@ -2054,8 +1923,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                             length,
                             TRUE,
                             leadCC,
-                            trailCC,
-                            errorCode)) {
+                            trailCC)) {
                         return nullptr;
                     }
                 }
@@ -2434,15 +2302,13 @@ namespace boost { namespace text { namespace detail { namespace icu {
         int32_t length,
         UBool isNFD,
         uint8_t leadCC,
-        uint8_t trailCC,
-        UErrorCode & errorCode)
+        uint8_t trailCC)
     {
         if (length == 0) {
             return TRUE;
         }
-        if (remainingCapacity < length && !resize(length, errorCode)) {
-            return FALSE;
-        }
+        if (remainingCapacity < length)
+            resize(length);
         remainingCapacity -= length;
         if (lastCC <= leadCC || leadCC == 0) {
             if (trailCC <= 1) {
@@ -2472,7 +2338,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                 } else {
                     leadCC = trailCC;
                 }
-                append(c, leadCC, errorCode);
+                append(c, leadCC);
             }
         }
         return TRUE;
