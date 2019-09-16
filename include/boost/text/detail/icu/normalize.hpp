@@ -80,11 +80,6 @@ namespace boost { namespace text { namespace detail { namespace icu {
     Iter
     utf16_normalize_to_nfd_append(Iter first, Sentinel last, UnicodeString & s)
     {
-        // Uses:
-        // 
-        // buffer.append((UChar32)c, getCCFromYesOrMaybe(norm16))
-        // buffer.appendZeroCC((UChar *)jamos, jamos + Hangul::decompose(c, jamos));
-        // buffer.append((const UChar *)mapping + 1, length, TRUE, leadCC, trailCC);
         ReorderingBuffer buffer(nfc_norm(), s);
         return nfc_norm().decompose<true>(first, last, buffer);
     }
@@ -94,6 +89,14 @@ namespace boost { namespace text { namespace detail { namespace icu {
     {
         nfkc_norm().composeUTF8<false, true>(
             first, last, string_appender<String>(s));
+    }
+
+    template<typename Iter, typename Sentinel>
+    Iter
+    utf16_normalize_to_nfkd_append(Iter first, Sentinel last, UnicodeString & s)
+    {
+        ReorderingBuffer buffer(nfkc_norm(), s);
+        return nfkc_norm().decompose<true>(first, last, buffer);
     }
 
     template<typename CharIter, typename Sentinel, typename String>

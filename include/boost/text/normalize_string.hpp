@@ -189,22 +189,41 @@ namespace boost { namespace text {
             decltype(s.insert(s.end(), detail::ncstr, detail::ncstr), s),
             CPIter>
     {
-#if BOOST_TEXT_HAS_ICU
-        if (BOOST_TEXT_USE_ICU) {
-            UErrorCode ec = U_ZERO_ERROR;
-            U_NAMESPACE_QUALIFIER Normalizer2 const * const norm =
-                U_NAMESPACE_QUALIFIER Normalizer2::getNFKDInstance(ec);
-            BOOST_ASSERT(U_SUCCESS(ec));
-            detail::icu_normalize_append<CPIter, Sentinel, String>::call(
-                *norm, first, last, s);
-            return s;
-        }
-#endif
+#if 0 // TODO: Badly broken!
+        auto utf16_norm = [&s](CPIter first, Sentinel last) {
+            detail::icu::UnicodeString output;
+
+            int const chunk_size = 512;
+            detail::icu::UnicodeString input(chunk_size * 2);
+            auto input_first = input.data();
+
+            while (first != last) {
+                auto chunk_last = std::next(first, chunk_size);
+                auto input_last =
+                    transcode_utf_32_to_16(first, chunk_last, input_first);
+                first = chunk_last;
+                auto const input_new_first =
+                    detail::icu::utf16_normalize_to_nfkd_append(
+                        input.data(), input_last, output);
+                input_first =
+                    std::copy(input_new_first, input_last, input.data());
+
+                transcode_utf_16_to_8(output, std::inserter(s, s.end()));
+                output.clear();
+            }
+        };
+        detail::dispatch_normalize_append<
+            CPIter,
+            Sentinel,
+            detail::norm_decompose,
+            false>::call(first, last, utf16_norm, detail::utf8_norm_noop{});
+#else
         detail::normalize_to_decomposed(
             first,
             last,
             utf_32_to_8_inserter(s, s.end()),
             [](uint32_t cp) { return detail::compatible_decompose(cp); });
+#endif
 
         return s;
     }
