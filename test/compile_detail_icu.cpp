@@ -7,59 +7,6 @@
 using namespace boost;
 
 
-#if BOOST_TEXT_HAS_ICU
-
-void make_byte_sink_()
-{
-    {
-        char const * cstr;
-        char * str;
-        using cstr_bytes_sink = decltype(text::detail::make_byte_sink(cstr));
-        using str_bytes_sink = decltype(text::detail::make_byte_sink(str));
-
-        static_assert(
-            std::is_same<
-                cstr_bytes_sink,
-                text::detail::out_iter_sink<char const *, char const *>>::value,
-            "");
-
-        static_assert(
-            std::is_same<
-                str_bytes_sink,
-                text::detail::out_iter_sink<char *, char *>>::value,
-            "");
-    }
-    {
-        using char_it = text::utf_32_to_8_insert_iterator<std::vector<char>>;
-        std::vector<char> vec;
-        char_it ci(vec, vec.begin());
-        using char_bytes_sink = decltype(text::detail::make_byte_sink(ci));
-
-        static_assert(
-            std::is_same<
-                char_bytes_sink,
-                text::detail::out_iter_sink<
-                    std::insert_iterator<std::vector<char>>,
-                    char_it>>::value,
-            "");
-    }
-    {
-        using char_it =
-            text::utf_32_to_8_back_insert_iterator<std::vector<char>>;
-        std::vector<char> vec;
-        char_it ci(vec);
-        using char_bytes_sink = decltype(text::detail::make_byte_sink(ci));
-
-        static_assert(
-            std::is_same<
-                char_bytes_sink,
-                text::detail::out_iter_sink<
-                    std::back_insert_iterator<std::vector<char>>,
-                    char_it>>::value,
-            "");
-    }
-}
-
 void char_ptr_()
 {
     // positive tests
@@ -185,5 +132,3 @@ void fast_path()
             decltype(out)>::value,
         "");
 }
-
-#endif
