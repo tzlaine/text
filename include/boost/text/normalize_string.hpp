@@ -135,17 +135,26 @@ namespace boost { namespace text {
             CPIter>
     {
         auto utf16_norm = [&s](CPIter first, Sentinel last) {
-            detail::icu::UnicodeString input;
-            transcode_utf_32_to_16(first, last, std::back_inserter(input));
-
             detail::icu::UnicodeString output;
-            output.reserve(input.size() / 2 * 3);
 
-            detail::icu::utf16_normalize_to_nfd_append(
-                &*input.begin(), &*input.end(), output);
+            int const chunk_size = 512;
+            detail::icu::UnicodeString input(chunk_size * 2);
+            auto input_first = input.data();
 
-            s.reserve(output.size() / 2 * 3);
-            transcode_utf_16_to_8(output, std::inserter(s, s.end()));
+            while (first != last) {
+                auto chunk_last = std::next(first, chunk_size);
+                auto input_last =
+                    transcode_utf_32_to_16(first, chunk_last, input_first);
+                first = chunk_last;
+                auto const input_new_first =
+                    detail::icu::utf16_normalize_to_nfd_append(
+                        input.data(), input_last, output);
+                input_first =
+                    std::copy(input_new_first, input_last, input.data());
+
+                transcode_utf_16_to_8(output, std::inserter(s, s.end()));
+                output.clear();
+            }
         };
         detail::dispatch_normalize_append<
             CPIter,
