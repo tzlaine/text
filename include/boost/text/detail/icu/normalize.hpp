@@ -76,6 +76,13 @@ namespace boost { namespace text { namespace detail { namespace icu {
             first, last, string_appender<String>(s));
     }
 
+    inline void utf16_normalize_to_nfd_append(
+        UChar const * first, UChar const * last, UnicodeString & s)
+    {
+        ReorderingBuffer buffer(nfc_norm(), s);
+        nfc_norm().decompose(first, last, &buffer);
+    }
+
     template<typename CharIter, typename Sentinel, typename String>
     void utf8_normalize_to_nfkc_append(CharIter first, Sentinel last, String & s)
     {
