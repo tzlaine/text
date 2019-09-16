@@ -347,8 +347,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
             int32_t length = (int32_t)(sLimit - s);
             if (remainingCapacity < length)
                 resize(length);
-            memcpy(limit, s, length);
-            limit += length;
+            limit = std::copy(s, sLimit, limit);
             remainingCapacity -= length;
             lastCC = 0;
             reorderStart = limit;
