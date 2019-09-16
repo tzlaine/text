@@ -751,10 +751,6 @@ namespace boost { namespace text { namespace detail { namespace icu {
             ReorderingBuffer * buffer) const
         {
             UChar32 minNoCP = minDecompNoCP;
-            if (limit == nullptr) {
-                src = copyLowPrefixFromNulTerminated(src, minNoCP, buffer);
-                limit = u_strchr(src, 0);
-            }
 
             const UChar * prevSrc;
             UChar32 c = 0;
@@ -840,19 +836,6 @@ namespace boost { namespace text { namespace detail { namespace icu {
         {
             const UChar * prevBoundary = src;
             UChar32 minNoMaybeCP = minCompNoMaybeCP;
-            if (limit == nullptr) {
-                src = copyLowPrefixFromNulTerminated(
-                    src, minNoMaybeCP, doCompose ? &buffer : nullptr);
-                limit = u_strchr(src, 0);
-                if (prevBoundary != src) {
-                    if (hasCompBoundaryAfter(*(src - 1), onlyContiguous)) {
-                        prevBoundary = src;
-                    } else {
-                        buffer.removeSuffix(1);
-                        prevBoundary = --src;
-                    }
-                }
-            }
 
             for (;;) {
                 // Fast path: Scan over a sequence of characters below the
@@ -1749,29 +1732,6 @@ namespace boost { namespace text { namespace detail { namespace icu {
                        : getCompositionsListForComposite(norm16);
         }
 
-        const UChar * copyLowPrefixFromNulTerminated(
-            const UChar * src,
-            UChar32 minNeedDataCP,
-            ReorderingBuffer * buffer) const
-        {
-            // Make some effort to support NUL-terminated strings reasonably.
-            // Take the part of the fast quick check loop that does not look up
-            // data and check the first part of the string.
-            // After this prefix, determine the string length to simplify the
-            // rest of the code.
-            const UChar * prevSrc = src;
-            UChar c;
-            while ((c = *src++) < minNeedDataCP && c != 0) {
-            }
-            // Back out the last character for full processing.
-            // Copy this prefix.
-            if (--src != prevSrc) {
-                if (buffer != nullptr) {
-                    buffer->appendZeroCC(prevSrc, src);
-                }
-            }
-            return src;
-        }
         // Decompose a short piece of text which is likely to contain characters
         // that fail the quick check loop and/or where the quick check loop's
         // overhead is unlikely to be amortized. Called by the compose() and
