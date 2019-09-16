@@ -1084,7 +1084,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                     TRUE /* stopAtCompBoundary */,
                     OnlyContiguous,
                     buffer);
-                BOOST_ASSERT(std::distance(src, prevSrc) <= INT32_MAX);
+                BOOST_ASSERT(std::distance(prevSrc, src) <= INT32_MAX);
                 recompose(buffer, recomposeStartIndex, OnlyContiguous);
                 if (!WriteToOut) {
                     if (!buffer.equals_utf16(prevSrc, src)) {
