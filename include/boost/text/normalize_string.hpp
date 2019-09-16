@@ -118,6 +118,50 @@ namespace boost { namespace text {
                 norm_func(r.begin(), r.end());
             }
         };
+
+        template<
+            typename CPIter,
+            typename Sentinel,
+            bool UTF8 = is_detected<utf8_range_expr, CPIter, Sentinel>::value,
+            bool UTF16 = is_detected<utf16_range_expr, CPIter, Sentinel>::value>
+        struct normalize_to_nfc_append_utf8_impl
+        {
+            template<typename String>
+            static void call(CPIter first, Sentinel last, String & s)
+            {
+                auto f = make_utf_32_to_16_iterator(first, first, last);
+                auto l = make_utf_32_to_16_iterator(first, last, last);
+                detail::icu::UnicodeString us;
+                detail::icu::utf16_normalize_to_nfc_append(f, l, us);
+                transcode_utf_16_to_8(us, std::inserter(s, s.end()));
+            }
+        };
+
+        template<typename CPIter, typename Sentinel>
+        struct normalize_to_nfc_append_utf8_impl<CPIter, Sentinel, true, false>
+        {
+            template<typename String>
+            static void call(CPIter first, Sentinel last, String & s)
+            {
+                auto const r = make_utf8_range(first, last);
+                detail::icu::UnicodeString us;
+                detail::icu::utf8_normalize_to_nfc_append(
+                    r.begin(), r.end(), us);
+                transcode_utf_16_to_8(us, std::inserter(s, s.end()));
+            }
+        };
+
+        template<typename CPIter, typename Sentinel>
+        struct normalize_to_nfc_append_utf8_impl<CPIter, Sentinel, false, true>
+        {
+            template<typename String>
+            static void call(CPIter first, Sentinel last, String & s)
+            {
+                auto const r = make_utf16_range(first, last);
+                detail::icu::utf16_normalize_to_nfc_append(
+                    r.begin(), r.end(), s);
+            }
+        };
     }
 
     /** Appends sequence `[first, last)` in normalization form NFD to `s`, in
@@ -252,12 +296,17 @@ namespace boost { namespace text {
             decltype(s.insert(s.end(), detail::ncstr, detail::ncstr), s),
             CPIter>
     {
+#if 1
+        detail::normalize_to_nfc_append_utf8_impl<CPIter, Sentinel>::call(
+            first, last, s);
+#else
         auto utf16_norm = [&s](CPIter first, Sentinel last) {
             normalize_to_nfc(first, last, utf_32_to_8_inserter(s, s.end()));
         };
         detail::
             dispatch_normalize_append<CPIter, Sentinel, detail::norm_compose>::
                 call(first, last, utf16_norm, detail::utf8_norm_nfc<String>(s));
+#endif
         return s;
     }
 

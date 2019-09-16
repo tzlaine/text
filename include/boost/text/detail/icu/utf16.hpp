@@ -182,7 +182,8 @@ namespace boost { namespace text { namespace detail { namespace icu {
      * @see U16_NEXT
      * @stable ICU 2.4
      */
-    inline void U16_NEXT_UNSAFE(const UChar * s, int & i, UChar32 & c)
+    template<typename Iter>
+    void U16_NEXT_UNSAFE(Iter s, int & i, UChar32 & c)
     {
         (c) = (s)[(i)++];
         if (U16_IS_LEAD(c)) {
@@ -213,7 +214,8 @@ namespace boost { namespace text { namespace detail { namespace icu {
      * @see U16_NEXT_UNSAFE
      * @stable ICU 2.4
      */
-    inline void U16_NEXT(const UChar * s, int & i, int length, UChar32 & c)
+    template<typename Iter>
+    void U16_NEXT(Iter s, int & i, int length, UChar32 & c)
     {
         (c) = (s)[(i)++];
         if (U16_IS_LEAD(c)) {
@@ -249,7 +251,8 @@ namespace boost { namespace text { namespace detail { namespace icu {
      * @see U16_PREV
      * @stable ICU 2.4
      */
-    inline void U16_PREV_UNSAFE(const UChar * s, int & i, UChar32 & c)
+    template<typename Iter>
+    void U16_PREV_UNSAFE(Iter s, int & i, UChar32 & c)
     {
         (c) = (s)[--(i)];
         if (U16_IS_TRAIL(c)) {
@@ -278,12 +281,13 @@ namespace boost { namespace text { namespace detail { namespace icu {
      * @see U16_PREV_UNSAFE
      * @stable ICU 2.4
      */
-    inline void U16_PREV(const UChar * s, int start, int & i, UChar32 & c)
+    template<typename Iter>
+    void U16_PREV(Iter s, int start, int & i, UChar32 & c)
     {
-        (c) = (s)[--(i)];
+        (c) = *std::next(s, --i);
         if (U16_IS_TRAIL(c)) {
             uint16_t c2_;
-            if ((i) > (start) && U16_IS_LEAD(c2_ = (s)[(i)-1])) {
+            if ((i) > (start) && U16_IS_LEAD(c2_ = *std::next(s, i - 1))) {
                 --(i);
                 (c) = U16_GET_SUPPLEMENTARY(c2_, (c));
             }

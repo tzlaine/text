@@ -419,12 +419,16 @@ namespace boost { namespace text { namespace detail { namespace icu {
      * @param result (out) variable for the trie lookup result
      * @draft ICU 63
      */
-    template<typename AccessFunc, typename Uchar, typename Out>
+    template<
+        typename AccessFunc,
+        typename Iter,
+        typename Sentinel,
+        typename Out>
     inline void UCPTRIE_FAST_U16_NEXT(
         const UCPTrie * trie,
         AccessFunc dataAccess,
-        Uchar *& src,
-        Uchar * limit,
+        Iter & src,
+        Sentinel limit,
         UChar32 & c,
         Out & result)
     {
@@ -462,12 +466,12 @@ namespace boost { namespace text { namespace detail { namespace icu {
      * @param result (out) variable for the trie lookup result
      * @draft ICU 63
      */
-    template<typename AccessFunc, typename Uchar, typename Out>
+    template<typename AccessFunc, typename Iter, typename Out>
     void UCPTRIE_FAST_U16_PREV(
         const UCPTrie * trie,
         AccessFunc dataAccess,
-        Uchar * start,
-        Uchar *& src,
+        Iter start,
+        Iter & src,
         UChar32 c,
         Out & result)
     {
@@ -478,7 +482,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
         } else {
             uint16_t c2_;
             if (U16_IS_SURROGATE_TRAIL(c) && (src) != (start) &&
-                U16_IS_LEAD(c2_ = *((src)-1))) {
+                U16_IS_LEAD(c2_ = *std::prev(src))) {
                 --(src);
                 (c) = U16_GET_SUPPLEMENTARY(c2_, (c));
                 index_ = UCPTRIE_SMALL_INDEX_(trie, c);
@@ -511,13 +515,13 @@ namespace boost { namespace text { namespace detail { namespace icu {
      */
     template<
         typename AccessFunc,
-        typename Uchar,
+        typename Iter,
         typename Sentinel,
         typename Out>
     void UCPTRIE_FAST_U8_NEXT(
         const UCPTrie * trie,
         AccessFunc dataAccess,
-        Uchar *& src,
+        Iter & src,
         Sentinel limit,
         Out & result)
     {

@@ -813,36 +813,100 @@ namespace boost { namespace text {
             Sentinel last_;
         };
 
+        template<typename CPIter, typename Sentinel>
+        using utf8_range_expr = decltype(
+            make_utf8_range(std::declval<CPIter>(), std::declval<Sentinel>()));
+
         template<typename Iter>
-        typename std::enable_if<char_ptr<Iter>::value, utf8_range<Iter>>::type
-        make_utf8_range(Iter first, Iter last)
+        typename std::enable_if<is_char_iter<Iter>::value, utf8_range<Iter>>::
+            type
+            make_utf8_range(Iter first, Iter last)
         {
             return utf8_range<Iter>{first, last};
         }
         template<typename Iter, typename Sentinel>
-        typename std::
-            enable_if<char_ptr<Iter>::value, utf8_range<Iter, Sentinel>>::type
-            make_utf8_range(Iter first, Sentinel last)
+        typename std::enable_if<
+            is_char_iter<Iter>::value,
+            utf8_range<Iter, Sentinel>>::type
+        make_utf8_range(Iter first, Sentinel last)
         {
             return utf8_range<Iter, Sentinel>{first, last};
         }
         template<typename Iter>
-        utf8_range<char const *> make_utf8_range(
+        auto make_utf8_range(
             utf_8_to_32_iterator<Iter> first, utf_8_to_32_iterator<Iter> last)
+            -> utf8_range<decltype(first.base())>
         {
-            return utf8_range<char const *>{first.base(), last.base()};
+            return utf8_range<decltype(first.base())>{first.base(),
+                                                      last.base()};
         }
         template<typename Iter, typename Sentinel>
-        utf8_range<char const *, Sentinel> make_utf8_range(
+        auto make_utf8_range(
             utf_8_to_32_iterator<Iter, Sentinel> first, Sentinel last)
+            -> utf8_range<decltype(first.base()), Sentinel>
         {
-            return utf8_range<char const *, Sentinel>{first.base(), last};
+            return utf8_range<decltype(first.base()), Sentinel>{first.base(),
+                                                                last};
         }
         template<typename Iter, typename Sentinel>
-        utf8_range<char const *, Sentinel>
-        make_utf8_range(utf_8_to_32_iterator<Iter> first, Sentinel last)
+        auto make_utf8_range(utf_8_to_32_iterator<Iter> first, Sentinel last)
+            -> utf8_range<decltype(first.base()), Sentinel>
         {
-            return utf8_range<char const *, Sentinel>{first.base(), last};
+            return utf8_range<decltype(first.base()), Sentinel>{first.base(),
+                                                                last};
+        }
+
+        template<typename CharIter, typename Sentinel = CharIter>
+        struct utf16_range
+        {
+            CharIter begin() const noexcept { return first_; }
+            Sentinel end() const noexcept { return last_; }
+
+            CharIter first_;
+            Sentinel last_;
+        };
+
+        template<typename CPIter, typename Sentinel>
+        using utf16_range_expr = decltype(
+            make_utf16_range(std::declval<CPIter>(), std::declval<Sentinel>()));
+
+        template<typename Iter>
+        typename std::enable_if<is_16_iter<Iter>::value, utf16_range<Iter>>::
+            type
+            make_utf16_range(Iter first, Iter last)
+        {
+            return utf16_range<Iter>{first, last};
+        }
+        template<typename Iter, typename Sentinel>
+        typename std::enable_if<
+            is_16_iter<Iter>::value,
+            utf16_range<Iter, Sentinel>>::type
+        make_utf16_range(Iter first, Sentinel last)
+        {
+            return utf16_range<Iter, Sentinel>{first, last};
+        }
+        template<typename Iter>
+        auto make_utf16_range(
+            utf_16_to_32_iterator<Iter> first, utf_16_to_32_iterator<Iter> last)
+            -> utf16_range<decltype(first.base())>
+        {
+            return utf16_range<decltype(first.base())>{first.base(),
+                                                       last.base()};
+        }
+        template<typename Iter, typename Sentinel>
+        auto make_utf16_range(
+            utf_16_to_32_iterator<Iter, Sentinel> first, Sentinel last)
+            -> utf16_range<decltype(first.base()), Sentinel>
+        {
+            return utf16_range<decltype(first.base()), Sentinel>{first.base(),
+                                                                 last};
+        }
+        template<typename Iter, typename Sentinel>
+        auto make_utf16_range(utf_16_to_32_iterator<Iter> first, Sentinel last)
+            -> utf16_range<decltype(first.base()), Sentinel>
+        {
+            return utf16_range<decltype(first.base()), Sentinel>{first.base(),
+                                                                 last};
         }
 #endif
     }

@@ -259,9 +259,10 @@ namespace boost { namespace text { namespace detail { namespace icu {
         UChar * getLimit() { return limit; }
         uint8_t getLastCC() const { return lastCC; }
 
-        UBool equals(const UChar * otherStart, const UChar * otherLimit) const
+        template<typename Iter>
+        UBool equals_utf16(Iter otherStart, Iter otherLimit) const
         {
-#if 0
+#if 1
             return algorithm::equal(start, limit,  otherStart, otherLimit);
 #else
             int32_t length = (int32_t)(limit - start);
@@ -806,26 +807,26 @@ namespace boost { namespace text { namespace detail { namespace icu {
         // Very similar to composeQuickCheck(): Make the same changes in both
         // places if relevant. doCompose: normalize !doCompose: isNormalized
         // (buffer must be empty and initialized)
-        UBool compose(
-            const UChar * src,
-            const UChar * limit,
-            UBool onlyContiguous,
-            UBool doCompose,
-            ReorderingBuffer & buffer) const
+        template<
+            bool OnlyContiguous,
+            bool WriteToOut,
+            typename Iter,
+            typename Sentinel>
+        UBool compose(Iter src, Sentinel limit, ReorderingBuffer & buffer) const
         {
-            const UChar * prevBoundary = src;
+            Iter prevBoundary = src;
             UChar32 minNoMaybeCP = minCompNoMaybeCP;
 
             for (;;) {
                 // Fast path: Scan over a sequence of characters below the
                 // minimum "no or maybe" code point, or with (compYes && ccc==0)
                 // properties.
-                const UChar * prevSrc;
+                Iter prevSrc;
                 UChar32 c = 0;
                 uint16_t norm16 = 0;
                 for (;;) {
                     if (src == limit) {
-                        if (prevBoundary != limit && doCompose) {
+                        if (prevBoundary != limit && WriteToOut) {
                             buffer.appendZeroCC(prevBoundary, limit);
                         }
                         return TRUE;
@@ -863,7 +864,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                 // decomposition and recomposition.
                 if (!isMaybeOrNonZeroCC(
                         norm16)) { // minNoNo <= norm16 < minMaybeYes
-                    if (!doCompose) {
+                    if (!WriteToOut) {
                         return FALSE;
                     }
                     // Fast path for mapping a character that is immediately
@@ -873,8 +874,8 @@ namespace boost { namespace text { namespace detail { namespace icu {
                         // Maps to a single isCompYesAndZeroCC character
                         // which also implies hasCompBoundaryBefore.
                         if (norm16HasCompBoundaryAfter(
-                                norm16, onlyContiguous) ||
-                            hasCompBoundaryBefore(src, limit)) {
+                                norm16, OnlyContiguous) ||
+                            hasCompBoundaryBefore_utf16(src, limit)) {
                             if (prevBoundary != prevSrc &&
                                 !buffer.appendZeroCC(prevBoundary, prevSrc)) {
                                 break;
@@ -889,8 +890,8 @@ namespace boost { namespace text { namespace detail { namespace icu {
                         // The mapping is comp-normalized which also implies
                         // hasCompBoundaryBefore.
                         if (norm16HasCompBoundaryAfter(
-                                norm16, onlyContiguous) ||
-                            hasCompBoundaryBefore(src, limit)) {
+                                norm16, OnlyContiguous) ||
+                            hasCompBoundaryBefore_utf16(src, limit)) {
                             if (prevBoundary != prevSrc &&
                                 !buffer.appendZeroCC(prevBoundary, prevSrc)) {
                                 break;
@@ -911,9 +912,9 @@ namespace boost { namespace text { namespace detail { namespace icu {
                         // Simply omit it from the output if there is a boundary
                         // before _or_ after it. The character itself implies no
                         // boundaries.
-                        if (hasCompBoundaryBefore(src, limit) ||
-                            hasCompBoundaryAfter(
-                                prevBoundary, prevSrc, onlyContiguous)) {
+                        if (hasCompBoundaryBefore_utf16(src, limit) ||
+                            hasCompBoundaryAfter_utf16(
+                                prevBoundary, prevSrc, OnlyContiguous)) {
                             if (prevBoundary != prevSrc &&
                                 !buffer.appendZeroCC(prevBoundary, prevSrc)) {
                                 break;
@@ -925,13 +926,13 @@ namespace boost { namespace text { namespace detail { namespace icu {
                     // Other "noNo" type, or need to examine more text around
                     // this character: Fall through to the slow path.
                 } else if (isJamoVT(norm16) && prevBoundary != prevSrc) {
-                    UChar prev = *(prevSrc - 1);
+                    UChar prev = *std::prev(prevSrc);
                     if (c < Hangul::JAMO_T_BASE) {
                         // The current character is a Jamo Vowel,
                         // compose with previous Jamo L and following Jamo T.
                         UChar l = (UChar)(prev - Hangul::JAMO_L_BASE);
                         if (l < Hangul::JAMO_L_COUNT) {
-                            if (!doCompose) {
+                            if (!WriteToOut) {
                                 return FALSE;
                             }
                             int32_t t;
@@ -942,7 +943,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                                 t < Hangul::JAMO_T_COUNT) {
                                 // The next character is a Jamo T.
                                 ++src;
-                            } else if (hasCompBoundaryBefore(src, limit)) {
+                            } else if (hasCompBoundaryBefore_utf16(src, limit)) {
                                 // No Jamo T follows, not even via
                                 // decomposition.
                                 t = 0;
@@ -980,7 +981,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                         // The current character is a Jamo Trailing consonant,
                         // compose with previous Hangul LV that does not contain
                         // a Jamo T.
-                        if (!doCompose) {
+                        if (!WriteToOut) {
                             return FALSE;
                         }
                         UChar32 syllable = prev + c - Hangul::JAMO_T_BASE;
@@ -1002,22 +1003,22 @@ namespace boost { namespace text { namespace detail { namespace icu {
                     // Check for canonical order, copy unchanged if ok and
                     // if followed by a character with a boundary-before.
                     uint8_t cc = getCCFromNormalYesOrMaybe(norm16); // cc!=0
-                    if (onlyContiguous /* FCC */ &&
-                        getPreviousTrailCC(prevBoundary, prevSrc) > cc) {
+                    if (OnlyContiguous /* FCC */ &&
+                        getPreviousTrailCC_utf16(prevBoundary, prevSrc) > cc) {
                         // Fails FCD test, need to decompose and contiguously
                         // recompose.
-                        if (!doCompose) {
+                        if (!WriteToOut) {
                             return FALSE;
                         }
                     } else {
-                        // If !onlyContiguous (not FCC), then we ignore the tccc
+                        // If !OnlyContiguous (not FCC), then we ignore the tccc
                         // of the previous character which passed the quick
                         // check "yes && ccc==0" test.
-                        const UChar * nextSrc;
+                        Iter nextSrc;
                         uint16_t n16;
                         for (;;) {
                             if (src == limit) {
-                                if (doCompose) {
+                                if (WriteToOut) {
                                     buffer.appendZeroCC(prevBoundary, limit);
                                 }
                                 return TRUE;
@@ -1029,7 +1030,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                             if (n16 >= MIN_YES_YES_WITH_CC) {
                                 cc = getCCFromNormalYesOrMaybe(n16);
                                 if (prevCC > cc) {
-                                    if (!doCompose) {
+                                    if (!WriteToOut) {
                                         return FALSE;
                                     }
                                     break;
@@ -1057,36 +1058,36 @@ namespace boost { namespace text { namespace detail { namespace icu {
                 // character, decompose and recompose.
                 if (prevBoundary != prevSrc &&
                     !norm16HasCompBoundaryBefore(norm16)) {
-                    const UChar * p = prevSrc;
+                    Iter p = prevSrc;
                     UCPTRIE_FAST_U16_PREV(
                         normTrie, UCPTRIE_16, prevBoundary, p, c, norm16);
-                    if (!norm16HasCompBoundaryAfter(norm16, onlyContiguous)) {
+                    if (!norm16HasCompBoundaryAfter(norm16, OnlyContiguous)) {
                         prevSrc = p;
                     }
                 }
-                if (doCompose && prevBoundary != prevSrc &&
+                if (WriteToOut && prevBoundary != prevSrc &&
                     !buffer.appendZeroCC(prevBoundary, prevSrc)) {
                     break;
                 }
                 int32_t recomposeStartIndex = buffer.length();
                 // We know there is not a boundary here.
-                decomposeShort(
+                decomposeShort_utf16(
                     prevSrc,
                     src,
                     FALSE /* !stopAtCompBoundary */,
-                    onlyContiguous,
+                    OnlyContiguous,
                     buffer);
                 // Decompose until the next boundary.
-                src = decomposeShort(
+                src = decomposeShort_utf16(
                     src,
                     limit,
                     TRUE /* stopAtCompBoundary */,
-                    onlyContiguous,
+                    OnlyContiguous,
                     buffer);
-                BOOST_ASSERT(src - prevSrc <= INT32_MAX);
-                recompose(buffer, recomposeStartIndex, onlyContiguous);
-                if (!doCompose) {
-                    if (!buffer.equals(prevSrc, src)) {
+                BOOST_ASSERT(std::distance(src, prevSrc) <= INT32_MAX);
+                recompose(buffer, recomposeStartIndex, OnlyContiguous);
+                if (!WriteToOut) {
+                    if (!buffer.equals_utf16(prevSrc, src)) {
                         return FALSE;
                     }
                     buffer.remove();
@@ -1356,14 +1357,14 @@ namespace boost { namespace text { namespace detail { namespace icu {
                 }
                 ReorderingBuffer buffer(*this, s16);
                 // We know there is not a boundary here.
-                decomposeShort(
+                decomposeShort_utf8(
                     prevSrc,
                     src,
                     FALSE /* !stopAtCompBoundary */,
                     OnlyContiguous,
                     buffer);
                 // Decompose until the next boundary.
-                src = decomposeShort(
+                src = decomposeShort_utf8(
                     src,
                     limit,
                     TRUE /* stopAtCompBoundary */,
@@ -1638,12 +1639,13 @@ namespace boost { namespace text { namespace detail { namespace icu {
                 return (uint8_t)(*getMapping(norm16) >> 8); // tccc from yesNo
             }
         }
-        uint8_t getPreviousTrailCC(const UChar * start, const UChar * p) const
+        template<typename Iter>
+        uint8_t getPreviousTrailCC_utf16(Iter start, Iter p) const
         {
             if (start == p) {
                 return 0;
             }
-            int32_t i = (int32_t)(p - start);
+            int32_t i = (int32_t)std::distance(start, p);
             UChar32 c;
             U16_PREV(start, 0, i, c);
             return (uint8_t)getFCD16(c);
@@ -1715,18 +1717,19 @@ namespace boost { namespace text { namespace detail { namespace icu {
         // that fail the quick check loop and/or where the quick check loop's
         // overhead is unlikely to be amortized. Called by the compose() and
         // makeFCD() implementations.
-        const UChar * decomposeShort(
-            const UChar * src,
-            const UChar * limit,
+        template<typename Iter, typename Sentinel>
+        Iter decomposeShort_utf16(
+            Iter src,
+            Sentinel limit,
             UBool stopAtCompBoundary,
             UBool onlyContiguous,
             ReorderingBuffer & buffer) const
         {
-            while (src < limit) {
+            while (src != limit) {
                 if (stopAtCompBoundary && *src < minCompNoMaybeCP) {
                     return src;
                 }
-                const UChar * prevSrc = src;
+                Iter prevSrc = src;
                 UChar32 c;
                 uint16_t norm16;
                 UCPTRIE_FAST_U16_NEXT(
@@ -1735,7 +1738,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                     return prevSrc;
                 }
                 if (!decompose(c, norm16, buffer)) {
-                    return nullptr;
+                    return src;
                 }
                 if (stopAtCompBoundary &&
                     norm16HasCompBoundaryAfter(norm16, onlyContiguous)) {
@@ -1781,7 +1784,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
         }
 
         template<typename CharIter, typename Sentinel>
-        CharIter decomposeShort(
+        CharIter decomposeShort_utf8(
             CharIter src,
             Sentinel limit,
             UBool stopAtCompBoundary,
@@ -1799,7 +1802,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                         // No boundaries around this character.
                         c = codePointFromValidUTF8(prevSrc, src);
                         if (!buffer.append(c, getCCFromYesOrMaybe(norm16))) {
-                            return nullptr;
+                            return src;
                         }
                         continue;
                     }
@@ -1826,7 +1829,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                     }
                     // does not decompose
                     if (!buffer.append(c, 0)) {
-                        return nullptr;
+                        return src;
                     }
                 } else if (isHangulLV(norm16) || isHangulLVT(norm16)) {
                     // Hangul syllable: decompose algorithmically
@@ -1836,7 +1839,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                     char16_t jamos[3];
                     if (!buffer.appendZeroCC(
                             jamos, jamos + Hangul::decompose(c, jamos))) {
-                        return nullptr;
+                        return src;
                     }
                 } else {
                     // The character decomposes, get everything from the
@@ -1857,7 +1860,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                             TRUE,
                             leadCC,
                             trailCC)) {
-                        return nullptr;
+                        return src;
                     }
                 }
                 if (stopAtCompBoundary &&
@@ -2144,8 +2147,8 @@ namespace boost { namespace text { namespace detail { namespace icu {
         {
             return norm16 < minNoNoCompNoMaybeCC || isAlgorithmicNoNo(norm16);
         }
-        UBool
-        hasCompBoundaryBefore(const UChar * src, const UChar * limit) const
+        template<typename Iter, typename Sentinel>
+        UBool hasCompBoundaryBefore_utf16(Iter src, Sentinel limit) const
         {
             if (src == limit || *src < minCompNoMaybeCP) {
                 return TRUE;
@@ -2165,13 +2168,14 @@ namespace boost { namespace text { namespace detail { namespace icu {
             UCPTRIE_FAST_U8_NEXT(normTrie, UCPTRIE_16, src, limit, norm16);
             return norm16HasCompBoundaryBefore(norm16);
         }
-        UBool hasCompBoundaryAfter(
-            const UChar * start, const UChar * p, UBool onlyContiguous) const
+        template<typename Iter, typename Sentinel>
+        UBool hasCompBoundaryAfter_utf16(
+            Iter start, Sentinel p, UBool onlyContiguous) const
         {
             if (start == p) {
                 return TRUE;
             }
-            UChar32 c;
+            UChar32 c = 0;
             uint16_t norm16;
             UCPTRIE_FAST_U16_PREV(normTrie, UCPTRIE_16, start, p, c, norm16);
             return norm16HasCompBoundaryAfter(norm16, onlyContiguous);

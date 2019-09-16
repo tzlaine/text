@@ -77,6 +77,14 @@ namespace boost { namespace text { namespace detail { namespace icu {
     }
 
     template<typename Iter, typename Sentinel>
+    void
+    utf16_normalize_to_nfc_append(Iter first, Sentinel last, UnicodeString & s)
+    {
+        ReorderingBuffer buffer(nfc_norm(), s);
+        nfc_norm().compose<false, true>(first, last, buffer);
+    }
+
+    template<typename Iter, typename Sentinel>
     Iter
     utf16_normalize_to_nfd_append(Iter first, Sentinel last, UnicodeString & s)
     {
@@ -92,6 +100,14 @@ namespace boost { namespace text { namespace detail { namespace icu {
     }
 
     template<typename Iter, typename Sentinel>
+    void
+    utf16_normalize_to_nfkc_append(Iter first, Sentinel last, UnicodeString & s)
+    {
+        ReorderingBuffer buffer(nfkc_norm(), s);
+        nfkc_norm().compose<false, true>(first, last, buffer);
+    }
+
+    template<typename Iter, typename Sentinel>
     Iter
     utf16_normalize_to_nfkd_append(Iter first, Sentinel last, UnicodeString & s)
     {
@@ -104,6 +120,14 @@ namespace boost { namespace text { namespace detail { namespace icu {
     {
         nfc_norm().composeUTF8<true, true>(
             first, last, string_appender<String>(s));
+    }
+
+    template<typename Iter, typename Sentinel>
+    void
+    utf16_normalize_to_fcc_append(Iter first, Sentinel last, UnicodeString & s)
+    {
+        ReorderingBuffer buffer(nfc_norm(), s);
+        nfc_norm().compose<true, true>(first, last, buffer);
     }
 
 }}}}
