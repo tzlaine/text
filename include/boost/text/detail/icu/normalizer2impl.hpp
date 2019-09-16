@@ -261,13 +261,24 @@ namespace boost { namespace text { namespace detail { namespace icu {
 
         UBool equals(const UChar * otherStart, const UChar * otherLimit) const
         {
+#if 0
+            return algorithm::equal(start, limit,  otherStart, otherLimit);
+#else
             int32_t length = (int32_t)(limit - start);
             return length == (int32_t)(otherLimit - otherStart) &&
                    0 == memcmp(start, otherStart, length);
+#endif
         }
         template<typename CharIter>
         UBool equals_utf8(CharIter otherStart, CharIter otherLimit) const
         {
+#if 0
+            auto const other_first =
+                make_utf_8_to_16_iterator(otherStart, otherStart, otherLimit);
+            auto const other_last =
+                make_utf_8_to_16_iterator(otherStart, otherLimit, otherLimit);
+            return algorithm::equal(start, limit,  other_first, other_last);
+#else
             BOOST_ASSERT(
                 (otherLimit - otherStart) <= INT32_MAX); // ensured by caller
             int32_t length = (int32_t)(limit - start);
@@ -293,6 +304,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                     return FALSE;
                 }
             }
+#endif
         }
 
         UBool append(UChar32 c, uint8_t cc)
@@ -322,29 +334,13 @@ namespace boost { namespace text { namespace detail { namespace icu {
             --remainingCapacity;
             return TRUE;
         }
-        UBool appendZeroCC(UChar32 c)
-        {
-            int32_t cpLength = U16_LENGTH(c);
-            if (remainingCapacity < cpLength)
-                resize(cpLength);
-            remainingCapacity -= cpLength;
-            if (cpLength == 1) {
-                *limit++ = (UChar)c;
-            } else {
-                limit[0] = U16_LEAD(c);
-                limit[1] = U16_TRAIL(c);
-                limit += 2;
-            }
-            lastCC = 0;
-            reorderStart = limit;
-            return TRUE;
-        }
-        UBool appendZeroCC(const UChar * s, const UChar * sLimit)
+        template<typename U16Iter>
+        UBool appendZeroCC(U16Iter s, U16Iter sLimit)
         {
             if (s == sLimit) {
                 return TRUE;
             }
-            int32_t length = (int32_t)(sLimit - s);
+            int32_t length = (int32_t)std::distance(s, sLimit); // TODO
             if (remainingCapacity < length)
                 resize(length);
             limit = std::copy(s, sLimit, limit);
@@ -359,28 +355,11 @@ namespace boost { namespace text { namespace detail { namespace icu {
             remainingCapacity = str.capacity();
             lastCC = 0;
         }
-        void removeSuffix(int32_t suffixLength)
-        {
-            if (suffixLength < (limit - start)) {
-                limit -= suffixLength;
-                remainingCapacity += suffixLength;
-            } else {
-                limit = start;
-                remainingCapacity = str.capacity();
-            }
-            lastCC = 0;
-            reorderStart = limit;
-        }
         void setReorderingLimit(UChar * newLimit)
         {
             remainingCapacity += (int32_t)(limit - newLimit);
             reorderStart = limit = newLimit;
             lastCC = 0;
-        }
-        void copyReorderableSuffixTo(UnicodeString & s) const
-        {
-            s.assign(
-                reorderStart, reorderStart + (int32_t)(limit - reorderStart));
         }
 
     private:
@@ -745,19 +724,17 @@ namespace boost { namespace text { namespace detail { namespace icu {
         // Dual functionality:
         // buffer!=nullptr: normalize
         // buffer==nullptr: isNormalized/spanQuickCheckYes
-        const UChar * decompose(
-            const UChar * src,
-            const UChar * limit,
-            ReorderingBuffer * buffer) const
+        template<bool WriteToOut, typename Iter, typename Sentinel>
+        Iter decompose(Iter src, Sentinel limit, ReorderingBuffer & buffer) const
         {
-            UChar32 minNoCP = minDecompNoCP;
+            UChar32 const minNoCP = minDecompNoCP;
 
-            const UChar * prevSrc;
+            Iter prevSrc;
             UChar32 c = 0;
             uint16_t norm16 = 0;
 
             // only for quick check
-            const UChar * prevBoundary = src;
+            Iter prevBoundary = src;
             uint8_t prevCC = 0;
 
             for (;;) {
@@ -773,12 +750,14 @@ namespace boost { namespace text { namespace detail { namespace icu {
                         break;
                     } else {
                         UChar c2;
-                        if ((src + 1) != limit && U16_IS_TRAIL(c2 = src[1])) {
+                        auto next = std::next(src);
+                        if (next != limit && U16_IS_TRAIL(c2 = *next)) {
                             c = U16_GET_SUPPLEMENTARY(c, c2);
                             norm16 =
                                 UCPTRIE_FAST_SUPP_GET(normTrie, UCPTRIE_16, c);
                             if (isMostDecompYesAndZeroCC(norm16)) {
-                                src += 2;
+                                ++src;
+                                ++src;
                             } else {
                                 break;
                             }
@@ -789,8 +768,8 @@ namespace boost { namespace text { namespace detail { namespace icu {
                 }
                 // copy these code units all at once
                 if (src != prevSrc) {
-                    if (buffer != nullptr) {
-                        if (!buffer->appendZeroCC(prevSrc, src)) {
+                    if (WriteToOut) {
+                        if (!buffer.appendZeroCC(prevSrc, src)) {
                             break;
                         }
                     } else {
@@ -803,9 +782,9 @@ namespace boost { namespace text { namespace detail { namespace icu {
                 }
 
                 // Check one above-minimum, relevant code point.
-                src += U16_LENGTH(c);
-                if (buffer != nullptr) {
-                    if (!decompose(c, norm16, *buffer)) {
+                std::advance(src, U16_LENGTH(c));
+                if (WriteToOut) {
+                    if (!decompose(c, norm16, buffer)) {
                         break;
                     }
                 } else {
