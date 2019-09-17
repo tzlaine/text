@@ -188,3 +188,122 @@ TEST(transcode_insert_iterator, utf16_inserters_errors)
         EXPECT_EQ(result, expected_cps_deque);
     }
 }
+
+TEST(transcode_insert_iterator, utf8_inserters_long)
+{
+    std::vector<char> cus;
+    text::transcode_utf_32_to_8(
+        std::begin(cps), std::end(cps), std::back_inserter(cus));
+
+    std::vector<uint32_t> const cps_copy(std::begin(cps), std::end(cps));
+
+    // UTF-8 pointer -> UTF-32 inserter
+    {
+        std::vector<uint32_t> result;
+        std::copy(
+            cus.begin(),
+            cus.end(),
+            text::utf_8_to_32_inserter(result, result.end()));
+        EXPECT_EQ(result, cps_copy);
+    }
+    // UTF-8 pointer -> UTF-32 back inserter
+    {
+        std::vector<uint32_t> result;
+        std::copy(
+            cus.begin(), cus.end(), text::utf_8_to_32_back_inserter(result));
+        EXPECT_EQ(result, cps_copy);
+    }
+    // UTF-8 pointer -> UTF-32 front inserter
+    {
+        std::deque<uint32_t> const cps_copy_deque(
+            std::begin(cps), std::end(cps));
+        std::deque<uint32_t> result;
+        std::copy(
+            cus.begin(), cus.end(), text::utf_8_to_32_front_inserter(result));
+        std::reverse(result.begin(), result.end());
+        EXPECT_EQ(result, cps_copy_deque);
+    }
+
+    // UTF-8 pointer -> UTF-16 inserter
+    {
+        std::vector<uint16_t> chars_utf16;
+        std::copy(
+            cus.begin(),
+            cus.end(),
+            text::utf_8_to_16_inserter(chars_utf16, chars_utf16.end()));
+        std::vector<uint32_t> result;
+        text::transcode_utf_16_to_32(chars_utf16, std::back_inserter(result));
+        EXPECT_EQ(result, cps_copy);
+    }
+    // UTF-8 pointer -> UTF-16 back inserter
+    {
+        std::vector<uint16_t> chars_utf16;
+        std::copy(
+            cus.begin(),
+            cus.end(),
+            text::utf_8_to_16_back_inserter(chars_utf16));
+        std::vector<uint32_t> result;
+        text::transcode_utf_16_to_32(chars_utf16, std::back_inserter(result));
+        EXPECT_EQ(result, cps_copy);
+    }
+    // UTF-8 pointer -> UTF-16 front inserter
+    {
+        std::deque<uint16_t> chars_utf16;
+        std::copy(
+            cus.begin(),
+            cus.end(),
+            text::utf_8_to_16_front_inserter(chars_utf16));
+        std::reverse(chars_utf16.begin(), chars_utf16.end());
+        std::vector<uint32_t> result;
+        text::transcode_utf_16_to_32(chars_utf16, std::back_inserter(result));
+        EXPECT_EQ(result, cps_copy);
+    }
+}
+
+#if 0 // TODO: UTF-8
+TEST(transcode_insert_iterator, utf8_inserters_errors)
+{
+    std::vector<uint16_t> cus = {
+        text::low_surrogate_min,  // -> replacement
+        text::high_surrogate_min, // -> replacement, due to next CU
+        text::high_surrogate_min, // -> ok
+        text::low_surrogate_min,  // -> ok
+        text::high_surrogate_min, // -> replacement, due to next CU
+        0,
+    };
+    std::vector<uint32_t> expected_cps = {
+        text::replacement_character(),
+        text::replacement_character(),
+        0x10000,
+        text::replacement_character(),
+        0,
+    };
+
+    // UTF-8 pointer -> UTF-32 inserter
+    {
+        std::vector<uint32_t> result;
+        std::copy(
+            cus.begin(),
+            cus.end(),
+            text::utf_16_to_32_inserter(result, result.end()));
+        EXPECT_EQ(result, expected_cps);
+    }
+    // UTF-8 pointer -> UTF-32 back inserter
+    {
+        std::vector<uint32_t> result;
+        std::copy(
+            cus.begin(), cus.end(), text::utf_16_to_32_back_inserter(result));
+        EXPECT_EQ(result, expected_cps);
+    }
+    // UTF-8 pointer -> UTF-32 front inserter
+    {
+        std::deque<uint32_t> const expected_cps_deque(
+            std::begin(expected_cps), std::end(expected_cps));
+        std::deque<uint32_t> result;
+        std::copy(
+            cus.begin(), cus.end(), text::utf_16_to_32_front_inserter(result));
+        std::reverse(result.begin(), result.end());
+        EXPECT_EQ(result, expected_cps_deque);
+    }
+}
+#endif
