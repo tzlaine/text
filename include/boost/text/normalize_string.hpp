@@ -19,7 +19,7 @@ namespace boost { namespace text {
             typename Sentinel,
             bool UTF8 = is_detected<utf8_range_expr, CPIter, Sentinel>::value,
             bool UTF16 = is_detected<utf16_range_expr, CPIter, Sentinel>::value>
-        struct normalize_to_nfc_append_utf8_impl
+        struct norm_nfc_append_impl
         {
             template<typename String>
             static void call(CPIter first, Sentinel last, String & s)
@@ -33,7 +33,7 @@ namespace boost { namespace text {
         };
 
         template<typename CPIter, typename Sentinel>
-        struct normalize_to_nfc_append_utf8_impl<CPIter, Sentinel, true, false>
+        struct norm_nfc_append_impl<CPIter, Sentinel, true, false>
         {
             template<typename String>
             static void call(CPIter first, Sentinel last, String & s)
@@ -47,7 +47,7 @@ namespace boost { namespace text {
         };
 
         template<typename CPIter, typename Sentinel>
-        struct normalize_to_nfc_append_utf8_impl<CPIter, Sentinel, false, true>
+        struct norm_nfc_append_impl<CPIter, Sentinel, false, true>
         {
             template<typename String>
             static void call(CPIter first, Sentinel last, String & s)
@@ -64,7 +64,7 @@ namespace boost { namespace text {
             typename Sentinel,
             bool UTF8 = is_detected<utf8_range_expr, CPIter, Sentinel>::value,
             bool UTF16 = is_detected<utf16_range_expr, CPIter, Sentinel>::value>
-        struct normalize_to_nfkc_append_utf8_impl
+        struct norm_nfkc_append_impl
         {
             template<typename String>
             static void call(CPIter first, Sentinel last, String & s)
@@ -78,7 +78,7 @@ namespace boost { namespace text {
         };
 
         template<typename CPIter, typename Sentinel>
-        struct normalize_to_nfkc_append_utf8_impl<CPIter, Sentinel, true, false>
+        struct norm_nfkc_append_impl<CPIter, Sentinel, true, false>
         {
             template<typename String>
             static void call(CPIter first, Sentinel last, String & s)
@@ -92,7 +92,7 @@ namespace boost { namespace text {
         };
 
         template<typename CPIter, typename Sentinel>
-        struct normalize_to_nfkc_append_utf8_impl<CPIter, Sentinel, false, true>
+        struct norm_nfkc_append_impl<CPIter, Sentinel, false, true>
         {
             template<typename String>
             static void call(CPIter first, Sentinel last, String & s)
@@ -109,7 +109,7 @@ namespace boost { namespace text {
             typename Sentinel,
             bool UTF8 = is_detected<utf8_range_expr, CPIter, Sentinel>::value,
             bool UTF16 = is_detected<utf16_range_expr, CPIter, Sentinel>::value>
-        struct normalize_to_fcc_append_utf8_impl
+        struct norm_fcc_append_impl
         {
             template<typename String>
             static void call(CPIter first, Sentinel last, String & s)
@@ -127,7 +127,7 @@ namespace boost { namespace text {
         };
 
         template<typename CPIter, typename Sentinel>
-        struct normalize_to_fcc_append_utf8_impl<CPIter, Sentinel, true, false>
+        struct norm_fcc_append_impl<CPIter, Sentinel, true, false>
         {
             template<typename String>
             static void call(CPIter first, Sentinel last, String & s)
@@ -141,7 +141,7 @@ namespace boost { namespace text {
         };
 
         template<typename CPIter, typename Sentinel>
-        struct normalize_to_fcc_append_utf8_impl<CPIter, Sentinel, false, true>
+        struct norm_fcc_append_impl<CPIter, Sentinel, false, true>
         {
             template<typename String>
             static void call(CPIter first, Sentinel last, String & s)
@@ -153,148 +153,112 @@ namespace boost { namespace text {
         };
 
         // NFD dispatch
+        template<typename CPIter, typename Sentinel, typename String>
+        static void
+        norm_nfd_append_impl_impl(CPIter first, Sentinel last, String & s)
+        {
+            detail::icu::UnicodeString output;
+
+            int const chunk_size = 512;
+            detail::icu::UnicodeString input(chunk_size * 2);
+            auto input_first = input.data();
+
+            while (first != last) {
+                int n = 0;
+                auto input_last = input_first;
+                for (; first != last && n < chunk_size;
+                     ++first, ++input_last, ++n) {
+                    *input_last = *first;
+                }
+                auto const input_new_first =
+                    detail::icu::utf16_normalize_to_nfd_append(
+                        input.data(), input_last, output);
+                input_first =
+                    std::copy(input_new_first, input_last, input.data());
+
+                transcode_utf_16_to_8(output, std::inserter(s, s.end()));
+                output.clear();
+            }
+        }
+
         template<
             typename CPIter,
             typename Sentinel,
             bool UTF16 = is_detected<utf16_range_expr, CPIter, Sentinel>::value>
-        struct normalize_to_nfd_append_utf8_impl
+        struct norm_nfd_append_impl
         {
             template<typename String>
             static void call(CPIter first_, Sentinel last_, String & s)
             {
                 auto first = make_utf_32_to_16_iterator(first_, first_, last_);
                 auto last = make_utf_32_to_16_iterator(first_, last_, last_);
-
-                detail::icu::UnicodeString output;
-
-                int const chunk_size = 512;
-                detail::icu::UnicodeString input(chunk_size * 2);
-                auto input_first = input.data();
-
-                while (first != last) {
-                    int n = 0;
-                    auto input_last = input_first;
-                    for (; first != last && n < chunk_size;
-                         ++first, ++input_last, ++n) {
-                        *input_last = *first;
-                    }
-                    auto const input_new_first =
-                        detail::icu::utf16_normalize_to_nfd_append(
-                            input.data(), input_last, output);
-                    input_first =
-                        std::copy(input_new_first, input_last, input.data());
-
-                    transcode_utf_16_to_8(output, std::inserter(s, s.end()));
-                    output.clear();
-                }
+                norm_nfd_append_impl_impl(first, last, s);
              }
         };
 
         template<typename CPIter, typename Sentinel>
-        struct normalize_to_nfd_append_utf8_impl<CPIter, Sentinel, true>
+        struct norm_nfd_append_impl<CPIter, Sentinel, true>
         {
             template<typename String>
-            static void call(CPIter first_, Sentinel last_, String & s)
+            static void call(CPIter first, Sentinel last, String & s)
             {
-                auto const r = make_utf16_range(first_, last_);
-                auto first = r.begin();
-                auto last = r.end();
-
-                detail::icu::UnicodeString output;
-
-                int const chunk_size = 512;
-                detail::icu::UnicodeString input(chunk_size * 2);
-                auto input_first = input.data();
-
-                while (first != last) {
-                    int n = 0;
-                    auto input_last = input_first;
-                    for (; first != last && n < chunk_size;
-                         ++first, ++input_last, ++n) {
-                        *input_last = *first;
-                    }
-                    auto const input_new_first =
-                        detail::icu::utf16_normalize_to_nfd_append(
-                            input.data(), input_last, output);
-                    input_first =
-                        std::copy(input_new_first, input_last, input.data());
-
-                    transcode_utf_16_to_8(output, std::inserter(s, s.end()));
-                    output.clear();
-                }
+                auto const r = make_utf16_range(first, last);
+                norm_nfd_append_impl_impl(r.begin(), r.end(), s);
             }
         };
 
         // NFKD dispatch
+        template<typename CPIter, typename Sentinel, typename String>
+        static void
+        norm_nfkd_append_impl_impl(CPIter first, Sentinel last, String & s)
+        {
+            detail::icu::UnicodeString output;
+
+            int const chunk_size = 512;
+            detail::icu::UnicodeString input(chunk_size * 2);
+            auto input_first = input.data();
+
+            while (first != last) {
+                int n = 0;
+                auto input_last = input_first;
+                for (; first != last && n < chunk_size;
+                     ++first, ++input_last, ++n) {
+                    *input_last = *first;
+                }
+                auto const input_new_first =
+                    detail::icu::utf16_normalize_to_nfkd_append(
+                        input.data(), input_last, output);
+                input_first =
+                    std::copy(input_new_first, input_last, input.data());
+
+                transcode_utf_16_to_8(output, std::inserter(s, s.end()));
+                output.clear();
+            }
+        }
+
         template<
             typename CPIter,
             typename Sentinel,
             bool UTF16 = is_detected<utf16_range_expr, CPIter, Sentinel>::value>
-        struct normalize_to_nfkd_append_utf8_impl
+        struct norm_nfkd_append_impl
         {
             template<typename String>
             static void call(CPIter first_, Sentinel last_, String & s)
             {
                 auto first = make_utf_32_to_16_iterator(first_, first_, last_);
                 auto last = make_utf_32_to_16_iterator(first_, last_, last_);
-
-                detail::icu::UnicodeString output;
-
-                int const chunk_size = 512;
-                detail::icu::UnicodeString input(chunk_size * 2);
-                auto input_first = input.data();
-
-                while (first != last) {
-                    int n = 0;
-                    auto input_last = input_first;
-                    for (; first != last && n < chunk_size;
-                         ++first, ++input_last, ++n) {
-                        *input_last = *first;
-                    }
-                    auto const input_new_first =
-                        detail::icu::utf16_normalize_to_nfkd_append(
-                            input.data(), input_last, output);
-                    input_first =
-                        std::copy(input_new_first, input_last, input.data());
-
-                    transcode_utf_16_to_8(output, std::inserter(s, s.end()));
-                    output.clear();
-                }
+                norm_nfkd_append_impl_impl(first, last, s);
              }
         };
 
         template<typename CPIter, typename Sentinel>
-        struct normalize_to_nfkd_append_utf8_impl<CPIter, Sentinel, true>
+        struct norm_nfkd_append_impl<CPIter, Sentinel, true>
         {
             template<typename String>
             static void call(CPIter first_, Sentinel last_, String & s)
             {
                 auto const r = make_utf16_range(first_, last_);
-                auto first = r.begin();
-                auto last = r.end();
-
-                detail::icu::UnicodeString output;
-
-                int const chunk_size = 512;
-                detail::icu::UnicodeString input(chunk_size * 2);
-                auto input_first = input.data();
-
-                while (first != last) {
-                    int n = 0;
-                    auto input_last = input_first;
-                    for (; first != last && n < chunk_size;
-                         ++first, ++input_last, ++n) {
-                        *input_last = *first;
-                    }
-                    auto const input_new_first =
-                        detail::icu::utf16_normalize_to_nfkd_append(
-                            input.data(), input_last, output);
-                    input_first =
-                        std::copy(input_new_first, input_last, input.data());
-
-                    transcode_utf_16_to_8(output, std::inserter(s, s.end()));
-                    output.clear();
-                }
+                norm_nfkd_append_impl_impl(r.begin(), r.end(), s);
             }
         };
     }
@@ -313,8 +277,7 @@ namespace boost { namespace text {
             decltype(s.insert(s.end(), detail::ncstr, detail::ncstr), s),
             CPIter>
     {
-        detail::normalize_to_nfd_append_utf8_impl<CPIter, Sentinel>::call(
-            first, last, s);
+        detail::norm_nfd_append_impl<CPIter, Sentinel>::call(first, last, s);
         return s;
     }
 
@@ -343,8 +306,7 @@ namespace boost { namespace text {
             CPIter>
     {
 #if 0 // TODO: Badly broken!
-        detail::normalize_to_nfkd_append_utf8_impl<CPIter, Sentinel>::call(
-            first, last, s);
+        detail::norm_nfkd_append_impl<CPIter, Sentinel>::call(first, last, s);
 #else
         detail::normalize_to_decomposed(
             first,
@@ -380,8 +342,7 @@ namespace boost { namespace text {
             decltype(s.insert(s.end(), detail::ncstr, detail::ncstr), s),
             CPIter>
     {
-        detail::normalize_to_nfc_append_utf8_impl<CPIter, Sentinel>::call(
-            first, last, s);
+        detail::norm_nfc_append_impl<CPIter, Sentinel>::call(first, last, s);
         return s;
     }
 
@@ -410,8 +371,7 @@ namespace boost { namespace text {
             CPIter>
     {
 #if 0 // TODO: Badly broken!
-        detail::normalize_to_nfkc_append_utf8_impl<CPIter, Sentinel>::call(
-            first, last, s);
+        detail::norm_nfkc_append_impl<CPIter, Sentinel>::call(first, last, s);
 #else
         detail::normalize_to_composed<false>(
             first,
@@ -449,8 +409,7 @@ namespace boost { namespace text {
             decltype(s.insert(s.end(), detail::ncstr, detail::ncstr), s),
             CPIter>
     {
-        detail::normalize_to_fcc_append_utf8_impl<CPIter, Sentinel>::call(
-            first, last, s);
+        detail::norm_fcc_append_impl<CPIter, Sentinel>::call(first, last, s);
         return s;
     }
 
