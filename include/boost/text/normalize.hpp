@@ -8,10 +8,6 @@
 
 #include <boost/container/static_vector.hpp>
 
-#if BOOST_TEXT_HAS_ICU
-#include <unicode/normalizer2.h>
-#endif
-
 #include <algorithm>
 
 
@@ -481,328 +477,6 @@ namespace boost { namespace text {
         {
         };
 
-#if BOOST_TEXT_HAS_ICU
-        template<typename OutIter, typename OriginalIter>
-        void self_assign_it_(OutIter & out, OriginalIter *& it)
-        {}
-        template<typename OutIter>
-        void self_assign_it_(OutIter & out, OutIter *& it)
-        {
-            it = &out;
-        }
-
-        template<typename OutIter, typename OriginalIter>
-        struct out_iter_sink : U_NAMESPACE_QUALIFIER ByteSink
-        {
-            explicit out_iter_sink(OutIter out) : out_(out), it_(&out_) {}
-            out_iter_sink(OutIter out, OriginalIter & it) : out_(out), it_(&it)
-            {}
-
-            out_iter_sink(out_iter_sink const & other) :
-                out_(other.out_),
-                it_(other.it_)
-            {
-                self_assign_it_(out_, it_);
-            }
-            out_iter_sink & operator=(out_iter_sink const & other)
-            {
-                out_ = other.out_;
-                it_ = other.it_;
-                self_assign_it_(out_, it_);
-            }
-
-            virtual void Append(char const * bytes, int32_t n) override
-            {
-                out_ = std::copy(bytes, bytes + n, out_);
-            }
-
-            OriginalIter iter() const { return *it_; }
-
-        private:
-            OutIter out_;
-            OriginalIter * it_;
-        };
-
-        template<typename OutIter>
-        out_iter_sink<OutIter, OutIter> make_byte_sink(OutIter out)
-        {
-            return out_iter_sink<OutIter, OutIter>(out);
-        }
-        template<typename C>
-        auto make_byte_sink(utf_32_to_8_insert_iterator<C> & out) -> decltype(
-            out_iter_sink<decltype(out.base()), utf_32_to_8_insert_iterator<C>>(
-                out.base(), out))
-        {
-            return out_iter_sink<
-                decltype(out.base()),
-                utf_32_to_8_insert_iterator<C>>(out.base(), out);
-        }
-        template<typename C>
-        auto make_byte_sink(utf_32_to_8_back_insert_iterator<C> & out)
-            -> decltype(out_iter_sink<
-                        decltype(out.base()),
-                        utf_32_to_8_back_insert_iterator<C>>(out.base(), out))
-        {
-            return out_iter_sink<
-                decltype(out.base()),
-                utf_32_to_8_back_insert_iterator<C>>(out.base(), out);
-        }
-
-        template<typename Iter>
-        typename std::enable_if<
-            char_ptr<Iter>::value,
-            U_NAMESPACE_QUALIFIER StringPiece>::type
-        make_string_piece(Iter first, Iter last)
-        {
-            return U_NAMESPACE_QUALIFIER StringPiece(first, last - first);
-        }
-        template<typename Iter, typename Sentinel>
-        typename std::enable_if<
-            char_ptr<Iter>::value,
-            U_NAMESPACE_QUALIFIER StringPiece>::type
-        make_string_piece(Iter first, Sentinel last)
-        {
-            return U_NAMESPACE_QUALIFIER StringPiece(first);
-        }
-        template<typename Iter>
-        U_NAMESPACE_QUALIFIER StringPiece make_string_piece(
-            utf_8_to_32_iterator<Iter> first, utf_8_to_32_iterator<Iter> last)
-        {
-            return U_NAMESPACE_QUALIFIER StringPiece(
-                first.base(), last.base() - first.base());
-        }
-        template<typename Iter, typename Sentinel>
-        U_NAMESPACE_QUALIFIER StringPiece make_string_piece(
-            utf_8_to_32_iterator<Iter, Sentinel> first, Sentinel last)
-        {
-            return U_NAMESPACE_QUALIFIER StringPiece(first.base());
-        }
-        template<typename Iter, typename Sentinel>
-        U_NAMESPACE_QUALIFIER StringPiece
-        make_string_piece(utf_8_to_32_iterator<Iter> first, Sentinel last)
-        {
-            return U_NAMESPACE_QUALIFIER StringPiece(first.base());
-        }
-
-        template<
-            typename Iter,
-            typename Sentinel,
-            typename OutIter,
-            typename Comp>
-        auto fill_trailing_noncombiners(
-            Iter & it, Sentinel last, OutIter out, OutIter out_last, Comp comp)
-        {
-            static uint16_t const high_surrogate_base = 0xd7c0;
-            static uint16_t const low_surrogate_base = 0xdc00;
-
-            while (!comp(it, last)) {
-                BOOST_ASSERT(out != out_last); // Safe stream format assumption.
-                auto const cu = *it;
-                if (text::high_surrogate(cu)) {
-                    auto next = std::next(it);
-                    if (comp(next, last)) {
-                        *out++ = cu;
-                        break;
-                    }
-                    auto const lo = *next;
-                    uint32_t cp = (cu - high_surrogate_base) << 10;
-                    cp += lo - low_surrogate_base;
-                    if (!ccc(cp))
-                        break;
-                    *out++ = cu;
-                    BOOST_ASSERT(out != out_last);
-                    *out++ = lo;
-                    it = next;
-                    ++it;
-                } else {
-                    if (!ccc(cu))
-                        break;
-                    *out++ = cu;
-                    ++it;
-                }
-            }
-
-            return out;
-        }
-
-        template<std::ptrdiff_t N, typename Iter, typename Sentinel>
-        auto fill_buffer_to_last_noncombiner(
-            Iter & first, Sentinel last, char16_t * out, char16_t * out_last)
-            -> _8_iter_ret_t<char16_t *, Iter>
-        {
-            static_assert(64 + 1 <= N, "Safe-stream format");
-            std::ptrdiff_t count = 0;
-            auto it = text::make_utf_8_to_16_iterator(first, first, last);
-            char16_t prev_cu = 0;
-            for (; it.base() != last && count < N - 64 - 1;
-                 ++it, ++out, ++count) {
-                prev_cu = *it;
-                *out = prev_cu;
-            }
-            if (it.base() != last && high_surrogate(prev_cu)) {
-                *out++ = *it;
-                ++it;
-            }
-            out = fill_trailing_noncombiners(
-                it, last, out, out_last, [](decltype(it) it, Sentinel last) {
-                    return it.base() == last;
-                });
-            first = it.base();
-            return out;
-        }
-
-        template<std::ptrdiff_t N, typename Iter, typename Sentinel>
-        auto fill_buffer_to_last_noncombiner(
-            Iter & first, Sentinel last, char16_t * out, char16_t * out_last)
-            -> _16_iter_ret_t<char16_t *, Iter>
-        {
-            static_assert(64 + 1 <= N, "Safe-stream format");
-            std::ptrdiff_t count = 0;
-            char16_t prev_cu = 0;
-            for (; first != last && count < N - 64 - 1;
-                 ++first, ++out, ++count) {
-                prev_cu = *first;
-                *out = prev_cu;
-            }
-            if (first != last && high_surrogate(prev_cu)) {
-                *out++ = *first;
-                ++first;
-            }
-            out = fill_trailing_noncombiners(
-                first, last, out, out_last, [](Iter it, Sentinel last) {
-                    return it == last;
-                });
-            return out;
-        }
-
-        template<std::ptrdiff_t N, typename CPIter, typename Sentinel>
-        auto fill_buffer_to_last_noncombiner(
-            CPIter & first, Sentinel last, char16_t * out, char16_t * out_last)
-            -> cp_iter_ret_t<char16_t *, CPIter>
-        {
-            static_assert(64 + 1 <= N, "Safe-stream format");
-            std::ptrdiff_t count = 0;
-            char16_t prev_cu = 0;
-            auto it = text::make_utf_32_to_16_iterator(first, first, last);
-            for (; it.base() != last && count < N - 64 - 1;
-                 ++it, ++out, ++count) {
-                prev_cu = *it;
-                *out = prev_cu;
-            }
-            if (it.base() != last && high_surrogate(prev_cu)) {
-                *out++ = *it;
-                ++it;
-            }
-            out = fill_trailing_noncombiners(
-                it, last, out, out_last, [](decltype(it) it, Sentinel last) {
-                    return it.base() == last;
-                });
-            first = it.base();
-            return out;
-        }
-
-        template<
-            typename Iter,
-            typename Sentinel,
-            bool FastUTF8 = icu_utf8_in_fast_path<Iter, Sentinel>::value>
-        struct icu_normalized
-        {
-            static bool call(
-                U_NAMESPACE_QUALIFIER Normalizer2 const & norm,
-                Iter first,
-                Sentinel last)
-            {
-                int const chunk_size = 1024 << 2;
-                U_NAMESPACE_QUALIFIER UnicodeString chunk;
-                while (first != last) {
-                    char16_t * const chunk_first = chunk.getBuffer(chunk_size);
-                    char16_t * const chunk_last =
-                        fill_buffer_to_last_noncombiner<chunk_size>(
-                            first, last, chunk_first, chunk_first + chunk_size);
-                    chunk.releaseBuffer(chunk_last - chunk_first);
-                    UErrorCode ec = U_ZERO_ERROR;
-                    auto const result = norm.isNormalized(chunk, ec);
-                    BOOST_ASSERT(U_SUCCESS(ec));
-                    if (!result)
-                        return false;
-                }
-                return true;
-            }
-        };
-
-        template<typename Iter, typename Sentinel>
-        struct icu_normalized<Iter, Sentinel, true>
-        {
-            static bool call(
-                U_NAMESPACE_QUALIFIER Normalizer2 const & norm,
-                Iter first,
-                Sentinel last)
-            {
-                UErrorCode ec = U_ZERO_ERROR;
-                auto const retval = norm.isNormalizedUTF8(
-                    detail::make_string_piece(first, last), ec);
-                BOOST_ASSERT(U_SUCCESS(ec));
-                return retval;
-            }
-        };
-
-        template<
-            typename Iter,
-            typename Sentinel,
-            typename OutIter,
-            bool FastUTF8 =
-                icu_utf8_inout_fast_path<Iter, Sentinel, OutIter>::value>
-        struct icu_normalize
-        {
-            static OutIter call(
-                U_NAMESPACE_QUALIFIER Normalizer2 const & norm,
-                Iter first,
-                Sentinel last,
-                OutIter out)
-            {
-                int const chunk_size = 1024 << 2;
-                U_NAMESPACE_QUALIFIER UnicodeString chunk;
-                U_NAMESPACE_QUALIFIER UnicodeString result;
-                while (first != last) {
-                    char16_t * const chunk_first = chunk.getBuffer(chunk_size);
-                    char16_t * const chunk_last =
-                        fill_buffer_to_last_noncombiner<chunk_size>(
-                            first, last, chunk_first, chunk_first + chunk_size);
-                    chunk.releaseBuffer(chunk_last - chunk_first);
-                    UErrorCode ec = U_ZERO_ERROR;
-                    norm.normalize(chunk, result, ec);
-                    BOOST_ASSERT(U_SUCCESS(ec));
-                    out = text::transcode_utf_16_to_32(
-                        result.getBuffer(),
-                        result.getBuffer() + result.length(),
-                        out);
-                }
-                return out;
-            }
-        };
-
-        template<typename Iter, typename Sentinel, typename OutIter>
-        struct icu_normalize<Iter, Sentinel, OutIter, true>
-        {
-            static OutIter call(
-                U_NAMESPACE_QUALIFIER Normalizer2 const & norm,
-                Iter first,
-                Sentinel last,
-                OutIter out)
-            {
-                UErrorCode ec = U_ZERO_ERROR;
-                auto sink = detail::make_byte_sink(out);
-                norm.normalizeUTF8(
-                    0,
-                    detail::make_string_piece(first, last),
-                    sink,
-                    nullptr,
-                    ec);
-                BOOST_ASSERT(U_SUCCESS(ec));
-                return sink.iter();
-            }
-        };
-#else
         template<typename CharIter, typename Sentinel = CharIter>
         struct utf8_range
         {
@@ -908,7 +582,6 @@ namespace boost { namespace text {
             return utf16_range<decltype(first.base()), Sentinel>{first.base(),
                                                                  last};
         }
-#endif
     }
 
     /** Writes sequence `[first, last)` in Unicode normalization form NFD to
@@ -920,16 +593,6 @@ namespace boost { namespace text {
     inline auto normalize_to_nfd(CPIter first, Sentinel last, OutIter out)
         -> detail::cp_iter_ret_t<OutIter, CPIter>
     {
-#if BOOST_TEXT_HAS_ICU
-        if (BOOST_TEXT_USE_ICU) {
-            UErrorCode ec = U_ZERO_ERROR;
-            U_NAMESPACE_QUALIFIER Normalizer2 const * const norm =
-                U_NAMESPACE_QUALIFIER Normalizer2::getNFDInstance(ec);
-            BOOST_ASSERT(U_SUCCESS(ec));
-            return detail::icu_normalize<CPIter, Sentinel, OutIter>::call(
-                *norm, first, last, out);
-        }
-#endif
         return detail::normalize_to_decomposed(
             first, last, out, [](uint32_t cp) {
                 return detail::canonical_decompose(cp);
@@ -952,16 +615,6 @@ namespace boost { namespace text {
     inline auto normalize_to_nfkd(CPIter first, Sentinel last, OutIter out)
         -> detail::cp_iter_ret_t<OutIter, CPIter>
     {
-#if BOOST_TEXT_HAS_ICU
-        if (BOOST_TEXT_USE_ICU) {
-            UErrorCode ec = U_ZERO_ERROR;
-            U_NAMESPACE_QUALIFIER Normalizer2 const * const norm =
-                U_NAMESPACE_QUALIFIER Normalizer2::getNFKDInstance(ec);
-            BOOST_ASSERT(U_SUCCESS(ec));
-            return detail::icu_normalize<CPIter, Sentinel, OutIter>::call(
-                *norm, first, last, out);
-        }
-#endif
         return detail::normalize_to_decomposed(
             first, last, out, [](uint32_t cp) {
                 return detail::compatible_decompose(cp);
@@ -984,16 +637,6 @@ namespace boost { namespace text {
     inline auto normalize_to_nfc(CPIter first, Sentinel last, OutIter out)
         -> detail::cp_iter_ret_t<OutIter, CPIter>
     {
-#if BOOST_TEXT_HAS_ICU
-        if (BOOST_TEXT_USE_ICU) {
-            UErrorCode ec = U_ZERO_ERROR;
-            U_NAMESPACE_QUALIFIER Normalizer2 const * const norm =
-                U_NAMESPACE_QUALIFIER Normalizer2::getNFCInstance(ec);
-            BOOST_ASSERT(U_SUCCESS(ec));
-            return detail::icu_normalize<CPIter, Sentinel, OutIter>::call(
-                *norm, first, last, out);
-        }
-#endif
         return detail::normalize_to_composed<false>(
             first,
             last,
@@ -1018,16 +661,6 @@ namespace boost { namespace text {
     inline auto normalize_to_nfkc(CPIter first, Sentinel last, OutIter out)
         -> detail::cp_iter_ret_t<OutIter, CPIter>
     {
-#if BOOST_TEXT_HAS_ICU
-        if (BOOST_TEXT_USE_ICU) {
-            UErrorCode ec = U_ZERO_ERROR;
-            U_NAMESPACE_QUALIFIER Normalizer2 const * const norm =
-                U_NAMESPACE_QUALIFIER Normalizer2::getNFKCInstance(ec);
-            BOOST_ASSERT(U_SUCCESS(ec));
-            return detail::icu_normalize<CPIter, Sentinel, OutIter>::call(
-                *norm, first, last, out);
-        }
-#endif
         return detail::normalize_to_composed<false>(
             first,
             last,
@@ -1053,16 +686,6 @@ namespace boost { namespace text {
     auto normalized_nfd(CPIter first, Sentinel last) noexcept
         -> detail::cp_iter_ret_t<bool, CPIter>
     {
-#if BOOST_TEXT_HAS_ICU
-        if (BOOST_TEXT_USE_ICU) {
-            UErrorCode ec = U_ZERO_ERROR;
-            U_NAMESPACE_QUALIFIER Normalizer2 const * const norm =
-                U_NAMESPACE_QUALIFIER Normalizer2::getNFDInstance(ec);
-            BOOST_ASSERT(U_SUCCESS(ec));
-            return detail::icu_normalized<CPIter, Sentinel>::call(
-                *norm, first, last);
-        }
-#endif
         return detail::normalized_decomposed(
             first,
             last,
@@ -1085,16 +708,6 @@ namespace boost { namespace text {
     auto normalized_nfkd(CPIter first, Sentinel last) noexcept
         -> detail::cp_iter_ret_t<bool, CPIter>
     {
-#if BOOST_TEXT_HAS_ICU
-        if (BOOST_TEXT_USE_ICU) {
-            UErrorCode ec = U_ZERO_ERROR;
-            U_NAMESPACE_QUALIFIER Normalizer2 const * const norm =
-                U_NAMESPACE_QUALIFIER Normalizer2::getNFKDInstance(ec);
-            BOOST_ASSERT(U_SUCCESS(ec));
-            return detail::icu_normalized<CPIter, Sentinel>::call(
-                *norm, first, last);
-        }
-#endif
         return detail::normalized_decomposed(
             first,
             last,
@@ -1119,16 +732,6 @@ namespace boost { namespace text {
     auto normalized_nfc(CPIter first, Sentinel last) noexcept
         -> detail::cp_iter_ret_t<bool, CPIter>
     {
-#if BOOST_TEXT_HAS_ICU
-        if (BOOST_TEXT_USE_ICU) {
-            UErrorCode ec = U_ZERO_ERROR;
-            U_NAMESPACE_QUALIFIER Normalizer2 const * const norm =
-                U_NAMESPACE_QUALIFIER Normalizer2::getNFCInstance(ec);
-            BOOST_ASSERT(U_SUCCESS(ec));
-            return detail::icu_normalized<CPIter, Sentinel>::call(
-                *norm, first, last);
-        }
-#endif
         return detail::normalized_composed(
             first,
             last,
@@ -1151,16 +754,6 @@ namespace boost { namespace text {
     auto normalized_nfkc(CPIter first, Sentinel last) noexcept
         -> detail::cp_iter_ret_t<bool, CPIter>
     {
-#if BOOST_TEXT_HAS_ICU
-        if (BOOST_TEXT_USE_ICU) {
-            UErrorCode ec = U_ZERO_ERROR;
-            U_NAMESPACE_QUALIFIER Normalizer2 const * const norm =
-                U_NAMESPACE_QUALIFIER Normalizer2::getNFKCInstance(ec);
-            BOOST_ASSERT(U_SUCCESS(ec));
-            return detail::icu_normalized<CPIter, Sentinel>::call(
-                *norm, first, last);
-        }
-#endif
         return detail::normalized_composed(
             first,
             last,
@@ -1217,17 +810,6 @@ namespace boost { namespace text {
     inline auto normalize_to_fcc(CPIter first, Sentinel last, OutIter out)
         -> detail::cp_iter_ret_t<OutIter, CPIter>
     {
-#if BOOST_TEXT_HAS_ICU
-        if (BOOST_TEXT_USE_ICU) {
-            UErrorCode ec = U_ZERO_ERROR;
-            U_NAMESPACE_QUALIFIER Normalizer2 const * const norm =
-                U_NAMESPACE_QUALIFIER Normalizer2::getInstance(
-                    nullptr, "nfc", UNORM2_COMPOSE_CONTIGUOUS, ec);
-            BOOST_ASSERT(U_SUCCESS(ec));
-            return detail::icu_normalize<CPIter, Sentinel, OutIter>::call(
-                *norm, first, last, out);
-        }
-#endif
         return detail::normalize_to_composed<true>(
             first,
             last,
