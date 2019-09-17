@@ -54,10 +54,10 @@ namespace boost { namespace text { namespace detail { namespace icu {
         String * s_;
     };
 
-    template<typename Iter>
+    template<typename OutIter>
     struct iter_appender
     {
-        explicit iter_appender(Iter out) : out_(out) {}
+        explicit iter_appender(OutIter out) : out_(out) {}
 
         template<typename CharIter>
         void append(CharIter bytes, int32_t n)
@@ -66,7 +66,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
         }
 
     private:
-        Iter out_;
+        OutIter out_;
     };
 
     template<typename CharIter, typename Sentinel, typename String>
@@ -80,7 +80,8 @@ namespace boost { namespace text { namespace detail { namespace icu {
     void
     utf16_normalize_to_nfc_append(Iter first, Sentinel last, UnicodeString & s)
     {
-        ReorderingBuffer buffer(nfc_norm(), s);
+        ReorderingBuffer<utf16_appender<UnicodeString>> buffer(
+            nfc_norm(), utf16_appender<UnicodeString>(s));
         nfc_norm().compose<false, true>(first, last, buffer);
     }
 
@@ -88,7 +89,8 @@ namespace boost { namespace text { namespace detail { namespace icu {
     Iter
     utf16_normalize_to_nfd_append(Iter first, Sentinel last, UnicodeString & s)
     {
-        ReorderingBuffer buffer(nfc_norm(), s);
+        ReorderingBuffer<utf16_appender<UnicodeString>> buffer(
+            nfc_norm(), utf16_appender<UnicodeString>(s));
         return nfc_norm().decompose<true>(first, last, buffer);
     }
 
@@ -103,7 +105,8 @@ namespace boost { namespace text { namespace detail { namespace icu {
     void
     utf16_normalize_to_nfkc_append(Iter first, Sentinel last, UnicodeString & s)
     {
-        ReorderingBuffer buffer(nfkc_norm(), s);
+        ReorderingBuffer<utf16_appender<UnicodeString>> buffer(
+            nfkc_norm(), utf16_appender<UnicodeString>(s));
         nfkc_norm().compose<false, true>(first, last, buffer);
     }
 
@@ -111,7 +114,8 @@ namespace boost { namespace text { namespace detail { namespace icu {
     Iter
     utf16_normalize_to_nfkd_append(Iter first, Sentinel last, UnicodeString & s)
     {
-        ReorderingBuffer buffer(nfkc_norm(), s);
+        ReorderingBuffer<utf16_appender<UnicodeString>> buffer(
+            nfkc_norm(), utf16_appender<UnicodeString>(s));
         return nfkc_norm().decompose<true>(first, last, buffer);
     }
 
@@ -126,7 +130,8 @@ namespace boost { namespace text { namespace detail { namespace icu {
     void
     utf16_normalize_to_fcc_append(Iter first, Sentinel last, UnicodeString & s)
     {
-        ReorderingBuffer buffer(nfc_norm(), s);
+        ReorderingBuffer<utf16_appender<UnicodeString>> buffer(
+            nfc_norm(), utf16_appender<UnicodeString>(s));
         nfc_norm().compose<true, true>(first, last, buffer);
     }
 

@@ -237,32 +237,86 @@ namespace boost { namespace text { namespace detail { namespace icu {
         }
     }
 
+    // These appenders are used by ReorderingBuffer.
+    template<typename String>
+    struct utf16_appender
+    {
+        explicit utf16_appender(String & s) : s_(&s) {}
+
+        template<typename Iter>
+        void append(Iter utf16_first, Iter utf16_last)
+        {
+            s_->insert(s_->end(), utf16_first, utf16_last);
+        }
+
+    private:
+        String * s_;
+    };
+
+    template<typename OutIter>
+    struct utf16_iter_appender
+    {
+        explicit utf16_iter_appender(OutIter out) : out_(out) {}
+
+        template<typename Iter>
+        void append(Iter utf16_first, Iter utf16_last)
+        {
+            out_ = std::copy(utf16_first, utf16_last, out_);
+        }
+
+    private:
+        OutIter out_;
+    };
+
     class Normalizer2Impl;
 
+    template<typename UTF16Appender>
+    class ReorderingBuffer;
+
+    template<typename UTF16Appender>
+    struct flush_disinhibitor
+    {
+        flush_disinhibitor(ReorderingBuffer<UTF16Appender> & buf) : buf_(buf) {}
+        ~flush_disinhibitor() { buf_.inhibit_flushes = false; }
+
+    private:
+        ReorderingBuffer<UTF16Appender> & buf_;
+    };
+
+    template<typename UTF16Appender>
     class ReorderingBuffer
     {
-    public:
-        ReorderingBuffer(const Normalizer2Impl & ni, UnicodeString & dest) :
-            impl(ni),
-            str(dest),
-            start((str.resize(8), str.data())),
-            reorderStart(start),
-            limit(start),
-            remainingCapacity(str.capacity()),
-            lastCC(0)
-        {}
-        ~ReorderingBuffer() { str.resize((int32_t)(limit - start)); }
+        friend flush_disinhibitor<UTF16Appender>;
 
-        UBool isEmpty() const { return start == limit; }
-        int32_t length() const { return (int32_t)(limit - start); }
-        UChar * getStart() { return start; }
-        UChar * getLimit() { return limit; }
-        uint8_t getLastCC() const { return lastCC; }
+    public:
+        ReorderingBuffer(const Normalizer2Impl & ni, UTF16Appender appendr) :
+            impl(ni),
+            appender(appendr),
+            buf(),
+            reorderStart(begin()),
+            limit(begin()),
+            lastCC(0),
+            inhibit_flushes(false)
+        {}
+        ~ReorderingBuffer() { flush(); }
+
+        [[nodiscard]] flush_disinhibitor<UTF16Appender> inhibit_flush()
+        {
+            inhibit_flushes = true;
+            return flush_disinhibitor<UTF16Appender>(*this);
+        }
+
+        int size() const noexcept { return limit - begin(); }
+
+        UChar const * begin() const { return buf.data(); }
+        UChar const * end() const { return limit; }
+        UChar * begin() { return buf.data(); }
+        UChar * end() { return limit; }
 
         template<typename Iter>
         UBool equals_utf16(Iter otherStart, Iter otherLimit) const
         {
-            return algorithm::equal(start, limit,  otherStart, otherLimit);
+            return algorithm::equal(begin(), end(),  otherStart, otherLimit);
         }
         template<typename CharIter>
         UBool equals_utf8(CharIter otherStart, CharIter otherLimit) const
@@ -271,7 +325,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                 make_utf_8_to_16_iterator(otherStart, otherStart, otherLimit);
             auto const other_last =
                 make_utf_8_to_16_iterator(otherStart, otherLimit, otherLimit);
-            return algorithm::equal(start, limit,  other_first, other_last);
+            return algorithm::equal(begin(), end(),  other_first, other_last);
         }
 
         UBool append(UChar32 c, uint8_t cc)
@@ -287,9 +341,9 @@ namespace boost { namespace text { namespace detail { namespace icu {
             uint8_t trailCC);
         UBool appendBMP(UChar c, uint8_t cc)
         {
-            if (remainingCapacity == 0)
-                resize(1);
             if (lastCC <= cc || cc == 0) {
+                if (cc == 0 && !inhibit_flushes)
+                    flush();
                 *limit++ = c;
                 lastCC = cc;
                 if (cc <= 1) {
@@ -298,38 +352,42 @@ namespace boost { namespace text { namespace detail { namespace icu {
             } else {
                 insert(c, cc);
             }
-            --remainingCapacity;
             return TRUE;
         }
         template<typename U16Iter>
         UBool appendZeroCC(U16Iter s, U16Iter sLimit)
         {
-            if (s == sLimit) {
-                return TRUE;
+            BOOST_ASSERT(s != sLimit);
+            if (!inhibit_flushes) {
+                flush();
+                auto second_to_last = std::prev(sLimit);
+                appender.append(s, second_to_last);
+                *limit++ = *second_to_last;
+            } else {
+                limit = std::copy(s, sLimit, limit);
             }
-            int32_t length = (int32_t)std::distance(s, sLimit); // TODO
-            if (remainingCapacity < length)
-                resize(length);
-            limit = std::copy(s, sLimit, limit);
-            remainingCapacity -= length;
             lastCC = 0;
             reorderStart = limit;
             return TRUE;
         }
         void remove()
         {
-            reorderStart = limit = start;
-            remainingCapacity = str.capacity();
+            reorderStart = limit = begin();
             lastCC = 0;
         }
         void setReorderingLimit(UChar * newLimit)
         {
-            remainingCapacity += (int32_t)(limit - newLimit);
             reorderStart = limit = newLimit;
             lastCC = 0;
         }
 
     private:
+        void flush()
+        {
+            appender.append(begin(), limit);
+            remove();
+        }
+
         /*
          * TODO: Revisit whether it makes sense to track reorderStart.
          * It is set to after the last known character with cc<=1,
@@ -345,9 +403,9 @@ namespace boost { namespace text { namespace detail { namespace icu {
 
         UBool appendSupplementary(UChar32 c, uint8_t cc)
         {
-            if (remainingCapacity < 2)
-                resize(2);
             if (lastCC <= cc || cc == 0) {
+                if (cc == 0 && !inhibit_flushes)
+                    flush();
                 limit[0] = U16_LEAD(c);
                 limit[1] = U16_TRAIL(c);
                 limit += 2;
@@ -358,7 +416,6 @@ namespace boost { namespace text { namespace detail { namespace icu {
             } else {
                 insert(c, cc);
             }
-            remainingCapacity -= 2;
             return TRUE;
         }
         // Inserts c somewhere before the last character.
@@ -387,31 +444,13 @@ namespace boost { namespace text { namespace detail { namespace icu {
                 p[1] = U16_TRAIL(c);
             }
         }
-        void resize(int32_t appendLength)
-        {
-            int32_t reorderStartIndex = (int32_t)(reorderStart - start);
-            int32_t length = (int32_t)(limit - start);
-            str.resize(length);
-            int32_t newCapacity = length + appendLength;
-            int32_t doubleCapacity = 2 * str.capacity();
-            if (newCapacity < doubleCapacity) {
-                newCapacity = doubleCapacity;
-            }
-            if (newCapacity < 256) {
-                newCapacity = 256;
-            }
-            str.resize(newCapacity);
-            start = str.data();
-            reorderStart = start + reorderStartIndex;
-            limit = start + length;
-            remainingCapacity = str.capacity() - length;
-        }
 
         const Normalizer2Impl & impl;
-        UnicodeString & str;
-        UChar *start, *reorderStart, *limit;
-        int32_t remainingCapacity;
+        UTF16Appender appender;
+        std::array<UChar, 1024> buf;
+        UChar *reorderStart, *limit;
         uint8_t lastCC;
+        bool inhibit_flushes;
 
         // private backward iterator
         void setIterator() { codePointStart = limit; }
@@ -420,7 +459,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
         {
             codePointLimit = codePointStart;
             UChar c = *--codePointStart;
-            if (U16_IS_TRAIL(c) && start < codePointStart &&
+            if (U16_IS_TRAIL(c) && begin() < codePointStart &&
                 U16_IS_LEAD(*(codePointStart - 1))) {
                 --codePointStart;
             }
@@ -691,8 +730,15 @@ namespace boost { namespace text { namespace detail { namespace icu {
         // Dual functionality:
         // buffer!=nullptr: normalize
         // buffer==nullptr: isNormalized/spanQuickCheckYes
-        template<bool WriteToOut, typename Iter, typename Sentinel>
-        Iter decompose(Iter src, Sentinel limit, ReorderingBuffer & buffer) const
+        template<
+            bool WriteToOut,
+            typename Iter,
+            typename Sentinel,
+            typename UTF16Appender>
+        Iter decompose(
+            Iter src,
+            Sentinel limit,
+            ReorderingBuffer<UTF16Appender> & buffer) const
         {
             UChar32 const minNoCP = minDecompNoCP;
 
@@ -777,8 +823,12 @@ namespace boost { namespace text { namespace detail { namespace icu {
             bool OnlyContiguous,
             bool WriteToOut,
             typename Iter,
-            typename Sentinel>
-        UBool compose(Iter src, Sentinel limit, ReorderingBuffer & buffer) const
+            typename Sentinel,
+            typename UTF16Appender>
+        UBool compose(
+            Iter src,
+            Sentinel limit,
+            ReorderingBuffer<UTF16Appender> & buffer) const
         {
             Iter prevBoundary = src;
             UChar32 minNoMaybeCP = minCompNoMaybeCP;
@@ -1020,6 +1070,8 @@ namespace boost { namespace text { namespace detail { namespace icu {
                     }
                 }
 
+                auto const no_flush = buffer.inhibit_flush();
+
                 // Slow path: Find the nearest boundaries around the current
                 // character, decompose and recompose.
                 if (prevBoundary != prevSrc &&
@@ -1035,7 +1087,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                     !buffer.appendZeroCC(prevBoundary, prevSrc)) {
                     break;
                 }
-                int32_t recomposeStartIndex = buffer.length();
+                int32_t recomposeStartIndex = buffer.size();
                 // We know there is not a boundary here.
                 decomposeShort_utf16(
                     prevSrc,
@@ -1321,24 +1373,31 @@ namespace boost { namespace text { namespace detail { namespace icu {
                         prevSrc = p;
                     }
                 }
-                ReorderingBuffer buffer(*this, s16);
-                // We know there is not a boundary here.
-                decomposeShort_utf8(
-                    prevSrc,
-                    src,
-                    FALSE /* !stopAtCompBoundary */,
-                    OnlyContiguous,
-                    buffer);
-                // Decompose until the next boundary.
-                src = decomposeShort_utf8(
-                    src,
-                    limit,
-                    TRUE /* stopAtCompBoundary */,
-                    OnlyContiguous,
-                    buffer);
-                BOOST_ASSERT(src - prevSrc <= INT32_MAX);
-                recompose(buffer, 0, OnlyContiguous);
-                if (!buffer.equals_utf8(prevSrc, src)) {
+                bool equals_utf8 = true;
+                {
+                    s16.clear();
+                    ReorderingBuffer<utf16_appender<UnicodeString>> buffer(
+                        *this, utf16_appender<UnicodeString>(s16));
+                    auto const no_flush = buffer.inhibit_flush();
+                    // We know there is not a boundary here.
+                    decomposeShort_utf8(
+                        prevSrc,
+                        src,
+                        FALSE /* !stopAtCompBoundary */,
+                        OnlyContiguous,
+                        buffer);
+                    // Decompose until the next boundary.
+                    src = decomposeShort_utf8(
+                        src,
+                        limit,
+                        TRUE /* stopAtCompBoundary */,
+                        OnlyContiguous,
+                        buffer);
+                    BOOST_ASSERT(src - prevSrc <= INT32_MAX);
+                    recompose(buffer, 0, OnlyContiguous);
+                    equals_utf8 = buffer.equals_utf8(prevSrc, src);
+                }
+                if (!equals_utf8) {
                     if (!WriteToOut) {
                         return FALSE;
                     }
@@ -1348,11 +1407,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                         break;
                     }
                     if (!ByteSinkUtil::appendChange(
-                            prevSrc,
-                            src,
-                            buffer.getStart(),
-                            buffer.length(),
-                            appender)) {
+                            prevSrc, src, s16.data(), s16.size(), appender)) {
                         break;
                     }
                     prevBoundary = src;
@@ -1380,15 +1435,6 @@ namespace boost { namespace text { namespace detail { namespace icu {
         }
 
     private:
-        static UChar const * u_strchr(UChar const * s, int c)
-        {
-            BOOST_ASSERT(s);
-            for (auto curr = *s; curr && curr != c;) {
-                curr = *++s;
-            }
-            return s;
-        }
-
         /**
          * UTF-8 lead byte for minNoMaybeCP.
          * Can be lower than the actual lead byte for c.
@@ -1683,13 +1729,13 @@ namespace boost { namespace text { namespace detail { namespace icu {
         // that fail the quick check loop and/or where the quick check loop's
         // overhead is unlikely to be amortized. Called by the compose() and
         // makeFCD() implementations.
-        template<typename Iter, typename Sentinel>
+        template<typename Iter, typename Sentinel, typename UTF16Appender>
         Iter decomposeShort_utf16(
             Iter src,
             Sentinel limit,
             UBool stopAtCompBoundary,
             UBool onlyContiguous,
-            ReorderingBuffer & buffer) const
+            ReorderingBuffer<UTF16Appender> & buffer) const
         {
             while (src != limit) {
                 if (stopAtCompBoundary && *src < minCompNoMaybeCP) {
@@ -1713,8 +1759,11 @@ namespace boost { namespace text { namespace detail { namespace icu {
             }
             return src;
         }
-        UBool
-        decompose(UChar32 c, uint16_t norm16, ReorderingBuffer & buffer) const
+        template<typename UTF16Appender>
+        UBool decompose(
+            UChar32 c,
+            uint16_t norm16,
+            ReorderingBuffer<UTF16Appender> & buffer) const
         {
             // get the decomposition and the lead and trail cc's
             if (norm16 >= limitNoNo) {
@@ -1749,13 +1798,13 @@ namespace boost { namespace text { namespace detail { namespace icu {
                 (const UChar *)mapping + 1, length, TRUE, leadCC, trailCC);
         }
 
-        template<typename CharIter, typename Sentinel>
+        template<typename CharIter, typename Sentinel, typename UTF16Appender>
         CharIter decomposeShort_utf8(
             CharIter src,
             Sentinel limit,
             UBool stopAtCompBoundary,
             UBool onlyContiguous,
-            ReorderingBuffer & buffer) const
+            ReorderingBuffer<UTF16Appender> & buffer) const
         {
             while (src != limit) {
                 CharIter prevSrc = src;
@@ -1919,13 +1968,14 @@ namespace boost { namespace text { namespace detail { namespace icu {
          * original starter, while the combining mark that is removed has at
          * least one code unit.
          */
+        template<typename UTF16Appender>
         void recompose(
-            ReorderingBuffer & buffer,
+            ReorderingBuffer<UTF16Appender> & buffer,
             int32_t recomposeStartIndex,
             UBool onlyContiguous) const
         {
-            UChar * p = buffer.getStart() + recomposeStartIndex;
-            UChar * limit = buffer.getLimit();
+            UChar * p = buffer.begin() + recomposeStartIndex;
+            UChar * limit = buffer.end();
             if (p == limit) {
                 return;
             }
@@ -2200,19 +2250,15 @@ namespace boost { namespace text { namespace detail { namespace icu {
     };
 
     // implementations
-    inline UBool ReorderingBuffer::append(
+    template<typename UTF16Appender>
+    UBool ReorderingBuffer<UTF16Appender>::append(
         const UChar * s,
         int32_t length,
         UBool isNFD,
         uint8_t leadCC,
         uint8_t trailCC)
     {
-        if (length == 0) {
-            return TRUE;
-        }
-        if (remainingCapacity < length)
-            resize(length);
-        remainingCapacity -= length;
+        BOOST_ASSERT(0 < length);
         if (lastCC <= leadCC || leadCC == 0) {
             if (trailCC <= 1) {
                 reorderStart = limit + length;
@@ -2247,7 +2293,8 @@ namespace boost { namespace text { namespace detail { namespace icu {
         return TRUE;
     }
 
-    inline uint8_t ReorderingBuffer::previousCC()
+    template<typename UTF16Appender>
+    uint8_t ReorderingBuffer<UTF16Appender>::previousCC()
     {
         codePointLimit = codePointStart;
         if (reorderStart >= codePointStart) {
@@ -2255,7 +2302,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
         }
         UChar32 c = *--codePointStart;
         UChar c2;
-        if (U16_IS_TRAIL(c) && start < codePointStart &&
+        if (U16_IS_TRAIL(c) && begin() < codePointStart &&
             U16_IS_LEAD(c2 = *(codePointStart - 1))) {
             --codePointStart;
             c = U16_GET_SUPPLEMENTARY(c2, c);
