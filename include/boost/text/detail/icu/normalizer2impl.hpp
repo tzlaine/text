@@ -244,7 +244,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
         explicit utf16_appender(String & s) : s_(&s) {}
 
         template<typename Iter>
-        void append(Iter utf16_first, Iter utf16_last)
+        _16_iter_ret_t<void, Iter> append(Iter utf16_first, Iter utf16_last)
         {
             s_->insert(s_->end(), utf16_first, utf16_last);
         }
@@ -259,7 +259,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
         explicit utf16_iter_appender(OutIter out) : out_(out) {}
 
         template<typename Iter>
-        void append(Iter utf16_first, Iter utf16_last)
+        _16_iter_ret_t<void, Iter> append(Iter utf16_first, Iter utf16_last)
         {
             out_ = std::copy(utf16_first, utf16_last, out_);
         }

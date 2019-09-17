@@ -26,9 +26,9 @@ namespace boost { namespace text {
             {
                 auto f = make_utf_32_to_16_iterator(first, first, last);
                 auto l = make_utf_32_to_16_iterator(first, last, last);
-                detail::icu::UnicodeString us;
-                detail::icu::utf16_normalize_to_nfc_append(f, l, us);
-                transcode_utf_16_to_8(us, std::inserter(s, s.end()));
+                auto out = utf_16_to_8_inserter(s, s.end());
+                detail::icu::utf16_iter_appender<decltype(out)> appender(out);
+                detail::icu::utf16_normalize_to_nfc_append(f, l, appender);
             }
         };
 
@@ -39,10 +39,9 @@ namespace boost { namespace text {
             static void call(CPIter first, Sentinel last, String & s)
             {
                 auto const r = make_utf8_range(first, last);
-                detail::icu::UnicodeString us;
+                detail::icu::utf8_string_appender<String> appender(s);
                 detail::icu::utf8_normalize_to_nfc_append(
-                    r.begin(), r.end(), us);
-                transcode_utf_16_to_8(us, std::inserter(s, s.end()));
+                    r.begin(), r.end(), appender);
             }
         };
 
@@ -53,8 +52,10 @@ namespace boost { namespace text {
             static void call(CPIter first, Sentinel last, String & s)
             {
                 auto const r = make_utf16_range(first, last);
+                auto out = utf_16_to_8_inserter(s, s.end());
+                detail::icu::utf16_iter_appender<decltype(out)> appender(out);
                 detail::icu::utf16_normalize_to_nfc_append(
-                    r.begin(), r.end(), s);
+                    r.begin(), r.end(), appender);
             }
         };
 
@@ -71,9 +72,9 @@ namespace boost { namespace text {
             {
                 auto f = make_utf_32_to_16_iterator(first, first, last);
                 auto l = make_utf_32_to_16_iterator(first, last, last);
-                detail::icu::UnicodeString us;
-                detail::icu::utf16_normalize_to_nfkc_append(f, l, us);
-                transcode_utf_16_to_8(us, std::inserter(s, s.end()));
+                auto out = utf_16_to_8_inserter(s, s.end());
+                detail::icu::utf16_iter_appender<decltype(out)> appender(out);
+                detail::icu::utf16_normalize_to_nfkc_append(f, l, appender);
             }
         };
 
@@ -84,10 +85,9 @@ namespace boost { namespace text {
             static void call(CPIter first, Sentinel last, String & s)
             {
                 auto const r = make_utf8_range(first, last);
-                detail::icu::UnicodeString us;
+                detail::icu::utf8_string_appender<String> appender(s);
                 detail::icu::utf8_normalize_to_nfkc_append(
-                    r.begin(), r.end(), us);
-                transcode_utf_16_to_8(us, std::inserter(s, s.end()));
+                    r.begin(), r.end(), appender);
             }
         };
 
@@ -98,8 +98,10 @@ namespace boost { namespace text {
             static void call(CPIter first, Sentinel last, String & s)
             {
                 auto const r = make_utf16_range(first, last);
+                auto out = utf_16_to_8_inserter(s, s.end());
+                detail::icu::utf16_iter_appender<decltype(out)> appender(out);
                 detail::icu::utf16_normalize_to_nfkc_append(
-                    r.begin(), r.end(), s);
+                    r.begin(), r.end(), appender);
             }
         };
 
@@ -119,9 +121,9 @@ namespace boost { namespace text {
 #else
                 auto f = make_utf_32_to_16_iterator(first, first, last);
                 auto l = make_utf_32_to_16_iterator(first, last, last);
-                detail::icu::UnicodeString us;
-                detail::icu::utf16_normalize_to_fcc_append(f, l, us);
-                transcode_utf_16_to_8(us, std::inserter(s, s.end()));
+                auto out = utf_16_to_8_inserter(s, s.end());
+                detail::icu::utf16_iter_appender<decltype(out)> appender(out);
+                detail::icu::utf16_normalize_to_fcc_append(f, l, appender);
 #endif
             }
         };
@@ -133,10 +135,9 @@ namespace boost { namespace text {
             static void call(CPIter first, Sentinel last, String & s)
             {
                 auto const r = make_utf8_range(first, last);
-                detail::icu::UnicodeString us;
+                detail::icu::utf8_string_appender<String> appender(s);
                 detail::icu::utf8_normalize_to_fcc_append(
-                    r.begin(), r.end(), us);
-                transcode_utf_16_to_8(us, std::inserter(s, s.end()));
+                    r.begin(), r.end(), appender);
             }
         };
 
@@ -147,8 +148,10 @@ namespace boost { namespace text {
             static void call(CPIter first, Sentinel last, String & s)
             {
                 auto const r = make_utf16_range(first, last);
+                auto out = utf_16_to_8_inserter(s, s.end());
+                detail::icu::utf16_iter_appender<decltype(out)> appender(out);
                 detail::icu::utf16_normalize_to_fcc_append(
-                    r.begin(), r.end(), s);
+                    r.begin(), r.end(), appender);
             }
         };
 
@@ -157,7 +160,8 @@ namespace boost { namespace text {
         static void
         norm_nfd_append_impl_impl(CPIter first, Sentinel last, String & s)
         {
-            detail::icu::UnicodeString output;
+            auto out = utf_16_to_8_inserter(s, s.end());
+            detail::icu::utf16_iter_appender<decltype(out)> appender(out);
 
             int const chunk_size = 512;
             detail::icu::UnicodeString input(chunk_size * 2);
@@ -172,12 +176,9 @@ namespace boost { namespace text {
                 }
                 auto const input_new_first =
                     detail::icu::utf16_normalize_to_nfd_append(
-                        input.data(), input_last, output);
+                        input.data(), input_last, appender);
                 input_first =
                     std::copy(input_new_first, input_last, input.data());
-
-                transcode_utf_16_to_8(output, std::inserter(s, s.end()));
-                output.clear();
             }
         }
 
@@ -212,7 +213,8 @@ namespace boost { namespace text {
         static void
         norm_nfkd_append_impl_impl(CPIter first, Sentinel last, String & s)
         {
-            detail::icu::UnicodeString output;
+            auto out = utf_16_to_8_inserter(s, s.end());
+            detail::icu::utf16_iter_appender<decltype(out)> appender(out);
 
             int const chunk_size = 512;
             detail::icu::UnicodeString input(chunk_size * 2);
@@ -227,12 +229,9 @@ namespace boost { namespace text {
                 }
                 auto const input_new_first =
                     detail::icu::utf16_normalize_to_nfkd_append(
-                        input.data(), input_last, output);
+                        input.data(), input_last, appender);
                 input_first =
                     std::copy(input_new_first, input_last, input.data());
-
-                transcode_utf_16_to_8(output, std::inserter(s, s.end()));
-                output.clear();
             }
         }
 
