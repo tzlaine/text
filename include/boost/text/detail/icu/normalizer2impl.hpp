@@ -262,50 +262,16 @@ namespace boost { namespace text { namespace detail { namespace icu {
         template<typename Iter>
         UBool equals_utf16(Iter otherStart, Iter otherLimit) const
         {
-#if 1
             return algorithm::equal(start, limit,  otherStart, otherLimit);
-#else
-            int32_t length = (int32_t)(limit - start);
-            return length == (int32_t)(otherLimit - otherStart) &&
-                   0 == memcmp(start, otherStart, length);
-#endif
         }
         template<typename CharIter>
         UBool equals_utf8(CharIter otherStart, CharIter otherLimit) const
         {
-#if 0
             auto const other_first =
                 make_utf_8_to_16_iterator(otherStart, otherStart, otherLimit);
             auto const other_last =
                 make_utf_8_to_16_iterator(otherStart, otherLimit, otherLimit);
             return algorithm::equal(start, limit,  other_first, other_last);
-#else
-            BOOST_ASSERT(
-                (otherLimit - otherStart) <= INT32_MAX); // ensured by caller
-            int32_t length = (int32_t)(limit - start);
-            int32_t otherLength = (int32_t)(otherLimit - otherStart);
-            // For equal strings, UTF-8 is at least as long as UTF-16, and at
-            // most three times as long.
-            if (otherLength < length || (otherLength / 3) > length) {
-                return FALSE;
-            }
-            // Compare valid strings from between normalization boundaries.
-            // (Invalid sequences are normalization-inert.)
-            for (int32_t i = 0, j = 0;;) {
-                if (i >= length) {
-                    return j >= otherLength;
-                } else if (j >= otherLength) {
-                    return FALSE;
-                }
-                // Not at the end of either string yet.
-                UChar32 c, other;
-                U16_NEXT_UNSAFE(start, i, c);
-                U8_NEXT_UNSAFE(otherStart, j, other);
-                if (c != other) {
-                    return FALSE;
-                }
-            }
-#endif
         }
 
         UBool append(UChar32 c, uint8_t cc)
