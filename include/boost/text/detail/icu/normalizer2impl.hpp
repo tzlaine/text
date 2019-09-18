@@ -295,20 +295,8 @@ namespace boost { namespace text { namespace detail { namespace icu {
     class ReorderingBuffer;
 
     template<typename UTF16Appender>
-    struct flush_disinhibitor
-    {
-        flush_disinhibitor(ReorderingBuffer<UTF16Appender> & buf) : buf_(buf) {}
-        ~flush_disinhibitor() { buf_.inhibit_flushes = false; }
-
-    private:
-        ReorderingBuffer<UTF16Appender> & buf_;
-    };
-
-    template<typename UTF16Appender>
     class ReorderingBuffer
     {
-        friend flush_disinhibitor<UTF16Appender>;
-
     public:
         ReorderingBuffer(const Normalizer2Impl & ni, UTF16Appender & appendr) :
             impl(ni),
@@ -316,16 +304,9 @@ namespace boost { namespace text { namespace detail { namespace icu {
             buf(),
             reorderStart(begin()),
             limit(begin()),
-            lastCC(0),
-            inhibit_flushes(false)
+            lastCC(0)
         {}
         ~ReorderingBuffer() { flush(); }
-
-        [[nodiscard]] flush_disinhibitor<UTF16Appender> inhibit_flush()
-        {
-            inhibit_flushes = true;
-            return flush_disinhibitor<UTF16Appender>(*this);
-        }
 
         int size() const noexcept { return limit - begin(); }
 
@@ -363,7 +344,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
         UBool appendBMP(UChar c, uint8_t cc)
         {
             if (lastCC <= cc || cc == 0) {
-                if (cc == 0 && !inhibit_flushes)
+                if (cc == 0)
                     flush();
                 *limit++ = c;
                 lastCC = cc;
@@ -379,16 +360,12 @@ namespace boost { namespace text { namespace detail { namespace icu {
         UBool appendZeroCC(U16Iter s, U16Iter sLimit)
         {
             BOOST_ASSERT(s != sLimit);
-            if (!inhibit_flushes) {
-                flush();
-                auto second_to_last = std::prev(sLimit);
-                if (text::low_surrogate(*second_to_last))
-                    --second_to_last;
-                appender.append(s, second_to_last);
-                limit = std::copy(second_to_last, sLimit, limit);
-            } else {
-                limit = std::copy(s, sLimit, limit);
-            }
+            flush();
+            auto second_to_last = std::prev(sLimit);
+            if (text::low_surrogate(*second_to_last))
+                --second_to_last;
+            appender.append(s, second_to_last);
+            limit = std::copy(second_to_last, sLimit, limit);
             lastCC = 0;
             reorderStart = limit;
             return TRUE;
@@ -427,7 +404,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
         UBool appendSupplementary(UChar32 c, uint8_t cc)
         {
             if (lastCC <= cc || cc == 0) {
-                if (cc == 0 && !inhibit_flushes)
+                if (cc == 0)
                     flush();
                 limit[0] = U16_LEAD(c);
                 limit[1] = U16_TRAIL(c);
@@ -473,7 +450,6 @@ namespace boost { namespace text { namespace detail { namespace icu {
         std::array<UChar, 1024> buf;
         UChar *reorderStart, *limit;
         uint8_t lastCC;
-        bool inhibit_flushes;
 
         // private backward iterator
         void setIterator() { codePointStart = limit; }
@@ -1093,8 +1069,6 @@ namespace boost { namespace text { namespace detail { namespace icu {
                     }
                 }
 
-                auto const no_flush = buffer.inhibit_flush();
-
                 // Slow path: Find the nearest boundaries around the current
                 // character, decompose and recompose.
                 if (prevBoundary != prevSrc &&
@@ -1402,7 +1376,6 @@ namespace boost { namespace text { namespace detail { namespace icu {
                     utf16_appender<UnicodeString> buffer_appender(s16);
                     ReorderingBuffer<utf16_appender<UnicodeString>> buffer(
                         *this, buffer_appender);
-                    auto const no_flush = buffer.inhibit_flush();
                     // We know there is not a boundary here.
                     decomposeShort_utf8(
                         prevSrc,
