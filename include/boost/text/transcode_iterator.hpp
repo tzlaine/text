@@ -983,6 +983,34 @@ namespace boost { namespace text {
             utf_32_to_8_iterator<Iter2, ErrorHandler2> rhs) noexcept
             -> decltype(lhs.it_ == rhs.it_ && lhs.index_ == rhs.index_);
 
+        /** This function is constexpr in C++14 and later. */
+        friend BOOST_TEXT_CXX14_CONSTEXPR bool
+        operator==(utf_32_to_8_iterator lhs, null_sentinel rhs) noexcept
+        {
+            return lhs.it_ == rhs;
+        }
+
+        /** This function is constexpr in C++14 and later. */
+        friend BOOST_TEXT_CXX14_CONSTEXPR bool
+        operator==(null_sentinel lhs, utf_32_to_8_iterator rhs) noexcept
+        {
+            return rhs.it_ == lhs;
+        }
+
+        /** This function is constexpr in C++14 and later. */
+        friend BOOST_TEXT_CXX14_CONSTEXPR bool
+        operator!=(utf_32_to_8_iterator lhs, null_sentinel rhs) noexcept
+        {
+            return lhs.it_ != rhs;
+        }
+
+        /** This function is constexpr in C++14 and later. */
+        friend BOOST_TEXT_CXX14_CONSTEXPR bool
+        operator!=(null_sentinel lhs, utf_32_to_8_iterator rhs) noexcept
+        {
+            return rhs.it_ != lhs;
+        }
+
 #ifndef BOOST_TEXT_DOXYGEN
     private:
         constexpr bool buf_empty() const noexcept { return index_ == 4; }
@@ -1045,6 +1073,9 @@ namespace boost { namespace text {
     {
         return !(lhs == rhs);
     }
+
+    // TODO: utf_32_to_8_out_iterator
+    // TODO: utf_32_to_8 insert iterators
 
 
     /** A UTF-8 to UTF-32 converting iterator.  Set the ErrorHandler template
@@ -1138,28 +1169,28 @@ namespace boost { namespace text {
         friend BOOST_TEXT_CXX14_CONSTEXPR bool
         operator==(utf_8_to_32_iterator lhs, null_sentinel rhs) noexcept
         {
-            return !*lhs.it_;
+            return lhs.it_ == rhs;
         }
 
         /** This function is constexpr in C++14 and later. */
         friend BOOST_TEXT_CXX14_CONSTEXPR bool
         operator==(null_sentinel lhs, utf_8_to_32_iterator rhs) noexcept
         {
-            return rhs == lhs;
+            return rhs.it_ == lhs;
         }
 
         /** This function is constexpr in C++14 and later. */
         friend BOOST_TEXT_CXX14_CONSTEXPR bool
         operator!=(utf_8_to_32_iterator lhs, null_sentinel rhs) noexcept
         {
-            return !(lhs == rhs);
+            return lhs.it_ != rhs;
         }
 
         /** This function is constexpr in C++14 and later. */
         friend BOOST_TEXT_CXX14_CONSTEXPR bool
         operator!=(null_sentinel lhs, utf_8_to_32_iterator rhs) noexcept
         {
-            return !(rhs == lhs);
+            return rhs.it_ != lhs;
         }
 
 #ifndef BOOST_TEXT_DOXYGEN
@@ -1490,6 +1521,8 @@ namespace boost { namespace text {
         }
     }
 
+    // TODO: utf_8_to_32_out_iterator
+
     /** An insert-iterator analogous to std::insert_iterator, that also
         converts UTF-8 to UTF-32. */
     template<typename Container>
@@ -1746,6 +1779,34 @@ namespace boost { namespace text {
             utf_32_to_16_iterator<Iter2, ErrorHandler2> rhs) noexcept
             -> decltype(lhs.it_ == rhs.it_ && lhs.index_ == rhs.index_);
 
+        /** This function is constexpr in C++14 and later. */
+        friend BOOST_TEXT_CXX14_CONSTEXPR bool
+        operator==(utf_32_to_16_iterator lhs, null_sentinel rhs) noexcept
+        {
+            return lhs.it_ == rhs;
+        }
+
+        /** This function is constexpr in C++14 and later. */
+        friend BOOST_TEXT_CXX14_CONSTEXPR bool
+        operator==(null_sentinel lhs, utf_32_to_16_iterator rhs) noexcept
+        {
+            return rhs.it_ == lhs;
+        }
+
+        /** This function is constexpr in C++14 and later. */
+        friend BOOST_TEXT_CXX14_CONSTEXPR bool
+        operator!=(utf_32_to_16_iterator lhs, null_sentinel rhs) noexcept
+        {
+            return lhs.it_ != rhs;
+        }
+
+        /** This function is constexpr in C++14 and later. */
+        friend BOOST_TEXT_CXX14_CONSTEXPR bool
+        operator!=(null_sentinel lhs, utf_32_to_16_iterator rhs) noexcept
+        {
+            return rhs.it_ != lhs;
+        }
+
 #ifndef BOOST_TEXT_DOXYGEN
     private:
         constexpr bool at_buf_end() const noexcept { return buf_[index_] == 0; }
@@ -1803,6 +1864,9 @@ namespace boost { namespace text {
     {
         return !(lhs == rhs);
     }
+
+    // TODO: utf_32_to_16_out_iterator
+    // TODO: utf_32_to_16 insert iterators
 
 
     /** A UTF-16 to UTF-32 converting iterator.  Set the ErrorHandler template
@@ -1906,6 +1970,34 @@ namespace boost { namespace text {
             utf_16_to_32_iterator retval = *this;
             --*this;
             return retval;
+        }
+
+        /** This function is constexpr in C++14 and later. */
+        friend BOOST_TEXT_CXX14_CONSTEXPR bool
+        operator==(utf_16_to_32_iterator lhs, null_sentinel rhs) noexcept
+        {
+            return lhs.it_ == rhs;
+        }
+
+        /** This function is constexpr in C++14 and later. */
+        friend BOOST_TEXT_CXX14_CONSTEXPR bool
+        operator==(null_sentinel lhs, utf_16_to_32_iterator rhs) noexcept
+        {
+            return rhs.it_ == lhs;
+        }
+
+        /** This function is constexpr in C++14 and later. */
+        friend BOOST_TEXT_CXX14_CONSTEXPR bool
+        operator!=(utf_16_to_32_iterator lhs, null_sentinel rhs) noexcept
+        {
+            return lhs.it_ != rhs;
+        }
+
+        /** This function is constexpr in C++14 and later. */
+        friend BOOST_TEXT_CXX14_CONSTEXPR bool
+        operator!=(null_sentinel lhs, utf_16_to_32_iterator rhs) noexcept
+        {
+            return rhs.it_ != lhs;
         }
 
 #ifndef BOOST_TEXT_DOXYGEN
@@ -2055,6 +2147,8 @@ namespace boost { namespace text {
             return out;
         }
     }
+
+    // TODO: utf_16_to_32_out_iterator
 
     /** An insert-iterator analogous to std::insert_iterator, that also
         converts UTF-16 to UTF-32. */
@@ -2415,28 +2509,28 @@ namespace boost { namespace text {
         friend BOOST_TEXT_CXX14_CONSTEXPR bool
         operator==(utf_16_to_8_iterator lhs, null_sentinel rhs) noexcept
         {
-            return !*lhs.it_;
+            return lhs.it_ == rhs;
         }
 
         /** This function is constexpr in C++14 and later. */
         friend BOOST_TEXT_CXX14_CONSTEXPR bool
         operator==(null_sentinel lhs, utf_16_to_8_iterator rhs) noexcept
         {
-            return rhs == lhs;
+            return rhs.it_ == lhs;
         }
 
         /** This function is constexpr in C++14 and later. */
         friend BOOST_TEXT_CXX14_CONSTEXPR bool
         operator!=(utf_16_to_8_iterator lhs, null_sentinel rhs) noexcept
         {
-            return !(lhs == rhs);
+            return lhs.it_ != rhs;
         }
 
         /** This function is constexpr in C++14 and later. */
         friend BOOST_TEXT_CXX14_CONSTEXPR bool
         operator!=(null_sentinel lhs, utf_16_to_8_iterator rhs) noexcept
         {
-            return !(rhs == lhs);
+            return rhs.it_ != lhs;
         }
 
 #ifndef BOOST_TEXT_DOXYGEN
@@ -2586,6 +2680,8 @@ namespace boost { namespace text {
             return out;
         }
     }
+
+    // TODO: utf_16_to_8_out_iterator
 
     /** An insert-iterator analogous to std::insert_iterator, that also
         converts UTF-16 to UTF-8. */
@@ -2812,28 +2908,28 @@ namespace boost { namespace text {
         friend BOOST_TEXT_CXX14_CONSTEXPR bool
         operator==(utf_8_to_16_iterator lhs, null_sentinel rhs) noexcept
         {
-            return !*lhs.it_;
+            return lhs.it_ == rhs;
         }
 
         /** This function is constexpr in C++14 and later. */
         friend BOOST_TEXT_CXX14_CONSTEXPR bool
         operator==(null_sentinel lhs, utf_8_to_16_iterator rhs) noexcept
         {
-            return rhs == lhs;
+            return rhs.it_ == lhs;
         }
 
         /** This function is constexpr in C++14 and later. */
         friend BOOST_TEXT_CXX14_CONSTEXPR bool
         operator!=(utf_8_to_16_iterator lhs, null_sentinel rhs) noexcept
         {
-            return !(lhs == rhs);
+            return lhs.it_ != rhs;
         }
 
         /** This function is constexpr in C++14 and later. */
         friend BOOST_TEXT_CXX14_CONSTEXPR bool
         operator!=(null_sentinel lhs, utf_8_to_16_iterator rhs) noexcept
         {
-            return !(rhs == lhs);
+            return rhs.it_ != lhs;
         }
 
 #ifndef BOOST_TEXT_DOXYGEN
@@ -2925,6 +3021,8 @@ namespace boost { namespace text {
             return out;
         }
     }
+
+    // TODO: utf_8_to_16_out_iterator
 
     /** An insert-iterator analogous to std::insert_iterator, that also
         converts UTF-8 to UTF-16. */
