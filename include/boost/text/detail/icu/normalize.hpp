@@ -54,19 +54,21 @@ namespace boost { namespace text { namespace detail { namespace icu {
         String * s_;
     };
 
-    template<typename OutIter>
-    struct utf8_iter_appender
+    template<typename UTF32OutIter>
+    struct utf8_to_utf32_appender
     {
-        explicit utf8_iter_appender(OutIter out) : out_(out) {}
+        explicit utf8_to_utf32_appender(UTF32OutIter out) : out_(out) {}
 
         template<typename CharIter>
         char_iter_ret_t<void, CharIter> append(CharIter first, CharIter last)
         {
-            out_ = std::copy(first, last, out_);
+            out_ = transcode_utf_8_to_32(first, last, out_);
         }
 
+        UTF32OutIter out() const { return out_; }
+
     private:
-        OutIter out_;
+        UTF32OutIter out_;
     };
 
     template<typename CharIter, typename Sentinel, typename Out>

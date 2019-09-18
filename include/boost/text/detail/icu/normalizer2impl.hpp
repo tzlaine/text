@@ -21,6 +21,7 @@
 
 #include <boost/assert.hpp>
 #include <boost/container/small_vector.hpp>
+#include <boost/algorithm/cxx14/equal.hpp>
 
 #include <boost/text/detail/icu/bytesinkutil.hpp>
 #include <boost/text/detail/icu/machine.hpp>
@@ -264,8 +265,27 @@ namespace boost { namespace text { namespace detail { namespace icu {
             out_ = std::copy(utf16_first, utf16_last, out_);
         }
 
+        OutIter out() const { return out_; }
+
     private:
         OutIter out_;
+    };
+
+    template<typename UTF32OutIter>
+    struct utf16_to_utf32_appender
+    {
+        explicit utf16_to_utf32_appender(UTF32OutIter out) : out_(out) {}
+
+        template<typename Iter>
+        _16_iter_ret_t<void, Iter> append(Iter utf16_first, Iter utf16_last)
+        {
+            out_ = transcode_utf_16_to_32(utf16_first, utf16_last, out_);
+        }
+
+        UTF32OutIter out() const { return out_; }
+
+    private:
+        UTF32OutIter out_;
     };
 
     class Normalizer2Impl;
@@ -289,7 +309,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
         friend flush_disinhibitor<UTF16Appender>;
 
     public:
-        ReorderingBuffer(const Normalizer2Impl & ni, UTF16Appender appendr) :
+        ReorderingBuffer(const Normalizer2Impl & ni, UTF16Appender & appendr) :
             impl(ni),
             appender(appendr),
             buf(),
@@ -446,7 +466,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
         }
 
         const Normalizer2Impl & impl;
-        UTF16Appender appender;
+        UTF16Appender & appender;
         std::array<UChar, 1024> buf;
         UChar *reorderStart, *limit;
         uint8_t lastCC;
@@ -1123,7 +1143,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
             typename Sentinel,
             typename UTF8Appender>
         UBool
-        composeUTF8(CharIter src, Sentinel limit, UTF8Appender appender) const
+        composeUTF8(CharIter src, Sentinel limit, UTF8Appender & appender) const
         {
             UnicodeString s16;
             uint8_t minNoMaybeLead = leadByteForCP(minCompNoMaybeCP);
