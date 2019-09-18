@@ -60,7 +60,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
             CharIter s, int32_t length, UTF8Appender & appender)
         {
             BOOST_ASSERT(length > 0);
-            appender.append((char const *)s, length); // TODO: Remvoe cast.
+            appender.append(s, s + length);
         }
 
         /** (length) bytes were mapped to valid (s16, s16Length). */
@@ -101,12 +101,11 @@ namespace boost { namespace text { namespace detail { namespace icu {
                 if (j > (INT32_MAX - s8Length)) {
                     return FALSE;
                 }
-                appender.append(buffer, j);
+                appender.append(buffer, buffer + j);
                 s8Length += j;
             }
             return TRUE;
         }
-
 
         /** The bytes at [s, limit[ were mapped to valid (s16, s16Length). */
         template<typename CharIter, typename UTF8Appender>
@@ -130,7 +129,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
             char s8[U8_MAX_LENGTH];
             int32_t s8Length = 0;
             U8_APPEND_UNSAFE(s8, s8Length, c);
-            appender.append(s8, s8Length);
+            appender.append(s8, s8 + s8Length);
         }
 
         /** The few bytes at [src, nextSrc[ were mapped/changed to valid code

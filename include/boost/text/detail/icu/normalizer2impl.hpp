@@ -1399,8 +1399,9 @@ namespace boost { namespace text { namespace detail { namespace icu {
                 bool equals_utf8 = true;
                 {
                     s16.clear();
+                    utf16_appender<UnicodeString> buffer_appender(s16);
                     ReorderingBuffer<utf16_appender<UnicodeString>> buffer(
-                        *this, utf16_appender<UnicodeString>(s16));
+                        *this, buffer_appender);
                     auto const no_flush = buffer.inhibit_flush();
                     // We know there is not a boundary here.
                     decomposeShort_utf8(
@@ -1591,7 +1592,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
                     U8_APPEND_UNSAFE(buffer, length, c);
                 }
             }
-            appender.append(buffer, length);
+            appender.append(buffer, buffer + length);
         }
 
         UBool isMaybe(uint16_t norm16) const

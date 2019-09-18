@@ -488,10 +488,6 @@ namespace boost { namespace text {
             Sentinel last_;
         };
 
-        template<typename CPIter, typename Sentinel>
-        using utf8_range_expr = decltype(
-            make_utf8_range(std::declval<CPIter>(), std::declval<Sentinel>()));
-
         template<typename Iter>
         typename std::enable_if<is_char_iter<Iter>::value, utf8_range<Iter>>::
             type
@@ -531,6 +527,10 @@ namespace boost { namespace text {
                                                                 last};
         }
 
+        template<typename CPIter, typename Sentinel>
+        using utf8_range_expr = decltype(
+            make_utf8_range(std::declval<CPIter>(), std::declval<Sentinel>()));
+
         template<typename CharIter, typename Sentinel = CharIter>
         struct utf16_range
         {
@@ -540,10 +540,6 @@ namespace boost { namespace text {
             CharIter first_;
             Sentinel last_;
         };
-
-        template<typename CPIter, typename Sentinel>
-        using utf16_range_expr = decltype(
-            make_utf16_range(std::declval<CPIter>(), std::declval<Sentinel>()));
 
         template<typename Iter>
         typename std::enable_if<is_16_iter<Iter>::value, utf16_range<Iter>>::
@@ -583,6 +579,10 @@ namespace boost { namespace text {
             return utf16_range<decltype(first.base()), Sentinel>{first.base(),
                                                                  last};
         }
+
+        template<typename CPIter, typename Sentinel>
+        using utf16_range_expr = decltype(
+            make_utf16_range(std::declval<CPIter>(), std::declval<Sentinel>()));
 
         template<typename CPIter, typename Sentinel>
         struct utf32_to_utf16_range
