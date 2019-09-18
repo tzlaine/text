@@ -19,15 +19,16 @@
 #ifndef NORMALIZER2IMPL_H_
 #define NORMALIZER2IMPL_H_
 
-#include <boost/assert.hpp>
-#include <boost/container/small_vector.hpp>
-#include <boost/algorithm/cxx14/equal.hpp>
-
+#include <boost/text/transcode_iterator.hpp>
 #include <boost/text/detail/icu/bytesinkutil.hpp>
 #include <boost/text/detail/icu/machine.hpp>
 #include <boost/text/detail/icu/ucptrie.hpp>
 #include <boost/text/detail/icu/utf8.hpp>
 #include <boost/text/detail/icu/utf16.hpp>
+
+#include <boost/assert.hpp>
+#include <boost/container/small_vector.hpp>
+#include <boost/algorithm/cxx14/equal.hpp>
 
 #include <cstring>
 #include <mutex>
@@ -381,8 +382,10 @@ namespace boost { namespace text { namespace detail { namespace icu {
             if (!inhibit_flushes) {
                 flush();
                 auto second_to_last = std::prev(sLimit);
+                if (text::low_surrogate(*second_to_last))
+                    --second_to_last;
                 appender.append(s, second_to_last);
-                *limit++ = *second_to_last;
+                limit = std::copy(second_to_last, sLimit, limit);
             } else {
                 limit = std::copy(s, sLimit, limit);
             }

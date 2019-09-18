@@ -13,8 +13,9 @@ namespace boost { namespace text {
             constexpr char const * ncstr = nullptr;
         }
 
-        // NFC dispatch
+        // NFC/FCC dispatch
         template<
+            bool OnlyContiguous, // false: NFC, true: FCC
             typename CPIter,
             typename Sentinel,
             bool UTF8 = is_detected<utf8_range_expr, CPIter, Sentinel>::value,
@@ -27,26 +28,36 @@ namespace boost { namespace text {
                 auto const r = make_utf32_to_utf16_range(first, last);
                 auto out = utf_16_to_8_inserter(s, s.end());
                 detail::icu::utf16_iter_appender<decltype(out)> appender(out);
-                detail::icu::utf16_normalize_to_nfc_append(
+                detail::icu::utf16_normalize_to_nfc_append<OnlyContiguous>(
                     r.begin(), r.end(), appender);
             }
         };
 
-        template<typename CPIter, typename Sentinel>
-        struct norm_nfc_append_impl<CPIter, Sentinel, true, false>
+        template<bool OnlyContiguous, typename CPIter, typename Sentinel>
+        struct norm_nfc_append_impl<
+            OnlyContiguous,
+            CPIter,
+            Sentinel,
+            true,
+            false>
         {
             template<typename String>
             static void call(CPIter first, Sentinel last, String & s)
             {
                 auto const r = make_utf8_range(first, last);
                 detail::icu::utf8_string_appender<String> appender(s);
-                detail::icu::utf8_normalize_to_nfc_append(
+                detail::icu::utf8_normalize_to_nfc_append<OnlyContiguous>(
                     r.begin(), r.end(), appender);
             }
         };
 
-        template<typename CPIter, typename Sentinel>
-        struct norm_nfc_append_impl<CPIter, Sentinel, false, true>
+        template<bool OnlyContiguous, typename CPIter, typename Sentinel>
+        struct norm_nfc_append_impl<
+            OnlyContiguous,
+            CPIter,
+            Sentinel,
+            false,
+            true>
         {
             template<typename String>
             static void call(CPIter first, Sentinel last, String & s)
@@ -54,7 +65,7 @@ namespace boost { namespace text {
                 auto const r = make_utf16_range(first, last);
                 auto out = utf_16_to_8_inserter(s, s.end());
                 detail::icu::utf16_iter_appender<decltype(out)> appender(out);
-                detail::icu::utf16_normalize_to_nfc_append(
+                detail::icu::utf16_normalize_to_nfc_append<OnlyContiguous>(
                     r.begin(), r.end(), appender);
             }
         };
@@ -101,56 +112,6 @@ namespace boost { namespace text {
                 auto out = utf_16_to_8_inserter(s, s.end());
                 detail::icu::utf16_iter_appender<decltype(out)> appender(out);
                 detail::icu::utf16_normalize_to_nfkc_append(
-                    r.begin(), r.end(), appender);
-            }
-        };
-
-        // FCC dispatch
-        template<
-            typename CPIter,
-            typename Sentinel,
-            bool UTF8 = is_detected<utf8_range_expr, CPIter, Sentinel>::value,
-            bool UTF16 = is_detected<utf16_range_expr, CPIter, Sentinel>::value>
-        struct norm_fcc_append_impl
-        {
-            template<typename String>
-            static void call(CPIter first, Sentinel last, String & s)
-            {
-#if 1 // TODO
-                normalize_to_fcc(first, last, utf_32_to_8_inserter(s, s.end()));
-#else
-                auto const r = make_utf32_to_utf16_range(first, last);
-                auto out = utf_16_to_8_inserter(s, s.end());
-                detail::icu::utf16_iter_appender<decltype(out)> appender(out);
-                detail::icu::utf16_normalize_to_fcc_append(
-                    r.begin(), r.end(), appender);
-#endif
-            }
-        };
-
-        template<typename CPIter, typename Sentinel>
-        struct norm_fcc_append_impl<CPIter, Sentinel, true, false>
-        {
-            template<typename String>
-            static void call(CPIter first, Sentinel last, String & s)
-            {
-                auto const r = make_utf8_range(first, last);
-                detail::icu::utf8_string_appender<String> appender(s);
-                detail::icu::utf8_normalize_to_fcc_append(
-                    r.begin(), r.end(), appender);
-            }
-        };
-
-        template<typename CPIter, typename Sentinel>
-        struct norm_fcc_append_impl<CPIter, Sentinel, false, true>
-        {
-            template<typename String>
-            static void call(CPIter first, Sentinel last, String & s)
-            {
-                auto const r = make_utf16_range(first, last);
-                auto out = utf_16_to_8_inserter(s, s.end());
-                detail::icu::utf16_iter_appender<decltype(out)> appender(out);
-                detail::icu::utf16_normalize_to_fcc_append(
                     r.begin(), r.end(), appender);
             }
         };
@@ -241,7 +202,8 @@ namespace boost { namespace text {
             decltype(s.insert(s.end(), detail::ncstr, detail::ncstr), s),
             CPIter>
     {
-        detail::norm_nfc_append_impl<CPIter, Sentinel>::call(first, last, s);
+        detail::norm_nfc_append_impl<false, CPIter, Sentinel>::call(
+            first, last, s);
         return s;
     }
 
@@ -308,7 +270,8 @@ namespace boost { namespace text {
             decltype(s.insert(s.end(), detail::ncstr, detail::ncstr), s),
             CPIter>
     {
-        detail::norm_fcc_append_impl<CPIter, Sentinel>::call(first, last, s);
+        detail::norm_nfc_append_impl<true, CPIter, Sentinel>::call(
+            first, last, s);
         return s;
     }
 

@@ -71,127 +71,120 @@ namespace boost { namespace text { namespace detail { namespace icu {
         UTF32OutIter out_;
     };
 
-    template<typename CharIter, typename Sentinel, typename Out>
-    void utf8_normalize_to_nfc_append(CharIter first, Sentinel last, Out & out)
+    struct null_appender
     {
-        nfc_norm().composeUTF8<false, true>(first, last, out);
-    }
-#if 0
-    template<typename CharIter, typename Sentinel>
-    void utf8_normalized_nfc(CharIter first, Sentinel last)
-    {
-        TODO dummy;
-        nfc_norm().composeUTF8<false, false>(first, last, dummy);
-    }
-#endif
+        template<typename Iter>
+        void append(Iter first, Iter last)
+        {}
+    };
 
-    template<typename Iter, typename Sentinel, typename Out>
-    void utf16_normalize_to_nfc_append(Iter first, Sentinel last, Out & out)
+    template<
+        bool OnlyContiguous,
+        typename CharIter,
+        typename Sentinel,
+        typename Appender>
+    void utf8_normalize_to_nfc_append(
+        CharIter first, Sentinel last, Appender & appender)
     {
-        ReorderingBuffer<Out> buffer(nfc_norm(), out);
-        nfc_norm().compose<false, true>(first, last, buffer);
+        nfc_norm().composeUTF8<OnlyContiguous, true>(first, last, appender);
     }
-#if 0
-    template<typename Iter, typename Sentinel>
-    void utf16_normalized_nfc(Iter first, Sentinel last)
+    template<bool OnlyContiguous, typename CharIter, typename Sentinel>
+    bool utf8_normalized_nfc(CharIter first, Sentinel last)
     {
-        TODO dummy;
-        ReorderingBuffer<TODO> buffer(nfc_norm(), dumy);
-        nfc_norm().compose<false, false>(first, last, buffer);
+        null_appender dummy;
+        return nfc_norm().composeUTF8<OnlyContiguous, false>(
+            first, last, dummy);
     }
-#endif
 
-    template<typename Iter, typename Sentinel, typename Out>
-    Iter utf16_normalize_to_nfd_append(Iter first, Sentinel last, Out & out)
+    template<
+        bool OnlyContiguous,
+        typename Iter,
+        typename Sentinel,
+        typename Appender>
+    void utf16_normalize_to_nfc_append(
+        Iter first, Sentinel last, Appender & appender)
     {
-        ReorderingBuffer<Out> buffer(nfc_norm(), out);
+        ReorderingBuffer<Appender> buffer(nfc_norm(), appender);
+        nfc_norm().compose<OnlyContiguous, true>(first, last, buffer);
+    }
+    template<bool OnlyContiguous, typename Iter, typename Sentinel>
+    bool utf16_normalized_nfc(Iter first, Sentinel last)
+    {
+        null_appender dummy;
+        ReorderingBuffer<null_appender> buffer(nfc_norm(), dummy);
+        return nfc_norm().compose<OnlyContiguous, false>(first, last, buffer);
+    }
+
+    template<typename Iter, typename Sentinel, typename Appender>
+    Iter utf16_normalize_to_nfd_append(
+        Iter first, Sentinel last, Appender & appender)
+    {
+        ReorderingBuffer<Appender> buffer(nfc_norm(), appender);
         return nfc_norm().decompose<true>(first, last, buffer);
     }
-#if 0
     template<typename Iter, typename Sentinel>
-    Iter utf16_normalized_nfd(Iter first, Sentinel last)
+    bool utf16_normalized_nfd(Iter first, Sentinel last)
     {
-        TODO dummy;
-        ReorderingBuffer<TODO> buffer(nfc_norm(), dummy);
-        return nfc_norm().decompose<false>(first, last, buffer);
+        null_appender dummy;
+        ReorderingBuffer<null_appender> buffer(nfc_norm(), dummy);
+        return nfc_norm().decompose<false>(first, last, buffer) == last;
     }
-#endif
 
-    template<typename CharIter, typename Sentinel, typename Out>
-    void utf8_normalize_to_nfkc_append(CharIter first, Sentinel last, Out & out)
+    template<typename CharIter, typename Sentinel, typename Appender>
+    void utf8_normalize_to_nfkc_append(
+        CharIter first, Sentinel last, Appender & appender)
     {
-        nfkc_norm().composeUTF8<false, true>(first, last, out);
+        nfkc_norm().composeUTF8<false, true>(first, last, appender);
     }
-#if 0
     template<typename CharIter, typename Sentinel>
-    void utf8_normalized_nfkc(CharIter first, Sentinel last)
+    bool utf8_normalized_nfkc(CharIter first, Sentinel last)
     {
-        TODO dummy;
-        nfkc_norm().composeUTF8<false, false>(first, last, dummy);
+        null_appender dummy;
+        return nfkc_norm().composeUTF8<false, false>(first, last, dummy);
     }
-#endif
 
-    template<typename Iter, typename Sentinel, typename Out>
-    void utf16_normalize_to_nfkc_append(Iter first, Sentinel last, Out & out)
+    template<typename Iter, typename Sentinel, typename Appender>
+    void utf16_normalize_to_nfkc_append(
+        Iter first, Sentinel last, Appender & appender)
     {
-        ReorderingBuffer<Out> buffer(nfkc_norm(), out);
+        ReorderingBuffer<Appender> buffer(nfkc_norm(), appender);
         nfkc_norm().compose<false, true>(first, last, buffer);
     }
-#if 0
     template<typename Iter, typename Sentinel>
-    void utf16_normalized_nfkc(Iter first, Sentinel last)
+    bool utf16_normalized_nfkc(Iter first, Sentinel last)
     {
-        TODO dummy;
-        ReorderingBuffer<TODO> buffer(nfkc_norm(), dummy);
-        nfkc_norm().compose<false, false>(first, last, buffer);
+        null_appender dummy;
+        ReorderingBuffer<null_appender> buffer(nfkc_norm(), dummy);
+        return nfkc_norm().compose<false, false>(first, last, buffer);
     }
-#endif
 
-    template<typename Iter, typename Sentinel, typename Out>
-    Iter utf16_normalize_to_nfkd_append(Iter first, Sentinel last, Out & out)
+    template<typename Iter, typename Sentinel, typename Appender>
+    Iter utf16_normalize_to_nfkd_append(
+        Iter first, Sentinel last, Appender & appender)
     {
-        ReorderingBuffer<Out> buffer(nfkc_norm(), out);
+        ReorderingBuffer<Appender> buffer(nfkc_norm(), appender);
         return nfkc_norm().decompose<true>(first, last, buffer);
     }
-#if 0
     template<typename Iter, typename Sentinel>
-    Iter utf16_normalized_nfkd(Iter first, Sentinel last)
+    bool utf16_normalized_nfkd(Iter first, Sentinel last)
     {
-        TODO dummy;
-        ReorderingBuffer<TODO> buffer(nfkc_norm(), dummy);
-        return nfkc_norm().decompose<false>(first, last, buffer);
+        null_appender dummy;
+        ReorderingBuffer<null_appender> buffer(nfkc_norm(), dummy);
+        return nfkc_norm().decompose<false>(first, last, buffer) == last;
     }
-#endif
 
-    template<typename CharIter, typename Sentinel, typename Out>
-    void utf8_normalize_to_fcc_append(CharIter first, Sentinel last, Out & out)
+    template<typename CharIter, typename Sentinel, typename Appender>
+    void utf8_normalize_to_fcc_append(
+        CharIter first, Sentinel last, Appender & appender)
     {
-        nfc_norm().composeUTF8<true, true>(first, last, out);
+        nfc_norm().composeUTF8<true, true>(first, last, appender);
     }
-#if 0
     template<typename CharIter, typename Sentinel>
-    void utf8_normalized_fcc(CharIter first, Sentinel last)
+    bool utf8_normalized_fcc(CharIter first, Sentinel last)
     {
-        TODO dummy;
-        nfc_norm().composeUTF8<true, false>(first, last, dummy);
+        null_appender dummy;
+        return nfc_norm().composeUTF8<true, false>(first, last, dummy);
     }
-#endif
-
-    template<typename Iter, typename Sentinel, typename Out>
-    void utf16_normalize_to_fcc_append(Iter first, Sentinel last, Out & out)
-    {
-        ReorderingBuffer<Out> buffer(nfc_norm(), out);
-        nfc_norm().compose<true, true>(first, last, buffer);
-    }
-#if 0
-    template<typename Iter, typename Sentinel>
-    void utf16_normalized_fcc(Iter first, Sentinel last)
-    {
-        TODO dummy;
-        ReorderingBuffer<TODO> buffer(nfc_norm(), dummy);
-        nfc_norm().compose<true, true>(first, last, buffer);
-    }
-#endif
 
 }}}}
 

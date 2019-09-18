@@ -149,6 +149,9 @@ TEST(sentinel_apis, collation)
     collate(cps, other_cps, default_collation_table(), collation_flags{});
 }
 
+// TODO: Remove HAS_ICU stuff below
+// TODO: Add coerage for CP overloads in normalize.hpp.
+
 #if BOOST_TEXT_HAS_ICU
 
 TEST(normalization_detail, make_string_piece_)
