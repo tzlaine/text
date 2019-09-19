@@ -365,7 +365,6 @@ set(compile_sources
     compile_detail_is_char_iter.cpp
     compile_detail_is_char_range.cpp
     compile_detail_is_cp_iter.cpp
-    compile_detail_icu.cpp
     compile_trie_conversions.cpp
 )
 
