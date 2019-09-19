@@ -37,7 +37,7 @@ namespace boost { namespace text {
         {
             transcode_utf_32_to_8(first, last, std::back_inserter(chars_));
             BOOST_ASSERT(next_grapheme_break(begin(), end()) == end());
-            BOOST_ASSERT(fcd_form(begin(), end()));
+            BOOST_ASSERT(normalized_fcc(begin(), end()));
         }
 
         /** Constructs *this from the code point cp. */
@@ -59,7 +59,7 @@ namespace boost { namespace text {
             transcode_utf_32_to_8(
                 r.begin(), r.end(), std::back_inserter(chars_));
             BOOST_ASSERT(next_grapheme_break(begin(), end()) == end());
-            BOOST_ASSERT(fcd_form(begin(), end()));
+            BOOST_ASSERT(normalized_fcc(begin(), end()));
         }
 
         /** Constructs *this from g. */
@@ -138,7 +138,7 @@ namespace boost { namespace text {
             last_(last)
         {
             BOOST_ASSERT(next_grapheme_break(first_, last_) == last_);
-            BOOST_ASSERT(fcd_form(first_, last_));
+            BOOST_ASSERT(normalized_fcc(first_, last_));
         }
 
         /** Constructs *this from r.
@@ -150,7 +150,7 @@ namespace boost { namespace text {
             last_(r.end())
         {
             BOOST_ASSERT(next_grapheme_break(first_, last_) == last_);
-            BOOST_ASSERT(fcd_form(first_, last_));
+            BOOST_ASSERT(normalized_fcc(first_, last_));
         }
 
         /** Constructs *this from g. */

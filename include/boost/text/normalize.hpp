@@ -571,10 +571,9 @@ namespace boost { namespace text {
             norm_nfkc = true,
             norm_nfd = false,
             norm_nfkd = true,
-            norm_check_norm = false,
+            norm_check = false,
             norm_normalize = true,
-            norm_fcc = true,
-            norm_ignored = false
+            norm_fcc = true
         };
 
         template<
@@ -822,11 +821,10 @@ namespace boost { namespace text {
     auto normalized_nfd(CPIter first, Sentinel last) noexcept
         -> detail::cp_iter_ret_t<bool, CPIter>
     {
-        return detail::normalized_decomposed(
-            first,
-            last,
-            [](uint32_t cp) { return detail::canonical_decompose(cp); },
-            [](uint32_t cp) { return detail::quick_check_nfd_code_point(cp); });
+        detail::icu::null_appender ignored;
+        return detail::norm_nfd_impl<detail::norm_check, bool>(
+                   detail::norm_nfd, first, last, ignored)
+            .normalized_;
     }
 
     /** Returns true iff the given range of code points is normalized NFD. */
@@ -844,13 +842,10 @@ namespace boost { namespace text {
     auto normalized_nfkd(CPIter first, Sentinel last) noexcept
         -> detail::cp_iter_ret_t<bool, CPIter>
     {
-        return detail::normalized_decomposed(
-            first,
-            last,
-            [](uint32_t cp) { return detail::compatible_decompose(cp); },
-            [](uint32_t cp) {
-                return detail::quick_check_nfkd_code_point(cp);
-            });
+        detail::icu::null_appender ignored;
+        return detail::norm_nfd_impl<detail::norm_check, bool>(
+                   detail::norm_nfkd, first, last, ignored)
+            .normalized_;
     }
 
     /** Returns true iff the given range of code points is normalized NFKD. */
@@ -868,11 +863,13 @@ namespace boost { namespace text {
     auto normalized_nfc(CPIter first, Sentinel last) noexcept
         -> detail::cp_iter_ret_t<bool, CPIter>
     {
-        return detail::normalized_composed(
-            first,
-            last,
-            [](uint32_t cp) { return detail::canonical_decompose(cp); },
-            [](uint32_t cp) { return detail::quick_check_nfc_code_point(cp); });
+        return detail::norm_nfc_impl<
+                   detail::norm_check,
+                   detail::norm_nfc,
+                   bool,
+                   CPIter,
+                   Sentinel>::call(detail::norm_nfc, first, last, bool())
+            .normalized_;
     }
 
     /** Returns true iff the given range of code points is normalized NFC. */
@@ -890,13 +887,13 @@ namespace boost { namespace text {
     auto normalized_nfkc(CPIter first, Sentinel last) noexcept
         -> detail::cp_iter_ret_t<bool, CPIter>
     {
-        return detail::normalized_composed(
-            first,
-            last,
-            [](uint32_t cp) { return detail::compatible_decompose(cp); },
-            [](uint32_t cp) {
-                return detail::quick_check_nfkc_code_point(cp);
-            });
+        return detail::norm_nfc_impl<
+                   detail::norm_check,
+                   detail::norm_nfc,
+                   bool,
+                   CPIter,
+                   Sentinel>::call(detail::norm_nfkc, first, last, bool())
+            .normalized_;
     }
 
     /** Returns true iff the given range of code points is normalized NFKC. */
@@ -904,36 +901,6 @@ namespace boost { namespace text {
     bool normalized_nfkc(CPRange const & r) noexcept
     {
         return normalized_nfkc(std::begin(r), std::end(r));
-    }
-
-    /** Returns true iff the given sequence of code points is in an FCD form.
-
-        This function only participates in overload resolution if `CPIter`
-        models the CPIter concept. */
-    template<typename CPIter, typename Sentinel>
-    auto fcd_form(CPIter first, Sentinel last) noexcept
-        -> detail::cp_iter_ret_t<bool, CPIter>
-    {
-        // http://www.unicode.org/notes/tn5/#FCD_Test
-        int prev_ccc = 0;
-        while (first != last) {
-            auto const cp = *first;
-            auto const decomp = detail::canonical_decompose(cp);
-            auto const ccc = detail::ccc(*decomp.begin());
-            if (ccc && ccc < prev_ccc)
-                return false;
-            prev_ccc =
-                decomp.size_ == 1 ? ccc : detail::ccc(*(decomp.end() - 1));
-            ++first;
-        }
-        return true;
-    }
-
-    /** Returns true iff the given range of code points is in an FCD form. */
-    template<typename CPRange>
-    bool fcd_form(CPRange const & r) noexcept
-    {
-        return fcd_form(std::begin(r), std::end(r));
     }
 
     /** Writes sequence `[first, last)` in normalization form FCC to `out`.
@@ -962,6 +929,32 @@ namespace boost { namespace text {
     inline OutIter normalize_to_fcc(CPRange const & r, OutIter out)
     {
         return normalize_to_fcc(std::begin(r), std::end(r), out);
+    }
+
+    /** Returns true iff the given sequence of code points is normalized FCC.
+
+        This function only participates in overload resolution if `CPIter`
+        models the CPIter concept.
+
+        \see https://unicode.org/notes/tn5 */
+    template<typename CPIter, typename Sentinel>
+    auto normalized_fcc(CPIter first, Sentinel last) noexcept
+        -> detail::cp_iter_ret_t<bool, CPIter>
+    {
+        return detail::norm_nfc_impl<
+                   detail::norm_check,
+                   detail::norm_fcc,
+                   bool,
+                   CPIter,
+                   Sentinel>::call(detail::norm_nfc, first, last, bool())
+            .normalized_;
+    }
+
+    /** Returns true iff the given range of code points is normalized FCC. */
+    template<typename CPRange>
+    bool normalized_fcc(CPRange const & r) noexcept
+    {
+        return normalized_fcc(std::begin(r), std::end(r));
     }
 
 }}

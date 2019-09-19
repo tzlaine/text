@@ -515,13 +515,13 @@ namespace boost { namespace text { namespace detail { namespace icu {
      */
     template<
         typename AccessFunc,
-        typename Iter,
+        typename CharIter,
         typename Sentinel,
         typename Out>
     void UCPTRIE_FAST_U8_NEXT(
         const UCPTrie * trie,
         AccessFunc dataAccess,
-        Iter & src,
+        CharIter & src,
         Sentinel limit,
         Out & result)
     {
@@ -587,21 +587,17 @@ namespace boost { namespace text { namespace detail { namespace icu {
      * @param result (out) variable for the trie lookup result
      * @draft ICU 63
      */
-    template<typename AccessFunc, typename Uchar, typename Out>
+    template<typename AccessFunc, typename CharIter, typename Out>
     void UCPTRIE_FAST_U8_PREV(
         const UCPTrie * trie,
         AccessFunc dataAccess,
-        Uchar * start,
-        Uchar *& src,
+        CharIter start,
+        CharIter & src,
         Out & result)
     {
         int32_t index_ = (uint8_t) * --(src);
         if (!U8_IS_SINGLE(index_)) {
-            index_ = ucptrie_internalU8PrevIndex(
-                (trie),
-                index_,
-                (const uint8_t *)(start),
-                (const uint8_t *)(src));
+            index_ = ucptrie_internalU8PrevIndex((trie), index_, start, src);
             (src) -= index_ & 7;
             index_ >>= 3;
         }
@@ -875,11 +871,9 @@ namespace boost { namespace text { namespace detail { namespace icu {
         return ucptrie_internalSmallIndex(trie, c);
     }
 
-    inline int32_t ucptrie_internalU8PrevIndex(
-        const UCPTrie * trie,
-        UChar32 c,
-        const uint8_t * start,
-        const uint8_t * src)
+    template<typename CharIter>
+    int32_t ucptrie_internalU8PrevIndex(
+        const UCPTrie * trie, UChar32 c, CharIter start, CharIter src)
     {
         int32_t i, length;
         // Support 64-bit pointers by avoiding cast of arbitrary difference.
