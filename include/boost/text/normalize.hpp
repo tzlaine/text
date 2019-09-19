@@ -627,14 +627,37 @@ namespace boost { namespace text {
             return utf32_to_utf16_range<CPIter, Sentinel>{first, last};
         }
 
-        // NFD dispatch
+
+        template<typename OutIter>
+        struct norm_result
+        {
+            OutIter out_;
+            bool normalized_;
+        };
+
+        // The "dispatch" logic here and below selects the proper underlying
+        // implementation, which may operate on UTF-8 or UTF-16.
+
+        enum norm_dispatch_constants {
+            norm_nfc = false,
+            norm_nfkc = true,
+            norm_nfd = false,
+            norm_nfkd = true,
+            norm_check_norm = false,
+            norm_normalize = true,
+            norm_fcc = true,
+            norm_ignored = false
+        };
+
+        // NFD/NFKD dispatch
         template<
+            bool WriteToOut, // false: check norm, true: normalize
             typename OutIter,
             typename Iter,
             typename Sentinel,
             typename Appender>
-        static OutIter
-        norm_nfd_impl_impl(Iter first, Sentinel last, Appender & appender)
+        static norm_result<OutIter> norm_nfd_impl_impl(
+            bool compatible, Iter first, Sentinel last, Appender & appender) //
         {
             int const chunk_size = 512;
             std::array<detail::icu::UChar, chunk_size> input;
@@ -651,17 +674,26 @@ namespace boost { namespace text {
                     *input_last++ = *first;
                     ++first;
                 }
+                detail::icu::ReorderingBuffer<Appender> buffer(
+                    compatible ? detail::icu::nfkc_norm()
+                               : detail::icu::nfc_norm(),
+                    appender);
                 auto const input_new_first =
-                    detail::icu::utf16_normalize_to_nfd_append(
-                        input.data(), input_last, appender);
+                    compatible ? detail::icu::nfkc_norm().decompose<WriteToOut>(
+                                     input.data(), input_last, buffer)
+                               : detail::icu::nfc_norm().decompose<WriteToOut>(
+                                     input.data(), input_last, buffer);
+                if (!WriteToOut && input_new_first != input_last)
+                    return norm_result<OutIter>{appender.out(), false};
                 input_first =
                     std::copy(input_new_first, input_last, input.data());
             }
 
-            return appender.out();
+            return norm_result<OutIter>{appender.out(), true};
         }
 
         template<
+            bool WriteToOut,
             typename OutIter,
             typename CPIter,
             typename Sentinel,
@@ -669,184 +701,138 @@ namespace boost { namespace text {
         struct norm_nfd_impl
         {
             template<typename Appender>
-            static OutIter
-            call(CPIter first, Sentinel last, Appender & appender)
+            static norm_result<OutIter> call(
+                bool compatible,
+                CPIter first,
+                Sentinel last,
+                Appender & appender)
             {
                 auto const r = make_utf32_to_utf16_range(first, last);
-                return norm_nfd_impl_impl<OutIter>(
-                    r.begin(), r.end(), appender);
+                return norm_nfd_impl_impl<WriteToOut, OutIter>(
+                    compatible, r.begin(), r.end(), appender);
             }
         };
 
-        template<typename OutIter, typename CPIter, typename Sentinel>
-        struct norm_nfd_impl<OutIter, CPIter, Sentinel, true>
-        {
-            template<typename Appender>
-            static OutIter
-            call(CPIter first, Sentinel last, Appender & appender)
-            {
-                auto const r = make_utf16_range(first, last);
-                return norm_nfd_impl_impl<OutIter>(
-                    r.begin(), r.end(), appender);
-            }
-        };
-
-        // NFKD dispatch
         template<
-            typename OutIter,
-            typename Iter,
-            typename Sentinel,
-            typename Appender>
-        static OutIter
-        norm_nfkd_impl_impl(Iter first, Sentinel last, Appender & appender)
-        {
-            int const chunk_size = 512;
-            std::array<detail::icu::UChar, chunk_size> input;
-            auto input_first = input.data();
-
-            while (first != last) {
-                int n = 0;
-                auto input_last = input_first;
-                for (; first != last && n < chunk_size - 1;
-                     ++first, ++input_last, ++n) {
-                    *input_last = *first;
-                }
-                if (high_surrogate(*std::prev(input_last)) && first != last) {
-                    *input_last++ = *first;
-                    ++first;
-                }
-                auto const input_new_first =
-                    detail::icu::utf16_normalize_to_nfkd_append(
-                        input.data(), input_last, appender);
-                input_first =
-                    std::copy(input_new_first, input_last, input.data());
-            }
-
-            return appender.out();
-        }
-
-        template<
+            bool WriteToOut,
             typename OutIter,
             typename CPIter,
-            typename Sentinel,
-            bool UTF16 = is_detected<utf16_range_expr, CPIter, Sentinel>::value>
-        struct norm_nfkd_impl
+            typename Sentinel>
+        struct norm_nfd_impl<WriteToOut, OutIter, CPIter, Sentinel, true>
         {
             template<typename Appender>
-            static OutIter
-            call(CPIter first, Sentinel last, Appender & appender)
-            {
-                auto const r = make_utf32_to_utf16_range(first, last);
-                return norm_nfkd_impl_impl<OutIter>(
-                    r.begin(), r.end(), appender);
-            }
-        };
-
-        template<typename OutIter, typename CPIter, typename Sentinel>
-        struct norm_nfkd_impl<OutIter, CPIter, Sentinel, true>
-        {
-            template<typename Appender>
-            static OutIter
-            call(CPIter first, Sentinel last, Appender & appender)
+            static norm_result<OutIter> call(
+                bool compatible,
+                CPIter first,
+                Sentinel last,
+                Appender & appender)
             {
                 auto const r = make_utf16_range(first, last);
-                return norm_nfkd_impl_impl<OutIter>(
-                    r.begin(), r.end(), appender);
+                return norm_nfd_impl_impl<WriteToOut, OutIter>(
+                    compatible, r.begin(), r.end(), appender);
             }
         };
 
-        // NFC/FCC dispatch
+
+        template<bool WriteToOut, typename OutIter>
+        using nfc_appender_t = typename std::conditional<
+            WriteToOut,
+            detail::icu::utf16_to_utf32_appender<OutIter>,
+            detail::icu::null_appender>::type;
+
+        // NFC/NFKC/FCC dispatch
         template<
+            bool WriteToOut,     // false: check norm, true: normalize
             bool OnlyContiguous, // false: NFC, true: FCC
+            typename OutIter,
             typename CPIter,
             typename Sentinel,
             bool UTF8 = is_detected<utf8_range_expr, CPIter, Sentinel>::value,
             bool UTF16 = is_detected<utf16_range_expr, CPIter, Sentinel>::value>
         struct norm_nfc_impl
         {
-            template<typename OutIter>
-            static OutIter call(CPIter first, Sentinel last, OutIter out)
+            static norm_result<OutIter>
+            call(bool compatible, CPIter first, Sentinel last, OutIter out)
             {
                 auto const r = make_utf32_to_utf16_range(first, last);
-                detail::icu::utf16_to_utf32_appender<OutIter> appender(out);
-                detail::icu::utf16_normalize_to_nfc_append<OnlyContiguous>(
-                    r.begin(), r.end(), appender);
-                return appender.out();
+                using appender_type = nfc_appender_t<WriteToOut, OutIter>;
+                appender_type appender(out);
+                detail::icu::ReorderingBuffer<appender_type> buffer(
+                    (compatible ? detail::icu::nfkc_norm()
+                                : detail::icu::nfc_norm()),
+                    appender);
+                auto const normalized =
+                    (compatible ? detail::icu::nfkc_norm()
+                                : detail::icu::nfc_norm())
+                        .compose<OnlyContiguous, WriteToOut>(
+                            r.begin(), r.end(), buffer);
+                return norm_result<OutIter>{appender.out(), normalized};
             }
         };
 
-        template<bool OnlyContiguous, typename CPIter, typename Sentinel>
-        struct norm_nfc_impl<OnlyContiguous, CPIter, Sentinel, true, false>
-        {
-            template<typename OutIter>
-            static OutIter call(CPIter first, Sentinel last, OutIter out)
-            {
-                auto const r = make_utf8_range(first, last);
-                detail::icu::utf8_to_utf32_appender<OutIter> appender(out);
-                detail::icu::utf8_normalize_to_nfc_append<OnlyContiguous>(
-                    r.begin(), r.end(), appender);
-                return appender.out();
-            }
-        };
-
-        template<bool OnlyContiguous, typename CPIter, typename Sentinel>
-        struct norm_nfc_impl<OnlyContiguous, CPIter, Sentinel, false, true>
-        {
-            template<typename OutIter>
-            static OutIter call(CPIter first, Sentinel last, OutIter out)
-            {
-                auto const r = make_utf16_range(first, last);
-                detail::icu::utf16_to_utf32_appender<OutIter> appender(out);
-                detail::icu::utf16_normalize_to_nfc_append<OnlyContiguous>(
-                    r.begin(), r.end(), appender);
-                return appender.out();
-            }
-        };
-
-        // NFKC dispatch
         template<
+            bool WriteToOut,
+            bool OnlyContiguous,
+            typename OutIter,
             typename CPIter,
-            typename Sentinel,
-            bool UTF8 = is_detected<utf8_range_expr, CPIter, Sentinel>::value,
-            bool UTF16 = is_detected<utf16_range_expr, CPIter, Sentinel>::value>
-        struct norm_nfkc_impl
+            typename Sentinel>
+        struct norm_nfc_impl<
+            WriteToOut,
+            OnlyContiguous,
+            OutIter,
+            CPIter,
+            Sentinel,
+            true,
+            false>
         {
-            template<typename OutIter>
-            static OutIter call(CPIter first, Sentinel last, OutIter out)
-            {
-                auto const r = make_utf32_to_utf16_range(first, last);
-                detail::icu::utf16_to_utf32_appender<OutIter> appender(out);
-                detail::icu::utf16_normalize_to_nfkc_append(
-                    r.begin(), r.end(), appender);
-                return appender.out();
-            }
-        };
-
-        template<typename CPIter, typename Sentinel>
-        struct norm_nfkc_impl<CPIter, Sentinel, true, false>
-        {
-            template<typename OutIter>
-            static OutIter call(CPIter first, Sentinel last, OutIter out)
+            static norm_result<OutIter>
+            call(bool compatible, CPIter first, Sentinel last, OutIter out)
             {
                 auto const r = make_utf8_range(first, last);
-                detail::icu::utf8_to_utf32_appender<OutIter> appender(out);
-                detail::icu::utf8_normalize_to_nfkc_append(
-                    r.begin(), r.end(), appender);
-                return appender.out();
+                typename std::conditional<
+                    WriteToOut,
+                    detail::icu::utf8_to_utf32_appender<OutIter>,
+                    detail::icu::null_appender>::type appender(out);
+                auto const normalized =
+                    (compatible ? detail::icu::nfkc_norm()
+                                : detail::icu::nfc_norm())
+                        .composeUTF8<OnlyContiguous, WriteToOut>(
+                            r.begin(), r.end(), appender);
+                return norm_result<OutIter>{appender.out(), normalized};
             }
         };
 
-        template<typename CPIter, typename Sentinel>
-        struct norm_nfkc_impl<CPIter, Sentinel, false, true>
+        template<
+            bool WriteToOut,
+            bool OnlyContiguous,
+            typename OutIter,
+            typename CPIter,
+            typename Sentinel>
+        struct norm_nfc_impl<
+            WriteToOut,
+            OnlyContiguous,
+            OutIter,
+            CPIter,
+            Sentinel,
+            false,
+            true>
         {
-            template<typename OutIter>
-            static OutIter call(CPIter first, Sentinel last, OutIter out)
+            static norm_result<OutIter>
+            call(bool compatible, CPIter first, Sentinel last, OutIter out)
             {
                 auto const r = make_utf16_range(first, last);
-                detail::icu::utf16_to_utf32_appender<OutIter> appender(out);
-                detail::icu::utf16_normalize_to_nfkc_append(
-                    r.begin(), r.end(), appender);
-                return appender.out();
+                using appender_type = nfc_appender_t<WriteToOut, OutIter>;
+                appender_type appender(out);
+                detail::icu::ReorderingBuffer<appender_type> buffer(
+                    (compatible ? detail::icu::nfkc_norm()
+                                : detail::icu::nfc_norm()),
+                    appender);
+                auto const normalized =
+                    (compatible ? detail::icu::nfkc_norm()
+                                : detail::icu::nfc_norm())
+                        .compose<OnlyContiguous, WriteToOut>(
+                            r.begin(), r.end(), buffer);
+                return norm_result<OutIter>{appender.out(), normalized};
             }
         };
     }
@@ -861,8 +847,10 @@ namespace boost { namespace text {
         -> detail::cp_iter_ret_t<OutIter, CPIter>
     {
         detail::icu::utf16_to_utf32_appender<OutIter> appender(out);
-        return detail::norm_nfd_impl<OutIter, CPIter, Sentinel>::call(
-            first, last, appender);
+        return detail::
+            norm_nfd_impl<detail::norm_normalize, OutIter, CPIter, Sentinel>::
+                call(detail::norm_nfd, first, last, appender)
+                    .out_;
     }
 
     /** Writes sequence `r` in Unicode normalization form NFD to `out`. */
@@ -882,8 +870,10 @@ namespace boost { namespace text {
         -> detail::cp_iter_ret_t<OutIter, CPIter>
     {
         detail::icu::utf16_to_utf32_appender<OutIter> appender(out);
-        return detail::norm_nfkd_impl<OutIter, CPIter, Sentinel>::call(
-            first, last, appender);
+        return detail::
+            norm_nfd_impl<detail::norm_normalize, OutIter, CPIter, Sentinel>::
+                call(detail::norm_nfkd, first, last, appender)
+                    .out_;
     }
 
     /** Writes sequence `r` in Unicode normalization form NFKD to `out`. */
@@ -902,8 +892,13 @@ namespace boost { namespace text {
     inline auto normalize_to_nfc(CPIter first, Sentinel last, OutIter out)
         -> detail::cp_iter_ret_t<OutIter, CPIter>
     {
-        return detail::norm_nfc_impl<false, CPIter, Sentinel>::call(
-            first, last, out);
+        return detail::norm_nfc_impl<
+                   detail::norm_normalize,
+                   detail::norm_nfc,
+                   OutIter,
+                   CPIter,
+                   Sentinel>::call(detail::norm_nfc, first, last, out)
+            .out_;
     }
 
     /** Writes sequence `r` in Unicode normalization form NFC to `out`. */
@@ -922,18 +917,13 @@ namespace boost { namespace text {
     inline auto normalize_to_nfkc(CPIter first, Sentinel last, OutIter out)
         -> detail::cp_iter_ret_t<OutIter, CPIter>
     {
-#if 0 // TODO
-        return detail::norm_nfkc_impl<CPIter, Sentinel>::call(first, last, out);
-#else
-        return detail::normalize_to_composed<false>(
-            first,
-            last,
-            out,
-            [](uint32_t cp) { return detail::compatible_decompose(cp); },
-            [](uint32_t cp) {
-                return detail::quick_check_nfkc_code_point(cp);
-            });
-#endif
+        return detail::norm_nfc_impl<
+                   detail::norm_normalize,
+                   detail::norm_nfc,
+                   OutIter,
+                   CPIter,
+                   Sentinel>::call(detail::norm_nfkc, first, last, out)
+            .out_;
     }
 
     /** Writes sequence `r` in Unicode normalization form NFKC to `out`. */
@@ -1075,8 +1065,13 @@ namespace boost { namespace text {
     inline auto normalize_to_fcc(CPIter first, Sentinel last, OutIter out)
         -> detail::cp_iter_ret_t<OutIter, CPIter>
     {
-        return detail::norm_nfc_impl<true, CPIter, Sentinel>::call(
-            first, last, out);
+        return detail::norm_nfc_impl<
+                   detail::norm_normalize,
+                   detail::norm_fcc,
+                   OutIter,
+                   CPIter,
+                   Sentinel>::call(detail::norm_nfc, first, last, out)
+            .out_;
     }
 
     /** Writes sequence `r` in normalization form FCC to `out`
