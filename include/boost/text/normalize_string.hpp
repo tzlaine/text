@@ -13,7 +13,7 @@ namespace boost { namespace text {
             constexpr char const * ncstr = nullptr;
         }
 
-        // NFC/NFKC/FCC dispatch TODO
+        // NFC/NFKC/FCC dispatch
         template<
             bool WriteToOut,     // false: check norm, true: normalize
             bool OnlyContiguous, // false: NFC, true: FCC

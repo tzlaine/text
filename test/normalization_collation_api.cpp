@@ -425,7 +425,247 @@ uint32_t const cps[] = {
 
 int const num_cps = std::end(cps) - std::begin(cps);
 
-// TODO: Add coverage for CP overloads in normalize.hpp.
+TEST(sentinel_apis, normalize_nfd)
+{
+    std::string utf8;
+    transcode_utf_32_to_8(
+        std::begin(cps), std::end(cps), std::back_inserter(utf8));
+    std::vector<std::uint16_t> utf16;
+    transcode_utf_32_to_16(
+        std::begin(cps), std::end(cps), std::back_inserter(utf16));
+    std::vector<uint32_t> const cps_copy(std::begin(cps), std::end(cps));
+
+    // range overload
+    std::vector<uint32_t> result1;
+    normalize_to_nfd(cps_copy, std::back_inserter(result1));
+
+    // uint32_t iterator/uint32_t iterator
+    std::vector<uint32_t> result2;
+    normalize_to_nfd(
+        std::begin(cps), std::end(cps), std::back_inserter(result2));
+
+    EXPECT_EQ(result2, result1);
+
+    // utf_8_to_32_iterator/sentinel
+    std::vector<uint32_t> result3;
+    auto utf8_it =
+        make_utf_8_to_32_iterator(&*utf8.begin(), &*utf8.begin(), &*utf8.end());
+    normalize_to_nfd(utf8_it, null_sentinel{}, std::back_inserter(result3));
+
+    EXPECT_EQ(result3, result1);
+
+    // utf_8_to_32_iterator/utf_8_to_32_iterator
+    std::vector<uint32_t> result4;
+    auto utf8_end =
+        make_utf_8_to_32_iterator(&*utf8.begin(), &*utf8.end(), &*utf8.end());
+    normalize_to_nfd(utf8_it, utf8_end, std::back_inserter(result4));
+
+    EXPECT_EQ(result4, result1);
+
+    // utf_16_to_32_iterator/utf_16_to_32_iterator
+    std::vector<uint32_t> result5;
+    auto utf16_it =
+        make_utf_16_to_32_iterator(utf16.begin(), utf16.begin(), utf16.end());
+    auto utf16_end =
+        make_utf_16_to_32_iterator(utf16.begin(), utf16.end(), utf16.end());
+    normalize_to_nfd(utf16_it, utf16_end, std::back_inserter(result5));
+
+    EXPECT_EQ(result5, result1);
+}
+
+TEST(sentinel_apis, normalize_nfkd)
+{
+    std::string utf8;
+    transcode_utf_32_to_8(
+        std::begin(cps), std::end(cps), std::back_inserter(utf8));
+    std::vector<std::uint16_t> utf16;
+    transcode_utf_32_to_16(
+        std::begin(cps), std::end(cps), std::back_inserter(utf16));
+    std::vector<uint32_t> const cps_copy(std::begin(cps), std::end(cps));
+
+    // range overload
+    std::vector<uint32_t> result1;
+    normalize_to_nfkd(cps_copy, std::back_inserter(result1));
+
+    // uint32_t iterator/uint32_t iterator
+    std::vector<uint32_t> result2;
+    normalize_to_nfkd(
+        std::begin(cps), std::end(cps), std::back_inserter(result2));
+
+    EXPECT_EQ(result2, result1);
+
+    // utf_8_to_32_iterator/sentinel
+    std::vector<uint32_t> result3;
+    auto utf8_it =
+        make_utf_8_to_32_iterator(&*utf8.begin(), &*utf8.begin(), &*utf8.end());
+    normalize_to_nfkd(utf8_it, null_sentinel{}, std::back_inserter(result3));
+
+    EXPECT_EQ(result3, result1);
+
+    // utf_8_to_32_iterator/utf_8_to_32_iterator
+    std::vector<uint32_t> result4;
+    auto utf8_end =
+        make_utf_8_to_32_iterator(&*utf8.begin(), &*utf8.end(), &*utf8.end());
+    normalize_to_nfkd(utf8_it, utf8_end, std::back_inserter(result4));
+
+    EXPECT_EQ(result4, result1);
+
+    // utf_16_to_32_iterator/utf_16_to_32_iterator
+    std::vector<uint32_t> result5;
+    auto utf16_it =
+        make_utf_16_to_32_iterator(utf16.begin(), utf16.begin(), utf16.end());
+    auto utf16_end =
+        make_utf_16_to_32_iterator(utf16.begin(), utf16.end(), utf16.end());
+    normalize_to_nfkd(utf16_it, utf16_end, std::back_inserter(result5));
+
+    EXPECT_EQ(result5, result1);
+}
+
+#if 0
+TEST(sentinel_apis, normalize_nfc)
+{
+    std::string utf8;
+    transcode_utf_32_to_8(
+        std::begin(cps), std::end(cps), std::back_inserter(utf8));
+    std::vector<std::uint16_t> utf16;
+    transcode_utf_32_to_16(
+        std::begin(cps), std::end(cps), std::back_inserter(utf16));
+    std::vector<uint32_t> const cps_copy(std::begin(cps), std::end(cps));
+
+    // range overload
+    std::vector<uint32_t> result1;
+    normalize_to_nfc(cps_copy, std::back_inserter(result1));
+
+    // uint32_t iterator/uint32_t iterator
+    std::vector<uint32_t> result2;
+    normalize_to_nfc(
+        std::begin(cps), std::end(cps), std::back_inserter(result2));
+
+    EXPECT_EQ(result2, result1);
+
+    // utf_8_to_32_iterator/sentinel
+    std::vector<uint32_t> result3;
+    auto utf8_it =
+        make_utf_8_to_32_iterator(&*utf8.begin(), &*utf8.begin(), &*utf8.end());
+    normalize_to_nfc(utf8_it, null_sentinel{}, std::back_inserter(result3));
+
+    EXPECT_EQ(result3, result1);
+
+    // utf_8_to_32_iterator/utf_8_to_32_iterator
+    std::vector<uint32_t> result4;
+    auto utf8_end =
+        make_utf_8_to_32_iterator(&*utf8.begin(), &*utf8.end(), &*utf8.end());
+    normalize_to_nfc(utf8_it, utf8_end, std::back_inserter(result4));
+
+    EXPECT_EQ(result4, result1);
+
+    // utf_16_to_32_iterator/utf_16_to_32_iterator
+    std::vector<uint32_t> result5;
+    auto utf16_it =
+        make_utf_16_to_32_iterator(utf16.begin(), utf16.begin(), utf16.end());
+    auto utf16_end =
+        make_utf_16_to_32_iterator(utf16.begin(), utf16.end(), utf16.end());
+    normalize_to_nfc(utf16_it, utf16_end, std::back_inserter(result5));
+
+    EXPECT_EQ(result5, result1);
+}
+
+TEST(sentinel_apis, normalize_nfkc)
+{
+    std::string utf8;
+    transcode_utf_32_to_8(
+        std::begin(cps), std::end(cps), std::back_inserter(utf8));
+    std::vector<std::uint16_t> utf16;
+    transcode_utf_32_to_16(
+        std::begin(cps), std::end(cps), std::back_inserter(utf16));
+    std::vector<uint32_t> const cps_copy(std::begin(cps), std::end(cps));
+
+    // range overload
+    std::vector<uint32_t> result1;
+    normalize_to_nfkc(cps_copy, std::back_inserter(result1));
+
+    // uint32_t iterator/uint32_t iterator
+    std::vector<uint32_t> result2;
+    normalize_to_nfkc(
+        std::begin(cps), std::end(cps), std::back_inserter(result2));
+
+    EXPECT_EQ(result2, result1);
+
+    // utf_8_to_32_iterator/sentinel
+    std::vector<uint32_t> result3;
+    auto utf8_it =
+        make_utf_8_to_32_iterator(&*utf8.begin(), &*utf8.begin(), &*utf8.end());
+    normalize_to_nfkc(utf8_it, null_sentinel{}, std::back_inserter(result3));
+
+    EXPECT_EQ(result3, result1);
+
+    // utf_8_to_32_iterator/utf_8_to_32_iterator
+    std::vector<uint32_t> result4;
+    auto utf8_end =
+        make_utf_8_to_32_iterator(&*utf8.begin(), &*utf8.end(), &*utf8.end());
+    normalize_to_nfkc(utf8_it, utf8_end, std::back_inserter(result4));
+
+    EXPECT_EQ(result4, result1);
+
+    // utf_16_to_32_iterator/utf_16_to_32_iterator
+    std::vector<uint32_t> result5;
+    auto utf16_it =
+        make_utf_16_to_32_iterator(utf16.begin(), utf16.begin(), utf16.end());
+    auto utf16_end =
+        make_utf_16_to_32_iterator(utf16.begin(), utf16.end(), utf16.end());
+    normalize_to_nfkc(utf16_it, utf16_end, std::back_inserter(result5));
+
+    EXPECT_EQ(result5, result1);
+}
+
+TEST(sentinel_apis, normalize_fcc)
+{
+    std::string utf8;
+    transcode_utf_32_to_8(
+        std::begin(cps), std::end(cps), std::back_inserter(utf8));
+    std::vector<std::uint16_t> utf16;
+    transcode_utf_32_to_16(
+        std::begin(cps), std::end(cps), std::back_inserter(utf16));
+    std::vector<uint32_t> const cps_copy(std::begin(cps), std::end(cps));
+
+    // range overload
+    std::vector<uint32_t> result1;
+    normalize_to_fcc(cps_copy, std::back_inserter(result1));
+
+    // uint32_t iterator/uint32_t iterator
+    std::vector<uint32_t> result2;
+    normalize_to_fcc(
+        std::begin(cps), std::end(cps), std::back_inserter(result2));
+
+    EXPECT_EQ(result2, result1);
+
+    // utf_8_to_32_iterator/sentinel
+    std::vector<uint32_t> result3;
+    auto utf8_it =
+        make_utf_8_to_32_iterator(&*utf8.begin(), &*utf8.begin(), &*utf8.end());
+    normalize_to_fcc(utf8_it, null_sentinel{}, std::back_inserter(result3));
+
+    EXPECT_EQ(result3, result1);
+
+    // utf_8_to_32_iterator/utf_8_to_32_iterator
+    std::vector<uint32_t> result4;
+    auto utf8_end =
+        make_utf_8_to_32_iterator(&*utf8.begin(), &*utf8.end(), &*utf8.end());
+    normalize_to_fcc(utf8_it, utf8_end, std::back_inserter(result4));
+
+    EXPECT_EQ(result4, result1);
+
+    // utf_16_to_32_iterator/utf_16_to_32_iterator
+    std::vector<uint32_t> result5;
+    auto utf16_it =
+        make_utf_16_to_32_iterator(utf16.begin(), utf16.begin(), utf16.end());
+    auto utf16_end =
+        make_utf_16_to_32_iterator(utf16.begin(), utf16.end(), utf16.end());
+    normalize_to_fcc(utf16_it, utf16_end, std::back_inserter(result5));
+
+    EXPECT_EQ(result5, result1);
+}
+#endif
 
 TEST(transcoding, output_iterators)
 {
