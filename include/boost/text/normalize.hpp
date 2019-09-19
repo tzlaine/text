@@ -881,16 +881,9 @@ namespace boost { namespace text {
     inline auto normalize_to_nfkd(CPIter first, Sentinel last, OutIter out)
         -> detail::cp_iter_ret_t<OutIter, CPIter>
     {
-#if 0 // TODO: Broken.
         detail::icu::utf16_to_utf32_appender<OutIter> appender(out);
         return detail::norm_nfkd_impl<OutIter, CPIter, Sentinel>::call(
             first, last, appender);
-#else
-        return detail::normalize_to_decomposed(
-            first, last, out, [](uint32_t cp) {
-                return detail::compatible_decompose(cp);
-            });
-#endif
     }
 
     /** Writes sequence `r` in Unicode normalization form NFKD to `out`. */

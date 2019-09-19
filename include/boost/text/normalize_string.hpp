@@ -162,19 +162,10 @@ namespace boost { namespace text {
             decltype(s.insert(s.end(), detail::ncstr, detail::ncstr), s),
             CPIter>
     {
-#if 0 // TODO: Badly broken!
         auto out = utf_16_to_8_inserter(s, s.end());
         detail::icu::utf16_iter_appender<decltype(out)> appender(out);
         detail::norm_nfkd_impl<decltype(out), CPIter, Sentinel>::call(
             first, last, appender);
-#else
-        detail::normalize_to_decomposed(
-            first,
-            last,
-            utf_32_to_8_inserter(s, s.end()),
-            [](uint32_t cp) { return detail::compatible_decompose(cp); });
-#endif
-
         return s;
     }
 
@@ -231,7 +222,7 @@ namespace boost { namespace text {
             decltype(s.insert(s.end(), detail::ncstr, detail::ncstr), s),
             CPIter>
     {
-#if 0 // TODO: Badly broken!
+#if 0 // TODO: Broken.
         detail::norm_nfkc_append_impl<CPIter, Sentinel>::call(first, last, s);
 #else
         detail::normalize_to_composed<false>(
