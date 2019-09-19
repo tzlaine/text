@@ -637,13 +637,13 @@ namespace boost { namespace text {
         norm_nfd_impl_impl(Iter first, Sentinel last, Appender & appender)
         {
             int const chunk_size = 512;
-            detail::icu::UnicodeString input(chunk_size * 2);
+            std::array<detail::icu::UChar, chunk_size> input;
             auto input_first = input.data();
 
             while (first != last) {
                 int n = 0;
                 auto input_last = input_first;
-                for (; first != last && n < chunk_size;
+                for (; first != last && n < chunk_size - 1;
                      ++first, ++input_last, ++n) {
                     *input_last = *first;
                 }
@@ -701,13 +701,13 @@ namespace boost { namespace text {
         norm_nfkd_impl_impl(Iter first, Sentinel last, Appender & appender)
         {
             int const chunk_size = 512;
-            detail::icu::UnicodeString input(chunk_size * 2);
+            std::array<detail::icu::UChar, chunk_size> input;
             auto input_first = input.data();
 
             while (first != last) {
                 int n = 0;
                 auto input_last = input_first;
-                for (; first != last && n < chunk_size;
+                for (; first != last && n < chunk_size - 1;
                      ++first, ++input_last, ++n) {
                     *input_last = *first;
                 }

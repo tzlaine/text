@@ -145,8 +145,6 @@ namespace boost { namespace text { namespace detail { namespace icu {
         UNORM_MODE_COUNT
     } UNormalizationMode;
 
-    using UnicodeString = container::small_vector<UChar, 1024>;
-
     namespace Hangul {
         /* Korean Hangul and Jamo constants */
         enum {
@@ -1122,7 +1120,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
         UBool
         composeUTF8(CharIter src, Sentinel limit, UTF8Appender & appender) const
         {
-            UnicodeString s16;
+            container::small_vector<UChar, 1024> s16;
             uint8_t minNoMaybeLead = leadByteForCP(minCompNoMaybeCP);
             CharIter prevBoundary = src;
 
@@ -1373,9 +1371,11 @@ namespace boost { namespace text { namespace detail { namespace icu {
                 bool equals_utf8 = true;
                 {
                     s16.clear();
-                    utf16_appender<UnicodeString> buffer_appender(s16);
-                    ReorderingBuffer<utf16_appender<UnicodeString>> buffer(
-                        *this, buffer_appender);
+                    utf16_appender<container::small_vector<UChar, 1024>>
+                        buffer_appender(s16);
+                    ReorderingBuffer<
+                        utf16_appender<container::small_vector<UChar, 1024>>>
+                        buffer(*this, buffer_appender);
                     // We know there is not a boundary here.
                     decomposeShort_utf8(
                         prevSrc,
