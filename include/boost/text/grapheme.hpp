@@ -17,6 +17,8 @@ namespace boost { namespace text {
     struct grapheme;
     template<typename CPIter>
     struct grapheme_view;
+
+    /** Returns the number of bytes controlled by g. */
     int storage_bytes(grapheme const & g) noexcept;
 
     /** An owning sequence of code points that comprise a grapheme. */
@@ -107,7 +109,6 @@ namespace boost { namespace text {
             return chars_ != other.chars_;
         }
 
-        /** Returns the number of bytes controlled by g. */
         friend int storage_bytes(grapheme const & g) noexcept
         {
             return g.chars_.size();
