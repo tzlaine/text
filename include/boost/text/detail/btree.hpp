@@ -804,7 +804,7 @@ namespace boost { namespace text { namespace detail {
         BOOST_ASSERT(node->leaf_);
 
         if (!root) {
-            return node;
+            return std::move(node);
         } else if (root->leaf_) {
             interior_node_t<T> * new_root = nullptr;
             node_ptr<T> new_root_ptr(new_root = new_interior_node<T>());
