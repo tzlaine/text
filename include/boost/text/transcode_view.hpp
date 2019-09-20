@@ -20,9 +20,9 @@ namespace boost { namespace text {
         template<typename Tag, typename Iter, typename Sentinel = Iter>
         struct tagged_range
         {
-            Tag tag_;
             Iter f_;
             Sentinel l_;
+            Tag tag_;
         };
 
         template<
@@ -31,7 +31,9 @@ namespace boost { namespace text {
             bool UTF8 = is_char_iter<Iter>::value,
             bool UTF16 = is_16_iter<Iter>::value,
             bool UTF32 = is_cp_iter<Iter>::value>
-        struct unpack_iterator_and_sentinel_impl;
+        struct unpack_iterator_and_sentinel_impl
+        {
+        };
 
         template<typename Iter, typename Sentinel>
         struct unpack_iterator_and_sentinel_impl<
@@ -76,6 +78,8 @@ namespace boost { namespace text {
         template<typename Iter, typename Sentinel>
         constexpr auto
         unpack_iterator_and_sentinel(Iter first, Sentinel last) noexcept
+            -> decltype(unpack_iterator_and_sentinel_impl<Iter, Sentinel>::call(
+                first, last))
         {
             return unpack_iterator_and_sentinel_impl<Iter, Sentinel>::call(
                 first, last);
@@ -88,9 +92,6 @@ namespace boost { namespace text {
             utf_8_to_32_iterator<Iter> last) noexcept;
         template<typename Iter, typename Sentinel>
         constexpr auto unpack_iterator_and_sentinel(
-            utf_8_to_32_iterator<Iter> first, Sentinel last) noexcept;
-        template<typename Iter, typename Sentinel>
-        constexpr auto unpack_iterator_and_sentinel(
             utf_8_to_32_iterator<Iter, Sentinel> first, Sentinel last) noexcept;
         // 32 -> 8
         template<typename Iter>
@@ -99,18 +100,12 @@ namespace boost { namespace text {
             utf_32_to_8_iterator<Iter> last) noexcept;
         template<typename Iter, typename Sentinel>
         constexpr auto unpack_iterator_and_sentinel(
-            utf_32_to_8_iterator<Iter> first, Sentinel last) noexcept;
-        template<typename Iter, typename Sentinel>
-        constexpr auto unpack_iterator_and_sentinel(
             utf_32_to_8_iterator<Iter, Sentinel> first, Sentinel last) noexcept;
         // 16 -> 32
         template<typename Iter>
         constexpr auto unpack_iterator_and_sentinel(
             utf_16_to_32_iterator<Iter> first,
             utf_16_to_32_iterator<Iter> last) noexcept;
-        template<typename Iter, typename Sentinel>
-        constexpr auto unpack_iterator_and_sentinel(
-            utf_16_to_32_iterator<Iter> first, Sentinel last) noexcept;
         template<typename Iter, typename Sentinel>
         constexpr auto unpack_iterator_and_sentinel(
             utf_16_to_32_iterator<Iter, Sentinel> first,
@@ -122,9 +117,6 @@ namespace boost { namespace text {
             utf_32_to_16_iterator<Iter> last) noexcept;
         template<typename Iter, typename Sentinel>
         constexpr auto unpack_iterator_and_sentinel(
-            utf_32_to_16_iterator<Iter> first, Sentinel last) noexcept;
-        template<typename Iter, typename Sentinel>
-        constexpr auto unpack_iterator_and_sentinel(
             utf_32_to_16_iterator<Iter, Sentinel> first,
             Sentinel last) noexcept;
         // 8 -> 16
@@ -134,18 +126,12 @@ namespace boost { namespace text {
             utf_8_to_16_iterator<Iter> last) noexcept;
         template<typename Iter, typename Sentinel>
         constexpr auto unpack_iterator_and_sentinel(
-            utf_8_to_16_iterator<Iter> first, Sentinel last) noexcept;
-        template<typename Iter, typename Sentinel>
-        constexpr auto unpack_iterator_and_sentinel(
             utf_8_to_16_iterator<Iter, Sentinel> first, Sentinel last) noexcept;
         // 16 -> 8
         template<typename Iter>
         constexpr auto unpack_iterator_and_sentinel(
             utf_16_to_8_iterator<Iter> first,
             utf_16_to_8_iterator<Iter> last) noexcept;
-        template<typename Iter, typename Sentinel>
-        constexpr auto unpack_iterator_and_sentinel(
-            utf_16_to_8_iterator<Iter> first, Sentinel last) noexcept;
         template<typename Iter, typename Sentinel>
         constexpr auto unpack_iterator_and_sentinel(
             utf_16_to_8_iterator<Iter, Sentinel> first, Sentinel last) noexcept;
@@ -160,15 +146,9 @@ namespace boost { namespace text {
         }
         template<typename Iter, typename Sentinel>
         constexpr auto unpack_iterator_and_sentinel(
-            utf_8_to_32_iterator<Iter> first, Sentinel last) noexcept
-        {
-            return unpack_iterator_and_sentinel(first.base(), last.base());
-        }
-        template<typename Iter, typename Sentinel>
-        constexpr auto unpack_iterator_and_sentinel(
             utf_8_to_32_iterator<Iter, Sentinel> first, Sentinel last) noexcept
         {
-            return unpack_iterator_and_sentinel(first.base(), last.base());
+            return unpack_iterator_and_sentinel(first.base(), last);
         }
         // 32 -> 8
         template<typename Iter>
@@ -180,15 +160,9 @@ namespace boost { namespace text {
         }
         template<typename Iter, typename Sentinel>
         constexpr auto unpack_iterator_and_sentinel(
-            utf_32_to_8_iterator<Iter> first, Sentinel last) noexcept
-        {
-            return unpack_iterator_and_sentinel(first.base(), last.base());
-        }
-        template<typename Iter, typename Sentinel>
-        constexpr auto unpack_iterator_and_sentinel(
             utf_32_to_8_iterator<Iter, Sentinel> first, Sentinel last) noexcept
         {
-            return unpack_iterator_and_sentinel(first.base(), last.base());
+            return unpack_iterator_and_sentinel(first.base(), last);
         }
 
         // 16 -> 32
@@ -201,15 +175,9 @@ namespace boost { namespace text {
         }
         template<typename Iter, typename Sentinel>
         constexpr auto unpack_iterator_and_sentinel(
-            utf_16_to_32_iterator<Iter> first, Sentinel last) noexcept
-        {
-            return unpack_iterator_and_sentinel(first.base(), last.base());
-        }
-        template<typename Iter, typename Sentinel>
-        constexpr auto unpack_iterator_and_sentinel(
             utf_16_to_32_iterator<Iter, Sentinel> first, Sentinel last) noexcept
         {
-            return unpack_iterator_and_sentinel(first.base(), last.base());
+            return unpack_iterator_and_sentinel(first.base(), last);
         }
         // 32 -> 16
         template<typename Iter>
@@ -221,15 +189,9 @@ namespace boost { namespace text {
         }
         template<typename Iter, typename Sentinel>
         constexpr auto unpack_iterator_and_sentinel(
-            utf_32_to_16_iterator<Iter> first, Sentinel last) noexcept
-        {
-            return unpack_iterator_and_sentinel(first.base(), last.base());
-        }
-        template<typename Iter, typename Sentinel>
-        constexpr auto unpack_iterator_and_sentinel(
             utf_32_to_16_iterator<Iter, Sentinel> first, Sentinel last) noexcept
         {
-            return unpack_iterator_and_sentinel(first.base(), last.base());
+            return unpack_iterator_and_sentinel(first.base(), last);
         }
 
         // 8 -> 16
@@ -242,15 +204,9 @@ namespace boost { namespace text {
         }
         template<typename Iter, typename Sentinel>
         constexpr auto unpack_iterator_and_sentinel(
-            utf_8_to_16_iterator<Iter> first, Sentinel last) noexcept
-        {
-            return unpack_iterator_and_sentinel(first.base(), last.base());
-        }
-        template<typename Iter, typename Sentinel>
-        constexpr auto unpack_iterator_and_sentinel(
             utf_8_to_16_iterator<Iter, Sentinel> first, Sentinel last) noexcept
         {
-            return unpack_iterator_and_sentinel(first.base(), last.base());
+            return unpack_iterator_and_sentinel(first.base(), last);
         }
         // 16 -> 8
         template<typename Iter>
@@ -262,51 +218,40 @@ namespace boost { namespace text {
         }
         template<typename Iter, typename Sentinel>
         constexpr auto unpack_iterator_and_sentinel(
-            utf_16_to_8_iterator<Iter> first, Sentinel last) noexcept
-        {
-            return unpack_iterator_and_sentinel(first.base(), last.base());
-        }
-        template<typename Iter, typename Sentinel>
-        constexpr auto unpack_iterator_and_sentinel(
             utf_16_to_8_iterator<Iter, Sentinel> first, Sentinel last) noexcept
         {
-            return unpack_iterator_and_sentinel(first.base(), last.base());
+            return unpack_iterator_and_sentinel(first.base(), last);
         }
 
 
 
         // UTF-8
         template<typename Iter, typename Sentinel>
-        constexpr auto
-        make_utf8_iterator_and_sentinel(utf8_tag, Iter f, Sentinel l) noexcept
+        constexpr auto make_utf8_range_(utf8_tag, Iter f, Sentinel l) noexcept
         {
             return tagged_range<utf8_tag, Iter, Sentinel>{f, l};
         }
         template<typename Iter, typename Sentinel>
-        constexpr auto
-        make_utf8_iterator_and_sentinel(utf16_tag, Iter f_, Sentinel l) noexcept
+        constexpr auto make_utf8_range_(utf16_tag, Iter f_, Sentinel l) noexcept
         {
             auto const f = make_utf_16_to_8_iterator(f_, f_, l);
-            return tagged_range<utf8_tag, Iter, Sentinel>{f, l};
+            return tagged_range<utf8_tag, decltype(f), Sentinel>{f, l};
         }
         template<typename Iter>
-        constexpr auto
-        make_utf8_iterator_and_sentinel(utf16_tag, Iter f_, Iter l_) noexcept
+        constexpr auto make_utf8_range_(utf16_tag, Iter f_, Iter l_) noexcept
         {
             auto const f = make_utf_16_to_8_iterator(f_, f_, l_);
             auto const l = make_utf_16_to_8_iterator(f_, l_, l_);
             return tagged_range<utf8_tag, decltype(f)>{f, l};
         }
         template<typename Iter, typename Sentinel>
-        constexpr auto
-        make_utf8_iterator_and_sentinel(utf32_tag, Iter f_, Sentinel l) noexcept
+        constexpr auto make_utf8_range_(utf32_tag, Iter f_, Sentinel l) noexcept
         {
             auto const f = make_utf_32_to_8_iterator(f_, f_, l);
             return tagged_range<utf8_tag, decltype(f), Sentinel>{f, l};
         }
         template<typename Iter>
-        constexpr auto
-        make_utf8_iterator_and_sentinel(utf32_tag, Iter f_, Iter l_) noexcept
+        constexpr auto make_utf8_range_(utf32_tag, Iter f_, Iter l_) noexcept
         {
             auto const f = make_utf_32_to_8_iterator(f_, f_, l_);
             auto const l = make_utf_32_to_8_iterator(f_, l_, l_);
@@ -315,36 +260,32 @@ namespace boost { namespace text {
 
         // UTF-16
         template<typename Iter, typename Sentinel>
-        constexpr auto
-        make_utf16_iterator_and_sentinel(utf8_tag, Iter f_, Sentinel l) noexcept
+        constexpr auto make_utf16_range_(utf8_tag, Iter f_, Sentinel l) noexcept
         {
             auto const f = make_utf_8_to_16_iterator(f_, f_, l);
             return tagged_range<utf16_tag, decltype(f), Sentinel>{f, l};
         }
         template<typename Iter>
-        constexpr auto
-        make_utf16_iterator_and_sentinel(utf8_tag, Iter f_, Iter l_) noexcept
+        constexpr auto make_utf16_range_(utf8_tag, Iter f_, Iter l_) noexcept
         {
             auto const f = make_utf_8_to_16_iterator(f_, f_, l_);
             auto const l = make_utf_8_to_16_iterator(f_, l_, l_);
             return tagged_range<utf16_tag, decltype(f)>{f, l};
         }
         template<typename Iter, typename Sentinel>
-        constexpr auto
-        make_utf16_iterator_and_sentinel(utf16_tag, Iter f, Sentinel l) noexcept
+        constexpr auto make_utf16_range_(utf16_tag, Iter f, Sentinel l) noexcept
         {
             return tagged_range<utf16_tag, Iter, Sentinel>{f, l};
         }
         template<typename Iter, typename Sentinel>
-        constexpr auto make_utf16_iterator_and_sentinel(
-            utf32_tag, Iter f_, Sentinel l) noexcept
+        constexpr auto
+        make_utf16_range_(utf32_tag, Iter f_, Sentinel l) noexcept
         {
             auto const f = make_utf_32_to_16_iterator(f_, f_, l);
             return tagged_range<utf16_tag, decltype(f), Sentinel>{f, l};
         }
         template<typename Iter>
-        constexpr auto
-        make_utf16_iterator_and_sentinel(utf32_tag, Iter f_, Iter l_) noexcept
+        constexpr auto make_utf16_range_(utf32_tag, Iter f_, Iter l_) noexcept
         {
             auto const f = make_utf_32_to_16_iterator(f_, f_, l_);
             auto const l = make_utf_32_to_16_iterator(f_, l_, l_);
@@ -353,42 +294,40 @@ namespace boost { namespace text {
 
         // UTF-32
         template<typename Iter, typename Sentinel>
-        constexpr auto
-        make_utf32_iterator_and_sentinel(utf8_tag, Iter f_, Sentinel l) noexcept
+        constexpr auto make_utf32_range_(utf8_tag, Iter f_, Sentinel l) noexcept
         {
             auto const f = make_utf_8_to_32_iterator(f_, f_, l);
             return tagged_range<utf32_tag, decltype(f), Sentinel>{f, l};
         }
         template<typename Iter>
-        constexpr auto
-        make_utf32_iterator_and_sentinel(utf8_tag, Iter f_, Iter l_) noexcept
+        constexpr auto make_utf32_range_(utf8_tag, Iter f_, Iter l_) noexcept
         {
             auto const f = make_utf_8_to_32_iterator(f_, f_, l_);
             auto const l = make_utf_8_to_32_iterator(f_, l_, l_);
             return tagged_range<utf32_tag, decltype(f)>{f, l};
         }
         template<typename Iter, typename Sentinel>
-        constexpr auto make_utf32_iterator_and_sentinel(
-            utf16_tag, Iter f_, Sentinel l) noexcept
+        constexpr auto
+        make_utf32_range_(utf16_tag, Iter f_, Sentinel l) noexcept
         {
             auto const f = make_utf_16_to_32_iterator(f_, f_, l);
             return tagged_range<utf32_tag, decltype(f), Sentinel>{f, l};
         }
         template<typename Iter>
-        constexpr auto
-        make_utf32_iterator_and_sentinel(utf16_tag, Iter f_, Iter l_) noexcept
+        constexpr auto make_utf32_range_(utf16_tag, Iter f_, Iter l_) noexcept
         {
             auto const f = make_utf_16_to_32_iterator(f_, f_, l_);
             auto const l = make_utf_16_to_32_iterator(f_, l_, l_);
             return tagged_range<utf32_tag, decltype(f)>{f, l};
         }
         template<typename Iter, typename Sentinel>
-        constexpr auto
-        make_utf32_iterator_and_sentinel(utf32_tag, Iter f, Sentinel l) noexcept
+        constexpr auto make_utf32_range_(utf32_tag, Iter f, Sentinel l) noexcept
         {
             return tagged_range<utf32_tag, Iter, Sentinel>{f, l};
         }
     }
+
+
 
     /** A view over UTF-8 code units.  The set of operations available depends
         on types `Iter` and `Sentinel`.  See [view.interface] in the C++20 or
@@ -418,9 +357,9 @@ namespace boost { namespace text {
     template<typename Iter, typename Sentinel>
     constexpr auto as_utf8(Iter first, Sentinel last) noexcept
     {
-        auto const unpacked = unpack_iterator_and_sentinel(first, last);
-        auto const r = make_utf8_iterator_and_sentinel(
-            unpacked.tag_, unpacked.f_, unpacked.l_);
+        auto const unpacked = detail::unpack_iterator_and_sentinel(first, last);
+        auto const r =
+            detail::make_utf8_range_(unpacked.tag_, unpacked.f_, unpacked.l_);
         return utf8_view<decltype(r.f_), decltype(r.l_)>(r.f_, r.l_);
     }
 
@@ -432,6 +371,8 @@ namespace boost { namespace text {
     {
         return as_utf8(std::begin(r), std::end(r));
     }
+
+
 
     /** A view over UTF-16 code units.  The set of operations available
         depends on types `Iter` and `Sentinel`.  See [view.interface] in the
@@ -462,9 +403,9 @@ namespace boost { namespace text {
     template<typename Iter, typename Sentinel>
     constexpr auto as_utf16(Iter first, Sentinel last) noexcept
     {
-        auto const unpacked = unpack_iterator_and_sentinel(first, last);
-        auto const r = make_utf16_iterator_and_sentinel(
-            unpacked.tag_, unpacked.f_, unpacked.l_);
+        auto const unpacked = detail::unpack_iterator_and_sentinel(first, last);
+        auto const r =
+            detail::make_utf16_range_(unpacked.tag_, unpacked.f_, unpacked.l_);
         return utf16_view<decltype(r.f_), decltype(r.l_)>(r.f_, r.l_);
     }
 
@@ -476,6 +417,8 @@ namespace boost { namespace text {
     {
         return as_utf16(std::begin(r), std::end(r));
     }
+
+
 
     /** A view over UTF-32 code units.  The set of operations available
         depends on types `Iter` and `Sentinel`.  See [view.interface] in the
@@ -506,9 +449,9 @@ namespace boost { namespace text {
     template<typename Iter, typename Sentinel>
     constexpr auto as_utf32(Iter first, Sentinel last) noexcept
     {
-        auto const unpacked = unpack_iterator_and_sentinel(first, last);
-        auto const r = make_utf32_iterator_and_sentinel(
-            unpacked.tag_, unpacked.f_, unpacked.l_);
+        auto const unpacked = detail::unpack_iterator_and_sentinel(first, last);
+        auto const r =
+            detail::make_utf32_range_(unpacked.tag_, unpacked.f_, unpacked.l_);
         return utf32_view<decltype(r.f_), decltype(r.l_)>(r.f_, r.l_);
     }
 
@@ -520,6 +463,8 @@ namespace boost { namespace text {
     {
         return as_utf32(std::begin(r), std::end(r));
     }
+
+
 
     /** A template alias for utf32_view. */
     template<typename Iter, typename Sentinel>
