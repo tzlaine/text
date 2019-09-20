@@ -11,7 +11,7 @@
 using namespace boost::text;
 using namespace boost::text::detail;
 
-using u32_iter = utf_8_to_32_iterator<char const *, char const *>;
+using u32_iter = utf_8_to_32_iterator<char const *, null_sentinel>;
 using sentinel_cp_range_t = boost::text::cp_range<u32_iter, null_sentinel>;
 
 void to_sentinel_cp_range(
@@ -23,7 +23,7 @@ void to_sentinel_cp_range(
     s = to_string(cps.begin(), cps.end());
     if (normalize)
         normalize_to_nfd(s);
-    r = sentinel_cp_range_t{u32_iter(s.begin(), s.begin(), s.end()),
+    r = sentinel_cp_range_t{u32_iter(s.begin(), s.begin(), null_sentinel{}),
                             null_sentinel{}};
 }
 
@@ -448,8 +448,8 @@ TEST(sentinel_apis, normalize_nfd)
 
     // utf_8_to_32_iterator/sentinel
     std::vector<uint32_t> result3;
-    auto utf8_it =
-        make_utf_8_to_32_iterator(&*utf8.begin(), &*utf8.begin(), &*utf8.end());
+    auto utf8_it = make_utf_8_to_32_iterator(
+        &*utf8.begin(), &*utf8.begin(), null_sentinel{});
     normalize_to_nfd(utf8_it, null_sentinel{}, std::back_inserter(result3));
 
     EXPECT_EQ(result3, result1);
@@ -496,8 +496,8 @@ TEST(sentinel_apis, normalize_nfkd)
 
     // utf_8_to_32_iterator/sentinel
     std::vector<uint32_t> result3;
-    auto utf8_it =
-        make_utf_8_to_32_iterator(&*utf8.begin(), &*utf8.begin(), &*utf8.end());
+    auto utf8_it = make_utf_8_to_32_iterator(
+        &*utf8.begin(), &*utf8.begin(), null_sentinel{});
     normalize_to_nfkd(utf8_it, null_sentinel{}, std::back_inserter(result3));
 
     EXPECT_EQ(result3, result1);

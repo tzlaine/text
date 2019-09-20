@@ -447,13 +447,6 @@ namespace boost { namespace text {
             return utf8_range<decltype(first.base()), Sentinel>{first.base(),
                                                                 last};
         }
-        template<typename Iter, typename Sentinel>
-        auto make_utf8_range(utf_8_to_32_iterator<Iter> first, Sentinel last)
-            -> utf8_range<decltype(first.base()), Sentinel>
-        {
-            return utf8_range<decltype(first.base()), Sentinel>{first.base(),
-                                                                last};
-        }
 
         template<typename CPIter, typename Sentinel>
         using utf8_range_expr = decltype(
@@ -495,13 +488,6 @@ namespace boost { namespace text {
         template<typename Iter, typename Sentinel>
         auto make_utf16_range(
             utf_16_to_32_iterator<Iter, Sentinel> first, Sentinel last)
-            -> utf16_range<decltype(first.base()), Sentinel>
-        {
-            return utf16_range<decltype(first.base()), Sentinel>{first.base(),
-                                                                 last};
-        }
-        template<typename Iter, typename Sentinel>
-        auto make_utf16_range(utf_16_to_32_iterator<Iter> first, Sentinel last)
             -> utf16_range<decltype(first.base()), Sentinel>
         {
             return utf16_range<decltype(first.base()), Sentinel>{first.base(),

@@ -208,8 +208,8 @@ TEST(break_apis, grapheme_break)
 
 TEST(break_apis, grapheme_break_sentinel)
 {
-    using u32_iter =
-        boost::text::utf_8_to_32_iterator<char const *, char const *>;
+    using u32_iter = boost::text::
+        utf_8_to_32_iterator<char const *, boost::text::null_sentinel>;
 
     // ÷ 1F3FB × 0308 ÷ 1100 ÷
     // ÷ [0.2] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) × [9.0]
@@ -224,17 +224,13 @@ TEST(break_apis, grapheme_break_sentinel)
             boost::text::make_utf_32_to_8_iterator(
                 cps.begin(), cps.end(), cps.end()));
         assert(s.size() == 9);
-        assert(boost::algorithm::equal(
-            cps.begin(),
-            cps.end(),
-            u32_iter(s.begin(), s.begin(), s.end()),
-            u32_iter(s.begin(), s.end(), s.end())));
     }
 
     char const * c_str = s.begin();
 
     boost::text::cp_range<u32_iter, boost::text::null_sentinel> cp_range{
-        u32_iter(c_str, c_str, s.end()), boost::text::null_sentinel{}};
+        u32_iter(c_str, c_str, boost::text::null_sentinel{}),
+        boost::text::null_sentinel{}};
 
     auto const begin = cp_range.begin();
     auto const one = std::next(begin);
@@ -496,8 +492,8 @@ TEST(break_apis, word_break)
 
 TEST(break_apis, word_break_sentinel)
 {
-    using u32_iter =
-        boost::text::utf_8_to_32_iterator<char const *, char const *>;
+    using u32_iter = boost::text::
+        utf_8_to_32_iterator<char const *, boost::text::null_sentinel>;
 
     // ÷ 0061 × 005F × 0061 ÷ 002E ÷ 003A ÷ 0061 ÷
     // ÷ [0.2] LATIN SMALL LETTER A (ALetter) × [13.1] LOW LINE (ExtendNumLet) ×
@@ -512,17 +508,13 @@ TEST(break_apis, word_break_sentinel)
                 cps.begin(), cps.begin(), cps.end()),
             boost::text::make_utf_32_to_8_iterator(
                 cps.begin(), cps.end(), cps.end()));
-        assert(boost::algorithm::equal(
-            cps.begin(),
-            cps.end(),
-            u32_iter(s.begin(), s.begin(), s.end()),
-            u32_iter(s.begin(), s.end(), s.end())));
     }
 
     char const * c_str = s.begin();
 
     boost::text::cp_range<u32_iter, boost::text::null_sentinel> cp_range{
-        u32_iter(c_str, c_str, s.end()), boost::text::null_sentinel{}};
+        u32_iter(c_str, c_str, boost::text::null_sentinel{}),
+        boost::text::null_sentinel{}};
 
     auto const begin = cp_range.begin();
     auto const one = std::next(begin);
@@ -793,15 +785,16 @@ TEST(break_apis, word_tailoring_MidLetter)
 
 TEST(break_apis, word_tailoring_MidLetter_sentinel)
 {
-    using u32_iter =
-        boost::text::utf_8_to_32_iterator<char const *, char const *>;
+    using u32_iter = boost::text::
+        utf_8_to_32_iterator<char const *, boost::text::null_sentinel>;
 
     boost::text::string const s = "multi-part words with dashes";
 
     char const * c_str = s.begin();
 
     boost::text::cp_range<u32_iter, boost::text::null_sentinel> const cp_range{
-        u32_iter(c_str, c_str, s.end()), boost::text::null_sentinel{}};
+        u32_iter(c_str, c_str, boost::text::null_sentinel{}),
+        boost::text::null_sentinel{}};
 
     auto const begin = cp_range.begin();
     auto const end = cp_range.end();
@@ -1017,15 +1010,16 @@ TEST(break_apis, word_tailoring_cp_break)
 
 TEST(break_apis, word_tailoring_cp_break_sentinel)
 {
-    using u32_iter =
-        boost::text::utf_8_to_32_iterator<char const *, char const *>;
+    using u32_iter = boost::text::
+        utf_8_to_32_iterator<char const *, boost::text::null_sentinel>;
 
     boost::text::string const s = "snake_case camelCase";
 
     char const * c_str = s.begin();
 
     boost::text::cp_range<u32_iter, boost::text::null_sentinel> const cp_range{
-        u32_iter(c_str, c_str, s.end()), boost::text::null_sentinel{}};
+        u32_iter(c_str, c_str, boost::text::null_sentinel{}),
+        boost::text::null_sentinel{}};
 
     auto const begin = cp_range.begin();
     auto const end = cp_range.end();
@@ -1236,8 +1230,8 @@ TEST(break_apis, sentence_break)
 
 TEST(break_apis, sentence_break_sentinel)
 {
-    using u32_iter =
-        boost::text::utf_8_to_32_iterator<char const *, char const *>;
+    using u32_iter = boost::text::
+        utf_8_to_32_iterator<char const *, boost::text::null_sentinel>;
 
     // ÷ 5B57 × 3002 ÷ 5B83 ÷
     // ÷ [0.2] CJK UNIFIED IDEOGRAPH-5B57 (OLetter) × [998.0] IDEOGRAPHIC FULL
@@ -1250,17 +1244,13 @@ TEST(break_apis, sentence_break_sentinel)
                 cps.begin(), cps.begin(), cps.end()),
             boost::text::make_utf_32_to_8_iterator(
                 cps.begin(), cps.end(), cps.end()));
-        assert(boost::algorithm::equal(
-            cps.begin(),
-            cps.end(),
-            u32_iter(s.begin(), s.begin(), s.end()),
-            u32_iter(s.begin(), s.end(), s.end())));
     }
 
     char const * c_str = s.begin();
 
     boost::text::cp_range<u32_iter, boost::text::null_sentinel> cp_range{
-        u32_iter(c_str, c_str, s.end()), boost::text::null_sentinel{}};
+        u32_iter(c_str, c_str, boost::text::null_sentinel{}),
+        boost::text::null_sentinel{}};
 
     auto const begin = cp_range.begin();
     auto const one = std::next(begin);
@@ -1723,8 +1713,8 @@ std::vector<int> line_stateful_cp_extent::index_counts;
 
 TEST(break_apis, line_break_sentinel)
 {
-    using u32_iter =
-        boost::text::utf_8_to_32_iterator<char const *, char const *>;
+    using u32_iter = boost::text::
+        utf_8_to_32_iterator<char const *, boost::text::null_sentinel>;
 
     // × 200B × 0020 ÷ 0030 ÷
     // × [0.3] ZERO WIDTH SPACE (ZW) × [7.01] SPACE (SP) ÷ [8.0] DIGIT ZERO (NU)
@@ -1737,17 +1727,13 @@ TEST(break_apis, line_break_sentinel)
                 cps.begin(), cps.begin(), cps.end()),
             boost::text::make_utf_32_to_8_iterator(
                 cps.begin(), cps.end(), cps.end()));
-        assert(boost::algorithm::equal(
-            cps.begin(),
-            cps.end(),
-            u32_iter(s.begin(), s.begin(), s.end()),
-            u32_iter(s.begin(), s.end(), s.end())));
     }
 
     char const * c_str = s.begin();
 
     boost::text::cp_range<u32_iter, boost::text::null_sentinel> cp_range{
-        u32_iter(c_str, c_str, s.end()), boost::text::null_sentinel{}};
+        u32_iter(c_str, c_str, boost::text::null_sentinel{}),
+        boost::text::null_sentinel{}};
 
     auto const begin = cp_range.begin();
     auto const one = std::next(begin);
@@ -2415,8 +2401,8 @@ TEST(break_apis, paragraph_break)
 
 TEST(break_apis, paragraph_break_sentinel)
 {
-    using u32_iter =
-        boost::text::utf_8_to_32_iterator<char const *, char const *>;
+    using u32_iter = boost::text::
+        utf_8_to_32_iterator<char const *, boost::text::null_sentinel>;
 
     // ÷ 0061 × 000D × 000A ÷ 002E × 000A ÷ 0061 ÷
     boost::text::string s;
@@ -2427,17 +2413,13 @@ TEST(break_apis, paragraph_break_sentinel)
                 cps.begin(), cps.begin(), cps.end()),
             boost::text::make_utf_32_to_8_iterator(
                 cps.begin(), cps.end(), cps.end()));
-        assert(boost::algorithm::equal(
-            cps.begin(),
-            cps.end(),
-            u32_iter(s.begin(), s.begin(), s.end()),
-            u32_iter(s.begin(), s.end(), s.end())));
     }
 
     char const * c_str = s.begin();
 
     boost::text::cp_range<u32_iter, boost::text::null_sentinel> cp_range{
-        u32_iter(c_str, c_str, s.end()), boost::text::null_sentinel{}};
+        u32_iter(c_str, c_str, boost::text::null_sentinel{}),
+        boost::text::null_sentinel{}};
 
     auto const begin = cp_range.begin();
     auto const one = std::next(begin);
@@ -2809,8 +2791,8 @@ TEST(break_apis, bidi)
 
 TEST(break_apis, bidi_sentinel)
 {
-    using u32_iter =
-        boost::text::utf_8_to_32_iterator<char const *, char const *>;
+    using u32_iter = boost::text::
+        utf_8_to_32_iterator<char const *, boost::text::null_sentinel>;
 
     boost::text::string s;
 
@@ -2837,17 +2819,13 @@ TEST(break_apis, bidi_sentinel)
                 cps.begin(), cps.begin(), cps.end()),
             boost::text::make_utf_32_to_8_iterator(
                 cps.begin(), cps.end(), cps.end()));
-        assert(boost::algorithm::equal(
-            cps.begin(),
-            cps.end(),
-            u32_iter(s.begin(), s.begin(), s.end()),
-            u32_iter(s.begin(), s.end(), s.end())));
     }
 
     char const * c_str = s.begin();
 
     boost::text::cp_range<u32_iter, boost::text::null_sentinel> cp_range{
-        u32_iter(c_str, c_str, s.end()), boost::text::null_sentinel{}};
+        u32_iter(c_str, c_str, boost::text::null_sentinel{}),
+        boost::text::null_sentinel{}};
 
     auto const begin = cp_range.begin();
     auto const end = cp_range.end();
