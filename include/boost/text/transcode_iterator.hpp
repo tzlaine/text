@@ -976,8 +976,8 @@ namespace boost { namespace text {
             typename Iter2,
             typename ErrorHandler2>
         friend BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
-            utf_32_to_8_iterator<Iter1, ErrorHandler1> lhs,
-            utf_32_to_8_iterator<Iter2, ErrorHandler2> rhs) noexcept
+            utf_32_to_8_iterator<Iter1, ErrorHandler1> const & lhs,
+            utf_32_to_8_iterator<Iter2, ErrorHandler2> const & rhs) noexcept
             -> decltype(lhs.it_ == rhs.it_ && lhs.index_ == rhs.index_);
 
 #ifndef BOOST_TEXT_DOXYGEN
@@ -1010,7 +1010,7 @@ namespace boost { namespace text {
     /** This function is constexpr in C++14 and later. */
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
-        utf_32_to_8_iterator<Iter, Sentinel, ErrorHandler> lhs,
+        utf_32_to_8_iterator<Iter, Sentinel, ErrorHandler> const & lhs,
         null_sentinel rhs) noexcept -> decltype(lhs.base() == rhs)
     {
         return lhs.base() == rhs;
@@ -1020,7 +1020,7 @@ namespace boost { namespace text {
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
         null_sentinel lhs,
-        utf_32_to_8_iterator<Iter, Sentinel, ErrorHandler> rhs) noexcept
+        utf_32_to_8_iterator<Iter, Sentinel, ErrorHandler> const & rhs) noexcept
         -> decltype(rhs.base() == lhs)
     {
         return rhs.base() == lhs;
@@ -1029,7 +1029,7 @@ namespace boost { namespace text {
     /** This function is constexpr in C++14 and later. */
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
-        utf_32_to_8_iterator<Iter, Sentinel, ErrorHandler> lhs,
+        utf_32_to_8_iterator<Iter, Sentinel, ErrorHandler> const & lhs,
         null_sentinel rhs) noexcept -> decltype(lhs.base() != rhs)
     {
         return lhs.base() != rhs;
@@ -1039,7 +1039,7 @@ namespace boost { namespace text {
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
         null_sentinel lhs,
-        utf_32_to_8_iterator<Iter, Sentinel, ErrorHandler> rhs) noexcept
+        utf_32_to_8_iterator<Iter, Sentinel, ErrorHandler> const & rhs) noexcept
         -> decltype(rhs.base() != lhs)
     {
         return rhs.base() != lhs;
@@ -1060,8 +1060,8 @@ namespace boost { namespace text {
         typename Iter2,
         typename ErrorHandler2>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
-        utf_32_to_8_iterator<Iter1, ErrorHandler1> lhs,
-        utf_32_to_8_iterator<Iter2, ErrorHandler2> rhs) noexcept
+        utf_32_to_8_iterator<Iter1, ErrorHandler1> const & lhs,
+        utf_32_to_8_iterator<Iter2, ErrorHandler2> const & rhs) noexcept
         -> decltype(lhs.it_ == rhs.it_ && lhs.index_ == rhs.index_)
     {
         return lhs.it_ == rhs.it_ && lhs.index_ == rhs.index_;
@@ -1074,8 +1074,8 @@ namespace boost { namespace text {
         typename Iter2,
         typename ErrorHandler2>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
-        utf_32_to_8_iterator<Iter1, ErrorHandler1> lhs,
-        utf_32_to_8_iterator<Iter2, ErrorHandler2> rhs) noexcept
+        utf_32_to_8_iterator<Iter1, ErrorHandler1> const & lhs,
+        utf_32_to_8_iterator<Iter2, ErrorHandler2> const & rhs) noexcept
         -> decltype(!(lhs == rhs))
     {
         return !(lhs == rhs);
@@ -1556,7 +1556,7 @@ namespace boost { namespace text {
     /** This function is constexpr in C++14 and later. */
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
-        utf_8_to_32_iterator<Iter, Sentinel, ErrorHandler> lhs,
+        utf_8_to_32_iterator<Iter, Sentinel, ErrorHandler> const & lhs,
         null_sentinel rhs) noexcept -> decltype(lhs.base() == rhs)
     {
         return lhs.base() == rhs;
@@ -1566,7 +1566,7 @@ namespace boost { namespace text {
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
         null_sentinel lhs,
-        utf_8_to_32_iterator<Iter, Sentinel, ErrorHandler> rhs) noexcept
+        utf_8_to_32_iterator<Iter, Sentinel, ErrorHandler> const & rhs) noexcept
         -> decltype(rhs.base() == lhs)
     {
         return rhs.base() == lhs;
@@ -1575,7 +1575,7 @@ namespace boost { namespace text {
     /** This function is constexpr in C++14 and later. */
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
-        utf_8_to_32_iterator<Iter, Sentinel, ErrorHandler> lhs,
+        utf_8_to_32_iterator<Iter, Sentinel, ErrorHandler> const & lhs,
         null_sentinel rhs) noexcept -> decltype(lhs.base() != rhs)
     {
         return lhs.base() != rhs;
@@ -1585,7 +1585,7 @@ namespace boost { namespace text {
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
         null_sentinel lhs,
-        utf_8_to_32_iterator<Iter, Sentinel, ErrorHandler> rhs) noexcept
+        utf_8_to_32_iterator<Iter, Sentinel, ErrorHandler> const & rhs) noexcept
         -> decltype(rhs.base() != lhs)
     {
         return rhs.base() != lhs;
@@ -1606,8 +1606,8 @@ namespace boost { namespace text {
         typename Iter2,
         typename ErrorHandler2>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
-        utf_8_to_32_iterator<Iter1, ErrorHandler1> lhs,
-        utf_8_to_32_iterator<Iter2, ErrorHandler2> rhs) noexcept
+        utf_8_to_32_iterator<Iter1, ErrorHandler1> const & lhs,
+        utf_8_to_32_iterator<Iter2, ErrorHandler2> const & rhs) noexcept
         -> decltype(lhs.base() == rhs.base())
     {
         return lhs.base() == rhs.base();
@@ -1620,8 +1620,8 @@ namespace boost { namespace text {
         typename Iter2,
         typename ErrorHandler2>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
-        utf_8_to_32_iterator<Iter1, ErrorHandler1> lhs,
-        utf_8_to_32_iterator<Iter2, ErrorHandler2> rhs) noexcept
+        utf_8_to_32_iterator<Iter1, ErrorHandler1> const & lhs,
+        utf_8_to_32_iterator<Iter2, ErrorHandler2> const & rhs) noexcept
         -> decltype(!(lhs == rhs))
     {
         return !(lhs == rhs);
@@ -1946,8 +1946,8 @@ namespace boost { namespace text {
             typename Iter2,
             typename ErrorHandler2>
         friend BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
-            utf_32_to_16_iterator<Iter1, ErrorHandler1> lhs,
-            utf_32_to_16_iterator<Iter2, ErrorHandler2> rhs) noexcept
+            utf_32_to_16_iterator<Iter1, ErrorHandler1> const & lhs,
+            utf_32_to_16_iterator<Iter2, ErrorHandler2> const & rhs) noexcept
             -> decltype(lhs.it_ == rhs.it_ && lhs.index_ == rhs.index_);
 
 #ifndef BOOST_TEXT_DOXYGEN
@@ -1975,7 +1975,7 @@ namespace boost { namespace text {
     /** This function is constexpr in C++14 and later. */
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
-        utf_32_to_16_iterator<Iter, Sentinel, ErrorHandler> lhs,
+        utf_32_to_16_iterator<Iter, Sentinel, ErrorHandler> const & lhs,
         null_sentinel rhs) noexcept -> decltype(lhs.it_ == rhs)
     {
         return lhs.base() == rhs;
@@ -1985,8 +1985,8 @@ namespace boost { namespace text {
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
         null_sentinel lhs,
-        utf_32_to_16_iterator<Iter, Sentinel, ErrorHandler> rhs) noexcept
-        -> decltype(rhs.base() == lhs)
+        utf_32_to_16_iterator<Iter, Sentinel, ErrorHandler> const &
+            rhs) noexcept -> decltype(rhs.base() == lhs)
     {
         return rhs.base() == lhs;
     }
@@ -1994,7 +1994,7 @@ namespace boost { namespace text {
     /** This function is constexpr in C++14 and later. */
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
-        utf_32_to_16_iterator<Iter, Sentinel, ErrorHandler> lhs,
+        utf_32_to_16_iterator<Iter, Sentinel, ErrorHandler> const & lhs,
         null_sentinel rhs) noexcept -> decltype(lhs.base() != rhs)
     {
         return lhs.base() != rhs;
@@ -2004,8 +2004,8 @@ namespace boost { namespace text {
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
         null_sentinel lhs,
-        utf_32_to_16_iterator<Iter, Sentinel, ErrorHandler> rhs) noexcept
-        -> decltype(rhs.base() != lhs)
+        utf_32_to_16_iterator<Iter, Sentinel, ErrorHandler> const &
+            rhs) noexcept -> decltype(rhs.base() != lhs)
     {
         return rhs.base() != lhs;
     }
@@ -2025,8 +2025,8 @@ namespace boost { namespace text {
         typename Iter2,
         typename ErrorHandler2>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
-        utf_32_to_16_iterator<Iter1, ErrorHandler1> lhs,
-        utf_32_to_16_iterator<Iter2, ErrorHandler2> rhs) noexcept
+        utf_32_to_16_iterator<Iter1, ErrorHandler1> const & lhs,
+        utf_32_to_16_iterator<Iter2, ErrorHandler2> const & rhs) noexcept
         -> decltype(lhs.it_ == rhs.it_ && lhs.index_ == rhs.index_)
     {
         return lhs.it_ == rhs.it_ && lhs.index_ == rhs.index_;
@@ -2039,8 +2039,8 @@ namespace boost { namespace text {
         typename Iter2,
         typename ErrorHandler2>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
-        utf_32_to_16_iterator<Iter1, ErrorHandler1> lhs,
-        utf_32_to_16_iterator<Iter2, ErrorHandler2> rhs) noexcept
+        utf_32_to_16_iterator<Iter1, ErrorHandler1> const & lhs,
+        utf_32_to_16_iterator<Iter2, ErrorHandler2> const & rhs) noexcept
         -> decltype(!(lhs == rhs))
     {
         return !(lhs == rhs);
@@ -2348,7 +2348,7 @@ namespace boost { namespace text {
     /** This function is constexpr in C++14 and later. */
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
-        utf_16_to_32_iterator<Iter, Sentinel, ErrorHandler> lhs,
+        utf_16_to_32_iterator<Iter, Sentinel, ErrorHandler> const & lhs,
         null_sentinel rhs) noexcept -> decltype(lhs.base() == rhs)
     {
         return lhs.base() == rhs;
@@ -2358,8 +2358,8 @@ namespace boost { namespace text {
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
         null_sentinel lhs,
-        utf_16_to_32_iterator<Iter, Sentinel, ErrorHandler> rhs) noexcept
-        -> decltype(rhs.base() == lhs)
+        utf_16_to_32_iterator<Iter, Sentinel, ErrorHandler> const &
+            rhs) noexcept -> decltype(rhs.base() == lhs)
     {
         return rhs.base() == lhs;
     }
@@ -2367,7 +2367,7 @@ namespace boost { namespace text {
     /** This function is constexpr in C++14 and later. */
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
-        utf_16_to_32_iterator<Iter, Sentinel, ErrorHandler> lhs,
+        utf_16_to_32_iterator<Iter, Sentinel, ErrorHandler> const & lhs,
         null_sentinel rhs) noexcept -> decltype(lhs.base() != rhs)
     {
         return lhs.base() != rhs;
@@ -2377,8 +2377,8 @@ namespace boost { namespace text {
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
         null_sentinel lhs,
-        utf_16_to_32_iterator<Iter, Sentinel, ErrorHandler> rhs) noexcept
-        -> decltype(rhs.base() != lhs)
+        utf_16_to_32_iterator<Iter, Sentinel, ErrorHandler> const &
+            rhs) noexcept -> decltype(rhs.base() != lhs)
     {
         return rhs.base() != lhs;
     }
@@ -2398,8 +2398,8 @@ namespace boost { namespace text {
         typename Iter2,
         typename ErrorHandler2>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
-        utf_16_to_32_iterator<Iter1, ErrorHandler1> lhs,
-        utf_16_to_32_iterator<Iter2, ErrorHandler2> rhs) noexcept
+        utf_16_to_32_iterator<Iter1, ErrorHandler1> const & lhs,
+        utf_16_to_32_iterator<Iter2, ErrorHandler2> const & rhs) noexcept
         -> decltype(lhs.base() == rhs.base())
     {
         return lhs.base() == rhs.base();
@@ -2412,8 +2412,8 @@ namespace boost { namespace text {
         typename Iter2,
         typename ErrorHandler2>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
-        utf_16_to_32_iterator<Iter1, ErrorHandler1> lhs,
-        utf_16_to_32_iterator<Iter2, ErrorHandler2> rhs) noexcept
+        utf_16_to_32_iterator<Iter1, ErrorHandler1> const & lhs,
+        utf_16_to_32_iterator<Iter2, ErrorHandler2> const & rhs) noexcept
         -> decltype(!(lhs == rhs))
     {
         return !(lhs == rhs);
@@ -2732,8 +2732,8 @@ namespace boost { namespace text {
             typename Iter2,
             typename ErrorHandler2>
         friend BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
-            utf_16_to_8_iterator<Iter1, ErrorHandler1> lhs,
-            utf_16_to_8_iterator<Iter2, ErrorHandler2> rhs) noexcept
+            utf_16_to_8_iterator<Iter1, ErrorHandler1> const & lhs,
+            utf_16_to_8_iterator<Iter2, ErrorHandler2> const & rhs) noexcept
             -> decltype(lhs.it_ == rhs.it_ && lhs.index_ == rhs.index_);
 
 #ifndef BOOST_TEXT_DOXYGEN
@@ -2822,7 +2822,7 @@ namespace boost { namespace text {
     /** This function is constexpr in C++14 and later. */
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
-        utf_16_to_8_iterator<Iter, Sentinel, ErrorHandler> lhs,
+        utf_16_to_8_iterator<Iter, Sentinel, ErrorHandler> const & lhs,
         null_sentinel rhs) noexcept -> decltype(lhs.base() == rhs)
     {
         return lhs.base() == rhs;
@@ -2832,7 +2832,7 @@ namespace boost { namespace text {
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
         null_sentinel lhs,
-        utf_16_to_8_iterator<Iter, Sentinel, ErrorHandler> rhs) noexcept
+        utf_16_to_8_iterator<Iter, Sentinel, ErrorHandler> const & rhs) noexcept
         -> decltype(rhs.base() == lhs)
     {
         return rhs.base() == lhs;
@@ -2841,7 +2841,7 @@ namespace boost { namespace text {
     /** This function is constexpr in C++14 and later. */
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
-        utf_16_to_8_iterator<Iter, Sentinel, ErrorHandler> lhs,
+        utf_16_to_8_iterator<Iter, Sentinel, ErrorHandler> const & lhs,
         null_sentinel rhs) noexcept -> decltype(lhs.base() != rhs)
     {
         return lhs.base() != rhs;
@@ -2851,7 +2851,7 @@ namespace boost { namespace text {
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
         null_sentinel lhs,
-        utf_16_to_8_iterator<Iter, Sentinel, ErrorHandler> rhs) noexcept
+        utf_16_to_8_iterator<Iter, Sentinel, ErrorHandler> const & rhs) noexcept
         -> decltype(rhs.base() != lhs)
     {
         return rhs.base() != lhs;
@@ -2872,8 +2872,8 @@ namespace boost { namespace text {
         typename Iter2,
         typename ErrorHandler2>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
-        utf_16_to_8_iterator<Iter1, ErrorHandler1> lhs,
-        utf_16_to_8_iterator<Iter2, ErrorHandler2> rhs) noexcept
+        utf_16_to_8_iterator<Iter1, ErrorHandler1> const & lhs,
+        utf_16_to_8_iterator<Iter2, ErrorHandler2> const & rhs) noexcept
         -> decltype(lhs.it_ == rhs.it_ && lhs.index_ == rhs.index_)
     {
         return lhs.it_ == rhs.it_ && lhs.index_ == rhs.index_;
@@ -2886,8 +2886,8 @@ namespace boost { namespace text {
         typename Iter2,
         typename ErrorHandler2>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
-        utf_16_to_8_iterator<Iter1, ErrorHandler1> lhs,
-        utf_16_to_8_iterator<Iter2, ErrorHandler2> rhs) noexcept
+        utf_16_to_8_iterator<Iter1, ErrorHandler1> const & lhs,
+        utf_16_to_8_iterator<Iter2, ErrorHandler2> const & rhs) noexcept
         -> decltype(!(lhs == rhs))
     {
         return !(lhs == rhs);
@@ -3169,8 +3169,8 @@ namespace boost { namespace text {
             typename Iter2,
             typename ErrorHandler2>
         friend BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
-            utf_8_to_16_iterator<Iter1, ErrorHandler1> lhs,
-            utf_8_to_16_iterator<Iter2, ErrorHandler2> rhs) noexcept
+            utf_8_to_16_iterator<Iter1, ErrorHandler1> const & lhs,
+            utf_8_to_16_iterator<Iter2, ErrorHandler2> const & rhs) noexcept
             -> decltype(lhs.it_ == rhs.it_ && lhs.index_ == rhs.index_);
 
 #ifndef BOOST_TEXT_DOXYGEN
@@ -3196,7 +3196,7 @@ namespace boost { namespace text {
     /** This function is constexpr in C++14 and later. */
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
-        utf_8_to_16_iterator<Iter, Sentinel, ErrorHandler> lhs,
+        utf_8_to_16_iterator<Iter, Sentinel, ErrorHandler> const & lhs,
         null_sentinel rhs) noexcept -> decltype(lhs.base() == rhs)
     {
         return lhs.base() == rhs;
@@ -3206,7 +3206,7 @@ namespace boost { namespace text {
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
         null_sentinel lhs,
-        utf_8_to_16_iterator<Iter, Sentinel, ErrorHandler> rhs) noexcept
+        utf_8_to_16_iterator<Iter, Sentinel, ErrorHandler> const & rhs) noexcept
         -> decltype(rhs.base() == lhs)
     {
         return rhs.base() == lhs;
@@ -3215,7 +3215,7 @@ namespace boost { namespace text {
     /** This function is constexpr in C++14 and later. */
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
-        utf_8_to_16_iterator<Iter, Sentinel, ErrorHandler> lhs,
+        utf_8_to_16_iterator<Iter, Sentinel, ErrorHandler> const & lhs,
         null_sentinel rhs) noexcept -> decltype(lhs.base() != rhs)
     {
         return lhs.base() != rhs;
@@ -3225,7 +3225,7 @@ namespace boost { namespace text {
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
         null_sentinel lhs,
-        utf_8_to_16_iterator<Iter, Sentinel, ErrorHandler> rhs) noexcept
+        utf_8_to_16_iterator<Iter, Sentinel, ErrorHandler> const & rhs) noexcept
         -> decltype(rhs.base() != lhs)
     {
         return rhs.base() != lhs;
@@ -3246,8 +3246,8 @@ namespace boost { namespace text {
         typename Iter2,
         typename ErrorHandler2>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
-        utf_8_to_16_iterator<Iter1, ErrorHandler1> lhs,
-        utf_8_to_16_iterator<Iter2, ErrorHandler2> rhs) noexcept
+        utf_8_to_16_iterator<Iter1, ErrorHandler1> const & lhs,
+        utf_8_to_16_iterator<Iter2, ErrorHandler2> const & rhs) noexcept
         -> decltype(lhs.it_ == rhs.it_ && lhs.index_ == rhs.index_)
     {
         return lhs.it_ == rhs.it_ && lhs.index_ == rhs.index_;
@@ -3260,8 +3260,8 @@ namespace boost { namespace text {
         typename Iter2,
         typename ErrorHandler2>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
-        utf_8_to_16_iterator<Iter1, ErrorHandler1> lhs,
-        utf_8_to_16_iterator<Iter2, ErrorHandler2> rhs) noexcept
+        utf_8_to_16_iterator<Iter1, ErrorHandler1> const & lhs,
+        utf_8_to_16_iterator<Iter2, ErrorHandler2> const & rhs) noexcept
         -> decltype(!(lhs == rhs))
     {
         return !(lhs == rhs);
