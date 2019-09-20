@@ -16,29 +16,11 @@ matrix:
           osx_image: xcode7.3
           compiler: clang
 
-        - env: CPP=11 MAC_OSX=true BUILD_TYPE=Debug JOBS=4
-          os: osx
-          osx_image: xcode7.3
-          compiler: clang
-#        - env: CPP=11 MAC_OSX=true BUILD_TYPE=Release JOBS=4
-#          os: osx
-#          osx_image: xcode7.3
-#          compiler: clang
-
         - env: CPP=14 MAC_OSX=true BUILD_TYPE=Debug JOBS=4
           os: osx
           osx_image: xcode8
           compiler: clang
         - env: CPP=14 MAC_OSX=true BUILD_TYPE=Release JOBS=4
-          os: osx
-          osx_image: xcode8
-          compiler: clang
-
-        - env: CPP=11 MAC_OSX=true BUILD_TYPE=Debug JOBS=4
-          os: osx
-          osx_image: xcode8
-          compiler: clang
-        - env: CPP=11 MAC_OSX=true BUILD_TYPE=Release JOBS=4
           os: osx
           osx_image: xcode8
           compiler: clang
@@ -52,80 +34,16 @@ matrix:
           osx_image: xcode8.1
           compiler: clang
 
-        - env: CPP=11 MAC_OSX=true BUILD_TYPE=Debug JOBS=4
-          os: osx
-          osx_image: xcode8.1
-          compiler: clang
-        - env: CPP=11 MAC_OSX=true BUILD_TYPE=Release JOBS=4
-          os: osx
-          osx_image: xcode8.1
-          compiler: clang
-
         - env: CPP=14 MAC_OSX=true BUILD_TYPE=Debug JOBS=4
           os: osx
           osx_image: xcode8.2
           compiler: clang
         - env: CPP=14 MAC_OSX=true BUILD_TYPE=Release JOBS=4
-          os: osx
-          osx_image: xcode8.2
-          compiler: clang
-
-        - env: CPP=11 MAC_OSX=true BUILD_TYPE=Debug JOBS=4
-          os: osx
-          osx_image: xcode8.2
-          compiler: clang
-        - env: CPP=11 MAC_OSX=true BUILD_TYPE=Release JOBS=4
           os: osx
           osx_image: xcode8.2
           compiler: clang
 
         # Gcc
-
-        - env: GCC_VERSION=5 CPP=14 BUILD_TYPE=Debug JOBS=4
-          os: linux
-          compiler: gcc-5
-          addons: &gcc5
-            apt:
-              packages:
-                - g++-5
-                - libboost-filesystem-dev
-                - libboost-system-dev
-              sources:
-                - ubuntu-toolchain-r-test
-        - env: GCC_VERSION=5 CPP=14 BUILD_TYPE=Release JOBS=4
-          os: linux
-          compiler: gcc-5
-          addons: &gcc5
-            apt:
-              packages:
-                - g++-5
-                - libboost-filesystem-dev
-                - libboost-system-dev
-              sources:
-                - ubuntu-toolchain-r-test
-
-        - env: GCC_VERSION=5 CPP=11 BUILD_TYPE=Debug JOBS=4
-          os: linux
-          compiler: gcc-5
-          addons: &gcc5
-            apt:
-              packages:
-                - g++-5
-                - libboost-filesystem-dev
-                - libboost-system-dev
-              sources:
-                - ubuntu-toolchain-r-test
-        - env: GCC_VERSION=5 CPP=11 BUILD_TYPE=Release JOBS=4
-          os: linux
-          compiler: gcc-5
-          addons: &gcc5
-            apt:
-              packages:
-                - g++-5
-                - libboost-filesystem-dev
-                - libboost-system-dev
-              sources:
-                - ubuntu-toolchain-r-test
 
 #        - env: GCC_VERSION=6 CPP=14 BUILD_TYPE=Debug JOBS=1
 #          os: linux
@@ -150,53 +68,7 @@ matrix:
               sources:
                 - ubuntu-toolchain-r-test
 
-        - env: GCC_VERSION=6 CPP=11 BUILD_TYPE=Debug JOBS=4
-          os: linux
-          compiler: gcc-6
-          addons: &gcc6
-            apt:
-              packages:
-                - g++-6
-                - libboost-filesystem-dev
-                - libboost-system-dev
-              sources:
-                - ubuntu-toolchain-r-test
-        - env: GCC_VERSION=6 CPP=11 BUILD_TYPE=Release JOBS=4
-          os: linux
-          compiler: gcc-6
-          addons: &gcc6
-            apt:
-              packages:
-                - g++-6
-                - libboost-filesystem-dev
-                - libboost-system-dev
-              sources:
-                - ubuntu-toolchain-r-test
-
         - env: GCC_VERSION=7 CPP=14 BUILD_TYPE=Release JOBS=4
-          os: linux
-          compiler: gcc-7
-          addons: &gcc7
-            apt:
-              packages:
-                - g++-7
-                - libboost-filesystem-dev
-                - libboost-system-dev
-              sources:
-                - ubuntu-toolchain-r-test
-
-        - env: GCC_VERSION=7 CPP=11 BUILD_TYPE=Debug JOBS=4
-          os: linux
-          compiler: gcc-7
-          addons: &gcc7
-            apt:
-              packages:
-                - g++-7
-                - libboost-filesystem-dev
-                - libboost-system-dev
-              sources:
-                - ubuntu-toolchain-r-test
-        - env: GCC_VERSION=7 CPP=11 BUILD_TYPE=Release JOBS=4
           os: linux
           compiler: gcc-7
           addons: &gcc7
@@ -220,53 +92,7 @@ matrix:
               sources:
                 - ubuntu-toolchain-r-test
 
-        - env: GCC_VERSION=8 CPP=11 BUILD_TYPE=Debug JOBS=4
-          os: linux
-          compiler: gcc-8
-          addons: &gcc8
-            apt:
-              packages:
-                - g++-8
-                - libboost-filesystem-dev
-                - libboost-system-dev
-              sources:
-                - ubuntu-toolchain-r-test
-        - env: GCC_VERSION=8 CPP=11 BUILD_TYPE=Release JOBS=4
-          os: linux
-          compiler: gcc-8
-          addons: &gcc8
-            apt:
-              packages:
-                - g++-8
-                - libboost-filesystem-dev
-                - libboost-system-dev
-              sources:
-                - ubuntu-toolchain-r-test
-
         - env: GCC_VERSION=9 CPP=14 BUILD_TYPE=Release JOBS=4
-          os: linux
-          compiler: gcc-9
-          addons: &gcc9
-            apt:
-              packages:
-                - g++-9
-                - libboost-filesystem-dev
-                - libboost-system-dev
-              sources:
-                - ubuntu-toolchain-r-test
-
-        - env: GCC_VERSION=9 CPP=11 BUILD_TYPE=Debug JOBS=4
-          os: linux
-          compiler: gcc-9
-          addons: &gcc9
-            apt:
-              packages:
-                - g++-9
-                - libboost-filesystem-dev
-                - libboost-system-dev
-              sources:
-                - ubuntu-toolchain-r-test
-        - env: GCC_VERSION=9 CPP=11 BUILD_TYPE=Release JOBS=4
           os: linux
           compiler: gcc-9
           addons: &gcc9
