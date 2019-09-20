@@ -5,6 +5,8 @@
 #include <boost/text/grapheme.hpp>
 #include <boost/text/grapheme_break.hpp>
 
+#include <boost/stl_interfaces/iterator_interface.hpp>
+
 #include <boost/assert.hpp>
 
 #include <iterator>
@@ -17,13 +19,13 @@ namespace boost { namespace text {
     /** A bidirectional filtering iterator that iterates over the extended
         grapheme clusters in a sequence of code points. */
     template<typename CPIter, typename Sentinel = CPIter>
-    struct grapheme_iterator
+    struct grapheme_iterator : stl_interfaces::iterator_interface<
+                                   grapheme_iterator<CPIter, Sentinel>,
+                                   std::bidirectional_iterator_tag,
+                                   grapheme_view<CPIter>,
+                                   grapheme_view<CPIter>,
+                                   grapheme_view<CPIter> const *>
     {
-        using value_type = grapheme_view<CPIter>;
-        using difference_type = std::ptrdiff_t;
-        using pointer = value_type const *;
-        using reference = value_type;
-        using iterator_category = std::bidirectional_iterator_tag;
         using iterator_type = CPIter;
 
         static_assert(
@@ -54,43 +56,41 @@ namespace boost { namespace text {
             last_(other.last_)
         {}
 
-        reference operator*() const noexcept { return grapheme_; }
-
-        pointer operator->() const noexcept { return &grapheme_; }
-
-        CPIter base() const noexcept { return grapheme_.begin(); }
+        grapheme_view<CPIter> operator*() const noexcept { return grapheme_; }
+        grapheme_view<CPIter> const * operator->() const noexcept
+        {
+            return &grapheme_;
+        }
 
         grapheme_iterator & operator++() noexcept
         {
             auto const first = grapheme_.end();
-            grapheme_ = value_type(first, next_grapheme_break(first, last_));
+            grapheme_ =
+                grapheme_view<CPIter>(first, next_grapheme_break(first, last_));
             return *this;
-        }
-
-        grapheme_iterator operator++(int)noexcept
-        {
-            grapheme_iterator retval = *this;
-            ++*this;
-            return retval;
         }
 
         grapheme_iterator & operator--() noexcept
         {
             auto const last = grapheme_.begin();
-            grapheme_ = value_type(
+            grapheme_ = grapheme_view<CPIter>(
                 prev_grapheme_break(first_, std::prev(last), last_), last);
             return *this;
         }
 
-        grapheme_iterator operator--(int)noexcept
-        {
-            grapheme_iterator retval = *this;
-            --*this;
-            return retval;
-        }
+        CPIter base() const noexcept { return grapheme_.begin(); }
+
+        using base_type = stl_interfaces::iterator_interface<
+            grapheme_iterator<CPIter, Sentinel>,
+            std::bidirectional_iterator_tag,
+            grapheme_view<CPIter>,
+            grapheme_view<CPIter>,
+            grapheme_view<CPIter> const *>;
+        using base_type::operator++;
+        using base_type::operator--;
 
     private:
-        value_type grapheme_;
+        grapheme_view<CPIter> grapheme_;
         CPIter first_;
         Sentinel last_;
 
@@ -111,28 +111,37 @@ namespace boost { namespace text {
         return lhs.base() == rhs.base();
     }
 
-    template<
-        typename CPIter1,
-        typename Sentinel1,
-        typename CPIter2,
-        typename Sentinel2>
-    auto operator!=(
-        grapheme_iterator<CPIter1, Sentinel1> lhs,
-        grapheme_iterator<CPIter2, Sentinel2> rhs) noexcept
-        -> decltype(!(lhs == rhs))
-    {
-        return !(lhs == rhs);
-    }
-
+    /** This function is constexpr in C++14 and later. */
     template<typename CPIter, typename Sentinel>
-    auto operator==(grapheme_iterator<CPIter, Sentinel> it, Sentinel s) noexcept
+    BOOST_TEXT_CXX14_CONSTEXPR auto
+    operator==(grapheme_iterator<CPIter, Sentinel> it, Sentinel s) noexcept
         -> decltype(it.base() == s)
     {
         return it.base() == s;
     }
 
+    /** This function is constexpr in C++14 and later. */
     template<typename CPIter, typename Sentinel>
-    auto operator!=(grapheme_iterator<CPIter, Sentinel> it, Sentinel s) noexcept
+    BOOST_TEXT_CXX14_CONSTEXPR auto
+    operator==(Sentinel s, grapheme_iterator<CPIter, Sentinel> it) noexcept
+        -> decltype(it.base() == s)
+    {
+        return it.base() == s;
+    }
+
+    /** This function is constexpr in C++14 and later. */
+    template<typename CPIter, typename Sentinel>
+    BOOST_TEXT_CXX14_CONSTEXPR auto
+    operator!=(grapheme_iterator<CPIter, Sentinel> it, Sentinel s) noexcept
+        -> decltype(it.base() != s)
+    {
+        return it.base() != s;
+    }
+
+    /** This function is constexpr in C++14 and later. */
+    template<typename CPIter, typename Sentinel>
+    BOOST_TEXT_CXX14_CONSTEXPR auto
+    operator!=(Sentinel s, grapheme_iterator<CPIter, Sentinel> it) noexcept
         -> decltype(it.base() != s)
     {
         return it.base() != s;
