@@ -683,7 +683,7 @@ namespace boost { namespace text {
                                 : detail::icu::nfc_norm())
                         .compose<OnlyContiguous, WriteToOut>(
                             r.begin(), r.end(), buffer);
-                return norm_result<OutIter>{appender.out(), normalized};
+                return norm_result<OutIter>{appender.out(), (bool)normalized};
             }
         };
 
@@ -714,7 +714,7 @@ namespace boost { namespace text {
                                 : detail::icu::nfc_norm())
                         .composeUTF8<OnlyContiguous, WriteToOut>(
                             r.begin(), r.end(), appender);
-                return norm_result<OutIter>{appender.out(), normalized};
+                return norm_result<OutIter>{appender.out(), (bool)normalized};
             }
         };
     }
