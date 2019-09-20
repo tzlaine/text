@@ -75,7 +75,9 @@ TEST(string_view, test_empty_constexpr)
     constexpr text::string_view tv;
 
     static_assert(tv.begin() == tv.end(), "");
+#ifndef BOOST_STL_INTERFACES_NO_HIDDEN_FRIEND_CONSTEXPR
     static_assert(tv.rbegin() == tv.rend(), "");
+#endif
 
     static_assert(tv.empty(), "");
     static_assert(tv.size() == 0, "");
@@ -101,8 +103,10 @@ TEST(string_view, test_empty_constexpr)
     static_assert(tv.begin() == begin(tv), "");
     static_assert(tv.end() == end(tv), "");
 
+#ifndef BOOST_STL_INTERFACES_NO_HIDDEN_FRIEND_CONSTEXPR
     static_assert(tv.rbegin() == rbegin(tv), "");
     static_assert(tv.rend() == rend(tv), "");
+#endif
 
     {
         using namespace text::literals;
@@ -190,7 +194,9 @@ TEST(string_view, test_non_empty_constexpr)
     constexpr text::string_view tv_ab("ab");
 
     static_assert(tv_a.begin() + tv_a.size() == tv_a.end(), "");
+#ifndef BOOST_STL_INTERFACES_NO_HIDDEN_FRIEND_CONSTEXPR
     static_assert(tv_a.rbegin() + tv_a.size() == tv_a.rend(), "");
+#endif
 
     static_assert(!tv_a.empty(), "");
     static_assert(tv_a.size() == 1, "");
@@ -236,8 +242,10 @@ TEST(string_view, test_non_empty_constexpr)
     static_assert(tv_a.begin() == begin(tv_a), "");
     static_assert(tv_a.end() == end(tv_a), "");
 
+#ifndef BOOST_STL_INTERFACES_NO_HIDDEN_FRIEND_CONSTEXPR
     static_assert(tv_a.rbegin() == rbegin(tv_a), "");
     static_assert(tv_a.rend() == rend(tv_a), "");
+#endif
 
     {
         using namespace text::literals;

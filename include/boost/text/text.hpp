@@ -45,8 +45,9 @@ namespace boost { namespace text {
         using iterator = grapheme_iterator<utf_8_to_32_iterator<char *>>;
         using const_iterator =
             grapheme_iterator<utf_8_to_32_iterator<char const *>>;
-        using reverse_iterator = detail::reverse_iterator<iterator>;
-        using const_reverse_iterator = detail::reverse_iterator<const_iterator>;
+        using reverse_iterator = stl_interfaces::reverse_iterator<iterator>;
+        using const_reverse_iterator =
+            stl_interfaces::reverse_iterator<const_iterator>;
 
         /** Default ctor. */
         text() {}
@@ -471,10 +472,10 @@ namespace boost { namespace text {
         }
 
         template<typename Iter>
-        static detail::reverse_iterator<Iter>
+        static stl_interfaces::reverse_iterator<Iter>
         make_reverse_iter(Iter it) noexcept
         {
-            return detail::reverse_iterator<Iter>{it};
+            return stl_interfaces::reverse_iterator<Iter>{it};
         }
 
         using mutable_utf32_iter = utf_8_to_32_iterator<char *>;

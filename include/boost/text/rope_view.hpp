@@ -29,7 +29,7 @@ namespace boost { namespace text {
         using iterator = grapheme_iterator<
             utf_8_to_32_iterator<detail::const_rope_view_iterator>>;
         using const_iterator = iterator;
-        using reverse_iterator = detail::reverse_iterator<iterator>;
+        using reverse_iterator = stl_interfaces::reverse_iterator<iterator>;
         using const_reverse_iterator = reverse_iterator;
 
         using rope_iterator =

@@ -66,16 +66,10 @@ namespace boost { namespace stl_interfaces {
 
     namespace detail {
         template<typename Pointer, typename T>
-        struct ptr_and_ref : std::is_same<
-                                 std::add_pointer_t<std::remove_reference_t<T>>,
-                                 Pointer>
-        {
-        };
-
-        template<typename Pointer, typename T>
         auto make_pointer(
             T && value,
-            std::enable_if_t<ptr_and_ref<Pointer, T>::value, int> = 0)
+            std::enable_if_t<std::is_pointer<Pointer>::value, int> = 0)
+            -> decltype(std::addressof(value))
         {
             return std::addressof(value);
         }
@@ -83,9 +77,9 @@ namespace boost { namespace stl_interfaces {
         template<typename Pointer, typename T>
         auto make_pointer(
             T && value,
-            std::enable_if_t<!ptr_and_ref<Pointer, T>::value, int> = 0)
+            std::enable_if_t<!std::is_pointer<Pointer>::value, int> = 0)
         {
-            return Pointer((T &&) value);
+            return Pointer(std::forward<T>(value));
         }
 
         template<typename IteratorConcept>
@@ -301,8 +295,8 @@ namespace boost { namespace stl_interfaces { inline namespace v1 {
         }
 
         template<typename D = Derived>
-        constexpr D operator+(difference_type i) noexcept(
-            noexcept(D(std::declval<D &>()), std::declval<D &>() += i))
+        constexpr D operator+(difference_type i) const
+            noexcept(noexcept(D(std::declval<D &>()), std::declval<D &>() += i))
         {
             D retval = derived();
             retval += i;

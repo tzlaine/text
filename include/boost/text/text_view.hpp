@@ -26,7 +26,8 @@ namespace boost { namespace text {
         using size_type = int;
         using iterator = grapheme_iterator<utf_8_to_32_iterator<char const *>>;
         using const_iterator = iterator;
-        using reverse_iterator = detail::reverse_iterator<const_iterator>;
+        using reverse_iterator =
+            stl_interfaces::reverse_iterator<const_iterator>;
         using const_reverse_iterator = reverse_iterator;
 
         using text_iterator = grapheme_iterator<utf_8_to_32_iterator<char *>>;

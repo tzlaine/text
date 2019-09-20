@@ -11,9 +11,10 @@
 #include <boost/text/detail/bidirectional.hpp>
 #include <boost/text/detail/iterator.hpp>
 
+#include <boost/optional.hpp>
 #include <boost/container/small_vector.hpp>
 #include <boost/container/static_vector.hpp>
-#include <boost/optional.hpp>
+#include <boost/stl_interfaces/reverse_iterator.hpp>
 
 #include <stack>
 
@@ -1095,7 +1096,7 @@ namespace boost { namespace text {
         struct reordered_run
         {
             using iterator = typename props_and_embeddings_t<CPIter>::iterator;
-            using reverse_iterator = detail::reverse_iterator<
+            using reverse_iterator = stl_interfaces::reverse_iterator<
                 typename props_and_embeddings_t<CPIter>::iterator>;
 
             reordered_run(iterator first, iterator last, bool reversed) :
@@ -1112,11 +1113,11 @@ namespace boost { namespace text {
             iterator end() const noexcept { return last_; }
             reverse_iterator rbegin() const noexcept
             {
-                return make_reverse_iterator(last_);
+                return stl_interfaces::make_reverse_iterator(last_);
             }
             reverse_iterator rend() const noexcept
             {
-                return make_reverse_iterator(first_);
+                return stl_interfaces::make_reverse_iterator(first_);
             }
 
         private:
@@ -1193,7 +1194,8 @@ namespace boost { namespace text {
                 ait_(),
                 kind_(kind_t::user_it)
             {}
-            fwd_rev_cp_iter(detail::reverse_iterator<CPIter> rit) noexcept :
+            fwd_rev_cp_iter(
+                stl_interfaces::reverse_iterator<CPIter> rit) noexcept :
                 it_(rit.base()),
                 ait_(),
                 kind_(kind_t::rev_user_it)
@@ -2224,8 +2226,8 @@ namespace boost { namespace text {
                     // https://unicode.org/reports/tr9/#L4
 
                     auto out_value = OutValueType{
-                        ::boost::text::detail::make_reverse_iterator(cp_last),
-                        ::boost::text::detail::make_reverse_iterator(cp_first)};
+                        stl_interfaces::make_reverse_iterator(cp_last),
+                        stl_interfaces::make_reverse_iterator(cp_first)};
 
                     auto out_first = out_value.begin();
                     auto out_last = out_value.end();
@@ -2345,10 +2347,10 @@ namespace boost { namespace text {
                 state.out_values_.clear();
 
                 if (run.reversed()) {
-                    auto const out_value =
-                        OutValueType{detail::make_reverse_iterator(cp_last),
-                                     detail::make_reverse_iterator(cp_first),
-                                     state.line_break_};
+                    auto const out_value = OutValueType{
+                        stl_interfaces::make_reverse_iterator(cp_last),
+                        stl_interfaces::make_reverse_iterator(cp_first),
+                        state.line_break_};
                     state.out_values_.push_back(out_value);
                 } else {
                     auto const out_value =
@@ -2369,7 +2371,7 @@ namespace boost { namespace text {
         struct const_lazy_bidi_segment_iterator
         {
             using value_type = ResultType;
-            using pointer = arrow_proxy<value_type>;
+            using pointer = stl_interfaces::proxy_arrow_result<value_type>;
             using reference = value_type;
             using difference_type = std::ptrdiff_t;
             using iterator_category = std::forward_iterator_tag;

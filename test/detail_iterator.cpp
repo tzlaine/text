@@ -137,6 +137,7 @@ TEST(const_reverse_char_iterator, test_default_ctor)
         constexpr text::detail::const_reverse_char_iterator it1;
         constexpr text::detail::const_reverse_char_iterator it2;
 
+#ifndef BOOST_STL_INTERFACES_NO_HIDDEN_FRIEND_CONSTEXPR
         static_assert(it1 == it2, "");
         static_assert(!(it1 != it2), "");
 #if !defined(_MSC_VER) || 1915 < _MSC_VER
@@ -148,6 +149,7 @@ TEST(const_reverse_char_iterator, test_default_ctor)
 
         static_assert(it1 - it2 == 0, "");
         static_assert(it2 - it1 == 0, "");
+#endif
     }
 }
 
@@ -286,6 +288,7 @@ inline constexpr int count_tv_a_elements()
     return retval;
 }
 
+#ifndef BOOST_STL_INTERFACES_NO_HIDDEN_FRIEND_CONSTEXPR
 TEST(const_reverse_char_iterator, test_c_str_ctor_constexpr)
 {
     {
@@ -362,6 +365,7 @@ TEST(const_reverse_char_iterator, test_c_str_ctor_constexpr)
             "ensure that iterator works in a constexpr function loop");
     }
 }
+#endif
 
 #endif
 
@@ -977,6 +981,7 @@ constexpr int reverse_count_tv_abc_elements_repeat()
 
 TEST(const_reverse_repeated_chars_iterator, test_c_str_ctor_constexpr)
 {
+#ifndef BOOST_STL_INTERFACES_NO_HIDDEN_FRIEND_CONSTEXPR
     {
         constexpr text::string_view tv_empty("");
         constexpr text::detail::const_reverse_repeated_chars_iterator it(
@@ -992,6 +997,7 @@ TEST(const_reverse_repeated_chars_iterator, test_c_str_ctor_constexpr)
 
         static_assert(it - it == 0, "");
     }
+#endif
 
     {
         constexpr text::detail::const_reverse_repeated_chars_iterator first(
@@ -1010,6 +1016,7 @@ TEST(const_reverse_repeated_chars_iterator, test_c_str_ctor_constexpr)
         static_assert(first[5] == 'a', "");
         static_assert(first[6] == 'c', "");
 
+#ifndef BOOST_STL_INTERFACES_NO_HIDDEN_FRIEND_CONSTEXPR
         static_assert(reverse_tv_abc_plusequals9_begin_repeat() == last, "");
 
         constexpr auto it_0 = first;
@@ -1116,6 +1123,7 @@ TEST(const_reverse_repeated_chars_iterator, test_c_str_ctor_constexpr)
         static_assert(
             reverse_count_tv_abc_elements_repeat() == 9,
             "ensure that iterator works in a constexpr function loop");
+#endif
     }
 }
 

@@ -22,8 +22,9 @@ namespace boost { namespace text {
     {
         using iterator = detail::const_vector_iterator<T>;
         using const_iterator = detail::const_vector_iterator<T>;
-        using reverse_iterator = detail::reverse_iterator<iterator>;
-        using const_reverse_iterator = detail::reverse_iterator<const_iterator>;
+        using reverse_iterator = stl_interfaces::reverse_iterator<iterator>;
+        using const_reverse_iterator =
+            stl_interfaces::reverse_iterator<const_iterator>;
         using value_type = T;
 
         using size_type = std::ptrdiff_t;

@@ -18,7 +18,7 @@ namespace boost { namespace text {
     namespace detail {
         struct const_rope_iterator;
         using const_reverse_rope_iterator =
-            reverse_iterator<const_rope_iterator>;
+            stl_interfaces::reverse_iterator<const_rope_iterator>;
     }
 
     /** A mutable sequence of char with copy-on-write semantics.  An

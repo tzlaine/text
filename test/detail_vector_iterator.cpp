@@ -115,8 +115,8 @@ TEST(const_vector_iterator, test_short_sequences)
 TEST(const_reverse_vector_iterator, test_default_ctor)
 {
     {
-        text::detail::reverse_iterator<text::detail::const_vector_iterator<int>> it1;
-        text::detail::reverse_iterator<text::detail::const_vector_iterator<int>> it2;
+        stl_interfaces::reverse_iterator<text::detail::const_vector_iterator<int>> it1;
+        stl_interfaces::reverse_iterator<text::detail::const_vector_iterator<int>> it2;
 
         EXPECT_TRUE(it1 == it2);
         EXPECT_FALSE(it1 != it2);
@@ -134,7 +134,7 @@ TEST(const_reverse_vector_iterator, test_c_str_ctor)
 {
     {
         text::segmented_vector<int> r_empty;
-        text::detail::reverse_iterator<text::detail::const_vector_iterator<int>> it = r_empty.rbegin();
+        stl_interfaces::reverse_iterator<text::detail::const_vector_iterator<int>> it = r_empty.rbegin();
 
         EXPECT_TRUE(it == it);
         EXPECT_FALSE(it != it);
@@ -148,8 +148,8 @@ TEST(const_reverse_vector_iterator, test_c_str_ctor)
 
     {
         text::segmented_vector<int> r_a({13});
-        text::detail::reverse_iterator<text::detail::const_vector_iterator<int>> first = r_a.rbegin();
-        text::detail::reverse_iterator<text::detail::const_vector_iterator<int>> last = r_a.rend();
+        stl_interfaces::reverse_iterator<text::detail::const_vector_iterator<int>> first = r_a.rbegin();
+        stl_interfaces::reverse_iterator<text::detail::const_vector_iterator<int>> last = r_a.rend();
 
         EXPECT_EQ(*last.base(), *first);
 
@@ -251,8 +251,8 @@ TEST(both_vector_iterators, test_larger_sequences)
         }
 
         {
-            text::detail::reverse_iterator<text::detail::const_vector_iterator<int>> first = r.rbegin();
-            text::detail::reverse_iterator<text::detail::const_vector_iterator<int>> last = r.rend();
+            stl_interfaces::reverse_iterator<text::detail::const_vector_iterator<int>> first = r.rbegin();
+            stl_interfaces::reverse_iterator<text::detail::const_vector_iterator<int>> last = r.rend();
             std::vector<int> const from_first_last(first, last);
             EXPECT_EQ(from_first_last, vec);
         }
@@ -275,8 +275,8 @@ TEST(both_vector_iterators, test_larger_sequences)
         }
 
         {
-            text::detail::reverse_iterator<text::detail::const_vector_iterator<int>> first = r.rbegin();
-            text::detail::reverse_iterator<text::detail::const_vector_iterator<int>> last = r.rend();
+            stl_interfaces::reverse_iterator<text::detail::const_vector_iterator<int>> first = r.rbegin();
+            stl_interfaces::reverse_iterator<text::detail::const_vector_iterator<int>> last = r.rend();
             std::vector<int> const from_first_last(first, last);
             EXPECT_EQ(from_first_last, vec);
         }
@@ -306,8 +306,8 @@ TEST(both_vector_iterators, test_larger_sequences)
         }
 
         {
-            text::detail::reverse_iterator<text::detail::const_vector_iterator<int>> first = r.rbegin();
-            text::detail::reverse_iterator<text::detail::const_vector_iterator<int>> last = r.rend();
+            stl_interfaces::reverse_iterator<text::detail::const_vector_iterator<int>> first = r.rbegin();
+            stl_interfaces::reverse_iterator<text::detail::const_vector_iterator<int>> last = r.rend();
             std::vector<int> const from_first_last(first, last);
             std::vector<int> const from_repeated(
                 repeated.rbegin(), repeated.rend());

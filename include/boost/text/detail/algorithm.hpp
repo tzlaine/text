@@ -499,12 +499,6 @@ namespace boost { namespace text { namespace detail {
 
 
 
-    template<typename Iter>
-    detail::reverse_iterator<Iter> make_reverse_iterator(Iter it)
-    {
-        return detail::reverse_iterator<Iter>(it);
-    }
-
     inline std::size_t
     hash_combine_(std::size_t seed, std::size_t value) noexcept
     {
