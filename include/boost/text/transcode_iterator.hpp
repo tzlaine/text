@@ -66,7 +66,7 @@ namespace boost { namespace text {
         BOOST_TEXT_CXX14_CONSTEXPR OutIter
         write_cp_utf8(uint32_t cp, OutIter out)
         {
-            char buf[5];
+            char buf[5] = {0};
             auto const n = read_into_buf(cp, buf);
             return std::copy(buf, buf + n + 1, out);
         }
