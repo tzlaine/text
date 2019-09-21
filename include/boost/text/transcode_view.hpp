@@ -132,11 +132,11 @@ namespace boost { namespace text {
         constexpr iterator begin() const noexcept { return first_; }
         constexpr sentinel end() const noexcept { return last_; }
 
-        friend bool operator==(utf8_view lhs, utf8_view rhs)
+        friend constexpr bool operator==(utf8_view lhs, utf8_view rhs)
         {
             return lhs.begin() == rhs.begin() && lhs.end() == rhs.end();
         }
-        friend bool operator!=(utf8_view lhs, utf8_view rhs)
+        friend constexpr bool operator!=(utf8_view lhs, utf8_view rhs)
         {
             return !(lhs == rhs);
         }
@@ -146,7 +146,7 @@ namespace boost { namespace text {
         sentinel last_;
     };
 
-    /** Returns a `utf8_range` over the data in `[first, last)`, transcoding
+    /** Returns a `utf8_view` over the data in `[first, last)`, transcoding
         the data if necessary. */
     template<typename Iter, typename Sentinel>
     constexpr auto as_utf8(Iter first, Sentinel last) noexcept
@@ -157,7 +157,7 @@ namespace boost { namespace text {
         return utf8_view<decltype(r.f_), decltype(r.l_)>(r.f_, r.l_);
     }
 
-    /** Returns a `utf8_range` over the data in `r`, transcoding the data if
+    /** Returns a `utf8_view` over the data in `r`, transcoding the data if
         necessary. */
     template<typename Range>
     constexpr auto as_utf8(Range const & r) noexcept
@@ -187,11 +187,11 @@ namespace boost { namespace text {
         constexpr iterator begin() const noexcept { return first_; }
         constexpr sentinel end() const noexcept { return last_; }
 
-        friend bool operator==(utf16_view lhs, utf16_view rhs)
+        friend constexpr bool operator==(utf16_view lhs, utf16_view rhs)
         {
             return lhs.begin() == rhs.begin() && lhs.end() == rhs.end();
         }
-        friend bool operator!=(utf16_view lhs, utf16_view rhs)
+        friend constexpr bool operator!=(utf16_view lhs, utf16_view rhs)
         {
             return !(lhs == rhs);
         }
@@ -201,7 +201,7 @@ namespace boost { namespace text {
         sentinel last_;
     };
 
-    /** Returns a `utf16_range` over the data in `[first, last)`, transcoding
+    /** Returns a `utf16_view` over the data in `[first, last)`, transcoding
         the data if necessary. */
     template<typename Iter, typename Sentinel>
     constexpr auto as_utf16(Iter first, Sentinel last) noexcept
@@ -212,7 +212,7 @@ namespace boost { namespace text {
         return utf16_view<decltype(r.f_), decltype(r.l_)>(r.f_, r.l_);
     }
 
-    /** Returns a `utf16_range` over the data in `r`, transcoding the data if
+    /** Returns a `utf16_view` over the data in `r`, transcoding the data if
         necessary. */
     template<typename Range>
     constexpr auto as_utf16(Range const & r) noexcept
@@ -242,11 +242,11 @@ namespace boost { namespace text {
         constexpr iterator begin() const noexcept { return first_; }
         constexpr sentinel end() const noexcept { return last_; }
 
-        friend bool operator==(utf32_view lhs, utf32_view rhs)
+        friend constexpr bool operator==(utf32_view lhs, utf32_view rhs)
         {
             return lhs.begin() == rhs.begin() && lhs.end() == rhs.end();
         }
-        friend bool operator!=(utf32_view lhs, utf32_view rhs)
+        friend constexpr bool operator!=(utf32_view lhs, utf32_view rhs)
         {
             return !(lhs == rhs);
         }
@@ -256,7 +256,7 @@ namespace boost { namespace text {
         sentinel last_;
     };
 
-    /** Returns a `utf32_range` over the data in `[first, last)`, transcoding
+    /** Returns a `utf32_view` over the data in `[first, last)`, transcoding
         the data if necessary. */
     template<typename Iter, typename Sentinel>
     constexpr auto as_utf32(Iter first, Sentinel last) noexcept
@@ -267,7 +267,7 @@ namespace boost { namespace text {
         return utf32_view<decltype(r.f_), decltype(r.l_)>(r.f_, r.l_);
     }
 
-    /** Returns a `utf32_range` over the data in `r`, transcoding the data if
+    /** Returns a `utf32_view` over the data in `r`, transcoding the data if
         necessary. */
     template<typename Range>
     constexpr auto as_utf32(Range const & r) noexcept
