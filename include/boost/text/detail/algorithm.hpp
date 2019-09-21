@@ -569,6 +569,45 @@ namespace boost { namespace text { namespace detail {
         return hash_combine_(retval, cps);
     }
 
+    template<typename Iter>
+    using char_value_type = std::integral_constant<
+        bool,
+        std::is_integral<
+            typename std::iterator_traits<Iter>::value_type>::value &&
+            sizeof(typename std::iterator_traits<Iter>::value_type) == 1>;
+
+    template<typename Iter>
+    using char_ptr = std::integral_constant<
+        bool,
+        std::is_pointer<Iter>::value &&
+            detected_or<std::false_type, char_value_type, Iter>::value>;
+
+    template<typename Iter>
+    using _16_value_type = std::integral_constant<
+        bool,
+        std::is_integral<
+            typename std::iterator_traits<Iter>::value_type>::value &&
+            sizeof(typename std::iterator_traits<Iter>::value_type) == 2>;
+
+    template<typename Iter>
+    using _16_ptr = std::integral_constant<
+        bool,
+        std::is_pointer<Iter>::value &&
+            detected_or<std::false_type, _16_value_type, Iter>::value>;
+
+    template<typename Iter>
+    using cp_value_type = std::integral_constant<
+        bool,
+        std::is_integral<
+            typename std::iterator_traits<Iter>::value_type>::value &&
+            sizeof(typename std::iterator_traits<Iter>::value_type) == 4>;
+
+    template<typename Iter>
+    using cp_ptr = std::integral_constant<
+        bool,
+        std::is_pointer<Iter>::value &&
+            detected_or<std::false_type, cp_value_type, Iter>::value>;
+
 }}}
 
 #endif

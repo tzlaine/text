@@ -806,33 +806,52 @@ namespace boost { namespace text {
     };
 
 
-    /** A sentinel type that compares equal to a `char const`,
-       `utf_8_to_32_iterator`, or `utf_8_to_16_iterator` when the iterator
-       points to a `0`. */
+    namespace detail {
+        template<
+            typename Iter,
+            bool UTF8 = char_ptr<Iter>::value || _16_ptr<Iter>::value ||
+                        cp_ptr<Iter>::value>
+        struct null_sent_eq_dispatch
+        {
+        };
+
+        template<typename Ptr>
+        struct null_sent_eq_dispatch<Ptr, true>
+        {
+            static constexpr bool call(Ptr p) noexcept { return !*p; }
+        };
+    }
+
+
+    /** A sentinel type that compares equal to a pointer to a 1-, 2-, or
+        4-byte integral value, iff the pointer is null. */
     struct null_sentinel
     {};
 
 
-    inline BOOST_TEXT_CXX14_CONSTEXPR bool
-    operator==(char const * p, null_sentinel)
+    template<typename Iter>
+    BOOST_TEXT_CXX14_CONSTEXPR auto operator==(Iter p, null_sentinel)
+        -> decltype(detail::null_sent_eq_dispatch<Iter>::call(p))
     {
-        return !*p;
+        return detail::null_sent_eq_dispatch<Iter>::call(p);
     }
-    inline BOOST_TEXT_CXX14_CONSTEXPR bool
-    operator!=(char const * p, null_sentinel)
+    template<typename Iter>
+    BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(Iter p, null_sentinel)
+        -> decltype(detail::null_sent_eq_dispatch<Iter>::call(p))
     {
-        return !!*p;
+        return !detail::null_sent_eq_dispatch<Iter>::call(p);
     }
-
-    inline BOOST_TEXT_CXX14_CONSTEXPR bool
-    operator==(null_sentinel, char const * p)
+    template<typename Iter>
+    BOOST_TEXT_CXX14_CONSTEXPR auto operator==(null_sentinel, Iter p)
+        -> decltype(detail::null_sent_eq_dispatch<Iter>::call(p))
     {
-        return !*p;
+        return detail::null_sent_eq_dispatch<Iter>::call(p);
     }
-    inline BOOST_TEXT_CXX14_CONSTEXPR bool
-    operator!=(null_sentinel, char const * p)
+    template<typename Iter>
+    BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(null_sentinel, Iter p)
+        -> decltype(detail::null_sent_eq_dispatch<Iter>::call(p))
     {
-        return !!*p;
+        return !detail::null_sent_eq_dispatch<Iter>::call(p);
     }
 
 

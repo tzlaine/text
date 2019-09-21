@@ -1103,6 +1103,9 @@ TEST(transcode_view, as_utf8)
     }
     {
         auto r = as_utf8(utf8_);
+        static_assert(
+            std::is_same<decltype(r.begin()), char const *>::value, "");
+        static_assert(std::is_same<decltype(r.end()), char const *>::value, "");
         EXPECT_TRUE(boost::algorithm::equal(
             r.begin(), r.end(), std::begin(utf8_), std::end(utf8_)));
     }
@@ -1127,6 +1130,47 @@ TEST(transcode_view, as_utf8)
     {
         auto r = as_utf8(utf8_null, null_sentinel{});
         auto truth = utf8_;
+        int i = 0;
+        for (auto it = r.begin(); it != r.end(); ++it, ++i, ++truth) {
+            EXPECT_EQ(*it, *truth) << "iteration " << i;
+        }
+    }
+
+    // single pointers
+    {
+        char const * ptr = utf8_null;
+        auto r = as_utf8(ptr);
+        static_assert(
+            std::is_same<decltype(r.begin()), char const *>::value, "");
+        static_assert(
+            std::is_same<decltype(r.end()), null_sentinel>::value, "");
+        auto truth = ptr;
+        int i = 0;
+        for (auto it = r.begin(); it != r.end(); ++it, ++i, ++truth) {
+            EXPECT_EQ(*it, *truth) << "iteration " << i;
+        }
+    }
+    {
+        uint16_t const * ptr = utf16_null;
+        auto r = as_utf16(ptr);
+        static_assert(
+            std::is_same<decltype(r.begin()), uint16_t const *>::value, "");
+        static_assert(
+            std::is_same<decltype(r.end()), null_sentinel>::value, "");
+        auto truth = ptr;
+        int i = 0;
+        for (auto it = r.begin(); it != r.end(); ++it, ++i, ++truth) {
+            EXPECT_EQ(*it, *truth) << "iteration " << i;
+        }
+    }
+    {
+        uint32_t const * ptr = utf32_null;
+        auto r = as_utf32(ptr);
+        static_assert(
+            std::is_same<decltype(r.begin()), uint32_t const *>::value, "");
+        static_assert(
+            std::is_same<decltype(r.end()), null_sentinel>::value, "");
+        auto truth = ptr;
         int i = 0;
         for (auto it = r.begin(); it != r.end(); ++it, ++i, ++truth) {
             EXPECT_EQ(*it, *truth) << "iteration " << i;

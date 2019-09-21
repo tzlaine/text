@@ -157,13 +157,34 @@ namespace boost { namespace text {
         return utf8_view<decltype(r.f_), decltype(r.l_)>(r.f_, r.l_);
     }
 
+    namespace detail {
+        template<typename Range, bool CharPtr = char_ptr<Range>::value>
+        struct as_utf8_dispatch
+        {
+            static constexpr auto call(Range const & r) noexcept
+                -> decltype(as_utf8(std::begin(r), std::end(r)))
+            {
+                return as_utf8(std::begin(r), std::end(r));
+            }
+        };
+
+        template<typename Ptr>
+        struct as_utf8_dispatch<Ptr, true>
+        {
+            static constexpr auto call(Ptr p) noexcept
+            {
+                return utf8_view<Ptr, null_sentinel>(p, null_sentinel{});
+            }
+        };
+    }
+
     /** Returns a `utf8_view` over the data in `r`, transcoding the data if
         necessary. */
     template<typename Range>
     constexpr auto as_utf8(Range const & r) noexcept
-        -> decltype(as_utf8(std::begin(r), std::end(r)))
+        -> decltype(detail::as_utf8_dispatch<Range>::call(r))
     {
-        return as_utf8(std::begin(r), std::end(r));
+        return detail::as_utf8_dispatch<Range>::call(r);
     }
 
 
@@ -212,13 +233,34 @@ namespace boost { namespace text {
         return utf16_view<decltype(r.f_), decltype(r.l_)>(r.f_, r.l_);
     }
 
+    namespace detail {
+        template<typename Range, bool CharPtr = _16_ptr<Range>::value>
+        struct as_utf16_dispatch
+        {
+            static constexpr auto call(Range const & r) noexcept
+                -> decltype(as_utf16(std::begin(r), std::end(r)))
+            {
+                return as_utf16(std::begin(r), std::end(r));
+            }
+        };
+
+        template<typename Ptr>
+        struct as_utf16_dispatch<Ptr, true>
+        {
+            static constexpr auto call(Ptr p) noexcept
+            {
+                return utf16_view<Ptr, null_sentinel>(p, null_sentinel{});
+            }
+        };
+    }
+
     /** Returns a `utf16_view` over the data in `r`, transcoding the data if
         necessary. */
     template<typename Range>
     constexpr auto as_utf16(Range const & r) noexcept
-        -> decltype(as_utf16(std::begin(r), std::end(r)))
+        -> decltype(detail::as_utf16_dispatch<Range>::call(r))
     {
-        return as_utf16(std::begin(r), std::end(r));
+        return detail::as_utf16_dispatch<Range>::call(r);
     }
 
 
@@ -267,20 +309,35 @@ namespace boost { namespace text {
         return utf32_view<decltype(r.f_), decltype(r.l_)>(r.f_, r.l_);
     }
 
+    namespace detail {
+        template<typename Range, bool CharPtr = cp_ptr<Range>::value>
+        struct as_utf32_dispatch
+        {
+            static constexpr auto call(Range const & r) noexcept
+                -> decltype(as_utf32(std::begin(r), std::end(r)))
+            {
+                return as_utf32(std::begin(r), std::end(r));
+            }
+        };
+
+        template<typename Ptr>
+        struct as_utf32_dispatch<Ptr, true>
+        {
+            static constexpr auto call(Ptr p) noexcept
+            {
+                return utf32_view<Ptr, null_sentinel>(p, null_sentinel{});
+            }
+        };
+    }
+
     /** Returns a `utf32_view` over the data in `r`, transcoding the data if
         necessary. */
     template<typename Range>
     constexpr auto as_utf32(Range const & r) noexcept
-        -> decltype(as_utf32(std::begin(r), std::end(r)))
+        -> decltype(detail::as_utf32_dispatch<Range>::call(r))
     {
-        return as_utf32(std::begin(r), std::end(r));
+        return detail::as_utf32_dispatch<Range>::call(r);
     }
-
-
-
-    /** A template alias for utf32_view. */
-    template<typename Iter, typename Sentinel>
-    using code_point_view = utf32_view<Iter, Sentinel>;
 
 }}
 

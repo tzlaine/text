@@ -445,12 +445,38 @@ namespace boost { namespace text {
         return detail::transcode_to_16(r.tag_, r.f_, r.l_, out);
     }
 
+    namespace detail {
+        template<
+            typename Range,
+            typename OutIter,
+            bool CharPtr = char_ptr<Range>::value>
+        struct transcode_utf_8_to_16_dispatch
+        {
+            static constexpr auto call(Range const & r, OutIter out) noexcept
+            {
+                return text::transcode_utf_8_to_16(
+                    std::begin(r), std::end(r), out);
+            }
+        };
+
+        template<typename Ptr, typename OutIter>
+        struct transcode_utf_8_to_16_dispatch<Ptr, OutIter, true>
+        {
+            static constexpr auto call(Ptr p, OutIter out) noexcept
+            {
+                return detail::transcode_to_16(
+                    detail::utf8_tag{}, p, null_sentinel{}, out);
+            }
+        };
+    }
+
     /** Copies the code points in the range r to out, changing the encoding
         from UTF-8 to UTF-16.  */
     template<typename Range, typename OutIter>
     OutIter transcode_utf_8_to_16(Range const & r, OutIter out)
     {
-        return text::transcode_utf_8_to_16(r.begin(), r.end(), out);
+        return detail::transcode_utf_8_to_16_dispatch<Range, OutIter>::call(
+            r, out);
     }
 
     /** Copies the code points in the range [first, last) to out, changing the
@@ -462,12 +488,38 @@ namespace boost { namespace text {
         return detail::transcode_to_32(r.tag_, r.f_, r.l_, out);
     }
 
+    namespace detail {
+        template<
+            typename Range,
+            typename OutIter,
+            bool CharPtr = char_ptr<Range>::value>
+        struct transcode_utf_8_to_32_dispatch
+        {
+            static constexpr auto call(Range const & r, OutIter out) noexcept
+            {
+                return text::transcode_utf_8_to_32(
+                    std::begin(r), std::end(r), out);
+            }
+        };
+
+        template<typename Ptr, typename OutIter>
+        struct transcode_utf_8_to_32_dispatch<Ptr, OutIter, true>
+        {
+            static constexpr auto call(Ptr p, OutIter out) noexcept
+            {
+                return detail::transcode_to_32(
+                    detail::utf8_tag{}, p, null_sentinel{}, out);
+            }
+        };
+    }
+
     /** Copies the code points in the range r to out, changing the encoding
         from UTF-8 to UTF-32.  */
     template<typename Range, typename OutIter>
     OutIter transcode_utf_8_to_32(Range const & r, OutIter out)
     {
-        return text::transcode_utf_8_to_32(r.begin(), r.end(), out);
+        return detail::transcode_utf_8_to_32_dispatch<Range, OutIter>::call(
+            r, out);
     }
 
     /** Copies the code points in the range [first, last) to out, changing the
@@ -479,12 +531,38 @@ namespace boost { namespace text {
         return detail::transcode_to_8(r.tag_, r.f_, r.l_, out);
     }
 
+    namespace detail {
+        template<
+            typename Range,
+            typename OutIter,
+            bool CharPtr = _16_ptr<Range>::value>
+        struct transcode_utf_16_to_8_dispatch
+        {
+            static constexpr auto call(Range const & r, OutIter out) noexcept
+            {
+                return text::transcode_utf_16_to_8(
+                    std::begin(r), std::end(r), out);
+            }
+        };
+
+        template<typename Ptr, typename OutIter>
+        struct transcode_utf_16_to_8_dispatch<Ptr, OutIter, true>
+        {
+            static constexpr auto call(Ptr p, OutIter out) noexcept
+            {
+                return detail::transcode_to_8(
+                    detail::utf16_tag{}, p, null_sentinel{}, out);
+            }
+        };
+    }
+
     /** Copies the code points in the range r to out, changing the encoding
         from UTF-16 to UTF-8.  */
     template<typename Range, typename OutIter>
     OutIter transcode_utf_16_to_8(Range const & r, OutIter out)
     {
-        return text::transcode_utf_16_to_8(r.begin(), r.end(), out);
+        return detail::transcode_utf_16_to_8_dispatch<Range, OutIter>::call(
+            r, out);
     }
 
     /** Copies the code points in the range [first, last) to out, changing the
@@ -496,12 +574,38 @@ namespace boost { namespace text {
         return detail::transcode_to_32(r.tag_, r.f_, r.l_, out);
     }
 
+    namespace detail {
+        template<
+            typename Range,
+            typename OutIter,
+            bool CharPtr = _16_ptr<Range>::value>
+        struct transcode_utf_16_to_32_dispatch
+        {
+            static constexpr auto call(Range const & r, OutIter out) noexcept
+            {
+                return text::transcode_utf_16_to_32(
+                    std::begin(r), std::end(r), out);
+            }
+        };
+
+        template<typename Ptr, typename OutIter>
+        struct transcode_utf_16_to_32_dispatch<Ptr, OutIter, true>
+        {
+            static constexpr auto call(Ptr p, OutIter out) noexcept
+            {
+                return detail::transcode_to_32(
+                    detail::utf16_tag{}, p, null_sentinel{}, out);
+            }
+        };
+    }
+
     /** Copies the code points in the range r to out, changing the encoding
         from UTF-16 to UTF-32.  */
     template<typename Range, typename OutIter>
     OutIter transcode_utf_16_to_32(Range const & r, OutIter out)
     {
-        return text::transcode_utf_16_to_32(r.begin(), r.end(), out);
+        return detail::transcode_utf_16_to_32_dispatch<Range, OutIter>::call(
+            r, out);
     }
 
     /** Copies the code points in the range [first, last) to out, changing the
@@ -513,12 +617,38 @@ namespace boost { namespace text {
         return detail::transcode_to_8(r.tag_, r.f_, r.l_, out);
     }
 
+    namespace detail {
+        template<
+            typename Range,
+            typename OutIter,
+            bool CharPtr = cp_ptr<Range>::value>
+        struct transcode_utf_32_to_8_dispatch
+        {
+            static constexpr auto call(Range const & r, OutIter out) noexcept
+            {
+                return text::transcode_utf_32_to_8(
+                    std::begin(r), std::end(r), out);
+            }
+        };
+
+        template<typename Ptr, typename OutIter>
+        struct transcode_utf_32_to_8_dispatch<Ptr, OutIter, true>
+        {
+            static constexpr auto call(Ptr p, OutIter out) noexcept
+            {
+                return detail::transcode_to_8(
+                    detail::utf32_tag{}, p, null_sentinel{}, out);
+            }
+        };
+    }
+
     /** Copies the code points in the range r to out, changing the encoding
         from UTF-32 to UTF-8.  */
     template<typename Range, typename OutIter>
     OutIter transcode_utf_32_to_8(Range const & r, OutIter out)
     {
-        return text::transcode_utf_32_to_8(r.begin(), r.end(), out);
+        return detail::transcode_utf_32_to_8_dispatch<Range, OutIter>::call(
+            r, out);
     }
 
     /** Copies the code points in the range [first, last) to out, changing the
@@ -530,12 +660,38 @@ namespace boost { namespace text {
         return detail::transcode_to_16(r.tag_, r.f_, r.l_, out);
     }
 
+    namespace detail {
+        template<
+            typename Range,
+            typename OutIter,
+            bool CharPtr = cp_ptr<Range>::value>
+        struct transcode_utf_32_to_16_dispatch
+        {
+            static constexpr auto call(Range const & r, OutIter out) noexcept
+            {
+                return text::transcode_utf_32_to_16(
+                    std::begin(r), std::end(r), out);
+            }
+        };
+
+        template<typename Ptr, typename OutIter>
+        struct transcode_utf_32_to_16_dispatch<Ptr, OutIter, true>
+        {
+            static constexpr auto call(Ptr p, OutIter out) noexcept
+            {
+                return detail::transcode_to_16(
+                    detail::utf32_tag{}, p, null_sentinel{}, out);
+            }
+        };
+    }
+
     /** Copies the code points in the range r to out, changing the encoding
         from UTF-32 to UTF-16.  */
     template<typename Range, typename OutIter>
     OutIter transcode_utf_32_to_16(Range const & r, OutIter out)
     {
-        return text::transcode_utf_32_to_16(r.begin(), r.end(), out);
+        return detail::transcode_utf_32_to_16_dispatch<Range, OutIter>::call(
+            r, out);
     }
 
 }}
