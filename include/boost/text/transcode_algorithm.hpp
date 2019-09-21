@@ -31,6 +31,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS WITH THE SOFTWARE.
 #define BOOST_TEXT_TRANSCODE_ALGORITHM_HPP
 
 #include <boost/text/transcode_iterator.hpp>
+#include <boost/text/detail/unpack.hpp>
 
 #include <boost/config.hpp>
 #include <boost/predef/hardware/simd.h>
@@ -294,6 +295,145 @@ namespace boost { namespace text {
             return transcode_utf_8_to_32(
                 first, last, out, std::input_iterator_tag{});
         }
+
+        template<typename Iter, typename Sentinel, typename OutIter>
+        OutIter transcode_to_8(utf8_tag, Iter first, Sentinel last, OutIter out)
+        {
+            return std::copy(first, last, out);
+        }
+
+        template<typename Iter, typename Sentinel, typename OutIter>
+        OutIter
+        transcode_to_16(utf8_tag, Iter first, Sentinel last, OutIter out)
+        {
+            return detail::transcode_utf_8_to_16(
+                first,
+                last,
+                out,
+                typename std::iterator_traits<Iter>::iterator_category{});
+        }
+
+        template<typename Iter, typename Sentinel, typename OutIter>
+        OutIter
+        transcode_to_32(utf8_tag, Iter first, Sentinel last, OutIter out)
+        {
+            return detail::transcode_utf_8_to_32(
+                first,
+                last,
+                out,
+                typename std::iterator_traits<Iter>::iterator_category{});
+        }
+
+        template<typename Iter, typename Sentinel, typename OutIter>
+        OutIter
+        transcode_to_8(utf16_tag, Iter first, Sentinel last, OutIter out)
+        {
+            uint32_t const high_surrogate_max = 0xdbff;
+            uint16_t const high_surrogate_base = 0xd7c0;
+            uint16_t const low_surrogate_base = 0xdc00;
+
+            for (; first != last; ++first) {
+                uint32_t const hi = *first;
+                if (surrogate(hi)) {
+                    if (hi <= high_surrogate_max) {
+                        ++first;
+                        if (first == last) {
+                            uint32_t const cp = replacement_character();
+                            out = detail::read_into_utf8_iter(cp, out);
+                            ++out;
+                            return out;
+                        }
+                        uint32_t const lo = *first;
+                        if (low_surrogate(lo)) {
+                            uint32_t const cp =
+                                ((hi - high_surrogate_base) << 10) +
+                                (lo - low_surrogate_base);
+                            out = detail::read_into_utf8_iter(cp, out);
+                            continue;
+                        }
+                    }
+                    out = detail::read_into_utf8_iter(
+                        replacement_character(), out);
+                } else {
+                    out = detail::read_into_utf8_iter(hi, out);
+                }
+            }
+
+            return out;
+        }
+
+        template<typename Iter, typename Sentinel, typename OutIter>
+        OutIter
+        transcode_to_16(utf16_tag, Iter first, Sentinel last, OutIter out)
+        {
+            return std::copy(first, last, out);
+        }
+
+        template<typename Iter, typename Sentinel, typename OutIter>
+        OutIter
+        transcode_to_32(utf16_tag, Iter first, Sentinel last, OutIter out)
+        {
+            uint32_t const high_surrogate_max = 0xdbff;
+            uint16_t const high_surrogate_base = 0xd7c0;
+            uint16_t const low_surrogate_base = 0xdc00;
+
+            for (; first != last; ++first) {
+                uint32_t const hi = *first;
+                if (surrogate(hi)) {
+                    if (hi <= high_surrogate_max) {
+                        ++first;
+                        if (first == last) {
+                            *out = replacement_character();
+                            ++out;
+                            return out;
+                        }
+                        uint32_t const lo = *first;
+                        if (low_surrogate(lo)) {
+                            uint32_t const cp =
+                                ((hi - high_surrogate_base) << 10) +
+                                (lo - low_surrogate_base);
+                            *out = cp;
+                            ++out;
+                            continue;
+                        }
+                    }
+                    *out = replacement_character();
+                    ++out;
+                } else {
+                    *out = hi;
+                    ++out;
+                }
+            }
+
+            return out;
+        }
+
+        template<typename Iter, typename Sentinel, typename OutIter>
+        OutIter
+        transcode_to_8(utf32_tag, Iter first, Sentinel last, OutIter out)
+        {
+            for (; first != last; ++first) {
+                out = detail::read_into_utf8_iter(*first, out);
+            }
+            return out;
+        }
+
+        template<typename Iter, typename Sentinel, typename OutIter>
+        OutIter
+        transcode_to_16(utf32_tag, Iter first, Sentinel last, OutIter out)
+        {
+            for (; first != last; ++first) {
+                out = detail::read_into_utf16_iter(*first, out);
+            }
+            return out;
+        }
+
+        template<typename Iter, typename Sentinel, typename OutIter>
+        OutIter
+        transcode_to_32(utf32_tag, Iter first, Sentinel last, OutIter out)
+        {
+            return std::copy(first, last, out);
+        }
     }
 
     /** Copies the code points in the range [first, last) to out, changing the
@@ -301,11 +441,8 @@ namespace boost { namespace text {
     template<typename InputIter, typename Sentinel, typename OutIter>
     OutIter transcode_utf_8_to_16(InputIter first, Sentinel last, OutIter out)
     {
-        return detail::transcode_utf_8_to_16(
-            first,
-            last,
-            out,
-            typename std::iterator_traits<InputIter>::iterator_category{});
+        auto const r = detail::unpack_iterator_and_sentinel(first, last);
+        return detail::transcode_to_16(r.tag_, r.f_, r.l_, out);
     }
 
     /** Copies the code points in the range r to out, changing the encoding
@@ -313,7 +450,7 @@ namespace boost { namespace text {
     template<typename Range, typename OutIter>
     OutIter transcode_utf_8_to_16(Range const & r, OutIter out)
     {
-        return transcode_utf_8_to_16(r.begin(), r.end(), out);
+        return text::transcode_utf_8_to_16(r.begin(), r.end(), out);
     }
 
     /** Copies the code points in the range [first, last) to out, changing the
@@ -321,11 +458,8 @@ namespace boost { namespace text {
     template<typename InputIter, typename Sentinel, typename OutIter>
     OutIter transcode_utf_8_to_32(InputIter first, Sentinel last, OutIter out)
     {
-        return detail::transcode_utf_8_to_32(
-            first,
-            last,
-            out,
-            typename std::iterator_traits<InputIter>::iterator_category{});
+        auto const r = detail::unpack_iterator_and_sentinel(first, last);
+        return detail::transcode_to_32(r.tag_, r.f_, r.l_, out);
     }
 
     /** Copies the code points in the range r to out, changing the encoding
@@ -333,7 +467,7 @@ namespace boost { namespace text {
     template<typename Range, typename OutIter>
     OutIter transcode_utf_8_to_32(Range const & r, OutIter out)
     {
-        return transcode_utf_8_to_32(r.begin(), r.end(), out);
+        return text::transcode_utf_8_to_32(r.begin(), r.end(), out);
     }
 
     /** Copies the code points in the range [first, last) to out, changing the
@@ -341,36 +475,8 @@ namespace boost { namespace text {
     template<typename InputIter, typename Sentinel, typename OutIter>
     OutIter transcode_utf_16_to_8(InputIter first, Sentinel last, OutIter out)
     {
-        uint32_t const high_surrogate_max = 0xdbff;
-        uint16_t const high_surrogate_base = 0xd7c0;
-        uint16_t const low_surrogate_base = 0xdc00;
-
-        for (; first != last; ++first) {
-            uint32_t const hi = *first;
-            if (surrogate(hi)) {
-                if (hi <= high_surrogate_max) {
-                    ++first;
-                    if (first == last) {
-                        uint32_t const cp = replacement_character();
-                        out = detail::read_into_utf8_iter(cp, out);
-                        ++out;
-                        return out;
-                    }
-                    uint32_t const lo = *first;
-                    if (low_surrogate(lo)) {
-                        uint32_t const cp = ((hi - high_surrogate_base) << 10) +
-                                            (lo - low_surrogate_base);
-                        out = detail::read_into_utf8_iter(cp, out);
-                        continue;
-                    }
-                }
-                out = detail::read_into_utf8_iter(replacement_character(), out);
-            } else {
-                out = detail::read_into_utf8_iter(hi, out);
-            }
-        }
-
-        return out;
+        auto const r = detail::unpack_iterator_and_sentinel(first, last);
+        return detail::transcode_to_8(r.tag_, r.f_, r.l_, out);
     }
 
     /** Copies the code points in the range r to out, changing the encoding
@@ -378,7 +484,7 @@ namespace boost { namespace text {
     template<typename Range, typename OutIter>
     OutIter transcode_utf_16_to_8(Range const & r, OutIter out)
     {
-        return transcode_utf_16_to_8(r.begin(), r.end(), out);
+        return text::transcode_utf_16_to_8(r.begin(), r.end(), out);
     }
 
     /** Copies the code points in the range [first, last) to out, changing the
@@ -386,38 +492,8 @@ namespace boost { namespace text {
     template<typename InputIter, typename Sentinel, typename OutIter>
     OutIter transcode_utf_16_to_32(InputIter first, Sentinel last, OutIter out)
     {
-        uint32_t const high_surrogate_max = 0xdbff;
-        uint16_t const high_surrogate_base = 0xd7c0;
-        uint16_t const low_surrogate_base = 0xdc00;
-
-        for (; first != last; ++first) {
-            uint32_t const hi = *first;
-            if (surrogate(hi)) {
-                if (hi <= high_surrogate_max) {
-                    ++first;
-                    if (first == last) {
-                        *out = replacement_character();
-                        ++out;
-                        return out;
-                    }
-                    uint32_t const lo = *first;
-                    if (low_surrogate(lo)) {
-                        uint32_t const cp = ((hi - high_surrogate_base) << 10) +
-                                            (lo - low_surrogate_base);
-                        *out = cp;
-                        ++out;
-                        continue;
-                    }
-                }
-                *out = replacement_character();
-                ++out;
-            } else {
-                *out = hi;
-                ++out;
-            }
-        }
-
-        return out;
+        auto const r = detail::unpack_iterator_and_sentinel(first, last);
+        return detail::transcode_to_32(r.tag_, r.f_, r.l_, out);
     }
 
     /** Copies the code points in the range r to out, changing the encoding
@@ -425,7 +501,7 @@ namespace boost { namespace text {
     template<typename Range, typename OutIter>
     OutIter transcode_utf_16_to_32(Range const & r, OutIter out)
     {
-        return transcode_utf_16_to_32(r.begin(), r.end(), out);
+        return text::transcode_utf_16_to_32(r.begin(), r.end(), out);
     }
 
     /** Copies the code points in the range [first, last) to out, changing the
@@ -433,10 +509,8 @@ namespace boost { namespace text {
     template<typename InputIter, typename Sentinel, typename OutIter>
     OutIter transcode_utf_32_to_8(InputIter first, Sentinel last, OutIter out)
     {
-        for (; first != last; ++first) {
-            out = detail::read_into_utf8_iter(*first, out);
-        }
-        return out;
+        auto const r = detail::unpack_iterator_and_sentinel(first, last);
+        return detail::transcode_to_8(r.tag_, r.f_, r.l_, out);
     }
 
     /** Copies the code points in the range r to out, changing the encoding
@@ -444,7 +518,7 @@ namespace boost { namespace text {
     template<typename Range, typename OutIter>
     OutIter transcode_utf_32_to_8(Range const & r, OutIter out)
     {
-        return transcode_utf_32_to_8(r.begin(), r.end(), out);
+        return text::transcode_utf_32_to_8(r.begin(), r.end(), out);
     }
 
     /** Copies the code points in the range [first, last) to out, changing the
@@ -452,10 +526,8 @@ namespace boost { namespace text {
     template<typename InputIter, typename Sentinel, typename OutIter>
     OutIter transcode_utf_32_to_16(InputIter first, Sentinel last, OutIter out)
     {
-        for (; first != last; ++first) {
-            out = detail::read_into_utf16_iter(*first, out);
-        }
-        return out;
+        auto const r = detail::unpack_iterator_and_sentinel(first, last);
+        return detail::transcode_to_16(r.tag_, r.f_, r.l_, out);
     }
 
     /** Copies the code points in the range r to out, changing the encoding
@@ -463,7 +535,7 @@ namespace boost { namespace text {
     template<typename Range, typename OutIter>
     OutIter transcode_utf_32_to_16(Range const & r, OutIter out)
     {
-        return transcode_utf_32_to_16(r.begin(), r.end(), out);
+        return text::transcode_utf_32_to_16(r.begin(), r.end(), out);
     }
 
 }}
