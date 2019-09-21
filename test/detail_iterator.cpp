@@ -133,11 +133,11 @@ TEST(const_reverse_char_iterator, test_default_ctor)
         EXPECT_EQ(it2 - it1, 0);
     }
 
+#ifndef BOOST_STL_INTERFACES_NO_HIDDEN_FRIEND_CONSTEXPR
     {
         constexpr text::detail::const_reverse_char_iterator it1;
         constexpr text::detail::const_reverse_char_iterator it2;
 
-#ifndef BOOST_STL_INTERFACES_NO_HIDDEN_FRIEND_CONSTEXPR
         static_assert(it1 == it2, "");
         static_assert(!(it1 != it2), "");
 #if !defined(_MSC_VER) || 1915 < _MSC_VER
@@ -149,8 +149,8 @@ TEST(const_reverse_char_iterator, test_default_ctor)
 
         static_assert(it1 - it2 == 0, "");
         static_assert(it2 - it1 == 0, "");
-#endif
     }
+#endif
 }
 
 TEST(const_reverse_char_iterator, test_c_str_ctor)

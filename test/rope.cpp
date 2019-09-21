@@ -361,7 +361,6 @@ TEST(rope, test_insert)
 {
     text::text const t("a view ");
     text::text_view const tv(t);
-    text::string_view const sv("a view ");
     text::repeated_string_view const rsv(tv, 3);
 
     {

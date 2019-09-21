@@ -18,13 +18,18 @@ TEST(transcode_view, detail_unpack_base_case)
         auto unpacked =
             detail::unpack_iterator_and_sentinel(utf32.begin(), utf32.end());
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf32_tag>::value);
-        static_assert(std::is_same<
-                      decltype(unpacked.f_),
-                      std::vector<uint32_t>::iterator>::value);
-        static_assert(std::is_same<
-                      decltype(unpacked.l_),
-                      std::vector<uint32_t>::iterator>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf32_tag>::value,
+            "");
+        static_assert(
+            std::is_same<
+                decltype(unpacked.f_),
+                std::vector<uint32_t>::iterator>::value,
+            "");
+        static_assert(
+            std::is_same<
+                decltype(unpacked.l_),
+                std::vector<uint32_t>::iterator>::value,
+            "");
         EXPECT_EQ(unpacked.f_, utf32.begin());
         EXPECT_EQ(unpacked.l_, utf32.end());
     }
@@ -33,13 +38,18 @@ TEST(transcode_view, detail_unpack_base_case)
         auto unpacked =
             detail::unpack_iterator_and_sentinel(utf16.begin(), utf16.end());
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf16_tag>::value);
-        static_assert(std::is_same<
-                      decltype(unpacked.f_),
-                      std::vector<uint16_t>::iterator>::value);
-        static_assert(std::is_same<
-                      decltype(unpacked.l_),
-                      std::vector<uint16_t>::iterator>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf16_tag>::value,
+            "");
+        static_assert(
+            std::is_same<
+                decltype(unpacked.f_),
+                std::vector<uint16_t>::iterator>::value,
+            "");
+        static_assert(
+            std::is_same<
+                decltype(unpacked.l_),
+                std::vector<uint16_t>::iterator>::value,
+            "");
         EXPECT_EQ(unpacked.f_, utf16.begin());
         EXPECT_EQ(unpacked.l_, utf16.end());
     }
@@ -48,13 +58,17 @@ TEST(transcode_view, detail_unpack_base_case)
         auto unpacked =
             detail::unpack_iterator_and_sentinel(utf8.begin(), utf8.end());
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf8_tag>::value);
-        static_assert(std::is_same<
-                      decltype(unpacked.f_),
-                      std::vector<unsigned char>::iterator>::value);
-        static_assert(std::is_same<
-                      decltype(unpacked.l_),
-                      std::vector<unsigned char>::iterator>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf8_tag>::value, "");
+        static_assert(
+            std::is_same<
+                decltype(unpacked.f_),
+                std::vector<unsigned char>::iterator>::value,
+            "");
+        static_assert(
+            std::is_same<
+                decltype(unpacked.l_),
+                std::vector<unsigned char>::iterator>::value,
+            "");
         EXPECT_EQ(unpacked.f_, utf8.begin());
         EXPECT_EQ(unpacked.l_, utf8.end());
     }
@@ -63,13 +77,15 @@ TEST(transcode_view, detail_unpack_base_case)
         auto unpacked =
             detail::unpack_iterator_and_sentinel(utf8.begin(), utf8.end());
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf8_tag>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf8_tag>::value, "");
         static_assert(
             std::is_same<decltype(unpacked.f_), std::vector<char>::iterator>::
-                value);
+                value,
+            "");
         static_assert(
             std::is_same<decltype(unpacked.l_), std::vector<char>::iterator>::
-                value);
+                value,
+            "");
         EXPECT_EQ(unpacked.f_, utf8.begin());
         EXPECT_EQ(unpacked.l_, utf8.end());
     }
@@ -78,19 +94,22 @@ TEST(transcode_view, detail_unpack_base_case)
         auto unpacked =
             detail::unpack_iterator_and_sentinel(utf8, null_sentinel{});
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf8_tag>::value);
-        static_assert(std::is_same<decltype(unpacked.f_), char const *>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf8_tag>::value, "");
         static_assert(
-            std::is_same<decltype(unpacked.l_), null_sentinel>::value);
+            std::is_same<decltype(unpacked.f_), char const *>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.l_), null_sentinel>::value, "");
         EXPECT_EQ(unpacked.f_, utf8);
     }
     {
         char const * utf8 = "foo";
         auto unpacked = detail::unpack_iterator_and_sentinel(utf8, utf8 + 3);
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf8_tag>::value);
-        static_assert(std::is_same<decltype(unpacked.f_), char const *>::value);
-        static_assert(std::is_same<decltype(unpacked.l_), char const *>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf8_tag>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.f_), char const *>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.l_), char const *>::value, "");
         EXPECT_EQ(unpacked.f_, utf8);
         EXPECT_EQ(unpacked.l_, utf8 + 3);
     }
@@ -111,9 +130,11 @@ TEST(transcode_view, detail_unpack_8_N)
         utf_8_to_32_iterator<char const *> it2(str, str + 3, str + 3);
         auto unpacked = detail::unpack_iterator_and_sentinel(it1, it2);
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf8_tag>::value);
-        static_assert(std::is_same<decltype(unpacked.f_), char const *>::value);
-        static_assert(std::is_same<decltype(unpacked.l_), char const *>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf8_tag>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.f_), char const *>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.l_), char const *>::value, "");
         EXPECT_EQ(unpacked.f_, str);
         EXPECT_EQ(unpacked.l_, str + 3);
     }
@@ -123,10 +144,11 @@ TEST(transcode_view, detail_unpack_8_N)
         auto unpacked =
             detail::unpack_iterator_and_sentinel(it, null_sentinel{});
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf8_tag>::value);
-        static_assert(std::is_same<decltype(unpacked.f_), char const *>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf8_tag>::value, "");
         static_assert(
-            std::is_same<decltype(unpacked.l_), null_sentinel>::value);
+            std::is_same<decltype(unpacked.f_), char const *>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.l_), null_sentinel>::value, "");
         EXPECT_EQ(unpacked.f_, str);
     }
 
@@ -136,9 +158,11 @@ TEST(transcode_view, detail_unpack_8_N)
         utf_8_to_16_iterator<char const *> it2(str, str + 3, str + 3);
         auto unpacked = detail::unpack_iterator_and_sentinel(it1, it2);
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf8_tag>::value);
-        static_assert(std::is_same<decltype(unpacked.f_), char const *>::value);
-        static_assert(std::is_same<decltype(unpacked.l_), char const *>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf8_tag>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.f_), char const *>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.l_), char const *>::value, "");
         EXPECT_EQ(unpacked.f_, str);
         EXPECT_EQ(unpacked.l_, str + 3);
     }
@@ -148,10 +172,11 @@ TEST(transcode_view, detail_unpack_8_N)
         auto unpacked =
             detail::unpack_iterator_and_sentinel(it, null_sentinel{});
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf8_tag>::value);
-        static_assert(std::is_same<decltype(unpacked.f_), char const *>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf8_tag>::value, "");
         static_assert(
-            std::is_same<decltype(unpacked.l_), null_sentinel>::value);
+            std::is_same<decltype(unpacked.f_), char const *>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.l_), null_sentinel>::value, "");
         EXPECT_EQ(unpacked.f_, str);
     }
 }
@@ -171,11 +196,12 @@ TEST(transcode_view, detail_unpack_16_N)
         utf_16_to_32_iterator<uint16_t const *> it2(str, str + 3, str + 3);
         auto unpacked = detail::unpack_iterator_and_sentinel(it1, it2);
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf16_tag>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf16_tag>::value,
+            "");
         static_assert(
-            std::is_same<decltype(unpacked.f_), uint16_t const *>::value);
+            std::is_same<decltype(unpacked.f_), uint16_t const *>::value, "");
         static_assert(
-            std::is_same<decltype(unpacked.l_), uint16_t const *>::value);
+            std::is_same<decltype(unpacked.l_), uint16_t const *>::value, "");
         EXPECT_EQ(unpacked.f_, str);
         EXPECT_EQ(unpacked.l_, str + 3);
     }
@@ -185,10 +211,12 @@ TEST(transcode_view, detail_unpack_16_N)
         auto unpacked =
             detail::unpack_iterator_and_sentinel(it, null_sent_16{});
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf16_tag>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf16_tag>::value,
+            "");
         static_assert(
-            std::is_same<decltype(unpacked.f_), uint16_t const *>::value);
-        static_assert(std::is_same<decltype(unpacked.l_), null_sent_16>::value);
+            std::is_same<decltype(unpacked.f_), uint16_t const *>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.l_), null_sent_16>::value, "");
         EXPECT_EQ(unpacked.f_, str);
     }
 
@@ -198,11 +226,12 @@ TEST(transcode_view, detail_unpack_16_N)
         utf_16_to_8_iterator<uint16_t const *> it2(str, str + 3, str + 3);
         auto unpacked = detail::unpack_iterator_and_sentinel(it1, it2);
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf16_tag>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf16_tag>::value,
+            "");
         static_assert(
-            std::is_same<decltype(unpacked.f_), uint16_t const *>::value);
+            std::is_same<decltype(unpacked.f_), uint16_t const *>::value, "");
         static_assert(
-            std::is_same<decltype(unpacked.l_), uint16_t const *>::value);
+            std::is_same<decltype(unpacked.l_), uint16_t const *>::value, "");
         EXPECT_EQ(unpacked.f_, str);
         EXPECT_EQ(unpacked.l_, str + 3);
     }
@@ -212,10 +241,12 @@ TEST(transcode_view, detail_unpack_16_N)
         auto unpacked =
             detail::unpack_iterator_and_sentinel(it, null_sent_16{});
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf16_tag>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf16_tag>::value,
+            "");
         static_assert(
-            std::is_same<decltype(unpacked.f_), uint16_t const *>::value);
-        static_assert(std::is_same<decltype(unpacked.l_), null_sent_16>::value);
+            std::is_same<decltype(unpacked.f_), uint16_t const *>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.l_), null_sent_16>::value, "");
         EXPECT_EQ(unpacked.f_, str);
     }
 }
@@ -235,11 +266,12 @@ TEST(transcode_view, detail_unpack_32_N)
         utf_32_to_16_iterator<uint32_t const *> it2(str, str + 3, str + 3);
         auto unpacked = detail::unpack_iterator_and_sentinel(it1, it2);
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf32_tag>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf32_tag>::value,
+            "");
         static_assert(
-            std::is_same<decltype(unpacked.f_), uint32_t const *>::value);
+            std::is_same<decltype(unpacked.f_), uint32_t const *>::value, "");
         static_assert(
-            std::is_same<decltype(unpacked.l_), uint32_t const *>::value);
+            std::is_same<decltype(unpacked.l_), uint32_t const *>::value, "");
         EXPECT_EQ(unpacked.f_, str);
         EXPECT_EQ(unpacked.l_, str + 3);
     }
@@ -249,10 +281,12 @@ TEST(transcode_view, detail_unpack_32_N)
         auto unpacked =
             detail::unpack_iterator_and_sentinel(it, null_sent_32{});
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf32_tag>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf32_tag>::value,
+            "");
         static_assert(
-            std::is_same<decltype(unpacked.f_), uint32_t const *>::value);
-        static_assert(std::is_same<decltype(unpacked.l_), null_sent_32>::value);
+            std::is_same<decltype(unpacked.f_), uint32_t const *>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.l_), null_sent_32>::value, "");
         EXPECT_EQ(unpacked.f_, str);
     }
 
@@ -262,11 +296,12 @@ TEST(transcode_view, detail_unpack_32_N)
         utf_32_to_8_iterator<uint32_t const *> it2(str, str + 3, str + 3);
         auto unpacked = detail::unpack_iterator_and_sentinel(it1, it2);
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf32_tag>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf32_tag>::value,
+            "");
         static_assert(
-            std::is_same<decltype(unpacked.f_), uint32_t const *>::value);
+            std::is_same<decltype(unpacked.f_), uint32_t const *>::value, "");
         static_assert(
-            std::is_same<decltype(unpacked.l_), uint32_t const *>::value);
+            std::is_same<decltype(unpacked.l_), uint32_t const *>::value, "");
         EXPECT_EQ(unpacked.f_, str);
         EXPECT_EQ(unpacked.l_, str + 3);
     }
@@ -276,10 +311,12 @@ TEST(transcode_view, detail_unpack_32_N)
         auto unpacked =
             detail::unpack_iterator_and_sentinel(it, null_sent_32{});
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf32_tag>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf32_tag>::value,
+            "");
         static_assert(
-            std::is_same<decltype(unpacked.f_), uint32_t const *>::value);
-        static_assert(std::is_same<decltype(unpacked.l_), null_sent_32>::value);
+            std::is_same<decltype(unpacked.f_), uint32_t const *>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.l_), null_sent_32>::value, "");
         EXPECT_EQ(unpacked.f_, str);
     }
 }
@@ -296,12 +333,15 @@ TEST(transcode_view, detail_make_utf8)
         utf_8_to_32_iterator<char const *> it2(str8, str8 + 3, str8 + 3);
         auto unpacked = detail::unpack_iterator_and_sentinel(it1, it2);
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf8_tag>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf8_tag>::value, "");
         auto r =
             detail::make_utf8_range_(unpacked.tag_, unpacked.f_, unpacked.l_);
-        static_assert(std::is_same<decltype(r.tag_), detail::utf8_tag>::value);
-        static_assert(std::is_same<decltype(unpacked.f_), char const *>::value);
-        static_assert(std::is_same<decltype(unpacked.l_), char const *>::value);
+        static_assert(
+            std::is_same<decltype(r.tag_), detail::utf8_tag>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.f_), char const *>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.l_), char const *>::value, "");
         EXPECT_EQ(unpacked.f_, str8);
         EXPECT_EQ(unpacked.l_, str8 + 3);
     }
@@ -311,13 +351,15 @@ TEST(transcode_view, detail_make_utf8)
         auto unpacked =
             detail::unpack_iterator_and_sentinel(it, null_sentinel{});
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf8_tag>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf8_tag>::value, "");
         auto r =
             detail::make_utf8_range_(unpacked.tag_, unpacked.f_, unpacked.l_);
-        static_assert(std::is_same<decltype(r.tag_), detail::utf8_tag>::value);
-        static_assert(std::is_same<decltype(unpacked.f_), char const *>::value);
         static_assert(
-            std::is_same<decltype(unpacked.l_), null_sentinel>::value);
+            std::is_same<decltype(r.tag_), detail::utf8_tag>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.f_), char const *>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.l_), null_sentinel>::value, "");
         EXPECT_EQ(unpacked.f_, str8);
     }
 
@@ -327,12 +369,15 @@ TEST(transcode_view, detail_make_utf8)
         utf_8_to_16_iterator<char const *> it2(str8, str8 + 3, str8 + 3);
         auto unpacked = detail::unpack_iterator_and_sentinel(it1, it2);
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf8_tag>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf8_tag>::value, "");
         auto r =
             detail::make_utf8_range_(unpacked.tag_, unpacked.f_, unpacked.l_);
-        static_assert(std::is_same<decltype(r.tag_), detail::utf8_tag>::value);
-        static_assert(std::is_same<decltype(unpacked.f_), char const *>::value);
-        static_assert(std::is_same<decltype(unpacked.l_), char const *>::value);
+        static_assert(
+            std::is_same<decltype(r.tag_), detail::utf8_tag>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.f_), char const *>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.l_), char const *>::value, "");
         EXPECT_EQ(unpacked.f_, str8);
         EXPECT_EQ(unpacked.l_, str8 + 3);
     }
@@ -342,13 +387,15 @@ TEST(transcode_view, detail_make_utf8)
         auto unpacked =
             detail::unpack_iterator_and_sentinel(it, null_sentinel{});
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf8_tag>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf8_tag>::value, "");
         auto r =
             detail::make_utf8_range_(unpacked.tag_, unpacked.f_, unpacked.l_);
-        static_assert(std::is_same<decltype(r.tag_), detail::utf8_tag>::value);
-        static_assert(std::is_same<decltype(unpacked.f_), char const *>::value);
         static_assert(
-            std::is_same<decltype(unpacked.l_), null_sentinel>::value);
+            std::is_same<decltype(r.tag_), detail::utf8_tag>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.f_), char const *>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.l_), null_sentinel>::value, "");
         EXPECT_EQ(unpacked.f_, str8);
     }
 
@@ -359,14 +406,16 @@ TEST(transcode_view, detail_make_utf8)
             str16, str16 + 3, str16 + 3);
         auto unpacked = detail::unpack_iterator_and_sentinel(it1, it2);
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf16_tag>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf16_tag>::value,
+            "");
         auto r =
             detail::make_utf8_range_(unpacked.tag_, unpacked.f_, unpacked.l_);
-        static_assert(std::is_same<decltype(r.tag_), detail::utf8_tag>::value);
         static_assert(
-            std::is_same<decltype(unpacked.f_), uint16_t const *>::value);
+            std::is_same<decltype(r.tag_), detail::utf8_tag>::value, "");
         static_assert(
-            std::is_same<decltype(unpacked.l_), uint16_t const *>::value);
+            std::is_same<decltype(unpacked.f_), uint16_t const *>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.l_), uint16_t const *>::value, "");
         EXPECT_EQ(
             unpacked.f_, make_utf_16_to_8_iterator(str16, str16, str16 + 3));
         EXPECT_EQ(
@@ -379,13 +428,16 @@ TEST(transcode_view, detail_make_utf8)
         auto unpacked =
             detail::unpack_iterator_and_sentinel(it, null_sent_16{});
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf16_tag>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf16_tag>::value,
+            "");
         auto r =
             detail::make_utf8_range_(unpacked.tag_, unpacked.f_, unpacked.l_);
-        static_assert(std::is_same<decltype(r.tag_), detail::utf8_tag>::value);
         static_assert(
-            std::is_same<decltype(unpacked.f_), uint16_t const *>::value);
-        static_assert(std::is_same<decltype(unpacked.l_), null_sent_16>::value);
+            std::is_same<decltype(r.tag_), detail::utf8_tag>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.f_), uint16_t const *>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.l_), null_sent_16>::value, "");
         EXPECT_EQ(
             unpacked.f_, make_utf_16_to_8_iterator(str16, str16, str16 + 3));
     }
@@ -396,14 +448,16 @@ TEST(transcode_view, detail_make_utf8)
         utf_16_to_8_iterator<uint16_t const *> it2(str16, str16 + 3, str16 + 3);
         auto unpacked = detail::unpack_iterator_and_sentinel(it1, it2);
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf16_tag>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf16_tag>::value,
+            "");
         auto r =
             detail::make_utf8_range_(unpacked.tag_, unpacked.f_, unpacked.l_);
-        static_assert(std::is_same<decltype(r.tag_), detail::utf8_tag>::value);
         static_assert(
-            std::is_same<decltype(unpacked.f_), uint16_t const *>::value);
+            std::is_same<decltype(r.tag_), detail::utf8_tag>::value, "");
         static_assert(
-            std::is_same<decltype(unpacked.l_), uint16_t const *>::value);
+            std::is_same<decltype(unpacked.f_), uint16_t const *>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.l_), uint16_t const *>::value, "");
         EXPECT_EQ(
             unpacked.f_, make_utf_16_to_8_iterator(str16, str16, str16 + 3));
         EXPECT_EQ(
@@ -416,13 +470,16 @@ TEST(transcode_view, detail_make_utf8)
         auto unpacked =
             detail::unpack_iterator_and_sentinel(it, null_sent_16{});
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf16_tag>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf16_tag>::value,
+            "");
         auto r =
             detail::make_utf8_range_(unpacked.tag_, unpacked.f_, unpacked.l_);
-        static_assert(std::is_same<decltype(r.tag_), detail::utf8_tag>::value);
         static_assert(
-            std::is_same<decltype(unpacked.f_), uint16_t const *>::value);
-        static_assert(std::is_same<decltype(unpacked.l_), null_sent_16>::value);
+            std::is_same<decltype(r.tag_), detail::utf8_tag>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.f_), uint16_t const *>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.l_), null_sent_16>::value, "");
         EXPECT_EQ(
             unpacked.f_, make_utf_16_to_8_iterator(str16, str16, str16 + 3));
     }
@@ -434,14 +491,16 @@ TEST(transcode_view, detail_make_utf8)
             str32, str32 + 3, str32 + 3);
         auto unpacked = detail::unpack_iterator_and_sentinel(it1, it2);
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf32_tag>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf32_tag>::value,
+            "");
         auto r =
             detail::make_utf8_range_(unpacked.tag_, unpacked.f_, unpacked.l_);
-        static_assert(std::is_same<decltype(r.tag_), detail::utf8_tag>::value);
         static_assert(
-            std::is_same<decltype(unpacked.f_), uint32_t const *>::value);
+            std::is_same<decltype(r.tag_), detail::utf8_tag>::value, "");
         static_assert(
-            std::is_same<decltype(unpacked.l_), uint32_t const *>::value);
+            std::is_same<decltype(unpacked.f_), uint32_t const *>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.l_), uint32_t const *>::value, "");
         EXPECT_EQ(
             unpacked.f_, make_utf_32_to_8_iterator(str32, str32, str32 + 3));
         EXPECT_EQ(
@@ -454,13 +513,16 @@ TEST(transcode_view, detail_make_utf8)
         auto unpacked =
             detail::unpack_iterator_and_sentinel(it, null_sent_32{});
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf32_tag>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf32_tag>::value,
+            "");
         auto r =
             detail::make_utf8_range_(unpacked.tag_, unpacked.f_, unpacked.l_);
-        static_assert(std::is_same<decltype(r.tag_), detail::utf8_tag>::value);
         static_assert(
-            std::is_same<decltype(unpacked.f_), uint32_t const *>::value);
-        static_assert(std::is_same<decltype(unpacked.l_), null_sent_32>::value);
+            std::is_same<decltype(r.tag_), detail::utf8_tag>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.f_), uint32_t const *>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.l_), null_sent_32>::value, "");
         EXPECT_EQ(
             unpacked.f_, make_utf_32_to_8_iterator(str32, str32, str32 + 3));
     }
@@ -471,14 +533,16 @@ TEST(transcode_view, detail_make_utf8)
         utf_32_to_8_iterator<uint32_t const *> it2(str32, str32 + 3, str32 + 3);
         auto unpacked = detail::unpack_iterator_and_sentinel(it1, it2);
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf32_tag>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf32_tag>::value,
+            "");
         auto r =
             detail::make_utf8_range_(unpacked.tag_, unpacked.f_, unpacked.l_);
-        static_assert(std::is_same<decltype(r.tag_), detail::utf8_tag>::value);
         static_assert(
-            std::is_same<decltype(unpacked.f_), uint32_t const *>::value);
+            std::is_same<decltype(r.tag_), detail::utf8_tag>::value, "");
         static_assert(
-            std::is_same<decltype(unpacked.l_), uint32_t const *>::value);
+            std::is_same<decltype(unpacked.f_), uint32_t const *>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.l_), uint32_t const *>::value, "");
         EXPECT_EQ(
             unpacked.f_, make_utf_32_to_8_iterator(str32, str32, str32 + 3));
         EXPECT_EQ(
@@ -491,13 +555,16 @@ TEST(transcode_view, detail_make_utf8)
         auto unpacked =
             detail::unpack_iterator_and_sentinel(it, null_sent_32{});
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf32_tag>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf32_tag>::value,
+            "");
         auto r =
             detail::make_utf8_range_(unpacked.tag_, unpacked.f_, unpacked.l_);
-        static_assert(std::is_same<decltype(r.tag_), detail::utf8_tag>::value);
         static_assert(
-            std::is_same<decltype(unpacked.f_), uint32_t const *>::value);
-        static_assert(std::is_same<decltype(unpacked.l_), null_sent_32>::value);
+            std::is_same<decltype(r.tag_), detail::utf8_tag>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.f_), uint32_t const *>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.l_), null_sent_32>::value, "");
         EXPECT_EQ(
             unpacked.f_, make_utf_32_to_8_iterator(str32, str32, str32 + 3));
     }
@@ -515,12 +582,15 @@ TEST(transcode_view, detail_make_utf16)
         utf_8_to_32_iterator<char const *> it2(str8, str8 + 3, str8 + 3);
         auto unpacked = detail::unpack_iterator_and_sentinel(it1, it2);
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf8_tag>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf8_tag>::value, "");
         auto r =
             detail::make_utf16_range_(unpacked.tag_, unpacked.f_, unpacked.l_);
-        static_assert(std::is_same<decltype(r.tag_), detail::utf16_tag>::value);
-        static_assert(std::is_same<decltype(unpacked.f_), char const *>::value);
-        static_assert(std::is_same<decltype(unpacked.l_), char const *>::value);
+        static_assert(
+            std::is_same<decltype(r.tag_), detail::utf16_tag>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.f_), char const *>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.l_), char const *>::value, "");
         EXPECT_EQ(unpacked.f_, make_utf_8_to_16_iterator(str8, str8, str8 + 3));
         EXPECT_EQ(
             unpacked.l_, make_utf_8_to_16_iterator(str8, str8 + 3, str8 + 3));
@@ -531,13 +601,15 @@ TEST(transcode_view, detail_make_utf16)
         auto unpacked =
             detail::unpack_iterator_and_sentinel(it, null_sentinel{});
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf8_tag>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf8_tag>::value, "");
         auto r =
             detail::make_utf16_range_(unpacked.tag_, unpacked.f_, unpacked.l_);
-        static_assert(std::is_same<decltype(r.tag_), detail::utf16_tag>::value);
-        static_assert(std::is_same<decltype(unpacked.f_), char const *>::value);
         static_assert(
-            std::is_same<decltype(unpacked.l_), null_sentinel>::value);
+            std::is_same<decltype(r.tag_), detail::utf16_tag>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.f_), char const *>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.l_), null_sentinel>::value, "");
         EXPECT_EQ(unpacked.f_, make_utf_8_to_16_iterator(str8, str8, str8 + 3));
     }
 
@@ -547,12 +619,15 @@ TEST(transcode_view, detail_make_utf16)
         utf_8_to_16_iterator<char const *> it2(str8, str8 + 3, str8 + 3);
         auto unpacked = detail::unpack_iterator_and_sentinel(it1, it2);
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf8_tag>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf8_tag>::value, "");
         auto r =
             detail::make_utf16_range_(unpacked.tag_, unpacked.f_, unpacked.l_);
-        static_assert(std::is_same<decltype(r.tag_), detail::utf16_tag>::value);
-        static_assert(std::is_same<decltype(unpacked.f_), char const *>::value);
-        static_assert(std::is_same<decltype(unpacked.l_), char const *>::value);
+        static_assert(
+            std::is_same<decltype(r.tag_), detail::utf16_tag>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.f_), char const *>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.l_), char const *>::value, "");
         EXPECT_EQ(unpacked.f_, make_utf_8_to_16_iterator(str8, str8, str8 + 3));
         EXPECT_EQ(
             unpacked.l_, make_utf_8_to_16_iterator(str8, str8 + 3, str8 + 3));
@@ -563,13 +638,15 @@ TEST(transcode_view, detail_make_utf16)
         auto unpacked =
             detail::unpack_iterator_and_sentinel(it, null_sentinel{});
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf8_tag>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf8_tag>::value, "");
         auto r =
             detail::make_utf16_range_(unpacked.tag_, unpacked.f_, unpacked.l_);
-        static_assert(std::is_same<decltype(r.tag_), detail::utf16_tag>::value);
-        static_assert(std::is_same<decltype(unpacked.f_), char const *>::value);
         static_assert(
-            std::is_same<decltype(unpacked.l_), null_sentinel>::value);
+            std::is_same<decltype(r.tag_), detail::utf16_tag>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.f_), char const *>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.l_), null_sentinel>::value, "");
         EXPECT_EQ(unpacked.f_, make_utf_8_to_16_iterator(str8, str8, str8 + 3));
     }
 
@@ -580,14 +657,16 @@ TEST(transcode_view, detail_make_utf16)
             str16, str16 + 3, str16 + 3);
         auto unpacked = detail::unpack_iterator_and_sentinel(it1, it2);
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf16_tag>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf16_tag>::value,
+            "");
         auto r =
             detail::make_utf16_range_(unpacked.tag_, unpacked.f_, unpacked.l_);
-        static_assert(std::is_same<decltype(r.tag_), detail::utf16_tag>::value);
         static_assert(
-            std::is_same<decltype(unpacked.f_), uint16_t const *>::value);
+            std::is_same<decltype(r.tag_), detail::utf16_tag>::value, "");
         static_assert(
-            std::is_same<decltype(unpacked.l_), uint16_t const *>::value);
+            std::is_same<decltype(unpacked.f_), uint16_t const *>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.l_), uint16_t const *>::value, "");
         EXPECT_EQ(unpacked.f_, str16);
         EXPECT_EQ(unpacked.l_, str16 + 3);
     }
@@ -597,13 +676,16 @@ TEST(transcode_view, detail_make_utf16)
         auto unpacked =
             detail::unpack_iterator_and_sentinel(it, null_sent_16{});
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf16_tag>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf16_tag>::value,
+            "");
         auto r =
             detail::make_utf16_range_(unpacked.tag_, unpacked.f_, unpacked.l_);
-        static_assert(std::is_same<decltype(r.tag_), detail::utf16_tag>::value);
         static_assert(
-            std::is_same<decltype(unpacked.f_), uint16_t const *>::value);
-        static_assert(std::is_same<decltype(unpacked.l_), null_sent_16>::value);
+            std::is_same<decltype(r.tag_), detail::utf16_tag>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.f_), uint16_t const *>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.l_), null_sent_16>::value, "");
         EXPECT_EQ(
             unpacked.f_, make_utf_16_to_8_iterator(str16, str16, str16 + 3));
         EXPECT_EQ(unpacked.f_, str16);
@@ -615,14 +697,16 @@ TEST(transcode_view, detail_make_utf16)
         utf_16_to_8_iterator<uint16_t const *> it2(str16, str16 + 3, str16 + 3);
         auto unpacked = detail::unpack_iterator_and_sentinel(it1, it2);
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf16_tag>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf16_tag>::value,
+            "");
         auto r =
             detail::make_utf16_range_(unpacked.tag_, unpacked.f_, unpacked.l_);
-        static_assert(std::is_same<decltype(r.tag_), detail::utf16_tag>::value);
         static_assert(
-            std::is_same<decltype(unpacked.f_), uint16_t const *>::value);
+            std::is_same<decltype(r.tag_), detail::utf16_tag>::value, "");
         static_assert(
-            std::is_same<decltype(unpacked.l_), uint16_t const *>::value);
+            std::is_same<decltype(unpacked.f_), uint16_t const *>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.l_), uint16_t const *>::value, "");
         EXPECT_EQ(unpacked.f_, str16);
         EXPECT_EQ(unpacked.l_, str16 + 3);
     }
@@ -632,13 +716,16 @@ TEST(transcode_view, detail_make_utf16)
         auto unpacked =
             detail::unpack_iterator_and_sentinel(it, null_sent_16{});
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf16_tag>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf16_tag>::value,
+            "");
         auto r =
             detail::make_utf16_range_(unpacked.tag_, unpacked.f_, unpacked.l_);
-        static_assert(std::is_same<decltype(r.tag_), detail::utf16_tag>::value);
         static_assert(
-            std::is_same<decltype(unpacked.f_), uint16_t const *>::value);
-        static_assert(std::is_same<decltype(unpacked.l_), null_sent_16>::value);
+            std::is_same<decltype(r.tag_), detail::utf16_tag>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.f_), uint16_t const *>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.l_), null_sent_16>::value, "");
         EXPECT_EQ(unpacked.f_, str16);
     }
 
@@ -649,14 +736,16 @@ TEST(transcode_view, detail_make_utf16)
             str32, str32 + 3, str32 + 3);
         auto unpacked = detail::unpack_iterator_and_sentinel(it1, it2);
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf32_tag>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf32_tag>::value,
+            "");
         auto r =
             detail::make_utf16_range_(unpacked.tag_, unpacked.f_, unpacked.l_);
-        static_assert(std::is_same<decltype(r.tag_), detail::utf16_tag>::value);
         static_assert(
-            std::is_same<decltype(unpacked.f_), uint32_t const *>::value);
+            std::is_same<decltype(r.tag_), detail::utf16_tag>::value, "");
         static_assert(
-            std::is_same<decltype(unpacked.l_), uint32_t const *>::value);
+            std::is_same<decltype(unpacked.f_), uint32_t const *>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.l_), uint32_t const *>::value, "");
         EXPECT_EQ(
             unpacked.f_, make_utf_32_to_16_iterator(str32, str32, str32 + 3));
         EXPECT_EQ(
@@ -669,13 +758,16 @@ TEST(transcode_view, detail_make_utf16)
         auto unpacked =
             detail::unpack_iterator_and_sentinel(it, null_sent_32{});
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf32_tag>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf32_tag>::value,
+            "");
         auto r =
             detail::make_utf16_range_(unpacked.tag_, unpacked.f_, unpacked.l_);
-        static_assert(std::is_same<decltype(r.tag_), detail::utf16_tag>::value);
         static_assert(
-            std::is_same<decltype(unpacked.f_), uint32_t const *>::value);
-        static_assert(std::is_same<decltype(unpacked.l_), null_sent_32>::value);
+            std::is_same<decltype(r.tag_), detail::utf16_tag>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.f_), uint32_t const *>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.l_), null_sent_32>::value, "");
         EXPECT_EQ(
             unpacked.f_, make_utf_32_to_16_iterator(str32, str32, str32 + 3));
     }
@@ -686,14 +778,16 @@ TEST(transcode_view, detail_make_utf16)
         utf_32_to_8_iterator<uint32_t const *> it2(str32, str32 + 3, str32 + 3);
         auto unpacked = detail::unpack_iterator_and_sentinel(it1, it2);
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf32_tag>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf32_tag>::value,
+            "");
         auto r =
             detail::make_utf16_range_(unpacked.tag_, unpacked.f_, unpacked.l_);
-        static_assert(std::is_same<decltype(r.tag_), detail::utf16_tag>::value);
         static_assert(
-            std::is_same<decltype(unpacked.f_), uint32_t const *>::value);
+            std::is_same<decltype(r.tag_), detail::utf16_tag>::value, "");
         static_assert(
-            std::is_same<decltype(unpacked.l_), uint32_t const *>::value);
+            std::is_same<decltype(unpacked.f_), uint32_t const *>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.l_), uint32_t const *>::value, "");
         EXPECT_EQ(
             unpacked.f_, make_utf_32_to_16_iterator(str32, str32, str32 + 3));
         EXPECT_EQ(
@@ -706,13 +800,16 @@ TEST(transcode_view, detail_make_utf16)
         auto unpacked =
             detail::unpack_iterator_and_sentinel(it, null_sent_32{});
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf32_tag>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf32_tag>::value,
+            "");
         auto r =
             detail::make_utf16_range_(unpacked.tag_, unpacked.f_, unpacked.l_);
-        static_assert(std::is_same<decltype(r.tag_), detail::utf16_tag>::value);
         static_assert(
-            std::is_same<decltype(unpacked.f_), uint32_t const *>::value);
-        static_assert(std::is_same<decltype(unpacked.l_), null_sent_32>::value);
+            std::is_same<decltype(r.tag_), detail::utf16_tag>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.f_), uint32_t const *>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.l_), null_sent_32>::value, "");
         EXPECT_EQ(
             unpacked.f_, make_utf_32_to_16_iterator(str32, str32, str32 + 3));
     }
@@ -730,12 +827,15 @@ TEST(transcode_view, detail_make_utf32)
         utf_8_to_32_iterator<char const *> it2(str8, str8 + 3, str8 + 3);
         auto unpacked = detail::unpack_iterator_and_sentinel(it1, it2);
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf8_tag>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf8_tag>::value, "");
         auto r =
             detail::make_utf32_range_(unpacked.tag_, unpacked.f_, unpacked.l_);
-        static_assert(std::is_same<decltype(r.tag_), detail::utf32_tag>::value);
-        static_assert(std::is_same<decltype(unpacked.f_), char const *>::value);
-        static_assert(std::is_same<decltype(unpacked.l_), char const *>::value);
+        static_assert(
+            std::is_same<decltype(r.tag_), detail::utf32_tag>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.f_), char const *>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.l_), char const *>::value, "");
         EXPECT_EQ(unpacked.f_, make_utf_8_to_32_iterator(str8, str8, str8 + 3));
         EXPECT_EQ(
             unpacked.l_, make_utf_8_to_32_iterator(str8, str8 + 3, str8 + 3));
@@ -746,13 +846,15 @@ TEST(transcode_view, detail_make_utf32)
         auto unpacked =
             detail::unpack_iterator_and_sentinel(it, null_sentinel{});
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf8_tag>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf8_tag>::value, "");
         auto r =
             detail::make_utf32_range_(unpacked.tag_, unpacked.f_, unpacked.l_);
-        static_assert(std::is_same<decltype(r.tag_), detail::utf32_tag>::value);
-        static_assert(std::is_same<decltype(unpacked.f_), char const *>::value);
         static_assert(
-            std::is_same<decltype(unpacked.l_), null_sentinel>::value);
+            std::is_same<decltype(r.tag_), detail::utf32_tag>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.f_), char const *>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.l_), null_sentinel>::value, "");
         EXPECT_EQ(unpacked.f_, make_utf_8_to_32_iterator(str8, str8, str8 + 3));
     }
 
@@ -762,12 +864,15 @@ TEST(transcode_view, detail_make_utf32)
         utf_8_to_16_iterator<char const *> it2(str8, str8 + 3, str8 + 3);
         auto unpacked = detail::unpack_iterator_and_sentinel(it1, it2);
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf8_tag>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf8_tag>::value, "");
         auto r =
             detail::make_utf32_range_(unpacked.tag_, unpacked.f_, unpacked.l_);
-        static_assert(std::is_same<decltype(r.tag_), detail::utf32_tag>::value);
-        static_assert(std::is_same<decltype(unpacked.f_), char const *>::value);
-        static_assert(std::is_same<decltype(unpacked.l_), char const *>::value);
+        static_assert(
+            std::is_same<decltype(r.tag_), detail::utf32_tag>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.f_), char const *>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.l_), char const *>::value, "");
         EXPECT_EQ(unpacked.f_, make_utf_8_to_32_iterator(str8, str8, str8 + 3));
         EXPECT_EQ(
             unpacked.l_, make_utf_8_to_32_iterator(str8, str8 + 3, str8 + 3));
@@ -778,13 +883,15 @@ TEST(transcode_view, detail_make_utf32)
         auto unpacked =
             detail::unpack_iterator_and_sentinel(it, null_sentinel{});
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf8_tag>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf8_tag>::value, "");
         auto r =
             detail::make_utf32_range_(unpacked.tag_, unpacked.f_, unpacked.l_);
-        static_assert(std::is_same<decltype(r.tag_), detail::utf32_tag>::value);
-        static_assert(std::is_same<decltype(unpacked.f_), char const *>::value);
         static_assert(
-            std::is_same<decltype(unpacked.l_), null_sentinel>::value);
+            std::is_same<decltype(r.tag_), detail::utf32_tag>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.f_), char const *>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.l_), null_sentinel>::value, "");
         EXPECT_EQ(unpacked.f_, make_utf_8_to_32_iterator(str8, str8, str8 + 3));
     }
 
@@ -795,14 +902,16 @@ TEST(transcode_view, detail_make_utf32)
             str16, str16 + 3, str16 + 3);
         auto unpacked = detail::unpack_iterator_and_sentinel(it1, it2);
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf16_tag>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf16_tag>::value,
+            "");
         auto r =
             detail::make_utf32_range_(unpacked.tag_, unpacked.f_, unpacked.l_);
-        static_assert(std::is_same<decltype(r.tag_), detail::utf32_tag>::value);
         static_assert(
-            std::is_same<decltype(unpacked.f_), uint16_t const *>::value);
+            std::is_same<decltype(r.tag_), detail::utf32_tag>::value, "");
         static_assert(
-            std::is_same<decltype(unpacked.l_), uint16_t const *>::value);
+            std::is_same<decltype(unpacked.f_), uint16_t const *>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.l_), uint16_t const *>::value, "");
         EXPECT_EQ(
             unpacked.f_, make_utf_16_to_32_iterator(str16, str16, str16 + 3));
         EXPECT_EQ(
@@ -815,13 +924,16 @@ TEST(transcode_view, detail_make_utf32)
         auto unpacked =
             detail::unpack_iterator_and_sentinel(it, null_sent_16{});
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf16_tag>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf16_tag>::value,
+            "");
         auto r =
             detail::make_utf32_range_(unpacked.tag_, unpacked.f_, unpacked.l_);
-        static_assert(std::is_same<decltype(r.tag_), detail::utf32_tag>::value);
         static_assert(
-            std::is_same<decltype(unpacked.f_), uint16_t const *>::value);
-        static_assert(std::is_same<decltype(unpacked.l_), null_sent_16>::value);
+            std::is_same<decltype(r.tag_), detail::utf32_tag>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.f_), uint16_t const *>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.l_), null_sent_16>::value, "");
         EXPECT_EQ(
             unpacked.f_, make_utf_16_to_8_iterator(str16, str16, str16 + 3));
         EXPECT_EQ(
@@ -834,14 +946,16 @@ TEST(transcode_view, detail_make_utf32)
         utf_16_to_8_iterator<uint16_t const *> it2(str16, str16 + 3, str16 + 3);
         auto unpacked = detail::unpack_iterator_and_sentinel(it1, it2);
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf16_tag>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf16_tag>::value,
+            "");
         auto r =
             detail::make_utf32_range_(unpacked.tag_, unpacked.f_, unpacked.l_);
-        static_assert(std::is_same<decltype(r.tag_), detail::utf32_tag>::value);
         static_assert(
-            std::is_same<decltype(unpacked.f_), uint16_t const *>::value);
+            std::is_same<decltype(r.tag_), detail::utf32_tag>::value, "");
         static_assert(
-            std::is_same<decltype(unpacked.l_), uint16_t const *>::value);
+            std::is_same<decltype(unpacked.f_), uint16_t const *>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.l_), uint16_t const *>::value, "");
         EXPECT_EQ(
             unpacked.f_, make_utf_16_to_32_iterator(str16, str16, str16 + 3));
         EXPECT_EQ(
@@ -854,13 +968,16 @@ TEST(transcode_view, detail_make_utf32)
         auto unpacked =
             detail::unpack_iterator_and_sentinel(it, null_sent_16{});
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf16_tag>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf16_tag>::value,
+            "");
         auto r =
             detail::make_utf32_range_(unpacked.tag_, unpacked.f_, unpacked.l_);
-        static_assert(std::is_same<decltype(r.tag_), detail::utf32_tag>::value);
         static_assert(
-            std::is_same<decltype(unpacked.f_), uint16_t const *>::value);
-        static_assert(std::is_same<decltype(unpacked.l_), null_sent_16>::value);
+            std::is_same<decltype(r.tag_), detail::utf32_tag>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.f_), uint16_t const *>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.l_), null_sent_16>::value, "");
         EXPECT_EQ(
             unpacked.f_, make_utf_16_to_32_iterator(str16, str16, str16 + 3));
     }
@@ -872,14 +989,16 @@ TEST(transcode_view, detail_make_utf32)
             str32, str32 + 3, str32 + 3);
         auto unpacked = detail::unpack_iterator_and_sentinel(it1, it2);
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf32_tag>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf32_tag>::value,
+            "");
         auto r =
             detail::make_utf32_range_(unpacked.tag_, unpacked.f_, unpacked.l_);
-        static_assert(std::is_same<decltype(r.tag_), detail::utf32_tag>::value);
         static_assert(
-            std::is_same<decltype(unpacked.f_), uint32_t const *>::value);
+            std::is_same<decltype(r.tag_), detail::utf32_tag>::value, "");
         static_assert(
-            std::is_same<decltype(unpacked.l_), uint32_t const *>::value);
+            std::is_same<decltype(unpacked.f_), uint32_t const *>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.l_), uint32_t const *>::value, "");
         EXPECT_EQ(unpacked.f_, str32);
         EXPECT_EQ(unpacked.l_, str32 + 3);
     }
@@ -889,13 +1008,16 @@ TEST(transcode_view, detail_make_utf32)
         auto unpacked =
             detail::unpack_iterator_and_sentinel(it, null_sent_32{});
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf32_tag>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf32_tag>::value,
+            "");
         auto r =
             detail::make_utf32_range_(unpacked.tag_, unpacked.f_, unpacked.l_);
-        static_assert(std::is_same<decltype(r.tag_), detail::utf32_tag>::value);
         static_assert(
-            std::is_same<decltype(unpacked.f_), uint32_t const *>::value);
-        static_assert(std::is_same<decltype(unpacked.l_), null_sent_32>::value);
+            std::is_same<decltype(r.tag_), detail::utf32_tag>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.f_), uint32_t const *>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.l_), null_sent_32>::value, "");
         EXPECT_EQ(unpacked.f_, str32);
     }
 
@@ -905,14 +1027,16 @@ TEST(transcode_view, detail_make_utf32)
         utf_32_to_8_iterator<uint32_t const *> it2(str32, str32 + 3, str32 + 3);
         auto unpacked = detail::unpack_iterator_and_sentinel(it1, it2);
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf32_tag>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf32_tag>::value,
+            "");
         auto r =
             detail::make_utf32_range_(unpacked.tag_, unpacked.f_, unpacked.l_);
-        static_assert(std::is_same<decltype(r.tag_), detail::utf32_tag>::value);
         static_assert(
-            std::is_same<decltype(unpacked.f_), uint32_t const *>::value);
+            std::is_same<decltype(r.tag_), detail::utf32_tag>::value, "");
         static_assert(
-            std::is_same<decltype(unpacked.l_), uint32_t const *>::value);
+            std::is_same<decltype(unpacked.f_), uint32_t const *>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.l_), uint32_t const *>::value, "");
         EXPECT_EQ(unpacked.f_, str32);
         EXPECT_EQ(unpacked.l_, str32 + 3);
     }
@@ -922,13 +1046,16 @@ TEST(transcode_view, detail_make_utf32)
         auto unpacked =
             detail::unpack_iterator_and_sentinel(it, null_sent_32{});
         static_assert(
-            std::is_same<decltype(unpacked.tag_), detail::utf32_tag>::value);
+            std::is_same<decltype(unpacked.tag_), detail::utf32_tag>::value,
+            "");
         auto r =
             detail::make_utf32_range_(unpacked.tag_, unpacked.f_, unpacked.l_);
-        static_assert(std::is_same<decltype(r.tag_), detail::utf32_tag>::value);
         static_assert(
-            std::is_same<decltype(unpacked.f_), uint32_t const *>::value);
-        static_assert(std::is_same<decltype(unpacked.l_), null_sent_32>::value);
+            std::is_same<decltype(r.tag_), detail::utf32_tag>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.f_), uint32_t const *>::value, "");
+        static_assert(
+            std::is_same<decltype(unpacked.l_), null_sent_32>::value, "");
         EXPECT_EQ(unpacked.f_, str32);
     }
 }
@@ -1011,7 +1138,8 @@ TEST(transcode_view, as_utf8)
         auto r = as_utf8(as_utf16(as_utf8(as_utf32(as_utf16(as_utf8(utf8_))))));
         EXPECT_TRUE(boost::algorithm::equal(
             r.begin(), r.end(), std::begin(utf8_), std::end(utf8_)));
-        static_assert(std::is_same<decltype(r.begin()), char const *>::value);
-        static_assert(std::is_same<decltype(r.end()), char const *>::value);
+        static_assert(
+            std::is_same<decltype(r.begin()), char const *>::value, "");
+        static_assert(std::is_same<decltype(r.end()), char const *>::value, "");
     }
 }

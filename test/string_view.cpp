@@ -404,13 +404,9 @@ TEST(repeated_text_view, test_swap_and_comparisons_constexpr)
 {
     constexpr text::string_view tv_a("a");
     constexpr text::string_view tv_ab("ab");
-    constexpr text::string_view tv_abab("abab");
 
     constexpr text::repeated_string_view tv_a_3(tv_a, 3);
-    constexpr text::repeated_string_view tv_ab_1(tv_ab, 1);
     constexpr text::repeated_string_view tv_ab_2(tv_ab, 2);
-    constexpr text::repeated_string_view tv_ab_3(tv_ab, 3);
-    constexpr text::repeated_string_view tv_abab_1(tv_abab, 1);
 
     {
         static_assert(
