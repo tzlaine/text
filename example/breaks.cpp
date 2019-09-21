@@ -33,15 +33,15 @@ assert(after_0 == first + 2);
 
 // Prints "[0, 2) [2, 3)".
 for (auto range : boost::text::graphemes(cps)) {
-    std::cout << '[' << std::distance(first, range.begin()) << ", "
-              << std::distance(first, range.end()) << ") ";
+    std::cout << '[' << (range.begin() - first) << ", " << (range.end() - first)
+              << ") ";
 }
 std::cout << "\n";
 
 // Prints "[2, 3) [0, 2)".
 for (auto range : boost::text::reversed_graphemes(cps)) {
-    std::cout << '[' << std::distance(first, range.begin()) << ", "
-              << std::distance(first, range.end()) << ") ";
+    std::cout << '[' << (range.begin() - first) << ", " << (range.end() - first)
+              << ") ";
 }
 std::cout << "\n";
 //]

@@ -5,7 +5,6 @@
 #include <boost/text/string.hpp>
 #include <boost/text/string_utility.hpp>
 #include <boost/text/transcode_iterator.hpp>
-#include <boost/text/utility.hpp>
 
 #include <boost/throw_exception.hpp>
 
@@ -263,8 +262,8 @@ namespace boost { namespace text { namespace detail {
             auto const code_units = code_point_bytes(initial_char);
             if (code_units < 0 || last - first < code_units - 1)
                 return 0;
-            utf32_range as_utf32(first - 1, first - 1 + code_units);
-            uint32_t const cp = *as_utf32.begin();
+            auto const r = as_utf32(first - 1, first - 1 + code_units);
+            uint32_t const cp = *r.begin();
 
             // Unicode Pattern_White_Space
             // See
@@ -350,8 +349,8 @@ namespace boost { namespace text { namespace detail {
             if (1 < code_units) {
                 consume(code_units - 1, "Incomplete UTF-8 sequence", buf + 1);
             }
-            utf32_range as_utf32(buf, buf + code_units);
-            auto const cp = *as_utf32.begin();
+            auto const r = as_utf32(buf, buf + code_units);
+            auto const cp = *r.begin();
             if (!in_quote && cp == '-')
                 push(token_kind::dash);
             else

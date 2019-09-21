@@ -1821,8 +1821,10 @@ namespace boost { namespace text {
         CPRange2 & pattern,
         BreakFunc break_fn,
         collation_table const & table,
-        collation_flags flags = collation_flags::none) -> detail::
-        cp_rng_alg_ret_t<utf32_view<decltype(std::begin(str))>, CPRange1>
+        collation_flags flags = collation_flags::none)
+        -> detail::cp_rng_alg_ret_t<
+            utf32_view<detail::iterator_t<decltype(str)>>,
+            CPRange1>
     {
         auto const s =
             make_simple_collation_searcher(pattern, break_fn, table, flags);
@@ -1924,8 +1926,10 @@ namespace boost { namespace text {
         CPRange1 & str,
         CPRange2 & pattern,
         collation_table const & table,
-        collation_flags flags = collation_flags::none) -> detail::
-        cp_rng_alg_ret_t<utf32_view<decltype(std::begin(str))>, CPRange1>
+        collation_flags flags = collation_flags::none)
+        -> detail::cp_rng_alg_ret_t<
+            utf32_view<detail::iterator_t<decltype(str)>>,
+            CPRange1>
     {
         auto const s = make_simple_collation_searcher(
             pattern,

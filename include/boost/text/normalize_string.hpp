@@ -3,6 +3,7 @@
 
 #include <boost/text/normalize.hpp>
 #include <boost/text/string.hpp>
+#include <boost/text/transcode_view.hpp>
 #include <boost/text/detail/icu/normalize.hpp>
 
 
@@ -225,18 +226,17 @@ namespace boost { namespace text {
         quick-check. */
     inline void normalize_to_nfd(string & s)
     {
-        utf32_range as_utf32(s);
-        if (detail::normalized_quick_check(
-                as_utf32.begin(), as_utf32.end(), [](uint32_t cp) {
-                    return detail::quick_check_nfd_code_point(cp);
-                }) == detail::quick_check::yes) {
+        auto const r = as_utf32(s);
+        if (detail::normalized_quick_check(r.begin(), r.end(), [](uint32_t cp) {
+                return detail::quick_check_nfd_code_point(cp);
+            }) == detail::quick_check::yes) {
             return;
         }
 
         string temp;
         temp.reserve(s.size() / 2 * 3);
 
-        normalize_to_nfd_append_utf8(as_utf32.begin(), as_utf32.end(), temp);
+        normalize_to_nfd_append_utf8(r.begin(), r.end(), temp);
 
         if (temp.size() <= s.capacity())
             s = temp;
@@ -249,18 +249,17 @@ namespace boost { namespace text {
         quick-check. */
     inline void normalize_to_nfkd(string & s)
     {
-        utf32_range as_utf32(s);
-        if (detail::normalized_quick_check(
-                as_utf32.begin(), as_utf32.end(), [](uint32_t cp) {
-                    return detail::quick_check_nfkd_code_point(cp);
-                }) == detail::quick_check::yes) {
+        auto const r = as_utf32(s);
+        if (detail::normalized_quick_check(r.begin(), r.end(), [](uint32_t cp) {
+                return detail::quick_check_nfkd_code_point(cp);
+            }) == detail::quick_check::yes) {
             return;
         }
 
         string temp;
         temp.reserve(s.size() / 2 * 3);
 
-        normalize_to_nfkd_append_utf8(as_utf32.begin(), as_utf32.end(), temp);
+        normalize_to_nfkd_append_utf8(r.begin(), r.end(), temp);
 
         if (temp.size() <= s.capacity())
             s = temp;
@@ -273,18 +272,17 @@ namespace boost { namespace text {
         quick-check. */
     inline void normalize_to_nfc(string & s)
     {
-        utf32_range as_utf32(s);
-        if (detail::normalized_quick_check(
-                as_utf32.begin(), as_utf32.end(), [](uint32_t cp) {
-                    return detail::quick_check_nfc_code_point(cp);
-                }) == detail::quick_check::yes) {
+        auto const r = as_utf32(s);
+        if (detail::normalized_quick_check(r.begin(), r.end(), [](uint32_t cp) {
+                return detail::quick_check_nfc_code_point(cp);
+            }) == detail::quick_check::yes) {
             return;
         }
 
         string temp;
         temp.reserve(temp.size());
 
-        normalize_to_nfc_append_utf8(as_utf32.begin(), as_utf32.end(), temp);
+        normalize_to_nfc_append_utf8(r.begin(), r.end(), temp);
 
         if (temp.size() <= s.capacity())
             s = temp;
@@ -297,18 +295,17 @@ namespace boost { namespace text {
         quick-check. */
     inline void normalize_to_nfkc(string & s)
     {
-        utf32_range as_utf32(s);
-        if (detail::normalized_quick_check(
-                as_utf32.begin(), as_utf32.end(), [](uint32_t cp) {
-                    return detail::quick_check_nfkc_code_point(cp);
-                }) == detail::quick_check::yes) {
+        auto const r = as_utf32(s);
+        if (detail::normalized_quick_check(r.begin(), r.end(), [](uint32_t cp) {
+                return detail::quick_check_nfkc_code_point(cp);
+            }) == detail::quick_check::yes) {
             return;
         }
 
         string temp;
         temp.reserve(s.size());
 
-        normalize_to_nfkc_append_utf8(as_utf32.begin(), as_utf32.end(), temp);
+        normalize_to_nfkc_append_utf8(r.begin(), r.end(), temp);
 
         if (temp.size() <= s.capacity())
             s = temp;
@@ -320,12 +317,12 @@ namespace boost { namespace text {
     inline void normalize_to_fcc(string & s)
     {
         // http://www.unicode.org/notes/tn5/#FCC
-        utf32_range as_utf32(s);
+        auto const r = as_utf32(s);
 
         string temp;
         temp.reserve(s.size());
 
-        normalize_to_fcc_append_utf8(as_utf32.begin(), as_utf32.end(), temp);
+        normalize_to_fcc_append_utf8(r.begin(), r.end(), temp);
 
         if (temp.size() <= s.capacity())
             s = temp;

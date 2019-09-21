@@ -1,5 +1,5 @@
 #include <boost/text/transcode_iterator.hpp>
-#include <boost/text/utility.hpp>
+#include <boost/text/transcode_view.hpp>
 
 
 int main ()
@@ -44,7 +44,7 @@ char const utf8[] = {0x4d,
                      char(0x8c),
                      char(0x82)};
 int i = 0;
-for (auto cp : boost::text::utf32_range(utf8)) {
+for (auto cp : boost::text::as_utf32(utf8)) {
     assert(cp == utf32[i++]);
 }
 //]

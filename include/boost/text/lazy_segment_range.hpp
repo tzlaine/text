@@ -1,7 +1,6 @@
 #ifndef BOOST_TEXT_LAZY_SEGMENT_RANGE_HPP
 #define BOOST_TEXT_LAZY_SEGMENT_RANGE_HPP
 
-#include <boost/text/utility.hpp>
 #include <boost/text/transcode_view.hpp>
 
 

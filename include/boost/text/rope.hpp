@@ -888,7 +888,7 @@ namespace boost { namespace text {
                 auto const suffix = str(str_last - str.end()); // negative index
                 container::small_vector<char, 256> buf;
                 normalize_to_fcc(
-                    utf32_range(suffix.begin(), suffix.end()),
+                    as_utf32(suffix.begin(), suffix.end()),
                     utf_32_to_8_back_inserter(buf));
                 str.replace(suffix, string_view(buf));
             }
@@ -905,7 +905,7 @@ namespace boost { namespace text {
                 auto const prefix = str(str_last - str.begin());
                 container::small_vector<char, 256> buf;
                 normalize_to_fcc(
-                    utf32_range(prefix.begin(), prefix.end()),
+                    as_utf32(prefix.begin(), prefix.end()),
                     utf_32_to_8_back_inserter(buf));
                 str.replace(prefix, string_view(buf));
             }

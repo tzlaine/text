@@ -12,10 +12,11 @@ collation_table const default_table = default_collation_table();
 collation_table const danish_table =
     tailored_collation_table(data::da::standard_collation_tailoring());
 
+template<typename UTF32Range>
 void do_simple_search(
     collation_table const & table,
-    utf32_range str,
-    utf32_range substr,
+    UTF32Range str,
+    UTF32Range substr,
     int expected_first,
     int expected_last,
     int line,
@@ -82,10 +83,11 @@ void do_simple_search(
     }
 }
 
+template<typename UTF32Range>
 void do_boyer_moore_search(
     collation_table const & table,
-    utf32_range str,
-    utf32_range substr,
+    UTF32Range str,
+    UTF32Range substr,
     int expected_first,
     int expected_last,
     int line,
@@ -137,10 +139,11 @@ void do_boyer_moore_search(
     }
 }
 
+template<typename UTF32Range>
 void do_boyer_moore_horspool_search(
     collation_table const & table,
-    utf32_range str,
-    utf32_range substr,
+    UTF32Range str,
+    UTF32Range substr,
     int expected_first,
     int expected_last,
     int line,
@@ -203,8 +206,8 @@ void do_search(
     int line,
     collation_flags flags = collation_flags::none)
 {
-    auto const str = utf32_range(str_);
-    auto const substr = utf32_range(substr_);
+    auto const str = as_utf32(str_);
+    auto const substr = as_utf32(substr_);
 
     do_simple_search(
         table, str, substr, expected_first, expected_last, line, flags);
@@ -527,11 +530,11 @@ void do_full_match_search(
     int line,
     collation_flags flags = collation_flags::none)
 {
-    utf32_range as_utf32(str_1);
-    auto size = std::distance(as_utf32.begin(), as_utf32.end());
+    auto const r1 = as_utf32(str_1);
+    auto size = std::distance(r1.begin(), r1.end());
     do_search(table, str_1, str_2, 0, size, line, flags);
-    as_utf32 = utf32_range(str_2);
-    size = std::distance(as_utf32.begin(), as_utf32.end());
+    auto const r2 = as_utf32(str_2);
+    size = std::distance(r2.begin(), r2.end());
     do_search(table, str_2, str_1, 0, size, line, flags);
 }
 
@@ -542,11 +545,11 @@ void do_full_no_match_search(
     int line,
     collation_flags flags = collation_flags::none)
 {
-    utf32_range as_utf32(str_1);
-    auto size = std::distance(as_utf32.begin(), as_utf32.end());
+    auto const r1 = as_utf32(str_1);
+    auto size = std::distance(r1.begin(), r1.end());
     do_search(table, str_1, str_2, size, size, line, flags);
-    as_utf32 = utf32_range(str_2);
-    size = std::distance(as_utf32.begin(), as_utf32.end());
+    auto const r2 = as_utf32(str_2);
+    size = std::distance(r2.begin(), r2.end());
     do_search(table, str_2, str_1, size, size, line, flags);
 }
 
@@ -760,10 +763,11 @@ struct prev_word_callable
     }
 };
 
+template<typename UTF32Range>
 void do_simple_word_search(
     collation_table const & table,
-    utf32_range str,
-    utf32_range substr,
+    UTF32Range str,
+    UTF32Range substr,
     int expected_first,
     int expected_last,
     int line,
@@ -837,10 +841,11 @@ void do_simple_word_search(
 }
 
 
+template<typename UTF32Range>
 void do_simple_word_search_not_found(
     collation_table const & table,
-    utf32_range str,
-    utf32_range substr,
+    UTF32Range str,
+    UTF32Range substr,
     int line,
     collation_flags flags = collation_flags::none)
 {
@@ -897,9 +902,8 @@ TEST(collation_search, word_boundaries)
 {
     auto const table = default_table;
 
-    do_simple_word_search(
-        table, u8"pause resume ...", u8"resume", 6, 12, __LINE__);
-    do_simple_word_search_not_found(table, u8"resumed", u8"resume", __LINE__);
-    do_simple_word_search_not_found(table, u8"unresumed", u8"resume", __LINE__);
-    do_simple_word_search_not_found(table, u8"unresume", u8"resume", __LINE__);
+    do_simple_word_search(table, as_utf32(u8"pause resume ..."), as_utf32(u8"resume"), 6, 12, __LINE__);
+    do_simple_word_search_not_found(table, as_utf32(u8"resumed"), as_utf32(u8"resume"), __LINE__);
+    do_simple_word_search_not_found(table, as_utf32(u8"unresumed"), as_utf32(u8"resume"), __LINE__);
+    do_simple_word_search_not_found(table, as_utf32(u8"unresume"), as_utf32(u8"resume"), __LINE__);
 }

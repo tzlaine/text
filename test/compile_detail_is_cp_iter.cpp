@@ -1,7 +1,6 @@
 #include <boost/text/algorithm.hpp>
 #include <boost/text/string.hpp>
 #include <boost/text/transcode_iterator.hpp>
-#include <boost/text/utility.hpp>
 
 #include <array>
 #include <deque>
@@ -37,13 +36,6 @@ static_assert(
 
 static_assert(
     text::detail::is_cp_iter<text::utf_8_to_32_iterator<char const *>>{}, "");
-static_assert(text::detail::is_cp_iter<text::utf32_range::iterator>{}, "");
-
-static_assert(
-    std::is_same<
-        int *,
-        text::detail::cp_iter_ret_t<int *, text::utf32_range::iterator>>{},
-    "");
 
 
 

@@ -6,7 +6,6 @@
 #include <boost/text/grapheme_break.hpp>
 #include <boost/text/line_break.hpp>
 #include <boost/text/paragraph_break.hpp>
-#include <boost/text/utility.hpp>
 #include <boost/text/detail/normalization_data.hpp>
 #include <boost/text/detail/bidirectional.hpp>
 #include <boost/text/detail/iterator.hpp>

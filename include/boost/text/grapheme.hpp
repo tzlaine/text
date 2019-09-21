@@ -4,7 +4,6 @@
 #include <boost/text/grapheme_break.hpp>
 #include <boost/text/normalize.hpp>
 #include <boost/text/transcode_iterator.hpp>
-#include <boost/text/utility.hpp>
 
 #include <boost/algorithm/cxx14/equal.hpp>
 #include <boost/container/small_vector.hpp>

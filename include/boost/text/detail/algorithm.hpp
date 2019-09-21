@@ -19,6 +19,16 @@ namespace boost { namespace text {
 
 namespace boost { namespace text { namespace detail {
 
+    template<typename T>
+    using remove_cv_ref_t =
+        typename std::remove_cv<typename std::remove_reference<T>::type>::type;
+
+    template<typename Range>
+    using iterator_t = decltype(std::begin(std::declval<Range>()));
+
+    template<typename Range>
+    using sentinel_t = decltype(std::end(std::declval<Range>()));
+
     template<typename...>
     struct void_
     {
@@ -427,11 +437,9 @@ namespace boost { namespace text { namespace detail {
 
 
 
-    template<typename T, typename R1>
-    using cp_rng_alg_ret_t = cp_iter_sntl_ret_t<
-        T,
-        decltype(std::declval<R1>().begin()),
-        decltype(std::declval<R1>().end())>;
+    template<typename T, typename R>
+    using cp_rng_alg_ret_t =
+        cp_iter_sntl_ret_t<T, iterator_t<R>, sentinel_t<R>>;
 
 
 
@@ -607,16 +615,6 @@ namespace boost { namespace text { namespace detail {
         bool,
         std::is_pointer<Iter>::value &&
             detected_or<std::false_type, cp_value_type, Iter>::value>;
-
-    template<typename T>
-    using remove_cv_ref_t =
-        typename std::remove_cv<typename std::remove_reference<T>::type>::type;
-
-    template<typename Range>
-    using iterator_t = remove_cv_ref_t<decltype(std::declval<Range>().begin())>;
-
-    template<typename Range>
-    using sentinel_t = remove_cv_ref_t<decltype(std::declval<Range>().end())>;
 
 }}}
 

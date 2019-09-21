@@ -1459,7 +1459,8 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             line_break_result<detail::iterator_t<CPRange>>,
             CPRange>
     {
-        return prev_allowed_line_break(std::begin(range), it, std::end(range));
+        return prev_allowed_line_break<detail::iterator_t<CPRange>>(
+            std::begin(range), it, std::end(range));
     }
 
     template<typename GraphemeRange, typename GraphemeIter>
@@ -1484,7 +1485,8 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             line_break_result<detail::iterator_t<CPRange>>,
             CPRange>
     {
-        return next_allowed_line_break(it, std::end(range));
+        return next_allowed_line_break<detail::iterator_t<CPRange>>(
+            it, std::end(range));
     }
 
     template<typename GraphemeRange, typename GraphemeIter>
@@ -1819,10 +1821,10 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     auto line(CPRange & range, CPIter it) noexcept -> detail::
         cp_rng_alg_ret_t<utf32_view<detail::iterator_t<CPRange>>, CPRange>
     {
-        auto first =
-            prev_hard_line_break(std::begin(range), it, std::end(range));
-        return utf32_view<CPIter>{first,
-                                next_hard_line_break(first, std::end(range))};
+        auto first = prev_hard_line_break<detail::iterator_t<CPRange>>(
+            std::begin(range), it, std::end(range));
+        return utf32_view<detail::iterator_t<CPRange>>{
+            first, next_hard_line_break(first, std::end(range))};
     }
 
     template<typename GraphemeRange, typename GraphemeIter>
@@ -1947,13 +1949,13 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 
     /** A range of code points that delimit a pair of line break
         boundaries. */
-    template<typename CPIter, typename Sentinel = CPIter>
-    struct line_break_cp_view : utf32_view<CPIter, Sentinel>
+    template<typename CPIter>
+    struct line_break_cp_view : utf32_view<CPIter>
     {
-        line_break_cp_view() : utf32_view<CPIter, Sentinel>(), hard_break_() {}
+        line_break_cp_view() : utf32_view<CPIter>(), hard_break_() {}
         line_break_cp_view(
             line_break_result<CPIter> first, line_break_result<CPIter> last) :
-            utf32_view<CPIter, Sentinel>(first.iter, last.iter),
+            utf32_view<CPIter>(first.iter, last.iter),
             hard_break_(last.hard_break)
         {}
 
@@ -2184,10 +2186,12 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             line_break_cp_view<detail::iterator_t<CPRange>>,
             CPRange>
     {
-        auto const first =
-            prev_allowed_line_break(std::begin(range), it, std::end(range));
-        return line_break_cp_view<CPIter>{
-            first, next_allowed_line_break(first.iter, std::end(range))};
+        auto const first = prev_allowed_line_break<detail::iterator_t<CPRange>>(
+            std::begin(range), it, std::end(range));
+        return line_break_cp_view<detail::iterator_t<CPRange>>{
+            first,
+            next_allowed_line_break<detail::iterator_t<CPRange>>(
+                first.iter, std::end(range))};
     }
 
     template<typename GraphemeRange, typename GraphemeIter>

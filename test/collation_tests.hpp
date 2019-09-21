@@ -50,8 +50,8 @@ std::vector<uint32_t> collate_for_tests(
     boost::text::normalize_to_fcc(str);
 
     boost::container::static_vector<uint32_t, 1024> buf;
-    boost::text::utf32_range as_utf32(str);
-    std::copy(as_utf32.begin(), as_utf32.end(), std::back_inserter(buf));
+    auto const r = boost::text::as_utf32(str);
+    std::copy(r.begin(), r.end(), std::back_inserter(buf));
 
     uint32_t * first = &*buf.begin();
     uint32_t * last = &*buf.end();

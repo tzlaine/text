@@ -3,7 +3,6 @@
 
 #include <boost/text/transcode_algorithm.hpp>
 #include <boost/text/transcode_iterator.hpp>
-#include <boost/text/utility.hpp>
 #include <boost/text/detail/normalization_data.hpp>
 #include <boost/text/detail/icu/normalize.hpp>
 

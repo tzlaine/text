@@ -1,6 +1,6 @@
 #include <boost/text/string_view.hpp>
-#include <boost/text/utility.hpp>
 #include <boost/text/transcode_iterator.hpp>
+#include <boost/text/transcode_view.hpp>
 
 #include <gtest/gtest.h>
 

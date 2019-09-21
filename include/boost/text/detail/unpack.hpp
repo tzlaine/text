@@ -59,10 +59,13 @@ namespace boost { namespace text { namespace detail {
     template<typename Iter, typename Sentinel>
     constexpr auto
     unpack_iterator_and_sentinel(Iter first, Sentinel last) noexcept
-        -> decltype(unpack_iterator_and_sentinel_impl<Iter, Sentinel>::call(
-            first, last))
+        -> decltype(unpack_iterator_and_sentinel_impl<
+                    std::remove_cv_t<Iter>,
+                    std::remove_cv_t<Sentinel>>::call(first, last))
     {
-        return unpack_iterator_and_sentinel_impl<Iter, Sentinel>::call(
+        using iterator = std::remove_cv_t<Iter>;
+        using sentinel = std::remove_cv_t<Sentinel>;
+        return unpack_iterator_and_sentinel_impl<iterator, sentinel>::call(
             first, last);
     }
 

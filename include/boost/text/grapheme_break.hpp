@@ -3,7 +3,6 @@
 
 #include <boost/text/algorithm.hpp>
 #include <boost/text/lazy_segment_range.hpp>
-#include <boost/text/utility.hpp>
 
 #include <boost/assert.hpp>
 

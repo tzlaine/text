@@ -276,7 +276,7 @@ TEST(case_mapping_api, greek_special_casing)
         string const from = u8"άδικος, κείμενο, ίριδα";
         string const to = u8"ΑΔΙΚΟΣ, ΚΕΙΜΕΝΟ, ΙΡΙΔΑ";
         string result;
-        to_upper(utf32_range(from), utf_32_to_8_inserter(result, result.end()));
+        to_upper(as_utf32(from), utf_32_to_8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
@@ -284,7 +284,7 @@ TEST(case_mapping_api, greek_special_casing)
         string const from = u8"Πατάτα";
         string const to = u8"ΠΑΤΑΤΑ";
         string result;
-        to_upper(utf32_range(from), utf_32_to_8_inserter(result, result.end()));
+        to_upper(as_utf32(from), utf_32_to_8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
@@ -292,7 +292,7 @@ TEST(case_mapping_api, greek_special_casing)
         string const from = u8"Αέρας, Μυστήριο, Ωραίο";
         string const to = u8"ΑΕΡΑΣ, ΜΥΣΤΗΡΙΟ, ΩΡΑΙΟ";
         string result;
-        to_upper(utf32_range(from), utf_32_to_8_inserter(result, result.end()));
+        to_upper(as_utf32(from), utf_32_to_8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
@@ -300,7 +300,7 @@ TEST(case_mapping_api, greek_special_casing)
         string const from = u8"Μαΐου, Πόρος, Ρύθμιση";
         string const to = u8"ΜΑΪΟΥ, ΠΟΡΟΣ, ΡΥΘΜΙΣΗ";
         string result;
-        to_upper(utf32_range(from), utf_32_to_8_inserter(result, result.end()));
+        to_upper(as_utf32(from), utf_32_to_8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
@@ -308,7 +308,7 @@ TEST(case_mapping_api, greek_special_casing)
         string const from = u8"ΰ, Τηρώ, Μάιος";
         string const to = u8"Ϋ, ΤΗΡΩ, ΜΑΪΟΣ";
         string result;
-        to_upper(utf32_range(from), utf_32_to_8_inserter(result, result.end()));
+        to_upper(as_utf32(from), utf_32_to_8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
@@ -316,7 +316,7 @@ TEST(case_mapping_api, greek_special_casing)
         string const from = u8"άυλος";
         string const to = u8"ΑΫΛΟΣ";
         string result;
-        to_upper(utf32_range(from), utf_32_to_8_inserter(result, result.end()));
+        to_upper(as_utf32(from), utf_32_to_8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
@@ -324,7 +324,7 @@ TEST(case_mapping_api, greek_special_casing)
         string const from = u8"ΑΫΛΟΣ";
         string const to = u8"ΑΫΛΟΣ";
         string result;
-        to_upper(utf32_range(from), utf_32_to_8_inserter(result, result.end()));
+        to_upper(as_utf32(from), utf_32_to_8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
@@ -332,7 +332,7 @@ TEST(case_mapping_api, greek_special_casing)
         string const from = u8"Άκλιτα ρήματα ή άκλιτες μετοχές";
         string const to = u8"ΑΚΛΙΤΑ ΡΗΜΑΤΑ Ή ΑΚΛΙΤΕΣ ΜΕΤΟΧΕΣ";
         string result;
-        to_upper(utf32_range(from), utf_32_to_8_inserter(result, result.end()));
+        to_upper(as_utf32(from), utf_32_to_8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
@@ -340,7 +340,7 @@ TEST(case_mapping_api, greek_special_casing)
         string const from = u8"Επειδή η αναγνώριση της αξιοπρέπειας";
         string const to = u8"ΕΠΕΙΔΗ Η ΑΝΑΓΝΩΡΙΣΗ ΤΗΣ ΑΞΙΟΠΡΕΠΕΙΑΣ";
         string result;
-        to_upper(utf32_range(from), utf_32_to_8_inserter(result, result.end()));
+        to_upper(as_utf32(from), utf_32_to_8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
@@ -348,7 +348,7 @@ TEST(case_mapping_api, greek_special_casing)
         string const from = u8"νομικού ή διεθνούς";
         string const to = u8"ΝΟΜΙΚΟΥ Ή ΔΙΕΘΝΟΥΣ";
         string result;
-        to_upper(utf32_range(from), utf_32_to_8_inserter(result, result.end()));
+        to_upper(as_utf32(from), utf_32_to_8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
@@ -356,7 +356,7 @@ TEST(case_mapping_api, greek_special_casing)
         string const from = u8"Ἐπειδὴ ἡ ἀναγνώριση";
         string const to = u8"ΕΠΕΙΔΗ Η ΑΝΑΓΝΩΡΙΣΗ";
         string result;
-        to_upper(utf32_range(from), utf_32_to_8_inserter(result, result.end()));
+        to_upper(as_utf32(from), utf_32_to_8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
@@ -364,7 +364,7 @@ TEST(case_mapping_api, greek_special_casing)
         string const from = u8"νομικοῦ ἢ διεθνοῦς";
         string const to = u8"ΝΟΜΙΚΟΥ Ή ΔΙΕΘΝΟΥΣ";
         string result;
-        to_upper(utf32_range(from), utf_32_to_8_inserter(result, result.end()));
+        to_upper(as_utf32(from), utf_32_to_8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
@@ -372,7 +372,7 @@ TEST(case_mapping_api, greek_special_casing)
         string const from = u8"Νέο, Δημιουργία";
         string const to = u8"ΝΕΟ, ΔΗΜΙΟΥΡΓΙΑ";
         string result;
-        to_upper(utf32_range(from), utf_32_to_8_inserter(result, result.end()));
+        to_upper(as_utf32(from), utf_32_to_8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
@@ -380,7 +380,7 @@ TEST(case_mapping_api, greek_special_casing)
         string const from = u8"Ελάτε να φάτε τα καλύτερα παϊδάκια!";
         string const to = u8"ΕΛΑΤΕ ΝΑ ΦΑΤΕ ΤΑ ΚΑΛΥΤΕΡΑ ΠΑΪΔΑΚΙΑ!";
         string result;
-        to_upper(utf32_range(from), utf_32_to_8_inserter(result, result.end()));
+        to_upper(as_utf32(from), utf_32_to_8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
@@ -388,7 +388,7 @@ TEST(case_mapping_api, greek_special_casing)
         string const from = u8"Μαΐου, τρόλεϊ";
         string const to = u8"ΜΑΪΟΥ, ΤΡΟΛΕΪ";
         string result;
-        to_upper(utf32_range(from), utf_32_to_8_inserter(result, result.end()));
+        to_upper(as_utf32(from), utf_32_to_8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
@@ -396,7 +396,7 @@ TEST(case_mapping_api, greek_special_casing)
         string const from = u8"Το ένα ή το άλλο.";
         string const to = u8"ΤΟ ΕΝΑ Ή ΤΟ ΑΛΛΟ.";
         string result;
-        to_upper(utf32_range(from), utf_32_to_8_inserter(result, result.end()));
+        to_upper(as_utf32(from), utf_32_to_8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
@@ -404,7 +404,7 @@ TEST(case_mapping_api, greek_special_casing)
         string const from = u8"ρωμέικα";
         string const to = u8"ΡΩΜΕΪΚΑ";
         string result;
-        to_upper(utf32_range(from), utf_32_to_8_inserter(result, result.end()));
+        to_upper(as_utf32(from), utf_32_to_8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 }

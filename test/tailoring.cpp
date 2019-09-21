@@ -24,7 +24,9 @@ namespace std {
         os << "}" << dec;
         return os;
     }
-    ostream & operator<<(ostream & os, text::utf32_range const & r)
+    template<typename Iter, typename Sentinel>
+    ostream &
+    operator<<(ostream & os, text::utf32_view<Iter, Sentinel> const & r)
     {
         os << '"' << hex;
         for (uint32_t cp : r) {
@@ -78,9 +80,7 @@ TEST(tailoring, case_first)
 
         auto this_ordering = default_ordering;
         std::sort(
-            this_ordering.begin(),
-            this_ordering.end(),
-            lower_first.compare());
+            this_ordering.begin(), this_ordering.end(), lower_first.compare());
         EXPECT_EQ(this_ordering, default_ordering);
     }
 
@@ -90,9 +90,7 @@ TEST(tailoring, case_first)
 
         auto this_ordering = default_ordering;
         std::sort(
-            this_ordering.begin(),
-            this_ordering.end(),
-            upper_first.compare());
+            this_ordering.begin(), this_ordering.end(), upper_first.compare());
         EXPECT_NE(this_ordering, default_ordering);
         std::reverse(this_ordering.begin(), this_ordering.end());
         EXPECT_EQ(this_ordering, default_ordering);
@@ -1251,8 +1249,8 @@ TEST(tailoring, th)
     }
 
     for (int i = 0, end = int(lines.size()) - 1; i < end; ++i) {
-        text::utf32_range i_(lines[i]);
-        text::utf32_range i_1(lines[i + 1]);
+        auto const i_ = text::as_utf32(lines[i]);
+        auto const i_1 = text::as_utf32(lines[i + 1]);
         EXPECT_LE(
             text::collate(
                 i_.begin(),
@@ -1300,8 +1298,8 @@ TEST(tailoring, th)
             {-1, -1, -1, -1, 0, -1, 0, -1, -1, -1, -1, -1, -1}};
 
         for (int i = 0; i < cases; ++i) {
-            text::utf32_range lhs_(lhs[i]);
-            text::utf32_range rhs_(rhs[i]);
+            auto const lhs_ = text::as_utf32(lhs[i]);
+            auto const rhs_ = text::as_utf32(rhs[i]);
             EXPECT_EQ(
                 text::collate(
                     lhs_.begin(),
@@ -1315,8 +1313,8 @@ TEST(tailoring, th)
                     text::variable_weighting::non_ignorable),
                 tertiary_result[i])
                 << "CASE " << i << "\n"
-                << text::utf32_range(lhs[i]) << "\n"
-                << text::utf32_range(rhs[i]) << "\n";
+                << text::as_utf32(lhs[i]) << "\n"
+                << text::as_utf32(rhs[i]) << "\n";
         }
     }
 
@@ -1373,8 +1371,8 @@ TEST(tailoring, th)
              -1, 0,  -1, 0, 0, 0,  -1, 0, -1, 0,  0, 0, -1}};
 
         for (int i = 0; i < cases; ++i) {
-            text::utf32_range lhs_(lhs[i]);
-            text::utf32_range rhs_(rhs[i]);
+            auto const lhs_ = text::as_utf32(lhs[i]);
+            auto const rhs_ = text::as_utf32(rhs[i]);
             EXPECT_EQ(
                 text::collate(
                     lhs_.begin(),
@@ -1388,8 +1386,8 @@ TEST(tailoring, th)
                     text::variable_weighting::non_ignorable),
                 secondary_result[i])
                 << "CASE " << i << "\n"
-                << text::utf32_range(lhs[i]) << "\n"
-                << text::utf32_range(rhs[i]) << "\n";
+                << text::as_utf32(lhs[i]) << "\n"
+                << text::as_utf32(rhs[i]) << "\n";
         }
     }
 
@@ -1403,8 +1401,8 @@ TEST(tailoring, th)
 
         text::string const a("\u0e41ab");
         text::string const b("\u0e41c");
-        text::utf32_range a_(a);
-        text::utf32_range b_(b);
+        auto const a_ = text::as_utf32(a);
+        auto const b_ = text::as_utf32(b);
         EXPECT_EQ(
             text::collate(
                 a_.begin(),

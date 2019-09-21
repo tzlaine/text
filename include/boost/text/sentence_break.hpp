@@ -822,8 +822,8 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
     {
         auto first =
             prev_sentence_break(std::begin(range), it, std::end(range));
-        return utf32_view<CPIter>{first,
-                                next_sentence_break(first, std::end(range))};
+        return utf32_view<detail::iterator_t<CPRange>>{
+            first, next_sentence_break(first, std::end(range))};
     }
 
     template<typename GraphemeRange, typename GraphemeIter>

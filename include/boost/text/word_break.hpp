@@ -1227,7 +1227,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
     {
         auto first = prev_word_break(
             std::begin(range), it, std::end(range), word_prop, cp_break);
-        return utf32_view<CPIter>{
+        return utf32_view<detail::iterator_t<CPRange>>{
             first,
             next_word_break(first, std::end(range), word_prop, cp_break)};
     }
