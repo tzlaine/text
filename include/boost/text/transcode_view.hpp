@@ -132,6 +132,15 @@ namespace boost { namespace text {
         constexpr iterator begin() const noexcept { return first_; }
         constexpr sentinel end() const noexcept { return last_; }
 
+        friend bool operator==(utf8_view lhs, utf8_view rhs)
+        {
+            return lhs.begin() == rhs.begin() && lhs.end() == rhs.end();
+        }
+        friend bool operator!=(utf8_view lhs, utf8_view rhs)
+        {
+            return !(lhs == rhs);
+        }
+
     private:
         iterator first_;
         sentinel last_;
@@ -178,6 +187,15 @@ namespace boost { namespace text {
         constexpr iterator begin() const noexcept { return first_; }
         constexpr sentinel end() const noexcept { return last_; }
 
+        friend bool operator==(utf16_view lhs, utf16_view rhs)
+        {
+            return lhs.begin() == rhs.begin() && lhs.end() == rhs.end();
+        }
+        friend bool operator!=(utf16_view lhs, utf16_view rhs)
+        {
+            return !(lhs == rhs);
+        }
+
     private:
         iterator first_;
         sentinel last_;
@@ -223,6 +241,15 @@ namespace boost { namespace text {
 
         constexpr iterator begin() const noexcept { return first_; }
         constexpr sentinel end() const noexcept { return last_; }
+
+        friend bool operator==(utf32_view lhs, utf32_view rhs)
+        {
+            return lhs.begin() == rhs.begin() && lhs.end() == rhs.end();
+        }
+        friend bool operator!=(utf32_view lhs, utf32_view rhs)
+        {
+            return !(lhs == rhs);
+        }
 
     private:
         iterator first_;
