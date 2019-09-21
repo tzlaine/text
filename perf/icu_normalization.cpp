@@ -1,6 +1,7 @@
 #include <boost/text/normalize.hpp>
 #include <boost/text/normalize_string.hpp>
 #include <boost/text/string_view.hpp>
+#include <boost/text/transcode_view.hpp>
 #include <boost/text/detail/icu/normalize.hpp>
 
 #include <unicode/normalizer2.h>
@@ -50,8 +51,7 @@ void BM_text_utf8_fcc(benchmark::State & state)
 {
     while (state.KeepRunning()) {
         std::vector<char> normalized;
-        auto r = boost::text::make_to_utf32_range(
-            boost::text::string_view(file_contents));
+        auto r = boost::text::as_utf32(boost::text::string_view(file_contents));
         benchmark::DoNotOptimize(boost::text::normalize_to_fcc(
             r, boost::text::utf_32_to_8_back_inserter(normalized)));
     }
@@ -61,8 +61,7 @@ void BM_text_utf8_fcc_string_append(benchmark::State & state)
 {
     while (state.KeepRunning()) {
         std::string result;
-        auto r = boost::text::make_to_utf32_range(
-            boost::text::string_view(file_contents));
+        auto r = boost::text::as_utf32(boost::text::string_view(file_contents));
         normalize_to_fcc_append_utf8(r, result);
         benchmark::ClobberMemory();
     }
@@ -105,8 +104,7 @@ void BM_text_utf8_nfd(benchmark::State & state)
 {
     while (state.KeepRunning()) {
         std::vector<char> normalized;
-        auto r = boost::text::make_to_utf32_range(
-            boost::text::string_view(file_contents));
+        auto r = boost::text::as_utf32(boost::text::string_view(file_contents));
         benchmark::DoNotOptimize(boost::text::normalize_to_nfd(
             r, boost::text::utf_32_to_8_back_inserter(normalized)));
     }
@@ -158,8 +156,7 @@ void BM_text_utf8_nfc(benchmark::State & state)
 {
     while (state.KeepRunning()) {
         std::vector<char> normalized;
-        auto r = boost::text::make_to_utf32_range(
-            boost::text::string_view(file_contents));
+        auto r = boost::text::as_utf32(boost::text::string_view(file_contents));
         benchmark::DoNotOptimize(boost::text::normalize_to_nfc(
             r, boost::text::utf_32_to_8_back_inserter(normalized)));
     }
@@ -169,8 +166,7 @@ void BM_text_utf8_nfc_string_append(benchmark::State & state)
 {
     while (state.KeepRunning()) {
         std::string result;
-        auto r = boost::text::make_to_utf32_range(
-            boost::text::string_view(file_contents));
+        auto r = boost::text::as_utf32(boost::text::string_view(file_contents));
         normalize_to_nfc_append_utf8(r, result);
         benchmark::ClobberMemory();
     }
@@ -222,8 +218,7 @@ void BM_text_utf8_nfkd(benchmark::State & state)
 {
     while (state.KeepRunning()) {
         std::vector<char> normalized;
-        auto r = boost::text::make_to_utf32_range(
-            boost::text::string_view(file_contents));
+        auto r = boost::text::as_utf32(boost::text::string_view(file_contents));
         benchmark::DoNotOptimize(boost::text::normalize_to_nfkd(
             r, boost::text::utf_32_to_8_back_inserter(normalized)));
     }
@@ -275,8 +270,7 @@ void BM_text_utf8_nfkc(benchmark::State & state)
 {
     while (state.KeepRunning()) {
         std::vector<char> normalized;
-        auto r = boost::text::make_to_utf32_range(
-            boost::text::string_view(file_contents));
+        auto r = boost::text::as_utf32(boost::text::string_view(file_contents));
         benchmark::DoNotOptimize(boost::text::normalize_to_nfkc(
             r, boost::text::utf_32_to_8_back_inserter(normalized)));
     }
@@ -347,8 +341,8 @@ int main(int argc, char ** argv)
 
     getline(ifs, file_contents, '\0');
     file_contents_text_string = file_contents;
-    auto const file_cp_range = boost::text::make_to_utf32_range(
-        boost::text::string_view(file_contents));
+    auto const file_cp_range =
+        boost::text::as_utf32(boost::text::string_view(file_contents));
     file_cps.assign(file_cp_range.begin(), file_cp_range.end());
     file_contents_ustr = U_NAMESPACE_QUALIFIER UnicodeString::fromUTF8(
         U_NAMESPACE_QUALIFIER StringPiece(file_contents));

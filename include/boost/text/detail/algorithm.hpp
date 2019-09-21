@@ -608,6 +608,16 @@ namespace boost { namespace text { namespace detail {
         std::is_pointer<Iter>::value &&
             detected_or<std::false_type, cp_value_type, Iter>::value>;
 
+    template<typename T>
+    using remove_cv_ref_t =
+        typename std::remove_cv<typename std::remove_reference<T>::type>::type;
+
+    template<typename Range>
+    using iterator_t = remove_cv_ref_t<decltype(std::declval<Range>().begin())>;
+
+    template<typename Range>
+    using sentinel_t = remove_cv_ref_t<decltype(std::declval<Range>().end())>;
+
 }}}
 
 #endif

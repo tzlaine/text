@@ -2,7 +2,7 @@
 #define BOOST_TEXT_STRING_UTILITY_HPP
 
 #include <boost/text/string.hpp>
-#include <boost/text/utility.hpp>
+#include <boost/text/transcode_view.hpp>
 #include <boost/text/detail/sentinel_tag.hpp>
 
 
@@ -30,16 +30,14 @@ namespace boost { namespace text {
     auto to_string(CPIter first, Sentinel last)
         -> detail::cp_iter_ret_t<string, CPIter>
     {
-        cp_range<CPIter, Sentinel> cps{first, last};
-        auto const r = make_from_utf32_range(cps);
+        auto const r = as_utf8(first, last);
         return string(r.begin(), r.end());
     }
 
     template<typename CPRange>
     auto to_string(CPRange & range) -> detail::cp_rng_alg_ret_t<string, CPRange>
     {
-        auto const r = make_from_utf32_range(range);
-        return string(std::begin(r), std::end(r));
+        return boost::text::to_string(std::begin(range), std::end(range));
     }
 
 #endif
