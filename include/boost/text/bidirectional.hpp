@@ -578,10 +578,12 @@ namespace boost { namespace text {
             auto it = seq.end();
             auto const first = seq.begin();
             while (it != first) {
-                auto const from_it = boost::text::find_if_backward(first, it, en);
+                auto const from_it =
+                    boost::text::find_if_backward(first, it, en);
                 if (from_it == it)
                     break;
-                auto const pred_it = boost::text::find_if_backward(first, from_it, strong);
+                auto const pred_it =
+                    boost::text::find_if_backward(first, from_it, strong);
                 if ((pred_it == from_it && seq.sos() == trigger) ||
                     pred_it->prop() == trigger) {
                     from_it->prop_ = (uint8_t)replacement;
@@ -785,7 +787,7 @@ namespace boost { namespace text {
                     bracket && bracket.type_ == bidi_bracket_type::close) {
                     if (stack.empty())
                         continue;
-                    optional<cp_range> canonical_equivalents;
+                    optional<cp_range_> canonical_equivalents;
                     auto match_rit = std::find_if(
                         stack.rbegin(),
                         stack.rend(),
@@ -1040,8 +1042,7 @@ namespace boost { namespace text {
         // https://unicode.org/reports/tr9/#L1
         template<typename CPIter>
         inline void
-        l1(::boost::text::cp_range<props_and_embeddings_cp_iterator<CPIter>>
-               line,
+        l1(utf32_view<props_and_embeddings_cp_iterator<CPIter>> line,
            int paragraph_embedding_level)
         {
             // L1.1, L1.2
@@ -1687,7 +1688,7 @@ namespace boost { namespace text {
                 line_break_result<pae_cp_iterator>,
                 pae_cp_iterator,
                 next_t,
-                line_break_cp_range<pae_cp_iterator>>;
+                line_break_cp_view<pae_cp_iterator>>;
 
             using out_values_t = container::small_vector<OutValueType, 16>;
 

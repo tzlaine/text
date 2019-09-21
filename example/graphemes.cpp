@@ -69,7 +69,7 @@ std::cout << "\n";
 boost::text::text t = "This is a short sentence.";
 
 // This is a code point range that contains all the same code points as t.
-boost::text::cp_range<boost::text::utf_8_to_32_iterator<char const *>> cps(
+boost::text::utf32_view<boost::text::utf_8_to_32_iterator<char const *>> cps(
     t.begin().base(), t.end().base());
 
 // This is achar range that contains all the same code units as t, though it

@@ -746,16 +746,16 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
 
     /** Returns the bounds of the sentence that `it` lies within. */
     template<typename CPIter, typename Sentinel>
-    cp_range<CPIter> sentence(CPIter first, CPIter it, Sentinel last) noexcept
+    utf32_view<CPIter> sentence(CPIter first, CPIter it, Sentinel last) noexcept
     {
         first = prev_sentence_break(first, it, last);
-        return cp_range<CPIter>{first, next_sentence_break(first, last)};
+        return utf32_view<CPIter>{first, next_sentence_break(first, last)};
     }
 
 #ifdef BOOST_TEXT_DOXYGEN
 
     /** Returns the bounds of the sentence that `it` lies within, as a
-        cp_range.
+        utf32_view.
 
         This function only participates in overload resolution if `CPRange`
         models the CPRange concept. */
@@ -818,11 +818,11 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
 
     template<typename CPRange, typename CPIter>
     auto sentence(CPRange & range, CPIter it) noexcept -> detail::
-        cp_rng_alg_ret_t<cp_range<detail::iterator_t<CPRange>>, CPRange>
+        cp_rng_alg_ret_t<utf32_view<detail::iterator_t<CPRange>>, CPRange>
     {
         auto first =
             prev_sentence_break(std::begin(range), it, std::end(range));
-        return cp_range<CPIter>{first,
+        return utf32_view<CPIter>{first,
                                 next_sentence_break(first, std::end(range))};
     }
 
@@ -897,7 +897,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         CPIter,
         CPIter,
         detail::prev_sentence_callable<CPIter>,
-        cp_range<CPIter>,
+        utf32_view<CPIter>,
         detail::const_reverse_lazy_segment_iterator,
         true>
     reversed_sentences(CPIter first, CPIter last) noexcept
@@ -913,7 +913,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
                 detail::iterator_t<CPRange>,
                 detail::sentinel_t<CPRange>,
                 detail::prev_sentence_callable<detail::iterator_t<CPRange>>,
-                cp_range<detail::iterator_t<CPRange>>,
+                utf32_view<detail::iterator_t<CPRange>>,
                 detail::const_reverse_lazy_segment_iterator,
                 true>,
             CPRange>

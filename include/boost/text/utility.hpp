@@ -48,39 +48,6 @@ namespace boost { namespace text {
         iterator last_;
     };
 
-    /** A range of code points. */
-    template<typename CPIter, typename Sentinel = CPIter>
-    struct cp_range
-    {
-        using iterator = CPIter;
-        using sentinel = Sentinel;
-
-        static_assert(
-            detail::is_cp_iter<CPIter>::value,
-            "CPIter must be a code point iterator");
-
-        cp_range() {}
-        cp_range(iterator first, sentinel last) : first_(first), last_(last) {}
-
-        bool empty() const noexcept { return first_ == last_; }
-
-        iterator begin() const { return first_; }
-        sentinel end() const { return last_; }
-
-        friend bool operator==(cp_range lhs, cp_range rhs)
-        {
-            return lhs.first_ == rhs.first_ && lhs.last_ == rhs.last_;
-        }
-        friend bool operator!=(cp_range lhs, cp_range rhs)
-        {
-            return !(lhs == rhs);
-        }
-
-    private:
-        iterator first_;
-        sentinel last_;
-    };
-
 }}
 
 #endif

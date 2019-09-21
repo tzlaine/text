@@ -228,7 +228,7 @@ TEST(break_apis, grapheme_break_sentinel)
 
     char const * c_str = s.begin();
 
-    boost::text::cp_range<u32_iter, boost::text::null_sentinel> cp_range{
+    boost::text::utf32_view<u32_iter, boost::text::null_sentinel> cp_range{
         u32_iter(c_str, c_str, boost::text::null_sentinel{}),
         boost::text::null_sentinel{}};
 
@@ -512,7 +512,7 @@ TEST(break_apis, word_break_sentinel)
 
     char const * c_str = s.begin();
 
-    boost::text::cp_range<u32_iter, boost::text::null_sentinel> cp_range{
+    boost::text::utf32_view<u32_iter, boost::text::null_sentinel> cp_range{
         u32_iter(c_str, c_str, boost::text::null_sentinel{}),
         boost::text::null_sentinel{}};
 
@@ -792,7 +792,7 @@ TEST(break_apis, word_tailoring_MidLetter_sentinel)
 
     char const * c_str = s.begin();
 
-    boost::text::cp_range<u32_iter, boost::text::null_sentinel> const cp_range{
+    boost::text::utf32_view<u32_iter, boost::text::null_sentinel> const cp_range{
         u32_iter(c_str, c_str, boost::text::null_sentinel{}),
         boost::text::null_sentinel{}};
 
@@ -1017,7 +1017,7 @@ TEST(break_apis, word_tailoring_cp_break_sentinel)
 
     char const * c_str = s.begin();
 
-    boost::text::cp_range<u32_iter, boost::text::null_sentinel> const cp_range{
+    boost::text::utf32_view<u32_iter, boost::text::null_sentinel> const cp_range{
         u32_iter(c_str, c_str, boost::text::null_sentinel{}),
         boost::text::null_sentinel{}};
 
@@ -1248,7 +1248,7 @@ TEST(break_apis, sentence_break_sentinel)
 
     char const * c_str = s.begin();
 
-    boost::text::cp_range<u32_iter, boost::text::null_sentinel> cp_range{
+    boost::text::utf32_view<u32_iter, boost::text::null_sentinel> cp_range{
         u32_iter(c_str, c_str, boost::text::null_sentinel{}),
         boost::text::null_sentinel{}};
 
@@ -1731,7 +1731,7 @@ TEST(break_apis, line_break_sentinel)
 
     char const * c_str = s.begin();
 
-    boost::text::cp_range<u32_iter, boost::text::null_sentinel> cp_range{
+    boost::text::utf32_view<u32_iter, boost::text::null_sentinel> cp_range{
         u32_iter(c_str, c_str, boost::text::null_sentinel{}),
         boost::text::null_sentinel{}};
 
@@ -2417,7 +2417,7 @@ TEST(break_apis, paragraph_break_sentinel)
 
     char const * c_str = s.begin();
 
-    boost::text::cp_range<u32_iter, boost::text::null_sentinel> cp_range{
+    boost::text::utf32_view<u32_iter, boost::text::null_sentinel> cp_range{
         u32_iter(c_str, c_str, boost::text::null_sentinel{}),
         boost::text::null_sentinel{}};
 
@@ -2823,7 +2823,7 @@ TEST(break_apis, bidi_sentinel)
 
     char const * c_str = s.begin();
 
-    boost::text::cp_range<u32_iter, boost::text::null_sentinel> cp_range{
+    boost::text::utf32_view<u32_iter, boost::text::null_sentinel> cp_range{
         u32_iter(c_str, c_str, boost::text::null_sentinel{}),
         boost::text::null_sentinel{}};
 

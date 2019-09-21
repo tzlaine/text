@@ -22,7 +22,7 @@ namespace boost { namespace text {
         storage is a string that is UTF-8-encoded and FCC-normalized. */
     struct text_view
     {
-        using value_type = cp_range<utf_8_to_32_iterator<char const *>>;
+        using value_type = utf32_view<utf_8_to_32_iterator<char const *>>;
         using size_type = int;
         using iterator = grapheme_iterator<utf_8_to_32_iterator<char const *>>;
         using const_iterator = iterator;

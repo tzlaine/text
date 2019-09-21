@@ -41,7 +41,7 @@ void do_simple_search(
 
     using sentinel_cp_range_iter =
         utf_8_to_32_iterator<char const *, null_sentinel>;
-    using sentinel_cp_range = cp_range<sentinel_cp_range_iter, null_sentinel>;
+    using sentinel_cp_range = utf32_view<sentinel_cp_range_iter, null_sentinel>;
 
     sentinel_cp_range str_cp_range{
         sentinel_cp_range_iter(
@@ -104,7 +104,7 @@ void do_boyer_moore_search(
 
     using sentinel_cp_range_iter =
         utf_8_to_32_iterator<char const *, null_sentinel>;
-    using sentinel_cp_range = cp_range<sentinel_cp_range_iter, null_sentinel>;
+    using sentinel_cp_range = utf32_view<sentinel_cp_range_iter, null_sentinel>;
 
     sentinel_cp_range str_cp_range{
         sentinel_cp_range_iter(
@@ -160,7 +160,7 @@ void do_boyer_moore_horspool_search(
 
     using sentinel_cp_range_iter =
         utf_8_to_32_iterator<char const *, null_sentinel>;
-    using sentinel_cp_range = cp_range<sentinel_cp_range_iter, null_sentinel>;
+    using sentinel_cp_range = utf32_view<sentinel_cp_range_iter, null_sentinel>;
 
     sentinel_cp_range str_cp_range{
         sentinel_cp_range_iter(
@@ -792,7 +792,7 @@ void do_simple_word_search(
 
     using sentinel_cp_range_iter =
         utf_8_to_32_iterator<char const *, null_sentinel>;
-    using sentinel_cp_range = cp_range<sentinel_cp_range_iter, null_sentinel>;
+    using sentinel_cp_range = utf32_view<sentinel_cp_range_iter, null_sentinel>;
 
     sentinel_cp_range str_cp_range{
         sentinel_cp_range_iter(
@@ -861,7 +861,7 @@ void do_simple_word_search_not_found(
 
     using sentinel_cp_range_iter =
         utf_8_to_32_iterator<char const *, null_sentinel>;
-    using sentinel_cp_range = cp_range<sentinel_cp_range_iter, null_sentinel>;
+    using sentinel_cp_range = utf32_view<sentinel_cp_range_iter, null_sentinel>;
 
     sentinel_cp_range str_cp_range{
         sentinel_cp_range_iter(

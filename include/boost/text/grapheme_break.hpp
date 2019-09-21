@@ -369,10 +369,10 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
 #if 0
     /** Returns the bounds of the grapheme that `it` lies within. */
     template<typename CPIter, typename Sentinel>
-    cp_range<CPIter> grapheme(CPIter first, CPIter it, Sentinel last) noexcept
+    utf32_view<CPIter> grapheme(CPIter first, CPIter it, Sentinel last) noexcept
     {
         first = prev_grapheme_break(first, it, last);
-        return cp_range<CPIter>{first, next_grapheme_break(first, last)};
+        return utf32_view<CPIter>{first, next_grapheme_break(first, last)};
     }
 #endif
 
@@ -380,7 +380,7 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
 
 #if 0
     /** Returns the bounds of the grapheme that `it` lies within,
-        as a cp_range. */
+        as a utf32_view. */
     template<typename CPRange, typename CPIter>
     detail::undefined grapheme(CPRange & range, CPIter it) noexcept;
 #endif
@@ -410,11 +410,11 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
 #if 0
     template<typename CPRange, typename CPIter>
     auto grapheme(CPRange & range, CPIter it) noexcept
-        -> cp_range<detail::iterator_t<CPRange>>
+        -> utf32_view<detail::iterator_t<CPRange>>
     {
         auto first =
             prev_grapheme_break(std::begin(range), it, std::end(range));
-        return cp_range<CPIter>{first, next_grapheme_break(first, range.end())};
+        return utf32_view<CPIter>{first, next_grapheme_break(first, range.end())};
     }
 #endif
 
@@ -451,7 +451,7 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
         CPIter,
         CPIter,
         detail::prev_grapheme_callable<CPIter>,
-        cp_range<CPIter>,
+        utf32_view<CPIter>,
         detail::const_reverse_lazy_segment_iterator,
         true>
     reversed_graphemes(CPIter first, CPIter last) noexcept
@@ -465,7 +465,7 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
         detail::iterator_t<CPRange>,
         detail::sentinel_t<CPRange>,
         detail::prev_grapheme_callable<detail::iterator_t<CPRange>>,
-        cp_range<detail::iterator_t<CPRange>>,
+        utf32_view<detail::iterator_t<CPRange>>,
         detail::const_reverse_lazy_segment_iterator,
         true>
     {

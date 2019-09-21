@@ -60,7 +60,7 @@ namespace boost { namespace text { namespace detail {
         possible and a full check must be performed. */
     enum class quick_check : uint8_t { yes, no, maybe };
 
-    struct cp_range
+    struct cp_range_
     {
         uint16_t first_;
         uint16_t last_;
@@ -96,8 +96,8 @@ namespace boost { namespace text { namespace detail {
 
     struct cp_props
     {
-        cp_range canonical_decomposition_;
-        cp_range compatible_decomposition_;
+        cp_range_ canonical_decomposition_;
+        cp_range_ compatible_decomposition_;
         uint8_t ccc_;
         uint8_t nfd_quick_check_ : 4;
         uint8_t nfkd_quick_check_ : 4;

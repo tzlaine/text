@@ -1085,7 +1085,8 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                             });
 
                         if (new_state.it == last)
-                            return break_overlong(result_t{new_state.it, false});
+                            return break_overlong(
+                                result_t{new_state.it, false});
                         if (new_state.it != next_state.it)
                             state = new_state;
                     }
@@ -1241,7 +1242,8 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         This function only participates in overload resolution if `CPIter`
         models the CPIter concept. */
     template<typename CPIter, typename Sentinel>
-    CPIter prev_hard_line_break(CPIter first, CPIter it, Sentinel last) noexcept;
+    CPIter
+    prev_hard_line_break(CPIter first, CPIter it, Sentinel last) noexcept;
 
 #else
 
@@ -1571,8 +1573,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                     ptr_ = new (aligned_ptr()) CPExtentFunc(std::move(*other));
             }
 
-            optional_extent_func &
-            operator=(optional_extent_func const & other)
+            optional_extent_func & operator=(optional_extent_func const & other)
             {
                 destruct();
                 if (other.ptr_)
@@ -1745,16 +1746,16 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     /** Returns the bounds of the line (using hard line breaks) that
         `it` lies within. */
     template<typename CPIter, typename Sentinel>
-    cp_range<CPIter> line(CPIter first, CPIter it, Sentinel last) noexcept
+    utf32_view<CPIter> line(CPIter first, CPIter it, Sentinel last) noexcept
     {
         first = prev_hard_line_break(first, it, last);
-        return cp_range<CPIter>{first, next_hard_line_break(first, last)};
+        return utf32_view<CPIter>{first, next_hard_line_break(first, last)};
     }
 
 #ifdef BOOST_TEXT_DOXYGEN
 
     /** Returns the bounds of the line (using hard line breaks) that `it` lies
-        within, as a cp_range.
+        within, as a utf32_view.
 
         This function only participates in overload resolution if `CPRange`
         models the CPRange concept. */
@@ -1773,8 +1774,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     /** Returns a lazy range of the code point ranges delimiting lines (using
         hard line breaks) in `[first, last)`. */
     template<typename CPIter, typename Sentinel>
-    detail::unspecified
-    lines(CPIter first, Sentinel last) noexcept;
+    detail::unspecified lines(CPIter first, Sentinel last) noexcept;
 
     /** Returns a lazy range of the code point ranges delimiting lines (using
         hard line breaks) in `range`.
@@ -1817,11 +1817,11 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 
     template<typename CPRange, typename CPIter>
     auto line(CPRange & range, CPIter it) noexcept -> detail::
-        cp_rng_alg_ret_t<cp_range<detail::iterator_t<CPRange>>, CPRange>
+        cp_rng_alg_ret_t<utf32_view<detail::iterator_t<CPRange>>, CPRange>
     {
         auto first =
             prev_hard_line_break(std::begin(range), it, std::end(range));
-        return cp_range<CPIter>{first,
+        return utf32_view<CPIter>{first,
                                 next_hard_line_break(first, std::end(range))};
     }
 
@@ -1896,7 +1896,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         CPIter,
         CPIter,
         detail::prev_hard_line_break_callable<CPIter>,
-        cp_range<CPIter>,
+        utf32_view<CPIter>,
         detail::const_reverse_lazy_segment_iterator,
         true>
     reversed_lines(CPIter first, CPIter last) noexcept
@@ -1911,7 +1911,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             detail::iterator_t<CPRange>,
             detail::sentinel_t<CPRange>,
             detail::prev_hard_line_break_callable<detail::iterator_t<CPRange>>,
-            cp_range<detail::iterator_t<CPRange>>,
+            utf32_view<detail::iterator_t<CPRange>>,
             detail::const_reverse_lazy_segment_iterator,
             true>,
         CPRange>
@@ -1948,12 +1948,12 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     /** A range of code points that delimit a pair of line break
         boundaries. */
     template<typename CPIter, typename Sentinel = CPIter>
-    struct line_break_cp_range : cp_range<CPIter, Sentinel>
+    struct line_break_cp_view : utf32_view<CPIter, Sentinel>
     {
-        line_break_cp_range() : cp_range<CPIter, Sentinel>(), hard_break_() {}
-        line_break_cp_range(
+        line_break_cp_view() : utf32_view<CPIter, Sentinel>(), hard_break_() {}
+        line_break_cp_view(
             line_break_result<CPIter> first, line_break_result<CPIter> last) :
-            cp_range<CPIter, Sentinel>(first.iter, last.iter),
+            utf32_view<CPIter, Sentinel>(first.iter, last.iter),
             hard_break_(last.hard_break)
         {}
 
@@ -2054,7 +2054,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         detail::next_allowed_line_break_within_extent_callable<
             Extent,
             CPExtentFunc>,
-        line_break_cp_range<CPIter>>
+        line_break_cp_view<CPIter>>
     lines(
         CPIter first,
         Sentinel last,
@@ -2078,7 +2078,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             detail::next_allowed_line_break_within_extent_callable<
                 Extent,
                 CPExtentFunc>,
-            line_break_cp_range<detail::iterator_t<CPRange>>>,
+            line_break_cp_view<detail::iterator_t<CPRange>>>,
         CPRange>
     lines(
         CPRange & range,
@@ -2127,11 +2127,11 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     /** Returns the bounds of the smallest chunk of text that could be broken
         off into a line, searching from `it` in either direction. */
     template<typename CPIter, typename Sentinel>
-    line_break_cp_range<CPIter>
+    line_break_cp_view<CPIter>
     allowed_line(CPIter first, CPIter it, Sentinel last) noexcept
     {
         auto const first_ = prev_allowed_line_break(first, it, last);
-        return line_break_cp_range<CPIter>{
+        return line_break_cp_view<CPIter>{
             first_, next_allowed_line_break(first_.iter, last)};
     }
 
@@ -2139,7 +2139,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 
     /** Returns the bounds of the smallest chunk of text that could be broken
         off into a line, searching from `it` in either direction, as a
-        line_break_cp_range.
+        line_break_cp_view.
 
         This function only participates in overload resolution if `CPRange`
         models the CPRange concept. */
@@ -2181,12 +2181,12 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     template<typename CPRange, typename CPIter>
     auto allowed_line(CPRange & range, CPIter it) noexcept
         -> detail::cp_rng_alg_ret_t<
-            line_break_cp_range<detail::iterator_t<CPRange>>,
+            line_break_cp_view<detail::iterator_t<CPRange>>,
             CPRange>
     {
         auto const first =
             prev_allowed_line_break(std::begin(range), it, std::end(range));
-        return line_break_cp_range<CPIter>{
+        return line_break_cp_view<CPIter>{
             first, next_allowed_line_break(first.iter, std::end(range))};
     }
 
@@ -2207,7 +2207,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         detail::next_allowed_line_break_callable<
             line_break_result<CPIter>,
             Sentinel>,
-        line_break_cp_range<CPIter>>
+        line_break_cp_view<CPIter>>
     allowed_lines(CPIter first, Sentinel last) noexcept
     {
         detail::next_allowed_line_break_callable<
@@ -2227,7 +2227,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             detail::next_allowed_line_break_callable<
                 line_break_result<detail::iterator_t<CPRange>>,
                 detail::sentinel_t<CPRange>>,
-            line_break_cp_range<detail::iterator_t<CPRange>>>,
+            line_break_cp_view<detail::iterator_t<CPRange>>>,
         CPRange>
     {
         detail::next_allowed_line_break_callable<
@@ -2376,7 +2376,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         line_break_result<CPIter>,
         detail::
             prev_allowed_line_break_callable<CPIter, line_break_result<CPIter>>,
-        line_break_cp_range<CPIter>,
+        line_break_cp_view<CPIter>,
         detail::const_reverse_allowed_line_iterator,
         true>
     reversed_allowed_lines(CPIter first, CPIter last) noexcept
@@ -2403,7 +2403,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 detail::prev_allowed_line_break_callable<
                     detail::iterator_t<CPRange>,
                     line_break_result<detail::iterator_t<CPRange>>>,
-                line_break_cp_range<detail::iterator_t<CPRange>>,
+                line_break_cp_view<detail::iterator_t<CPRange>>,
                 detail::const_reverse_allowed_line_iterator,
                 true>,
             CPRange>

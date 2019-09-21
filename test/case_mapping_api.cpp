@@ -9,7 +9,7 @@ using namespace boost::text;
 using namespace boost::text::detail;
 
 using u32_iter = utf_8_to_32_iterator<char const *, null_sentinel>;
-using sentinel_cp_range_t = boost::text::cp_range<u32_iter, null_sentinel>;
+using sentinel_cp_range_t = boost::text::utf32_view<u32_iter, null_sentinel>;
 
 void to_sentinel_cp_range(
     string & s, sentinel_cp_range_t & r, std::vector<uint32_t> cps)

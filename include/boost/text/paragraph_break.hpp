@@ -195,16 +195,16 @@ namespace boost { namespace text {
     /** Returns the bounds of the paragraph that `it` lies
         within. */
     template<typename CPIter, typename Sentinel>
-    cp_range<CPIter> paragraph(CPIter first, CPIter it, Sentinel last) noexcept
+    utf32_view<CPIter> paragraph(CPIter first, CPIter it, Sentinel last) noexcept
     {
         first = prev_paragraph_break(first, it, last);
-        return cp_range<CPIter>{first, next_paragraph_break(first, last)};
+        return utf32_view<CPIter>{first, next_paragraph_break(first, last)};
     }
 
 #ifdef BOOST_TEXT_DOXYGEN
 
     /** Returns the bounds of the paragraph that `it` lies within, as a
-        cp_range.
+        utf32_view.
 
         This function only participates in overload resolution if `CPRange`
         models the CPRange concept. */
@@ -267,11 +267,11 @@ namespace boost { namespace text {
 
     template<typename CPRange, typename CPIter>
     auto paragraph(CPRange & range, CPIter it) noexcept -> detail::
-        cp_rng_alg_ret_t<cp_range<detail::iterator_t<CPRange>>, CPRange>
+        cp_rng_alg_ret_t<utf32_view<detail::iterator_t<CPRange>>, CPRange>
     {
         auto first =
             prev_paragraph_break(std::begin(range), it, std::end(range));
-        return cp_range<CPIter>{first,
+        return utf32_view<CPIter>{first,
                                 next_paragraph_break(first, std::end(range))};
     }
 
@@ -346,7 +346,7 @@ namespace boost { namespace text {
         CPIter,
         CPIter,
         detail::prev_paragraph_callable<CPIter>,
-        cp_range<CPIter>,
+        utf32_view<CPIter>,
         detail::const_reverse_lazy_segment_iterator,
         true>
     reversed_paragraphs(CPIter first, CPIter last) noexcept
@@ -362,7 +362,7 @@ namespace boost { namespace text {
                 detail::iterator_t<CPRange>,
                 detail::sentinel_t<CPRange>,
                 detail::prev_paragraph_callable<detail::iterator_t<CPRange>>,
-                cp_range<detail::iterator_t<CPRange>>,
+                utf32_view<detail::iterator_t<CPRange>>,
                 detail::const_reverse_lazy_segment_iterator,
                 true>,
             CPRange>

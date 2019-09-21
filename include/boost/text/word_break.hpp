@@ -278,10 +278,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             using type = T;
         };
 
-        template<
-            typename T,
-            typename F,
-            typename R = ::boost::text::cp_range<uint32_t *>>
+        template<typename T, typename F, typename R = utf32_view<uint32_t *>>
         using word_prop_func_ret_t = typename word_prop_func_ret<T, F, R>::type;
 
         template<
@@ -1071,7 +1068,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         typename Sentinel,
         typename WordPropFunc = word_prop_callable,
         typename CPWordBreakFunc = detail::default_cp_break>
-    cp_range<CPIter> word(
+    utf32_view<CPIter> word(
         CPIter first,
         CPIter it,
         Sentinel last,
@@ -1079,13 +1076,13 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept
     {
         first = prev_word_break(first, it, last, word_prop, cp_break);
-        return cp_range<CPIter>{
+        return utf32_view<CPIter>{
             first, next_word_break(first, last, word_prop, cp_break)};
     }
 
 #ifdef BOOST_TEXT_DOXYGEN
 
-    /** Returns the bounds of the word that `it` lies within, as a cp_range.
+    /** Returns the bounds of the word that `it` lies within, as a utf32_view.
 
         This function only participates in overload resolution if `CPRange`
         models the CPRange concept and `WordPropFunc` models the WordPropFunc
@@ -1224,13 +1221,13 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         WordPropFunc word_prop = WordPropFunc{},
         CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept
         -> detail::word_prop_func_ret_t<
-            cp_range<detail::iterator_t<CPRange>>,
+            utf32_view<detail::iterator_t<CPRange>>,
             WordPropFunc,
             CPRange>
     {
         auto first = prev_word_break(
             std::begin(range), it, std::end(range), word_prop, cp_break);
-        return cp_range<CPIter>{
+        return utf32_view<CPIter>{
             first,
             next_word_break(first, std::end(range), word_prop, cp_break)};
     }
@@ -1282,7 +1279,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
                     Sentinel,
                     WordPropFunc,
                     CPWordBreakFunc>,
-                cp_range<CPIter>,
+                utf32_view<CPIter>,
                 detail::const_lazy_segment_iterator,
                 false>,
             CPIter,
@@ -1373,7 +1370,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
                 CPIter,
                 detail::
                     prev_word_callable<CPIter, WordPropFunc, CPWordBreakFunc>,
-                cp_range<CPIter>,
+                utf32_view<CPIter>,
                 detail::const_reverse_lazy_segment_iterator,
                 true>,
             CPIter,
@@ -1400,7 +1397,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
                     detail::iterator_t<CPRange>,
                     WordPropFunc,
                     CPWordBreakFunc>,
-                cp_range<detail::iterator_t<CPRange>>,
+                utf32_view<detail::iterator_t<CPRange>>,
                 detail::const_reverse_lazy_segment_iterator,
                 true>,
             WordPropFunc,

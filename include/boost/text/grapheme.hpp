@@ -56,7 +56,7 @@ namespace boost { namespace text {
             grapheme.
             \pre [first, last) is normalized FCC. */
         template<typename CPIter>
-        grapheme(cp_range<CPIter> r)
+        grapheme(utf32_view<CPIter> r)
         {
             transcode_utf_32_to_8(
                 r.begin(), r.end(), std::back_inserter(chars_));
@@ -146,7 +146,7 @@ namespace boost { namespace text {
 
             \pre The code points in r comprise at most one grapheme.
             \pre The code points in r are normalized FCC. */
-        grapheme_view(cp_range<CPIter> r) noexcept :
+        grapheme_view(utf32_view<CPIter> r) noexcept :
             first_(r.begin()),
             last_(r.end())
         {
@@ -203,28 +203,28 @@ namespace boost { namespace text {
 
     /** Returns true if lhs the same sequence of code points as rhs. */
     template<typename CPIter1, typename CPIter2>
-    bool operator==(cp_range<CPIter1> lhs, grapheme_view<CPIter2> rhs)
+    bool operator==(utf32_view<CPIter1> lhs, grapheme_view<CPIter2> rhs)
     {
         return algorithm::equal(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
     }
 
     /** Returns true if lhs the same sequence of code points as rhs. */
     template<typename CPIter1, typename CPIter2>
-    bool operator==(grapheme_view<CPIter1> lhs, cp_range<CPIter2> rhs)
+    bool operator==(grapheme_view<CPIter1> lhs, utf32_view<CPIter2> rhs)
     {
         return rhs == lhs;
     }
 
     /** Returns true if lhs the same sequence of code points as rhs. */
     template<typename CPIter1, typename CPIter2>
-    bool operator!=(cp_range<CPIter1> lhs, cp_range<CPIter2> rhs)
+    bool operator!=(utf32_view<CPIter1> lhs, utf32_view<CPIter2> rhs)
     {
         return !(lhs == rhs);
     }
 
     /** Returns true if lhs the same sequence of code points as rhs. */
     template<typename CPIter1, typename CPIter2>
-    bool operator!=(grapheme_view<CPIter1> lhs, cp_range<CPIter2> rhs)
+    bool operator!=(grapheme_view<CPIter1> lhs, utf32_view<CPIter2> rhs)
     {
         return !(lhs == rhs);
     }

@@ -24,7 +24,7 @@ namespace boost { namespace text {
     struct rope_view
     {
         using value_type =
-            cp_range<utf_8_to_32_iterator<detail::const_rope_view_iterator>>;
+            utf32_view<utf_8_to_32_iterator<detail::const_rope_view_iterator>>;
         using size_type = std::ptrdiff_t;
         using iterator = grapheme_iterator<
             utf_8_to_32_iterator<detail::const_rope_view_iterator>>;

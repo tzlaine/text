@@ -21,76 +21,78 @@
 
 #endif
 
-namespace boost { namespace text {
+namespace boost {
+    namespace text {
 
 #ifdef BOOST_TEXT_DOXYGEN
 
-    /** Returns the code point subrange within `[first, last)` in which
-        `searcher` finds its pattern.  If the pattern is not found, the
-        resulting range will be empty.
+        /** Returns the code point subrange within `[first, last)` in which
+            `searcher` finds its pattern.  If the pattern is not found, the
+            resulting range will be empty.
 
-        This function only participates in overload resolution if
-        `searcher(first, last)` is well formed. */
-    template<typename CPIter, typename Sentinel, typename Searcher>
-    cp_range<CPIter>
-    collation_search(CPIter first, Sentinel last, Searcher const & searcher);
+            This function only participates in overload resolution if
+            `searcher(first, last)` is well formed. */
+        template<typename CPIter, typename Sentinel, typename Searcher>
+        utf32_view<CPIter> collation_search(
+            CPIter first, Sentinel last, Searcher const & searcher);
 
-    /** Returns the code point subrange within `r` in which `searcher` finds
-        its pattern.  If the pattern is not found, the resulting range will be
-        empty.
+        /** Returns the code point subrange within `r` in which `searcher` finds
+            its pattern.  If the pattern is not found, the resulting range will
+           be empty.
 
-        This function only participates in overload resolution if
-        `searcher(first, last)` is well formed. */
-    template<typename CPRange, typename Searcher>
-    cp_range<CPIter> auto
-    collation_search(CPRange & r, Searcher const & searcher);
+            This function only participates in overload resolution if
+            `searcher(first, last)` is well formed. */
+        template<typename CPRange, typename Searcher>
+        utf32_view<CPIter> auto
+        collation_search(CPRange & r, Searcher const & searcher);
 
-    /** Returns the grapheme subrange within `r` in which `searcher` finds its
-        pattern.  If the pattern is not found, the resulting range will be
-        empty.
+        /** Returns the grapheme subrange within `r` in which `searcher` finds
+           its pattern.  If the pattern is not found, the resulting range will
+           be empty.
 
-        This function only participates in overload resolution if
-        `GraphemeRange` models the GraphemeRange concept. */
-    template<typename GraphemeRange, typename Searcher>
-    detail::unspecified
-    collation_search(GraphemeRange const & r, Searcher const & searcher);
+            This function only participates in overload resolution if
+            `GraphemeRange` models the GraphemeRange concept. */
+        template<typename GraphemeRange, typename Searcher>
+        detail::unspecified
+        collation_search(GraphemeRange const & r, Searcher const & searcher);
 
 #else
 
-    template<typename CPIter, typename Sentinel, typename Searcher>
-    auto
-    collation_search(CPIter first, Sentinel last, Searcher const & searcher)
-        -> decltype(searcher(first, last))
-    {
-        return searcher(first, last);
-    }
+        template<typename CPIter, typename Sentinel, typename Searcher>
+        auto
+        collation_search(CPIter first, Sentinel last, Searcher const & searcher)
+            -> decltype(searcher(first, last))
+        {
+            return searcher(first, last);
+        }
 
-    template<typename CPRange, typename Searcher>
-    auto collation_search(CPRange & r, Searcher const & searcher)
-        -> detail::cp_rng_alg_ret_t<
-            decltype(searcher(std::begin(r), std::end(r))),
-            CPRange>
-    {
-        return searcher(std::begin(r), std::end(r));
-    }
+        template<typename CPRange, typename Searcher>
+        auto collation_search(CPRange & r, Searcher const & searcher)
+            -> detail::cp_rng_alg_ret_t<
+                decltype(searcher(std::begin(r), std::end(r))),
+                CPRange>
+        {
+            return searcher(std::begin(r), std::end(r));
+        }
 
-    template<typename GraphemeRange, typename Searcher>
-    auto collation_search(GraphemeRange const & r, Searcher const & searcher)
-        -> detail::graph_rng_alg_ret_t<
-            grapheme_range<decltype(r.begin().base())>,
-            GraphemeRange>
-    {
-        using cp_iter_t = decltype(r.begin().base());
-        auto const cp_result = searcher(r.begin().base(), r.end().base());
-        return grapheme_range<cp_iter_t>{r.begin().base(),
-                                         cp_result.begin(),
-                                         cp_result.end(),
-                                         r.end().base()};
-    }
+        template<typename GraphemeRange, typename Searcher>
+        auto
+        collation_search(GraphemeRange const & r, Searcher const & searcher)
+            -> detail::graph_rng_alg_ret_t<
+                grapheme_range<decltype(r.begin().base())>,
+                GraphemeRange>
+        {
+            using cp_iter_t = decltype(r.begin().base());
+            auto const cp_result = searcher(r.begin().base(), r.end().base());
+            return grapheme_range<cp_iter_t>{r.begin().base(),
+                                             cp_result.begin(),
+                                             cp_result.end(),
+                                             r.end().base()};
+        }
 
 #endif
-
-}}
+    }
+}
 
 #ifndef BOOST_TEXT_DOXYGEN
 
@@ -488,7 +490,7 @@ namespace boost { namespace text {
             typename AtBreakFunc,
             typename PopFrontFunc,
             typename PopsFunc>
-        ::boost::text::cp_range<CPIter> search_mismatch_impl(
+        utf32_view<CPIter> search_mismatch_impl(
             CPIter it,
             container::small_vector<collation_element, N> const & pattern_ces,
             std::deque<collation_element> const & str_ces,
@@ -535,7 +537,7 @@ namespace boost { namespace text {
                     }
                 }
                 if (match_end != it && at_break(match_end))
-                    return ::boost::text::cp_range<CPIter>(it, match_end);
+                    return utf32_view<CPIter>(it, match_end);
                 else
                     pop_front(str_ce_sizes.front());
             } else {
@@ -546,7 +548,7 @@ namespace boost { namespace text {
                 pop_front(ces_to_pop);
             }
 
-            return ::boost::text::cp_range<CPIter>(it, it);
+            return utf32_view<CPIter>(it, it);
         }
 
         enum class mismatch_dir { fwd, rev };
@@ -560,7 +562,7 @@ namespace boost { namespace text {
                 typename AtBreakFunc,
                 typename PopFrontFunc,
                 typename PopsFunc>
-            ::boost::text::cp_range<CPIter> operator()(
+            utf32_view<CPIter> operator()(
                 CPIter it,
                 container::small_vector<collation_element, N> const &
                     pattern_ces,
@@ -593,7 +595,7 @@ namespace boost { namespace text {
                 typename AtBreakFunc,
                 typename PopFrontFunc,
                 typename PopsFunc>
-            ::boost::text::cp_range<CPIter> operator()(
+            utf32_view<CPIter> operator()(
                 CPIter it,
                 container::small_vector<collation_element, N> const &
                     pattern_ces,
@@ -624,7 +626,7 @@ namespace boost { namespace text {
             typename BreakFunc,
             std::size_t N,
             typename PopsFunc>
-        ::boost::text::cp_range<CPIter> search_impl(
+        utf32_view<CPIter> search_impl(
             CPIter first,
             Sentinel last,
             container::small_vector<collation_element, N> const & pattern_ces,
@@ -636,7 +638,7 @@ namespace boost { namespace text {
             PopsFunc pops_on_mismatch)
         {
             if (first == last || pattern_ces.empty())
-                return ::boost::text::cp_range<CPIter>(first, first);
+                return utf32_view<CPIter>(first, first);
 
             std::deque<collation_element> str_ces;
             std::deque<int> str_ce_sizes;
@@ -696,7 +698,7 @@ namespace boost { namespace text {
                         while (it != last) {
                             ++it;
                         }
-                        return ::boost::text::cp_range<CPIter>(it, it);
+                        return utf32_view<CPIter>(it, it);
                     }
                     search_mismatch_t<MismatchDir> search_mismatch;
                     auto const result = search_mismatch(
@@ -717,7 +719,7 @@ namespace boost { namespace text {
                 }
             }
 
-            return ::boost::text::cp_range<CPIter>(it, it);
+            return utf32_view<CPIter>(it, it);
         }
     }
 
@@ -777,8 +779,7 @@ namespace boost { namespace text {
             within `[first, last)` in which this searcher's pattern was found.
             The range will be empty if no match exists. */
         template<typename CPIter2, typename Sentinel2>
-        ::boost::text::cp_range<CPIter2>
-        operator()(CPIter2 first, Sentinel2 last) const
+        utf32_view<CPIter2> operator()(CPIter2 first, Sentinel2 last) const
         {
             using mismatch_t = std::pair<
                 std::deque<detail::collation_element>::const_iterator,
@@ -1090,8 +1091,7 @@ namespace boost { namespace text {
             within `[first, last)` in which this searcher's pattern was found.
             The range will be empty if no match exists.*/
         template<typename CPIter2, typename Sentinel2>
-        ::boost::text::cp_range<CPIter2>
-        operator()(CPIter2 first, Sentinel2 last) const
+        utf32_view<CPIter2> operator()(CPIter2 first, Sentinel2 last) const
         {
             using mismatch_t = std::pair<
                 std::deque<detail::collation_element>::const_reverse_iterator,
@@ -1417,8 +1417,7 @@ namespace boost { namespace text {
             within `[first, last)` in which this searcher's pattern was found.
             The range will be empty if no match exists.*/
         template<typename CPIter2, typename Sentinel2>
-        ::boost::text::cp_range<CPIter2>
-        operator()(CPIter2 first, Sentinel2 last) const
+        utf32_view<CPIter2> operator()(CPIter2 first, Sentinel2 last) const
         {
             using mismatch_t = std::pair<
                 std::deque<detail::collation_element>::const_reverse_iterator,
@@ -1761,7 +1760,7 @@ namespace boost { namespace text {
         typename CPIter2,
         typename Sentinel2,
         typename BreakFunc>
-    cp_range<CPIter1> collation_search(
+    utf32_view<CPIter1> collation_search(
         CPIter1 first,
         Sentinel1 last,
         CPIter2 pattern_first,
@@ -1787,7 +1786,7 @@ namespace boost { namespace text {
         This function only participates in overload resolution if `CPRange1`
         models the CPRange concept. */
     template<typename CPRange1, typename CPRange2, typename BreakFunc>
-    cp_range<detail::unspecified> collation_search(
+    utf32_view<detail::unspecified> collation_search(
         CPRange1 & str,
         CPRange2 & pattern,
         BreakFunc break_fn,
@@ -1823,7 +1822,7 @@ namespace boost { namespace text {
         BreakFunc break_fn,
         collation_table const & table,
         collation_flags flags = collation_flags::none) -> detail::
-        cp_rng_alg_ret_t<cp_range<decltype(std::begin(str))>, CPRange1>
+        cp_rng_alg_ret_t<utf32_view<decltype(std::begin(str))>, CPRange1>
     {
         auto const s =
             make_simple_collation_searcher(pattern, break_fn, table, flags);
@@ -1871,7 +1870,7 @@ namespace boost { namespace text {
         typename Sentinel1,
         typename CPIter2,
         typename Sentinel2>
-    cp_range<CPIter1> collation_search(
+    utf32_view<CPIter1> collation_search(
         CPIter1 first,
         Sentinel1 last,
         CPIter2 pattern_first,
@@ -1898,7 +1897,7 @@ namespace boost { namespace text {
         This function only participates in overload resolution if `CPRange1`
         models the CPRange concept. */
     template<typename CPRange1, typename CPRange2>
-    cp_range<detail::unspecified> collation_search(
+    utf32_view<detail::unspecified> collation_search(
         CPRange1 & str,
         CPRange2 & pattern,
         collation_table const & table,
@@ -1926,7 +1925,7 @@ namespace boost { namespace text {
         CPRange2 & pattern,
         collation_table const & table,
         collation_flags flags = collation_flags::none) -> detail::
-        cp_rng_alg_ret_t<cp_range<decltype(std::begin(str))>, CPRange1>
+        cp_rng_alg_ret_t<utf32_view<decltype(std::begin(str))>, CPRange1>
     {
         auto const s = make_simple_collation_searcher(
             pattern,

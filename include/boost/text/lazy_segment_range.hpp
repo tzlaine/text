@@ -2,6 +2,7 @@
 #define BOOST_TEXT_LAZY_SEGMENT_RANGE_HPP
 
 #include <boost/text/utility.hpp>
+#include <boost/text/transcode_view.hpp>
 
 
 namespace boost { namespace text {
@@ -180,7 +181,7 @@ namespace boost { namespace text {
         typename CPIter,
         typename Sentinel,
         typename NextFunc,
-        typename CPRange = cp_range<CPIter>,
+        typename CPRange = utf32_view<CPIter>,
         template<class, class, class, class> class IteratorTemplate =
             detail::const_lazy_segment_iterator,
         bool Reverse = false>
