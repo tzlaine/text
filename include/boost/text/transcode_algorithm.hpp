@@ -299,7 +299,10 @@ namespace boost { namespace text {
         template<typename Iter, typename Sentinel, typename OutIter>
         OutIter transcode_to_8(utf8_tag, Iter first, Sentinel last, OutIter out)
         {
-            return std::copy(first, last, out);
+            for (; first != last; ++first, ++out) {
+                *out = *first;
+            }
+            return out;
         }
 
         template<typename Iter, typename Sentinel, typename OutIter>
@@ -366,7 +369,10 @@ namespace boost { namespace text {
         OutIter
         transcode_to_16(utf16_tag, Iter first, Sentinel last, OutIter out)
         {
-            return std::copy(first, last, out);
+            for (; first != last; ++first, ++out) {
+                *out = *first;
+            }
+            return out;
         }
 
         template<typename Iter, typename Sentinel, typename OutIter>
@@ -432,7 +438,10 @@ namespace boost { namespace text {
         OutIter
         transcode_to_32(utf32_tag, Iter first, Sentinel last, OutIter out)
         {
-            return std::copy(first, last, out);
+            for (; first != last; ++first, ++out) {
+                *out = *first;
+            }
+            return out;
         }
     }
 

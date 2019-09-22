@@ -91,4 +91,30 @@ TEST(grapheme_view, as_graphemes_)
             EXPECT_EQ(*it, *r_32_it) << "iteration " << i;
         }
     }
+
+    // stream inserters
+    {
+        auto r = as_graphemes(utf8_);
+        std::stringstream ss;
+        ss << r;
+        std::string str = ss.str();
+        EXPECT_TRUE(boost::algorithm::equal(
+            str.begin(),
+            str.end(),
+            r.begin().base().base(),
+            r.end().base().base()));
+    }
+    {
+        auto r = as_graphemes(utf8_null, null_sentinel{});
+        std::stringstream ss;
+        ss << r;
+        std::string str = ss.str();
+
+        int i = 0;
+        auto str_it = str.begin();
+        for (auto it = r.begin().base().base(); it != r.end().base().base();
+             ++it, ++i, ++str_it) {
+            EXPECT_EQ(*it, *str_it) << "iteration " << i;
+        }
+    }
 }

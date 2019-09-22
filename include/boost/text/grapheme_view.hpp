@@ -2,6 +2,7 @@
 #define BOOST_TEXT_GRAPHEME_VIEW_HPP
 
 #include <boost/text/grapheme_iterator.hpp>
+#include <boost/text/transcode_algorithm.hpp>
 #include <boost/text/transcode_view.hpp>
 
 #include <boost/stl_interfaces/view_interface.hpp>
@@ -74,6 +75,23 @@ namespace boost { namespace text {
         {
             return !(lhs == rhs);
         }
+
+        friend std::ostream & operator<<(std::ostream & os, grapheme_view v)
+        {
+            transcode_utf_32_to_8(
+                v.begin().base(),
+                v.end().base(),
+                std::ostreambuf_iterator<char>(os));
+            return os;
+        }
+#if defined(_MSC_VER)
+        friend std::wostream & operator<<(std::wostream & os, grapheme_view v)
+        {
+            transcode_utf_32_to_16(
+                v.begin(), v.end(), std::ostreambuf_iterator<wchar_t>(os));
+            return os;
+        }
+#endif
 
     private:
         iterator first_;

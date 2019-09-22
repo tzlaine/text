@@ -826,7 +826,12 @@ namespace boost { namespace text {
     /** A sentinel type that compares equal to a pointer to a 1-, 2-, or
         4-byte integral value, iff the pointer is null. */
     struct null_sentinel
-    {};
+    {
+        constexpr null_sentinel base() const noexcept
+        {
+            return null_sentinel{};
+        }
+    };
 
 
     template<typename Iter>
