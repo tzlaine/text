@@ -355,7 +355,7 @@ TEST(text_tests, test_insert)
         {
             text::text t_0("g");
             text::text t;
-            t.insert(t.end(), *t_0.begin()); // text::grapheme_view
+            t.insert(t.end(), *t_0.begin()); // text::grapheme_ref
             EXPECT_EQ(t, text::text("g"));
         }
         {
@@ -367,7 +367,7 @@ TEST(text_tests, test_insert)
         {
             text::rope r("g");
             text::text t;
-            t.insert(t.end(), *r.begin()); // text::grapheme_view
+            t.insert(t.end(), *r.begin()); // text::grapheme_ref
             EXPECT_EQ(t, text::text("g"));
         }
         {
@@ -380,7 +380,7 @@ TEST(text_tests, test_insert)
             text::text t;
             t.insert(
                 t.begin(),
-                text::grapheme_view<text::rope::iterator::iterator_type>());
+                text::grapheme_ref<text::rope::iterator::iterator_type>());
             EXPECT_EQ(t, text::text(""));
         }
     }

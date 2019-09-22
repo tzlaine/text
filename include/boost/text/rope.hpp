@@ -222,7 +222,7 @@ namespace boost { namespace text {
 
         /** Inserts the grapheme g into *this at position at. */
         template<typename CPIter>
-        const_iterator insert(const_iterator at, grapheme_view<CPIter> g);
+        const_iterator insert(const_iterator at, grapheme_ref<CPIter> g);
 
         /** Erases the portion of *this delimited by rv.
 
@@ -387,14 +387,14 @@ namespace boost { namespace text {
         replace_impl(rope_view old_substr, string str, bool str_normalized);
 
         template<typename CPIter>
-        struct insert_grapheme_view_impl;
+        struct insert_grapheme_ref_impl;
 
         unencoded_rope rope_;
 
         friend struct ::boost::text::rope_view;
 
         template<typename CPIter>
-        friend struct insert_grapheme_view_impl;
+        friend struct insert_grapheme_ref_impl;
 
 #endif // Doxygen
     };
@@ -402,10 +402,10 @@ namespace boost { namespace text {
 #ifndef BOOST_TEXT_DOXYGEN
 
     template<typename CPIter>
-    struct rope::insert_grapheme_view_impl
+    struct rope::insert_grapheme_ref_impl
     {
         static rope::const_iterator
-        call(rope & r, rope::const_iterator at, grapheme_view<CPIter> g)
+        call(rope & r, rope::const_iterator at, grapheme_ref<CPIter> g)
         {
             if (g.empty())
                 return at;
@@ -418,13 +418,13 @@ namespace boost { namespace text {
     };
 
     template<typename Sentinel, typename ErrorHandler>
-    struct rope::insert_grapheme_view_impl<
+    struct rope::insert_grapheme_ref_impl<
         utf_8_to_32_iterator<char const *, Sentinel, ErrorHandler>>
     {
         static rope::const_iterator call(
             rope & r,
             rope::const_iterator at,
-            grapheme_view<
+            grapheme_ref<
                 utf_8_to_32_iterator<char const *, Sentinel, ErrorHandler>> g)
         {
             return r.insert_impl(
@@ -433,13 +433,13 @@ namespace boost { namespace text {
     };
 
     template<typename Sentinel, typename ErrorHandler>
-    struct rope::insert_grapheme_view_impl<
+    struct rope::insert_grapheme_ref_impl<
         utf_8_to_32_iterator<char *, Sentinel, ErrorHandler>>
     {
         static rope::const_iterator call(
             rope & r,
             rope::const_iterator at,
-            grapheme_view<utf_8_to_32_iterator<char *, Sentinel, ErrorHandler>>
+            grapheme_ref<utf_8_to_32_iterator<char *, Sentinel, ErrorHandler>>
                 g)
         {
             return r.insert_impl(
@@ -664,14 +664,13 @@ namespace boost { namespace text {
     inline rope::const_iterator
     rope::insert(const_iterator at, grapheme const & g)
     {
-        return insert(at, grapheme_view<grapheme::const_iterator>(g));
+        return insert(at, grapheme_ref<grapheme::const_iterator>(g));
     }
 
     template<typename CPIter>
-    rope::const_iterator
-    rope::insert(const_iterator at, grapheme_view<CPIter> g)
+    rope::const_iterator rope::insert(const_iterator at, grapheme_ref<CPIter> g)
     {
-        return insert_grapheme_view_impl<CPIter>::call(*this, at, g);
+        return insert_grapheme_ref_impl<CPIter>::call(*this, at, g);
     }
 
     inline rope & rope::erase(rope_view rv)

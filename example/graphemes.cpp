@@ -9,7 +9,7 @@
 // interfaces.
 
 // This returns a view into a temporary.  Don't do this.
-boost::text::grapheme_view<boost::text::text::iterator::iterator_type>
+boost::text::grapheme_ref<boost::text::text::iterator::iterator_type>
 find_first_dot_bad(boost::text::text t)
 {
     for (auto grapheme : t) {
@@ -24,7 +24,7 @@ find_first_dot_bad(boost::text::text t)
             return grapheme;
         }
     }
-    return boost::text::grapheme_view<
+    return boost::text::grapheme_ref<
         boost::text::text::iterator::iterator_type>();
 }
 
@@ -47,14 +47,14 @@ int main ()
 {
 
 {
-//[ graphemes_grapheme_view
+//[ graphemes_grapheme_ref
 boost::text::text t = "A bit of text.";
 
-// grapheme_views should be declared as values in range-based for loops, since
+// grapheme_refs should be declared as values in range-based for loops, since
 // they are small value types.
 for (auto grapheme : t) {
-    std::cout << grapheme; // grapheme_view is directly streamable.
-    // grapheme_view is also a code point range, of course
+    std::cout << grapheme; // grapheme_ref is directly streamable.
+    // grapheme_ref is also a code point range, of course
     for (auto cp : grapheme) {
         // Do something with code point cp here....
     }

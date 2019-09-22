@@ -119,7 +119,7 @@ _CPIter_ does not need to be a contiguous iterator.
 A _CPRng_ is a possibly-discontiguous sequence whose element type is an
 unsigned 32-bit integral type.
 
-Example: _cpr_.
+Example: _u32v_.
 
 Requirements on _CPRng_.  In the table below, `R` is a type that models
 _CPRng_; `r` is an object of type `R`; `Iter` is an iterator type whose

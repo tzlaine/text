@@ -1281,7 +1281,7 @@ namespace boost { namespace text {
         template<typename CPIter>
         struct fwd_rev_grapheme_iter
         {
-            using value_type = grapheme_view<fwd_rev_cp_iter<CPIter>>;
+            using value_type = grapheme_ref<fwd_rev_cp_iter<CPIter>>;
             using pointer = value_type;
             using reference = value_type;
             using difference_type =
@@ -2191,7 +2191,7 @@ namespace boost { namespace text {
                 }
 
                 template<typename CPIter2>
-                bool operator()(grapheme_view<CPIter2> grapheme) const noexcept
+                bool operator()(grapheme_ref<CPIter2> grapheme) const noexcept
                 {
                     BOOST_ASSERT(!grapheme.empty());
                     if (std::next(grapheme.begin()) != grapheme.end())

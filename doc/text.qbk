@@ -110,13 +110,11 @@
 [def _tc_32_to_8_          [funcref boost::text::transcode_utf_32_to_8  `transcode_utf_32_to_8()`]]
 [def _tc_32_to_16_         [funcref boost::text::transcode_utf_32_to_16 `transcode_utf_32_to_16()`]]
 
-[def _u32_rng_             [classref boost::text::utf32_range `utf32_range`]]
-
 [def _norm_str_header_     [link header.boost.text.normalize_string_hpp normalize_string.hpp]]
 
 [def _line_brk_res_        [classref boost::text::line_break_result `line_break_result`]]
-[def _line_brk_cp_rng_     [classref boost::text::line_break_cp_range `line_break_cp_range`]]
-[def _line_brk_cp_rngs_    [classref boost::text::line_break_cp_range `line_break_cp_range`s]]
+[def _line_brk_cp_v_       [classref boost::text::line_break_cp_view `line_break_cp_view`]]
+[def _line_brk_cp_vs_      [classref boost::text::line_break_cp_view `line_break_cp_view`s]]
 [def _line_brk_gr_rngs_    [classref boost::text::line_break_grapheme_range `line_break_grapheme_range`s]]
 
 [def _to_lower_            [funcref boost::text::to_lower `to_lower()`]]
@@ -149,13 +147,13 @@
 [def _rv_                  [classref boost::text::rope_view `rope_view`]]
 [def _rvs_                 [classref boost::text::rope_view `rope_view`s]]
 
-[def _gr_view_             [classref boost::text::grapheme_view `grapheme_view`]]
+[def _gr_ref_              [classref boost::text::grapheme_ref `grapheme_ref`]]
 [def _grapheme_            [classref boost::text::grapheme `grapheme`]]
 [def _graphemes_           [classref boost::text::grapheme `graphemes`]]
 [def _gr_it_               [classref boost::text::grapheme_iterator `grapheme_iterator`]]
 [def _gr_its_              [classref boost::text::grapheme_iterator `grapheme_iterators`]]
 
-[def _cpr_                 [classref boost::text::cp_range `cp_range`]]
+[def _u32v_                 [classref boost::text::utf32_view `utf32_view`]]
 
 [def _segv_                [classref boost::text::segmented_vector `segmented_vector`]]
 [def _trie_                [classref boost::trie::trie `trie`]]

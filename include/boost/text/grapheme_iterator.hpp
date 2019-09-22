@@ -22,9 +22,9 @@ namespace boost { namespace text {
     struct grapheme_iterator : stl_interfaces::iterator_interface<
                                    grapheme_iterator<CPIter, Sentinel>,
                                    std::bidirectional_iterator_tag,
-                                   grapheme_view<CPIter>,
-                                   grapheme_view<CPIter>,
-                                   grapheme_view<CPIter> const *>
+                                   grapheme_ref<CPIter>,
+                                   grapheme_ref<CPIter>,
+                                   grapheme_ref<CPIter> const *>
     {
         using iterator_type = CPIter;
 
@@ -56,8 +56,8 @@ namespace boost { namespace text {
             last_(other.last_)
         {}
 
-        grapheme_view<CPIter> operator*() const noexcept { return grapheme_; }
-        grapheme_view<CPIter> const * operator->() const noexcept
+        grapheme_ref<CPIter> operator*() const noexcept { return grapheme_; }
+        grapheme_ref<CPIter> const * operator->() const noexcept
         {
             return &grapheme_;
         }
@@ -66,14 +66,14 @@ namespace boost { namespace text {
         {
             auto const first = grapheme_.end();
             grapheme_ =
-                grapheme_view<CPIter>(first, next_grapheme_break(first, last_));
+                grapheme_ref<CPIter>(first, next_grapheme_break(first, last_));
             return *this;
         }
 
         grapheme_iterator & operator--() noexcept
         {
             auto const last = grapheme_.begin();
-            grapheme_ = grapheme_view<CPIter>(
+            grapheme_ = grapheme_ref<CPIter>(
                 prev_grapheme_break(first_, std::prev(last), last_), last);
             return *this;
         }
@@ -83,14 +83,14 @@ namespace boost { namespace text {
         using base_type = stl_interfaces::iterator_interface<
             grapheme_iterator<CPIter, Sentinel>,
             std::bidirectional_iterator_tag,
-            grapheme_view<CPIter>,
-            grapheme_view<CPIter>,
-            grapheme_view<CPIter> const *>;
+            grapheme_ref<CPIter>,
+            grapheme_ref<CPIter>,
+            grapheme_ref<CPIter> const *>;
         using base_type::operator++;
         using base_type::operator--;
 
     private:
-        grapheme_view<CPIter> grapheme_;
+        grapheme_ref<CPIter> grapheme_;
         CPIter first_;
         Sentinel last_;
 

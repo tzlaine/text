@@ -282,7 +282,7 @@ namespace boost { namespace text {
 
         /** Inserts the grapheme g into *this at position at. */
         template<typename CPIter>
-        iterator insert(iterator at, grapheme_view<CPIter> g);
+        iterator insert(iterator at, grapheme_ref<CPIter> g);
 
         /** Erases the portion of *this delimited by tv.
 
@@ -508,12 +508,12 @@ namespace boost { namespace text {
             bool new_substr_normalized);
 
         template<typename CPIter>
-        struct insert_grapheme_view_impl;
+        struct insert_grapheme_ref_impl;
 
         string str_;
 
         template<typename CPIter>
-        friend struct insert_grapheme_view_impl;
+        friend struct insert_grapheme_ref_impl;
 
 #endif // Doxygen
     };
@@ -521,10 +521,10 @@ namespace boost { namespace text {
 #ifndef BOOST_TEXT_DOXYGEN
 
     template<typename CPIter>
-    struct text::insert_grapheme_view_impl
+    struct text::insert_grapheme_ref_impl
     {
         static text::iterator
-        call(text & t, text::iterator at, grapheme_view<CPIter> g)
+        call(text & t, text::iterator at, grapheme_ref<CPIter> g)
         {
             if (g.empty())
                 return at;
@@ -537,13 +537,13 @@ namespace boost { namespace text {
     };
 
     template<typename Sentinel, typename ErrorHandler>
-    struct text::insert_grapheme_view_impl<
+    struct text::insert_grapheme_ref_impl<
         utf_8_to_32_iterator<char const *, Sentinel, ErrorHandler>>
     {
         static text::iterator call(
             text & t,
             text::iterator at,
-            grapheme_view<
+            grapheme_ref<
                 utf_8_to_32_iterator<char const *, Sentinel, ErrorHandler>> g)
         {
             return t.insert_impl(
@@ -555,13 +555,13 @@ namespace boost { namespace text {
     };
 
     template<typename Sentinel, typename ErrorHandler>
-    struct text::insert_grapheme_view_impl<
+    struct text::insert_grapheme_ref_impl<
         utf_8_to_32_iterator<char *, Sentinel, ErrorHandler>>
     {
         static text::iterator call(
             text & t,
             text::iterator at,
-            grapheme_view<utf_8_to_32_iterator<char *, Sentinel, ErrorHandler>>
+            grapheme_ref<utf_8_to_32_iterator<char *, Sentinel, ErrorHandler>>
                 g)
         {
             return t.insert_impl(
@@ -798,13 +798,13 @@ namespace boost { namespace text {
 
     inline text::iterator text::insert(iterator at, grapheme const & g)
     {
-        return insert(at, grapheme_view<grapheme::const_iterator>(g));
+        return insert(at, grapheme_ref<grapheme::const_iterator>(g));
     }
 
     template<typename CPIter>
-    text::iterator text::insert(iterator at, grapheme_view<CPIter> g)
+    text::iterator text::insert(iterator at, grapheme_ref<CPIter> g)
     {
-        return insert_grapheme_view_impl<CPIter>::call(*this, at, g);
+        return insert_grapheme_ref_impl<CPIter>::call(*this, at, g);
     }
 
     inline text::iterator text::erase(iterator first, iterator last) noexcept

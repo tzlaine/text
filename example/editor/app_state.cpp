@@ -466,9 +466,9 @@ namespace {
     // results.
     template<typename CPIter>
     edit_deltas grapheme_insertion_deltas(
-        boost::text::grapheme_view<CPIter> prev_grapheme,
+        boost::text::grapheme_ref<CPIter> prev_grapheme,
         boost::text::grapheme insertion,
-        boost::text::grapheme_view<CPIter> next_grapheme)
+        boost::text::grapheme_ref<CPIter> next_grapheme)
     {
         boost::text::text t;
         t.insert(t.end(), prev_grapheme);

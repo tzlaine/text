@@ -33,13 +33,13 @@ graphemes in the text layer types.
 [heading Graphemes]
 
 When you dereference an iterator that you get from one of the text layer
-types, you get a _gr_view_.  This is a non-owning range of _cps_ that is known
+types, you get a _gr_ref_.  This is a non-owning range of _cps_ that is known
 to be normalized FCC.
 
-[graphemes_grapheme_view]
+[graphemes_grapheme_ref]
 
 If you want an owning set of _cps_ that is known to be normalized FCC, you can
-construct a _grapheme_ (either from a _gr_view_, or by some other means).
+construct a _grapheme_ (either from a _gr_ref_, or by some other means).
 
 [graphemes_grapheme]
 
@@ -48,7 +48,7 @@ involves allocations.  This also implies that an array of _graphemes_ is
 likely to be wasteful of storage.  If you want a bunch of _grs_, you should
 probably be using a _t_.]
 
-An Individual _gr_, in the form of a _grapheme_ or _gr_view_, can be inserted
+An Individual _gr_, in the form of a _grapheme_ or _gr_ref_, can be inserted
 into a _t_ or _r_.
 
 [note The _gr_ is the unit of work within the text layer.  When using text

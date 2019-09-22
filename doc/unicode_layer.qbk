@@ -135,7 +135,7 @@ An example of use:
 [to_utf32_verbose]
 
 That's a lot of typing, so there's also a much terser range-based form using
-_u32_rng_:
+_u32v_:
 
 [to_utf32_terse]
 
@@ -188,7 +188,7 @@ performance.  In performance-critical code paths, stick to pointers.]
 
 [heading Accessing the Underlying UTF-8 chars]
 
-When using _8_to_32_iter_ or _u32_rng_, it is often desirable to get access to
+When using _8_to_32_iter_ or _u32v_, it is often desirable to get access to
 the underlying sequence of `char`s (e.g. for copying into a buffer or
 constructing a `std::string`).
 
@@ -272,7 +272,7 @@ at or before `it`.
 that `first` is already at a break; the results are otherwise undefined.
 
     template<typename CPIter, typename Sentinel>
-    cp_range<CPIter> X(CPIter first, CPIter it, Sentinel last) noexcept;
+    utf32_view<CPIter> X(CPIter first, CPIter it, Sentinel last) noexcept;
 
 `X()` returns smallest range of _cps_ that comprise an `X` (word, line, etc.)
 in which `it` is found.
@@ -550,7 +550,7 @@ vs. allowed overloads.
 Just as the low-level `prev` and `next` functions for allowed beaks returned
 extra information, the other allowed-break functions do as well.  The rest of
 the API produces _cp_ or _gr_ ranges, and the allowed-break versions produce
-_line_brk_cp_rngs_ or _line_brk_gr_rngs_ instead, respectively:
+_line_brk_cp_vs_ or _line_brk_gr_rngs_ instead, respectively:
 
 [line_breaks_2]
 
