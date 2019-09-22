@@ -33,7 +33,7 @@ namespace boost { namespace text {
     struct grapheme_view
         : stl_interfaces::view_interface<grapheme_view<CPIter, Sentinel>>
     {
-        using iterator = grapheme_iterator<CPIter>;
+        using iterator = grapheme_iterator<CPIter, Sentinel>;
         using sentinel = detail::gr_view_sentinel_t<CPIter, Sentinel>;
 
         constexpr grapheme_view() : first_(), last_() {}
@@ -99,7 +99,6 @@ namespace boost { namespace text {
         struct as_graphemes_dispatch
         {
             static constexpr auto call(Range const & r_) noexcept
-                -> decltype(as_utf32(r_))
             {
                 auto r = as_utf32(r_);
                 return grapheme_view<decltype(r.begin()), decltype(r.end())>(
