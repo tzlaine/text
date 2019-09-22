@@ -144,7 +144,10 @@ namespace boost { namespace text {
         // TODO: Needs tests.
         friend std::ostream & operator<<(std::ostream & os, utf8_view v)
         {
-            std::copy(v.begin(), v.end(), std::ostreambuf_iterator<char>(os));
+            auto out = std::ostreambuf_iterator<char>(os);
+            for (auto it = v.begin(); it != v.end(); ++it, ++out) {
+                *out = *it;
+            }
             return os;
         }
         // TODO: Needs tests.
@@ -246,8 +249,10 @@ namespace boost { namespace text {
 #if defined(_MSC_VER)
         friend std::wostream & operator<<(std::wostream & os, utf16_view v)
         {
-            std::copy(
-                v.begin(), v.end(), std::ostreambuf_iterator<wchar_t>(os));
+            auto out = std::ostreambuf_iterator<wchar_t>(os);
+            for (auto it = v.begin(); it != v.end(); ++it, ++out) {
+                *out = *it;
+            }
             return os;
         }
 #endif
