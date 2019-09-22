@@ -2,7 +2,7 @@
 #define BOOST_TEXT_LINE_BREAK_HPP
 
 #include <boost/text/algorithm.hpp>
-#include <boost/text/grapheme_range.hpp>
+#include <boost/text/grapheme_view.hpp>
 #include <boost/text/lazy_segment_range.hpp>
 
 #include <boost/assert.hpp>
@@ -1765,7 +1765,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     detail::unspecified line(CPRange & range, CPIter it) noexcept;
 
     /** Returns grapheme range delimiting the bounds of the line (using hard
-        line breaks) that `it` lies within, as a grapheme_range.
+        line breaks) that `it` lies within, as a grapheme_view.
 
         This function only participates in overload resolution if
         `GraphemeRange` models the GraphemeRange concept. */
@@ -1830,7 +1830,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     template<typename GraphemeRange, typename GraphemeIter>
     auto line(GraphemeRange const & range, GraphemeIter it) noexcept
         -> detail::graph_rng_alg_ret_t<
-            grapheme_range<decltype(range.begin().base())>,
+            grapheme_view<decltype(range.begin().base())>,
             GraphemeRange>
     {
         using cp_iter_t = decltype(range.begin().base());
@@ -1883,7 +1883,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 detail::next_hard_line_break_callable<
                     decltype(range.begin().base()),
                     decltype(range.begin().base())>,
-                grapheme_range<decltype(range.begin().base())>>,
+                grapheme_view<decltype(range.begin().base())>>,
             GraphemeRange>
     {
         using cp_iter_t = decltype(range.begin().base());
@@ -1932,7 +1932,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 decltype(range.begin().base()),
                 detail::prev_hard_line_break_callable<
                     decltype(range.begin().base())>,
-                grapheme_range<decltype(range.begin().base())>,
+                grapheme_view<decltype(range.begin().base())>,
                 detail::const_reverse_lazy_segment_iterator,
                 true>,
             GraphemeRange>
@@ -1968,19 +1968,19 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 
     /** A range of graphemes that delimit a pair of line break boundaries. */
     template<typename CPIter>
-    struct line_break_grapheme_range : grapheme_range<CPIter>
+    struct line_break_grapheme_view : grapheme_view<CPIter>
     {
-        line_break_grapheme_range() : grapheme_range<CPIter>(), hard_break_() {}
-        line_break_grapheme_range(
+        line_break_grapheme_view() : grapheme_view<CPIter>(), hard_break_() {}
+        line_break_grapheme_view(
             line_break_result<CPIter> first, line_break_result<CPIter> last) :
-            grapheme_range<CPIter>(first.iter, last.iter),
+            grapheme_view<CPIter>(first.iter, last.iter),
             hard_break_(last.hard_break)
         {}
         template<typename GraphemeIter>
-        line_break_grapheme_range(
+        line_break_grapheme_view(
             line_break_result<GraphemeIter> first,
             line_break_result<GraphemeIter> last) :
-            grapheme_range<CPIter>(first.iter.base(), last.iter.base()),
+            grapheme_view<CPIter>(first.iter.base(), last.iter.base()),
             hard_break_(last.hard_break)
         {}
 
@@ -2111,7 +2111,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 detail::next_allowed_line_break_within_extent_callable<
                     Extent,
                     CPExtentFunc>,
-                line_break_grapheme_range<decltype(range.begin().base())>>,
+                line_break_grapheme_view<decltype(range.begin().base())>>,
             GraphemeRange>
     {
         using cp_iter_t = decltype(range.begin().base());
@@ -2149,7 +2149,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     detail::unspecified allowed_line(CPRange & range, CPIter it) noexcept;
 
     /** Returns a grapheme range delimiting the bounds of the line (using hard
-        line breaks) that `it` lies within, as a line_break_grapheme_range.
+        line breaks) that `it` lies within, as a line_break_grapheme_view.
 
         This function only participates in overload resolution if
         `GraphemeRange` models the GraphemeRange concept. */
@@ -2197,7 +2197,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     template<typename GraphemeRange, typename GraphemeIter>
     auto allowed_line(GraphemeRange const & range, GraphemeIter it) noexcept
         -> detail::graph_rng_alg_ret_t<
-            line_break_grapheme_range<decltype(range.begin().base())>,
+            line_break_grapheme_view<decltype(range.begin().base())>,
             GraphemeRange>
     {
         auto const first = prev_allowed_line_break(range, it);
@@ -2254,7 +2254,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 detail::next_allowed_line_break_callable<
                     line_break_result<decltype(range.begin().base())>,
                     decltype(range.begin().base())>,
-                line_break_grapheme_range<decltype(range.begin().base())>>,
+                line_break_grapheme_view<decltype(range.begin().base())>>,
             GraphemeRange>
     {
         using cp_iter_t = decltype(range.begin().base());
@@ -2438,7 +2438,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 detail::prev_allowed_line_break_callable<
                     decltype(range.begin().base()),
                     line_break_result<decltype(range.begin().base())>>,
-                line_break_grapheme_range<decltype(range.begin().base())>,
+                line_break_grapheme_view<decltype(range.begin().base())>,
                 detail::const_reverse_allowed_line_iterator,
                 true>,
             GraphemeRange>

@@ -550,7 +550,7 @@ vs. allowed overloads.
 Just as the low-level `prev` and `next` functions for allowed beaks returned
 extra information, the other allowed-break functions do as well.  The rest of
 the API produces _cp_ or _gr_ ranges, and the allowed-break versions produce
-_line_brk_cp_vs_ or _line_brk_gr_rngs_ instead, respectively:
+_line_brk_cp_vs_ or _line_brk_gr_vs_ instead, respectively:
 
 [line_breaks_2]
 

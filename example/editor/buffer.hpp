@@ -126,7 +126,7 @@ inline cursor_iterators_t cursor_iterators(snapshot_t const & snapshot)
 
 struct cursor_word_t
 {
-    boost::text::grapheme_range<content_t::iterator::iterator_type> word_;
+    boost::text::grapheme_view<content_t::iterator::iterator_type> word_;
     content_t::iterator cursor_;
 };
 
@@ -156,7 +156,7 @@ inline void get_lines(
              screen_width - 1,
              [](content_t::const_iterator::iterator_type first,
                 content_t::const_iterator::iterator_type last) noexcept {
-                 boost::text::grapheme_range<
+                 boost::text::grapheme_view<
                      content_t::const_iterator::iterator_type>
                      range(first, last);
                  return std::distance(range.begin(), range.end());

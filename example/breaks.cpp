@@ -221,7 +221,7 @@ for (auto line : boost::text::lines(
             boost::text::text::const_iterator::iterator_type last) {
              // The width of this chunk of text.  For out purposes here, each
              // grapheme in the chunk has a fixed width of 1.
-             boost::text::grapheme_range<
+             boost::text::grapheme_view<
                  boost::text::text::const_iterator::iterator_type>
                  range(first, last);
              return std::distance(range.begin(), range.end());

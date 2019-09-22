@@ -2,7 +2,7 @@
 #define BOOST_TEXT_SENTENCE_BREAK_HPP
 
 #include <boost/text/algorithm.hpp>
-#include <boost/text/grapheme_range.hpp>
+#include <boost/text/grapheme_view.hpp>
 #include <boost/text/lazy_segment_range.hpp>
 
 #include <boost/assert.hpp>
@@ -763,7 +763,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
     detail::unspecified sentence(CPRange & range, CPIter it) noexcept;
 
     /** Returns grapheme range delimiting the bounds of the sentence that `it`
-        lies within, as a grapheme_range.
+        lies within, as a grapheme_view.
 
         This function only participates in overload resolution if
         `GraphemeRange` models the GraphemeRange concept. */
@@ -829,7 +829,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
     template<typename GraphemeRange, typename GraphemeIter>
     auto sentence(GraphemeRange const & range, GraphemeIter it) noexcept
         -> detail::graph_rng_alg_ret_t<
-            grapheme_range<decltype(range.begin().base())>,
+            grapheme_view<decltype(range.begin().base())>,
             GraphemeRange>
     {
         using cp_iter_t = decltype(range.begin().base());
@@ -882,7 +882,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
                 detail::next_sentence_callable<
                     decltype(range.begin().base()),
                     decltype(range.begin().base())>,
-                grapheme_range<decltype(range.begin().base())>>,
+                grapheme_view<decltype(range.begin().base())>>,
             GraphemeRange>
     {
         using cp_iter_t = decltype(range.begin().base());
@@ -931,7 +931,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
                 decltype(range.begin().base()),
                 decltype(range.begin().base()),
                 detail::prev_sentence_callable<decltype(range.begin().base())>,
-                grapheme_range<decltype(range.begin().base())>,
+                grapheme_view<decltype(range.begin().base())>,
                 detail::const_reverse_lazy_segment_iterator,
                 true>,
             GraphemeRange>

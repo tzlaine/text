@@ -2,7 +2,7 @@
 #define BOOST_TEXT_WORD_BREAK_HPP
 
 #include <boost/text/algorithm.hpp>
-#include <boost/text/grapheme_range.hpp>
+#include <boost/text/grapheme_view.hpp>
 #include <boost/text/lazy_segment_range.hpp>
 
 #include <array>
@@ -1099,7 +1099,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept;
 
     /** Returns grapheme range delimiting the bounds of the word that `it`
-        lies within, as a grapheme_range.
+        lies within, as a grapheme_view.
 
         This function only participates in overload resolution if
         `GraphemeRange` models the GraphemeRange concept and `WordPropFunc`
@@ -1243,7 +1243,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         WordPropFunc word_prop = WordPropFunc{},
         CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept
         -> detail::graph_word_prop_func_ret_t<
-            grapheme_range<decltype(range.begin().base())>,
+            grapheme_view<decltype(range.begin().base())>,
             WordPropFunc,
             GraphemeRange>
     {
@@ -1339,7 +1339,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
                     decltype(range.begin().base()),
                     WordPropFunc,
                     CPWordBreakFunc>,
-                grapheme_range<decltype(range.begin().base())>>,
+                grapheme_view<decltype(range.begin().base())>>,
             WordPropFunc,
             GraphemeRange>
     {
@@ -1429,7 +1429,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
                     decltype(range.begin().base()),
                     WordPropFunc,
                     CPWordBreakFunc>,
-                grapheme_range<decltype(range.begin().base())>,
+                grapheme_view<decltype(range.begin().base())>,
                 detail::const_reverse_lazy_segment_iterator,
                 true>,
             WordPropFunc,

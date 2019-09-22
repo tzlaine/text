@@ -115,7 +115,7 @@
 [def _line_brk_res_        [classref boost::text::line_break_result `line_break_result`]]
 [def _line_brk_cp_v_       [classref boost::text::line_break_cp_view `line_break_cp_view`]]
 [def _line_brk_cp_vs_      [classref boost::text::line_break_cp_view `line_break_cp_view`s]]
-[def _line_brk_gr_rngs_    [classref boost::text::line_break_grapheme_range `line_break_grapheme_range`s]]
+[def _line_brk_gr_vs_      [classref boost::text::line_break_grapheme_view `line_break_grapheme_view`s]]
 
 [def _to_lower_            [funcref boost::text::to_lower `to_lower()`]]
 [def _to_title_            [funcref boost::text::to_title `to_title()`]]

@@ -3,7 +3,7 @@
 
 #include <boost/text/collate.hpp>
 #include <boost/text/grapheme_break.hpp>
-#include <boost/text/grapheme_range.hpp>
+#include <boost/text/grapheme_view.hpp>
 #include <boost/text/detail/algorithm.hpp>
 
 #include <boost/algorithm/cxx14/mismatch.hpp>
@@ -79,12 +79,12 @@ namespace boost {
         auto
         collation_search(GraphemeRange const & r, Searcher const & searcher)
             -> detail::graph_rng_alg_ret_t<
-                grapheme_range<decltype(r.begin().base())>,
+                grapheme_view<decltype(r.begin().base())>,
                 GraphemeRange>
         {
             using cp_iter_t = decltype(r.begin().base());
             auto const cp_result = searcher(r.begin().base(), r.end().base());
-            return grapheme_range<cp_iter_t>{r.begin().base(),
+            return grapheme_view<cp_iter_t>{r.begin().base(),
                                              cp_result.begin(),
                                              cp_result.end(),
                                              r.end().base()};
@@ -1842,7 +1842,7 @@ namespace boost { namespace text {
         collation_table const & table,
         collation_flags flags = collation_flags::none)
         -> detail::graph_rng_alg_ret_t<
-            grapheme_range<decltype(str.begin().base())>,
+            grapheme_view<decltype(str.begin().base())>,
             GraphemeRange1>
     {
         using cp_iter_t = decltype(str.begin().base());
@@ -1854,7 +1854,7 @@ namespace boost { namespace text {
             flags);
         auto const cp_result =
             collation_search(str.begin().base(), str.end().base(), s);
-        return grapheme_range<cp_iter_t>{str.begin().base(),
+        return grapheme_view<cp_iter_t>{str.begin().base(),
                                          cp_result.begin(),
                                          cp_result.end(),
                                          str.end().base()};
@@ -1946,7 +1946,7 @@ namespace boost { namespace text {
         collation_table const & table,
         collation_flags flags = collation_flags::none)
         -> detail::graph_rng_alg_ret_t<
-            grapheme_range<decltype(str.begin().base())>,
+            grapheme_view<decltype(str.begin().base())>,
             GraphemeRange1>
     {
         using cp_iter_t = decltype(str.begin().base());
@@ -1958,7 +1958,7 @@ namespace boost { namespace text {
             flags);
         auto const cp_result =
             collation_search(str.begin().base(), str.end().base(), s);
-        return grapheme_range<cp_iter_t>{str.begin().base(),
+        return grapheme_view<cp_iter_t>{str.begin().base(),
                                          cp_result.begin(),
                                          cp_result.end(),
                                          str.end().base()};

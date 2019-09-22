@@ -353,7 +353,7 @@ namespace {
         auto const grapheme_first = iterator_at_start_of_line(s, line_index);
         auto const grapheme_last =
             std::next(grapheme_first, total_graphemes + hard_break_grapheme);
-        boost::text::grapheme_range<content_t::iterator::iterator_type> const
+        boost::text::grapheme_view<content_t::iterator::iterator_type> const
             graphemes(grapheme_first, grapheme_last);
 
         std::vector<line_t> replacements;

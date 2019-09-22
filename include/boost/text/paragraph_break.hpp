@@ -1,7 +1,7 @@
 #ifndef BOOST_TEXT_PARAGRAPH_BREAK_HPP
 #define BOOST_TEXT_PARAGRAPH_BREAK_HPP
 
-#include <boost/text/grapheme_range.hpp>
+#include <boost/text/grapheme_view.hpp>
 #include <boost/text/lazy_segment_range.hpp>
 
 
@@ -212,7 +212,7 @@ namespace boost { namespace text {
     detail::unspecified paragraph(CPRange & range, CPIter it) noexcept;
 
     /** Returns grapheme range delimiting the bounds of the paragraph that
-        `it` lies within, as a grapheme_range.
+        `it` lies within, as a grapheme_view.
 
         This function only participates in overload resolution if
         `GraphemeRange` models the GraphemeRange concept. */
@@ -278,7 +278,7 @@ namespace boost { namespace text {
     template<typename GraphemeRange, typename GraphemeIter>
     auto paragraph(GraphemeRange const & range, GraphemeIter it) noexcept
         -> detail::graph_rng_alg_ret_t<
-            grapheme_range<decltype(range.begin().base())>,
+            grapheme_view<decltype(range.begin().base())>,
             GraphemeRange>
     {
         using cp_iter_t = decltype(range.begin().base());
@@ -331,7 +331,7 @@ namespace boost { namespace text {
                 detail::next_paragraph_callable<
                     decltype(range.begin().base()),
                     decltype(range.begin().base())>,
-                grapheme_range<decltype(range.begin().base())>>,
+                grapheme_view<decltype(range.begin().base())>>,
             GraphemeRange>
     {
         using cp_iter_t = decltype(range.begin().base());
@@ -380,7 +380,7 @@ namespace boost { namespace text {
                 decltype(range.begin().base()),
                 decltype(range.begin().base()),
                 detail::prev_paragraph_callable<decltype(range.begin().base())>,
-                grapheme_range<decltype(range.begin().base())>,
+                grapheme_view<decltype(range.begin().base())>,
                 detail::const_reverse_lazy_segment_iterator,
                 true>,
             GraphemeRange>

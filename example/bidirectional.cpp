@@ -13,7 +13,7 @@ struct extent_callable
     template<typename CPIter>
     int operator()(CPIter first, CPIter last) const noexcept
     {
-        boost::text::grapheme_range<CPIter> range(first, last);
+        boost::text::grapheme_view<CPIter> range(first, last);
         return std::distance(range.begin(), range.end());
     }
 };
@@ -70,7 +70,7 @@ extent_callable extent;
 // its own internal iterators, so the extent-callable it expects should be
 // written as a template or a generic lambda.
 auto const extent = [](auto first, auto last) {
-    boost::text::grapheme_range<decltype(first)> range(first, last);
+    boost::text::grapheme_view<decltype(first)> range(first, last);
     return std::distance(range.begin(), range.end());
 };
 #endif
