@@ -141,6 +141,22 @@ namespace boost { namespace text {
             return !(lhs == rhs);
         }
 
+        // TODO: Needs tests.
+        friend std::ostream & operator<<(std::ostream & os, utf8_view v)
+        {
+            std::copy(v.begin(), v.end(), std::ostreambuf_iterator<char>(os));
+            return os;
+        }
+        // TODO: Needs tests.
+#if defined(_MSC_VER)
+        friend std::wostream & operator<<(std::wostream & os, utf8_view v)
+        {
+            transcode_utf_8_to_16(
+                v.begin(), v.end(), std::ostreambuf_iterator<wchar_t>(os));
+            return os;
+        }
+#endif
+
     private:
         iterator first_;
         sentinel last_;
@@ -217,6 +233,21 @@ namespace boost { namespace text {
             return !(lhs == rhs);
         }
 
+        friend std::ostream & operator<<(std::ostream & os, utf16_view v)
+        {
+            transcode_utf_16_to_8(
+                v.begin(), v.end(), std::ostreambuf_iterator<char>(os));
+            return os;
+        }
+#if defined(_MSC_VER)
+        friend std::wostream & operator<<(std::wostream & os, utf16_view v)
+        {
+            std::copy(
+                v.begin(), v.end(), std::ostreambuf_iterator<wchar_t>(os));
+            return os;
+        }
+#endif
+
     private:
         iterator first_;
         sentinel last_;
@@ -292,6 +323,21 @@ namespace boost { namespace text {
         {
             return !(lhs == rhs);
         }
+
+        friend std::ostream & operator<<(std::ostream & os, utf32_view v)
+        {
+            transcode_utf_32_to_8(
+                v.begin(), v.end(), std::ostreambuf_iterator<char>(os));
+            return os;
+        }
+#if defined(_MSC_VER)
+        friend std::wostream & operator<<(std::wostream & os, utf32_view v)
+        {
+            transcode_utf_32_to_16(
+                v.begin(), v.end(), std::ostreambuf_iterator<wchar_t>(os));
+            return os;
+        }
+#endif
 
     private:
         iterator first_;
