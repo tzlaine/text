@@ -174,7 +174,10 @@ namespace boost { namespace text {
     }
 
     namespace detail {
-        template<typename Range, bool CharPtr = char_ptr<Range>::value>
+        template<
+            typename Range,
+            bool Pointer = char_ptr<Range>::value || _16_ptr<Range>::value ||
+                           cp_ptr<Range>::value>
         struct as_utf8_dispatch
         {
             static constexpr auto call(Range const & r) noexcept
@@ -188,8 +191,9 @@ namespace boost { namespace text {
         struct as_utf8_dispatch<Ptr, true>
         {
             static constexpr auto call(Ptr p) noexcept
+                -> decltype(as_utf8(p, null_sentinel{}))
             {
-                return utf8_view<Ptr, null_sentinel>(p, null_sentinel{});
+                return as_utf8(p, null_sentinel{});
             }
         };
     }
@@ -265,7 +269,10 @@ namespace boost { namespace text {
     }
 
     namespace detail {
-        template<typename Range, bool CharPtr = _16_ptr<Range>::value>
+        template<
+            typename Range,
+            bool Pointer = char_ptr<Range>::value || _16_ptr<Range>::value ||
+                           cp_ptr<Range>::value>
         struct as_utf16_dispatch
         {
             static constexpr auto call(Range const & r) noexcept
@@ -279,8 +286,9 @@ namespace boost { namespace text {
         struct as_utf16_dispatch<Ptr, true>
         {
             static constexpr auto call(Ptr p) noexcept
+                -> decltype(as_utf16(p, null_sentinel{}))
             {
-                return utf16_view<Ptr, null_sentinel>(p, null_sentinel{});
+                return as_utf16(p, null_sentinel{});
             }
         };
     }
@@ -356,7 +364,10 @@ namespace boost { namespace text {
     }
 
     namespace detail {
-        template<typename Range, bool CharPtr = cp_ptr<Range>::value>
+        template<
+            typename Range,
+            bool Pointer = char_ptr<Range>::value || _16_ptr<Range>::value ||
+                           cp_ptr<Range>::value>
         struct as_utf32_dispatch
         {
             static constexpr auto call(Range const & r) noexcept
@@ -370,8 +381,9 @@ namespace boost { namespace text {
         struct as_utf32_dispatch<Ptr, true>
         {
             static constexpr auto call(Ptr p) noexcept
+                -> decltype(as_utf32(p, null_sentinel{}))
             {
-                return utf32_view<Ptr, null_sentinel>(p, null_sentinel{});
+                return as_utf32(p, null_sentinel{});
             }
         };
     }
