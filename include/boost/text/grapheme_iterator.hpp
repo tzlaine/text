@@ -18,13 +18,13 @@ namespace boost { namespace text {
     /** A bidirectional filtering iterator that iterates over the extended
         grapheme clusters in a sequence of code points. */
     template<typename CPIter, typename Sentinel = CPIter>
-    struct grapheme_iterator : stl_interfaces::iterator_interface<
-                                   grapheme_iterator<CPIter, Sentinel>,
-                                   std::bidirectional_iterator_tag,
-                                   grapheme_ref<CPIter>,
-                                   grapheme_ref<CPIter>,
-                                   grapheme_ref<CPIter> const *>
+    struct grapheme_iterator
     {
+        using value_type = grapheme_ref<CPIter>;
+        using difference_type = std::ptrdiff_t;
+        using pointer = stl_interfaces::proxy_arrow_result<value_type>;
+        using reference = value_type;
+        using iterator_category = std::bidirectional_iterator_tag;
         using iterator_type = CPIter;
 
         static_assert(
@@ -60,47 +60,51 @@ namespace boost { namespace text {
             last_(other.last_)
         {}
 
-        grapheme_ref<CPIter> operator*() const noexcept { return grapheme_; }
-        grapheme_ref<CPIter> const * operator->() const noexcept
-        {
-            return &grapheme_;
-        }
+        reference operator*() const noexcept { return grapheme_; }
+        pointer operator->() const noexcept { return pointer(grapheme_); }
+
+        CPIter base() const noexcept { return grapheme_.begin(); }
 
         grapheme_iterator & operator++() noexcept
         {
             auto const first = grapheme_.end();
-            grapheme_ =
-                grapheme_ref<CPIter>(first, next_grapheme_break(first, last_));
+            grapheme_ = value_type(first, next_grapheme_break(first, last_));
             return *this;
+        }
+        grapheme_iterator operator++(int)noexcept
+        {
+            grapheme_iterator retval = *this;
+            ++*this;
+            return retval;
         }
 
         grapheme_iterator & operator--() noexcept
         {
             auto const last = grapheme_.begin();
-            grapheme_ = grapheme_ref<CPIter>(
+            grapheme_ = value_type(
                 prev_grapheme_break(first_, std::prev(last), last_), last);
             return *this;
         }
+        grapheme_iterator operator--(int)noexcept
+        {
+            grapheme_iterator retval = *this;
+            --*this;
+            return retval;
+        }
 
-        CPIter base() const noexcept { return grapheme_.begin(); }
-
-        friend bool
+        friend constexpr bool
         operator==(grapheme_iterator lhs, grapheme_iterator rhs) noexcept
         {
             return lhs.base() == rhs.base();
         }
-
-        using base_type = stl_interfaces::iterator_interface<
-            grapheme_iterator<CPIter, Sentinel>,
-            std::bidirectional_iterator_tag,
-            grapheme_ref<CPIter>,
-            grapheme_ref<CPIter>,
-            grapheme_ref<CPIter> const *>;
-        using base_type::operator++;
-        using base_type::operator--;
+        friend constexpr bool
+        operator!=(grapheme_iterator lhs, grapheme_iterator rhs) noexcept
+        {
+            return !(lhs == rhs);
+        }
 
     private:
-        grapheme_ref<CPIter> grapheme_;
+        value_type grapheme_;
         CPIter first_;
         Sentinel last_;
 
