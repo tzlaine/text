@@ -88,10 +88,6 @@ TEST(const_vector_iterator, test_short_sequences)
             it = last;
             it = it - 1;
             EXPECT_EQ(it, first);
-
-            it = last;
-            it = 1 - it;
-            EXPECT_EQ(it, first);
         }
 
         EXPECT_EQ(*(last - 1), 13);

@@ -5,9 +5,8 @@
 #include <boost/text/grapheme.hpp>
 #include <boost/text/grapheme_break.hpp>
 
-#include <boost/stl_interfaces/iterator_interface.hpp>
-
 #include <boost/assert.hpp>
+#include <boost/stl_interfaces/iterator_interface.hpp>
 
 #include <iterator>
 #include <type_traits>
@@ -49,7 +48,12 @@ namespace boost { namespace text {
             last_(last)
         {}
 
-        template<typename CPIter2, typename Sentinel2>
+        template<
+            typename CPIter2,
+            typename Sentinel2,
+            typename Enable = std::enable_if_t<
+                std::is_convertible<CPIter2, CPIter>::value &&
+                std::is_convertible<Sentinel2, Sentinel>::value>>
         grapheme_iterator(grapheme_iterator<CPIter2, Sentinel2> const & other) :
             grapheme_(other.grapheme_.begin(), other.grapheme_.end()),
             first_(other.first_),
@@ -80,6 +84,12 @@ namespace boost { namespace text {
 
         CPIter base() const noexcept { return grapheme_.begin(); }
 
+        friend bool
+        operator==(grapheme_iterator lhs, grapheme_iterator rhs) noexcept
+        {
+            return lhs.base() == rhs.base();
+        }
+
         using base_type = stl_interfaces::iterator_interface<
             grapheme_iterator<CPIter, Sentinel>,
             std::bidirectional_iterator_tag,
@@ -98,17 +108,38 @@ namespace boost { namespace text {
         friend struct grapheme_iterator;
     };
 
+    /** This function is constexpr in C++14 and later. */
     template<
-        typename CPIter1,
+        typename Iter1,
         typename Sentinel1,
-        typename CPIter2,
-        typename Sentinel2>
-    auto operator==(
-        grapheme_iterator<CPIter1, Sentinel1> lhs,
-        grapheme_iterator<CPIter2, Sentinel2> rhs) noexcept
+        typename Iter2,
+        typename Sentinel2,
+        typename Enable = std::enable_if_t<
+            std::is_same<Sentinel1, null_sentinel>::value !=
+            std::is_same<Sentinel2, null_sentinel>::value>>
+    BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
+        grapheme_iterator<Iter1, Sentinel1> const & lhs,
+        grapheme_iterator<Iter2, Sentinel2> const & rhs) noexcept
         -> decltype(lhs.base() == rhs.base())
     {
         return lhs.base() == rhs.base();
+    }
+
+    /** This function is constexpr in C++14 and later. */
+    template<
+        typename Iter1,
+        typename Sentinel1,
+        typename Iter2,
+        typename Sentinel2,
+        typename Enable = std::enable_if_t<
+            std::is_same<Sentinel1, null_sentinel>::value !=
+            std::is_same<Sentinel2, null_sentinel>::value>>
+    BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
+        grapheme_iterator<Iter1, Sentinel1> const & lhs,
+        grapheme_iterator<Iter2, Sentinel2> const & rhs) noexcept
+        -> decltype(!(lhs == rhs))
+    {
+        return !(lhs == rhs);
     }
 
     /** This function is constexpr in C++14 and later. */

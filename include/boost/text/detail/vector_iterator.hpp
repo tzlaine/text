@@ -1,6 +1,8 @@
 #ifndef BOOST_TEXT_DETAIL_VECTOR_ITERATOR_ITERATOR_HPP
 #define BOOST_TEXT_DETAIL_VECTOR_ITERATOR_ITERATOR_HPP
 
+#include <boost/stl_interfaces/iterator_interface.hpp>
+
 #include <iterator>
 
 
@@ -14,14 +16,13 @@ namespace boost { namespace text {
 namespace boost { namespace text { namespace detail {
 
     template<typename T>
-    struct const_vector_iterator
+    struct const_vector_iterator : stl_interfaces::iterator_interface<
+                                       const_vector_iterator<T>,
+                                       std::random_access_iterator_tag,
+                                       T,
+                                       T const &,
+                                       T const *>
     {
-        using value_type = T;
-        using difference_type = std::ptrdiff_t;
-        using pointer = T const *;
-        using reference = T const &;
-        using iterator_category = std::random_access_iterator_tag;
-
         const_vector_iterator() noexcept :
             vec_(nullptr),
             n_(-1),
@@ -30,14 +31,14 @@ namespace boost { namespace text { namespace detail {
         {}
 
         const_vector_iterator(
-            segmented_vector<T> const & v, difference_type n) noexcept :
+            segmented_vector<T> const & v, std::ptrdiff_t n) noexcept :
             vec_(&v),
             n_(n),
             leaf_(nullptr),
             leaf_start_(0)
         {}
 
-        reference operator*() const noexcept
+        T const & operator*() const noexcept
         {
             if (leaf_) {
                 return deref();
@@ -50,110 +51,14 @@ namespace boost { namespace text { namespace detail {
             }
         }
 
-        pointer operator->() const noexcept { return &**this; }
-
-        value_type operator[](difference_type n) const noexcept
-        {
-            auto it = *this;
-            if (0 <= n)
-                it += n;
-            else
-                it -= -n;
-            return *it;
-        }
-
-        const_vector_iterator & operator++() noexcept
-        {
-            ++n_;
-            if (leaf_ && n_ == leaf_start_ + leaf_->size())
-                leaf_ = nullptr;
-            return *this;
-        }
-        const_vector_iterator operator++(int)noexcept
-        {
-            const_vector_iterator retval = *this;
-            ++*this;
-            return retval;
-        }
-        const_vector_iterator & operator+=(difference_type n) noexcept
+        const_vector_iterator & operator+=(std::ptrdiff_t n) noexcept
         {
             n_ += n;
             leaf_ = nullptr;
             return *this;
         }
 
-        const_vector_iterator & operator--() noexcept
-        {
-            if (leaf_ && n_ == leaf_start_)
-                leaf_ = nullptr;
-            --n_;
-            return *this;
-        }
-        const_vector_iterator operator--(int)noexcept
-        {
-            const_vector_iterator retval = *this;
-            --*this;
-            return retval;
-        }
-        const_vector_iterator & operator-=(difference_type n) noexcept
-        {
-            n_ -= n;
-            leaf_ = nullptr;
-            return *this;
-        }
-
-        friend bool operator==(
-            const_vector_iterator lhs, const_vector_iterator rhs) noexcept
-        {
-            return lhs.vec_ == rhs.vec_ && lhs.n_ == rhs.n_;
-        }
-        friend bool operator!=(
-            const_vector_iterator lhs, const_vector_iterator rhs) noexcept
-        {
-            return !(lhs == rhs);
-        }
-        friend bool
-        operator<(const_vector_iterator lhs, const_vector_iterator rhs) noexcept
-        {
-            return lhs.vec_ == rhs.vec_ && lhs.n_ < rhs.n_;
-        }
-        friend bool operator<=(
-            const_vector_iterator lhs, const_vector_iterator rhs) noexcept
-        {
-            return lhs == rhs || lhs < rhs;
-        }
-        friend bool
-        operator>(const_vector_iterator lhs, const_vector_iterator rhs) noexcept
-        {
-            return rhs < lhs;
-        }
-        friend bool operator>=(
-            const_vector_iterator lhs, const_vector_iterator rhs) noexcept
-        {
-            return rhs <= lhs;
-        }
-
-        friend const_vector_iterator
-        operator+(const_vector_iterator lhs, difference_type rhs) noexcept
-        {
-            return lhs += rhs;
-        }
-        friend const_vector_iterator
-        operator+(difference_type lhs, const_vector_iterator rhs) noexcept
-        {
-            return rhs += lhs;
-        }
-        friend const_vector_iterator
-        operator-(const_vector_iterator lhs, difference_type rhs) noexcept
-        {
-            return lhs -= rhs;
-        }
-        friend const_vector_iterator
-        operator-(difference_type lhs, const_vector_iterator rhs) noexcept
-        {
-            return rhs -= lhs;
-        }
-        friend difference_type
+        friend std::ptrdiff_t
         operator-(const_vector_iterator lhs, const_vector_iterator rhs) noexcept
         {
             BOOST_ASSERT(lhs.vec_ == rhs.vec_);
@@ -162,7 +67,7 @@ namespace boost { namespace text { namespace detail {
 
     private:
         const_vector_iterator(
-            segmented_vector<T> const * v, difference_type n) noexcept :
+            segmented_vector<T> const * v, std::ptrdiff_t n) noexcept :
             vec_(v),
             n_(n),
             leaf_(nullptr),
@@ -189,9 +94,9 @@ namespace boost { namespace text { namespace detail {
         }
 
         segmented_vector<T> const * vec_;
-        difference_type n_;
+        std::ptrdiff_t n_;
         mutable leaf_node_t<T> const * leaf_;
-        mutable difference_type leaf_start_;
+        mutable std::ptrdiff_t leaf_start_;
     };
 
 }}}

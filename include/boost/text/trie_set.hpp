@@ -13,10 +13,12 @@ namespace boost { namespace trie {
     struct const_trie_set_iterator;
 
     template<typename Key>
-    struct reverse_trie_set_iterator;
+    using reverse_trie_set_iterator =
+        stl_interfaces::reverse_iterator<trie_set_iterator<Key>>;
 
     template<typename Key>
-    struct const_reverse_trie_set_iterator;
+    using const_reverse_trie_set_iterator =
+        stl_interfaces::reverse_iterator<const_trie_set_iterator<Key>>;
 
     /** An associative container similar to std::set, built upon a trie, or
         prefix-tree.  A trie_set contains a set of keys.  Each node in the
@@ -485,69 +487,41 @@ namespace boost { namespace trie {
     }
 
     template<typename Key>
-    struct const_trie_set_iterator
+    struct const_trie_set_iterator : stl_interfaces::proxy_iterator_interface<
+                                         const_trie_set_iterator<Key>,
+                                         std::bidirectional_iterator_tag,
+                                         Key>
     {
-        using value_type = Key;
-        using pointer = detail::set_arrow_proxy<Key>;
-        using reference = Key;
-        using difference_type = std::ptrdiff_t;
-        using iterator_category = std::bidirectional_iterator_tag;
-
         const_trie_set_iterator() noexcept : it_() {}
 
         const_trie_set_iterator(trie_match_result match_result) noexcept :
             it_(match_result)
         {}
 
-        reference operator*() const noexcept
+        Key operator*() const noexcept
         {
             return detail::reconstruct_key(it_.state_);
         }
 
-        pointer operator->() const noexcept { return pointer(**this); }
-
-        const_trie_set_iterator & operator++() noexcept
+        stl_interfaces::proxy_arrow_result<Key> operator->() const noexcept
         {
-            ++it_;
-            return *this;
-        }
-        const_trie_set_iterator operator++(int)noexcept
-        {
-            auto const retval = *this;
-            ++*this;
-            return retval;
-        }
-        const_trie_set_iterator & operator--() noexcept
-        {
-            --it_;
-            return *this;
-        }
-        const_trie_set_iterator operator--(int)noexcept
-        {
-            auto const retval = *this;
-            --*this;
-            return retval;
-        }
-
-        friend bool operator==(
-            const_trie_set_iterator lhs, const_trie_set_iterator rhs) noexcept
-        {
-            return lhs.it_ == rhs.it_;
-        }
-        friend bool operator!=(
-            const_trie_set_iterator lhs, const_trie_set_iterator rhs) noexcept
-        {
-            return !(lhs == rhs);
+            return stl_interfaces::proxy_arrow_result<Key>(**this);
         }
 
 #ifndef BOOST_TEXT_DOXYGEN
 
     private:
+        using base_iter_type = const_trie_map_iterator<Key, detail::void_>;
+
+        friend boost::stl_interfaces::access;
+        base_iter_type & base_reference() noexcept { return it_; }
+        base_iter_type base_reference() const noexcept { return it_; }
+
         using state_t = detail::trie_iterator_state_t<Key, detail::void_>;
 
         explicit const_trie_set_iterator(state_t state) : it_(state) {}
 
-        const_trie_map_iterator<Key, detail::void_> it_;
+        base_iter_type it_;
 
         template<typename KeyT, typename Compare>
         friend struct trie_set;
@@ -558,200 +532,41 @@ namespace boost { namespace trie {
     };
 
     template<typename Key>
-    struct trie_set_iterator
+    struct trie_set_iterator : stl_interfaces::proxy_iterator_interface<
+                                   trie_set_iterator<Key>,
+                                   std::bidirectional_iterator_tag,
+                                   Key>
     {
-        using value_type = Key;
-        using pointer = detail::set_arrow_proxy<Key>;
-        using reference = Key;
-        using difference_type = std::ptrdiff_t;
-        using iterator_category = std::bidirectional_iterator_tag;
-
         trie_set_iterator() {}
 
-        reference operator*() const noexcept { return *it_; }
+        Key operator*() const noexcept { return *it_; }
 
-        pointer operator->() const noexcept { return pointer(**this); }
-
-        trie_set_iterator & operator++() noexcept
+        stl_interfaces::proxy_arrow_result<Key> operator->() const noexcept
         {
-            ++it_;
-            return *this;
-        }
-        trie_set_iterator operator++(int)noexcept
-        {
-            auto const retval = *this;
-            ++*this;
-            return retval;
-        }
-        trie_set_iterator & operator--() noexcept
-        {
-            --it_;
-            return *this;
-        }
-        trie_set_iterator operator--(int)noexcept
-        {
-            auto const retval = *this;
-            --*this;
-            return retval;
-        }
-
-        friend bool
-        operator==(trie_set_iterator lhs, trie_set_iterator rhs) noexcept
-        {
-            return lhs.it_ == rhs.it_;
-        }
-        friend bool
-        operator!=(trie_set_iterator lhs, trie_set_iterator rhs) noexcept
-        {
-            return lhs.it_ != rhs.it_;
+            return stl_interfaces::proxy_arrow_result<Key>(**this);
         }
 
 #ifndef BOOST_TEXT_DOXYGEN
 
     private:
+        using base_iter_type = const_trie_set_iterator<Key>;
+
+        friend boost::stl_interfaces::access;
+        base_iter_type & base_reference() noexcept { return it_; }
+        base_iter_type base_reference() const noexcept { return it_; }
+
         explicit trie_set_iterator(
             detail::trie_iterator_state_t<Key, detail::void_> state) :
             it_(state)
         {}
         explicit trie_set_iterator(const_trie_set_iterator<Key> it) : it_(it) {}
 
-        const_trie_set_iterator<Key> it_;
+        base_iter_type it_;
 
         template<typename KeyT, typename Compare>
         friend struct trie_set;
 
 #endif
-    };
-
-    template<typename Key>
-    struct reverse_trie_set_iterator
-    {
-        using value_type = Key;
-        using pointer = detail::set_arrow_proxy<Key>;
-        using reference = Key;
-        using difference_type = std::ptrdiff_t;
-        using iterator_category = std::bidirectional_iterator_tag;
-
-        reverse_trie_set_iterator() noexcept {}
-        explicit reverse_trie_set_iterator(trie_set_iterator<Key> it) noexcept :
-            it_(it)
-        {}
-
-        reference operator*() const noexcept { return *std::prev(it_); }
-
-        pointer operator->() const noexcept
-        {
-            return std::prev(it_).operator->();
-        }
-
-        reverse_trie_set_iterator & operator++() noexcept
-        {
-            --it_;
-            return *this;
-        }
-        reverse_trie_set_iterator operator++(int)noexcept
-        {
-            auto const retval = *this;
-            --*this;
-            return retval;
-        }
-        reverse_trie_set_iterator & operator--() noexcept
-        {
-            ++it_;
-            return *this;
-        }
-        reverse_trie_set_iterator operator--(int)noexcept
-        {
-            auto const retval = *this;
-            ++*this;
-            return retval;
-        }
-
-        trie_set_iterator<Key> base() const noexcept { return it_; }
-
-        friend bool operator==(
-            reverse_trie_set_iterator lhs,
-            reverse_trie_set_iterator rhs) noexcept
-        {
-            return lhs.it_ == rhs.it_;
-        }
-        friend bool operator!=(
-            reverse_trie_set_iterator lhs,
-            reverse_trie_set_iterator rhs) noexcept
-        {
-            return lhs.it_ != rhs.it_;
-        }
-
-    private:
-        trie_set_iterator<Key> it_;
-    };
-
-    template<typename Key>
-    struct const_reverse_trie_set_iterator
-    {
-        using value_type = Key;
-        using pointer = detail::set_arrow_proxy<Key>;
-        using reference = Key;
-        using difference_type = std::ptrdiff_t;
-        using iterator_category = std::bidirectional_iterator_tag;
-
-        const_reverse_trie_set_iterator() noexcept {}
-        explicit const_reverse_trie_set_iterator(
-            const_trie_set_iterator<Key> it) noexcept :
-            it_(it)
-        {}
-        explicit const_reverse_trie_set_iterator(
-            reverse_trie_set_iterator<Key> it) noexcept :
-            it_(it.it_)
-        {}
-
-        reference operator*() const noexcept { return *std::prev(it_); }
-
-        pointer operator->() const noexcept
-        {
-            return std::prev(it_).operator->();
-        }
-
-        const_reverse_trie_set_iterator & operator++() noexcept
-        {
-            --it_;
-            return *this;
-        }
-        const_reverse_trie_set_iterator operator++(int)noexcept
-        {
-            auto const retval = *this;
-            --*this;
-            return retval;
-        }
-        const_reverse_trie_set_iterator & operator--() noexcept
-        {
-            ++it_;
-            return *this;
-        }
-        const_reverse_trie_set_iterator operator--(int)noexcept
-        {
-            auto const retval = *this;
-            ++*this;
-            return retval;
-        }
-
-        const_trie_set_iterator<Key> base() const noexcept { return it_; }
-
-        friend bool operator==(
-            const_reverse_trie_set_iterator lhs,
-            const_reverse_trie_set_iterator rhs) noexcept
-        {
-            return lhs.it_ == rhs.it_;
-        }
-        friend bool operator!=(
-            const_reverse_trie_set_iterator lhs,
-            const_reverse_trie_set_iterator rhs) noexcept
-        {
-            return lhs.it_ != rhs.it_;
-        }
-
-    private:
-        const_trie_set_iterator<Key> it_;
     };
 
 }}

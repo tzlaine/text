@@ -3,30 +3,26 @@
 
 #include <boost/text/transcode_view.hpp>
 
+#include <boost/stl_interfaces/iterator_interface.hpp>
+
 
 namespace boost { namespace text {
 
     namespace detail {
-        template<typename CPIter, typename CPRange>
-        struct segment_arrow_proxy
-        {
-            explicit segment_arrow_proxy(CPRange value) : value_(value) {}
-
-            CPRange * operator->() const noexcept
-            {
-                return &value_;
-            }
-
-        private:
-            CPRange value_;
-        };
-
         template<
             typename CPIter,
             typename Sentinel,
             typename NextFunc,
             typename CPRange>
         struct const_lazy_segment_iterator
+            : stl_interfaces::proxy_iterator_interface<
+                  const_lazy_segment_iterator<
+                      CPIter,
+                      Sentinel,
+                      NextFunc,
+                      CPRange>,
+                  std::forward_iterator_tag,
+                  CPRange>
         {
         private:
             NextFunc * next_func_;
@@ -35,12 +31,6 @@ namespace boost { namespace text {
             Sentinel last_;
 
         public:
-            using value_type = CPRange;
-            using pointer = detail::segment_arrow_proxy<CPIter, CPRange>;
-            using reference = value_type;
-            using difference_type = std::ptrdiff_t;
-            using iterator_category = std::forward_iterator_tag;
-
             const_lazy_segment_iterator() noexcept :
                 next_func_(),
                 prev_(),
@@ -62,12 +52,7 @@ namespace boost { namespace text {
                 last_(last)
             {}
 
-            reference operator*() const noexcept
-            {
-                return value_type{prev_, it_};
-            }
-
-            pointer operator->() const noexcept { return pointer(**this); }
+            CPRange operator*() const noexcept { return CPRange{prev_, it_}; }
 
             const_lazy_segment_iterator & operator++() noexcept
             {
@@ -89,16 +74,22 @@ namespace boost { namespace text {
             {
                 return lhs.prev_ == rhs.last_;
             }
-            friend bool operator!=(
-                const_lazy_segment_iterator lhs,
-                const_lazy_segment_iterator rhs) noexcept
-            {
-                return !(lhs == rhs);
-            }
         };
 
-        template<typename CPIter, typename, typename PrevFunc, typename CPRange>
+        template<
+            typename CPIter,
+            typename Ignored,
+            typename PrevFunc,
+            typename CPRange>
         struct const_reverse_lazy_segment_iterator
+            : stl_interfaces::proxy_iterator_interface<
+                  const_reverse_lazy_segment_iterator<
+                      CPIter,
+                      Ignored,
+                      PrevFunc,
+                      CPRange>,
+                  std::forward_iterator_tag,
+                  CPRange>
         {
         private:
             PrevFunc * prev_func_;
@@ -107,12 +98,6 @@ namespace boost { namespace text {
             CPIter next_;
 
         public:
-            using value_type = CPRange;
-            using pointer = detail::segment_arrow_proxy<CPIter, CPRange>;
-            using reference = value_type;
-            using difference_type = std::ptrdiff_t;
-            using iterator_category = std::forward_iterator_tag;
-
             const_reverse_lazy_segment_iterator() noexcept :
                 prev_func_(),
                 first_(),
@@ -128,12 +113,7 @@ namespace boost { namespace text {
                 next_(last)
             {}
 
-            reference operator*() const noexcept
-            {
-                return value_type{it_, next_};
-            }
-
-            pointer operator->() const noexcept { return pointer(**this); }
+            CPRange operator*() const noexcept { return CPRange{it_, next_}; }
 
             const_reverse_lazy_segment_iterator & operator++() noexcept
             {
@@ -159,12 +139,6 @@ namespace boost { namespace text {
                 const_reverse_lazy_segment_iterator rhs) noexcept
             {
                 return lhs.next_ == rhs.first_;
-            }
-            friend bool operator!=(
-                const_reverse_lazy_segment_iterator lhs,
-                const_reverse_lazy_segment_iterator rhs) noexcept
-            {
-                return !(lhs == rhs);
             }
         };
     }

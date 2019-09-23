@@ -14,14 +14,12 @@ namespace boost { namespace text { namespace detail {
         stl_interfaces::reverse_iterator<char const *>;
 
 
-    struct const_repeated_chars_iterator
+    struct const_repeated_chars_iterator : stl_interfaces::iterator_interface<
+                                               const_repeated_chars_iterator,
+                                               std::random_access_iterator_tag,
+                                               char,
+                                               char>
     {
-        using value_type = char;
-        using difference_type = std::ptrdiff_t;
-        using pointer = char const *;
-        using reference = char;
-        using iterator_category = std::random_access_iterator_tag;
-
         constexpr const_repeated_chars_iterator() noexcept :
             first_(nullptr),
             size_(0),
@@ -36,118 +34,16 @@ namespace boost { namespace text { namespace detail {
             n_(n)
         {}
 
-        constexpr reference operator*() const noexcept
-        {
-            return first_[n_ % size_];
-        }
-
-        constexpr value_type operator[](difference_type n) const noexcept
-        {
-            return first_[(n_ + n) % size_];
-        }
+        constexpr char operator*() const noexcept { return first_[n_ % size_]; }
 
         BOOST_TEXT_CXX14_CONSTEXPR const_repeated_chars_iterator &
-        operator++() noexcept
-        {
-            ++n_;
-            return *this;
-        }
-        BOOST_TEXT_CXX14_CONSTEXPR const_repeated_chars_iterator
-        operator++(int)noexcept
-        {
-            const_repeated_chars_iterator retval = *this;
-            ++*this;
-            return retval;
-        }
-        BOOST_TEXT_CXX14_CONSTEXPR const_repeated_chars_iterator &
-        operator+=(difference_type n) noexcept
+        operator+=(std::ptrdiff_t n) noexcept
         {
             n_ += n;
             return *this;
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR const_repeated_chars_iterator &
-        operator--() noexcept
-        {
-            --n_;
-            return *this;
-        }
-        BOOST_TEXT_CXX14_CONSTEXPR const_repeated_chars_iterator
-        operator--(int)noexcept
-        {
-            const_repeated_chars_iterator retval = *this;
-            --*this;
-            return retval;
-        }
-        BOOST_TEXT_CXX14_CONSTEXPR const_repeated_chars_iterator &
-        operator-=(difference_type n) noexcept
-        {
-            n_ -= n;
-            return *this;
-        }
-
-        friend constexpr bool operator==(
-            const_repeated_chars_iterator lhs,
-            const_repeated_chars_iterator rhs) noexcept
-        {
-            return lhs.first_ == rhs.first_ && lhs.n_ == rhs.n_;
-        }
-        friend constexpr bool operator!=(
-            const_repeated_chars_iterator lhs,
-            const_repeated_chars_iterator rhs) noexcept
-        {
-            return !(lhs == rhs);
-        }
-        friend constexpr bool operator<(
-            const_repeated_chars_iterator lhs,
-            const_repeated_chars_iterator rhs) noexcept
-        {
-            return lhs.first_ == rhs.first_ && lhs.n_ < rhs.n_;
-        }
-        friend constexpr bool operator<=(
-            const_repeated_chars_iterator lhs,
-            const_repeated_chars_iterator rhs) noexcept
-        {
-            return lhs == rhs || lhs < rhs;
-        }
-        friend constexpr bool operator>(
-            const_repeated_chars_iterator lhs,
-            const_repeated_chars_iterator rhs) noexcept
-        {
-            return rhs < lhs;
-        }
-        friend constexpr bool operator>=(
-            const_repeated_chars_iterator lhs,
-            const_repeated_chars_iterator rhs) noexcept
-        {
-            return rhs <= lhs;
-        }
-
-        friend BOOST_TEXT_CXX14_CONSTEXPR const_repeated_chars_iterator
-        operator+(
-            const_repeated_chars_iterator lhs, difference_type rhs) noexcept
-        {
-            return lhs += rhs;
-        }
-        friend BOOST_TEXT_CXX14_CONSTEXPR const_repeated_chars_iterator
-        operator+(
-            difference_type lhs, const_repeated_chars_iterator rhs) noexcept
-        {
-            return rhs += lhs;
-        }
-        friend BOOST_TEXT_CXX14_CONSTEXPR const_repeated_chars_iterator
-        operator-(
-            const_repeated_chars_iterator lhs, difference_type rhs) noexcept
-        {
-            return lhs -= rhs;
-        }
-        friend BOOST_TEXT_CXX14_CONSTEXPR const_repeated_chars_iterator
-        operator-(
-            difference_type lhs, const_repeated_chars_iterator rhs) noexcept
-        {
-            return rhs -= lhs;
-        }
-        friend constexpr difference_type operator-(
+        friend constexpr std::ptrdiff_t operator-(
             const_repeated_chars_iterator lhs,
             const_repeated_chars_iterator rhs) noexcept
         {
@@ -156,8 +52,8 @@ namespace boost { namespace text { namespace detail {
 
     private:
         char const * first_;
-        difference_type size_;
-        difference_type n_;
+        std::ptrdiff_t size_;
+        std::ptrdiff_t n_;
     };
 
     using const_reverse_repeated_chars_iterator =

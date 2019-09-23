@@ -185,13 +185,12 @@ namespace boost { namespace text {
 
         template<typename CPIter>
         struct props_and_embeddings_cp_iterator
+            : stl_interfaces::iterator_interface<
+                  props_and_embeddings_cp_iterator<CPIter>,
+                  std::bidirectional_iterator_tag,
+                  uint32_t const,
+                  uint32_t const>
         {
-            using value_type = uint32_t const;
-            using pointer = value_type *;
-            using reference = value_type;
-            using difference_type = std::ptrdiff_t;
-            using iterator_category = std::bidirectional_iterator_tag;
-
             using iterator_t =
                 typename props_and_embeddings_t<CPIter>::iterator;
 
@@ -200,29 +199,17 @@ namespace boost { namespace text {
 
             iterator_t base() const noexcept { return it_; }
 
-            reference operator*() const noexcept { return it_->cp(); }
+            uint32_t const operator*() const noexcept { return it_->cp(); }
 
             props_and_embeddings_cp_iterator & operator++() noexcept
             {
                 ++it_;
                 return *this;
             }
-            props_and_embeddings_cp_iterator operator++(int)noexcept
-            {
-                auto const retval = *this;
-                ++*this;
-                return retval;
-            }
             props_and_embeddings_cp_iterator & operator--() noexcept
             {
                 --it_;
                 return *this;
-            }
-            props_and_embeddings_cp_iterator operator--(int)noexcept
-            {
-                auto const retval = *this;
-                --*this;
-                return retval;
             }
 
             friend bool operator==(
@@ -231,12 +218,14 @@ namespace boost { namespace text {
             {
                 return lhs.it_ == rhs.it_;
             }
-            friend bool operator!=(
-                props_and_embeddings_cp_iterator lhs,
-                props_and_embeddings_cp_iterator rhs) noexcept
-            {
-                return lhs.it_ != rhs.it_;
-            }
+
+            using base_type = stl_interfaces::iterator_interface<
+                props_and_embeddings_cp_iterator<CPIter>,
+                std::bidirectional_iterator_tag,
+                uint32_t const,
+                uint32_t const>;
+            using base_type::operator++;
+            using base_type::operator--;
 
         private:
             iterator_t it_;
@@ -275,14 +264,11 @@ namespace boost { namespace text {
         using run_seq_runs_t = container::small_vector<level_run<CPIter>, 32>;
 
         template<typename CPIter>
-        struct run_seq_iter
+        struct run_seq_iter : stl_interfaces::iterator_interface<
+                                  run_seq_iter<CPIter>,
+                                  std::bidirectional_iterator_tag,
+                                  prop_and_embedding_t<CPIter>>
         {
-            using value_type = prop_and_embedding_t<CPIter>;
-            using pointer = prop_and_embedding_t<CPIter> *;
-            using reference = prop_and_embedding_t<CPIter> &;
-            using difference_type = std::ptrdiff_t;
-            using iterator_category = std::bidirectional_iterator_tag;
-
             run_seq_iter(
                 typename level_run<CPIter>::iterator it,
                 typename run_seq_runs_t<CPIter>::iterator runs_it,
@@ -317,18 +303,16 @@ namespace boost { namespace text {
                 return *this;
             }
 
-            reference operator*() const noexcept { return *it_; }
-            pointer operator->() const noexcept { return &*it_; }
+            prop_and_embedding_t<CPIter> & operator*() const noexcept
+            {
+                return *it_;
+            }
 
             typename level_run<CPIter>::iterator base() const { return it_; }
 
             friend bool operator==(run_seq_iter lhs, run_seq_iter rhs)
             {
                 return lhs.it_ == rhs.it_;
-            }
-            friend bool operator!=(run_seq_iter lhs, run_seq_iter rhs)
-            {
-                return lhs.it_ != rhs.it_;
             }
 
         private:
@@ -1175,15 +1159,12 @@ namespace boost { namespace text {
         struct fwd_rev_grapheme_iter;
 
         template<typename CPIter>
-        struct fwd_rev_cp_iter
+        struct fwd_rev_cp_iter : stl_interfaces::iterator_interface<
+                                     fwd_rev_cp_iter<CPIter>,
+                                     std::bidirectional_iterator_tag,
+                                     uint32_t,
+                                     uint32_t>
         {
-            using value_type = uint32_t;
-            using pointer = value_type;
-            using reference = value_type;
-            using difference_type =
-                typename std::iterator_traits<CPIter>::difference_type;
-            using iterator_category = std::bidirectional_iterator_tag;
-
             using mirrors_array_t = remove_cv_ref_t<decltype(bidi_mirroreds())>;
             using kind_t = fwd_rev_cp_iter_kind;
 
@@ -1229,20 +1210,7 @@ namespace boost { namespace text {
                 return *this;
             }
 
-            fwd_rev_cp_iter operator++(int)noexcept
-            {
-                fwd_rev_cp_iter retval = *this;
-                ++*this;
-                return retval;
-            }
-            fwd_rev_cp_iter operator--(int)noexcept
-            {
-                fwd_rev_cp_iter retval = *this;
-                --*this;
-                return retval;
-            }
-
-            reference operator*() const noexcept
+            uint32_t operator*() const noexcept
             {
                 if (kind_ == kind_t::user_it)
                     return *it_;
@@ -1262,12 +1230,14 @@ namespace boost { namespace text {
                 else
                     return lhs.it_ == rhs.it_;
             }
-            friend bool operator!=(
-                fwd_rev_cp_iter const & lhs,
-                fwd_rev_cp_iter const & rhs) noexcept
-            {
-                return !(lhs == rhs);
-            }
+
+            using base_type = stl_interfaces::iterator_interface<
+                fwd_rev_cp_iter<CPIter>,
+                std::bidirectional_iterator_tag,
+                uint32_t,
+                uint32_t>;
+            using base_type::operator++;
+            using base_type::operator--;
 
         private:
             CPIter it_;
@@ -1280,14 +1250,13 @@ namespace boost { namespace text {
 
         template<typename CPIter>
         struct fwd_rev_grapheme_iter
+            : stl_interfaces::iterator_interface<
+                  fwd_rev_grapheme_iter<CPIter>,
+                  std::bidirectional_iterator_tag,
+                  grapheme_ref<fwd_rev_cp_iter<CPIter>>,
+                  grapheme_ref<fwd_rev_cp_iter<CPIter>>>
         {
-            using value_type = grapheme_ref<fwd_rev_cp_iter<CPIter>>;
-            using pointer = value_type;
-            using reference = value_type;
-            using difference_type =
-                typename std::iterator_traits<CPIter>::difference_type;
-            using iterator_category = std::bidirectional_iterator_tag;
-
+            using value_t = grapheme_ref<fwd_rev_cp_iter<CPIter>>;
             using mirrors_array_t = remove_cv_ref_t<decltype(bidi_mirroreds())>;
             using kind_t = fwd_rev_cp_iter_kind;
 
@@ -1315,23 +1284,23 @@ namespace boost { namespace text {
                     first_ = first.it_;
                     last_ = last.it_;
                     grapheme_ =
-                        value_type(it.it_, next_grapheme_break(it.it_, last_));
+                        value_t(it.it_, next_grapheme_break(it.it_, last_));
                 } else if (kind_ == fwd_rev_cp_iter_kind::rev_user_it) {
                     if (it == last) { // end iterator case
                         last_ = first.it_;
                         first_ = last.it_;
-                        grapheme_ = value_type(first_, first_);
+                        grapheme_ = value_t(first_, first_);
                     } else { // begin iterator case
                         last_ = first.it_;
                         first_ = last.it_;
-                        grapheme_ = value_type(
+                        grapheme_ = value_t(
                             prev_grapheme_break(
                                 first_, std::prev(it.it_), last_),
                             it.it_);
                     }
                 } else {
                     ait_ = first.ait_;
-                    grapheme_ = value_type(
+                    grapheme_ = value_t(
                         fwd_rev_cp_iter<CPIter>(ait_, kind_),
                         fwd_rev_cp_iter<CPIter>(ait_ + 1, kind_));
                 }
@@ -1342,19 +1311,19 @@ namespace boost { namespace text {
                 if (kind_ == kind_t::user_it) {
                     auto const first = grapheme_.end().it_;
                     grapheme_ =
-                        value_type(first, next_grapheme_break(first, last_));
+                        value_t(first, next_grapheme_break(first, last_));
                 } else if (kind_ == kind_t::rev_user_it) {
                     auto const last = grapheme_.begin().it_;
                     if (last == first_) {
-                        grapheme_ = value_type(first_, first_);
+                        grapheme_ = value_t(first_, first_);
                     } else {
-                        grapheme_ = value_type(
+                        grapheme_ = value_t(
                             prev_grapheme_break(first_, std::prev(last), last_),
                             last);
                     }
                 } else {
                     ++ait_;
-                    grapheme_ = value_type(
+                    grapheme_ = value_t(
                         fwd_rev_cp_iter<CPIter>(ait_, kind_),
                         fwd_rev_cp_iter<CPIter>(ait_ + 1, kind_));
                 }
@@ -1365,39 +1334,26 @@ namespace boost { namespace text {
                 if (kind_ == kind_t::user_it) {
                     auto const last = grapheme_.begin().it_;
                     if (last == first_) {
-                        grapheme_ = value_type(first_, first_);
+                        grapheme_ = value_t(first_, first_);
                     } else {
-                        grapheme_ = value_type(
+                        grapheme_ = value_t(
                             prev_grapheme_break(first_, std::prev(last), last_),
                             last);
                     }
                 } else if (kind_ == kind_t::rev_user_it) {
                     auto const first = grapheme_.end().it_;
                     grapheme_ =
-                        value_type(first, next_grapheme_break(first, last_));
+                        value_t(first, next_grapheme_break(first, last_));
                 } else {
                     --ait_;
-                    grapheme_ = value_type(
+                    grapheme_ = value_t(
                         fwd_rev_cp_iter<CPIter>(ait_, kind_),
                         fwd_rev_cp_iter<CPIter>(ait_ + 1, kind_));
                 }
                 return *this;
             }
 
-            fwd_rev_grapheme_iter operator++(int)noexcept
-            {
-                fwd_rev_grapheme_iter retval = *this;
-                ++*this;
-                return retval;
-            }
-            fwd_rev_grapheme_iter operator--(int)noexcept
-            {
-                fwd_rev_grapheme_iter retval = *this;
-                --*this;
-                return retval;
-            }
-
-            reference operator*() const noexcept { return grapheme_; }
+            value_t operator*() const noexcept { return grapheme_; }
 
             friend bool operator==(
                 fwd_rev_grapheme_iter const & lhs,
@@ -1408,15 +1364,17 @@ namespace boost { namespace text {
                            ? lhs.grapheme_.end() == rhs.grapheme_.begin()
                            : lhs.grapheme_.begin() == rhs.grapheme_.begin();
             }
-            friend bool operator!=(
-                fwd_rev_grapheme_iter const & lhs,
-                fwd_rev_grapheme_iter const & rhs) noexcept
-            {
-                return !(lhs == rhs);
-            }
+
+            using base_type = stl_interfaces::iterator_interface<
+                fwd_rev_grapheme_iter<CPIter>,
+                std::bidirectional_iterator_tag,
+                grapheme_ref<fwd_rev_cp_iter<CPIter>>,
+                grapheme_ref<fwd_rev_cp_iter<CPIter>>>;
+            using base_type::operator++;
+            using base_type::operator--;
 
         private:
-            value_type grapheme_;
+            value_t grapheme_;
             CPIter first_;
             CPIter last_;
             mirrors_array_t::const_iterator ait_;
@@ -2369,13 +2327,15 @@ namespace boost { namespace text {
             typename ResultType,
             typename NextLineBreakFunc>
         struct const_lazy_bidi_segment_iterator
+            : stl_interfaces::proxy_iterator_interface<
+                  const_lazy_bidi_segment_iterator<
+                      CPIter,
+                      Sentinel,
+                      ResultType,
+                      NextLineBreakFunc>,
+                  std::bidirectional_iterator_tag,
+                  ResultType>
         {
-            using value_type = ResultType;
-            using pointer = stl_interfaces::proxy_arrow_result<value_type>;
-            using reference = value_type;
-            using difference_type = std::ptrdiff_t;
-            using iterator_category = std::forward_iterator_tag;
-
             const_lazy_bidi_segment_iterator() noexcept : state_(nullptr) {}
             const_lazy_bidi_segment_iterator(bidi_subrange_state<
                                              CPIter,
@@ -2385,9 +2345,10 @@ namespace boost { namespace text {
                 state_(&state)
             {}
 
-            reference operator*() const noexcept { return state_->get_value(); }
-
-            pointer operator->() const noexcept { return pointer(**this); }
+            ResultType operator*() const noexcept
+            {
+                return state_->get_value();
+            }
 
             const_lazy_bidi_segment_iterator & operator++() noexcept
             {
@@ -2399,12 +2360,6 @@ namespace boost { namespace text {
                 const_lazy_bidi_segment_iterator rhs) noexcept
             {
                 return lhs.state_->at_end();
-            }
-            friend bool operator!=(
-                const_lazy_bidi_segment_iterator lhs,
-                const_lazy_bidi_segment_iterator rhs) noexcept
-            {
-                return !(lhs == rhs);
             }
 
         private:

@@ -514,10 +514,6 @@ TEST(const_repeated_chars_iterator, test_c_str_ctor)
             it = last;
             it -= 1;
             EXPECT_EQ(it, last - 1);
-
-            it = last;
-            it = 1 - it;
-            EXPECT_EQ(it, last - 1);
         }
 
         auto const it_0 = first;

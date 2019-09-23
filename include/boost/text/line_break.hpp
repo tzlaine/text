@@ -2277,6 +2277,14 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             typename PrevFunc,
             typename CPRange>
         struct const_reverse_allowed_line_iterator
+            : stl_interfaces::proxy_iterator_interface<
+                  const_reverse_allowed_line_iterator<
+                      CPIter,
+                      ResultType,
+                      PrevFunc,
+                      CPRange>,
+                  std::forward_iterator_tag,
+                  CPRange>
         {
         private:
             PrevFunc * prev_func_;
@@ -2285,12 +2293,6 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             ResultType next_;
 
         public:
-            using value_type = CPRange;
-            using pointer = detail::segment_arrow_proxy<CPIter, CPRange>;
-            using reference = value_type;
-            using difference_type = std::ptrdiff_t;
-            using iterator_category = std::forward_iterator_tag;
-
             const_reverse_allowed_line_iterator() noexcept :
                 prev_func_(),
                 first_(),
@@ -2306,12 +2308,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 next_(last)
             {}
 
-            reference operator*() const noexcept
-            {
-                return value_type{it_, next_};
-            }
-
-            pointer operator->() const noexcept { return pointer(**this); }
+            CPRange operator*() const noexcept { return CPRange{it_, next_}; }
 
             const_reverse_allowed_line_iterator & operator++() noexcept
             {
@@ -2337,12 +2334,6 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 const_reverse_allowed_line_iterator rhs) noexcept
             {
                 return lhs.next_ == rhs.first_;
-            }
-            friend bool operator!=(
-                const_reverse_allowed_line_iterator lhs,
-                const_reverse_allowed_line_iterator rhs) noexcept
-            {
-                return !(lhs == rhs);
             }
         };
     }
