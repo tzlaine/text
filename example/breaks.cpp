@@ -31,23 +31,17 @@ assert(at_or_before_3 == first + 2);
 auto after_0 = boost::text::next_grapheme_break(first, last);
 assert(after_0 == first + 2);
 
-#if 0
-auto around_1 = boost::text::grapheme(cps, first + 1);
-assert(around_1.begin() == first + 0);
-assert(around_1.end() == first + 2);
-#endif
-
 // Prints "[0, 2) [2, 3)".
 for (auto range : boost::text::graphemes(cps)) {
-    std::cout << '[' << std::distance(first, range.begin()) << ", "
-              << std::distance(first, range.end()) << ") ";
+    std::cout << '[' << (range.begin() - first) << ", " << (range.end() - first)
+              << ") ";
 }
 std::cout << "\n";
 
 // Prints "[2, 3) [0, 2)".
 for (auto range : boost::text::reversed_graphemes(cps)) {
-    std::cout << '[' << std::distance(first, range.begin()) << ", "
-              << std::distance(first, range.end()) << ") ";
+    std::cout << '[' << (range.begin() - first) << ", " << (range.end() - first)
+              << ") ";
 }
 std::cout << "\n";
 //]
@@ -185,7 +179,7 @@ std::array<uint32_t, 5> cps = {{'a', ' ', 'b', '\n', 'c'}};
 /* Prints:
 "c"
 "b
-""a "
+"a "
 */
 for (auto line : boost::text::reversed_allowed_lines(cps)) {
     std::cout << '"' << boost::text::to_string(line.begin(), line.end()) << '"';
@@ -227,7 +221,7 @@ for (auto line : boost::text::lines(
             boost::text::text::const_iterator::iterator_type last) {
              // The width of this chunk of text.  For out purposes here, each
              // grapheme in the chunk has a fixed width of 1.
-             boost::text::grapheme_range<
+             boost::text::grapheme_view<
                  boost::text::text::const_iterator::iterator_type>
                  range(first, last);
              return std::distance(range.begin(), range.end());

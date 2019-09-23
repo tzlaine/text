@@ -382,7 +382,7 @@ suppressed_long_contractions = find_suppressed_contractions(long_suppression)
 
 def suppression_test(ns, string, suppressed_contractions):
     test_count = -1
-    max_tests = 150
+    max_tests = 30
     block_index = 0
 
     retval = ''

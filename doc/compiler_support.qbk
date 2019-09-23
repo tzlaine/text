@@ -1,15 +1,21 @@
-[section Compiler Support]
+[section Compiler Support (with a Special Note About MSVC)]
 
-_Text_ is written against the C++11 and C++14 standards.  It will use C++14
-features if they are present, and otherwise is C++11 code.  Specifically,
-_Text_ takes advantage of C++14 constexpr support for much of _tv_'s
-implementetation.
+_Text_ is written against the C++14 standard.  Specifically, _Text_ takes
+advantage of C++14 constexpr support for much of _tv_'s implementation.
 
 Clang versions 3.6 and later (which corresponds to XCode versions 6.4 or
-later), and GCC versions 4.9 and later all work.
+later), and GCC versions 5 and later all work.
 
-MSVC support has been tested with Visual Studio 2015 and Visual Studio 2017.
-Other versions are expected to work as well, but have not yet been tested.
-Note that neither version has correct C++14 _ce_ support.
+MSVC support has been tested with Visual Studio 2017.  Later versions are
+expected to work as well.  Note that Visual Studio 2017 does not have correct
+C++14 _ce_ support.
+
+[important When building your own code that uses any of the collation
+tailoring headers (under `boost/text/data/`), you must configure MSVC's source
+encoding to be UTF-8.  Otherwise, the UTF-8 strings in those headers will be
+misinterpreted to be whatever crazy encoding Windows defaults to.  The
+compiler switch for this is `/source-charset:utf-8`.  Your life will be that
+much sweeter if you use the more thorough-going flag `/utf8` instead.  This
+latter flag changes the execution encoding as well.]
 
 [endsect]

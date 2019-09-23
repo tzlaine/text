@@ -4,7 +4,7 @@
 #include <boost/text/grapheme.hpp>
 #include <boost/text/grapheme_iterator.hpp>
 #include <boost/text/normalize_string.hpp>
-#include <boost/text/utf8.hpp>
+#include <boost/text/transcode_iterator.hpp>
 
 #include <boost/algorithm/cxx14/equal.hpp>
 #include <boost/container/small_vector.hpp>
@@ -27,7 +27,7 @@
 
 #endif
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     struct string_view;
     struct string;
@@ -42,11 +42,12 @@ namespace boost { namespace text {
     {
         using value_type = grapheme;
         using size_type = int;
-        using iterator = grapheme_iterator<utf8::to_utf32_iterator<char *>>;
+        using iterator = grapheme_iterator<utf_8_to_32_iterator<char *>>;
         using const_iterator =
-            grapheme_iterator<utf8::to_utf32_iterator<char const *>>;
-        using reverse_iterator = detail::reverse_iterator<iterator>;
-        using const_reverse_iterator = detail::reverse_iterator<const_iterator>;
+            grapheme_iterator<utf_8_to_32_iterator<char const *>>;
+        using reverse_iterator = stl_interfaces::reverse_iterator<iterator>;
+        using const_reverse_iterator =
+            stl_interfaces::reverse_iterator<const_iterator>;
 
         /** Default ctor. */
         text() {}
@@ -77,14 +78,14 @@ namespace boost { namespace text {
         /** Constructs a text from a range of char.
 
             This function only participates in overload resolution if
-            <code>CharRange</code> models the CharRange concept. */
+            `CharRange` models the CharRange concept. */
         template<typename CharRange>
         explicit text(CharRange const & r);
 
         /** Constructs a text from a sequence of char.
 
             This function only participates in overload resolution if
-            <code>CharIter</code> models the CharIter concept. */
+            `CharIter` models the CharIter concept. */
         template<typename CharIter, typename Sentinel>
         text(CharIter first, Iter Charlast);
 
@@ -92,7 +93,7 @@ namespace boost { namespace text {
             range of char.
 
             This function only participates in overload resolution if
-            <code>GraphemeRange</code> models the GraphemeRange concept. */
+            `GraphemeRange` models the GraphemeRange concept. */
         template<typename GraphemeRange>
         explicit text(GraphemeRange const & r);
 
@@ -135,7 +136,7 @@ namespace boost { namespace text {
         /** Assignment from a range of char.
 
             This function only participates in overload resolution if
-            <code>CharRange</code> models the CharRange concept. */
+            `CharRange` models the CharRange concept. */
         template<typename CharRange>
         text & operator=(CharRange const & r);
 
@@ -143,7 +144,7 @@ namespace boost { namespace text {
             char.
 
             This function only participates in overload resolution if
-            <code>GraphemeRange</code> models the GraphemeRange concept. */
+            `GraphemeRange` models the GraphemeRange concept. */
         template<typename GraphemeRange>
         text & operator=(GraphemeRange const & r);
 
@@ -203,7 +204,7 @@ namespace boost { namespace text {
         int storage_bytes() const noexcept { return str_.size(); }
 
         /** Returns the number of bytes of storage currently in use by
-            *this. */
+         *this. */
         int capacity_bytes() const noexcept { return str_.capacity(); }
 
         /** Returns the number of graphemes in *this.  This operation is
@@ -248,7 +249,7 @@ namespace boost { namespace text {
         /** Inserts the char range r into *this starting at position at.
 
             This function only participates in overload resolution if
-            <code>CharRange</code> models the CharRange concept. */
+            `CharRange` models the CharRange concept. */
         template<typename CharRange>
         iterator insert(iterator at, CharRange const & r);
 
@@ -256,7 +257,7 @@ namespace boost { namespace text {
             position at.
 
             This function only participates in overload resolution if
-            <code>CharIter</code> models the CharIter concept. */
+            `CharIter` models the CharIter concept. */
         template<typename CharIter, typename Sentinel>
         iterator insert(iterator at, CharIter first, Sentinel last);
 
@@ -281,7 +282,7 @@ namespace boost { namespace text {
 
         /** Inserts the grapheme g into *this at position at. */
         template<typename CPIter>
-        iterator insert(iterator at, grapheme_view<CPIter> g);
+        iterator insert(iterator at, grapheme_ref<CPIter> g);
 
         /** Erases the portion of *this delimited by tv.
 
@@ -348,7 +349,7 @@ namespace boost { namespace text {
             char range r.
 
             This function only participates in overload resolution if
-            <code>CharRange</code> models the CharRange concept.
+            `CharRange` models the CharRange concept.
 
             \pre !std::less(old_substr.begin().base().base(),
             begin().base().base()) && !std::less(end().base().base(),
@@ -360,7 +361,7 @@ namespace boost { namespace text {
             char sequence [first, last).
 
             This function only participates in overload resolution if
-            <code>CharIter</code> models the CharIter concept.
+            `CharIter` models the CharIter concept.
 
             \pre !std::less(old_substr.begin().base().base(),
             begin().base().base()) && !std::less(end().base().base(),
@@ -426,7 +427,7 @@ namespace boost { namespace text {
         /** Appends the char range r to *this.
 
             This function only participates in overload resolution if
-            <code>CharRange</code> models the CharRange concept. */
+            `CharRange` models the CharRange concept. */
         template<typename CharRange>
         text & operator+=(CharRange const & r);
 
@@ -456,34 +457,36 @@ namespace boost { namespace text {
     private:
         static iterator make_iter(char * first, char * it, char * last) noexcept
         {
-            return iterator{utf8::to_utf32_iterator<char *>{first, first, last},
-                            utf8::to_utf32_iterator<char *>{first, it, last},
-                            utf8::to_utf32_iterator<char *>{first, last, last}};
+            return iterator{utf_8_to_32_iterator<char *>{first, first, last},
+                            utf_8_to_32_iterator<char *>{first, it, last},
+                            utf_8_to_32_iterator<char *>{first, last, last}};
         }
 
         static const_iterator make_iter(
             char const * first, char const * it, char const * last) noexcept
         {
             return const_iterator{
-                utf8::to_utf32_iterator<char const *>{first, first, last},
-                utf8::to_utf32_iterator<char const *>{first, it, last},
-                utf8::to_utf32_iterator<char const *>{first, last, last}};
+                utf_8_to_32_iterator<char const *>{first, first, last},
+                utf_8_to_32_iterator<char const *>{first, it, last},
+                utf_8_to_32_iterator<char const *>{first, last, last}};
         }
 
         template<typename Iter>
-        static detail::reverse_iterator<Iter>
+        static stl_interfaces::reverse_iterator<Iter>
         make_reverse_iter(Iter it) noexcept
         {
-            return detail::reverse_iterator<Iter>{it};
+            return stl_interfaces::reverse_iterator<Iter>{it};
         }
 
-        using mutable_utf32_iter = utf8::to_utf32_iterator<char *>;
+        using mutable_utf32_iter = utf_8_to_32_iterator<char *>;
 
         mutable_utf32_iter prev_stable_cp(mutable_utf32_iter last) noexcept;
         mutable_utf32_iter next_stable_cp(mutable_utf32_iter first) noexcept;
 
         // https://www.unicode.org/reports/tr15/#Concatenation
-        void normalize_subrange(int from_near_offset, int to_near_offset);
+        int normalize_subrange(int from_near_offset, int to_near_offset);
+
+        iterator insert_impl_suffix(int lo, int hi, bool normalized);
 
         template<typename CharIter, typename Sentinel>
         iterator insert_impl(
@@ -504,45 +507,61 @@ namespace boost { namespace text {
             string_view new_substr,
             bool new_substr_normalized);
 
-        template <typename CPIter>
-        struct insert_grapheme_view_impl;
+        template<typename CPIter>
+        struct insert_grapheme_ref_impl;
 
         string str_;
 
-        template <typename CPIter>
-        friend struct insert_grapheme_view_impl;
+        template<typename CPIter>
+        friend struct insert_grapheme_ref_impl;
 
 #endif // Doxygen
     };
 
 #ifndef BOOST_TEXT_DOXYGEN
 
-    template <typename CPIter>
-    struct text::insert_grapheme_view_impl
+    template<typename CPIter>
+    struct text::insert_grapheme_ref_impl
     {
         static text::iterator
-        call(text & t, text::iterator at, grapheme_view<CPIter> g)
+        call(text & t, text::iterator at, grapheme_ref<CPIter> g)
         {
-            container::small_vector<char, 16> grapheme_chars;
-            std::copy(
-                g.begin(),
-                g.end(),
-                utf8::from_utf32_back_inserter(grapheme_chars));
+            if (g.empty())
+                return at;
+
+            std::array<char, 1024> buf;
+            auto out = transcode_utf_32_to_8(g.begin(), g.end(), buf.data());
             return t.insert_impl(
-                at,
-                string_view(&grapheme_chars[0], grapheme_chars.size()),
-                true);
+                at, string_view(buf.data(), out - buf.data()), true);
         }
     };
 
-    template<typename Iter, typename Sentinel, typename ErrorHandler>
-    struct text::insert_grapheme_view_impl<
-        utf8::to_utf32_iterator<Iter, Sentinel, ErrorHandler>>
+    template<typename Sentinel, typename ErrorHandler>
+    struct text::insert_grapheme_ref_impl<
+        utf_8_to_32_iterator<char const *, Sentinel, ErrorHandler>>
     {
         static text::iterator call(
             text & t,
             text::iterator at,
-            grapheme_view<utf8::to_utf32_iterator<Iter, Sentinel, ErrorHandler>>
+            grapheme_ref<
+                utf_8_to_32_iterator<char const *, Sentinel, ErrorHandler>> g)
+        {
+            return t.insert_impl(
+                at,
+                string_view(
+                    g.begin().base(), g.end().base() - g.begin().base()),
+                true);
+        }
+    };
+
+    template<typename Sentinel, typename ErrorHandler>
+    struct text::insert_grapheme_ref_impl<
+        utf_8_to_32_iterator<char *, Sentinel, ErrorHandler>>
+    {
+        static text::iterator call(
+            text & t,
+            text::iterator at,
+            grapheme_ref<utf_8_to_32_iterator<char *, Sentinel, ErrorHandler>>
                 g)
         {
             return t.insert_impl(
@@ -593,14 +612,14 @@ namespace boost { namespace text {
         return t.crend();
     }
 
-}}
+}}}
 
 #include <boost/text/string.hpp>
 #include <boost/text/text_view.hpp>
 #include <boost/text/rope.hpp>
 #include <boost/text/normalize.hpp>
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     namespace literals {
 
@@ -779,13 +798,13 @@ namespace boost { namespace text {
 
     inline text::iterator text::insert(iterator at, grapheme const & g)
     {
-        return insert(at, grapheme_view<grapheme::const_iterator>(g));
+        return insert(at, grapheme_ref<grapheme::const_iterator>(g));
     }
 
     template<typename CPIter>
-    text::iterator text::insert(iterator at, grapheme_view<CPIter> g)
+    text::iterator text::insert(iterator at, grapheme_ref<CPIter> g)
     {
-        return insert_grapheme_view_impl<CPIter>::call(*this, at, g);
+        return insert_grapheme_ref_impl<CPIter>::call(*this, at, g);
     }
 
     inline text::iterator text::erase(iterator first, iterator last) noexcept
@@ -892,7 +911,7 @@ namespace boost { namespace text {
         return it;
     }
 
-    inline void
+    inline int
     text::normalize_subrange(int from_near_offset, int to_near_offset)
     {
         mutable_utf32_iter first(
@@ -903,57 +922,66 @@ namespace boost { namespace text {
         last = next_stable_cp(last);
 
         if (first == last)
-            return;
+            return from_near_offset;
 
-        container::small_vector<char, 1024> buf;
-        normalize_to_fcc(first, last, utf8::from_utf32_back_inserter(buf));
+        container::small_vector<char, 256> buf;
+        normalize_to_fcc(first, last, utf_32_to_8_back_inserter(buf));
+        auto const initial_cp =
+            *make_utf_8_to_32_iterator(&buf[0], &buf[0], &*buf.end());
+        auto const prev_initial_cp = *first;
 
         str_.replace(
             string_view(first.base(), last.base() - first.base()),
             string_view(&buf[0], buf.size()));
+
+        // Return the new lo offset if the first normalized CP changed.
+        return initial_cp == prev_initial_cp ? from_near_offset
+                                             : first.base() - str_.begin();
+    }
+
+    inline text::iterator
+    text::insert_impl_suffix(int lo, int hi, bool normalized)
+    {
+        int new_lo = lo;
+        if (normalized) {
+            if (hi < str_.size())
+                normalize_subrange(hi, hi);
+            if (lo)
+                new_lo = normalize_subrange(lo, lo);
+        } else {
+            new_lo = normalize_subrange(lo, hi);
+        }
+        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
+
+        // The insertion that just happened might be merged into the CP or
+        // grapheme ending at the offset of the inserted char(s); if so, back
+        // up and return an iterator to that.
+        auto insertion_cp_it =
+            mutable_utf32_iter(str_.begin(), str_.begin() + new_lo, str_.end());
+        auto const first_cp_of_grapheme_it =
+            prev_grapheme_break(begin().base(), insertion_cp_it, end().base());
+
+        return make_iter(
+            str_.begin(), first_cp_of_grapheme_it.base(), str_.end());
     }
 
     template<typename CharIter, typename Sentinel>
     text::iterator text::insert_impl(
         iterator at, CharIter first, Sentinel last, bool first_last_normalized)
     {
-        int const offset = at.base().base() - str_.begin();
-
         int const lo = at.base().base() - str_.begin();
         auto const insertion_it = str_.insert(at.base().base(), first, last);
         int const hi = insertion_it - str_.begin();
-        if (first_last_normalized) {
-            if (hi < str_.size())
-                normalize_subrange(hi, hi);
-            if (lo)
-                normalize_subrange(lo, lo);
-        } else {
-            normalize_subrange(lo, hi);
-        }
-        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
-
-        return make_iter(str_.begin(), str_.begin() + offset, str_.end());
+        return insert_impl_suffix(lo, hi, first_last_normalized);
     }
 
     inline text::iterator
     text::insert_impl(iterator at, string_view sv, bool sv_normalized)
     {
-        int const offset = at.base().base() - str_.begin();
-
         int const lo = at.base().base() - str_.begin();
         auto const insertion_it = str_.insert(at.base().base(), sv);
         int const hi = insertion_it - str_.begin();
-        if (sv_normalized) {
-            if (hi < str_.size())
-                normalize_subrange(hi, hi);
-            if (lo)
-                normalize_subrange(lo, lo);
-        } else {
-            normalize_subrange(lo, hi);
-        }
-        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
-
-        return make_iter(str_.begin(), str_.begin() + offset, str_.end());
+        return insert_impl_suffix(lo, hi, sv_normalized);
     }
 
     template<typename CharIter, typename Sentinel>
@@ -1096,15 +1124,15 @@ namespace boost { namespace text {
 
     /** Creates a new text object that is the concatenation of t and r.
 
-        This function only participates in overload resolution if
-        <code>CharRange</code> models the CharRange concept. */
+        This function only participates in overload resolution if `CharRange`
+        models the CharRange concept. */
     template<typename CharRange>
     text operator+(text t, CharRange const & r);
 
     /** Creates a new text object that is the concatenation of r and t.
 
-        This function only participates in overload resolution if
-        <code>CharRange</code> models the CharRange concept. */
+        This function only participates in overload resolution if `CharRange`
+        models the CharRange concept. */
     template<typename CharRange>
     text operator+(CharRange const & r, text const & t);
 
@@ -1126,7 +1154,7 @@ namespace boost { namespace text {
 
 #endif
 
-}}
+}}}
 
 #ifndef BOOST_TEXT_DOXYGEN
 

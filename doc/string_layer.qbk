@@ -6,14 +6,12 @@ _sv_ is the type at the center of _Text_.  It is used everywhere you would
 have used `char const *` before C++17, and everywhere you would use
 `std::string_view` in C++17 and later.
 
-Analogouly to `std::string_view`, it defines implicit conversions from `char
+Analogously to `std::string_view`, it defines implicit conversions from `char
 const *` and _s_, so it can be used in interfaces that accept either.
 
 _sv_ is fully _ce_ in everything it does, if you have the compiler support
 (C++14 _ce_).  You can write very extensive compile-time operations using
 _sv_.
-
-[string_view_lotsa_constexpr]
 
 _sv_ is a nearly immutable type; there are no mutating member functions,
 besides assignment and `swap()`.  It is small (the size of two pointers on
@@ -65,7 +63,7 @@ _s_ is a contiguous sequence of `char`.  The sequence of `char` is either
 stored in the _s_ (if it is small) or is heap-allocated.  _s_ is also strongly
 exception-safe.  Its purpose is to be a better `std::string`.
 
-_s_'s character type is `char` and its size/index type is `int`, for the same
+_s_'s element type is `char` and its size/index type is `int`, for the same
 reasons given for _sv_.  It is also slice-able in the same way that _sv_ is.
 
 _s_ is always kept null-terminated, and its iterator type is (possibly
@@ -85,15 +83,15 @@ There are `explicit` conversions from _CharRng_ and _GrRng_.
 
 One of the things that differs between `std::string` and _s_ is that _s_ is
 missing all those overloads (including constructors) that take a number of
-characters to repeat.  For example, _s_ has no function for inserting a single
-character N times.  Instead of having all those overloads and using a
-heap-allocating type like _s_ to represent repeated characters, _Text_
+elements to repeat.  For example, _s_ has no function for inserting a single
+element N times.  Instead of having all those overloads and using a
+heap-allocating type like _s_ to represent repeated elements, _Text_
 introduces a new non-allocating type for this, _rsv_.
 
 _rsv_ has semantics and an interface much like _sv_: it is near-immutable; it
 uses a signed size/index type (though a typically-larger one,
-`std::ptrdiff_t`); it uses `char` as its character type; and it is slice-able
-in the same way.
+`std::ptrdiff_t`); it uses `char` as its element type; and it is slice-able in
+the same way.
 
 With _rsv_ in hand, this code which allocates:
 
@@ -141,12 +139,12 @@ If we copy the _ur_ above, we get something like this:
 
 No copying was done, nor allocations performed.  Copying an entire tree only
 requires copying a pointer and incrementing a reference count.  The string in
-this _s_ leaf is only four characters, but let's suppose it was megabytes
+this _s_ leaf is only four elements, but let's suppose it was megabytes
 instead.  Inserting even a small sequence near the beginning of the string
-would be costly, since we'd have to copy all the characters after the
-insertion point.  And since the _s_ leaf may be shared, we would have to copy
-everything /before/ the insertion, too!  For large _s_ leaves, insertions into
-them result in something like this:
+would be costly, since we'd have to copy all the elements after the insertion
+point.  And since the _s_ leaf may be shared, we would have to copy everything
+/before/ the insertion, too!  For large _s_ leaves, insertions into them
+result in something like this:
 
 [$../../doc/rope_text_refs_after_insert.svg]
 
@@ -173,7 +171,7 @@ In this tree, we have three interior nodes: the root and its two children.  We
 also have at least one of each type of leaf node.
 
 Copying even this _ur_ is very cheap, requiring only copying a pointer and
-incrementing a reference count:
+incriminating a reference count:
 
 [$../../doc/rope_copy_add_ref.svg]
 
@@ -196,8 +194,8 @@ we will mutate the tree in place.]
 Besides the segmented nature of _ur_, there are some other properties you need
 to know about.  A _ur_ as a whole is copy-on-write; it is also therefore
 thread-safe for reading and writing; it is not null-terminated; it uses a
-signed size/index type (`std::ptrdiff_t`); it uses `char` as its character
-type; and it is slice-able.
+signed size/index type (`std::ptrdiff_t`); it uses `char` as its element type;
+and it is slice-able.
 
 Insertions, erasures, and indexing each happen in `O(log_B(N))` time, where B
 is the branching factor (maximum number of children per interior node).  As
@@ -224,11 +222,12 @@ within the `capacity()` of the _s_, *or*
 * the inserted object would cause an allocation if copied (i.e. it is a
   _s_).
 
-One more thing.  _urs_ are meant to be passed by value.  Some of their
-thread-safety guarantees may not be fulfilled if they are *not* passed by
-value.  If you do not care about thread-safe use of _ur_, you can pass _urs_
-by `const &` if you like.  If you care about thread-safety, *always* pass them
-by value.
+[important One more thing.  _urs_ are meant to be passed by value.  In
+particular, their thread-safety guarantees might not be fulfilled if they are
+*not* passed by value across thread boundaries.  If you do not care about
+thread-safe use of _ur_, you can pass _urs_ by `const &` at thread boundaries
+if you like.  If you care about thread-safety, *always* pass them by value at
+thread boundaries!]
 
 _ur_ contains logic like the pseudocode below to determine when to create a
 partial copy of a _ur_'s tree, or when to mutate the tree in-place when
@@ -262,7 +261,7 @@ Were we to write references/pointers to `R` into our code, a thread other than
 of its nodes, and when we decided to mutate `R` in place or not.
 
 [important Therefore, if you care about using _urs_ in a thread-safe manner,
-always pass them by value.]
+always pass them by value across thread boundaries.]
 
 [note A major use case for _urs_ is for building undo/redo systems for text
 editing that are simple and performant.  See the example in the _seg_vec_docs_
@@ -279,7 +278,7 @@ _sv_, and even _rsv_.
 
 _urv_ has semantics and an interface much like _sv_: it is near-immutable; it
 uses a signed size/index type (`std::ptrdiff_t`); it uses `char` as its
-character type; and it is slice-able.
+element type; and it is slice-able.
 
 A key use of _urv_ is that it can bind to all the other _Text_ string types.
 If your code expects to handle only _ss_, `char const *`s, and _svs_ as

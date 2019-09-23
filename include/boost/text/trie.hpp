@@ -290,18 +290,17 @@ namespace boost { namespace trie {
         /** An opaque pointer to the underlying trie node. */
         void const * node;
 
-        /** The size/length of the match, from the root through
-            <code>node</code>, inclusive. */
+        /** The size/length of the match, from the root through `node`,
+            inclusive. */
         std::ptrdiff_t size;
 
         /** True iff this result represents a match.  Stated another way,
-            <code>match</code> is true iff <code>node</code> represents an
-            element in the trie (whether or not <code>node</code> has
-            children). */
+            `match` is true iff `node` represents an element in the trie
+            (whether or not `node` has children). */
         bool match;
 
-        /** True iff <code>node</code> is a leaf (that is, that
-            <code>node</code> hs no children). */
+        /** True iff `node` is a leaf (that is, that `node` hs no
+            children). */
         bool leaf;
 
         friend bool
@@ -414,7 +413,7 @@ namespace boost { namespace trie {
 
 #endif
 
-        /** Returns true if <code>key</code> is found in *this. */
+        /** Returns true if `key` is found in *this. */
         template<typename KeyRange>
         bool contains(KeyRange const & key) const noexcept
         {
@@ -428,8 +427,8 @@ namespace boost { namespace trie {
         BOOST_TRIE_C_STR_OVERLOAD(bool, contains, const noexcept)
 #endif
 
-        /** Returns the longest subsequence of <code>[first, last)</code>
-            found in *this, whether or not it is a match. */
+        /** Returns the longest subsequence of `[first, last)` found in *this,
+            whether or not it is a match. */
         template<typename KeyIter, typename Sentinel>
         match_result longest_subsequence(KeyIter first, Sentinel last) const
             noexcept
@@ -437,8 +436,8 @@ namespace boost { namespace trie {
             return longest_match_impl(first, last);
         }
 
-        /** Returns the longest subsequence of <code>key</code> found in *this,
-           whether or not it is a match. */
+        /** Returns the longest subsequence of `key` found in *this, whether
+           or not it is a match. */
         template<typename KeyRange>
         match_result longest_subsequence(KeyRange const & key) const noexcept
         {
@@ -450,8 +449,8 @@ namespace boost { namespace trie {
             match_result, longest_subsequence, const noexcept)
 #endif
 
-        /** Returns the longest matching subsequence of <code>[first,
-            last)</code> found in *this. */
+        /** Returns the longest matching subsequence of `[first, last)` found
+            in *this. */
         template<typename KeyIter, typename Sentinel>
         match_result longest_match(KeyIter first, Sentinel last) const noexcept
         {
@@ -459,8 +458,8 @@ namespace boost { namespace trie {
             return back_up_to_match(retval);
         }
 
-        /** Returns the longest matching subsequence of <code>key</code> found
-         *in this. */
+        /** Returns the longest matching subsequence of `key` found in
+            *this. */
         template<typename KeyRange>
         match_result longest_match(KeyRange const & key) const noexcept
         {
@@ -471,8 +470,7 @@ namespace boost { namespace trie {
         BOOST_TRIE_C_STR_OVERLOAD(match_result, longest_match, const noexcept)
 #endif
 
-        /** Returns the result of extending <code>prev</code> by one element,
-            <code>e</code>. */
+        /** Returns the result of extending `prev` by one element, `e`. */
         template<typename KeyElementT>
         match_result extend_subsequence(match_result prev, KeyElementT e) const
             noexcept
@@ -482,8 +480,8 @@ namespace boost { namespace trie {
                 match_result{prev}, e_ptr, e_ptr + 1);
         }
 
-        /** Returns the result of extending <code>prev</code> by the longest
-            subsequence of <code>[first, last)</code> found in *this. */
+        /** Returns the result of extending `prev` by the longest subsequence
+            of `[first, last)` found in *this. */
         template<typename KeyIter, typename Sentinel>
         match_result extend_subsequence(
             match_result prev, KeyIter first, Sentinel last) const noexcept
@@ -491,9 +489,9 @@ namespace boost { namespace trie {
             return extend_subsequence_impl(match_result{prev}, first, last);
         }
 
-        /** Returns the result of extending <code>prev</code> by one element,
-            <code>e</code>, if that would form a match, and <code>prev</code>
-            otherwise.  <code>prev</code> must be a match. */
+        /** Returns the result of extending `prev` by one element, `e`, if
+            that would form a match, and `prev` otherwise.  `prev` must be a
+            match. */
         template<typename KeyElementT>
         match_result extend_match(match_result prev, KeyElementT e) const
             noexcept
@@ -504,10 +502,9 @@ namespace boost { namespace trie {
             return back_up_to_match(retval);
         }
 
-        /** Returns the result of extending <code>prev</code> by the longest
-            subsequence of <code>[first, last)</code> found in *this, if that
-            would form a match, and <code>prev</code> otherwise.
-            <code>prev</code> must be a match. */
+        /** Returns the result of extending `prev` by the longest subsequence
+            of `[first, last)` found in *this, if that would form a match, and
+            `prev` otherwise.  `prev` must be a match. */
         template<typename KeyIter, typename Sentinel>
         match_result
         extend_match(match_result prev, KeyIter first, Sentinel last) const
@@ -518,9 +515,9 @@ namespace boost { namespace trie {
             return back_up_to_match(retval);
         }
 
-        /** Writes the sequence of elements that would advance
-            <code>prev</code> by one element to <code>out</code>, and returns
-            the final value of \out after the writes. */
+        /** Writes the sequence of elements that would advance `prev` by one
+            element to `out`, and returns the final value of \out after the
+            writes. */
         template<typename OutIter>
         OutIter copy_next_key_elements(match_result prev, OutIter out) const
         {
@@ -529,7 +526,7 @@ namespace boost { namespace trie {
         }
 
         /** Returns an optional reference to the const value associated with
-            <code>key</code> in *this (if any). */
+            `key` in *this (if any). */
         template<typename KeyRange>
         optional_ref<value_type const> operator[](KeyRange const & key) const
             noexcept
@@ -548,7 +545,7 @@ namespace boost { namespace trie {
 #endif
 
         /** Returns an optional reference to the const value associated with
-            <code>match</code> in *this (if any). */
+            `match` in *this (if any). */
         optional_ref<value_type const> operator[](match_result match) const
             noexcept
         {
@@ -563,8 +560,8 @@ namespace boost { namespace trie {
             size_ = 0;
         }
 
-        /** Returns an optional reference to the value associated with
-           <code>key</code> in *this (if any). */
+        /** Returns an optional reference to the value associated with `key`
+           in *this (if any). */
         template<typename KeyRange>
         optional_ref<value_type> operator[](KeyRange const & key) noexcept
         {
@@ -581,8 +578,8 @@ namespace boost { namespace trie {
             optional_ref<value_type>, operator[], noexcept)
 #endif
 
-        /** Returns an optional reference to the value associated with
-            <code>match</code> in *this (if any). */
+        /** Returns an optional reference to the value associated with `match`
+            in *this (if any). */
         optional_ref<value_type> operator[](match_result match) noexcept
         {
             if (!match.match)
@@ -590,9 +587,9 @@ namespace boost { namespace trie {
             return *const_cast<node_t *>(to_node_ptr(match.node))->value();
         }
 
-        /** Inserts the key/value pair <code>[first, last)</code>,
-            <code>value</code> into *this.  Returns false if the key already
-            exists in *this, true otherwise. */
+        /** Inserts the key/value pair `[first, last)`, `value` into *this.
+            Returns false if the key already exists in *this, true
+            otherwise. */
         template<typename KeyIter, typename Sentinel>
         bool insert(KeyIter first, Sentinel last, Value value)
         {
@@ -613,9 +610,8 @@ namespace boost { namespace trie {
             return true;
         }
 
-        /** Inserts the key/value pair <code>key</code>, <code>value</code>
-            into *this.  Returns false if the key already exists in *this,
-            true otherwise. */
+        /** Inserts the key/value pair `key`, `value` into *this.  Returns
+            false if the key already exists in *this, true otherwise. */
         template<typename KeyRange>
         bool insert(KeyRange const & key, Value value)
         {
@@ -633,8 +629,8 @@ namespace boost { namespace trie {
                 std::move(value));
         }
 
-        /** Inserts the sequence of key/value pairs <code>[first,
-            last)</code> into *this. */
+        /** Inserts the sequence of key/value pairs `[first, last)` into
+            *this. */
         template<typename Iter, typename Sentinel>
         void insert(Iter first, Sentinel last)
         {
@@ -649,7 +645,7 @@ namespace boost { namespace trie {
             return insert(e.key, e.value);
         }
 
-        /** Inserts the sequence of key/value pairs <code>r</code> into
+        /** Inserts the sequence of key/value pairs `r` into
          *this. */
         template<typename Range>
         bool insert(Range const & r)
@@ -657,8 +653,7 @@ namespace boost { namespace trie {
             return insert(std::begin(r), std::end(r));
         }
 
-        /** Inserts the sequence of key/value pairs <code>il</code> into
-         *this. */
+        /** Inserts the sequence of key/value pairs `il` into *this. */
         void
         insert(std::initializer_list<trie_element<key_type, value_type>> il)
         {
@@ -667,8 +662,8 @@ namespace boost { namespace trie {
             }
         }
 
-        /** Erases the key/value pair associated with <code>key</code> from
-           *this. Returns true if the key is found in *this, false otherwise. */
+        /** Erases the key/value pair associated with `key` from this.
+            Returns true if the key is found in *this, false otherwise. */
         template<typename KeyRange>
         bool erase(KeyRange const & key)
         {

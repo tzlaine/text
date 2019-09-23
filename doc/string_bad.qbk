@@ -60,7 +60,7 @@ These would have been much more useful as separate algorithms that can be
 applied to any sequence of characters.  Implementing these as member functions
 is the moral equivalent of adding a `std::vector::sort()` member.
 
-_Text_ does not provide these as separate algorithms, becasue the standard
+_Text_ does not provide these as separate algorithms, because the standard
 algorithms and _StringAlgo_.
 
 

@@ -2,7 +2,7 @@
 #define BOOST_TEXT_SENTENCE_BREAK_HPP
 
 #include <boost/text/algorithm.hpp>
-#include <boost/text/grapheme_range.hpp>
+#include <boost/text/grapheme_view.hpp>
 #include <boost/text/lazy_segment_range.hpp>
 
 #include <boost/assert.hpp>
@@ -13,7 +13,7 @@
 #include <stdint.h>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     /** The sentence properties defined by Unicode. */
     enum class sentence_property {
@@ -54,8 +54,7 @@ namespace boost { namespace text {
         make_sentence_prop_map();
     }
 
-    /** Returns the sentence property associated with code point
-        <code>cp</code>. */
+    /** Returns the sentence property associated with code point `cp`. */
     inline sentence_property sentence_prop(uint32_t cp) noexcept
     {
         static auto const map = detail::make_sentence_prop_map();
@@ -105,8 +104,8 @@ namespace boost { namespace text {
         template<typename CPIter, typename Func>
         bool before_close_sp(CPIter it_, CPIter first, bool skip_sps, Func func)
         {
-            detail::reverse_iterator<CPIter> it(std::next(it_));
-            detail::reverse_iterator<CPIter> last(first);
+            stl_interfaces::reverse_iterator<CPIter> it(std::next(it_));
+            stl_interfaces::reverse_iterator<CPIter> last(first);
             it = std::find_if_not(std::next(it), last, [](uint32_t cp) {
                 return skippable(sentence_prop(cp));
             });
@@ -231,72 +230,69 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
 
 #ifdef BOOST_TEXT_DOXYGEN
 
-    /** Finds the nearest sentence break at or before before <code>it</code>.
-        If <code>it == first</code>, that is returned.  Otherwise, the first
-        code point of the sentence that <code>it</code> is within is returned
-        (even if <code>it</code> is already at the first code point of a
-        sentence).
+    /** Finds the nearest sentence break at or before before `it`.  If `it ==
+        first`, that is returned.  Otherwise, the first code point of the
+        sentence that `it` is within is returned (even if `it` is already at
+        the first code point of a sentence).
 
-        This function only participates in overload resolution if
-        <code>CPIter</code> models the CPIter concept. */
+        This function only participates in overload resolution if `CPIter`
+        models the CPIter concept. */
     template<typename CPIter, typename Sentinel>
     CPIter prev_sentence_break(CPIter first, CPIter it, Sentinel last) noexcept;
 
-    /** Finds the next sentence break after <code>first</code>.  This will be
-        the first code point after the current sentence, or <code>last</code>
-        if no next sentence exists.
+    /** Finds the next sentence break after `first`.  This will be the first
+        code point after the current sentence, or `last` if no next sentence
+        exists.
 
-        This function only participates in overload resolution if
-        <code>CPIter</code> models the CPIter concept.
+        This function only participates in overload resolution if `CPIter`
+        models the CPIter concept.
 
-        \pre <code>first</code> is at the beginning of a sentence. */
+        \pre `first` is at the beginning of a sentence. */
     template<typename CPIter, typename Sentinel>
     CPIter next_sentence_break(CPIter first, Sentinel last) noexcept;
 
-    /** Finds the nearest sentence break at or before before <code>it</code>.
-        If <code>it == range.begin()</code>, that is returned.  Otherwise, the
-        first code point of the sentence that <code>it</code> is within is
-        returned (even if <code>it</code> is already at the first code point
-        of a sentence).
+    /** Finds the nearest sentence break at or before before `it`.  If `it ==
+        range.begin()`, that is returned.  Otherwise, the first code point of
+        the sentence that `it` is within is returned (even if `it` is already
+        at the first code point of a sentence).
 
-        This function only participates in overload resolution if
-        <code>CPRange</code> models the CPRange concept. */
+        This function only participates in overload resolution if `CPRange`
+        models the CPRange concept. */
     template<typename CPRange, typename CPIter>
     detail::unspecified
     prev_sentence_break(CPRange & range, CPIter it) noexcept;
 
     /** Returns a grapheme_iterator to the nearest sentence break at or before
-        before <code>it</code>.  If <code>it == range.begin()</code>, that is
-        returned.  Otherwise, the first grapheme of the sentence that
-        <code>it</code> is within is returned (even if <code>it</code> is
-        already at the first grapheme of a sentence).
+        before `it`.  If `it == range.begin()`, that is returned.  Otherwise,
+        the first grapheme of the sentence that `it` is within is returned
+        (even if `it` is already at the first grapheme of a sentence).
 
         This function only participates in overload resolution if
-        <code>GraphemeRange</code> models the GraphemeRange concept. */
+        `GraphemeRange` models the GraphemeRange concept. */
     template<typename GraphemeRange, typename GraphemeIter>
     detail::unspecified
     prev_sentence_break(GraphemeRange const & range, GraphemeIter it) noexcept;
 
-    /** Finds the next sentence break after <code>it</code>.  This will be the
-        first code point after the current sentence, or
-        <code>range.end()</code> if no next sentence exists.
+    /** Finds the next sentence break after `it`.  This will be the first code
+        point after the current sentence, or `range.end()` if no next sentence
+        exists.
 
-        This function only participates in overload resolution if
-        <code>CPRange</code> models the CPRange concept.
+        This function only participates in overload resolution if `CPRange`
+        models the CPRange concept.
 
-        \pre <code>it</code> is at the beginning of a sentence. */
+        \pre `it` is at the beginning of a sentence. */
     template<typename CPRange, typename CPIter>
     detail::unspecified
     next_sentence_break(CPRange & range, CPIter it) noexcept;
 
-    /** Returns a grapheme_iterator to the next sentence break after
-        <code>it</code>.  This will be the first grapheme after the current
-        sentence, or <code>range.end()</code> if no next sentence exists.
+    /** Returns a grapheme_iterator to the next sentence break after `it`.
+        This will be the first grapheme after the current sentence, or
+        `range.end()` if no next sentence exists.
 
         This function only participates in overload resolution if
-        <code>GraphemeRange</code> models the GraphemeRange concept.
+        `GraphemeRange` models the GraphemeRange concept.
 
-        \pre <code>it</code> is at the beginning of a sentence. */
+        \pre `it` is at the beginning of a sentence. */
     template<typename GraphemeRange, typename GraphemeIter>
     detail::unspecified
     next_sentence_break(GraphemeRange const & range, GraphemeIter it) noexcept;
@@ -748,73 +744,72 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         };
     }
 
-    /** Returns the bounds of the sentence that <code>it</code> lies
-        within. */
+    /** Returns the bounds of the sentence that `it` lies within. */
     template<typename CPIter, typename Sentinel>
-    cp_range<CPIter> sentence(CPIter first, CPIter it, Sentinel last) noexcept
+    utf32_view<CPIter> sentence(CPIter first, CPIter it, Sentinel last) noexcept
     {
         first = prev_sentence_break(first, it, last);
-        return cp_range<CPIter>{first, next_sentence_break(first, last)};
+        return utf32_view<CPIter>{first, next_sentence_break(first, last)};
     }
 
 #ifdef BOOST_TEXT_DOXYGEN
 
-    /** Returns the bounds of the sentence that <code>it</code> lies
-        within, as a cp_range.
+    /** Returns the bounds of the sentence that `it` lies within, as a
+        utf32_view.
 
-        This function only participates in overload resolution if
-        <code>CPRange</code> models the CPRange concept. */
+        This function only participates in overload resolution if `CPRange`
+        models the CPRange concept. */
     template<typename CPRange, typename CPIter>
     detail::unspecified sentence(CPRange & range, CPIter it) noexcept;
 
-    /** Returns grapheme range delimiting the bounds of the sentence that
-        <code>it</code> lies within, as a grapheme_range.
+    /** Returns grapheme range delimiting the bounds of the sentence that `it`
+        lies within, as a grapheme_view.
 
         This function only participates in overload resolution if
-        <code>GraphemeRange</code> models the GraphemeRange concept. */
+        `GraphemeRange` models the GraphemeRange concept. */
     template<typename GraphemeRange, typename GraphemeIter>
     detail::unspecified
     sentence(GraphemeRange const & range, GraphemeIter it) noexcept;
 
     /** Returns a lazy range of the code point ranges delimiting sentences in
-        <code>[first, last)</code>. */
+        `[first, last)`. */
     template<typename CPIter, typename Sentinel>
     detail::unspecified sentences(CPIter first, Sentinel last) noexcept;
 
     /** Returns a lazy range of the code point ranges delimiting sentences in
-        <code>range</code>.
+        `range`.
 
-        This function only participates in overload resolution if
-        <code>CPRange</code> models the CPRange concept. */
+        This function only participates in overload resolution if `CPRange`
+        models the CPRange concept. */
     template<typename CPRange>
     detail::unspecified sentences(CPRange & range) noexcept;
 
     /** Returns a lazy range of the grapheme ranges delimiting sentences in
-        <code>range</code>.
+        `range`.
 
         This function only participates in overload resolution if
-        <code>GraphemeRange</code> models the GraphemeRange concept. */
+        `GraphemeRange` models the GraphemeRange concept. */
     template<typename GraphemeRange>
     detail::unspecified sentences(GraphemeRange const & range) noexcept;
 
     /** Returns a lazy range of the code point ranges delimiting sentences in
-        <code>[first, last)</code>, in reverse. */
+        `[first, last)`, in reverse. */
     template<typename CPIter>
     detail::unspecified reversed_sentences(CPIter first, CPIter last) noexcept;
 
     /** Returns a lazy range of the code point ranges delimiting sentences in
-        <code>range</code>, in reverse.
+        `range`, in reverse.
 
-        This function only participates in overload resolution if
-        <code>CPRange</code> models the CPRange concept. */
+        This function only participates in overload resolution if `CPRange`
+        models the CPRange concept. */
     template<typename CPRange>
     detail::unspecified reversed_sentences(CPRange & range) noexcept;
 
     /** Returns a lazy range of the grapheme ranges delimiting sentences in
-        <code>range</code>, in reverse.
+        `range`, in reverse.
 
         This function only participates in overload resolution if
-        <code>GraphemeRange</code> models the GraphemeRange concept. */
+        `GraphemeRange` models the GraphemeRange concept. */
     template<typename GraphemeRange>
     detail::unspecified
     reversed_sentences(GraphemeRange const & range) noexcept;
@@ -823,18 +818,18 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
 
     template<typename CPRange, typename CPIter>
     auto sentence(CPRange & range, CPIter it) noexcept -> detail::
-        cp_rng_alg_ret_t<cp_range<detail::iterator_t<CPRange>>, CPRange>
+        cp_rng_alg_ret_t<utf32_view<detail::iterator_t<CPRange>>, CPRange>
     {
         auto first =
             prev_sentence_break(std::begin(range), it, std::end(range));
-        return cp_range<CPIter>{first,
-                                next_sentence_break(first, std::end(range))};
+        return utf32_view<detail::iterator_t<CPRange>>{
+            first, next_sentence_break(first, std::end(range))};
     }
 
     template<typename GraphemeRange, typename GraphemeIter>
     auto sentence(GraphemeRange const & range, GraphemeIter it) noexcept
         -> detail::graph_rng_alg_ret_t<
-            grapheme_range<decltype(range.begin().base())>,
+            grapheme_view<decltype(range.begin().base())>,
             GraphemeRange>
     {
         using cp_iter_t = decltype(range.begin().base());
@@ -842,7 +837,10 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
             range.begin().base(),
             static_cast<cp_iter_t>(it.base()),
             range.end().base());
-        return {first, next_sentence_break(first, range.end().base())};
+        return {range.begin().base(),
+                first,
+                next_sentence_break(first, range.end().base()),
+                range.end().base()};
     }
 
     template<typename CPIter, typename Sentinel>
@@ -884,7 +882,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
                 detail::next_sentence_callable<
                     decltype(range.begin().base()),
                     decltype(range.begin().base())>,
-                grapheme_range<decltype(range.begin().base())>>,
+                grapheme_view<decltype(range.begin().base())>>,
             GraphemeRange>
     {
         using cp_iter_t = decltype(range.begin().base());
@@ -899,7 +897,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         CPIter,
         CPIter,
         detail::prev_sentence_callable<CPIter>,
-        cp_range<CPIter>,
+        utf32_view<CPIter>,
         detail::const_reverse_lazy_segment_iterator,
         true>
     reversed_sentences(CPIter first, CPIter last) noexcept
@@ -915,7 +913,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
                 detail::iterator_t<CPRange>,
                 detail::sentinel_t<CPRange>,
                 detail::prev_sentence_callable<detail::iterator_t<CPRange>>,
-                cp_range<detail::iterator_t<CPRange>>,
+                utf32_view<detail::iterator_t<CPRange>>,
                 detail::const_reverse_lazy_segment_iterator,
                 true>,
             CPRange>
@@ -933,7 +931,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
                 decltype(range.begin().base()),
                 decltype(range.begin().base()),
                 detail::prev_sentence_callable<decltype(range.begin().base())>,
-                grapheme_range<decltype(range.begin().base())>,
+                grapheme_view<decltype(range.begin().base())>,
                 detail::const_reverse_lazy_segment_iterator,
                 true>,
             GraphemeRange>
@@ -948,6 +946,6 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
 
 #endif
 
-}}
+}}}
 
 #endif

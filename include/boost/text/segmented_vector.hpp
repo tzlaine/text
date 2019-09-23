@@ -8,7 +8,7 @@
 #include <initializer_list>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     namespace detail {
 
@@ -22,8 +22,10 @@ namespace boost { namespace text {
     {
         using iterator = detail::const_vector_iterator<T>;
         using const_iterator = detail::const_vector_iterator<T>;
-        using reverse_iterator = detail::reverse_iterator<iterator>;
-        using const_reverse_iterator = detail::reverse_iterator<const_iterator>;
+        using reverse_iterator = stl_interfaces::reverse_iterator<iterator>;
+        using const_reverse_iterator =
+            stl_interfaces::reverse_iterator<const_iterator>;
+        using value_type = T;
 
         using size_type = std::ptrdiff_t;
 
@@ -84,13 +86,16 @@ namespace boost { namespace text {
 
         size_type size() const noexcept { return detail::size(ptr_.get()); }
 
-        /** Returns a const reference to the i-th element of *this.
+        /** Returns a const reference to the *element of this at index n, or
+            the char at index -n when n < 0.
 
-            \pre 0 <= i && i < size() */
+            \pre 0 <= n && n <= size() || 0 <= -n && -n <= size()  */
         T const & operator[](size_type n) const noexcept
         {
             BOOST_ASSERT(ptr_);
-            BOOST_ASSERT(n < size());
+            if (n < 0)
+                n += size();
+            BOOST_ASSERT(0 <= n && n < size());
             detail::found_element<T> found;
             find_element(ptr_, n, found);
             return *found.element_;
@@ -125,12 +130,13 @@ namespace boost { namespace text {
 
         bool operator==(segmented_vector rhs) const noexcept
         {
-            return compare(rhs) == 0;
+            return size() == rhs.size() &&
+                   std::equal(begin(), end(), rhs.begin());
         }
 
         bool operator!=(segmented_vector rhs) const noexcept
         {
-            return compare(rhs) != 0;
+            return !(*this == rhs);
         }
 
         bool operator<(segmented_vector rhs) const noexcept
@@ -187,7 +193,7 @@ namespace boost { namespace text {
             } else {
                 ptr_ = detail::btree_insert(
                     ptr_,
-                    at - begin(),
+                    offset,
                     detail::make_node(std::vector<T>(1, std::move(t))));
             }
 
@@ -219,7 +225,7 @@ namespace boost { namespace text {
             }
 
             ptr_ = detail::btree_insert(
-                ptr_, at - begin(), detail::make_node(std::move(vec)));
+                ptr_, offset, detail::make_node(std::move(vec)));
 
             return begin() + offset;
         }
@@ -261,9 +267,9 @@ namespace boost { namespace text {
 
             auto const lo = first - begin();
             auto const hi = last - begin();
-            if (vec_insertion insertion = mutable_insertion_leaf(
-                    first, -(hi - lo), would_not_allocate)) {
-                auto const size = hi - lo;
+            auto const size = hi - lo;
+            if (vec_insertion insertion =
+                    mutable_insertion_leaf(first, -size, would_not_allocate)) {
                 bump_along_path_to_leaf(ptr_, lo, -size);
                 insertion.vec_->erase(
                     insertion.vec_->begin() + insertion.found_.offset_,
@@ -287,7 +293,7 @@ namespace boost { namespace text {
                 (*insertion.vec_)[insertion.found_.offset_] = std::move(t);
             } else {
                 auto const offset = at - begin();
-                erase(at);
+                ptr_ = detail::btree_erase(ptr_, offset, offset + 1);
                 ptr_ = detail::btree_insert(
                     ptr_,
                     offset,
@@ -304,8 +310,8 @@ namespace boost { namespace text {
         segmented_vector &
         replace(const_iterator first, const_iterator last, std::vector<T> t)
         {
-            erase(first, last);
-            insert(first + 0, std::move(t));
+            auto const it = erase(first, last);
+            insert(it, std::move(t));
             return *this;
         }
 
@@ -320,8 +326,8 @@ namespace boost { namespace text {
             Iter new_first,
             Sentinel new_last)
         {
-            erase(old_first, old_last);
-            insert(old_first + 0, new_first, new_last);
+            auto const it = erase(old_first, old_last);
+            insert(it, new_first, new_last);
             return *this;
         }
 
@@ -342,13 +348,18 @@ namespace boost { namespace text {
         };
 
         vec_insertion mutable_insertion_leaf(
-            iterator at, size_type size, allocation_note_t allocation_note)
+            iterator at, size_type delta, allocation_note_t allocation_note)
         {
             if (!ptr_)
                 return vec_insertion{nullptr};
 
             detail::found_leaf<T> found;
-            find_leaf(ptr_, at - begin(), found);
+            if (0 < delta && at == end()) {
+                find_leaf(ptr_, at - begin() - 1, found);
+                ++found.offset_;
+            } else {
+                find_leaf(ptr_, at - begin(), found);
+            }
 
             for (auto node : found.path_) {
                 if (1 < node->refs_)
@@ -362,9 +373,9 @@ namespace boost { namespace text {
                 detail::leaf_node_t<T>::which::vec) {
                 std::vector<T> & v = const_cast<std::vector<T> &>(
                     found.leaf_->as_leaf()->as_vec());
-                auto const inserted_size = v.size() + size;
-                if (size < 0 &&
-                    (std::ptrdiff_t)v.size() < found.offset_ + -size) {
+                auto const inserted_size = v.size() + delta;
+                if (delta < 0 &&
+                    (std::ptrdiff_t)v.size() < found.offset_ + -delta) {
                     return vec_insertion{nullptr};
                 }
                 if ((0 < inserted_size && inserted_size <= v.capacity()) ||
@@ -413,21 +424,6 @@ namespace boost { namespace text {
 #endif
     };
 
-    template<typename T>
-    bool
-    operator==(segmented_vector<T> const & lhs, segmented_vector<T> const & rhs)
-    {
-        return lhs.size() == rhs.size() &&
-               std::equal(lhs.begin(), lhs.end(), rhs.begin());
-    }
-
-    template<typename T>
-    bool
-    operator!=(segmented_vector<T> const & lhs, segmented_vector<T> const & rhs)
-    {
-        return !(lhs == rhs);
-    }
-
-}}
+}}}
 
 #endif

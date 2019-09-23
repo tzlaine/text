@@ -8,7 +8,7 @@
 #include <cstdint>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     /** Collation strength.
 
@@ -262,6 +262,6 @@ namespace boost { namespace text {
         }
     }
 
-}}
+}}}
 
 #endif

@@ -5,14 +5,14 @@
 #include <boost/text/detail/rope.hpp>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     struct unencoded_rope;
 
     namespace detail {
         struct const_rope_view_iterator;
         using const_reverse_rope_view_iterator =
-            reverse_iterator<const_rope_view_iterator>;
+            stl_interfaces::reverse_iterator<const_rope_view_iterator>;
     }
 
     /** A reference to a substring of an unencoded_rope, string, string_view,
@@ -34,6 +34,8 @@ namespace boost { namespace text {
         /** Constructs an unencoded_rope_view covering the entire given
             unencoded_rope. */
         unencoded_rope_view(unencoded_rope const & r) noexcept;
+
+        unencoded_rope_view(unencoded_rope_view const & r) noexcept;
 
         /** Forbid construction from a temporary unencoded_rope. */
         unencoded_rope_view(unencoded_rope && r) noexcept = delete;
@@ -110,7 +112,7 @@ namespace boost { namespace text {
             \pre 0 <= hi && lhi <= rsv.size()
             \pre lo <= hi
             \post size() == rsv.size() && begin() == rsv.begin() + lo && end()
-           == rsv.begin() + hi */
+             == rsv.begin() + hi */
         unencoded_rope_view(
             repeated_string_view rsv, size_type lo, size_type hi);
 
@@ -119,8 +121,7 @@ namespace boost { namespace text {
         /** Constructs a unencoded_rope_view from a range of char.
 
             This function only participates in overload resolution if
-            <code>ContigCharRange</code> models the ContigCharRange
-            concept. */
+            `ContigCharRange` models the ContigCharRange concept. */
         template<typename ContigCharRange>
         explicit unencoded_rope_view(ContigCharRange const & r);
 
@@ -128,8 +129,7 @@ namespace boost { namespace text {
             underlying range of char.
 
             This function only participates in overload resolution if
-            <code>ContigGraphemeRange</code> models the ContigGraphemeRange
-            concept. */
+            `ContigGraphemeRange` models the ContigGraphemeRange concept. */
         template<typename ContigGraphemeRange>
         explicit unencoded_rope_view(ContigGraphemeRange const & r);
 
@@ -217,6 +217,8 @@ namespace boost { namespace text {
             0 if *this is lexicographically greater than rhs. */
         int compare(unencoded_rope_view rhs) const noexcept;
 
+        unencoded_rope_view & operator=(unencoded_rope_view const & r) noexcept;
+
         /** Assignment from an unencoded_rope. */
         unencoded_rope_view & operator=(unencoded_rope const & r) noexcept
         {
@@ -260,8 +262,7 @@ namespace boost { namespace text {
         /** Assignment from a range of char.
 
             This function only participates in overload resolution if
-            <code>ContigCharRange</code> models the ContigCharRange
-            concept. */
+            `ContigCharRange` models the ContigCharRange concept. */
         template<typename ContigCharRange>
         unencoded_rope_view & operator=(ContigCharRange const & r);
 
@@ -269,8 +270,7 @@ namespace boost { namespace text {
             char.
 
             This function only participates in overload resolution if
-            <code>ContigGraphemeRange</code> models the ContigGraphemeRange
-            concept. */
+            `ContigGraphemeRange` models the ContigGraphemeRange concept. */
         template<typename ContigGraphemeRange>
         unencoded_rope_view & operator=(ContigGraphemeRange const & r);
 
@@ -293,13 +293,6 @@ namespace boost { namespace text {
         }
 
 #endif
-
-        /** Swaps *this with rhs. */
-        void swap(unencoded_rope_view & rhs) noexcept
-        {
-            std::swap(ref_, rhs.ref_);
-            std::swap(which_, rhs.which_);
-        }
 
 #ifndef BOOST_TEXT_DOXYGEN
 
@@ -345,14 +338,6 @@ namespace boost { namespace text {
             ref(rope_ref r) : r_(r) {}
             ref(string_view tv) : tv_(tv) {}
             ref(repeated_ref rtv) : rtv_(rtv) {}
-
-            ref(ref const & rhs) { memcpy(this, &rhs, sizeof(*this)); }
-
-            ref & operator=(ref const & rhs)
-            {
-                memcpy(this, &rhs, sizeof(*this));
-                return *this;
-            }
 
             rope_ref r_;
             string_view tv_;
@@ -411,11 +396,11 @@ namespace boost { namespace text {
     inline int
     operator+(unencoded_rope_view lhs, unencoded_rope_view rhs) = delete;
 
-}}
+}}}
 
 #include <boost/text/unencoded_rope.hpp>
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     inline unencoded_rope_view repeated_string_view::
     operator()(size_type lo, size_type hi) const
@@ -429,7 +414,7 @@ namespace boost { namespace text {
         return unencoded_rope_view(*this)(cut);
     }
 
-}}
+}}}
 
 #ifndef BOOST_TEXT_DOXYGEN
 

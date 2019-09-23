@@ -14,7 +14,7 @@ _trie_\/_trie_m_\/_trie_s_.
 [heading The _s_ Layer]
 
 The types in this layer are encoding-agnostic.  Together, they form an
-ecosystem of types that consitutes "a better `std::string`".  The types in
+ecosystem of types that constitutes "a better `std::string`".  The types in
 this layer are: _s_, _sv_, _rsv_, _ur_, and _urv_.
 
 
@@ -66,9 +66,9 @@ instead of a binary tree.
 [section A Big, Fat Warning About Proxy Iterators]
 
 Before we go any further, I just want to make you aware that _Text_ makes
-extensive use of proxy iterators (see _to_32_iter_ and friends).  This is fine
-in C++20 and later, but is not fine in earlier versions of standard.  In fact,
-in earlier versions proxy iterators are not iterators at all, by the
+extensive use of proxy iterators (see _8_to_32_iter_ and friends).  This is
+fine in C++20 and later, but is not fine in earlier versions of standard.  In
+fact, in earlier versions proxy iterators are not iterators at all, by the
 standard's formal definition.
 
 This does not come up a lot in practice.  I have yet to run into any code that

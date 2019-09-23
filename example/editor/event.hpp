@@ -20,11 +20,6 @@ inline bool operator!=(screen_pos_t lhs, screen_pos_t rhs)
     return !(lhs == rhs);
 }
 
-inline bool operator<(screen_pos_t lhs, screen_pos_t rhs)
-{
-    return lhs.row_ < rhs.row_ || (lhs.row_ == rhs.row_ && lhs.col_ < rhs.col_);
-}
-
 struct event_t
 {
     key_code_t key_code_;

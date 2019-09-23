@@ -92,7 +92,7 @@ for this purpose.  Some possible tailorings are not available.
   multiple modes of behavior (e.g. for Korean text) or dictionary lookups.
 
 * For bidirectional ordering, Unicode lays out certain tailorings it refers to
-  as _bidi_h_tailorings_.  _Text_ directcly supports HL1 and HL4.  HL2 is
+  as _bidi_h_tailorings_.  _Text_ directly supports HL1 and HL4.  HL2 is
   unsupported because it frankly doesn't seem very important.  HL3 and HL5 can
   be accomplished by manually adding directional formatting characters or
   other desired _cps_ to segments of text.  HL6 is completely unsupported,
@@ -102,7 +102,7 @@ for this purpose.  Some possible tailorings are not available.
 [heading _Text_ Does Not Use allocators]
 
 Allocators are too low gain for the cost they impose.  How many
-`std::basic_string` template instantations in the code bases of the world
+`std::basic_string` template instantiations in the code bases of the world
 involve a non-default allocator?  I would be surprised if it was as high as
 1%.  Allocators may once have served an important function, but in modern C++
 are a perfect example of not sticking to "Don't pay for what you don't use."

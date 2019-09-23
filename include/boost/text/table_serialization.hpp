@@ -5,7 +5,7 @@
 #include <boost/text/detail/serialization.hpp>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     template<typename CharIter>
     CharIter write_table(collation_table const & table, CharIter out) noexcept;
@@ -45,9 +45,8 @@ namespace boost { namespace text {
         }
     }
 
-    /** Serializes the given collation table, writing the results to
-        <code>out</code>.  Returns the final value of <code>out</code> after
-        the write. */
+    /** Serializes the given collation table, writing the results to `out`.
+        Returns the final value of `out` after the write. */
     template<typename CharIter>
     CharIter
     write_table(collation_table const & table_proper, CharIter out) noexcept
@@ -70,8 +69,8 @@ namespace boost { namespace text {
         return out;
     }
 
-    /** Deserializes a collation table by reading from <code>it</code>.
-        Returns the final value of <code>it</code> after the read. */
+    /** Deserializes a collation table by reading from `it`.  Returns the
+        final value of `it` after the read. */
     template<typename CharIter>
     read_table_result<CharIter> read_table(CharIter it)
     {
@@ -101,6 +100,6 @@ namespace boost { namespace text {
         return read_table_result<CharIter>{std::move(retval), it};
     }
 
-}}
+}}}
 
 #endif

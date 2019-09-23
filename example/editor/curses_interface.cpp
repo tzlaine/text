@@ -15,6 +15,12 @@ curses_interface_t::curses_interface_t() : win_(initscr())
     keypad(stdscr, true);
     start_color();
     use_default_colors();
+    mmask_t old_mouse_events;
+    mousemask(
+        BUTTON1_CLICKED | BUTTON1_DOUBLE_CLICKED | BUTTON1_TRIPLE_CLICKED |
+            REPORT_MOUSE_POSITION,
+        &old_mouse_events);
+    set_tabsize(1);
 }
 
 curses_interface_t::~curses_interface_t() { endwin(); }
@@ -26,9 +32,18 @@ screen_pos_t curses_interface_t::screen_size() const
 
 event_t curses_interface_t::next_event() const
 {
-    wint_t k = 0;
-    int const mod = wget_wch(win_, &k);
-    return {key_code_t(mod, (int)k), screen_size()};
+    int const k = wgetch(win_);
+
+    // Mouse events.
+    if (k == KEY_MOUSE) {
+        MEVENT e;
+        if (getmouse(&e) == ERR)
+            return {key_code_t{KEY_MAX}, screen_size()};
+        return {key_code_t{(int)e.bstate, e.x, e.y}, screen_size()};
+    }
+
+    // Everything else.
+    return {key_code_t{k}, screen_size()};
 }
 
 namespace {
@@ -36,24 +51,25 @@ namespace {
     void render_text(snapshot_t const & snapshot, screen_pos_t screen_size)
     {
         int row = 0;
-        char buf[1 << 10]; // Assume lines are <= 1k.
+        std::vector<char> buf;
         std::ptrdiff_t pos = snapshot.first_char_index_;
         auto line_first = snapshot.first_row_;
         auto const line_last = (std::min)(
-            line_first + screen_size.row_ - 2,
-            (int)snapshot.line_sizes_.size());
+            (ptrdiff_t)line_first + screen_size.row_ - 2,
+            snapshot.lines_.size());
         for (; line_first != line_last; ++line_first) {
-            auto const line = snapshot.line_sizes_[line_first];
-            auto first = snapshot.content_.begin() + pos;
+            auto const line = snapshot.lines_[line_first];
+            auto first = snapshot.content_.begin().base().base() + pos;
             auto const last = first + line.code_units_;
             move(row, 0);
-            auto it = std::copy(first, last, buf);
-            if (buf < it && *it == '\n')
-                --it;
-            if (buf < it && *it == '\r')
-                --it;
-            *it = '\0';
-            addstr(buf);
+            buf.clear();
+            std::copy(first, last, std::back_inserter(buf));
+            if (!buf.empty() && buf.back() == '\n')
+                buf.pop_back();
+            if (!buf.empty() && buf.back() == '\r')
+                buf.pop_back();
+            buf.push_back('\0');
+            addstr(&buf[0]);
             pos += line.code_units_;
             ++row;
         }
@@ -72,11 +88,7 @@ void render(buffer_t const & buffer, screen_pos_t screen_size)
     attron(A_REVERSE);
     printw(
         " %s %s  (%d, %d)",
-#if USE_ROPES
         dirty(buffer) ? "**" : "--",
-#else
-        "  ",
-#endif
         buffer.path_.c_str(),
         buffer.snapshot_.first_row_ + buffer.snapshot_.cursor_pos_.row_ + 1,
         buffer.snapshot_.cursor_pos_.col_);

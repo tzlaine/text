@@ -6,7 +6,7 @@
 #include <unordered_map>
 
 
-namespace boost { namespace text { namespace detail {
+namespace boost { namespace text { inline namespace v1 { namespace detail {
 
     template<typename Enum>
     struct lzw_to_break_prop_iter
@@ -46,6 +46,6 @@ namespace boost { namespace text { namespace detail {
         buffer_t * buf_;
     };
 
-}}}
+}}}}
 
 #endif

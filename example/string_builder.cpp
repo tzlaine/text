@@ -24,9 +24,9 @@ std::cout << result << "\n";
 }
 
 {
-//[ static_string_builder
 #ifndef BOOST_TEXT_NO_CXX14_CONSTEXPR
 
+//[ static_string_builder
 constexpr boost::text::static_string_builder builder;   // Empty builder.
 constexpr auto builder_1 = builder + "some";            // A builder containing one string_view.
 constexpr char const * space = " ";
@@ -38,9 +38,9 @@ boost::text::string const result = builder_3.to_string();
 
 // Prints "some text".
 std::cout << result << "\n";
+//]
 
 #endif
-//]
 }
 
 }

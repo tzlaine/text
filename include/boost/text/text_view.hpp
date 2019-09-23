@@ -2,7 +2,8 @@
 #define BOOST_TEXT_TEXT_VIEW_HPP
 
 #include <boost/text/grapheme_iterator.hpp>
-#include <boost/text/utf8.hpp>
+#include <boost/text/grapheme_view.hpp>
+#include <boost/text/transcode_iterator.hpp>
 #include <boost/text/detail/utility.hpp>
 
 #include <boost/assert.hpp>
@@ -12,26 +13,23 @@
 #include <climits>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     struct text;
-    template<typename CPIter>
-    struct grapheme_range;
 
     /** A reference to a constant sequence of graphemes. The underlying
         storage is a string that is UTF-8-encoded and FCC-normalized. */
     struct text_view
     {
-        using value_type = cp_range<utf8::to_utf32_iterator<char const *>>;
+        using value_type = utf32_view<utf_8_to_32_iterator<char const *>>;
         using size_type = int;
-        using iterator =
-            grapheme_iterator<utf8::to_utf32_iterator<char const *>>;
+        using iterator = grapheme_iterator<utf_8_to_32_iterator<char const *>>;
         using const_iterator = iterator;
-        using reverse_iterator = detail::reverse_iterator<const_iterator>;
+        using reverse_iterator =
+            stl_interfaces::reverse_iterator<const_iterator>;
         using const_reverse_iterator = reverse_iterator;
 
-        using text_iterator =
-            grapheme_iterator<utf8::to_utf32_iterator<char *>>;
+        using text_iterator = grapheme_iterator<utf_8_to_32_iterator<char *>>;
         using const_text_iterator = const_iterator;
 
         /** Default ctor. */
@@ -43,17 +41,9 @@ namespace boost { namespace text {
         /** Disallow construction from a temporary text. */
         text_view(text && t) noexcept = delete;
 
-        /** Constructs a text_view from a grapheme_range. */
-        template <typename CPIter>
-        text_view(grapheme_range<CPIter> range) noexcept;
-
-        /** Constructs a text_view from a pair of text_iterators. */
-        text_view(text_iterator first, text_iterator last) noexcept :
-            first_(make_iter(
-                first.base().base(), first.base().base(), last.base().base())),
-            last_(make_iter(
-                first.base().base(), last.base().base(), last.base().base()))
-        {}
+        /** Constructs a text_view from a grapheme_view. */
+        template<typename CPIter>
+        text_view(grapheme_view<CPIter> range) noexcept;
 
         /** Constructs a text_view from a pair of const_text_iterators. */
         text_view(
@@ -123,9 +113,9 @@ namespace boost { namespace text {
         static iterator make_iter(char * first, char * it, char * last) noexcept
         {
             return iterator{
-                utf8::to_utf32_iterator<char const *>{first, first, last},
-                utf8::to_utf32_iterator<char const *>{first, it, last},
-                utf8::to_utf32_iterator<char const *>{first, last, last}};
+                utf_8_to_32_iterator<char const *>{first, first, last},
+                utf_8_to_32_iterator<char const *>{first, it, last},
+                utf_8_to_32_iterator<char const *>{first, last, last}};
         }
 
         iterator first_;
@@ -176,12 +166,11 @@ namespace boost { namespace text {
 
     inline int operator+(text_view const & t, char const * c_str) = delete;
 
-}}
+}}}
 
 #include <boost/text/text.hpp>
-#include <boost/text/grapheme_range.hpp>
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     inline text_view::text_view(text const & t) noexcept :
         first_(t.begin()),
@@ -189,12 +178,12 @@ namespace boost { namespace text {
     {}
 
     template<typename CPIter>
-    text_view::text_view(grapheme_range<CPIter> range) noexcept :
+    text_view::text_view(grapheme_view<CPIter> range) noexcept :
         first_(range.begin()),
         last_(range.end())
     {}
 
-}}
+}}}
 
 #ifndef BOOST_TEXT_DOXYGEN
 

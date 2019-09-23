@@ -27,7 +27,7 @@ namespace boost { namespace filesystem {
 
 #endif
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     namespace detail {
 
@@ -216,9 +216,8 @@ namespace boost { namespace text {
     /** A collation table.  Such a table is necessary to use the collation
         API.
 
-        collation_table has the semantics of a <code>std::shared_ptr</code> to
-        <code>const</code>.  It can be copied cheaply; copies should be made
-        freely.
+        collation_table has the semantics of a `std::shared_ptr` to `const`.
+        It can be copied cheaply; copies should be made freely.
 
         \see default_collation_table()
         \see tailored_collation_table()
@@ -1227,7 +1226,7 @@ namespace boost { namespace text {
             suppress_impl(table, first_cp_subseq, true);
         }
     }
-}}
+}}}
 
 #ifndef BOOST_TEXT_DOXYGEN
 
@@ -1252,7 +1251,7 @@ namespace std {
 
 #endif
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     namespace detail {
 
@@ -1309,14 +1308,13 @@ namespace boost { namespace text {
     }
 
     /** Returns a collation table tailored using the tailoring specified in
-        <code>tailoring</code>.
+        `tailoring`.
 
-        If <code>report_errors</code> and/or <code>report_warnings</code> are
-        provided, they will be used to report parse warnings and errors,
-        respectively.
+        If `report_errors` and/or `report_warnings` are provided, they will be
+        used to report parse warnings and errors, respectively.
 
-        \note The <code>suppressContractions</code> element only supports code
-        points and code point ranges of the form "cp0-cp1".
+        \note The `suppressContractions` element only supports code points and
+        code point ranges of the form "cp0-cp1".
 
         \throws parse_error when a parse error is encountered, or
         tailoring_error when some aspect of the requested tailoring cannot be
@@ -1328,11 +1326,11 @@ namespace boost { namespace text {
         parser_diagnostic_callback report_warnings =
             parser_diagnostic_callback());
 
-}}
+}}}
 
 #include <boost/text/collate.hpp>
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     inline collation_compare collation_table::compare(
         collation_strength strength,
@@ -1736,6 +1734,6 @@ namespace boost { namespace text {
         }
     }
 
-}}
+}}}
 
 #endif

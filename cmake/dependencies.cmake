@@ -7,7 +7,7 @@
 # Boost
 ###############################################################################
 set(Boost_USE_STATIC_LIBS ON)
-find_package(Boost 1.64.0 COMPONENTS)
+find_package(Boost 1.64.0 COMPONENTS ${boost_components})
 if (Boost_INCLUDE_DIR)
   add_library(boost INTERFACE)
   target_include_directories(boost INTERFACE ${Boost_INCLUDE_DIR})
@@ -43,3 +43,13 @@ target_include_directories(gtest_main INTERFACE ${CMAKE_HOME_DIRECTORY}/googlete
 # Google Benchmark
 ###############################################################################
 add_subdirectory(${CMAKE_SOURCE_DIR}/benchmark-v1.2.0)
+
+
+###############################################################################
+# ICU, for perf comparisons
+###############################################################################
+if (MSVC)
+    find_package(ICU 60 COMPONENTS in dt uc)
+else()
+    find_package(ICU 60 COMPONENTS i18n data uc)
+endif()

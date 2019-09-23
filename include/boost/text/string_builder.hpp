@@ -6,7 +6,7 @@
 #include <numeric>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     namespace detail {
         template<int N>
@@ -85,9 +85,9 @@ namespace boost { namespace text {
     {
         string_builder() : data_(), size_(0), cap_(0) {}
         explicit string_builder(string_view sv) :
-            data_(new char[sv.size()]),
+            data_(new char[sv.size() + 1]),
             size_(sv.size()),
-            cap_(sv.size())
+            cap_(sv.size() + 1)
         {
             std::copy(sv.begin(), sv.end(), data_.get());
         }
@@ -125,6 +125,6 @@ namespace boost { namespace text {
         int cap_;
     };
 
-}}
+}}}
 
 #endif

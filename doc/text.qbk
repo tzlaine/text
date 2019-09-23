@@ -25,8 +25,6 @@
 [/ Imports ]
 
 [import ../example/slicing.cpp]
-[import ../example/string_view_snippets.cpp]
-[import ../example/string_snippets.cpp]
 [import ../example/hello_world.cpp]
 [import ../example/param_conventions.cpp]
 [import ../example/utf8.cpp]
@@ -40,6 +38,12 @@
 [import ../example/segmented_vector.cpp]
 [import ../example/string_builder.cpp]
 [import ../example/trie.cpp]
+
+[import ../example/editor/main.cpp]
+[import ../example/editor/key_mappings.hpp]
+[import ../example/editor/buffer.hpp]
+[import ../example/editor/app_state.hpp]
+[import ../example/editor/app_state.cpp]
 
 [/ Images ]
 
@@ -92,19 +96,26 @@
 [def _gr_                  grapheme]
 [def _grs_                 graphemes]
 
-[def _from_32_iter_        [classref boost::text::utf8::from_utf32_iterator `from_utf32_iterator`]]
-[def _to_32_iter_          [classref boost::text::utf8::from_utf32_iterator `to_utf32_iterator`]]
-[def _from_16_iter_        [classref boost::text::utf8::from_utf32_iterator `from_utf16_iterator`]]
-[def _to_16_iter_          [classref boost::text::utf8::from_utf32_iterator `to_utf16_iterator`]]
+[def _32_to_8_iter_        [classref boost::text::utf_32_to_8_iterator  `utf_32_to_8_iterator`]]
+[def _32_to_16_iter_       [classref boost::text::utf_32_to_16_iterator `utf_32_to_16_iterator`]]
+[def _16_to_8_iter_        [classref boost::text::utf_16_to_8_iterator  `utf_16_to_8_iterator`]]
+[def _16_to_32_iter_       [classref boost::text::utf_16_to_32_iterator `utf_16_to_32_iterator`]]
+[def _8_to_16_iter_        [classref boost::text::utf_8_to_16_iterator  `utf_8_to_16_iterator`]]
+[def _8_to_32_iter_        [classref boost::text::utf_8_to_32_iterator  `utf_8_to_32_iterator`]]
 
-[def _u32_rng_             [classref boost::text::utf32_range `utf32_range`]]
+[def _tc_8_to_16_          [funcref boost::text::transcode_utf_8_to_16  `transcode_utf_8_to_16()`]]
+[def _tc_8_to_32_          [funcref boost::text::transcode_utf_8_to_32  `transcode_utf_8_to_32()`]]
+[def _tc_16_to_8_          [funcref boost::text::transcode_utf_16_to_8  `transcode_utf_16_to_8()`]]
+[def _tc_16_to_32_         [funcref boost::text::transcode_utf_16_to_32 `transcode_utf_16_to_32()`]]
+[def _tc_32_to_8_          [funcref boost::text::transcode_utf_32_to_8  `transcode_utf_32_to_8()`]]
+[def _tc_32_to_16_         [funcref boost::text::transcode_utf_32_to_16 `transcode_utf_32_to_16()`]]
 
 [def _norm_str_header_     [link header.boost.text.normalize_string_hpp normalize_string.hpp]]
 
 [def _line_brk_res_        [classref boost::text::line_break_result `line_break_result`]]
-[def _line_brk_cp_rng_     [classref boost::text::line_break_cp_range `line_break_cp_range`]]
-[def _line_brk_cp_rngs_    [classref boost::text::line_break_cp_range `line_break_cp_range`s]]
-[def _line_brk_gr_rngs_    [classref boost::text::line_break_grapheme_range `line_break_grapheme_range`s]]
+[def _line_brk_cp_v_       [classref boost::text::line_break_cp_view `line_break_cp_view`]]
+[def _line_brk_cp_vs_      [classref boost::text::line_break_cp_view `line_break_cp_view`s]]
+[def _line_brk_gr_vs_      [classref boost::text::line_break_grapheme_view `line_break_grapheme_view`s]]
 
 [def _to_lower_            [funcref boost::text::to_lower `to_lower()`]]
 [def _to_title_            [funcref boost::text::to_title `to_title()`]]
@@ -136,13 +147,13 @@
 [def _rv_                  [classref boost::text::rope_view `rope_view`]]
 [def _rvs_                 [classref boost::text::rope_view `rope_view`s]]
 
-[def _gr_view_             [classref boost::text::grapheme_view `grapheme_view`]]
+[def _gr_ref_              [classref boost::text::grapheme_ref `grapheme_ref`]]
 [def _grapheme_            [classref boost::text::grapheme `grapheme`]]
 [def _graphemes_           [classref boost::text::grapheme `graphemes`]]
 [def _gr_it_               [classref boost::text::grapheme_iterator `grapheme_iterator`]]
 [def _gr_its_              [classref boost::text::grapheme_iterator `grapheme_iterators`]]
 
-[def _cpr_                 [classref boost::text::cp_range `cp_range`]]
+[def _u32v_                 [classref boost::text::utf32_view `utf32_view`]]
 
 [def _segv_                [classref boost::text::segmented_vector `segmented_vector`]]
 [def _trie_                [classref boost::trie::trie `trie`]]
@@ -166,7 +177,7 @@
 
 [def _ce_                  `constexpr`]
 
-[def _seg_vec_docs_        [link boost_text__proposed_._segmented_vector__ `segmented_vector documentation`]]
+[def _seg_vec_docs_        [link boost_text__proposed_.segmented_vector_ `segmented_vector documentation`]]
 
 [def _Rope_                [@https://en.wikipedia.org/wiki/Rope_(data_structure) Rope]]
 [def _Trie_                [@https://en.wikipedia.org/wiki/Trie Trie]]
@@ -178,6 +189,7 @@
 [def _ldml_coll_tail_      [@https://unicode.org/reports/tr35/tr35-collation.html LDML syntax]]
 [def _ldml_                [@https://unicode.org/reports/tr35/tr35-collation.html LDML]]
 [def _str_safe_            [@https://unicode.org/reports/tr15/#Stream_Safe_Text_Format Stream-Safe Format]]
+[def _curses_              [@https://en.wikipedia.org/wiki/Ncurses libcurses]]
 
 [/ TODO: Relative link! /]
 [def _StringAlgo_          [@https://www.boost.org/doc/libs/1_68_0/doc/html/string_algo.html Boost.StringAlgo]]

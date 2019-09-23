@@ -12,7 +12,7 @@ cp_props_file_form = decls = '''\
 #include <unordered_map>
 
 
-namespace boost {{ namespace text {{ namespace detail {{
+namespace boost {{ namespace text {{ inline namespace v1 {{ namespace detail {{
 
     std::array<uint32_t, {1}> make_all_canonical_decompositions()
     {{
@@ -51,7 +51,7 @@ return {{{{
         return retval;
     }}
 
-}}}}}}
+}}}}}}}}
 '''
 
 compose_file_form = decls = '''\
@@ -62,7 +62,7 @@ compose_file_form = decls = '''\
 #include <unordered_map>
 
 
-namespace boost {{ namespace text {{ namespace detail {{
+namespace boost {{ namespace text {{ inline namespace v1 {{ namespace detail {{
 
     namespace {{
         struct data_t {{ uint64_t key_; uint32_t value_; }};
@@ -83,7 +83,7 @@ namespace boost {{ namespace text {{ namespace detail {{
         return retval;
     }}
 
-}}}}}}
+}}}}}}}}
 '''
 
 

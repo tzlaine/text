@@ -1,3 +1,4 @@
+//[ editor_main
 #include "app_state.hpp"
 #include "curses_interface.hpp"
 
@@ -20,17 +21,31 @@ int main(int argc, char * argv[])
         return 1;
     }
 
+    // Requirement of libcurses.
     std::locale::global(std::locale(""));
 
     curses_interface_t curses_interface;
-    app_state_t app_state = {load(path, curses_interface.screen_size().col_),
-                             emacs_lite()};
-    render(app_state.buffer_, curses_interface.screen_size());
 
+    // Read the size, but just this once; resizing is not supported.
+    auto const screen_size = curses_interface.screen_size();
+
+    app_state_t app_state = {
+        // Initial state is the contents of the file from the command line.
+        load_buffer(path, curses_interface.screen_size().col_),
+        // Keybindings are simplified Emacs.
+        emacs_lite()};
+    // Initial render.
+    render(app_state.buffer_, screen_size);
+
+    // Loop until the user says we're done.  Each iteration blocks for an
+    // event from libcurses, then passes the current app state and the event
+    // to update(), which returns the new app state.
     boost::optional<app_state_t> next_app_state;
     while (
-        (next_app_state = update(app_state, curses_interface.next_event()))) {
+        (next_app_state =
+             update(std::move(app_state), curses_interface.next_event()))) {
         app_state = *next_app_state;
-        render(app_state.buffer_, curses_interface.screen_size());
+        render(app_state.buffer_, screen_size);
     }
 }
+//]

@@ -6,7 +6,7 @@
 #include <vector>
 
 
-namespace boost { namespace text { namespace detail {
+namespace boost { namespace text { inline namespace v1 { namespace detail {
 
     inline uint32_t bytes_to_uint32_t(unsigned char const * chars)
     {
@@ -98,6 +98,6 @@ namespace boost { namespace text { namespace detail {
         return out;
     }
 
-}}}
+}}}}
 
 #endif

@@ -6,10 +6,10 @@
 #include <boost/text/case_mapping.hpp>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
-    /** Changes the case of <code>t</code> to lower-case, using
-        language-specific handling as indicated by <code>lang</code>. */
+    /** Changes the case of `t` to lower-case, using language-specific
+        handling as indicated by `lang`. */
     inline void in_place_to_lower(
         text & t, case_language lang = case_language::other) noexcept
     {
@@ -18,7 +18,7 @@ namespace boost { namespace text {
             t.begin().base(),
             t.begin().base(),
             t.end().base(),
-            utf8::from_utf32_inserter(s, s.end()),
+            utf_32_to_8_inserter(s, s.end()),
             lang);
         if (s.size() < t.storage_bytes()) {
             t = s;
@@ -28,8 +28,8 @@ namespace boost { namespace text {
         }
     }
 
-    /** Changes the case of <code>r</code> to lower-case, using
-        language-specific handling as indicated by <code>lang</code>. */
+    /** Changes the case of `r` to lower-case, using language-specific
+        handling as indicated by `lang`. */
     inline void in_place_to_lower(
         rope & r, case_language lang = case_language::other) noexcept
     {
@@ -38,13 +38,13 @@ namespace boost { namespace text {
             r.begin().base(),
             r.begin().base(),
             r.end().base(),
-            utf8::from_utf32_inserter(s, s.end()),
+            utf_32_to_8_inserter(s, s.end()),
             lang);
         r = s;
     }
 
-    /** Changes the case of <code>t</code> to title-case, using
-        language-specific handling as indicated by <code>lang</code>. */
+    /** Changes the case of `t` to title-case, using language-specific
+        handling as indicated by `lang`. */
     template<typename NextWordBreakFunc = next_word_break_callable>
     void in_place_to_title(
         text & t,
@@ -56,7 +56,7 @@ namespace boost { namespace text {
             t.begin().base(),
             t.begin().base(),
             t.end().base(),
-            utf8::from_utf32_inserter(s, s.end()),
+            utf_32_to_8_inserter(s, s.end()),
             lang,
             next_word_break);
         if (s.size() < t.storage_bytes()) {
@@ -67,8 +67,8 @@ namespace boost { namespace text {
         }
     }
 
-    /** Changes the case of <code>r</code> to title-case, using
-        language-specific handling as indicated by <code>lang</code>. */
+    /** Changes the case of `r` to title-case, using language-specific
+        handling as indicated by `lang`. */
     template<typename NextWordBreakFunc = next_word_break_callable>
     void in_place_to_title(
         rope & r,
@@ -80,14 +80,14 @@ namespace boost { namespace text {
             r.begin().base(),
             r.begin().base(),
             r.end().base(),
-            utf8::from_utf32_inserter(s, s.end()),
+            utf_32_to_8_inserter(s, s.end()),
             lang,
             next_word_break);
         r = s;
     }
 
-    /** Changes the case of <code>t</code> to upper-case, using
-        language-specific handling as indicated by <code>lang</code>. */
+    /** Changes the case of `t` to upper-case, using language-specific
+        handling as indicated by `lang`. */
     inline void in_place_to_upper(
         text & t, case_language lang = case_language::other) noexcept
     {
@@ -96,7 +96,7 @@ namespace boost { namespace text {
             t.begin().base(),
             t.begin().base(),
             t.end().base(),
-            utf8::from_utf32_inserter(s, s.end()),
+            utf_32_to_8_inserter(s, s.end()),
             lang);
         if (s.size() < t.storage_bytes()) {
             t = s;
@@ -106,8 +106,8 @@ namespace boost { namespace text {
         }
     }
 
-    /** Changes the case of <code>r</code> to upper-case, using
-        language-specific handling as indicated by <code>lang</code>. */
+    /** Changes the case of `r` to upper-case, using language-specific
+        handling as indicated by `lang`. */
     inline void in_place_to_upper(
         rope & r, case_language lang = case_language::other) noexcept
     {
@@ -116,11 +116,11 @@ namespace boost { namespace text {
             r.begin().base(),
             r.begin().base(),
             r.end().base(),
-            utf8::from_utf32_inserter(s, s.end()),
+            utf_32_to_8_inserter(s, s.end()),
             lang);
         r = s;
     }
 
-}}
+}}}
 
 #endif

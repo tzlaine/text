@@ -1,153 +1,210 @@
+//[ editor_buffer
 #ifndef EDITOR_BUFFER_HPP
 #define EDITOR_BUFFER_HPP
 
 #include "event.hpp"
 
-#include <boost/text/unencoded_rope.hpp>
+#include <boost/text/line_break.hpp>
+#include <boost/text/rope.hpp>
+#include <boost/text/text.hpp>
 #include <boost/text/segmented_vector.hpp>
+#include <boost/text/word_break.hpp>
+
 #include <boost/filesystem/fstream.hpp>
 
 #include <vector>
 
 
-struct line_size_t
+// This is our underlying storage type.  This editor takes advantage of the
+// efficient copies this type provides.  If you change this to
+// boost::text::text, the editor becomes unusably slow.
+using content_t = boost::text::rope;
+
+// This is the data needed for laying out and editing within a single line as
+// it appears in one of the editor's buffers.  Each column in the editor
+// represents a single grapheme.
+struct line_t
 {
     int code_units_ = 0;
-    int code_points_ = 0;
+    int graphemes_ = 0;
+    bool hard_break_ = false;
 };
 
+// Represents an applcation state that we may want to return to later, say
+// becauee of an undo operation.
 struct snapshot_t
 {
-#ifdef USE_ROPES
-    boost::text::unencoded_rope content_;
-#else
-    boost::text::string content_;
-#endif
-    boost::text::segmented_vector<line_size_t> line_sizes_;
+    content_t content_;
+    boost::text::segmented_vector<line_t> lines_;
     int first_row_ = 0;
     int desired_col_ = 0;
     screen_pos_t cursor_pos_;
     std::ptrdiff_t first_char_index_ = 0;
 };
 
+// A single editable buffer in the editor (the editor currently only supports
+// one).  It contains a current state, snapshot_, plus a copy of the content
+// so we know what the latest saved state, and a history for performing undo
+// operations.
+//
+// Note that the only element here that is not cheap to copy is history_.  Due
+// to history_'s unbounded size and potentially costly copy, you should move
+// buffer_t's when possible.
 struct buffer_t
 {
     snapshot_t snapshot_;
+    content_t latest_save_;
     boost::filesystem::path path_;
-#ifdef USE_ROPES
     std::vector<snapshot_t> history_;
-#endif
 };
 
-#ifdef USE_ROPES
-inline bool dirty(buffer_t const & b)
+// This is our dirty-buffer predicate.  We use this to show a '**' in the
+// status line when there are unsaved changes.  Try implementing this without
+// the equal_root() trick here -- it's very difficult to get right.
+inline bool dirty(buffer_t const & buffer)
 {
-    return !b.snapshot_.content_.equal_root(b.history_.front().content_);
-}
-#endif
-
-template<typename Iter>
-Iter advance_by_code_point(Iter it, int code_points)
-{
-    while (code_points) {
-        int const bytes = boost::text::utf8::code_point_bytes(*it);
-        assert(0 < bytes);
-        it += bytes;
-        --code_points;
-    }
-    return it;
+    return !buffer.snapshot_.content_.equal_root(buffer.latest_save_);
 }
 
-inline std::ptrdiff_t cursor_line(snapshot_t const & snapshot)
+inline int cursor_line(snapshot_t const & snapshot)
 {
     return snapshot.first_row_ + snapshot.cursor_pos_.row_;
 }
 
-struct cursor_offset_t
+inline bool cursor_at_last_line(snapshot_t const & snapshot)
 {
-    std::ptrdiff_t rope_offset_;
-    line_size_t line_offset_;
-};
-
-inline cursor_offset_t cursor_offset(snapshot_t const & snapshot)
-{
-    std::ptrdiff_t rope_offset = snapshot.first_char_index_;
-    for (int i = snapshot.first_row_, end = cursor_line(snapshot); i < end;
-         ++i) {
-        rope_offset += snapshot.line_sizes_[i].code_units_;
-    }
-    auto const it = snapshot.content_.begin() + rope_offset;
-    auto const last = advance_by_code_point(it, snapshot.cursor_pos_.col_);
-    int const line_code_units = last - it;
-    rope_offset += line_code_units;
-    return cursor_offset_t{rope_offset,
-                           {line_code_units, snapshot.cursor_pos_.col_}};
+    return cursor_line(snapshot) == snapshot.lines_.size();
 }
 
-inline buffer_t load(boost::filesystem::path path, int screen_width)
+struct cursor_iterators_t
+{
+    content_t::iterator first_;
+    content_t::iterator cursor_;
+    content_t::iterator last_;
+};
+
+inline content_t::iterator
+iterator_at_start_of_line(snapshot_t const & snapshot, std::ptrdiff_t line_index)
+{
+    assert(snapshot.first_row_ <= line_index);
+
+    if (line_index == snapshot.lines_.size())
+        return snapshot.content_.end();
+
+    std::ptrdiff_t offset = snapshot.first_char_index_;
+    for (std::ptrdiff_t i = snapshot.first_row_; i < line_index; ++i) {
+        offset += snapshot.lines_[i].code_units_;
+    }
+
+    // Here we peel back the curtain a bit and show how a graphem_iterator is
+    // constructed from code point iterators constructed from char iterators.
+    auto const first = snapshot.content_.begin().base().base();
+    auto const it = first + offset;
+    auto const last = snapshot.content_.end().base().base();
+    return {content_t::iterator::iterator_type{first, first, last},
+            content_t::iterator::iterator_type{first, it, last},
+            content_t::iterator::iterator_type{first, last, last}};
+}
+
+inline cursor_iterators_t cursor_iterators(snapshot_t const & snapshot)
+{
+    auto const line_index = cursor_line(snapshot);
+    if (line_index == snapshot.lines_.size()) {
+        return {snapshot.content_.end(),
+                snapshot.content_.end(),
+                snapshot.content_.end()};
+    }
+
+    auto const line_grapheme_first =
+        iterator_at_start_of_line(snapshot, line_index);
+    return {line_grapheme_first,
+            std::next(line_grapheme_first, snapshot.cursor_pos_.col_),
+            std::next(
+                line_grapheme_first,
+                snapshot.lines_[snapshot.cursor_pos_.row_].graphemes_)};
+}
+
+struct cursor_word_t
+{
+    boost::text::grapheme_view<content_t::iterator::iterator_type> word_;
+    content_t::iterator cursor_;
+};
+
+inline cursor_word_t cursor_word(snapshot_t const & snapshot)
+{
+    if (cursor_at_last_line(snapshot)) {
+        return {
+            {snapshot.content_.end().base(), snapshot.content_.end().base()},
+            snapshot.content_.end()};
+    }
+    auto const iterators = cursor_iterators(snapshot);
+    return {boost::text::word(snapshot.content_, iterators.cursor_),
+            iterators.cursor_};
+}
+
+// This will fill container with pairs of code unit and grapheme extents for
+// each line.  A line may end in a hard line break like '\n', or it mey be
+// broken because there's just no room left on that line within the screen
+// width.  This works for getting the line breaks for all lines in the buffer
+// contents, and we can reuse it to re-break lines as we edit the buffer too.
+template<typename GraphemeRange, typename LinesContainer>
+inline void get_lines(
+    GraphemeRange const & range, int screen_width, LinesContainer & container)
+{
+    for (auto line : boost::text::lines(
+             range,
+             screen_width - 1,
+             [](content_t::const_iterator::iterator_type first,
+                content_t::const_iterator::iterator_type last) noexcept {
+                 boost::text::grapheme_view<
+                     content_t::const_iterator::iterator_type>
+                     range(first, last);
+                 return std::distance(range.begin(), range.end());
+             })) {
+        // Note that we don't count the terminating hard line break grapheme
+        // here.  This requires special casing in some places, but makes much
+        // of the logic simpler.
+        line_t const line_{
+            int(line.end().base().base() - line.begin().base().base()),
+            (int)std::distance(line.begin(), line.end()) -
+                (line.hard_break() ? 1 : 0),
+            line.hard_break()};
+        container.push_back(line_);
+    }
+}
+
+inline buffer_t load_buffer(boost::filesystem::path path, int screen_width)
 {
     boost::filesystem::ifstream ifs(path);
 
-    snapshot_t snapshot;
-    int line_size = 0;
-    int line_cps = 0;
+    buffer_t retval;
+    retval.path_ = std::move(path);
+
+    int const chunk_size = 1 << 16;
     while (ifs.good()) {
         boost::text::string chunk;
-        int const chunk_size = 1 << 16;
         chunk.resize(chunk_size, ' ');
+
         ifs.read(chunk.begin(), chunk_size);
         if (!ifs.good())
             chunk.resize(ifs.gcount(), ' ');
 
-        auto prev_it = chunk.cbegin();
-        auto it = prev_it;
-
-        while (it != chunk.end()) {
-            it = std::find(prev_it, chunk.cend(), '\n');
-            auto it_for_counting_cps = it;
-            if (it != chunk.end() && it != chunk.begin() && it[-1] == '\r')
-                --it_for_counting_cps;
-            line_cps += std::distance(
-                boost::text::utf8::to_utf32_iterator<
-                    boost::text::string::const_iterator>(prev_it),
-                boost::text::utf8::to_utf32_iterator<
-                    boost::text::string::const_iterator>(it_for_counting_cps));
-            if (it != chunk.end())
-                ++it;
-            line_size += it - prev_it;
-
-            auto prev_width_end = prev_it;
-            while (screen_width < line_cps) {
-                line_cps -= screen_width;
-                auto const width_end =
-                    advance_by_code_point(prev_width_end, screen_width);
-                int const code_units = width_end - prev_width_end;
-                line_size -= code_units;
-                snapshot.line_sizes_.push_back({code_units, screen_width});
-                prev_width_end = width_end;
-            }
-            snapshot.line_sizes_.push_back({line_size, line_cps});
-
-            prev_it = it;
-            line_size = 0;
-            line_cps = 0;
-        }
-        snapshot.content_ += std::move(chunk);
+        retval.snapshot_.content_ += std::move(chunk);
     }
 
-    if (line_size)
-        snapshot.line_sizes_.push_back({line_size, line_cps});
+    get_lines(retval.snapshot_.content_, screen_width, retval.snapshot_.lines_);
 
-    return buffer_t
-    {
-        snapshot, path
-#if USE_ROPES
-            ,
-        {
-            1, snapshot
-        }
-#endif
-    };
+    retval.latest_save_ = retval.snapshot_.content_;
+    retval.history_.push_back(retval.snapshot_);
+
+    return retval;
+}
+
+inline void save_buffer(boost::filesystem::path path, buffer_t const & buffer)
+{
+    boost::filesystem::ofstream ofs(path);
+    ofs << buffer.snapshot_.content_;
 }
 
 #endif
+//]

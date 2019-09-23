@@ -6,18 +6,19 @@
 #include <boost/text/grapheme_break.hpp>
 #include <boost/text/line_break.hpp>
 #include <boost/text/paragraph_break.hpp>
-#include <boost/text/utility.hpp>
 #include <boost/text/detail/normalization_data.hpp>
 #include <boost/text/detail/bidirectional.hpp>
+#include <boost/text/detail/iterator.hpp>
 
+#include <boost/optional.hpp>
 #include <boost/container/small_vector.hpp>
 #include <boost/container/static_vector.hpp>
-#include <boost/optional.hpp>
+#include <boost/stl_interfaces/reverse_iterator.hpp>
 
 #include <stack>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     namespace detail {
         struct bidi_prop_interval
@@ -39,8 +40,8 @@ namespace boost { namespace text {
         make_bidi_prop_map();
     }
 
-    /** Returns the bidirectional algorithm character property associated with
-        code point <code>cp</code>. */
+    /** Returns the bidirectional algorithm property associated with code
+        point `cp`. */
     inline bidi_property bidi_prop(uint32_t cp) noexcept
     {
         static auto const map = detail::make_bidi_prop_map();
@@ -184,13 +185,12 @@ namespace boost { namespace text {
 
         template<typename CPIter>
         struct props_and_embeddings_cp_iterator
+            : stl_interfaces::iterator_interface<
+                  props_and_embeddings_cp_iterator<CPIter>,
+                  std::bidirectional_iterator_tag,
+                  uint32_t const,
+                  uint32_t const>
         {
-            using value_type = uint32_t const;
-            using pointer = value_type *;
-            using reference = value_type;
-            using difference_type = std::ptrdiff_t;
-            using iterator_category = std::bidirectional_iterator_tag;
-
             using iterator_t =
                 typename props_and_embeddings_t<CPIter>::iterator;
 
@@ -199,29 +199,17 @@ namespace boost { namespace text {
 
             iterator_t base() const noexcept { return it_; }
 
-            reference operator*() const noexcept { return it_->cp(); }
+            uint32_t const operator*() const noexcept { return it_->cp(); }
 
             props_and_embeddings_cp_iterator & operator++() noexcept
             {
                 ++it_;
                 return *this;
             }
-            props_and_embeddings_cp_iterator operator++(int)noexcept
-            {
-                auto const retval = *this;
-                ++*this;
-                return retval;
-            }
             props_and_embeddings_cp_iterator & operator--() noexcept
             {
                 --it_;
                 return *this;
-            }
-            props_and_embeddings_cp_iterator operator--(int)noexcept
-            {
-                auto const retval = *this;
-                --*this;
-                return retval;
             }
 
             friend bool operator==(
@@ -230,12 +218,14 @@ namespace boost { namespace text {
             {
                 return lhs.it_ == rhs.it_;
             }
-            friend bool operator!=(
-                props_and_embeddings_cp_iterator lhs,
-                props_and_embeddings_cp_iterator rhs) noexcept
-            {
-                return lhs.it_ != rhs.it_;
-            }
+
+            using base_type = stl_interfaces::iterator_interface<
+                props_and_embeddings_cp_iterator<CPIter>,
+                std::bidirectional_iterator_tag,
+                uint32_t const,
+                uint32_t const>;
+            using base_type::operator++;
+            using base_type::operator--;
 
         private:
             iterator_t it_;
@@ -274,14 +264,11 @@ namespace boost { namespace text {
         using run_seq_runs_t = container::small_vector<level_run<CPIter>, 32>;
 
         template<typename CPIter>
-        struct run_seq_iter
+        struct run_seq_iter : stl_interfaces::iterator_interface<
+                                  run_seq_iter<CPIter>,
+                                  std::bidirectional_iterator_tag,
+                                  prop_and_embedding_t<CPIter>>
         {
-            using value_type = prop_and_embedding_t<CPIter>;
-            using pointer = prop_and_embedding_t<CPIter> *;
-            using reference = prop_and_embedding_t<CPIter> &;
-            using difference_type = std::ptrdiff_t;
-            using iterator_category = std::bidirectional_iterator_tag;
-
             run_seq_iter(
                 typename level_run<CPIter>::iterator it,
                 typename run_seq_runs_t<CPIter>::iterator runs_it,
@@ -316,18 +303,16 @@ namespace boost { namespace text {
                 return *this;
             }
 
-            reference operator*() const noexcept { return *it_; }
-            pointer operator->() const noexcept { return &*it_; }
+            prop_and_embedding_t<CPIter> & operator*() const noexcept
+            {
+                return *it_;
+            }
 
             typename level_run<CPIter>::iterator base() const { return it_; }
 
             friend bool operator==(run_seq_iter lhs, run_seq_iter rhs)
             {
                 return lhs.it_ == rhs.it_;
-            }
-            friend bool operator!=(run_seq_iter lhs, run_seq_iter rhs)
-            {
-                return lhs.it_ != rhs.it_;
             }
 
         private:
@@ -576,10 +561,12 @@ namespace boost { namespace text {
             auto it = seq.end();
             auto const first = seq.begin();
             while (it != first) {
-                auto const from_it = find_if_backward(first, it, en);
+                auto const from_it =
+                    boost::text::find_if_backward(first, it, en);
                 if (from_it == it)
                     break;
-                auto const pred_it = find_if_backward(first, from_it, strong);
+                auto const pred_it =
+                    boost::text::find_if_backward(first, from_it, strong);
                 if ((pred_it == from_it && seq.sos() == trigger) ||
                     pred_it->prop() == trigger) {
                     from_it->prop_ = (uint8_t)replacement;
@@ -783,7 +770,7 @@ namespace boost { namespace text {
                     bracket && bracket.type_ == bidi_bracket_type::close) {
                     if (stack.empty())
                         continue;
-                    optional<cp_range> canonical_equivalents;
+                    optional<cp_range_> canonical_equivalents;
                     auto match_rit = std::find_if(
                         stack.rbegin(),
                         stack.rend(),
@@ -1038,8 +1025,7 @@ namespace boost { namespace text {
         // https://unicode.org/reports/tr9/#L1
         template<typename CPIter>
         inline void
-        l1(::boost::text::cp_range<props_and_embeddings_cp_iterator<CPIter>>
-               line,
+        l1(utf32_view<props_and_embeddings_cp_iterator<CPIter>> line,
            int paragraph_embedding_level)
         {
             // L1.1, L1.2
@@ -1094,7 +1080,7 @@ namespace boost { namespace text {
         struct reordered_run
         {
             using iterator = typename props_and_embeddings_t<CPIter>::iterator;
-            using reverse_iterator = detail::reverse_iterator<
+            using reverse_iterator = stl_interfaces::reverse_iterator<
                 typename props_and_embeddings_t<CPIter>::iterator>;
 
             reordered_run(iterator first, iterator last, bool reversed) :
@@ -1111,11 +1097,11 @@ namespace boost { namespace text {
             iterator end() const noexcept { return last_; }
             reverse_iterator rbegin() const noexcept
             {
-                return make_reverse_iterator(last_);
+                return stl_interfaces::make_reverse_iterator(last_);
             }
             reverse_iterator rend() const noexcept
             {
-                return make_reverse_iterator(first_);
+                return stl_interfaces::make_reverse_iterator(first_);
             }
 
         private:
@@ -1173,15 +1159,12 @@ namespace boost { namespace text {
         struct fwd_rev_grapheme_iter;
 
         template<typename CPIter>
-        struct fwd_rev_cp_iter
+        struct fwd_rev_cp_iter : stl_interfaces::iterator_interface<
+                                     fwd_rev_cp_iter<CPIter>,
+                                     std::bidirectional_iterator_tag,
+                                     uint32_t,
+                                     uint32_t>
         {
-            using value_type = uint32_t;
-            using pointer = value_type;
-            using reference = value_type;
-            using difference_type =
-                typename std::iterator_traits<CPIter>::difference_type;
-            using iterator_category = std::bidirectional_iterator_tag;
-
             using mirrors_array_t = remove_cv_ref_t<decltype(bidi_mirroreds())>;
             using kind_t = fwd_rev_cp_iter_kind;
 
@@ -1192,7 +1175,8 @@ namespace boost { namespace text {
                 ait_(),
                 kind_(kind_t::user_it)
             {}
-            fwd_rev_cp_iter(detail::reverse_iterator<CPIter> rit) noexcept :
+            fwd_rev_cp_iter(
+                stl_interfaces::reverse_iterator<CPIter> rit) noexcept :
                 it_(rit.base()),
                 ait_(),
                 kind_(kind_t::rev_user_it)
@@ -1226,20 +1210,7 @@ namespace boost { namespace text {
                 return *this;
             }
 
-            fwd_rev_cp_iter operator++(int)noexcept
-            {
-                fwd_rev_cp_iter retval = *this;
-                ++*this;
-                return retval;
-            }
-            fwd_rev_cp_iter operator--(int)noexcept
-            {
-                fwd_rev_cp_iter retval = *this;
-                --*this;
-                return retval;
-            }
-
-            reference operator*() const noexcept
+            uint32_t operator*() const noexcept
             {
                 if (kind_ == kind_t::user_it)
                     return *it_;
@@ -1259,12 +1230,14 @@ namespace boost { namespace text {
                 else
                     return lhs.it_ == rhs.it_;
             }
-            friend bool operator!=(
-                fwd_rev_cp_iter const & lhs,
-                fwd_rev_cp_iter const & rhs) noexcept
-            {
-                return !(lhs == rhs);
-            }
+
+            using base_type = stl_interfaces::iterator_interface<
+                fwd_rev_cp_iter<CPIter>,
+                std::bidirectional_iterator_tag,
+                uint32_t,
+                uint32_t>;
+            using base_type::operator++;
+            using base_type::operator--;
 
         private:
             CPIter it_;
@@ -1277,14 +1250,13 @@ namespace boost { namespace text {
 
         template<typename CPIter>
         struct fwd_rev_grapheme_iter
+            : stl_interfaces::iterator_interface<
+                  fwd_rev_grapheme_iter<CPIter>,
+                  std::bidirectional_iterator_tag,
+                  grapheme_ref<fwd_rev_cp_iter<CPIter>>,
+                  grapheme_ref<fwd_rev_cp_iter<CPIter>>>
         {
-            using value_type = grapheme_view<fwd_rev_cp_iter<CPIter>>;
-            using pointer = value_type;
-            using reference = value_type;
-            using difference_type =
-                typename std::iterator_traits<CPIter>::difference_type;
-            using iterator_category = std::bidirectional_iterator_tag;
-
+            using value_t = grapheme_ref<fwd_rev_cp_iter<CPIter>>;
             using mirrors_array_t = remove_cv_ref_t<decltype(bidi_mirroreds())>;
             using kind_t = fwd_rev_cp_iter_kind;
 
@@ -1312,23 +1284,23 @@ namespace boost { namespace text {
                     first_ = first.it_;
                     last_ = last.it_;
                     grapheme_ =
-                        value_type(it.it_, next_grapheme_break(it.it_, last_));
+                        value_t(it.it_, next_grapheme_break(it.it_, last_));
                 } else if (kind_ == fwd_rev_cp_iter_kind::rev_user_it) {
                     if (it == last) { // end iterator case
                         last_ = first.it_;
                         first_ = last.it_;
-                        grapheme_ = value_type(first_, first_);
+                        grapheme_ = value_t(first_, first_);
                     } else { // begin iterator case
                         last_ = first.it_;
                         first_ = last.it_;
-                        grapheme_ = value_type(
+                        grapheme_ = value_t(
                             prev_grapheme_break(
                                 first_, std::prev(it.it_), last_),
                             it.it_);
                     }
                 } else {
                     ait_ = first.ait_;
-                    grapheme_ = value_type(
+                    grapheme_ = value_t(
                         fwd_rev_cp_iter<CPIter>(ait_, kind_),
                         fwd_rev_cp_iter<CPIter>(ait_ + 1, kind_));
                 }
@@ -1339,19 +1311,19 @@ namespace boost { namespace text {
                 if (kind_ == kind_t::user_it) {
                     auto const first = grapheme_.end().it_;
                     grapheme_ =
-                        value_type(first, next_grapheme_break(first, last_));
+                        value_t(first, next_grapheme_break(first, last_));
                 } else if (kind_ == kind_t::rev_user_it) {
                     auto const last = grapheme_.begin().it_;
                     if (last == first_) {
-                        grapheme_ = value_type(first_, first_);
+                        grapheme_ = value_t(first_, first_);
                     } else {
-                        grapheme_ = value_type(
+                        grapheme_ = value_t(
                             prev_grapheme_break(first_, std::prev(last), last_),
                             last);
                     }
                 } else {
                     ++ait_;
-                    grapheme_ = value_type(
+                    grapheme_ = value_t(
                         fwd_rev_cp_iter<CPIter>(ait_, kind_),
                         fwd_rev_cp_iter<CPIter>(ait_ + 1, kind_));
                 }
@@ -1362,39 +1334,26 @@ namespace boost { namespace text {
                 if (kind_ == kind_t::user_it) {
                     auto const last = grapheme_.begin().it_;
                     if (last == first_) {
-                        grapheme_ = value_type(first_, first_);
+                        grapheme_ = value_t(first_, first_);
                     } else {
-                        grapheme_ = value_type(
+                        grapheme_ = value_t(
                             prev_grapheme_break(first_, std::prev(last), last_),
                             last);
                     }
                 } else if (kind_ == kind_t::rev_user_it) {
                     auto const first = grapheme_.end().it_;
                     grapheme_ =
-                        value_type(first, next_grapheme_break(first, last_));
+                        value_t(first, next_grapheme_break(first, last_));
                 } else {
                     --ait_;
-                    grapheme_ = value_type(
+                    grapheme_ = value_t(
                         fwd_rev_cp_iter<CPIter>(ait_, kind_),
                         fwd_rev_cp_iter<CPIter>(ait_ + 1, kind_));
                 }
                 return *this;
             }
 
-            fwd_rev_grapheme_iter operator++(int)noexcept
-            {
-                fwd_rev_grapheme_iter retval = *this;
-                ++*this;
-                return retval;
-            }
-            fwd_rev_grapheme_iter operator--(int)noexcept
-            {
-                fwd_rev_grapheme_iter retval = *this;
-                --*this;
-                return retval;
-            }
-
-            reference operator*() const noexcept { return grapheme_; }
+            value_t operator*() const noexcept { return grapheme_; }
 
             friend bool operator==(
                 fwd_rev_grapheme_iter const & lhs,
@@ -1405,15 +1364,17 @@ namespace boost { namespace text {
                            ? lhs.grapheme_.end() == rhs.grapheme_.begin()
                            : lhs.grapheme_.begin() == rhs.grapheme_.begin();
             }
-            friend bool operator!=(
-                fwd_rev_grapheme_iter const & lhs,
-                fwd_rev_grapheme_iter const & rhs) noexcept
-            {
-                return !(lhs == rhs);
-            }
+
+            using base_type = stl_interfaces::iterator_interface<
+                fwd_rev_grapheme_iter<CPIter>,
+                std::bidirectional_iterator_tag,
+                grapheme_ref<fwd_rev_cp_iter<CPIter>>,
+                grapheme_ref<fwd_rev_cp_iter<CPIter>>>;
+            using base_type::operator++;
+            using base_type::operator--;
 
         private:
-            value_type grapheme_;
+            value_t grapheme_;
             CPIter first_;
             CPIter last_;
             mirrors_array_t::const_iterator ait_;
@@ -1684,7 +1645,7 @@ namespace boost { namespace text {
                 line_break_result<pae_cp_iterator>,
                 pae_cp_iterator,
                 next_t,
-                line_break_cp_range<pae_cp_iterator>>;
+                line_break_cp_view<pae_cp_iterator>>;
 
             using out_values_t = container::small_vector<OutValueType, 16>;
 
@@ -2188,7 +2149,7 @@ namespace boost { namespace text {
                 }
 
                 template<typename CPIter2>
-                bool operator()(grapheme_view<CPIter2> grapheme) const noexcept
+                bool operator()(grapheme_ref<CPIter2> grapheme) const noexcept
                 {
                     BOOST_ASSERT(!grapheme.empty());
                     if (std::next(grapheme.begin()) != grapheme.end())
@@ -2223,15 +2184,15 @@ namespace boost { namespace text {
                     // https://unicode.org/reports/tr9/#L4
 
                     auto out_value = OutValueType{
-                        ::boost::text::detail::make_reverse_iterator(cp_last),
-                        ::boost::text::detail::make_reverse_iterator(cp_first)};
+                        stl_interfaces::make_reverse_iterator(cp_last),
+                        stl_interfaces::make_reverse_iterator(cp_first)};
 
                     auto out_first = out_value.begin();
                     auto out_last = out_value.end();
 
                     // If this run's directionality is R (aka odd, aka
-                    // reversed), produce 1-code-point ranges for the
-                    // mirrored characters in the run, if any.
+                    // reversed), produce 1-code-point ranges for the mirrored
+                    // code points in the run, if any.
                     while (out_first != out_last) {
                         int mirror_index = -1;
                         auto it = std::find_if(
@@ -2344,10 +2305,10 @@ namespace boost { namespace text {
                 state.out_values_.clear();
 
                 if (run.reversed()) {
-                    auto const out_value =
-                        OutValueType{detail::make_reverse_iterator(cp_last),
-                                     detail::make_reverse_iterator(cp_first),
-                                     state.line_break_};
+                    auto const out_value = OutValueType{
+                        stl_interfaces::make_reverse_iterator(cp_last),
+                        stl_interfaces::make_reverse_iterator(cp_first),
+                        state.line_break_};
                     state.out_values_.push_back(out_value);
                 } else {
                     auto const out_value =
@@ -2360,30 +2321,21 @@ namespace boost { namespace text {
             }
         };
 
-        template<typename T>
-        struct arrow_proxy
-        {
-            T * operator->() const noexcept { return &value_; }
-
-            explicit arrow_proxy(T value) : value_(std::move(value)) {}
-
-        private:
-            T value_;
-        };
-
         template<
             typename CPIter,
             typename Sentinel,
             typename ResultType,
             typename NextLineBreakFunc>
         struct const_lazy_bidi_segment_iterator
+            : stl_interfaces::proxy_iterator_interface<
+                  const_lazy_bidi_segment_iterator<
+                      CPIter,
+                      Sentinel,
+                      ResultType,
+                      NextLineBreakFunc>,
+                  std::bidirectional_iterator_tag,
+                  ResultType>
         {
-            using value_type = ResultType;
-            using pointer = arrow_proxy<value_type>;
-            using reference = value_type;
-            using difference_type = std::ptrdiff_t;
-            using iterator_category = std::forward_iterator_tag;
-
             const_lazy_bidi_segment_iterator() noexcept : state_(nullptr) {}
             const_lazy_bidi_segment_iterator(bidi_subrange_state<
                                              CPIter,
@@ -2393,9 +2345,10 @@ namespace boost { namespace text {
                 state_(&state)
             {}
 
-            reference operator*() const noexcept { return state_->get_value(); }
-
-            pointer operator->() const noexcept { return pointer(**this); }
+            ResultType operator*() const noexcept
+            {
+                return state_->get_value();
+            }
 
             const_lazy_bidi_segment_iterator & operator++() noexcept
             {
@@ -2407,12 +2360,6 @@ namespace boost { namespace text {
                 const_lazy_bidi_segment_iterator rhs) noexcept
             {
                 return lhs.state_->at_end();
-            }
-            friend bool operator!=(
-                const_lazy_bidi_segment_iterator lhs,
-                const_lazy_bidi_segment_iterator rhs) noexcept
-            {
-                return !(lhs == rhs);
             }
 
         private:
@@ -2462,21 +2409,20 @@ namespace boost { namespace text {
 
 #ifdef BOOST_TEXT_DOXYGEN
 
-    /** Returns a lazy range of code point subranges in <code>[first,
-        last)</code>; each subrange is one of three kinds: a forward-subrange;
-        a reverse-subrange; or a one-code-point subrange used to subtitute a
-        reversed bracketing code point (e.g. <code>'['</code>) for its
-        couterpart (e.g. <code>']'</code>).  There is a single iterator type
-        used in the resulting subranges, so this distinction is not exposed in
-        the subrange API.
+    /** Returns a lazy range of code point subranges in `[first, last)`; each
+        subrange is one of three kinds: a forward-subrange; a
+        reverse-subrange; or a one-code-point subrange used to subtitute a
+        reversed bracketing code point (e.g. `'['`) for its couterpart
+        (e.g. `']'`).  There is a single iterator type used in the resulting
+        subranges, so this distinction is not exposed in the subrange API.
 
         Line breaks are determined within the algorithm by calling
-        <code>lines(first, last)</code>; only hard line breaks are considered.
+        `lines(first, last)`; only hard line breaks are considered.
 
-        If a non-negative <code>paragraph_embedding_level</code> is provided,
-        it will be used instead of the initial paragraph embedding level
-        computed by the bidirectional algorithm.  This applies to all
-        paragraphs found in <code>[first, last)</code>.
+        If a non-negative `paragraph_embedding_level` is provided, it will be
+        used instead of the initial paragraph embedding level computed by the
+        bidirectional algorithm.  This applies to all paragraphs found in
+        `[first, last)`.
 
         Code points that are used to control the left-to-right or
         right-to-left direction of code points within the text will not appear
@@ -2488,21 +2434,20 @@ namespace boost { namespace text {
     detail::unspecified bidirectional_subranges(
         CPIter first, Sentinel last, int paragraph_embedding_level = -1);
 
-    /** Returns a lazy range of code point subranges in <code>range</code>;
-        each subrange is one of three kinds: a forward-subrange; a
-        reverse-subrange; or a one-code-point subrange used to subtitute a
-        reversed bracketing code point (e.g. <code>'['</code>) for its
-        couterpart (e.g. <code>']'</code>).  There is a single iterator type
-        used in the resulting subranges, so this distinction is not exposed in
-        the subrange API.
+    /** Returns a lazy range of code point subranges in `range`; each subrange
+        is one of three kinds: a forward-subrange; a reverse-subrange; or a
+        one-code-point subrange used to subtitute a reversed bracketing code
+        point (e.g. `'['`) for its couterpart (e.g. `']'`).  There is a single
+        iterator type used in the resulting subranges, so this distinction is
+        not exposed in the subrange API.
 
         Line breaks are determined within the algorithm by calling
-        <code>lines(first, last)</code>; only hard line breaks are considered.
+        `lines(first, last)`; only hard line breaks are considered.
 
-        If a non-negative <code>paragraph_embedding_level</code> is provided,
-        it will be used instead of the initial paragraph embedding level
-        computed by the bidirectional algorithm.  This applies to all
-        paragraphs found in <code>range</code>.
+        If a non-negative `paragraph_embedding_level` is provided, it will be
+        used instead of the initial paragraph embedding level computed by the
+        bidirectional algorithm.  This applies to all paragraphs found in
+        `range`.
 
         Code points that are used to control the left-to-right or
         right-to-left direction of code points within the text will not appear
@@ -2511,27 +2456,26 @@ namespace boost { namespace text {
         the output; this implementation additionally removes code points with
         classes FSI, LRI, RLI, and PDI.
 
-        This function only participates in overload resolution if
-        <code>CPRange</code> models the CPRange concept. */
+        This function only participates in overload resolution if `CPRange`
+        models the CPRange concept. */
     template<typename CPRange>
     detail::unspecified bidirectional_subranges(
         CPRange & range, int paragraph_embedding_level = -1);
 
-    /** Returns a lazy range of grapheme subranges in <code>range</code>; each
-        subrange is one of three kinds: a forward-subrange; a
-        reverse-subrange; or a one-grapheme subrange used to subtitute a
-        reversed bracketing grapheme (e.g. <code>'['</code>) for its
-        couterpart (e.g. <code>']'</code>).  There is a single iterator type
-        used in the resulting subranges, so this distinction is not exposed in
-        the subrange API.
+    /** Returns a lazy range of grapheme subranges in `range`; each subrange
+        is one of three kinds: a forward-subrange; a reverse-subrange; or a
+        one-grapheme subrange used to subtitute a reversed bracketing grapheme
+        (e.g. `'['`) for its couterpart (e.g. `']'`).  There is a single
+        iterator type used in the resulting subranges, so this distinction is
+        not exposed in the subrange API.
 
         Line breaks are determined within the algorithm by calling
-        <code>lines(first, last)</code>; only hard line breaks are considered.
+        `lines(first, last)`; only hard line breaks are considered.
 
-        If a non-negative <code>paragraph_embedding_level</code> is provided,
-        it will be used instead of the initial paragraph embedding level
-        computed by the bidirectional algorithm.  This applies to all
-        paragraphs found in <code>range</code>.
+        If a non-negative `paragraph_embedding_level` is provided, it will be
+        used instead of the initial paragraph embedding level computed by the
+        bidirectional algorithm.  This applies to all paragraphs found in
+        `range`.
 
         Graphemes that are used to control the left-to-right or right-to-left
         direction of graphemes within the text will not appear in the output.
@@ -2541,30 +2485,28 @@ namespace boost { namespace text {
         RLI, and PDI.
 
         This function only participates in overload resolution if
-        <code>GraphemeRange</code> models the GraphemeRange concept. */
+        `GraphemeRange` models the GraphemeRange concept. */
     template<typename GraphemeRange>
     detail::unspecified bidirectional_subranges(
         GraphemeRange const & range, int paragraph_embedding_level = -1);
 
-    /** Returns a lazy range of code point subranges in <code>[first,
-        last)</code>; each subrange is one of three kinds: a forward-subrange;
-        a reverse-subrange; or a one-code-point subrange used to subtitute a
-        reversed bracketing code point (e.g. <code>'['</code>) for its
-        couterpart (e.g. <code>']'</code>).  There is a single iterator type
-        used in the resulting subranges, so this distinction is not exposed in
-        the subrange API.
+    /** Returns a lazy range of code point subranges in `[first, last)`; each
+        subrange is one of three kinds: a forward-subrange; a
+        reverse-subrange; or a one-code-point subrange used to subtitute a
+        reversed bracketing code point (e.g. `'['`) for its couterpart
+        (e.g. `']'`).  There is a single iterator type used in the resulting
+        subranges, so this distinction is not exposed in the subrange API.
 
         Line breaks are determined within the algorithm by calling
-        <code>lines(first, last, max_extent, cp_extent,
-        break_overlong_lines)</code>.  Note that CPExtentFunc must have a
-        polymorphic call operator.  That is, it must be a template or generic
-        lambda that accepts two parameters whose type models the CPIter
-        concept.
+        `lines(first, last, max_extent, cp_extent, break_overlong_lines)`.
+        Note that CPExtentFunc must have a polymorphic call operator.  That
+        is, it must be a template or generic lambda that accepts two
+        parameters whose type models the CPIter concept.
 
-        If a non-negative <code>paragraph_embedding_level</code> is provided,
-        it will be used instead of the initial paragraph embedding level
-        computed by the bidirectional algorithm.  This applies to all
-        paragraphs found in <code>[first, last)</code>.
+        If a non-negative `paragraph_embedding_level` is provided, it will be
+        used instead of the initial paragraph embedding level computed by the
+        bidirectional algorithm.  This applies to all paragraphs found in
+        `[first, last)`.
 
         Code points that are used to control the left-to-right or
         right-to-left direction of code points within the text will not appear
@@ -2585,25 +2527,23 @@ namespace boost { namespace text {
         int paragraph_embedding_level = -1,
         bool break_overlong_lines = true);
 
-    /** Returns a lazy range of code point subranges in <code>range</code>;
-        each subrange is one of three kinds: a forward-subrange; a
-        reverse-subrange; or a one-code-point subrange used to subtitute a
-        reversed bracketing code point (e.g. <code>'['</code>) for its
-        couterpart (e.g. <code>']'</code>).  There is a single iterator type
-        used in the resulting subranges, so this distinction is not exposed in
-        the subrange API.
+    /** Returns a lazy range of code point subranges in `range`; each subrange
+        is one of three kinds: a forward-subrange; a reverse-subrange; or a
+        one-code-point subrange used to subtitute a reversed bracketing code
+        point (e.g. `'['`) for its couterpart (e.g. `']'`).  There is a single
+        iterator type used in the resulting subranges, so this distinction is
+        not exposed in the subrange API.
 
         Line breaks are determined within the algorithm by calling
-        <code>lines(first, last, max_extent, cp_extent,
-        break_overlong_lines)</code>.  Note that CPExtentFunc must have a
-        polymorphic call operator.  That is, it must be a template or generic
-        lambda that accepts two parameters whose type models the CPIter
-        concept.
+        `lines(first, last, max_extent, cp_extent, break_overlong_lines)`.
+        Note that CPExtentFunc must have a polymorphic call operator.  That
+        is, it must be a template or generic lambda that accepts two
+        parameters whose type models the CPIter concept.
 
-        If a non-negative <code>paragraph_embedding_level</code> is provided,
-        it will be used instead of the initial paragraph embedding level
-        computed by the bidirectional algorithm.  This applies to all
-        paragraphs found in <code>range</code>.
+        If a non-negative `paragraph_embedding_level` is provided, it will be
+        used instead of the initial paragraph embedding level computed by the
+        bidirectional algorithm.  This applies to all paragraphs found in
+        `range`.
 
         Code points that are used to control the left-to-right or
         right-to-left direction of code points within the text will not appear
@@ -2612,8 +2552,8 @@ namespace boost { namespace text {
         the output; this implementation additionally removes code points with
         classes FSI, LRI, RLI, and PDI.
 
-        This function only participates in overload resolution if
-        <code>CPRange</code> models the CPRange concept. */
+        This function only participates in overload resolution if `CPRange`
+        models the CPRange concept. */
     template<typename CPRange, typename Extent, typename CPExtentFunc>
     detail::unspecified bidirectional_subranges(
         CPRange & range,
@@ -2622,25 +2562,23 @@ namespace boost { namespace text {
         int paragraph_embedding_level = -1,
         bool break_overlong_lines = true);
 
-    /** Returns a lazy range of grapheme subranges in <code>range</code>; each
-        subrange is one of three kinds: a forward-subrange; a
-        reverse-subrange; or a one-grapheme subrange used to subtitute a
-        reversed bracketing grapheme (e.g. <code>'['</code>) for its
-        couterpart (e.g. <code>']'</code>).  There is a single iterator type
-        used in the resulting subranges, so this distinction is not exposed in
-        the subrange API.
+    /** Returns a lazy range of grapheme subranges in `range`; each subrange
+        is one of three kinds: a forward-subrange; a reverse-subrange; or a
+        one-grapheme subrange used to subtitute a reversed bracketing grapheme
+        (e.g. `'['`) for its couterpart (e.g. `']'`).  There is a single
+        iterator type used in the resulting subranges, so this distinction is
+        not exposed in the subrange API.
 
         Line breaks are determined within the algorithm by calling
-        <code>lines(first, last, max_extent, cp_extent,
-        break_overlong_lines)</code>.  Note that CPExtentFunc must have a
-        polymorphic call operator.  That is, it must be a template or generic
-        lambda that accepts two parameters whose type models the CPIter
-        concept.
+        `lines(first, last, max_extent, cp_extent, break_overlong_lines)`.
+        Note that CPExtentFunc must have a polymorphic call operator.  That
+        is, it must be a template or generic lambda that accepts two
+        parameters whose type models the CPIter concept.
 
-        If a non-negative <code>paragraph_embedding_level</code> is provided,
-        it will be used instead of the initial paragraph embedding level
-        computed by the bidirectional algorithm.  This applies to all
-        paragraphs found in <code>range</code>.
+        If a non-negative `paragraph_embedding_level` is provided, it will be
+        used instead of the initial paragraph embedding level computed by the
+        bidirectional algorithm.  This applies to all paragraphs found in
+        `range`.
 
         Graphemes that are used to control the left-to-right or right-to-left
         direction of graphemes within the text will not appear in the output.
@@ -2650,7 +2588,7 @@ namespace boost { namespace text {
         RLI, and PDI.
 
         This function only participates in overload resolution if
-        <code>GraphemeRange</code> models the GraphemeRange concept. */
+        `GraphemeRange` models the GraphemeRange concept. */
     template<typename GraphemeRange, typename Extent, typename CPExtentFunc>
     detail::unspecified bidirectional_subranges(
         GraphemeRange const & range,
@@ -2782,6 +2720,6 @@ namespace boost { namespace text {
 
 #endif
 
-}}
+}}}
 
 #endif

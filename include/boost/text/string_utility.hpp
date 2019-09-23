@@ -2,40 +2,27 @@
 #define BOOST_TEXT_STRING_UTILITY_HPP
 
 #include <boost/text/string.hpp>
+#include <boost/text/transcode_view.hpp>
 #include <boost/text/detail/sentinel_tag.hpp>
 
 
-namespace boost { namespace text {
-
-    namespace detail {
-
-        template<typename CPIter, typename Sentinel>
-        auto to_string_impl(CPIter first, Sentinel last, sentinel_tag)
-            -> detail::cp_iter_ret_t<string, CPIter>
-        {
-            return string(
-                utf8::from_utf32_iterator<CPIter, Sentinel>(first, first, last),
-                last);
-        }
-
-        template<typename CPIter>
-        auto to_string_impl(CPIter first, CPIter last, non_sentinel_tag)
-            -> detail::cp_iter_ret_t<string, CPIter>
-        {
-            return string(
-                utf8::from_utf32_iterator<CPIter>(first, first, last),
-                utf8::from_utf32_iterator<CPIter>(first, last, last));
-        }
-    }
+namespace boost { namespace text { inline namespace v1 {
 
 #ifdef BOOST_TEXT_DOXYGEN
 
     /** Returns a UTF-8-encoded string constructed from [first, last).
 
-        This function only participates in overload resolution if
-        <code>CPIter</code> models the CPIter concept. */
+        This function only participates in overload resolution if `CPIter`
+        models the CPIter concept. */
     template<typename CPIter, typename Sentinel>
     string to_string(CPIter first, Sentinel last);
+
+    /** Returns a UTF-8-encoded string constructed from range.
+
+        This function only participates in overload resolution if `CPRange`
+        models the CPRange concept. */
+    template<typename CPRange>
+    string to_string(CPRange & range);
 
 #else
 
@@ -43,17 +30,18 @@ namespace boost { namespace text {
     auto to_string(CPIter first, Sentinel last)
         -> detail::cp_iter_ret_t<string, CPIter>
     {
-        return detail::to_string_impl(
-            first,
-            last,
-            typename std::conditional<
-                std::is_same<CPIter, Sentinel>::value,
-                detail::non_sentinel_tag,
-                detail::sentinel_tag>::type{});
+        auto const r = as_utf8(first, last);
+        return string(r.begin(), r.end());
+    }
+
+    template<typename CPRange>
+    auto to_string(CPRange & range) -> detail::cp_rng_alg_ret_t<string, CPRange>
+    {
+        return boost::text::to_string(std::begin(range), std::end(range));
     }
 
 #endif
 
-}}
+}}}
 
 #endif

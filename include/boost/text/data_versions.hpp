@@ -4,10 +4,10 @@
 #include <boost/text/config.hpp>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     /** The major, minor, and patch elements of a library version number of
-        the form <code>"major.minor.patch"</code>. */
+        the form `"major.minor.patch"`. */
     struct library_version
     {
         int major;
@@ -22,6 +22,6 @@ namespace boost { namespace text {
         used by this library. */
     BOOST_TEXT_DECL library_version cldr_version();
 
-}}
+}}}
 
 #endif

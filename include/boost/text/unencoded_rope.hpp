@@ -11,14 +11,14 @@
 #endif
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     struct unencoded_rope_view;
 
     namespace detail {
         struct const_rope_iterator;
         using const_reverse_rope_iterator =
-            reverse_iterator<const_rope_iterator>;
+            stl_interfaces::reverse_iterator<const_rope_iterator>;
     }
 
     /** A mutable sequence of char with copy-on-write semantics.  An
@@ -56,14 +56,14 @@ namespace boost { namespace text {
         /** Constructs a unencoded_rope from a range of char.
 
             This function only participates in overload resolution if
-            <code>CharRange</code> models the CharRange concept. */
+            `CharRange` models the CharRange concept. */
         template<typename CharRange>
         explicit unencoded_rope(CharRange const & r);
 
         /** Constructs an unencoded_rope from a sequence of char.
 
             This function only participates in overload resolution if
-            <code>CharIter</code> models the CharIter concept. */
+            `CharIter` models the CharIter concept. */
         template<typename CharIter, typename Sentinel>
         unencoded_rope(CharIter first, Sentinel last);
 
@@ -71,7 +71,7 @@ namespace boost { namespace text {
             underlying range of char.
 
             This function only participates in overload resolution if
-            <code>GraphemeRange</code> models the GraphemeRange concept. */
+            `GraphemeRange` models the GraphemeRange concept. */
         template<typename GraphemeRange>
         explicit unencoded_rope(GraphemeRange const & r);
 
@@ -127,7 +127,7 @@ namespace boost { namespace text {
         /** Assignment from a range of char.
 
             This function only participates in overload resolution if
-            <code>CharRange</code> models the CharRange concept. */
+            `CharRange` models the CharRange concept. */
         template<typename CharRange>
         unencoded_rope & operator=(CharRange const & r);
 
@@ -135,7 +135,7 @@ namespace boost { namespace text {
             char.
 
             This function only participates in overload resolution if
-            <code>GraphemeRange</code> models the GraphemeRange concept. */
+            `GraphemeRange` models the GraphemeRange concept. */
         template<typename GraphemeRange>
         unencoded_rope & operator=(GraphemeRange const & r);
 
@@ -291,14 +291,14 @@ namespace boost { namespace text {
         /** Inserts the char sequence r into *this starting at offset at.
 
             This function only participates in overload resolution if
-            <code>CharRange</code> models the CharRange concept. */
+            `CharRange` models the CharRange concept. */
         template<typename CharRange>
         auto insert(size_type at, CharRange const & r);
 
         /** Inserts the char sequence r into *this starting at position at.
 
             This function only participates in overload resolution if
-            <code>CharRange</code> models the CharRange concept. */
+            `CharRange` models the CharRange concept. */
         template<typename CharRange>
         auto insert(const_iterator at, CharRange const & r);
 
@@ -306,7 +306,7 @@ namespace boost { namespace text {
             offset at.
 
             This function only participates in overload resolution if
-            <code>CharIter</code> models the CharIter concept. */
+            `CharIter` models the CharIter concept. */
         template<typename CharIter, typename Sentinel>
         unencoded_rope & insert(size_type at, CharIter first, Sentinel last);
 
@@ -314,7 +314,7 @@ namespace boost { namespace text {
             position at.
 
             This function only participates in overload resolution if
-            <code>CharIter</code> models the CharIter concept. */
+            `CharIter` models the CharIter concept. */
         template<typename CharIter, typename Sentinel>
         unencoded_rope &
         insert(const_iterator at, CharIter first, Sentinel last);
@@ -382,7 +382,7 @@ namespace boost { namespace text {
             char sequence r.
 
             This function only participates in overload resolution if
-            <code>CharRange</code> models the CharRange concept.
+            `CharRange` models the CharRange concept.
 
             \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
         template<typename CharRange>
@@ -392,7 +392,7 @@ namespace boost { namespace text {
             char sequence [first, last).
 
             This function only participates in overload resolution if
-            <code>CharIter</code> models the CharIter concept.
+            `CharIter` models the CharIter concept.
 
             \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
         template<typename CharIter, typename Sentinel>
@@ -403,7 +403,7 @@ namespace boost { namespace text {
             with the char sequence [new_first, new_last).
 
             This function only participates in overload resolution if
-            <code>CharIter</code> models the CharIter concept.
+            `CharIter` models the CharIter concept.
 
            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
         template<typename CharIter, typename Sentinel>
@@ -470,7 +470,7 @@ namespace boost { namespace text {
         /** Append r to *this.
 
             This function only participates in overload resolution if
-            <code>CharRange</code> models the CharRange concept. */
+            `CharRange` models the CharRange concept. */
         template<typename CharRange>
         unencoded_rope & operator+=(CharRange const & r);
 
@@ -493,12 +493,12 @@ namespace boost { namespace text {
         }
 
 #ifdef BOOST_TEXT_TESTING
-        friend void dump_tree(unencoded_rope const & r)
+        friend void dump_tree(std::ostream & os, unencoded_rope const & r)
         {
             if (r.empty())
-                std::cout << "[EMPTY]\n";
+                os << "[EMPTY]\n";
             else
-                detail::dump_tree(r.ptr_);
+                detail::dump_tree(os, r.ptr_);
         }
 #endif
 
@@ -529,13 +529,18 @@ namespace boost { namespace text {
         };
 
         string_insertion mutable_insertion_leaf(
-            size_type at, size_type size, allocation_note_t allocation_note)
+            size_type at, size_type delta, allocation_note_t allocation_note)
         {
             if (!ptr_)
                 return string_insertion{nullptr};
 
             detail::found_leaf<detail::rope_tag> found;
-            find_leaf(ptr_, at, found);
+            if (0 < delta && at == size()) {
+                find_leaf(ptr_, at - 1, found);
+                ++found.offset_;
+            } else {
+                find_leaf(ptr_, at, found);
+            }
 
             for (auto node : found.path_) {
                 if (1 < node->refs_)
@@ -548,8 +553,8 @@ namespace boost { namespace text {
             if (found.leaf_->as_leaf()->which_ == detail::which::t) {
                 string & t =
                     const_cast<string &>(found.leaf_->as_leaf()->as_string());
-                auto const inserted_size = t.size() + size;
-                if (size < 0 && t.size() < found.offset_ + -size)
+                auto const inserted_size = t.size() + delta;
+                if (delta < 0 && t.size() < found.offset_ + -delta)
                     return string_insertion{nullptr};
                 if ((0 < inserted_size && inserted_size <= t.capacity()) ||
                     (allocation_note == would_allocate &&
@@ -591,14 +596,14 @@ namespace boost { namespace text {
 #endif
     };
 
-}}
+}}}
 
 #include <boost/text/detail/rope_iterator.hpp>
 #include <boost/text/unencoded_rope_view.hpp>
 
 #ifndef BOOST_TEXT_DOXYGEN
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     inline unencoded_rope::unencoded_rope(char const * c_str) : ptr_(nullptr)
     {
@@ -701,8 +706,7 @@ namespace boost { namespace text {
                 slice_leaf(
                     *found_lo.leaf_,
                     found_lo.offset_,
-                    found_lo.offset_ + rv.size(),
-                    true));
+                    found_lo.offset_ + rv.size()));
             return *this;
         }
 
@@ -719,8 +723,7 @@ namespace boost { namespace text {
                         node = slice_leaf(
                             *found_lo.leaf_,
                             found_lo.offset_,
-                            detail::size(leaf),
-                            true);
+                            detail::size(leaf));
                     } else {
                         node = detail::node_ptr<detail::rope_tag>(leaf);
                     }
@@ -739,8 +742,7 @@ namespace boost { namespace text {
                         ptr_ = detail::btree_insert(
                             ptr_,
                             at,
-                            slice_leaf(
-                                *found_hi.leaf_, 0, found_hi.offset_, true));
+                            slice_leaf(*found_hi.leaf_, 0, found_hi.offset_));
 
                         at += found_hi.offset_;
                     }
@@ -1084,11 +1086,11 @@ namespace boost { namespace text {
                rv.ref_.r_.r_ == this;
     }
 
-}}
+}}}
 
 #endif
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     inline bool
     operator==(char const * lhs, unencoded_rope const & rhs) noexcept
@@ -1292,7 +1294,7 @@ namespace boost { namespace text {
         and r.
 
         This function only participates in overload resolution if
-        <code>CharRange</code> models the CharRange concept. */
+        `CharRange` models the CharRange concept. */
     template<typename CharRange>
     unencoded_rope & operator+(unencoded_rope ur, CharRange const & r);
 
@@ -1300,7 +1302,7 @@ namespace boost { namespace text {
         and ur.
 
         This function only participates in overload resolution if
-        <code>CharRange</code> models the CharRange concept. */
+        `CharRange` models the CharRange concept. */
     template<typename CharRange>
     unencoded_rope & operator+(CharRange const & r, unencoded_rope const & ur);
 
@@ -1328,6 +1330,18 @@ namespace boost { namespace text {
         ref_(rope_ref(&r, 0, r.size())),
         which_(which::r)
     {}
+
+    inline unencoded_rope_view::unencoded_rope_view(
+        unencoded_rope_view const & other) noexcept :
+        ref_(string_view()),
+        which_(other.which_)
+    {
+        switch (which_) {
+        case which::r: ref_.r_ = other.ref_.r_; break;
+        case which::tv: ref_.tv_ = other.ref_.tv_; break;
+        case which::rtv: ref_.rtv_ = other.ref_.rtv_; break;
+        }
+    }
 
     inline unencoded_rope_view::unencoded_rope_view(
         unencoded_rope const & r, size_type lo, size_type hi) :
@@ -1568,6 +1582,18 @@ namespace boost { namespace text {
             });
     }
 
+    inline unencoded_rope_view & unencoded_rope_view::
+    operator=(unencoded_rope_view const & other) noexcept
+    {
+        which_ = other.which_;
+        switch (which_) {
+        case which::r: ref_.r_ = other.ref_.r_; break;
+        case which::tv: ref_.tv_ = other.ref_.tv_; break;
+        case which::rtv: ref_.rtv_ = other.ref_.rtv_; break;
+        }
+        return *this;
+    }
+
     inline unencoded_rope_view::iterator begin(unencoded_rope_view rv) noexcept
     {
         return rv.begin();
@@ -1655,24 +1681,25 @@ namespace boost { namespace text {
 
 #ifdef BOOST_TEXT_TESTING
         template<typename T>
-        inline void dump_tree(node_ptr<T> const & root, int key, int indent)
+        inline void dump_tree(
+            std::ostream & os, node_ptr<T> const & root, int key, int indent)
         {
-            std::cout << repeated_string_view("    ", indent)
-                      << (root->leaf_ ? "LEAF" : "INTR") << " @0x" << std::hex
-                      << root.get();
+            os << repeated_string_view("    ", indent)
+               << (root->leaf_ ? "LEAF" : "INTR") << " @0x" << std::hex
+               << root.get();
             if (key != -1)
-                std::cout << " < " << std::dec << key;
-            std::cout << " (" << root->refs_ << " refs)\n";
+                os << " < " << std::dec << key;
+            os << " (" << root->refs_ << " refs)\n";
             if (!root->leaf_) {
                 int i = 0;
                 for (auto const & child : children(root)) {
-                    dump_tree(child, keys(root)[i++], indent + 1);
+                    dump_tree(os, child, keys(root)[i++], indent + 1);
                 }
             }
         }
 #endif
     }
-}}
+}}}
 
 #ifndef BOOST_TEXT_DOXYGEN
 

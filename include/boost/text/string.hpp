@@ -16,7 +16,7 @@
 #include <memory>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     struct string_view;
     struct repeated_string_view;
@@ -62,14 +62,14 @@ namespace boost { namespace text {
         /** Constructs a string from a range of char.
 
             This function only participates in overload resolution if
-            <code>CharRange</code> models the CharRange concept. */
+            `CharRange` models the CharRange concept. */
         template<typename CharRange>
         explicit string(CharRange const & r);
 
         /** Constructs a string from a sequence of char.
 
             This function only participates in overload resolution if
-            <code>CharIter</code> models the CharIter concept. */
+            `CharIter` models the CharIter concept. */
         template<typename CharIter, typename Sentinel>
         string(CharIter first, Sentinel last);
 
@@ -77,7 +77,7 @@ namespace boost { namespace text {
             range of char.
 
             This function only participates in overload resolution if
-            <code>GraphemeRange</code> models the GraphemeRange concept. */
+            `GraphemeRange` models the GraphemeRange concept. */
         template<typename GraphemeRange>
         explicit string(GraphemeRange const & r);
 
@@ -139,7 +139,7 @@ namespace boost { namespace text {
         /** Assignment from a range of char.
 
             This function only participates in overload resolution if
-            <code>CharRange</code> models the CharRange concept. */
+            `CharRange` models the CharRange concept. */
         template<typename CharRange>
         string & operator=(CharRange const & r);
 
@@ -147,7 +147,7 @@ namespace boost { namespace text {
             char.
 
             This function only participates in overload resolution if
-            <code>GraphemeRange</code> models the GraphemeRange concept. */
+            `GraphemeRange` models the GraphemeRange concept. */
         template<typename GraphemeRange>
         string & operator=(GraphemeRange const & r);
 
@@ -204,8 +204,8 @@ namespace boost { namespace text {
             An empty string is still a valid null-terminated empty string. */
         bool empty() const noexcept { return size_ == 0; }
 
-        /** Returns the number of characters controlled by *this, not
-            including the null terminator. */
+        /** Returns the number of elements controlled by *this, not including
+            the null terminator. */
         int size() const noexcept { return size_; }
 
         /** Returns the number of bytes of storage currently in use by *this.
@@ -303,14 +303,14 @@ namespace boost { namespace text {
         /** Inserts the char range r into *this starting at offset at.
 
             This function only participates in overload resolution if
-            <code>CharRange</code> models the CharRange concept. */
+            `CharRange` models the CharRange concept. */
         template<typename CharRange>
         string & insert(int at, CharRange const & r);
 
         /** Inserts the char range r into *this starting at position at.
 
             This function only participates in overload resolution if
-            <code>CharRange</code> models the CharRange concept. */
+            `CharRange` models the CharRange concept. */
         template<typename CharRange>
         iterator insert(iterator at, CharRange const & r);
 
@@ -318,7 +318,7 @@ namespace boost { namespace text {
             offset at.
 
             This function only participates in overload resolution if
-            <code>CharIter</code> models the CharIter concept. */
+            `CharIter` models the CharIter concept. */
         template<typename CharIter, typename Sentinel>
         string & insert(int at, CharIter first, Sentinel last);
 
@@ -326,7 +326,7 @@ namespace boost { namespace text {
             position at.
 
             This function only participates in overload resolution if
-            <code>CharIter</code> models the CharIter concept. */
+            `CharIter` models the CharIter concept. */
         template<typename CharIter, typename Sentinel>
         iterator insert(iterator at, CharIter first, Sentinel last);
 
@@ -334,7 +334,7 @@ namespace boost { namespace text {
             graphemes into *this starting at offset at.
 
             This function only participates in overload resolution if
-            <code>GraphemeRange</code> models the GraphemeRange concept. */
+            `GraphemeRange` models the GraphemeRange concept. */
         template<typename GraphemeRange>
         string & insert(int at, GraphemeRange const & r);
 
@@ -342,7 +342,7 @@ namespace boost { namespace text {
             graphemes into *this starting at position at.
 
             This function only participates in overload resolution if
-            <code>GraphemeRange</code> models the GraphemeRange concept. */
+            `GraphemeRange` models the GraphemeRange concept. */
         template<typename GraphemeRange>
         iterator insert(iterator at, GraphemeRange const & r);
 
@@ -365,7 +365,11 @@ namespace boost { namespace text {
             if (first == last)
                 return *this;
 
-            insert_iter_impl(at, first, last);
+            insert_iter_impl(
+                at,
+                first,
+                last,
+                typename std::iterator_traits<CharIter>::iterator_category{});
 
             return *this;
         }
@@ -379,7 +383,11 @@ namespace boost { namespace text {
             if (first == last)
                 return at;
 
-            return insert_iter_impl(at - begin(), first, last);
+            return insert_iter_impl(
+                at - begin(),
+                first,
+                last,
+                typename std::iterator_traits<CharIter>::iterator_category{});
         }
 
         template<typename GraphemeRange>
@@ -391,6 +399,12 @@ namespace boost { namespace text {
             -> detail::graph_rng_alg_ret_t<iterator, GraphemeRange>;
 
 #endif
+
+        /** Inserts the sequence of char from c_str into *this starting at offset at. */
+        string & insert(int at, char const * c_str);
+
+        /** Inserts the sequence of char from c_str into *this starting at position at. */
+        iterator insert(iterator at, char const * c_str);
 
         /** Erases the portion of *this delimited by sv.
 
@@ -435,7 +449,7 @@ namespace boost { namespace text {
             char range r.
 
             This function only participates in overload resolution if
-            <code>CharRange</code> models the CharRange concept.
+            `CharRange` models the CharRange concept.
 
             \pre !std::less(old_substr.begin(), begin()) && !std::less(end(),
             old_substr.end()) */
@@ -446,7 +460,7 @@ namespace boost { namespace text {
             char sequence [first, last).
 
             This function only participates in overload resolution if
-            <code>CharIter</code> models the CharIter concept.
+            `CharIter` models the CharIter concept.
 
             \pre !std::less(old_substr.begin(), begin()) && !std::less(end(),
             old_substr.end()) */
@@ -457,7 +471,7 @@ namespace boost { namespace text {
             with the char sequence [new_first, new_last).
 
             This function only participates in overload resolution if
-            <code>CharIter</code> models the CharIter concept.
+            `CharIter` models the CharIter concept.
 
            \pre old_first <= old_last */
         template<typename CharIter, typename Sentinel>
@@ -518,6 +532,13 @@ namespace boost { namespace text {
         }
 
 #endif
+
+        /** Replaces the portion of *this delimited by old_substr with the
+            sequence of char from c_str.
+
+            \pre !std::less(old_substr.begin(), begin()) && !std::less(end(),
+            old_substr.end()) */
+        string & replace(string_view old_substr, char const * c_str);
 
         /** Changes the size of *this to new_size.  Truncates if new_size <
             size(), and appends new_size - size() repetitions of c it size() <
@@ -626,7 +647,7 @@ namespace boost { namespace text {
         /** Appends the char range r to *this.
 
             This function only participates in overload resolution if
-            <code>CharRange</code> models the CharRange concept. */
+            `CharRange` models the CharRange concept. */
         template<typename CharRange>
         string & operator+=(CharRange const & r);
 
@@ -709,8 +730,8 @@ namespace boost { namespace text {
             ++size_;
         }
 
-        template<typename CharIter, typename Sentinel>
-        auto insert_iter_impl(int at, CharIter first, Sentinel last)
+        template<typename CharIter, typename Sentinel, typename IterTag>
+        auto insert_iter_impl(int at, CharIter first, Sentinel last, IterTag)
             -> detail::char_iter_ret_t<iterator, CharIter>
         {
             auto const initial_size = size_;
@@ -730,6 +751,32 @@ namespace boost { namespace text {
             ptr()[size_] = '\0';
 
             return begin() + at + (size_ - initial_size);
+        }
+
+        template<typename CharIter>
+        auto insert_iter_impl(
+            int at,
+            CharIter first,
+            CharIter last,
+            std::random_access_iterator_tag)
+            -> detail::char_iter_ret_t<iterator, CharIter>
+        {
+            int const available = capacity() - size_;
+            int const new_bytes = last - first;
+            if (available < new_bytes) {
+                heap_t new_data = get_new_data(new_bytes - available);
+                auto out =
+                    std::copy(cbegin(), cbegin() + at, new_data.data_.get());
+                out = std::copy(first, last, out);
+                std::copy(cbegin() + at, cend(), out);
+                set_heap(std::move(new_data));
+            } else {
+                std::copy_backward(cbegin() + at, cend(), end() + new_bytes);
+                std::copy(first, last, begin() + at);
+            }
+            size_ += new_bytes;
+            ptr()[size_] = '\0';
+            return begin() + at;
         }
 
         template<typename CharIter>
@@ -878,11 +925,11 @@ namespace boost { namespace text {
         return s.crend();
     }
 
-}}
+}}}
 
-#include <boost/text/repeated_string_view.hpp>
+#include <boost/text/string_view.hpp>
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     namespace literals {
 
@@ -1147,6 +1194,16 @@ namespace boost { namespace text {
             at, std::begin(r).base().base(), std::end(r).base().base());
     }
 
+    inline string & string::insert(int at, char const * c_str)
+    {
+        return insert(at, string_view(c_str));
+    }
+
+    inline string::iterator string::insert(iterator at, char const * c_str)
+    {
+        return insert(at, string_view(c_str));
+    }
+
     inline string & string::erase(string_view sv) noexcept
     {
         BOOST_ASSERT(0 <= sv.size());
@@ -1292,6 +1349,11 @@ namespace boost { namespace text {
 
         char * old_first = const_cast<char *>(old_substr.begin());
         return replace(old_first, old_first + old_substr.size(), first, last);
+    }
+
+    inline string & string::replace(string_view old_substr, char const * c_str)
+    {
+        return replace(old_substr, string_view(c_str));
     }
 
     inline string & string::operator+=(char c) { return insert(size(), c); }
@@ -1551,14 +1613,14 @@ namespace boost { namespace text {
     /** Creates a new string object that is the concatenation of s and r.
 
         This function only participates in overload resolution if
-        <code>CharRange</code> models the CharRange concept. */
+        `CharRange` models the CharRange concept. */
     template<typename CharRange>
     string operator+(string s, CharRange const & r);
 
     /** Creates a new string object that is the concatenation of r and s.
 
         This function only participates in overload resolution if
-        <code>CharRange</code> models the CharRange concept. */
+        `CharRange` models the CharRange concept. */
     template<typename CharRange>
     string operator+(CharRange const & r, string const & s);
 
@@ -1580,7 +1642,7 @@ namespace boost { namespace text {
 
 #endif
 
-}}
+}}}
 
 #ifndef BOOST_TEXT_DOXYGEN
 

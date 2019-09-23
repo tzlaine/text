@@ -1,4 +1,4 @@
-[section `segmented_vector` ]
+[section segmented_vector ]
 
 This _segv_ API is very similar to that of _ur_, except that is supports more
 types than `char` for the element-type.

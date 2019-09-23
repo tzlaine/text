@@ -7,15 +7,15 @@ has a single data member _emdash_ an object of the corresponding string layer
 type.
 
 Let's consider one of the text layer types in particular, _t_.  It's
-underlying stoage is a _s_, as mentioned before.  The `char`s in the _s_ are
+underlying storage is a _s_, as mentioned before.  The `char`s in the _s_ are
 UTF-8 encoded.  The _cp_ view of those UTF-8 encoded `char`s is available by
-using _to_32_iter_.  Since _to_32_iter_ generates replacement characters when
-it encounters a broken encoding, no runtime checks ever need to be performed
-on the encoding of the `char`s in a _t_'s _s_ data member.
+using _8_to_32_iter_.  Since _8_to_32_iter_ generates replacement characters
+when it encounters a broken encoding, no runtime checks ever need to be
+performed on the encoding of the `char`s in a _t_'s _s_ data member.
 
 [note To be absolutely clear, all the text layer types use UTF-8 encoding.
 There are no other options.  Transcoding to UTF-16 is still possible using
-_to_16_iter_ and _from_16_iter_.]
+_8_to_16_iter_ and _16_to_8_iter_.]
 
 All the text layer types are kept in the FCC normalization form at all times.
 There is a runtime cost associated with normalizing text that is inserted into
@@ -33,22 +33,22 @@ graphemes in the text layer types.
 [heading Graphemes]
 
 When you dereference an iterator that you get from one of the text layer
-types, you get a _gr_view_.  This is a non-owning range of _cps_ that is known
+types, you get a _gr_ref_.  This is a non-owning range of _cps_ that is known
 to be normalized FCC.
 
-[graphemes_grapheme_view]
+[graphemes_grapheme_ref]
 
 If you want an owning set of _cps_ that is known to be normalized FCC, you can
-construct a _grapheme_ (either from a _gr_view_, or by some other means).
+construct a _grapheme_ (either from a _gr_ref_, or by some other means).
 
 [graphemes_grapheme]
 
 [note _grapheme_ has a small-buffer optimization so that using it seldom
 involves allocations.  This also implies that an array of _graphemes_ is
-likely to be wasteful of storage.  If you want a bunch of _grs_, you chould
+likely to be wasteful of storage.  If you want a bunch of _grs_, you should
 probably be using a _t_.]
 
-An Individual _gr_, in the form of a _grapheme_ or _gr_view_, can be inserted
+An Individual _gr_, in the form of a _grapheme_ or _gr_ref_, can be inserted
 into a _t_ or _r_.
 
 [note The _gr_ is the unit of work within the text layer.  When using text
@@ -62,14 +62,14 @@ the text layer types return _gr_its_ from `begin()` and `end()`.  But what
 about the times when you actually want to deal with sequences of _cps_ or
 `char`s?  This comes up often when you need to use legacy interfaces.
 
-Fotunately, that's really easy.  _gr_it_ has a `base()` member that returns
+Fortunately, that's really easy.  _gr_it_ has a `base()` member that returns
 its underlying _cp_ iterator.  The _cp_ iterator used in the text layer types
-is always _to_32_iter_, which also has a `base()` member that returns /it's/
+is always _8_to_32_iter_, which also has a `base()` member that returns /it's/
 underlying `char` iterator:
 
 [graphemes_iterator_bases]
 
-if you remember from the discucssion of the string layer types, _s_ is always
+if you remember from the discussion of the string layer types, _s_ is always
 null-terminated, and its iterator is just a `char *`.  This means that any _t_
 object `t` is null-terminated too, as long as you access it's underlying
 `char` iterator directly:
@@ -96,11 +96,11 @@ There are two things to note here:
 [heading The Text Layer Types]
 
 As mentioned before, this layer has four types (_t_, _tv_, _r_, and _rv_) that
-are directly analogous to the four major types in the strig layer (_s_, _sv_,
+are directly analogous to the four major types in the string layer (_s_, _sv_,
 _ur_, and _urv_).  The high-level semantics of these types is the same:
 
 * _s_ and _t_ are owning and contiguous.
-* _sv_ and _tv_ and non-owning and continguous.
+* _sv_ and _tv_ and non-owning and contiguous.
 * _ur_ and _r_ are owning and discontiguous.
 * _urv_ and _rv_ are non-owning and discontiguous.
 
@@ -146,5 +146,36 @@ If you want to know which text layer type to use, you can refer back to the
 handy table in the string layer documentation.  The text layer types have the
 same relationships among each other that the string layer types do among
 themselves.
+
+[heading An Odd Thing About Insertions]
+
+When you insert into a _t_ or _r_, you get back an iterator that points to the
+copy of the beginning of the inserted text.  This is what the standard C++
+containers do too.
+
+So, if I insert, I get an iterator that points to the start of the insertion:
+
+    boost::text::rope r("e");
+    auto it = r.insert(r.end(), 'f');
+    assert(r.distance() == 2);           // We added a grapheme.
+    assert(it == std::next(r.begin()));  // This one, in fact.
+
+Not so fast.  If I insert a sequence starting with one or more combining
+_cps_, the beginning of the insertion might get combined with the preceding
+_cp_ (due to FCC normalization) or _gr_ (because combining marks at the end of
+a grapheme are just part of that grapheme):
+
+    char const * combining_diaeresis = u8"\u0308";
+    text::text t("e");
+
+    auto it = t.insert(t.end(), combining_diaeresis);
+    assert(t.distance() == 1);    // No new grapheme!  We now have the single code point 'ë'.
+    assert(it == t.begin());
+
+    it = t.insert(t.end(), combining_diaeresis);
+    assert(t.distance() == 1);    // Still no new grapheme.  We now have a grapheme with the code points 'ë' and '¨'.
+    assert(it == t.begin());
+
+This behavior is correct, but a bit surprising when you first see it.
 
 [endsect]

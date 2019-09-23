@@ -3,12 +3,12 @@
 
 #include <boost/text/grapheme_iterator.hpp>
 #include <boost/text/unencoded_rope_view.hpp>
-#include <boost/text/utf8.hpp>
+#include <boost/text/transcode_iterator.hpp>
 
 #include <iterator>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     namespace detail {
         struct rope_iterator;
@@ -24,18 +24,18 @@ namespace boost { namespace text {
     struct rope_view
     {
         using value_type =
-            cp_range<utf8::to_utf32_iterator<detail::const_rope_view_iterator>>;
+            utf32_view<utf_8_to_32_iterator<detail::const_rope_view_iterator>>;
         using size_type = std::ptrdiff_t;
         using iterator = grapheme_iterator<
-            utf8::to_utf32_iterator<detail::const_rope_view_iterator>>;
+            utf_8_to_32_iterator<detail::const_rope_view_iterator>>;
         using const_iterator = iterator;
-        using reverse_iterator = detail::reverse_iterator<iterator>;
+        using reverse_iterator = stl_interfaces::reverse_iterator<iterator>;
         using const_reverse_iterator = reverse_iterator;
 
         using rope_iterator =
-            grapheme_iterator<utf8::to_utf32_iterator<detail::rope_iterator>>;
+            grapheme_iterator<utf_8_to_32_iterator<detail::rope_iterator>>;
         using const_rope_iterator = grapheme_iterator<
-            utf8::to_utf32_iterator<detail::const_rope_iterator>>;
+            utf_8_to_32_iterator<detail::const_rope_iterator>>;
 
         /** Default ctor. */
         rope_view() noexcept {}
@@ -173,14 +173,14 @@ namespace boost { namespace text {
         return tv.rend();
     }
 
-}}
+}}}
 
 #include <boost/text/text.hpp>
 #include <boost/text/rope.hpp>
 #include <boost/text/unencoded_rope_view.hpp>
 #include <boost/text/detail/rope_iterator.hpp>
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     inline rope_view::rope_view(text const & t) noexcept :
         view_(string_view(t.begin().base().base(), t.storage_bytes()))
@@ -221,26 +221,20 @@ namespace boost { namespace text {
         view_.foreach_segment(static_cast<Fn &&>(f));
     }
 
-    inline void rope_view::swap(rope_view & rhs) noexcept
-    {
-        view_.swap(rhs.view_);
-    }
-
     inline rope_view::iterator rope_view::make_iter(
         detail::const_rope_view_iterator first,
         detail::const_rope_view_iterator it,
         detail::const_rope_view_iterator last) noexcept
     {
-        return iterator{
-            utf8::to_utf32_iterator<detail::const_rope_view_iterator>{
-                first, first, last},
-            utf8::to_utf32_iterator<detail::const_rope_view_iterator>{
-                first, it, last},
-            utf8::to_utf32_iterator<detail::const_rope_view_iterator>{
-                first, last, last}};
+        return iterator{utf_8_to_32_iterator<detail::const_rope_view_iterator>{
+                            first, first, last},
+                        utf_8_to_32_iterator<detail::const_rope_view_iterator>{
+                            first, it, last},
+                        utf_8_to_32_iterator<detail::const_rope_view_iterator>{
+                            first, last, last}};
     }
 
-}}
+}}}
 
 #ifndef BOOST_TEXT_DOXYGEN
 
