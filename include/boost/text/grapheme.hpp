@@ -11,7 +11,7 @@
 #include <ostream>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     struct grapheme;
     template<typename CPIter>
@@ -214,6 +214,6 @@ namespace boost { namespace text {
         return !(rhs == lhs);
     }
 
-}}
+}}}
 
 #endif

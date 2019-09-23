@@ -10,7 +10,7 @@
 #include <numeric>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     /** The list of languages handled specially in the case mapping
         functions. */
@@ -1209,6 +1209,6 @@ namespace boost { namespace text {
 
 #endif
 
-}}
+}}}
 
 #endif

@@ -7,7 +7,7 @@
 #include <iterator>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     namespace detail {
         template<typename Iter>
@@ -248,6 +248,6 @@ namespace boost { namespace text {
         return true;
     }
 
-}}
+}}}
 
 #endif

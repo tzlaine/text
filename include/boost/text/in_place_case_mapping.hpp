@@ -6,7 +6,7 @@
 #include <boost/text/case_mapping.hpp>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     /** Changes the case of `t` to lower-case, using language-specific
         handling as indicated by `lang`. */
@@ -121,6 +121,6 @@ namespace boost { namespace text {
         r = s;
     }
 
-}}
+}}}
 
 #endif

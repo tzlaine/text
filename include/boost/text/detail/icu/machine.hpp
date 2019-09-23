@@ -4,7 +4,7 @@
 #include <cstdint>
 
 
-namespace boost { namespace text { namespace detail { namespace icu {
+namespace boost { namespace text { inline namespace v1 { namespace detail { namespace icu {
 
     using UChar32 = int32_t;
     using UChar = char16_t;
@@ -18,6 +18,6 @@ namespace boost { namespace text { namespace detail { namespace icu {
         constexpr int U16_MAX_LENGTH = 2;
     }
 
-}}}}
+}}}}}
 
 #endif

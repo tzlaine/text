@@ -11,7 +11,7 @@
 #include <boost/algorithm/cxx14/equal.hpp>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     struct string;
 
@@ -734,19 +734,19 @@ namespace boost { namespace text {
     inline int
     operator+(repeated_string_view lhs, string_view rhs) noexcept = delete;
 
-}}
+}}}
 
 #include <boost/text/unencoded_rope_view.hpp>
 #include <boost/text/string.hpp>
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     inline string_view::string_view(string const & s) noexcept :
         data_(s.begin()),
         size_(s.size())
     {}
 
-}}
+}}}
 
 #ifndef BOOST_TEXT_DOXYGEN
 

@@ -5,7 +5,7 @@
 #include <boost/text/lazy_segment_range.hpp>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     namespace detail {
         // The logic below is derived from Bidi_Class=Paragraph_Separator in
@@ -395,6 +395,6 @@ namespace boost { namespace text {
 
 #endif
 
-}}
+}}}
 
 #endif

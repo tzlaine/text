@@ -11,7 +11,7 @@
 #include <algorithm>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     namespace detail {
 
@@ -942,6 +942,6 @@ namespace boost { namespace text {
         return normalized_fcc(std::begin(r), std::end(r));
     }
 
-}}
+}}}
 
 #endif

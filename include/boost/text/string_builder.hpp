@@ -6,7 +6,7 @@
 #include <numeric>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     namespace detail {
         template<int N>
@@ -125,6 +125,6 @@ namespace boost { namespace text {
         int cap_;
     };
 
-}}
+}}}
 
 #endif

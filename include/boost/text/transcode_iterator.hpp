@@ -14,7 +14,7 @@
 #include <stdexcept>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     namespace {
         constexpr uint16_t high_surrogate_base = 0xd7c0;
@@ -3529,6 +3529,6 @@ namespace boost { namespace text {
         return utf_8_to_16_back_insert_iterator<Container>(c);
     }
 
-}}
+}}}
 
 #endif

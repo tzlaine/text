@@ -8,7 +8,7 @@
 #include <algorithm>
 
 
-namespace boost { namespace text { namespace detail {
+namespace boost { namespace text { inline namespace v1 { namespace detail {
 
     inline bool appears_at_noninitial_position_of_decomp(uint32_t cp) noexcept
     {
@@ -283,6 +283,6 @@ namespace boost { namespace text { namespace detail {
         return canonical_closure_combinations(segment_results, total, out);
     }
 
-}}}
+}}}}
 
 #endif

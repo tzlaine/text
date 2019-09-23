@@ -52,7 +52,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS WITH THE SOFTWARE.
 #endif
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     namespace detail {
         template<typename OutIter>
@@ -703,6 +703,6 @@ namespace boost { namespace text {
             r, out);
     }
 
-}}
+}}}
 
 #endif

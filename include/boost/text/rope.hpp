@@ -24,7 +24,7 @@
 
 #endif
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     namespace detail {
         struct const_rope_iterator;
@@ -471,7 +471,7 @@ namespace boost { namespace text {
         return t.crend();
     }
 
-}}
+}}}
 
 #include <boost/text/text.hpp>
 #include <boost/text/rope_view.hpp>
@@ -480,7 +480,7 @@ namespace boost { namespace text {
 
 #ifndef BOOST_TEXT_DOXYGEN
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     inline rope::rope(const_iterator first, const_iterator last) :
         rope(rope_view(first, last))
@@ -933,11 +933,11 @@ namespace boost { namespace text {
             rope_.begin(), first_cp_of_grapheme_it.base(), rope_.end());
     }
 
-}}
+}}}
 
 #endif
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     inline bool operator==(text const & lhs, rope_view rhs) noexcept
     {
@@ -1135,7 +1135,7 @@ namespace boost { namespace text {
         return *this;
     }
 
-}}
+}}}
 
 #ifndef BOOST_TEXT_DOXYGEN
 

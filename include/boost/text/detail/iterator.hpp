@@ -7,7 +7,7 @@
 #include <iterator>
 
 
-namespace boost { namespace text { namespace detail {
+namespace boost { namespace text { inline namespace v1 { namespace detail {
 
     using reverse_char_iterator = stl_interfaces::reverse_iterator<char *>;
     using const_reverse_char_iterator =
@@ -59,6 +59,6 @@ namespace boost { namespace text { namespace detail {
     using const_reverse_repeated_chars_iterator =
         stl_interfaces::reverse_iterator<const_repeated_chars_iterator>;
 
-}}}
+}}}}
 
 #endif

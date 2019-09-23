@@ -13,7 +13,7 @@
 #include <climits>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     struct text;
 
@@ -166,11 +166,11 @@ namespace boost { namespace text {
 
     inline int operator+(text_view const & t, char const * c_str) = delete;
 
-}}
+}}}
 
 #include <boost/text/text.hpp>
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     inline text_view::text_view(text const & t) noexcept :
         first_(t.begin()),
@@ -183,7 +183,7 @@ namespace boost { namespace text {
         last_(range.end())
     {}
 
-}}
+}}}
 
 #ifndef BOOST_TEXT_DOXYGEN
 

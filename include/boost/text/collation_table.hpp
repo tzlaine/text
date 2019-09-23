@@ -27,7 +27,7 @@ namespace boost { namespace filesystem {
 
 #endif
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     namespace detail {
 
@@ -1226,7 +1226,7 @@ namespace boost { namespace text {
             suppress_impl(table, first_cp_subseq, true);
         }
     }
-}}
+}}}
 
 #ifndef BOOST_TEXT_DOXYGEN
 
@@ -1251,7 +1251,7 @@ namespace std {
 
 #endif
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     namespace detail {
 
@@ -1326,11 +1326,11 @@ namespace boost { namespace text {
         parser_diagnostic_callback report_warnings =
             parser_diagnostic_callback());
 
-}}
+}}}
 
 #include <boost/text/collate.hpp>
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     inline collation_compare collation_table::compare(
         collation_strength strength,
@@ -1734,6 +1734,6 @@ namespace boost { namespace text {
         }
     }
 
-}}
+}}}
 
 #endif

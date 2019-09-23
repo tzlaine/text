@@ -4,14 +4,14 @@
 #include <boost/text/detail/iterator.hpp>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     struct unencoded_rope_view;
     struct rope_view;
 
-}}
+}}}
 
-namespace boost { namespace text { namespace detail {
+namespace boost { namespace text { inline namespace v1 { namespace detail {
 
     struct const_rope_iterator : stl_interfaces::iterator_interface<
                                      const_rope_iterator,
@@ -215,6 +215,6 @@ namespace boost { namespace text { namespace detail {
         which which_;
     };
 
-}}}
+}}}}
 
 #endif

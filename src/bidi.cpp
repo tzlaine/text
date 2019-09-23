@@ -9,7 +9,7 @@
 #include <unordered_map>
 
 
-namespace boost { namespace text { namespace detail {
+namespace boost { namespace text { inline namespace v1 { namespace detail {
 
 std::array<bidi_prop_interval, 55> const & make_bidi_prop_intervals()
 {
@@ -4424,4 +4424,4 @@ BOOST_ASSERT(retval.size() == 19501);
 return retval;
 }
 
-}}}
+}}}}

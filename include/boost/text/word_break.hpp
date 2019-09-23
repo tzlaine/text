@@ -11,7 +11,7 @@
 #include <stdint.h>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     /** The word properties defined by Unicode. */
     enum class word_property {
@@ -1446,6 +1446,6 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
 
 #endif
 
-}}
+}}}
 
 #endif

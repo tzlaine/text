@@ -27,7 +27,7 @@
 
 #endif
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     struct string_view;
     struct string;
@@ -612,14 +612,14 @@ namespace boost { namespace text {
         return t.crend();
     }
 
-}}
+}}}
 
 #include <boost/text/string.hpp>
 #include <boost/text/text_view.hpp>
 #include <boost/text/rope.hpp>
 #include <boost/text/normalize.hpp>
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     namespace literals {
 
@@ -1154,7 +1154,7 @@ namespace boost { namespace text {
 
 #endif
 
-}}
+}}}
 
 #ifndef BOOST_TEXT_DOXYGEN
 

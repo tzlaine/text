@@ -22,7 +22,7 @@
 #endif
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     /** A collation sort key.  Consists of a sequence of 32-bit values. */
     struct text_sort_key
@@ -1153,11 +1153,11 @@ namespace boost { namespace text {
 
 #endif
 
-}}
+}}}
 
 #include <boost/text/collation_table.hpp>
 
-namespace boost { namespace text { namespace detail {
+namespace boost { namespace text { inline namespace v1 { namespace detail {
 
     template<typename CPIter, typename Sentinel>
     auto collation_sort_key(
@@ -1241,7 +1241,7 @@ namespace boost { namespace text { namespace detail {
         return text_sort_key(std::move(bytes));
     }
 
-}}}
+}}}}
 
 #ifndef BOOST_TEXT_DOXYGEN
 

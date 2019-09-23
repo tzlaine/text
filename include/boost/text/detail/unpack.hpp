@@ -4,7 +4,7 @@
 #include <boost/text/transcode_iterator.hpp>
 
 
-namespace boost { namespace text { namespace detail {
+namespace boost { namespace text { inline namespace v1 { namespace detail {
 
     struct utf8_tag
     {};
@@ -205,6 +205,6 @@ namespace boost { namespace text { namespace detail {
         return unpack_iterator_and_sentinel(first.base(), last);
     }
 
-}}}
+}}}}
 
 #endif

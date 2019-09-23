@@ -6,7 +6,7 @@
 #include <boost/endian/buffers.hpp>
 
 
-namespace boost { namespace text { namespace detail {
+namespace boost { namespace text { inline namespace v1 { namespace detail {
 
     enum current_version : int { serialization_version = 0 };
 
@@ -267,6 +267,6 @@ namespace boost { namespace text { namespace detail {
         }
     }
 
-}}}
+}}}}
 
 #endif

@@ -34,7 +34,7 @@
 #include <mutex>
 
 
-namespace boost { namespace text { namespace detail { namespace icu {
+namespace boost { namespace text { inline namespace v1 { namespace detail { namespace icu {
 
     // Copy/pasted from unorm2.h.
     /**
@@ -2333,6 +2333,6 @@ namespace boost { namespace text { namespace detail { namespace icu {
         return impl.getCCFromYesOrMaybeCP(c);
     }
 
-}}}}
+}}}}}
 
 #endif

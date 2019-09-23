@@ -8,7 +8,7 @@
 #include <initializer_list>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     namespace detail {
 
@@ -424,6 +424,6 @@ namespace boost { namespace text {
 #endif
     };
 
-}}
+}}}
 
 #endif

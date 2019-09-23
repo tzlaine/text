@@ -23,7 +23,7 @@
 #include <stdint.h>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     /** The line properties defined by Unicode. */
     enum class line_property {
@@ -2453,6 +2453,6 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 
 #endif
 
-}}
+}}}
 
 #endif

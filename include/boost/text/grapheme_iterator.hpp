@@ -13,7 +13,7 @@
 #include <stdexcept>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     /** A bidirectional filtering iterator that iterates over the extended
         grapheme clusters in a sequence of code points. */
@@ -182,6 +182,6 @@ namespace boost { namespace text {
         return it.base() != s;
     }
 
-}}
+}}}
 
 #endif

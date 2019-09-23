@@ -8,7 +8,7 @@
 #include <iterator>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     namespace detail {
         struct rope_iterator;
@@ -173,14 +173,14 @@ namespace boost { namespace text {
         return tv.rend();
     }
 
-}}
+}}}
 
 #include <boost/text/text.hpp>
 #include <boost/text/rope.hpp>
 #include <boost/text/unencoded_rope_view.hpp>
 #include <boost/text/detail/rope_iterator.hpp>
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     inline rope_view::rope_view(text const & t) noexcept :
         view_(string_view(t.begin().base().base(), t.storage_bytes()))
@@ -234,7 +234,7 @@ namespace boost { namespace text {
                             first, last, last}};
     }
 
-}}
+}}}
 
 #ifndef BOOST_TEXT_DOXYGEN
 

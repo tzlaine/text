@@ -12,7 +12,7 @@
 #include <stdint.h>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     /** The grapheme properties defined by Unicode. */
     enum class grapheme_property {
@@ -476,6 +476,6 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
 
 #endif
 
-}}
+}}}
 
 #endif

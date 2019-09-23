@@ -18,7 +18,7 @@
 #include <stack>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     namespace detail {
         struct bidi_prop_interval
@@ -2720,6 +2720,6 @@ namespace boost { namespace text {
 
 #endif
 
-}}
+}}}
 
 #endif

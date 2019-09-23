@@ -40,7 +40,7 @@
 #include <boost/text/detail/icu/utf.hpp>
 
 
-namespace boost { namespace text { namespace detail { namespace icu {
+namespace boost { namespace text { inline namespace v1 { namespace detail { namespace icu {
 
     /**
      * Does this code unit (byte) encode a code point by itself (US-ASCII
@@ -367,6 +367,6 @@ namespace boost { namespace text { namespace detail { namespace icu {
         }
     }
 
-}}}}
+}}}}}
 
 #endif

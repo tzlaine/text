@@ -13,7 +13,7 @@
 #include <stdint.h>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     /** The sentence properties defined by Unicode. */
     enum class sentence_property {
@@ -946,6 +946,6 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
 
 #endif
 
-}}
+}}}
 
 #endif

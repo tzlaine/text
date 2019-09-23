@@ -7,7 +7,7 @@
 #include <boost/text/detail/icu/norm2_nfkc_data.hpp>
 
 
-namespace boost { namespace text { namespace detail { namespace icu {
+namespace boost { namespace text { inline namespace v1 { namespace detail { namespace icu {
 
     inline Normalizer2Impl & nfc_norm()
     {
@@ -80,6 +80,6 @@ namespace boost { namespace text { namespace detail { namespace icu {
         bool out() const { return true; }
     };
 
-}}}}
+}}}}}
 
 #endif

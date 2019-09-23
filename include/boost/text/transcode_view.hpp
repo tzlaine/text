@@ -6,7 +6,7 @@
 #include <boost/stl_interfaces/view_interface.hpp>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     namespace detail {
 
@@ -402,6 +402,6 @@ namespace boost { namespace text {
         return detail::as_utf32_dispatch<Range>::call(r);
     }
 
-}}
+}}}
 
 #endif

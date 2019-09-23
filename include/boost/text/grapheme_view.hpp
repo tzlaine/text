@@ -8,7 +8,7 @@
 #include <boost/stl_interfaces/view_interface.hpp>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     namespace detail {
         template<typename CPIter, typename Sentinel>
@@ -145,6 +145,6 @@ namespace boost { namespace text {
         return detail::as_graphemes_dispatch<Range>::call(r);
     }
 
-}}
+}}}
 
 #endif

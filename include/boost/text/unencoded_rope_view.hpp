@@ -5,7 +5,7 @@
 #include <boost/text/detail/rope.hpp>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     struct unencoded_rope;
 
@@ -396,11 +396,11 @@ namespace boost { namespace text {
     inline int
     operator+(unencoded_rope_view lhs, unencoded_rope_view rhs) = delete;
 
-}}
+}}}
 
 #include <boost/text/unencoded_rope.hpp>
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     inline unencoded_rope_view repeated_string_view::
     operator()(size_type lo, size_type hi) const
@@ -414,7 +414,7 @@ namespace boost { namespace text {
         return unencoded_rope_view(*this)(cut);
     }
 
-}}
+}}}
 
 #ifndef BOOST_TEXT_DOXYGEN
 

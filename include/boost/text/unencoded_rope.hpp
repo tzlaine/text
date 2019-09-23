@@ -11,7 +11,7 @@
 #endif
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     struct unencoded_rope_view;
 
@@ -596,14 +596,14 @@ namespace boost { namespace text {
 #endif
     };
 
-}}
+}}}
 
 #include <boost/text/detail/rope_iterator.hpp>
 #include <boost/text/unencoded_rope_view.hpp>
 
 #ifndef BOOST_TEXT_DOXYGEN
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     inline unencoded_rope::unencoded_rope(char const * c_str) : ptr_(nullptr)
     {
@@ -1086,11 +1086,11 @@ namespace boost { namespace text {
                rv.ref_.r_.r_ == this;
     }
 
-}}
+}}}
 
 #endif
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     inline bool
     operator==(char const * lhs, unencoded_rope const & rhs) noexcept
@@ -1699,7 +1699,7 @@ namespace boost { namespace text {
         }
 #endif
     }
-}}
+}}}
 
 #ifndef BOOST_TEXT_DOXYGEN
 

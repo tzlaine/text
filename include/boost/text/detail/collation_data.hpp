@@ -20,7 +20,7 @@
 #endif
 
 
-namespace boost { namespace text { namespace detail {
+namespace boost { namespace text { inline namespace v1 { namespace detail {
 
     struct collation_element
     {
@@ -380,6 +380,6 @@ namespace boost { namespace text { namespace detail {
         return lzw_to_trie_key_iter<OutIter>(out, buf);
     }
 
-}}}
+}}}}
 
 #endif

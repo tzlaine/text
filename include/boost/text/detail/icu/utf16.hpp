@@ -39,7 +39,7 @@
 #include <boost/text/detail/icu/utf.hpp>
 
 
-namespace boost { namespace text { namespace detail { namespace icu {
+namespace boost { namespace text { inline namespace v1 { namespace detail { namespace icu {
 
     /* single-code point definitions
      * -------------------------------------------- */
@@ -294,6 +294,6 @@ namespace boost { namespace text { namespace detail { namespace icu {
         }
     }
 
-}}}}
+}}}}}
 
 #endif

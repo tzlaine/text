@@ -7,7 +7,7 @@
 #include <boost/text/detail/icu/normalize.hpp>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     namespace detail {
         namespace {
@@ -330,6 +330,6 @@ namespace boost { namespace text {
             s.swap(temp);
     }
 
-}}
+}}}
 
 #endif

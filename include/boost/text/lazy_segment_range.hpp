@@ -6,7 +6,7 @@
 #include <boost/stl_interfaces/iterator_interface.hpp>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     namespace detail {
         template<
@@ -187,6 +187,6 @@ namespace boost { namespace text {
         iterator last_;
     };
 
-}}
+}}}
 
 #endif

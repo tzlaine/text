@@ -12,7 +12,7 @@
 #include <iomanip>
 
 
-namespace boost { namespace text { namespace detail {
+namespace boost { namespace text { inline namespace v1 { namespace detail {
 
     struct token
     {
@@ -551,6 +551,6 @@ namespace boost { namespace text { namespace detail {
         return retval;
     }
 
-}}}
+}}}}
 
 #endif

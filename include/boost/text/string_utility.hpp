@@ -6,7 +6,7 @@
 #include <boost/text/detail/sentinel_tag.hpp>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -42,6 +42,6 @@ namespace boost { namespace text {
 
 #endif
 
-}}
+}}}
 
 #endif

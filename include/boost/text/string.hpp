@@ -16,7 +16,7 @@
 #include <memory>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     struct string_view;
     struct repeated_string_view;
@@ -925,11 +925,11 @@ namespace boost { namespace text {
         return s.crend();
     }
 
-}}
+}}}
 
 #include <boost/text/string_view.hpp>
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace v1 {
 
     namespace literals {
 
@@ -1642,7 +1642,7 @@ namespace boost { namespace text {
 
 #endif
 
-}}
+}}}
 
 #ifndef BOOST_TEXT_DOXYGEN
 

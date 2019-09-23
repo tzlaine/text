@@ -8,7 +8,7 @@
 #include <boost/text/detail/btree.hpp>
 
 
-namespace boost { namespace text { namespace detail {
+namespace boost { namespace text { inline namespace v1 { namespace detail {
 
     struct rope_tag;
 
@@ -370,6 +370,6 @@ namespace boost { namespace text { namespace detail {
         return os;
     }
 
-}}}
+}}}}
 
 #endif
