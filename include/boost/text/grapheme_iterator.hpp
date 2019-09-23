@@ -15,6 +15,37 @@
 
 namespace boost { namespace text { inline namespace v1 {
 
+    namespace detail {
+        template<typename ResultType, typename Iterator, typename Sentinel>
+        constexpr auto
+        make_iter(Iterator first, Iterator it, Sentinel last) noexcept
+            -> decltype(ResultType(first, it, last))
+        {
+            return ResultType(first, it, last);
+        }
+        template<typename ResultType>
+        constexpr auto
+        make_iter(ResultType first, ResultType it, ResultType last) noexcept
+            -> decltype(ResultType(it))
+        {
+            return it;
+        }
+        template<typename ResultType, typename Sentinel>
+        constexpr auto
+        make_iter(ResultType first, ResultType it, Sentinel last) noexcept
+            -> decltype(ResultType(it))
+        {
+            return it;
+        }
+        template<typename ResultType, typename Iterator>
+        constexpr auto
+        make_iter(Iterator first, ResultType it, ResultType last) noexcept
+            -> decltype(ResultType(it))
+        {
+            return it;
+        }
+    }
+
     /** A bidirectional filtering iterator that iterates over the extended
         grapheme clusters in a sequence of code points. */
     template<typename CPIter, typename Sentinel = CPIter>
@@ -25,7 +56,9 @@ namespace boost { namespace text { inline namespace v1 {
         using pointer = stl_interfaces::proxy_arrow_result<value_type>;
         using reference = value_type;
         using iterator_category = std::bidirectional_iterator_tag;
+
         using iterator_type = CPIter;
+        using sentinel_type = Sentinel;
 
         static_assert(
             detail::is_cp_iter<CPIter>::value,
@@ -40,13 +73,23 @@ namespace boost { namespace text { inline namespace v1 {
             "grapheme_iterator requires its CPIter parameter to be at least "
             "bidirectional.");
 
-        grapheme_iterator() noexcept : grapheme_{} {}
+        grapheme_iterator() noexcept = default;
 
-        grapheme_iterator(CPIter first, CPIter it, Sentinel last) noexcept :
-            grapheme_{it, next_grapheme_break(it, last)},
-            first_(first),
-            last_(last)
-        {}
+        grapheme_iterator(CPIter first, CPIter it, Sentinel last) noexcept
+        {
+            {
+                auto r = detail::unpack_iterator_and_sentinel(first, last);
+                first_ = r.f_;
+                last_ = r.l_;
+            }
+            {
+                grapheme_first_ =
+                    detail::unpack_iterator_and_sentinel(it, last).f_;
+                grapheme_last_ = detail::unpack_iterator_and_sentinel(
+                                     next_grapheme_break(it, last), last)
+                                     .f_;
+            }
+        }
 
         template<
             typename CPIter2,
@@ -55,20 +98,26 @@ namespace boost { namespace text { inline namespace v1 {
                 std::is_convertible<CPIter2, CPIter>::value &&
                 std::is_convertible<Sentinel2, Sentinel>::value>>
         grapheme_iterator(grapheme_iterator<CPIter2, Sentinel2> const & other) :
-            grapheme_(other.grapheme_.begin(), other.grapheme_.end()),
             first_(other.first_),
+            grapheme_first_(other.grapheme_first_),
+            grapheme_last_(other.grapheme_last_),
             last_(other.last_)
         {}
 
-        reference operator*() const noexcept { return grapheme_; }
-        pointer operator->() const noexcept { return pointer(grapheme_); }
+        reference operator*() const noexcept
+        {
+            return value_type(gr_begin(), gr_end());
+        }
+        pointer operator->() const noexcept { return pointer(**this); }
 
-        CPIter base() const noexcept { return grapheme_.begin(); }
+        CPIter base() const noexcept { return gr_begin(); }
 
         grapheme_iterator & operator++() noexcept
         {
-            auto const first = grapheme_.end();
-            grapheme_ = value_type(first, next_grapheme_break(first, last_));
+            CPIter next_break = next_grapheme_break(gr_end(), seq_end());
+            grapheme_first_ = grapheme_last_;
+            grapheme_last_ =
+                detail::unpack_iterator_and_sentinel(next_break, seq_end()).f_;
             return *this;
         }
         grapheme_iterator operator++(int)noexcept
@@ -80,9 +129,11 @@ namespace boost { namespace text { inline namespace v1 {
 
         grapheme_iterator & operator--() noexcept
         {
-            auto const last = grapheme_.begin();
-            grapheme_ = value_type(
-                prev_grapheme_break(first_, std::prev(last), last_), last);
+            CPIter prev_break = prev_grapheme_break(
+                seq_begin(), std::prev(gr_begin()), seq_end());
+            grapheme_last_ = grapheme_first_;
+            grapheme_first_ =
+                detail::unpack_iterator_and_sentinel(prev_break, seq_end()).f_;
             return *this;
         }
         grapheme_iterator operator--(int)noexcept
@@ -104,9 +155,36 @@ namespace boost { namespace text { inline namespace v1 {
         }
 
     private:
-        value_type grapheme_;
-        CPIter first_;
-        Sentinel last_;
+        using iterator_t =
+            decltype(detail::unpack_iterator_and_sentinel(
+                         std::declval<CPIter>(), std::declval<Sentinel>())
+                         .f_);
+        using sentinel_t =
+            decltype(detail::unpack_iterator_and_sentinel(
+                         std::declval<CPIter>(), std::declval<Sentinel>())
+                         .l_);
+
+        CPIter seq_begin() const noexcept
+        {
+            return detail::make_iter<CPIter>(first_, first_, last_);
+        }
+        CPIter gr_begin() const noexcept
+        {
+            return detail::make_iter<CPIter>(first_, grapheme_first_, last_);
+        }
+        CPIter gr_end() const noexcept
+        {
+            return detail::make_iter<CPIter>(first_, grapheme_last_, last_);
+        }
+        Sentinel seq_end() const noexcept
+        {
+            return detail::make_iter<Sentinel>(first_, last_, last_);
+        }
+
+        iterator_t first_;
+        iterator_t grapheme_first_;
+        iterator_t grapheme_last_;
+        sentinel_t last_;
 
         template<typename CPIter2, typename Sentinel2>
         friend struct grapheme_iterator;
