@@ -12,16 +12,6 @@ namespace boost { namespace text { inline namespace v1 {
 
     namespace detail {
         template<typename CPIter, typename Sentinel>
-        auto make_gr_view_last(CPIter first, Sentinel last)
-        {
-            return last;
-        }
-        template<typename CPIter>
-        auto make_gr_view_last(CPIter first, CPIter last)
-        {
-            return grapheme_iterator<CPIter>(first, last, last);
-        }
-        template<typename CPIter, typename Sentinel>
         using gr_view_sentinel_t = std::conditional_t<
             std::is_same<CPIter, Sentinel>::value,
             grapheme_iterator<CPIter, Sentinel>,
@@ -50,7 +40,7 @@ namespace boost { namespace text { inline namespace v1 {
             of graphemes that `begin()` and `end()` lie within. */
         constexpr grapheme_view(CPIter first, Sentinel last) :
             first_(first, first, last),
-            last_(detail::make_gr_view_last(first, last))
+            last_(detail::make_iter<sentinel>(first, last, last))
         {}
 
         /** Construct a view covering a subset of the view of graphemes that

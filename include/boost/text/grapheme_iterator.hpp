@@ -42,23 +42,17 @@ namespace boost { namespace text { inline namespace v1 {
             "grapheme_iterator requires its CPIter parameter to be at least "
             "bidirectional.");
 
-        grapheme_iterator() noexcept = default;
+        constexpr grapheme_iterator() noexcept = default;
 
-        grapheme_iterator(CPIter first, CPIter it, Sentinel last) noexcept
-        {
-            {
-                auto r = detail::unpack_iterator_and_sentinel(first, last);
-                first_ = r.f_;
-                last_ = r.l_;
-            }
-            {
-                grapheme_first_ =
-                    detail::unpack_iterator_and_sentinel(it, last).f_;
-                grapheme_last_ = detail::unpack_iterator_and_sentinel(
-                                     next_grapheme_break(it, last), last)
-                                     .f_;
-            }
-        }
+        constexpr grapheme_iterator(
+            CPIter first, CPIter it, Sentinel last) noexcept :
+            first_(detail::unpack_iterator_and_sentinel(first, last).f_),
+            grapheme_first_(detail::unpack_iterator_and_sentinel(it, last).f_),
+            grapheme_last_(detail::unpack_iterator_and_sentinel(
+                               next_grapheme_break(it, last), last)
+                               .f_),
+            last_(detail::unpack_iterator_and_sentinel(first, last).l_)
+        {}
 
         template<
             typename CPIter2,
@@ -66,22 +60,26 @@ namespace boost { namespace text { inline namespace v1 {
             typename Enable = std::enable_if_t<
                 std::is_convertible<CPIter2, CPIter>::value &&
                 std::is_convertible<Sentinel2, Sentinel>::value>>
-        grapheme_iterator(grapheme_iterator<CPIter2, Sentinel2> const & other) :
+        constexpr grapheme_iterator(
+            grapheme_iterator<CPIter2, Sentinel2> const & other) :
             first_(other.first_),
             grapheme_first_(other.grapheme_first_),
             grapheme_last_(other.grapheme_last_),
             last_(other.last_)
         {}
 
-        reference operator*() const noexcept
+        constexpr reference operator*() const noexcept
         {
             return value_type(gr_begin(), gr_end());
         }
-        pointer operator->() const noexcept { return pointer(**this); }
+        constexpr pointer operator->() const noexcept
+        {
+            return pointer(**this);
+        }
 
-        CPIter base() const noexcept { return gr_begin(); }
+        constexpr CPIter base() const noexcept { return gr_begin(); }
 
-        grapheme_iterator & operator++() noexcept
+        constexpr grapheme_iterator & operator++() noexcept
         {
             CPIter next_break = next_grapheme_break(gr_end(), seq_end());
             grapheme_first_ = grapheme_last_;
@@ -89,14 +87,14 @@ namespace boost { namespace text { inline namespace v1 {
                 detail::unpack_iterator_and_sentinel(next_break, seq_end()).f_;
             return *this;
         }
-        grapheme_iterator operator++(int)noexcept
+        constexpr grapheme_iterator operator++(int)noexcept
         {
             grapheme_iterator retval = *this;
             ++*this;
             return retval;
         }
 
-        grapheme_iterator & operator--() noexcept
+        constexpr grapheme_iterator & operator--() noexcept
         {
             CPIter prev_break = prev_grapheme_break(
                 seq_begin(), std::prev(gr_begin()), seq_end());
@@ -105,7 +103,7 @@ namespace boost { namespace text { inline namespace v1 {
                 detail::unpack_iterator_and_sentinel(prev_break, seq_end()).f_;
             return *this;
         }
-        grapheme_iterator operator--(int)noexcept
+        constexpr grapheme_iterator operator--(int)noexcept
         {
             grapheme_iterator retval = *this;
             --*this;
@@ -133,19 +131,19 @@ namespace boost { namespace text { inline namespace v1 {
                          std::declval<CPIter>(), std::declval<Sentinel>())
                          .l_);
 
-        CPIter seq_begin() const noexcept
+        constexpr CPIter seq_begin() const noexcept
         {
             return detail::make_iter<CPIter>(first_, first_, last_);
         }
-        CPIter gr_begin() const noexcept
+        constexpr CPIter gr_begin() const noexcept
         {
             return detail::make_iter<CPIter>(first_, grapheme_first_, last_);
         }
-        CPIter gr_end() const noexcept
+        constexpr CPIter gr_end() const noexcept
         {
             return detail::make_iter<CPIter>(first_, grapheme_last_, last_);
         }
-        Sentinel seq_end() const noexcept
+        constexpr Sentinel seq_end() const noexcept
         {
             return detail::make_iter<Sentinel>(first_, last_, last_);
         }
