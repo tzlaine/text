@@ -1078,7 +1078,7 @@ char const utf8_null[11] = {0x4d,
                             char(0x82),
                             0};
 
-TEST(transcode_view, as_utf8)
+TEST(transcode_view, as_utfN)
 {
     // array
     {
@@ -1237,5 +1237,31 @@ TEST(transcode_view, as_utf8)
         static_assert(
             std::is_same<decltype(r.begin()), char const *>::value, "");
         static_assert(std::is_same<decltype(r.end()), char const *>::value, "");
+    }
+}
+
+TEST(transcode_view, stream_insertion)
+{
+    std::string const truth = utf8_null;
+    {
+        char const * ptr = utf8_null;
+        auto r = as_utf8(ptr);
+        std::stringstream ss;
+        ss << r;
+        EXPECT_EQ(ss.str(), truth);
+    }
+    {
+        char const * ptr = utf8_null;
+        auto r = as_utf16(ptr);
+        std::stringstream ss;
+        ss << r;
+        EXPECT_EQ(ss.str(), truth);
+    }
+    {
+        char const * ptr = utf8_null;
+        auto r = as_utf32(ptr);
+        std::stringstream ss;
+        ss << r;
+        EXPECT_EQ(ss.str(), truth);
     }
 }

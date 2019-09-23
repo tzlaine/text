@@ -1,6 +1,7 @@
 #ifndef BOOST_TEXT_TRANSCODE_VIEW_HPP
 #define BOOST_TEXT_TRANSCODE_VIEW_HPP
 
+#include <boost/text/transcode_algorithm.hpp>
 #include <boost/text/detail/unpack.hpp>
 
 #include <boost/stl_interfaces/view_interface.hpp>
@@ -176,7 +177,6 @@ namespace boost { namespace text { inline namespace v1 {
             return !(lhs == rhs);
         }
 
-        // TODO: Needs tests.
         friend std::ostream & operator<<(std::ostream & os, utf8_view v)
         {
             auto out = std::ostreambuf_iterator<char>(os);
@@ -185,7 +185,6 @@ namespace boost { namespace text { inline namespace v1 {
             }
             return os;
         }
-            // TODO: Needs tests.
 #if defined(_MSC_VER)
         friend std::wostream & operator<<(std::wostream & os, utf8_view v)
         {
