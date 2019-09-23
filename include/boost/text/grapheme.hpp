@@ -118,7 +118,7 @@ namespace boost { namespace text {
         using iterator = CPIter;
 
         /** Default ctor. */
-        constexpr grapheme_ref() noexcept : first_(), last_() {}
+        constexpr grapheme_ref() noexcept = default;
 
         /** Constructs *this from the code points [first, last).
 
@@ -126,11 +126,10 @@ namespace boost { namespace text {
             grapheme.
             \pre [first, last) is normalized FCC. */
         constexpr grapheme_ref(CPIter first, CPIter last) noexcept :
-            first_(first),
-            last_(last)
+            utf32_view<CPIter>(first, last)
         {
-            BOOST_ASSERT(next_grapheme_break(first_, last_) == last_);
-            BOOST_ASSERT(normalized_fcc(first_, last_));
+            BOOST_ASSERT(next_grapheme_break(first, last) == last);
+            BOOST_ASSERT(normalized_fcc(first, last));
         }
 
         /** Constructs *this from r.
@@ -138,24 +137,13 @@ namespace boost { namespace text {
             \pre The code points in r comprise at most one grapheme.
             \pre The code points in r are normalized FCC. */
         constexpr grapheme_ref(utf32_view<CPIter> r) noexcept :
-            first_(r.begin()),
-            last_(r.end())
-        {
-            BOOST_ASSERT(next_grapheme_break(first_, last_) == last_);
-            BOOST_ASSERT(normalized_fcc(first_, last_));
-        }
+            grapheme_ref(r.begin(), r.end())
+        {}
 
         /** Constructs *this from g. */
         constexpr grapheme_ref(grapheme const & g) noexcept :
-            first_(g.begin()),
-            last_(g.end())
+            utf32_view<CPIter>(g.begin(), g.end())
         {}
-
-        /** Returns true of *this contains no code points. */
-        constexpr bool empty() const noexcept { return first_ == last_; }
-
-        constexpr iterator begin() const noexcept { return first_; }
-        constexpr iterator end() const noexcept { return last_; }
 
         /** Returns true if lhs the same sequence of code points as rhs. */
         friend constexpr bool
@@ -169,10 +157,6 @@ namespace boost { namespace text {
         {
             return !(lhs == rhs);
         }
-
-    private:
-        iterator first_;
-        iterator last_;
     };
 
     /** Returns the number of bytes g refers to. */
