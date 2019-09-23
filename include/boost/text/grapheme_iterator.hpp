@@ -15,37 +15,6 @@
 
 namespace boost { namespace text { inline namespace v1 {
 
-    namespace detail {
-        template<typename ResultType, typename Iterator, typename Sentinel>
-        constexpr auto
-        make_iter(Iterator first, Iterator it, Sentinel last) noexcept
-            -> decltype(ResultType(first, it, last))
-        {
-            return ResultType(first, it, last);
-        }
-        template<typename ResultType>
-        constexpr auto
-        make_iter(ResultType first, ResultType it, ResultType last) noexcept
-            -> decltype(ResultType(it))
-        {
-            return it;
-        }
-        template<typename ResultType, typename Sentinel>
-        constexpr auto
-        make_iter(ResultType first, ResultType it, Sentinel last) noexcept
-            -> decltype(ResultType(it))
-        {
-            return it;
-        }
-        template<typename ResultType, typename Iterator>
-        constexpr auto
-        make_iter(Iterator first, ResultType it, ResultType last) noexcept
-            -> decltype(ResultType(it))
-        {
-            return it;
-        }
-    }
-
     /** A bidirectional filtering iterator that iterates over the extended
         grapheme clusters in a sequence of code points. */
     template<typename CPIter, typename Sentinel = CPIter>

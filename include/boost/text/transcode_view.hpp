@@ -110,6 +110,35 @@ namespace boost { namespace text { inline namespace v1 {
         {
             return tagged_range<utf32_tag, Iter, Sentinel>{f, l};
         }
+
+        template<typename ResultType, typename Iterator, typename Sentinel>
+        constexpr auto
+        make_iter(Iterator first, Iterator it, Sentinel last) noexcept
+            -> decltype(ResultType(first, it, last))
+        {
+            return ResultType(first, it, last);
+        }
+        template<typename ResultType>
+        constexpr auto
+        make_iter(ResultType first, ResultType it, ResultType last) noexcept
+            -> decltype(ResultType(it))
+        {
+            return it;
+        }
+        template<typename ResultType, typename Sentinel>
+        constexpr auto
+        make_iter(ResultType first, ResultType it, Sentinel last) noexcept
+            -> decltype(ResultType(it))
+        {
+            return it;
+        }
+        template<typename ResultType, typename Iterator>
+        constexpr auto
+        make_iter(Iterator first, ResultType it, ResultType last) noexcept
+            -> decltype(ResultType(it))
+        {
+            return it;
+        }
     }
 
 
@@ -125,12 +154,18 @@ namespace boost { namespace text { inline namespace v1 {
 
         constexpr utf8_view() noexcept {}
         constexpr utf8_view(iterator first, sentinel last) noexcept :
-            first_(first),
-            last_(last)
+            first_(detail::unpack_iterator_and_sentinel(first, last).f_),
+            last_(detail::unpack_iterator_and_sentinel(first, last).l_)
         {}
 
-        constexpr iterator begin() const noexcept { return first_; }
-        constexpr sentinel end() const noexcept { return last_; }
+        constexpr iterator begin() const noexcept
+        {
+            return detail::make_iter<iterator>(first_, first_, last_);
+        }
+        constexpr sentinel end() const noexcept
+        {
+            return detail::make_iter<sentinel>(first_, last_, last_);
+        }
 
         friend constexpr bool operator==(utf8_view lhs, utf8_view rhs)
         {
@@ -150,7 +185,7 @@ namespace boost { namespace text { inline namespace v1 {
             }
             return os;
         }
-        // TODO: Needs tests.
+            // TODO: Needs tests.
 #if defined(_MSC_VER)
         friend std::wostream & operator<<(std::wostream & os, utf8_view v)
         {
@@ -161,8 +196,17 @@ namespace boost { namespace text { inline namespace v1 {
 #endif
 
     private:
-        iterator first_;
-        sentinel last_;
+        using iterator_t =
+            decltype(detail::unpack_iterator_and_sentinel(
+                         std::declval<Iter>(), std::declval<Sentinel>())
+                         .f_);
+        using sentinel_t =
+            decltype(detail::unpack_iterator_and_sentinel(
+                         std::declval<Iter>(), std::declval<Sentinel>())
+                         .l_);
+
+        iterator_t first_;
+        sentinel_t last_;
     };
 
     /** Returns a `utf8_view` over the data in `[first, last)`, transcoding
@@ -224,12 +268,18 @@ namespace boost { namespace text { inline namespace v1 {
 
         constexpr utf16_view() noexcept {}
         constexpr utf16_view(iterator first, sentinel last) noexcept :
-            first_(first),
-            last_(last)
+            first_(detail::unpack_iterator_and_sentinel(first, last).f_),
+            last_(detail::unpack_iterator_and_sentinel(first, last).l_)
         {}
 
-        constexpr iterator begin() const noexcept { return first_; }
-        constexpr sentinel end() const noexcept { return last_; }
+        constexpr iterator begin() const noexcept
+        {
+            return detail::make_iter<iterator>(first_, first_, last_);
+        }
+        constexpr sentinel end() const noexcept
+        {
+            return detail::make_iter<sentinel>(first_, last_, last_);
+        }
 
         friend constexpr bool operator==(utf16_view lhs, utf16_view rhs)
         {
@@ -258,8 +308,17 @@ namespace boost { namespace text { inline namespace v1 {
 #endif
 
     private:
-        iterator first_;
-        sentinel last_;
+        using iterator_t =
+            decltype(detail::unpack_iterator_and_sentinel(
+                         std::declval<Iter>(), std::declval<Sentinel>())
+                         .f_);
+        using sentinel_t =
+            decltype(detail::unpack_iterator_and_sentinel(
+                         std::declval<Iter>(), std::declval<Sentinel>())
+                         .l_);
+
+        iterator_t first_;
+        sentinel_t last_;
     };
 
     /** Returns a `utf16_view` over the data in `[first, last)`, transcoding
@@ -321,12 +380,18 @@ namespace boost { namespace text { inline namespace v1 {
 
         constexpr utf32_view() noexcept {}
         constexpr utf32_view(iterator first, sentinel last) noexcept :
-            first_(first),
-            last_(last)
+            first_(detail::unpack_iterator_and_sentinel(first, last).f_),
+            last_(detail::unpack_iterator_and_sentinel(first, last).l_)
         {}
 
-        constexpr iterator begin() const noexcept { return first_; }
-        constexpr sentinel end() const noexcept { return last_; }
+        constexpr iterator begin() const noexcept
+        {
+            return detail::make_iter<iterator>(first_, first_, last_);
+        }
+        constexpr sentinel end() const noexcept
+        {
+            return detail::make_iter<sentinel>(first_, last_, last_);
+        }
 
         friend constexpr bool operator==(utf32_view lhs, utf32_view rhs)
         {
@@ -353,8 +418,17 @@ namespace boost { namespace text { inline namespace v1 {
 #endif
 
     private:
-        iterator first_;
-        sentinel last_;
+        using iterator_t =
+            decltype(detail::unpack_iterator_and_sentinel(
+                         std::declval<Iter>(), std::declval<Sentinel>())
+                         .f_);
+        using sentinel_t =
+            decltype(detail::unpack_iterator_and_sentinel(
+                         std::declval<Iter>(), std::declval<Sentinel>())
+                         .l_);
+
+        iterator_t first_;
+        sentinel_t last_;
     };
 
     /** Returns a `utf32_view` over the data in `[first, last)`, transcoding
