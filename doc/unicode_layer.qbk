@@ -49,8 +49,8 @@ files, but the collation data are taken from _cldr_, with language-specific
 tailoring data taken from _ldml_ (a part of the _cldr_ project).
 
 To find out what versions of Unicode and _cldr_ were used to generate _Text_'s
-data, call [funcref boost::text::unicode_version `unicode_version`] or
-[funcref boost::text::cldr_version `cldr_version`], respectively.
+data, call [funcref boost::text::v1::unicode_version `unicode_version`] or
+[funcref boost::text::v1::cldr_version `cldr_version`], respectively.
 
 
 [heading Unicode Layer Parameter Conventions]
@@ -139,17 +139,50 @@ _u32v_:
 
 [to_utf32_terse]
 
-There are output iterator adapters that convert from UTF-32, [funcref
-boost::text::utf_32_to_8_inserter `utf_32_to_8_inserter`] [funcref
-boost::text::utf_32_to_8_back_inserter `utf_32_to_8_back_inserter`],
-[funcref boost::text::utf_32_to_16_inserter `utf_32_to_16_inserter`], and
-[funcref boost::text::utf_32_to_16_back_inserter
-`utf_32_to_16_back_inserter`], that do conversion from UTF-32 and `insert()`
-or `push_back()` in one step.
+All the transcoding iterators are bidirectional.  When each one is
+dereferenced, it may read multiple values from the underlying input range.
+For instance, a `utf_8_to_32_iterator i` has to read 1-4 code units to produce
+a code point when you write `*i`.  Therefore, each of these iterators requires
+the endpoints of the underlying range, to ensure that reads outside the
+underlying range generate replacement characters instead of undefined
+behavior.
 
-Finally, there is [funcref boost::text::to_string `to_string`], which takes
-two UTF-32 iterators and returns a _s_ containing the given sequence,
-UTF-8-encoded.
+In keeping with the ranges and algorithms from `std::ranges`, the transcoding
+iterators accept an underlying input range that may be delimited by different
+types: the range is represented as an iterator-sentinel pair, instead of a
+pair of iterators.  _Text_ provides a null-terminated string sentinel,
+_null_sent_, which can be used to represent a null-terminated string as a
+pointer-_null_sent_ pair.
+
+Each transcoding iterator contains three elements: the `[first, last)` of the
+underlying range, and the current position within that range.  In the worst
+case, a transcoding iterator is the size of three pointers.  If the underlying
+range is end-delimited by a _null_sent_, it may be a bit smaller.
+
+
+[heading Transcoding Output Iterators]
+
+There are output iterator adapters for each of the iterators above.  For each
+transcoding iterator `utf_N_to_M_iterator`, there is are these iterators (and
+their associated functions):
+
+* `utf_N_to_M_out_iterator` - This is an adapting iterator that accepts
+  UTF-`N` values and writes values of type UTF-`M` to an underlying output
+  iterator.  Each write to this iterator may write multiple values to the
+  underlying iterator, depending on `N` and `M`.  You can create one using
+  `utf_N_to_M_out`.
+
+* `utf_N_to_M_insert_iterator` - This is analogous to `std::insert_iterator`,
+  but also does the `N` to `M` transcoding.  You can create one using
+  `utf_N_to_M_inserter`.
+
+* `utf_N_to_M_front_insert_iterator` - This is analogous to
+  `std::front_insert_iterator`, but also does the `N` to `M` transcoding.  You
+  can create one using `utf_N_to_M_front_inserter`.
+
+* `utf_N_to_M_back_insert_iterator` - This is analogous to
+  `std::back_insert_iterator`, but also does the `N` to `M` transcoding.  You
+  can create one using `utf_N_to_M_back_inserter`.
 
 [note The transcoding iterators are available for flexibility.  In particular,
 they can be used with the standard algorithms.  However, this flexibility
@@ -157,12 +190,96 @@ comes at a cost.  When doing a bulk-transcoding operation, using these
 iterators can be substantially slower than using the transcoding algorithms.]
 
 
+[heading Transcoding Views]
+
+Using transcoding iterators directly is a bit verbose and tedious.  Also, when
+you use two transcoding iterators as a range/view, it may be the size of 6
+pointers!
+
+So, both for convenience and for size optimization, _Text_ provides view
+templates for UTF-8, UTF-16, and UTF-32: _u8v_, _u16v_, and _u32v_,
+respectively.  Just as with the transcoding iterators, each view can be
+constructed from a pair of iterators or as an iterator-sentinel pair.
+
+Make-functions _as_u8_, _as_u16_, and _as_u32_, are also provided.  The
+`as_utfN()` functions are overloaded to take an iterator and sentinel, or a
+range:
+
+    std::string str = "some text";
+
+    // These each represent the same range:
+
+    auto const utf32_range_the_hard_way =
+        boost::text::utf32_view<std::string::iterator>(str.begin(), str.end());
+
+    auto const utf32_range_from_utf8_range =
+        boost::text::as_utf32(str);
+
+    auto const utf32_range_from_utf8_iter_and_sentinel =
+        boost::text::as_utf32(str.begin(), str.end());
+
+    auto const utf32_range_from_utf8_iters =
+        boost::text::as_utf32(str.data(), boost::text::null_sentinel{});
+
+To support null-terminated strings, you can just pass a pointer to
+`as_utfN()`:
+
+    auto const range_1 = boost::text::as_utf32("text");         // char const *
+    auto const range_2 = boost::text::as_utf32(u8"more text");  // char8_t const *, in C++20 and later
+    auto const range_3 = boost::text::as_utf32(u16"more text"); // char16_t const *
+    auto const range_4 = boost::text::as_utf32(u32"more text"); // char32_t const *
+
+You can pass any range of 1-, 2-, or 4-byte integral values to `as_utfN()`,
+and you will get a range that transcodes from UTF-8, UTF-16, or UTF-32 to
+UTF-`N`, respectively.
+
+A simple way to represent a transcoding view is as a pair of transcoding
+iterators.  However, there is a problem with that approach, since a
+`utf32_view<utf_8_to_32_iterator<char const *>>` would be a range the size of
+6 pointers.  Worse yet, a
+`utf32_view<utf_8_to_16_iterator<utf_16_to_32_iterator<char const *>>>` would
+be the size of 18 pointers!  Further, such a view would do a UTF-8 to UTF-16
+to UTF-32 conversion, when it could have done a direct UTF-8 to UTF-32
+conversion instead.
+
+To solve these kinds of problems, `as_utfN()` unpacks the iterators it is
+given, so that only the bottom-most underlying pointer or iterator is stored:
+
+    std::string str = "some text";
+
+    auto to_16_first = boost::text::utf_8_to_16_iterator<std::string::iterator>(
+        str.begin(), str.begin(), str.end());
+    auto to_16_last = boost::text::utf_8_to_16_iterator<std::string::iterator>(
+        str.begin(), str.end(), str.end());
+
+    auto to_32_first = boost::text::utf_16_to_32_iterator<
+        boost::text::utf_8_to_16_iterator<std::string::iterator>
+    >(to_16_first, to_16_first, to_16_last);
+    auto to_32_last = boost::text::utf_16_to_32_iterator<
+        boost::text::utf_8_to_16_iterator<std::string::iterator>
+    >(to_16_first, to_16_last, to_16_last);
+
+    auto range = boost::text::as_utf8(to_32_first, to_32_last);
+    static_assert(std::is_same<decltype(range), boost::text::utf8_view<std::string::iterator>>::value, "");
+
+Each of these views stores only the unpacked iterator and sentinel, so each
+view is the size of two pointers, and possibly smaller if a sentinel is used.
+
+The views are all streamable.  They transcode to UTF-8 when streamed to a
+`std::basic_ostream<char>`, and they transcode to UTF-16 when streamed to a
+`std::basic_ostream<wchar_t>` (Windows only).
+
+[note Though it does not produce a `utfN_view`, there is a related function
+_to_str_, which takes two UTF-32 iterators and returns a _s_ containing the
+given sequence, UTF-8-encoded.]
+
+
 [heading Transcoding Algorithms]
 
 When you only need to transcode from one UTF encoding to another, use the
 transcoding algorithms instead of the transcoding iterators.  The algorithms
-are quite a bit faster in most cases (_tc_8_to_32_ is particularly fast, as it
-uses SIMD instructions when available).
+are quite a bit faster in most cases (_tc_8_to_32_ is particularly faster, as
+it uses SIMD instructions when available).
 
 There are six of these, just as there are six transcoding iterators:
 
@@ -179,11 +296,29 @@ invalid encoding.  Unlike the iterators, the algorithms are not configurable
 to handle errors in any other way.
 
 These are fully generic algorithms, and there are overloads that take
-iterator-sentinel pairs as well as ones that take ranges.
+iterator-sentinel pairs as well as ones that take ranges.  Also, the transcode
+algorithms unpack the iterators that they are given, which can be a large
+optimization.  See the description of unpacking in the section on transcode
+views for details.
 
 [important Though these algorithms are generic, some of the optimizations in
 them require pointers on both the input and output iterators for maximum
 performance.  In performance-critical code paths, stick to pointers.]
+
+
+[heading Choosing a Transcoding Mechanism]
+
+Since there are multiple ways to perform transcoding, how do you pick one?
+Here are some guidelines:
+
+* If you need maximum performance, stick to the transcoding algorithms, and in
+  particular use pointers for input and output.
+
+* If you need compatibility with existing iterator-based algorithms (such as
+  the standard algorithms), use the transcoding iterators.
+
+* If you want streamability or the convenience of constructing ranges with a
+  single `as_utfN()` function call, use the transcoding views.
 
 
 [heading Accessing the Underlying UTF-8 chars]
@@ -223,12 +358,6 @@ model _CPIter_, and ranges that model _CPRng_.  There are also algorithms that
 can check if a _cp_ sequence is in a certain normalization form.
 
 [normalize_1]
-
-[warning Beware!  The normalization checks attempt to use a quick-check lookup
-for each code point, to avoid having to do a full normalization.  This quick
-check may be inconclusive for a particular code point a normalization form.
-In this case, a full normalization is performed, and the result is compared to
-the input sequence.]
 
 There are _s_-specific in-place normalization functions as well, in
 _norm_str_header_.
@@ -332,6 +461,13 @@ below indicates whether a certain kind of break is tailorable, and if so, how.
 _Text_ does not support tailoring of _gr_ breaking, because _grs_ are the
 fundamental unit of work for the text layer of the library.  Everyone must
 have the same notion of what a _gr_ is for that to work.
+
+[heading Alternate Grapheme API]
+
+In addition to the interface that is used for all the kinds of text
+segmentation, there is an API just for producing grapheme views, similar to
+the one for producing UTF views.  See _as_grs_ for details.
+
 
 [heading Stream-Safe Format]
 
