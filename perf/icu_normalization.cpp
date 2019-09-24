@@ -47,6 +47,13 @@ void BM_icu_utf8_fcc(benchmark::State & state)
     }
 }
 
+void BM_icu_utf16_fcc(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+        benchmark::DoNotOptimize(to_fcc->normalize(file_contents_ustr, ec));
+    }
+}
+
 void BM_text_utf8_fcc(benchmark::State & state)
 {
     while (state.KeepRunning()) {
@@ -107,6 +114,16 @@ void BM_text_utf8_nfd(benchmark::State & state)
         auto r = boost::text::as_utf32(boost::text::string_view(file_contents));
         benchmark::DoNotOptimize(boost::text::normalize_to_nfd(
             r, boost::text::utf_32_to_8_back_inserter(normalized)));
+    }
+}
+
+void BM_text_utf8_nfd_string_append(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+        std::string result;
+        auto r = boost::text::as_utf32(boost::text::string_view(file_contents));
+        normalize_to_nfd_append_utf8(r, result);
+        benchmark::ClobberMemory();
     }
 }
 
@@ -224,6 +241,16 @@ void BM_text_utf8_nfkd(benchmark::State & state)
     }
 }
 
+void BM_text_utf8_nfkd_string_append(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+        std::string result;
+        auto r = boost::text::as_utf32(boost::text::string_view(file_contents));
+        normalize_to_nfkd_append_utf8(r, result);
+        benchmark::ClobberMemory();
+    }
+}
+
 void BM_text_utf8_nfkd_string(benchmark::State & state)
 {
     while (state.KeepRunning()) {
@@ -276,6 +303,16 @@ void BM_text_utf8_nfkc(benchmark::State & state)
     }
 }
 
+void BM_text_utf8_nfkc_string_append(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+        std::string result;
+        auto r = boost::text::as_utf32(boost::text::string_view(file_contents));
+        normalize_to_nfkc_append_utf8(r, result);
+        benchmark::ClobberMemory();
+    }
+}
+
 void BM_text_utf8_nfkc_string(benchmark::State & state)
 {
     while (state.KeepRunning()) {
@@ -297,12 +334,14 @@ void BM_text_utf32_nfkc(benchmark::State & state)
 }
 
 BENCHMARK(BM_icu_utf8_fcc);
+BENCHMARK(BM_icu_utf16_fcc);
 BENCHMARK(BM_text_utf8_fcc);
 BENCHMARK(BM_text_utf8_fcc_string_append);
 BENCHMARK(BM_text_utf8_fcc_string);
 BENCHMARK(BM_icu_utf8_nfd);
 BENCHMARK(BM_icu_utf16_nfd);
 BENCHMARK(BM_text_utf8_nfd);
+BENCHMARK(BM_text_utf8_nfd_string_append);
 BENCHMARK(BM_text_utf8_nfd_string);
 BENCHMARK(BM_text_utf32_nfd);
 BENCHMARK(BM_icu_utf8_nfc);
@@ -314,11 +353,13 @@ BENCHMARK(BM_text_utf32_nfc);
 BENCHMARK(BM_icu_utf8_nfkd);
 BENCHMARK(BM_icu_utf16_nfkd);
 BENCHMARK(BM_text_utf8_nfkd);
+BENCHMARK(BM_text_utf8_nfkd_string_append);
 BENCHMARK(BM_text_utf8_nfkd_string);
 BENCHMARK(BM_text_utf32_nfkd);
 BENCHMARK(BM_icu_utf8_nfkc);
 BENCHMARK(BM_icu_utf16_nfkc);
 BENCHMARK(BM_text_utf8_nfkc);
+BENCHMARK(BM_text_utf8_nfkc_string_append);
 BENCHMARK(BM_text_utf8_nfkc_string);
 BENCHMARK(BM_text_utf32_nfkc);
 

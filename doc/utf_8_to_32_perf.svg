@@ -1,0 +1,18 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="500" height="100">
+  <g fill="#32a852">
+    <rect width="195.418673022" height="20" y="0"></rect>
+    <text x="200.418673022" y="10.0" dy=".35em">Iterators</text>
+  </g>
+  <g fill="#3f6078">
+    <rect width="300.0" height="20" y="25"></rect>
+    <text x="305.0" y="35.0" dy=".35em">Algorithm std::back_inserter</text>
+  </g>
+  <g fill="#ad3939">
+    <rect width="101.575476167" height="20" y="50"></rect>
+    <text x="106.575476167" y="60.0" dy=".35em">Algorithm using SIMD</text>
+  </g>
+  <g fill="#ad9e39">
+    <rect width="149.878405806" height="20" y="75"></rect>
+    <text x="154.878405806" y="85.0" dy=".35em">Algorithm no SIMD</text>
+  </g>
+</svg>

@@ -1,0 +1,22 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="500" height="125">
+  <g fill="#32a852">
+    <rect width="300.0" height="20" y="0"></rect>
+    <text x="305.0" y="10.0" dy=".35em">Iterators</text>
+  </g>
+  <g fill="#3f6078">
+    <rect width="198.823409643" height="20" y="25"></rect>
+    <text x="203.823409643" y="35.0" dy=".35em">Algorithm std::back_inserter</text>
+  </g>
+  <g fill="#ad3939">
+    <rect width="104.078427805" height="20" y="50"></rect>
+    <text x="109.078427805" y="60.0" dy=".35em">Algorithm using SIMD</text>
+  </g>
+  <g fill="#ad9e39">
+    <rect width="132.059487993" height="20" y="75"></rect>
+    <text x="137.059487993" y="85.0" dy=".35em">Algorithm no SIMD</text>
+  </g>
+  <g fill="#ba45cc">
+    <rect width="118.892376206" height="20" y="100"></rect>
+    <text x="123.892376206" y="110.0" dy=".35em">ICU</text>
+  </g>
+</svg>

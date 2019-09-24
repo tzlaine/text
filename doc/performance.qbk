@@ -1,17 +1,109 @@
-Notes:
+[section Performance Considerations]
+
+[heading Transcoding]
+
+The performance situation for UTF transcoding is complicated, and so bears
+some discussion.  All the charts below were generated using Google Benchmark,
+built with GCC on Linux.
+
+
+[heading UTF-8 to UTF-16]
+
+Here are the relative timings for UTF-8 to UTF-16 transcoding, using various
+methods (smaller is better).  The input was several megabytes of text from
+Wikipedia.  "Iterators" is using `std::copy` from _8_to_16_iter_ to a pointer;
+"Algorithm std::back_inserter" is using _tc_8_to_16_ in the SIMD code path,
+and outputting to a `std::back_insert_iterator`; "Algorithm using SIMD" is
+using _tc_8_to_16_ from pointer to pointer in the SIMD-using code path;
+"Algorithm using SIMD" is using _tc_8_to_16_ from pointer to pointer in the
+non-SIMD code path; and "ICU" is is using `UnicodeString::fromUTF8()`.
+
+[$../../doc/utf_8_to_16_perf.svg]
+
+The ICU performance is shown as something of a baseline, given the ubiquity of
+ICU's use in Unicode-aware programs.  Note that ICU does not have convenient
+APIs for doing transcoding to an format but UTF-16.
+
+There are four take-always from this chart (and in fact all the other
+transcoding data):
+
+* The use of SIMD instructions is helpful, but not critical.
+
+* The use of back-inserters is quite bad for performance.
+
+* The transcoding iterators are terrible for performance.
+
+* All the above only apply to transcode-only operations; more complicated
+  operations are less sensitive to transcoding performance.
+
+A major reason for the performance differences is that the fastest algorithms
+are able to write out chunks of their results all in one go (up to 16 at once
+in the SIMD paths of the transcode algorithms).  Needing to branch on each
+output code unit as in the "Iterators" and "Algorithm std::back_inserter"
+cases is much slower.  One implication of this is that if you're doing a lot
+of work with each code unit or code point produced, you're probably doing a
+lot of branching in the work, and so the gains of using the high-performance
+methods above will be lost.  Specifically, using transcoding iterators to
+complicated Unicode algorithms like the Bidirectional Algorithm do not result
+in much (if any) performance loss.
+
+
+[heading UTF-8 to UTF-32]
+
+These are relative timings for UTF-8 to UTF-32 transcoding.
+
+[$../../doc/utf_8_to_32_perf.svg]
+
+Again, you can see very similar relationships among the different transcoding
+methods, except that the iterator method is a lot faster.
+
+Note that the SIMD algorithm is quite fast.  It and all the SIMD code was
+originally developed by Bob Steagall, and presented at C++Now in 2018.
+Thanks, Bob!
+
+
+[heading Normalization]
+
+[heading NFC]
+
+Here are the relative timings NFC normalization of UTF-8 strings (smaller is
+better).  The input was several megabytes of text from Wikipedia.  "Algorithm
+with back-inserter" is using `normalize_to_nfc(as_utf32(input),
+utf_32_to_8_back_inserter(output))` -- this is the slowest code path, since it
+uses a back-inserter; "String append" uses `normalize_to_fcc_append_utf8()`,
+with pointers used for input and output; "ICU" is the UTF-8-specific
+normalization algorithm from ICU; and "ICU UTF-16" is the UTF-16 normalization
+algorithm from ICU.  "ICU UTF-16" normalizes in UTF-16, not UTF-8; it is shown
+here because it is the fastest code path for ICU.
+
+[$../../doc/norm_nfc_perf.svg]
+
+Not surprisingly (given the earlier results above), using a back-inserter in
+"Algorithm with back-inserter" is quite slow.  The other code paths are all
+able to output long sequences of already-normalized code points in runs, and
+the use of a back-inserter interrupts this important optimization.  In fact,
+since the same transcoding iterator unpacking logic from the transcoding views
+is applied to the normalization algorithms, the only functional difference
+between "Algorithm with back-inserter" and "String append" is the use of the
+back-inserter.  The _Text_ string-appending implementation is a bit faster
+than the equivalent UTF-8 ICU version, and a bit slower than the UTF-16 ICU
+version.
+
+
+[heading FCC]
+
+This is just like the NFC chart, both in its meaning and its results; it is
+shown here for completeness.  Note that the FCC normalization form is what
+_Text_ uses internally in all the test layer types.  See _tn5_ for details.
+
+[$../../doc/norm_fcc_perf.svg]
+
+
+
+[heading Miscellaneous Considerations]
 
 * Using atomic operations for rope ref counts does not seem to incur much
   cost.  In perf tests, copying a _r_ is 8ns with non-atomic ints, vs. 9-10ns
   with atomic ints.  Comparison was done on MacOS.
 
-* It is possible to implement more efficient versions of some of the
-  algorithms.  For instance, find() could use Boyer-Moore instead of the naive
-  linear search that it currently uses.  This was not done so that these
-  algorithms can be available for use in constexpr contexts in C++14 and
-  later.  Note this does not affect any MSVC users, as that compiler do not
-  provide C++14 constexpr support.  C++20 will provides language support for
-  detecting at compile time whether a function is being evaluated in a
-  constexpr context, allowing a constexpr implementation and a more efficient
-  runtime implementation with a single interface.  This only affects the
-  algorithms that _Text_ provides.  Just use the standard algorithms if you
-  see performance problems with the _Text_ ones.
+[endsect]
