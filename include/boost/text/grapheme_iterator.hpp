@@ -42,7 +42,12 @@ namespace boost { namespace text { inline namespace v1 {
             "grapheme_iterator requires its CPIter parameter to be at least "
             "bidirectional.");
 
-        constexpr grapheme_iterator() noexcept = default;
+        constexpr grapheme_iterator() noexcept :
+            first_(),
+            grapheme_first_(),
+            grapheme_last_(),
+            last_()
+        {}
 
         constexpr grapheme_iterator(
             CPIter first, CPIter it, Sentinel last) noexcept :
