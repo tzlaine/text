@@ -25,31 +25,31 @@
 </span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CPIter<span class="special">&gt;</span> 
 <span class="keyword">struct</span> <a class="link" href="line_break_cp_view.html" title="Struct template line_break_cp_view">line_break_cp_view</a> <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">v1</span><span class="special">::</span><span class="identifier">utf32_view</span><span class="special">&lt;</span> <span class="identifier">CPIter</span> <span class="special">&gt;</span> <span class="special">{</span>
   <span class="comment">// <a class="link" href="line_break_cp_view.html#boost.text.v1.line_break_cp_viewconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <a class="link" href="line_break_cp_view.html#idm18500-bb"><span class="identifier">line_break_cp_view</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="line_break_cp_view.html#idm18501-bb"><span class="identifier">line_break_cp_view</span></a><span class="special">(</span><a class="link" href="line_break_result.html" title="Struct template line_break_result">line_break_result</a><span class="special">&lt;</span> <span class="identifier">CPIter</span> <span class="special">&gt;</span><span class="special">,</span> <a class="link" href="line_break_result.html" title="Struct template line_break_result">line_break_result</a><span class="special">&lt;</span> <span class="identifier">CPIter</span> <span class="special">&gt;</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="line_break_cp_view.html#idm19099-bb"><span class="identifier">line_break_cp_view</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="line_break_cp_view.html#idm19100-bb"><span class="identifier">line_break_cp_view</span></a><span class="special">(</span><a class="link" href="line_break_result.html" title="Struct template line_break_result">line_break_result</a><span class="special">&lt;</span> <span class="identifier">CPIter</span> <span class="special">&gt;</span><span class="special">,</span> <a class="link" href="line_break_result.html" title="Struct template line_break_result">line_break_result</a><span class="special">&lt;</span> <span class="identifier">CPIter</span> <span class="special">&gt;</span><span class="special">)</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="line_break_cp_view.html#idm18495-bb">public member functions</a></span>
-  <span class="keyword">bool</span> <a class="link" href="line_break_cp_view.html#idm18496-bb"><span class="identifier">hard_break</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="line_break_cp_view.html#idm19094-bb">public member functions</a></span>
+  <span class="keyword">bool</span> <a class="link" href="line_break_cp_view.html#idm19095-bb"><span class="identifier">hard_break</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="idm26479"></a><h2>Description</h2>
+<a name="idm27466"></a><h2>Description</h2>
 <p>A range of code points that delimit a pair of line break boundaries. </p>
 <div class="refsect2">
-<a name="idm26482"></a><h3>
+<a name="idm27469"></a><h3>
 <a name="boost.text.v1.line_break_cp_viewconstruct-copy-destruct"></a><code class="computeroutput">line_break_cp_view</code> 
         public
        construct/copy/destruct</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><a name="idm18500-bb"></a><span class="identifier">line_break_cp_view</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><a name="idm18501-bb"></a><span class="identifier">line_break_cp_view</span><span class="special">(</span><a class="link" href="line_break_result.html" title="Struct template line_break_result">line_break_result</a><span class="special">&lt;</span> <span class="identifier">CPIter</span> <span class="special">&gt;</span> first<span class="special">,</span> 
+<li class="listitem"><pre class="literallayout"><a name="idm19099-bb"></a><span class="identifier">line_break_cp_view</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idm19100-bb"></a><span class="identifier">line_break_cp_view</span><span class="special">(</span><a class="link" href="line_break_result.html" title="Struct template line_break_result">line_break_result</a><span class="special">&lt;</span> <span class="identifier">CPIter</span> <span class="special">&gt;</span> first<span class="special">,</span> 
                    <a class="link" href="line_break_result.html" title="Struct template line_break_result">line_break_result</a><span class="special">&lt;</span> <span class="identifier">CPIter</span> <span class="special">&gt;</span> last<span class="special">)</span><span class="special">;</span></pre></li>
 </ol></div>
 </div>
 <div class="refsect2">
-<a name="idm26512"></a><h3>
-<a name="idm18495-bb"></a><code class="computeroutput">line_break_cp_view</code> public member functions</h3>
+<a name="idm27499"></a><h3>
+<a name="idm19094-bb"></a><code class="computeroutput">line_break_cp_view</code> public member functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
-<pre class="literallayout"><span class="keyword">bool</span> <a name="idm18496-bb"></a><span class="identifier">hard_break</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">bool</span> <a name="idm19095-bb"></a><span class="identifier">hard_break</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
 <p>Returns true if the end of *this is a hard line break boundary. </p>
 </li></ol></div>
 </div>

@@ -93,7 +93,7 @@
       That's a lot! Some are semantically synonymous, like <code class="computeroutput"><span class="identifier">data</span><span class="special">()</span></code> and <code class="computeroutput"><span class="identifier">begin</span><span class="special">()</span></code>, or <code class="computeroutput"><span class="identifier">append</span><span class="special">()</span></code> and <code class="computeroutput"><span class="keyword">operator</span><span class="special">+=()</span></code>.
     </p>
 <p>
-      <code class="computeroutput">string</code>
+      <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code>
       has these equivalent member functions (<code class="computeroutput"><span class="keyword">operator</span><span class="special">+=()</span></code> still exists, but as a nonmember):
     </p>
 <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
@@ -131,7 +131,7 @@
         </li>
 </ul></div>
 <p>
-      This makes <code class="computeroutput">string</code>
+      This makes <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code>
       a type that is much easier to teach, audit, and write static checks for.
     </p>
 <p>
@@ -199,9 +199,9 @@
     </p>
 <p>
       Boost.Text's types address this by guaranteeing UTF-8 encoding at all times
-      for <code class="computeroutput">text</code>
-      and its related types. <code class="computeroutput">string</code>
-      and its related types are encoding-agnostic.
+      for <code class="computeroutput"><a class="link" href="../boost/text/v1/text.html" title="Struct text">text</a></code>
+      and its related types. <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code> and its related types
+      are encoding-agnostic.
     </p>
 <h4>
 <a name="boost_text__proposed_.why_is_std__string_so_bad_.h3"></a>
@@ -213,7 +213,7 @@
       as copy-on-write, and is contiguous.
     </p>
 <p>
-      Boost.Text provides <code class="computeroutput">unencoded_rope</code> and <code class="computeroutput">rope</code>
+      Boost.Text provides <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code> and <code class="computeroutput"><a class="link" href="../boost/text/v1/rope.html" title="Struct rope">rope</a></code>
       for those times when you want a string type that is thread-safe, copy-on-write,
       or cheap to insert into the middle of.
     </p>

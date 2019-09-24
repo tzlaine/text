@@ -307,7 +307,7 @@
 <p>
         I've made every effort to hide the messy details of collation configuration
         from you, because they are super confusing. Instead, Boost.Text uses a set
-        of <code class="computeroutput">collation_flags</code>
+        of <code class="computeroutput"><a class="link" href="../../boost/text/v1/collation_flags.html" title="Type collation_flags">collation_flags</a></code>
         that have more recognizable semantics. The flags map directly onto the low-level
         configuration settings. If you have C++14 <code class="computeroutput"><span class="keyword">constexpr</span></code>
         support, combinations of the flags that map to incompatible low-level settings
@@ -416,8 +416,8 @@
           Boost.Text's collation implementation relies on the inputs being in the
           FCC normalization form, so the collation functions require inputs to be
           normalized FCC. This happens automatically within the text layer types
-          (<code class="computeroutput">text</code>,
-          <code class="computeroutput">rope</code>,
+          (<code class="computeroutput"><a class="link" href="../../boost/text/v1/text.html" title="Struct text">text</a></code>,
+          <code class="computeroutput"><a class="link" href="../../boost/text/v1/rope.html" title="Struct rope">rope</a></code>,
           etc.).
         </p>
 </td></tr>
@@ -1213,7 +1213,7 @@
       </p>
 <p>
         This is something close to the optimal approach, as clunky as it is. Alternatively,
-        we could sort the <code class="computeroutput">texts</code>
+        we could sort the <code class="computeroutput"><a class="link" href="../../boost/text/v1/text.html" title="Struct text">texts</a></code>
         using a comparator that does a lookup in some side data structure containing
         keys, but that seems even more clunky.
       </p>

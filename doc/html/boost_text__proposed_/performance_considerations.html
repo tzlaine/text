@@ -1,0 +1,178 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Performance Considerations</title>
+<link rel="stylesheet" href="../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="up" href="../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="prev" href="the_text_layer.html" title="The Text Layer">
+<link rel="next" href="segmented_vector_.html" title="segmented_vector">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="the_text_layer.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="segmented_vector_.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="boost_text__proposed_.performance_considerations"></a><a class="link" href="performance_considerations.html" title="Performance Considerations">Performance
+    Considerations</a>
+</h2></div></div></div>
+<h4>
+<a name="boost_text__proposed_.performance_considerations.h0"></a>
+      <span class="phrase"><a name="boost_text__proposed_.performance_considerations.transcoding"></a></span><a class="link" href="performance_considerations.html#boost_text__proposed_.performance_considerations.transcoding">Transcoding</a>
+    </h4>
+<p>
+      The performance situation for UTF transcoding is complicated, and so bears
+      some discussion. All the charts below were generated using Google Benchmark,
+      built with GCC on Linux.
+    </p>
+<h4>
+<a name="boost_text__proposed_.performance_considerations.h1"></a>
+      <span class="phrase"><a name="boost_text__proposed_.performance_considerations.utf_8_to_utf_16"></a></span><a class="link" href="performance_considerations.html#boost_text__proposed_.performance_considerations.utf_8_to_utf_16">UTF-8
+      to UTF-16</a>
+    </h4>
+<p>
+      Here are the relative timings for UTF-8 to UTF-16 transcoding, using various
+      methods (smaller is better). The input was several megabytes of text from Wikipedia.
+      "Iterators" is using <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">copy</span></code> from
+      <code class="computeroutput"><a class="link" href="../boost/text/v1/utf_8_to_16_iterator.html" title="Struct template utf_8_to_16_iterator">utf_8_to_16_iterator</a></code>
+      to a pointer; "Algorithm std::back_inserter" is using <code class="computeroutput"><a class="link" href="../boost/text/v1/transcode_utf_8_t_idm25000.html" title="Function template transcode_utf_8_to_16">transcode_utf_8_to_16()</a></code> in the SIMD code path, and
+      outputting to a <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">back_insert_iterator</span></code>; "Algorithm using
+      SIMD" is using <code class="computeroutput"><a class="link" href="../boost/text/v1/transcode_utf_8_t_idm25000.html" title="Function template transcode_utf_8_to_16">transcode_utf_8_to_16()</a></code>
+      from pointer to pointer in the SIMD-using code path; "Algorithm using
+      SIMD" is using <code class="computeroutput"><a class="link" href="../boost/text/v1/transcode_utf_8_t_idm25000.html" title="Function template transcode_utf_8_to_16">transcode_utf_8_to_16()</a></code>
+      from pointer to pointer in the non-SIMD code path; and "ICU" is is
+      using <code class="computeroutput"><span class="identifier">UnicodeString</span><span class="special">::</span><span class="identifier">fromUTF8</span><span class="special">()</span></code>.
+    </p>
+<p>
+      <span class="inlinemediaobject"><object type="image/svg+xml" data="../../../doc/utf_8_to_16_perf.svg"></object></span>
+    </p>
+<p>
+      The ICU performance is shown as something of a baseline, given the ubiquity
+      of ICU's use in Unicode-aware programs. Note that ICU does not have convenient
+      APIs for doing transcoding to an format but UTF-16.
+    </p>
+<p>
+      There are four take-always from this chart (and in fact all the other transcoding
+      data):
+    </p>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem">
+          The use of SIMD instructions is helpful, but not critical.
+        </li>
+<li class="listitem">
+          The use of back-inserters is quite bad for performance.
+        </li>
+<li class="listitem">
+          The transcoding iterators are terrible for performance.
+        </li>
+<li class="listitem">
+          All the above only apply to transcode-only operations; more complicated
+          operations are less sensitive to transcoding performance.
+        </li>
+</ul></div>
+<p>
+      A major reason for the performance differences is that the fastest algorithms
+      are able to write out chunks of their results all in one go (up to 16 at once
+      in the SIMD paths of the transcode algorithms). Needing to branch on each output
+      code unit as in the "Iterators" and "Algorithm std::back_inserter"
+      cases is much slower. One implication of this is that if you're doing a lot
+      of work with each code unit or code point produced, you're probably doing a
+      lot of branching in the work, and so the gains of using the high-performance
+      methods above will be lost. Specifically, using transcoding iterators to complicated
+      Unicode algorithms like the Bidirectional Algorithm do not result in much (if
+      any) performance loss.
+    </p>
+<h4>
+<a name="boost_text__proposed_.performance_considerations.h2"></a>
+      <span class="phrase"><a name="boost_text__proposed_.performance_considerations.utf_8_to_utf_32"></a></span><a class="link" href="performance_considerations.html#boost_text__proposed_.performance_considerations.utf_8_to_utf_32">UTF-8
+      to UTF-32</a>
+    </h4>
+<p>
+      These are relative timings for UTF-8 to UTF-32 transcoding.
+    </p>
+<p>
+      <span class="inlinemediaobject"><object type="image/svg+xml" data="../../../doc/utf_8_to_32_perf.svg"></object></span>
+    </p>
+<p>
+      Again, you can see very similar relationships among the different transcoding
+      methods, except that the iterator method is a lot faster.
+    </p>
+<p>
+      Note that the SIMD algorithm is quite fast. It and all the SIMD code was originally
+      developed by Bob Steagall, and presented at C++Now in 2018. Thanks, Bob!
+    </p>
+<h4>
+<a name="boost_text__proposed_.performance_considerations.h3"></a>
+      <span class="phrase"><a name="boost_text__proposed_.performance_considerations.normalization"></a></span><a class="link" href="performance_considerations.html#boost_text__proposed_.performance_considerations.normalization">Normalization</a>
+    </h4>
+<h4>
+<a name="boost_text__proposed_.performance_considerations.h4"></a>
+      <span class="phrase"><a name="boost_text__proposed_.performance_considerations.nfc"></a></span><a class="link" href="performance_considerations.html#boost_text__proposed_.performance_considerations.nfc">NFC</a>
+    </h4>
+<p>
+      Here are the relative timings NFC normalization of UTF-8 strings (smaller is
+      better). The input was several megabytes of text from Wikipedia. "Algorithm
+      with back-inserter" is using <code class="computeroutput"><span class="identifier">normalize_to_nfc</span><span class="special">(</span><span class="identifier">as_utf32</span><span class="special">(</span><span class="identifier">input</span><span class="special">),</span>
+      <span class="identifier">utf_32_to_8_back_inserter</span><span class="special">(</span><span class="identifier">output</span><span class="special">))</span></code>
+      -- this is the slowest code path, since it uses a back-inserter; "String
+      append" uses <code class="computeroutput"><span class="identifier">normalize_to_fcc_append_utf8</span><span class="special">()</span></code>, with pointers used for input and output;
+      "ICU" is the UTF-8-specific normalization algorithm from ICU; and
+      "ICU UTF-16" is the UTF-16 normalization algorithm from ICU. "ICU
+      UTF-16" normalizes in UTF-16, not UTF-8; it is shown here because it is
+      the fastest code path for ICU.
+    </p>
+<p>
+      <span class="inlinemediaobject"><object type="image/svg+xml" data="../../../doc/norm_nfc_perf.svg"></object></span>
+    </p>
+<p>
+      Not surprisingly (given the earlier results above), using a back-inserter in
+      "Algorithm with back-inserter" is quite slow. The other code paths
+      are all able to output long sequences of already-normalized code points in
+      runs, and the use of a back-inserter interrupts this important optimization.
+      In fact, since the same transcoding iterator unpacking logic from the transcoding
+      views is applied to the normalization algorithms, the only functional difference
+      between "Algorithm with back-inserter" and "String append"
+      is the use of the back-inserter. The Boost.Text string-appending implementation
+      is a bit faster than the equivalent UTF-8 ICU version, and a bit slower than
+      the UTF-16 ICU version.
+    </p>
+<h4>
+<a name="boost_text__proposed_.performance_considerations.h5"></a>
+      <span class="phrase"><a name="boost_text__proposed_.performance_considerations.fcc"></a></span><a class="link" href="performance_considerations.html#boost_text__proposed_.performance_considerations.fcc">FCC</a>
+    </h4>
+<p>
+      This is just like the NFC chart, both in its meaning and its results; it is
+      shown here for completeness. Note that the FCC normalization form is what Boost.Text
+      uses internally in all the test layer types. See <a href="https://unicode.org/notes/tn5" target="_top">Unicode
+      Technical Note #5</a> for details.
+    </p>
+<p>
+      <span class="inlinemediaobject"><object type="image/svg+xml" data="../../../doc/norm_fcc_perf.svg"></object></span>
+    </p>
+<h4>
+<a name="boost_text__proposed_.performance_considerations.h6"></a>
+      <span class="phrase"><a name="boost_text__proposed_.performance_considerations.miscellaneous_considerations"></a></span><a class="link" href="performance_considerations.html#boost_text__proposed_.performance_considerations.miscellaneous_considerations">Miscellaneous
+      Considerations</a>
+    </h4>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+          Using atomic operations for rope ref counts does not seem to incur much
+          cost. In perf tests, copying a <code class="computeroutput"><a class="link" href="../boost/text/v1/rope.html" title="Struct rope">rope</a></code> is 8ns with non-atomic
+          ints, vs. 9-10ns with atomic ints. Comparison was done on MacOS.
+        </li></ul></div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2018 T. Zachary Laine<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="the_text_layer.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="segmented_vector_.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

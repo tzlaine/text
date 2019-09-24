@@ -23,32 +23,32 @@
     </p>
 <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
-          The <code class="computeroutput">string</code>
+          The <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code>
           layer
         </li>
 <li class="listitem">
           The Unicode layer
         </li>
 <li class="listitem">
-          The <code class="computeroutput">text</code>
+          The <code class="computeroutput"><a class="link" href="../boost/text/v1/text.html" title="Struct text">text</a></code>
           layer
         </li>
 </ul></div>
 <p>
       There are a couple of assorted bits that were necessary or useful to have around
-      when implementing various parts of Boost.Text: <code class="computeroutput">segmented_vector</code> and <code class="computeroutput"><a class="link" href="../boost/trie/trie.html" title="Struct template trie">trie</a></code>/<code class="computeroutput"><a class="link" href="../boost/trie/trie_map.html" title="Struct template trie_map">trie_map</a></code>/<code class="computeroutput"><a class="link" href="../boost/trie/trie_set.html" title="Struct template trie_set">trie_set</a></code>.
+      when implementing various parts of Boost.Text: <code class="computeroutput"><a class="link" href="../boost/text/v1/segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a></code> and <code class="computeroutput"><a class="link" href="../boost/trie/trie.html" title="Struct template trie">trie</a></code>/<code class="computeroutput"><a class="link" href="../boost/trie/trie_map.html" title="Struct template trie_map">trie_map</a></code>/<code class="computeroutput"><a class="link" href="../boost/trie/trie_set.html" title="Struct template trie_set">trie_set</a></code>.
     </p>
 <h4>
 <a name="boost_text__proposed_.an_overview_of_boost_text.h0"></a>
-      <span class="phrase"><a name="boost_text__proposed_.an_overview_of_boost_text.the__classname_alt__boost__text__string___code__phrase_role__identifier__string__phrase___code___classname__layer"></a></span><a class="link" href="an_overview_of_boost_text.html#boost_text__proposed_.an_overview_of_boost_text.the__classname_alt__boost__text__string___code__phrase_role__identifier__string__phrase___code___classname__layer">The
-      <code class="computeroutput">string</code>
+      <span class="phrase"><a name="boost_text__proposed_.an_overview_of_boost_text.the__classname_alt__boost__text__v1__string___code__phrase_role__identifier__string__phrase___code___classname__layer"></a></span><a class="link" href="an_overview_of_boost_text.html#boost_text__proposed_.an_overview_of_boost_text.the__classname_alt__boost__text__v1__string___code__phrase_role__identifier__string__phrase___code___classname__layer">The
+      string
       Layer</a>
     </h4>
 <p>
       The types in this layer are encoding-agnostic. Together, they form an ecosystem
       of types that constitutes "a better <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span></code>".
-      The types in this layer are: <code class="computeroutput">string</code>, <code class="computeroutput">string_view</code>, <code class="computeroutput">repeated_string_view</code>, <code class="computeroutput">unencoded_rope</code>,
-      and <code class="computeroutput">unencoded_rope_view</code>.
+      The types in this layer are: <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code>, <code class="computeroutput"><a class="link" href="../boost/text/v1/string_view.html" title="Struct string_view">string_view</a></code>, <code class="computeroutput"><a class="link" href="../boost/text/v1/repeated_string_view.html" title="Struct repeated_string_view">repeated_string_view</a></code>, <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code>,
+      and <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a></code>.
     </p>
 <h4>
 <a name="boost_text__proposed_.an_overview_of_boost_text.h1"></a>
@@ -90,23 +90,23 @@
 </ul></div>
 <p>
       These algorithms are independent of the other two layers; it is possible to
-      use Boost.Text as a Unicode library without using the either of the <code class="computeroutput">string</code>
-      or <code class="computeroutput">text</code>
+      use Boost.Text as a Unicode library without using the either of the <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code>
+      or <code class="computeroutput"><a class="link" href="../boost/text/v1/text.html" title="Struct text">text</a></code>
       layers.
     </p>
 <h4>
 <a name="boost_text__proposed_.an_overview_of_boost_text.h2"></a>
-      <span class="phrase"><a name="boost_text__proposed_.an_overview_of_boost_text.the__classname_alt__boost__text__text___code__phrase_role__identifier__text__phrase___code___classname__layer"></a></span><a class="link" href="an_overview_of_boost_text.html#boost_text__proposed_.an_overview_of_boost_text.the__classname_alt__boost__text__text___code__phrase_role__identifier__text__phrase___code___classname__layer">The
-      <code class="computeroutput">text</code>
+      <span class="phrase"><a name="boost_text__proposed_.an_overview_of_boost_text.the__classname_alt__boost__text__v1__text___code__phrase_role__identifier__text__phrase___code___classname__layer"></a></span><a class="link" href="an_overview_of_boost_text.html#boost_text__proposed_.an_overview_of_boost_text.the__classname_alt__boost__text__v1__text___code__phrase_role__identifier__text__phrase___code___classname__layer">The
+      text
       Layer</a>
     </h4>
 <p>
       This layer is built on top of the Unicode layer. Its types encode text as UTF-8,
       and maintain FCC normalization. Much of their implementation is done in terms
-      of the algorithms from the Unicode layer. The types in this layer are: <code class="computeroutput">text</code>,
-      <code class="computeroutput">text_view</code>,
-      <code class="computeroutput">rope</code>,
-      and <code class="computeroutput">rope_view</code>.
+      of the algorithms from the Unicode layer. The types in this layer are: <code class="computeroutput"><a class="link" href="../boost/text/v1/text.html" title="Struct text">text</a></code>,
+      <code class="computeroutput"><a class="link" href="../boost/text/v1/text_view.html" title="Struct text_view">text_view</a></code>,
+      <code class="computeroutput"><a class="link" href="../boost/text/v1/rope.html" title="Struct rope">rope</a></code>,
+      and <code class="computeroutput"><a class="link" href="../boost/text/v1/rope_view.html" title="Struct rope_view">rope_view</a></code>.
     </p>
 <h4>
 <a name="boost_text__proposed_.an_overview_of_boost_text.h3"></a>
@@ -118,10 +118,10 @@
       else, that rise to the level of general utility.
     </p>
 <p>
-      First is <code class="computeroutput">segmented_vector</code>.
+      First is <code class="computeroutput"><a class="link" href="../boost/text/v1/segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a></code>.
       This is a discontiguous sequence of <code class="computeroutput"><span class="identifier">T</span></code>,
       for which insertions anywhere in the sequence are cheap, with very cheap copies
-      provided via a copy-on-write mechanism. It is a generalization of <code class="computeroutput">unencoded_rope</code>
+      provided via a copy-on-write mechanism. It is a generalization of <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code>
       for arbitrary <code class="computeroutput"><span class="identifier">T</span></code>.
     </p>
 <p>

@@ -7,33 +7,33 @@
 <link rel="home" href="../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
 <link rel="up" href="../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
 <link rel="prev" href="the_unicode_layer/bidirectional_text.html" title="Bidirectional Text">
-<link rel="next" href="segmented_vector_.html" title="segmented_vector">
+<link rel="next" href="performance_considerations.html" title="Performance Considerations">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <div class="spirit-nav">
-<a accesskey="p" href="the_unicode_layer/bidirectional_text.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="segmented_vector_.html"><img src="../images/next.png" alt="Next"></a>
+<a accesskey="p" href="the_unicode_layer/bidirectional_text.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="performance_considerations.html"><img src="../images/next.png" alt="Next"></a>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="boost_text__proposed_.the_text_layer"></a><a class="link" href="the_text_layer.html" title="The Text Layer">The Text Layer</a>
 </h2></div></div></div>
 <p>
-      The text layer of Boost.Text consists mostly of four types: <code class="computeroutput">text</code>, <code class="computeroutput">text_view</code>, <code class="computeroutput">rope</code>, and <code class="computeroutput">rope_view</code>. These are directly
-      analogous to their string layer counterparts <code class="computeroutput">string</code>, <code class="computeroutput">string_view</code>, <code class="computeroutput">unencoded_rope</code>, and <code class="computeroutput">unencoded_rope_view</code>,
+      The text layer of Boost.Text consists mostly of four types: <code class="computeroutput"><a class="link" href="../boost/text/v1/text.html" title="Struct text">text</a></code>, <code class="computeroutput"><a class="link" href="../boost/text/v1/text_view.html" title="Struct text_view">text_view</a></code>, <code class="computeroutput"><a class="link" href="../boost/text/v1/rope.html" title="Struct rope">rope</a></code>, and <code class="computeroutput"><a class="link" href="../boost/text/v1/rope_view.html" title="Struct rope_view">rope_view</a></code>. These are directly
+      analogous to their string layer counterparts <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code>, <code class="computeroutput"><a class="link" href="../boost/text/v1/string_view.html" title="Struct string_view">string_view</a></code>, <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code>, and <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a></code>,
       respectively. In fact, each of the text layer types has a single data member
       &#8212; an object of the corresponding string layer type.
     </p>
 <p>
-      Let's consider one of the text layer types in particular, <code class="computeroutput">text</code>. It's underlying storage
-      is a <code class="computeroutput">string</code>,
+      Let's consider one of the text layer types in particular, <code class="computeroutput"><a class="link" href="../boost/text/v1/text.html" title="Struct text">text</a></code>. It's underlying storage
+      is a <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code>,
       as mentioned before. The <code class="computeroutput"><span class="keyword">char</span></code>s
-      in the <code class="computeroutput">string</code>
-      are UTF-8 encoded. The code point view of those UTF-8 encoded <code class="computeroutput"><span class="keyword">char</span></code>s is available by using <code class="computeroutput">utf_8_to_32_iterator</code>. Since
-      <code class="computeroutput">utf_8_to_32_iterator</code>
+      in the <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code>
+      are UTF-8 encoded. The code point view of those UTF-8 encoded <code class="computeroutput"><span class="keyword">char</span></code>s is available by using <code class="computeroutput"><a class="link" href="../boost/text/v1/utf_8_to_32_iterator.html" title="Struct template utf_8_to_32_iterator">utf_8_to_32_iterator</a></code>. Since
+      <code class="computeroutput"><a class="link" href="../boost/text/v1/utf_8_to_32_iterator.html" title="Struct template utf_8_to_32_iterator">utf_8_to_32_iterator</a></code>
       generates replacement characters when it encounters a broken encoding, no runtime
       checks ever need to be performed on the encoding of the <code class="computeroutput"><span class="keyword">char</span></code>s
-      in a <code class="computeroutput">text</code>'s
-      <code class="computeroutput">string</code>
+      in a <code class="computeroutput"><a class="link" href="../boost/text/v1/text.html" title="Struct text">text</a></code>'s
+      <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code>
       data member.
     </p>
 <div class="note"><table border="0" summary="Note">
@@ -43,8 +43,8 @@
 </tr>
 <tr><td align="left" valign="top"><p>
         To be absolutely clear, all the text layer types use UTF-8 encoding. There
-        are no other options. Transcoding to UTF-16 is still possible using <code class="computeroutput">utf_8_to_16_iterator</code>
-        and <code class="computeroutput">utf_16_to_8_iterator</code>.
+        are no other options. Transcoding to UTF-16 is still possible using <code class="computeroutput"><a class="link" href="../boost/text/v1/utf_8_to_16_iterator.html" title="Struct template utf_8_to_16_iterator">utf_8_to_16_iterator</a></code>
+        and <code class="computeroutput"><a class="link" href="../boost/text/v1/utf_16_to_8_iterator.html" title="Struct template utf_16_to_8_iterator">utf_16_to_8_iterator</a></code>.
       </p></td></tr>
 </table></div>
 <p>
@@ -74,7 +74,7 @@
     </h4>
 <p>
       When you dereference an iterator that you get from one of the text layer types,
-      you get a <code class="computeroutput">grapheme_ref</code>.
+      you get a <code class="computeroutput"><a class="link" href="../boost/text/v1/grapheme_ref.html" title="Struct template grapheme_ref">grapheme_ref</a></code>.
       This is a non-owning range of code points that is known to be normalized FCC.
     </p>
 <p>
@@ -96,8 +96,7 @@
     </p>
 <p>
       If you want an owning set of code points that is known to be normalized FCC,
-      you can construct a <code class="computeroutput">grapheme</code>
-      (either from a <code class="computeroutput">grapheme_ref</code>,
+      you can construct a <code class="computeroutput"><a class="link" href="../boost/text/v1/grapheme.html" title="Struct grapheme">grapheme</a></code> (either from a <code class="computeroutput"><a class="link" href="../boost/text/v1/grapheme_ref.html" title="Struct template grapheme_ref">grapheme_ref</a></code>,
       or by some other means).
     </p>
 <p>
@@ -147,17 +146,17 @@
 <th align="left">Note</th>
 </tr>
 <tr><td align="left" valign="top"><p>
-        <code class="computeroutput">grapheme</code>
+        <code class="computeroutput"><a class="link" href="../boost/text/v1/grapheme.html" title="Struct grapheme">grapheme</a></code>
         has a small-buffer optimization so that using it seldom involves allocations.
-        This also implies that an array of <code class="computeroutput">graphemes</code> is likely to be wasteful
+        This also implies that an array of <code class="computeroutput"><a class="link" href="../boost/text/v1/grapheme.html" title="Struct grapheme">graphemes</a></code> is likely to be wasteful
         of storage. If you want a bunch of graphemes, you should probably be using
-        a <code class="computeroutput">text</code>.
+        a <code class="computeroutput"><a class="link" href="../boost/text/v1/text.html" title="Struct text">text</a></code>.
       </p></td></tr>
 </table></div>
 <p>
-      An Individual grapheme, in the form of a <code class="computeroutput">grapheme</code> or <code class="computeroutput">grapheme_ref</code>, can be inserted
-      into a <code class="computeroutput">text</code>
-      or <code class="computeroutput">rope</code>.
+      An Individual grapheme, in the form of a <code class="computeroutput"><a class="link" href="../boost/text/v1/grapheme.html" title="Struct grapheme">grapheme</a></code> or <code class="computeroutput"><a class="link" href="../boost/text/v1/grapheme_ref.html" title="Struct template grapheme_ref">grapheme_ref</a></code>, can be inserted
+      into a <code class="computeroutput"><a class="link" href="../boost/text/v1/text.html" title="Struct text">text</a></code>
+      or <code class="computeroutput"><a class="link" href="../boost/text/v1/rope.html" title="Struct rope">rope</a></code>.
     </p>
 <div class="note"><table border="0" summary="Note">
 <tr>
@@ -177,16 +176,16 @@
     </h4>
 <p>
       Since the grapheme is the unit of work within the text layer, it's natural
-      that the text layer types return <code class="computeroutput">grapheme_iterators</code> from <code class="computeroutput"><span class="identifier">begin</span><span class="special">()</span></code> and
+      that the text layer types return <code class="computeroutput"><a class="link" href="../boost/text/v1/grapheme_iterator.html" title="Struct template grapheme_iterator">grapheme_iterators</a></code> from <code class="computeroutput"><span class="identifier">begin</span><span class="special">()</span></code> and
       <code class="computeroutput"><span class="identifier">end</span><span class="special">()</span></code>.
       But what about the times when you actually want to deal with sequences of code
       points or <code class="computeroutput"><span class="keyword">char</span></code>s? This comes up
       often when you need to use legacy interfaces.
     </p>
 <p>
-      Fortunately, that's really easy. <code class="computeroutput">grapheme_iterator</code> has a <code class="computeroutput"><span class="identifier">base</span><span class="special">()</span></code> member
+      Fortunately, that's really easy. <code class="computeroutput"><a class="link" href="../boost/text/v1/grapheme_iterator.html" title="Struct template grapheme_iterator">grapheme_iterator</a></code> has a <code class="computeroutput"><span class="identifier">base</span><span class="special">()</span></code> member
       that returns its underlying code point iterator. The code point iterator used
-      in the text layer types is always <code class="computeroutput">utf_8_to_32_iterator</code>, which also
+      in the text layer types is always <code class="computeroutput"><a class="link" href="../boost/text/v1/utf_8_to_32_iterator.html" title="Struct template utf_8_to_32_iterator">utf_8_to_32_iterator</a></code>, which also
       has a <code class="computeroutput"><span class="identifier">base</span><span class="special">()</span></code>
       member that returns <span class="emphasis"><em>it's</em></span> underlying <code class="computeroutput"><span class="keyword">char</span></code>
       iterator:
@@ -207,8 +206,8 @@
 <p>
     </p>
 <p>
-      if you remember from the discussion of the string layer types, <code class="computeroutput">string</code> is always null-terminated,
-      and its iterator is just a <code class="computeroutput"><span class="keyword">char</span> <span class="special">*</span></code>. This means that any <code class="computeroutput">text</code> object <code class="computeroutput"><span class="identifier">t</span></code>
+      if you remember from the discussion of the string layer types, <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code> is always null-terminated,
+      and its iterator is just a <code class="computeroutput"><span class="keyword">char</span> <span class="special">*</span></code>. This means that any <code class="computeroutput"><a class="link" href="../boost/text/v1/text.html" title="Struct text">text</a></code> object <code class="computeroutput"><span class="identifier">t</span></code>
       is null-terminated too, as long as you access it's underlying <code class="computeroutput"><span class="keyword">char</span></code> iterator directly:
     </p>
 <p>
@@ -256,29 +255,29 @@
       Layer Types</a>
     </h4>
 <p>
-      As mentioned before, this layer has four types (<code class="computeroutput">text</code>, <code class="computeroutput">text_view</code>, <code class="computeroutput">rope</code>, and <code class="computeroutput">rope_view</code>) that are directly
-      analogous to the four major types in the string layer (<code class="computeroutput">string</code>, <code class="computeroutput">string_view</code>, <code class="computeroutput">unencoded_rope</code>, and <code class="computeroutput">unencoded_rope_view</code>).
+      As mentioned before, this layer has four types (<code class="computeroutput"><a class="link" href="../boost/text/v1/text.html" title="Struct text">text</a></code>, <code class="computeroutput"><a class="link" href="../boost/text/v1/text_view.html" title="Struct text_view">text_view</a></code>, <code class="computeroutput"><a class="link" href="../boost/text/v1/rope.html" title="Struct rope">rope</a></code>, and <code class="computeroutput"><a class="link" href="../boost/text/v1/rope_view.html" title="Struct rope_view">rope_view</a></code>) that are directly
+      analogous to the four major types in the string layer (<code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code>, <code class="computeroutput"><a class="link" href="../boost/text/v1/string_view.html" title="Struct string_view">string_view</a></code>, <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code>, and <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a></code>).
       The high-level semantics of these types is the same:
     </p>
 <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
-          <code class="computeroutput">string</code>
-          and <code class="computeroutput">text</code>
+          <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code>
+          and <code class="computeroutput"><a class="link" href="../boost/text/v1/text.html" title="Struct text">text</a></code>
           are owning and contiguous.
         </li>
 <li class="listitem">
-          <code class="computeroutput">string_view</code>
-          and <code class="computeroutput">text_view</code>
+          <code class="computeroutput"><a class="link" href="../boost/text/v1/string_view.html" title="Struct string_view">string_view</a></code>
+          and <code class="computeroutput"><a class="link" href="../boost/text/v1/text_view.html" title="Struct text_view">text_view</a></code>
           and non-owning and contiguous.
         </li>
 <li class="listitem">
-          <code class="computeroutput">unencoded_rope</code>
-          and <code class="computeroutput">rope</code>
+          <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code>
+          and <code class="computeroutput"><a class="link" href="../boost/text/v1/rope.html" title="Struct rope">rope</a></code>
           are owning and discontiguous.
         </li>
 <li class="listitem">
-          <code class="computeroutput">unencoded_rope_view</code>
-          and <code class="computeroutput">rope_view</code>
+          <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a></code>
+          and <code class="computeroutput"><a class="link" href="../boost/text/v1/rope_view.html" title="Struct rope_view">rope_view</a></code>
           are non-owning and discontiguous.
         </li>
 </ul></div>
@@ -329,14 +328,14 @@
           either. There is instead a <code class="computeroutput"><span class="identifier">max_bytes</span><span class="special">()</span></code>.
         </li>
 <li class="listitem">
-          <code class="computeroutput">text</code>
+          <code class="computeroutput"><a class="link" href="../boost/text/v1/text.html" title="Struct text">text</a></code>
           has a <code class="computeroutput"><span class="identifier">capacity_bytes</span><span class="special">()</span></code>
           instead of a <code class="computeroutput"><span class="identifier">capacity</span><span class="special">()</span></code>
           member.
         </li>
 <li class="listitem">
           There are two members that allow you to steal and/or replace the underlying
-          storage of the owning text layer types (<code class="computeroutput">text</code> and <code class="computeroutput">rope</code>). <code class="computeroutput"><span class="identifier">extract</span><span class="special">()</span></code> moves the underlying container out, and
+          storage of the owning text layer types (<code class="computeroutput"><a class="link" href="../boost/text/v1/text.html" title="Struct text">text</a></code> and <code class="computeroutput"><a class="link" href="../boost/text/v1/rope.html" title="Struct rope">rope</a></code>). <code class="computeroutput"><span class="identifier">extract</span><span class="special">()</span></code> moves the underlying container out, and
           an overload of <code class="computeroutput"><span class="identifier">replace</span><span class="special">()</span></code> moves it in. <code class="computeroutput"><span class="identifier">replace</span><span class="special">()</span></code> requires the moved-in container is normalized
           FCC.
         </li>
@@ -352,10 +351,9 @@
       Odd Thing About Insertions</a>
     </h4>
 <p>
-      When you insert into a <code class="computeroutput">text</code>
-      or <code class="computeroutput">rope</code>,
-      you get back an iterator that points to the copy of the beginning of the inserted
-      text. This is what the standard C++ containers do too.
+      When you insert into a <code class="computeroutput"><a class="link" href="../boost/text/v1/text.html" title="Struct text">text</a></code> or <code class="computeroutput"><a class="link" href="../boost/text/v1/rope.html" title="Struct rope">rope</a></code>, you get back an iterator
+      that points to the copy of the beginning of the inserted text. This is what
+      the standard C++ containers do too.
     </p>
 <p>
       So, if I insert, I get an iterator that points to the start of the insertion:
@@ -396,7 +394,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="the_unicode_layer/bidirectional_text.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="segmented_vector_.html"><img src="../images/next.png" alt="Next"></a>
+<a accesskey="p" href="the_unicode_layer/bidirectional_text.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="performance_considerations.html"><img src="../images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

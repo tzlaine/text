@@ -23,7 +23,7 @@
       <code class="computeroutput"><span class="identifier">string_view</span></code> Type</a>
     </h4>
 <p>
-      <code class="computeroutput">string_view</code>
+      <code class="computeroutput"><a class="link" href="../boost/text/v1/string_view.html" title="Struct string_view">string_view</a></code>
       is the type at the center of Boost.Text. It is used everywhere you would have
       used <code class="computeroutput"><span class="keyword">char</span> <span class="keyword">const</span>
       <span class="special">*</span></code> before C++17, and everywhere you would
@@ -32,17 +32,17 @@
 <p>
       Analogously to <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string_view</span></code>, it defines implicit conversions
       from <code class="computeroutput"><span class="keyword">char</span> <span class="keyword">const</span>
-      <span class="special">*</span></code> and <code class="computeroutput">string</code>, so it can be used in
+      <span class="special">*</span></code> and <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code>, so it can be used in
       interfaces that accept either.
     </p>
 <p>
-      <code class="computeroutput">string_view</code>
+      <code class="computeroutput"><a class="link" href="../boost/text/v1/string_view.html" title="Struct string_view">string_view</a></code>
       is fully <code class="computeroutput"><span class="keyword">constexpr</span></code> in everything
       it does, if you have the compiler support (C++14 <code class="computeroutput"><span class="keyword">constexpr</span></code>).
-      You can write very extensive compile-time operations using <code class="computeroutput">string_view</code>.
+      You can write very extensive compile-time operations using <code class="computeroutput"><a class="link" href="../boost/text/v1/string_view.html" title="Struct string_view">string_view</a></code>.
     </p>
 <p>
-      <code class="computeroutput">string_view</code>
+      <code class="computeroutput"><a class="link" href="../boost/text/v1/string_view.html" title="Struct string_view">string_view</a></code>
       is a nearly immutable type; there are no mutating member functions, besides
       assignment and <code class="computeroutput"><span class="identifier">swap</span><span class="special">()</span></code>.
       It is small (the size of two pointers on most modern architectures) and cheap
@@ -98,7 +98,7 @@
       are counted from the end of the sequence.
     </p>
 <p>
-      Of course, there is a user-defined literal for <code class="computeroutput">string_view</code>:
+      Of course, there is a user-defined literal for <code class="computeroutput"><a class="link" href="../boost/text/v1/string_view.html" title="Struct string_view">string_view</a></code>:
     </p>
 <p>
       [string_view_literal]
@@ -110,7 +110,7 @@
       is any contiguous sequence of <code class="computeroutput"><span class="keyword">char</span></code>
       that provides <code class="computeroutput"><span class="keyword">char</span> <span class="keyword">const</span>
       <span class="special">*</span></code> pointer access to its <code class="computeroutput"><span class="keyword">char</span></code>s. This gives us conversions from <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span></code>
-      and other types that <code class="computeroutput">string_view</code> does not explicitly
+      and other types that <code class="computeroutput"><a class="link" href="../boost/text/v1/string_view.html" title="Struct string_view">string_view</a></code> does not explicitly
       know about.
     </p>
 <p>
@@ -119,8 +119,8 @@
       <a class="link" href="concepts.html#boost_text__proposed_.concepts.contiggraphemerange">ContigGraphemeRange</a>
       is a sequence of graphemes over an underlying contiguous sequence of <code class="computeroutput"><span class="keyword">char</span></code> for which there is pointer access to the
       <code class="computeroutput"><span class="keyword">char</span></code>s. This provides conversions
-      from <code class="computeroutput">text</code>
-      and other grapheme-oriented types that <code class="computeroutput">string_view</code> does not explicitly
+      from <code class="computeroutput"><a class="link" href="../boost/text/v1/text.html" title="Struct text">text</a></code>
+      and other grapheme-oriented types that <code class="computeroutput"><a class="link" href="../boost/text/v1/string_view.html" title="Struct string_view">string_view</a></code> does not explicitly
       know about.
     </p>
 <h4>
@@ -129,36 +129,36 @@
       <code class="computeroutput"><span class="identifier">string</span></code> Type</a>
     </h4>
 <p>
-      <code class="computeroutput">string</code>
+      <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code>
       is a contiguous sequence of <code class="computeroutput"><span class="keyword">char</span></code>.
       The sequence of <code class="computeroutput"><span class="keyword">char</span></code> is either
-      stored in the <code class="computeroutput">string</code>
-      (if it is small) or is heap-allocated. <code class="computeroutput">string</code> is also strongly exception-safe.
+      stored in the <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code>
+      (if it is small) or is heap-allocated. <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code> is also strongly exception-safe.
       Its purpose is to be a better <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span></code>.
     </p>
 <p>
-      <code class="computeroutput">string</code>'s
+      <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code>'s
       element type is <code class="computeroutput"><span class="keyword">char</span></code> and its size/index
       type is <code class="computeroutput"><span class="keyword">int</span></code>, for the same reasons
-      given for <code class="computeroutput">string_view</code>.
-      It is also slice-able in the same way that <code class="computeroutput">string_view</code> is.
+      given for <code class="computeroutput"><a class="link" href="../boost/text/v1/string_view.html" title="Struct string_view">string_view</a></code>.
+      It is also slice-able in the same way that <code class="computeroutput"><a class="link" href="../boost/text/v1/string_view.html" title="Struct string_view">string_view</a></code> is.
     </p>
 <p>
-      <code class="computeroutput">string</code>
+      <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code>
       is always kept null-terminated, and its iterator type is (possibly <code class="computeroutput"><span class="keyword">const</span></code>) <code class="computeroutput"><span class="keyword">char</span>
       <span class="special">*</span></code>. This means that getting a null-terminated
-      C-style string out of a <code class="computeroutput">string</code> is done by calling <code class="computeroutput"><span class="identifier">str</span><span class="special">.</span><span class="identifier">begin</span><span class="special">()</span></code>.
+      C-style string out of a <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code> is done by calling <code class="computeroutput"><span class="identifier">str</span><span class="special">.</span><span class="identifier">begin</span><span class="special">()</span></code>.
     </p>
 <p>
-      <code class="computeroutput">string</code>
+      <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code>
       has its own user-defined literals:
     </p>
 <p>
       [string_literal]
     </p>
 <p>
-      Unlike <code class="computeroutput">string_view</code>
-      though, <code class="computeroutput">string</code>
+      Unlike <code class="computeroutput"><a class="link" href="../boost/text/v1/string_view.html" title="Struct string_view">string_view</a></code>
+      though, <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code>
       is mutable.
     </p>
 <p>
@@ -173,23 +173,23 @@
     </h4>
 <p>
       One of the things that differs between <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span></code>
-      and <code class="computeroutput">string</code>
-      is that <code class="computeroutput">string</code>
+      and <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code>
+      is that <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code>
       is missing all those overloads (including constructors) that take a number
-      of elements to repeat. For example, <code class="computeroutput">string</code> has no function for inserting
+      of elements to repeat. For example, <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code> has no function for inserting
       a single element N times. Instead of having all those overloads and using a
-      heap-allocating type like <code class="computeroutput">string</code> to represent repeated
-      elements, Boost.Text introduces a new non-allocating type for this, <code class="computeroutput">repeated_string_view</code>.
+      heap-allocating type like <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code> to represent repeated
+      elements, Boost.Text introduces a new non-allocating type for this, <code class="computeroutput"><a class="link" href="../boost/text/v1/repeated_string_view.html" title="Struct repeated_string_view">repeated_string_view</a></code>.
     </p>
 <p>
-      <code class="computeroutput">repeated_string_view</code>
-      has semantics and an interface much like <code class="computeroutput">string_view</code>: it is near-immutable;
+      <code class="computeroutput"><a class="link" href="../boost/text/v1/repeated_string_view.html" title="Struct repeated_string_view">repeated_string_view</a></code>
+      has semantics and an interface much like <code class="computeroutput"><a class="link" href="../boost/text/v1/string_view.html" title="Struct string_view">string_view</a></code>: it is near-immutable;
       it uses a signed size/index type (though a typically-larger one, <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">ptrdiff_t</span></code>);
       it uses <code class="computeroutput"><span class="keyword">char</span></code> as its element type;
       and it is slice-able in the same way.
     </p>
 <p>
-      With <code class="computeroutput">repeated_string_view</code>
+      With <code class="computeroutput"><a class="link" href="../boost/text/v1/repeated_string_view.html" title="Struct repeated_string_view">repeated_string_view</a></code>
       in hand, this code which allocates:
     </p>
 <pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">(</span><span class="identifier">indent</span><span class="special">,</span> <span class="char">' '</span><span class="special">);</span>
@@ -200,7 +200,7 @@
 <pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">repeated_string_view</span><span class="special">(</span><span class="string">" "</span><span class="special">,</span> <span class="identifier">indent</span><span class="special">);</span>
 </pre>
 <p>
-      There's also a more terse function that returns a <code class="computeroutput">repeated_string_view</code>:
+      There's also a more terse function that returns a <code class="computeroutput"><a class="link" href="../boost/text/v1/repeated_string_view.html" title="Struct repeated_string_view">repeated_string_view</a></code>:
     </p>
 <pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">repeat</span><span class="special">(</span><span class="string">" "</span><span class="special">,</span> <span class="identifier">indent</span><span class="special">);</span>
 </pre>
@@ -217,57 +217,57 @@
       strings.
     </p>
 <p>
-      The user's view of Boost.Text's <code class="computeroutput">unencoded_rope</code> is that it is
+      The user's view of Boost.Text's <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code> is that it is
       a string that is inexpensive to insert into at any point -- even the middle
       or front -- no matter how large it is. In addition, substrings within the
-      <code class="computeroutput">unencoded_rope</code>
+      <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code>
       have copy-on-write semantics. This means that often a copy of a very large
-      <code class="computeroutput">unencoded_rope</code>
-      is nearly free, and that a mutated copy of a <code class="computeroutput">unencoded_rope</code> often shares much
-      of its data with the <code class="computeroutput">unencoded_rope</code> from which it
+      <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code>
+      is nearly free, and that a mutated copy of a <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code> often shares much
+      of its data with the <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code> from which it
       was copied.
     </p>
 <p>
-      <code class="computeroutput">unencoded_rope</code>'s
+      <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code>'s
       implementation uses a tree structure similar to a B-tree, and each subtree
       is copy-on-write. The tree consists of interior nodes that contain structural
-      information, and leaf nodes which contain the data. <code class="computeroutput">unencoded_rope</code> only contains
-      a single pointer to a root node. Here is one of the simplest nonempty <code class="computeroutput">unencoded_ropes</code>
+      information, and leaf nodes which contain the data. <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code> only contains
+      a single pointer to a root node. Here is one of the simplest nonempty <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope.html" title="Struct unencoded_rope">unencoded_ropes</a></code>
       you can have:
     </p>
 <p>
-      <span class="inlinemediaobject"><object type="image/svg+xml" data="../../../doc/rope_text_leaf.svg" width="160" height="144"></object></span>
+      <span class="inlinemediaobject"><object type="image/svg+xml" data="../../../doc/rope_text_leaf.svg"></object></span>
     </p>
 <p>
-      This <code class="computeroutput">unencoded_rope</code>
+      This <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code>
       is just a single leaf node, containing the super-useful string <code class="computeroutput"><span class="string">"text"</span></code>. In this case, the leaf was
-      a <code class="computeroutput">string</code>
+      a <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code>
       node, labeled here with <code class="computeroutput"><span class="identifier">s</span></code>.
-      There can also be leaf nodes for <code class="computeroutput">repeated_string_views</code>, labeled
+      There can also be leaf nodes for <code class="computeroutput"><a class="link" href="../boost/text/v1/repeated_string_view.html" title="Struct repeated_string_view">repeated_string_views</a></code>, labeled
       in these diagrams with <code class="computeroutput"><span class="identifier">rsv</span></code>.
-      The final leaf node type is a reference-to-<code class="computeroutput">string</code> leaf, labeled as <code class="computeroutput"><span class="identifier">ref</span></code>. More on that in a bit.
+      The final leaf node type is a reference-to-<code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code> leaf, labeled as <code class="computeroutput"><span class="identifier">ref</span></code>. More on that in a bit.
     </p>
 <p>
-      If we copy the <code class="computeroutput">unencoded_rope</code>
-      above, we get something like this:
+      If we copy the <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code> above, we get
+      something like this:
     </p>
 <p>
-      <span class="inlinemediaobject"><object type="image/svg+xml" data="../../../doc/rope_text_leaf_extra_ref.svg" width="202" height="143"></object></span>
+      <span class="inlinemediaobject"><object type="image/svg+xml" data="../../../doc/rope_text_leaf_extra_ref.svg"></object></span>
     </p>
 <p>
       No copying was done, nor allocations performed. Copying an entire tree only
       requires copying a pointer and incrementing a reference count. The string in
-      this <code class="computeroutput">string</code>
+      this <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code>
       leaf is only four elements, but let's suppose it was megabytes instead. Inserting
       even a small sequence near the beginning of the string would be costly, since
       we'd have to copy all the elements after the insertion point. And since the
-      <code class="computeroutput">string</code>
+      <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code>
       leaf may be shared, we would have to copy everything <span class="emphasis"><em>before</em></span>
-      the insertion, too! For large <code class="computeroutput">string</code> leaves, insertions into
+      the insertion, too! For large <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code> leaves, insertions into
       them result in something like this:
     </p>
 <p>
-      <span class="inlinemediaobject"><object type="image/svg+xml" data="../../../doc/rope_text_refs_after_insert.svg" width="534" height="242"></object></span>
+      <span class="inlinemediaobject"><object type="image/svg+xml" data="../../../doc/rope_text_refs_after_insert.svg"></object></span>
     </p>
 <div class="note"><table border="0" summary="Note">
 <tr>
@@ -276,13 +276,13 @@
 </tr>
 <tr><td align="left" valign="top"><p>
         This is <span class="bold"><strong>not</strong></span> what actually happens to small
-        <code class="computeroutput">string</code>
+        <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code>
         leaves with a reference count of 1! Those are mutated in place.
       </p></td></tr>
 </table></div>
 <p>
       Here, we see that we've made two new reference nodes, each of which refers
-      to part of the original <code class="computeroutput">string</code>, and we've put the inserted
+      to part of the original <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code>, and we've put the inserted
       string in between, forming <code class="computeroutput"><span class="string">"text text"</span></code>,
       which everyone knows is the <span class="bold"><strong>best</strong></span> string.
     </p>
@@ -297,29 +297,29 @@
       lot higher).
     </p>
 <p>
-      Now let's take a look at a more complicated <code class="computeroutput">unencoded_rope</code>:
+      Now let's take a look at a more complicated <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code>:
     </p>
 <p>
-      <span class="inlinemediaobject"><object type="image/svg+xml" data="../../../doc/rope_tree_structure.svg" width="748" height="363"></object></span>
+      <span class="inlinemediaobject"><object type="image/svg+xml" data="../../../doc/rope_tree_structure.svg"></object></span>
     </p>
 <p>
       In this tree, we have three interior nodes: the root and its two children.
       We also have at least one of each type of leaf node.
     </p>
 <p>
-      Copying even this <code class="computeroutput">unencoded_rope</code> is very cheap,
+      Copying even this <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code> is very cheap,
       requiring only copying a pointer and incriminating a reference count:
     </p>
 <p>
-      <span class="inlinemediaobject"><object type="image/svg+xml" data="../../../doc/rope_copy_add_ref.svg" width="748" height="363"></object></span>
+      <span class="inlinemediaobject"><object type="image/svg+xml" data="../../../doc/rope_copy_add_ref.svg"></object></span>
     </p>
 <p>
-      Let's say we wanted to erase part of this <code class="computeroutput">unencoded_rope</code>. We'll erase a
+      Let's say we wanted to erase part of this <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code>. We'll erase a
       substring that matches a whole leaf exactly, to keep things simpler. Let's
       erase the <code class="computeroutput"><span class="identifier">ref</span></code> node on the left:
     </p>
 <p>
-      <span class="inlinemediaobject"><object type="image/svg+xml" data="../../../doc/rope_erase.svg" width="878" height="363"></object></span>
+      <span class="inlinemediaobject"><object type="image/svg+xml" data="../../../doc/rope_erase.svg"></object></span>
     </p>
 <p>
       Simple, right? In this case, we did the erasure by creating a copy of each
@@ -339,8 +339,8 @@
       </p></td></tr>
 </table></div>
 <p>
-      Besides the segmented nature of <code class="computeroutput">unencoded_rope</code>, there are some
-      other properties you need to know about. A <code class="computeroutput">unencoded_rope</code> as a whole is
+      Besides the segmented nature of <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code>, there are some
+      other properties you need to know about. A <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code> as a whole is
       copy-on-write; it is also therefore thread-safe for reading and writing; it
       is not null-terminated; it uses a signed size/index type (<code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">ptrdiff_t</span></code>);
       it uses <code class="computeroutput"><span class="keyword">char</span></code> as its element type;
@@ -351,7 +351,7 @@
       where B is the branching factor (maximum number of children per interior node).
       As mentioned before, B is an implementation detail, and thus subject to change,
       but it is unlikely to be less than 16. That means very little pointer chasing
-      is required to access an arbitrary element of a <code class="computeroutput">unencoded_rope</code>, because its tree
+      is required to access an arbitrary element of a <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code>, because its tree
       is very shallow.
     </p>
 <p>
@@ -362,27 +362,27 @@
       <code class="computeroutput"><span class="identifier">O</span><span class="special">(</span><span class="number">1</span><span class="special">)</span></code>!
     </p>
 <p>
-      As mentioned previously, mutations to a <code class="computeroutput">unencoded_rope</code> are done in-place
-      if the mutations do not affect nodes that are shared with other <code class="computeroutput">unencoded_ropes</code>.
+      As mentioned previously, mutations to a <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code> are done in-place
+      if the mutations do not affect nodes that are shared with other <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope.html" title="Struct unencoded_rope">unencoded_ropes</a></code>.
     </p>
 <p>
       If a mutation can be done in place, and the point of mutation falls within
-      a <code class="computeroutput">string</code>
-      leaf, the <code class="computeroutput">string</code>
+      a <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code>
+      leaf, the <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code>
       object is directly mutated if: the inserted string fits within the <code class="computeroutput"><span class="identifier">capacity</span><span class="special">()</span></code>
-      of the <code class="computeroutput">string</code>,
+      of the <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code>,
       <span class="bold"><strong>or</strong></span>
     </p>
 <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
-          the <code class="computeroutput">string</code>
+          the <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code>
           object is not too large (there is a maximum size that is an implementation
           detail, but is likely to be hundreds or thousands, not tens or tens of
           thousands), <span class="bold"><strong>and</strong></span>
         </li>
 <li class="listitem">
           the inserted object would cause an allocation if copied (i.e. it is a
-          <code class="computeroutput">string</code>).
+          <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code>).
         </li>
 </ul></div>
 <div class="important"><table border="0" summary="Important">
@@ -391,21 +391,20 @@
 <th align="left">Important</th>
 </tr>
 <tr><td align="left" valign="top"><p>
-        One more thing. <code class="computeroutput">unencoded_ropes</code> are meant to
+        One more thing. <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope.html" title="Struct unencoded_rope">unencoded_ropes</a></code> are meant to
         be passed by value. In particular, their thread-safety guarantees might not
         be fulfilled if they are <span class="bold"><strong>not</strong></span> passed by value
-        across thread boundaries. If you do not care about thread-safe use of <code class="computeroutput">unencoded_rope</code>,
-        you can pass <code class="computeroutput">unencoded_ropes</code>
-        by <code class="computeroutput"><span class="keyword">const</span> <span class="special">&amp;</span></code>
+        across thread boundaries. If you do not care about thread-safe use of <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code>,
+        you can pass <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope.html" title="Struct unencoded_rope">unencoded_ropes</a></code> by <code class="computeroutput"><span class="keyword">const</span> <span class="special">&amp;</span></code>
         at thread boundaries if you like. If you care about thread-safety, <span class="bold"><strong>always</strong></span> pass them by value at thread boundaries!
       </p></td></tr>
 </table></div>
 <p>
-      <code class="computeroutput">unencoded_rope</code>
+      <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code>
       contains logic like the pseudocode below to determine when to create a partial
-      copy of a <code class="computeroutput">unencoded_rope</code>'s
+      copy of a <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code>'s
       tree, or when to mutate the tree in-place when performing inserts or erases
-      on a <code class="computeroutput">unencoded_rope</code>:
+      on a <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code>:
     </p>
 <pre class="programlisting"><span class="identifier">path</span> <span class="special">=</span> <span class="identifier">find_path_from_root_to_mutation_point</span><span class="special">()</span>
 <span class="identifier">in_place</span> <span class="special">=</span> <span class="keyword">true</span>
@@ -414,10 +413,9 @@
         <span class="identifier">in_place</span> <span class="special">=</span> <span class="keyword">false</span>
 </pre>
 <p>
-      Let's call the <code class="computeroutput">unencoded_rope</code>
-      <code class="computeroutput"><span class="identifier">R</span></code>, and the thread on which
-      the operation is being performed <code class="computeroutput"><span class="identifier">T</span></code>.
-      Also, assume that all references to <code class="computeroutput"><span class="identifier">R</span></code>'s
+      Let's call the <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code> <code class="computeroutput"><span class="identifier">R</span></code>, and the thread on which the operation
+      is being performed <code class="computeroutput"><span class="identifier">T</span></code>. Also,
+      assume that all references to <code class="computeroutput"><span class="identifier">R</span></code>'s
       root node exist in copies of <code class="computeroutput"><span class="identifier">R</span></code>,
       and no reference (C++ reference/pointer) to <code class="computeroutput"><span class="identifier">R</span></code>
       or any of its copies exists.
@@ -453,7 +451,7 @@
 <th align="left">Important</th>
 </tr>
 <tr><td align="left" valign="top"><p>
-        Therefore, if you care about using <code class="computeroutput">unencoded_ropes</code> in a thread-safe
+        Therefore, if you care about using <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope.html" title="Struct unencoded_rope">unencoded_ropes</a></code> in a thread-safe
         manner, always pass them by value across thread boundaries.
       </p></td></tr>
 </table></div>
@@ -463,19 +461,19 @@
 <th align="left">Note</th>
 </tr>
 <tr><td align="left" valign="top"><p>
-        A major use case for <code class="computeroutput">unencoded_ropes</code> is for building
+        A major use case for <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope.html" title="Struct unencoded_rope">unencoded_ropes</a></code> is for building
         undo/redo systems for text editing that are simple and performant. See the
         example in the <a class="link" href="segmented_vector_.html" title="segmented_vector"><code class="computeroutput"><span class="identifier">segmented_vector</span> <span class="identifier">documentation</span></code></a>
-        for details &#8212; just imagine <code class="computeroutput">unencoded_ropes</code> instead of
+        for details &#8212; just imagine <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope.html" title="Struct unencoded_rope">unencoded_ropes</a></code> instead of
         <code class="computeroutput"><span class="identifier">segmented_vector</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;</span></code>s.
       </p></td></tr>
 </table></div>
 <p>
-      <code class="computeroutput">unencoded_rope</code>
+      <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code>
       has the same <code class="computeroutput"><span class="keyword">explicit</span></code> conversions
       from <a class="link" href="concepts.html#boost_text__proposed_.concepts.charrange">CharRange</a>
       and <a class="link" href="concepts.html#boost_text__proposed_.concepts.graphemerange">GraphemeRange</a>
-      that <code class="computeroutput">string</code>
+      that <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code>
       does.
     </p>
 <h4>
@@ -485,37 +483,37 @@
     </h4>
 <p>
       Just as you can think of a <a href="https://en.wikipedia.org/wiki/Rope_(data_structure)" target="_top">Rope</a>
-      as a heavyweight string, you can think of a <code class="computeroutput">unencoded_rope_view</code> is a heavyweight
-      <code class="computeroutput">string_view</code>.
-      It can bind to a <code class="computeroutput">unencoded_rope</code>, but also to any
-      of <code class="computeroutput">string</code>,
-      <code class="computeroutput">string_view</code>,
-      and even <code class="computeroutput">repeated_string_view</code>.
+      as a heavyweight string, you can think of a <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a></code> is a heavyweight
+      <code class="computeroutput"><a class="link" href="../boost/text/v1/string_view.html" title="Struct string_view">string_view</a></code>.
+      It can bind to a <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code>, but also to any
+      of <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code>,
+      <code class="computeroutput"><a class="link" href="../boost/text/v1/string_view.html" title="Struct string_view">string_view</a></code>,
+      and even <code class="computeroutput"><a class="link" href="../boost/text/v1/repeated_string_view.html" title="Struct repeated_string_view">repeated_string_view</a></code>.
     </p>
 <p>
-      <code class="computeroutput">unencoded_rope_view</code>
-      has semantics and an interface much like <code class="computeroutput">string_view</code>: it is near-immutable;
+      <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a></code>
+      has semantics and an interface much like <code class="computeroutput"><a class="link" href="../boost/text/v1/string_view.html" title="Struct string_view">string_view</a></code>: it is near-immutable;
       it uses a signed size/index type (<code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">ptrdiff_t</span></code>);
       it uses <code class="computeroutput"><span class="keyword">char</span></code> as its element type;
       and it is slice-able.
     </p>
 <p>
-      A key use of <code class="computeroutput">unencoded_rope_view</code> is that it
+      A key use of <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a></code> is that it
       can bind to all the other Boost.Text string types. If your code expects to
-      handle only <code class="computeroutput">strings</code>,
+      handle only <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">strings</a></code>,
       <code class="computeroutput"><span class="keyword">char</span> <span class="keyword">const</span>
-      <span class="special">*</span></code>s, and <code class="computeroutput">string_views</code> as function parameters,
-      use <code class="computeroutput">string_view</code>
-      in your interfaces. If you also expect to handle <code class="computeroutput">unencoded_ropes</code> and <code class="computeroutput">repeated_string_views</code>,
-      use <code class="computeroutput">unencoded_rope_view</code>
+      <span class="special">*</span></code>s, and <code class="computeroutput"><a class="link" href="../boost/text/v1/string_view.html" title="Struct string_view">string_views</a></code> as function parameters,
+      use <code class="computeroutput"><a class="link" href="../boost/text/v1/string_view.html" title="Struct string_view">string_view</a></code>
+      in your interfaces. If you also expect to handle <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope.html" title="Struct unencoded_rope">unencoded_ropes</a></code> and <code class="computeroutput"><a class="link" href="../boost/text/v1/repeated_string_view.html" title="Struct repeated_string_view">repeated_string_views</a></code>,
+      use <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a></code>
       in your interfaces instead.
     </p>
 <p>
-      <code class="computeroutput">unencoded_rope_view</code>
+      <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a></code>
       has the same <code class="computeroutput"><span class="keyword">explicit</span></code> conversions
       from <a class="link" href="concepts.html#boost_text__proposed_.concepts.contigcharrange">ContigCharRange</a>
       and <a class="link" href="concepts.html#boost_text__proposed_.concepts.contiggraphemerange">ContigGraphemeRange</a>
-      that <code class="computeroutput">string_view</code>
+      that <code class="computeroutput"><a class="link" href="../boost/text/v1/string_view.html" title="Struct string_view">string_view</a></code>
       does.
     </p>
 <h4>
@@ -576,7 +574,7 @@
           <code class="computeroutput"><span class="identifier">insert</span><span class="special">()</span></code>,
           <code class="computeroutput"><span class="identifier">erase</span><span class="special">()</span></code>,
           and <code class="computeroutput"><span class="identifier">replace</span><span class="special">()</span></code>
-          are defined for the non-view types (<code class="computeroutput">string</code> and <code class="computeroutput">unencoded_rope</code>).
+          are defined for the non-view types (<code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code> and <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code>).
         </li>
 <li class="listitem">
           <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">hash</span></code> is specialized for all the string
@@ -616,7 +614,7 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput">string_view</code>
+                <code class="computeroutput"><a class="link" href="../boost/text/v1/string_view.html" title="Struct string_view">string_view</a></code>
               </p>
             </td>
 </tr>
@@ -629,7 +627,7 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput">string_view</code>
+                <code class="computeroutput"><a class="link" href="../boost/text/v1/string_view.html" title="Struct string_view">string_view</a></code>
               </p>
             </td>
 </tr>
@@ -641,7 +639,7 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput">string</code>
+                <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code>
               </p>
             </td>
 </tr>
@@ -653,7 +651,7 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput">unencoded_rope</code>
+                <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code>
               </p>
             </td>
 </tr>
@@ -665,8 +663,8 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput">string_view</code>
-                or <code class="computeroutput">string</code>
+                <code class="computeroutput"><a class="link" href="../boost/text/v1/string_view.html" title="Struct string_view">string_view</a></code>
+                or <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code>
               </p>
             </td>
 </tr>
@@ -678,7 +676,7 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput">string</code>
+                <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code>
               </p>
             </td>
 </tr>
@@ -690,7 +688,7 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput">unencoded_rope</code>
+                <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code>
               </p>
             </td>
 </tr>
@@ -702,7 +700,7 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput">unencoded_rope</code>
+                <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code>
               </p>
             </td>
 </tr>
@@ -714,7 +712,7 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput">string</code>
+                <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code>
               </p>
             </td>
 </tr>
@@ -726,7 +724,7 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput">unencoded_rope</code>
+                <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code>
               </p>
             </td>
 </tr>
@@ -738,7 +736,7 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput">repeated_string_view</code>
+                <code class="computeroutput"><a class="link" href="../boost/text/v1/repeated_string_view.html" title="Struct repeated_string_view">repeated_string_view</a></code>
               </p>
             </td>
 </tr>
@@ -746,14 +744,14 @@
 <td>
               <p>
                 to capture <code class="computeroutput"><span class="keyword">char</span> <span class="keyword">const</span>
-                <span class="special">*</span></code>s, <code class="computeroutput">string_views</code>, and
-                <code class="computeroutput">strings</code>
+                <span class="special">*</span></code>s, <code class="computeroutput"><a class="link" href="../boost/text/v1/string_view.html" title="Struct string_view">string_views</a></code>, and
+                <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">strings</a></code>
                 in a function parameter
               </p>
             </td>
 <td>
               <p>
-                <code class="computeroutput">string_view</code>
+                <code class="computeroutput"><a class="link" href="../boost/text/v1/string_view.html" title="Struct string_view">string_view</a></code>
               </p>
             </td>
 </tr>
@@ -761,16 +759,16 @@
 <td>
               <p>
                 to capture <code class="computeroutput"><span class="keyword">char</span> <span class="keyword">const</span>
-                <span class="special">*</span></code>s, <code class="computeroutput">string_views</code>, <code class="computeroutput">strings</code>,
-                <code class="computeroutput">repeated_string_views</code>,
-                <code class="computeroutput">unencoded_ropes</code>,
-                and <code class="computeroutput">rope_views</code>
+                <span class="special">*</span></code>s, <code class="computeroutput"><a class="link" href="../boost/text/v1/string_view.html" title="Struct string_view">string_views</a></code>, <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">strings</a></code>,
+                <code class="computeroutput"><a class="link" href="../boost/text/v1/repeated_string_view.html" title="Struct repeated_string_view">repeated_string_views</a></code>,
+                <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope.html" title="Struct unencoded_rope">unencoded_ropes</a></code>,
+                and <code class="computeroutput"><a class="link" href="../boost/text/v1/rope_view.html" title="Struct rope_view">rope_views</a></code>
                 in a function parameter
               </p>
             </td>
 <td>
               <p>
-                <code class="computeroutput">unencoded_rope_view</code>
+                <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a></code>
               </p>
             </td>
 </tr>
@@ -797,18 +795,18 @@
     </h4>
 <p>
       Sometimes you need to build a string in a hot code path. The default behavior
-      of <code class="computeroutput">string</code>
+      of <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code>
       is not quite optimal. It must write a null-terminator during almost any mutating
       operation, even if that null terminator will be overwritten in the next operation.
       It may also allocate memory multiple times during a series of append operations.
     </p>
 <p>
-      Boost.Text provides two types to make optimal string building easier: <code class="computeroutput">string_builder</code>
-      and <code class="computeroutput">static_string_builder</code>.
+      Boost.Text provides two types to make optimal string building easier: <code class="computeroutput"><a class="link" href="../boost/text/v1/string_builder.html" title="Struct string_builder">string_builder</a></code>
+      and <code class="computeroutput"><a class="link" href="../boost/text/v1/static_string_builder.html" title="Struct static_string_builder">static_string_builder</a></code>.
     </p>
 <p>
-      <code class="computeroutput">string_builder</code>
-      builds strings dynamically, much like <code class="computeroutput">string</code> does, except that it is
+      <code class="computeroutput"><a class="link" href="../boost/text/v1/string_builder.html" title="Struct string_builder">string_builder</a></code>
+      builds strings dynamically, much like <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code> does, except that it is
       append-only. It allocates memory as it you append to it, but it skips writing
       the terminating null. This can make it measurably faster in string building
       operations that involve a high number of small appends:
@@ -830,10 +828,10 @@
 <p>
     </p>
 <p>
-      <code class="computeroutput">static_string_builder</code>
+      <code class="computeroutput"><a class="link" href="../boost/text/v1/static_string_builder.html" title="Struct static_string_builder">static_string_builder</a></code>
       can avoid allocations entirely until the final step. The type of the builder
-      object changes with each operation, though, so <code class="computeroutput">static_string_builder</code> cannot
-      be used in some contexts, for example in a loop. <code class="computeroutput">static_string_builder</code> is <code class="computeroutput"><span class="keyword">constexpr</span></code>-friendly in C++14 and later. Here
+      object changes with each operation, though, so <code class="computeroutput"><a class="link" href="../boost/text/v1/static_string_builder.html" title="Struct static_string_builder">static_string_builder</a></code> cannot
+      be used in some contexts, for example in a loop. <code class="computeroutput"><a class="link" href="../boost/text/v1/static_string_builder.html" title="Struct static_string_builder">static_string_builder</a></code> is <code class="computeroutput"><span class="keyword">constexpr</span></code>-friendly in C++14 and later. Here
       it is in action:
     </p>
 <p>

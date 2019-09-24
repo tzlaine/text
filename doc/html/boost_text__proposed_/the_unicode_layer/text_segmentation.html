@@ -112,7 +112,7 @@
         that accept <a class="link" href="../concepts.html#boost_text__proposed_.concepts.graphemerange">GraphemeRange</a>
         ranges <a class="link" href="../concepts.html#boost_text__proposed_.concepts.graphemeiterator">GraphemeIterator</a>
         iterators instead. These provide convenient support for using the Unicode
-        layer algorithms with the text layer types like <code class="computeroutput">text</code> and <code class="computeroutput">rope</code>.
+        layer algorithms with the text layer types like <code class="computeroutput"><a class="link" href="../../boost/text/v1/text.html" title="Struct text">text</a></code> and <code class="computeroutput"><a class="link" href="../../boost/text/v1/rope.html" title="Struct rope">rope</a></code>.
       </p>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">GraphemeRange</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">GraphemeIter</span><span class="special">&gt;</span>
 <span class="keyword">auto</span> <span class="identifier">prev_X_break</span><span class="special">(</span><span class="identifier">GraphemeRange</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">range</span><span class="special">,</span> <span class="identifier">GraphemeIter</span> <span class="identifier">it</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
@@ -184,6 +184,17 @@
       </p>
 <h5>
 <a name="boost_text__proposed_.the_unicode_layer.text_segmentation.h3"></a>
+        <span class="phrase"><a name="boost_text__proposed_.the_unicode_layer.text_segmentation.alternate_grapheme_api"></a></span><a class="link" href="text_segmentation.html#boost_text__proposed_.the_unicode_layer.text_segmentation.alternate_grapheme_api">Alternate
+        Grapheme API</a>
+      </h5>
+<p>
+        In addition to the interface that is used for all the kinds of text segmentation,
+        there is an API just for producing grapheme views, similar to the one for
+        producing UTF views. See <code class="computeroutput"><a class="link" href="../../boost/text/v1/as_graphemes_idm18927.html" title="Function template as_graphemes">as_graphemes()</a></code>
+        for details.
+      </p>
+<h5>
+<a name="boost_text__proposed_.the_unicode_layer.text_segmentation.h4"></a>
         <span class="phrase"><a name="boost_text__proposed_.the_unicode_layer.text_segmentation.stream_safe_format"></a></span><a class="link" href="text_segmentation.html#boost_text__proposed_.the_unicode_layer.text_segmentation.stream_safe_format">Stream-Safe
         Format</a>
       </h5>
@@ -199,7 +210,7 @@
         Format</a> assumption; Boost.Text makes this assumption.
       </p>
 <h5>
-<a name="boost_text__proposed_.the_unicode_layer.text_segmentation.h4"></a>
+<a name="boost_text__proposed_.the_unicode_layer.text_segmentation.h5"></a>
         <span class="phrase"><a name="boost_text__proposed_.the_unicode_layer.text_segmentation.stream_safe_format_and_security"></a></span><a class="link" href="text_segmentation.html#boost_text__proposed_.the_unicode_layer.text_segmentation.stream_safe_format_and_security">Stream-Safe
         Format and Security</a>
       </h5>
@@ -212,7 +223,7 @@
         an unknown source.
       </p>
 <h5>
-<a name="boost_text__proposed_.the_unicode_layer.text_segmentation.h5"></a>
+<a name="boost_text__proposed_.the_unicode_layer.text_segmentation.h6"></a>
         <span class="phrase"><a name="boost_text__proposed_.the_unicode_layer.text_segmentation.words"></a></span><a class="link" href="text_segmentation.html#boost_text__proposed_.the_unicode_layer.text_segmentation.words">Words</a>
       </h5>
 <p>
@@ -380,7 +391,7 @@
         The word breaking API can be used just as the grapheme break API, except
         that it also has <a class="link" href="../concepts.html#boost_text__proposed_.concepts.graphemerange">GraphemeRange</a>
         overloads. Here are some example calls using only the <a class="link" href="../concepts.html#boost_text__proposed_.concepts.graphemerange">GraphemeRange</a>
-        overloads, with a <code class="computeroutput">text</code>
+        overloads, with a <code class="computeroutput"><a class="link" href="../../boost/text/v1/text.html" title="Struct text">text</a></code>
         as the <a class="link" href="../concepts.html#boost_text__proposed_.concepts.graphemerange">GraphemeRange</a>:
       </p>
 <p>
@@ -420,7 +431,7 @@
 <p>
       </p>
 <h5>
-<a name="boost_text__proposed_.the_unicode_layer.text_segmentation.h6"></a>
+<a name="boost_text__proposed_.the_unicode_layer.text_segmentation.h7"></a>
         <span class="phrase"><a name="boost_text__proposed_.the_unicode_layer.text_segmentation.limitations_of_word_breaking"></a></span><a class="link" href="text_segmentation.html#boost_text__proposed_.the_unicode_layer.text_segmentation.limitations_of_word_breaking">Limitations
         of Word Breaking</a>
       </h5>
@@ -452,7 +463,7 @@
         at too.
       </p>
 <h5>
-<a name="boost_text__proposed_.the_unicode_layer.text_segmentation.h7"></a>
+<a name="boost_text__proposed_.the_unicode_layer.text_segmentation.h8"></a>
         <span class="phrase"><a name="boost_text__proposed_.the_unicode_layer.text_segmentation.word_break_tailoring"></a></span><a class="link" href="text_segmentation.html#boost_text__proposed_.the_unicode_layer.text_segmentation.word_break_tailoring">Word
         Break Tailoring</a>
       </h5>
@@ -685,7 +696,7 @@
 <p>
       </p>
 <h5>
-<a name="boost_text__proposed_.the_unicode_layer.text_segmentation.h8"></a>
+<a name="boost_text__proposed_.the_unicode_layer.text_segmentation.h9"></a>
         <span class="phrase"><a name="boost_text__proposed_.the_unicode_layer.text_segmentation.sentences"></a></span><a class="link" href="text_segmentation.html#boost_text__proposed_.the_unicode_layer.text_segmentation.sentences">Sentences</a>
       </h5>
 <p>
@@ -693,7 +704,7 @@
         extra tailoring parameters.
       </p>
 <h5>
-<a name="boost_text__proposed_.the_unicode_layer.text_segmentation.h9"></a>
+<a name="boost_text__proposed_.the_unicode_layer.text_segmentation.h10"></a>
         <span class="phrase"><a name="boost_text__proposed_.the_unicode_layer.text_segmentation.paragraphs"></a></span><a class="link" href="text_segmentation.html#boost_text__proposed_.the_unicode_layer.text_segmentation.paragraphs">Paragraphs</a>
       </h5>
 <p>
@@ -708,7 +719,7 @@
         others; having an API for detecting paragraph breaks makes that simpler.
       </p>
 <h5>
-<a name="boost_text__proposed_.the_unicode_layer.text_segmentation.h10"></a>
+<a name="boost_text__proposed_.the_unicode_layer.text_segmentation.h11"></a>
         <span class="phrase"><a name="boost_text__proposed_.the_unicode_layer.text_segmentation.lines"></a></span><a class="link" href="text_segmentation.html#boost_text__proposed_.the_unicode_layer.text_segmentation.lines">Lines</a>
       </h5>
 <p>
@@ -744,10 +755,10 @@
         versions. For the <code class="computeroutput"><span class="identifier">allowed</span></code>
         overloads, you may need to know, once you have the break position, whether
         it was a hard line break. The <code class="computeroutput"><span class="identifier">allowed</span></code>
-        overloads therefore return a struct, <code class="computeroutput">line_break_result</code>. It has an
+        overloads therefore return a struct, <code class="computeroutput"><a class="link" href="../../boost/text/v1/line_break_result.html" title="Struct template line_break_result">line_break_result</a></code>. It has an
         <code class="computeroutput"><span class="special">.</span><span class="identifier">iter</span></code>
         member to indicate the location, and a <code class="computeroutput"><span class="special">.</span><span class="identifier">hard_break</span></code> member to indicate whether that
-        location is a hard line break. Overloads of <code class="computeroutput"><span class="keyword">operator</span><span class="special">==()</span></code> and <code class="computeroutput"><span class="keyword">operator</span><span class="special">!=()</span></code> are defined between <code class="computeroutput">line_break_result</code> and its iterator
+        location is a hard line break. Overloads of <code class="computeroutput"><span class="keyword">operator</span><span class="special">==()</span></code> and <code class="computeroutput"><span class="keyword">operator</span><span class="special">!=()</span></code> are defined between <code class="computeroutput"><a class="link" href="../../boost/text/v1/line_break_result.html" title="Struct template line_break_result">line_break_result</a></code> and its iterator
         type so that you can treat it as an iterator in generic code if you don't
         care about the hard line break information:
       </p>
@@ -794,7 +805,7 @@
         and <code class="computeroutput"><span class="identifier">next</span></code> functions for allowed
         beaks returned extra information, the other allowed-break functions do as
         well. The rest of the API produces code point or grapheme ranges, and the
-        allowed-break versions produce <code class="computeroutput">line_break_cp_views</code> or <code class="computeroutput">line_break_grapheme_views</code>
+        allowed-break versions produce <code class="computeroutput"><a class="link" href="../../boost/text/v1/line_break_cp_view.html" title="Struct template line_break_cp_view">line_break_cp_views</a></code> or <code class="computeroutput"><a class="link" href="../../boost/text/v1/line_break_grapheme_view.html" title="Struct template line_break_grapheme_view">line_break_grapheme_views</a></code>
         instead, respectively:
       </p>
 <p>

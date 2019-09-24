@@ -31,35 +31,35 @@
   <span class="keyword">typedef</span> <span class="identifier">IteratorTemplate</span><span class="special">&lt;</span> <span class="identifier">CPIter</span><span class="special">,</span> <span class="identifier">Sentinel</span><span class="special">,</span> <span class="identifier">NextFunc</span><span class="special">,</span> <span class="identifier">CPRange</span> <span class="special">&gt;</span> <a name="boost.text.v1.lazy_segment_range.iterator"></a><span class="identifier">iterator</span><span class="special">;</span>
 
   <span class="comment">// <a class="link" href="lazy_segment_range.html#boost.text.v1.lazy_segment_rangeconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <a class="link" href="lazy_segment_range.html#idm18477-bb"><span class="identifier">lazy_segment_range</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <a class="link" href="lazy_segment_range.html#idm18478-bb"><span class="identifier">lazy_segment_range</span></a><span class="special">(</span><span class="identifier">NextFunc</span><span class="special">,</span> <span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">iterator</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <a class="link" href="lazy_segment_range.html#idm19076-bb"><span class="identifier">lazy_segment_range</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <a class="link" href="lazy_segment_range.html#idm19077-bb"><span class="identifier">lazy_segment_range</span></a><span class="special">(</span><span class="identifier">NextFunc</span><span class="special">,</span> <span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">iterator</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="lazy_segment_range.html#idm18467-bb">public member functions</a></span>
-  <span class="identifier">iterator</span> <a class="link" href="lazy_segment_range.html#idm18468-bb"><span class="identifier">begin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="identifier">iterator</span> <a class="link" href="lazy_segment_range.html#idm18470-bb"><span class="identifier">end</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="identifier">NextFunc</span> <span class="special">&amp;&amp;</span> <a class="link" href="lazy_segment_range.html#idm18472-bb"><span class="identifier">next_func</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="lazy_segment_range.html#idm19066-bb">public member functions</a></span>
+  <span class="identifier">iterator</span> <a class="link" href="lazy_segment_range.html#idm19067-bb"><span class="identifier">begin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">iterator</span> <a class="link" href="lazy_segment_range.html#idm19069-bb"><span class="identifier">end</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">NextFunc</span> <span class="special">&amp;&amp;</span> <a class="link" href="lazy_segment_range.html#idm19071-bb"><span class="identifier">next_func</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="idm25658"></a><h2>Description</h2>
+<a name="idm26645"></a><h2>Description</h2>
 <p>Represents a range of non-overlapping subranges. Each subrange represents some semantically significant segment, the semantics of which are controlled by the <code class="computeroutput">NextFunc</code> template parameter. For instance, if <code class="computeroutput">NextFunc</code> is next_paragraph_break, the subranges produced by <a class="link" href="lazy_segment_range.html" title="Struct template lazy_segment_range">lazy_segment_range</a> will be paragraphs. Each subrange is lazily produced; an output subrange is not produced until a lazy range iterator is dereferenced. </p>
 <div class="refsect2">
-<a name="idm25664"></a><h3>
+<a name="idm26651"></a><h3>
 <a name="boost.text.v1.lazy_segment_rangeconstruct-copy-destruct"></a><code class="computeroutput">lazy_segment_range</code> 
         public
        construct/copy/destruct</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><a name="idm18477-bb"></a><span class="identifier">lazy_segment_range</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><a name="idm18478-bb"></a><span class="identifier">lazy_segment_range</span><span class="special">(</span><span class="identifier">NextFunc</span> next_func<span class="special">,</span> <span class="identifier">iterator</span> first<span class="special">,</span> <span class="identifier">iterator</span> last<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idm19076-bb"></a><span class="identifier">lazy_segment_range</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idm19077-bb"></a><span class="identifier">lazy_segment_range</span><span class="special">(</span><span class="identifier">NextFunc</span> next_func<span class="special">,</span> <span class="identifier">iterator</span> first<span class="special">,</span> <span class="identifier">iterator</span> last<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
 </ol></div>
 </div>
 <div class="refsect2">
-<a name="idm25692"></a><h3>
-<a name="idm18467-bb"></a><code class="computeroutput">lazy_segment_range</code> public member functions</h3>
+<a name="idm26679"></a><h3>
+<a name="idm19066-bb"></a><code class="computeroutput">lazy_segment_range</code> public member functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><span class="identifier">iterator</span> <a name="idm18468-bb"></a><span class="identifier">begin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="identifier">iterator</span> <a name="idm18470-bb"></a><span class="identifier">end</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">iterator</span> <a name="idm19067-bb"></a><span class="identifier">begin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">iterator</span> <a name="idm19069-bb"></a><span class="identifier">end</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">NextFunc</span> <span class="special">&amp;&amp;</span> <a name="idm18472-bb"></a><span class="identifier">next_func</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="identifier">NextFunc</span> <span class="special">&amp;&amp;</span> <a name="idm19071-bb"></a><span class="identifier">next_func</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>
 <p>Moves the contained <code class="computeroutput">NextFunc</code> out of *this. </p>
 </li>
 </ol></div>
