@@ -19,17 +19,16 @@
     Support (with a Special Note About MSVC)</a>
 </h2></div></div></div>
 <p>
-      Boost.Text is written against the C++11 and C++14 standards. It will use C++14
-      features if they are present, and otherwise is C++11 code. Specifically, Boost.Text
-      takes advantage of C++14 constexpr support for much of <code class="computeroutput"><a class="link" href="../boost/text/text_view.html" title="Struct text_view">text_view</a></code>'s implementetation.
+      Boost.Text is written against the C++14 standard. Specifically, Boost.Text
+      takes advantage of C++14 constexpr support for much of <code class="computeroutput">text_view</code>'s implementation.
     </p>
 <p>
       Clang versions 3.6 and later (which corresponds to XCode versions 6.4 or later),
-      and GCC versions 4.9 and later all work.
+      and GCC versions 5 and later all work.
     </p>
 <p>
       MSVC support has been tested with Visual Studio 2017. Later versions are expected
-      to work as well. Note that Visual Studio 2017 dows not have correct C++14
+      to work as well. Note that Visual Studio 2017 does not have correct C++14
       <code class="computeroutput"><span class="keyword">constexpr</span></code> support.
     </p>
 <div class="important"><table border="0" summary="Important">

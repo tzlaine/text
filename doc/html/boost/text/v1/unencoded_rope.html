@@ -1,0 +1,534 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Struct unencoded_rope</title>
+<link rel="stylesheet" href="../../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="../../../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="up" href="../../../header/boost/text/unencoded_rope_hpp.html" title="Header &lt;boost/text/unencoded_rope.hpp&gt;">
+<link rel="prev" href="../../../header/boost/text/unencoded_rope_hpp.html" title="Header &lt;boost/text/unencoded_rope.hpp&gt;">
+<link rel="next" href="operator__idm28848.html" title="Function operator+">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="../../../header/boost/text/unencoded_rope_hpp.html"><img src="../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../../header/boost/text/unencoded_rope_hpp.html"><img src="../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../images/home.png" alt="Home"></a><a accesskey="n" href="operator__idm28848.html"><img src="../../../images/next.png" alt="Next"></a>
+</div>
+<div class="refentry">
+<a name="boost.text.v1.unencoded_rope"></a><div class="titlepage"></div>
+<div class="refnamediv">
+<h2><span class="refentrytitle">Struct unencoded_rope</span></h2>
+<p>boost::text::v1::unencoded_rope</p>
+</div>
+<h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
+<div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="comment">// In header: &lt;<a class="link" href="../../../header/boost/text/unencoded_rope_hpp.html" title="Header &lt;boost/text/unencoded_rope.hpp&gt;">boost/text/unencoded_rope.hpp</a>&gt;
+
+</span>
+<span class="keyword">struct</span> <a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">{</span>
+  <span class="comment">// types</span>
+  <span class="keyword">typedef</span> <span class="keyword">char</span>           <a name="boost.text.v1.unencoded_rope.value_type"></a><span class="identifier">value_type</span><span class="special">;</span>            
+  <span class="keyword">typedef</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ptrdiff_t</span> <a name="boost.text.v1.unencoded_rope.size_type"></a><span class="identifier">size_type</span><span class="special">;</span>             
+  <span class="keyword">typedef</span> <span class="emphasis"><em><span class="identifier">unspecified</span></em></span>    <a name="boost.text.v1.unencoded_rope.iterator"></a><span class="identifier">iterator</span><span class="special">;</span>              
+  <span class="keyword">typedef</span> <span class="emphasis"><em><span class="identifier">unspecified</span></em></span>    <a name="boost.text.v1.unencoded_rope.const_iterator"></a><span class="identifier">const_iterator</span><span class="special">;</span>        
+  <span class="keyword">typedef</span> <span class="emphasis"><em><span class="identifier">unspecified</span></em></span>    <a name="boost.text.v1.unencoded_rope.reverse_iterator"></a><span class="identifier">reverse_iterator</span><span class="special">;</span>      
+  <span class="keyword">typedef</span> <span class="emphasis"><em><span class="identifier">unspecified</span></em></span>    <a name="boost.text.v1.unencoded_rope.const_reverse_iterator"></a><span class="identifier">const_reverse_iterator</span><span class="special">;</span>
+
+  <span class="comment">// <a class="link" href="unencoded_rope.html#boost.text.v1.unencoded_ropeconstruct-copy-destruct">construct/copy/destruct</a></span>
+  <a class="link" href="unencoded_rope.html#idm28520-bb"><span class="identifier">unencoded_rope</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <a class="link" href="unencoded_rope.html#idm28526-bb"><span class="identifier">unencoded_rope</span></a><span class="special">(</span><a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span> <span class="special">=</span> <span class="keyword">default</span><span class="special">;</span>
+  <a class="link" href="unencoded_rope.html#idm28530-bb"><span class="identifier">unencoded_rope</span></a><span class="special">(</span><a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;&amp;</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="unencoded_rope.html#idm28534-bb"><span class="identifier">unencoded_rope</span></a><span class="special">(</span><span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">explicit</span> <a class="link" href="unencoded_rope.html#idm28540-bb"><span class="identifier">unencoded_rope</span></a><span class="special">(</span><a class="link" href="unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">explicit</span> <a class="link" href="unencoded_rope.html#idm28548-bb"><span class="identifier">unencoded_rope</span></a><span class="special">(</span><a class="link" href="string.html" title="Struct string">string</a> <span class="special">&amp;&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharRange<span class="special">&gt;</span> <span class="keyword">explicit</span> <a class="link" href="unencoded_rope.html#idm28555-bb"><span class="identifier">unencoded_rope</span></a><span class="special">(</span><span class="identifier">CharRange</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharIter<span class="special">,</span> <span class="keyword">typename</span> Sentinel<span class="special">&gt;</span> 
+    <a class="link" href="unencoded_rope.html#idm28565-bb"><span class="identifier">unencoded_rope</span></a><span class="special">(</span><span class="identifier">CharIter</span><span class="special">,</span> <span class="identifier">Sentinel</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> GraphemeRange<span class="special">&gt;</span> 
+    <span class="keyword">explicit</span> <a class="link" href="unencoded_rope.html#idm28578-bb"><span class="identifier">unencoded_rope</span></a><span class="special">(</span><span class="identifier">GraphemeRange</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;</span> <a class="link" href="unencoded_rope.html#idm28588-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span> <span class="special">=</span> <span class="keyword">default</span><span class="special">;</span>
+  <a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;</span> <a class="link" href="unencoded_rope.html#idm28594-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;&amp;</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;</span> <a class="link" href="unencoded_rope.html#idm28600-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><a class="link" href="unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;</span> <a class="link" href="unencoded_rope.html#idm28609-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><a class="link" href="string.html" title="Struct string">string</a> <span class="special">&amp;&amp;</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;</span> <a class="link" href="unencoded_rope.html#idm28617-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharRange<span class="special">&gt;</span> <a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;</span> <a class="link" href="unencoded_rope.html#idm28624-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><span class="identifier">CharRange</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> GraphemeRange<span class="special">&gt;</span> 
+    <a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;</span> <a class="link" href="unencoded_rope.html#idm28635-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><span class="identifier">GraphemeRange</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+
+  <span class="comment">// <a class="link" href="unencoded_rope.html#idm28143-bb">public member functions</a></span>
+  <span class="identifier">const_iterator</span> <a class="link" href="unencoded_rope.html#idm28144-bb"><span class="identifier">begin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_iterator</span> <a class="link" href="unencoded_rope.html#idm28146-bb"><span class="identifier">end</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_iterator</span> <a class="link" href="unencoded_rope.html#idm28148-bb"><span class="identifier">cbegin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_iterator</span> <a class="link" href="unencoded_rope.html#idm28150-bb"><span class="identifier">cend</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_reverse_iterator</span> <a class="link" href="unencoded_rope.html#idm28152-bb"><span class="identifier">rbegin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_reverse_iterator</span> <a class="link" href="unencoded_rope.html#idm28154-bb"><span class="identifier">rend</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_reverse_iterator</span> <a class="link" href="unencoded_rope.html#idm28156-bb"><span class="identifier">crbegin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_reverse_iterator</span> <a class="link" href="unencoded_rope.html#idm28158-bb"><span class="identifier">crend</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">bool</span> <a class="link" href="unencoded_rope.html#idm28160-bb"><span class="identifier">empty</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">size_type</span> <a class="link" href="unencoded_rope.html#idm28162-bb"><span class="identifier">size</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">char</span> <a class="link" href="unencoded_rope.html#idm28164-bb"><span class="keyword">operator</span><span class="special">[</span><span class="special">]</span></a><span class="special">(</span><span class="identifier">size_type</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <a class="link" href="unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a> <a class="link" href="unencoded_rope.html#idm28173-bb"><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span></a><span class="special">(</span><span class="identifier">size_type</span><span class="special">,</span> <span class="identifier">size_type</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <a class="link" href="unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a> <a class="link" href="unencoded_rope.html#idm28194-bb"><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span></a><span class="special">(</span><span class="identifier">size_type</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="identifier">size_type</span> <a class="link" href="unencoded_rope.html#idm28205-bb"><span class="identifier">max_size</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Fn<span class="special">&gt;</span> <span class="keyword">void</span> <a class="link" href="unencoded_rope.html#idm28210-bb"><span class="identifier">foreach_segment</span></a><span class="special">(</span><span class="identifier">Fn</span> <span class="special">&amp;&amp;</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="keyword">int</span> <a class="link" href="unencoded_rope.html#idm28223-bb"><span class="identifier">compare</span></a><span class="special">(</span><a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">bool</span> <a class="link" href="unencoded_rope.html#idm28230-bb"><span class="identifier">equal_root</span></a><span class="special">(</span><a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="unencoded_rope.html#idm28238-bb"><span class="identifier">clear</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;</span> <a class="link" href="unencoded_rope.html#idm28240-bb"><span class="identifier">insert</span></a><span class="special">(</span><span class="identifier">size_type</span><span class="special">,</span> <span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">const_iterator</span> <a class="link" href="unencoded_rope.html#idm28249-bb"><span class="identifier">insert</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;</span> <a class="link" href="unencoded_rope.html#idm28257-bb"><span class="identifier">insert</span></a><span class="special">(</span><span class="identifier">size_type</span><span class="special">,</span> <a class="link" href="unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">const_iterator</span> <a class="link" href="unencoded_rope.html#idm28267-bb"><span class="identifier">insert</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <a class="link" href="unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;</span> <a class="link" href="unencoded_rope.html#idm28276-bb"><span class="identifier">insert</span></a><span class="special">(</span><span class="identifier">size_type</span><span class="special">,</span> <a class="link" href="string.html" title="Struct string">string</a> <span class="special">&amp;&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">const_iterator</span> <a class="link" href="unencoded_rope.html#idm28286-bb"><span class="identifier">insert</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <a class="link" href="string.html" title="Struct string">string</a> <span class="special">&amp;&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharRange<span class="special">&gt;</span> <span class="keyword">auto</span> <a class="link" href="unencoded_rope.html#idm28295-bb"><span class="identifier">insert</span></a><span class="special">(</span><span class="identifier">size_type</span><span class="special">,</span> <span class="identifier">CharRange</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharRange<span class="special">&gt;</span> <span class="keyword">auto</span> <a class="link" href="unencoded_rope.html#idm28307-bb"><span class="identifier">insert</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">CharRange</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharIter<span class="special">,</span> <span class="keyword">typename</span> Sentinel<span class="special">&gt;</span> 
+    <a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;</span> <a class="link" href="unencoded_rope.html#idm28319-bb"><span class="identifier">insert</span></a><span class="special">(</span><span class="identifier">size_type</span><span class="special">,</span> <span class="identifier">CharIter</span><span class="special">,</span> <span class="identifier">Sentinel</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharIter<span class="special">,</span> <span class="keyword">typename</span> Sentinel<span class="special">&gt;</span> 
+    <a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;</span> <a class="link" href="unencoded_rope.html#idm28335-bb"><span class="identifier">insert</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">CharIter</span><span class="special">,</span> <span class="identifier">Sentinel</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;</span> <a class="link" href="unencoded_rope.html#idm28351-bb"><span class="identifier">erase</span></a><span class="special">(</span><a class="link" href="unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">const_iterator</span> <a class="link" href="unencoded_rope.html#idm28362-bb"><span class="identifier">erase</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">const_iterator</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;</span> <a class="link" href="unencoded_rope.html#idm28373-bb"><span class="identifier">replace</span></a><span class="special">(</span><a class="link" href="unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a><span class="special">,</span> <span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;</span> <a class="link" href="unencoded_rope.html#idm28386-bb"><span class="identifier">replace</span></a><span class="special">(</span><a class="link" href="unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a><span class="special">,</span> <a class="link" href="unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;</span> <a class="link" href="unencoded_rope.html#idm28400-bb"><span class="identifier">replace</span></a><span class="special">(</span><a class="link" href="unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a><span class="special">,</span> <a class="link" href="string.html" title="Struct string">string</a> <span class="special">&amp;&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharRange<span class="special">&gt;</span> 
+    <span class="keyword">auto</span> <a class="link" href="unencoded_rope.html#idm28414-bb"><span class="identifier">replace</span></a><span class="special">(</span><a class="link" href="unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a><span class="special">,</span> <span class="identifier">CharRange</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharIter<span class="special">,</span> <span class="keyword">typename</span> Sentinel<span class="special">&gt;</span> 
+    <a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;</span> <a class="link" href="unencoded_rope.html#idm28430-bb"><span class="identifier">replace</span></a><span class="special">(</span><a class="link" href="unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a><span class="special">,</span> <span class="identifier">CharIter</span><span class="special">,</span> <span class="identifier">Sentinel</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharIter<span class="special">,</span> <span class="keyword">typename</span> Sentinel<span class="special">&gt;</span> 
+    <a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;</span> 
+    <a class="link" href="unencoded_rope.html#idm28450-bb"><span class="identifier">replace</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">CharIter</span><span class="special">,</span> <span class="identifier">Sentinel</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="unencoded_rope.html#idm28471-bb"><span class="identifier">swap</span></a><span class="special">(</span><a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;</span> <a class="link" href="unencoded_rope.html#idm28478-bb"><span class="keyword">operator</span><span class="special">+=</span></a><span class="special">(</span><span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;</span> <a class="link" href="unencoded_rope.html#idm28485-bb"><span class="keyword">operator</span><span class="special">+=</span></a><span class="special">(</span><a class="link" href="unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;</span> <a class="link" href="unencoded_rope.html#idm28493-bb"><span class="keyword">operator</span><span class="special">+=</span></a><span class="special">(</span><a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;&amp;</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;</span> <a class="link" href="unencoded_rope.html#idm28501-bb"><span class="keyword">operator</span><span class="special">+=</span></a><span class="special">(</span><a class="link" href="string.html" title="Struct string">string</a> <span class="special">&amp;&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharRange<span class="special">&gt;</span> <a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;</span> <a class="link" href="unencoded_rope.html#idm28509-bb"><span class="keyword">operator</span><span class="special">+=</span></a><span class="special">(</span><span class="identifier">CharRange</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+
+  <span class="comment">// <a class="link" href="unencoded_rope.html#idm28646-bb">friend functions</a></span>
+  <span class="keyword">friend</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span> <a class="link" href="unencoded_rope.html#idm28647-bb"><span class="keyword">operator</span><span class="special">&lt;&lt;</span></a><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span><span class="special">,</span> <a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a><span class="special">)</span><span class="special">;</span>
+<span class="special">}</span><span class="special">;</span></pre></div>
+<div class="refsect1">
+<a name="idm65307"></a><h2>Description</h2>
+<p>A mutable sequence of char with copy-on-write semantics. An <a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> is non-contiguous and is not null-terminated. </p>
+<div class="refsect2">
+<a name="idm65311"></a><h3>
+<a name="boost.text.v1.unencoded_ropeconstruct-copy-destruct"></a><code class="computeroutput">unencoded_rope</code> 
+        public
+       construct/copy/destruct</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem">
+<pre class="literallayout"><a name="idm28520-bb"></a><span class="identifier">unencoded_rope</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>Default ctor.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0" class="variablelist compact">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term">Postconditions:</span></p></td>
+<td><p>size() == 0 &amp;&amp; begin() == end() </p></td>
+</tr></tbody>
+</table></div>
+</li>
+<li class="listitem"><pre class="literallayout"><a name="idm28526-bb"></a><span class="identifier">unencoded_rope</span><span class="special">(</span><a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="keyword">const</span> <span class="special">&amp;</span> rhs<span class="special">)</span> <span class="special">=</span> <span class="keyword">default</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idm28530-bb"></a><span class="identifier">unencoded_rope</span><span class="special">(</span><a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;&amp;</span> rhs<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem">
+<pre class="literallayout"><a name="idm28534-bb"></a><span class="identifier">unencoded_rope</span><span class="special">(</span><span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span> c_str<span class="special">)</span><span class="special">;</span></pre>
+<p>Constructs an <code class="computeroutput"><a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code> from a null-terminated string. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">explicit</span> <a name="idm28540-bb"></a><span class="identifier">unencoded_rope</span><span class="special">(</span><a class="link" href="unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a> rv<span class="special">)</span><span class="special">;</span></pre>
+<p>Constructs an <code class="computeroutput"><a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code> from an <code class="computeroutput"><a class="link" href="unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a></code>. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">explicit</span> <a name="idm28548-bb"></a><span class="identifier">unencoded_rope</span><span class="special">(</span><a class="link" href="string.html" title="Struct string">string</a> <span class="special">&amp;&amp;</span> s<span class="special">)</span><span class="special">;</span></pre>
+<p>Move-constructs an <code class="computeroutput"><a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code> from a string. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharRange<span class="special">&gt;</span> <span class="keyword">explicit</span> <a name="idm28555-bb"></a><span class="identifier">unencoded_rope</span><span class="special">(</span><span class="identifier">CharRange</span> <span class="keyword">const</span> <span class="special">&amp;</span> r<span class="special">)</span><span class="special">;</span></pre>
+<p>Constructs a <code class="computeroutput"><a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code> from a range of char.</p>
+<p>This function only participates in overload resolution if <code class="computeroutput">CharRange</code> models the CharRange concept. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharIter<span class="special">,</span> <span class="keyword">typename</span> Sentinel<span class="special">&gt;</span> 
+  <a name="idm28565-bb"></a><span class="identifier">unencoded_rope</span><span class="special">(</span><span class="identifier">CharIter</span> first<span class="special">,</span> <span class="identifier">Sentinel</span> last<span class="special">)</span><span class="special">;</span></pre>
+<p>Constructs an <code class="computeroutput"><a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code> from a sequence of char.</p>
+<p>This function only participates in overload resolution if <code class="computeroutput">CharIter</code> models the CharIter concept. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> GraphemeRange<span class="special">&gt;</span> 
+  <span class="keyword">explicit</span> <a name="idm28578-bb"></a><span class="identifier">unencoded_rope</span><span class="special">(</span><span class="identifier">GraphemeRange</span> <span class="keyword">const</span> <span class="special">&amp;</span> r<span class="special">)</span><span class="special">;</span></pre>
+<p>Constructs a <code class="computeroutput"><a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code> from a range of graphemes over an underlying range of char.</p>
+<p>This function only participates in overload resolution if <code class="computeroutput">GraphemeRange</code> models the GraphemeRange concept. </p>
+</li>
+<li class="listitem"><pre class="literallayout"><a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;</span> <a name="idm28588-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="keyword">const</span> <span class="special">&amp;</span> rhs<span class="special">)</span> <span class="special">=</span> <span class="keyword">default</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;</span> <a name="idm28594-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;&amp;</span> rhs<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem">
+<pre class="literallayout"><a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;</span> <a name="idm28600-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><a class="link" href="unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a> rv<span class="special">)</span><span class="special">;</span></pre>
+<p>Assignment from an <code class="computeroutput"><a class="link" href="unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a></code>. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;</span> <a name="idm28609-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><a class="link" href="string.html" title="Struct string">string</a> <span class="special">&amp;&amp;</span> s<span class="special">)</span><span class="special">;</span></pre>
+<p>Move-assignment from a string. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;</span> <a name="idm28617-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span> c_str<span class="special">)</span><span class="special">;</span></pre>
+<p>Assignment from a null-terminated string. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharRange<span class="special">&gt;</span> <a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;</span> <a name="idm28624-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><span class="identifier">CharRange</span> <span class="keyword">const</span> <span class="special">&amp;</span> r<span class="special">)</span><span class="special">;</span></pre>
+<p>Assignment from a range of char.</p>
+<p>This function only participates in overload resolution if <code class="computeroutput">CharRange</code> models the CharRange concept. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> GraphemeRange<span class="special">&gt;</span> 
+  <a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;</span> <a name="idm28635-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><span class="identifier">GraphemeRange</span> <span class="keyword">const</span> <span class="special">&amp;</span> r<span class="special">)</span><span class="special">;</span></pre>
+<p>Assignment from a range of graphemes over an underlying range of char.</p>
+<p>This function only participates in overload resolution if <code class="computeroutput">GraphemeRange</code> models the GraphemeRange concept. </p>
+</li>
+</ol></div>
+</div>
+<div class="refsect2">
+<a name="idm65577"></a><h3>
+<a name="idm28143-bb"></a><code class="computeroutput">unencoded_rope</code> public member functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idm28144-bb"></a><span class="identifier">begin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idm28146-bb"></a><span class="identifier">end</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idm28148-bb"></a><span class="identifier">cbegin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idm28150-bb"></a><span class="identifier">cend</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_reverse_iterator</span> <a name="idm28152-bb"></a><span class="identifier">rbegin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_reverse_iterator</span> <a name="idm28154-bb"></a><span class="identifier">rend</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_reverse_iterator</span> <a name="idm28156-bb"></a><span class="identifier">crbegin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_reverse_iterator</span> <a name="idm28158-bb"></a><span class="identifier">crend</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">bool</span> <a name="idm28160-bb"></a><span class="identifier">empty</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">size_type</span> <a name="idm28162-bb"></a><span class="identifier">size</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">char</span> <a name="idm28164-bb"></a><span class="keyword">operator</span><span class="special">[</span><span class="special">]</span><span class="special">(</span><span class="identifier">size_type</span> i<span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>Returns the char (not a reference) of *this at index i, or the char at index -i when i &lt; 0.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0" class="variablelist compact">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term">Requires:</span></p></td>
+<td><p>0 &lt;= i &amp;&amp; i &lt;= size() || 0 &lt;= -i &amp;&amp; -i &lt;= size() </p></td>
+</tr></tbody>
+</table></div>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a class="link" href="unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a> <a name="idm28173-bb"></a><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span><span class="special">(</span><span class="identifier">size_type</span> lo<span class="special">,</span> <span class="identifier">size_type</span> hi<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
+<p>Returns a substring of *this as an <code class="computeroutput"><a class="link" href="unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a></code>, taken from the range of chars at offsets [lo, hi). If either of lo or hi is a negative value x, x is taken to be an offset from the end, and so x</p>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>size() is used instead.</p></li></ul></div>
+<p>
+</p>
+<p>These preconditions apply to the values used after size() is added to any negative arguments.</p>
+<p>
+
+
+</p>
+<div class="variablelist"><table border="0" class="variablelist compact">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term">Requires:</span></p></td>
+<td><p>0 &lt;= lo &amp;&amp; lo &lt;= size() </p></td>
+</tr>
+<tr>
+<td><p><span class="term">Requires:</span></p></td>
+<td><p>0 &lt;= hi &amp;&amp; lhi &lt;= size() </p></td>
+</tr>
+<tr>
+<td><p><span class="term">Requires:</span></p></td>
+<td><p>lo &lt;= hi </p></td>
+</tr>
+</tbody>
+</table></div>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a class="link" href="unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a> <a name="idm28194-bb"></a><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span><span class="special">(</span><span class="identifier">size_type</span> cut<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
+<p>Returns a substring of *this as an <code class="computeroutput"><a class="link" href="unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a></code>, taken from the first cut chars when cut =&gt; 0, or the last -cut chars when cut &lt; 0.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0" class="variablelist compact">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term">Requires:</span></p></td>
+<td><p>0 &lt;= cut &amp;&amp; cut &lt;= size() || 0 &lt;= -cut &amp;&amp; -cut &lt;= size() </p></td>
+</tr></tbody>
+</table></div>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="identifier">size_type</span> <a name="idm28205-bb"></a><span class="identifier">max_size</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>Returns the maximum size an <code class="computeroutput"><a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code> can have. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Fn<span class="special">&gt;</span> <span class="keyword">void</span> <a name="idm28210-bb"></a><span class="identifier">foreach_segment</span><span class="special">(</span><span class="identifier">Fn</span> <span class="special">&amp;&amp;</span> f<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
+<p>Visits each segment s of *this and calls f(s). Each segment is a <code class="computeroutput"><a class="link" href="string_view.html" title="Struct string_view">string_view</a></code> or <code class="computeroutput"><a class="link" href="repeated_string_view.html" title="Struct repeated_string_view">repeated_string_view</a></code>. Depending of the operation performed on each segment, this may be more efficient than iterating over [begin(), end()).</p>
+<p>
+</p>
+<div class="variablelist"><table border="0" class="variablelist compact">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term">Requires:</span></p></td>
+<td><p>Fn is an Invocable accepting a single argument of any of the types listed above. </p></td>
+</tr></tbody>
+</table></div>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">int</span> <a name="idm28223-bb"></a><span class="identifier">compare</span><span class="special">(</span><a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> rhs<span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>Lexicographical compare. Returns a value &lt; 0 when *this is lexicographically less than rhs, 0 if *this == rhs, and a value &gt; 0 if *this is lexicographically greater than rhs. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">bool</span> <a name="idm28230-bb"></a><span class="identifier">equal_root</span><span class="special">(</span><a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> rhs<span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>Returns true if *this and rhs contain the same root node pointer. This is useful when you want to check for equality between two unencoded_ropes that are likely to have originated from the same initial <code class="computeroutput"><a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code>, and may have since been mutated. </p>
+</li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">void</span> <a name="idm28238-bb"></a><span class="identifier">clear</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem">
+<pre class="literallayout"><a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;</span> <a name="idm28240-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="identifier">size_type</span> at<span class="special">,</span> <span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span> c_str<span class="special">)</span><span class="special">;</span></pre>
+<p>Inserts the null-terminated string into *this starting at offset at. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idm28249-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="identifier">const_iterator</span> at<span class="special">,</span> <span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span> c_str<span class="special">)</span><span class="special">;</span></pre>
+<p>Inserts the null-terminated string into *this starting at position at. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;</span> <a name="idm28257-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="identifier">size_type</span> at<span class="special">,</span> <a class="link" href="unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a> rv<span class="special">)</span><span class="special">;</span></pre>
+<p>Inserts the sequence of char from rv into *this starting at offset at. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idm28267-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="identifier">const_iterator</span> at<span class="special">,</span> <a class="link" href="unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a> rv<span class="special">)</span><span class="special">;</span></pre>
+<p>Inserts the sequence of char from rv into *this starting at position at. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;</span> <a name="idm28276-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="identifier">size_type</span> at<span class="special">,</span> <a class="link" href="string.html" title="Struct string">string</a> <span class="special">&amp;&amp;</span> s<span class="special">)</span><span class="special">;</span></pre>
+<p>Inserts the sequence of char from t into *this starting at offset at, by moving the contents of t. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idm28286-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="identifier">const_iterator</span> at<span class="special">,</span> <a class="link" href="string.html" title="Struct string">string</a> <span class="special">&amp;&amp;</span> s<span class="special">)</span><span class="special">;</span></pre>
+<p>Inserts the sequence of char from t into *this starting at position at, by moving the contents of t. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharRange<span class="special">&gt;</span> <span class="keyword">auto</span> <a name="idm28295-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="identifier">size_type</span> at<span class="special">,</span> <span class="identifier">CharRange</span> <span class="keyword">const</span> <span class="special">&amp;</span> r<span class="special">)</span><span class="special">;</span></pre>
+<p>Inserts the char sequence r into *this starting at offset at.</p>
+<p>This function only participates in overload resolution if <code class="computeroutput">CharRange</code> models the CharRange concept. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharRange<span class="special">&gt;</span> 
+  <span class="keyword">auto</span> <a name="idm28307-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="identifier">const_iterator</span> at<span class="special">,</span> <span class="identifier">CharRange</span> <span class="keyword">const</span> <span class="special">&amp;</span> r<span class="special">)</span><span class="special">;</span></pre>
+<p>Inserts the char sequence r into *this starting at position at.</p>
+<p>This function only participates in overload resolution if <code class="computeroutput">CharRange</code> models the CharRange concept. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharIter<span class="special">,</span> <span class="keyword">typename</span> Sentinel<span class="special">&gt;</span> 
+  <a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;</span> <a name="idm28319-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="identifier">size_type</span> at<span class="special">,</span> <span class="identifier">CharIter</span> first<span class="special">,</span> <span class="identifier">Sentinel</span> last<span class="special">)</span><span class="special">;</span></pre>
+<p>Inserts the char sequence [first, last) into *this starting at offset at.</p>
+<p>This function only participates in overload resolution if <code class="computeroutput">CharIter</code> models the CharIter concept. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharIter<span class="special">,</span> <span class="keyword">typename</span> Sentinel<span class="special">&gt;</span> 
+  <a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;</span> <a name="idm28335-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="identifier">const_iterator</span> at<span class="special">,</span> <span class="identifier">CharIter</span> first<span class="special">,</span> <span class="identifier">Sentinel</span> last<span class="special">)</span><span class="special">;</span></pre>
+<p>Inserts the char sequence [first, last) into *this starting at position at.</p>
+<p>This function only participates in overload resolution if <code class="computeroutput">CharIter</code> models the CharIter concept. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;</span> <a name="idm28351-bb"></a><span class="identifier">erase</span><span class="special">(</span><a class="link" href="unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a> rv<span class="special">)</span><span class="special">;</span></pre>
+<p>Erases the portion of *this delimited by rv.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0" class="variablelist compact">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term">Requires:</span></p></td>
+<td><p>rv.begin() &lt;= rv.begin() &amp;&amp; rv.end() &lt;= end() </p></td>
+</tr></tbody>
+</table></div>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idm28362-bb"></a><span class="identifier">erase</span><span class="special">(</span><span class="identifier">const_iterator</span> first<span class="special">,</span> <span class="identifier">const_iterator</span> last<span class="special">)</span><span class="special">;</span></pre>
+<p>Erases the portion of *this delimited by [first, last).</p>
+<p>
+</p>
+<div class="variablelist"><table border="0" class="variablelist compact">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term">Requires:</span></p></td>
+<td><p>first &lt;= last </p></td>
+</tr></tbody>
+</table></div>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;</span> <a name="idm28373-bb"></a><span class="identifier">replace</span><span class="special">(</span><a class="link" href="unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a> old_substr<span class="special">,</span> <span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span> c_str<span class="special">)</span><span class="special">;</span></pre>
+<p>Replaces the portion of *this delimited by old_substr with the sequence of char from c_str.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0" class="variablelist compact">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term">Requires:</span></p></td>
+<td><p>begin() &lt;= old_substr.begin() &amp;&amp; old_substr.end() &lt;= end() </p></td>
+</tr></tbody>
+</table></div>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;</span> 
+<a name="idm28386-bb"></a><span class="identifier">replace</span><span class="special">(</span><a class="link" href="unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a> old_substr<span class="special">,</span> <a class="link" href="unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a> rv<span class="special">)</span><span class="special">;</span></pre>
+<p>Replaces the portion of *this delimited by old_substr with the sequence of char from rv.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0" class="variablelist compact">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term">Requires:</span></p></td>
+<td><p>begin() &lt;= old_substr.begin() &amp;&amp; old_substr.end() &lt;= end() </p></td>
+</tr></tbody>
+</table></div>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;</span> <a name="idm28400-bb"></a><span class="identifier">replace</span><span class="special">(</span><a class="link" href="unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a> old_substr<span class="special">,</span> <a class="link" href="string.html" title="Struct string">string</a> <span class="special">&amp;&amp;</span> s<span class="special">)</span><span class="special">;</span></pre>
+<p>Replaces the portion of *this delimited by old_substr with the sequence of char from t by moving the contents of t.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0" class="variablelist compact">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term">Requires:</span></p></td>
+<td><p>begin() &lt;= old_substr.begin() &amp;&amp; old_substr.end() &lt;= end() </p></td>
+</tr></tbody>
+</table></div>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharRange<span class="special">&gt;</span> 
+  <span class="keyword">auto</span> <a name="idm28414-bb"></a><span class="identifier">replace</span><span class="special">(</span><a class="link" href="unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a> old_substr<span class="special">,</span> <span class="identifier">CharRange</span> <span class="keyword">const</span> <span class="special">&amp;</span> r<span class="special">)</span><span class="special">;</span></pre>
+<p>Replaces the portion of *this delimited by old_substr with the char sequence r.</p>
+<p>This function only participates in overload resolution if <code class="computeroutput">CharRange</code> models the CharRange concept.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0" class="variablelist compact">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term">Requires:</span></p></td>
+<td><p>begin() &lt;= old_substr.begin() &amp;&amp; old_substr.end() &lt;= end() </p></td>
+</tr></tbody>
+</table></div>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharIter<span class="special">,</span> <span class="keyword">typename</span> Sentinel<span class="special">&gt;</span> 
+  <a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;</span> 
+  <a name="idm28430-bb"></a><span class="identifier">replace</span><span class="special">(</span><a class="link" href="unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a> old_substr<span class="special">,</span> <span class="identifier">CharIter</span> first<span class="special">,</span> <span class="identifier">Sentinel</span> last<span class="special">)</span><span class="special">;</span></pre>
+<p>Replaces the portion of *this delimited by old_substr with the char sequence [first, last).</p>
+<p>This function only participates in overload resolution if <code class="computeroutput">CharIter</code> models the CharIter concept.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0" class="variablelist compact">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term">Requires:</span></p></td>
+<td><p>begin() &lt;= old_substr.begin() &amp;&amp; old_substr.end() &lt;= end() </p></td>
+</tr></tbody>
+</table></div>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharIter<span class="special">,</span> <span class="keyword">typename</span> Sentinel<span class="special">&gt;</span> 
+  <a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;</span> 
+  <a name="idm28450-bb"></a><span class="identifier">replace</span><span class="special">(</span><span class="identifier">const_iterator</span> old_first<span class="special">,</span> <span class="identifier">const_iterator</span> old_last<span class="special">,</span> 
+          <span class="identifier">CharIter</span> new_first<span class="special">,</span> <span class="identifier">Sentinel</span> new_last<span class="special">)</span><span class="special">;</span></pre>
+<p>Replaces the portion of *this delimited by [old_first, old_last) with the char sequence [new_first, new_last).</p>
+<p>This function only participates in overload resolution if <code class="computeroutput">CharIter</code> models the CharIter concept.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0" class="variablelist compact">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term">Requires:</span></p></td>
+<td><p>begin() &lt;= old_substr.begin() &amp;&amp; old_substr.end() &lt;= end() </p></td>
+</tr></tbody>
+</table></div>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">void</span> <a name="idm28471-bb"></a><span class="identifier">swap</span><span class="special">(</span><a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;</span> rhs<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>Swaps *this with rhs. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;</span> <a name="idm28478-bb"></a><span class="keyword">operator</span><span class="special">+=</span><span class="special">(</span><span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span> c_str<span class="special">)</span><span class="special">;</span></pre>
+<p>Appends c_str to *this. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;</span> <a name="idm28485-bb"></a><span class="keyword">operator</span><span class="special">+=</span><span class="special">(</span><a class="link" href="unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a> rv<span class="special">)</span><span class="special">;</span></pre>
+<p>Appends rv to *this. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;</span> <a name="idm28493-bb"></a><span class="keyword">operator</span><span class="special">+=</span><span class="special">(</span><a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;&amp;</span> r<span class="special">)</span><span class="special">;</span></pre>
+<p>Appends r to *this, by moving its contents into *this. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;</span> <a name="idm28501-bb"></a><span class="keyword">operator</span><span class="special">+=</span><span class="special">(</span><a class="link" href="string.html" title="Struct string">string</a> <span class="special">&amp;&amp;</span> s<span class="special">)</span><span class="special">;</span></pre>
+<p>Appends t to *this, by moving its contents into *this. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharRange<span class="special">&gt;</span> <a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> <span class="special">&amp;</span> <a name="idm28509-bb"></a><span class="keyword">operator</span><span class="special">+=</span><span class="special">(</span><span class="identifier">CharRange</span> <span class="keyword">const</span> <span class="special">&amp;</span> r<span class="special">)</span><span class="special">;</span></pre>
+<p>Append r to *this.</p>
+<p>This function only participates in overload resolution if <code class="computeroutput">CharRange</code> models the CharRange concept. </p>
+</li>
+</ol></div>
+</div>
+<div class="refsect2">
+<a name="idm66306"></a><h3>
+<a name="idm28646-bb"></a><code class="computeroutput">unencoded_rope</code> friend functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+<pre class="literallayout"><span class="keyword">friend</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span> <a name="idm28647-bb"></a><span class="keyword">operator</span><span class="special">&lt;&lt;</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span> os<span class="special">,</span> <a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> r<span class="special">)</span><span class="special">;</span></pre>
+<p>Stream inserter; performs unformatted output. </p>
+</li></ol></div>
+</div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2018 T. Zachary Laine<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="../../../header/boost/text/unencoded_rope_hpp.html"><img src="../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../../header/boost/text/unencoded_rope_hpp.html"><img src="../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../images/home.png" alt="Home"></a><a accesskey="n" href="operator__idm28848.html"><img src="../../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

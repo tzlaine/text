@@ -56,7 +56,7 @@
 <p>
         Note that <code class="computeroutput"><span class="identifier">prev_X_break</span><span class="special">()</span></code>
         requires <code class="computeroutput"><span class="identifier">last</span></code> because in
-        the genereal case, the algorithm needs to know context after <code class="computeroutput"><span class="identifier">it</span></code> to determine where the breaks are at
+        the general case, the algorithm needs to know context after <code class="computeroutput"><span class="identifier">it</span></code> to determine where the breaks are at
         or before <code class="computeroutput"><span class="identifier">it</span></code>.
       </p>
 <pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">CPIter</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Sentinel</span><span class="special">&gt;</span>
@@ -69,7 +69,7 @@
         is already at a break; the results are otherwise undefined.
       </p>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">CPIter</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Sentinel</span><span class="special">&gt;</span>
-<span class="identifier">cp_range</span><span class="special">&lt;</span><span class="identifier">CPIter</span><span class="special">&gt;</span> <span class="identifier">X</span><span class="special">(</span><span class="identifier">CPIter</span> <span class="identifier">first</span><span class="special">,</span> <span class="identifier">CPIter</span> <span class="identifier">it</span><span class="special">,</span> <span class="identifier">Sentinel</span> <span class="identifier">last</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+<span class="identifier">utf32_view</span><span class="special">&lt;</span><span class="identifier">CPIter</span><span class="special">&gt;</span> <span class="identifier">X</span><span class="special">(</span><span class="identifier">CPIter</span> <span class="identifier">first</span><span class="special">,</span> <span class="identifier">CPIter</span> <span class="identifier">it</span><span class="special">,</span> <span class="identifier">Sentinel</span> <span class="identifier">last</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
 </pre>
 <p>
         <code class="computeroutput"><span class="identifier">X</span><span class="special">()</span></code>
@@ -112,7 +112,7 @@
         that accept <a class="link" href="../concepts.html#boost_text__proposed_.concepts.graphemerange">GraphemeRange</a>
         ranges <a class="link" href="../concepts.html#boost_text__proposed_.concepts.graphemeiterator">GraphemeIterator</a>
         iterators instead. These provide convenient support for using the Unicode
-        layer algorithms with the text layer types like <code class="computeroutput"><a class="link" href="../../boost/text/text.html" title="Struct text">text</a></code> and <code class="computeroutput"><a class="link" href="../../boost/text/rope.html" title="Struct rope">rope</a></code>.
+        layer algorithms with the text layer types like <code class="computeroutput">text</code> and <code class="computeroutput">rope</code>.
       </p>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">GraphemeRange</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">GraphemeIter</span><span class="special">&gt;</span>
 <span class="keyword">auto</span> <span class="identifier">prev_X_break</span><span class="special">(</span><span class="identifier">GraphemeRange</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">range</span><span class="special">,</span> <span class="identifier">GraphemeIter</span> <span class="identifier">it</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
@@ -163,15 +163,15 @@
 
 <span class="comment">// Prints "[0, 2) [2, 3)".</span>
 <span class="keyword">for</span> <span class="special">(</span><span class="keyword">auto</span> <span class="identifier">range</span> <span class="special">:</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">graphemes</span><span class="special">(</span><span class="identifier">cps</span><span class="special">))</span> <span class="special">{</span>
-    <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="char">'['</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">distance</span><span class="special">(</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">range</span><span class="special">.</span><span class="identifier">begin</span><span class="special">())</span> <span class="special">&lt;&lt;</span> <span class="string">", "</span>
-              <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">distance</span><span class="special">(</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">range</span><span class="special">.</span><span class="identifier">end</span><span class="special">())</span> <span class="special">&lt;&lt;</span> <span class="string">") "</span><span class="special">;</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="char">'['</span> <span class="special">&lt;&lt;</span> <span class="special">(</span><span class="identifier">range</span><span class="special">.</span><span class="identifier">begin</span><span class="special">()</span> <span class="special">-</span> <span class="identifier">first</span><span class="special">)</span> <span class="special">&lt;&lt;</span> <span class="string">", "</span> <span class="special">&lt;&lt;</span> <span class="special">(</span><span class="identifier">range</span><span class="special">.</span><span class="identifier">end</span><span class="special">()</span> <span class="special">-</span> <span class="identifier">first</span><span class="special">)</span>
+              <span class="special">&lt;&lt;</span> <span class="string">") "</span><span class="special">;</span>
 <span class="special">}</span>
 <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"\n"</span><span class="special">;</span>
 
 <span class="comment">// Prints "[2, 3) [0, 2)".</span>
 <span class="keyword">for</span> <span class="special">(</span><span class="keyword">auto</span> <span class="identifier">range</span> <span class="special">:</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">reversed_graphemes</span><span class="special">(</span><span class="identifier">cps</span><span class="special">))</span> <span class="special">{</span>
-    <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="char">'['</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">distance</span><span class="special">(</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">range</span><span class="special">.</span><span class="identifier">begin</span><span class="special">())</span> <span class="special">&lt;&lt;</span> <span class="string">", "</span>
-              <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">distance</span><span class="special">(</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">range</span><span class="special">.</span><span class="identifier">end</span><span class="special">())</span> <span class="special">&lt;&lt;</span> <span class="string">") "</span><span class="special">;</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="char">'['</span> <span class="special">&lt;&lt;</span> <span class="special">(</span><span class="identifier">range</span><span class="special">.</span><span class="identifier">begin</span><span class="special">()</span> <span class="special">-</span> <span class="identifier">first</span><span class="special">)</span> <span class="special">&lt;&lt;</span> <span class="string">", "</span> <span class="special">&lt;&lt;</span> <span class="special">(</span><span class="identifier">range</span><span class="special">.</span><span class="identifier">end</span><span class="special">()</span> <span class="special">-</span> <span class="identifier">first</span><span class="special">)</span>
+              <span class="special">&lt;&lt;</span> <span class="string">") "</span><span class="special">;</span>
 <span class="special">}</span>
 <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"\n"</span><span class="special">;</span>
 </pre>
@@ -194,7 +194,7 @@
         to do so. This creates a problem for algorithms like normalization or grapheme
         breaking, because they may be required to look ahead a very long way in order
         to determine how to handle the current grapheme. To address this, Unicode
-        allows a conforming implementation to assume that an sequence of code points
+        allows a conforming implementation to assume that a sequence of code points
         contains graphemes of at most 32 code points. This is known as the <a href="https://unicode.org/reports/tr15/#Stream_Safe_Text_Format" target="_top">Stream-Safe
         Format</a> assumption; Boost.Text makes this assumption.
       </p>
@@ -380,7 +380,7 @@
         The word breaking API can be used just as the grapheme break API, except
         that it also has <a class="link" href="../concepts.html#boost_text__proposed_.concepts.graphemerange">GraphemeRange</a>
         overloads. Here are some example calls using only the <a class="link" href="../concepts.html#boost_text__proposed_.concepts.graphemerange">GraphemeRange</a>
-        overloads, with a <code class="computeroutput"><a class="link" href="../../boost/text/text.html" title="Struct text">text</a></code>
+        overloads, with a <code class="computeroutput">text</code>
         as the <a class="link" href="../concepts.html#boost_text__proposed_.concepts.graphemerange">GraphemeRange</a>:
       </p>
 <p>
@@ -443,7 +443,9 @@
         to be a single word.
       </p>
 <p>
-        Breaking on dashes is the default; the default algorithm finds <code class="computeroutput"><span class="string">"out-of-the-box"</span></code> to be seven words.
+        Breaking on dashes is the default. For example, the default algorithm finds
+        <code class="computeroutput"><span class="string">"out-of-the-box"</span></code> to
+        be seven words.
       </p>
 <p>
         There are other rarer failure cases in that document you might want to look
@@ -455,7 +457,7 @@
         Break Tailoring</a>
       </h5>
 <p>
-        Forunately, unlike grapheme breaking, word breaking is tailorable in two
+        Fortunately, unlike grapheme breaking, word breaking is tailorable in two
         ways.
       </p>
 <p>
@@ -646,7 +648,7 @@
         Returning <code class="computeroutput"><span class="keyword">true</span></code> indicates that
         <code class="computeroutput"><span class="special">[</span><span class="identifier">prev</span><span class="special">,</span> <span class="identifier">curr</span><span class="special">]</span></code> straddles a word break; <code class="computeroutput"><span class="identifier">prev</span></code>
         is the last code point of one word, and <code class="computeroutput"><span class="identifier">curr</span></code>
-        is the first code point of the next. If provided, this cusomt break function
+        is the first code point of the next. If provided, this custom break function
         is evaluated before any of the Unicode word break rules.
       </p>
 <p>
@@ -742,10 +744,10 @@
         versions. For the <code class="computeroutput"><span class="identifier">allowed</span></code>
         overloads, you may need to know, once you have the break position, whether
         it was a hard line break. The <code class="computeroutput"><span class="identifier">allowed</span></code>
-        overloads therefore return a struct, <code class="computeroutput"><a class="link" href="../../boost/text/line_break_result.html" title="Struct template line_break_result">line_break_result</a></code>. It has an
+        overloads therefore return a struct, <code class="computeroutput">line_break_result</code>. It has an
         <code class="computeroutput"><span class="special">.</span><span class="identifier">iter</span></code>
-        member to indicate the location, and a <code class="computeroutput"><span class="special">.</span><span class="identifier">hard_break</span></code> member ot indicate whether that
-        location is a hard line break. Overloads of <code class="computeroutput"><span class="keyword">operator</span><span class="special">==()</span></code> ans <code class="computeroutput"><span class="keyword">operator</span><span class="special">!=()</span></code> are defined between <code class="computeroutput"><a class="link" href="../../boost/text/line_break_result.html" title="Struct template line_break_result">line_break_result</a></code> and its iterator
+        member to indicate the location, and a <code class="computeroutput"><span class="special">.</span><span class="identifier">hard_break</span></code> member to indicate whether that
+        location is a hard line break. Overloads of <code class="computeroutput"><span class="keyword">operator</span><span class="special">==()</span></code> and <code class="computeroutput"><span class="keyword">operator</span><span class="special">!=()</span></code> are defined between <code class="computeroutput">line_break_result</code> and its iterator
         type so that you can treat it as an iterator in generic code if you don't
         care about the hard line break information:
       </p>
@@ -783,7 +785,7 @@
       </p>
 <p>
         The <code class="computeroutput"><span class="identifier">hard</span></code> naming is only present
-        in these low-level functions; the rest of the line breaking APi uses <code class="computeroutput"><span class="identifier">line</span></code> for the hard break version, and <code class="computeroutput"><span class="identifier">allowed_line</span></code> for the other. The rest of
+        in these low-level functions; the rest of the line breaking API uses <code class="computeroutput"><span class="identifier">line</span></code> for the hard break version, and <code class="computeroutput"><span class="identifier">allowed_line</span></code> for the other. The rest of
         the line breaking API should be familiar by now; it parallels the other breaking
         APIs, but with the hard vs. allowed overloads.
       </p>
@@ -792,7 +794,7 @@
         and <code class="computeroutput"><span class="identifier">next</span></code> functions for allowed
         beaks returned extra information, the other allowed-break functions do as
         well. The rest of the API produces code point or grapheme ranges, and the
-        allowed-break versions produce <code class="computeroutput"><a class="link" href="../../boost/text/line_break_cp_range.html" title="Struct template line_break_cp_range">line_break_cp_ranges</a></code> or <code class="computeroutput"><a class="link" href="../../boost/text/line_break_grapheme_range.html" title="Struct template line_break_grapheme_range">line_break_grapheme_ranges</a></code>
+        allowed-break versions produce <code class="computeroutput">line_break_cp_views</code> or <code class="computeroutput">line_break_grapheme_views</code>
         instead, respectively:
       </p>
 <p>
@@ -802,7 +804,7 @@
 <span class="comment">/* Prints:
 "c"
 "b
-""a "
+"a "
 */</span>
 <span class="keyword">for</span> <span class="special">(</span><span class="keyword">auto</span> <span class="identifier">line</span> <span class="special">:</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">reversed_allowed_lines</span><span class="special">(</span><span class="identifier">cps</span><span class="special">))</span> <span class="special">{</span>
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="char">'"'</span> <span class="special">&lt;&lt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">to_string</span><span class="special">(</span><span class="identifier">line</span><span class="special">.</span><span class="identifier">begin</span><span class="special">(),</span> <span class="identifier">line</span><span class="special">.</span><span class="identifier">end</span><span class="special">())</span> <span class="special">&lt;&lt;</span> <span class="char">'"'</span><span class="special">;</span>
@@ -853,7 +855,7 @@ deserunt mollit anim id est laborum.
             <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">const_iterator</span><span class="special">::</span><span class="identifier">iterator_type</span> <span class="identifier">last</span><span class="special">)</span> <span class="special">{</span>
              <span class="comment">// The width of this chunk of text.  For out purposes here, each</span>
              <span class="comment">// grapheme in the chunk has a fixed width of 1.</span>
-             <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">grapheme_range</span><span class="special">&lt;</span>
+             <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">grapheme_view</span><span class="special">&lt;</span>
                  <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">const_iterator</span><span class="special">::</span><span class="identifier">iterator_type</span><span class="special">&gt;</span>
                  <span class="identifier">range</span><span class="special">(</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">last</span><span class="special">);</span>
              <span class="keyword">return</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">distance</span><span class="special">(</span><span class="identifier">range</span><span class="special">.</span><span class="identifier">begin</span><span class="special">(),</span> <span class="identifier">range</span><span class="special">.</span><span class="identifier">end</span><span class="special">());</span>

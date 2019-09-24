@@ -46,8 +46,8 @@
 <p>
     </p>
 <p>
-      Pretty simple, we've just made a non-owning <code class="computeroutput"><a class="link" href="../boost/text/string_view.html" title="Struct string_view">string_view</a></code>, and an owning-and-allocating
-      <code class="computeroutput"><a class="link" href="../boost/text/string.html" title="Struct string">string</a></code>.
+      Pretty simple, we've just made a non-owning <code class="computeroutput">string_view</code>, and an owning-and-allocating
+      <code class="computeroutput">string</code>.
       They each say "Hello, World!". The second one is what the Internet
       assures me is idiomatic Russian meaning the same thing.
     </p>
@@ -58,14 +58,14 @@
     </h4>
 <p>
       There are particular parameter passing conventions that some of the Boost.Text
-      types are designed for. For instance, <code class="computeroutput"><a class="link" href="../boost/text/string_view.html" title="Struct string_view">string_view</a></code>, like <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string_view</span></code>,
-      is designed to bind to any <code class="computeroutput"><span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span></code>, <code class="computeroutput"><a class="link" href="../boost/text/string_view.html" title="Struct string_view">string_view</a></code>,
-      or <code class="computeroutput"><a class="link" href="../boost/text/string.html" title="Struct string">string</a></code>
-      argument, without making a copy. <code class="computeroutput"><a class="link" href="../boost/text/string_view.html" title="Struct string_view">string_view</a></code> is therefore a replacement
-      for the multiple overloads it would take to handle all those types. If <code class="computeroutput"><a class="link" href="../boost/text/string_view.html" title="Struct string_view">string_view</a></code>
+      types are designed for. For instance, <code class="computeroutput">string_view</code>, like <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string_view</span></code>,
+      is designed to bind to any <code class="computeroutput"><span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span></code>, <code class="computeroutput">string_view</code>,
+      or <code class="computeroutput">string</code>
+      argument, without making a copy. <code class="computeroutput">string_view</code> is therefore a replacement
+      for the multiple overloads it would take to handle all those types. If <code class="computeroutput">string_view</code>
       was not implicitly convertible from <code class="computeroutput"><span class="keyword">char</span>
       <span class="keyword">const</span> <span class="special">*</span></code>
-      and <code class="computeroutput"><a class="link" href="../boost/text/string.html" title="Struct string">string</a></code>,
+      and <code class="computeroutput">string</code>,
       this is the sort of code you would have to write:
     </p>
 <p>
@@ -82,7 +82,7 @@
 <p>
     </p>
 <p>
-      And here is what you can write with <code class="computeroutput"><a class="link" href="../boost/text/string_view.html" title="Struct string_view">string_view</a></code>'s implicit conversions:
+      And here is what you can write with <code class="computeroutput">string_view</code>'s implicit conversions:
     </p>
 <p>
 </p>
@@ -93,7 +93,7 @@
     </p>
 <p>
       If you want to write a function parameter that handles any of Boost.Text's
-      types, <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a></code>
+      types, <code class="computeroutput">unencoded_rope_view</code>
       is available:
     </p>
 <p>
@@ -126,14 +126,14 @@
 <th align="left">Note</th>
 </tr>
 <tr><td align="left" valign="top"><p>
-        <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a></code>
-        is less efficient than <code class="computeroutput"><a class="link" href="../boost/text/string_view.html" title="Struct string_view">string_view</a></code> for binding to
-        <code class="computeroutput"><a class="link" href="../boost/text/string.html" title="Struct string">strings</a></code>
-        and <code class="computeroutput"><a class="link" href="../boost/text/string_view.html" title="Struct string_view">string_views</a></code>
+        <code class="computeroutput">unencoded_rope_view</code>
+        is less efficient than <code class="computeroutput">string_view</code> for binding to
+        <code class="computeroutput">strings</code>
+        and <code class="computeroutput">string_views</code>
         (though only a little). If you know you need that extra efficiency, and you
-        know you <span class="bold"><strong>don't</strong></span> need to support <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope.html" title="Struct unencoded_rope">unencoded_ropes</a></code>
-        or <code class="computeroutput"><a class="link" href="../boost/text/repeated_string_view.html" title="Struct repeated_string_view">repeated_string_views</a></code>
-        as arguments to your function, stick to <code class="computeroutput"><a class="link" href="../boost/text/string_view.html" title="Struct string_view">string_view</a></code>.
+        know you <span class="bold"><strong>don't</strong></span> need to support <code class="computeroutput">unencoded_ropes</code>
+        or <code class="computeroutput">repeated_string_views</code>
+        as arguments to your function, stick to <code class="computeroutput">string_view</code>.
       </p></td></tr>
 </table></div>
 <h4>
@@ -150,7 +150,7 @@
     </p>
 <p>
       In the example directory, there is a program <code class="computeroutput"><span class="identifier">rope_editor</span></code>.
-      It uses a <code class="computeroutput"><a class="link" href="../boost/text/rope.html" title="Struct rope">rope</a></code>
+      It uses a <code class="computeroutput">rope</code>
       to store the file you're editing. Even when typing at the beginning of a 1GB
       file, it's very snappy.
     </p>
@@ -168,11 +168,11 @@
       Let's take a look at the editor. We'll get a sense for how Boost.Text is used
       in a larger example. The editor is built using <a href="https://en.wikipedia.org/wiki/Ncurses" target="_top">libcurses</a>,
       a popular Unix library for for making character-based UIs suitable for terminals.
-      It stores the file to edit in a single <code class="computeroutput"><a class="link" href="../boost/text/rope.html" title="Struct rope">rope</a></code>, and uses Boost.Text's line
-      breaking algorithm to determine what portions of the <code class="computeroutput"><a class="link" href="../boost/text/rope.html" title="Struct rope">rope</a></code> are on each line. Each character
+      It stores the file to edit in a single <code class="computeroutput">rope</code>, and uses Boost.Text's line
+      breaking algorithm to determine what portions of the <code class="computeroutput">rope</code> are on each line. Each character
       cell in the editor is a grapheme, not a code point or code unit. It probably
-      mis-renders graphemes containing multiple combining code points &#8212; it's
-      very minimal. However, all the logic is done in terms of graphemes.
+      mis-renders graphemes containing multiple combining code points &#8212; again,
+      it's very minimal. However, all the logic is done in terms of graphemes.
     </p>
 <p>
 </p>
@@ -233,7 +233,7 @@
       an event loop. Do take note of one thing, though. The main update loop uses
       no reference semantics. The application state is moved into the <code class="computeroutput"><span class="identifier">update</span><span class="special">()</span></code>
       function, and a new state is returned. This pattern is attractive when your
-      primary data structure is a <code class="computeroutput"><a class="link" href="../boost/text/rope.html" title="Struct rope">rope</a></code> or <code class="computeroutput"><a class="link" href="../boost/text/segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a></code>, since they're
+      primary data structure is a <code class="computeroutput">rope</code> or <code class="computeroutput">segmented_vector</code>, since they're
       so cheap to copy. The only reason for the move here is that the undo history
       uses a <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span></code>, which is a lot less copy friendly.
       Without that <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span></code>, we could use value semantics even
@@ -447,7 +447,7 @@
 
 <span class="keyword">struct</span> <span class="identifier">cursor_word_t</span>
 <span class="special">{</span>
-    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">grapheme_range</span><span class="special">&lt;</span><span class="identifier">content_t</span><span class="special">::</span><span class="identifier">iterator</span><span class="special">::</span><span class="identifier">iterator_type</span><span class="special">&gt;</span> <span class="identifier">word_</span><span class="special">;</span>
+    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">grapheme_view</span><span class="special">&lt;</span><span class="identifier">content_t</span><span class="special">::</span><span class="identifier">iterator</span><span class="special">::</span><span class="identifier">iterator_type</span><span class="special">&gt;</span> <span class="identifier">word_</span><span class="special">;</span>
     <span class="identifier">content_t</span><span class="special">::</span><span class="identifier">iterator</span> <span class="identifier">cursor_</span><span class="special">;</span>
 <span class="special">};</span>
 
@@ -477,7 +477,7 @@
              <span class="identifier">screen_width</span> <span class="special">-</span> <span class="number">1</span><span class="special">,</span>
              <span class="special">[](</span><span class="identifier">content_t</span><span class="special">::</span><span class="identifier">const_iterator</span><span class="special">::</span><span class="identifier">iterator_type</span> <span class="identifier">first</span><span class="special">,</span>
                 <span class="identifier">content_t</span><span class="special">::</span><span class="identifier">const_iterator</span><span class="special">::</span><span class="identifier">iterator_type</span> <span class="identifier">last</span><span class="special">)</span> <span class="keyword">noexcept</span> <span class="special">{</span>
-                 <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">grapheme_range</span><span class="special">&lt;</span>
+                 <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">grapheme_view</span><span class="special">&lt;</span>
                      <span class="identifier">content_t</span><span class="special">::</span><span class="identifier">const_iterator</span><span class="special">::</span><span class="identifier">iterator_type</span><span class="special">&gt;</span>
                      <span class="identifier">range</span><span class="special">(</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">last</span><span class="special">);</span>
                  <span class="keyword">return</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">distance</span><span class="special">(</span><span class="identifier">range</span><span class="special">.</span><span class="identifier">begin</span><span class="special">(),</span> <span class="identifier">range</span><span class="special">.</span><span class="identifier">end</span><span class="special">());</span>
@@ -551,7 +551,7 @@
 <span class="comment">// The state of our entire editor.  This consists of a single buffer, the key</span>
 <span class="comment">// bindings in use, and the current incomplete key sequence, if any.</span>
 <span class="comment">//</span>
-<span class="comment">// Due to buffer_'s unbounded hostory size and therefore potentially costly</span>
+<span class="comment">// Due to buffer_'s unbounded history size and therefore potentially costly</span>
 <span class="comment">// copy, you should move app_state_t's when possible.</span>
 <span class="keyword">struct</span> <span class="identifier">app_state_t</span>
 <span class="special">{</span>
@@ -638,7 +638,7 @@
     </p>
 <p>
       As for <code class="computeroutput"><span class="identifier">update</span><span class="special">()</span></code>,
-      it simply calls <code class="computeroutput"><span class="identifier">eval_input</span><span class="special">()</span></code>, and if <code class="computeroutput"><span class="identifier">eval_input</span><span class="special">()</span></code> indicates that a command should be excecuted,
+      it simply calls <code class="computeroutput"><span class="identifier">eval_input</span><span class="special">()</span></code>, and if <code class="computeroutput"><span class="identifier">eval_input</span><span class="special">()</span></code> indicates that a command should be executed,
       it executes that command.
     </p>
 <p>
@@ -694,7 +694,7 @@
 <p>
     </p>
 <p>
-      As it says inline, this function simply proceses keyboard input as it occurs,
+      As it says inline, this function simply processes keyboard input as it occurs,
       indicating that a command should be executed when the input matches one of
       the sequences defined in the key bindings. Now let's look at the implementations
       of two of the cursor movement actions:
@@ -748,7 +748,7 @@
     </p>
 <p>
       The details here are not that important, but what I'm trying to show here is
-      how relatively simple these implementations are. There are multple cases that
+      how relatively simple these implementations are. There are multiple cases that
       must be dealt with, but those are inherent to moving a cursor around in variable-length
       rows. What we <span class="bold"><strong>don't</strong></span> have to deal with are
       all the cases that would come up if we dealt with text as code points or code
@@ -816,7 +816,7 @@
     </p>
 <p>
       Even this implementation, which is certainly more complicated than the previous
-      two, is relatively simple thanks to the grapheme-based overload of <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">prev_word_brek</span><span class="special">()</span></code>.
+      two, is relatively simple thanks to the grapheme-based overload of <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">prev_word_break</span><span class="special">()</span></code>.
     </p>
 <p>
 </p>
@@ -891,9 +891,9 @@
       This is the action invoked when you hit the delete key. It erases a single
       grapheme that is under the cursor, if any. Note that we're inserting and replacing
       elements in a sequence container of unbounded size. This is still an efficient
-      operation because our sequence container is a <code class="computeroutput"><a class="link" href="../boost/text/segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a></code>. Even if there
+      operation because our sequence container is a <code class="computeroutput">segmented_vector</code>. Even if there
       are millions of lines, inserting and erasing is an <code class="computeroutput"><span class="identifier">O</span><span class="special">(</span><span class="number">1</span><span class="special">)</span></code>
-      operation at every place in the sequence (see the <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code> part of the string
+      operation at every place in the sequence (see the <code class="computeroutput">unencoded_rope</code> part of the string
       layer documentation for why).
     </p>
 <p>
@@ -928,7 +928,7 @@
     <span class="keyword">auto</span> <span class="keyword">const</span> <span class="identifier">grapheme_first</span> <span class="special">=</span> <span class="identifier">iterator_at_start_of_line</span><span class="special">(</span><span class="identifier">s</span><span class="special">,</span> <span class="identifier">line_index</span><span class="special">);</span>
     <span class="keyword">auto</span> <span class="keyword">const</span> <span class="identifier">grapheme_last</span> <span class="special">=</span>
         <span class="identifier">std</span><span class="special">::</span><span class="identifier">next</span><span class="special">(</span><span class="identifier">grapheme_first</span><span class="special">,</span> <span class="identifier">total_graphemes</span> <span class="special">+</span> <span class="identifier">hard_break_grapheme</span><span class="special">);</span>
-    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">grapheme_range</span><span class="special">&lt;</span><span class="identifier">content_t</span><span class="special">::</span><span class="identifier">iterator</span><span class="special">::</span><span class="identifier">iterator_type</span><span class="special">&gt;</span> <span class="keyword">const</span>
+    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">grapheme_view</span><span class="special">&lt;</span><span class="identifier">content_t</span><span class="special">::</span><span class="identifier">iterator</span><span class="special">::</span><span class="identifier">iterator_type</span><span class="special">&gt;</span> <span class="keyword">const</span>
         <span class="identifier">graphemes</span><span class="special">(</span><span class="identifier">grapheme_first</span><span class="special">,</span> <span class="identifier">grapheme_last</span><span class="special">);</span>
 
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">line_t</span><span class="special">&gt;</span> <span class="identifier">replacements</span><span class="special">;</span>
@@ -953,7 +953,7 @@
       all the way to line N + 1000. Notice that again the logic is pretty straightforward.
       Almost all the logic is devoted to figuring out the range of graphemes we want
       to re-break. The actual line breaking is just a call to <code class="computeroutput"><span class="identifier">get_lines</span><span class="special">()</span></code>, which is itself just a single call to <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">lines</span><span class="special">()</span></code>,
-      as we saw earier.
+      as we saw earlier.
     </p>
 <p>
 </p>
@@ -967,7 +967,7 @@
         <span class="keyword">auto</span> <span class="special">&amp;</span> <span class="identifier">snapshot</span> <span class="special">=</span> <span class="identifier">state</span><span class="special">.</span><span class="identifier">buffer_</span><span class="special">.</span><span class="identifier">snapshot_</span><span class="special">;</span>
         <span class="identifier">state</span><span class="special">.</span><span class="identifier">buffer_</span><span class="special">.</span><span class="identifier">history_</span><span class="special">.</span><span class="identifier">push_back</span><span class="special">(</span><span class="identifier">snapshot</span><span class="special">);</span>
 
-        <span class="comment">// Determine the line we're at, the iteratos into the text for</span>
+        <span class="comment">// Determine the line we're at, the iterators into the text for</span>
         <span class="comment">// that line and poisition, and the offset within the line, in</span>
         <span class="comment">// terms of code units and graphemes.</span>
         <span class="keyword">auto</span> <span class="keyword">const</span> <span class="identifier">line_index</span> <span class="special">=</span> <span class="identifier">cursor_line</span><span class="special">(</span><span class="identifier">snapshot</span><span class="special">);</span>
@@ -1081,7 +1081,7 @@
     </p>
 <p>
 </p>
-<pre class="programlisting"><span class="comment">// Ok, this is a little wierd.  When you insert a grapheme into text,</span>
+<pre class="programlisting"><span class="comment">// Ok, this is a little weird.  When you insert a grapheme into text,</span>
 <span class="comment">// sometimes it just vanishes, sort of.  Unicode!  In particular, a</span>
 <span class="comment">// combining code point like a 'COMBINING DIAERESIS' (U+0308) is a</span>
 <span class="comment">// grapheme when it's all by itself.  So, if you insert this particular</span>
@@ -1094,9 +1094,9 @@
 <span class="comment">// results.</span>
 <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">CPIter</span><span class="special">&gt;</span>
 <span class="identifier">edit_deltas</span> <span class="identifier">grapheme_insertion_deltas</span><span class="special">(</span>
-    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">grapheme_view</span><span class="special">&lt;</span><span class="identifier">CPIter</span><span class="special">&gt;</span> <span class="identifier">prev_grapheme</span><span class="special">,</span>
+    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">grapheme_ref</span><span class="special">&lt;</span><span class="identifier">CPIter</span><span class="special">&gt;</span> <span class="identifier">prev_grapheme</span><span class="special">,</span>
     <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">grapheme</span> <span class="identifier">insertion</span><span class="special">,</span>
-    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">grapheme_view</span><span class="special">&lt;</span><span class="identifier">CPIter</span><span class="special">&gt;</span> <span class="identifier">next_grapheme</span><span class="special">)</span>
+    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">grapheme_ref</span><span class="special">&lt;</span><span class="identifier">CPIter</span><span class="special">&gt;</span> <span class="identifier">next_grapheme</span><span class="special">)</span>
 <span class="special">{</span>
     <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span> <span class="identifier">t</span><span class="special">;</span>
     <span class="identifier">t</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span><span class="identifier">t</span><span class="special">.</span><span class="identifier">end</span><span class="special">(),</span> <span class="identifier">prev_grapheme</span><span class="special">);</span>
@@ -1134,8 +1134,8 @@
 </tr>
 <tr><td align="left" valign="top"><p>
         <code class="computeroutput"><span class="identifier">grapheme_insertion_deltas</span><span class="special">()</span></code> probably doesn't need to allocate, considering
-        that <code class="computeroutput"><a class="link" href="../boost/text/text.html" title="Struct text">text</a></code>
-        is implemented in terms of <code class="computeroutput"><a class="link" href="../boost/text/string.html" title="Struct string">string</a></code>, which has a small-buffer
+        that <code class="computeroutput">text</code>
+        is implemented in terms of <code class="computeroutput">string</code>, which has a small-buffer
         optimization. Very large graphemes will of course make this function allocate.
         I could also use a fixed-capacity array of <code class="computeroutput"><span class="number">4</span>
         <span class="special">*</span> <span class="number">32</span> <span class="special">*</span> <span class="number">3</span></code> bytes and
@@ -1174,7 +1174,7 @@
 <p>
     </p>
 <p>
-      The implementation of <code class="computeroutput"><span class="identifier">undo</span><span class="special">()</span></code> is a punch line of sorts. If you look back
+      The implementation of <code class="computeroutput"><span class="identifier">undo</span><span class="special">()</span></code> is a punchline of sorts. If you look back
       at all the branches required to implement all the actions in the editor, it
       seems stunning that the undo action could be so simple. It's also surprising
       that it does what looks like a bulk copy in <code class="computeroutput"><span class="identifier">O</span><span class="special">(</span><span class="number">1</span><span class="special">)</span></code>,

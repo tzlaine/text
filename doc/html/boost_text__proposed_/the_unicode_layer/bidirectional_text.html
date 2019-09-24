@@ -26,8 +26,8 @@
         to a terminal or showing it in a GUI, it becomes necessary to produce an
         ordering on the code points in the text that reverses the RTL subsequences,
         so they appear in their proper readable order, not in memory-order. For example,
-        if the capital letters in the string "car means CAR." were RTL,
-        the end-user should see "car means RAC."
+        if the capital letters in the string "car means CAR." were from
+        an RTL script, the end-user should see "car means RAC."
       </p>
 <p>
         There are also times when you find RTL nested within LTR nested within RTL
@@ -35,10 +35,10 @@
       </p>
 <p>
         Boost.Text has an implementation of the Unicode bidirectional algorithm.
-        The interface for simple uses is straightfoward; you just call the algorithm
+        The interface for simple uses is straightforward; you just call the algorithm
         with a sequence of code points, and it returns a lazy range of subranges.
-        Each subrange is a <code class="computeroutput"><a class="link" href="../../boost/text/bidirectional_cp_subrange.html" title="Struct template bidirectional_cp_subrange">bidirectional_cp_subrange</a></code> (or
-        <code class="computeroutput"><a class="link" href="../../boost/text/bidirectional_gra_idm15769.html" title="Struct template bidirectional_grapheme_subrange">bidirectional_grapheme_subrange</a></code>
+        Each subrange is a <code class="computeroutput">bidirectional_cp_subrange</code> (or
+        <code class="computeroutput">bidirectional_grapheme_subrange</code>
         for the <a class="link" href="../concepts.html#boost_text__proposed_.concepts.graphemerange">GraphemeRange</a>
         overload):
       </p>
@@ -81,7 +81,7 @@ When I type "Hello, bidirectional world" into Google translate English-&gt;Arabi
 <p>
           By default, <code class="computeroutput"><span class="identifier">bidirectional_subranges</span><span class="special">()</span></code> auto-detects the overall direction of
           the text &#8212; LTR or RTL. This is known as the <span class="emphasis"><em>embedding
-          level</em></span>; even embedding levels are RTL, and odd embedding levels
+          level</em></span>; even embedding levels are LTR, and odd embedding levels
           are RTL. Even levels above <code class="computeroutput"><span class="number">0</span></code>
           are found nested within RTL text. Odd levels above <code class="computeroutput"><span class="number">1</span></code>
           are found nested within LTR text. This is what the <span class="emphasis"><em>embedding</em></span>
@@ -108,7 +108,7 @@ When I type "Hello, bidirectional world" into Google translate English-&gt;Arabi
         This form is necessary because the locations of line breaks within the text
         can affect the output of the bidirectional algorithm. Therefore, the bidirectional
         algorithm needs to know the positions of line breaks in order to operate
-        corerctly. For example:
+        correctly. For example:
       </p>
 <p>
 </p>
@@ -127,7 +127,7 @@ When I type "Hello, bidirectional world" into Google translate English-&gt;Arabi
 <span class="comment">// its own internal iterators, so the extent-callable it expects should be</span>
 <span class="comment">// written as a template or a generic lambda.</span>
 <span class="keyword">auto</span> <span class="keyword">const</span> <span class="identifier">extent</span> <span class="special">=</span> <span class="special">[](</span><span class="keyword">auto</span> <span class="identifier">first</span><span class="special">,</span> <span class="keyword">auto</span> <span class="identifier">last</span><span class="special">)</span> <span class="special">{</span>
-    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">grapheme_range</span><span class="special">&lt;</span><span class="keyword">decltype</span><span class="special">(</span><span class="identifier">first</span><span class="special">)&gt;</span> <span class="identifier">range</span><span class="special">(</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">last</span><span class="special">);</span>
+    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">grapheme_view</span><span class="special">&lt;</span><span class="keyword">decltype</span><span class="special">(</span><span class="identifier">first</span><span class="special">)&gt;</span> <span class="identifier">range</span><span class="special">(</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">last</span><span class="special">);</span>
     <span class="keyword">return</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">distance</span><span class="special">(</span><span class="identifier">range</span><span class="special">.</span><span class="identifier">begin</span><span class="special">(),</span> <span class="identifier">range</span><span class="special">.</span><span class="identifier">end</span><span class="special">());</span>
 <span class="special">};</span>
 <span class="preprocessor">#endif</span>
@@ -148,8 +148,9 @@ translate English-&gt;Arabic, it produces "&#1579;&#1606;&#1575;&#1574;&#1610; &
     <span class="comment">// With the example for line breaking, our predicate in this spot was</span>
     <span class="comment">// !hard_break().  In this case though, there are some subranges that have</span>
     <span class="comment">// no line breaks at all.  Since we don't want double line breaks, we</span>
-    <span class="comment">// still don't add a line break after a hard_break().  That leaves the</span>
-    <span class="comment">// need to break only after allowed breaks.</span>
+    <span class="comment">// still don't add a line break after a hard_break() (because those will</span>
+    <span class="comment">// come after a sequence that already causes a line break, like "\r\n").</span>
+    <span class="comment">// That leaves the need to break only after allowed breaks.</span>
     <span class="keyword">if</span> <span class="special">(</span><span class="identifier">range</span><span class="special">.</span><span class="identifier">allowed_break</span><span class="special">())</span>
         <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"\n"</span><span class="special">;</span>
 <span class="special">}</span>

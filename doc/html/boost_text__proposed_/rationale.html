@@ -48,8 +48,8 @@
       <span class="phrase"><a name="boost_text__proposed_.rationale._code__phrase_role__keyword__char__phrase___phrase_role__keyword__const__phrase___phrase_role__special_____phrase___code__iterators"></a></span><a class="link" href="rationale.html#boost_text__proposed_.rationale._code__phrase_role__keyword__char__phrase___phrase_role__keyword__const__phrase___phrase_role__special_____phrase___code__iterators"><code class="computeroutput"><span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span></code> Iterators</a>
     </h4>
 <p>
-      <code class="computeroutput"><a class="link" href="../boost/text/string.html" title="Struct string">string</a></code>
-      and <code class="computeroutput"><a class="link" href="../boost/text/string_view.html" title="Struct string_view">string_view</a></code>
+      <code class="computeroutput">string</code>
+      and <code class="computeroutput">string_view</code>
       both use <code class="computeroutput"><span class="keyword">char</span> <span class="keyword">const</span>
       <span class="special">*</span></code> as their forward iterator types. This
       allows interoperability with C strings and arrays of <code class="computeroutput"><span class="keyword">char</span></code>.
@@ -63,11 +63,11 @@
       and <code class="computeroutput"><span class="identifier">back</span><span class="special">()</span></code>?</a>
     </h4>
 <p>
-      <code class="computeroutput"><a class="link" href="../boost/text/string.html" title="Struct string">string</a></code>
+      <code class="computeroutput">string</code>
       does not have any of these, even though <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span></code>
       does. Since <code class="computeroutput"><span class="identifier">string</span><span class="special">::</span><span class="identifier">iterator</span></code> is just <code class="computeroutput"><span class="keyword">char</span>
       <span class="keyword">const</span> <span class="special">*</span></code>,
-      and <code class="computeroutput"><a class="link" href="../boost/text/string.html" title="Struct string">string</a></code>
+      and <code class="computeroutput">string</code>
       is always null-terminated, <code class="computeroutput"><span class="identifier">data</span><span class="special">()</span></code>, <code class="computeroutput"><span class="identifier">c_str</span><span class="special">()</span></code>, and <code class="computeroutput"><span class="identifier">begin</span><span class="special">()</span></code> are synonyms. Synonyms bad. Small interfaces
       good.
     </p>
@@ -77,20 +77,20 @@
       Null Terminated Sequences</a>
     </h4>
 <p>
-      The <code class="computeroutput"><a class="link" href="../boost/text/string.html" title="Struct string">string</a></code>
+      The <code class="computeroutput">string</code>
       inserting interfaces (<code class="computeroutput"><span class="identifier">insert</span><span class="special">()</span></code> and <code class="computeroutput"><span class="identifier">replace</span><span class="special">()</span></code>) remove explicit null terminators from inserted
-      <code class="computeroutput"><a class="link" href="../boost/text/string_view.html" title="Struct string_view">string_views</a></code>
-      and <code class="computeroutput"><a class="link" href="../boost/text/repeated_string_view.html" title="Struct repeated_string_view">repeated_string_views</a></code>,
+      <code class="computeroutput">string_views</code>
+      and <code class="computeroutput">repeated_string_views</code>,
       because leaving them in is almost certainly an error. This can still be accomplished
       by directly writing through the index operator or an iterator, or by inserting
       <code class="computeroutput"><span class="identifier">string_view</span><span class="special">(</span><span class="string">"\0"</span><span class="special">)</span></code>.
     </p>
 <h4>
 <a name="boost_text__proposed_.rationale.h4"></a>
-      <span class="phrase"><a name="boost_text__proposed_.rationale._classname_alt__boost__text__string___code__phrase_role__identifier__string__phrase___code___classname____classname_alt__boost__text__text___code__phrase_role__identifier__text__phrase___code___classname____classname_alt__boost__text__unencoded_rope___code__phrase_role__identifier__unencoded_rope__phrase___code___classname__and__classname_alt__boost__text__rope___code__phrase_role__identifier__rope__phrase___code___classname__are_implicitly_convertible_from__code__phrase_role__keyword__char__phrase___phrase_role__keyword__const__phrase___phrase_role__special_____phrase___code__"></a></span><a class="link" href="rationale.html#boost_text__proposed_.rationale._classname_alt__boost__text__string___code__phrase_role__identifier__string__phrase___code___classname____classname_alt__boost__text__text___code__phrase_role__identifier__text__phrase___code___classname____classname_alt__boost__text__unencoded_rope___code__phrase_role__identifier__unencoded_rope__phrase___code___classname__and__classname_alt__boost__text__rope___code__phrase_role__identifier__rope__phrase___code___classname__are_implicitly_convertible_from__code__phrase_role__keyword__char__phrase___phrase_role__keyword__const__phrase___phrase_role__special_____phrase___code__">string,
-      text,
-      unencoded_rope
-      and rope
+      <span class="phrase"><a name="boost_text__proposed_.rationale._classname_alt__boost__text__string___code__phrase_role__identifier__string__phrase___code___classname____classname_alt__boost__text__text___code__phrase_role__identifier__text__phrase___code___classname____classname_alt__boost__text__unencoded_rope___code__phrase_role__identifier__unencoded_rope__phrase___code___classname__and__classname_alt__boost__text__rope___code__phrase_role__identifier__rope__phrase___code___classname__are_implicitly_convertible_from__code__phrase_role__keyword__char__phrase___phrase_role__keyword__const__phrase___phrase_role__special_____phrase___code__"></a></span><a class="link" href="rationale.html#boost_text__proposed_.rationale._classname_alt__boost__text__string___code__phrase_role__identifier__string__phrase___code___classname____classname_alt__boost__text__text___code__phrase_role__identifier__text__phrase___code___classname____classname_alt__boost__text__unencoded_rope___code__phrase_role__identifier__unencoded_rope__phrase___code___classname__and__classname_alt__boost__text__rope___code__phrase_role__identifier__rope__phrase___code___classname__are_implicitly_convertible_from__code__phrase_role__keyword__char__phrase___phrase_role__keyword__const__phrase___phrase_role__special_____phrase___code__"><code class="computeroutput">string</code>,
+      <code class="computeroutput">text</code>,
+      <code class="computeroutput">unencoded_rope</code>
+      and <code class="computeroutput">rope</code>
       Are Implicitly Convertible from <code class="computeroutput"><span class="keyword">char</span>
       <span class="keyword">const</span> <span class="special">*</span></code>.</a>
     </h4>
@@ -191,7 +191,7 @@
 <li class="listitem">
           For bidirectional ordering, Unicode lays out certain tailorings it refers
           to as <a href="https://unicode.org/reports/tr9/#Higher-Level_Protocols" target="_top">Higher
-          Level Protocols</a>. Boost.Text directcly supports HL1 and HL4. HL2
+          Level Protocols</a>. Boost.Text directly supports HL1 and HL4. HL2
           is unsupported because it frankly doesn't seem very important. HL3 and
           HL5 can be accomplished by manually adding directional formatting characters
           or other desired code points to segments of text. HL6 is completely unsupported,
@@ -205,7 +205,7 @@
     </h4>
 <p>
       Allocators are too low gain for the cost they impose. How many <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_string</span></code>
-      template instantations in the code bases of the world involve a non-default
+      template instantiations in the code bases of the world involve a non-default
       allocator? I would be surprised if it was as high as 1%. Allocators may once
       have served an important function, but in modern C++ are a perfect example
       of not sticking to "Don't pay for what you don't use."

@@ -32,7 +32,7 @@
         <span class="special">&lt;</span> <span class="identifier">B</span></code>.
         There may also be other languages for which <code class="computeroutput"><span class="identifier">B</span>
         <span class="special">&lt;</span> <span class="identifier">A</span></code>
-        is the proper order. Ther may be yet other languages for which <code class="computeroutput"><span class="identifier">A</span> <span class="special">==</span> <span class="identifier">B</span></code>
+        is the proper order. There may be yet other languages for which <code class="computeroutput"><span class="identifier">A</span> <span class="special">==</span> <span class="identifier">B</span></code>
         is the proper order. As a concrete example, in Swedish <code class="computeroutput"><span class="identifier">z</span>
         <span class="special">&lt;</span> <span class="error">&#246;</span></code>,
         whereas in German <code class="computeroutput"><span class="error">&#246;</span> <span class="special">&lt;</span>
@@ -74,7 +74,7 @@
         differences in punctuation.
       </p>
 <p>
-        From the Unicde documentation:
+        From the Unicode documentation:
       </p>
 <div class="table">
 <a name="boost_text__proposed_.the_unicode_layer.collation.t0"></a><p class="title"><b>Table&#160;1.5.&#160;Comparison Levels</b></p>
@@ -209,7 +209,7 @@
 </pre>
 <p>
         You should never need to write one of these tailoring scripts, but if you
-        do, there's a full parser of the tailoring scripting language built in to
+        do, there's a full parser of the tailoring scripting language built into
         Boost.Text. For most users, it should be sufficient to use one of the canned
         tailoring scripts in the <code class="computeroutput"><span class="identifier">boost</span><span class="special">/</span><span class="identifier">text</span><span class="special">/</span><span class="identifier">data</span><span class="special">/</span></code> directory.
         These come from <a href="http://cldr.unicode.org" target="_top">CLDR</a>, and the
@@ -307,7 +307,7 @@
 <p>
         I've made every effort to hide the messy details of collation configuration
         from you, because they are super confusing. Instead, Boost.Text uses a set
-        of <code class="computeroutput"><a class="link" href="../../boost/text/collation_flags.html" title="Type collation_flags">collation_flags</a></code>
+        of <code class="computeroutput">collation_flags</code>
         that have more recognizable semantics. The flags map directly onto the low-level
         configuration settings. If you have C++14 <code class="computeroutput"><span class="keyword">constexpr</span></code>
         support, combinations of the flags that map to incompatible low-level settings
@@ -405,7 +405,7 @@
 <p>
           The default Unicode collation algorithm requires the NFD normalization
           form, one of the least compact normalization forms. This means either keeping
-          your data is a memory-hogging normalization form, or paying the cost of
+          your data in a memory-hogging normalization form, or paying the cost of
           normalization every time you do a collation. However, there is a variant
           of the default algorithm that is defined in <a href="https://unicode.org/notes/tn5" target="_top">Unicode
           Technical Note #5</a> that allows one to use an alternate normalization
@@ -416,8 +416,8 @@
           Boost.Text's collation implementation relies on the inputs being in the
           FCC normalization form, so the collation functions require inputs to be
           normalized FCC. This happens automatically within the text layer types
-          (<code class="computeroutput"><a class="link" href="../../boost/text/text.html" title="Struct text">text</a></code>,
-          <code class="computeroutput"><a class="link" href="../../boost/text/rope.html" title="Struct rope">rope</a></code>,
+          (<code class="computeroutput">text</code>,
+          <code class="computeroutput">rope</code>,
           etc.).
         </p>
 </td></tr>
@@ -1212,8 +1212,8 @@
 <p>
       </p>
 <p>
-        This is something close to the optimal approach, as clunky as it is. Alternatievly,
-        we could sort the <code class="computeroutput"><a class="link" href="../../boost/text/text.html" title="Struct text">texts</a></code>
+        This is something close to the optimal approach, as clunky as it is. Alternatively,
+        we could sort the <code class="computeroutput">texts</code>
         using a comparator that does a lookup in some side data structure containing
         keys, but that seems even more clunky.
       </p>

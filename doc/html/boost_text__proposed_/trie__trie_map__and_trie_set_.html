@@ -50,15 +50,15 @@
       then from that node look for the child node that contains the element <code class="computeroutput"><span class="identifier">k</span><span class="special">[</span><span class="number">1</span><span class="special">]</span></code>, etc.
     </p>
 <p>
-      This data struture has the nice property that a search is linear in the length
-      of the sarched-for key <code class="computeroutput"><span class="identifier">k</span></code>, but
-      is independent of the size of the trie. This is similar to how hash lookups
+      This data structure has the nice property that a search is linear in the length
+      of the searched-for key <code class="computeroutput"><span class="identifier">k</span></code>,
+      but is independent of the size of the trie. This is similar to how hash lookups
       are (in an ideal hash table) independent of the size of the table.
     </p>
 <p>
-      Lookup performace is comparable to hashing containers, except that a trie additionally
-      allows one to easily do longest-match and match-extension queries. This is
-      something that is unavailable in either tree-based maps or hash maps.
+      Lookup performance is comparable to hashing containers, except that a trie
+      additionally allows one to easily do longest-match and match-extension queries.
+      This is something that is unavailable in either tree-based maps or hash maps.
     </p>
 <p>
       For example:
