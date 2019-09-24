@@ -43,7 +43,6 @@ for b in json_contents['benchmarks']:
             aggregated_results[name] = {}
         result = (int(b['cpu_time']) * 1.0, '{} {}'.format(b['cpu_time'], b['time_unit']))
         aggregated_results[name][int(n)] = result
-#        print b
 
 title_row = '[N] '
 title_row += ''.join(map(lambda x: '[{}] '.format(test_renames[x]), test_names))
@@ -58,18 +57,44 @@ if not all(same_results_as_first):
     print '   ',  n_values_per_name
     raise Exception('Cannot generate table for perf tests with a different number of results, or different values of N.')
 
-data_rows = ''
-for n in sorted(n_values_per_name[0]):
-    data_rows += '    [ '
-    data_rows += '[{}] '.format(n)
-    for name in test_names:
-        data_rows += '[{}] '.format(aggregated_results[name][n][1])
-    if len(test_names) == 2:
-        data_rows += '[{:.3}] '.format(aggregated_results[test_names[0]][n][0] / aggregated_results[test_names[1]][n][0])
-    data_rows += ']\n'
+chart_width = 500
+bar_spacing = 25
+max_bar_width = 300
+bar_height = 20
 
-print '''\
-[table TITLE
-    [ {}]
-{}]
-'''.format(title_row, data_rows)
+colors = [
+    '#32a852', '#3f6078', '#ad3939', '#ad9e39', '#ba45cc'
+]
+
+max_value = 0
+for n in sorted(n_values_per_name[0]):
+    for name in test_names:
+        max_value = max(max_value, aggregated_results[name][n][0])
+max_value *= 1.0
+
+print '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="{}" height="{}">'.format(chart_width, len(test_names) * bar_spacing)
+
+bar_y = 0
+color_index = 0
+for n in sorted(n_values_per_name[0]):
+    for name in test_names:
+        if len(colors) <= color_index:
+            print 'Out of colors!'
+            exit(1)
+        this_bar_width = aggregated_results[name][n][0] / max_value * max_bar_width
+        print '''  <g fill="{0}">
+    <rect width="{1}" height="{2}" y="{3}"></rect>
+    <text x="{4}" y="{5}" dy=".35em">{6}</text>
+  </g>'''.format(
+      colors[color_index],
+      this_bar_width,
+      bar_height,
+      bar_y,
+      this_bar_width + 5,
+      bar_y + bar_height / 2.0,
+      name in test_renames and test_renames[name] or name
+  )
+        bar_y += bar_spacing
+        color_index += 1
+
+print '</svg>'
