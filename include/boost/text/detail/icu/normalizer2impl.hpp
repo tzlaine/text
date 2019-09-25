@@ -380,7 +380,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
             if (!inhibit_flushes) {
                 flush();
                 auto second_to_last = std::prev(sLimit);
-                if (text::low_surrogate(*second_to_last))
+                if (boost::text::v1::low_surrogate(*second_to_last))
                     --second_to_last;
                 appender.append(s, second_to_last);
                 limit = std::copy(second_to_last, sLimit, limit);

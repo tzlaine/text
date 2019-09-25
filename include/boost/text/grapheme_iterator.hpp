@@ -115,12 +115,12 @@ namespace boost { namespace text { inline namespace v1 {
             return retval;
         }
 
-        friend constexpr bool
+        friend BOOST_TEXT_CXX14_CONSTEXPR bool
         operator==(grapheme_iterator lhs, grapheme_iterator rhs) noexcept
         {
             return lhs.base() == rhs.base();
         }
-        friend constexpr bool
+        friend BOOST_TEXT_CXX14_CONSTEXPR bool
         operator!=(grapheme_iterator lhs, grapheme_iterator rhs) noexcept
         {
             return !(lhs == rhs);

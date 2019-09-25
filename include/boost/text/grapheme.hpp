@@ -146,13 +146,13 @@ namespace boost { namespace text { inline namespace v1 {
         {}
 
         /** Returns true if lhs the same sequence of code points as rhs. */
-        friend constexpr bool
+        friend BOOST_TEXT_CXX14_CONSTEXPR bool
         operator==(grapheme_ref lhs, grapheme_ref rhs) noexcept
         {
             return algorithm::equal(
                 lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
         }
-        friend constexpr bool
+        friend BOOST_TEXT_CXX14_CONSTEXPR bool
         operator!=(grapheme_ref lhs, grapheme_ref rhs) noexcept
         {
             return !(lhs == rhs);
