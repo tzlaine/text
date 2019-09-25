@@ -4,6 +4,7 @@ import json
 
 parser = argparse.ArgumentParser(description='Takes a Google Benchmark JSON output file and multiple test names, and produces a QuickBook table.')
 parser.add_argument('json_file', type=str, help='The name of the JSON file to process.')
+parser.add_argument('ns_scale', type=int, help='The number of nanoseconds that represent full with in the chart.')
 parser.add_argument('test_names', nargs='+', type=str, help='The names of the tests to process.  Append a comma and a second name to each entry to rename; all or none of the names must be this way.  E.g., "foo,bar baz,quux"')
 args = parser.parse_args()
 
@@ -66,13 +67,13 @@ colors = [
     '#32a852', '#3f6078', '#ad3939', '#ad9e39', '#ba45cc'
 ]
 
-max_value = 0
-for n in sorted(n_values_per_name[0]):
-    for name in test_names:
-        max_value = max(max_value, aggregated_results[name][n][0])
-max_value *= 1.0
+max_value = args.ns_scale * 1.0
 
-print '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="{}" height="{}">'.format(chart_width, len(test_names) * bar_spacing)
+print '''<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="{}" height="{}">'''.format(
+    chart_width,
+    (len(test_names) + 1) * bar_spacing # +1 for chart x-axis
+)
 
 bar_y = 0
 color_index = 0
@@ -82,10 +83,8 @@ for n in sorted(n_values_per_name[0]):
             print 'Out of colors!'
             exit(1)
         this_bar_width = aggregated_results[name][n][0] / max_value * max_bar_width
-        print '''  <g fill="{0}">
-    <rect width="{1}" height="{2}" y="{3}"></rect>
-    <text x="{4}" y="{5}" dy=".35em">{6}</text>
-  </g>'''.format(
+        print '''    <rect width="{1}" height="{2}" y="{3}" fill="{0}"></rect>
+    <text x="{4}" y="{5}" dy=".35em" fill="black">{6}</text>'''.format(
       colors[color_index],
       this_bar_width,
       bar_height,
@@ -96,5 +95,26 @@ for n in sorted(n_values_per_name[0]):
   )
         bar_y += bar_spacing
         color_index += 1
+
+print '''    <rect width="{0}" height="{1}" y="{2}" fill="white"></rect>'''.format(
+    max_bar_width,
+    bar_height,
+    bar_y
+)
+
+bar_y += 4# - bar_spacing
+text_y = bar_y + bar_height * 0.75
+print '''    <line x1="1" y1="{0}" x2="{1}" y2="{0}" stroke="black" fill="black"></line>
+    <line x1="1" y1="{2}" x2="1" y2="{3}" stroke="black" fill="black"></line>
+    <line x1="{1}" y1="{2}" x2="{1}" y2="{3}" stroke="black" fill="black"></line>
+    <text x="0" y="{5}" dy=".35em" fill="black">0 ns</text>
+    <text x="{1}" y="{5}" dy=".35em" text-anchor="end" fill="black">{4} ns</text>'''.format(
+    bar_y,
+    max_bar_width,
+    bar_y - 5,
+    bar_y + 5,
+    args.ns_scale,
+    text_y
+)
 
 print '</svg>'

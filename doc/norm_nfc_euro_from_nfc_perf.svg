@@ -1,18 +1,17 @@
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="500" height="100">
-  <g fill="#32a852">
-    <rect width="300.0" height="20" y="0"></rect>
-    <text x="305.0" y="10.0" dy=".35em">Algorithm with back-inserter</text>
-  </g>
-  <g fill="#3f6078">
-    <rect width="50.4554353828" height="20" y="25"></rect>
-    <text x="55.4554353828" y="35.0" dy=".35em">String append</text>
-  </g>
-  <g fill="#ad3939">
-    <rect width="193.300758408" height="20" y="50"></rect>
-    <text x="198.300758408" y="60.0" dy=".35em">ICU</text>
-  </g>
-  <g fill="#ad9e39">
-    <rect width="75.0143630877" height="20" y="75"></rect>
-    <text x="80.0143630877" y="85.0" dy=".35em">ICU UTF-16</text>
-  </g>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="500" height="125">
+    <rect width="207.56088" height="20" y="0" fill="#32a852"></rect>
+    <text x="212.56088" y="10.0" dy=".35em" fill="black">Algorithm with back-inserter</text>
+    <rect width="33.38796" height="20" y="25" fill="#3f6078"></rect>
+    <text x="38.38796" y="35.0" dy=".35em" fill="black">String append</text>
+    <rect width="130.2372" height="20" y="50" fill="#ad3939"></rect>
+    <text x="135.2372" y="60.0" dy=".35em" fill="black">ICU</text>
+    <rect width="54.03864" height="20" y="75" fill="#ad9e39"></rect>
+    <text x="59.03864" y="85.0" dy=".35em" fill="black">ICU UTF-16</text>
+    <rect width="300" height="20" y="100" fill="white"></rect>
+    <line x1="1" y1="104" x2="300" y2="104" stroke="black" fill="black"></line>
+    <line x1="1" y1="99" x2="1" y2="109" stroke="black" fill="black"></line>
+    <line x1="300" y1="99" x2="300" y2="109" stroke="black" fill="black"></line>
+    <text x="0" y="119.0" dy=".35em" fill="black">0 ns</text>
+    <text x="300" y="119.0" dy=".35em" text-anchor="end" fill="black">2500000 ns</text>
 </svg>
