@@ -411,52 +411,15 @@ namespace boost { namespace text { inline namespace v1 {
         }
 
 
-        template<typename CharIter, typename Sentinel = CharIter>
-        struct utf8_range
-        {
-            CharIter begin() const noexcept { return first_; }
-            Sentinel end() const noexcept { return last_; }
-
-            CharIter first_;
-            Sentinel last_;
-        };
-
-        template<typename Iter>
-        typename std::enable_if<is_char_iter<Iter>::value, utf8_range<Iter>>::
-            type
-            make_utf8_range(Iter first, Iter last)
-        {
-            return utf8_range<Iter>{first, last};
-        }
-        template<typename Iter, typename Sentinel>
-        typename std::enable_if<
-            is_char_iter<Iter>::value,
-            utf8_range<Iter, Sentinel>>::type
-        make_utf8_range(Iter first, Sentinel last)
-        {
-            return utf8_range<Iter, Sentinel>{first, last};
-        }
-        template<typename Iter>
-        auto make_utf8_range(
-            utf_8_to_32_iterator<Iter> first, utf_8_to_32_iterator<Iter> last)
-            -> utf8_range<decltype(first.base())>
-        {
-            return utf8_range<decltype(first.base())>{first.base(),
-                                                      last.base()};
-        }
-        template<typename Iter, typename Sentinel>
-        auto make_utf8_range(
-            utf_8_to_32_iterator<Iter, Sentinel> first, Sentinel last)
-            -> utf8_range<decltype(first.base()), Sentinel>
-        {
-            return utf8_range<decltype(first.base()), Sentinel>{first.base(),
-                                                                last};
-        }
+        template<typename CPIter, typename Sentinel>
+        using utf8_range_expr = is_char_iter<decltype(
+            detail::unpack_iterator_and_sentinel(
+                std::declval<CPIter>(), std::declval<Sentinel>())
+                .f_)>;
 
         template<typename CPIter, typename Sentinel>
-        using utf8_range_expr = decltype(detail::make_utf8_range(
-            std::declval<CPIter>(), std::declval<Sentinel>()));
-
+        using utf8_fast_path =
+            detected_or<std::false_type, utf8_range_expr, CPIter, Sentinel>;
 
         template<typename OutIter>
         struct norm_result
@@ -539,7 +502,7 @@ namespace boost { namespace text { inline namespace v1 {
             typename OutIter,
             typename CPIter,
             typename Sentinel,
-            bool UTF8 = is_detected<utf8_range_expr, CPIter, Sentinel>::value>
+            bool UTF8 = utf8_fast_path<CPIter, Sentinel>::value>
         struct norm_nfc_impl
         {
             static norm_result<OutIter>
