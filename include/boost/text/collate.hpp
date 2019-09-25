@@ -99,7 +99,7 @@ namespace boost { namespace text { inline namespace v1 {
 
     inline bool operator<=(text_sort_key const & lhs, text_sort_key const & rhs)
     {
-        return compare(lhs, rhs) < 0;
+        return boost::text::v1::compare(lhs, rhs) < 0;
     }
 
     inline bool operator>(text_sort_key const & lhs, text_sort_key const & rhs)
@@ -130,8 +130,8 @@ namespace boost { namespace text { inline namespace v1 {
             collation_strength strength,
             retain_case_bits_t retain_case_bits)
         {
-            if (hangul_syllable(cp)) {
-                auto cps = decompose_hangul_syllable<3>(cp);
+            if (detail::hangul_syllable(cp)) {
+                auto cps = detail::decompose_hangul_syllable<3>(cp);
                 return s2(
                     cps.begin(),
                     cps.end(),
@@ -229,7 +229,7 @@ namespace boost { namespace text { inline namespace v1 {
                                              bytes[2] << 8 | bytes[3] << 0;
                     collation_element ce{primary, 0x0500, 0x0500, 0x0};
 
-                    ce.l1_ = replace_lead_byte(ce.l1_, lead_byte(ce));
+                    ce.l1_ = detail::replace_lead_byte(ce.l1_, lead_byte(ce));
 
                     *out++ = ce;
                     return out;
@@ -299,7 +299,7 @@ namespace boost { namespace text { inline namespace v1 {
 
             for (auto it = first; it != last; ++it) {
                 auto & ce = *it;
-                if (after_variable && ignorable(ce)) {
+                if (after_variable && detail::ignorable(ce)) {
                     ce.l1_ = 0;
                     ce.l2_ = 0;
                     ce.l3_ = 0;
@@ -314,7 +314,7 @@ namespace boost { namespace text { inline namespace v1 {
                             ce.l4_ = 0xffffffff;
                     }
                     after_variable = false;
-                } else if (variable(ce)) {
+                } else if (detail::variable(ce)) {
                     ce.l4_ = ce.l1_;
                     ce.l1_ = 0;
                     ce.l2_ = 0;
@@ -371,7 +371,7 @@ namespace boost { namespace text { inline namespace v1 {
                 if (!collation_.match) {
                     // S2.2
                     collation_element derived_ces[32];
-                    auto const derived_ces_end = add_derived_elements(
+                    auto const derived_ces_end = detail::add_derived_elements(
                         *first++,
                         weighting,
                         derived_ces,
@@ -380,7 +380,7 @@ namespace boost { namespace text { inline namespace v1 {
                         lead_byte,
                         strength,
                         retain_case_bits);
-                    after_variable = s2_3(
+                    after_variable = detail::s2_3(
                         derived_ces,
                         derived_ces_end,
                         strength,
@@ -397,15 +397,18 @@ namespace boost { namespace text { inline namespace v1 {
                 // S2.1.1 Process any nonstarters following S.
                 auto nonstarter_last = first;
                 if (!collation_.leaf) {
-                    nonstarter_last = std::find_if(
-                        first, last, [](uint32_t cp) { return ccc(cp) == 0; });
+                    nonstarter_last =
+                        std::find_if(first, last, [](uint32_t cp) {
+                            return detail::ccc(cp) == 0;
+                        });
                 }
 
                 // S2.1.2
                 auto nonstarter_first = first;
                 while (!collation_.leaf &&
                        nonstarter_first != nonstarter_last &&
-                       ccc(*(nonstarter_first - 1)) < ccc(*nonstarter_first)) {
+                       detail::ccc(*(nonstarter_first - 1)) <
+                           detail::ccc(*nonstarter_first)) {
                     auto const cp = *nonstarter_first;
                     auto coll = trie.extend_subsequence(collation_, cp);
                     // S2.1.3
@@ -429,7 +432,7 @@ namespace boost { namespace text { inline namespace v1 {
                     ce_buffer_first);
 
                 // S2.3
-                after_variable = s2_3(
+                after_variable = detail::s2_3(
                     ce_buffer_first,
                     ce_buffer_last,
                     strength,
@@ -502,7 +505,8 @@ namespace boost { namespace text { inline namespace v1 {
             auto out = bytes.begin();
             while (it != end) {
                 if (*it == common) {
-                    auto const last_common = find_not(it, end, common);
+                    auto const last_common =
+                        boost::text::v1::find_not(it, end, common);
                     auto const size = last_common - it;
                     if (last_common == end || *last_common < common) {
                         int const synthetic_low = min_top + size;
@@ -662,7 +666,7 @@ namespace boost { namespace text { inline namespace v1 {
                     : strength;
             for (; ces_first != ces_last; ++ces_first) {
                 auto ce = *ces_first;
-                ce = modify_for_case(ce, strength, case_1st, case_lvl);
+                ce = detail::modify_for_case(ce, strength, case_1st, case_lvl);
                 if (ce.l1_)
                     l1.push_back(ce.l1_);
                 if (collation_strength::secondary <= strength_for_copies) {
@@ -692,28 +696,30 @@ namespace boost { namespace text { inline namespace v1 {
                 if (l2_order == l2_weight_order::backward)
                     std::reverse(l2.begin(), l2.end());
                 auto packed_l2 = pack_words(l2);
-                rle(packed_l2,
+                detail::rle(packed_l2,
                     min_secondary_byte,
                     common_secondary_byte,
                     max_secondary_byte);
-                pad_words(packed_l2);
-                level_bytes_to_values(packed_l2, l2);
+                detail::pad_words(packed_l2);
+                detail::level_bytes_to_values(packed_l2, l2);
                 if (!l3.empty()) {
-                    auto packed_l3 = pack_words(l3);
-                    rle(packed_l3,
+                    auto packed_l3 = detail::pack_words(l3);
+                    detail::rle(packed_l3,
                         min_tertiary_byte,
                         common_tertiary_byte,
                         max_tertiary_byte);
-                    pad_words(packed_l3);
-                    level_bytes_to_values(packed_l3, l3);
+                    detail::pad_words(packed_l3);
+                    detail::level_bytes_to_values(packed_l3, l3);
                 }
             }
 
             int const separators = static_cast<int>(strength_for_copies);
 
             level_sort_key_values_t nfd;
-            if (collation_strength::quaternary < strength)
-                normalize_to_nfd(cps_first, cps_last, std::back_inserter(nfd));
+            if (collation_strength::quaternary < strength) {
+                boost::text::v1::normalize_to_nfd(
+                    cps_first, cps_last, std::back_inserter(nfd));
+            }
 
             int size = l1.size();
             if (collation_strength::primary < strength_for_copies) {
@@ -811,7 +817,7 @@ namespace boost { namespace text { inline namespace v1 {
                 weighting,
                 l2_order,
                 table);
-            return compare(lhs_sk, rhs_sk);
+            return boost::text::v1::compare(lhs_sk, rhs_sk);
         }
     }
 
@@ -1202,11 +1208,11 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             auto s2_it = buf_it;
             if (s2_it == buffer.end()) {
                 while (s2_it != buffer.begin()) {
-                    if (ccc(*--s2_it))
+                    if (detail::ccc(*--s2_it))
                         break;
                 }
                 while (s2_it != buffer.begin()) {
-                    if (!ccc(*--s2_it))
+                    if (!detail::ccc(*--s2_it))
                         break;
                 }
                 ++s2_it;
@@ -1226,7 +1232,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         }
 
         std::vector<uint32_t> bytes;
-        s3(ces.begin(),
+        detail::s3(ces.begin(),
            ces.end(),
            ces.size(),
            strength,
@@ -1247,9 +1253,9 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
 
 namespace std {
     template<>
-    struct hash<boost::text::text_sort_key>
+    struct hash<boost::text::v1::text_sort_key>
     {
-        using argument_type = boost::text::text_sort_key;
+        using argument_type = boost::text::v1::text_sort_key;
         using result_type = std::size_t;
         result_type operator()(argument_type const & key) const noexcept
         {
@@ -1257,7 +1263,7 @@ namespace std {
                 key.begin(),
                 key.end(),
                 result_type(key.size()),
-                boost::text::detail::hash_combine_);
+                boost::text::v1::detail::hash_combine_);
         }
     };
 }

@@ -46,13 +46,13 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
          * map. Most users should use this option.
          * @draft ICU 63
          */
-        UCPMAP_RANGE_NORMAL,
+        ucpmap_range_normal,
         /**
          * ucpmap_getRange() enumerates all same-value ranges as stored in the
          * map, except that lead surrogates (U+D800..U+DBFF) are treated as
          * having the surrogateValue, which is passed to getRange() as a
          * separate parameter. The surrogateValue is not transformed via
-         * filter(). See U_IS_LEAD(c).
+         * filter(). See u_is_lead(c).
          *
          * Most users should use UCPMAP_RANGE_NORMAL instead.
          *
@@ -63,13 +63,13 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
          * code *points*.
          * @draft ICU 63
          */
-        UCPMAP_RANGE_FIXED_LEAD_SURROGATES,
+        ucpmap_range_fixed_lead_surrogates,
         /**
          * ucpmap_getRange() enumerates all same-value ranges as stored in the
          * map, except that all surrogates (U+D800..U+DFFF) are treated as
          * having the surrogateValue, which is passed to getRange() as a
          * separate parameter. The surrogateValue is not transformed via
-         * filter(). See U_IS_SURROGATE(c).
+         * filter(). See u_is_surrogate(c).
          *
          * Most users should use UCPMAP_RANGE_NORMAL instead.
          *
@@ -80,7 +80,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
          * code *points*.
          * @draft ICU 63
          */
-        UCPMAP_RANGE_FIXED_ALL_SURROGATES
+        ucpmap_range_fixed_all_surrogates
     };
     typedef enum UCPMapRangeOption UCPMapRangeOption;
 

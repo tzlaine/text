@@ -68,7 +68,7 @@ namespace boost { namespace text { inline namespace v1 {
 
         friend std::ostream & operator<<(std::ostream & os, grapheme_view v)
         {
-            transcode_utf_32_to_8(
+            boost::text::v1::transcode_utf_32_to_8(
                 v.begin().base(),
                 v.end().base(),
                 std::ostreambuf_iterator<char>(os));
@@ -77,7 +77,7 @@ namespace boost { namespace text { inline namespace v1 {
 #if defined(_MSC_VER)
         friend std::wostream & operator<<(std::wostream & os, grapheme_view v)
         {
-            transcode_utf_32_to_16(
+            boost::text::v1::transcode_utf_32_to_16(
                 v.begin(), v.end(), std::ostreambuf_iterator<wchar_t>(os));
             return os;
         }

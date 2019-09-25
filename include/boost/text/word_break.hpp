@@ -140,7 +140,7 @@ namespace boost { namespace text { inline namespace v1 {
             template<typename WordPropFunc>
             cp_and_word_prop(uint32_t c, WordPropFunc word_prop) :
                 cp(c),
-                prop(word_prop(c))
+                prop(boost::text::v1::word_prop(c))
             {}
 
             uint32_t cp = 0;
@@ -225,19 +225,20 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             Sentinel last,
             WordPropFunc word_prop)
         {
-            if (state.it != first && !skippable(state.caps[ph::prev].prop) &&
-                skippable(state.caps[ph::curr].prop)) {
+            if (state.it != first &&
+                !detail::skippable(state.caps[ph::prev].prop) &&
+                detail::skippable(state.caps[ph::curr].prop)) {
                 auto last_prop = word_property::Other;
-                auto temp_it = find_if_not(
+                auto temp_it = boost::text::v1::find_if_not(
                     state.it, last, [word_prop, &last_prop](uint32_t cp) {
-                        last_prop = word_prop(cp);
-                        return skippable(last_prop);
+                        last_prop = boost::text::v1::word_prop(cp);
+                        return detail::skippable(last_prop);
                     });
                 if (temp_it == last) {
                     --temp_it;
                 } else if (last_prop == word_property::ExtPict) {
                     auto const next_to_last_prop =
-                        word_prop(*std::prev(temp_it));
+                        boost::text::v1::word_prop(*std::prev(temp_it));
                     if (next_to_last_prop == word_property::ZWJ)
                         --temp_it;
                 }
@@ -310,7 +311,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
     {
         word_property operator()(uint32_t cp) const noexcept
         {
-            return word_prop(cp);
+            return boost::text::v1::word_prop(cp);
         }
     };
 
@@ -489,9 +490,9 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         // Special case: If state.caps[ph::curr].prop is skippable, we need to
         // skip backward until we find a non-skippable.
         if (detail::skippable(state.caps[ph::curr].prop)) {
-            state.it =
-                find_if_not_backward(first, it, [word_prop](uint32_t cp) {
-                    return detail::skippable(word_prop(cp));
+            state.it = boost::text::v1::find_if_not_backward(
+                first, it, [word_prop](uint32_t cp) {
+                    return detail::skippable(boost::text::v1::word_prop(cp));
                 });
             state.caps[ph::next] =
                 cp_and_word_prop(*std::next(state.it), word_prop);
@@ -532,7 +533,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         {
             if (std::next(state.it) != last) {
                 auto temp_state = state;
-                temp_state = next(temp_state);
+                temp_state = detail::next(temp_state);
                 temp_state =
                     detail::skip_forward(temp_state, first, last, word_prop);
                 if (temp_state.it == last) {
@@ -541,7 +542,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
                 } else {
                     state.caps[ph::next] = temp_state.caps[ph::curr];
                     if (std::next(temp_state.it) != last) {
-                        temp_state = next(temp_state);
+                        temp_state = detail::next(temp_state);
                         temp_state = detail::skip_forward(
                             temp_state, first, last, word_prop);
                         if (temp_state.it == last) {
@@ -562,9 +563,10 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         auto skip = [word_prop](
                         detail::word_break_state<CPIter> state, CPIter first) {
             if (detail::skippable(state.caps[ph::prev].prop)) {
-                auto temp_it = find_if_not_backward(
+                auto temp_it = boost::text::v1::find_if_not_backward(
                     first, state.it, [word_prop](uint32_t cp) {
-                        return detail::skippable(word_prop(cp));
+                        return detail::skippable(
+                            boost::text::v1::word_prop(cp));
                     });
                 if (temp_it == state.it)
                     return state;
@@ -584,7 +586,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             return state;
         };
 
-        for (; state.it != first; state = prev(state)) {
+        for (; state.it != first; state = detail::prev(state)) {
             if (std::prev(state.it) != first) {
                 state.caps[ph::prev_prev] =
                     cp_and_word_prop(*std::prev(state.it, 2), word_prop);
@@ -620,7 +622,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
                     }
                     if (temp_state.caps[ph::prev].prop ==
                         word_property::Regional_Indicator) {
-                        temp_state = prev(temp_state);
+                        temp_state = detail::prev(temp_state);
                         if (temp_state.it != first &&
                             std::prev(temp_state.it) != first) {
                             temp_state.caps[ph::prev_prev] = cp_and_word_prop(
@@ -693,7 +695,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             if (detail::mid_ah(state.caps[ph::prev].prop) &&
                 detail::ah_letter(state.caps[ph::curr].prop) &&
                 state.it != first) {
-                auto const temp_state = skip(prev(state), first);
+                auto const temp_state = skip(detail::prev(state), first);
                 if (detail::ah_letter(temp_state.caps[ph::prev].prop))
                     continue;
             }
@@ -709,7 +711,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             if (state.caps[ph::prev].prop == word_property::Double_Quote &&
                 state.caps[ph::curr].prop == word_property::Hebrew_Letter &&
                 state.it != first) {
-                auto const temp_state = skip(prev(state), first);
+                auto const temp_state = skip(detail::prev(state), first);
                 if (temp_state.caps[ph::prev].prop ==
                     word_property::Hebrew_Letter)
                     continue;
@@ -719,7 +721,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             if (detail::mid_num(state.caps[ph::prev].prop) &&
                 state.caps[ph::curr].prop == word_property::Numeric &&
                 state.it != first) {
-                auto const temp_state = skip(prev(state), first);
+                auto const temp_state = skip(detail::prev(state), first);
                 if (temp_state.caps[ph::prev].prop == word_property::Numeric)
                     continue;
             }
@@ -803,7 +805,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
                 ? detail::word_break_emoji_state_t::first_emoji
                 : detail::word_break_emoji_state_t::none;
 
-        for (; state.it != last; state = next(state)) {
+        for (; state.it != last; state = detail::next(state)) {
             if (std::next(state.it) != last && std::next(state.it, 2) != last) {
                 state.caps[ph::next_next] =
                     cp_and_word_prop(*std::next(state.it, 2), word_prop);
@@ -864,8 +866,8 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             if (detail::ah_letter(state.caps[ph::prev].prop) &&
                 detail::mid_ah(state.caps[ph::curr].prop) &&
                 std::next(state.it) != last) {
-                auto const temp_state =
-                    detail::skip_forward(next(state), first, last, word_prop);
+                auto const temp_state = detail::skip_forward(
+                    detail::next(state), first, last, word_prop);
                 if (temp_state.it == last)
                     return temp_state.it;
                 if (detail::ah_letter(temp_state.caps[ph::curr].prop))
@@ -883,8 +885,8 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             if (state.caps[ph::prev].prop == word_property::Hebrew_Letter &&
                 state.caps[ph::curr].prop == word_property::Double_Quote &&
                 std::next(state.it) != last) {
-                auto const temp_state =
-                    detail::skip_forward(next(state), first, last, word_prop);
+                auto const temp_state = detail::skip_forward(
+                    detail::next(state), first, last, word_prop);
                 if (temp_state.it == last)
                     return temp_state.it;
                 if (temp_state.caps[ph::curr].prop ==
@@ -911,8 +913,8 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             if (state.caps[ph::prev].prop == word_property::Numeric &&
                 detail::mid_num(state.caps[ph::curr].prop) &&
                 std::next(state.it) != last) {
-                auto const temp_state =
-                    detail::skip_forward(next(state), first, last, word_prop);
+                auto const temp_state = detail::skip_forward(
+                    detail::next(state), first, last, word_prop);
                 if (temp_state.it == last)
                     return temp_state.it;
                 if (temp_state.caps[ph::curr].prop == word_property::Numeric)
@@ -955,7 +957,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept -> detail::
         word_prop_func_ret_t<detail::iterator_t<CPRange>, WordPropFunc, CPRange>
     {
-        return prev_word_break(
+        return boost::text::v1::prev_word_break(
             std::begin(range), it, std::end(range), word_prop, cp_break);
     }
 
@@ -976,7 +978,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
     {
         using cp_iter_t = decltype(range.begin().base());
         return {range.begin().base(),
-                prev_word_break(
+                boost::text::v1::prev_word_break(
                     range.begin().base(),
                     static_cast<cp_iter_t>(it.base()),
                     range.end().base(),
@@ -997,7 +999,8 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept -> detail::
         word_prop_func_ret_t<detail::iterator_t<CPRange>, WordPropFunc, CPRange>
     {
-        return next_word_break(it, std::end(range), word_prop, cp_break);
+        return boost::text::v1::next_word_break(
+            it, std::end(range), word_prop, cp_break);
     }
 
     template<
@@ -1017,7 +1020,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
     {
         using cp_iter_t = decltype(range.begin().base());
         return {range.begin().base(),
-                next_word_break(
+                boost::text::v1::next_word_break(
                     static_cast<cp_iter_t>(it.base()),
                     range.end().base(),
                     word_prop,
@@ -1038,7 +1041,8 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             auto operator()(CPIter it, Sentinel last) const noexcept
                 -> detail::cp_iter_ret_t<CPIter, CPIter>
             {
-                return next_word_break(it, last, word_prop_, cp_break_);
+                return boost::text::v1::next_word_break(
+                    it, last, word_prop_, cp_break_);
             }
 
             WordPropFunc word_prop_;
@@ -1054,7 +1058,8 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             auto operator()(CPIter first, CPIter it, CPIter last) const noexcept
                 -> detail::cp_iter_ret_t<CPIter, CPIter>
             {
-                return prev_word_break(first, it, last, word_prop_, cp_break_);
+                return boost::text::v1::prev_word_break(
+                    first, it, last, word_prop_, cp_break_);
             }
 
             WordPropFunc word_prop_;
@@ -1075,9 +1080,11 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         WordPropFunc word_prop = WordPropFunc{},
         CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept
     {
-        first = prev_word_break(first, it, last, word_prop, cp_break);
+        first = boost::text::v1::prev_word_break(
+            first, it, last, word_prop, cp_break);
         return utf32_view<CPIter>{
-            first, next_word_break(first, last, word_prop, cp_break)};
+            first,
+            boost::text::v1::next_word_break(first, last, word_prop, cp_break)};
     }
 
 #ifdef BOOST_TEXT_DOXYGEN
@@ -1225,11 +1232,12 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             WordPropFunc,
             CPRange>
     {
-        auto first = prev_word_break(
+        auto first = boost::text::v1::prev_word_break(
             std::begin(range), it, std::end(range), word_prop, cp_break);
         return utf32_view<detail::iterator_t<CPRange>>{
             first,
-            next_word_break(first, std::end(range), word_prop, cp_break)};
+            boost::text::v1::next_word_break(
+                first, std::end(range), word_prop, cp_break)};
     }
 
     template<
@@ -1248,7 +1256,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             GraphemeRange>
     {
         using cp_iter_t = decltype(range.begin().base());
-        auto first = prev_word_break(
+        auto first = boost::text::v1::prev_word_break(
             range.begin().base(),
             static_cast<cp_iter_t>(it.base()),
             range.end().base(),
@@ -1256,7 +1264,8 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             cp_break);
         return {range.begin().base(),
                 first,
-                next_word_break(first, range.end().base(), word_prop, cp_break),
+                boost::text::v1::next_word_break(
+                    first, range.end().base(), word_prop, cp_break),
                 range.end().base()};
     }
 

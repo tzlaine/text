@@ -186,7 +186,7 @@ namespace boost { namespace text { inline namespace v1 {
 
             if (vec_insertion insertion =
                     mutable_insertion_leaf(at, 1, would_allocate)) {
-                bump_along_path_to_leaf(ptr_, at - begin(), 1);
+                detail::bump_along_path_to_leaf(ptr_, at - begin(), 1);
                 insertion.vec_->insert(
                     insertion.vec_->begin() + insertion.found_.offset_,
                     std::move(t));
@@ -242,7 +242,7 @@ namespace boost { namespace text { inline namespace v1 {
             auto const lo = at - begin();
             if (vec_insertion insertion =
                     mutable_insertion_leaf(at, -1, would_not_allocate)) {
-                bump_along_path_to_leaf(ptr_, lo, -1);
+                detail::bump_along_path_to_leaf(ptr_, lo, -1);
                 insertion.vec_->erase(
                     insertion.vec_->begin() + insertion.found_.offset_);
             } else {
@@ -270,7 +270,7 @@ namespace boost { namespace text { inline namespace v1 {
             auto const size = hi - lo;
             if (vec_insertion insertion =
                     mutable_insertion_leaf(first, -size, would_not_allocate)) {
-                bump_along_path_to_leaf(ptr_, lo, -size);
+                detail::bump_along_path_to_leaf(ptr_, lo, -size);
                 insertion.vec_->erase(
                     insertion.vec_->begin() + insertion.found_.offset_,
                     insertion.vec_->begin() + insertion.found_.offset_ + size);
@@ -355,10 +355,10 @@ namespace boost { namespace text { inline namespace v1 {
 
             detail::found_leaf<T> found;
             if (0 < delta && at == end()) {
-                find_leaf(ptr_, at - begin() - 1, found);
+                detail::find_leaf(ptr_, at - begin() - 1, found);
                 ++found.offset_;
             } else {
-                find_leaf(ptr_, at - begin(), found);
+                detail::find_leaf(ptr_, at - begin(), found);
             }
 
             for (auto node : found.path_) {
@@ -402,7 +402,7 @@ namespace boost { namespace text { inline namespace v1 {
             if (vec_insertion insertion =
                     mutable_insertion_leaf(at, u.size(), allocation_note)) {
                 auto const u_size = u.size();
-                bump_along_path_to_leaf(ptr_, at - begin(), u_size);
+                detail::bump_along_path_to_leaf(ptr_, at - begin(), u_size);
                 insertion.vec_->insert(
                     insertion.vec_->begin() + insertion.found_.offset_,
                     u.begin(),

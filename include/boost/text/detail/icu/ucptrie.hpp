@@ -120,18 +120,18 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
          * ucptrie_getType() will return the actual type.
          * @draft ICU 63
          */
-        UCPTRIE_TYPE_ANY = -1,
+        ucptrie_type_any = -1,
         /**
          * Fast/simple/larger BMP data structure. Use functions and "fast"
          * macros.
          * @draft ICU 63
          */
-        UCPTRIE_TYPE_FAST,
+        ucptrie_type_fast,
         /**
          * Small/slower BMP data structure. Use functions and "small" macros.
          * @draft ICU 63
          */
-        UCPTRIE_TYPE_SMALL
+        ucptrie_type_small
     };
     typedef enum UCPTrieType UCPTrieType;
 
@@ -149,32 +149,32 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
          * ucptrie_getValueWidth() will return the actual data value width.
          * @draft ICU 63
          */
-        UCPTRIE_VALUE_BITS_ANY = -1,
+        ucptrie_value_bits_any = -1,
         /**
          * The trie stores 16 bits per data value.
          * It returns them as unsigned values 0..0xffff=65535.
          * @draft ICU 63
          */
-        UCPTRIE_VALUE_BITS_16,
+        ucptrie_value_bits_16,
         /**
          * The trie stores 32 bits per data value.
          * @draft ICU 63
          */
-        UCPTRIE_VALUE_BITS_32,
+        ucptrie_value_bits_32,
         /**
          * The trie stores 8 bits per data value.
          * It returns them as unsigned values 0..0xff=255.
          * @draft ICU 63
          */
-        UCPTRIE_VALUE_BITS_8
+        ucptrie_value_bits_8
     };
     typedef enum UCPTrieValueWidth UCPTrieValueWidth;
 
     // UCPTrie signature values, in platform endianness and opposite endianness.
     // The UCPTrie signature ASCII byte values spell "Tri3".
     namespace {
-        constexpr uint32_t UCPTRIE_SIG = 0x54726933;
-        constexpr uint32_t UCPTRIE_OE_SIG = 0x33697254;
+        constexpr uint32_t ucptrie_sig = 0x54726933;
+        constexpr uint32_t ucptrie_oe_sig = 0x33697254;
     }
 
     /**
@@ -221,17 +221,17 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
      * @internal
      */
     enum {
-        UCPTRIE_OPTIONS_DATA_LENGTH_MASK = 0xf000,
-        UCPTRIE_OPTIONS_DATA_NULL_OFFSET_MASK = 0xf00,
-        UCPTRIE_OPTIONS_RESERVED_MASK = 0x38,
-        UCPTRIE_OPTIONS_VALUE_BITS_MASK = 7,
+        ucptrie_options_data_length_mask = 0xf000,
+        ucptrie_options_data_null_offset_mask = 0xf00,
+        ucptrie_options_reserved_mask = 0x38,
+        ucptrie_options_value_bits_mask = 7,
         /**
          * Value for index3NullOffset which indicates that there is no index-3
          * null block. Bit 15 is unused for this value because this bit is used
          * if the index-3 contains 18-bit indexes.
          */
-        UCPTRIE_NO_INDEX3_NULL_OFFSET = 0x7fff,
-        UCPTRIE_NO_DATA_NULL_OFFSET = 0xfffff
+        ucptrie_no_index3_null_offset = 0x7fff,
+        ucptrie_no_data_null_offset = 0xfffff
     };
 
     /**
@@ -242,31 +242,31 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
      */
     enum {
         /** @internal */
-        UCPTRIE_FAST_SHIFT = 6,
+        ucptrie_fast_shift = 6,
 
         /** Number of entries in a data block for code points below the fast
            limit. 64=0x40 @internal */
-        UCPTRIE_FAST_DATA_BLOCK_LENGTH = 1 << UCPTRIE_FAST_SHIFT,
+        ucptrie_fast_data_block_length = 1 << ucptrie_fast_shift,
 
         /** Mask for getting the lower bits for the in-fast-data-block offset.
            @internal */
-        UCPTRIE_FAST_DATA_MASK = UCPTRIE_FAST_DATA_BLOCK_LENGTH - 1,
+        ucptrie_fast_data_mask = ucptrie_fast_data_block_length - 1,
 
         /** @internal */
-        UCPTRIE_SMALL_MAX = 0xfff,
+        ucptrie_small_max = 0xfff,
 
         /**
          * Offset from dataLength (to be subtracted) for fetching the
          * value returned for out-of-range code points and ill-formed UTF-8/16.
          * @internal
          */
-        UCPTRIE_ERROR_VALUE_NEG_DATA_OFFSET = 1,
+        ucptrie_error_value_neg_data_offset = 1,
         /**
          * Offset from dataLength (to be subtracted) for fetching the
          * value returned for code points highStart..U+10FFFF.
          * @internal
          */
-        UCPTRIE_HIGH_VALUE_NEG_DATA_OFFSET = 2
+        ucptrie_high_value_neg_data_offset = 2
     };
 
     /** @internal */
@@ -281,29 +281,27 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
      * implementations. Do not call directly.
      * @internal
      */
+    template<typename CharIter>
     int32_t ucptrie_internalU8PrevIndex(
-        const UCPTrie * trie,
-        UChar32 c,
-        const uint8_t * start,
-        const uint8_t * src);
+        const UCPTrie * trie, UChar32 c, CharIter start, CharIter src);
 
     /** Internal trie getter for a code point below the fast limit. Returns the
      * data index. @internal */
-    inline int UCPTRIE_FAST_INDEX_(const UCPTrie * trie, UChar32 c)
+    inline int ucptrie_fast_index_(const UCPTrie * trie, UChar32 c)
     {
         return (
-            (int32_t)(trie)->index[(c) >> UCPTRIE_FAST_SHIFT] +
-            ((c)&UCPTRIE_FAST_DATA_MASK));
+            (int32_t)(trie)->index[(c) >> ucptrie_fast_shift] +
+            ((c)&ucptrie_fast_data_mask));
     }
 
     /** Internal trie getter for a code point at or above the fast limit.
      * Returns the data index. @internal */
-    inline int UCPTRIE_SMALL_INDEX_(const UCPTrie * trie, UChar32 c)
+    inline int ucptrie_small_index_(const UCPTrie * trie, UChar32 c)
     {
         return (
             (c) >= (trie)->highStart
-                ? (trie)->dataLength - UCPTRIE_HIGH_VALUE_NEG_DATA_OFFSET
-                : ucptrie_internalSmallIndex(trie, c));
+                ? (trie)->dataLength - ucptrie_high_value_neg_data_offset
+                : detail::icu::ucptrie_internalSmallIndex(trie, c));
     }
 
     /**
@@ -312,15 +310,15 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
      * @internal
      */
     inline int
-    UCPTRIE_CP_INDEX_(const UCPTrie * trie, uint32_t fastMax, UChar32 c)
+    ucptrie_cp_index_(const UCPTrie * trie, uint32_t fastMax, UChar32 c)
     {
         return (
             (uint32_t)(c) <= (uint32_t)(fastMax)
-                ? UCPTRIE_FAST_INDEX_(trie, c)
+                ? detail::icu::ucptrie_fast_index_(trie, c)
                 : (uint32_t)(c) <= 0x10ffff
-                      ? UCPTRIE_SMALL_INDEX_(trie, c)
+                      ? detail::icu::ucptrie_small_index_(trie, c)
                       : (trie)->dataLength -
-                            UCPTRIE_ERROR_VALUE_NEG_DATA_OFFSET);
+                            ucptrie_error_value_neg_data_offset);
     }
 
     /**
@@ -331,7 +329,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
      * @see UCPTRIE_VALUE_BITS_16
      * @draft ICU 63
      */
-    inline uint16_t UCPTRIE_16(const UCPTrie * trie, int i)
+    inline uint16_t ucptrie_16(const UCPTrie * trie, int i)
     {
         return trie->data.ptr16[i];
     }
@@ -344,7 +342,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
      * @see UCPTRIE_VALUE_BITS_32
      * @draft ICU 63
      */
-    inline uint32_t UCPTRIE_32(const UCPTrie * trie, int i)
+    inline uint32_t ucptrie_32(const UCPTrie * trie, int i)
     {
         return trie->data.ptr32[i];
     }
@@ -357,7 +355,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
      * @see UCPTRIE_VALUE_BITS_8
      * @draft ICU 63
      */
-    inline uint8_t UCPTRIE_8(const UCPTrie * trie, int i)
+    inline uint8_t ucptrie_8(const UCPTrie * trie, int i)
     {
         return trie->data.ptr8[i];
     }
@@ -376,10 +374,12 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
      */
     template<typename AccessFunc>
     inline auto
-    UCPTRIE_FAST_GET(const UCPTrie * trie, AccessFunc dataAccess, UChar32 c)
-        -> decltype(dataAccess(trie, UCPTRIE_CP_INDEX_(trie, 0xffff, c)))
+    ucptrie_fast_get(const UCPTrie * trie, AccessFunc dataAccess, UChar32 c)
+        -> decltype(
+            dataAccess(trie, detail::icu::ucptrie_cp_index_(trie, 0xffff, c)))
     {
-        return dataAccess(trie, UCPTRIE_CP_INDEX_(trie, 0xffff, c));
+        return dataAccess(
+            trie, detail::icu::ucptrie_cp_index_(trie, 0xffff, c));
     }
 
     /**
@@ -396,11 +396,12 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
      */
     template<typename AccessFunc>
     inline auto
-    UCPTRIE_SMALL_GET(const UCPTrie * trie, AccessFunc dataAccess, UChar32 c)
-        -> decltype(
-            dataAccess(trie, UCPTRIE_CP_INDEX_(trie, UCPTRIE_SMALL_MAX, c)))
+    ucptrie_small_get(const UCPTrie * trie, AccessFunc dataAccess, UChar32 c)
+        -> decltype(dataAccess(
+            trie, detail::icu::ucptrie_cp_index_(trie, ucptrie_small_max, c)))
     {
-        return dataAccess(trie, UCPTRIE_CP_INDEX_(trie, UCPTRIE_SMALL_MAX, c));
+        return dataAccess(
+            trie, detail::icu::ucptrie_cp_index_(trie, ucptrie_small_max, c));
     }
 
     /**
@@ -424,7 +425,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
         typename Iter,
         typename Sentinel,
         typename Out>
-    inline void UCPTRIE_FAST_U16_NEXT(
+    inline void ucptrie_fast_u16_next(
         const UCPTrie * trie,
         AccessFunc dataAccess,
         Iter & src,
@@ -434,18 +435,18 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
     {
         (c) = *(src)++;
         int32_t index_;
-        if (!U16_IS_SURROGATE(c)) {
-            index_ = UCPTRIE_FAST_INDEX_(trie, c);
+        if (!detail::icu::u16_is_surrogate(c)) {
+            index_ = detail::icu::ucptrie_fast_index_(trie, c);
         } else {
             uint16_t c2_;
-            if (U16_IS_SURROGATE_LEAD(c) && (src) != (limit) &&
-                U16_IS_TRAIL(c2_ = *(src))) {
+            if (detail::icu::u16_is_surrogate_lead(c) && (src) != (limit) &&
+                detail::icu::u16_is_trail(c2_ = *(src))) {
                 ++(src);
-                (c) = U16_GET_SUPPLEMENTARY((c), c2_);
-                index_ = UCPTRIE_SMALL_INDEX_(trie, c);
+                (c) = detail::icu::u16_get_supplementary((c), c2_);
+                index_ = detail::icu::ucptrie_small_index_(trie, c);
             } else {
                 index_ =
-                    (trie)->dataLength - UCPTRIE_ERROR_VALUE_NEG_DATA_OFFSET;
+                    (trie)->dataLength - ucptrie_error_value_neg_data_offset;
             }
         }
         (result) = dataAccess(trie, index_);
@@ -467,7 +468,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
      * @draft ICU 63
      */
     template<typename AccessFunc, typename Iter, typename Out>
-    void UCPTRIE_FAST_U16_PREV(
+    void ucptrie_fast_u16_prev(
         const UCPTrie * trie,
         AccessFunc dataAccess,
         Iter start,
@@ -477,18 +478,18 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
     {
         (c) = *--(src);
         int32_t index_;
-        if (!U16_IS_SURROGATE(c)) {
-            index_ = UCPTRIE_FAST_INDEX_(trie, c);
+        if (!detail::icu::u16_is_surrogate(c)) {
+            index_ = detail::icu::ucptrie_fast_index_(trie, c);
         } else {
             uint16_t c2_;
-            if (U16_IS_SURROGATE_TRAIL(c) && (src) != (start) &&
-                U16_IS_LEAD(c2_ = *std::prev(src))) {
+            if (detail::icu::u16_is_surrogate_trail(c) && (src) != (start) &&
+                detail::icu::u16_is_lead(c2_ = *std::prev(src))) {
                 --(src);
-                (c) = U16_GET_SUPPLEMENTARY(c2_, (c));
-                index_ = UCPTRIE_SMALL_INDEX_(trie, c);
+                (c) = detail::icu::u16_get_supplementary(c2_, (c));
+                index_ = detail::icu::ucptrie_small_index_(trie, c);
             } else {
                 index_ =
-                    (trie)->dataLength - UCPTRIE_ERROR_VALUE_NEG_DATA_OFFSET;
+                    (trie)->dataLength - ucptrie_error_value_neg_data_offset;
             }
         }
         (result) = dataAccess(trie, index_);
@@ -498,7 +499,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
      * UTF-8: Post-increments src and gets a value from the trie.
      * Sets the trie error value for an ill-formed byte sequence.
      *
-     * Unlike UCPTRIE_FAST_U16_NEXT() this UTF-8 macro does not provide the code
+     * Unlike ucptrie_fast_u16_next() this UTF-8 macro does not provide the code
      * point because it would be more work to do so and is often not needed. If
      * the trie value differs from the error value, then the byte sequence is
      * well-formed, and the code point can be assembled without revalidation.
@@ -518,7 +519,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
         typename CharIter,
         typename Sentinel,
         typename Out>
-    void UCPTRIE_FAST_U8_NEXT(
+    void ucptrie_fast_u8_next(
         const UCPTrie * trie,
         AccessFunc dataAccess,
         CharIter & src,
@@ -526,12 +527,12 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
         Out & result)
     {
         int32_t lead_ = (uint8_t) * (src)++;
-        if (!U8_IS_SINGLE(lead_)) {
+        if (!detail::icu::u8_is_single(lead_)) {
             uint8_t t1_, t2_, t3_;
             if ((src) != (limit) &&
                 (lead_ >= 0xe0
                      ? lead_ < 0xf0 ? /* U+0800..U+FFFF except surrogates */
-                           U8_LEAD3_T1_BITS[lead_ &= 0xf] &
+                           detail::icu::u8_lead3_t1_bits[lead_ &= 0xf] &
                                    (1 << ((t1_ = *(src)) >> 5)) &&
                                ++(src) != (limit) &&
                                (t2_ = *(src)-0x80) <= 0x3f &&
@@ -542,7 +543,8 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
                                 1)
                                     : /* U+10000..U+10FFFF */
                            (lead_ -= 0xf0) <= 4 &&
-                               U8_LEAD4_T1_BITS[(t1_ = *(src)) >> 4] &
+                               detail::icu::u8_lead4_t1_bits
+                                       [(t1_ = *(src)) >> 4] &
                                    (1 << lead_) &&
                                (lead_ = (lead_ << 6) | (t1_ & 0x3f),
                                 ++(src) != (limit)) &&
@@ -552,9 +554,10 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
                                (lead_ =
                                     lead_ >= (trie)->shifted12HighStart
                                         ? (trie)->dataLength -
-                                              UCPTRIE_HIGH_VALUE_NEG_DATA_OFFSET
-                                        : ucptrie_internalSmallU8Index(
-                                              (trie), lead_, t2_, t3_),
+                                              ucptrie_high_value_neg_data_offset
+                                        : detail::icu::
+                                              ucptrie_internalSmallU8Index(
+                                                  (trie), lead_, t2_, t3_),
                                 1)
                      : /* U+0080..U+07FF */
                      lead_ >= 0xc2 && (t1_ = *(src)-0x80) <= 0x3f &&
@@ -563,7 +566,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
                 ++(src);
             } else {
                 lead_ = (trie)->dataLength -
-                        UCPTRIE_ERROR_VALUE_NEG_DATA_OFFSET; /* ill-formed*/
+                        ucptrie_error_value_neg_data_offset; /* ill-formed*/
             }
         }
         (result) = dataAccess(trie, lead_);
@@ -573,7 +576,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
      * UTF-8: Pre-decrements src and gets a value from the trie.
      * Sets the trie error value for an ill-formed byte sequence.
      *
-     * Unlike UCPTRIE_FAST_U16_PREV() this UTF-8 macro does not provide the code
+     * Unlike ucptrie_fast_u16_prev() this UTF-8 macro does not provide the code
      * point because it would be more work to do so and is often not needed. If
      * the trie value differs from the error value, then the byte sequence is
      * well-formed, and the code point can be assembled without revalidation.
@@ -588,7 +591,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
      * @draft ICU 63
      */
     template<typename AccessFunc, typename CharIter, typename Out>
-    void UCPTRIE_FAST_U8_PREV(
+    void ucptrie_fast_u8_prev(
         const UCPTrie * trie,
         AccessFunc dataAccess,
         CharIter start,
@@ -596,8 +599,9 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
         Out & result)
     {
         int32_t index_ = (uint8_t) * --(src);
-        if (!U8_IS_SINGLE(index_)) {
-            index_ = ucptrie_internalU8PrevIndex((trie), index_, start, src);
+        if (!detail::icu::u8_is_single(index_)) {
+            index_ = detail::icu::ucptrie_internalU8PrevIndex(
+                (trie), index_, start, src);
             (src) -= index_ & 7;
             index_ >>= 3;
         }
@@ -616,7 +620,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
      */
     template<typename AccessFunc>
     auto
-    UCPTRIE_ASCII_GET(const UCPTrie * trie, AccessFunc dataAccess, UChar32 c)
+    ucptrie_ascii_get(const UCPTrie * trie, AccessFunc dataAccess, UChar32 c)
         -> decltype(dataAccess(trie, c))
     {
         return dataAccess(trie, c);
@@ -637,10 +641,10 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
      */
     template<typename AccessFunc>
     auto
-    UCPTRIE_FAST_BMP_GET(const UCPTrie * trie, AccessFunc dataAccess, UChar32 c)
-        -> decltype(dataAccess(trie, UCPTRIE_FAST_INDEX_(trie, c)))
+    ucptrie_fast_bmp_get(const UCPTrie * trie, AccessFunc dataAccess, UChar32 c)
+        -> decltype(dataAccess(trie, detail::icu::ucptrie_fast_index_(trie, c)))
     {
-        return dataAccess(trie, UCPTRIE_FAST_INDEX_(trie, c));
+        return dataAccess(trie, detail::icu::ucptrie_fast_index_(trie, c));
     }
 
     /**
@@ -656,69 +660,70 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
      * @draft ICU 63
      */
     template<typename AccessFunc>
-    auto UCPTRIE_FAST_SUPP_GET(
+    auto ucptrie_fast_supp_get(
         const UCPTrie * trie, AccessFunc dataAccess, UChar32 c)
-        -> decltype(dataAccess(trie, UCPTRIE_SMALL_INDEX_(trie, c)))
+        -> decltype(
+            dataAccess(trie, detail::icu::ucptrie_small_index_(trie, c)))
     {
-        return dataAccess(trie, UCPTRIE_SMALL_INDEX_(trie, c));
+        return dataAccess(trie, detail::icu::ucptrie_small_index_(trie, c));
     }
 
     // Internal constants.
     enum {
         /** The length of the BMP index table. 1024=0x400 */
-        UCPTRIE_BMP_INDEX_LENGTH = 0x10000 >> UCPTRIE_FAST_SHIFT,
+        ucptrie_bmp_index_length = 0x10000 >> ucptrie_fast_shift,
 
-        UCPTRIE_SMALL_LIMIT = 0x1000,
-        UCPTRIE_SMALL_INDEX_LENGTH = UCPTRIE_SMALL_LIMIT >> UCPTRIE_FAST_SHIFT,
+        ucptrie_small_limit = 0x1000,
+        ucptrie_small_index_length = ucptrie_small_limit >> ucptrie_fast_shift,
 
-        /** Shift size for getting the index-3 table offset. */
-        UCPTRIE_SHIFT_3 = 4,
+        /** shift size for getting the index-3 table offset. */
+        ucptrie_shift_3 = 4,
 
-        /** Shift size for getting the index-2 table offset. */
-        UCPTRIE_SHIFT_2 = 5 + UCPTRIE_SHIFT_3,
+        /** shift size for getting the index-2 table offset. */
+        ucptrie_shift_2 = 5 + ucptrie_shift_3,
 
-        /** Shift size for getting the index-1 table offset. */
-        UCPTRIE_SHIFT_1 = 5 + UCPTRIE_SHIFT_2,
+        /** shift size for getting the index-1 table offset. */
+        ucptrie_shift_1 = 5 + ucptrie_shift_2,
 
         /**
-         * Difference between two shift sizes,
+         * difference between two shift sizes,
          * for getting an index-2 offset from an index-3 offset. 5=9-4
          */
-        UCPTRIE_SHIFT_2_3 = UCPTRIE_SHIFT_2 - UCPTRIE_SHIFT_3,
+        ucptrie_shift_2_3 = ucptrie_shift_2 - ucptrie_shift_3,
 
         /**
-         * Difference between two shift sizes,
+         * difference between two shift sizes,
          * for getting an index-1 offset from an index-2 offset. 5=14-9
          */
-        UCPTRIE_SHIFT_1_2 = UCPTRIE_SHIFT_1 - UCPTRIE_SHIFT_2,
+        ucptrie_shift_1_2 = ucptrie_shift_1 - ucptrie_shift_2,
 
         /**
-         * Number of index-1 entries for the BMP. (4)
-         * This part of the index-1 table is omitted from the serialized form.
+         * number of index-1 entries for the bmp. (4)
+         * this part of the index-1 table is omitted from the serialized form.
          */
-        UCPTRIE_OMITTED_BMP_INDEX_1_LENGTH = 0x10000 >> UCPTRIE_SHIFT_1,
+        ucptrie_omitted_bmp_index_1_length = 0x10000 >> ucptrie_shift_1,
 
-        /** Number of entries in an index-2 block. 32=0x20 */
-        UCPTRIE_INDEX_2_BLOCK_LENGTH = 1 << UCPTRIE_SHIFT_1_2,
+        /** number of entries in an index-2 block. 32=0x20 */
+        ucptrie_index_2_block_length = 1 << ucptrie_shift_1_2,
 
-        /** Mask for getting the lower bits for the in-index-2-block offset. */
-        UCPTRIE_INDEX_2_MASK = UCPTRIE_INDEX_2_BLOCK_LENGTH - 1,
+        /** mask for getting the lower bits for the in-index-2-block offset. */
+        ucptrie_index_2_mask = ucptrie_index_2_block_length - 1,
 
-        /** Number of code points per index-2 table entry. 512=0x200 */
-        UCPTRIE_CP_PER_INDEX_2_ENTRY = 1 << UCPTRIE_SHIFT_2,
+        /** number of code points per index-2 table entry. 512=0x200 */
+        ucptrie_cp_per_index_2_entry = 1 << ucptrie_shift_2,
 
-        /** Number of entries in an index-3 block. 32=0x20 */
-        UCPTRIE_INDEX_3_BLOCK_LENGTH = 1 << UCPTRIE_SHIFT_2_3,
+        /** number of entries in an index-3 block. 32=0x20 */
+        ucptrie_index_3_block_length = 1 << ucptrie_shift_2_3,
 
-        /** Mask for getting the lower bits for the in-index-3-block offset. */
-        UCPTRIE_INDEX_3_MASK = UCPTRIE_INDEX_3_BLOCK_LENGTH - 1,
+        /** mask for getting the lower bits for the in-index-3-block offset. */
+        ucptrie_index_3_mask = ucptrie_index_3_block_length - 1,
 
-        /** Number of entries in a small data block. 16=0x10 */
-        UCPTRIE_SMALL_DATA_BLOCK_LENGTH = 1 << UCPTRIE_SHIFT_3,
+        /** number of entries in a small data block. 16=0x10 */
+        ucptrie_small_data_block_length = 1 << ucptrie_shift_3,
 
-        /** Mask for getting the lower bits for the in-small-data-block offset.
+        /** mask for getting the lower bits for the in-small-data-block offset.
          */
-        UCPTRIE_SMALL_DATA_MASK = UCPTRIE_SMALL_DATA_BLOCK_LENGTH - 1
+        ucptrie_small_data_mask = ucptrie_small_data_block_length - 1
     };
 
     /**
@@ -730,7 +735,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
      * size_t should work too, since on most (or all?) platforms it has the same
      * width as ptrdiff_t.
      */
-    inline ptrdiff_t U_POINTER_MASK_LSB(const void * ptr, ptrdiff_t mask)
+    inline ptrdiff_t u_pointer_mask_lsb(const void * ptr, ptrdiff_t mask)
     {
         return (ptrdiff_t)ptr & mask;
     }
@@ -788,9 +793,9 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
     getValue(UCPTrieData data, UCPTrieValueWidth valueWidth, int32_t dataIndex)
     {
         switch (valueWidth) {
-        case UCPTRIE_VALUE_BITS_16: return data.ptr16[dataIndex];
-        case UCPTRIE_VALUE_BITS_32: return data.ptr32[dataIndex];
-        case UCPTRIE_VALUE_BITS_8: return data.ptr8[dataIndex];
+        case ucptrie_value_bits_16: return data.ptr16[dataIndex];
+        case ucptrie_value_bits_32: return data.ptr32[dataIndex];
+        case ucptrie_value_bits_8: return data.ptr8[dataIndex];
         default:
             // Unreachable if the trie is properly initialized.
             return 0xffffffff;
@@ -821,29 +826,29 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
             dataIndex = c;
         } else {
             UChar32 fastMax =
-                trie->type == UCPTRIE_TYPE_FAST ? 0xffff : UCPTRIE_SMALL_MAX;
-            dataIndex = UCPTRIE_CP_INDEX_(trie, fastMax, c);
+                trie->type == ucptrie_type_fast ? 0xffff : ucptrie_small_max;
+            dataIndex = ucptrie_cp_index_(trie, fastMax, c);
         }
-        return getValue(
+        return detail::icu::getValue(
             trie->data, (UCPTrieValueWidth)trie->valueWidth, dataIndex);
     }
 
     inline int32_t ucptrie_internalSmallIndex(const UCPTrie * trie, UChar32 c)
     {
-        int32_t i1 = c >> UCPTRIE_SHIFT_1;
-        if (trie->type == UCPTRIE_TYPE_FAST) {
+        int32_t i1 = c >> ucptrie_shift_1;
+        if (trie->type == ucptrie_type_fast) {
             BOOST_ASSERT(0xffff < c && c < trie->highStart);
-            i1 += UCPTRIE_BMP_INDEX_LENGTH - UCPTRIE_OMITTED_BMP_INDEX_1_LENGTH;
+            i1 += ucptrie_bmp_index_length - ucptrie_omitted_bmp_index_1_length;
         } else {
             BOOST_ASSERT(
                 (uint32_t)c < (uint32_t)trie->highStart &&
-                trie->highStart > UCPTRIE_SMALL_LIMIT);
-            i1 += UCPTRIE_SMALL_INDEX_LENGTH;
+                trie->highStart > ucptrie_small_limit);
+            i1 += ucptrie_small_index_length;
         }
         int32_t i3Block = trie->index
                               [(int32_t)trie->index[i1] +
-                               ((c >> UCPTRIE_SHIFT_2) & UCPTRIE_INDEX_2_MASK)];
-        int32_t i3 = (c >> UCPTRIE_SHIFT_3) & UCPTRIE_INDEX_3_MASK;
+                               ((c >> ucptrie_shift_2) & ucptrie_index_2_mask)];
+        int32_t i3 = (c >> ucptrie_shift_3) & ucptrie_index_3_mask;
         int32_t dataBlock;
         if ((i3Block & 0x8000) == 0) {
             // 16-bit indexes
@@ -856,7 +861,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
                 ((int32_t)trie->index[i3Block++] << (2 + (2 * i3))) & 0x30000;
             dataBlock |= trie->index[i3Block + i3];
         }
-        return dataBlock + (c & UCPTRIE_SMALL_DATA_MASK);
+        return dataBlock + (c & ucptrie_small_data_mask);
     }
 
     inline int32_t ucptrie_internalSmallU8Index(
@@ -866,9 +871,9 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
         if (c >= trie->highStart) {
             // Possible because the UTF-8 macro compares with shifted12HighStart
             // which may be higher.
-            return trie->dataLength - UCPTRIE_HIGH_VALUE_NEG_DATA_OFFSET;
+            return trie->dataLength - ucptrie_high_value_neg_data_offset;
         }
-        return ucptrie_internalSmallIndex(trie, c);
+        return detail::icu::ucptrie_internalSmallIndex(trie, c);
     }
 
     template<typename CharIter>
@@ -883,9 +888,9 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
             i = length = 7;
             start = src - 7;
         }
-        c = utf8_prevCharSafeBody(start, 0, &i, c, -1);
+        c = detail::icu::utf8_prevCharSafeBody(start, 0, &i, c, -1);
         i = length - i; // Number of bytes read backward from src.
-        int32_t idx = UCPTRIE_CP_INDEX_(trie, 0xffff, c);
+        int32_t idx = ucptrie_cp_index_(trie, 0xffff, c);
         return (idx << 3) | i;
     }
 

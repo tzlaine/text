@@ -188,7 +188,7 @@ namespace boost { namespace text { inline namespace v1 {
                 i += size();
             BOOST_ASSERT(0 <= i && i < size());
             detail::found_char found;
-            find_char(ptr_, i, found);
+            detail::find_char(ptr_, i, found);
             return found.c_;
         }
 
@@ -536,10 +536,10 @@ namespace boost { namespace text { inline namespace v1 {
 
             detail::found_leaf<detail::rope_tag> found;
             if (0 < delta && at == size()) {
-                find_leaf(ptr_, at - 1, found);
+                detail::find_leaf(ptr_, at - 1, found);
                 ++found.offset_;
             } else {
-                find_leaf(ptr_, at, found);
+                detail::find_leaf(ptr_, at, found);
             }
 
             for (auto node : found.path_) {
@@ -578,7 +578,7 @@ namespace boost { namespace text { inline namespace v1 {
             if (string_insertion insertion =
                     mutable_insertion_leaf(at, t.size(), allocation_note)) {
                 auto const t_size = t.size();
-                bump_along_path_to_leaf(ptr_, at, t_size);
+                detail::bump_along_path_to_leaf(ptr_, at, t_size);
                 insertion.string_->insert(insertion.found_.offset_, t);
             } else {
                 ptr_ = detail::btree_insert(
@@ -693,7 +693,7 @@ namespace boost { namespace text { inline namespace v1 {
         unencoded_rope_view::rope_ref rope_ref = rv.ref_.r_;
 
         detail::found_leaf<detail::rope_tag> found_lo;
-        find_leaf(rope_ref.r_->ptr_, rope_ref.lo_, found_lo);
+        detail::find_leaf(rope_ref.r_->ptr_, rope_ref.lo_, found_lo);
         detail::leaf_node_t<detail::rope_tag> const * const leaf_lo =
             found_lo.leaf_->as_leaf();
 
@@ -703,7 +703,7 @@ namespace boost { namespace text { inline namespace v1 {
             ptr_ = detail::btree_insert(
                 ptr_,
                 at,
-                slice_leaf(
+                detail::slice_leaf(
                     *found_lo.leaf_,
                     found_lo.offset_,
                     found_lo.offset_ + rv.size()));
@@ -711,7 +711,7 @@ namespace boost { namespace text { inline namespace v1 {
         }
 
         detail::found_leaf<detail::rope_tag> found_hi;
-        find_leaf(rope_ref.r_->ptr_, rope_ref.hi_, found_hi);
+        detail::find_leaf(rope_ref.r_->ptr_, rope_ref.hi_, found_hi);
 
         bool before_lo = true;
         detail::foreach_leaf(
@@ -720,7 +720,7 @@ namespace boost { namespace text { inline namespace v1 {
                 if (leaf == found_lo.leaf_->as_leaf()) {
                     detail::node_ptr<detail::rope_tag> node;
                     if (found_lo.offset_ != 0) {
-                        node = slice_leaf(
+                        node = detail::slice_leaf(
                             *found_lo.leaf_,
                             found_lo.offset_,
                             detail::size(leaf));
@@ -742,7 +742,8 @@ namespace boost { namespace text { inline namespace v1 {
                         ptr_ = detail::btree_insert(
                             ptr_,
                             at,
-                            slice_leaf(*found_hi.leaf_, 0, found_hi.offset_));
+                            detail::slice_leaf(
+                                *found_hi.leaf_, 0, found_hi.offset_));
 
                         at += found_hi.offset_;
                     }
@@ -852,11 +853,11 @@ namespace boost { namespace text { inline namespace v1 {
         if (string_insertion insertion = mutable_insertion_leaf(
                 rope_ref.lo_, -rv.size(), would_not_allocate)) {
             auto const rv_size = rv.size();
-            bump_along_path_to_leaf(ptr_, rope_ref.lo_, -rv_size);
+            detail::bump_along_path_to_leaf(ptr_, rope_ref.lo_, -rv_size);
             insertion.string_->erase((*insertion.string_)(
                 insertion.found_.offset_, insertion.found_.offset_ + rv_size));
         } else {
-            ptr_ = btree_erase(ptr_, rope_ref.lo_, rope_ref.hi_);
+            ptr_ = detail::btree_erase(ptr_, rope_ref.lo_, rope_ref.hi_);
         }
 
         return *this;
@@ -878,11 +879,11 @@ namespace boost { namespace text { inline namespace v1 {
         if (string_insertion insertion =
                 mutable_insertion_leaf(lo, -(hi - lo), would_not_allocate)) {
             auto const size = hi - lo;
-            bump_along_path_to_leaf(ptr_, lo, -size);
+            detail::bump_along_path_to_leaf(ptr_, lo, -size);
             insertion.string_->erase((*insertion.string_)(
                 insertion.found_.offset_, insertion.found_.offset_ + size));
         } else {
-            ptr_ = btree_erase(ptr_, lo, hi);
+            ptr_ = detail::btree_erase(ptr_, lo, hi);
         }
 
         return begin() + offset;
@@ -1705,13 +1706,13 @@ namespace boost { namespace text { inline namespace v1 {
 
 namespace std {
     template<>
-    struct hash<boost::text::unencoded_rope>
+    struct hash<boost::text::v1::unencoded_rope>
     {
-        using argument_type = boost::text::unencoded_rope;
+        using argument_type = boost::text::v1::unencoded_rope;
         using result_type = std::size_t;
         result_type operator()(argument_type const & ur) const noexcept
         {
-            return boost::text::detail::hash_char_range(ur);
+            return boost::text::v1::detail::hash_char_range(ur);
         }
     };
 }

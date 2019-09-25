@@ -62,7 +62,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
         template<typename CharIter>
         char_iter_ret_t<void, CharIter> append(CharIter first, CharIter last)
         {
-            out_ = transcode_utf_8_to_32(first, last, out_);
+            out_ = boost::text::v1::transcode_utf_8_to_32(first, last, out_);
         }
 
         UTF32OutIter out() const { return out_; }

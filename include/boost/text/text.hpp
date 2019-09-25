@@ -530,7 +530,8 @@ namespace boost { namespace text { inline namespace v1 {
                 return at;
 
             std::array<char, 1024> buf;
-            auto out = transcode_utf_32_to_8(g.begin(), g.end(), buf.data());
+            auto out = boost::text::v1::transcode_utf_32_to_8(
+                g.begin(), g.end(), buf.data());
             return t.insert_impl(
                 at, string_view(buf.data(), out - buf.data()), true);
         }
@@ -1160,13 +1161,13 @@ namespace boost { namespace text { inline namespace v1 {
 
 namespace std {
     template<>
-    struct hash<boost::text::text>
+    struct hash<boost::text::v1::text>
     {
-        using argument_type = boost::text::text;
+        using argument_type = boost::text::v1::text;
         using result_type = std::size_t;
         result_type operator()(argument_type const & t) const noexcept
         {
-            return boost::text::detail::hash_grapheme_range(t);
+            return boost::text::v1::detail::hash_grapheme_range(t);
         }
     };
 }

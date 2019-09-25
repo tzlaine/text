@@ -376,7 +376,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
 
             auto check_ccc_0_and_append = [&](cp_range_t r) {
                 for (auto cp = r.first_, cp_end = r.last_; cp < cp_end; ++cp) {
-                    if (!ccc(cp)) {
+                    if (!detail::ccc(cp)) {
                         seq.push_back(cp);
                     } else {
                         boost::throw_exception(one_token_parse_error(

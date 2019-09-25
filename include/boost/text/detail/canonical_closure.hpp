@@ -38,7 +38,8 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
 
     inline bool canonical_closure_starter(uint32_t cp) noexcept
     {
-        return !ccc(cp) && !appears_at_noninitial_position_of_decomp(cp);
+        return !detail::ccc(cp) &&
+               !detail::appears_at_noninitial_position_of_decomp(cp);
     }
 
     template<typename OutIter>
@@ -101,14 +102,14 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                 uint32_t new_c[1] = {subsegments[i][j][0]};
                 canonical_closure_string_t nfd;
                 normalize_to_nfd(new_c, new_c + 1, std::back_inserter(nfd));
-                segment_canonical_closure(
+                detail::segment_canonical_closure(
                     nfd.begin(), nfd.end(), std::back_inserter(subsegments[i]));
             }
             total *= subsegments[i].size();
         }
         BOOST_ASSERT(total);
 
-        return canonical_closure_combinations(subsegments, total, out);
+        return detail::canonical_closure_combinations(subsegments, total, out);
     }
 
     template<typename CPIter, typename OutIter>
@@ -120,7 +121,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         // 3 For each segment enumerate canonically equivalent forms, as
         // follows:
 
-        if (!canonical_closure_starter(*first))
+        if (!detail::canonical_closure_starter(*first))
             return out;
 
         // 3a Use the set of [composed] characters whose decomposition
@@ -142,7 +143,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         // 3b For each character in this set:
         for (auto comp : comps) {
             // 3b I Get the character's decomposition.
-            canonical_decomposition decomp = canonical_decompose(comp);
+            canonical_decomposition decomp = detail::canonical_decompose(comp);
 
             bool skip = false;
             for (auto decomp_cp : decomp) {
@@ -159,8 +160,9 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                 // with the same combining class), then also skip this
                 // character.
                 if (same_cp_in_seg_it != first) {
-                    auto const decomp_cp_ccc = ccc(decomp_cp);
-                    if (ccc(*std::prev(same_cp_in_seg_it)) == decomp_cp_ccc) {
+                    auto const decomp_cp_ccc = detail::ccc(decomp_cp);
+                    if (detail::ccc(*std::prev(same_cp_in_seg_it)) ==
+                        decomp_cp_ccc) {
                         skip = true;
                         break;
                     }
@@ -208,7 +210,8 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             // permutations, we can treat them uniformly here, and this is
             // simpler.
 
-            recurse_and_output_canonical_closure_segment(subsegments, out);
+            detail::recurse_and_output_canonical_closure_segment(
+                subsegments, out);
             did_output = true;
         }
 
@@ -227,7 +230,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                             1, canonical_closure_string_t(1, cp));
                     });
 
-                out = recurse_and_output_canonical_closure_segment(
+                out = detail::recurse_and_output_canonical_closure_segment(
                     subsegments, out);
 
             } while (std::next_permutation(std::next(str.begin()), str.end()));
@@ -247,9 +250,9 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
 
         // 1 Transform the input string into its NFD form.
         canonical_closure_buffer_t nfd;
-        normalize_to_nfd(first, last, std::back_inserter(nfd));
+        boost::text::v1::normalize_to_nfd(first, last, std::back_inserter(nfd));
 
-        if (!canonical_closure_starter(nfd[0])) {
+        if (!detail::canonical_closure_starter(nfd[0])) {
             out = canonical_closure_string_t(nfd.begin(), nfd.end());
             return ++out;
         }
@@ -266,7 +269,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             auto next = std::find_if(
                 std::next(it), nfd.end(), canonical_closure_starter);
             segment_results.resize(segment_results.size() + 1);
-            segment_canonical_closure(
+            detail::segment_canonical_closure(
                 it, next, std::back_inserter(segment_results.back()));
             it = next;
         }
@@ -280,7 +283,8 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         }
         BOOST_ASSERT(total);
 
-        return canonical_closure_combinations(segment_results, total, out);
+        return detail::canonical_closure_combinations(
+            segment_results, total, out);
     }
 
 }}}}

@@ -229,3 +229,4 @@
 [named_index macro_name Macro Index]
 
 [include rationale.qbk]
+[include unicode_copyright_notice.qbk]

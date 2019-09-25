@@ -207,7 +207,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
 
         auto report_error = [&](string_view msg, int column) {
             if (errors) {
-                errors(parse_diagnostic(
+                errors(detail::parse_diagnostic(
                     diag_kind::error,
                     msg,
                     line,
@@ -259,7 +259,8 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         };
 
         auto is_space = [&](char initial_char) {
-            auto const code_units = code_point_bytes(initial_char);
+            auto const code_units =
+                boost::text::v1::code_point_bytes(initial_char);
             if (code_units < 0 || last - first < code_units - 1)
                 return 0;
             auto const r = as_utf32(first - 1, first - 1 + code_units);
@@ -328,21 +329,22 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         };
 
         auto push = [&](token_kind kind) {
-            retval.tokens_.push_back(token(kind, line, initial_column));
+            retval.tokens_.push_back(detail::token(kind, line, initial_column));
         };
 
         auto push_cp = [&](uint32_t cp) {
-            retval.tokens_.push_back(token(cp, line, initial_column));
+            retval.tokens_.push_back(detail::token(cp, line, initial_column));
         };
 
         auto push_identifier = [&](string id) {
             retval.tokens_.push_back(
-                token(std::move(id), line, initial_column));
+                detail::token(std::move(id), line, initial_column));
         };
 
         auto lex_utf8 = [&](char initial_char) {
             // UTF-8 encoded code point.
-            auto const code_units = code_point_bytes(initial_char);
+            auto const code_units =
+                boost::text::v1::code_point_bytes(initial_char);
             if (code_units < 0)
                 report_error("Invalid initial UTF-8 code unit", initial_column);
             *buf = initial_char;

@@ -46,27 +46,27 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
      * Does this code unit (byte) encode a code point by itself (US-ASCII
      * 0..0x7f)?
      * @param c 8-bit code unit (byte)
-     * @return TRUE or FALSE
+     * @return true or false
      * @stable ICU 2.4
      */
-    inline bool U8_IS_SINGLE(UChar32 c) { return (((c)&0x80) == 0); }
+    inline bool u8_is_single(UChar32 c) { return (((c)&0x80) == 0); }
 
     /**
      * Is this code unit (byte) a UTF-8 lead byte? (0xC2..0xF4)
      * @param c 8-bit code unit (byte)
-     * @return TRUE or FALSE
+     * @return true or false
      * @stable ICU 2.4
      */
-    inline bool U8_IS_LEAD(UChar32 c) { return ((uint8_t)((c)-0xc2) <= 0x32); }
+    inline bool u8_is_lead(UChar32 c) { return ((uint8_t)((c)-0xc2) <= 0x32); }
     // 0x32=0xf4-0xc2
 
     /**
      * Is this code unit (byte) a UTF-8 trail byte? (0x80..0xBF)
      * @param c 8-bit code unit (byte)
-     * @return TRUE or FALSE
+     * @return true or false
      * @stable ICU 2.4
      */
-    inline bool U8_IS_TRAIL(UChar32 c) { return ((int8_t)(c) < -0x40); }
+    inline bool u8_is_trail(UChar32 c) { return ((int8_t)(c) < -0x40); }
 
     /**
      * Counts the trail bytes for a UTF-8 lead byte.
@@ -80,11 +80,12 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
      * @param leadByte The first byte of a UTF-8 sequence. Must be 0..0xff.
      * @internal
      */
-    inline int U8_COUNT_TRAIL_BYTES(uint8_t leadByte)
+    inline int u8_count_trail_bytes(uint8_t leadByte)
     {
-        return U8_IS_LEAD(leadByte) ? ((uint8_t)(leadByte) >= 0xe0) +
-                                          ((uint8_t)(leadByte) >= 0xf0) + 1
-                                    : 0;
+        return detail::icu::u8_is_lead(leadByte)
+                   ? ((uint8_t)(leadByte) >= 0xe0) +
+                         ((uint8_t)(leadByte) >= 0xf0) + 1
+                   : 0;
     }
 
     /**
@@ -99,7 +100,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
      * @param leadByte The first byte of a UTF-8 sequence. Must be 0..0xff.
      * @internal
      */
-    inline int U8_COUNT_TRAIL_BYTES_UNSAFE(uint8_t leadByte)
+    inline int u8_count_trail_bytes_unsafe(uint8_t leadByte)
     {
         return ((uint8_t)(leadByte) >= 0xc2) + ((uint8_t)(leadByte) >= 0xe0) +
                ((uint8_t)(leadByte) >= 0xf0);
@@ -115,7 +116,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
      * @internal
      */
     namespace {
-        constexpr char U8_LEAD3_T1_BITS[] =
+        constexpr char u8_lead3_t1_bits[] =
             "\x20\x30\x30\x30\x30\x30\x30\x30\x30\x30\x30\x30\x30\x10\x30\x30";
     }
 
@@ -125,9 +126,11 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
      * sequence.
      * @internal
      */
-    inline bool U8_IS_VALID_LEAD3_AND_T1(uint8_t lead, uint8_t t1)
+    inline bool u8_is_valid_lead3_and_t1(uint8_t lead, uint8_t t1)
     {
-        return (U8_LEAD3_T1_BITS[(lead)&0xf] & (1 << ((uint8_t)(t1) >> 5)));
+        return (
+            detail::icu::u8_lead3_t1_bits[(lead)&0xf] &
+            (1 << ((uint8_t)(t1) >> 5)));
     }
 
     /**
@@ -140,7 +143,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
      * @internal
      */
     namespace {
-        constexpr char U8_LEAD4_T1_BITS[] =
+        constexpr char u8_lead4_t1_bits[] =
             "\x00\x00\x00\x00\x00\x00\x00\x00\x1E\x0F\x0F\x0F\x00\x00\x00\x00";
     }
 
@@ -150,9 +153,11 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
      * sequence.
      * @internal
      */
-    inline bool U8_IS_VALID_LEAD4_AND_T1(uint8_t lead, uint8_t t1)
+    inline bool u8_is_valid_lead4_and_t1(uint8_t lead, uint8_t t1)
     {
-        return (U8_LEAD4_T1_BITS[(uint8_t)(t1) >> 4] & (1 << ((lead)&7)));
+        return (
+            detail::icu::u8_lead4_t1_bits[(uint8_t)(t1) >> 4] &
+            (1 << ((lead)&7)));
     }
 
 
@@ -177,10 +182,10 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
      * @stable ICU 2.4
      */
     template<typename CharIter>
-    void U8_NEXT_UNSAFE(CharIter s, int32_t & i, UChar32 & c)
+    void u8_next_unsafe(CharIter s, int32_t & i, UChar32 & c)
     {
         (c) = (uint8_t)(s)[(i)++];
-        if (!U8_IS_SINGLE(c)) {
+        if (!detail::icu::u8_is_single(c)) {
             if ((c) < 0xe0) {
                 (c) = (((c)&0x1f) << 6) | ((uint8_t)(s)[(i)++] & 0x3f);
             } else if ((c) < 0xf0) {
@@ -214,7 +219,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
      * @stable ICU 2.4
      */
     template<typename Char>
-    void U8_APPEND_UNSAFE(Char * s, int32_t & i, UChar32 c)
+    void u8_append_unsafe(Char * s, int32_t & i, UChar32 c)
     {
         uint32_t uc_ = (c);
         if (uc_ <= 0x7f) {
@@ -265,26 +270,26 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
             } else if (strict == -3) {
                 return 0xfffd;
             } else {
-                return U_SENTINEL;
+                return u_sentinel;
             }
         };
 
         // *pi is the index of byte c.
         int32_t i = *pi;
-        if (U8_IS_TRAIL(c) && i > start) {
+        if (detail::icu::u8_is_trail(c) && i > start) {
             uint8_t b1 = s[--i];
-            if (U8_IS_LEAD(b1)) {
+            if (detail::icu::u8_is_lead(b1)) {
                 if (b1 < 0xe0) {
                     *pi = i;
                     return ((b1 - 0xc0) << 6) | (c & 0x3f);
                 } else if (
-                    b1 < 0xf0 ? U8_IS_VALID_LEAD3_AND_T1(b1, c)
-                              : U8_IS_VALID_LEAD4_AND_T1(b1, c)) {
+                    b1 < 0xf0 ? detail::icu::u8_is_valid_lead3_and_t1(b1, c)
+                              : detail::icu::u8_is_valid_lead4_and_t1(b1, c)) {
                     // Truncated 3- or 4-byte sequence.
                     *pi = i;
                     return errorValue(1, strict);
                 }
-            } else if (U8_IS_TRAIL(b1) && i > start) {
+            } else if (detail::icu::u8_is_trail(b1) && i > start) {
                 // Extract the value bits from the last trail byte.
                 c &= 0x3f;
                 uint8_t b2 = s[--i];
@@ -292,10 +297,11 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
                     if (b2 < 0xf0) {
                         b2 &= 0xf;
                         if (strict != -2) {
-                            if (U8_IS_VALID_LEAD3_AND_T1(b2, b1)) {
+                            if (detail::icu::u8_is_valid_lead3_and_t1(b2, b1)) {
                                 *pi = i;
                                 c = (b2 << 12) | ((b1 & 0x3f) << 6) | c;
-                                if (strict <= 0 || !U_IS_UNICODE_NONCHAR(c)) {
+                                if (strict <= 0 ||
+                                    !detail::icu::u_is_unicode_nonchar(c)) {
                                     return c;
                                 } else {
                                     // strict: forbid non-characters like U+fffe
@@ -310,20 +316,21 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
                                 return (b2 << 12) | (b1 << 6) | c;
                             }
                         }
-                    } else if (U8_IS_VALID_LEAD4_AND_T1(b2, b1)) {
+                    } else if (detail::icu::u8_is_valid_lead4_and_t1(b2, b1)) {
                         // Truncated 4-byte sequence.
                         *pi = i;
                         return errorValue(2, strict);
                     }
-                } else if (U8_IS_TRAIL(b2) && i > start) {
+                } else if (detail::icu::u8_is_trail(b2) && i > start) {
                     uint8_t b3 = s[--i];
                     if (0xf0 <= b3 && b3 <= 0xf4) {
                         b3 &= 7;
-                        if (U8_IS_VALID_LEAD4_AND_T1(b3, b2)) {
+                        if (detail::icu::u8_is_valid_lead4_and_t1(b3, b2)) {
                             *pi = i;
                             c = (b3 << 18) | ((b2 & 0x3f) << 12) |
                                 ((b1 & 0x3f) << 6) | c;
-                            if (strict <= 0 || !U_IS_UNICODE_NONCHAR(c)) {
+                            if (strict <= 0 ||
+                                !detail::icu::u_is_unicode_nonchar(c)) {
                                 return c;
                             } else {
                                 // strict: forbid non-characters like U+fffe
@@ -359,10 +366,10 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
      * @stable ICU 2.4
      */
     template<typename CharIter>
-    void U8_PREV(CharIter s, int start, int32_t & i, UChar32 & c)
+    void u8_prev(CharIter s, int start, int32_t & i, UChar32 & c)
     {
         (c) = (uint8_t)(s)[--(i)];
-        if (!U8_IS_SINGLE(c)) {
+        if (!detail::icu::u8_is_single(c)) {
             (c) = utf8_prevCharSafeBody(s, start, &(i), c, -1);
         }
     }

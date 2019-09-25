@@ -27,8 +27,8 @@ namespace boost { namespace text { inline namespace v1 {
             static void
             call(bool compatible, CPIter first, Sentinel last, String & s)
             {
-                auto const r = make_norm_16_range(first, last);
-                auto out = utf_16_to_8_inserter(s, s.end());
+                auto const r = boost::text::v1::as_utf16(first, last);
+                auto out = boost::text::v1::utf_16_to_8_inserter(s, s.end());
                 detail::icu::utf16_iter_appender<decltype(out)> appender(out);
                 (compatible ? detail::icu::nfkc_norm()
                             : detail::icu::nfc_norm())
@@ -53,7 +53,7 @@ namespace boost { namespace text { inline namespace v1 {
             static void
             call(bool compatible, CPIter first, Sentinel last, String & s)
             {
-                auto const r = make_utf8_range(first, last);
+                auto const r = boost::text::v1::as_utf8(first, last);
                 detail::icu::utf8_string_appender<String> appender(s);
                 (compatible ? detail::icu::nfkc_norm()
                             : detail::icu::nfc_norm())
@@ -77,7 +77,7 @@ namespace boost { namespace text { inline namespace v1 {
             decltype(s.insert(s.end(), detail::ncstr, detail::ncstr), s),
             CPIter>
     {
-        auto out = utf_16_to_8_inserter(s, s.end());
+        auto out = boost::text::v1::utf_16_to_8_inserter(s, s.end());
         detail::icu::utf16_iter_appender<decltype(out)> appender(out);
         detail::norm_nfd_impl<detail::norm_normalize, decltype(out)>(
             detail::norm_nfd, first, last, appender);
@@ -91,7 +91,8 @@ namespace boost { namespace text { inline namespace v1 {
     template<typename CPRange, typename String>
     inline String & normalize_to_nfd_append_utf8(CPRange const & r, String & s)
     {
-        return normalize_to_nfd_append_utf8(std::begin(r), std::end(r), s);
+        return boost::text::v1::normalize_to_nfd_append_utf8(
+            std::begin(r), std::end(r), s);
     }
 
     /** Appends sequence `[first, last)` in normalization form NFKD to `s`, in
@@ -108,7 +109,7 @@ namespace boost { namespace text { inline namespace v1 {
             decltype(s.insert(s.end(), detail::ncstr, detail::ncstr), s),
             CPIter>
     {
-        auto out = utf_16_to_8_inserter(s, s.end());
+        auto out = boost::text::v1::utf_16_to_8_inserter(s, s.end());
         detail::icu::utf16_iter_appender<decltype(out)> appender(out);
         detail::norm_nfd_impl<detail::norm_normalize, decltype(out)>(
             detail::norm_nfkd, first, last, appender);
@@ -122,7 +123,8 @@ namespace boost { namespace text { inline namespace v1 {
     template<typename CPRange, typename String>
     inline String & normalize_to_nfkd_append_utf8(CPRange const & r, String & s)
     {
-        return normalize_to_nfkd_append_utf8(std::begin(r), std::end(r), s);
+        return boost::text::v1::normalize_to_nfkd_append_utf8(
+            std::begin(r), std::end(r), s);
     }
 
     /** Appends sequence `[first, last)` in normalization form NFC to `s`, in
@@ -154,7 +156,8 @@ namespace boost { namespace text { inline namespace v1 {
     template<typename CPRange, typename String>
     inline String & normalize_to_nfc_append_utf8(CPRange const & r, String & s)
     {
-        return normalize_to_nfc_append_utf8(std::begin(r), std::end(r), s);
+        return boost::text::v1::normalize_to_nfc_append_utf8(
+            std::begin(r), std::end(r), s);
     }
 
     /** Appends sequence `[first, last)` in normalization form NFKC to `s`, in
@@ -186,7 +189,8 @@ namespace boost { namespace text { inline namespace v1 {
     template<typename CPRange, typename String>
     inline String & normalize_to_nfkc_append_utf8(CPRange const & r, String & s)
     {
-        return normalize_to_nfkc_append_utf8(std::begin(r), std::end(r), s);
+        return boost::text::v1::normalize_to_nfkc_append_utf8(
+            std::begin(r), std::end(r), s);
     }
 
     /** Appends sequence `[first, last)` in normalization form FCC to `s`, in
@@ -218,7 +222,8 @@ namespace boost { namespace text { inline namespace v1 {
     template<typename CPRange, typename String>
     inline String & normalize_to_fcc_append_utf8(CPRange const & r, String & s)
     {
-        return normalize_to_fcc_append_utf8(std::begin(r), std::end(r), s);
+        return boost::text::v1::normalize_to_fcc_append_utf8(
+            std::begin(r), std::end(r), s);
     }
 
     /** Puts the contents of `s` in Unicode normalization form NFD.
@@ -236,7 +241,7 @@ namespace boost { namespace text { inline namespace v1 {
         string temp;
         temp.reserve(s.size() / 2 * 3);
 
-        normalize_to_nfd_append_utf8(r.begin(), r.end(), temp);
+        boost::text::v1::normalize_to_nfd_append_utf8(r.begin(), r.end(), temp);
 
         if (temp.size() <= s.capacity())
             s = temp;
@@ -259,7 +264,8 @@ namespace boost { namespace text { inline namespace v1 {
         string temp;
         temp.reserve(s.size() / 2 * 3);
 
-        normalize_to_nfkd_append_utf8(r.begin(), r.end(), temp);
+        boost::text::v1::normalize_to_nfkd_append_utf8(
+            r.begin(), r.end(), temp);
 
         if (temp.size() <= s.capacity())
             s = temp;
@@ -282,7 +288,7 @@ namespace boost { namespace text { inline namespace v1 {
         string temp;
         temp.reserve(temp.size());
 
-        normalize_to_nfc_append_utf8(r.begin(), r.end(), temp);
+        boost::text::v1::normalize_to_nfc_append_utf8(r.begin(), r.end(), temp);
 
         if (temp.size() <= s.capacity())
             s = temp;
@@ -305,7 +311,8 @@ namespace boost { namespace text { inline namespace v1 {
         string temp;
         temp.reserve(s.size());
 
-        normalize_to_nfkc_append_utf8(r.begin(), r.end(), temp);
+        boost::text::v1::normalize_to_nfkc_append_utf8(
+            r.begin(), r.end(), temp);
 
         if (temp.size() <= s.capacity())
             s = temp;
@@ -322,7 +329,7 @@ namespace boost { namespace text { inline namespace v1 {
         string temp;
         temp.reserve(s.size());
 
-        normalize_to_fcc_append_utf8(r.begin(), r.end(), temp);
+        boost::text::v1::normalize_to_fcc_append_utf8(r.begin(), r.end(), temp);
 
         if (temp.size() <= s.capacity())
             s = temp;

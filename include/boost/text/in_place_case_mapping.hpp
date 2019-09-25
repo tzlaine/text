@@ -14,16 +14,16 @@ namespace boost { namespace text { inline namespace v1 {
         text & t, case_language lang = case_language::other) noexcept
     {
         string s;
-        to_lower(
+        boost::text::v1::to_lower(
             t.begin().base(),
             t.begin().base(),
             t.end().base(),
-            utf_32_to_8_inserter(s, s.end()),
+            boost::text::v1::utf_32_to_8_inserter(s, s.end()),
             lang);
         if (s.size() < t.storage_bytes()) {
             t = s;
         } else {
-            normalize_to_fcc(s);
+            boost::text::v1::normalize_to_fcc(s);
             t.replace(std::move(s));
         }
     }
@@ -34,11 +34,11 @@ namespace boost { namespace text { inline namespace v1 {
         rope & r, case_language lang = case_language::other) noexcept
     {
         string s;
-        to_lower(
+        boost::text::v1::to_lower(
             r.begin().base(),
             r.begin().base(),
             r.end().base(),
-            utf_32_to_8_inserter(s, s.end()),
+            boost::text::v1::utf_32_to_8_inserter(s, s.end()),
             lang);
         r = s;
     }
@@ -52,17 +52,17 @@ namespace boost { namespace text { inline namespace v1 {
         NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept
     {
         string s;
-        to_title(
+        boost::text::v1::to_title(
             t.begin().base(),
             t.begin().base(),
             t.end().base(),
-            utf_32_to_8_inserter(s, s.end()),
+            boost::text::v1::utf_32_to_8_inserter(s, s.end()),
             lang,
             next_word_break);
         if (s.size() < t.storage_bytes()) {
             t = s;
         } else {
-            normalize_to_fcc(s);
+            boost::text::v1::normalize_to_fcc(s);
             t.replace(std::move(s));
         }
     }
@@ -76,11 +76,11 @@ namespace boost { namespace text { inline namespace v1 {
         NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept
     {
         string s;
-        to_title(
+        boost::text::v1::to_title(
             r.begin().base(),
             r.begin().base(),
             r.end().base(),
-            utf_32_to_8_inserter(s, s.end()),
+            boost::text::v1::utf_32_to_8_inserter(s, s.end()),
             lang,
             next_word_break);
         r = s;
@@ -92,16 +92,16 @@ namespace boost { namespace text { inline namespace v1 {
         text & t, case_language lang = case_language::other) noexcept
     {
         string s;
-        to_upper(
+        boost::text::v1::to_upper(
             t.begin().base(),
             t.begin().base(),
             t.end().base(),
-            utf_32_to_8_inserter(s, s.end()),
+            boost::text::v1::utf_32_to_8_inserter(s, s.end()),
             lang);
         if (s.size() < t.storage_bytes()) {
             t = s;
         } else {
-            normalize_to_fcc(s);
+            boost::text::v1::normalize_to_fcc(s);
             t.replace(std::move(s));
         }
     }
@@ -112,11 +112,11 @@ namespace boost { namespace text { inline namespace v1 {
         rope & r, case_language lang = case_language::other) noexcept
     {
         string s;
-        to_upper(
+        boost::text::v1::to_upper(
             r.begin().base(),
             r.begin().base(),
             r.end().base(),
-            utf_32_to_8_inserter(s, s.end()),
+            boost::text::v1::utf_32_to_8_inserter(s, s.end()),
             lang);
         r = s;
     }

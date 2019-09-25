@@ -356,16 +356,16 @@ namespace boost { namespace stl_interfaces { inline namespace v1 {
             return derived().resize(n, typename D::value_type());
         }
 
-        template<typename D = Derived>
-        constexpr auto begin() const
+        template<typename D = Derived, typename Iter = typename D::const_iterator>
+        constexpr Iter begin() const
             noexcept(noexcept(std::declval<D &>().begin()))
         {
-            return typename D::const_iterator(mutable_derived().begin());
+            return Iter(mutable_derived().begin());
         }
-        template<typename D = Derived>
-        constexpr auto end() const noexcept(noexcept(std::declval<D &>().end()))
+        template<typename D = Derived, typename Iter = typename D::const_iterator>
+        constexpr Iter end() const noexcept(noexcept(std::declval<D &>().end()))
         {
-            return typename D::const_iterator(mutable_derived().end());
+            return Iter(mutable_derived().end());
         }
 
         template<typename D = Derived>

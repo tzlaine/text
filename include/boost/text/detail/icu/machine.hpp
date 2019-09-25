@@ -11,11 +11,9 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
     using UBool = int8_t;
 
     namespace {
-        constexpr bool TRUE = true;
-        constexpr bool FALSE = false;
-        constexpr UChar32 U_SENTINEL = -1;
-        constexpr int U8_MAX_LENGTH = 4;
-        constexpr int U16_MAX_LENGTH = 2;
+        constexpr UChar32 u_sentinel = -1;
+        constexpr int u8_max_length = 4;
+        constexpr int u16_max_length = 2;
     }
 
 }}}}}

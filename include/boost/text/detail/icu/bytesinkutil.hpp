@@ -15,7 +15,7 @@
 namespace boost { namespace text { inline namespace v1 { namespace detail { namespace icu {
 
     /**
-     * \def UPRV_LENGTHOF
+     * \def uprv_lengthof
      * Convenience macro to determine the length of a fixed array at
      * compile-time.
      * @param array A fixed length array
@@ -23,7 +23,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
      * @internal
      */
     template<typename T, std::size_t N>
-    int32_t UPRV_LENGTHOF(T (&array)[N])
+    int32_t uprv_lengthof(T (&array)[N])
     {
         return (int32_t)(sizeof(array) / sizeof(array[0]));
     }
@@ -85,26 +85,26 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
                     desiredCapacity = INT32_MAX;
                 }
                 char * buffer = scratch;
-                if (U8_MAX_LENGTH < 1 ||
-                    UPRV_LENGTHOF(scratch) < U8_MAX_LENGTH) {
+                if (detail::icu::u8_max_length < 1 ||
+                    detail::icu::uprv_lengthof(scratch) < u8_max_length) {
                     capacity = 0;
                     buffer = nullptr;
                 }
-                capacity = UPRV_LENGTHOF(scratch);
-                capacity -= U8_MAX_LENGTH - 1;
+                capacity = detail::icu::uprv_lengthof(scratch);
+                capacity -= u8_max_length - 1;
                 int32_t j = 0;
                 for (; i < s16Length && j < capacity;) {
                     UChar32 c;
-                    U16_NEXT_UNSAFE(s16, i, c);
-                    U8_APPEND_UNSAFE(buffer, j, c);
+                    detail::icu::u16_next_unsafe(s16, i, c);
+                    detail::icu::u8_append_unsafe(buffer, j, c);
                 }
                 if (j > (INT32_MAX - s8Length)) {
-                    return FALSE;
+                    return false;
                 }
                 appender.append(buffer, buffer + j);
                 s8Length += j;
             }
-            return TRUE;
+            return true;
         }
 
         /** The bytes at [s, limit[ were mapped to valid (s16, s16Length). */
@@ -117,18 +117,19 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
             UTF8Appender & appender)
         {
             if ((limit - s) > INT32_MAX) {
-                return FALSE;
+                return false;
             }
-            return appendChange((int32_t)(limit - s), s16, s16Length, appender);
+            return ByteSinkUtil::appendChange(
+                (int32_t)(limit - s), s16, s16Length, appender);
         }
 
         /** (length) bytes were mapped/changed to valid code point c. */
         template<typename UTF8Appender>
         void appendCodePoint(int32_t length, UChar32 c, UTF8Appender & appender)
         {
-            char s8[U8_MAX_LENGTH];
+            char s8[u8_max_length];
             int32_t s8Length = 0;
-            U8_APPEND_UNSAFE(s8, s8Length, c);
+            detail::icu::u8_append_unsafe(s8, s8Length, c);
             appender.append(s8, s8 + s8Length);
         }
 
@@ -138,7 +139,8 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
         void appendCodePoint(
             CharIter src, CharIter nextSrc, UChar32 c, UTF8Appender & appender)
         {
-            appendCodePoint((int32_t)(nextSrc - src), c, appender);
+            ByteSinkUtil::appendCodePoint(
+                (int32_t)(nextSrc - src), c, appender);
         }
 
         /** Append the two-byte character (U+0080..U+07FF). */
@@ -146,7 +148,8 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
         void appendTwoBytes(UChar32 c, UTF8Appender & appender)
         {
             BOOST_ASSERT(0x80 <= c && c <= 0x7ff); // 2-byte UTF-8
-            char s8[2] = {(char)getTwoByteLead(c), (char)getTwoByteTrail(c)};
+            char s8[2] = {(char)ByteSinkUtil::getTwoByteLead(c),
+                          (char)ByteSinkUtil::getTwoByteTrail(c)};
             appender.append(s8, 2);
         }
 
@@ -155,9 +158,9 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
         appendUnchanged(CharIter s, int32_t length, UTF8Appender & appender)
         {
             if (length > 0) {
-                appendNonEmptyUnchanged(s, length, appender);
+                ByteSinkUtil::appendNonEmptyUnchanged(s, length, appender);
             }
-            return TRUE;
+            return true;
         }
 
         template<typename CharIter, typename Sentinel, typename UTF8Appender>
@@ -165,13 +168,13 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
         appendUnchanged(CharIter s, Sentinel limit, UTF8Appender & appender)
         {
             if (detail::icu::dist(s, limit) > INT32_MAX) {
-                return FALSE;
+                return false;
             }
             int32_t length = (int32_t)detail::icu::dist(s, limit);
             if (length > 0) {
-                appendNonEmptyUnchanged(s, length, appender);
+                ByteSinkUtil::appendNonEmptyUnchanged(s, length, appender);
             }
-            return TRUE;
+            return true;
         }
     }
 

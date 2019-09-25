@@ -31,7 +31,7 @@
  *
  * utf8.h and utf16.h define macros for efficiently getting code points
  * in and out of UTF-8/16 strings.
- * utf16.h macros have "U16_" prefixes.
+ * utf16.h macros have "u16_" prefixes.
  * utf8.h defines similar macros with "U8_" prefixes for UTF-8 string handling.
  *
  * ICU mostly processes 16-bit Unicode strings.
@@ -63,7 +63,7 @@
  * By default, string operations must be done with error checking in case
  * a string is not well-formed UTF-16 or UTF-8.
  *
- * The U16_ macros detect if a surrogate code unit is unpaired
+ * The u16_ macros detect if a surrogate code unit is unpaired
  * (lead unit without trail unit or vice versa) and just return the unit itself
  * as the code point.
  *
@@ -72,24 +72,24 @@
  * skipped by one of these macros follows the Unicode 6+ recommendation
  * which is consistent with the W3C Encoding Standard.
  *
- * There are ..._OR_FFFD versions of both U16_ and U8_ macros
+ * There are ..._OR_FFFD versions of both u16_ and u8_ macros
  * that return U+FFFD for illegal code unit sequences.
  *
  * The regular "safe" macros require that the initial, passed-in string index
  * is within bounds. They only check the index when they read more than one
  * code unit. This is usually done with code similar to the following loop:
  * <pre>while(i<length) {
- *   U16_NEXT(s, i, length, c);
+ *   u16_next(s, i, length, c);
  *   // use c
  * }</pre>
  *
  * When it is safe to assume that text is well-formed UTF-16
  * (does not contain single, unpaired surrogates), then one can use
- * U16_..._UNSAFE macros.
+ * u16_..._UNSAFE macros.
  * These do not check for proper code unit sequences or truncated text and may
  * yield wrong results or even cause a crash if they are used with "malformed"
  * text.
- * In practice, U16_..._UNSAFE macros will produce slightly less code but
+ * In practice, u16_..._UNSAFE macros will produce slightly less code but
  * should not be faster because the processing is only different when a
  * surrogate code unit is detected, which will be rare.
  *
@@ -130,10 +130,10 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
     /**
      * Is this code point a Unicode noncharacter?
      * @param c 32-bit code point
-     * @return TRUE or FALSE
+     * @return true or false
      * @stable ICU 2.4
      */
-    inline bool U_IS_UNICODE_NONCHAR(UChar32 c)
+    inline bool u_is_unicode_nonchar(UChar32 c)
     {
         return (
             (c) >= 0xfdd0 && ((c) <= 0xfdef || ((c)&0xfffe) == 0xfffe) &&
@@ -155,31 +155,31 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
      * and that boundary is tested first for performance.
      *
      * @param c 32-bit code point
-     * @return TRUE or FALSE
+     * @return true or false
      * @stable ICU 2.4
      */
-    inline bool U_IS_UNICODE_CHAR(UChar32 c)
+    inline bool u_is_unicode_char(UChar32 c)
     {
         return (
-            (uint32_t)(c) < 0xd800 ||
-            (0xdfff < (c) && (c) <= 0x10ffff && !U_IS_UNICODE_NONCHAR(c)));
+            (uint32_t)(c) < 0xd800 || (0xdfff < (c) && (c) <= 0x10ffff &&
+                                       !detail::icu::u_is_unicode_nonchar(c)));
     }
 
     /**
      * Is this code point a BMP code point (U+0000..U+ffff)?
      * @param c 32-bit code point
-     * @return TRUE or FALSE
+     * @return true or false
      * @stable ICU 2.8
      */
-    inline bool U_IS_BMP(UChar32 c) { return ((uint32_t)(c) <= 0xffff); }
+    inline bool u_is_bmp(UChar32 c) { return ((uint32_t)(c) <= 0xffff); }
 
     /**
      * Is this code point a supplementary code point (U+10000..U+10ffff)?
      * @param c 32-bit code point
-     * @return TRUE or FALSE
+     * @return true or false
      * @stable ICU 2.8
      */
-    inline bool U_IS_SUPPLEMENTARY(UChar32 c)
+    inline bool u_is_supplementary(UChar32 c)
     {
         return ((uint32_t)((c)-0x10000) <= 0xfffff);
     }
@@ -187,47 +187,47 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
     /**
      * Is this code point a lead surrogate (U+d800..U+dbff)?
      * @param c 32-bit code point
-     * @return TRUE or FALSE
+     * @return true or false
      * @stable ICU 2.4
      */
-    inline bool U_IS_LEAD(UChar32 c) { return (((c)&0xfffffc00) == 0xd800); }
+    inline bool u_is_lead(UChar32 c) { return (((c)&0xfffffc00) == 0xd800); }
 
     /**
      * Is this code point a trail surrogate (U+dc00..U+dfff)?
      * @param c 32-bit code point
-     * @return TRUE or FALSE
+     * @return true or false
      * @stable ICU 2.4
      */
-    inline bool U_IS_TRAIL(UChar32 c) { return (((c)&0xfffffc00) == 0xdc00); }
+    inline bool u_is_trail(UChar32 c) { return (((c)&0xfffffc00) == 0xdc00); }
 
     /**
      * Is this code point a surrogate (U+d800..U+dfff)?
      * @param c 32-bit code point
-     * @return TRUE or FALSE
+     * @return true or false
      * @stable ICU 2.4
      */
-    inline bool U_IS_SURROGATE(UChar32 c)
+    inline bool u_is_surrogate(UChar32 c)
     {
         return (((c)&0xfffff800) == 0xd800);
     }
 
     /**
-     * Assuming c is a surrogate code point (U_IS_SURROGATE(c)),
+     * Assuming c is a surrogate code point (u_is_surrogate(c)),
      * is it a lead surrogate?
      * @param c 32-bit code point
-     * @return TRUE or FALSE
+     * @return true or false
      * @stable ICU 2.4
      */
-    inline bool U_IS_SURROGATE_LEAD(UChar32 c) { return (((c)&0x400) == 0); }
+    inline bool u_is_surrogate_lead(UChar32 c) { return (((c)&0x400) == 0); }
 
     /**
-     * Assuming c is a surrogate code point (U_IS_SURROGATE(c)),
+     * Assuming c is a surrogate code point (u_is_surrogate(c)),
      * is it a trail surrogate?
      * @param c 32-bit code point
-     * @return TRUE or FALSE
+     * @return true or false
      * @stable ICU 4.2
      */
-    inline bool U_IS_SURROGATE_TRAIL(UChar32 c) { return (((c)&0x400) != 0); }
+    inline bool u_is_surrogate_trail(UChar32 c) { return (((c)&0x400) != 0); }
 
 }}}}}
 

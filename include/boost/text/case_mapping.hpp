@@ -37,7 +37,7 @@ namespace boost { namespace text { inline namespace v1 {
         auto operator()(CPIter it, Sentinel last) const noexcept
             -> detail::cp_iter_ret_t<CPIter, CPIter>
         {
-            return next_word_break(it, last);
+            return boost::text::v1::next_word_break(it, last);
         }
 
 #endif
@@ -515,7 +515,7 @@ namespace boost { namespace text { inline namespace v1 {
 
         inline bool ccc_230_0(uint32_t cp) noexcept
         {
-            auto const ccc_ = ccc(cp);
+            auto const ccc_ = detail::ccc(cp);
             return ccc_ == 230 || ccc_ == 0;
         }
 
@@ -552,7 +552,7 @@ namespace boost { namespace text { inline namespace v1 {
             auto after_vowel_with_accent = [first](CPIter it) {
                 if (it == first)
                     return false;
-                return (greek_case_data(*std::prev(it)) &
+                return (detail::greek_case_data(*std::prev(it)) &
                         (has_vowel | has_accent | has_dialytika)) ==
                        (has_vowel | has_accent);
             };
@@ -562,15 +562,18 @@ namespace boost { namespace text { inline namespace v1 {
             // found.
             auto final_sigma = [first,
                                 last](CPIter it, CPIter condition_first) {
-                auto find_it = find_if(condition_first, last, [](uint32_t cp) {
-                    return !case_ignorable(cp);
-                });
-                if (find_it != last && cased(*find_it))
+                auto find_it = boost::text::v1::find_if(
+                    condition_first, last, [](uint32_t cp) {
+                        return !detail::case_ignorable(cp);
+                    });
+                if (find_it != last && detail::cased(*find_it))
                     return final_sigma_state_t::none;
 
-                find_it = find_if_backward(
-                    first, it, [](uint32_t cp) { return !case_ignorable(cp); });
-                if (find_it != it && cased(*find_it))
+                find_it = boost::text::v1::find_if_backward(
+                    first, it, [](uint32_t cp) {
+                        return !detail::case_ignorable(cp);
+                    });
+                if (find_it != it && detail::cased(*find_it))
                     return final_sigma_state_t::before_after;
 
                 return final_sigma_state_t::after;
@@ -595,8 +598,9 @@ namespace boost { namespace text { inline namespace v1 {
 
                 auto const condition_first = std::next(it);
 
-                uint32_t greek_data =
-                    mode == map_case_mode::upper ? greek_case_data(*it) : 0;
+                uint32_t greek_data = mode == map_case_mode::upper
+                                          ? detail::greek_case_data(*it)
+                                          : 0;
                 if (greek_data) {
                     uint32_t upper_masked = greek_data & 0x3ff;
                     if ((greek_data & has_vowel) &&
@@ -609,7 +613,7 @@ namespace boost { namespace text { inline namespace v1 {
                     auto next = condition_first;
                     for (; next != last; ++next) {
                         uint32_t const diacritic_data =
-                            greek_diacritic_data(*next);
+                            detail::greek_diacritic_data(*next);
                         if (!diacritic_data)
                             break;
                         greek_data |= diacritic_data;
@@ -684,12 +688,12 @@ namespace boost { namespace text { inline namespace v1 {
 
                     if (all_conditions &
                         (uint16_t)case_condition::After_Soft_Dotted) {
-                        auto find_it =
-                            find_if_backward(first, it, [](uint32_t cp) {
+                        auto find_it = boost::text::v1::find_if_backward(
+                            first, it, [](uint32_t cp) {
                                 return ccc_230_0(cp);
                             });
                         if (find_it != it) {
-                            if (soft_dotted(*find_it)) {
+                            if (detail::soft_dotted(*find_it)) {
                                 conditions |=
                                     (uint16_t)case_condition::After_Soft_Dotted;
                             }
@@ -698,15 +702,15 @@ namespace boost { namespace text { inline namespace v1 {
 
                     if (all_conditions & (uint16_t)case_condition::More_Above) {
                         if (condition_first != last &&
-                            ccc(*condition_first) == 230) {
+                            detail::ccc(*condition_first) == 230) {
                             conditions |= (uint16_t)case_condition::More_Above;
                         } else {
-                            auto find_it =
-                                find_if(condition_first, last, [](uint32_t cp) {
+                            auto find_it = boost::text::v1::find_if(
+                                condition_first, last, [](uint32_t cp) {
                                     return ccc_230_0(cp);
                                 });
                             if (find_it != last) {
-                                if (ccc(*find_it) == 230) {
+                                if (detail::ccc(*find_it) == 230) {
                                     conditions |=
                                         (uint16_t)case_condition::More_Above;
                                 }
@@ -717,8 +721,8 @@ namespace boost { namespace text { inline namespace v1 {
                     if (all_conditions &
                         (uint16_t)case_condition::Not_Before_Dot) {
                         bool before = false;
-                        auto find_it =
-                            find_if(condition_first, last, [](uint32_t cp) {
+                        auto find_it = boost::text::v1::find_if(
+                            condition_first, last, [](uint32_t cp) {
                                 return ccc_230_0(cp);
                             });
                         if (find_it != last) {
@@ -732,8 +736,8 @@ namespace boost { namespace text { inline namespace v1 {
                     }
 
                     if (all_conditions & (uint16_t)case_condition::After_I) {
-                        auto find_it =
-                            find_if_backward(first, it, [](uint32_t cp) {
+                        auto find_it = boost::text::v1::find_if_backward(
+                            first, it, [](uint32_t cp) {
                                 return ccc_230_0(cp);
                             });
                         if (find_it != it) {
@@ -779,7 +783,7 @@ namespace boost { namespace text { inline namespace v1 {
     template<typename CPIter, typename Sentinel>
     bool is_lower(CPIter first, Sentinel last) noexcept
     {
-        return all_of(first, last, [](uint32_t cp) {
+        return boost::text::v1::all_of(first, last, [](uint32_t cp) {
             return !detail::changes_when_lowered(cp);
         });
     }
@@ -876,7 +880,7 @@ namespace boost { namespace text { inline namespace v1 {
         case_language lang = case_language::other) noexcept
         -> detail::cp_rng_alg_ret_t<OutIter, CPRange>
     {
-        return to_lower(
+        return boost::text::v1::to_lower(
             std::begin(range), std::begin(range), std::end(range), out, lang);
     }
 
@@ -887,7 +891,7 @@ namespace boost { namespace text { inline namespace v1 {
         case_language lang = case_language::other) noexcept
         -> detail::graph_rng_alg_ret_t<OutIter, GraphemeRange>
     {
-        return to_lower(
+        return boost::text::v1::to_lower(
             range.begin().base(),
             range.begin().base(),
             range.end().base(),
@@ -957,7 +961,8 @@ namespace boost { namespace text { inline namespace v1 {
         NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept
         -> detail::cp_rng_alg_ret_t<bool, CPRange>
     {
-        return is_title(std::begin(range), std::end(range), next_word_break);
+        return boost::text::v1::is_title(
+            std::begin(range), std::end(range), next_word_break);
     }
 
     template<
@@ -968,7 +973,7 @@ namespace boost { namespace text { inline namespace v1 {
         NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept
         -> detail::graph_rng_alg_ret_t<bool, GraphemeRange>
     {
-        return is_title(
+        return boost::text::v1::is_title(
             range.begin().base(), range.end().base(), next_word_break);
     }
 
@@ -1055,7 +1060,7 @@ namespace boost { namespace text { inline namespace v1 {
         NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept
         -> detail::cp_rng_alg_ret_t<OutIter, CPRange>
     {
-        return to_title(
+        return boost::text::v1::to_title(
             std::begin(range),
             std::begin(range),
             std::end(range),
@@ -1075,7 +1080,7 @@ namespace boost { namespace text { inline namespace v1 {
         NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept
         -> detail::graph_rng_alg_ret_t<OutIter, GraphemeRange>
     {
-        return to_title(
+        return boost::text::v1::to_title(
             range.begin().base(),
             range.begin().base(),
             range.end().base(),
@@ -1091,7 +1096,7 @@ namespace boost { namespace text { inline namespace v1 {
     template<typename CPIter, typename Sentinel>
     bool is_upper(CPIter first, Sentinel last) noexcept
     {
-        return all_of(first, last, [](uint32_t cp) {
+        return boost::text::v1::all_of(first, last, [](uint32_t cp) {
             return !detail::changes_when_uppered(cp);
         });
     }
@@ -1120,14 +1125,15 @@ namespace boost { namespace text { inline namespace v1 {
     auto is_upper(CPRange const & range) noexcept
         -> detail::cp_rng_alg_ret_t<bool, CPRange>
     {
-        return is_upper(std::begin(range), std::end(range));
+        return boost::text::v1::is_upper(std::begin(range), std::end(range));
     }
 
     template<typename GraphemeRange>
     auto is_upper(GraphemeRange const & range) noexcept
         -> detail::graph_rng_alg_ret_t<bool, GraphemeRange>
     {
-        return is_upper(range.begin().base(), range.end().base());
+        return boost::text::v1::is_upper(
+            range.begin().base(), range.end().base());
     }
 
 #endif
@@ -1143,7 +1149,7 @@ namespace boost { namespace text { inline namespace v1 {
         OutIter out,
         case_language lang = case_language::other) noexcept
     {
-        return map_case(
+        return detail::map_case(
             first,
             it,
             last,
@@ -1188,7 +1194,7 @@ namespace boost { namespace text { inline namespace v1 {
         case_language lang = case_language::other) noexcept
         -> detail::cp_rng_alg_ret_t<OutIter, CPRange>
     {
-        return to_upper(
+        return boost::text::v1::to_upper(
             std::begin(range), std::begin(range), std::end(range), out, lang);
     }
 
@@ -1199,7 +1205,7 @@ namespace boost { namespace text { inline namespace v1 {
         case_language lang = case_language::other) noexcept
         -> detail::graph_rng_alg_ret_t<OutIter, GraphemeRange>
     {
-        return to_upper(
+        return boost::text::v1::to_upper(
             range.begin().base(),
             range.begin().base(),
             range.end().base(),

@@ -550,13 +550,13 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             std::size_t curr = (*(first + 0) << 24) + (*(first + 1) << 16) +
                                (*(first + 2) << 8) + (*(first + 3) << 0);
             curr = hash_4_more_chars<sizeof(std::size_t)>::call(curr, first);
-            retval = hash_combine_(retval, curr);
+            retval = detail::hash_combine_(retval, curr);
         }
 
         first = last;
         last += remainder;
         for (; first != last; ++first) {
-            retval = hash_combine_(retval, *first);
+            retval = detail::hash_combine_(retval, *first);
         }
 
         return retval;
@@ -572,9 +572,9 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             std::size_t(0),
             [&cps](std::size_t seed, std::size_t value) {
                 ++cps;
-                return hash_combine_(seed, value);
+                return detail::hash_combine_(seed, value);
             });
-        return hash_combine_(retval, cps);
+        return detail::hash_combine_(retval, cps);
     }
 
     template<typename Iter>

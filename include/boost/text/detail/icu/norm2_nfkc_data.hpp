@@ -15,7 +15,7 @@
 
 namespace boost { namespace text { inline namespace v1 { namespace detail { namespace icu {
 
-static const int32_t norm2_nfkc_data_indexes[Normalizer2Impl::IX_COUNT]={
+static const int32_t norm2_nfkc_data_indexes[Normalizer2Impl::ix_count]={
 0x50,0x6980,0xd104,0xd204,0xd204,0xd204,0xd204,0xd204,0xa0,0xa0,0xaac,0x2958,0x6782,0xfc00,0x1252,0x6000,
 0x65dc,0x6782,0x300,0
 };
