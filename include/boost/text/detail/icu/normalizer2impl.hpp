@@ -319,7 +319,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
         {}
         ~ReorderingBuffer() { flush(); }
 
-        [[nodiscard]] flush_disinhibitor<UTF16Appender> inhibit_flush()
+        flush_disinhibitor<UTF16Appender> inhibit_flush()
         {
             inhibit_flushes = true;
             return flush_disinhibitor<UTF16Appender>(*this);
