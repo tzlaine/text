@@ -530,7 +530,8 @@ namespace boost { namespace text { inline namespace v1 {
                 return at;
 
             std::array<char, 1024> buf;
-            auto out = transcode_utf_32_to_8(g.begin(), g.end(), buf.data());
+            auto out = boost::text::v1::transcode_utf_32_to_8(
+                g.begin(), g.end(), buf.data());
             return t.insert_impl(
                 at, string_view(buf.data(), out - buf.data()), true);
         }
