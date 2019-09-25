@@ -12,6 +12,35 @@
 #include <iostream>
 
 
+std::string file_slurp(std::string filename)
+{
+    std::string retval;
+    std::ifstream ifs(filename);
+    while (ifs) {
+        char const c = ifs.get();
+        retval += c;
+    }
+    return retval;
+}
+
+std::string get_utf8_text(bool european)
+{
+    if (european) {
+        return file_slurp("portuguese_wiki.txt") +
+               file_slurp("english_wiki.txt") +
+               file_slurp("perf/portuguese_wiki.txt") +
+               file_slurp("perf/english_wiki.txt");
+    } else {
+        return file_slurp("korean_wiki.txt") +
+               file_slurp("chinese_wiki.txt") +
+               file_slurp("hindi_wiki_in_russian.txt") +
+               file_slurp("perf/korean_wiki.txt") +
+               file_slurp("perf/chinese_wiki.txt") +
+               file_slurp("perf/hindi_wiki_in_russian.txt");
+    }
+}
+
+
 std::string file_contents;
 boost::text::string file_contents_text_string;
 std::vector<uint32_t> file_cps;
@@ -363,42 +392,47 @@ BENCHMARK(BM_text_utf8_nfkc_string_append);
 BENCHMARK(BM_text_utf8_nfkc_string);
 BENCHMARK(BM_text_utf32_nfkc);
 
+std::string usage_string()
+{
+    return "Usage: icu_normalization [--help] --european|--non-european "
+           "--from-nfc|--from-nfd [Google benchmark params ...]";
+}
+
 int main(int argc, char ** argv)
 {
-    if (argc < 2) {
-        std::cerr << "Error: No input file provided." << std::endl;
+    if (argc < 3) {
+        std::cerr << "Error: Not enough parameters.\n"
+                  << usage_string() << std::endl;
         return 1;
     }
 
-    // Last arg must be the name of the file to parse.
-    char const * filename = argv[argc - 1];
-    std::ifstream ifs(filename, std::ios_base::binary);
-
-    if (!ifs) {
-        std::cerr << "Error: Could not open input file: " << filename
-                  << std::endl;
+    std::string param_0 = argv[1];
+    std::string param_1 = argv[2];
+    if (param_0 == "--help" || param_1 == "--help" ||
+        (param_0 != "--european" && param_0 != "--non-european") ||
+        (param_1 != "--from-nfc" && param_1 != "--from-nfd")) {
+        std::cerr << usage_string() << std::endl;
         return 1;
     }
 
-    getline(ifs, file_contents, '\0');
+    file_contents = get_utf8_text(param_0 == "--european");
     file_contents_text_string = file_contents;
-    auto const file_cp_range =
-        boost::text::as_utf32(boost::text::string_view(file_contents));
-    file_cps.assign(file_cp_range.begin(), file_cp_range.end());
+    if (param_1 == "--from-nfc")
+        boost::text::normalize_to_nfc(file_contents_text_string);
+    else
+        boost::text::normalize_to_nfd(file_contents_text_string);
+    file_contents.assign(
+        file_contents_text_string.begin(), file_contents_text_string.end());
+
+    {
+        auto const file_cp_range =
+            boost::text::as_utf32(boost::text::string_view(file_contents));
+        file_cps.assign(file_cp_range.begin(), file_cp_range.end());
+    }
+
     file_contents_ustr = U_NAMESPACE_QUALIFIER UnicodeString::fromUTF8(
         U_NAMESPACE_QUALIFIER StringPiece(file_contents));
 
-    int argc_ = argc - 1; // Don't give filename arg to Benchmark.
-
-#if 0
-    if (1 < argc_ && argv[argc_ - 1] == std::string("-v")) {
-        verbose = true;
-        --argc_;
-    }
-#endif
-
-    ::benchmark::Initialize(&argc_, argv);
+    ::benchmark::Initialize(&argc, argv);
     ::benchmark::RunSpecifiedBenchmarks();
 }
-
-// BENCHMARK_MAIN()
