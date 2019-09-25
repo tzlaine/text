@@ -1,6 +1,8 @@
 #!/bin/bash
 
+
 # Transconding perf output
+echo "transcoding_perf"
 ../build/perf/transcoding_perf --benchmark_out_format=json --benchmark_out=transcoding_perf.out
 
 # UTF-8 to UTF-16 transcoding chart
@@ -9,11 +11,48 @@
 # UTF-8 to UTF-16 transcoding chart
 ./make_perf_chart.py transcoding_perf.out BM_8_to_32_iterator_prealloc,'Iterators' BM_8_to_32_algorithm,'Algorithm std::back_inserter' BM_8_to_32_algorithm_prealloc_pointer,'Algorithm using SIMD' BM_8_to_32_algorithm_no_simd_prealloc,'Algorithm no SIMD' > utf_8_to_32_perf.svg
 
-# Normalization perf output
-../build/perf/icu_normalization --benchmark_out_format=json --benchmark_out=icu_normalization.out  ../perf/portuguese_wiki.txt ../perf/korean_wiki.txt ../perf/chinese_wiki.txt ../perf/hindi_wiki_in_russian.txt
+
+
+
+# Normalization perf output (from NFC/European languages)
+echo "icu_normalization --european --from-nfc"
+../build/perf/icu_normalization --european --from-nfc --benchmark_out_format=json --benchmark_out=icu_normalization.out  ../perf/portuguese_wiki.txt ../perf/korean_wiki.txt ../perf/chinese_wiki.txt ../perf/hindi_wiki_in_russian.txt
 
 # NFC normalization chart
-./make_perf_chart.py icu_normalization.out BM_text_utf8_nfc,'Algorithm with back-inserter' BM_text_utf8_nfc_string_append,'String append' BM_icu_utf8_nfc,'ICU' BM_icu_utf16_nfc,'ICU UTF-16'> norm_nfc_perf.svg
+./make_perf_chart.py icu_normalization.out BM_text_utf8_nfc,'Algorithm with back-inserter' BM_text_utf8_nfc_string_append,'String append' BM_icu_utf8_nfc,'ICU' BM_icu_utf16_nfc,'ICU UTF-16'> norm_nfc_euro_from_nfc_perf.svg
 
 # FCC normalization chart
-./make_perf_chart.py icu_normalization.out BM_text_utf8_fcc,'Algorithm with back-inserter' BM_text_utf8_fcc_string_append,'String append' BM_icu_utf8_fcc,'ICU' BM_icu_utf16_fcc,'ICU UTF-16'> norm_fcc_perf.svg
+./make_perf_chart.py icu_normalization.out BM_text_utf8_fcc,'Algorithm with back-inserter' BM_text_utf8_fcc_string_append,'String append' BM_icu_utf8_fcc,'ICU' BM_icu_utf16_fcc,'ICU UTF-16'> norm_fcc_euro_from_nfc_perf.svg
+
+
+# Normalization perf output (from NFC/Non-European languages)
+echo "icu_normalization --non-european --from-nfc"
+../build/perf/icu_normalization --non-european --from-nfc --benchmark_out_format=json --benchmark_out=icu_normalization.out  ../perf/portuguese_wiki.txt ../perf/korean_wiki.txt ../perf/chinese_wiki.txt ../perf/hindi_wiki_in_russian.txt
+
+# NFC normalization chart
+./make_perf_chart.py icu_normalization.out BM_text_utf8_nfc,'Algorithm with back-inserter' BM_text_utf8_nfc_string_append,'String append' BM_icu_utf8_nfc,'ICU' BM_icu_utf16_nfc,'ICU UTF-16'> norm_nfc_non_euro_from_nfc_perf.svg
+
+# FCC normalization chart
+./make_perf_chart.py icu_normalization.out BM_text_utf8_fcc,'Algorithm with back-inserter' BM_text_utf8_fcc_string_append,'String append' BM_icu_utf8_fcc,'ICU' BM_icu_utf16_fcc,'ICU UTF-16'> norm_fcc_non_euro_from_nfc_perf.svg
+
+
+# Normalization perf output (from NFD/European languages)
+echo "icu_normalization --european --from-nfd"
+../build/perf/icu_normalization --european --from-nfd --benchmark_out_format=json --benchmark_out=icu_normalization.out  ../perf/portuguese_wiki.txt ../perf/korean_wiki.txt ../perf/chinese_wiki.txt ../perf/hindi_wiki_in_russian.txt
+
+# NFC normalization chart
+./make_perf_chart.py icu_normalization.out BM_text_utf8_nfc,'Algorithm with back-inserter' BM_text_utf8_nfc_string_append,'String append' BM_icu_utf8_nfc,'ICU' BM_icu_utf16_nfc,'ICU UTF-16'> norm_nfc_euro_from_nfd_perf.svg
+
+# FCC normalization chart
+./make_perf_chart.py icu_normalization.out BM_text_utf8_fcc,'Algorithm with back-inserter' BM_text_utf8_fcc_string_append,'String append' BM_icu_utf8_fcc,'ICU' BM_icu_utf16_fcc,'ICU UTF-16'> norm_fcc_euro_from_nfd_perf.svg
+
+
+# Normalization perf output (from NFD/Non-European languages)
+echo "icu_normalization --non-european --from-nfd"
+../build/perf/icu_normalization --non-european --from-nfd --benchmark_out_format=json --benchmark_out=icu_normalization.out  ../perf/portuguese_wiki.txt ../perf/korean_wiki.txt ../perf/chinese_wiki.txt ../perf/hindi_wiki_in_russian.txt
+
+# NFC normalization chart
+./make_perf_chart.py icu_normalization.out BM_text_utf8_nfc,'Algorithm with back-inserter' BM_text_utf8_nfc_string_append,'String append' BM_icu_utf8_nfc,'ICU' BM_icu_utf16_nfc,'ICU UTF-16'> norm_nfc_non_euro_from_nfd_perf.svg
+
+# FCC normalization chart
+./make_perf_chart.py icu_normalization.out BM_text_utf8_fcc,'Algorithm with back-inserter' BM_text_utf8_fcc_string_append,'String append' BM_icu_utf8_fcc,'ICU' BM_icu_utf16_fcc,'ICU UTF-16'> norm_fcc_non_euro_from_nfd_perf.svg

@@ -29,14 +29,19 @@ std::string get_utf8_text(bool european)
         return file_slurp("portuguese_wiki.txt") +
                file_slurp("english_wiki.txt") +
                file_slurp("perf/portuguese_wiki.txt") +
-               file_slurp("perf/english_wiki.txt");
+               file_slurp("perf/english_wiki.txt") +
+               file_slurp("../perf/portuguese_wiki.txt") +
+               file_slurp("../perf/english_wiki.txt");
     } else {
         return file_slurp("korean_wiki.txt") +
                file_slurp("chinese_wiki.txt") +
                file_slurp("hindi_wiki_in_russian.txt") +
                file_slurp("perf/korean_wiki.txt") +
                file_slurp("perf/chinese_wiki.txt") +
-               file_slurp("perf/hindi_wiki_in_russian.txt");
+               file_slurp("perf/hindi_wiki_in_russian.txt") +
+               file_slurp("../perf/korean_wiki.txt") +
+               file_slurp("../perf/chinese_wiki.txt") +
+               file_slurp("../perf/hindi_wiki_in_russian.txt");
     }
 }
 
