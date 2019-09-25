@@ -147,7 +147,8 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             buf_ptr_(nullptr),
             which_(which::vec)
         {
-            auto at = placement_address<std::vector<T>>(buf_, sizeof(buf_));
+            auto at =
+                detail::placement_address<std::vector<T>>(buf_, sizeof(buf_));
             BOOST_ASSERT(at);
             buf_ptr_ = new (at) std::vector<T>(t);
         }
@@ -157,7 +158,8 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             buf_ptr_(nullptr),
             which_(which::vec)
         {
-            auto at = placement_address<std::vector<T>>(buf_, sizeof(buf_));
+            auto at =
+                detail::placement_address<std::vector<T>>(buf_, sizeof(buf_));
             BOOST_ASSERT(at);
             buf_ptr_ = new (at) std::vector<T>(std::move(t));
         }
@@ -169,13 +171,15 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         {
             switch (which_) {
             case which::vec: {
-                auto at = placement_address<std::vector<T>>(buf_, sizeof(buf_));
+                auto at = detail::placement_address<std::vector<T>>(
+                    buf_, sizeof(buf_));
                 BOOST_ASSERT(at);
                 buf_ptr_ = new (at) std::vector<T>(rhs.as_vec());
                 break;
             }
             case which::ref: {
-                auto at = placement_address<reference<T>>(buf_, sizeof(buf_));
+                auto at =
+                    detail::placement_address<reference<T>>(buf_, sizeof(buf_));
                 BOOST_ASSERT(at);
                 buf_ptr_ = new (at) reference<T>(rhs.as_reference());
                 break;
@@ -236,7 +240,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             return *static_cast<reference<T> *>(buf_ptr_);
         }
 
-        char buf_[node_buf_size<T>()];
+        char buf_[detail::node_buf_size<T>()];
         void * buf_ptr_;
         which which_;
     };
@@ -263,7 +267,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         if (ptr_->leaf_)
             return node_ptr<T>(new leaf_node_t<T>(*as_leaf()));
         else
-            return node_ptr<T>(new_interior_node(*as_interior()));
+            return node_ptr<T>(detail::new_interior_node(*as_interior()));
     }
 
     template<typename T>
@@ -347,31 +351,31 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
     template<typename T>
     inline int num_children(node_ptr<T> const & node) noexcept
     {
-        return static_cast<int>(children(node).size());
+        return static_cast<int>(detail::children(node).size());
     }
 
     template<typename T>
     inline int num_keys(node_ptr<T> const & node) noexcept
     {
-        return static_cast<int>(keys(node).size());
+        return static_cast<int>(detail::keys(node).size());
     }
 
     template<typename T>
     inline bool full(node_ptr<T> const & node) noexcept
     {
-        return num_children(node) == max_children;
+        return detail::num_children(node) == max_children;
     }
 
     template<typename T>
     inline bool almost_full(node_ptr<T> const & node) noexcept
     {
-        return num_children(node) == max_children - 1;
+        return detail::num_children(node) == max_children - 1;
     }
 
     template<typename T>
     inline bool leaf_children(node_ptr<T> const & node)
     {
-        return children(node)[0]->leaf_;
+        return detail::children(node)[0]->leaf_;
     }
 
     template<typename T>
@@ -388,7 +392,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
     template<typename T>
     inline std::ptrdiff_t offset(node_ptr<T> const & node, int i) noexcept
     {
-        return offset(node.as_interior(), i);
+        return detail::offset(node.as_interior(), i);
     }
 
     template<typename T>
@@ -423,16 +427,16 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         IntFunc const & int_func) noexcept
     {
         BOOST_ASSERT(node);
-        BOOST_ASSERT(n <= size(node.get()));
+        BOOST_ASSERT(n <= detail::size(node.get()));
         if (node->leaf_) {
             leaf_func(node, n);
             return;
         }
-        auto const i = find_child(node.as_interior(), n);
-        node_ptr<T> const & child = children(node)[i];
-        auto const offset_ = offset(node, i);
+        auto const i = detail::find_child(node.as_interior(), n);
+        node_ptr<T> const & child = detail::children(node)[i];
+        auto const offset_ = detail::offset(node, i);
         int_func(node, n);
-        visit_path_to_leaf(child, n - offset_, leaf_func, int_func);
+        detail::visit_path_to_leaf(child, n - offset_, leaf_func, int_func);
     }
 
     template<typename T>
@@ -448,7 +452,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         auto int_func = [&retval](node_ptr<T> const & node, std::ptrdiff_t) {
             retval.path_.push_back(node.as_interior());
         };
-        visit_path_to_leaf(node, n, leaf_func, int_func);
+        detail::visit_path_to_leaf(node, n, leaf_func, int_func);
     }
 
     template<typename T>
@@ -465,7 +469,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         found_element<T> & retval) noexcept
     {
         BOOST_ASSERT(node);
-        find_leaf(node, n, retval.leaf_);
+        detail::find_leaf(node, n, retval.leaf_);
 
         leaf_node_t<T> const * leaf = retval.leaf_.leaf_->as_leaf();
         T const * e = nullptr;
@@ -516,8 +520,8 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         leaf_node_t<T> * leaf = nullptr;
         node_ptr<T> retval(leaf = new leaf_node_t<T>);
         leaf->which_ = leaf_node_t<T>::which::ref;
-        auto at =
-            placement_address<reference<T>>(leaf->buf_, sizeof(leaf->buf_));
+        auto at = detail::placement_address<reference<T>>(
+            leaf->buf_, sizeof(leaf->buf_));
         BOOST_ASSERT(at);
         leaf->buf_ptr_ = new (at) reference<T>(node_ptr<T>(v), lo, hi);
         return retval;
@@ -528,7 +532,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
     make_ref(reference<T> const & r, std::ptrdiff_t lo, std::ptrdiff_t hi)
     {
         auto const offset = r.lo_;
-        return make_ref(r.vec_.as_leaf(), lo + offset, hi + offset);
+        return detail::make_ref(r.vec_.as_leaf(), lo + offset, hi + offset);
     }
 
     template<typename T, typename Fn>
@@ -540,13 +544,13 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         std::ptrdiff_t offset = 0;
         while (true) {
             found_leaf<T> found;
-            find_leaf(root, offset, found);
+            detail::find_leaf(root, offset, found);
             leaf_node_t<T> const * leaf = found.leaf_->as_leaf();
 
             if (!f(leaf))
                 break;
 
-            if ((offset += size(leaf)) == size(root.get()))
+            if ((offset += detail::size(leaf)) == detail::size(root.get()))
                 break;
         }
     }
@@ -587,20 +591,20 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         auto int_func = [bump](node_ptr<T> const & node, std::ptrdiff_t n) {
             auto interior =
                 const_cast<detail::interior_node_t<T> *>(node.as_interior());
-            auto from = find_child(interior, n);
-            bump_keys(interior, from, bump);
+            auto from = detail::find_child(interior, n);
+            detail::bump_keys(interior, from, bump);
         };
-        visit_path_to_leaf(node, n, leaf_func, int_func);
+        detail::visit_path_to_leaf(node, n, leaf_func, int_func);
     }
 
     template<typename T>
     inline void insert_child(
         interior_node_t<T> * node, int i, node_ptr<T> && child) noexcept
     {
-        auto const child_size = size(child.get());
+        auto const child_size = detail::size(child.get());
         node->children_.insert(node->children_.begin() + i, std::move(child));
-        node->keys_.insert(node->keys_.begin() + i, offset(node, i));
-        bump_keys(node, i, child_size);
+        node->keys_.insert(node->keys_.begin() + i, detail::offset(node, i));
+        detail::bump_keys(node, i, child_size);
     }
 
     enum erasure_adjustments { adjust_keys, dont_adjust_keys };
@@ -611,11 +615,11 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         int i,
         erasure_adjustments adj = adjust_keys) noexcept
     {
-        auto const child_size = size(node->children_[i].get());
+        auto const child_size = detail::size(node->children_[i].get());
         node->children_.erase(node->children_.begin() + i);
         node->keys_.erase(node->keys_.begin() + i);
         if (adj == adjust_keys)
-            bump_keys(node, i, -child_size);
+            detail::bump_keys(node, i, -child_size);
     }
 
     template<typename T>
@@ -623,15 +627,15 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
     slice_leaf(node_ptr<T> node, std::ptrdiff_t lo, std::ptrdiff_t hi)
     {
         BOOST_ASSERT(node);
-        BOOST_ASSERT(0 <= lo && lo <= size(node.get()));
-        BOOST_ASSERT(0 <= hi && hi <= size(node.get()));
+        BOOST_ASSERT(0 <= lo && lo <= detail::size(node.get()));
+        BOOST_ASSERT(0 <= hi && hi <= detail::size(node.get()));
         BOOST_ASSERT(lo < hi);
 
         switch (node.as_leaf()->which_) {
         case leaf_node_t<T>::which::vec:
-            return make_ref(node.as_leaf(), lo, hi);
+            return detail::make_ref(node.as_leaf(), lo, hi);
         case leaf_node_t<T>::which::ref: {
-            return make_ref(node.as_leaf()->as_reference(), lo, hi);
+            return detail::make_ref(node.as_leaf()->as_reference(), lo, hi);
         }
         default: BOOST_ASSERT(!"unhandled leaf node case"); break;
         }
@@ -650,11 +654,11 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
     erase_leaf(node_ptr<T> node, std::ptrdiff_t lo, std::ptrdiff_t hi)
     {
         BOOST_ASSERT(node);
-        BOOST_ASSERT(0 <= lo && lo <= size(node.get()));
-        BOOST_ASSERT(0 <= hi && hi <= size(node.get()));
+        BOOST_ASSERT(0 <= lo && lo <= detail::size(node.get()));
+        BOOST_ASSERT(0 <= hi && hi <= detail::size(node.get()));
         BOOST_ASSERT(lo < hi);
 
-        auto const leaf_size = size(node.get());
+        auto const leaf_size = detail::size(node.get());
 
         leaf_slices<T> retval;
 
@@ -676,46 +680,49 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
     template<typename T>
     inline node_ptr<T> btree_split_child(node_ptr<T> parent, int i)
     {
-        BOOST_ASSERT(0 <= i && i < num_children(parent));
-        BOOST_ASSERT(!full(parent));
+        BOOST_ASSERT(0 <= i && i < detail::num_children(parent));
+        BOOST_ASSERT(!detail::full(parent));
         BOOST_ASSERT(
-            full(children(parent)[i]) || almost_full(children(parent)[i]));
+            detail::full(detail::children(parent)[i]) ||
+            detail::almost_full(detail::children(parent)[i]));
 
         node_ptr<T> retval;
 
         interior_node_t<T> * new_node = nullptr;
-        node_ptr<T> new_node_ptr(new_node = new_interior_node<T>());
+        node_ptr<T> new_node_ptr(new_node = detail::new_interior_node<T>());
 
-        BOOST_ASSERT(!leaf_children(parent));
+        BOOST_ASSERT(!detail::leaf_children(parent));
 
         {
-            node_ptr<T> child = children(parent)[i];
-            int const elements = min_children - (full(child) ? 0 : 1);
+            node_ptr<T> child = detail::children(parent)[i];
+            int const elements = min_children - (detail::full(child) ? 0 : 1);
             new_node->children_.resize(elements);
             std::copy(
-                children(child).begin() + min_children,
-                children(child).end(),
+                detail::children(child).begin() + min_children,
+                detail::children(child).end(),
                 new_node->children_.begin());
             new_node->keys_.resize(elements);
             auto it = new_node->children_.begin();
             std::ptrdiff_t sum = 0;
             for (auto & key : new_node->keys_) {
-                sum += size(it->get());
+                sum += detail::size(it->get());
                 key = sum;
                 ++it;
             }
         }
 
         retval = parent.write();
-        children(retval).insert(children(retval).begin() + i + 1, new_node_ptr);
+        detail::children(retval).insert(
+            detail::children(retval).begin() + i + 1, new_node_ptr);
 
-        node_ptr<T> & child = children(retval)[i];
+        node_ptr<T> & child = detail::children(retval)[i];
         child = child.write();
-        children(child).resize(min_children);
-        keys(child).resize(min_children);
+        detail::children(child).resize(min_children);
+        detail::keys(child).resize(min_children);
 
-        keys(retval).insert(
-            keys(retval).begin() + i, offset(retval, i) + size(child.get()));
+        detail::keys(retval).insert(
+            detail::keys(retval).begin() + i,
+            detail::offset(retval, i) + detail::size(child.get()));
 
         return retval;
     }
@@ -725,14 +732,14 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
     inline node_ptr<T>
     btree_split_leaf(node_ptr<T> parent, int i, std::ptrdiff_t at)
     {
-        BOOST_ASSERT(0 <= i && i < num_children(parent));
-        BOOST_ASSERT(0 <= at && at <= size(parent.get()));
-        BOOST_ASSERT(!full(parent));
+        BOOST_ASSERT(0 <= i && i < detail::num_children(parent));
+        BOOST_ASSERT(0 <= at && at <= detail::size(parent.get()));
+        BOOST_ASSERT(!detail::full(parent));
 
-        node_ptr<T> child = children(parent)[i];
+        node_ptr<T> child = detail::children(parent)[i];
 
         auto const child_size = child.as_leaf()->size();
-        auto const offset_at_i = offset(parent, i);
+        auto const offset_at_i = detail::offset(parent, i);
         auto const cut = static_cast<int>(at - offset_at_i);
 
         if (cut == 0 || cut == child_size)
@@ -744,9 +751,11 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         node_ptr<T> left = slice_leaf(child, 0, cut);
 
         retval = parent.write();
-        children(retval)[i] = left;
-        children(retval).insert(children(retval).begin() + i + 1, right);
-        keys(retval).insert(keys(retval).begin() + i, offset_at_i + cut);
+        detail::children(retval)[i] = left;
+        detail::children(retval).insert(
+            detail::children(retval).begin() + i + 1, right);
+        detail::keys(retval).insert(
+            detail::keys(retval).begin() + i, offset_at_i + cut);
 
         return retval;
     }
@@ -757,38 +766,41 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         node_ptr<T> parent, std::ptrdiff_t at, node_ptr<T> && node)
     {
         BOOST_ASSERT(!parent->leaf_);
-        BOOST_ASSERT(0 <= at && at <= size(parent.get()));
+        BOOST_ASSERT(0 <= at && at <= detail::size(parent.get()));
         BOOST_ASSERT(node->leaf_);
 
-        int i = find_child(parent.as_interior(), at);
-        if (leaf_children(parent)) {
+        int i = detail::find_child(parent.as_interior(), at);
+        if (detail::leaf_children(parent)) {
             // Note that this split may add a node to parent, for a
             // maximum of two added nodes in the leaf code path.
-            parent = btree_split_leaf(parent, i, at);
-            if (keys(parent)[i] <= at)
+            parent = detail::btree_split_leaf(parent, i, at);
+            if (detail::keys(parent)[i] <= at)
                 ++i;
 
             parent = parent.write();
-            insert_child(parent.as_interior(), i, std::move(node));
+            detail::insert_child(parent.as_interior(), i, std::move(node));
         } else {
             {
-                node_ptr<T> child = children(parent)[i];
+                node_ptr<T> child = detail::children(parent)[i];
                 bool const child_i_needs_split =
-                    full(child) || (leaf_children(child) && almost_full(child));
+                    detail::full(child) || (detail::leaf_children(child) &&
+                                            detail::almost_full(child));
                 if (child_i_needs_split) {
-                    parent = btree_split_child(parent, i);
-                    if (keys(parent)[i] <= at)
+                    parent = detail::btree_split_child(parent, i);
+                    if (detail::keys(parent)[i] <= at)
                         ++i;
                 }
             }
             parent = parent.write();
-            auto delta = -size(children(parent)[i].get());
-            node_ptr<T> new_child = btree_insert_nonfull(
-                children(parent)[i], at - offset(parent, i), std::move(node));
-            delta += size(new_child.get());
-            children(parent)[i] = new_child;
-            for (int j = i, size = num_keys(parent); j < size; ++j) {
-                keys(parent)[j] += delta;
+            auto delta = -detail::size(detail::children(parent)[i].get());
+            node_ptr<T> new_child = detail::btree_insert_nonfull(
+                detail::children(parent)[i],
+                at - detail::offset(parent, i),
+                std::move(node));
+            delta += detail::size(new_child.get());
+            detail::children(parent)[i] = new_child;
+            for (int j = i, size = detail::num_keys(parent); j < size; ++j) {
+                detail::keys(parent)[j] += delta;
             }
         }
 
@@ -800,28 +812,32 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
     inline node_ptr<T>
     btree_insert(node_ptr<T> root, std::ptrdiff_t at, node_ptr<T> && node)
     {
-        BOOST_ASSERT(0 <= at && at <= size(root.get()));
+        BOOST_ASSERT(0 <= at && at <= detail::size(root.get()));
         BOOST_ASSERT(node->leaf_);
 
         if (!root) {
             return std::move(node);
         } else if (root->leaf_) {
             interior_node_t<T> * new_root = nullptr;
-            node_ptr<T> new_root_ptr(new_root = new_interior_node<T>());
-            auto const root_size = size(root.get());
+            node_ptr<T> new_root_ptr(new_root = detail::new_interior_node<T>());
+            auto const root_size = detail::size(root.get());
             new_root->children_.push_back(root);
             new_root->keys_.push_back(root_size);
-            return btree_insert_nonfull(new_root_ptr, at, std::move(node));
-        } else if (full(root) || (leaf_children(root) && almost_full(root))) {
+            return detail::btree_insert_nonfull(
+                new_root_ptr, at, std::move(node));
+        } else if (
+            detail::full(root) ||
+            (detail::leaf_children(root) && detail::almost_full(root))) {
             interior_node_t<T> * new_root = nullptr;
-            node_ptr<T> new_root_ptr(new_root = new_interior_node<T>());
-            auto const root_size = size(root.get());
+            node_ptr<T> new_root_ptr(new_root = detail::new_interior_node<T>());
+            auto const root_size = detail::size(root.get());
             new_root->children_.push_back(root);
             new_root->keys_.push_back(root_size);
-            new_root_ptr = btree_split_child(new_root_ptr, 0);
-            return btree_insert_nonfull(new_root_ptr, at, std::move(node));
+            new_root_ptr = detail::btree_split_child(new_root_ptr, 0);
+            return detail::btree_insert_nonfull(
+                new_root_ptr, at, std::move(node));
         } else {
-            return btree_insert_nonfull(root, at, std::move(node));
+            return detail::btree_insert_nonfull(root, at, std::move(node));
         }
     }
 
@@ -839,16 +855,16 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
 
         node_ptr<T> retval;
 
-        auto child_index = find_child(node.as_interior(), at);
+        auto child_index = detail::find_child(node.as_interior(), at);
 
-        if (leaf_children(node)) {
-            if (num_children(node) == 2)
-                return children(node)[child_index ? 0 : 1];
+        if (detail::leaf_children(node)) {
+            if (detail::num_children(node) == 2)
+                return detail::children(node)[child_index ? 0 : 1];
 
-            BOOST_ASSERT(children(node)[child_index].as_leaf() == leaf);
+            BOOST_ASSERT(detail::children(node)[child_index].as_leaf() == leaf);
 
             retval = node.write();
-            erase_child(retval.as_interior(), child_index);
+            detail::erase_child(retval.as_interior(), child_index);
             return retval;
         }
 
@@ -856,115 +872,123 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
 
         node_ptr<T> new_child;
 
-        node_ptr<T> & child = children(retval)[child_index];
+        node_ptr<T> & child = detail::children(retval)[child_index];
         // Due to the use of almost_full() in a few places, == does not
         // actually work here.  As unsatisfying as it is, the minimium
         // possible number of children is actually min_children - 1.
-        if (num_children(child) <= min_children) {
+        if (detail::num_children(child) <= min_children) {
             BOOST_ASSERT(
-                child_index != 0 || child_index != num_children(retval) - 1);
+                child_index != 0 ||
+                child_index != detail::num_children(retval) - 1);
 
             if (child_index != 0 &&
-                min_children + 1 <=
-                    num_children(children(retval)[child_index - 1])) {
+                min_children + 1 <= detail::num_children(detail::children(
+                                        retval)[child_index - 1])) {
                 node_ptr<T> & child_left_sib =
-                    children(retval)[child_index - 1];
+                    detail::children(retval)[child_index - 1];
 
                 // Remove last element of left sibling.
-                node_ptr<T> moved_node = children(child_left_sib).back();
-                auto const moved_node_size = size(moved_node.get());
+                node_ptr<T> moved_node =
+                    detail::children(child_left_sib).back();
+                auto const moved_node_size = detail::size(moved_node.get());
 
                 child_left_sib = child_left_sib.write();
-                erase_child(
+                detail::erase_child(
                     child_left_sib.as_interior(),
-                    num_children(child_left_sib) - 1);
+                    detail::num_children(child_left_sib) - 1);
 
                 // Prepend last element onto child; now child has min_children
                 // + 1 children, and we can recurse.
                 child = child.write();
-                insert_child(child.as_interior(), 0, std::move(moved_node));
+                detail::insert_child(
+                    child.as_interior(), 0, std::move(moved_node));
 
-                std::ptrdiff_t const offset_ = offset(retval, child_index);
-                new_child =
-                    btree_erase(child, at - offset_ + moved_node_size, leaf);
+                std::ptrdiff_t const offset_ =
+                    detail::offset(retval, child_index);
+                new_child = detail::btree_erase(
+                    child, at - offset_ + moved_node_size, leaf);
             } else if (
-                child_index != num_children(retval) - 1 &&
-                min_children + 1 <=
-                    num_children(children(retval)[child_index + 1])) {
+                child_index != detail::num_children(retval) - 1 &&
+                min_children + 1 <= detail::num_children(detail::children(
+                                        retval)[child_index + 1])) {
                 node_ptr<T> & child_right_sib =
-                    children(retval)[child_index + 1];
+                    detail::children(retval)[child_index + 1];
 
                 // Remove first element of right sibling.
-                node_ptr<T> moved_node = children(child_right_sib).front();
+                node_ptr<T> moved_node =
+                    detail::children(child_right_sib).front();
 
                 child_right_sib = child_right_sib.write();
-                erase_child(child_right_sib.as_interior(), 0);
+                detail::erase_child(child_right_sib.as_interior(), 0);
 
                 // Append first element onto child; now child has min_children
                 // + 1 children, and we can recurse.
                 child = child.write();
-                insert_child(
+                detail::insert_child(
                     child.as_interior(),
-                    num_children(child),
+                    detail::num_children(child),
                     std::move(moved_node));
 
-                std::ptrdiff_t const offset_ = offset(retval, child_index);
-                new_child = btree_erase(child, at - offset_, leaf);
+                std::ptrdiff_t const offset_ =
+                    detail::offset(retval, child_index);
+                new_child = detail::btree_erase(child, at - offset_, leaf);
             } else {
                 auto const right_index =
                     child_index == 0 ? child_index + 1 : child_index;
                 auto const left_index = right_index - 1;
 
-                node_ptr<T> & left = children(retval)[left_index];
-                node_ptr<T> & right = children(retval)[right_index];
+                node_ptr<T> & left = detail::children(retval)[left_index];
+                node_ptr<T> & right = detail::children(retval)[right_index];
 
                 left = left.write();
                 right = right.write();
 
-                children_t<T> & left_children = children(left);
-                children_t<T> & right_children = children(right);
+                children_t<T> & left_children = detail::children(left);
+                children_t<T> & right_children = detail::children(right);
 
                 left_children.insert(
                     left_children.end(),
                     right_children.begin(),
                     right_children.end());
 
-                keys_t & left_keys = keys(left);
-                keys_t & right_keys = keys(right);
+                keys_t & left_keys = detail::keys(left);
+                keys_t & right_keys = detail::keys(right);
 
                 auto const old_left_size = left_keys.back();
-                int const old_children = num_keys(left);
+                int const old_children = detail::num_keys(left);
 
                 left_keys.insert(
                     left_keys.end(), right_keys.begin(), right_keys.end());
-                for (int i = old_children, size = num_keys(left); i < size;
+                for (int i = old_children, size = detail::num_keys(left);
+                     i < size;
                      ++i) {
                     left_keys[i] += old_left_size;
                 }
 
-                std::ptrdiff_t const offset_ = offset(retval, left_index);
-                new_child = btree_erase(left, at - offset_, leaf);
+                std::ptrdiff_t const offset_ =
+                    detail::offset(retval, left_index);
+                new_child = detail::btree_erase(left, at - offset_, leaf);
 
                 // This can only happen if node is the root.
-                if (num_children(retval) == 2)
+                if (detail::num_children(retval) == 2)
                     return new_child;
 
-                erase_child(
+                detail::erase_child(
                     retval.as_interior(), right_index, dont_adjust_keys);
 
                 if (right_index <= child_index)
                     --child_index;
             }
         } else {
-            std::ptrdiff_t const offset_ = offset(retval, child_index);
-            new_child = btree_erase(child, at - offset_, leaf);
+            std::ptrdiff_t const offset_ = detail::offset(retval, child_index);
+            new_child = detail::btree_erase(child, at - offset_, leaf);
         }
 
-        children(retval)[child_index] = new_child;
+        detail::children(retval)[child_index] = new_child;
         std::ptrdiff_t prev_size = 0;
-        for (int i = 0, size = num_keys(retval); i < size; ++i) {
-            prev_size += detail::size(children(retval)[i].get());
-            keys(retval)[i] = prev_size;
+        for (int i = 0, size = detail::num_keys(retval); i < size; ++i) {
+            prev_size += detail::size(detail::children(retval)[i].get());
+            detail::keys(retval)[i] = prev_size;
         }
 
         return retval;
@@ -975,25 +999,27 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
     btree_erase(node_ptr<T> root, std::ptrdiff_t lo, std::ptrdiff_t hi)
     {
         BOOST_ASSERT(root);
-        BOOST_ASSERT(0 <= lo && lo <= size(root.get()));
-        BOOST_ASSERT(0 <= hi && hi <= size(root.get()));
+        BOOST_ASSERT(0 <= lo && lo <= detail::size(root.get()));
+        BOOST_ASSERT(0 <= hi && hi <= detail::size(root.get()));
         BOOST_ASSERT(lo < hi);
 
         BOOST_ASSERT(root);
 
-        if (lo == 0 && hi == size(root.get())) {
+        if (lo == 0 && hi == detail::size(root.get())) {
             return node_ptr<T>();
         } else if (root->leaf_) {
             leaf_slices<T> slices;
-            slices = erase_leaf(root, lo, hi);
+            slices = detail::erase_leaf(root, lo, hi);
             if (!slices.other_slice) {
                 return slices.slice;
             } else {
                 interior_node_t<T> * new_root = nullptr;
-                node_ptr<T> new_root_ptr(new_root = new_interior_node<T>());
-                new_root->keys_.push_back(size(slices.slice.get()));
+                node_ptr<T> new_root_ptr(
+                    new_root = detail::new_interior_node<T>());
+                new_root->keys_.push_back(detail::size(slices.slice.get()));
                 new_root->keys_.push_back(
-                    new_root->keys_[0] + size(slices.other_slice.get()));
+                    new_root->keys_[0] +
+                    detail::size(slices.other_slice.get()));
                 new_root->children_.push_back(std::move(slices.slice));
                 new_root->children_.push_back(std::move(slices.other_slice));
                 return new_root_ptr;
@@ -1001,18 +1027,19 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         } else {
             node_ptr<T> retval = root;
 
-            auto const final_size = size(retval.get()) - (hi - lo);
+            auto const final_size = detail::size(retval.get()) - (hi - lo);
 
             // Right after the hi-segment, insert the suffix of the
             // hi-segment that's not being erased (if there is one).
             detail::found_leaf<T> found_hi;
             detail::find_leaf(retval, hi, found_hi);
-            auto const hi_leaf_size = size(found_hi.leaf_->get());
+            auto const hi_leaf_size = detail::size(found_hi.leaf_->get());
             if (found_hi.offset_ != 0 && found_hi.offset_ != hi_leaf_size) {
                 node_ptr<T> suffix =
                     slice_leaf(*found_hi.leaf_, found_hi.offset_, hi_leaf_size);
                 auto const suffix_at = hi - found_hi.offset_ + hi_leaf_size;
-                retval = btree_insert(retval, suffix_at, std::move(suffix));
+                retval =
+                    detail::btree_insert(retval, suffix_at, std::move(suffix));
                 detail::find_leaf(retval, suffix_at, found_hi);
             }
 
@@ -1021,12 +1048,12 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             detail::found_leaf<T> found_lo;
             detail::find_leaf(retval, lo, found_lo);
             if (found_lo.offset_ != 0) {
-                auto const lo_leaf_size = size(found_lo.leaf_->get());
+                auto const lo_leaf_size = detail::size(found_lo.leaf_->get());
                 node_ptr<T> prefix =
                     slice_leaf(*found_lo.leaf_, 0, found_lo.offset_);
                 if (prefix.get() == found_lo.leaf_->get())
                     hi -= lo_leaf_size;
-                retval = btree_insert(
+                retval = detail::btree_insert(
                     retval, lo - found_lo.offset_, std::move(prefix));
                 detail::find_leaf(retval, lo, found_lo);
             }
@@ -1037,12 +1064,12 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
 
             leaf_node_t<T> const * leaf_lo = found_lo.leaf_->as_leaf();
             while (true) {
-                retval = btree_erase(retval, lo, leaf_lo);
-                BOOST_ASSERT(final_size <= size(retval.get()));
-                if (size(retval.get()) == final_size)
+                retval = detail::btree_erase(retval, lo, leaf_lo);
+                BOOST_ASSERT(final_size <= detail::size(retval.get()));
+                if (detail::size(retval.get()) == final_size)
                     break;
                 found_leaf<T> found;
-                find_leaf(retval, lo, found);
+                detail::find_leaf(retval, lo, found);
                 leaf_lo = found.leaf_->as_leaf();
             }
 
@@ -1072,9 +1099,9 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         int children_size = 0;
         int prev_key = 0;
         int i = 0;
-        for (auto const & child : children(node)) {
-            int key = keys(node)[i++];
-            children_size += check_sizes(child, key - prev_key);
+        for (auto const & child : detail::children(node)) {
+            int key = detail::keys(node)[i++];
+            children_size += detail::check_sizes(child, key - prev_key);
             prev_key = key;
         }
 

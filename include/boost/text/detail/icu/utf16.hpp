@@ -47,59 +47,59 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
     /**
      * Does this code unit alone encode a code point (BMP, not a surrogate)?
      * @param c 16-bit code unit
-     * @return TRUE or FALSE
+     * @return true or false
      * @stable ICU 2.4
      */
-    inline bool U16_IS_SINGLE(UChar32 c) { return !U_IS_SURROGATE(c); }
+    inline bool u16_is_single(UChar32 c) { return !detail::icu::u_is_surrogate(c); }
 
     /**
      * Is this code unit a lead surrogate (U+d800..U+dbff)?
      * @param c 16-bit code unit
-     * @return TRUE or FALSE
+     * @return true or false
      * @stable ICU 2.4
      */
-    inline bool U16_IS_LEAD(UChar32 c) { return (((c)&0xfffffc00) == 0xd800); }
+    inline bool u16_is_lead(UChar32 c) { return (((c)&0xfffffc00) == 0xd800); }
 
     /**
      * Is this code unit a trail surrogate (U+dc00..U+dfff)?
      * @param c 16-bit code unit
-     * @return TRUE or FALSE
+     * @return true or false
      * @stable ICU 2.4
      */
-    inline bool U16_IS_TRAIL(UChar32 c) { return (((c)&0xfffffc00) == 0xdc00); }
+    inline bool u16_is_trail(UChar32 c) { return (((c)&0xfffffc00) == 0xdc00); }
 
     /**
      * Is this code unit a surrogate (U+d800..U+dfff)?
      * @param c 16-bit code unit
-     * @return TRUE or FALSE
+     * @return true or false
      * @stable ICU 2.4
      */
-    inline bool U16_IS_SURROGATE(UChar32 c) { return U_IS_SURROGATE(c); }
+    inline bool u16_is_surrogate(UChar32 c) { return detail::icu::u_is_surrogate(c); }
 
     /**
-     * Assuming c is a surrogate code point (U16_IS_SURROGATE(c)),
+     * Assuming c is a surrogate code point (u16_is_surrogate(c)),
      * is it a lead surrogate?
      * @param c 16-bit code unit
-     * @return TRUE or FALSE
+     * @return true or false
      * @stable ICU 2.4
      */
-    inline bool U16_IS_SURROGATE_LEAD(UChar32 c) { return (((c)&0x400) == 0); }
+    inline bool u16_is_surrogate_lead(UChar32 c) { return (((c)&0x400) == 0); }
 
     /**
-     * Assuming c is a surrogate code point (U16_IS_SURROGATE(c)),
+     * Assuming c is a surrogate code point (u16_is_surrogate(c)),
      * is it a trail surrogate?
      * @param c 16-bit code unit
-     * @return TRUE or FALSE
+     * @return true or false
      * @stable ICU 4.2
      */
-    inline bool U16_IS_SURROGATE_TRAIL(UChar32 c) { return (((c)&0x400) != 0); }
+    inline bool u16_is_surrogate_trail(UChar32 c) { return (((c)&0x400) != 0); }
 
     /**
-     * Helper constant for U16_GET_SUPPLEMENTARY.
+     * Helper constant for u16_get_supplementary.
      * @internal
      */
     namespace {
-        constexpr auto U16_SURROGATE_OFFSET =
+        constexpr auto u16_surrogate_offset =
             (0xd800 << 10UL) + 0xdc00 - 0x10000;
     }
 
@@ -114,10 +114,10 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
      * @return supplementary code point (U+10000..U+10ffff)
      * @stable ICU 2.4
      */
-    inline UChar32 U16_GET_SUPPLEMENTARY(UChar lead, UChar trail)
+    inline UChar32 u16_get_supplementary(UChar lead, UChar trail)
     {
         return ((UChar32)(lead) << 10UL) +
-               (UChar32)(trail)-U16_SURROGATE_OFFSET;
+               (UChar32)(trail)-u16_surrogate_offset;
     }
 
 
@@ -128,7 +128,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
      * @return lead surrogate (U+d800..U+dbff) for supplementary
      * @stable ICU 2.4
      */
-    inline UChar U16_LEAD(UChar32 supplementary)
+    inline UChar u16_lead(UChar32 supplementary)
     {
         return (UChar)(((supplementary) >> 10) + 0xd7c0);
     }
@@ -140,7 +140,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
      * @return trail surrogate (U+dc00..U+dfff) for supplementary
      * @stable ICU 2.4
      */
-    inline UChar U16_TRAIL(UChar32 supplementary)
+    inline UChar u16_trail(UChar32 supplementary)
     {
         return (UChar)(((supplementary)&0x3ff) | 0xdc00);
     }
@@ -153,7 +153,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
      * @return 1 or 2
      * @stable ICU 2.4
      */
-    inline int U16_LENGTH(UChar32 c)
+    inline int u16_length(UChar32 c)
     {
         return ((uint32_t)(c) <= 0xffff ? 1 : 2);
     }
@@ -179,15 +179,15 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
      * @param s const UChar * string
      * @param i string offset
      * @param c output UChar32 variable
-     * @see U16_NEXT
+     * @see u16_next
      * @stable ICU 2.4
      */
     template<typename Iter>
-    void U16_NEXT_UNSAFE(Iter s, int & i, UChar32 & c)
+    void u16_next_unsafe(Iter s, int & i, UChar32 & c)
     {
         (c) = (s)[(i)++];
-        if (U16_IS_LEAD(c)) {
-            (c) = U16_GET_SUPPLEMENTARY((c), (s)[(i)++]);
+        if (detail::icu::u16_is_lead(c)) {
+            (c) = detail::icu::u16_get_supplementary((c), (s)[(i)++]);
         }
     }
 
@@ -211,18 +211,18 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
      * @param i string offset, must be i<length
      * @param length string length
      * @param c output UChar32 variable
-     * @see U16_NEXT_UNSAFE
+     * @see u16_next_unsafe
      * @stable ICU 2.4
      */
     template<typename Iter>
-    void U16_NEXT(Iter s, int & i, int length, UChar32 & c)
+    void u16_next(Iter s, int & i, int length, UChar32 & c)
     {
         (c) = (s)[(i)++];
-        if (U16_IS_LEAD(c)) {
+        if (detail::icu::u16_is_lead(c)) {
             uint16_t c2_;
-            if ((i) != (length) && U16_IS_TRAIL(c2_ = (s)[(i)])) {
+            if ((i) != (length) && detail::icu::u16_is_trail(c2_ = (s)[(i)])) {
                 ++(i);
-                (c) = U16_GET_SUPPLEMENTARY((c), c2_);
+                (c) = detail::icu::u16_get_supplementary((c), c2_);
             }
         }
     }
@@ -248,15 +248,15 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
      * @param s const UChar * string
      * @param i string offset
      * @param c output UChar32 variable
-     * @see U16_PREV
+     * @see u16_prev
      * @stable ICU 2.4
      */
     template<typename Iter>
-    void U16_PREV_UNSAFE(Iter s, int & i, UChar32 & c)
+    void u16_prev_unsafe(Iter s, int & i, UChar32 & c)
     {
         (c) = (s)[--(i)];
-        if (U16_IS_TRAIL(c)) {
-            (c) = U16_GET_SUPPLEMENTARY((s)[--(i)], (c));
+        if (detail::icu::u16_is_trail(c)) {
+            (c) = detail::icu::u16_get_supplementary((s)[--(i)], (c));
         }
     }
 
@@ -278,18 +278,19 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
      * @param start starting string offset (usually 0)
      * @param i string offset, must be start<i
      * @param c output UChar32 variable
-     * @see U16_PREV_UNSAFE
+     * @see u16_prev_unsafe
      * @stable ICU 2.4
      */
     template<typename Iter>
-    void U16_PREV(Iter s, int start, int & i, UChar32 & c)
+    void u16_prev(Iter s, int start, int & i, UChar32 & c)
     {
         (c) = *std::next(s, --i);
-        if (U16_IS_TRAIL(c)) {
+        if (detail::icu::u16_is_trail(c)) {
             uint16_t c2_;
-            if ((i) > (start) && U16_IS_LEAD(c2_ = *std::next(s, i - 1))) {
+            if ((i) > (start) &&
+                detail::icu::u16_is_lead(c2_ = *std::next(s, i - 1))) {
                 --(i);
-                (c) = U16_GET_SUPPLEMENTARY(c2_, (c));
+                (c) = detail::icu::u16_get_supplementary(c2_, (c));
             }
         }
     }

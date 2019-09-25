@@ -189,13 +189,13 @@ namespace boost { namespace text { inline namespace v1 {
 
 namespace std {
     template<>
-    struct hash<boost::text::text_view>
+    struct hash<boost::text::v1::text_view>
     {
-        using argument_type = boost::text::text_view;
+        using argument_type = boost::text::v1::text_view;
         using result_type = std::size_t;
         result_type operator()(argument_type const & tv) const noexcept
         {
-            return boost::text::detail::hash_grapheme_range(tv);
+            return boost::text::v1::detail::hash_grapheme_range(tv);
         }
     };
 }

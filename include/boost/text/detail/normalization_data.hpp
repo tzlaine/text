@@ -442,7 +442,8 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         \see https://www.unicode.org/reports/tr15/#Stable_Code_Points */
     inline bool stable_fcc_code_point(uint32_t cp) noexcept
     {
-        return ccc(cp) && quick_check_nfc_code_point(cp) == quick_check::yes;
+        return detail::ccc(cp) &&
+               quick_check_nfc_code_point(cp) == quick_check::yes;
     }
 
     struct lzw_to_cp_props_iter

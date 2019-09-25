@@ -91,27 +91,27 @@ namespace boost { namespace text { inline namespace v1 {
         {
             if (lhs == rhs)
                 return true;
-            return less(lhs, rhs);
+            return detail::less(lhs, rhs);
         }
 
         inline bool operator<(
             temp_table_element const & lhs, temp_table_element const & rhs)
         {
-            return less(lhs.ces_, rhs.ces_);
+            return detail::less(lhs.ces_, rhs.ces_);
         }
 
         inline bool operator<(
             temp_table_element::ces_t const & lhs,
             temp_table_element const & rhs)
         {
-            return less(lhs, rhs.ces_);
+            return detail::less(lhs, rhs.ces_);
         }
 
         inline bool operator<(
             temp_table_element const & lhs,
             temp_table_element::ces_t const & rhs)
         {
-            return less(lhs.ces_, rhs);
+            return detail::less(lhs.ces_, rhs);
         }
 
         using temp_table_t = segmented_vector<temp_table_element>;
@@ -426,7 +426,7 @@ namespace boost { namespace text { inline namespace v1 {
             Iter first, Iter last, collation_strength strength) noexcept
         {
             for (auto it = last; it != first;) {
-                if (ce_strength(*--it) <= strength)
+                if (detail::ce_strength(*--it) <= strength)
                     return it;
             }
             return last;
@@ -496,7 +496,7 @@ namespace boost { namespace text { inline namespace v1 {
         {
             temp_table_element::ces_t group_first_ces;
             group_first_ces.push_back(reorder_groups()[0].first_);
-            if (less(ces, group_first_ces)) {
+            if (detail::less(ces, group_first_ces)) {
                 return std::lower_bound(
                     temp_table.begin(), temp_table.end(), group_first_ces);
             }
@@ -508,8 +508,8 @@ namespace boost { namespace text { inline namespace v1 {
                 group_last_ces.clear();
                 group_last_ces.push_back(group.last_);
 
-                if (less_equal(group_first_ces, ces) &&
-                    less_equal(ces, group_last_ces)) {
+                if (detail::less_equal(group_first_ces, ces) &&
+                    detail::less_equal(ces, group_last_ces)) {
                     return std::lower_bound(
                         temp_table.begin(), temp_table.end(), group_last_ces);
                 }
@@ -534,9 +534,9 @@ namespace boost { namespace text { inline namespace v1 {
         {
             uint8_t bytes[] = {uint8_t(l2 >> 8), uint8_t(l2 & 0xff)};
 
-            bytes[1] = increment_l2_byte(bytes[1]);
+            bytes[1] = detail::increment_l2_byte(bytes[1]);
             if (!bytes[1])
-                bytes[0] = increment_l2_byte(bytes[0]);
+                bytes[0] = detail::increment_l2_byte(bytes[0]);
 
             return (uint16_t(bytes[0]) << 8) | bytes[1];
         }
@@ -564,9 +564,9 @@ namespace boost { namespace text { inline namespace v1 {
             bytes[0] &= byte_disable_mask;
             bytes[1] &= byte_disable_mask;
 
-            bytes[1] = increment_l3_byte(bytes[1]);
+            bytes[1] = detail::increment_l3_byte(bytes[1]);
             if (!bytes[1])
-                bytes[0] = increment_l3_byte(bytes[0]);
+                bytes[0] = detail::increment_l3_byte(bytes[0]);
 
             bytes[0] |= case_masks[0];
             bytes[1] |= case_masks[1];
@@ -581,7 +581,7 @@ namespace boost { namespace text { inline namespace v1 {
         {
             switch (strength) {
             case collation_strength::primary:
-                ce.l1_ = increment_32_bit(ce.l1_, true);
+                ce.l1_ = detail::increment_32_bit(ce.l1_, true);
                 if (initial_bump) {
                     ce.l2_ = common_l2_weight_compressed;
                     auto const case_bits = ce.l3_ & case_level_bits_mask;
@@ -589,17 +589,17 @@ namespace boost { namespace text { inline namespace v1 {
                 }
                 break;
             case collation_strength::secondary:
-                ce.l2_ = increment_l2(ce.l2_);
+                ce.l2_ = detail::increment_l2(ce.l2_);
                 if (initial_bump) {
                     auto const case_bits = ce.l3_ & case_level_bits_mask;
                     ce.l3_ = common_l3_weight_compressed | case_bits;
                 }
                 break;
             case collation_strength::tertiary:
-                ce.l3_ = increment_l3(ce.l3_);
+                ce.l3_ = detail::increment_l3(ce.l3_);
                 break;
             case collation_strength::quaternary:
-                ce.l4_ = increment_32_bit(ce.l4_, false);
+                ce.l4_ = detail::increment_32_bit(ce.l4_, false);
                 break;
             default: break;
             }
@@ -640,7 +640,7 @@ namespace boost { namespace text { inline namespace v1 {
         inline bool well_formed_2(
             collation_element ce, tailoring_state_t const & tailoring_state)
         {
-            switch (ce_strength(ce)) {
+            switch (detail::ce_strength(ce)) {
             case collation_strength::secondary:
                 if (ce.l2_ <= tailoring_state.last_secondary_in_primary_)
                     return false;
@@ -691,8 +691,8 @@ namespace boost { namespace text { inline namespace v1 {
             // modified; all following CEs should be removed. If there is no
             // such CE, then reset the collation elements to a single
             // completely-ignorable CE."
-            auto ces_it =
-                last_ce_at_least_strength(ces.begin(), ces.end(), strength);
+            auto ces_it = detail::last_ce_at_least_strength(
+                ces.begin(), ces.end(), strength);
             if (ces_it != ces.end())
                 ces.erase(std::next(ces_it), ces.end());
             if (ces_it == ces.end()) {
@@ -705,21 +705,21 @@ namespace boost { namespace text { inline namespace v1 {
             // "Increment the collation element weight corresponding to the
             // strength of the operator. For example, for << increment the
             // secondary weight."
-            increment_ce(ce, strength, true);
+            detail::increment_ce(ce, strength, true);
 
             bool retval = false;
-            if (!well_formed_2(ce, tailoring_state)) {
-                auto const s = ce_strength(ce);
+            if (!detail::well_formed_2(ce, tailoring_state)) {
+                auto const s = detail::ce_strength(ce);
                 if (s == collation_strength::secondary) {
                     ce.l2_ = tailoring_state.last_secondary_in_primary_;
                 } else if (s == collation_strength::tertiary) {
                     ce.l3_ = tailoring_state.last_tertiary_in_secondary_masked_;
                 }
-                increment_ce(ce, strength, true);
+                detail::increment_ce(ce, strength, true);
                 retval = true;
             }
 
-            if (!well_formed_1(ce)) {
+            if (!detail::well_formed_1(ce)) {
                 if (ce.l1_) {
                     if (!ce.l2_)
                         ce.l2_ = common_l2_weight_compressed;
@@ -751,7 +751,7 @@ namespace boost { namespace text { inline namespace v1 {
         {
             return std::all_of(
                 ces.begin(), ces.end(), [](collation_element ce) {
-                    return well_formed_1(ce);
+                    return detail::well_formed_1(ce);
                 });
         }
 
@@ -761,7 +761,7 @@ namespace boost { namespace text { inline namespace v1 {
         {
             return std::all_of(
                 ces.begin(), ces.end(), [&](collation_element ce) {
-                    return well_formed_2(ce, tailoring_state);
+                    return detail::well_formed_2(ce, tailoring_state);
                 });
         }
 
@@ -780,7 +780,8 @@ namespace boost { namespace text { inline namespace v1 {
             auto const N = std::ptrdiff_t(initial_case_bits.size());
             auto const M = std::count_if(
                 reset_ces.begin(), reset_ces.end(), [](collation_element ce) {
-                    return ce_strength(ce) == collation_strength::primary;
+                    return detail::ce_strength(ce) ==
+                           collation_strength::primary;
                 });
 
             if (N <= M) {
@@ -825,7 +826,7 @@ namespace boost { namespace text { inline namespace v1 {
             }
 
             for (auto & ce : reset_ces) {
-                auto const strength = ce_strength(ce);
+                auto const strength = detail::ce_strength(ce);
                 if (strength == collation_strength::secondary) {
                     ce.l3_ &= disable_case_level_mask;
                 } else if (strength == collation_strength::tertiary) {
@@ -845,7 +846,7 @@ namespace boost { namespace text { inline namespace v1 {
         {
             // Update logical_positions.
             {
-                auto const strength = ce_strength(ces[0]);
+                auto const strength = detail::ce_strength(ces[0]);
                 if (strength == collation_strength::primary) {
                     if (ces < logical_positions[first_variable]) {
                         BOOST_ASSERT(
@@ -884,7 +885,7 @@ namespace boost { namespace text { inline namespace v1 {
 
             // Update tailoring_state.
             for (auto ce : ces) {
-                auto const strength = ce_strength(ce);
+                auto const strength = detail::ce_strength(ce);
                 if (strength == collation_strength::primary) {
                     if (tailoring_state.last_secondary_in_primary_ < ce.l2_)
                         tailoring_state.last_secondary_in_primary_ = ce.l2_;
@@ -954,7 +955,7 @@ namespace boost { namespace text { inline namespace v1 {
             std::cerr << "\n";
 #endif
             temp_table_element::ces_t const initial_relation_ces =
-                get_ces(initial_relation, table);
+                detail::get_ces(initial_relation, table);
 
             cp_seq_t relation = initial_relation;
 
@@ -970,7 +971,7 @@ namespace boost { namespace text { inline namespace v1 {
             }
 
             if (before) {
-                auto ces_it = last_ce_at_least_strength(
+                auto ces_it = detail::last_ce_at_least_strength(
                     reset_ces.begin(), reset_ces.end(), strength);
                 if (ces_it == reset_ces.end()) {
                     reset_ces.clear();
@@ -1040,10 +1041,10 @@ namespace boost { namespace text { inline namespace v1 {
 #endif
             }
 
-            adjust_case_bits(initial_relation_ces, reset_ces);
+            detail::adjust_case_bits(initial_relation_ces, reset_ces);
 
             if (extension) {
-                auto const extension_ces = get_ces(*extension, table);
+                auto const extension_ces = detail::get_ces(*extension, table);
                 reset_ces.insert(
                     reset_ces.end(),
                     extension_ces.begin(),
@@ -1075,21 +1076,21 @@ namespace boost { namespace text { inline namespace v1 {
                 }
                 std::cerr << "\n";
 #endif
-                if (bump_ces(reset_ces, strength, tailoring_state)) {
+                if (detail::bump_ces(reset_ces, strength, tailoring_state)) {
                     table_target_it = std::upper_bound(
                         temp_table.begin(), temp_table.end(), reset_ces);
                 }
 
                 // "Weights must be allocated in accordance with the UCA
                 // well-formedness conditions."
-                if (!well_formed_1(reset_ces)) {
+                if (!detail::well_formed_1(reset_ces)) {
                     boost::throw_exception(tailoring_error(
                         "Unable to implement this tailoring rule, because it "
                         "was not possible to meet UCA well-formedness "
                         "condition 1; see "
                         "http://www.unicode.org/reports/tr10/#WF1"));
                 }
-                if (!well_formed_2(reset_ces, tailoring_state)) {
+                if (!detail::well_formed_2(reset_ces, tailoring_state)) {
                     boost::throw_exception(tailoring_error(
                         "Unable to implement this tailoring rule, because it "
                         "was not possible to meet UCA well-formedness "
@@ -1097,13 +1098,14 @@ namespace boost { namespace text { inline namespace v1 {
                         "http://www.unicode.org/reports/tr10/#WF2"));
                 }
 
-                update_key_ces(reset_ces, logical_positions, tailoring_state);
+                detail::update_key_ces(
+                    reset_ces, logical_positions, tailoring_state);
 
                 BOOST_ASSERT(table_target_it != temp_table.end());
 
                 // The checks in here only need to be performed if the increment
                 // above did not slot cleanly between two existing CEs.
-                if (!less(reset_ces, table_target_it->ces_)) {
+                if (!detail::less(reset_ces, table_target_it->ces_)) {
                     // "The new weight must be less than the next weight for the
                     // same combination of higher-level weights of any collation
                     // element according to the current state." -- this will be
@@ -1113,26 +1115,29 @@ namespace boost { namespace text { inline namespace v1 {
                     // For reorderings to work, we can't keep bumping
                     // indefinitely; stop before we leave the current script, if
                     // applicable.
-                    auto const end = bump_region_end(reset_ces, temp_table) -
-                                     temp_table.begin();
+                    auto const end =
+                        detail::bump_region_end(reset_ces, temp_table) -
+                        temp_table.begin();
                     auto i = table_target_it - temp_table.begin();
                     auto prev_ces = reset_ces;
                     do {
                         auto element = temp_table[i];
-                        while (!less(prev_ces, element.ces_)) {
-                            increment_ce(element.ces_.front(), strength, false);
+                        while (!detail::less(prev_ces, element.ces_)) {
+                            detail::increment_ce(
+                                element.ces_.front(), strength, false);
                         }
                         element.tailored_ = true;
-                        add_temp_tailoring(table, element.cps_, element.ces_);
-                        BOOST_ASSERT(well_formed_1(element.ces_));
-                        BOOST_ASSERT(
-                            well_formed_2(element.ces_, tailoring_state));
-                        update_key_ces(
+                        detail::add_temp_tailoring(
+                            table, element.cps_, element.ces_);
+                        BOOST_ASSERT(detail::well_formed_1(element.ces_));
+                        BOOST_ASSERT(detail::well_formed_2(
+                            element.ces_, tailoring_state));
+                        detail::update_key_ces(
                             element.ces_, logical_positions, tailoring_state);
                         temp_table.replace(temp_table.begin() + i, element);
                         prev_ces = element.ces_;
                         ++i;
-                    } while (i != end && !less(prev_ces, temp_table[i].ces_));
+                    } while (i != end && !detail::less(prev_ces, temp_table[i].ces_));
                 }
             }
 
@@ -1140,7 +1145,7 @@ namespace boost { namespace text { inline namespace v1 {
             // there was one.
             if (table.trie_.contains(relation)) {
                 temp_table_element::ces_t const relation_ces =
-                    get_ces(relation, table);
+                    detail::get_ces(relation, table);
                 auto remove_it = std::lower_bound(
                     temp_table.begin(), temp_table.end(), relation_ces);
                 if (remove_it == temp_table.end() ||
@@ -1173,7 +1178,7 @@ namespace boost { namespace text { inline namespace v1 {
 
             for (auto & rel : relation_closure) {
                 detail::canonical_closure_string_t str;
-                normalize_to_fcc(rel, std::back_inserter(str));
+                boost::text::v1::normalize_to_fcc(rel, std::back_inserter(str));
                 rel = std::move(str);
             }
             std::sort(relation_closure.begin(), relation_closure.end());
@@ -1189,7 +1194,7 @@ namespace boost { namespace text { inline namespace v1 {
                 // TODO: Call add_temp_tailoring() for all prefixes of rel,
                 // when 2 < rel.size(), for WF5?
 
-                add_temp_tailoring(table, rel, reset_ces);
+                detail::add_temp_tailoring(table, rel, reset_ces);
                 temp_table_element element;
                 element.cps_ = std::move(rel);
                 element.ces_ = std::move(reset_ces);
@@ -1211,7 +1216,7 @@ namespace boost { namespace text { inline namespace v1 {
                 table.trie_.copy_next_key_elements(
                     subseq, std::back_inserter(next_cps));
                 for (auto next_cp : next_cps) {
-                    suppress_impl(
+                    detail::suppress_impl(
                         table,
                         table.trie_.extend_subsequence(subseq, next_cp),
                         false);
@@ -1223,7 +1228,7 @@ namespace boost { namespace text { inline namespace v1 {
         {
             auto const first_cp_subseq =
                 table.trie_.longest_subsequence(&cp, &cp + 1);
-            suppress_impl(table, first_cp_subseq, true);
+            detail::suppress_impl(table, first_cp_subseq, true);
         }
     }
 }}}

@@ -400,10 +400,12 @@ namespace boost { namespace text { inline namespace v1 {
 
 #endif
 
-        /** Inserts the sequence of char from c_str into *this starting at offset at. */
+        /** Inserts the sequence of char from c_str into *this starting at
+         * offset at. */
         string & insert(int at, char const * c_str);
 
-        /** Inserts the sequence of char from c_str into *this starting at position at. */
+        /** Inserts the sequence of char from c_str into *this starting at
+         * position at. */
         iterator insert(iterator at, char const * c_str);
 
         /** Erases the portion of *this delimited by sv.
@@ -1648,13 +1650,13 @@ namespace boost { namespace text { inline namespace v1 {
 
 namespace std {
     template<>
-    struct hash<boost::text::string>
+    struct hash<boost::text::v1::string>
     {
-        using argument_type = boost::text::string;
+        using argument_type = boost::text::v1::string;
         using result_type = std::size_t;
         result_type operator()(argument_type const & s) const noexcept
         {
-            return boost::text::detail::hash_char_range(s);
+            return boost::text::v1::detail::hash_char_range(s);
         }
     };
 }

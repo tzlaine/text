@@ -97,8 +97,8 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         mutable leaf_node_t<rope_tag> const * leaf_;
         mutable std::ptrdiff_t leaf_start_;
 
-        friend struct ::boost::text::unencoded_rope_view;
-        friend struct ::boost::text::rope_view;
+        friend struct ::boost::text::v1::unencoded_rope_view;
+        friend struct ::boost::text::v1::rope_view;
     };
 
     struct const_rope_view_iterator : stl_interfaces::iterator_interface<

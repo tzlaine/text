@@ -54,7 +54,7 @@ namespace boost { namespace text { inline namespace v1 {
         {
             container::static_vector<int, Capacity> cccs(buffer.size());
             if (!buffer.empty())
-                order_canonically(buffer.begin(), buffer.end(), cccs);
+                detail::order_canonically(buffer.begin(), buffer.end(), cccs);
             if (!flush(buffer.begin(), buffer.end()))
                 return false;
             buffer.clear();
@@ -76,7 +76,7 @@ namespace boost { namespace text { inline namespace v1 {
         {
             while (first != last) {
                 auto const decomp = decompose(*first);
-                if (!ccc(decomp.storage_[0])) {
+                if (!detail::ccc(decomp.storage_[0])) {
                     if (!detail::flush_buffer(buffer, flush))
                         return false;
                 }
@@ -100,7 +100,7 @@ namespace boost { namespace text { inline namespace v1 {
             using buffer_iterator =
                 container::static_vector<uint32_t, 64>::iterator;
 
-            normalize_to_decomposed_impl(
+            detail::normalize_to_decomposed_impl(
                 first,
                 last,
                 buffer,
@@ -141,18 +141,19 @@ namespace boost { namespace text { inline namespace v1 {
                 // Hangul composition as described in Unicode 11.0 Section 3.12.
                 auto const hangul_cp0 = *starter_it;
                 auto const hangul_cp1 = *it;
-                if (it == starter_it + 1 && hangul_l(hangul_cp0) &&
-                    hangul_v(hangul_cp1)) {
+                if (it == starter_it + 1 && detail::hangul_l(hangul_cp0) &&
+                    detail::hangul_v(hangul_cp1)) {
                     auto const cp2_it = it + 1;
                     auto const hangul_cp2 =
                         cp2_it == buffer.end() ? 0 : *cp2_it;
-                    if (hangul_t(hangul_cp2)) {
-                        *starter_it =
-                            compose_hangul(hangul_cp0, hangul_cp1, hangul_cp2);
+                    if (detail::hangul_t(hangul_cp2)) {
+                        *starter_it = detail::compose_hangul(
+                            hangul_cp0, hangul_cp1, hangul_cp2);
                         buffer.erase(it, it + 2);
                         cccs.erase(ccc_it, ccc_it + 2);
                     } else {
-                        *starter_it = compose_hangul(hangul_cp0, hangul_cp1);
+                        *starter_it =
+                            detail::compose_hangul(hangul_cp0, hangul_cp1);
                         buffer.erase(it, it + 1);
                         cccs.erase(ccc_it, ccc_it + 1);
                     }
@@ -163,7 +164,8 @@ namespace boost { namespace text { inline namespace v1 {
                     if ((it == starter_it + 1 ||
                          (!DisallowDiscontiguous &&
                           (prev_ccc != 0 && prev_ccc < ccc))) &&
-                        (composition = compose_unblocked(*starter_it, *it))) {
+                        (composition =
+                             detail::compose_unblocked(*starter_it, *it))) {
                         *starter_it = composition;
                         buffer.erase(it);
                         cccs.erase(ccc_it);
@@ -192,9 +194,9 @@ namespace boost { namespace text { inline namespace v1 {
         {
             container::static_vector<int, Capacity> cccs(buffer.size());
             if (!buffer.empty())
-                order_canonically(buffer.begin(), buffer.end(), cccs);
+                detail::order_canonically(buffer.begin(), buffer.end(), cccs);
             if (2 <= buffer.size())
-                compose<DisallowDiscontiguous>(buffer, cccs);
+                detail::compose<DisallowDiscontiguous>(buffer, cccs);
             if (!flush(buffer.begin(), buffer.end()))
                 return false;
             buffer.clear();
@@ -206,7 +208,8 @@ namespace boost { namespace text { inline namespace v1 {
             container::static_vector<uint32_t, Capacity> & buffer,
             uint32_t cp) noexcept
         {
-            return !buffer.empty() && hangul_l(buffer.back()) && hangul_v(cp);
+            return !buffer.empty() && detail::hangul_l(buffer.back()) &&
+                   detail::hangul_v(cp);
         }
 
         template<std::size_t Capacity>
@@ -214,8 +217,9 @@ namespace boost { namespace text { inline namespace v1 {
             container::static_vector<uint32_t, Capacity> & buffer,
             uint32_t cp) noexcept
         {
-            return 2 <= buffer.size() && hangul_l(buffer[buffer.size() - 2]) &&
-                   hangul_v(buffer.back()) && hangul_t(cp);
+            return 2 <= buffer.size() &&
+                   detail::hangul_l(buffer[buffer.size() - 2]) &&
+                   detail::hangul_v(buffer.back()) && detail::hangul_t(cp);
         }
 
         template<
@@ -238,10 +242,11 @@ namespace boost { namespace text { inline namespace v1 {
                 auto const decomp = decompose(*first);
                 auto const it = std::find_if(
                     decomp.begin(), decomp.end(), [&quick_check_](uint32_t cp) {
-                        return !ccc(cp) && quick_check_(cp) == quick_check::yes;
+                        return !detail::ccc(cp) &&
+                               quick_check_(cp) == quick_check::yes;
                     });
-                if (it != decomp.end() && !hangul_final_v(buffer, *it) &&
-                    !hangul_final_t(buffer, *it)) {
+                if (it != decomp.end() && !detail::hangul_final_v(buffer, *it) &&
+                    !detail::hangul_final_t(buffer, *it)) {
                     buffer.insert(buffer.end(), decomp.begin(), it);
                     if (!detail::compose_and_flush_buffer<
                             DisallowDiscontiguous>(buffer, flush)) {
@@ -279,7 +284,7 @@ namespace boost { namespace text { inline namespace v1 {
             using buffer_iterator =
                 container::static_vector<uint32_t, 64>::iterator;
 
-            normalize_to_composed_impl<DisallowDiscontiguous>(
+            detail::normalize_to_composed_impl<DisallowDiscontiguous>(
                 first,
                 last,
                 buffer,
@@ -324,7 +329,7 @@ namespace boost { namespace text { inline namespace v1 {
                     return quick_check::no;
                 if (check == quick_check::maybe)
                     retval = quick_check::maybe;
-                auto const ccc_ = ccc(cp);
+                auto const ccc_ = detail::ccc(cp);
                 if (ccc_ && ccc_ < prev_ccc)
                     return quick_check::no;
                 prev_ccc = ccc_;
@@ -345,12 +350,12 @@ namespace boost { namespace text { inline namespace v1 {
             QuickCheckFunc && quick_check_) noexcept
         {
             auto const check =
-                normalized_quick_check(first, last, quick_check_);
+                detail::normalized_quick_check(first, last, quick_check_);
             if (check == quick_check::maybe) {
                 container::static_vector<uint32_t, 64> buffer;
                 using buffer_iterator =
                     container::static_vector<uint32_t, 64>::iterator;
-                return normalize_to_decomposed_impl(
+                return detail::normalize_to_decomposed_impl(
                     first,
                     last,
                     buffer,
@@ -380,7 +385,7 @@ namespace boost { namespace text { inline namespace v1 {
             QuickCheckFunc && quick_check_) noexcept
         {
             auto const check =
-                normalized_quick_check(first, last, quick_check_);
+                detail::normalized_quick_check(first, last, quick_check_);
             if (check == quick_check::maybe) {
                 container::static_vector<uint32_t, 64> buffer;
                 using buffer_iterator =
@@ -448,8 +453,8 @@ namespace boost { namespace text { inline namespace v1 {
         }
 
         template<typename CPIter, typename Sentinel>
-        using utf8_range_expr = decltype(
-            make_utf8_range(std::declval<CPIter>(), std::declval<Sentinel>()));
+        using utf8_range_expr = decltype(detail::make_utf8_range(
+            std::declval<CPIter>(), std::declval<Sentinel>()));
 
         template<typename CharIter, typename Sentinel = CharIter>
         struct utf16_range
@@ -494,8 +499,8 @@ namespace boost { namespace text { inline namespace v1 {
         }
 
         template<typename CPIter, typename Sentinel>
-        using utf16_range_expr = decltype(
-            make_utf16_range(std::declval<CPIter>(), std::declval<Sentinel>()));
+        using utf16_range_expr = decltype(detail::make_utf16_range(
+            std::declval<CPIter>(), std::declval<Sentinel>()));
 
         template<typename CPIter, typename Sentinel>
         struct utf32_to_utf16_range
@@ -568,25 +573,27 @@ namespace boost { namespace text { inline namespace v1 {
         struct make_norm_16_range_impl
         {
             static auto call(CPIter first, Sentinel last)
-                -> decltype(make_utf32_to_utf16_range(first, last))
+                -> decltype(detail::make_utf32_to_utf16_range(first, last))
             {
-                return make_utf32_to_utf16_range(first, last);
+                return detail::make_utf32_to_utf16_range(first, last);
             }
         };
         template<typename CPIter, typename Sentinel>
         struct make_norm_16_range_impl<CPIter, Sentinel, true>
         {
             static auto call(CPIter first, Sentinel last)
-                -> decltype(make_utf16_range(first, last))
+                -> decltype(detail::make_utf16_range(first, last))
             {
-                return make_utf16_range(first, last);
+                return detail::make_utf16_range(first, last);
             }
         };
         template<typename CPIter, typename Sentinel>
-        auto make_norm_16_range(CPIter first, Sentinel last) -> decltype(
-            make_norm_16_range_impl<CPIter, Sentinel>::call(first, last))
+        auto make_norm_16_range(CPIter first, Sentinel last)
+            -> decltype(detail::make_norm_16_range_impl<CPIter, Sentinel>::call(
+                first, last))
         {
-            return make_norm_16_range_impl<CPIter, Sentinel>::call(first, last);
+            return detail::make_norm_16_range_impl<CPIter, Sentinel>::call(
+                first, last);
         }
 
         // NFD/NFKD dispatch
@@ -599,7 +606,7 @@ namespace boost { namespace text { inline namespace v1 {
         static norm_result<OutIter> norm_nfd_impl(
             bool compatible, CPIter first_, Sentinel last_, Appender & appender)
         {
-            auto const r = make_norm_16_range(first_, last_);
+            auto const r = detail::make_norm_16_range(first_, last_);
             auto first = r.begin();
             auto const last = r.end();
 
@@ -656,7 +663,7 @@ namespace boost { namespace text { inline namespace v1 {
             static norm_result<OutIter>
             call(bool compatible, CPIter first, Sentinel last, OutIter out)
             {
-                auto const r = make_norm_16_range(first, last);
+                auto const r = detail::make_norm_16_range(first, last);
                 using appender_type = nfc_appender_t<WriteToOut, OutIter>;
                 appender_type appender(out);
                 detail::icu::ReorderingBuffer<appender_type> buffer(
@@ -689,7 +696,7 @@ namespace boost { namespace text { inline namespace v1 {
             static norm_result<OutIter>
             call(bool compatible, CPIter first, Sentinel last, OutIter out)
             {
-                auto const r = make_utf8_range(first, last);
+                auto const r = detail::make_utf8_range(first, last);
                 typename std::conditional<
                     WriteToOut,
                     detail::icu::utf8_to_utf32_appender<OutIter>,
@@ -723,7 +730,8 @@ namespace boost { namespace text { inline namespace v1 {
     template<typename CPRange, typename OutIter>
     inline OutIter normalize_to_nfd(CPRange const & r, OutIter out)
     {
-        return normalize_to_nfd(std::begin(r), std::end(r), out);
+        return boost::text::v1::normalize_to_nfd(
+            std::begin(r), std::end(r), out);
     }
 
     /** Writes sequence `[first, last)` in Unicode normalization form NFKD to
@@ -745,7 +753,8 @@ namespace boost { namespace text { inline namespace v1 {
     template<typename CPRange, typename OutIter>
     inline OutIter normalize_to_nfkd(CPRange const & r, OutIter out)
     {
-        return normalize_to_nfkd(std::begin(r), std::end(r), out);
+        return boost::text::v1::normalize_to_nfkd(
+            std::begin(r), std::end(r), out);
     }
 
     /** Writes sequence `[first, last)` in Unicode normalization form NFC to
@@ -770,7 +779,8 @@ namespace boost { namespace text { inline namespace v1 {
     template<typename CPRange, typename OutIter>
     inline OutIter normalize_to_nfc(CPRange const & r, OutIter out)
     {
-        return normalize_to_nfc(std::begin(r), std::end(r), out);
+        return boost::text::v1::normalize_to_nfc(
+            std::begin(r), std::end(r), out);
     }
 
     /** Writes sequence `[first, last)` in Unicode normalization form NFKC to
@@ -795,7 +805,8 @@ namespace boost { namespace text { inline namespace v1 {
     template<typename CPRange, typename OutIter>
     inline OutIter normalize_to_nfkc(CPRange const & r, OutIter out)
     {
-        return normalize_to_nfkc(std::begin(r), std::end(r), out);
+        return boost::text::v1::normalize_to_nfkc(
+            std::begin(r), std::end(r), out);
     }
 
     /** Returns true iff the given sequence of code points is normalized NFD.
@@ -816,7 +827,7 @@ namespace boost { namespace text { inline namespace v1 {
     template<typename CPRange>
     bool normalized_nfd(CPRange const & r) noexcept
     {
-        return normalized_nfd(std::begin(r), std::end(r));
+        return boost::text::v1::normalized_nfd(std::begin(r), std::end(r));
     }
 
     /** Returns true iff the given sequence of code points is normalized NFKD.
@@ -837,7 +848,7 @@ namespace boost { namespace text { inline namespace v1 {
     template<typename CPRange>
     bool normalized_nfkd(CPRange const & r) noexcept
     {
-        return normalized_nfkd(std::begin(r), std::end(r));
+        return boost::text::v1::normalized_nfkd(std::begin(r), std::end(r));
     }
 
     /** Returns true iff the given sequence of code points is normalized NFC.
@@ -861,7 +872,7 @@ namespace boost { namespace text { inline namespace v1 {
     template<typename CPRange>
     bool normalized_nfc(CPRange const & r) noexcept
     {
-        return normalized_nfc(std::begin(r), std::end(r));
+        return boost::text::v1::normalized_nfc(std::begin(r), std::end(r));
     }
 
     /** Returns true iff the given sequence of code points is normalized NFKC.
@@ -885,7 +896,7 @@ namespace boost { namespace text { inline namespace v1 {
     template<typename CPRange>
     bool normalized_nfkc(CPRange const & r) noexcept
     {
-        return normalized_nfkc(std::begin(r), std::end(r));
+        return boost::text::v1::normalized_nfkc(std::begin(r), std::end(r));
     }
 
     /** Writes sequence `[first, last)` in normalization form FCC to `out`.
@@ -913,7 +924,8 @@ namespace boost { namespace text { inline namespace v1 {
     template<typename CPRange, typename OutIter>
     inline OutIter normalize_to_fcc(CPRange const & r, OutIter out)
     {
-        return normalize_to_fcc(std::begin(r), std::end(r), out);
+        return boost::text::v1::normalize_to_fcc(
+            std::begin(r), std::end(r), out);
     }
 
     /** Returns true iff the given sequence of code points is normalized FCC.
@@ -939,7 +951,7 @@ namespace boost { namespace text { inline namespace v1 {
     template<typename CPRange>
     bool normalized_fcc(CPRange const & r) noexcept
     {
-        return normalized_fcc(std::begin(r), std::end(r));
+        return boost::text::v1::normalized_fcc(std::begin(r), std::end(r));
     }
 
 }}}

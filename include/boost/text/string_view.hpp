@@ -752,24 +752,24 @@ namespace boost { namespace text { inline namespace v1 {
 
 namespace std {
     template<>
-    struct hash<boost::text::string_view>
+    struct hash<boost::text::v1::string_view>
     {
-        using argument_type = boost::text::string_view;
+        using argument_type = boost::text::v1::string_view;
         using result_type = std::size_t;
         result_type operator()(argument_type const & sv) const noexcept
         {
-            return boost::text::detail::hash_char_range(sv);
+            return boost::text::v1::detail::hash_char_range(sv);
         }
     };
 
     template<>
-    struct hash<boost::text::repeated_string_view>
+    struct hash<boost::text::v1::repeated_string_view>
     {
-        using argument_type = boost::text::repeated_string_view;
+        using argument_type = boost::text::v1::repeated_string_view;
         using result_type = std::size_t;
         result_type operator()(argument_type const & rsv) const noexcept
         {
-            return boost::text::detail::hash_char_range(rsv);
+            return boost::text::v1::detail::hash_char_range(rsv);
         }
     };
 }

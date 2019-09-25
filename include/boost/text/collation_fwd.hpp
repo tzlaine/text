@@ -187,25 +187,29 @@ namespace boost { namespace text { inline namespace v1 {
             unsigned int const flags = static_cast<unsigned int>(flags_);
 
             BOOST_ASSERT(
-                (!(flags & to_uint(collation_flags::ignore_punctuation)) ||
-                 !(flags & to_uint(collation_flags::punctuation_last))) &&
+                (!(flags &
+                   detail::to_uint(collation_flags::ignore_punctuation)) ||
+                 !(flags &
+                   detail::to_uint(collation_flags::punctuation_last))) &&
                 "These flags are mutually incompatible.");
 
             BOOST_ASSERT(
-                (!(flags & to_uint(collation_flags::lower_case_first)) ||
-                 !(flags & to_uint(collation_flags::ignore_case))) &&
+                (!(flags &
+                   detail::to_uint(collation_flags::lower_case_first)) ||
+                 !(flags & detail::to_uint(collation_flags::ignore_case))) &&
                 "These flags are mutually incompatible.");
 
             BOOST_ASSERT(
-                (!(flags & to_uint(collation_flags::upper_case_first)) ||
-                 !(flags & to_uint(collation_flags::ignore_case))) &&
+                (!(flags &
+                   detail::to_uint(collation_flags::upper_case_first)) ||
+                 !(flags & detail::to_uint(collation_flags::ignore_case))) &&
                 "These flags are mutually incompatible.");
 
-            if (flags & to_uint(collation_flags::ignore_accents))
+            if (flags & detail::to_uint(collation_flags::ignore_accents))
                 return collation_strength::primary;
-            else if (flags & to_uint(collation_flags::ignore_case))
+            else if (flags & detail::to_uint(collation_flags::ignore_case))
                 return collation_strength::secondary;
-            else if (flags & to_uint(collation_flags::punctuation_last))
+            else if (flags & detail::to_uint(collation_flags::punctuation_last))
                 return collation_strength::quaternary;
             else
                 return collation_strength::tertiary;
@@ -215,9 +219,9 @@ namespace boost { namespace text { inline namespace v1 {
         {
             unsigned int const flags = static_cast<unsigned int>(flags_);
 
-            if (flags & to_uint(collation_flags::case_before_accents) ||
-                (flags & to_uint(collation_flags::ignore_accents) &&
-                 !(flags & to_uint(collation_flags::ignore_case)))) {
+            if (flags & detail::to_uint(collation_flags::case_before_accents) ||
+                (flags & detail::to_uint(collation_flags::ignore_accents) &&
+                 !(flags & detail::to_uint(collation_flags::ignore_case)))) {
                 return case_level::on;
             } else {
                 return case_level::off;
@@ -229,13 +233,15 @@ namespace boost { namespace text { inline namespace v1 {
             unsigned int const flags = static_cast<unsigned int>(flags_);
 
             BOOST_ASSERT(
-                (!(flags & to_uint(collation_flags::lower_case_first)) ||
-                 !(flags & to_uint(collation_flags::upper_case_first))) &&
+                (!(flags &
+                   detail::to_uint(collation_flags::lower_case_first)) ||
+                 !(flags &
+                   detail::to_uint(collation_flags::upper_case_first))) &&
                 "These flags are mutually incompatible.");
 
-            if (flags & to_uint(collation_flags::lower_case_first))
+            if (flags & detail::to_uint(collation_flags::lower_case_first))
                 return case_first::lower;
-            else if (flags & to_uint(collation_flags::upper_case_first))
+            else if (flags & detail::to_uint(collation_flags::upper_case_first))
                 return case_first::upper;
             else
                 return case_first::off;
@@ -245,7 +251,7 @@ namespace boost { namespace text { inline namespace v1 {
         {
             unsigned int const flags = static_cast<unsigned int>(flags_);
 
-            if (flags & to_uint(collation_flags::ignore_punctuation))
+            if (flags & detail::to_uint(collation_flags::ignore_punctuation))
                 return variable_weighting::shifted;
             else
                 return variable_weighting::non_ignorable;
@@ -255,7 +261,7 @@ namespace boost { namespace text { inline namespace v1 {
         {
             unsigned int const flags = static_cast<unsigned int>(flags_);
 
-            if (flags & to_uint(collation_flags::accents_reversed))
+            if (flags & detail::to_uint(collation_flags::accents_reversed))
                 return l2_weight_order::backward;
             else
                 return l2_weight_order::forward;

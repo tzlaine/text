@@ -97,8 +97,8 @@ namespace boost { namespace text { inline namespace v1 {
         {
             return prop != sentence_property::OLetter &&
                    prop != sentence_property::Upper &&
-                   prop != sentence_property::Lower && !para_sep(prop) &&
-                   !sa_term(prop);
+                   prop != sentence_property::Lower &&
+                   !detail::para_sep(prop) && !detail::sa_term(prop);
         }
 
         template<typename CPIter, typename Func>
@@ -107,23 +107,25 @@ namespace boost { namespace text { inline namespace v1 {
             stl_interfaces::reverse_iterator<CPIter> it(std::next(it_));
             stl_interfaces::reverse_iterator<CPIter> last(first);
             it = std::find_if_not(std::next(it), last, [](uint32_t cp) {
-                return skippable(sentence_prop(cp));
+                return detail::skippable(boost::text::v1::sentence_prop(cp));
             });
             if (skip_sps) {
-                while (it != last &&
-                       sentence_prop(*it) == sentence_property::Sp) {
+                while (it != last && boost::text::v1::sentence_prop(*it) ==
+                                         sentence_property::Sp) {
                     it = std::find_if_not(std::next(it), last, [](uint32_t cp) {
-                        return skippable(sentence_prop(cp));
+                        return detail::skippable(
+                            boost::text::v1::sentence_prop(cp));
                     });
                 }
             }
-            while (it != last &&
-                   sentence_prop(*it) == sentence_property::Close) {
+            while (it != last && boost::text::v1::sentence_prop(*it) ==
+                                     sentence_property::Close) {
                 it = std::find_if_not(std::next(it), last, [](uint32_t cp) {
-                    return skippable(sentence_prop(cp));
+                    return detail::skippable(
+                        boost::text::v1::sentence_prop(cp));
                 });
             }
-            return func(sentence_prop(*it));
+            return func(boost::text::v1::sentence_prop(*it));
         }
 
         template<typename CPIter>
@@ -168,25 +170,29 @@ namespace boost { namespace text { inline namespace v1 {
         sentence_break_state<CPIter> skip_forward(
             sentence_break_state<CPIter> state, CPIter first, Sentinel last)
         {
-            if (state.it != first && !skippable(state.prev_prop) &&
-                skippable(state.prop)) {
-                auto temp_it =
-                    find_if_not(std::next(state.it), last, [](uint32_t cp) {
-                        return skippable(sentence_prop(cp));
+            if (state.it != first && !detail::skippable(state.prev_prop) &&
+                detail::skippable(state.prop)) {
+                auto temp_it = boost::text::v1::find_if_not(
+                    std::next(state.it), last, [](uint32_t cp) {
+                        return detail::skippable(
+                            boost::text::v1::sentence_prop(cp));
                     });
                 if (temp_it == last) {
                     state.it = temp_it;
                 } else {
-                    auto const temp_prop = sentence_prop(*temp_it);
+                    auto const temp_prop =
+                        boost::text::v1::sentence_prop(*temp_it);
                     state.it = temp_it;
                     state.prop = temp_prop;
                     state.next_prop = sentence_property::Other;
                     state.next_next_prop = sentence_property::Other;
                     if (std::next(state.it) != last) {
-                        state.next_prop = sentence_prop(*std::next(state.it));
+                        state.next_prop = boost::text::v1::sentence_prop(
+                            *std::next(state.it));
                         if (std::next(state.it, 2) != last) {
                             state.next_next_prop =
-                                sentence_prop(*std::next(state.it, 2));
+                                boost::text::v1::sentence_prop(
+                                    *std::next(state.it, 2));
                         }
                     }
                 }
@@ -313,16 +319,19 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
 
         state.it = it;
 
-        state.prop = sentence_prop(*state.it);
+        state.prop = boost::text::v1::sentence_prop(*state.it);
 
         // Special case: If state.prop is skippable, we need to skip backward
         // until we find a non-skippable.
         if (detail::skippable(state.prop)) {
-            state.it = find_if_not_backward(first, state.it, [](uint32_t cp) {
-                return detail::skippable(sentence_prop(cp));
-            });
-            state.next_prop = sentence_prop(*std::next(state.it));
-            state.prop = sentence_prop(*state.it);
+            state.it = boost::text::v1::find_if_not_backward(
+                first, state.it, [](uint32_t cp) {
+                    return detail::skippable(
+                        boost::text::v1::sentence_prop(cp));
+                });
+            state.next_prop =
+                boost::text::v1::sentence_prop(*std::next(state.it));
+            state.prop = boost::text::v1::sentence_prop(*state.it);
 
             // If we end up on a non-skippable that should break before the
             // skippable(s) we just moved over, break on the last skippable.
@@ -336,14 +345,17 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
 
         state.prev_prev_prop = sentence_property::Other;
         if (std::prev(state.it) != first)
-            state.prev_prev_prop = sentence_prop(*std::prev(state.it, 2));
-        state.prev_prop = sentence_prop(*std::prev(state.it));
+            state.prev_prev_prop =
+                boost::text::v1::sentence_prop(*std::prev(state.it, 2));
+        state.prev_prop = boost::text::v1::sentence_prop(*std::prev(state.it));
         state.next_prop = sentence_property::Other;
         state.next_next_prop = sentence_property::Other;
         if (std::next(state.it) != last) {
-            state.next_prop = sentence_prop(*std::next(state.it));
+            state.next_prop =
+                boost::text::v1::sentence_prop(*std::next(state.it));
             if (std::next(state.it, 2) != last)
-                state.next_next_prop = sentence_prop(*std::next(state.it, 2));
+                state.next_next_prop =
+                    boost::text::v1::sentence_prop(*std::next(state.it, 2));
         }
 
         // Since 'it' may be anywhere within the sentence in which it sits, we
@@ -352,7 +364,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         {
             if (std::next(state.it) != last) {
                 auto temp_state = state;
-                temp_state = next(temp_state);
+                temp_state = detail::next(temp_state);
                 temp_state = detail::skip_forward(temp_state, first, last);
                 if (temp_state.it == last) {
                     state.next_prop = sentence_property::Other;
@@ -360,7 +372,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
                 } else {
                     state.next_prop = temp_state.prop;
                     if (std::next(temp_state.it) != last) {
-                        temp_state = next(temp_state);
+                        temp_state = detail::next(temp_state);
                         temp_state =
                             detail::skip_forward(temp_state, first, last);
                         if (temp_state.it == last)
@@ -376,14 +388,15 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         auto skip = [](detail::sentence_break_state<CPIter> state,
                        CPIter first) {
             if (detail::skippable(state.prev_prop)) {
-                auto temp_it =
-                    find_if_not_backward(first, state.it, [](uint32_t cp) {
-                        return detail::skippable(sentence_prop(cp));
+                auto temp_it = boost::text::v1::find_if_not_backward(
+                    first, state.it, [](uint32_t cp) {
+                        return detail::skippable(
+                            boost::text::v1::sentence_prop(cp));
                     });
 
                 if (temp_it == state.it)
                     return state;
-                auto temp_prev_prop = sentence_prop(*temp_it);
+                auto temp_prev_prop = boost::text::v1::sentence_prop(*temp_it);
                 if (!detail::para_sep(temp_prev_prop)) {
                     state.it = temp_it;
                     state.it_points_to_prev = true;
@@ -392,15 +405,16 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
                         state.prev_prev_prop = sentence_property::Other;
                     else
                         state.prev_prev_prop =
-                            sentence_prop(*std::prev(temp_it));
+                            boost::text::v1::sentence_prop(*std::prev(temp_it));
                 }
             }
             return state;
         };
 
-        for (; state.it != first; state = prev(state)) {
+        for (; state.it != first; state = detail::prev(state)) {
             if (std::prev(state.it) != first)
-                state.prev_prev_prop = sentence_prop(*std::prev(state.it, 2));
+                state.prev_prev_prop =
+                    boost::text::v1::sentence_prop(*std::prev(state.it, 2));
             else
                 state.prev_prev_prop = sentence_property::Other;
 
@@ -431,7 +445,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
             // SB7
             if (state.prev_prop == sentence_property::ATerm &&
                 state.prop == sentence_property::Upper) {
-                auto const temp_state = skip(prev(state), first);
+                auto const temp_state = skip(detail::prev(state), first);
                 if (temp_state.prev_prop == sentence_property::Upper ||
                     temp_state.prev_prop == sentence_property::Lower)
                     continue;
@@ -449,13 +463,17 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
                     });
                 if (aterm) {
                     auto it = after_skip_it;
-                    while (it != last && detail::sb8_not(sentence_prop(*it))) {
-                        it = find_if_not(std::next(it), last, [](uint32_t cp) {
-                            return detail::skippable(sentence_prop(cp));
-                        });
+                    while (
+                        it != last &&
+                        detail::sb8_not(boost::text::v1::sentence_prop(*it))) {
+                        it = boost::text::v1::find_if_not(
+                            std::next(it), last, [](uint32_t cp) {
+                                return detail::skippable(
+                                    boost::text::v1::sentence_prop(cp));
+                            });
                     }
-                    if (it != last &&
-                        sentence_prop(*it) == sentence_property::Lower) {
+                    if (it != last && boost::text::v1::sentence_prop(*it) ==
+                                          sentence_property::Lower) {
                         continue;
                     }
                 }
@@ -542,19 +560,22 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
             return state.it;
 
         state.prev_prev_prop = sentence_property::Other;
-        state.prev_prop = sentence_prop(*first);
-        state.prop = sentence_prop(*state.it);
+        state.prev_prop = boost::text::v1::sentence_prop(*first);
+        state.prop = boost::text::v1::sentence_prop(*state.it);
         state.next_prop = sentence_property::Other;
         state.next_next_prop = sentence_property::Other;
         if (std::next(state.it) != last) {
-            state.next_prop = sentence_prop(*std::next(state.it));
+            state.next_prop =
+                boost::text::v1::sentence_prop(*std::next(state.it));
             if (std::next(state.it, 2) != last)
-                state.next_next_prop = sentence_prop(*std::next(state.it, 2));
+                state.next_next_prop =
+                    boost::text::v1::sentence_prop(*std::next(state.it, 2));
         }
 
-        for (; state.it != last; state = next(state)) {
+        for (; state.it != last; state = detail::next(state)) {
             if (std::next(state.it) != last && std::next(state.it, 2) != last)
-                state.next_next_prop = sentence_prop(*std::next(state.it, 2));
+                state.next_next_prop =
+                    boost::text::v1::sentence_prop(*std::next(state.it, 2));
             else
                 state.next_next_prop = sentence_property::Other;
 
@@ -601,13 +622,17 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
                     });
                 if (aterm) {
                     auto it = state.it;
-                    while (it != last && detail::sb8_not(sentence_prop(*it))) {
-                        it = find_if_not(std::next(it), last, [](uint32_t cp) {
-                            return detail::skippable(sentence_prop(cp));
-                        });
+                    while (
+                        it != last &&
+                        detail::sb8_not(boost::text::v1::sentence_prop(*it))) {
+                        it = boost::text::v1::find_if_not(
+                            std::next(it), last, [](uint32_t cp) {
+                                return detail::skippable(
+                                    boost::text::v1::sentence_prop(cp));
+                            });
                     }
-                    if (it != last &&
-                        sentence_prop(*it) == sentence_property::Lower) {
+                    if (it != last && boost::text::v1::sentence_prop(*it) ==
+                                          sentence_property::Lower) {
                         continue;
                     }
                 }
@@ -680,7 +705,8 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
     auto prev_sentence_break(CPRange & range, CPIter it) noexcept
         -> detail::cp_rng_alg_ret_t<detail::iterator_t<CPRange>, CPRange>
     {
-        return prev_sentence_break(std::begin(range), it, std::end(range));
+        return boost::text::v1::prev_sentence_break(
+            std::begin(range), it, std::end(range));
     }
 
     template<typename GraphemeRange, typename GraphemeIter>
@@ -692,7 +718,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
     {
         using cp_iter_t = decltype(range.begin().base());
         return {range.begin().base(),
-                prev_sentence_break(
+                boost::text::v1::prev_sentence_break(
                     range.begin().base(),
                     static_cast<cp_iter_t>(it.base()),
                     range.end().base()),
@@ -703,7 +729,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
     auto next_sentence_break(CPRange & range, CPIter it) noexcept
         -> detail::cp_rng_alg_ret_t<detail::iterator_t<CPRange>, CPRange>
     {
-        return next_sentence_break(it, std::end(range));
+        return boost::text::v1::next_sentence_break(it, std::end(range));
     }
 
     template<typename GraphemeRange, typename GraphemeIter>
@@ -715,7 +741,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
     {
         using cp_iter_t = decltype(range.begin().base());
         return {range.begin().base(),
-                next_sentence_break(
+                boost::text::v1::next_sentence_break(
                     static_cast<cp_iter_t>(it.base()), range.end().base()),
                 range.end().base()};
     }
@@ -729,7 +755,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
             auto operator()(CPIter it, Sentinel last) noexcept
                 -> detail::cp_iter_ret_t<CPIter, CPIter>
             {
-                return next_sentence_break(it, last);
+                return boost::text::v1::next_sentence_break(it, last);
             }
         };
 
@@ -739,7 +765,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
             auto operator()(CPIter first, CPIter it, CPIter last) noexcept
                 -> detail::cp_iter_ret_t<CPIter, CPIter>
             {
-                return prev_sentence_break(first, it, last);
+                return boost::text::v1::prev_sentence_break(first, it, last);
             }
         };
     }
@@ -748,8 +774,9 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
     template<typename CPIter, typename Sentinel>
     utf32_view<CPIter> sentence(CPIter first, CPIter it, Sentinel last) noexcept
     {
-        first = prev_sentence_break(first, it, last);
-        return utf32_view<CPIter>{first, next_sentence_break(first, last)};
+        first = boost::text::v1::prev_sentence_break(first, it, last);
+        return utf32_view<CPIter>{
+            first, boost::text::v1::next_sentence_break(first, last)};
     }
 
 #ifdef BOOST_TEXT_DOXYGEN
@@ -820,10 +847,11 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
     auto sentence(CPRange & range, CPIter it) noexcept -> detail::
         cp_rng_alg_ret_t<utf32_view<detail::iterator_t<CPRange>>, CPRange>
     {
-        auto first =
-            prev_sentence_break(std::begin(range), it, std::end(range));
+        auto first = boost::text::v1::prev_sentence_break(
+            std::begin(range), it, std::end(range));
         return utf32_view<detail::iterator_t<CPRange>>{
-            first, next_sentence_break(first, std::end(range))};
+            first,
+            boost::text::v1::next_sentence_break(first, std::end(range))};
     }
 
     template<typename GraphemeRange, typename GraphemeIter>
@@ -833,13 +861,13 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
             GraphemeRange>
     {
         using cp_iter_t = decltype(range.begin().base());
-        auto first = prev_sentence_break(
+        auto first = boost::text::v1::prev_sentence_break(
             range.begin().base(),
             static_cast<cp_iter_t>(it.base()),
             range.end().base());
         return {range.begin().base(),
                 first,
-                next_sentence_break(first, range.end().base()),
+                boost::text::v1::next_sentence_break(first, range.end().base()),
                 range.end().base()};
     }
 

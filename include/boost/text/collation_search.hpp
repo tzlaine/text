@@ -21,8 +21,8 @@
 
 #endif
 
-namespace boost {
-    namespace text { inline namespace v1 {
+namespace boost { namespace text {
+    inline namespace v1 {
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -99,9 +99,9 @@ namespace boost {
 // Le sigh.
 namespace std {
     template<>
-    struct hash<boost::text::detail::collation_element>
+    struct hash<boost::text::v1::detail::collation_element>
     {
-        using argument_type = boost::text::detail::collation_element;
+        using argument_type = boost::text::v1::detail::collation_element;
         using result_type = std::size_t;
         result_type operator()(argument_type ce) const noexcept
         {
@@ -122,7 +122,7 @@ namespace boost { namespace text { inline namespace v1 {
             CPIter operator()(CPIter first, CPIter it, Sentinel last) const
                 noexcept
             {
-                return prev_grapheme_break(first, it, last);
+                return boost::text::v1::prev_grapheme_break(first, it, last);
             }
         };
 
@@ -135,7 +135,7 @@ namespace boost { namespace text { inline namespace v1 {
                 case_lvl == case_level::on
                     ? collation_strength(static_cast<int>(strength) + 1)
                     : strength;
-            ce = modify_for_case(ce, strength, case_first::off, case_lvl);
+            ce = detail::modify_for_case(ce, strength, case_first::off, case_lvl);
             if (strength_for_copies < collation_strength::quaternary) {
                 ce.l4_ = 0;
                 if (strength_for_copies < collation_strength::tertiary) {
@@ -156,7 +156,7 @@ namespace boost { namespace text { inline namespace v1 {
         {
             auto out = ces.begin();
             for (auto ce : ces) {
-                ce = adjust_ce_for_search(ce, strength, case_lvl);
+                ce = detail::adjust_ce_for_search(ce, strength, case_lvl);
                 if (ce.l1_ || ce.l2_ || ce.l3_ || ce.l4_)
                     *out++ = ce;
             }
@@ -189,7 +189,8 @@ namespace boost { namespace text { inline namespace v1 {
 
                 for (auto i = 0; i < curr_size; ++i, ++first) {
                     BOOST_ASSERT(first != last);
-                    auto ce = adjust_ce_for_search(*first, strength, case_lvl);
+                    auto ce = detail::adjust_ce_for_search(
+                        *first, strength, case_lvl);
                     if (ce.l1_ || ce.l2_ || ce.l3_ || ce.l4_) {
                         *out++ = ce;
                     } else {
@@ -225,7 +226,7 @@ namespace boost { namespace text { inline namespace v1 {
             variable_weighting weighting)
         {
             ces.clear();
-            std::ptrdiff_t const n = ::boost::text::distance(first, last);
+            std::ptrdiff_t const n = boost::text::v1::distance(first, last);
             container::small_vector<uint32_t, 1024> buf(n);
             {
                 auto buf_it = buf.begin();
@@ -259,7 +260,7 @@ namespace boost { namespace text { inline namespace v1 {
                 weighting);
 
             auto const new_ces_end =
-                adjust_ces_for_search(ces, strength, case_lvl);
+                detail::adjust_ces_for_search(ces, strength, case_lvl);
             ces.erase(new_ces_end, ces.end());
 
 #if BOOST_TEXT_COLLATION_SEARCH_INSTRUMENTATION
@@ -283,7 +284,7 @@ namespace boost { namespace text { inline namespace v1 {
             case_level case_lvl,
             variable_weighting weighting)
         {
-            std::ptrdiff_t n = ::boost::text::distance(get_first, get_last);
+            std::ptrdiff_t n = boost::text::v1::distance(get_first, get_last);
 
             // Add safe stream format-sized slop to the end, to make sure,
             // as much as we can efficiently do, that we do not slice
@@ -296,8 +297,8 @@ namespace boost { namespace text { inline namespace v1 {
             }
 
             auto next_contiguous_starter_it =
-                find_if(get_last, last, [&n](uint32_t cp) {
-                    auto const retval = ccc(cp) == 0;
+                boost::text::v1::find_if(get_last, last, [&n](uint32_t cp) {
+                    auto const retval = detail::ccc(cp) == 0;
                     if (!retval)
                         ++n;
                     return retval;
@@ -354,7 +355,7 @@ namespace boost { namespace text { inline namespace v1 {
 #endif
 #endif
 
-            auto const new_ces_end = adjust_ces_for_search(
+            auto const new_ces_end = detail::adjust_ces_for_search(
                 ces.begin() + old_ces_size,
                 ces.end(),
                 ce_sizes.begin() + old_ce_sizes_size,
@@ -571,7 +572,7 @@ namespace boost { namespace text { inline namespace v1 {
                 PopFrontFunc pop_front,
                 PopsFunc pops_on_mismatch)
             {
-                return search_mismatch_impl(
+                return detail::search_mismatch_impl(
                     it,
                     pattern_ces,
                     str_ces,
@@ -604,7 +605,7 @@ namespace boost { namespace text { inline namespace v1 {
                 PopFrontFunc pop_front,
                 PopsFunc pops_on_mismatch)
             {
-                return search_mismatch_impl(
+                return detail::search_mismatch_impl(
                     it,
                     pattern_ces,
                     str_ces,
@@ -681,9 +682,9 @@ namespace boost { namespace text { inline namespace v1 {
                     if (0 < str_ces_needed_for_search) {
                         auto const append_it =
                             std::next(it, str_ce_sizes.size());
-                        append_search_ces_and_sizes(
+                        detail::append_search_ces_and_sizes(
                             append_it,
-                            next_until(
+                            detail::next_until(
                                 append_it, str_ces_needed_for_search, last),
                             last,
                             str_ces,
@@ -1768,9 +1769,9 @@ namespace boost { namespace text { inline namespace v1 {
         collation_table const & table,
         collation_flags flags = collation_flags::none)
     {
-        auto const s = make_simple_collation_searcher(
+        auto const s = boost::text::v1::make_simple_collation_searcher(
             pattern_first, pattern_last, break_fn, table, flags);
-        return collation_search(first, last, s);
+        return boost::text::v1::collation_search(first, last, s);
     }
 
 #ifdef BOOST_TEXT_DOXYGEN
@@ -1825,9 +1826,10 @@ namespace boost { namespace text { inline namespace v1 {
             utf32_view<detail::iterator_t<decltype(str)>>,
             CPRange1>
     {
-        auto const s =
-            make_simple_collation_searcher(pattern, break_fn, table, flags);
-        return collation_search(std::begin(str), std::end(str), s);
+        auto const s = boost::text::v1::make_simple_collation_searcher(
+            pattern, break_fn, table, flags);
+        return boost::text::v1::collation_search(
+            std::begin(str), std::end(str), s);
     }
 
     template<
@@ -1845,14 +1847,14 @@ namespace boost { namespace text { inline namespace v1 {
             GraphemeRange1>
     {
         using cp_iter_t = decltype(str.begin().base());
-        auto const s = make_simple_collation_searcher(
+        auto const s = boost::text::v1::make_simple_collation_searcher(
             pattern.begin().base(),
             pattern.end().base(),
             break_fn,
             table,
             flags);
-        auto const cp_result =
-            collation_search(str.begin().base(), str.end().base(), s);
+        auto const cp_result = boost::text::v1::collation_search(
+            str.begin().base(), str.end().base(), s);
         return grapheme_view<cp_iter_t>{str.begin().base(),
                                         cp_result.begin(),
                                         cp_result.end(),
@@ -1879,13 +1881,13 @@ namespace boost { namespace text { inline namespace v1 {
         collation_table const & table,
         collation_flags flags = collation_flags::none)
     {
-        auto const s = make_simple_collation_searcher(
+        auto const s = boost::text::v1::make_simple_collation_searcher(
             pattern_first,
             pattern_last,
             detail::coll_search_prev_grapheme_callable{},
             table,
             flags);
-        return collation_search(first, last, s);
+        return boost::text::v1::collation_search(first, last, s);
     }
 
 #ifdef BOOST_TEXT_DOXYGEN
@@ -1932,12 +1934,13 @@ namespace boost { namespace text { inline namespace v1 {
             utf32_view<detail::iterator_t<decltype(str)>>,
             CPRange1>
     {
-        auto const s = make_simple_collation_searcher(
+        auto const s = boost::text::v1::make_simple_collation_searcher(
             pattern,
             detail::coll_search_prev_grapheme_callable{},
             table,
             flags);
-        return collation_search(std::begin(str), std::end(str), s);
+        return boost::text::v1::collation_search(
+            std::begin(str), std::end(str), s);
     }
 
     template<typename GraphemeRange1, typename GraphemeRange2>
@@ -1951,14 +1954,14 @@ namespace boost { namespace text { inline namespace v1 {
             GraphemeRange1>
     {
         using cp_iter_t = decltype(str.begin().base());
-        auto const s = make_simple_collation_searcher(
+        auto const s = boost::text::v1::make_simple_collation_searcher(
             pattern.begin().base(),
             pattern.end().base(),
             detail::coll_search_prev_grapheme_callable{},
             table,
             flags);
-        auto const cp_result =
-            collation_search(str.begin().base(), str.end().base(), s);
+        auto const cp_result = boost::text::v1::collation_search(
+            str.begin().base(), str.end().base(), s);
         return grapheme_view<cp_iter_t>{str.begin().base(),
                                         cp_result.begin(),
                                         cp_result.end(),
