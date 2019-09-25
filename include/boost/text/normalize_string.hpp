@@ -27,7 +27,7 @@ namespace boost { namespace text { inline namespace v1 {
             static void
             call(bool compatible, CPIter first, Sentinel last, String & s)
             {
-                auto const r = detail::make_norm_16_range(first, last);
+                auto const r = boost::text::v1::as_utf16(first, last);
                 auto out = boost::text::v1::utf_16_to_8_inserter(s, s.end());
                 detail::icu::utf16_iter_appender<decltype(out)> appender(out);
                 (compatible ? detail::icu::nfkc_norm()
@@ -53,7 +53,7 @@ namespace boost { namespace text { inline namespace v1 {
             static void
             call(bool compatible, CPIter first, Sentinel last, String & s)
             {
-                auto const r = detail::make_utf8_range(first, last);
+                auto const r = boost::text::v1::as_utf8(first, last);
                 detail::icu::utf8_string_appender<String> appender(s);
                 (compatible ? detail::icu::nfkc_norm()
                             : detail::icu::nfc_norm())
