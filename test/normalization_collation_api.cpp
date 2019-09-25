@@ -535,7 +535,6 @@ TEST(sentinel_apis, normalize_nfc)
         std::begin(cps), std::end(cps), std::back_inserter(utf16));
     std::vector<uint32_t> const cps_copy(std::begin(cps), std::end(cps));
 
-#if 0
     // range overload
     std::vector<uint32_t> result1;
     normalize_to_nfc(cps_copy, std::back_inserter(result1));
@@ -549,23 +548,17 @@ TEST(sentinel_apis, normalize_nfc)
 
     // utf_8_to_32_iterator/sentinel
     std::vector<uint32_t> result3;
-    auto utf8_it =
-        make_utf_8_to_32_iterator(
-        &*utf8.begin(),
-        &*utf8.begin() + utf8.size(),
-        &*utf8.begin() + utf8.size());
-    normalize_to_nfc(utf8_it, null_sentinel{}, std::back_inserter(result3));
+    auto utf8_rng_0 = as_utf32(&*utf8.begin(), null_sentinel{});
+    normalize_to_nfc(
+        utf8_rng_0.begin(), null_sentinel{}, std::back_inserter(result3));
 
     EXPECT_EQ(result3, result1);
 
     // utf_8_to_32_iterator/utf_8_to_32_iterator
     std::vector<uint32_t> result4;
-    auto utf8_end =
-        make_utf_8_to_32_iterator(
-        &*utf8.begin(),
-        &*utf8.begin() + utf8.size(),
-        &*utf8.begin() + utf8.size());
-    normalize_to_nfc(utf8_it, utf8_end, std::back_inserter(result4));
+    auto utf8_rng_1 = as_utf32(&*utf8.begin(), &*utf8.begin() + utf8.size());
+    normalize_to_nfc(
+        utf8_rng_1.begin(), utf8_rng_1.end(), std::back_inserter(result4));
 
     EXPECT_EQ(result4, result1);
 
@@ -578,10 +571,8 @@ TEST(sentinel_apis, normalize_nfc)
     normalize_to_nfc(utf16_it, utf16_end, std::back_inserter(result5));
 
     EXPECT_EQ(result5, result1);
-#endif
 }
 
-#if 0
 TEST(sentinel_apis, normalize_nfkc)
 {
     std::string utf8;
@@ -605,23 +596,17 @@ TEST(sentinel_apis, normalize_nfkc)
 
     // utf_8_to_32_iterator/sentinel
     std::vector<uint32_t> result3;
-    auto utf8_it =
-        make_utf_8_to_32_iterator(
-        &*utf8.begin(),
-        &*utf8.begin() + utf8.size(),
-        &*utf8.begin() + utf8.size());
-    normalize_to_nfkc(utf8_it, null_sentinel{}, std::back_inserter(result3));
+    auto utf8_rng_0 = as_utf32(&*utf8.begin(), null_sentinel{});
+    normalize_to_nfkc(
+        utf8_rng_0.begin(), null_sentinel{}, std::back_inserter(result3));
 
     EXPECT_EQ(result3, result1);
 
     // utf_8_to_32_iterator/utf_8_to_32_iterator
     std::vector<uint32_t> result4;
-    auto utf8_end =
-        make_utf_8_to_32_iterator(
-        &*utf8.begin(),
-        &*utf8.begin() + utf8.size(),
-        &*utf8.begin() + utf8.size());
-    normalize_to_nfkc(utf8_it, utf8_end, std::back_inserter(result4));
+    auto utf8_rng_1 = as_utf32(&*utf8.begin(), &*utf8.begin() + utf8.size());
+    normalize_to_nfkc(
+        utf8_rng_1.begin(), utf8_rng_1.end(), std::back_inserter(result4));
 
     EXPECT_EQ(result4, result1);
 
@@ -659,23 +644,17 @@ TEST(sentinel_apis, normalize_fcc)
 
     // utf_8_to_32_iterator/sentinel
     std::vector<uint32_t> result3;
-    auto utf8_it =
-        make_utf_8_to_32_iterator(
-        &*utf8.begin(),
-        &*utf8.begin() + utf8.size(),
-        &*utf8.begin() + utf8.size());
-    normalize_to_fcc(utf8_it, null_sentinel{}, std::back_inserter(result3));
+    auto utf8_rng_0 = as_utf32(&*utf8.begin(), null_sentinel{});
+    normalize_to_fcc(
+        utf8_rng_0.begin(), null_sentinel{}, std::back_inserter(result3));
 
     EXPECT_EQ(result3, result1);
 
     // utf_8_to_32_iterator/utf_8_to_32_iterator
     std::vector<uint32_t> result4;
-    auto utf8_end =
-        make_utf_8_to_32_iterator(
-        &*utf8.begin(),
-        &*utf8.begin() + utf8.size(),
-        &*utf8.begin() + utf8.size());
-    normalize_to_fcc(utf8_it, utf8_end, std::back_inserter(result4));
+    auto utf8_rng_1 = as_utf32(&*utf8.begin(), &*utf8.begin() + utf8.size());
+    normalize_to_fcc(
+        utf8_rng_1.begin(), utf8_rng_1.end(), std::back_inserter(result4));
 
     EXPECT_EQ(result4, result1);
 
@@ -689,7 +668,6 @@ TEST(sentinel_apis, normalize_fcc)
 
     EXPECT_EQ(result5, result1);
 }
-#endif
 
 TEST(transcoding, output_iterators)
 {
