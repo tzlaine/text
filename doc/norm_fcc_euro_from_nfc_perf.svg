@@ -1,0 +1,18 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="500" height="100">
+  <g fill="#32a852">
+    <rect width="300.0" height="20" y="0"></rect>
+    <text x="305.0" y="10.0" dy=".35em">Algorithm with back-inserter</text>
+  </g>
+  <g fill="#3f6078">
+    <rect width="39.1715562326" height="20" y="25"></rect>
+    <text x="44.1715562326" y="35.0" dy=".35em">String append</text>
+  </g>
+  <g fill="#ad3939">
+    <rect width="167.931662001" height="20" y="50"></rect>
+    <text x="172.931662001" y="60.0" dy=".35em">ICU</text>
+  </g>
+  <g fill="#ad9e39">
+    <rect width="49.7200081614" height="20" y="75"></rect>
+    <text x="54.7200081614" y="85.0" dy=".35em">ICU UTF-16</text>
+  </g>
+</svg>
