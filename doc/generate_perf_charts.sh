@@ -20,7 +20,7 @@ fi
 
 # Normalization perf output (from NFC/European languages)
 nfc_norm_scale=2500000
-nfd_norm_scale=10000000
+nfd_norm_scale=5000000
 
 if [ ! -f icu_normalization_euro_from_nfc.out ]; then
     echo "icu_normalization --european --from-nfc"
