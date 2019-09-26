@@ -28,8 +28,7 @@ namespace boost { namespace text { inline namespace v1 {
             call(bool compatible, CPIter first, Sentinel last, String & s)
             {
                 auto const r = boost::text::v1::as_utf16(first, last);
-                auto out = boost::text::v1::utf_16_to_8_inserter(s, s.end());
-                detail::icu::utf16_iter_appender<decltype(out)> appender(out);
+                detail::icu::utf16_to_utf8_string_appender<String> appender(s);
                 (compatible ? detail::icu::nfkc_norm()
                             : detail::icu::nfc_norm())
                     .compose<OnlyContiguous, WriteToOut>(
@@ -77,9 +76,8 @@ namespace boost { namespace text { inline namespace v1 {
             decltype(s.insert(s.end(), detail::ncstr, detail::ncstr), s),
             CPIter>
     {
-        auto out = boost::text::v1::utf_16_to_8_inserter(s, s.end());
-        detail::icu::utf16_iter_appender<decltype(out)> appender(out);
-        detail::norm_nfd_impl<detail::norm_normalize, decltype(out)>(
+        detail::icu::utf16_to_utf8_string_appender<String> appender(s);
+        detail::norm_nfd_impl<detail::norm_normalize, int>(
             detail::norm_nfd, first, last, appender);
         return s;
     }
@@ -109,9 +107,8 @@ namespace boost { namespace text { inline namespace v1 {
             decltype(s.insert(s.end(), detail::ncstr, detail::ncstr), s),
             CPIter>
     {
-        auto out = boost::text::v1::utf_16_to_8_inserter(s, s.end());
-        detail::icu::utf16_iter_appender<decltype(out)> appender(out);
-        detail::norm_nfd_impl<detail::norm_normalize, decltype(out)>(
+        detail::icu::utf16_to_utf8_string_appender<String> appender(s);
+        detail::norm_nfd_impl<detail::norm_normalize, int>(
             detail::norm_nfkd, first, last, appender);
         return s;
     }

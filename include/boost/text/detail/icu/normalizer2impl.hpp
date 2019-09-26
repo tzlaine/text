@@ -256,21 +256,28 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
         String * s_;
     };
 
-    template<typename OutIter>
-    struct utf16_iter_appender
+    template<typename String>
+    struct utf16_to_utf8_string_appender
     {
-        explicit utf16_iter_appender(OutIter out) : out_(out) {}
+        explicit utf16_to_utf8_string_appender(String & s) : s_(&s) {}
 
         template<typename Iter>
         _16_iter_ret_t<void, Iter> append(Iter utf16_first, Iter utf16_last)
         {
-            out_ = std::copy(utf16_first, utf16_last, out_);
+            auto const dist = std::distance(utf16_first, utf16_last);
+            auto const initial_size = s_->size();
+            s_->resize(initial_size + dist * 2, typename String::value_type{});
+            auto * s_first = &*s_->begin();
+            auto * out = s_first + initial_size;
+            out = boost::text::v1::transcode_utf_16_to_8(
+                utf16_first, utf16_last, out);
+            s_->resize(out - s_first, typename String::value_type{});
         }
 
-        OutIter out() const { return out_; }
+        int out() const noexcept { return 0; }
 
     private:
-        OutIter out_;
+        String * s_;
     };
 
     template<typename UTF32OutIter>
