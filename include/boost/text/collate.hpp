@@ -1166,6 +1166,60 @@ namespace boost { namespace text { inline namespace v1 {
 namespace boost { namespace text { inline namespace v1 { namespace detail {
 
     template<typename CPIter, typename Sentinel>
+    CPIter get_collation_elements(
+        CPIter first,
+        Sentinel last,
+        collation_strength strength,
+        case_first case_1st,
+        case_level case_lvl,
+        variable_weighting weighting,
+        l2_weight_order l2_order,
+        collation_table const & table,
+        std::array<uint32_t, 256> & buffer,
+        std::array<uint32_t, 256>::iterator & buf_it,
+        int & cps,
+        container::small_vector<collation_element, 1024> & ces)
+    {
+        auto it = first;
+        for (; it != last && buf_it != buffer.end(); ++buf_it, ++it, ++cps) {
+            *buf_it = *it;
+        }
+
+        // The chunk we pass to S2 should end at the earliest contiguous
+        // starter (ccc == 0) we find searching backward from the end.  This
+        // is because 1) we don't want to cut off trailing combining
+        // characters that may participate in longest-match determination in
+        // S2.1, and 2) in S2.3 we need to know if earlier CPs are
+        // variable-weighted or not.
+        auto s2_it = buf_it;
+        if (s2_it == buffer.end()) {
+            while (s2_it != buffer.begin()) {
+                if (detail::ccc(*--s2_it) == 0)
+                    break;
+            }
+            while (s2_it != buffer.begin()) {
+                if (detail::ccc(*--s2_it) != 0)
+                    break;
+            }
+            ++s2_it;
+        }
+
+        auto const end_of_raw_input = std::prev(it, s2_it - buf_it);
+        table.copy_collation_elements(
+            buffer.begin(),
+            s2_it,
+            std::back_inserter(ces),
+            strength,
+            case_1st,
+            case_lvl,
+            weighting);
+        buf_it = std::copy(s2_it, buf_it, buffer.begin());
+        first = end_of_raw_input;
+
+        return first;
+    }
+
+    template<typename CPIter, typename Sentinel>
     auto collation_sort_key(
         CPIter first,
         Sentinel last,
@@ -1188,47 +1242,24 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         if (table.case_lvl())
             case_lvl = *table.case_lvl();
 
-        container::small_vector<collation_element, 1024> ces;
         std::array<uint32_t, 256> buffer;
+        container::small_vector<collation_element, 1024> ces;
         auto buf_it = buffer.begin();
-        auto it = first;
         int cps = 0;
-        while (it != last) {
-            for (; it != last && buf_it != buffer.end();
-                 ++buf_it, ++it, ++cps) {
-                *buf_it = *it;
-            }
-
-            // The chunk we pass to S2 should end at the earliest
-            // contiguous starter (ccc == 0) we find searching backward
-            // from the end.  This is because 1) we don't want to cut off
-            // trailing combining characters that may participate in
-            // longest-match determination in S2.1, and 2) in S2.3 we need
-            // to know if earlier CPs are variable-weighted or not.
-            auto s2_it = buf_it;
-            if (s2_it == buffer.end()) {
-                while (s2_it != buffer.begin()) {
-                    if (detail::ccc(*--s2_it) == 0)
-                        break;
-                }
-                while (s2_it != buffer.begin()) {
-                    if (detail::ccc(*--s2_it) != 0)
-                        break;
-                }
-                ++s2_it;
-            }
-
-            auto const end_of_raw_input = std::prev(it, s2_it - buf_it);
-            table.copy_collation_elements(
-                buffer.begin(),
-                s2_it,
-                std::back_inserter(ces),
+        while (first != last) {
+            first = get_collation_elements(
+                first,
+                last,
                 strength,
                 case_1st,
                 case_lvl,
-                weighting);
-            buf_it = std::copy(s2_it, buf_it, buffer.begin());
-            first = end_of_raw_input;
+                weighting,
+                l2_order,
+                table,
+                buffer,
+                buf_it,
+                cps,
+                ces);
         }
 
         std::vector<uint32_t> bytes;
