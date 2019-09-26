@@ -786,6 +786,23 @@ namespace boost { namespace text { inline namespace v1 {
             typename Sentinel1,
             typename CPIter2,
             typename Sentinel2>
+        int collate_impl(
+            CPIter1 lhs_first,
+            Sentinel1 lhs_last,
+            CPIter2 rhs_first,
+            Sentinel2 rhs_last,
+            collation_strength strength,
+            case_first case_1st,
+            case_level case_lvl,
+            variable_weighting weighting,
+            l2_weight_order l2_order,
+            collation_table const & table);
+
+        template<
+            typename CPIter1,
+            typename Sentinel1,
+            typename CPIter2,
+            typename Sentinel2>
         auto collate(
             CPIter1 lhs_first,
             Sentinel1 lhs_last,
@@ -1276,6 +1293,343 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
            bytes);
 
         return text_sort_key(std::move(bytes));
+    }
+
+    template<typename CEIter>
+    int compare_l2(
+        CEIter lhs_first,
+        CEIter lhs_last,
+        CEIter rhs_first,
+        CEIter rhs_last,
+        collation_strength strength,
+        case_first case_1st,
+        case_level case_lvl)
+    {
+        for (; lhs_first != lhs_last && rhs_first != rhs_last;
+             ++lhs_first, ++rhs_first) {
+            collation_element & lhs = *lhs_first;
+            lhs = detail::modify_for_case(lhs, strength, case_1st, case_lvl);
+            collation_element & rhs = *rhs_first;
+            rhs = detail::modify_for_case(rhs, strength, case_1st, case_lvl);
+
+            if (lhs.l2_ < rhs.l2_)
+                return -1;
+            if (rhs.l2_ < lhs.l2_)
+                return 1;
+        }
+
+        std::transform(
+            lhs_first, lhs_last, lhs_first, [=](collation_element ce) {
+                return detail::modify_for_case(
+                    ce, strength, case_1st, case_lvl);
+            });
+        std::transform(
+            rhs_first, rhs_last, rhs_first, [=](collation_element ce) {
+                return detail::modify_for_case(
+                    ce, strength, case_1st, case_lvl);
+            });
+
+        auto const lhs_at_end = lhs_first == lhs_last;
+        auto const rhs_at_end = rhs_first == rhs_last;
+
+        if (lhs_at_end && rhs_at_end)
+            return 0;
+        if (lhs_at_end) {
+            return std::any_of(
+                       rhs_first,
+                       rhs_last,
+                       [](collation_element ce) { return ce.l2_ != 0; })
+                       ? -1
+                       : 0;
+        }
+        if (rhs_at_end) {
+            return std::any_of(
+                       lhs_first,
+                       lhs_last,
+                       [](collation_element ce) { return ce.l2_ != 0; })
+                       ? 1
+                       : 0;
+        }
+
+        if (lhs_first->l2_ < rhs_first->l2_)
+            return -1;
+        if (rhs_first->l2_ < lhs_first->l2_)
+            return 1;
+        return 0;
+    }
+
+    template<typename CEIter, typename Proj>
+    int compare_l3_or_l4(
+        CEIter lhs_first,
+        CEIter lhs_last,
+        CEIter rhs_first,
+        CEIter rhs_last,
+        collation_strength strength,
+        case_first case_1st,
+        case_level case_lvl,
+        Proj proj)
+    {
+        auto const mismatches = algorithm::mismatch(
+            lhs_first,
+            lhs_last,
+            rhs_first,
+            rhs_last,
+            [=](collation_element lhs, collation_element rhs) {
+                return proj(lhs) == proj(rhs);
+            });
+        auto const lhs_at_end = mismatches.first == lhs_last;
+        auto const rhs_at_end = mismatches.second == rhs_last;
+
+        if (lhs_at_end) {
+            return std::any_of(
+                       mismatches.second,
+                       rhs_last,
+                       [=](collation_element ce) { return proj(ce) != 0; })
+                       ? -1
+                       : 0;
+        }
+        if (rhs_at_end) {
+            return std::any_of(
+                       mismatches.first,
+                       lhs_last,
+                       [=](collation_element ce) { return proj(ce) != 0; })
+                       ? 1
+                       : 0;
+        }
+
+        if (proj(mismatches.first) < proj(mismatches.second))
+            return -1;
+        if (proj(mismatches.second) < proj(mismatches.first))
+            return 1;
+        return 0;
+    }
+
+    template<
+        typename CPIter1,
+        typename Sentinel1,
+        typename CPIter2,
+        typename Sentinel2>
+    int collate_impl(
+        CPIter1 lhs_first,
+        Sentinel1 lhs_last,
+        CPIter2 rhs_first,
+        Sentinel2 rhs_last,
+        collation_strength strength,
+        case_first case_1st,
+        case_level case_lvl,
+        variable_weighting weighting,
+        l2_weight_order l2_order,
+        collation_table const & table)
+    {
+        if (table.l2_order())
+            l2_order = *table.l2_order();
+        if (table.weighting())
+            weighting = *table.weighting();
+        if (table.case_1st())
+            case_1st = *table.case_1st();
+        if (table.case_lvl())
+            case_lvl = *table.case_lvl();
+
+        std::array<uint32_t, 256> lhs_buffer;
+        std::array<uint32_t, 256> rhs_buffer;
+        container::small_vector<collation_element, 1024> lhs_ces;
+        container::small_vector<collation_element, 1024> rhs_ces;
+        auto lhs_buf_it = lhs_buffer.begin();
+        auto rhs_buf_it = rhs_buffer.begin();
+        int lhs_cps = 0;
+        int rhs_cps = 0;
+
+        // Find and compare the first nonignorable CEs on the left and right.
+        // Keep doing this one buffer-chunk at a time as long as the CEs are
+        // all the same.
+        std::ptrdiff_t last_ce_index = 0;
+        while (lhs_first != lhs_last && rhs_first != rhs_last) {
+            lhs_first = get_collation_elements(
+                lhs_first,
+                lhs_last,
+                strength,
+                case_1st,
+                case_lvl,
+                weighting,
+                l2_order,
+                table,
+                lhs_buffer,
+                lhs_buf_it,
+                lhs_cps,
+                lhs_ces);
+            rhs_first = get_collation_elements(
+                rhs_first,
+                rhs_last,
+                strength,
+                case_1st,
+                case_lvl,
+                weighting,
+                l2_order,
+                table,
+                rhs_buffer,
+                rhs_buf_it,
+                rhs_cps,
+                rhs_ces);
+
+            auto const mismatches = algorithm::mismatch(
+                lhs_ces.begin() + last_ce_index,
+                lhs_ces.end(),
+                rhs_ces.begin() + last_ce_index,
+                rhs_ces.end(),
+                [](collation_element lhs, collation_element rhs) {
+                    return lhs.l1_ == rhs.l1_;
+                });
+            auto const lhs_at_end = mismatches.first == lhs_ces.end();
+            auto const rhs_at_end = mismatches.second == rhs_ces.end();
+            if (lhs_at_end && rhs_at_end) {
+                last_ce_index = (std::min)(lhs_ces.size(), rhs_ces.size());
+                continue;
+            }
+            if (!lhs_at_end && !rhs_at_end)
+                return mismatches.first->l1_ < mismatches.second->l1_ ? -1 : 1;
+        }
+
+        // Now we're at the end of the common prefix of both sides, but there
+        // may be some CPs remaining on the left or right for which we have
+        // not gotten the CEs.
+
+        // If there are extra CEs on the left and at least one of them is
+        // non-ignorable, return 1.
+        while (lhs_first != lhs_last && rhs_first != rhs_last) {
+            lhs_first = get_collation_elements(
+                lhs_first,
+                lhs_last,
+                strength,
+                case_1st,
+                case_lvl,
+                weighting,
+                l2_order,
+                table,
+                lhs_buffer,
+                lhs_buf_it,
+                lhs_cps,
+                lhs_ces);
+            if (std::any_of(
+                    lhs_ces.begin() + last_ce_index,
+                    lhs_ces.end(),
+                    [](collation_element ce) { return ce.l1_ != 0; })) {
+                return 1;
+            }
+            last_ce_index = lhs_ces.size();
+        }
+
+        // If there are extra CEs on the right and at least one of them is
+        // non-ignorable, return -1.
+        while (rhs_first != rhs_last && rhs_first != rhs_last) {
+            rhs_first = get_collation_elements(
+                rhs_first,
+                rhs_last,
+                strength,
+                case_1st,
+                case_lvl,
+                weighting,
+                l2_order,
+                table,
+                rhs_buffer,
+                rhs_buf_it,
+                rhs_cps,
+                rhs_ces);
+            if (std::any_of(
+                    rhs_ces.begin() + last_ce_index,
+                    rhs_ces.end(),
+                    [](collation_element ce) { return ce.l1_ != 0; })) {
+                return -1;
+            }
+            last_ce_index = rhs_ces.size();
+        }
+
+        // Now we have all the CEs, and they're equal within the common
+        // prefix, and possibly one side or the other is longer, but the extra
+        // length is all primary-ignorable.
+
+        if (strength == collation_strength::primary)
+            return 0;
+
+        int const l2_comparison = l2_order == l2_weight_order::forward
+                                      ? compare_l2(
+                                            lhs_ces.begin(),
+                                            lhs_ces.end(),
+                                            rhs_ces.begin(),
+                                            rhs_ces.end(),
+                                            strength,
+                                            case_1st,
+                                            case_lvl)
+                                      : compare_l2(
+                                            lhs_ces.rbegin(),
+                                            lhs_ces.rend(),
+                                            rhs_ces.rbegin(),
+                                            rhs_ces.rend(),
+                                            strength,
+                                            case_1st,
+                                            case_lvl);
+        if (l2_comparison)
+            return l2_comparison;
+
+        if (strength == collation_strength::secondary)
+            return 0;
+
+        int const l3_comparison = compare_l3_or_l4(
+            lhs_ces.begin(),
+            lhs_ces.end(),
+            rhs_ces.begin(),
+            rhs_ces.end(),
+            strength,
+            case_1st,
+            case_lvl,
+            [](collation_element ce) { return ce.l3_; });
+        if (l3_comparison)
+            return l3_comparison;
+
+        if (strength == collation_strength::tertiary)
+            return 0;
+
+        int const l4_comparison = compare_l3_or_l4(
+            lhs_ces.begin(),
+            lhs_ces.end(),
+            rhs_ces.begin(),
+            rhs_ces.end(),
+            strength,
+            case_1st,
+            case_lvl,
+            [](collation_element ce) { return ce.l4_; });
+        if (l4_comparison)
+            return l4_comparison;
+
+        if (strength == collation_strength::quaternary)
+            return 0;
+
+        string lhs_str;
+        normalize_to_nfd_utf8_append(lhs_first, lhs_last, lhs_str);
+        string rhs_str;
+        normalize_to_nfd_utf8_append(rhs_first, rhs_last, rhs_str);
+
+        auto const lhs_str_utf32 = as_utf32(lhs_str);
+        auto const rhs_str_utf32 = as_utf32(rhs_str);
+        auto const mismatches = algorithm::mismatch(
+            lhs_str_utf32.begin(),
+            lhs_str_utf32.end(),
+            rhs_str_utf32.begin(),
+            rhs_str_utf32.end());
+        auto const lhs_at_end = mismatches.first == lhs_str_utf32.end();
+        auto const rhs_at_end = mismatches.second == rhs_str_utf32.end();
+
+        if (lhs_at_end && rhs_at_end)
+            return 0;
+        if (lhs_at_end)
+            return 1;
+        if (rhs_at_end)
+            return -1;
+
+        if (*mismatches.first < *mismatches.second)
+            return -1;
+        if (*mismatches.second < *mismatches.first)
+            return 1;
+        return 0;
     }
 
 }}}}
