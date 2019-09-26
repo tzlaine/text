@@ -4,6 +4,7 @@
 #include <boost/text/algorithm.hpp>
 #include <boost/text/collation_fwd.hpp>
 #include <boost/text/normalize.hpp>
+#include <boost/text/normalize_string.hpp>
 #include <boost/text/string.hpp>
 #include <boost/text/detail/collation_data.hpp>
 
@@ -803,11 +804,117 @@ namespace boost { namespace text { inline namespace v1 {
             typename Sentinel1,
             typename CPIter2,
             typename Sentinel2>
-        auto collate(
+        auto utf_mismatch(
             CPIter1 lhs_first,
             Sentinel1 lhs_last,
             CPIter2 rhs_first,
-            Sentinel2 rhs_last,
+            Sentinel2 rhs_last)
+        {
+            for (; lhs_first != lhs_last && rhs_first != rhs_last;
+                 ++lhs_first, ++rhs_first) {
+                if (*lhs_first != *rhs_first)
+                    break;
+            }
+            return std::make_pair(lhs_first, rhs_first);
+        }
+
+        template<typename Iter, typename Sentinel>
+        auto utf_mismatch_backup(
+            utf8_tag,
+            Iter lhs_first,
+            Iter & lhs_it,
+            Sentinel lhs_last,
+            Iter rhs_first,
+            Iter & rhs_it,
+            Sentinel rhs_last)
+        {
+            while (lhs_it != lhs_first && rhs_it != rhs_first &&
+                   (boost::text::v1::continuation(*lhs_it) ||
+                    boost::text::v1::continuation(*rhs_it))) {
+                --lhs_it;
+                --rhs_it;
+            }
+        }
+
+        template<typename Iter, typename Sentinel>
+        auto utf_mismatch_backup(
+            utf16_tag,
+            Iter lhs_first,
+            Iter & lhs_it,
+            Sentinel lhs_last,
+            Iter rhs_first,
+            Iter & rhs_it,
+            Sentinel rhs_last)
+        {
+            while (lhs_it != lhs_first && rhs_it != rhs_first &&
+                   (boost::text::v1::low_surrogate(*lhs_it) ||
+                    boost::text::v1::low_surrogate(*rhs_it))) {
+                --lhs_it;
+                --rhs_it;
+            }
+        }
+
+        template<typename Iter, typename Sentinel>
+        auto utf_mismatch_backup(
+            utf32_tag,
+            Iter lhs_first,
+            Iter lhs_it,
+            Sentinel lhs_last,
+            Iter rhs_first,
+            Iter rhs_it,
+            Sentinel rhs_last)
+        {}
+
+        template<typename CPIter, typename Sentinel>
+        auto utf_mismatch(
+            CPIter lhs_first_,
+            Sentinel lhs_last_,
+            CPIter rhs_first_,
+            Sentinel rhs_last_)
+        {
+            auto const lhs_unpacked =
+                detail::unpack_iterator_and_sentinel(lhs_first_, lhs_last_);
+            auto const rhs_unpacked =
+                detail::unpack_iterator_and_sentinel(rhs_first_, rhs_last_);
+
+            auto lhs_first = lhs_unpacked.f_;
+            auto const lhs_last = lhs_unpacked.l_;
+            auto rhs_first = rhs_unpacked.f_;
+            auto const rhs_last = rhs_unpacked.l_;
+
+            // This is std::ranges::mismatch(), but I can't use that yet.
+            for (; lhs_first != lhs_last && rhs_first != rhs_last;
+                 ++lhs_first, ++rhs_first) {
+                if (*lhs_first != *rhs_first) {
+                    // Back up so that we stop at a CP boundary.
+                    utf_mismatch_backup(
+                        lhs_unpacked.tag_,
+                        lhs_unpacked.f_,
+                        lhs_first,
+                        lhs_unpacked.l_,
+                        rhs_unpacked.f_,
+                        rhs_first,
+                        rhs_unpacked.l_);
+                    break;
+                }
+            }
+
+            auto lhs_r = boost::text::v1::as_utf32(lhs_first, lhs_last);
+            auto rhs_r = boost::text::v1::as_utf32(rhs_first, rhs_last);
+
+            return std::make_pair(lhs_r.begin(), rhs_r.begin());
+        }
+
+        template<
+            typename CPIter1,
+            typename Sentinel1,
+            typename CPIter2,
+            typename Sentinel2>
+        auto collate(
+            CPIter1 lhs_first_,
+            Sentinel1 lhs_last_,
+            CPIter2 rhs_first_,
+            Sentinel2 rhs_last_,
             collation_strength strength,
             case_first case_1st,
             case_level case_lvl,
@@ -817,8 +924,8 @@ namespace boost { namespace text { inline namespace v1 {
             -> detail::cp_iter_ret_t<int, CPIter1>
         {
             text_sort_key const lhs_sk = collation_sort_key(
-                lhs_first,
-                lhs_last,
+                lhs_first_,
+                lhs_last_,
                 strength,
                 case_1st,
                 case_lvl,
@@ -826,8 +933,8 @@ namespace boost { namespace text { inline namespace v1 {
                 l2_order,
                 table);
             text_sort_key const rhs_sk = collation_sort_key(
-                rhs_first,
-                rhs_last,
+                rhs_first_,
+                rhs_last_,
                 strength,
                 case_1st,
                 case_lvl,
@@ -835,6 +942,67 @@ namespace boost { namespace text { inline namespace v1 {
                 l2_order,
                 table);
             return boost::text::v1::compare(lhs_sk, rhs_sk);
+#if 0 // TODO: This causes a failure in tailoring_g0
+            // Looking for a common prefix does not work very well if L2 is
+            // backward.
+            if (collation_strength::secondary <= strength &&
+                l2_order == l2_weight_order::backward) {
+                return collate_impl(
+                    lhs_first_,
+                    lhs_last_,
+                    rhs_first_,
+                    rhs_last_,
+                    strength,
+                    case_1st,
+                    case_lvl,
+                    weighting,
+                    l2_order,
+                    table);
+            }
+
+            // Identical CPs will result in identical CEs, so we can ignore
+            // any common prefix.
+            auto mismatches =
+                utf_mismatch(lhs_first_, lhs_last_, rhs_first_, rhs_last_);
+
+            // Same as the logic in get_collation_elements().
+            if ((mismatches.first != lhs_first_ &&
+                 mismatches.first == lhs_last_) ||
+                (mismatches.second != rhs_first_ &&
+                 mismatches.second == rhs_last_)) {
+                --mismatches.first;
+                --mismatches.second;
+            }
+            for (; mismatches.first != lhs_first_;
+                 --mismatches.first, --mismatches.second) {
+                if (detail::ccc(*mismatches.first) == 0)
+                    break;
+            }
+            bool need_incr = false;
+            for (; mismatches.first != lhs_first_;
+                 --mismatches.first, --mismatches.second) {
+                if (detail::ccc(*mismatches.first) != 0) {
+                    need_incr = true;
+                    break;
+                }
+            }
+            if (need_incr) {
+                ++mismatches.first;
+                ++mismatches.second;
+            }
+
+            return collate_impl(
+                mismatches.first,
+                lhs_last_,
+                mismatches.second,
+                rhs_last_,
+                strength,
+                case_1st,
+                case_lvl,
+                weighting,
+                l2_order,
+                table);
+#endif
         }
     }
 
@@ -1214,11 +1382,15 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                 if (detail::ccc(*--s2_it) == 0)
                     break;
             }
+            bool need_incr = false;
             while (s2_it != buffer.begin()) {
-                if (detail::ccc(*--s2_it) != 0)
+                if (detail::ccc(*--s2_it) != 0) {
+                    need_incr = true;
                     break;
+                }
             }
-            ++s2_it;
+            if (need_incr)
+                ++s2_it;
         }
 
         auto const end_of_raw_input = std::prev(it, s2_it - buf_it);
@@ -1397,9 +1569,9 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                        : 0;
         }
 
-        if (proj(mismatches.first) < proj(mismatches.second))
+        if (proj(*mismatches.first) < proj(*mismatches.second))
             return -1;
-        if (proj(mismatches.second) < proj(mismatches.first))
+        if (proj(*mismatches.second) < proj(*mismatches.first))
             return 1;
         return 0;
     }
@@ -1604,9 +1776,11 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             return 0;
 
         string lhs_str;
-        normalize_to_nfd_utf8_append(lhs_first, lhs_last, lhs_str);
+        boost::text::v1::normalize_to_nfd_append_utf8(
+            lhs_first, lhs_last, lhs_str);
         string rhs_str;
-        normalize_to_nfd_utf8_append(rhs_first, rhs_last, rhs_str);
+        boost::text::v1::normalize_to_nfd_append_utf8(
+            rhs_first, rhs_last, rhs_str);
 
         auto const lhs_str_utf32 = as_utf32(lhs_str);
         auto const rhs_str_utf32 = as_utf32(rhs_str);
