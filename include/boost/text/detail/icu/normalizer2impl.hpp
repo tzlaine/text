@@ -266,7 +266,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
         {
             auto const dist = std::distance(utf16_first, utf16_last);
             auto const initial_size = s_->size();
-            s_->resize(initial_size + dist * 2, typename String::value_type{});
+            s_->resize(initial_size + dist * 3, typename String::value_type{});
             auto * s_first = &*s_->begin();
             auto * out = s_first + initial_size;
             out = boost::text::v1::transcode_utf_16_to_8(
