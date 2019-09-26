@@ -140,6 +140,28 @@ Normalization of NFD, non-European script text:
 [$../../doc/norm_fcc_non_euro_from_nfd_perf.svg]
 
 
+[heading NFD]
+
+These are the charts for normalizing to NFD.  The meaning of the labels in
+each one is the same as they were in the NFC charts.
+
+Normalization of NFC, European script text:
+
+[$../../doc/norm_nfd_euro_from_nfc_perf.svg]
+
+Normalization of NFC, non-European script text:
+
+[$../../doc/norm_nfd_non_euro_from_nfc_perf.svg]
+
+Normalization of NFD, European script text:
+
+[$../../doc/norm_nfd_euro_from_nfd_perf.svg]
+
+Normalization of NFD, non-European script text:
+
+[$../../doc/norm_nfd_non_euro_from_nfd_perf.svg]
+
+
 [heading Miscellaneous Considerations]
 
 * Using atomic operations for rope ref counts does not seem to incur much
