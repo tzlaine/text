@@ -1208,11 +1208,11 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             auto s2_it = buf_it;
             if (s2_it == buffer.end()) {
                 while (s2_it != buffer.begin()) {
-                    if (detail::ccc(*--s2_it))
+                    if (detail::ccc(*--s2_it) == 0)
                         break;
                 }
                 while (s2_it != buffer.begin()) {
-                    if (!detail::ccc(*--s2_it))
+                    if (detail::ccc(*--s2_it) != 0)
                         break;
                 }
                 ++s2_it;
