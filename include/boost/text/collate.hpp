@@ -865,6 +865,19 @@ namespace boost { namespace text { inline namespace v1 {
             Sentinel rhs_last)
         {}
 
+        template<typename Result, typename Iter>
+        auto make_utf_mismatch_result(Result first, Iter it, Result last)
+            -> decltype(Result(first.base(), it, last.base()))
+        {
+            return Result(first.base(), it, last.base());
+        }
+
+        template<typename Iter>
+        Iter make_utf_mismatch_result(Iter first, Iter it, Iter last)
+        {
+            return it;
+        }
+
         template<typename CPIter, typename Sentinel>
         auto utf_mismatch(
             CPIter lhs_first_,
@@ -887,7 +900,7 @@ namespace boost { namespace text { inline namespace v1 {
                  ++lhs_first, ++rhs_first) {
                 if (*lhs_first != *rhs_first) {
                     // Back up so that we stop at a CP boundary.
-                    utf_mismatch_backup(
+                    detail::utf_mismatch_backup(
                         lhs_unpacked.tag_,
                         lhs_unpacked.f_,
                         lhs_first,
@@ -899,10 +912,12 @@ namespace boost { namespace text { inline namespace v1 {
                 }
             }
 
-            auto lhs_r = boost::text::v1::as_utf32(lhs_first, lhs_last);
-            auto rhs_r = boost::text::v1::as_utf32(rhs_first, rhs_last);
+            auto lhs_result = detail::make_utf_mismatch_result(
+                lhs_first_, lhs_first, lhs_last_);
+            auto rhs_result = detail::make_utf_mismatch_result(
+                rhs_first_, rhs_first, rhs_last_);
 
-            return std::make_pair(lhs_r.begin(), rhs_r.begin());
+            return std::make_pair(lhs_result, rhs_result);
         }
 
         template<
@@ -962,8 +977,8 @@ namespace boost { namespace text { inline namespace v1 {
 
             // Identical CPs will result in identical CEs, so we can ignore
             // any common prefix.
-            auto mismatches =
-                utf_mismatch(lhs_first_, lhs_last_, rhs_first_, rhs_last_);
+            auto mismatches = detail::utf_mismatch(
+                lhs_first_, lhs_last_, rhs_first_, rhs_last_);
 
             // Same as the logic in get_collation_elements().
             if ((mismatches.first != lhs_first_ &&
