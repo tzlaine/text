@@ -1,6 +1,7 @@
 #ifndef BOOST_TEXT_COLLATION_TAILORING_HPP
 #define BOOST_TEXT_COLLATION_TAILORING_HPP
 
+#include <boost/text/collation_fwd.hpp>
 #include <boost/text/normalize.hpp>
 #include <boost/text/segmented_vector.hpp>
 #include <boost/text/string_utility.hpp>
@@ -10,6 +11,7 @@
 
 #include <boost/throw_exception.hpp>
 
+#include <map>
 #include <numeric>
 #include <vector>
 
@@ -154,6 +156,33 @@ namespace boost { namespace text { inline namespace v1 {
             optional<l2_weight_order> l2_order_;
             optional<case_level> case_level_;
             optional<case_first> case_first_;
+
+            struct latin_cache
+            {
+                // TODO: ccc=0 range goes all the way up to 0x300...
+                static int const size = 0x180;
+
+                static uint32_t
+                key(case_first case_1st,
+                    case_level case_lvl,
+                    variable_weighting weighting) noexcept
+                {
+                    return (static_cast<uint32_t>(case_1st) << 2) |
+                           (static_cast<uint32_t>(case_lvl) << 1) |
+                           (static_cast<uint32_t>(weighting) << 0);
+                }
+
+                void build(
+                    collation_table & table,
+                    case_first case_1st,
+                    case_level case_lvl,
+                    variable_weighting weighting);
+
+                std::vector<collation_element> ces_;
+                std::array<uint32_t, size> end_offsets_;
+            };
+
+            std::map<uint32_t, latin_cache> latin_caches_;
         };
 
         inline bool operator==(
@@ -239,12 +268,12 @@ namespace boost { namespace text { inline namespace v1 {
 
         template<
             typename CPIter,
-            typename CPOutIter,
+            typename CEOutIter,
             typename SizeOutIter = std::ptrdiff_t *>
-        CPOutIter copy_collation_elements(
+        CEOutIter copy_collation_elements(
             CPIter first,
             CPIter last,
-            CPOutIter out,
+            CEOutIter out,
             collation_strength strength = collation_strength::tertiary,
             case_first case_1st = case_first::off,
             case_level case_lvl = case_level::off,
@@ -296,6 +325,21 @@ namespace boost { namespace text { inline namespace v1 {
                        : &data_->collation_element_vec_[0];
         }
 
+        void build_default_latin_cache()
+        {
+            uint32_t const key = detail::collation_table_data::latin_cache::key(
+                case_first::off,
+                case_level::off,
+                variable_weighting::non_ignorable);
+            detail::collation_table_data::latin_cache & cache =
+                data_->latin_caches_[key];
+            cache.build(
+                *this,
+                case_first::off,
+                case_level::off,
+                variable_weighting::non_ignorable);
+        }
+
         std::shared_ptr<detail::collation_table_data> data_;
 
         friend collation_table default_collation_table();
@@ -325,6 +369,31 @@ namespace boost { namespace text { inline namespace v1 {
     bool operator!=(collation_table const & lhs, collation_table const & rhs);
 
 #endif
+
+    namespace detail {
+        inline void collation_table_data::latin_cache::build(
+            collation_table & table,
+            case_first case_1st,
+            case_level case_lvl,
+            variable_weighting weighting)
+        {
+            std::array<uint32_t, size> cps;
+            std::iota(cps.begin(), cps.end(), 0);
+
+            uint32_t * sizes_out = end_offsets_.data();
+            table.copy_collation_elements(
+                cps.begin(),
+                cps.end(),
+                std::back_inserter(ces_),
+                collation_strength::quaternary,
+                case_1st,
+                case_lvl,
+                weighting,
+                &sizes_out);
+            std::partial_sum(
+                end_offsets_.begin(), end_offsets_.end(), end_offsets_.begin());
+        }
+    }
 
     /** A function object suitable for use with standard algorithms that
         accept a comparison object. */
@@ -1309,6 +1378,7 @@ namespace boost { namespace text { inline namespace v1 {
         collation_table retval;
         retval.data_->collation_elements_ = detail::collation_elements_ptr();
         retval.data_->trie_ = detail::make_default_trie();
+        retval.build_default_latin_cache();
         return retval;
     }
 
@@ -1354,11 +1424,11 @@ namespace boost { namespace text { inline namespace v1 {
         return collation_compare(*this, flags);
     }
 
-    template<typename CPIter, typename CPOutIter, typename SizeOutIter>
-    CPOutIter collation_table::copy_collation_elements(
+    template<typename CPIter, typename CEOutIter, typename SizeOutIter>
+    CEOutIter collation_table::copy_collation_elements(
         CPIter first,
         CPIter last,
-        CPOutIter out,
+        CEOutIter out,
         collation_strength strength,
         case_first case_1st,
         case_level case_lvl,
@@ -1640,6 +1710,8 @@ namespace boost { namespace text { inline namespace v1 {
                     table.data_->nonsimple_reorders_,
                     table.data_->simple_reorders_));
         }
+
+        table.build_default_latin_cache();
 
         return table;
     }
