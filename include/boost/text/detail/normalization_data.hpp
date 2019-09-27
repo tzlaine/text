@@ -132,6 +132,8 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         static const int low_size = uint64_t(1) << low_bits;
         static const uint64_t low_mask = low_size - 1;
 
+        two_stage_table() : high_table_(high_size), default_{0} {}
+
         template<typename Iter, typename KeyProj, typename ValueProj>
         two_stage_table(
             Iter first,
@@ -167,10 +169,23 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         {
             auto const hi = key >> low_bits;
             auto const lo = key & low_mask;
-            if (high_table_.size() <= hi)
+            if (high_table_.size() <= (std::size_t)hi)
                 return default_;
             low_table_t * low_table = high_table_[hi];
             return low_table ? (*low_table)[lo] : default_;
+        }
+
+        friend bool operator==(
+            two_stage_table const & lhs, two_stage_table const & rhs) noexcept
+        {
+            return lhs.low_tables_ == rhs.low_tables_ &&
+                   lhs.high_table_ == rhs.high_table_ &&
+                   lhs.default_ == rhs.default_;
+        }
+        friend bool operator!=(
+            two_stage_table const & lhs, two_stage_table const & rhs) noexcept
+        {
+            return !(lhs == rhs);
         }
 
         using low_table_t = std::array<T, low_size>;
