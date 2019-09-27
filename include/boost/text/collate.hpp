@@ -980,30 +980,16 @@ namespace boost { namespace text { inline namespace v1 {
             auto mismatches = detail::utf_mismatch(
                 lhs_first_, lhs_last_, rhs_first_, rhs_last_);
 
+            if (mismatches.first != lhs_last_ && mismatches.second == rhs_last_)
+                return 0;
+
             // Same as the logic in get_collation_elements().
-            if ((mismatches.first != lhs_first_ &&
-                 mismatches.first == lhs_last_) ||
-                (mismatches.second != rhs_first_ &&
-                 mismatches.second == rhs_last_)) {
+            for (; mismatches.first != lhs_first_ &&
+                   mismatches.second != rhs_last_;) {
                 --mismatches.first;
                 --mismatches.second;
-            }
-            for (; mismatches.first != lhs_first_;
-                 --mismatches.first, --mismatches.second) {
                 if (detail::ccc(*mismatches.first) == 0)
                     break;
-            }
-            bool need_incr = false;
-            for (; mismatches.first != lhs_first_;
-                 --mismatches.first, --mismatches.second) {
-                if (detail::ccc(*mismatches.first) != 0) {
-                    need_incr = true;
-                    break;
-                }
-            }
-            if (need_incr) {
-                ++mismatches.first;
-                ++mismatches.second;
             }
 
             return collate_impl(
@@ -1365,7 +1351,7 @@ namespace boost { namespace text { inline namespace v1 {
 
 namespace boost { namespace text { inline namespace v1 { namespace detail {
 
-    template<typename CPIter, typename Sentinel>
+    template<typename CPIter, typename Sentinel, std::size_t N, std::size_t M>
     CPIter get_collation_elements(
         CPIter first,
         Sentinel last,
@@ -1375,10 +1361,10 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         variable_weighting weighting,
         l2_weight_order l2_order,
         collation_table const & table,
-        std::array<uint32_t, 256> & buffer,
-        std::array<uint32_t, 256>::iterator & buf_it,
+        std::array<uint32_t, N> & buffer,
+        typename std::array<uint32_t, N>::iterator & buf_it,
         int & cps,
-        container::small_vector<collation_element, 1024> & ces)
+        container::small_vector<collation_element, M> & ces)
     {
         auto it = first;
         for (; it != last && buf_it != buffer.end(); ++buf_it, ++it, ++cps) {
@@ -1397,15 +1383,6 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                 if (detail::ccc(*--s2_it) == 0)
                     break;
             }
-            bool need_incr = false;
-            while (s2_it != buffer.begin()) {
-                if (detail::ccc(*--s2_it) != 0) {
-                    need_incr = true;
-                    break;
-                }
-            }
-            if (need_incr)
-                ++s2_it;
         }
 
         auto const end_of_raw_input = std::prev(it, s2_it - buf_it);
@@ -1446,8 +1423,8 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         if (table.case_lvl())
             case_lvl = *table.case_lvl();
 
-        std::array<uint32_t, 256> buffer;
-        container::small_vector<collation_element, 1024> ces;
+        std::array<uint32_t, 64> buffer;
+        container::small_vector<collation_element, 256> ces;
         auto buf_it = buffer.begin();
         int cps = 0;
         while (first != last) {
@@ -1617,10 +1594,10 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         if (table.case_lvl())
             case_lvl = *table.case_lvl();
 
-        std::array<uint32_t, 256> lhs_buffer;
-        std::array<uint32_t, 256> rhs_buffer;
-        container::small_vector<collation_element, 1024> lhs_ces;
-        container::small_vector<collation_element, 1024> rhs_ces;
+        std::array<uint32_t, 64> lhs_buffer;
+        std::array<uint32_t, 64> rhs_buffer;
+        container::small_vector<collation_element, 256> lhs_ces;
+        container::small_vector<collation_element, 256> rhs_ces;
         auto lhs_buf_it = lhs_buffer.begin();
         auto rhs_buf_it = rhs_buffer.begin();
         int lhs_cps = 0;
