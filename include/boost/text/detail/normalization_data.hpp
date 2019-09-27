@@ -117,7 +117,11 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         return retval;
     }
 
-    template<typename T, int TotalBits, int HighBits>
+    template<
+        typename T,
+        int TotalBits,
+        int HighBits,
+        typename LookupT = uint64_t>
     struct two_stage_table
     {
         static_assert(TotalBits <= 63, "");
@@ -139,20 +143,27 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             default_(default_value)
         {
             for (; first != last; ++first) {
-                uint64_t const key = key_proj(first->first);
-                BOOST_ASSERT(key < (uint64_t(1) << TotalBits));
-                auto const hi = key >> low_bits;
-                auto const lo = key & low_mask;
-                if (!high_table_[hi]) {
-                    high_table_[hi] =
-                        &*low_tables_.insert(low_tables_.end(), low_table_t{});
-                }
-                low_table_t & low_table = *high_table_[hi];
-                low_table[lo] = value_proj(first->second);
+                insert(*first, key_proj, value_proj);
             }
         }
 
-        T const & operator[](uint64_t key) const noexcept
+        template<typename Value, typename KeyProj, typename ValueProj>
+        void insert(
+            Value const & value, KeyProj && key_proj, ValueProj && value_proj)
+        {
+            LookupT const key{key_proj(value)};
+            BOOST_ASSERT(key < (uint64_t(1) << TotalBits));
+            auto const hi = key >> low_bits;
+            auto const lo = key & low_mask;
+            if (!high_table_[hi]) {
+                high_table_[hi] =
+                    &*low_tables_.insert(low_tables_.end(), low_table_t{});
+            }
+            low_table_t & low_table = *high_table_[hi];
+            low_table[lo] = value_proj(value);
+        }
+
+        T const & operator[](LookupT key) const noexcept
         {
             auto const hi = key >> low_bits;
             auto const lo = key & low_mask;
@@ -346,14 +357,15 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         static const two_stage_table<uint32_t, 34, 18> table(
             detail::composition_map().begin(),
             detail::composition_map().end(),
-            [](uint64_t key) {
+            [](std::pair<uint64_t, uint32_t> p) {
+                auto const key = p.first;
                 uint32_t cp0 = key >> 32;
                 uint32_t cp1 = key & 0xffffffff;
                 BOOST_ASSERT(cp0 < (uint32_t(1) << 17));
                 BOOST_ASSERT(cp1 < (uint32_t(1) << 17));
                 return (cp0 << 17) | cp1;
             },
-            [](uint32_t value) { return value; },
+            [](std::pair<uint64_t, uint32_t> p) { return p.second; },
             0);
         return table[(cp0 << 17) | cp1];
     }
@@ -363,11 +375,14 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         static const two_stage_table<int, 18, 10> table(
             detail::cp_props_map().begin(),
             detail::cp_props_map().end(),
-            [](uint32_t key) {
+            [](std::pair<uint32_t, cp_props> const & p) {
+                auto const key = p.first;
                 BOOST_ASSERT(key < (uint32_t(1) << 18));
                 return key;
             },
-            [](cp_props props) { return props.ccc_; },
+            [](std::pair<uint32_t, cp_props> const & p) {
+                return p.second.ccc_;
+            },
             0);
         return table[cp];
     }
@@ -379,11 +394,14 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         static const two_stage_table<quick_check, 18, 10> table(
             detail::cp_props_map().begin(),
             detail::cp_props_map().end(),
-            [](uint32_t key) {
+            [](std::pair<uint32_t, cp_props> const & p) {
+                auto const key = p.first;
                 BOOST_ASSERT(key < (uint32_t(1) << 18));
                 return key;
             },
-            [](cp_props props) { return quick_check(props.nfd_quick_check_); },
+            [](std::pair<uint32_t, cp_props> const & p) {
+                return quick_check(p.second.nfd_quick_check_);
+            },
             quick_check::yes);
         return table[cp];
     }
@@ -395,11 +413,14 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         static const two_stage_table<quick_check, 18, 10> table(
             detail::cp_props_map().begin(),
             detail::cp_props_map().end(),
-            [](uint32_t key) {
+            [](std::pair<uint32_t, cp_props> const & p) {
+                auto const key = p.first;
                 BOOST_ASSERT(key < (uint32_t(1) << 18));
                 return key;
             },
-            [](cp_props props) { return quick_check(props.nfkd_quick_check_); },
+            [](std::pair<uint32_t, cp_props> const & p) {
+                return quick_check(p.second.nfkd_quick_check_);
+            },
             quick_check::yes);
         return table[cp];
     }
@@ -411,11 +432,14 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         static const two_stage_table<quick_check, 18, 10> table(
             detail::cp_props_map().begin(),
             detail::cp_props_map().end(),
-            [](uint32_t key) {
+            [](std::pair<uint32_t, cp_props> const & p) {
+                auto const key = p.first;
                 BOOST_ASSERT(key < (uint32_t(1) << 18));
                 return key;
             },
-            [](cp_props props) { return quick_check(props.nfc_quick_check_); },
+            [](std::pair<uint32_t, cp_props> const & p) {
+                return quick_check(p.second.nfc_quick_check_);
+            },
             quick_check::yes);
         return table[cp];
     }
@@ -427,11 +451,14 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         static const two_stage_table<quick_check, 18, 10> table(
             detail::cp_props_map().begin(),
             detail::cp_props_map().end(),
-            [](uint32_t key) {
+            [](std::pair<uint32_t, cp_props> const & p) {
+                auto const key = p.first;
                 BOOST_ASSERT(key < (uint32_t(1) << 18));
                 return key;
             },
-            [](cp_props props) { return quick_check(props.nfkc_quick_check_); },
+            [](std::pair<uint32_t, cp_props> const & p) {
+                return quick_check(p.second.nfkc_quick_check_);
+            },
             quick_check::yes);
         return table[cp];
     }
