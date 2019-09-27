@@ -53,6 +53,10 @@ add_perf_executable(
     transcoding_perf
     portuguese_wiki.txt korean_wiki.txt chinese_wiki.txt hindi_wiki_in_russian.txt
 )
+add_perf_executable(
+    collation_perf
+    portuguese_wiki.txt korean_wiki.txt chinese_wiki.txt hindi_wiki_in_russian.txt
+)
 
 add_custom_target(perf
     COMMAND ctor_dtor_perf --benchmark_out=ctor_dtor_perf.json --benchmark_out_format=json
