@@ -4,6 +4,7 @@
 
 #ifndef NO_ICU
 #include <unicode/coll.h>
+#include <unicode/sortkey.h>
 #include <unicode/unistr.h>
 U_NAMESPACE_USE
 #endif
@@ -121,6 +122,16 @@ void BM_text_string_compare(benchmark::State & state)
     }
 }
 
+void BM_text_string_make_key(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+        for (auto const & x : text_strings) {
+            benchmark::DoNotOptimize(boost::text::collation_sort_key(
+                boost::text::as_utf32(x), table));
+        }
+    }
+}
+
 void BM_text_string_sort(benchmark::State & state)
 {
     std::vector<boost::text::string> local_text_strings = text_strings;
@@ -154,6 +165,17 @@ void BM_icu_string_compare(benchmark::State & state)
     }
 }
 
+void BM_icu_string_make_key(benchmark::State & state)
+{
+    U_NAMESPACE_QUALIFIER CollationKey key;
+    while (state.KeepRunning()) {
+        for (auto const & x : icu_strings) {
+            UErrorCode ec = U_ZERO_ERROR;
+            benchmark::DoNotOptimize(coll->getCollationKey(x, key, ec));
+        }
+    }
+}
+
 void BM_icu_string_sort(benchmark::State & state)
 {
     std::vector<U_NAMESPACE_QUALIFIER UnicodeString> local_icu_strings =
@@ -178,9 +200,11 @@ void BM_icu_string_sort(benchmark::State & state)
 BENCHMARK(BM_std_string_compare);
 BENCHMARK(BM_std_string_sort);
 BENCHMARK(BM_text_string_compare);
+BENCHMARK(BM_text_string_make_key);
 BENCHMARK(BM_text_string_sort);
 #ifndef NO_ICU
 BENCHMARK(BM_icu_string_compare);
+BENCHMARK(BM_icu_string_make_key);
 BENCHMARK(BM_icu_string_sort);
 #endif
 
@@ -219,7 +243,7 @@ int main(int argc, char ** argv)
     auto const contents_first = file_contents.begin();
     for (auto size_and_stride : sizes_and_strides) {
         for (std::ptrdiff_t i = 0; i + size_and_stride.first <
-                                   (std::ptrdiff_t)file_contents.size() / 900;
+                                   (std::ptrdiff_t)file_contents.size() / 500;
              i += size_and_stride.second) {
             std_strings.push_back(std::string(
                 contents_first + i,
