@@ -49,7 +49,7 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/benchmark-v1.2.0)
 # ICU, for perf comparisons
 ###############################################################################
 if (MSVC)
-    find_package(ICU 60 COMPONENTS in dt uc)
+    find_package(ICU 63 COMPONENTS in dt uc)
 else()
-    find_package(ICU 60 COMPONENTS i18n data uc)
+    find_package(ICU 63 COMPONENTS i18n data uc)
 endif()

@@ -531,6 +531,29 @@ namespace boost { namespace text { inline namespace v1 {
             r, out);
     }
 
+#if 0
+    /** Copies the first `n` code points in the range [first, last) to out,
+        changing the encoding from UTF-8 to UTF-32.  */
+    template<typename InputIter, typename Sentinel, typename OutIter>
+    transcode_result<InputIter, OutIter> transcode_utf_8_to_32_take_n(
+        InputIter first, Sentinel last, std::ptrdiff_t n, OutIter out)
+    {
+        auto const r = detail::unpack_iterator_and_sentinel(first, last);
+        return detail::transcode_to_32<true>(r.tag_, r.f_, r.l_, n, out);
+    }
+
+    /** Copies the first `n` code points in the range [first, last) to out,
+        changing the encoding from UTF-8 to UTF-32.  */
+    template<typename InputIter, typename Sentinel, typename OutIter>
+    transcode_result<InputIter, OutIter>
+    transcode_utf_8_to_32_take_n(Range const & r, std::ptrdiff_t n, OutIter out)
+    {
+        return detail::transcode_utf_8_to_32_dispatch<true, Range, OutIter>::
+            call(r, n, out)
+                .out;
+    }
+#endif
+
     /** Copies the code points in the range [first, last) to out, changing the
         encoding from UTF-16 to UTF-8.  */
     template<typename InputIter, typename Sentinel, typename OutIter>

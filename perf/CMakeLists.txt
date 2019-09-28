@@ -152,6 +152,7 @@ add_custom_target(find_string_insert_max
 ##################################
 if (NOT ICU_FOUND)# OR LIMIT_TESTING_FOR_CI)
     target_compile_definitions(transcoding_perf PRIVATE -DNO_ICU)
+    target_compile_definitions(collation_perf PRIVATE -DNO_ICU)
     return()
 endif()
 
