@@ -14,6 +14,8 @@
 
 #include <vector>
 
+#include <iostream> // TODO
+
 #ifndef BOOST_TEXT_DOXYGEN
 
 #ifndef BOOST_TEXT_COLLATE_INSTRUMENTATION
@@ -131,20 +133,6 @@ namespace boost { namespace text { inline namespace v1 {
             collation_strength strength,
             retain_case_bits_t retain_case_bits)
         {
-            if (detail::hangul_syllable(cp)) {
-                auto cps = detail::decompose_hangul_syllable<3>(cp);
-                return s2(
-                    cps.begin(),
-                    cps.end(),
-                    out,
-                    trie,
-                    collation_elements_first,
-                    lead_byte,
-                    strength,
-                    weighting,
-                    retain_case_bits);
-            }
-
             // Core Han Unified Ideographs
             std::array<uint32_t, 12> const CJK_Compatibility_Ideographs = {
                 {0xFA0E,
@@ -361,7 +349,17 @@ namespace boost { namespace text { inline namespace v1 {
            SizeOutIter * size_out = nullptr)
             -> detail::cp_iter_ret_t<CPOutIter, CPIter>
         {
-            container::small_vector<collation_element, 64> ce_buffer;
+            std::array<bool, 256> derived_element_high_two_bytes = {{}};
+            // TODO: Pull out into its own func.
+            for (auto seg : make_implicit_weights_segments()) {
+                for (uint32_t i = (seg.first_ >> 12),
+                              end = (seg.last_ >> 12) + 1;
+                     i != end;
+                     ++i) {
+                    BOOST_ASSERT(i < 256u);
+                    derived_element_high_two_bytes[i] = true;
+                }
+            }
 
             bool after_variable = false;
             while (first != last) {
@@ -371,9 +369,41 @@ namespace boost { namespace text { inline namespace v1 {
                 collation_ = trie.longest_match(first, last);
                 if (!collation_.match) {
                     // S2.2
+                    uint32_t cp = *first++;
+                    if (detail::hangul_syllable(cp)) {
+                        auto cps = detail::decompose_hangul_syllable<3>(cp);
+                        out =
+                            s2(cps.begin(),
+                               cps.end(),
+                               out,
+                               trie,
+                               collation_elements_first,
+                               lead_byte,
+                               strength,
+                               weighting,
+                               retain_case_bits);
+                        if (size_out)
+                            *(*size_out)++ = 1;
+                        continue;
+                    }
+
+                    if (!derived_element_high_two_bytes[cp >> 12]) {
+                        // This is not tailorable, so we won't use lead_byte
+                        // here.
+                        *out++ = collation_element{
+                            (implicit_weights_final_lead_byte << 24) |
+                                (cp & 0xffffff),
+                            0x0500,
+                            0x0500,
+                            0x0};
+                        if (size_out)
+                            *(*size_out)++ = 1;
+                        continue;
+                    }
+
                     collation_element derived_ces[32];
                     auto const derived_ces_end = detail::add_derived_elements(
-                        *first++,
+                        cp,
                         weighting,
                         derived_ces,
                         trie,
@@ -425,23 +455,21 @@ namespace boost { namespace text { inline namespace v1 {
                 auto const collation_it = const_trie_iterator_t(collation_);
 
                 // S2.4
-                ce_buffer.resize(collation_it->value.size());
-                auto const ce_buffer_first = ce_buffer.begin();
-                auto const ce_buffer_last = std::copy(
+                auto const initial_out = out;
+                out = std::copy(
                     collation_it->value.begin(collation_elements_first),
                     collation_it->value.end(collation_elements_first),
-                    ce_buffer_first);
+                    out);
 
                 // S2.3
                 after_variable = detail::s2_3(
-                    ce_buffer_first,
-                    ce_buffer_last,
+                    initial_out,
+                    out,
                     strength,
                     weighting,
                     after_variable,
                     retain_case_bits);
 
-                out = std::copy(ce_buffer_first, ce_buffer_last, out);
                 if (size_out) {
                     *(*size_out)++ = collation_it->value.size();
                     for (int i = 1; i < collation_.size; ++i) {
@@ -799,125 +827,83 @@ namespace boost { namespace text { inline namespace v1 {
             l2_weight_order l2_order,
             collation_table const & table);
 
-        template<
-            typename CPIter1,
-            typename Sentinel1,
-            typename CPIter2,
-            typename Sentinel2>
-        auto utf_mismatch(
-            CPIter1 lhs_first,
-            Sentinel1 lhs_last,
-            CPIter2 rhs_first,
-            Sentinel2 rhs_last)
+        template<typename Result, typename Iter>
+        auto make_iterator(Result first, Iter it, null_sentinel s)
+            -> decltype(Result(first.base(), it, s))
         {
-            for (; lhs_first != lhs_last && rhs_first != rhs_last;
-                 ++lhs_first, ++rhs_first) {
-                if (*lhs_first != *rhs_first)
-                    break;
-            }
-            return std::make_pair(lhs_first, rhs_first);
+            return Result(first.base(), it, s);
         }
-
-        template<typename Iter, typename Sentinel>
-        auto utf_mismatch_backup(
-            utf8_tag,
-            Iter lhs_first,
-            Iter & lhs_it,
-            Sentinel lhs_last,
-            Iter rhs_first,
-            Iter & rhs_it,
-            Sentinel rhs_last)
-        {
-            while (lhs_it != lhs_first && rhs_it != rhs_first &&
-                   (boost::text::v1::continuation(*lhs_it) ||
-                    boost::text::v1::continuation(*rhs_it))) {
-                --lhs_it;
-                --rhs_it;
-            }
-        }
-
-        template<typename Iter, typename Sentinel>
-        auto utf_mismatch_backup(
-            utf16_tag,
-            Iter lhs_first,
-            Iter & lhs_it,
-            Sentinel lhs_last,
-            Iter rhs_first,
-            Iter & rhs_it,
-            Sentinel rhs_last)
-        {
-            while (lhs_it != lhs_first && rhs_it != rhs_first &&
-                   (boost::text::v1::low_surrogate(*lhs_it) ||
-                    boost::text::v1::low_surrogate(*rhs_it))) {
-                --lhs_it;
-                --rhs_it;
-            }
-        }
-
-        template<typename Iter, typename Sentinel>
-        auto utf_mismatch_backup(
-            utf32_tag,
-            Iter lhs_first,
-            Iter lhs_it,
-            Sentinel lhs_last,
-            Iter rhs_first,
-            Iter rhs_it,
-            Sentinel rhs_last)
-        {}
 
         template<typename Result, typename Iter>
-        auto make_utf_mismatch_result(Result first, Iter it, Result last)
+        auto make_iterator(Result first, Iter it, Result last)
             -> decltype(Result(first.base(), it, last.base()))
         {
             return Result(first.base(), it, last.base());
         }
 
         template<typename Iter>
-        Iter make_utf_mismatch_result(Iter first, Iter it, Iter last)
+        Iter make_iterator(Iter first, Iter it, Iter last)
         {
             return it;
         }
 
-        template<typename CPIter, typename Sentinel>
-        auto utf_mismatch(
-            CPIter lhs_first_,
-            Sentinel lhs_last_,
-            CPIter rhs_first_,
-            Sentinel rhs_last_)
+        template<typename Iter, typename Sentinel>
+        auto collate_impl(
+            utf8_tag,
+            Iter lhs_first,
+            Sentinel lhs_last,
+            utf8_tag,
+            Iter rhs_first,
+            Sentinel rhs_last,
+            collation_strength strength,
+            case_first case_1st,
+            case_level case_lvl,
+            variable_weighting weighting,
+            l2_weight_order l2_order,
+            collation_table const & table);
+
+        template<
+            typename Tag1,
+            typename Iter1,
+            typename Sentinel1,
+            typename Tag2,
+            typename Iter2,
+            typename Sentinel2>
+        auto collate_impl(
+            Tag1,
+            Iter1 lhs_first,
+            Sentinel1 lhs_last,
+            Tag2,
+            Iter2 rhs_first,
+            Sentinel2 rhs_last,
+            collation_strength strength,
+            case_first case_1st,
+            case_level case_lvl,
+            variable_weighting weighting,
+            l2_weight_order l2_order,
+            collation_table const & table)
         {
-            auto const lhs_unpacked =
-                detail::unpack_iterator_and_sentinel(lhs_first_, lhs_last_);
-            auto const rhs_unpacked =
-                detail::unpack_iterator_and_sentinel(rhs_first_, rhs_last_);
-
-            auto lhs_first = lhs_unpacked.f_;
-            auto const lhs_last = lhs_unpacked.l_;
-            auto rhs_first = rhs_unpacked.f_;
-            auto const rhs_last = rhs_unpacked.l_;
-
-            // This is std::ranges::mismatch(), but I can't use that yet.
-            for (; lhs_first != lhs_last && rhs_first != rhs_last;
-                 ++lhs_first, ++rhs_first) {
-                if (*lhs_first != *rhs_first) {
-                    // Back up so that we stop at a CP boundary.
-                    detail::utf_mismatch_backup(
-                        lhs_unpacked.tag_,
-                        lhs_unpacked.f_,
-                        lhs_first,
-                        lhs_unpacked.l_,
-                        rhs_unpacked.f_,
-                        rhs_first,
-                        rhs_unpacked.l_);
-                    break;
-                }
-            }
-
-            auto lhs_result = detail::make_utf_mismatch_result(
-                lhs_first_, lhs_first, lhs_last_);
-            auto rhs_result = detail::make_utf_mismatch_result(
-                rhs_first_, rhs_first, rhs_last_);
-
-            return std::make_pair(lhs_result, rhs_result);
+            auto const lhs = boost::text::v1::as_utf32(lhs_first, lhs_last);
+            auto const rhs = boost::text::v1::as_utf32(rhs_first, rhs_last);
+            text_sort_key const lhs_sk = collation_sort_key(
+                lhs.begin(),
+                lhs.end(),
+                strength,
+                case_1st,
+                case_lvl,
+                weighting,
+                l2_order,
+                table);
+            text_sort_key const rhs_sk = collation_sort_key(
+                rhs.begin(),
+                rhs.end(),
+                strength,
+                case_1st,
+                case_lvl,
+                weighting,
+                l2_order,
+                table);
+            return boost::text::v1::compare(lhs_sk, rhs_sk);
         }
 
         template<
@@ -926,10 +912,10 @@ namespace boost { namespace text { inline namespace v1 {
             typename CPIter2,
             typename Sentinel2>
         auto collate(
-            CPIter1 lhs_first_,
-            Sentinel1 lhs_last_,
-            CPIter2 rhs_first_,
-            Sentinel2 rhs_last_,
+            CPIter1 lhs_first,
+            Sentinel1 lhs_last,
+            CPIter2 rhs_first,
+            Sentinel2 rhs_last,
             collation_strength strength,
             case_first case_1st,
             case_level case_lvl,
@@ -938,25 +924,23 @@ namespace boost { namespace text { inline namespace v1 {
             collation_table const & table)
             -> detail::cp_iter_ret_t<int, CPIter1>
         {
-            text_sort_key const lhs_sk = collation_sort_key(
-                lhs_first_,
-                lhs_last_,
+            auto lhs_u =
+                detail::unpack_iterator_and_sentinel(lhs_first, lhs_last);
+            auto rhs_u =
+                detail::unpack_iterator_and_sentinel(rhs_first, rhs_last);
+            return collate_impl(
+                lhs_u.tag_,
+                lhs_u.f_,
+                lhs_u.l_,
+                rhs_u.tag_,
+                rhs_u.f_,
+                rhs_u.l_,
                 strength,
                 case_1st,
                 case_lvl,
                 weighting,
                 l2_order,
                 table);
-            text_sort_key const rhs_sk = collation_sort_key(
-                rhs_first_,
-                rhs_last_,
-                strength,
-                case_1st,
-                case_lvl,
-                weighting,
-                l2_order,
-                table);
-            return boost::text::v1::compare(lhs_sk, rhs_sk);
 #if 0 // TODO: This causes a failure in tailoring_g0
             // Looking for a common prefix does not work very well if L2 is
             // backward.
@@ -1367,8 +1351,12 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         container::small_vector<collation_element, M> & ces)
     {
         auto it = first;
-        for (; it != last && buf_it != buffer.end(); ++buf_it, ++it, ++cps) {
-            *buf_it = *it;
+        {
+            auto u = detail::unpack_iterator_and_sentinel(it, last);
+            auto copy_result = detail::transcode_to_32<true>(
+                u.tag_, u.f_, u.l_, buffer.end() - buf_it, buf_it);
+            it = detail::make_iterator(first, copy_result.iter, last);
+            buf_it = copy_result.out;
         }
 
         // The chunk we pass to S2 should end at the earliest contiguous
@@ -1383,17 +1371,22 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                 if (detail::ccc(*--s2_it) == 0)
                     break;
             }
+            // TODO: This will produce incorrect results if std::prev(s2_it)
+            // points to a CP with variable-weighted CEs.
         }
 
         auto const end_of_raw_input = std::prev(it, s2_it - buf_it);
-        table.copy_collation_elements(
+        auto const ces_size = ces.size();
+        ces.resize(ces_size + M);
+        auto ces_end = table.copy_collation_elements(
             buffer.begin(),
             s2_it,
-            std::back_inserter(ces),
+            ces.begin() + ces_size,
             strength,
             case_1st,
             case_lvl,
             weighting);
+        ces.resize(ces_end - ces.begin());
         buf_it = std::copy(s2_it, buf_it, buffer.begin());
         first = end_of_raw_input;
 
@@ -1423,8 +1416,8 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         if (table.case_lvl())
             case_lvl = *table.case_lvl();
 
-        std::array<uint32_t, 64> buffer;
-        container::small_vector<collation_element, 256> ces;
+        std::array<uint32_t, 128> buffer;
+        container::small_vector<collation_element, 128 * 10> ces;
         auto buf_it = buffer.begin();
         int cps = 0;
         while (first != last) {
@@ -1567,6 +1560,159 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             return 1;
         return 0;
     }
+        template<typename Iter, typename Sentinel>
+        auto collate_impl(
+            utf8_tag,
+            Iter lhs_first,
+            Sentinel lhs_last,
+            utf8_tag,
+            Iter rhs_first,
+            Sentinel rhs_last,
+            collation_strength strength,
+            case_first case_1st,
+            case_level case_lvl,
+            variable_weighting weighting,
+            l2_weight_order l2_order,
+            collation_table const & table)
+        {
+            auto lhs_it = lhs_first;
+            auto rhs_it = rhs_first;
+
+#if 1
+            // Looking for a common prefix does not work very well if L2 is
+            // backward.
+            if (collation_strength::secondary <= strength &&
+                l2_order == l2_weight_order::backward) {
+                auto const lhs = boost::text::v1::as_utf32(lhs_it, lhs_last);
+                auto const rhs = boost::text::v1::as_utf32(rhs_it, rhs_last);
+                text_sort_key const lhs_sk = collation_sort_key(
+                    lhs.begin(),
+                    lhs.end(),
+                    strength,
+                    case_1st,
+                    case_lvl,
+                    weighting,
+                    l2_order,
+                    table);
+                text_sort_key const rhs_sk = collation_sort_key(
+                    rhs.begin(),
+                    rhs.end(),
+                    strength,
+                    case_1st,
+                    case_lvl,
+                    weighting,
+                    l2_order,
+                    table);
+                return boost::text::v1::compare(lhs_sk, rhs_sk);
+            }
+
+//            std::cout << "CP0\n";
+
+            // This is std::ranges::mismatch(), but I can't use that yet.
+            for (; lhs_it != lhs_last && rhs_it != rhs_last;
+                 ++lhs_it, ++rhs_it) {
+                if (*lhs_it != *rhs_it) {
+                    // Back up to the start of the current CP.
+                    while (lhs_it != lhs_first) {
+                        --lhs_it;
+                        --rhs_it;
+                        if (!boost::text::v1::continuation(*lhs_it))
+                            break;
+                    }
+                    break;
+                }
+            }
+            if (lhs_it == lhs_last && rhs_it == rhs_last)
+                return 0;
+
+//            std::cout << "CP1\n";
+#endif
+
+#if 1
+            auto const & latin_cache =
+                detail::get_latin_cache(table, case_1st, case_lvl, weighting);
+            for (; lhs_it != lhs_last && rhs_it != rhs_last;) {
+                auto lhs_next = lhs_it;
+                auto rhs_next = rhs_it;
+                unsigned char const l_c = *lhs_next;
+                unsigned char const r_c = *rhs_next;
+                uint32_t l, r;
+                if (l_c < 0x80) {
+                    // TODO: Process 1 <= n <= 16 values here using SIMD.
+                    l = l_c;
+                    ++lhs_next;
+                } else {
+                    l = detail::advance(lhs_next, lhs_last);
+                }
+                if (r_c < 0x80) {
+                    // TODO: Process 1 <= n <= 16 values here using SIMD.
+                    r = r_c;
+                    ++rhs_next;
+                } else {
+                    r = detail::advance(rhs_next, rhs_last);
+                }
+                if (collation_latin_cache::size <= l ||
+                    collation_latin_cache::size <= r) {
+                    break;
+                }
+                auto l_ces = latin_cache[l];
+                auto r_ces = latin_cache[r];
+                auto const mismatches = algorithm::mismatch(
+                    l_ces.begin(), l_ces.end(), r_ces.begin(), r_ces.end());
+                auto const l_at_end = mismatches.first == l_ces.end();
+                auto const r_at_end = mismatches.second == r_ces.end();
+                if (l_at_end && std::any_of(
+                                    mismatches.second,
+                                    r_ces.end(),
+                                    [](detail::collation_element const & ce) {
+                                        return ce.l1_;
+                                    })) {
+                    return -1;
+                }
+                if (r_at_end && std::any_of(
+                                    mismatches.first,
+                                    l_ces.end(),
+                                    [](detail::collation_element const & ce) {
+                                        return ce.l1_;
+                                    })) {
+                    return 1;
+                }
+                lhs_it = lhs_next;
+                rhs_it = rhs_next;
+            }
+            if (lhs_it == lhs_last && rhs_it == rhs_last)
+                return 0;
+
+//            std::cout << "CP2\n";
+#endif
+
+            uint32_t const merge_separator_primary = 0x02000000;
+
+            auto const lhs = boost::text::v1::as_utf32(lhs_it, lhs_last);
+            auto const rhs = boost::text::v1::as_utf32(rhs_it, rhs_last);
+            text_sort_key const lhs_sk = collation_sort_key(
+                lhs.begin(),
+                lhs.end(),
+                strength,
+                case_1st,
+                case_lvl,
+                weighting,
+                l2_order,
+                table);
+            text_sort_key const rhs_sk = collation_sort_key(
+                rhs.begin(),
+                rhs.end(),
+                strength,
+                case_1st,
+                case_lvl,
+                weighting,
+                l2_order,
+                table);
+
+//            std::cout << "CP3\n";
+
+            return boost::text::v1::compare(lhs_sk, rhs_sk);
+        }
 
     template<
         typename CPIter1,
@@ -1594,10 +1740,10 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         if (table.case_lvl())
             case_lvl = *table.case_lvl();
 
-        std::array<uint32_t, 64> lhs_buffer;
-        std::array<uint32_t, 64> rhs_buffer;
-        container::small_vector<collation_element, 256> lhs_ces;
-        container::small_vector<collation_element, 256> rhs_ces;
+        std::array<uint32_t, 128> lhs_buffer;
+        std::array<uint32_t, 128> rhs_buffer;
+        container::small_vector<collation_element, 128 * 10> lhs_ces;
+        container::small_vector<collation_element, 128 * 10> rhs_ces;
         auto lhs_buf_it = lhs_buffer.begin();
         auto rhs_buf_it = rhs_buffer.begin();
         int lhs_cps = 0;

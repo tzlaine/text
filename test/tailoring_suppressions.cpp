@@ -22,12 +22,12 @@ TEST(tailoring, az_search_suppressions_0)
     {
         uint32_t cps[2] = { 0xe40, 0xe06 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717A0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71100000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727A0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72100000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -40,12 +40,12 @@ TEST(tailoring, az_search_suppressions_0)
     {
         uint32_t cps[2] = { 0xe40, 0xe20 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717A0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71440000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727A0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72440000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -58,12 +58,12 @@ TEST(tailoring, az_search_suppressions_0)
     {
         uint32_t cps[2] = { 0xe40, 0xe1a };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717A0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71380000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727A0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72380000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -76,12 +76,12 @@ TEST(tailoring, az_search_suppressions_0)
     {
         uint32_t cps[2] = { 0xe40, 0xe1f };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717A0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71420000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727A0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72420000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -94,12 +94,12 @@ TEST(tailoring, az_search_suppressions_0)
     {
         uint32_t cps[2] = { 0xe40, 0xe1e };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717A0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71400000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727A0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72400000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -112,12 +112,12 @@ TEST(tailoring, az_search_suppressions_0)
     {
         uint32_t cps[2] = { 0xe40, 0xe28 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717A0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71540000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727A0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72540000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -130,12 +130,12 @@ TEST(tailoring, az_search_suppressions_0)
     {
         uint32_t cps[2] = { 0xe40, 0xe12 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717A0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71280000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727A0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72280000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -148,12 +148,12 @@ TEST(tailoring, az_search_suppressions_0)
     {
         uint32_t cps[2] = { 0xe40, 0xe2c };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717A0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x715C0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727A0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x725C0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -166,12 +166,12 @@ TEST(tailoring, az_search_suppressions_0)
     {
         uint32_t cps[2] = { 0xe40, 0xe16 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717A0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71300000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727A0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72300000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -184,12 +184,12 @@ TEST(tailoring, az_search_suppressions_0)
     {
         uint32_t cps[2] = { 0xe40, 0xe0b };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717A0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x711A0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727A0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x721A0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -202,12 +202,12 @@ TEST(tailoring, az_search_suppressions_0)
     {
         uint32_t cps[2] = { 0xe40, 0xe0f };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717A0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71220000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727A0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72220000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -220,12 +220,12 @@ TEST(tailoring, az_search_suppressions_0)
     {
         uint32_t cps[2] = { 0xe40, 0xe24 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717A0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x714C0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727A0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x724C0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -238,12 +238,12 @@ TEST(tailoring, az_search_suppressions_0)
     {
         uint32_t cps[2] = { 0xe40, 0xe03 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717A0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x710A0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727A0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x720A0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -256,12 +256,12 @@ TEST(tailoring, az_search_suppressions_0)
     {
         uint32_t cps[2] = { 0xe40, 0xe1b };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717A0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x713A0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727A0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x723A0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -274,12 +274,12 @@ TEST(tailoring, az_search_suppressions_0)
     {
         uint32_t cps[2] = { 0xe40, 0xe29 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717A0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71560000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727A0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72560000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -292,12 +292,12 @@ TEST(tailoring, az_search_suppressions_0)
     {
         uint32_t cps[2] = { 0xe40, 0xe13 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717A0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x712A0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727A0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x722A0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -310,12 +310,12 @@ TEST(tailoring, az_search_suppressions_0)
     {
         uint32_t cps[2] = { 0xe40, 0xe08 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717A0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71140000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727A0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72140000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -328,12 +328,12 @@ TEST(tailoring, az_search_suppressions_0)
     {
         uint32_t cps[2] = { 0xe40, 0xe2d };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717A0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x715E0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727A0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x725E0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -346,12 +346,12 @@ TEST(tailoring, az_search_suppressions_0)
     {
         uint32_t cps[2] = { 0xe40, 0xe0c };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717A0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x711C0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727A0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x721C0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -364,12 +364,12 @@ TEST(tailoring, az_search_suppressions_0)
     {
         uint32_t cps[2] = { 0xe40, 0xe21 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717A0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71460000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727A0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72460000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -382,12 +382,12 @@ TEST(tailoring, az_search_suppressions_0)
     {
         uint32_t cps[2] = { 0xe40, 0xe25 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717A0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x714E0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727A0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x724E0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -400,12 +400,12 @@ TEST(tailoring, az_search_suppressions_0)
     {
         uint32_t cps[2] = { 0xe40, 0xe04 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717A0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x710C0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727A0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x720C0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -418,12 +418,12 @@ TEST(tailoring, az_search_suppressions_0)
     {
         uint32_t cps[2] = { 0xe40, 0xe17 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717A0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71320000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727A0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72320000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -436,12 +436,12 @@ TEST(tailoring, az_search_suppressions_0)
     {
         uint32_t cps[2] = { 0xe40, 0xe18 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717A0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71340000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727A0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72340000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -454,12 +454,12 @@ TEST(tailoring, az_search_suppressions_0)
     {
         uint32_t cps[2] = { 0xe40, 0xe1c };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717A0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x713C0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727A0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x723C0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -472,12 +472,12 @@ TEST(tailoring, az_search_suppressions_0)
     {
         uint32_t cps[2] = { 0xe40, 0xe10 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717A0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71240000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727A0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72240000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -490,12 +490,12 @@ TEST(tailoring, az_search_suppressions_0)
     {
         uint32_t cps[2] = { 0xe40, 0xe2a };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717A0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71580000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727A0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72580000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -508,12 +508,12 @@ TEST(tailoring, az_search_suppressions_0)
     {
         uint32_t cps[2] = { 0xe40, 0xe14 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717A0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x712C0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727A0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x722C0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -526,12 +526,12 @@ TEST(tailoring, az_search_suppressions_0)
     {
         uint32_t cps[2] = { 0xe40, 0xe07 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717A0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71120000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727A0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72120000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -544,12 +544,12 @@ TEST(tailoring, az_search_suppressions_0)
     {
         uint32_t cps[2] = { 0xe40, 0xe09 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717A0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71160000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727A0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72160000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -572,12 +572,12 @@ TEST(tailoring, az_search_suppressions_1)
     {
         uint32_t cps[2] = { 0xe40, 0xe2e };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717A0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71600000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727A0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72600000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -590,12 +590,12 @@ TEST(tailoring, az_search_suppressions_1)
     {
         uint32_t cps[2] = { 0xe40, 0xe0d };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717A0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x711E0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727A0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x721E0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -608,12 +608,12 @@ TEST(tailoring, az_search_suppressions_1)
     {
         uint32_t cps[2] = { 0xe40, 0xe22 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717A0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71480000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727A0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72480000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -626,12 +626,12 @@ TEST(tailoring, az_search_suppressions_1)
     {
         uint32_t cps[2] = { 0xe40, 0xe01 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717A0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71060000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727A0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72060000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -644,12 +644,12 @@ TEST(tailoring, az_search_suppressions_1)
     {
         uint32_t cps[2] = { 0xe40, 0xe26 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717A0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71500000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727A0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72500000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -662,12 +662,12 @@ TEST(tailoring, az_search_suppressions_1)
     {
         uint32_t cps[2] = { 0xe40, 0xe05 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717A0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x710E0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727A0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x720E0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -680,12 +680,12 @@ TEST(tailoring, az_search_suppressions_1)
     {
         uint32_t cps[2] = { 0xe40, 0xe19 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717A0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71360000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727A0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72360000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -698,12 +698,12 @@ TEST(tailoring, az_search_suppressions_1)
     {
         uint32_t cps[2] = { 0xe40, 0xe1d };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717A0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x713E0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727A0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x723E0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -716,12 +716,12 @@ TEST(tailoring, az_search_suppressions_1)
     {
         uint32_t cps[2] = { 0xe40, 0xe11 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717A0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71260000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727A0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72260000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -734,12 +734,12 @@ TEST(tailoring, az_search_suppressions_1)
     {
         uint32_t cps[2] = { 0xe40, 0xe2b };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717A0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x715A0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727A0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x725A0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -752,12 +752,12 @@ TEST(tailoring, az_search_suppressions_1)
     {
         uint32_t cps[2] = { 0xe40, 0xe15 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717A0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x712E0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727A0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x722E0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -770,12 +770,12 @@ TEST(tailoring, az_search_suppressions_1)
     {
         uint32_t cps[2] = { 0xe40, 0xe0a };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717A0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71180000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727A0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72180000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -788,12 +788,12 @@ TEST(tailoring, az_search_suppressions_1)
     {
         uint32_t cps[2] = { 0xe40, 0xe0e };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717A0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71200000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727A0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72200000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -806,12 +806,12 @@ TEST(tailoring, az_search_suppressions_1)
     {
         uint32_t cps[2] = { 0xe40, 0xe23 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717A0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x714A0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727A0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x724A0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -824,12 +824,12 @@ TEST(tailoring, az_search_suppressions_1)
     {
         uint32_t cps[2] = { 0xe40, 0xe02 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717A0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71080000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727A0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72080000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -842,12 +842,12 @@ TEST(tailoring, az_search_suppressions_1)
     {
         uint32_t cps[2] = { 0xe40, 0xe27 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717A0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71520000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727A0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72520000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -860,12 +860,12 @@ TEST(tailoring, az_search_suppressions_1)
     {
         uint32_t cps[2] = { 0xe41, 0xe2c };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x715C0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x725C0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -878,12 +878,12 @@ TEST(tailoring, az_search_suppressions_1)
     {
         uint32_t cps[2] = { 0xe41, 0xe0d };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x711E0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x721E0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -896,12 +896,12 @@ TEST(tailoring, az_search_suppressions_1)
     {
         uint32_t cps[2] = { 0xe41, 0xe01 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71060000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72060000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -914,12 +914,12 @@ TEST(tailoring, az_search_suppressions_1)
     {
         uint32_t cps[2] = { 0xe41, 0xe24 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x714C0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x724C0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -932,12 +932,12 @@ TEST(tailoring, az_search_suppressions_1)
     {
         uint32_t cps[2] = { 0xe41, 0xe05 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x710E0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x720E0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -950,12 +950,12 @@ TEST(tailoring, az_search_suppressions_1)
     {
         uint32_t cps[2] = { 0xe41, 0xe1d };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x713E0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x723E0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -968,12 +968,12 @@ TEST(tailoring, az_search_suppressions_1)
     {
         uint32_t cps[2] = { 0xe41, 0xe2b };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x715A0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x725A0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -986,12 +986,12 @@ TEST(tailoring, az_search_suppressions_1)
     {
         uint32_t cps[2] = { 0xe41, 0xe11 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71260000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72260000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1004,12 +1004,12 @@ TEST(tailoring, az_search_suppressions_1)
     {
         uint32_t cps[2] = { 0xe41, 0xe20 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71440000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72440000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1022,12 +1022,12 @@ TEST(tailoring, az_search_suppressions_1)
     {
         uint32_t cps[2] = { 0xe41, 0xe29 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71560000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72560000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1040,12 +1040,12 @@ TEST(tailoring, az_search_suppressions_1)
     {
         uint32_t cps[2] = { 0xe41, 0xe15 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x712E0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x722E0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1058,12 +1058,12 @@ TEST(tailoring, az_search_suppressions_1)
     {
         uint32_t cps[2] = { 0xe41, 0xe0c };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x711C0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x721C0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1076,12 +1076,12 @@ TEST(tailoring, az_search_suppressions_1)
     {
         uint32_t cps[2] = { 0xe41, 0xe27 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71520000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72520000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1094,12 +1094,12 @@ TEST(tailoring, az_search_suppressions_1)
     {
         uint32_t cps[2] = { 0xe41, 0xe04 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x710C0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x720C0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1122,12 +1122,12 @@ TEST(tailoring, az_search_suppressions_2)
     {
         uint32_t cps[2] = { 0xe41, 0xe18 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71340000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72340000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1140,12 +1140,12 @@ TEST(tailoring, az_search_suppressions_2)
     {
         uint32_t cps[2] = { 0xe41, 0xe1c };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x713C0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x723C0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1158,12 +1158,12 @@ TEST(tailoring, az_search_suppressions_2)
     {
         uint32_t cps[2] = { 0xe41, 0xe2a };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71580000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72580000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1176,12 +1176,12 @@ TEST(tailoring, az_search_suppressions_2)
     {
         uint32_t cps[2] = { 0xe41, 0xe10 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71240000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72240000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1194,12 +1194,12 @@ TEST(tailoring, az_search_suppressions_2)
     {
         uint32_t cps[2] = { 0xe41, 0xe0b };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x711A0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x721A0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1212,12 +1212,12 @@ TEST(tailoring, az_search_suppressions_2)
     {
         uint32_t cps[2] = { 0xe41, 0xe2e };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71600000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72600000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1230,12 +1230,12 @@ TEST(tailoring, az_search_suppressions_2)
     {
         uint32_t cps[2] = { 0xe41, 0xe1e };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71400000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72400000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1248,12 +1248,12 @@ TEST(tailoring, az_search_suppressions_2)
     {
         uint32_t cps[2] = { 0xe41, 0xe14 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x712C0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x722C0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1266,12 +1266,12 @@ TEST(tailoring, az_search_suppressions_2)
     {
         uint32_t cps[2] = { 0xe41, 0xe0f };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71220000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72220000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1284,12 +1284,12 @@ TEST(tailoring, az_search_suppressions_2)
     {
         uint32_t cps[2] = { 0xe41, 0xe22 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71480000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72480000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1302,12 +1302,12 @@ TEST(tailoring, az_search_suppressions_2)
     {
         uint32_t cps[2] = { 0xe41, 0xe08 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71140000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72140000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1320,12 +1320,12 @@ TEST(tailoring, az_search_suppressions_2)
     {
         uint32_t cps[2] = { 0xe41, 0xe03 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x710A0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x720A0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1338,12 +1338,12 @@ TEST(tailoring, az_search_suppressions_2)
     {
         uint32_t cps[2] = { 0xe41, 0xe26 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71500000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72500000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1356,12 +1356,12 @@ TEST(tailoring, az_search_suppressions_2)
     {
         uint32_t cps[2] = { 0xe41, 0xe23 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x714A0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x724A0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1374,12 +1374,12 @@ TEST(tailoring, az_search_suppressions_2)
     {
         uint32_t cps[2] = { 0xe41, 0xe07 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71120000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72120000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1392,12 +1392,12 @@ TEST(tailoring, az_search_suppressions_2)
     {
         uint32_t cps[2] = { 0xe41, 0xe1b };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x713A0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x723A0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1410,12 +1410,12 @@ TEST(tailoring, az_search_suppressions_2)
     {
         uint32_t cps[2] = { 0xe41, 0xe1f };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71420000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72420000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1428,12 +1428,12 @@ TEST(tailoring, az_search_suppressions_2)
     {
         uint32_t cps[2] = { 0xe41, 0xe13 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x712A0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x722A0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1446,12 +1446,12 @@ TEST(tailoring, az_search_suppressions_2)
     {
         uint32_t cps[2] = { 0xe41, 0xe17 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71320000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72320000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1464,12 +1464,12 @@ TEST(tailoring, az_search_suppressions_2)
     {
         uint32_t cps[2] = { 0xe41, 0xe0a };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71180000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72180000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1482,12 +1482,12 @@ TEST(tailoring, az_search_suppressions_2)
     {
         uint32_t cps[2] = { 0xe41, 0xe2d };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x715E0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x725E0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1500,12 +1500,12 @@ TEST(tailoring, az_search_suppressions_2)
     {
         uint32_t cps[2] = { 0xe41, 0xe0e };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71200000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72200000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1518,12 +1518,12 @@ TEST(tailoring, az_search_suppressions_2)
     {
         uint32_t cps[2] = { 0xe41, 0xe21 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71460000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72460000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1536,12 +1536,12 @@ TEST(tailoring, az_search_suppressions_2)
     {
         uint32_t cps[2] = { 0xe41, 0xe02 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71080000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72080000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1554,12 +1554,12 @@ TEST(tailoring, az_search_suppressions_2)
     {
         uint32_t cps[2] = { 0xe41, 0xe25 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x714E0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x724E0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1572,12 +1572,12 @@ TEST(tailoring, az_search_suppressions_2)
     {
         uint32_t cps[2] = { 0xe41, 0xe19 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71360000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72360000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1590,12 +1590,12 @@ TEST(tailoring, az_search_suppressions_2)
     {
         uint32_t cps[2] = { 0xe41, 0xe06 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71100000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72100000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1608,12 +1608,12 @@ TEST(tailoring, az_search_suppressions_2)
     {
         uint32_t cps[2] = { 0xe41, 0xe1a };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71380000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72380000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1626,12 +1626,12 @@ TEST(tailoring, az_search_suppressions_2)
     {
         uint32_t cps[2] = { 0xe41, 0xe12 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71280000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72280000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1644,12 +1644,12 @@ TEST(tailoring, az_search_suppressions_2)
     {
         uint32_t cps[2] = { 0xe41, 0xe28 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71540000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72540000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1672,12 +1672,12 @@ TEST(tailoring, az_search_suppressions_3)
     {
         uint32_t cps[2] = { 0xe41, 0xe16 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71300000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72300000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1690,12 +1690,12 @@ TEST(tailoring, az_search_suppressions_3)
     {
         uint32_t cps[2] = { 0xe41, 0xe09 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71160000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72160000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1708,12 +1708,12 @@ TEST(tailoring, az_search_suppressions_3)
     {
         uint32_t cps[2] = { 0xe42, 0xe1b };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x713A0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x723A0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1726,12 +1726,12 @@ TEST(tailoring, az_search_suppressions_3)
     {
         uint32_t cps[2] = { 0xe42, 0xe17 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71320000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72320000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1744,12 +1744,12 @@ TEST(tailoring, az_search_suppressions_3)
     {
         uint32_t cps[2] = { 0xe42, 0xe2d };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x715E0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x725E0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1762,12 +1762,12 @@ TEST(tailoring, az_search_suppressions_3)
     {
         uint32_t cps[2] = { 0xe42, 0xe13 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x712A0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x722A0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1780,12 +1780,12 @@ TEST(tailoring, az_search_suppressions_3)
     {
         uint32_t cps[2] = { 0xe42, 0xe0c };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x711C0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x721C0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1798,12 +1798,12 @@ TEST(tailoring, az_search_suppressions_3)
     {
         uint32_t cps[2] = { 0xe42, 0xe29 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71560000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72560000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1816,12 +1816,12 @@ TEST(tailoring, az_search_suppressions_3)
     {
         uint32_t cps[2] = { 0xe42, 0xe08 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71140000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72140000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1834,12 +1834,12 @@ TEST(tailoring, az_search_suppressions_3)
     {
         uint32_t cps[2] = { 0xe42, 0xe25 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x714E0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x724E0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1852,12 +1852,12 @@ TEST(tailoring, az_search_suppressions_3)
     {
         uint32_t cps[2] = { 0xe42, 0xe04 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x710C0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x720C0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1870,12 +1870,12 @@ TEST(tailoring, az_search_suppressions_3)
     {
         uint32_t cps[2] = { 0xe42, 0xe21 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71460000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72460000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1888,12 +1888,12 @@ TEST(tailoring, az_search_suppressions_3)
     {
         uint32_t cps[2] = { 0xe42, 0xe1c };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x713C0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x723C0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1906,12 +1906,12 @@ TEST(tailoring, az_search_suppressions_3)
     {
         uint32_t cps[2] = { 0xe42, 0xe2e };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71600000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72600000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1924,12 +1924,12 @@ TEST(tailoring, az_search_suppressions_3)
     {
         uint32_t cps[2] = { 0xe42, 0xe14 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x712C0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x722C0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1942,12 +1942,12 @@ TEST(tailoring, az_search_suppressions_3)
     {
         uint32_t cps[2] = { 0xe42, 0xe2a };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71580000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72580000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1960,12 +1960,12 @@ TEST(tailoring, az_search_suppressions_3)
     {
         uint32_t cps[2] = { 0xe42, 0xe10 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71240000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72240000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1978,12 +1978,12 @@ TEST(tailoring, az_search_suppressions_3)
     {
         uint32_t cps[2] = { 0xe42, 0xe0d };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x711E0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x721E0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -1996,12 +1996,12 @@ TEST(tailoring, az_search_suppressions_3)
     {
         uint32_t cps[2] = { 0xe42, 0xe26 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71500000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72500000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2014,12 +2014,12 @@ TEST(tailoring, az_search_suppressions_3)
     {
         uint32_t cps[2] = { 0xe42, 0xe09 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71160000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72160000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2032,12 +2032,12 @@ TEST(tailoring, az_search_suppressions_3)
     {
         uint32_t cps[2] = { 0xe42, 0xe22 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71480000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72480000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2050,12 +2050,12 @@ TEST(tailoring, az_search_suppressions_3)
     {
         uint32_t cps[2] = { 0xe42, 0xe05 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x710E0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x720E0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2068,12 +2068,12 @@ TEST(tailoring, az_search_suppressions_3)
     {
         uint32_t cps[2] = { 0xe42, 0xe20 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71440000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72440000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2086,12 +2086,12 @@ TEST(tailoring, az_search_suppressions_3)
     {
         uint32_t cps[2] = { 0xe42, 0xe01 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71060000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72060000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2104,12 +2104,12 @@ TEST(tailoring, az_search_suppressions_3)
     {
         uint32_t cps[2] = { 0xe42, 0xe1d };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x713E0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x723E0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2122,12 +2122,12 @@ TEST(tailoring, az_search_suppressions_3)
     {
         uint32_t cps[2] = { 0xe42, 0xe19 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71360000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72360000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2140,12 +2140,12 @@ TEST(tailoring, az_search_suppressions_3)
     {
         uint32_t cps[2] = { 0xe42, 0xe15 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x712E0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x722E0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2158,12 +2158,12 @@ TEST(tailoring, az_search_suppressions_3)
     {
         uint32_t cps[2] = { 0xe42, 0xe0e };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71200000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72200000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2176,12 +2176,12 @@ TEST(tailoring, az_search_suppressions_3)
     {
         uint32_t cps[2] = { 0xe42, 0xe2b };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x715A0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x725A0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2194,12 +2194,12 @@ TEST(tailoring, az_search_suppressions_3)
     {
         uint32_t cps[2] = { 0xe42, 0xe18 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71340000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72340000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2222,12 +2222,12 @@ TEST(tailoring, az_search_suppressions_4)
     {
         uint32_t cps[2] = { 0xe42, 0xe11 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71260000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72260000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2240,12 +2240,12 @@ TEST(tailoring, az_search_suppressions_4)
     {
         uint32_t cps[2] = { 0xe42, 0xe0a };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71180000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72180000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2258,12 +2258,12 @@ TEST(tailoring, az_search_suppressions_4)
     {
         uint32_t cps[2] = { 0xe42, 0xe27 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71520000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72520000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2276,12 +2276,12 @@ TEST(tailoring, az_search_suppressions_4)
     {
         uint32_t cps[2] = { 0xe42, 0xe06 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71100000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72100000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2294,12 +2294,12 @@ TEST(tailoring, az_search_suppressions_4)
     {
         uint32_t cps[2] = { 0xe42, 0xe23 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x714A0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x724A0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2312,12 +2312,12 @@ TEST(tailoring, az_search_suppressions_4)
     {
         uint32_t cps[2] = { 0xe42, 0xe02 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71080000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72080000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2330,12 +2330,12 @@ TEST(tailoring, az_search_suppressions_4)
     {
         uint32_t cps[2] = { 0xe42, 0xe1e };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71400000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72400000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2348,12 +2348,12 @@ TEST(tailoring, az_search_suppressions_4)
     {
         uint32_t cps[2] = { 0xe42, 0xe1a };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71380000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72380000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2366,12 +2366,12 @@ TEST(tailoring, az_search_suppressions_4)
     {
         uint32_t cps[2] = { 0xe42, 0xe16 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71300000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72300000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2384,12 +2384,12 @@ TEST(tailoring, az_search_suppressions_4)
     {
         uint32_t cps[2] = { 0xe42, 0xe2c };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x715C0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x725C0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2402,12 +2402,12 @@ TEST(tailoring, az_search_suppressions_4)
     {
         uint32_t cps[2] = { 0xe42, 0xe12 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71280000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72280000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2420,12 +2420,12 @@ TEST(tailoring, az_search_suppressions_4)
     {
         uint32_t cps[2] = { 0xe42, 0xe0f };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71220000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72220000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2438,12 +2438,12 @@ TEST(tailoring, az_search_suppressions_4)
     {
         uint32_t cps[2] = { 0xe42, 0xe28 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71540000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72540000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2456,12 +2456,12 @@ TEST(tailoring, az_search_suppressions_4)
     {
         uint32_t cps[2] = { 0xe42, 0xe0b };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x711A0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x721A0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2474,12 +2474,12 @@ TEST(tailoring, az_search_suppressions_4)
     {
         uint32_t cps[2] = { 0xe42, 0xe24 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x714C0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x724C0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2492,12 +2492,12 @@ TEST(tailoring, az_search_suppressions_4)
     {
         uint32_t cps[2] = { 0xe42, 0xe07 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71120000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72120000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2510,12 +2510,12 @@ TEST(tailoring, az_search_suppressions_4)
     {
         uint32_t cps[2] = { 0xe42, 0xe03 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x710A0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x720A0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2528,12 +2528,12 @@ TEST(tailoring, az_search_suppressions_4)
     {
         uint32_t cps[2] = { 0xe42, 0xe1f };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x717E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71420000, 0x0500, 0x0500}
+            text::detail::collation_element{0x727E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72420000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2546,12 +2546,12 @@ TEST(tailoring, az_search_suppressions_4)
     {
         uint32_t cps[2] = { 0xe43, 0xe05 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71800000, 0x0500, 0x0500},
-            text::detail::collation_element{0x710E0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72800000, 0x0500, 0x0500},
+            text::detail::collation_element{0x720E0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2564,12 +2564,12 @@ TEST(tailoring, az_search_suppressions_4)
     {
         uint32_t cps[2] = { 0xe43, 0xe1c };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71800000, 0x0500, 0x0500},
-            text::detail::collation_element{0x713C0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72800000, 0x0500, 0x0500},
+            text::detail::collation_element{0x723C0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2582,12 +2582,12 @@ TEST(tailoring, az_search_suppressions_4)
     {
         uint32_t cps[2] = { 0xe43, 0xe23 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71800000, 0x0500, 0x0500},
-            text::detail::collation_element{0x714A0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72800000, 0x0500, 0x0500},
+            text::detail::collation_element{0x724A0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2600,12 +2600,12 @@ TEST(tailoring, az_search_suppressions_4)
     {
         uint32_t cps[2] = { 0xe43, 0xe27 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71800000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71520000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72800000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72520000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2618,12 +2618,12 @@ TEST(tailoring, az_search_suppressions_4)
     {
         uint32_t cps[2] = { 0xe43, 0xe04 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71800000, 0x0500, 0x0500},
-            text::detail::collation_element{0x710C0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72800000, 0x0500, 0x0500},
+            text::detail::collation_element{0x720C0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2636,12 +2636,12 @@ TEST(tailoring, az_search_suppressions_4)
     {
         uint32_t cps[2] = { 0xe43, 0xe2b };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71800000, 0x0500, 0x0500},
-            text::detail::collation_element{0x715A0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72800000, 0x0500, 0x0500},
+            text::detail::collation_element{0x725A0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2654,12 +2654,12 @@ TEST(tailoring, az_search_suppressions_4)
     {
         uint32_t cps[2] = { 0xe43, 0xe08 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71800000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71140000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72800000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72140000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2672,12 +2672,12 @@ TEST(tailoring, az_search_suppressions_4)
     {
         uint32_t cps[2] = { 0xe43, 0xe0c };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71800000, 0x0500, 0x0500},
-            text::detail::collation_element{0x711C0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72800000, 0x0500, 0x0500},
+            text::detail::collation_element{0x721C0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2690,12 +2690,12 @@ TEST(tailoring, az_search_suppressions_4)
     {
         uint32_t cps[2] = { 0xe43, 0xe13 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71800000, 0x0500, 0x0500},
-            text::detail::collation_element{0x712A0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72800000, 0x0500, 0x0500},
+            text::detail::collation_element{0x722A0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2708,12 +2708,12 @@ TEST(tailoring, az_search_suppressions_4)
     {
         uint32_t cps[2] = { 0xe43, 0xe17 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71800000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71320000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72800000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72320000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2726,12 +2726,12 @@ TEST(tailoring, az_search_suppressions_4)
     {
         uint32_t cps[2] = { 0xe43, 0xe1b };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71800000, 0x0500, 0x0500},
-            text::detail::collation_element{0x713A0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72800000, 0x0500, 0x0500},
+            text::detail::collation_element{0x723A0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2744,12 +2744,12 @@ TEST(tailoring, az_search_suppressions_4)
     {
         uint32_t cps[2] = { 0xe43, 0xe1f };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71800000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71420000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72800000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72420000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2772,12 +2772,12 @@ TEST(tailoring, az_search_suppressions_5)
     {
         uint32_t cps[2] = { 0xe43, 0xe22 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71800000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71480000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72800000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72480000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2790,12 +2790,12 @@ TEST(tailoring, az_search_suppressions_5)
     {
         uint32_t cps[2] = { 0xe43, 0xe03 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71800000, 0x0500, 0x0500},
-            text::detail::collation_element{0x710A0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72800000, 0x0500, 0x0500},
+            text::detail::collation_element{0x720A0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2808,12 +2808,12 @@ TEST(tailoring, az_search_suppressions_5)
     {
         uint32_t cps[2] = { 0xe43, 0xe26 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71800000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71500000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72800000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72500000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2826,12 +2826,12 @@ TEST(tailoring, az_search_suppressions_5)
     {
         uint32_t cps[2] = { 0xe43, 0xe07 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71800000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71120000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72800000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72120000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2844,12 +2844,12 @@ TEST(tailoring, az_search_suppressions_5)
     {
         uint32_t cps[2] = { 0xe43, 0xe2a };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71800000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71580000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72800000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72580000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2862,12 +2862,12 @@ TEST(tailoring, az_search_suppressions_5)
     {
         uint32_t cps[2] = { 0xe43, 0xe0b };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71800000, 0x0500, 0x0500},
-            text::detail::collation_element{0x711A0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72800000, 0x0500, 0x0500},
+            text::detail::collation_element{0x721A0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2880,12 +2880,12 @@ TEST(tailoring, az_search_suppressions_5)
     {
         uint32_t cps[2] = { 0xe43, 0xe2e };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71800000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71600000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72800000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72600000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2898,12 +2898,12 @@ TEST(tailoring, az_search_suppressions_5)
     {
         uint32_t cps[2] = { 0xe43, 0xe0f };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71800000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71220000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72800000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72220000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2916,12 +2916,12 @@ TEST(tailoring, az_search_suppressions_5)
     {
         uint32_t cps[2] = { 0xe43, 0xe12 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71800000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71280000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72800000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72280000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2934,12 +2934,12 @@ TEST(tailoring, az_search_suppressions_5)
     {
         uint32_t cps[2] = { 0xe43, 0xe16 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71800000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71300000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72800000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72300000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2952,12 +2952,12 @@ TEST(tailoring, az_search_suppressions_5)
     {
         uint32_t cps[2] = { 0xe43, 0xe10 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71800000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71240000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72800000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72240000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2970,12 +2970,12 @@ TEST(tailoring, az_search_suppressions_5)
     {
         uint32_t cps[2] = { 0xe43, 0xe29 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71800000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71560000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72800000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72560000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -2988,12 +2988,12 @@ TEST(tailoring, az_search_suppressions_5)
     {
         uint32_t cps[2] = { 0xe43, 0xe1a };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71800000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71380000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72800000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72380000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3006,12 +3006,12 @@ TEST(tailoring, az_search_suppressions_5)
     {
         uint32_t cps[2] = { 0xe43, 0xe21 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71800000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71460000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72800000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72460000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3024,12 +3024,12 @@ TEST(tailoring, az_search_suppressions_5)
     {
         uint32_t cps[2] = { 0xe43, 0xe1e };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71800000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71400000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72800000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72400000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3042,12 +3042,12 @@ TEST(tailoring, az_search_suppressions_5)
     {
         uint32_t cps[2] = { 0xe43, 0xe25 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71800000, 0x0500, 0x0500},
-            text::detail::collation_element{0x714E0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72800000, 0x0500, 0x0500},
+            text::detail::collation_element{0x724E0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3060,12 +3060,12 @@ TEST(tailoring, az_search_suppressions_5)
     {
         uint32_t cps[2] = { 0xe43, 0xe02 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71800000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71080000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72800000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72080000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3078,12 +3078,12 @@ TEST(tailoring, az_search_suppressions_5)
     {
         uint32_t cps[2] = { 0xe43, 0xe06 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71800000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71100000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72800000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72100000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3096,12 +3096,12 @@ TEST(tailoring, az_search_suppressions_5)
     {
         uint32_t cps[2] = { 0xe43, 0xe20 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71800000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71440000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72800000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72440000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3114,12 +3114,12 @@ TEST(tailoring, az_search_suppressions_5)
     {
         uint32_t cps[2] = { 0xe43, 0xe2d };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71800000, 0x0500, 0x0500},
-            text::detail::collation_element{0x715E0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72800000, 0x0500, 0x0500},
+            text::detail::collation_element{0x725E0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3132,12 +3132,12 @@ TEST(tailoring, az_search_suppressions_5)
     {
         uint32_t cps[2] = { 0xe43, 0xe0a };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71800000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71180000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72800000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72180000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3150,12 +3150,12 @@ TEST(tailoring, az_search_suppressions_5)
     {
         uint32_t cps[2] = { 0xe43, 0xe11 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71800000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71260000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72800000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72260000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3168,12 +3168,12 @@ TEST(tailoring, az_search_suppressions_5)
     {
         uint32_t cps[2] = { 0xe43, 0xe0e };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71800000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71200000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72800000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72200000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3186,12 +3186,12 @@ TEST(tailoring, az_search_suppressions_5)
     {
         uint32_t cps[2] = { 0xe43, 0xe15 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71800000, 0x0500, 0x0500},
-            text::detail::collation_element{0x712E0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72800000, 0x0500, 0x0500},
+            text::detail::collation_element{0x722E0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3204,12 +3204,12 @@ TEST(tailoring, az_search_suppressions_5)
     {
         uint32_t cps[2] = { 0xe43, 0xe19 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71800000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71360000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72800000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72360000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3222,12 +3222,12 @@ TEST(tailoring, az_search_suppressions_5)
     {
         uint32_t cps[2] = { 0xe43, 0xe1d };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71800000, 0x0500, 0x0500},
-            text::detail::collation_element{0x713E0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72800000, 0x0500, 0x0500},
+            text::detail::collation_element{0x723E0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3240,12 +3240,12 @@ TEST(tailoring, az_search_suppressions_5)
     {
         uint32_t cps[2] = { 0xe43, 0xe01 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71800000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71060000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72800000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72060000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3258,12 +3258,12 @@ TEST(tailoring, az_search_suppressions_5)
     {
         uint32_t cps[2] = { 0xe43, 0xe24 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71800000, 0x0500, 0x0500},
-            text::detail::collation_element{0x714C0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72800000, 0x0500, 0x0500},
+            text::detail::collation_element{0x724C0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3276,12 +3276,12 @@ TEST(tailoring, az_search_suppressions_5)
     {
         uint32_t cps[2] = { 0xe43, 0xe28 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71800000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71540000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72800000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72540000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3294,12 +3294,12 @@ TEST(tailoring, az_search_suppressions_5)
     {
         uint32_t cps[2] = { 0xe43, 0xe09 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71800000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71160000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72800000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72160000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3322,12 +3322,12 @@ TEST(tailoring, az_search_suppressions_6)
     {
         uint32_t cps[2] = { 0xe43, 0xe2c };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71800000, 0x0500, 0x0500},
-            text::detail::collation_element{0x715C0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72800000, 0x0500, 0x0500},
+            text::detail::collation_element{0x725C0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3340,12 +3340,12 @@ TEST(tailoring, az_search_suppressions_6)
     {
         uint32_t cps[2] = { 0xe43, 0xe0d };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71800000, 0x0500, 0x0500},
-            text::detail::collation_element{0x711E0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72800000, 0x0500, 0x0500},
+            text::detail::collation_element{0x721E0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3358,12 +3358,12 @@ TEST(tailoring, az_search_suppressions_6)
     {
         uint32_t cps[2] = { 0xe43, 0xe14 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71800000, 0x0500, 0x0500},
-            text::detail::collation_element{0x712C0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72800000, 0x0500, 0x0500},
+            text::detail::collation_element{0x722C0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3376,12 +3376,12 @@ TEST(tailoring, az_search_suppressions_6)
     {
         uint32_t cps[2] = { 0xe43, 0xe18 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71800000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71340000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72800000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72340000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3394,12 +3394,12 @@ TEST(tailoring, az_search_suppressions_6)
     {
         uint32_t cps[2] = { 0xe44, 0xe15 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71820000, 0x0500, 0x0500},
-            text::detail::collation_element{0x712E0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72820000, 0x0500, 0x0500},
+            text::detail::collation_element{0x722E0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3412,12 +3412,12 @@ TEST(tailoring, az_search_suppressions_6)
     {
         uint32_t cps[2] = { 0xe44, 0xe1d };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71820000, 0x0500, 0x0500},
-            text::detail::collation_element{0x713E0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72820000, 0x0500, 0x0500},
+            text::detail::collation_element{0x723E0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3430,12 +3430,12 @@ TEST(tailoring, az_search_suppressions_6)
     {
         uint32_t cps[2] = { 0xe44, 0xe18 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71820000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71340000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72820000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72340000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3448,12 +3448,12 @@ TEST(tailoring, az_search_suppressions_6)
     {
         uint32_t cps[2] = { 0xe44, 0xe19 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71820000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71360000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72820000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72360000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3466,12 +3466,12 @@ TEST(tailoring, az_search_suppressions_6)
     {
         uint32_t cps[2] = { 0xe44, 0xe26 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71820000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71500000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72820000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72500000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3484,12 +3484,12 @@ TEST(tailoring, az_search_suppressions_6)
     {
         uint32_t cps[2] = { 0xe44, 0xe17 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71820000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71320000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72820000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72320000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3502,12 +3502,12 @@ TEST(tailoring, az_search_suppressions_6)
     {
         uint32_t cps[2] = { 0xe44, 0xe05 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71820000, 0x0500, 0x0500},
-            text::detail::collation_element{0x710E0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72820000, 0x0500, 0x0500},
+            text::detail::collation_element{0x720E0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3520,12 +3520,12 @@ TEST(tailoring, az_search_suppressions_6)
     {
         uint32_t cps[2] = { 0xe44, 0xe22 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71820000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71480000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72820000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72480000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3538,12 +3538,12 @@ TEST(tailoring, az_search_suppressions_6)
     {
         uint32_t cps[2] = { 0xe44, 0xe01 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71820000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71060000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72820000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72060000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3556,12 +3556,12 @@ TEST(tailoring, az_search_suppressions_6)
     {
         uint32_t cps[2] = { 0xe44, 0xe2e };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71820000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71600000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72820000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72600000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3574,12 +3574,12 @@ TEST(tailoring, az_search_suppressions_6)
     {
         uint32_t cps[2] = { 0xe44, 0xe0d };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71820000, 0x0500, 0x0500},
-            text::detail::collation_element{0x711E0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72820000, 0x0500, 0x0500},
+            text::detail::collation_element{0x721E0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3592,12 +3592,12 @@ TEST(tailoring, az_search_suppressions_6)
     {
         uint32_t cps[2] = { 0xe44, 0xe2a };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71820000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71580000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72820000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72580000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3610,12 +3610,12 @@ TEST(tailoring, az_search_suppressions_6)
     {
         uint32_t cps[2] = { 0xe44, 0xe09 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71820000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71160000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72820000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72160000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3628,12 +3628,12 @@ TEST(tailoring, az_search_suppressions_6)
     {
         uint32_t cps[2] = { 0xe44, 0xe16 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71820000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71300000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72820000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72300000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3646,12 +3646,12 @@ TEST(tailoring, az_search_suppressions_6)
     {
         uint32_t cps[2] = { 0xe44, 0xe12 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71820000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71280000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72820000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72280000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3664,12 +3664,12 @@ TEST(tailoring, az_search_suppressions_6)
     {
         uint32_t cps[2] = { 0xe44, 0xe1e };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71820000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71400000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72820000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72400000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3682,12 +3682,12 @@ TEST(tailoring, az_search_suppressions_6)
     {
         uint32_t cps[2] = { 0xe44, 0xe1a };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71820000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71380000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72820000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72380000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3700,12 +3700,12 @@ TEST(tailoring, az_search_suppressions_6)
     {
         uint32_t cps[2] = { 0xe44, 0xe27 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71820000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71520000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72820000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72520000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3718,12 +3718,12 @@ TEST(tailoring, az_search_suppressions_6)
     {
         uint32_t cps[2] = { 0xe44, 0xe06 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71820000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71100000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72820000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72100000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3736,12 +3736,12 @@ TEST(tailoring, az_search_suppressions_6)
     {
         uint32_t cps[2] = { 0xe44, 0xe23 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71820000, 0x0500, 0x0500},
-            text::detail::collation_element{0x714A0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72820000, 0x0500, 0x0500},
+            text::detail::collation_element{0x724A0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3754,12 +3754,12 @@ TEST(tailoring, az_search_suppressions_6)
     {
         uint32_t cps[2] = { 0xe44, 0xe02 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71820000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71080000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72820000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72080000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3772,12 +3772,12 @@ TEST(tailoring, az_search_suppressions_6)
     {
         uint32_t cps[2] = { 0xe44, 0xe0e };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71820000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71200000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72820000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72200000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3790,12 +3790,12 @@ TEST(tailoring, az_search_suppressions_6)
     {
         uint32_t cps[2] = { 0xe44, 0xe2b };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71820000, 0x0500, 0x0500},
-            text::detail::collation_element{0x715A0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72820000, 0x0500, 0x0500},
+            text::detail::collation_element{0x725A0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3808,12 +3808,12 @@ TEST(tailoring, az_search_suppressions_6)
     {
         uint32_t cps[2] = { 0xe44, 0xe11 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71820000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71260000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72820000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72260000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3826,12 +3826,12 @@ TEST(tailoring, az_search_suppressions_6)
     {
         uint32_t cps[2] = { 0xe44, 0xe0a };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71820000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71180000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72820000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72180000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3844,12 +3844,12 @@ TEST(tailoring, az_search_suppressions_6)
     {
         uint32_t cps[2] = { 0xe44, 0xe13 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71820000, 0x0500, 0x0500},
-            text::detail::collation_element{0x712A0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72820000, 0x0500, 0x0500},
+            text::detail::collation_element{0x722A0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3872,12 +3872,12 @@ TEST(tailoring, az_search_suppressions_7)
     {
         uint32_t cps[2] = { 0xe44, 0xe1f };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71820000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71420000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72820000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72420000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3890,12 +3890,12 @@ TEST(tailoring, az_search_suppressions_7)
     {
         uint32_t cps[2] = { 0xe44, 0xe24 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71820000, 0x0500, 0x0500},
-            text::detail::collation_element{0x714C0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72820000, 0x0500, 0x0500},
+            text::detail::collation_element{0x724C0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3908,12 +3908,12 @@ TEST(tailoring, az_search_suppressions_7)
     {
         uint32_t cps[2] = { 0xe44, 0xe1b };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71820000, 0x0500, 0x0500},
-            text::detail::collation_element{0x713A0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72820000, 0x0500, 0x0500},
+            text::detail::collation_element{0x723A0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3926,12 +3926,12 @@ TEST(tailoring, az_search_suppressions_7)
     {
         uint32_t cps[2] = { 0xe44, 0xe20 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71820000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71440000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72820000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72440000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3944,12 +3944,12 @@ TEST(tailoring, az_search_suppressions_7)
     {
         uint32_t cps[2] = { 0xe44, 0xe07 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71820000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71120000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72820000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72120000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3962,12 +3962,12 @@ TEST(tailoring, az_search_suppressions_7)
     {
         uint32_t cps[2] = { 0xe44, 0xe2c };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71820000, 0x0500, 0x0500},
-            text::detail::collation_element{0x715C0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72820000, 0x0500, 0x0500},
+            text::detail::collation_element{0x725C0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3980,12 +3980,12 @@ TEST(tailoring, az_search_suppressions_7)
     {
         uint32_t cps[2] = { 0xe44, 0xe03 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71820000, 0x0500, 0x0500},
-            text::detail::collation_element{0x710A0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72820000, 0x0500, 0x0500},
+            text::detail::collation_element{0x720A0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -3998,12 +3998,12 @@ TEST(tailoring, az_search_suppressions_7)
     {
         uint32_t cps[2] = { 0xe44, 0xe28 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71820000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71540000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72820000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72540000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4016,12 +4016,12 @@ TEST(tailoring, az_search_suppressions_7)
     {
         uint32_t cps[2] = { 0xe44, 0xe0f };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71820000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71220000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72820000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72220000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4034,12 +4034,12 @@ TEST(tailoring, az_search_suppressions_7)
     {
         uint32_t cps[2] = { 0xe44, 0xe14 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71820000, 0x0500, 0x0500},
-            text::detail::collation_element{0x712C0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72820000, 0x0500, 0x0500},
+            text::detail::collation_element{0x722C0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4052,12 +4052,12 @@ TEST(tailoring, az_search_suppressions_7)
     {
         uint32_t cps[2] = { 0xe44, 0xe0b };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71820000, 0x0500, 0x0500},
-            text::detail::collation_element{0x711A0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72820000, 0x0500, 0x0500},
+            text::detail::collation_element{0x721A0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4070,12 +4070,12 @@ TEST(tailoring, az_search_suppressions_7)
     {
         uint32_t cps[2] = { 0xe44, 0xe10 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71820000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71240000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72820000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72240000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4088,12 +4088,12 @@ TEST(tailoring, az_search_suppressions_7)
     {
         uint32_t cps[2] = { 0xe44, 0xe29 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71820000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71560000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72820000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72560000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4106,12 +4106,12 @@ TEST(tailoring, az_search_suppressions_7)
     {
         uint32_t cps[2] = { 0xe44, 0xe1c };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71820000, 0x0500, 0x0500},
-            text::detail::collation_element{0x713C0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72820000, 0x0500, 0x0500},
+            text::detail::collation_element{0x723C0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4124,12 +4124,12 @@ TEST(tailoring, az_search_suppressions_7)
     {
         uint32_t cps[2] = { 0xe44, 0xe25 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71820000, 0x0500, 0x0500},
-            text::detail::collation_element{0x714E0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72820000, 0x0500, 0x0500},
+            text::detail::collation_element{0x724E0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4142,12 +4142,12 @@ TEST(tailoring, az_search_suppressions_7)
     {
         uint32_t cps[2] = { 0xe44, 0xe04 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71820000, 0x0500, 0x0500},
-            text::detail::collation_element{0x710C0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72820000, 0x0500, 0x0500},
+            text::detail::collation_element{0x720C0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4160,12 +4160,12 @@ TEST(tailoring, az_search_suppressions_7)
     {
         uint32_t cps[2] = { 0xe44, 0xe21 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71820000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71460000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72820000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72460000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4178,12 +4178,12 @@ TEST(tailoring, az_search_suppressions_7)
     {
         uint32_t cps[2] = { 0xe44, 0xe2d };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71820000, 0x0500, 0x0500},
-            text::detail::collation_element{0x715E0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72820000, 0x0500, 0x0500},
+            text::detail::collation_element{0x725E0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4196,12 +4196,12 @@ TEST(tailoring, az_search_suppressions_7)
     {
         uint32_t cps[2] = { 0xe44, 0xe0c };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71820000, 0x0500, 0x0500},
-            text::detail::collation_element{0x711C0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72820000, 0x0500, 0x0500},
+            text::detail::collation_element{0x721C0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4214,12 +4214,12 @@ TEST(tailoring, az_search_suppressions_7)
     {
         uint32_t cps[2] = { 0xe44, 0xe08 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x71820000, 0x0500, 0x0500},
-            text::detail::collation_element{0x71140000, 0x0500, 0x0500}
+            text::detail::collation_element{0x72820000, 0x0500, 0x0500},
+            text::detail::collation_element{0x72140000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4232,12 +4232,12 @@ TEST(tailoring, az_search_suppressions_7)
     {
         uint32_t cps[2] = { 0xec0, 0xe9b };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72260000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73260000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4250,12 +4250,12 @@ TEST(tailoring, az_search_suppressions_7)
     {
         uint32_t cps[2] = { 0xec0, 0xe9f };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x722E0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x732E0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4268,12 +4268,12 @@ TEST(tailoring, az_search_suppressions_7)
     {
         uint32_t cps[2] = { 0xec0, 0xea2 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72320000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73320000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4286,12 +4286,12 @@ TEST(tailoring, az_search_suppressions_7)
     {
         uint32_t cps[2] = { 0xec0, 0xe88 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72100000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73100000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4304,13 +4304,13 @@ TEST(tailoring, az_search_suppressions_7)
     {
         uint32_t cps[2] = { 0xec0, 0xedd };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x723A0000, 0x0500, 0x2000},
-            text::detail::collation_element{0x72300000, 0x0500, 0x2000}
+            text::detail::collation_element{0x735C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x733A0000, 0x0500, 0x2000},
+            text::detail::collation_element{0x73300000, 0x0500, 0x2000}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4323,12 +4323,12 @@ TEST(tailoring, az_search_suppressions_7)
     {
         uint32_t cps[2] = { 0xec0, 0xe97 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72200000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73200000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4341,12 +4341,12 @@ TEST(tailoring, az_search_suppressions_7)
     {
         uint32_t cps[2] = { 0xec0, 0xea1 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72300000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73300000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4359,12 +4359,12 @@ TEST(tailoring, az_search_suppressions_7)
     {
         uint32_t cps[2] = { 0xec0, 0xea5 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72360000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73360000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4377,12 +4377,12 @@ TEST(tailoring, az_search_suppressions_7)
     {
         uint32_t cps[2] = { 0xec0, 0xe84 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x720C0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x730C0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4395,12 +4395,12 @@ TEST(tailoring, az_search_suppressions_7)
     {
         uint32_t cps[2] = { 0xec0, 0xe94 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x721A0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x731A0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4423,12 +4423,12 @@ TEST(tailoring, az_search_suppressions_8)
     {
         uint32_t cps[2] = { 0xec0, 0xeae };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x723E0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x733E0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4441,12 +4441,12 @@ TEST(tailoring, az_search_suppressions_8)
     {
         uint32_t cps[2] = { 0xec0, 0xede };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72060000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73060000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4459,12 +4459,12 @@ TEST(tailoring, az_search_suppressions_8)
     {
         uint32_t cps[2] = { 0xec0, 0xe8d };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72180000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73180000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4477,12 +4477,12 @@ TEST(tailoring, az_search_suppressions_8)
     {
         uint32_t cps[2] = { 0xec0, 0xe81 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72080000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73080000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4495,12 +4495,12 @@ TEST(tailoring, az_search_suppressions_8)
     {
         uint32_t cps[2] = { 0xec0, 0xe99 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72220000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73220000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4513,12 +4513,12 @@ TEST(tailoring, az_search_suppressions_8)
     {
         uint32_t cps[2] = { 0xec0, 0xe9d };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x722A0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x732A0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4531,12 +4531,12 @@ TEST(tailoring, az_search_suppressions_8)
     {
         uint32_t cps[2] = { 0xec0, 0xead };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x723C0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x733C0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4549,12 +4549,12 @@ TEST(tailoring, az_search_suppressions_8)
     {
         uint32_t cps[2] = { 0xec0, 0xeab };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x723A0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x733A0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4567,12 +4567,12 @@ TEST(tailoring, az_search_suppressions_8)
     {
         uint32_t cps[2] = { 0xec0, 0xe95 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x721C0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x731C0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4585,12 +4585,12 @@ TEST(tailoring, az_search_suppressions_8)
     {
         uint32_t cps[2] = { 0xec0, 0xe8a };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72140000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73140000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4603,12 +4603,12 @@ TEST(tailoring, az_search_suppressions_8)
     {
         uint32_t cps[2] = { 0xec0, 0xe9c };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72280000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73280000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4621,12 +4621,12 @@ TEST(tailoring, az_search_suppressions_8)
     {
         uint32_t cps[2] = { 0xec0, 0xedf };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72160000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73160000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4639,12 +4639,12 @@ TEST(tailoring, az_search_suppressions_8)
     {
         uint32_t cps[2] = { 0xec0, 0xea3 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72340000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73340000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4657,12 +4657,12 @@ TEST(tailoring, az_search_suppressions_8)
     {
         uint32_t cps[2] = { 0xec0, 0xe82 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x720A0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x730A0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4675,12 +4675,12 @@ TEST(tailoring, az_search_suppressions_8)
     {
         uint32_t cps[2] = { 0xec0, 0xea7 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72380000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73380000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4693,12 +4693,12 @@ TEST(tailoring, az_search_suppressions_8)
     {
         uint32_t cps[2] = { 0xec0, 0xe9a };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72240000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73240000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4711,12 +4711,12 @@ TEST(tailoring, az_search_suppressions_8)
     {
         uint32_t cps[2] = { 0xec0, 0xe9e };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x722C0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x732C0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4729,13 +4729,13 @@ TEST(tailoring, az_search_suppressions_8)
     {
         uint32_t cps[2] = { 0xec0, 0xedc };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x723A0000, 0x0500, 0x2000},
-            text::detail::collation_element{0x72220000, 0x0500, 0x2000}
+            text::detail::collation_element{0x735C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x733A0000, 0x0500, 0x2000},
+            text::detail::collation_element{0x73220000, 0x0500, 0x2000}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4748,12 +4748,12 @@ TEST(tailoring, az_search_suppressions_8)
     {
         uint32_t cps[2] = { 0xec0, 0xe96 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x721E0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x731E0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4766,12 +4766,12 @@ TEST(tailoring, az_search_suppressions_8)
     {
         uint32_t cps[2] = { 0xec0, 0xeaa };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72120000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73120000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4784,12 +4784,12 @@ TEST(tailoring, az_search_suppressions_8)
     {
         uint32_t cps[2] = { 0xec0, 0xe87 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725C0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x720E0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735C0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x730E0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4802,12 +4802,12 @@ TEST(tailoring, az_search_suppressions_8)
     {
         uint32_t cps[2] = { 0xec1, 0xede };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72060000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73060000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4820,12 +4820,12 @@ TEST(tailoring, az_search_suppressions_8)
     {
         uint32_t cps[2] = { 0xec1, 0xe84 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x720C0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x730C0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4838,12 +4838,12 @@ TEST(tailoring, az_search_suppressions_8)
     {
         uint32_t cps[2] = { 0xec1, 0xe9c };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72280000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73280000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4856,12 +4856,12 @@ TEST(tailoring, az_search_suppressions_8)
     {
         uint32_t cps[2] = { 0xec1, 0xeaa };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72120000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73120000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4874,30 +4874,12 @@ TEST(tailoring, az_search_suppressions_8)
     {
         uint32_t cps[2] = { 0xec1, 0xeae };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x723E0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x733E0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
-        // Ignore lead byte reorderings.  We just care if the contractions
-        // happen.
-        for (auto & ce : ces) {
-            ce.l1_ &= 0x00ffffff;
-            ce.l3_ &= text::detail::disable_case_level_mask;
-        }
-        for (auto & ce : result) { ce.l1_ &= 0x00ffffff; }
-        EXPECT_EQ(result, ces);
-    }
-    {
-        uint32_t cps[2] = { 0xec1, 0xe94 };
-        container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x721A0000, 0x0500, 0x0500}
-        };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4910,12 +4892,30 @@ TEST(tailoring, az_search_suppressions_8)
     {
         uint32_t cps[2] = { 0xec1, 0xea2 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72320000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73320000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
+        // Ignore lead byte reorderings.  We just care if the contractions
+        // happen.
+        for (auto & ce : ces) {
+            ce.l1_ &= 0x00ffffff;
+            ce.l3_ &= text::detail::disable_case_level_mask;
+        }
+        for (auto & ce : result) { ce.l1_ &= 0x00ffffff; }
+        EXPECT_EQ(result, ces);
+    }
+    {
+        uint32_t cps[2] = { 0xec1, 0xe94 };
+        container::small_vector<text::detail::collation_element, 1024> ces = {
+            text::detail::collation_element{0x735E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x731A0000, 0x0500, 0x0500}
+        };
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4928,12 +4928,12 @@ TEST(tailoring, az_search_suppressions_8)
     {
         uint32_t cps[2] = { 0xec1, 0xe87 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x720E0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x730E0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4946,13 +4946,13 @@ TEST(tailoring, az_search_suppressions_8)
     {
         uint32_t cps[2] = { 0xec1, 0xedd };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x723A0000, 0x0500, 0x2000},
-            text::detail::collation_element{0x72300000, 0x0500, 0x2000}
+            text::detail::collation_element{0x735E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x733A0000, 0x0500, 0x2000},
+            text::detail::collation_element{0x73300000, 0x0500, 0x2000}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4975,12 +4975,12 @@ TEST(tailoring, az_search_suppressions_9)
     {
         uint32_t cps[2] = { 0xec1, 0xe9b };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72260000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73260000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -4993,13 +4993,13 @@ TEST(tailoring, az_search_suppressions_9)
     {
         uint32_t cps[2] = { 0xec1, 0xedc };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x723A0000, 0x0500, 0x2000},
-            text::detail::collation_element{0x72220000, 0x0500, 0x2000}
+            text::detail::collation_element{0x735E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x733A0000, 0x0500, 0x2000},
+            text::detail::collation_element{0x73220000, 0x0500, 0x2000}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5012,12 +5012,12 @@ TEST(tailoring, az_search_suppressions_9)
     {
         uint32_t cps[2] = { 0xec1, 0xe9f };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x722E0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x732E0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5030,12 +5030,12 @@ TEST(tailoring, az_search_suppressions_9)
     {
         uint32_t cps[2] = { 0xec1, 0xe97 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72200000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73200000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5048,12 +5048,12 @@ TEST(tailoring, az_search_suppressions_9)
     {
         uint32_t cps[2] = { 0xec1, 0xe8a };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72140000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73140000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5066,12 +5066,12 @@ TEST(tailoring, az_search_suppressions_9)
     {
         uint32_t cps[2] = { 0xec1, 0xead };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x723C0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x733C0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5084,12 +5084,12 @@ TEST(tailoring, az_search_suppressions_9)
     {
         uint32_t cps[2] = { 0xec1, 0xea1 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72300000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73300000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5102,12 +5102,12 @@ TEST(tailoring, az_search_suppressions_9)
     {
         uint32_t cps[2] = { 0xec1, 0xe82 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x720A0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x730A0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5120,12 +5120,12 @@ TEST(tailoring, az_search_suppressions_9)
     {
         uint32_t cps[2] = { 0xec1, 0xea5 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72360000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73360000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5138,12 +5138,12 @@ TEST(tailoring, az_search_suppressions_9)
     {
         uint32_t cps[2] = { 0xec1, 0xe9a };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72240000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73240000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5156,12 +5156,12 @@ TEST(tailoring, az_search_suppressions_9)
     {
         uint32_t cps[2] = { 0xec1, 0xe9e };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x722C0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x732C0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5174,12 +5174,12 @@ TEST(tailoring, az_search_suppressions_9)
     {
         uint32_t cps[2] = { 0xec1, 0xe96 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x721E0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x731E0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5192,12 +5192,12 @@ TEST(tailoring, az_search_suppressions_9)
     {
         uint32_t cps[2] = { 0xec1, 0xe8d };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72180000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73180000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5210,12 +5210,12 @@ TEST(tailoring, az_search_suppressions_9)
     {
         uint32_t cps[2] = { 0xec1, 0xe81 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72080000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73080000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5228,12 +5228,12 @@ TEST(tailoring, az_search_suppressions_9)
     {
         uint32_t cps[2] = { 0xec1, 0xedf };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72160000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73160000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5246,12 +5246,12 @@ TEST(tailoring, az_search_suppressions_9)
     {
         uint32_t cps[2] = { 0xec1, 0xe99 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72220000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73220000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5264,12 +5264,12 @@ TEST(tailoring, az_search_suppressions_9)
     {
         uint32_t cps[2] = { 0xec1, 0xe9d };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x722A0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x732A0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5282,12 +5282,12 @@ TEST(tailoring, az_search_suppressions_9)
     {
         uint32_t cps[2] = { 0xec1, 0xeab };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x723A0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x733A0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5300,12 +5300,12 @@ TEST(tailoring, az_search_suppressions_9)
     {
         uint32_t cps[2] = { 0xec1, 0xe95 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x721C0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x731C0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5318,12 +5318,12 @@ TEST(tailoring, az_search_suppressions_9)
     {
         uint32_t cps[2] = { 0xec1, 0xe88 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72100000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73100000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5336,12 +5336,12 @@ TEST(tailoring, az_search_suppressions_9)
     {
         uint32_t cps[2] = { 0xec1, 0xea3 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72340000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73340000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5354,12 +5354,12 @@ TEST(tailoring, az_search_suppressions_9)
     {
         uint32_t cps[2] = { 0xec1, 0xea7 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x725E0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72380000, 0x0500, 0x0500}
+            text::detail::collation_element{0x735E0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73380000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5372,12 +5372,12 @@ TEST(tailoring, az_search_suppressions_9)
     {
         uint32_t cps[2] = { 0xec2, 0xea7 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72600000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72380000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73600000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73380000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5390,12 +5390,12 @@ TEST(tailoring, az_search_suppressions_9)
     {
         uint32_t cps[2] = { 0xec2, 0xea3 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72600000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72340000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73600000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73340000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5408,12 +5408,12 @@ TEST(tailoring, az_search_suppressions_9)
     {
         uint32_t cps[2] = { 0xec2, 0xe82 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72600000, 0x0500, 0x0500},
-            text::detail::collation_element{0x720A0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73600000, 0x0500, 0x0500},
+            text::detail::collation_element{0x730A0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5426,12 +5426,12 @@ TEST(tailoring, az_search_suppressions_9)
     {
         uint32_t cps[2] = { 0xec2, 0xe9e };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72600000, 0x0500, 0x0500},
-            text::detail::collation_element{0x722C0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73600000, 0x0500, 0x0500},
+            text::detail::collation_element{0x732C0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5444,12 +5444,12 @@ TEST(tailoring, az_search_suppressions_9)
     {
         uint32_t cps[2] = { 0xec2, 0xe9a };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72600000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72240000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73600000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73240000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5462,12 +5462,12 @@ TEST(tailoring, az_search_suppressions_9)
     {
         uint32_t cps[2] = { 0xec2, 0xe96 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72600000, 0x0500, 0x0500},
-            text::detail::collation_element{0x721E0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73600000, 0x0500, 0x0500},
+            text::detail::collation_element{0x731E0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5480,13 +5480,13 @@ TEST(tailoring, az_search_suppressions_9)
     {
         uint32_t cps[2] = { 0xec2, 0xedc };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72600000, 0x0500, 0x0500},
-            text::detail::collation_element{0x723A0000, 0x0500, 0x2000},
-            text::detail::collation_element{0x72220000, 0x0500, 0x2000}
+            text::detail::collation_element{0x73600000, 0x0500, 0x0500},
+            text::detail::collation_element{0x733A0000, 0x0500, 0x2000},
+            text::detail::collation_element{0x73220000, 0x0500, 0x2000}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5499,12 +5499,12 @@ TEST(tailoring, az_search_suppressions_9)
     {
         uint32_t cps[2] = { 0xec2, 0xe87 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72600000, 0x0500, 0x0500},
-            text::detail::collation_element{0x720E0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73600000, 0x0500, 0x0500},
+            text::detail::collation_element{0x730E0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5527,12 +5527,12 @@ TEST(tailoring, az_search_suppressions_10)
     {
         uint32_t cps[2] = { 0xec2, 0xe9f };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72600000, 0x0500, 0x0500},
-            text::detail::collation_element{0x722E0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73600000, 0x0500, 0x0500},
+            text::detail::collation_element{0x732E0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5545,12 +5545,12 @@ TEST(tailoring, az_search_suppressions_10)
     {
         uint32_t cps[2] = { 0xec2, 0xe9b };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72600000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72260000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73600000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73260000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5563,12 +5563,12 @@ TEST(tailoring, az_search_suppressions_10)
     {
         uint32_t cps[2] = { 0xec2, 0xe97 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72600000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72200000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73600000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73200000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5581,12 +5581,12 @@ TEST(tailoring, az_search_suppressions_10)
     {
         uint32_t cps[2] = { 0xec2, 0xead };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72600000, 0x0500, 0x0500},
-            text::detail::collation_element{0x723C0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73600000, 0x0500, 0x0500},
+            text::detail::collation_element{0x733C0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5599,13 +5599,13 @@ TEST(tailoring, az_search_suppressions_10)
     {
         uint32_t cps[2] = { 0xec2, 0xedd };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72600000, 0x0500, 0x0500},
-            text::detail::collation_element{0x723A0000, 0x0500, 0x2000},
-            text::detail::collation_element{0x72300000, 0x0500, 0x2000}
+            text::detail::collation_element{0x73600000, 0x0500, 0x0500},
+            text::detail::collation_element{0x733A0000, 0x0500, 0x2000},
+            text::detail::collation_element{0x73300000, 0x0500, 0x2000}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5618,12 +5618,12 @@ TEST(tailoring, az_search_suppressions_10)
     {
         uint32_t cps[2] = { 0xec2, 0xe88 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72600000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72100000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73600000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73100000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5636,12 +5636,12 @@ TEST(tailoring, az_search_suppressions_10)
     {
         uint32_t cps[2] = { 0xec2, 0xea5 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72600000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72360000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73600000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73360000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5654,12 +5654,12 @@ TEST(tailoring, az_search_suppressions_10)
     {
         uint32_t cps[2] = { 0xec2, 0xe84 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72600000, 0x0500, 0x0500},
-            text::detail::collation_element{0x720C0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73600000, 0x0500, 0x0500},
+            text::detail::collation_element{0x730C0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5672,12 +5672,12 @@ TEST(tailoring, az_search_suppressions_10)
     {
         uint32_t cps[2] = { 0xec2, 0xea1 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72600000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72300000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73600000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73300000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5690,12 +5690,12 @@ TEST(tailoring, az_search_suppressions_10)
     {
         uint32_t cps[2] = { 0xec2, 0xe9c };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72600000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72280000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73600000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73280000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5708,12 +5708,12 @@ TEST(tailoring, az_search_suppressions_10)
     {
         uint32_t cps[2] = { 0xec2, 0xeae };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72600000, 0x0500, 0x0500},
-            text::detail::collation_element{0x723E0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73600000, 0x0500, 0x0500},
+            text::detail::collation_element{0x733E0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5726,12 +5726,12 @@ TEST(tailoring, az_search_suppressions_10)
     {
         uint32_t cps[2] = { 0xec2, 0xede };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72600000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72060000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73600000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73060000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5744,12 +5744,12 @@ TEST(tailoring, az_search_suppressions_10)
     {
         uint32_t cps[2] = { 0xec2, 0xe94 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72600000, 0x0500, 0x0500},
-            text::detail::collation_element{0x721A0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73600000, 0x0500, 0x0500},
+            text::detail::collation_element{0x731A0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5762,12 +5762,12 @@ TEST(tailoring, az_search_suppressions_10)
     {
         uint32_t cps[2] = { 0xec2, 0xeaa };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72600000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72120000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73600000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73120000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5780,12 +5780,12 @@ TEST(tailoring, az_search_suppressions_10)
     {
         uint32_t cps[2] = { 0xec2, 0xe8d };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72600000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72180000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73600000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73180000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5798,12 +5798,12 @@ TEST(tailoring, az_search_suppressions_10)
     {
         uint32_t cps[2] = { 0xec2, 0xea2 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72600000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72320000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73600000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73320000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5816,12 +5816,12 @@ TEST(tailoring, az_search_suppressions_10)
     {
         uint32_t cps[2] = { 0xec2, 0xe81 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72600000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72080000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73600000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73080000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5834,12 +5834,12 @@ TEST(tailoring, az_search_suppressions_10)
     {
         uint32_t cps[2] = { 0xec2, 0xe9d };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72600000, 0x0500, 0x0500},
-            text::detail::collation_element{0x722A0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73600000, 0x0500, 0x0500},
+            text::detail::collation_element{0x732A0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5852,12 +5852,12 @@ TEST(tailoring, az_search_suppressions_10)
     {
         uint32_t cps[2] = { 0xec2, 0xe99 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72600000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72220000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73600000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73220000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5870,12 +5870,12 @@ TEST(tailoring, az_search_suppressions_10)
     {
         uint32_t cps[2] = { 0xec2, 0xedf };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72600000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72160000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73600000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73160000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5888,12 +5888,12 @@ TEST(tailoring, az_search_suppressions_10)
     {
         uint32_t cps[2] = { 0xec2, 0xe95 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72600000, 0x0500, 0x0500},
-            text::detail::collation_element{0x721C0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73600000, 0x0500, 0x0500},
+            text::detail::collation_element{0x731C0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5906,12 +5906,12 @@ TEST(tailoring, az_search_suppressions_10)
     {
         uint32_t cps[2] = { 0xec2, 0xeab };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72600000, 0x0500, 0x0500},
-            text::detail::collation_element{0x723A0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73600000, 0x0500, 0x0500},
+            text::detail::collation_element{0x733A0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5924,12 +5924,12 @@ TEST(tailoring, az_search_suppressions_10)
     {
         uint32_t cps[2] = { 0xec2, 0xe8a };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72600000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72140000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73600000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73140000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5942,12 +5942,12 @@ TEST(tailoring, az_search_suppressions_10)
     {
         uint32_t cps[2] = { 0xec3, 0xead };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72620000, 0x0500, 0x0500},
-            text::detail::collation_element{0x723C0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73620000, 0x0500, 0x0500},
+            text::detail::collation_element{0x733C0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5960,12 +5960,12 @@ TEST(tailoring, az_search_suppressions_10)
     {
         uint32_t cps[2] = { 0xec3, 0xe8a };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72620000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72140000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73620000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73140000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5978,12 +5978,12 @@ TEST(tailoring, az_search_suppressions_10)
     {
         uint32_t cps[2] = { 0xec3, 0xe95 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72620000, 0x0500, 0x0500},
-            text::detail::collation_element{0x721C0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73620000, 0x0500, 0x0500},
+            text::detail::collation_element{0x731C0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -5996,12 +5996,12 @@ TEST(tailoring, az_search_suppressions_10)
     {
         uint32_t cps[2] = { 0xec3, 0xedf };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72620000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72160000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73620000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73160000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6014,12 +6014,12 @@ TEST(tailoring, az_search_suppressions_10)
     {
         uint32_t cps[2] = { 0xec3, 0xe99 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72620000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72220000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73620000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73220000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6032,12 +6032,12 @@ TEST(tailoring, az_search_suppressions_10)
     {
         uint32_t cps[2] = { 0xec3, 0xe9d };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72620000, 0x0500, 0x0500},
-            text::detail::collation_element{0x722A0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73620000, 0x0500, 0x0500},
+            text::detail::collation_element{0x732A0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6050,12 +6050,12 @@ TEST(tailoring, az_search_suppressions_10)
     {
         uint32_t cps[2] = { 0xec3, 0xe81 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72620000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72080000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73620000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73080000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6078,12 +6078,12 @@ TEST(tailoring, az_search_suppressions_11)
     {
         uint32_t cps[2] = { 0xec3, 0xe8d };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72620000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72180000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73620000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73180000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6096,12 +6096,12 @@ TEST(tailoring, az_search_suppressions_11)
     {
         uint32_t cps[2] = { 0xec3, 0xe94 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72620000, 0x0500, 0x0500},
-            text::detail::collation_element{0x721A0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73620000, 0x0500, 0x0500},
+            text::detail::collation_element{0x731A0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6114,12 +6114,12 @@ TEST(tailoring, az_search_suppressions_11)
     {
         uint32_t cps[2] = { 0xec3, 0xede };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72620000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72060000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73620000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73060000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6132,12 +6132,12 @@ TEST(tailoring, az_search_suppressions_11)
     {
         uint32_t cps[2] = { 0xec3, 0xe9c };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72620000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72280000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73620000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73280000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6150,12 +6150,12 @@ TEST(tailoring, az_search_suppressions_11)
     {
         uint32_t cps[2] = { 0xec3, 0xea3 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72620000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72340000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73620000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73340000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6168,12 +6168,12 @@ TEST(tailoring, az_search_suppressions_11)
     {
         uint32_t cps[2] = { 0xec3, 0xea7 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72620000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72380000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73620000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73380000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6186,12 +6186,12 @@ TEST(tailoring, az_search_suppressions_11)
     {
         uint32_t cps[2] = { 0xec3, 0xe84 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72620000, 0x0500, 0x0500},
-            text::detail::collation_element{0x720C0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73620000, 0x0500, 0x0500},
+            text::detail::collation_element{0x730C0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6204,12 +6204,12 @@ TEST(tailoring, az_search_suppressions_11)
     {
         uint32_t cps[2] = { 0xec3, 0xeab };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72620000, 0x0500, 0x0500},
-            text::detail::collation_element{0x723A0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73620000, 0x0500, 0x0500},
+            text::detail::collation_element{0x733A0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6222,12 +6222,12 @@ TEST(tailoring, az_search_suppressions_11)
     {
         uint32_t cps[2] = { 0xec3, 0xe88 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72620000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72100000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73620000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73100000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6240,13 +6240,13 @@ TEST(tailoring, az_search_suppressions_11)
     {
         uint32_t cps[2] = { 0xec3, 0xedd };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72620000, 0x0500, 0x0500},
-            text::detail::collation_element{0x723A0000, 0x0500, 0x2000},
-            text::detail::collation_element{0x72300000, 0x0500, 0x2000}
+            text::detail::collation_element{0x73620000, 0x0500, 0x0500},
+            text::detail::collation_element{0x733A0000, 0x0500, 0x2000},
+            text::detail::collation_element{0x73300000, 0x0500, 0x2000}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6259,12 +6259,12 @@ TEST(tailoring, az_search_suppressions_11)
     {
         uint32_t cps[2] = { 0xec3, 0xe97 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72620000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72200000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73620000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73200000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6277,12 +6277,12 @@ TEST(tailoring, az_search_suppressions_11)
     {
         uint32_t cps[2] = { 0xec3, 0xe9b };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72620000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72260000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73620000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73260000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6295,12 +6295,12 @@ TEST(tailoring, az_search_suppressions_11)
     {
         uint32_t cps[2] = { 0xec3, 0xe9f };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72620000, 0x0500, 0x0500},
-            text::detail::collation_element{0x722E0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73620000, 0x0500, 0x0500},
+            text::detail::collation_element{0x732E0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6313,12 +6313,12 @@ TEST(tailoring, az_search_suppressions_11)
     {
         uint32_t cps[2] = { 0xec3, 0xea2 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72620000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72320000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73620000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73320000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6331,12 +6331,12 @@ TEST(tailoring, az_search_suppressions_11)
     {
         uint32_t cps[2] = { 0xec3, 0xe87 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72620000, 0x0500, 0x0500},
-            text::detail::collation_element{0x720E0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73620000, 0x0500, 0x0500},
+            text::detail::collation_element{0x730E0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6349,12 +6349,12 @@ TEST(tailoring, az_search_suppressions_11)
     {
         uint32_t cps[2] = { 0xec3, 0xeaa };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72620000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72120000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73620000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73120000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6367,12 +6367,12 @@ TEST(tailoring, az_search_suppressions_11)
     {
         uint32_t cps[2] = { 0xec3, 0xeae };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72620000, 0x0500, 0x0500},
-            text::detail::collation_element{0x723E0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73620000, 0x0500, 0x0500},
+            text::detail::collation_element{0x733E0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6385,13 +6385,13 @@ TEST(tailoring, az_search_suppressions_11)
     {
         uint32_t cps[2] = { 0xec3, 0xedc };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72620000, 0x0500, 0x0500},
-            text::detail::collation_element{0x723A0000, 0x0500, 0x2000},
-            text::detail::collation_element{0x72220000, 0x0500, 0x2000}
+            text::detail::collation_element{0x73620000, 0x0500, 0x0500},
+            text::detail::collation_element{0x733A0000, 0x0500, 0x2000},
+            text::detail::collation_element{0x73220000, 0x0500, 0x2000}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6404,12 +6404,12 @@ TEST(tailoring, az_search_suppressions_11)
     {
         uint32_t cps[2] = { 0xec3, 0xe96 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72620000, 0x0500, 0x0500},
-            text::detail::collation_element{0x721E0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73620000, 0x0500, 0x0500},
+            text::detail::collation_element{0x731E0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6422,12 +6422,12 @@ TEST(tailoring, az_search_suppressions_11)
     {
         uint32_t cps[2] = { 0xec3, 0xe9a };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72620000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72240000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73620000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73240000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6440,12 +6440,12 @@ TEST(tailoring, az_search_suppressions_11)
     {
         uint32_t cps[2] = { 0xec3, 0xea1 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72620000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72300000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73620000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73300000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6458,12 +6458,12 @@ TEST(tailoring, az_search_suppressions_11)
     {
         uint32_t cps[2] = { 0xec3, 0xe9e };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72620000, 0x0500, 0x0500},
-            text::detail::collation_element{0x722C0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73620000, 0x0500, 0x0500},
+            text::detail::collation_element{0x732C0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6476,12 +6476,12 @@ TEST(tailoring, az_search_suppressions_11)
     {
         uint32_t cps[2] = { 0xec3, 0xea5 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72620000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72360000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73620000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73360000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6494,12 +6494,12 @@ TEST(tailoring, az_search_suppressions_11)
     {
         uint32_t cps[2] = { 0xec3, 0xe82 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72620000, 0x0500, 0x0500},
-            text::detail::collation_element{0x720A0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73620000, 0x0500, 0x0500},
+            text::detail::collation_element{0x730A0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6512,12 +6512,12 @@ TEST(tailoring, az_search_suppressions_11)
     {
         uint32_t cps[2] = { 0xec4, 0xe8a };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72640000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72140000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73640000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73140000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6530,12 +6530,12 @@ TEST(tailoring, az_search_suppressions_11)
     {
         uint32_t cps[2] = { 0xec4, 0xe97 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72640000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72200000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73640000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73200000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6548,12 +6548,12 @@ TEST(tailoring, az_search_suppressions_11)
     {
         uint32_t cps[2] = { 0xec4, 0xe87 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72640000, 0x0500, 0x0500},
-            text::detail::collation_element{0x720E0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73640000, 0x0500, 0x0500},
+            text::detail::collation_element{0x730E0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6566,12 +6566,12 @@ TEST(tailoring, az_search_suppressions_11)
     {
         uint32_t cps[2] = { 0xec4, 0xe95 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72640000, 0x0500, 0x0500},
-            text::detail::collation_element{0x721C0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73640000, 0x0500, 0x0500},
+            text::detail::collation_element{0x731C0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6584,12 +6584,12 @@ TEST(tailoring, az_search_suppressions_11)
     {
         uint32_t cps[2] = { 0xec4, 0xe9f };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72640000, 0x0500, 0x0500},
-            text::detail::collation_element{0x722E0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73640000, 0x0500, 0x0500},
+            text::detail::collation_element{0x732E0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6602,12 +6602,12 @@ TEST(tailoring, az_search_suppressions_11)
     {
         uint32_t cps[2] = { 0xec4, 0xe9b };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72640000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72260000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73640000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73260000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6630,13 +6630,13 @@ TEST(tailoring, az_search_suppressions_12)
     {
         uint32_t cps[2] = { 0xec4, 0xedd };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72640000, 0x0500, 0x0500},
-            text::detail::collation_element{0x723A0000, 0x0500, 0x2000},
-            text::detail::collation_element{0x72300000, 0x0500, 0x2000}
+            text::detail::collation_element{0x73640000, 0x0500, 0x0500},
+            text::detail::collation_element{0x733A0000, 0x0500, 0x2000},
+            text::detail::collation_element{0x73300000, 0x0500, 0x2000}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6649,12 +6649,12 @@ TEST(tailoring, az_search_suppressions_12)
     {
         uint32_t cps[2] = { 0xec4, 0xea5 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72640000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72360000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73640000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73360000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6667,12 +6667,12 @@ TEST(tailoring, az_search_suppressions_12)
     {
         uint32_t cps[2] = { 0xec4, 0xe9c };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72640000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72280000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73640000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73280000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6685,12 +6685,12 @@ TEST(tailoring, az_search_suppressions_12)
     {
         uint32_t cps[2] = { 0xec4, 0xe84 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72640000, 0x0500, 0x0500},
-            text::detail::collation_element{0x720C0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73640000, 0x0500, 0x0500},
+            text::detail::collation_element{0x730C0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6703,12 +6703,12 @@ TEST(tailoring, az_search_suppressions_12)
     {
         uint32_t cps[2] = { 0xec4, 0xea1 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72640000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72300000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73640000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73300000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6721,12 +6721,12 @@ TEST(tailoring, az_search_suppressions_12)
     {
         uint32_t cps[2] = { 0xec4, 0xede };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72640000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72060000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73640000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73060000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6739,12 +6739,12 @@ TEST(tailoring, az_search_suppressions_12)
     {
         uint32_t cps[2] = { 0xec4, 0xead };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72640000, 0x0500, 0x0500},
-            text::detail::collation_element{0x723C0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73640000, 0x0500, 0x0500},
+            text::detail::collation_element{0x733C0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6757,12 +6757,12 @@ TEST(tailoring, az_search_suppressions_12)
     {
         uint32_t cps[2] = { 0xec4, 0xe88 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72640000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72100000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73640000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73100000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6775,12 +6775,12 @@ TEST(tailoring, az_search_suppressions_12)
     {
         uint32_t cps[2] = { 0xec4, 0xe94 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72640000, 0x0500, 0x0500},
-            text::detail::collation_element{0x721A0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73640000, 0x0500, 0x0500},
+            text::detail::collation_element{0x731A0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6793,12 +6793,12 @@ TEST(tailoring, az_search_suppressions_12)
     {
         uint32_t cps[2] = { 0xec4, 0xe9d };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72640000, 0x0500, 0x0500},
-            text::detail::collation_element{0x722A0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73640000, 0x0500, 0x0500},
+            text::detail::collation_element{0x732A0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6811,12 +6811,12 @@ TEST(tailoring, az_search_suppressions_12)
     {
         uint32_t cps[2] = { 0xec4, 0xe99 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72640000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72220000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73640000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73220000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6829,12 +6829,12 @@ TEST(tailoring, az_search_suppressions_12)
     {
         uint32_t cps[2] = { 0xec4, 0xea2 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72640000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72320000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73640000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73320000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6847,12 +6847,12 @@ TEST(tailoring, az_search_suppressions_12)
     {
         uint32_t cps[2] = { 0xec4, 0xedf };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72640000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72160000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73640000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73160000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6865,12 +6865,12 @@ TEST(tailoring, az_search_suppressions_12)
     {
         uint32_t cps[2] = { 0xec4, 0xe81 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72640000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72080000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73640000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73080000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6883,12 +6883,12 @@ TEST(tailoring, az_search_suppressions_12)
     {
         uint32_t cps[2] = { 0xec4, 0xeae };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72640000, 0x0500, 0x0500},
-            text::detail::collation_element{0x723E0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73640000, 0x0500, 0x0500},
+            text::detail::collation_element{0x733E0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6901,12 +6901,12 @@ TEST(tailoring, az_search_suppressions_12)
     {
         uint32_t cps[2] = { 0xec4, 0xe8d };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72640000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72180000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73640000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73180000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6919,12 +6919,12 @@ TEST(tailoring, az_search_suppressions_12)
     {
         uint32_t cps[2] = { 0xec4, 0xeaa };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72640000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72120000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73640000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73120000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6937,12 +6937,12 @@ TEST(tailoring, az_search_suppressions_12)
     {
         uint32_t cps[2] = { 0xec4, 0xe96 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72640000, 0x0500, 0x0500},
-            text::detail::collation_element{0x721E0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73640000, 0x0500, 0x0500},
+            text::detail::collation_element{0x731E0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6955,12 +6955,12 @@ TEST(tailoring, az_search_suppressions_12)
     {
         uint32_t cps[2] = { 0xec4, 0xe9e };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72640000, 0x0500, 0x0500},
-            text::detail::collation_element{0x722C0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73640000, 0x0500, 0x0500},
+            text::detail::collation_element{0x732C0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6973,12 +6973,12 @@ TEST(tailoring, az_search_suppressions_12)
     {
         uint32_t cps[2] = { 0xec4, 0xe9a };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72640000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72240000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73640000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73240000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -6991,12 +6991,12 @@ TEST(tailoring, az_search_suppressions_12)
     {
         uint32_t cps[2] = { 0xec4, 0xea7 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72640000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72380000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73640000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73380000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7009,13 +7009,13 @@ TEST(tailoring, az_search_suppressions_12)
     {
         uint32_t cps[2] = { 0xec4, 0xedc };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72640000, 0x0500, 0x0500},
-            text::detail::collation_element{0x723A0000, 0x0500, 0x2000},
-            text::detail::collation_element{0x72220000, 0x0500, 0x2000}
+            text::detail::collation_element{0x73640000, 0x0500, 0x0500},
+            text::detail::collation_element{0x733A0000, 0x0500, 0x2000},
+            text::detail::collation_element{0x73220000, 0x0500, 0x2000}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7028,12 +7028,12 @@ TEST(tailoring, az_search_suppressions_12)
     {
         uint32_t cps[2] = { 0xec4, 0xea3 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72640000, 0x0500, 0x0500},
-            text::detail::collation_element{0x72340000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73640000, 0x0500, 0x0500},
+            text::detail::collation_element{0x73340000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7046,12 +7046,12 @@ TEST(tailoring, az_search_suppressions_12)
     {
         uint32_t cps[2] = { 0xec4, 0xe82 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72640000, 0x0500, 0x0500},
-            text::detail::collation_element{0x720A0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73640000, 0x0500, 0x0500},
+            text::detail::collation_element{0x730A0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7064,12 +7064,12 @@ TEST(tailoring, az_search_suppressions_12)
     {
         uint32_t cps[2] = { 0xec4, 0xeab };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72640000, 0x0500, 0x0500},
-            text::detail::collation_element{0x723A0000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73640000, 0x0500, 0x0500},
+            text::detail::collation_element{0x733A0000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7082,12 +7082,12 @@ TEST(tailoring, az_search_suppressions_12)
     {
         uint32_t cps[2] = { 0xaab5, 0xaa93 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72677E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72668E00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73677E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73668E00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7100,12 +7100,12 @@ TEST(tailoring, az_search_suppressions_12)
     {
         uint32_t cps[2] = { 0xaab5, 0xaa9f };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72677E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266E200, 0x0500, 0x0500}
+            text::detail::collation_element{0x73677E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366E200, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7118,12 +7118,12 @@ TEST(tailoring, az_search_suppressions_12)
     {
         uint32_t cps[2] = { 0xaab5, 0xaaa5 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72677E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72670E00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73677E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73670E00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7136,12 +7136,12 @@ TEST(tailoring, az_search_suppressions_12)
     {
         uint32_t cps[2] = { 0xaab5, 0xaa9c };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72677E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266CD00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73677E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366CD00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7154,12 +7154,12 @@ TEST(tailoring, az_search_suppressions_12)
     {
         uint32_t cps[2] = { 0xaab5, 0xaa9b };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72677E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266C600, 0x0500, 0x0500}
+            text::detail::collation_element{0x73677E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366C600, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7182,12 +7182,12 @@ TEST(tailoring, az_search_suppressions_13)
     {
         uint32_t cps[2] = { 0xaab5, 0xaa86 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72677E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72663300, 0x0500, 0x0500}
+            text::detail::collation_element{0x73677E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73663300, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7200,12 +7200,12 @@ TEST(tailoring, az_search_suppressions_13)
     {
         uint32_t cps[2] = { 0xaab5, 0xaaa1 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72677E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266F000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73677E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366F000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7218,12 +7218,12 @@ TEST(tailoring, az_search_suppressions_13)
     {
         uint32_t cps[2] = { 0xaab5, 0xaa82 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72677E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72661700, 0x0500, 0x0500}
+            text::detail::collation_element{0x73677E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73661700, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7236,12 +7236,12 @@ TEST(tailoring, az_search_suppressions_13)
     {
         uint32_t cps[2] = { 0xaab5, 0xaaad };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72677E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72674600, 0x0500, 0x0500}
+            text::detail::collation_element{0x73677E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73674600, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7254,12 +7254,12 @@ TEST(tailoring, az_search_suppressions_13)
     {
         uint32_t cps[2] = { 0xaab5, 0xaaa2 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72677E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266F700, 0x0500, 0x0500}
+            text::detail::collation_element{0x73677E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366F700, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7272,12 +7272,12 @@ TEST(tailoring, az_search_suppressions_13)
     {
         uint32_t cps[2] = { 0xaab5, 0xaa8e };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72677E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72666B00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73677E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73666B00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7290,12 +7290,12 @@ TEST(tailoring, az_search_suppressions_13)
     {
         uint32_t cps[2] = { 0xaab5, 0xaaa9 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72677E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72672A00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73677E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73672A00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7308,30 +7308,12 @@ TEST(tailoring, az_search_suppressions_13)
     {
         uint32_t cps[2] = { 0xaab5, 0xaa8a };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72677E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72664F00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73677E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73664F00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
-        // Ignore lead byte reorderings.  We just care if the contractions
-        // happen.
-        for (auto & ce : ces) {
-            ce.l1_ &= 0x00ffffff;
-            ce.l3_ &= text::detail::disable_case_level_mask;
-        }
-        for (auto & ce : result) { ce.l1_ &= 0x00ffffff; }
-        EXPECT_EQ(result, ces);
-    }
-    {
-        uint32_t cps[2] = { 0xaab5, 0xaa8c };
-        container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72677E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72665D00, 0x0500, 0x0500}
-        };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7344,12 +7326,12 @@ TEST(tailoring, az_search_suppressions_13)
     {
         uint32_t cps[2] = { 0xaab5, 0xaa96 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72677E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266A300, 0x0500, 0x0500}
+            text::detail::collation_element{0x73677E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366A300, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7362,12 +7344,12 @@ TEST(tailoring, az_search_suppressions_13)
     {
         uint32_t cps[2] = { 0xaab5, 0xaa92 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72677E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72668700, 0x0500, 0x0500}
+            text::detail::collation_element{0x73677E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73668700, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7380,12 +7362,12 @@ TEST(tailoring, az_search_suppressions_13)
     {
         uint32_t cps[2] = { 0xaab5, 0xaa9e };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72677E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266DB00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73677E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366DB00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7398,12 +7380,12 @@ TEST(tailoring, az_search_suppressions_13)
     {
         uint32_t cps[2] = { 0xaab5, 0xaaa4 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72677E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72670700, 0x0500, 0x0500}
+            text::detail::collation_element{0x73677E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73670700, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7416,12 +7398,12 @@ TEST(tailoring, az_search_suppressions_13)
     {
         uint32_t cps[2] = { 0xaab5, 0xaa9a };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72677E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266BF00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73677E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366BF00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7434,12 +7416,12 @@ TEST(tailoring, az_search_suppressions_13)
     {
         uint32_t cps[2] = { 0xaab5, 0xaa85 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72677E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72662C00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73677E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73662C00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7452,12 +7434,12 @@ TEST(tailoring, az_search_suppressions_13)
     {
         uint32_t cps[2] = { 0xaab5, 0xaaa0 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72677E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266E900, 0x0500, 0x0500}
+            text::detail::collation_element{0x73677E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366E900, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7470,12 +7452,12 @@ TEST(tailoring, az_search_suppressions_13)
     {
         uint32_t cps[2] = { 0xaab5, 0xaa81 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72677E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72661000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73677E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73661000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7488,12 +7470,12 @@ TEST(tailoring, az_search_suppressions_13)
     {
         uint32_t cps[2] = { 0xaab5, 0xaaac };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72677E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72673F00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73677E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73673F00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7506,12 +7488,12 @@ TEST(tailoring, az_search_suppressions_13)
     {
         uint32_t cps[2] = { 0xaab5, 0xaa8d };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72677E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72666400, 0x0500, 0x0500}
+            text::detail::collation_element{0x73677E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73666400, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7524,12 +7506,12 @@ TEST(tailoring, az_search_suppressions_13)
     {
         uint32_t cps[2] = { 0xaab5, 0xaaa8 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72677E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72672300, 0x0500, 0x0500}
+            text::detail::collation_element{0x73677E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73672300, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7542,12 +7524,12 @@ TEST(tailoring, az_search_suppressions_13)
     {
         uint32_t cps[2] = { 0xaab5, 0xaa89 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72677E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72664800, 0x0500, 0x0500}
+            text::detail::collation_element{0x73677E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73664800, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7560,12 +7542,12 @@ TEST(tailoring, az_search_suppressions_13)
     {
         uint32_t cps[2] = { 0xaab5, 0xaa95 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72677E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72669C00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73677E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73669C00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7578,12 +7560,12 @@ TEST(tailoring, az_search_suppressions_13)
     {
         uint32_t cps[2] = { 0xaab5, 0xaa91 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72677E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72668000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73677E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73668000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7596,12 +7578,12 @@ TEST(tailoring, az_search_suppressions_13)
     {
         uint32_t cps[2] = { 0xaab5, 0xaaa7 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72677E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72671C00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73677E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73671C00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7614,12 +7596,12 @@ TEST(tailoring, az_search_suppressions_13)
     {
         uint32_t cps[2] = { 0xaab5, 0xaa9d };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72677E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266D400, 0x0500, 0x0500}
+            text::detail::collation_element{0x73677E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366D400, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7632,12 +7614,12 @@ TEST(tailoring, az_search_suppressions_13)
     {
         uint32_t cps[2] = { 0xaab5, 0xaaa3 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72677E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266FE00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73677E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366FE00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7650,12 +7632,12 @@ TEST(tailoring, az_search_suppressions_13)
     {
         uint32_t cps[2] = { 0xaab5, 0xaa99 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72677E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266B800, 0x0500, 0x0500}
+            text::detail::collation_element{0x73677E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366B800, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7668,12 +7650,30 @@ TEST(tailoring, az_search_suppressions_13)
     {
         uint32_t cps[2] = { 0xaab5, 0xaa84 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72677E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72662500, 0x0500, 0x0500}
+            text::detail::collation_element{0x73677E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73662500, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
+        // Ignore lead byte reorderings.  We just care if the contractions
+        // happen.
+        for (auto & ce : ces) {
+            ce.l1_ &= 0x00ffffff;
+            ce.l3_ &= text::detail::disable_case_level_mask;
+        }
+        for (auto & ce : result) { ce.l1_ &= 0x00ffffff; }
+        EXPECT_EQ(result, ces);
+    }
+    {
+        uint32_t cps[2] = { 0xaab5, 0xaaaf };
+        container::small_vector<text::detail::collation_element, 1024> ces = {
+            text::detail::collation_element{0x73677E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73675400, 0x0500, 0x0500}
+        };
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7686,12 +7686,12 @@ TEST(tailoring, az_search_suppressions_13)
     {
         uint32_t cps[2] = { 0xaab5, 0xaa80 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72677E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72660900, 0x0500, 0x0500}
+            text::detail::collation_element{0x73677E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73660900, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7704,12 +7704,12 @@ TEST(tailoring, az_search_suppressions_13)
     {
         uint32_t cps[2] = { 0xaab5, 0xaaab };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72677E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72673800, 0x0500, 0x0500}
+            text::detail::collation_element{0x73677E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73673800, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7730,14 +7730,32 @@ TEST(tailoring, az_search_suppressions_14)
             error, warning);
 
     {
+        uint32_t cps[2] = { 0xaab5, 0xaa8c };
+        container::small_vector<text::detail::collation_element, 1024> ces = {
+            text::detail::collation_element{0x73677E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73665D00, 0x0500, 0x0500}
+        };
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
+        // Ignore lead byte reorderings.  We just care if the contractions
+        // happen.
+        for (auto & ce : ces) {
+            ce.l1_ &= 0x00ffffff;
+            ce.l3_ &= text::detail::disable_case_level_mask;
+        }
+        for (auto & ce : result) { ce.l1_ &= 0x00ffffff; }
+        EXPECT_EQ(result, ces);
+    }
+    {
         uint32_t cps[2] = { 0xaab5, 0xaa88 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72677E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72664100, 0x0500, 0x0500}
+            text::detail::collation_element{0x73677E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73664100, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7750,12 +7768,12 @@ TEST(tailoring, az_search_suppressions_14)
     {
         uint32_t cps[2] = { 0xaab5, 0xaa94 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72677E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72669500, 0x0500, 0x0500}
+            text::detail::collation_element{0x73677E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73669500, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7768,12 +7786,12 @@ TEST(tailoring, az_search_suppressions_14)
     {
         uint32_t cps[2] = { 0xaab5, 0xaa90 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72677E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72667900, 0x0500, 0x0500}
+            text::detail::collation_element{0x73677E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73667900, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7786,30 +7804,12 @@ TEST(tailoring, az_search_suppressions_14)
     {
         uint32_t cps[2] = { 0xaab5, 0xaaa6 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72677E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72671500, 0x0500, 0x0500}
+            text::detail::collation_element{0x73677E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73671500, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
-        // Ignore lead byte reorderings.  We just care if the contractions
-        // happen.
-        for (auto & ce : ces) {
-            ce.l1_ &= 0x00ffffff;
-            ce.l3_ &= text::detail::disable_case_level_mask;
-        }
-        for (auto & ce : result) { ce.l1_ &= 0x00ffffff; }
-        EXPECT_EQ(result, ces);
-    }
-    {
-        uint32_t cps[2] = { 0xaab5, 0xaaaf };
-        container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72677E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72675400, 0x0500, 0x0500}
-        };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7822,12 +7822,12 @@ TEST(tailoring, az_search_suppressions_14)
     {
         uint32_t cps[2] = { 0xaab5, 0xaa87 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72677E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72663A00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73677E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73663A00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7840,12 +7840,12 @@ TEST(tailoring, az_search_suppressions_14)
     {
         uint32_t cps[2] = { 0xaab5, 0xaa98 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72677E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266B100, 0x0500, 0x0500}
+            text::detail::collation_element{0x73677E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366B100, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7858,12 +7858,12 @@ TEST(tailoring, az_search_suppressions_14)
     {
         uint32_t cps[2] = { 0xaab5, 0xaa83 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72677E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72661E00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73677E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73661E00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7876,12 +7876,12 @@ TEST(tailoring, az_search_suppressions_14)
     {
         uint32_t cps[2] = { 0xaab5, 0xaaae };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72677E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72674D00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73677E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73674D00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7894,12 +7894,12 @@ TEST(tailoring, az_search_suppressions_14)
     {
         uint32_t cps[2] = { 0xaab5, 0xaa8f };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72677E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72667200, 0x0500, 0x0500}
+            text::detail::collation_element{0x73677E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73667200, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7912,12 +7912,12 @@ TEST(tailoring, az_search_suppressions_14)
     {
         uint32_t cps[2] = { 0xaab5, 0xaaaa };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72677E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72673100, 0x0500, 0x0500}
+            text::detail::collation_element{0x73677E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73673100, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7930,12 +7930,12 @@ TEST(tailoring, az_search_suppressions_14)
     {
         uint32_t cps[2] = { 0xaab5, 0xaa8b };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72677E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72665600, 0x0500, 0x0500}
+            text::detail::collation_element{0x73677E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73665600, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7948,12 +7948,12 @@ TEST(tailoring, az_search_suppressions_14)
     {
         uint32_t cps[2] = { 0xaab5, 0xaa97 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72677E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266AA00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73677E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366AA00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7966,12 +7966,12 @@ TEST(tailoring, az_search_suppressions_14)
     {
         uint32_t cps[2] = { 0xaab6, 0xaa84 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72678500, 0x0500, 0x0500},
-            text::detail::collation_element{0x72662500, 0x0500, 0x0500}
+            text::detail::collation_element{0x73678500, 0x0500, 0x0500},
+            text::detail::collation_element{0x73662500, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -7984,12 +7984,12 @@ TEST(tailoring, az_search_suppressions_14)
     {
         uint32_t cps[2] = { 0xaab6, 0xaa98 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72678500, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266B100, 0x0500, 0x0500}
+            text::detail::collation_element{0x73678500, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366B100, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8002,12 +8002,12 @@ TEST(tailoring, az_search_suppressions_14)
     {
         uint32_t cps[2] = { 0xaab6, 0xaa90 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72678500, 0x0500, 0x0500},
-            text::detail::collation_element{0x72667900, 0x0500, 0x0500}
+            text::detail::collation_element{0x73678500, 0x0500, 0x0500},
+            text::detail::collation_element{0x73667900, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8020,12 +8020,12 @@ TEST(tailoring, az_search_suppressions_14)
     {
         uint32_t cps[2] = { 0xaab6, 0xaaae };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72678500, 0x0500, 0x0500},
-            text::detail::collation_element{0x72674D00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73678500, 0x0500, 0x0500},
+            text::detail::collation_element{0x73674D00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8038,12 +8038,12 @@ TEST(tailoring, az_search_suppressions_14)
     {
         uint32_t cps[2] = { 0xaab6, 0xaa8f };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72678500, 0x0500, 0x0500},
-            text::detail::collation_element{0x72667200, 0x0500, 0x0500}
+            text::detail::collation_element{0x73678500, 0x0500, 0x0500},
+            text::detail::collation_element{0x73667200, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8056,12 +8056,12 @@ TEST(tailoring, az_search_suppressions_14)
     {
         uint32_t cps[2] = { 0xaab6, 0xaa94 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72678500, 0x0500, 0x0500},
-            text::detail::collation_element{0x72669500, 0x0500, 0x0500}
+            text::detail::collation_element{0x73678500, 0x0500, 0x0500},
+            text::detail::collation_element{0x73669500, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8074,12 +8074,12 @@ TEST(tailoring, az_search_suppressions_14)
     {
         uint32_t cps[2] = { 0xaab6, 0xaa89 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72678500, 0x0500, 0x0500},
-            text::detail::collation_element{0x72664800, 0x0500, 0x0500}
+            text::detail::collation_element{0x73678500, 0x0500, 0x0500},
+            text::detail::collation_element{0x73664800, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8092,12 +8092,12 @@ TEST(tailoring, az_search_suppressions_14)
     {
         uint32_t cps[2] = { 0xaab6, 0xaaa2 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72678500, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266F700, 0x0500, 0x0500}
+            text::detail::collation_element{0x73678500, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366F700, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8110,12 +8110,12 @@ TEST(tailoring, az_search_suppressions_14)
     {
         uint32_t cps[2] = { 0xaab6, 0xaa8d };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72678500, 0x0500, 0x0500},
-            text::detail::collation_element{0x72666400, 0x0500, 0x0500}
+            text::detail::collation_element{0x73678500, 0x0500, 0x0500},
+            text::detail::collation_element{0x73666400, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8128,12 +8128,12 @@ TEST(tailoring, az_search_suppressions_14)
     {
         uint32_t cps[2] = { 0xaab6, 0xaaa6 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72678500, 0x0500, 0x0500},
-            text::detail::collation_element{0x72671500, 0x0500, 0x0500}
+            text::detail::collation_element{0x73678500, 0x0500, 0x0500},
+            text::detail::collation_element{0x73671500, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8146,12 +8146,12 @@ TEST(tailoring, az_search_suppressions_14)
     {
         uint32_t cps[2] = { 0xaab6, 0xaa81 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72678500, 0x0500, 0x0500},
-            text::detail::collation_element{0x72661000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73678500, 0x0500, 0x0500},
+            text::detail::collation_element{0x73661000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8164,12 +8164,12 @@ TEST(tailoring, az_search_suppressions_14)
     {
         uint32_t cps[2] = { 0xaab6, 0xaa85 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72678500, 0x0500, 0x0500},
-            text::detail::collation_element{0x72662C00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73678500, 0x0500, 0x0500},
+            text::detail::collation_element{0x73662C00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8182,12 +8182,12 @@ TEST(tailoring, az_search_suppressions_14)
     {
         uint32_t cps[2] = { 0xaab6, 0xaa99 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72678500, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266B800, 0x0500, 0x0500}
+            text::detail::collation_element{0x73678500, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366B800, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8200,12 +8200,12 @@ TEST(tailoring, az_search_suppressions_14)
     {
         uint32_t cps[2] = { 0xaab6, 0xaa9d };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72678500, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266D400, 0x0500, 0x0500}
+            text::detail::collation_element{0x73678500, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366D400, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8218,12 +8218,12 @@ TEST(tailoring, az_search_suppressions_14)
     {
         uint32_t cps[2] = { 0xaab6, 0xaaab };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72678500, 0x0500, 0x0500},
-            text::detail::collation_element{0x72673800, 0x0500, 0x0500}
+            text::detail::collation_element{0x73678500, 0x0500, 0x0500},
+            text::detail::collation_element{0x73673800, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8236,12 +8236,12 @@ TEST(tailoring, az_search_suppressions_14)
     {
         uint32_t cps[2] = { 0xaab6, 0xaa91 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72678500, 0x0500, 0x0500},
-            text::detail::collation_element{0x72668000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73678500, 0x0500, 0x0500},
+            text::detail::collation_element{0x73668000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8254,12 +8254,12 @@ TEST(tailoring, az_search_suppressions_14)
     {
         uint32_t cps[2] = { 0xaab6, 0xaa8a };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72678500, 0x0500, 0x0500},
-            text::detail::collation_element{0x72664F00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73678500, 0x0500, 0x0500},
+            text::detail::collation_element{0x73664F00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8282,12 +8282,12 @@ TEST(tailoring, az_search_suppressions_15)
     {
         uint32_t cps[2] = { 0xaab6, 0xaaaf };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72678500, 0x0500, 0x0500},
-            text::detail::collation_element{0x72675400, 0x0500, 0x0500}
+            text::detail::collation_element{0x73678500, 0x0500, 0x0500},
+            text::detail::collation_element{0x73675400, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8300,12 +8300,12 @@ TEST(tailoring, az_search_suppressions_15)
     {
         uint32_t cps[2] = { 0xaab6, 0xaa95 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72678500, 0x0500, 0x0500},
-            text::detail::collation_element{0x72669C00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73678500, 0x0500, 0x0500},
+            text::detail::collation_element{0x73669C00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8318,12 +8318,12 @@ TEST(tailoring, az_search_suppressions_15)
     {
         uint32_t cps[2] = { 0xaab6, 0xaaa3 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72678500, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266FE00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73678500, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366FE00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8336,12 +8336,12 @@ TEST(tailoring, az_search_suppressions_15)
     {
         uint32_t cps[2] = { 0xaab6, 0xaa82 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72678500, 0x0500, 0x0500},
-            text::detail::collation_element{0x72661700, 0x0500, 0x0500}
+            text::detail::collation_element{0x73678500, 0x0500, 0x0500},
+            text::detail::collation_element{0x73661700, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8354,12 +8354,12 @@ TEST(tailoring, az_search_suppressions_15)
     {
         uint32_t cps[2] = { 0xaab6, 0xaaa7 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72678500, 0x0500, 0x0500},
-            text::detail::collation_element{0x72671C00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73678500, 0x0500, 0x0500},
+            text::detail::collation_element{0x73671C00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8372,12 +8372,12 @@ TEST(tailoring, az_search_suppressions_15)
     {
         uint32_t cps[2] = { 0xaab6, 0xaa86 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72678500, 0x0500, 0x0500},
-            text::detail::collation_element{0x72663300, 0x0500, 0x0500}
+            text::detail::collation_element{0x73678500, 0x0500, 0x0500},
+            text::detail::collation_element{0x73663300, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8390,12 +8390,12 @@ TEST(tailoring, az_search_suppressions_15)
     {
         uint32_t cps[2] = { 0xaab6, 0xaa9a };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72678500, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266BF00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73678500, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366BF00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8408,12 +8408,12 @@ TEST(tailoring, az_search_suppressions_15)
     {
         uint32_t cps[2] = { 0xaab6, 0xaa9c };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72678500, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266CD00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73678500, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366CD00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8426,12 +8426,12 @@ TEST(tailoring, az_search_suppressions_15)
     {
         uint32_t cps[2] = { 0xaab6, 0xaa9e };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72678500, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266DB00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73678500, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366DB00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8444,12 +8444,12 @@ TEST(tailoring, az_search_suppressions_15)
     {
         uint32_t cps[2] = { 0xaab6, 0xaa8e };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72678500, 0x0500, 0x0500},
-            text::detail::collation_element{0x72666B00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73678500, 0x0500, 0x0500},
+            text::detail::collation_element{0x73666B00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8462,12 +8462,12 @@ TEST(tailoring, az_search_suppressions_15)
     {
         uint32_t cps[2] = { 0xaab6, 0xaa92 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72678500, 0x0500, 0x0500},
-            text::detail::collation_element{0x72668700, 0x0500, 0x0500}
+            text::detail::collation_element{0x73678500, 0x0500, 0x0500},
+            text::detail::collation_element{0x73668700, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8480,12 +8480,12 @@ TEST(tailoring, az_search_suppressions_15)
     {
         uint32_t cps[2] = { 0xaab6, 0xaaa8 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72678500, 0x0500, 0x0500},
-            text::detail::collation_element{0x72672300, 0x0500, 0x0500}
+            text::detail::collation_element{0x73678500, 0x0500, 0x0500},
+            text::detail::collation_element{0x73672300, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8498,12 +8498,12 @@ TEST(tailoring, az_search_suppressions_15)
     {
         uint32_t cps[2] = { 0xaab6, 0xaaaa };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72678500, 0x0500, 0x0500},
-            text::detail::collation_element{0x72673100, 0x0500, 0x0500}
+            text::detail::collation_element{0x73678500, 0x0500, 0x0500},
+            text::detail::collation_element{0x73673100, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8516,12 +8516,12 @@ TEST(tailoring, az_search_suppressions_15)
     {
         uint32_t cps[2] = { 0xaab6, 0xaa96 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72678500, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266A300, 0x0500, 0x0500}
+            text::detail::collation_element{0x73678500, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366A300, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8534,12 +8534,12 @@ TEST(tailoring, az_search_suppressions_15)
     {
         uint32_t cps[2] = { 0xaab6, 0xaa8b };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72678500, 0x0500, 0x0500},
-            text::detail::collation_element{0x72665600, 0x0500, 0x0500}
+            text::detail::collation_element{0x73678500, 0x0500, 0x0500},
+            text::detail::collation_element{0x73665600, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8552,12 +8552,12 @@ TEST(tailoring, az_search_suppressions_15)
     {
         uint32_t cps[2] = { 0xaab6, 0xaaac };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72678500, 0x0500, 0x0500},
-            text::detail::collation_element{0x72673F00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73678500, 0x0500, 0x0500},
+            text::detail::collation_element{0x73673F00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8570,12 +8570,12 @@ TEST(tailoring, az_search_suppressions_15)
     {
         uint32_t cps[2] = { 0xaab6, 0xaaa0 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72678500, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266E900, 0x0500, 0x0500}
+            text::detail::collation_element{0x73678500, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366E900, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8588,12 +8588,12 @@ TEST(tailoring, az_search_suppressions_15)
     {
         uint32_t cps[2] = { 0xaab6, 0xaa83 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72678500, 0x0500, 0x0500},
-            text::detail::collation_element{0x72661E00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73678500, 0x0500, 0x0500},
+            text::detail::collation_element{0x73661E00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8606,12 +8606,12 @@ TEST(tailoring, az_search_suppressions_15)
     {
         uint32_t cps[2] = { 0xaab6, 0xaaa4 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72678500, 0x0500, 0x0500},
-            text::detail::collation_element{0x72670700, 0x0500, 0x0500}
+            text::detail::collation_element{0x73678500, 0x0500, 0x0500},
+            text::detail::collation_element{0x73670700, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8624,12 +8624,12 @@ TEST(tailoring, az_search_suppressions_15)
     {
         uint32_t cps[2] = { 0xaab6, 0xaa87 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72678500, 0x0500, 0x0500},
-            text::detail::collation_element{0x72663A00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73678500, 0x0500, 0x0500},
+            text::detail::collation_element{0x73663A00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8642,12 +8642,12 @@ TEST(tailoring, az_search_suppressions_15)
     {
         uint32_t cps[2] = { 0xaab6, 0xaa9b };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72678500, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266C600, 0x0500, 0x0500}
+            text::detail::collation_element{0x73678500, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366C600, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8660,12 +8660,12 @@ TEST(tailoring, az_search_suppressions_15)
     {
         uint32_t cps[2] = { 0xaab6, 0xaa9f };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72678500, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266E200, 0x0500, 0x0500}
+            text::detail::collation_element{0x73678500, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366E200, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8678,12 +8678,12 @@ TEST(tailoring, az_search_suppressions_15)
     {
         uint32_t cps[2] = { 0xaab6, 0xaa93 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72678500, 0x0500, 0x0500},
-            text::detail::collation_element{0x72668E00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73678500, 0x0500, 0x0500},
+            text::detail::collation_element{0x73668E00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8696,12 +8696,12 @@ TEST(tailoring, az_search_suppressions_15)
     {
         uint32_t cps[2] = { 0xaab6, 0xaaa9 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72678500, 0x0500, 0x0500},
-            text::detail::collation_element{0x72672A00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73678500, 0x0500, 0x0500},
+            text::detail::collation_element{0x73672A00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8714,12 +8714,12 @@ TEST(tailoring, az_search_suppressions_15)
     {
         uint32_t cps[2] = { 0xaab6, 0xaa97 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72678500, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266AA00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73678500, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366AA00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8732,12 +8732,12 @@ TEST(tailoring, az_search_suppressions_15)
     {
         uint32_t cps[2] = { 0xaab6, 0xaa88 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72678500, 0x0500, 0x0500},
-            text::detail::collation_element{0x72664100, 0x0500, 0x0500}
+            text::detail::collation_element{0x73678500, 0x0500, 0x0500},
+            text::detail::collation_element{0x73664100, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8750,12 +8750,12 @@ TEST(tailoring, az_search_suppressions_15)
     {
         uint32_t cps[2] = { 0xaab6, 0xaaad };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72678500, 0x0500, 0x0500},
-            text::detail::collation_element{0x72674600, 0x0500, 0x0500}
+            text::detail::collation_element{0x73678500, 0x0500, 0x0500},
+            text::detail::collation_element{0x73674600, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8768,12 +8768,12 @@ TEST(tailoring, az_search_suppressions_15)
     {
         uint32_t cps[2] = { 0xaab6, 0xaa8c };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72678500, 0x0500, 0x0500},
-            text::detail::collation_element{0x72665D00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73678500, 0x0500, 0x0500},
+            text::detail::collation_element{0x73665D00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8786,12 +8786,12 @@ TEST(tailoring, az_search_suppressions_15)
     {
         uint32_t cps[2] = { 0xaab6, 0xaaa1 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72678500, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266F000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73678500, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366F000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8804,12 +8804,12 @@ TEST(tailoring, az_search_suppressions_15)
     {
         uint32_t cps[2] = { 0xaab6, 0xaa80 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72678500, 0x0500, 0x0500},
-            text::detail::collation_element{0x72660900, 0x0500, 0x0500}
+            text::detail::collation_element{0x73678500, 0x0500, 0x0500},
+            text::detail::collation_element{0x73660900, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8832,12 +8832,12 @@ TEST(tailoring, az_search_suppressions_16)
     {
         uint32_t cps[2] = { 0xaab6, 0xaaa5 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72678500, 0x0500, 0x0500},
-            text::detail::collation_element{0x72670E00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73678500, 0x0500, 0x0500},
+            text::detail::collation_element{0x73670E00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8850,12 +8850,12 @@ TEST(tailoring, az_search_suppressions_16)
     {
         uint32_t cps[2] = { 0xaab9, 0xaa9c };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72679A00, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266CD00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73679A00, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366CD00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8868,12 +8868,12 @@ TEST(tailoring, az_search_suppressions_16)
     {
         uint32_t cps[2] = { 0xaab9, 0xaaa0 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72679A00, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266E900, 0x0500, 0x0500}
+            text::detail::collation_element{0x73679A00, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366E900, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8886,12 +8886,12 @@ TEST(tailoring, az_search_suppressions_16)
     {
         uint32_t cps[2] = { 0xaab9, 0xaa8b };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72679A00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72665600, 0x0500, 0x0500}
+            text::detail::collation_element{0x73679A00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73665600, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8904,12 +8904,12 @@ TEST(tailoring, az_search_suppressions_16)
     {
         uint32_t cps[2] = { 0xaab9, 0xaaa4 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72679A00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72670700, 0x0500, 0x0500}
+            text::detail::collation_element{0x73679A00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73670700, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8922,12 +8922,12 @@ TEST(tailoring, az_search_suppressions_16)
     {
         uint32_t cps[2] = { 0xaab9, 0xaa8f };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72679A00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72667200, 0x0500, 0x0500}
+            text::detail::collation_element{0x73679A00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73667200, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8940,12 +8940,12 @@ TEST(tailoring, az_search_suppressions_16)
     {
         uint32_t cps[2] = { 0xaab9, 0xaa87 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72679A00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72663A00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73679A00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73663A00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8958,12 +8958,12 @@ TEST(tailoring, az_search_suppressions_16)
     {
         uint32_t cps[2] = { 0xaab9, 0xaaa8 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72679A00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72672300, 0x0500, 0x0500}
+            text::detail::collation_element{0x73679A00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73672300, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8976,12 +8976,12 @@ TEST(tailoring, az_search_suppressions_16)
     {
         uint32_t cps[2] = { 0xaab9, 0xaa93 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72679A00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72668E00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73679A00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73668E00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -8994,12 +8994,12 @@ TEST(tailoring, az_search_suppressions_16)
     {
         uint32_t cps[2] = { 0xaab9, 0xaaac };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72679A00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72673F00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73679A00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73673F00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9012,12 +9012,12 @@ TEST(tailoring, az_search_suppressions_16)
     {
         uint32_t cps[2] = { 0xaab9, 0xaa9b };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72679A00, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266C600, 0x0500, 0x0500}
+            text::detail::collation_element{0x73679A00, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366C600, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9030,12 +9030,12 @@ TEST(tailoring, az_search_suppressions_16)
     {
         uint32_t cps[2] = { 0xaab9, 0xaa9f };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72679A00, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266E200, 0x0500, 0x0500}
+            text::detail::collation_element{0x73679A00, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366E200, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9048,12 +9048,12 @@ TEST(tailoring, az_search_suppressions_16)
     {
         uint32_t cps[2] = { 0xaab9, 0xaa82 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72679A00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72661700, 0x0500, 0x0500}
+            text::detail::collation_element{0x73679A00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73661700, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9066,12 +9066,12 @@ TEST(tailoring, az_search_suppressions_16)
     {
         uint32_t cps[2] = { 0xaab9, 0xaaa3 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72679A00, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266FE00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73679A00, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366FE00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9084,12 +9084,12 @@ TEST(tailoring, az_search_suppressions_16)
     {
         uint32_t cps[2] = { 0xaab9, 0xaa86 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72679A00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72663300, 0x0500, 0x0500}
+            text::detail::collation_element{0x73679A00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73663300, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9102,12 +9102,12 @@ TEST(tailoring, az_search_suppressions_16)
     {
         uint32_t cps[2] = { 0xaab9, 0xaa8a };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72679A00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72664F00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73679A00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73664F00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9120,12 +9120,12 @@ TEST(tailoring, az_search_suppressions_16)
     {
         uint32_t cps[2] = { 0xaab9, 0xaaab };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72679A00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72673800, 0x0500, 0x0500}
+            text::detail::collation_element{0x73679A00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73673800, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9138,12 +9138,12 @@ TEST(tailoring, az_search_suppressions_16)
     {
         uint32_t cps[2] = { 0xaab9, 0xaa8e };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72679A00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72666B00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73679A00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73666B00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9156,12 +9156,12 @@ TEST(tailoring, az_search_suppressions_16)
     {
         uint32_t cps[2] = { 0xaab9, 0xaaaf };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72679A00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72675400, 0x0500, 0x0500}
+            text::detail::collation_element{0x73679A00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73675400, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9174,12 +9174,12 @@ TEST(tailoring, az_search_suppressions_16)
     {
         uint32_t cps[2] = { 0xaab9, 0xaa92 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72679A00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72668700, 0x0500, 0x0500}
+            text::detail::collation_element{0x73679A00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73668700, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9192,12 +9192,12 @@ TEST(tailoring, az_search_suppressions_16)
     {
         uint32_t cps[2] = { 0xaab9, 0xaa96 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72679A00, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266A300, 0x0500, 0x0500}
+            text::detail::collation_element{0x73679A00, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366A300, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9210,12 +9210,12 @@ TEST(tailoring, az_search_suppressions_16)
     {
         uint32_t cps[2] = { 0xaab9, 0xaa9a };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72679A00, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266BF00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73679A00, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366BF00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9228,12 +9228,12 @@ TEST(tailoring, az_search_suppressions_16)
     {
         uint32_t cps[2] = { 0xaab9, 0xaa9e };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72679A00, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266DB00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73679A00, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366DB00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9246,12 +9246,12 @@ TEST(tailoring, az_search_suppressions_16)
     {
         uint32_t cps[2] = { 0xaab9, 0xaa81 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72679A00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72661000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73679A00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73661000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9264,12 +9264,12 @@ TEST(tailoring, az_search_suppressions_16)
     {
         uint32_t cps[2] = { 0xaab9, 0xaaa2 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72679A00, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266F700, 0x0500, 0x0500}
+            text::detail::collation_element{0x73679A00, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366F700, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9282,12 +9282,12 @@ TEST(tailoring, az_search_suppressions_16)
     {
         uint32_t cps[2] = { 0xaab9, 0xaa85 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72679A00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72662C00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73679A00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73662C00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9300,12 +9300,12 @@ TEST(tailoring, az_search_suppressions_16)
     {
         uint32_t cps[2] = { 0xaab9, 0xaaa6 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72679A00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72671500, 0x0500, 0x0500}
+            text::detail::collation_element{0x73679A00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73671500, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9318,12 +9318,12 @@ TEST(tailoring, az_search_suppressions_16)
     {
         uint32_t cps[2] = { 0xaab9, 0xaa89 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72679A00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72664800, 0x0500, 0x0500}
+            text::detail::collation_element{0x73679A00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73664800, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9336,12 +9336,12 @@ TEST(tailoring, az_search_suppressions_16)
     {
         uint32_t cps[2] = { 0xaab9, 0xaaaa };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72679A00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72673100, 0x0500, 0x0500}
+            text::detail::collation_element{0x73679A00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73673100, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9354,12 +9354,12 @@ TEST(tailoring, az_search_suppressions_16)
     {
         uint32_t cps[2] = { 0xaab9, 0xaa8d };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72679A00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72666400, 0x0500, 0x0500}
+            text::detail::collation_element{0x73679A00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73666400, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9382,12 +9382,12 @@ TEST(tailoring, az_search_suppressions_17)
     {
         uint32_t cps[2] = { 0xaab9, 0xaaae };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72679A00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72674D00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73679A00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73674D00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9400,12 +9400,12 @@ TEST(tailoring, az_search_suppressions_17)
     {
         uint32_t cps[2] = { 0xaab9, 0xaa91 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72679A00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72668000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73679A00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73668000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9418,12 +9418,12 @@ TEST(tailoring, az_search_suppressions_17)
     {
         uint32_t cps[2] = { 0xaab9, 0xaa95 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72679A00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72669C00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73679A00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73669C00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9436,12 +9436,12 @@ TEST(tailoring, az_search_suppressions_17)
     {
         uint32_t cps[2] = { 0xaab9, 0xaa99 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72679A00, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266B800, 0x0500, 0x0500}
+            text::detail::collation_element{0x73679A00, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366B800, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9454,12 +9454,12 @@ TEST(tailoring, az_search_suppressions_17)
     {
         uint32_t cps[2] = { 0xaab9, 0xaa9d };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72679A00, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266D400, 0x0500, 0x0500}
+            text::detail::collation_element{0x73679A00, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366D400, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9472,12 +9472,12 @@ TEST(tailoring, az_search_suppressions_17)
     {
         uint32_t cps[2] = { 0xaab9, 0xaa80 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72679A00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72660900, 0x0500, 0x0500}
+            text::detail::collation_element{0x73679A00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73660900, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9490,12 +9490,12 @@ TEST(tailoring, az_search_suppressions_17)
     {
         uint32_t cps[2] = { 0xaab9, 0xaaa1 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72679A00, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266F000, 0x0500, 0x0500}
+            text::detail::collation_element{0x73679A00, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366F000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9508,12 +9508,12 @@ TEST(tailoring, az_search_suppressions_17)
     {
         uint32_t cps[2] = { 0xaab9, 0xaa84 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72679A00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72662500, 0x0500, 0x0500}
+            text::detail::collation_element{0x73679A00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73662500, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9526,12 +9526,12 @@ TEST(tailoring, az_search_suppressions_17)
     {
         uint32_t cps[2] = { 0xaab9, 0xaaa5 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72679A00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72670E00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73679A00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73670E00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9544,12 +9544,12 @@ TEST(tailoring, az_search_suppressions_17)
     {
         uint32_t cps[2] = { 0xaab9, 0xaa88 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72679A00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72664100, 0x0500, 0x0500}
+            text::detail::collation_element{0x73679A00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73664100, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9562,12 +9562,12 @@ TEST(tailoring, az_search_suppressions_17)
     {
         uint32_t cps[2] = { 0xaab9, 0xaaa7 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72679A00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72671C00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73679A00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73671C00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9580,12 +9580,12 @@ TEST(tailoring, az_search_suppressions_17)
     {
         uint32_t cps[2] = { 0xaab9, 0xaaa9 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72679A00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72672A00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73679A00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73672A00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9598,12 +9598,12 @@ TEST(tailoring, az_search_suppressions_17)
     {
         uint32_t cps[2] = { 0xaab9, 0xaa8c };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72679A00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72665D00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73679A00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73665D00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9616,12 +9616,12 @@ TEST(tailoring, az_search_suppressions_17)
     {
         uint32_t cps[2] = { 0xaab9, 0xaaad };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72679A00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72674600, 0x0500, 0x0500}
+            text::detail::collation_element{0x73679A00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73674600, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9634,12 +9634,12 @@ TEST(tailoring, az_search_suppressions_17)
     {
         uint32_t cps[2] = { 0xaab9, 0xaa90 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72679A00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72667900, 0x0500, 0x0500}
+            text::detail::collation_element{0x73679A00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73667900, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9652,12 +9652,12 @@ TEST(tailoring, az_search_suppressions_17)
     {
         uint32_t cps[2] = { 0xaab9, 0xaa94 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72679A00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72669500, 0x0500, 0x0500}
+            text::detail::collation_element{0x73679A00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73669500, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9670,12 +9670,12 @@ TEST(tailoring, az_search_suppressions_17)
     {
         uint32_t cps[2] = { 0xaab9, 0xaa97 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72679A00, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266AA00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73679A00, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366AA00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9688,12 +9688,12 @@ TEST(tailoring, az_search_suppressions_17)
     {
         uint32_t cps[2] = { 0xaab9, 0xaa98 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72679A00, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266B100, 0x0500, 0x0500}
+            text::detail::collation_element{0x73679A00, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366B100, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9706,12 +9706,12 @@ TEST(tailoring, az_search_suppressions_17)
     {
         uint32_t cps[2] = { 0xaab9, 0xaa83 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x72679A00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72661E00, 0x0500, 0x0500}
+            text::detail::collation_element{0x73679A00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73661E00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9724,12 +9724,12 @@ TEST(tailoring, az_search_suppressions_17)
     {
         uint32_t cps[2] = { 0xaabb, 0xaaac };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267A800, 0x0500, 0x0500},
-            text::detail::collation_element{0x72673F00, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367A800, 0x0500, 0x0500},
+            text::detail::collation_element{0x73673F00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9742,30 +9742,12 @@ TEST(tailoring, az_search_suppressions_17)
     {
         uint32_t cps[2] = { 0xaabb, 0xaa83 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267A800, 0x0500, 0x0500},
-            text::detail::collation_element{0x72661E00, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367A800, 0x0500, 0x0500},
+            text::detail::collation_element{0x73661E00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
-        // Ignore lead byte reorderings.  We just care if the contractions
-        // happen.
-        for (auto & ce : ces) {
-            ce.l1_ &= 0x00ffffff;
-            ce.l3_ &= text::detail::disable_case_level_mask;
-        }
-        for (auto & ce : result) { ce.l1_ &= 0x00ffffff; }
-        EXPECT_EQ(result, ces);
-    }
-    {
-        uint32_t cps[2] = { 0xaabb, 0xaaa0 };
-        container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267A800, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266E900, 0x0500, 0x0500}
-        };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9778,12 +9760,12 @@ TEST(tailoring, az_search_suppressions_17)
     {
         uint32_t cps[2] = { 0xaabb, 0xaa87 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267A800, 0x0500, 0x0500},
-            text::detail::collation_element{0x72663A00, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367A800, 0x0500, 0x0500},
+            text::detail::collation_element{0x73663A00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9796,12 +9778,12 @@ TEST(tailoring, az_search_suppressions_17)
     {
         uint32_t cps[2] = { 0xaabb, 0xaa88 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267A800, 0x0500, 0x0500},
-            text::detail::collation_element{0x72664100, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367A800, 0x0500, 0x0500},
+            text::detail::collation_element{0x73664100, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9814,12 +9796,12 @@ TEST(tailoring, az_search_suppressions_17)
     {
         uint32_t cps[2] = { 0xaabb, 0xaaa4 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267A800, 0x0500, 0x0500},
-            text::detail::collation_element{0x72670700, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367A800, 0x0500, 0x0500},
+            text::detail::collation_element{0x73670700, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9832,12 +9814,12 @@ TEST(tailoring, az_search_suppressions_17)
     {
         uint32_t cps[2] = { 0xaabb, 0xaa9b };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267A800, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266C600, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367A800, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366C600, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9850,12 +9832,12 @@ TEST(tailoring, az_search_suppressions_17)
     {
         uint32_t cps[2] = { 0xaabb, 0xaa9f };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267A800, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266E200, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367A800, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366E200, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9868,12 +9850,12 @@ TEST(tailoring, az_search_suppressions_17)
     {
         uint32_t cps[2] = { 0xaabb, 0xaa93 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267A800, 0x0500, 0x0500},
-            text::detail::collation_element{0x72668E00, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367A800, 0x0500, 0x0500},
+            text::detail::collation_element{0x73668E00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9886,12 +9868,12 @@ TEST(tailoring, az_search_suppressions_17)
     {
         uint32_t cps[2] = { 0xaabb, 0xaa97 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267A800, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266AA00, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367A800, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366AA00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9904,12 +9886,30 @@ TEST(tailoring, az_search_suppressions_17)
     {
         uint32_t cps[2] = { 0xaabb, 0xaa8a };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267A800, 0x0500, 0x0500},
-            text::detail::collation_element{0x72664F00, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367A800, 0x0500, 0x0500},
+            text::detail::collation_element{0x73664F00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
+        // Ignore lead byte reorderings.  We just care if the contractions
+        // happen.
+        for (auto & ce : ces) {
+            ce.l1_ &= 0x00ffffff;
+            ce.l3_ &= text::detail::disable_case_level_mask;
+        }
+        for (auto & ce : result) { ce.l1_ &= 0x00ffffff; }
+        EXPECT_EQ(result, ces);
+    }
+    {
+        uint32_t cps[2] = { 0xaabb, 0xaaab };
+        container::small_vector<text::detail::collation_element, 1024> ces = {
+            text::detail::collation_element{0x7367A800, 0x0500, 0x0500},
+            text::detail::collation_element{0x73673800, 0x0500, 0x0500}
+        };
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9930,14 +9930,14 @@ TEST(tailoring, az_search_suppressions_18)
             error, warning);
 
     {
-        uint32_t cps[2] = { 0xaabb, 0xaaab };
+        uint32_t cps[2] = { 0xaabb, 0xaaa0 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267A800, 0x0500, 0x0500},
-            text::detail::collation_element{0x72673800, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367A800, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366E900, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9950,12 +9950,12 @@ TEST(tailoring, az_search_suppressions_18)
     {
         uint32_t cps[2] = { 0xaabb, 0xaa8e };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267A800, 0x0500, 0x0500},
-            text::detail::collation_element{0x72666B00, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367A800, 0x0500, 0x0500},
+            text::detail::collation_element{0x73666B00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9968,12 +9968,12 @@ TEST(tailoring, az_search_suppressions_18)
     {
         uint32_t cps[2] = { 0xaabb, 0xaaaf };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267A800, 0x0500, 0x0500},
-            text::detail::collation_element{0x72675400, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367A800, 0x0500, 0x0500},
+            text::detail::collation_element{0x73675400, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -9986,12 +9986,12 @@ TEST(tailoring, az_search_suppressions_18)
     {
         uint32_t cps[2] = { 0xaabb, 0xaa82 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267A800, 0x0500, 0x0500},
-            text::detail::collation_element{0x72661700, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367A800, 0x0500, 0x0500},
+            text::detail::collation_element{0x73661700, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10004,12 +10004,12 @@ TEST(tailoring, az_search_suppressions_18)
     {
         uint32_t cps[2] = { 0xaabb, 0xaaa3 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267A800, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266FE00, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367A800, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366FE00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10022,12 +10022,12 @@ TEST(tailoring, az_search_suppressions_18)
     {
         uint32_t cps[2] = { 0xaabb, 0xaa86 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267A800, 0x0500, 0x0500},
-            text::detail::collation_element{0x72663300, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367A800, 0x0500, 0x0500},
+            text::detail::collation_element{0x73663300, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10040,12 +10040,12 @@ TEST(tailoring, az_search_suppressions_18)
     {
         uint32_t cps[2] = { 0xaabb, 0xaaa7 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267A800, 0x0500, 0x0500},
-            text::detail::collation_element{0x72671C00, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367A800, 0x0500, 0x0500},
+            text::detail::collation_element{0x73671C00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10058,12 +10058,12 @@ TEST(tailoring, az_search_suppressions_18)
     {
         uint32_t cps[2] = { 0xaabb, 0xaa9a };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267A800, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266BF00, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367A800, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366BF00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10076,12 +10076,12 @@ TEST(tailoring, az_search_suppressions_18)
     {
         uint32_t cps[2] = { 0xaabb, 0xaa9e };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267A800, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266DB00, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367A800, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366DB00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10094,12 +10094,12 @@ TEST(tailoring, az_search_suppressions_18)
     {
         uint32_t cps[2] = { 0xaabb, 0xaa92 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267A800, 0x0500, 0x0500},
-            text::detail::collation_element{0x72668700, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367A800, 0x0500, 0x0500},
+            text::detail::collation_element{0x73668700, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10112,12 +10112,12 @@ TEST(tailoring, az_search_suppressions_18)
     {
         uint32_t cps[2] = { 0xaabb, 0xaa89 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267A800, 0x0500, 0x0500},
-            text::detail::collation_element{0x72664800, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367A800, 0x0500, 0x0500},
+            text::detail::collation_element{0x73664800, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10130,12 +10130,12 @@ TEST(tailoring, az_search_suppressions_18)
     {
         uint32_t cps[2] = { 0xaabb, 0xaa8d };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267A800, 0x0500, 0x0500},
-            text::detail::collation_element{0x72666400, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367A800, 0x0500, 0x0500},
+            text::detail::collation_element{0x73666400, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10148,12 +10148,12 @@ TEST(tailoring, az_search_suppressions_18)
     {
         uint32_t cps[2] = { 0xaabb, 0xaaaa };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267A800, 0x0500, 0x0500},
-            text::detail::collation_element{0x72673100, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367A800, 0x0500, 0x0500},
+            text::detail::collation_element{0x73673100, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10166,12 +10166,12 @@ TEST(tailoring, az_search_suppressions_18)
     {
         uint32_t cps[2] = { 0xaabb, 0xaa81 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267A800, 0x0500, 0x0500},
-            text::detail::collation_element{0x72661000, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367A800, 0x0500, 0x0500},
+            text::detail::collation_element{0x73661000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10184,12 +10184,12 @@ TEST(tailoring, az_search_suppressions_18)
     {
         uint32_t cps[2] = { 0xaabb, 0xaaae };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267A800, 0x0500, 0x0500},
-            text::detail::collation_element{0x72674D00, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367A800, 0x0500, 0x0500},
+            text::detail::collation_element{0x73674D00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10202,12 +10202,12 @@ TEST(tailoring, az_search_suppressions_18)
     {
         uint32_t cps[2] = { 0xaabb, 0xaa85 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267A800, 0x0500, 0x0500},
-            text::detail::collation_element{0x72662C00, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367A800, 0x0500, 0x0500},
+            text::detail::collation_element{0x73662C00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10220,12 +10220,12 @@ TEST(tailoring, az_search_suppressions_18)
     {
         uint32_t cps[2] = { 0xaabb, 0xaaa2 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267A800, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266F700, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367A800, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366F700, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10238,12 +10238,12 @@ TEST(tailoring, az_search_suppressions_18)
     {
         uint32_t cps[2] = { 0xaabb, 0xaa99 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267A800, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266B800, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367A800, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366B800, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10256,12 +10256,12 @@ TEST(tailoring, az_search_suppressions_18)
     {
         uint32_t cps[2] = { 0xaabb, 0xaaa6 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267A800, 0x0500, 0x0500},
-            text::detail::collation_element{0x72671500, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367A800, 0x0500, 0x0500},
+            text::detail::collation_element{0x73671500, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10274,12 +10274,12 @@ TEST(tailoring, az_search_suppressions_18)
     {
         uint32_t cps[2] = { 0xaabb, 0xaa9d };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267A800, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266D400, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367A800, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366D400, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10292,12 +10292,12 @@ TEST(tailoring, az_search_suppressions_18)
     {
         uint32_t cps[2] = { 0xaabb, 0xaa95 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267A800, 0x0500, 0x0500},
-            text::detail::collation_element{0x72669C00, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367A800, 0x0500, 0x0500},
+            text::detail::collation_element{0x73669C00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10310,12 +10310,12 @@ TEST(tailoring, az_search_suppressions_18)
     {
         uint32_t cps[2] = { 0xaabb, 0xaaa1 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267A800, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266F000, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367A800, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366F000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10328,12 +10328,12 @@ TEST(tailoring, az_search_suppressions_18)
     {
         uint32_t cps[2] = { 0xaabb, 0xaaa9 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267A800, 0x0500, 0x0500},
-            text::detail::collation_element{0x72672A00, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367A800, 0x0500, 0x0500},
+            text::detail::collation_element{0x73672A00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10346,12 +10346,12 @@ TEST(tailoring, az_search_suppressions_18)
     {
         uint32_t cps[2] = { 0xaabb, 0xaa8c };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267A800, 0x0500, 0x0500},
-            text::detail::collation_element{0x72665D00, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367A800, 0x0500, 0x0500},
+            text::detail::collation_element{0x73665D00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10364,12 +10364,12 @@ TEST(tailoring, az_search_suppressions_18)
     {
         uint32_t cps[2] = { 0xaabb, 0xaaad };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267A800, 0x0500, 0x0500},
-            text::detail::collation_element{0x72674600, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367A800, 0x0500, 0x0500},
+            text::detail::collation_element{0x73674600, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10382,12 +10382,12 @@ TEST(tailoring, az_search_suppressions_18)
     {
         uint32_t cps[2] = { 0xaabb, 0xaa80 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267A800, 0x0500, 0x0500},
-            text::detail::collation_element{0x72660900, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367A800, 0x0500, 0x0500},
+            text::detail::collation_element{0x73660900, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10400,12 +10400,12 @@ TEST(tailoring, az_search_suppressions_18)
     {
         uint32_t cps[2] = { 0xaabb, 0xaa84 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267A800, 0x0500, 0x0500},
-            text::detail::collation_element{0x72662500, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367A800, 0x0500, 0x0500},
+            text::detail::collation_element{0x73662500, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10418,12 +10418,12 @@ TEST(tailoring, az_search_suppressions_18)
     {
         uint32_t cps[2] = { 0xaabb, 0xaa91 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267A800, 0x0500, 0x0500},
-            text::detail::collation_element{0x72668000, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367A800, 0x0500, 0x0500},
+            text::detail::collation_element{0x73668000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10436,12 +10436,12 @@ TEST(tailoring, az_search_suppressions_18)
     {
         uint32_t cps[2] = { 0xaabb, 0xaaa5 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267A800, 0x0500, 0x0500},
-            text::detail::collation_element{0x72670E00, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367A800, 0x0500, 0x0500},
+            text::detail::collation_element{0x73670E00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10454,12 +10454,12 @@ TEST(tailoring, az_search_suppressions_18)
     {
         uint32_t cps[2] = { 0xaabb, 0xaa9c };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267A800, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266CD00, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367A800, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366CD00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10482,12 +10482,12 @@ TEST(tailoring, az_search_suppressions_19)
     {
         uint32_t cps[2] = { 0xaabb, 0xaa96 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267A800, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266A300, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367A800, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366A300, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10500,12 +10500,12 @@ TEST(tailoring, az_search_suppressions_19)
     {
         uint32_t cps[2] = { 0xaabb, 0xaa90 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267A800, 0x0500, 0x0500},
-            text::detail::collation_element{0x72667900, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367A800, 0x0500, 0x0500},
+            text::detail::collation_element{0x73667900, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10518,12 +10518,12 @@ TEST(tailoring, az_search_suppressions_19)
     {
         uint32_t cps[2] = { 0xaabb, 0xaa94 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267A800, 0x0500, 0x0500},
-            text::detail::collation_element{0x72669500, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367A800, 0x0500, 0x0500},
+            text::detail::collation_element{0x73669500, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10536,12 +10536,12 @@ TEST(tailoring, az_search_suppressions_19)
     {
         uint32_t cps[2] = { 0xaabb, 0xaa98 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267A800, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266B100, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367A800, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366B100, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10554,12 +10554,12 @@ TEST(tailoring, az_search_suppressions_19)
     {
         uint32_t cps[2] = { 0xaabb, 0xaa8b };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267A800, 0x0500, 0x0500},
-            text::detail::collation_element{0x72665600, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367A800, 0x0500, 0x0500},
+            text::detail::collation_element{0x73665600, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10572,12 +10572,12 @@ TEST(tailoring, az_search_suppressions_19)
     {
         uint32_t cps[2] = { 0xaabb, 0xaaa8 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267A800, 0x0500, 0x0500},
-            text::detail::collation_element{0x72672300, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367A800, 0x0500, 0x0500},
+            text::detail::collation_element{0x73672300, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10590,12 +10590,12 @@ TEST(tailoring, az_search_suppressions_19)
     {
         uint32_t cps[2] = { 0xaabb, 0xaa8f };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267A800, 0x0500, 0x0500},
-            text::detail::collation_element{0x72667200, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367A800, 0x0500, 0x0500},
+            text::detail::collation_element{0x73667200, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10608,12 +10608,12 @@ TEST(tailoring, az_search_suppressions_19)
     {
         uint32_t cps[2] = { 0xaabc, 0xaa97 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267AF00, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266AA00, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367AF00, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366AA00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10626,12 +10626,12 @@ TEST(tailoring, az_search_suppressions_19)
     {
         uint32_t cps[2] = { 0xaabc, 0xaa8c };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267AF00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72665D00, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367AF00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73665D00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10644,12 +10644,12 @@ TEST(tailoring, az_search_suppressions_19)
     {
         uint32_t cps[2] = { 0xaabc, 0xaa93 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267AF00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72668E00, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367AF00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73668E00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10662,12 +10662,12 @@ TEST(tailoring, az_search_suppressions_19)
     {
         uint32_t cps[2] = { 0xaabc, 0xaa88 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267AF00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72664100, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367AF00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73664100, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10680,12 +10680,12 @@ TEST(tailoring, az_search_suppressions_19)
     {
         uint32_t cps[2] = { 0xaabc, 0xaaaf };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267AF00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72675400, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367AF00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73675400, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10698,12 +10698,12 @@ TEST(tailoring, az_search_suppressions_19)
     {
         uint32_t cps[2] = { 0xaabc, 0xaa84 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267AF00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72662500, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367AF00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73662500, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10716,12 +10716,12 @@ TEST(tailoring, az_search_suppressions_19)
     {
         uint32_t cps[2] = { 0xaabc, 0xaaab };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267AF00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72673800, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367AF00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73673800, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10734,12 +10734,12 @@ TEST(tailoring, az_search_suppressions_19)
     {
         uint32_t cps[2] = { 0xaabc, 0xaa80 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267AF00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72660900, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367AF00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73660900, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10752,12 +10752,12 @@ TEST(tailoring, az_search_suppressions_19)
     {
         uint32_t cps[2] = { 0xaabc, 0xaaa7 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267AF00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72671C00, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367AF00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73671C00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10770,12 +10770,12 @@ TEST(tailoring, az_search_suppressions_19)
     {
         uint32_t cps[2] = { 0xaabc, 0xaa9c };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267AF00, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266CD00, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367AF00, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366CD00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10788,12 +10788,12 @@ TEST(tailoring, az_search_suppressions_19)
     {
         uint32_t cps[2] = { 0xaabc, 0xaaa3 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267AF00, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266FE00, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367AF00, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366FE00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10806,12 +10806,12 @@ TEST(tailoring, az_search_suppressions_19)
     {
         uint32_t cps[2] = { 0xaabc, 0xaa98 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267AF00, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266B100, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367AF00, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366B100, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10824,12 +10824,12 @@ TEST(tailoring, az_search_suppressions_19)
     {
         uint32_t cps[2] = { 0xaabc, 0xaa94 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267AF00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72669500, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367AF00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73669500, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10842,12 +10842,12 @@ TEST(tailoring, az_search_suppressions_19)
     {
         uint32_t cps[2] = { 0xaabc, 0xaa90 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267AF00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72667900, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367AF00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73667900, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10860,12 +10860,12 @@ TEST(tailoring, az_search_suppressions_19)
     {
         uint32_t cps[2] = { 0xaabc, 0xaa8d };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267AF00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72666400, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367AF00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73666400, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10878,12 +10878,12 @@ TEST(tailoring, az_search_suppressions_19)
     {
         uint32_t cps[2] = { 0xaabc, 0xaaac };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267AF00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72673F00, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367AF00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73673F00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10896,12 +10896,12 @@ TEST(tailoring, az_search_suppressions_19)
     {
         uint32_t cps[2] = { 0xaabc, 0xaa89 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267AF00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72664800, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367AF00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73664800, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10914,12 +10914,12 @@ TEST(tailoring, az_search_suppressions_19)
     {
         uint32_t cps[2] = { 0xaabc, 0xaaa8 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267AF00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72672300, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367AF00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73672300, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10932,12 +10932,12 @@ TEST(tailoring, az_search_suppressions_19)
     {
         uint32_t cps[2] = { 0xaabc, 0xaa85 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267AF00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72662C00, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367AF00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73662C00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10950,12 +10950,12 @@ TEST(tailoring, az_search_suppressions_19)
     {
         uint32_t cps[2] = { 0xaabc, 0xaaa4 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267AF00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72670700, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367AF00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73670700, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10968,12 +10968,12 @@ TEST(tailoring, az_search_suppressions_19)
     {
         uint32_t cps[2] = { 0xaabc, 0xaa8a };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267AF00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72664F00, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367AF00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73664F00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -10986,12 +10986,12 @@ TEST(tailoring, az_search_suppressions_19)
     {
         uint32_t cps[2] = { 0xaabc, 0xaa81 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267AF00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72661000, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367AF00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73661000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11004,12 +11004,12 @@ TEST(tailoring, az_search_suppressions_19)
     {
         uint32_t cps[2] = { 0xaabc, 0xaaa0 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267AF00, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266E900, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367AF00, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366E900, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11032,12 +11032,12 @@ TEST(tailoring, az_search_suppressions_20)
     {
         uint32_t cps[2] = { 0xaabc, 0xaa9d };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267AF00, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266D400, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367AF00, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366D400, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11050,12 +11050,12 @@ TEST(tailoring, az_search_suppressions_20)
     {
         uint32_t cps[2] = { 0xaabc, 0xaa99 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267AF00, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266B800, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367AF00, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366B800, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11068,12 +11068,12 @@ TEST(tailoring, az_search_suppressions_20)
     {
         uint32_t cps[2] = { 0xaabc, 0xaa95 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267AF00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72669C00, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367AF00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73669C00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11086,12 +11086,12 @@ TEST(tailoring, az_search_suppressions_20)
     {
         uint32_t cps[2] = { 0xaabc, 0xaa91 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267AF00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72668000, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367AF00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73668000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11104,12 +11104,12 @@ TEST(tailoring, az_search_suppressions_20)
     {
         uint32_t cps[2] = { 0xaabc, 0xaa8e };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267AF00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72666B00, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367AF00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73666B00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11122,12 +11122,12 @@ TEST(tailoring, az_search_suppressions_20)
     {
         uint32_t cps[2] = { 0xaabc, 0xaaad };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267AF00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72674600, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367AF00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73674600, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11140,12 +11140,12 @@ TEST(tailoring, az_search_suppressions_20)
     {
         uint32_t cps[2] = { 0xaabc, 0xaaa9 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267AF00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72672A00, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367AF00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73672A00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11158,12 +11158,12 @@ TEST(tailoring, az_search_suppressions_20)
     {
         uint32_t cps[2] = { 0xaabc, 0xaa86 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267AF00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72663300, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367AF00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73663300, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11176,12 +11176,12 @@ TEST(tailoring, az_search_suppressions_20)
     {
         uint32_t cps[2] = { 0xaabc, 0xaaa5 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267AF00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72670E00, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367AF00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73670E00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11194,12 +11194,12 @@ TEST(tailoring, az_search_suppressions_20)
     {
         uint32_t cps[2] = { 0xaabc, 0xaa82 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267AF00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72661700, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367AF00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73661700, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11212,12 +11212,12 @@ TEST(tailoring, az_search_suppressions_20)
     {
         uint32_t cps[2] = { 0xaabc, 0xaaa1 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267AF00, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266F000, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367AF00, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366F000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11230,12 +11230,12 @@ TEST(tailoring, az_search_suppressions_20)
     {
         uint32_t cps[2] = { 0xaabc, 0xaa9e };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267AF00, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266DB00, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367AF00, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366DB00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11248,12 +11248,12 @@ TEST(tailoring, az_search_suppressions_20)
     {
         uint32_t cps[2] = { 0xaabc, 0xaa9a };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267AF00, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266BF00, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367AF00, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366BF00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11266,12 +11266,12 @@ TEST(tailoring, az_search_suppressions_20)
     {
         uint32_t cps[2] = { 0xaabc, 0xaa8f };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267AF00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72667200, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367AF00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73667200, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11284,12 +11284,12 @@ TEST(tailoring, az_search_suppressions_20)
     {
         uint32_t cps[2] = { 0xaabc, 0xaa96 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267AF00, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266A300, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367AF00, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366A300, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11302,12 +11302,12 @@ TEST(tailoring, az_search_suppressions_20)
     {
         uint32_t cps[2] = { 0xaabc, 0xaa92 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267AF00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72668700, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367AF00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73668700, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11320,12 +11320,12 @@ TEST(tailoring, az_search_suppressions_20)
     {
         uint32_t cps[2] = { 0xaabc, 0xaa8b };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267AF00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72665600, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367AF00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73665600, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11338,12 +11338,12 @@ TEST(tailoring, az_search_suppressions_20)
     {
         uint32_t cps[2] = { 0xaabc, 0xaaaa };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267AF00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72673100, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367AF00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73673100, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11356,12 +11356,12 @@ TEST(tailoring, az_search_suppressions_20)
     {
         uint32_t cps[2] = { 0xaabc, 0xaa87 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267AF00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72663A00, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367AF00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73663A00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11374,12 +11374,12 @@ TEST(tailoring, az_search_suppressions_20)
     {
         uint32_t cps[2] = { 0xaabc, 0xaaae };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267AF00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72674D00, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367AF00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73674D00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11392,12 +11392,12 @@ TEST(tailoring, az_search_suppressions_20)
     {
         uint32_t cps[2] = { 0xaabc, 0xaaa6 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267AF00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72671500, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367AF00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73671500, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11410,12 +11410,12 @@ TEST(tailoring, az_search_suppressions_20)
     {
         uint32_t cps[2] = { 0xaabc, 0xaa83 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267AF00, 0x0500, 0x0500},
-            text::detail::collation_element{0x72661E00, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367AF00, 0x0500, 0x0500},
+            text::detail::collation_element{0x73661E00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11428,12 +11428,12 @@ TEST(tailoring, az_search_suppressions_20)
     {
         uint32_t cps[2] = { 0xaabc, 0xaaa2 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267AF00, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266F700, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367AF00, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366F700, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11446,12 +11446,12 @@ TEST(tailoring, az_search_suppressions_20)
     {
         uint32_t cps[2] = { 0xaabc, 0xaa9f };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267AF00, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266E200, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367AF00, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366E200, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11464,12 +11464,12 @@ TEST(tailoring, az_search_suppressions_20)
     {
         uint32_t cps[2] = { 0xaabc, 0xaa9b };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x7267AF00, 0x0500, 0x0500},
-            text::detail::collation_element{0x7266C600, 0x0500, 0x0500}
+            text::detail::collation_element{0x7367AF00, 0x0500, 0x0500},
+            text::detail::collation_element{0x7366C600, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11482,12 +11482,12 @@ TEST(tailoring, az_search_suppressions_20)
     {
         uint32_t cps[2] = { 0x19b5, 0x1992 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x75098E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x75058700, 0x0500, 0x0500}
+            text::detail::collation_element{0x76098E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x76058700, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11500,12 +11500,12 @@ TEST(tailoring, az_search_suppressions_20)
     {
         uint32_t cps[2] = { 0x19b5, 0x19a4 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x75098E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x75093300, 0x0500, 0x0500}
+            text::detail::collation_element{0x76098E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x76093300, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11518,12 +11518,12 @@ TEST(tailoring, az_search_suppressions_20)
     {
         uint32_t cps[2] = { 0x19b5, 0x199a };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x75098E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x7505BF00, 0x0500, 0x0500}
+            text::detail::collation_element{0x76098E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x7605BF00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11536,12 +11536,12 @@ TEST(tailoring, az_search_suppressions_20)
     {
         uint32_t cps[2] = { 0x19b5, 0x1985 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x75098E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x75052C00, 0x0500, 0x0500}
+            text::detail::collation_element{0x76098E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x76052C00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11554,12 +11554,12 @@ TEST(tailoring, az_search_suppressions_20)
     {
         uint32_t cps[2] = { 0x19b5, 0x19a0 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x75098E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x75091700, 0x0500, 0x0500}
+            text::detail::collation_element{0x76098E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x76091700, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11582,12 +11582,12 @@ TEST(tailoring, az_search_suppressions_21)
     {
         uint32_t cps[2] = { 0x19b5, 0x1981 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x75098E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x75051000, 0x0500, 0x0500}
+            text::detail::collation_element{0x76098E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x76051000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11600,12 +11600,12 @@ TEST(tailoring, az_search_suppressions_21)
     {
         uint32_t cps[2] = { 0x19b5, 0x1996 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x75098E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x7505A300, 0x0500, 0x0500}
+            text::detail::collation_element{0x76098E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x7605A300, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11618,12 +11618,12 @@ TEST(tailoring, az_search_suppressions_21)
     {
         uint32_t cps[2] = { 0x19b5, 0x198d };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x75098E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x75056400, 0x0500, 0x0500}
+            text::detail::collation_element{0x76098E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x76056400, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11636,12 +11636,12 @@ TEST(tailoring, az_search_suppressions_21)
     {
         uint32_t cps[2] = { 0x19b5, 0x19a8 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x75098E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x75094F00, 0x0500, 0x0500}
+            text::detail::collation_element{0x76098E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x76094F00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11654,12 +11654,12 @@ TEST(tailoring, az_search_suppressions_21)
     {
         uint32_t cps[2] = { 0x19b5, 0x1989 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x75098E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x75054800, 0x0500, 0x0500}
+            text::detail::collation_element{0x76098E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x76054800, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11672,12 +11672,12 @@ TEST(tailoring, az_search_suppressions_21)
     {
         uint32_t cps[2] = { 0x19b5, 0x1995 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x75098E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x75059C00, 0x0500, 0x0500}
+            text::detail::collation_element{0x76098E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x76059C00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11690,12 +11690,12 @@ TEST(tailoring, az_search_suppressions_21)
     {
         uint32_t cps[2] = { 0x19b5, 0x1991 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x75098E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x75058000, 0x0500, 0x0500}
+            text::detail::collation_element{0x76098E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x76058000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11708,12 +11708,12 @@ TEST(tailoring, az_search_suppressions_21)
     {
         uint32_t cps[2] = { 0x19b5, 0x19a7 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x75098E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x75094800, 0x0500, 0x0500}
+            text::detail::collation_element{0x76098E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x76094800, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11726,12 +11726,12 @@ TEST(tailoring, az_search_suppressions_21)
     {
         uint32_t cps[2] = { 0x19b5, 0x199d };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x75098E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x75090200, 0x0500, 0x0500}
+            text::detail::collation_element{0x76098E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x76090200, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11744,12 +11744,12 @@ TEST(tailoring, az_search_suppressions_21)
     {
         uint32_t cps[2] = { 0x19b5, 0x19a3 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x75098E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x75092C00, 0x0500, 0x0500}
+            text::detail::collation_element{0x76098E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x76092C00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11762,12 +11762,12 @@ TEST(tailoring, az_search_suppressions_21)
     {
         uint32_t cps[2] = { 0x19b5, 0x1999 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x75098E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x7505B800, 0x0500, 0x0500}
+            text::detail::collation_element{0x76098E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x7605B800, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11780,12 +11780,12 @@ TEST(tailoring, az_search_suppressions_21)
     {
         uint32_t cps[2] = { 0x19b5, 0x1984 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x75098E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x75052500, 0x0500, 0x0500}
+            text::detail::collation_element{0x76098E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x76052500, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11798,12 +11798,12 @@ TEST(tailoring, az_search_suppressions_21)
     {
         uint32_t cps[2] = { 0x19b5, 0x1980 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x75098E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x75050900, 0x0500, 0x0500}
+            text::detail::collation_element{0x76098E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x76050900, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11816,12 +11816,12 @@ TEST(tailoring, az_search_suppressions_21)
     {
         uint32_t cps[2] = { 0x19b5, 0x19ab };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x75098E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x75096400, 0x0500, 0x0500}
+            text::detail::collation_element{0x76098E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x76096400, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11834,12 +11834,12 @@ TEST(tailoring, az_search_suppressions_21)
     {
         uint32_t cps[2] = { 0x19b5, 0x198c };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x75098E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x75055D00, 0x0500, 0x0500}
+            text::detail::collation_element{0x76098E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x76055D00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11852,12 +11852,12 @@ TEST(tailoring, az_search_suppressions_21)
     {
         uint32_t cps[2] = { 0x19b5, 0x1990 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x75098E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x75057900, 0x0500, 0x0500}
+            text::detail::collation_element{0x76098E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x76057900, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11870,12 +11870,12 @@ TEST(tailoring, az_search_suppressions_21)
     {
         uint32_t cps[2] = { 0x19b5, 0x1988 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x75098E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x75054100, 0x0500, 0x0500}
+            text::detail::collation_element{0x76098E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x76054100, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11888,12 +11888,12 @@ TEST(tailoring, az_search_suppressions_21)
     {
         uint32_t cps[2] = { 0x19b5, 0x1994 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x75098E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x75059500, 0x0500, 0x0500}
+            text::detail::collation_element{0x76098E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x76059500, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11906,12 +11906,12 @@ TEST(tailoring, az_search_suppressions_21)
     {
         uint32_t cps[2] = { 0x19b5, 0x19a6 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x75098E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x75094100, 0x0500, 0x0500}
+            text::detail::collation_element{0x76098E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x76094100, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11924,12 +11924,12 @@ TEST(tailoring, az_search_suppressions_21)
     {
         uint32_t cps[2] = { 0x19b5, 0x199e };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x75098E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x75090900, 0x0500, 0x0500}
+            text::detail::collation_element{0x76098E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x76090900, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11942,12 +11942,12 @@ TEST(tailoring, az_search_suppressions_21)
     {
         uint32_t cps[2] = { 0x19b5, 0x199c };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x75098E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x75070000, 0x0500, 0x0500}
+            text::detail::collation_element{0x76098E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x76070000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11960,12 +11960,12 @@ TEST(tailoring, az_search_suppressions_21)
     {
         uint32_t cps[2] = { 0x19b5, 0x1987 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x75098E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x75053A00, 0x0500, 0x0500}
+            text::detail::collation_element{0x76098E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x76053A00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11978,12 +11978,12 @@ TEST(tailoring, az_search_suppressions_21)
     {
         uint32_t cps[2] = { 0x19b5, 0x19a2 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x75098E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x75092500, 0x0500, 0x0500}
+            text::detail::collation_element{0x76098E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x76092500, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -11996,12 +11996,12 @@ TEST(tailoring, az_search_suppressions_21)
     {
         uint32_t cps[2] = { 0x19b5, 0x1998 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x75098E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x7505B100, 0x0500, 0x0500}
+            text::detail::collation_element{0x76098E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x7605B100, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12014,12 +12014,12 @@ TEST(tailoring, az_search_suppressions_21)
     {
         uint32_t cps[2] = { 0x19b5, 0x1983 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x75098E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x75051E00, 0x0500, 0x0500}
+            text::detail::collation_element{0x76098E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x76051E00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12032,12 +12032,12 @@ TEST(tailoring, az_search_suppressions_21)
     {
         uint32_t cps[2] = { 0x19b5, 0x198f };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x75098E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x75057200, 0x0500, 0x0500}
+            text::detail::collation_element{0x76098E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x76057200, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12050,12 +12050,12 @@ TEST(tailoring, az_search_suppressions_21)
     {
         uint32_t cps[2] = { 0x19b5, 0x19aa };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x75098E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x75095D00, 0x0500, 0x0500}
+            text::detail::collation_element{0x76098E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x76095D00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12068,12 +12068,12 @@ TEST(tailoring, az_search_suppressions_21)
     {
         uint32_t cps[2] = { 0x19b5, 0x198b };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x75098E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x75055600, 0x0500, 0x0500}
+            text::detail::collation_element{0x76098E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x76055600, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12086,12 +12086,12 @@ TEST(tailoring, az_search_suppressions_21)
     {
         uint32_t cps[2] = { 0x19b5, 0x198e };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x75098E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x75056B00, 0x0500, 0x0500}
+            text::detail::collation_element{0x76098E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x76056B00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12104,12 +12104,12 @@ TEST(tailoring, az_search_suppressions_21)
     {
         uint32_t cps[2] = { 0x19b5, 0x1997 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x75098E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x7505AA00, 0x0500, 0x0500}
+            text::detail::collation_element{0x76098E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x7605AA00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12132,12 +12132,12 @@ TEST(tailoring, az_search_suppressions_22)
     {
         uint32_t cps[2] = { 0x19b5, 0x1993 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x75098E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x75058E00, 0x0500, 0x0500}
+            text::detail::collation_element{0x76098E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x76058E00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12150,12 +12150,12 @@ TEST(tailoring, az_search_suppressions_22)
     {
         uint32_t cps[2] = { 0x19b5, 0x199f };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x75098E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x75091000, 0x0500, 0x0500}
+            text::detail::collation_element{0x76098E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x76091000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12168,12 +12168,12 @@ TEST(tailoring, az_search_suppressions_22)
     {
         uint32_t cps[2] = { 0x19b5, 0x19a5 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x75098E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x75093A00, 0x0500, 0x0500}
+            text::detail::collation_element{0x76098E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x76093A00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12186,12 +12186,12 @@ TEST(tailoring, az_search_suppressions_22)
     {
         uint32_t cps[2] = { 0x19b5, 0x199b };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x75098E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x7505C600, 0x0500, 0x0500}
+            text::detail::collation_element{0x76098E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x7605C600, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12204,12 +12204,12 @@ TEST(tailoring, az_search_suppressions_22)
     {
         uint32_t cps[2] = { 0x19b5, 0x1986 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x75098E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x75053300, 0x0500, 0x0500}
+            text::detail::collation_element{0x76098E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x76053300, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12222,12 +12222,12 @@ TEST(tailoring, az_search_suppressions_22)
     {
         uint32_t cps[2] = { 0x19b5, 0x19a1 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x75098E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x75091E00, 0x0500, 0x0500}
+            text::detail::collation_element{0x76098E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x76091E00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12240,12 +12240,12 @@ TEST(tailoring, az_search_suppressions_22)
     {
         uint32_t cps[2] = { 0x19b5, 0x1982 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x75098E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x75051700, 0x0500, 0x0500}
+            text::detail::collation_element{0x76098E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x76051700, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12258,12 +12258,12 @@ TEST(tailoring, az_search_suppressions_22)
     {
         uint32_t cps[2] = { 0x19b5, 0x19a9 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x75098E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x75095600, 0x0500, 0x0500}
+            text::detail::collation_element{0x76098E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x76095600, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12276,12 +12276,12 @@ TEST(tailoring, az_search_suppressions_22)
     {
         uint32_t cps[2] = { 0x19b5, 0x198a };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x75098E00, 0x0500, 0x0500},
-            text::detail::collation_element{0x75054F00, 0x0500, 0x0500}
+            text::detail::collation_element{0x76098E00, 0x0500, 0x0500},
+            text::detail::collation_element{0x76054F00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12294,12 +12294,12 @@ TEST(tailoring, az_search_suppressions_22)
     {
         uint32_t cps[2] = { 0x19b6, 0x19a7 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750B0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x75094800, 0x0500, 0x0500}
+            text::detail::collation_element{0x760B0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x76094800, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12312,12 +12312,12 @@ TEST(tailoring, az_search_suppressions_22)
     {
         uint32_t cps[2] = { 0x19b6, 0x19a1 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750B0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x75091E00, 0x0500, 0x0500}
+            text::detail::collation_element{0x760B0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x76091E00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12330,12 +12330,12 @@ TEST(tailoring, az_search_suppressions_22)
     {
         uint32_t cps[2] = { 0x19b6, 0x199a };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750B0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x7505BF00, 0x0500, 0x0500}
+            text::detail::collation_element{0x760B0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x7605BF00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12348,12 +12348,12 @@ TEST(tailoring, az_search_suppressions_22)
     {
         uint32_t cps[2] = { 0x19b6, 0x1982 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750B0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x75051700, 0x0500, 0x0500}
+            text::detail::collation_element{0x760B0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x76051700, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12366,12 +12366,12 @@ TEST(tailoring, az_search_suppressions_22)
     {
         uint32_t cps[2] = { 0x19b6, 0x199e };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750B0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x75090900, 0x0500, 0x0500}
+            text::detail::collation_element{0x760B0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x76090900, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12384,12 +12384,12 @@ TEST(tailoring, az_search_suppressions_22)
     {
         uint32_t cps[2] = { 0x19b6, 0x19a8 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750B0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x75094F00, 0x0500, 0x0500}
+            text::detail::collation_element{0x760B0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x76094F00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12402,12 +12402,12 @@ TEST(tailoring, az_search_suppressions_22)
     {
         uint32_t cps[2] = { 0x19b6, 0x1996 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750B0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x7505A300, 0x0500, 0x0500}
+            text::detail::collation_element{0x760B0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x7605A300, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12420,12 +12420,12 @@ TEST(tailoring, az_search_suppressions_22)
     {
         uint32_t cps[2] = { 0x19b6, 0x198b };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750B0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x75055600, 0x0500, 0x0500}
+            text::detail::collation_element{0x760B0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x76055600, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12438,12 +12438,12 @@ TEST(tailoring, az_search_suppressions_22)
     {
         uint32_t cps[2] = { 0x19b6, 0x198f };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750B0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x75057200, 0x0500, 0x0500}
+            text::detail::collation_element{0x760B0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x76057200, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12456,12 +12456,12 @@ TEST(tailoring, az_search_suppressions_22)
     {
         uint32_t cps[2] = { 0x19b6, 0x19a0 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750B0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x75091700, 0x0500, 0x0500}
+            text::detail::collation_element{0x760B0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x76091700, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12474,12 +12474,12 @@ TEST(tailoring, az_search_suppressions_22)
     {
         uint32_t cps[2] = { 0x19b6, 0x1983 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750B0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x75051E00, 0x0500, 0x0500}
+            text::detail::collation_element{0x760B0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x76051E00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12492,12 +12492,12 @@ TEST(tailoring, az_search_suppressions_22)
     {
         uint32_t cps[2] = { 0x19b6, 0x19a4 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750B0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x75093300, 0x0500, 0x0500}
+            text::detail::collation_element{0x760B0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x76093300, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12510,12 +12510,12 @@ TEST(tailoring, az_search_suppressions_22)
     {
         uint32_t cps[2] = { 0x19b6, 0x1986 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750B0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x75053300, 0x0500, 0x0500}
+            text::detail::collation_element{0x760B0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x76053300, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12528,12 +12528,12 @@ TEST(tailoring, az_search_suppressions_22)
     {
         uint32_t cps[2] = { 0x19b6, 0x1987 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750B0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x75053A00, 0x0500, 0x0500}
+            text::detail::collation_element{0x760B0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x76053A00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12546,12 +12546,12 @@ TEST(tailoring, az_search_suppressions_22)
     {
         uint32_t cps[2] = { 0x19b6, 0x199b };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750B0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x7505C600, 0x0500, 0x0500}
+            text::detail::collation_element{0x760B0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x7605C600, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12564,12 +12564,12 @@ TEST(tailoring, az_search_suppressions_22)
     {
         uint32_t cps[2] = { 0x19b6, 0x199f };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750B0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x75091000, 0x0500, 0x0500}
+            text::detail::collation_element{0x760B0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x76091000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12582,12 +12582,12 @@ TEST(tailoring, az_search_suppressions_22)
     {
         uint32_t cps[2] = { 0x19b6, 0x1993 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750B0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x75058E00, 0x0500, 0x0500}
+            text::detail::collation_element{0x760B0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x76058E00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12600,12 +12600,12 @@ TEST(tailoring, az_search_suppressions_22)
     {
         uint32_t cps[2] = { 0x19b6, 0x19a9 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750B0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x75095600, 0x0500, 0x0500}
+            text::detail::collation_element{0x760B0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x76095600, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12618,12 +12618,12 @@ TEST(tailoring, az_search_suppressions_22)
     {
         uint32_t cps[2] = { 0x19b6, 0x1997 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750B0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x7505AA00, 0x0500, 0x0500}
+            text::detail::collation_element{0x760B0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x7605AA00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12636,12 +12636,12 @@ TEST(tailoring, az_search_suppressions_22)
     {
         uint32_t cps[2] = { 0x19b6, 0x1988 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750B0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x75054100, 0x0500, 0x0500}
+            text::detail::collation_element{0x760B0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x76054100, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12654,12 +12654,12 @@ TEST(tailoring, az_search_suppressions_22)
     {
         uint32_t cps[2] = { 0x19b6, 0x19ab };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750B0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x75096400, 0x0500, 0x0500}
+            text::detail::collation_element{0x760B0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x76096400, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12682,12 +12682,12 @@ TEST(tailoring, az_search_suppressions_23)
     {
         uint32_t cps[2] = { 0x19b6, 0x198c };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750B0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x75055D00, 0x0500, 0x0500}
+            text::detail::collation_element{0x760B0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x76055D00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12700,12 +12700,12 @@ TEST(tailoring, az_search_suppressions_23)
     {
         uint32_t cps[2] = { 0x19b6, 0x1980 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750B0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x75050900, 0x0500, 0x0500}
+            text::detail::collation_element{0x760B0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x76050900, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12718,12 +12718,12 @@ TEST(tailoring, az_search_suppressions_23)
     {
         uint32_t cps[2] = { 0x19b6, 0x19a5 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750B0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x75093A00, 0x0500, 0x0500}
+            text::detail::collation_element{0x760B0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x76093A00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12736,12 +12736,12 @@ TEST(tailoring, az_search_suppressions_23)
     {
         uint32_t cps[2] = { 0x19b6, 0x1984 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750B0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x75052500, 0x0500, 0x0500}
+            text::detail::collation_element{0x760B0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x76052500, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12754,12 +12754,12 @@ TEST(tailoring, az_search_suppressions_23)
     {
         uint32_t cps[2] = { 0x19b6, 0x1998 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750B0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x7505B100, 0x0500, 0x0500}
+            text::detail::collation_element{0x760B0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x7605B100, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12772,12 +12772,12 @@ TEST(tailoring, az_search_suppressions_23)
     {
         uint32_t cps[2] = { 0x19b6, 0x199c };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750B0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x75070000, 0x0500, 0x0500}
+            text::detail::collation_element{0x760B0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x76070000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12790,12 +12790,12 @@ TEST(tailoring, az_search_suppressions_23)
     {
         uint32_t cps[2] = { 0x19b6, 0x19aa };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750B0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x75095D00, 0x0500, 0x0500}
+            text::detail::collation_element{0x760B0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x76095D00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12808,12 +12808,12 @@ TEST(tailoring, az_search_suppressions_23)
     {
         uint32_t cps[2] = { 0x19b6, 0x1990 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750B0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x75057900, 0x0500, 0x0500}
+            text::detail::collation_element{0x760B0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x76057900, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12826,12 +12826,12 @@ TEST(tailoring, az_search_suppressions_23)
     {
         uint32_t cps[2] = { 0x19b6, 0x1994 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750B0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x75059500, 0x0500, 0x0500}
+            text::detail::collation_element{0x760B0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x76059500, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12844,12 +12844,12 @@ TEST(tailoring, az_search_suppressions_23)
     {
         uint32_t cps[2] = { 0x19b6, 0x1989 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750B0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x75054800, 0x0500, 0x0500}
+            text::detail::collation_element{0x760B0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x76054800, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12862,12 +12862,12 @@ TEST(tailoring, az_search_suppressions_23)
     {
         uint32_t cps[2] = { 0x19b6, 0x19a2 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750B0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x75092500, 0x0500, 0x0500}
+            text::detail::collation_element{0x760B0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x76092500, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12880,12 +12880,12 @@ TEST(tailoring, az_search_suppressions_23)
     {
         uint32_t cps[2] = { 0x19b6, 0x1981 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750B0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x75051000, 0x0500, 0x0500}
+            text::detail::collation_element{0x760B0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x76051000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12898,12 +12898,12 @@ TEST(tailoring, az_search_suppressions_23)
     {
         uint32_t cps[2] = { 0x19b6, 0x198d };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750B0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x75056400, 0x0500, 0x0500}
+            text::detail::collation_element{0x760B0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x76056400, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12916,12 +12916,12 @@ TEST(tailoring, az_search_suppressions_23)
     {
         uint32_t cps[2] = { 0x19b6, 0x19a6 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750B0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x75094100, 0x0500, 0x0500}
+            text::detail::collation_element{0x760B0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x76094100, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12934,12 +12934,12 @@ TEST(tailoring, az_search_suppressions_23)
     {
         uint32_t cps[2] = { 0x19b6, 0x1985 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750B0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x75052C00, 0x0500, 0x0500}
+            text::detail::collation_element{0x760B0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x76052C00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12952,12 +12952,12 @@ TEST(tailoring, az_search_suppressions_23)
     {
         uint32_t cps[2] = { 0x19b6, 0x1999 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750B0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x7505B800, 0x0500, 0x0500}
+            text::detail::collation_element{0x760B0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x7605B800, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12970,12 +12970,12 @@ TEST(tailoring, az_search_suppressions_23)
     {
         uint32_t cps[2] = { 0x19b6, 0x199d };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750B0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x75090200, 0x0500, 0x0500}
+            text::detail::collation_element{0x760B0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x76090200, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -12988,12 +12988,12 @@ TEST(tailoring, az_search_suppressions_23)
     {
         uint32_t cps[2] = { 0x19b6, 0x1991 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750B0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x75058000, 0x0500, 0x0500}
+            text::detail::collation_element{0x760B0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x76058000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13006,12 +13006,12 @@ TEST(tailoring, az_search_suppressions_23)
     {
         uint32_t cps[2] = { 0x19b6, 0x198a };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750B0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x75054F00, 0x0500, 0x0500}
+            text::detail::collation_element{0x760B0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x76054F00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13024,12 +13024,12 @@ TEST(tailoring, az_search_suppressions_23)
     {
         uint32_t cps[2] = { 0x19b6, 0x1992 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750B0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x75058700, 0x0500, 0x0500}
+            text::detail::collation_element{0x760B0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x76058700, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13042,12 +13042,12 @@ TEST(tailoring, az_search_suppressions_23)
     {
         uint32_t cps[2] = { 0x19b6, 0x1995 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750B0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x75059C00, 0x0500, 0x0500}
+            text::detail::collation_element{0x760B0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x76059C00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13060,12 +13060,12 @@ TEST(tailoring, az_search_suppressions_23)
     {
         uint32_t cps[2] = { 0x19b6, 0x198e };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750B0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x75056B00, 0x0500, 0x0500}
+            text::detail::collation_element{0x760B0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x76056B00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13078,12 +13078,12 @@ TEST(tailoring, az_search_suppressions_23)
     {
         uint32_t cps[2] = { 0x19b6, 0x19a3 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750B0000, 0x0500, 0x0500},
-            text::detail::collation_element{0x75092C00, 0x0500, 0x0500}
+            text::detail::collation_element{0x760B0000, 0x0500, 0x0500},
+            text::detail::collation_element{0x76092C00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13096,12 +13096,12 @@ TEST(tailoring, az_search_suppressions_23)
     {
         uint32_t cps[2] = { 0x19b7, 0x1984 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D0200, 0x0500, 0x0500},
-            text::detail::collation_element{0x75052500, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D0200, 0x0500, 0x0500},
+            text::detail::collation_element{0x76052500, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13114,12 +13114,12 @@ TEST(tailoring, az_search_suppressions_23)
     {
         uint32_t cps[2] = { 0x19b7, 0x19a3 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D0200, 0x0500, 0x0500},
-            text::detail::collation_element{0x75092C00, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D0200, 0x0500, 0x0500},
+            text::detail::collation_element{0x76092C00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13132,12 +13132,12 @@ TEST(tailoring, az_search_suppressions_23)
     {
         uint32_t cps[2] = { 0x19b7, 0x1980 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D0200, 0x0500, 0x0500},
-            text::detail::collation_element{0x75050900, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D0200, 0x0500, 0x0500},
+            text::detail::collation_element{0x76050900, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13150,12 +13150,12 @@ TEST(tailoring, az_search_suppressions_23)
     {
         uint32_t cps[2] = { 0x19b7, 0x199c };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D0200, 0x0500, 0x0500},
-            text::detail::collation_element{0x75070000, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D0200, 0x0500, 0x0500},
+            text::detail::collation_element{0x76070000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13168,12 +13168,12 @@ TEST(tailoring, az_search_suppressions_23)
     {
         uint32_t cps[2] = { 0x19b7, 0x1998 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D0200, 0x0500, 0x0500},
-            text::detail::collation_element{0x7505B100, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D0200, 0x0500, 0x0500},
+            text::detail::collation_element{0x7605B100, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13186,12 +13186,12 @@ TEST(tailoring, az_search_suppressions_23)
     {
         uint32_t cps[2] = { 0x19b7, 0x1994 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D0200, 0x0500, 0x0500},
-            text::detail::collation_element{0x75059500, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D0200, 0x0500, 0x0500},
+            text::detail::collation_element{0x76059500, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13204,12 +13204,12 @@ TEST(tailoring, az_search_suppressions_23)
     {
         uint32_t cps[2] = { 0x19b7, 0x1990 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D0200, 0x0500, 0x0500},
-            text::detail::collation_element{0x75057900, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D0200, 0x0500, 0x0500},
+            text::detail::collation_element{0x76057900, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13232,12 +13232,12 @@ TEST(tailoring, az_search_suppressions_24)
     {
         uint32_t cps[2] = { 0x19b7, 0x198f };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D0200, 0x0500, 0x0500},
-            text::detail::collation_element{0x75057200, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D0200, 0x0500, 0x0500},
+            text::detail::collation_element{0x76057200, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13250,12 +13250,12 @@ TEST(tailoring, az_search_suppressions_24)
     {
         uint32_t cps[2] = { 0x19b7, 0x19aa };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D0200, 0x0500, 0x0500},
-            text::detail::collation_element{0x75095D00, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D0200, 0x0500, 0x0500},
+            text::detail::collation_element{0x76095D00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13268,12 +13268,12 @@ TEST(tailoring, az_search_suppressions_24)
     {
         uint32_t cps[2] = { 0x19b7, 0x198b };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D0200, 0x0500, 0x0500},
-            text::detail::collation_element{0x75055600, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D0200, 0x0500, 0x0500},
+            text::detail::collation_element{0x76055600, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13286,12 +13286,12 @@ TEST(tailoring, az_search_suppressions_24)
     {
         uint32_t cps[2] = { 0x19b7, 0x19a6 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D0200, 0x0500, 0x0500},
-            text::detail::collation_element{0x75094100, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D0200, 0x0500, 0x0500},
+            text::detail::collation_element{0x76094100, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13304,12 +13304,12 @@ TEST(tailoring, az_search_suppressions_24)
     {
         uint32_t cps[2] = { 0x19b7, 0x1987 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D0200, 0x0500, 0x0500},
-            text::detail::collation_element{0x75053A00, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D0200, 0x0500, 0x0500},
+            text::detail::collation_element{0x76053A00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13322,12 +13322,12 @@ TEST(tailoring, az_search_suppressions_24)
     {
         uint32_t cps[2] = { 0x19b7, 0x19a2 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D0200, 0x0500, 0x0500},
-            text::detail::collation_element{0x75092500, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D0200, 0x0500, 0x0500},
+            text::detail::collation_element{0x76092500, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13340,12 +13340,12 @@ TEST(tailoring, az_search_suppressions_24)
     {
         uint32_t cps[2] = { 0x19b7, 0x199f };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D0200, 0x0500, 0x0500},
-            text::detail::collation_element{0x75091000, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D0200, 0x0500, 0x0500},
+            text::detail::collation_element{0x76091000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13358,12 +13358,12 @@ TEST(tailoring, az_search_suppressions_24)
     {
         uint32_t cps[2] = { 0x19b7, 0x199b };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D0200, 0x0500, 0x0500},
-            text::detail::collation_element{0x7505C600, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D0200, 0x0500, 0x0500},
+            text::detail::collation_element{0x7605C600, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13376,12 +13376,12 @@ TEST(tailoring, az_search_suppressions_24)
     {
         uint32_t cps[2] = { 0x19b7, 0x1997 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D0200, 0x0500, 0x0500},
-            text::detail::collation_element{0x7505AA00, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D0200, 0x0500, 0x0500},
+            text::detail::collation_element{0x7605AA00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13394,12 +13394,12 @@ TEST(tailoring, az_search_suppressions_24)
     {
         uint32_t cps[2] = { 0x19b7, 0x19a9 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D0200, 0x0500, 0x0500},
-            text::detail::collation_element{0x75095600, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D0200, 0x0500, 0x0500},
+            text::detail::collation_element{0x76095600, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13412,12 +13412,12 @@ TEST(tailoring, az_search_suppressions_24)
     {
         uint32_t cps[2] = { 0x19b7, 0x1993 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D0200, 0x0500, 0x0500},
-            text::detail::collation_element{0x75058E00, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D0200, 0x0500, 0x0500},
+            text::detail::collation_element{0x76058E00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13430,12 +13430,12 @@ TEST(tailoring, az_search_suppressions_24)
     {
         uint32_t cps[2] = { 0x19b7, 0x198e };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D0200, 0x0500, 0x0500},
-            text::detail::collation_element{0x75056B00, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D0200, 0x0500, 0x0500},
+            text::detail::collation_element{0x76056B00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13448,12 +13448,12 @@ TEST(tailoring, az_search_suppressions_24)
     {
         uint32_t cps[2] = { 0x19b7, 0x19a5 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D0200, 0x0500, 0x0500},
-            text::detail::collation_element{0x75093A00, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D0200, 0x0500, 0x0500},
+            text::detail::collation_element{0x76093A00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13466,12 +13466,12 @@ TEST(tailoring, az_search_suppressions_24)
     {
         uint32_t cps[2] = { 0x19b7, 0x198a };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D0200, 0x0500, 0x0500},
-            text::detail::collation_element{0x75054F00, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D0200, 0x0500, 0x0500},
+            text::detail::collation_element{0x76054F00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13484,12 +13484,12 @@ TEST(tailoring, az_search_suppressions_24)
     {
         uint32_t cps[2] = { 0x19b7, 0x19a1 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D0200, 0x0500, 0x0500},
-            text::detail::collation_element{0x75091E00, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D0200, 0x0500, 0x0500},
+            text::detail::collation_element{0x76091E00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13502,12 +13502,12 @@ TEST(tailoring, az_search_suppressions_24)
     {
         uint32_t cps[2] = { 0x19b7, 0x1986 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D0200, 0x0500, 0x0500},
-            text::detail::collation_element{0x75053300, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D0200, 0x0500, 0x0500},
+            text::detail::collation_element{0x76053300, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13520,12 +13520,12 @@ TEST(tailoring, az_search_suppressions_24)
     {
         uint32_t cps[2] = { 0x19b7, 0x1982 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D0200, 0x0500, 0x0500},
-            text::detail::collation_element{0x75051700, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D0200, 0x0500, 0x0500},
+            text::detail::collation_element{0x76051700, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13538,12 +13538,12 @@ TEST(tailoring, az_search_suppressions_24)
     {
         uint32_t cps[2] = { 0x19b7, 0x199e };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D0200, 0x0500, 0x0500},
-            text::detail::collation_element{0x75090900, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D0200, 0x0500, 0x0500},
+            text::detail::collation_element{0x76090900, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13556,12 +13556,12 @@ TEST(tailoring, az_search_suppressions_24)
     {
         uint32_t cps[2] = { 0x19b7, 0x1996 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D0200, 0x0500, 0x0500},
-            text::detail::collation_element{0x7505A300, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D0200, 0x0500, 0x0500},
+            text::detail::collation_element{0x7605A300, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13574,12 +13574,12 @@ TEST(tailoring, az_search_suppressions_24)
     {
         uint32_t cps[2] = { 0x19b7, 0x198d };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D0200, 0x0500, 0x0500},
-            text::detail::collation_element{0x75056400, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D0200, 0x0500, 0x0500},
+            text::detail::collation_element{0x76056400, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13592,12 +13592,12 @@ TEST(tailoring, az_search_suppressions_24)
     {
         uint32_t cps[2] = { 0x19b7, 0x19a8 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D0200, 0x0500, 0x0500},
-            text::detail::collation_element{0x75094F00, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D0200, 0x0500, 0x0500},
+            text::detail::collation_element{0x76094F00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13610,12 +13610,12 @@ TEST(tailoring, az_search_suppressions_24)
     {
         uint32_t cps[2] = { 0x19b7, 0x1992 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D0200, 0x0500, 0x0500},
-            text::detail::collation_element{0x75058700, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D0200, 0x0500, 0x0500},
+            text::detail::collation_element{0x76058700, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13628,12 +13628,12 @@ TEST(tailoring, az_search_suppressions_24)
     {
         uint32_t cps[2] = { 0x19b7, 0x1989 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D0200, 0x0500, 0x0500},
-            text::detail::collation_element{0x75054800, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D0200, 0x0500, 0x0500},
+            text::detail::collation_element{0x76054800, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13646,12 +13646,12 @@ TEST(tailoring, az_search_suppressions_24)
     {
         uint32_t cps[2] = { 0x19b7, 0x19a4 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D0200, 0x0500, 0x0500},
-            text::detail::collation_element{0x75093300, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D0200, 0x0500, 0x0500},
+            text::detail::collation_element{0x76093300, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13664,12 +13664,12 @@ TEST(tailoring, az_search_suppressions_24)
     {
         uint32_t cps[2] = { 0x19b7, 0x1985 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D0200, 0x0500, 0x0500},
-            text::detail::collation_element{0x75052C00, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D0200, 0x0500, 0x0500},
+            text::detail::collation_element{0x76052C00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13682,12 +13682,12 @@ TEST(tailoring, az_search_suppressions_24)
     {
         uint32_t cps[2] = { 0x19b7, 0x19a0 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D0200, 0x0500, 0x0500},
-            text::detail::collation_element{0x75091700, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D0200, 0x0500, 0x0500},
+            text::detail::collation_element{0x76091700, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13700,12 +13700,12 @@ TEST(tailoring, az_search_suppressions_24)
     {
         uint32_t cps[2] = { 0x19b7, 0x199a };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D0200, 0x0500, 0x0500},
-            text::detail::collation_element{0x7505BF00, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D0200, 0x0500, 0x0500},
+            text::detail::collation_element{0x7605BF00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13718,12 +13718,12 @@ TEST(tailoring, az_search_suppressions_24)
     {
         uint32_t cps[2] = { 0x19b7, 0x1981 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D0200, 0x0500, 0x0500},
-            text::detail::collation_element{0x75051000, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D0200, 0x0500, 0x0500},
+            text::detail::collation_element{0x76051000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13736,12 +13736,12 @@ TEST(tailoring, az_search_suppressions_24)
     {
         uint32_t cps[2] = { 0x19b7, 0x199d };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D0200, 0x0500, 0x0500},
-            text::detail::collation_element{0x75090200, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D0200, 0x0500, 0x0500},
+            text::detail::collation_element{0x76090200, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13754,12 +13754,12 @@ TEST(tailoring, az_search_suppressions_24)
     {
         uint32_t cps[2] = { 0x19b7, 0x1999 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D0200, 0x0500, 0x0500},
-            text::detail::collation_element{0x7505B800, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D0200, 0x0500, 0x0500},
+            text::detail::collation_element{0x7605B800, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13782,12 +13782,12 @@ TEST(tailoring, az_search_suppressions_25)
     {
         uint32_t cps[2] = { 0x19b7, 0x1995 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D0200, 0x0500, 0x0500},
-            text::detail::collation_element{0x75059C00, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D0200, 0x0500, 0x0500},
+            text::detail::collation_element{0x76059C00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13800,12 +13800,12 @@ TEST(tailoring, az_search_suppressions_25)
     {
         uint32_t cps[2] = { 0x19b7, 0x1991 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D0200, 0x0500, 0x0500},
-            text::detail::collation_element{0x75058000, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D0200, 0x0500, 0x0500},
+            text::detail::collation_element{0x76058000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13818,12 +13818,12 @@ TEST(tailoring, az_search_suppressions_25)
     {
         uint32_t cps[2] = { 0x19b7, 0x1983 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D0200, 0x0500, 0x0500},
-            text::detail::collation_element{0x75051E00, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D0200, 0x0500, 0x0500},
+            text::detail::collation_element{0x76051E00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13836,12 +13836,12 @@ TEST(tailoring, az_search_suppressions_25)
     {
         uint32_t cps[2] = { 0x19b7, 0x198c };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D0200, 0x0500, 0x0500},
-            text::detail::collation_element{0x75055D00, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D0200, 0x0500, 0x0500},
+            text::detail::collation_element{0x76055D00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13854,12 +13854,12 @@ TEST(tailoring, az_search_suppressions_25)
     {
         uint32_t cps[2] = { 0x19b7, 0x19ab };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D0200, 0x0500, 0x0500},
-            text::detail::collation_element{0x75096400, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D0200, 0x0500, 0x0500},
+            text::detail::collation_element{0x76096400, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13872,12 +13872,12 @@ TEST(tailoring, az_search_suppressions_25)
     {
         uint32_t cps[2] = { 0x19b7, 0x1988 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D0200, 0x0500, 0x0500},
-            text::detail::collation_element{0x75054100, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D0200, 0x0500, 0x0500},
+            text::detail::collation_element{0x76054100, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13890,12 +13890,12 @@ TEST(tailoring, az_search_suppressions_25)
     {
         uint32_t cps[2] = { 0x19b7, 0x19a7 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D0200, 0x0500, 0x0500},
-            text::detail::collation_element{0x75094800, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D0200, 0x0500, 0x0500},
+            text::detail::collation_element{0x76094800, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13908,12 +13908,12 @@ TEST(tailoring, az_search_suppressions_25)
     {
         uint32_t cps[2] = { 0x19ba, 0x1999 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D1700, 0x0500, 0x0500},
-            text::detail::collation_element{0x7505B800, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D1700, 0x0500, 0x0500},
+            text::detail::collation_element{0x7605B800, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13926,12 +13926,12 @@ TEST(tailoring, az_search_suppressions_25)
     {
         uint32_t cps[2] = { 0x19ba, 0x1982 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D1700, 0x0500, 0x0500},
-            text::detail::collation_element{0x75051700, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D1700, 0x0500, 0x0500},
+            text::detail::collation_element{0x76051700, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13944,12 +13944,12 @@ TEST(tailoring, az_search_suppressions_25)
     {
         uint32_t cps[2] = { 0x19ba, 0x19a5 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D1700, 0x0500, 0x0500},
-            text::detail::collation_element{0x75093A00, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D1700, 0x0500, 0x0500},
+            text::detail::collation_element{0x76093A00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13962,12 +13962,12 @@ TEST(tailoring, az_search_suppressions_25)
     {
         uint32_t cps[2] = { 0x19ba, 0x198e };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D1700, 0x0500, 0x0500},
-            text::detail::collation_element{0x75056B00, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D1700, 0x0500, 0x0500},
+            text::detail::collation_element{0x76056B00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13980,12 +13980,12 @@ TEST(tailoring, az_search_suppressions_25)
     {
         uint32_t cps[2] = { 0x19ba, 0x19a1 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D1700, 0x0500, 0x0500},
-            text::detail::collation_element{0x75091E00, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D1700, 0x0500, 0x0500},
+            text::detail::collation_element{0x76091E00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -13998,12 +13998,12 @@ TEST(tailoring, az_search_suppressions_25)
     {
         uint32_t cps[2] = { 0x19ba, 0x198a };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D1700, 0x0500, 0x0500},
-            text::detail::collation_element{0x75054F00, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D1700, 0x0500, 0x0500},
+            text::detail::collation_element{0x76054F00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -14016,12 +14016,12 @@ TEST(tailoring, az_search_suppressions_25)
     {
         uint32_t cps[2] = { 0x19ba, 0x1996 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D1700, 0x0500, 0x0500},
-            text::detail::collation_element{0x7505A300, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D1700, 0x0500, 0x0500},
+            text::detail::collation_element{0x7605A300, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -14034,12 +14034,12 @@ TEST(tailoring, az_search_suppressions_25)
     {
         uint32_t cps[2] = { 0x19ba, 0x19a9 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D1700, 0x0500, 0x0500},
-            text::detail::collation_element{0x75095600, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D1700, 0x0500, 0x0500},
+            text::detail::collation_element{0x76095600, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -14052,12 +14052,12 @@ TEST(tailoring, az_search_suppressions_25)
     {
         uint32_t cps[2] = { 0x19ba, 0x1992 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D1700, 0x0500, 0x0500},
-            text::detail::collation_element{0x75058700, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D1700, 0x0500, 0x0500},
+            text::detail::collation_element{0x76058700, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -14070,12 +14070,12 @@ TEST(tailoring, az_search_suppressions_25)
     {
         uint32_t cps[2] = { 0x19ba, 0x199e };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D1700, 0x0500, 0x0500},
-            text::detail::collation_element{0x75090900, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D1700, 0x0500, 0x0500},
+            text::detail::collation_element{0x76090900, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -14088,12 +14088,12 @@ TEST(tailoring, az_search_suppressions_25)
     {
         uint32_t cps[2] = { 0x19ba, 0x199a };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D1700, 0x0500, 0x0500},
-            text::detail::collation_element{0x7505BF00, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D1700, 0x0500, 0x0500},
+            text::detail::collation_element{0x7605BF00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -14106,12 +14106,12 @@ TEST(tailoring, az_search_suppressions_25)
     {
         uint32_t cps[2] = { 0x19ba, 0x1987 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D1700, 0x0500, 0x0500},
-            text::detail::collation_element{0x75053A00, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D1700, 0x0500, 0x0500},
+            text::detail::collation_element{0x76053A00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -14124,12 +14124,12 @@ TEST(tailoring, az_search_suppressions_25)
     {
         uint32_t cps[2] = { 0x19ba, 0x19a6 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D1700, 0x0500, 0x0500},
-            text::detail::collation_element{0x75094100, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D1700, 0x0500, 0x0500},
+            text::detail::collation_element{0x76094100, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -14142,12 +14142,12 @@ TEST(tailoring, az_search_suppressions_25)
     {
         uint32_t cps[2] = { 0x19ba, 0x1983 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D1700, 0x0500, 0x0500},
-            text::detail::collation_element{0x75051E00, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D1700, 0x0500, 0x0500},
+            text::detail::collation_element{0x76051E00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -14160,12 +14160,12 @@ TEST(tailoring, az_search_suppressions_25)
     {
         uint32_t cps[2] = { 0x19ba, 0x19a2 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D1700, 0x0500, 0x0500},
-            text::detail::collation_element{0x75092500, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D1700, 0x0500, 0x0500},
+            text::detail::collation_element{0x76092500, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -14178,12 +14178,12 @@ TEST(tailoring, az_search_suppressions_25)
     {
         uint32_t cps[2] = { 0x19ba, 0x198f };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D1700, 0x0500, 0x0500},
-            text::detail::collation_element{0x75057200, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D1700, 0x0500, 0x0500},
+            text::detail::collation_element{0x76057200, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -14196,12 +14196,12 @@ TEST(tailoring, az_search_suppressions_25)
     {
         uint32_t cps[2] = { 0x19ba, 0x198b };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D1700, 0x0500, 0x0500},
-            text::detail::collation_element{0x75055600, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D1700, 0x0500, 0x0500},
+            text::detail::collation_element{0x76055600, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -14214,12 +14214,12 @@ TEST(tailoring, az_search_suppressions_25)
     {
         uint32_t cps[2] = { 0x19ba, 0x19aa };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D1700, 0x0500, 0x0500},
-            text::detail::collation_element{0x75095D00, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D1700, 0x0500, 0x0500},
+            text::detail::collation_element{0x76095D00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -14232,12 +14232,12 @@ TEST(tailoring, az_search_suppressions_25)
     {
         uint32_t cps[2] = { 0x19ba, 0x1997 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D1700, 0x0500, 0x0500},
-            text::detail::collation_element{0x7505AA00, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D1700, 0x0500, 0x0500},
+            text::detail::collation_element{0x7605AA00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -14250,12 +14250,12 @@ TEST(tailoring, az_search_suppressions_25)
     {
         uint32_t cps[2] = { 0x19ba, 0x1993 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D1700, 0x0500, 0x0500},
-            text::detail::collation_element{0x75058E00, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D1700, 0x0500, 0x0500},
+            text::detail::collation_element{0x76058E00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -14268,12 +14268,12 @@ TEST(tailoring, az_search_suppressions_25)
     {
         uint32_t cps[2] = { 0x19ba, 0x199f };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D1700, 0x0500, 0x0500},
-            text::detail::collation_element{0x75091000, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D1700, 0x0500, 0x0500},
+            text::detail::collation_element{0x76091000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -14286,12 +14286,12 @@ TEST(tailoring, az_search_suppressions_25)
     {
         uint32_t cps[2] = { 0x19ba, 0x199b };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D1700, 0x0500, 0x0500},
-            text::detail::collation_element{0x7505C600, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D1700, 0x0500, 0x0500},
+            text::detail::collation_element{0x7605C600, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -14304,12 +14304,12 @@ TEST(tailoring, az_search_suppressions_25)
     {
         uint32_t cps[2] = { 0x19ba, 0x1984 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D1700, 0x0500, 0x0500},
-            text::detail::collation_element{0x75052500, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D1700, 0x0500, 0x0500},
+            text::detail::collation_element{0x76052500, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -14332,12 +14332,12 @@ TEST(tailoring, az_search_suppressions_26)
     {
         uint32_t cps[2] = { 0x19ba, 0x19a7 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D1700, 0x0500, 0x0500},
-            text::detail::collation_element{0x75094800, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D1700, 0x0500, 0x0500},
+            text::detail::collation_element{0x76094800, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -14350,12 +14350,12 @@ TEST(tailoring, az_search_suppressions_26)
     {
         uint32_t cps[2] = { 0x19ba, 0x1980 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D1700, 0x0500, 0x0500},
-            text::detail::collation_element{0x75050900, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D1700, 0x0500, 0x0500},
+            text::detail::collation_element{0x76050900, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -14368,12 +14368,12 @@ TEST(tailoring, az_search_suppressions_26)
     {
         uint32_t cps[2] = { 0x19ba, 0x19a3 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D1700, 0x0500, 0x0500},
-            text::detail::collation_element{0x75092C00, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D1700, 0x0500, 0x0500},
+            text::detail::collation_element{0x76092C00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -14386,12 +14386,12 @@ TEST(tailoring, az_search_suppressions_26)
     {
         uint32_t cps[2] = { 0x19ba, 0x198c };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D1700, 0x0500, 0x0500},
-            text::detail::collation_element{0x75055D00, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D1700, 0x0500, 0x0500},
+            text::detail::collation_element{0x76055D00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -14404,12 +14404,12 @@ TEST(tailoring, az_search_suppressions_26)
     {
         uint32_t cps[2] = { 0x19ba, 0x1988 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D1700, 0x0500, 0x0500},
-            text::detail::collation_element{0x75054100, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D1700, 0x0500, 0x0500},
+            text::detail::collation_element{0x76054100, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -14422,12 +14422,12 @@ TEST(tailoring, az_search_suppressions_26)
     {
         uint32_t cps[2] = { 0x19ba, 0x1991 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D1700, 0x0500, 0x0500},
-            text::detail::collation_element{0x75058000, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D1700, 0x0500, 0x0500},
+            text::detail::collation_element{0x76058000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -14440,12 +14440,12 @@ TEST(tailoring, az_search_suppressions_26)
     {
         uint32_t cps[2] = { 0x19ba, 0x19ab };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D1700, 0x0500, 0x0500},
-            text::detail::collation_element{0x75096400, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D1700, 0x0500, 0x0500},
+            text::detail::collation_element{0x76096400, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -14458,12 +14458,12 @@ TEST(tailoring, az_search_suppressions_26)
     {
         uint32_t cps[2] = { 0x19ba, 0x1994 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D1700, 0x0500, 0x0500},
-            text::detail::collation_element{0x75059500, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D1700, 0x0500, 0x0500},
+            text::detail::collation_element{0x76059500, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -14476,12 +14476,12 @@ TEST(tailoring, az_search_suppressions_26)
     {
         uint32_t cps[2] = { 0x19ba, 0x1990 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D1700, 0x0500, 0x0500},
-            text::detail::collation_element{0x75057900, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D1700, 0x0500, 0x0500},
+            text::detail::collation_element{0x76057900, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -14494,12 +14494,12 @@ TEST(tailoring, az_search_suppressions_26)
     {
         uint32_t cps[2] = { 0x19ba, 0x199c };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D1700, 0x0500, 0x0500},
-            text::detail::collation_element{0x75070000, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D1700, 0x0500, 0x0500},
+            text::detail::collation_element{0x76070000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -14512,12 +14512,12 @@ TEST(tailoring, az_search_suppressions_26)
     {
         uint32_t cps[2] = { 0x19ba, 0x1998 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D1700, 0x0500, 0x0500},
-            text::detail::collation_element{0x7505B100, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D1700, 0x0500, 0x0500},
+            text::detail::collation_element{0x7605B100, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -14530,30 +14530,12 @@ TEST(tailoring, az_search_suppressions_26)
     {
         uint32_t cps[2] = { 0x19ba, 0x1985 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D1700, 0x0500, 0x0500},
-            text::detail::collation_element{0x75052C00, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D1700, 0x0500, 0x0500},
+            text::detail::collation_element{0x76052C00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
-        // Ignore lead byte reorderings.  We just care if the contractions
-        // happen.
-        for (auto & ce : ces) {
-            ce.l1_ &= 0x00ffffff;
-            ce.l3_ &= text::detail::disable_case_level_mask;
-        }
-        for (auto & ce : result) { ce.l1_ &= 0x00ffffff; }
-        EXPECT_EQ(result, ces);
-    }
-    {
-        uint32_t cps[2] = { 0x19ba, 0x19a4 };
-        container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D1700, 0x0500, 0x0500},
-            text::detail::collation_element{0x75093300, 0x0500, 0x0500}
-        };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -14566,12 +14548,30 @@ TEST(tailoring, az_search_suppressions_26)
     {
         uint32_t cps[2] = { 0x19ba, 0x1981 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D1700, 0x0500, 0x0500},
-            text::detail::collation_element{0x75051000, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D1700, 0x0500, 0x0500},
+            text::detail::collation_element{0x76051000, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
+        // Ignore lead byte reorderings.  We just care if the contractions
+        // happen.
+        for (auto & ce : ces) {
+            ce.l1_ &= 0x00ffffff;
+            ce.l3_ &= text::detail::disable_case_level_mask;
+        }
+        for (auto & ce : result) { ce.l1_ &= 0x00ffffff; }
+        EXPECT_EQ(result, ces);
+    }
+    {
+        uint32_t cps[2] = { 0x19ba, 0x19a4 };
+        container::small_vector<text::detail::collation_element, 1024> ces = {
+            text::detail::collation_element{0x760D1700, 0x0500, 0x0500},
+            text::detail::collation_element{0x76093300, 0x0500, 0x0500}
+        };
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -14584,12 +14584,12 @@ TEST(tailoring, az_search_suppressions_26)
     {
         uint32_t cps[2] = { 0x19ba, 0x198d };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D1700, 0x0500, 0x0500},
-            text::detail::collation_element{0x75056400, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D1700, 0x0500, 0x0500},
+            text::detail::collation_element{0x76056400, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -14602,12 +14602,12 @@ TEST(tailoring, az_search_suppressions_26)
     {
         uint32_t cps[2] = { 0x19ba, 0x1989 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D1700, 0x0500, 0x0500},
-            text::detail::collation_element{0x75054800, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D1700, 0x0500, 0x0500},
+            text::detail::collation_element{0x76054800, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -14620,12 +14620,12 @@ TEST(tailoring, az_search_suppressions_26)
     {
         uint32_t cps[2] = { 0x19ba, 0x19a8 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D1700, 0x0500, 0x0500},
-            text::detail::collation_element{0x75094F00, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D1700, 0x0500, 0x0500},
+            text::detail::collation_element{0x76094F00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -14638,12 +14638,12 @@ TEST(tailoring, az_search_suppressions_26)
     {
         uint32_t cps[2] = { 0x19ba, 0x1995 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D1700, 0x0500, 0x0500},
-            text::detail::collation_element{0x75059C00, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D1700, 0x0500, 0x0500},
+            text::detail::collation_element{0x76059C00, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -14656,12 +14656,12 @@ TEST(tailoring, az_search_suppressions_26)
     {
         uint32_t cps[2] = { 0x19ba, 0x19a0 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D1700, 0x0500, 0x0500},
-            text::detail::collation_element{0x75091700, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D1700, 0x0500, 0x0500},
+            text::detail::collation_element{0x76091700, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -14674,12 +14674,12 @@ TEST(tailoring, az_search_suppressions_26)
     {
         uint32_t cps[2] = { 0x19ba, 0x199d };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D1700, 0x0500, 0x0500},
-            text::detail::collation_element{0x75090200, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D1700, 0x0500, 0x0500},
+            text::detail::collation_element{0x76090200, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -14692,12 +14692,12 @@ TEST(tailoring, az_search_suppressions_26)
     {
         uint32_t cps[2] = { 0x19ba, 0x1986 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x750D1700, 0x0500, 0x0500},
-            text::detail::collation_element{0x75053300, 0x0500, 0x0500}
+            text::detail::collation_element{0x760D1700, 0x0500, 0x0500},
+            text::detail::collation_element{0x76053300, 0x0500, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -14720,12 +14720,12 @@ TEST(tailoring, bs_Cyrl_standard_suppressions_0)
     {
         uint32_t cps[2] = { 0x418, 0x306 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x60460000, 0x0500, 0xAE00},
+            text::detail::collation_element{0x61460000, 0x0500, 0xAE00},
             text::detail::collation_element{0x00000000, 0x8C00, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {
@@ -14738,12 +14738,12 @@ TEST(tailoring, bs_Cyrl_standard_suppressions_0)
     {
         uint32_t cps[2] = { 0x438, 0x306 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
-            text::detail::collation_element{0x60460000, 0x0500, 0x0500},
+            text::detail::collation_element{0x61460000, 0x0500, 0x0500},
             text::detail::collation_element{0x00000000, 0x8C00, 0x0500}
         };
-        container::small_vector<text::detail::collation_element, 1024> result;
-        table.copy_collation_elements(
-            cps, cps + 2, std::back_inserter(result));
+        container::small_vector<text::detail::collation_element, 1024> result(2 * 10);
+        auto result_end = table.copy_collation_elements(cps, cps + 2, result.begin());
+        result.resize(result_end - result.begin());
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {

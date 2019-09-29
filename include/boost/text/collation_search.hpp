@@ -250,14 +250,17 @@ namespace boost { namespace text { inline namespace v1 {
             std::cout << std::dec << "]\n";
 #endif
 
-            table.copy_collation_elements(
+            auto const ces_size = ces.size();
+            ces.resize(ces_size + buf.size() * 10);
+            auto ces_end = table.copy_collation_elements(
                 buf.begin(),
                 buf.end(),
-                std::back_inserter(ces),
+                ces.begin() + ces_size,
                 strength,
                 case_first::off,
                 case_lvl,
                 weighting);
+            ces.resize(ces_end - ces.begin());
 
             auto const new_ces_end =
                 detail::adjust_ces_for_search(ces, strength, case_lvl);
@@ -324,17 +327,22 @@ namespace boost { namespace text { inline namespace v1 {
             std::cout << std::dec << "]\n";
 #endif
 
-            auto ce_size_it = std::back_inserter(ce_sizes);
-            auto const old_ces_size = ces.size();
-            table.copy_collation_elements(
+            auto const ces_size = ce_sizes.size();
+            auto const ce_sizes_size = ce_sizes.size();
+            ces.resize(ces_size + buf.size() * 10);
+            ce_sizes.resize(ce_sizes_size + buf.size() * 10);
+            auto ces_size_it = ce_sizes.begin() + ces_size;
+            auto ces_end = table.copy_collation_elements(
                 buf.begin(),
                 buf.end(),
-                std::back_inserter(ces),
+                ces.begin() + ces_size,
                 strength,
                 case_first::off,
                 case_lvl,
                 weighting,
-                &ce_size_it);
+                &ces_size_it);
+            ces.resize(ces_end - ces.begin());
+            ce_sizes.erase(ces_size_it, ce_sizes.end());
 
             BOOST_ASSERT(buf.size() == ce_sizes.size() - old_ce_sizes_size);
 
@@ -356,7 +364,7 @@ namespace boost { namespace text { inline namespace v1 {
 #endif
 
             auto const new_ces_end = detail::adjust_ces_for_search(
-                ces.begin() + old_ces_size,
+                ces.begin() + ces_size,
                 ces.end(),
                 ce_sizes.begin() + old_ce_sizes_size,
                 ce_sizes.end(),

@@ -10,6 +10,7 @@
 #include <boost/text/detail/parser.hpp>
 
 #include <boost/throw_exception.hpp>
+#include <boost/stl_interfaces/view_interface.hpp>
 
 #include <map>
 #include <numeric>
@@ -75,7 +76,7 @@ namespace boost { namespace text { inline namespace v1 {
 
         struct temp_table_element
         {
-            using ces_t = container::small_vector<collation_element, 4>;
+            using ces_t = container::small_vector<collation_element, 8 * 10>;
 
             cp_seq_t cps_;
             ces_t ces_;
@@ -137,6 +138,46 @@ namespace boost { namespace text { inline namespace v1 {
             uint16_t last_secondary_in_primary_ = last_secondary_in_primary;
         };
 
+        struct collation_latin_cache
+        {
+            // TODO: ccc=0 range goes all the way up to 0x300...
+            static int const size = 0x180;
+
+            static uint32_t
+            key(case_first case_1st,
+                case_level case_lvl,
+                variable_weighting weighting) noexcept
+            {
+                return (static_cast<uint32_t>(case_1st) << 2) |
+                       (static_cast<uint32_t>(case_lvl) << 1) |
+                       (static_cast<uint32_t>(weighting) << 0);
+            }
+
+            void build(
+                collation_table const & table,
+                case_first case_1st,
+                case_level case_lvl,
+                variable_weighting weighting);
+
+            struct result_type
+            {
+                collation_element const * begin() const noexcept { return f_; }
+                collation_element const * end() const noexcept { return l_; }
+                collation_element const * f_;
+                collation_element const * l_;
+            };
+
+            result_type operator[](uint32_t cp) const noexcept
+            {
+                BOOST_ASSERT(cp < (uint32_t)size);
+                auto * ces = ces_.data();
+                return {ces + end_offsets_[cp], ces + end_offsets_[cp + 1]};
+            }
+
+            std::vector<collation_element> ces_;
+            std::array<uint32_t, size + 1> end_offsets_;
+        };
+
         struct collation_table_data
         {
             collation_table_data() : collation_elements_(nullptr)
@@ -157,32 +198,7 @@ namespace boost { namespace text { inline namespace v1 {
             optional<case_level> case_level_;
             optional<case_first> case_first_;
 
-            struct latin_cache
-            {
-                // TODO: ccc=0 range goes all the way up to 0x300...
-                static int const size = 0x180;
-
-                static uint32_t
-                key(case_first case_1st,
-                    case_level case_lvl,
-                    variable_weighting weighting) noexcept
-                {
-                    return (static_cast<uint32_t>(case_1st) << 2) |
-                           (static_cast<uint32_t>(case_lvl) << 1) |
-                           (static_cast<uint32_t>(weighting) << 0);
-                }
-
-                void build(
-                    collation_table & table,
-                    case_first case_1st,
-                    case_level case_lvl,
-                    variable_weighting weighting);
-
-                std::vector<collation_element> ces_;
-                std::array<uint32_t, size> end_offsets_;
-            };
-
-            std::map<uint32_t, latin_cache> latin_caches_;
+            mutable std::map<uint32_t, collation_latin_cache> latin_caches_;
         };
 
         inline bool operator==(
@@ -327,12 +343,11 @@ namespace boost { namespace text { inline namespace v1 {
 
         void build_default_latin_cache()
         {
-            uint32_t const key = detail::collation_table_data::latin_cache::key(
+            uint32_t const key = detail::collation_latin_cache::key(
                 case_first::off,
                 case_level::off,
                 variable_weighting::non_ignorable);
-            detail::collation_table_data::latin_cache & cache =
-                data_->latin_caches_[key];
+            detail::collation_latin_cache & cache = data_->latin_caches_[key];
             cache.build(
                 *this,
                 case_first::off,
@@ -360,6 +375,11 @@ namespace boost { namespace text { inline namespace v1 {
             collation_table const & table, filesystem::path const & path);
         friend collation_table load_table(filesystem::path const & path);
 
+        friend detail::collation_latin_cache const & detail::get_latin_cache(
+            collation_table const & table,
+            case_first case_1st,
+            case_level case_lvl,
+            variable_weighting weighting);
 #endif
     };
 
@@ -371,8 +391,8 @@ namespace boost { namespace text { inline namespace v1 {
 #endif
 
     namespace detail {
-        inline void collation_table_data::latin_cache::build(
-            collation_table & table,
+        inline void collation_latin_cache::build(
+            collation_table const & table,
             case_first case_1st,
             case_level case_lvl,
             variable_weighting weighting)
@@ -380,18 +400,41 @@ namespace boost { namespace text { inline namespace v1 {
             std::array<uint32_t, size> cps;
             std::iota(cps.begin(), cps.end(), 0);
 
-            uint32_t * sizes_out = end_offsets_.data();
-            table.copy_collation_elements(
+            end_offsets_[0] = 0;
+            uint32_t * sizes_out = end_offsets_.data() + 1;
+            std::array<detail::collation_element, size * 10> local_ces;
+            auto ces_end = table.copy_collation_elements(
                 cps.begin(),
                 cps.end(),
-                std::back_inserter(ces_),
+                local_ces.data(),
                 collation_strength::quaternary,
                 case_1st,
                 case_lvl,
                 weighting,
                 &sizes_out);
+            ces_.resize(ces_end - local_ces.data());
+            std::copy(local_ces.data(), ces_end, ces_.begin());
             std::partial_sum(
                 end_offsets_.begin(), end_offsets_.end(), end_offsets_.begin());
+        }
+
+        // TODO: This is not threadsafe!
+        inline collation_latin_cache const & get_latin_cache(
+            collation_table const & table,
+            case_first case_1st,
+            case_level case_lvl,
+            variable_weighting weighting)
+        {
+            uint32_t const key =
+                collation_latin_cache::key(case_1st, case_lvl, weighting);
+            auto it = table.data_->latin_caches_.find(key);
+            if (it == table.data_->latin_caches_.end()) {
+                it = table.data_->latin_caches_
+                         .insert(std::make_pair(key, collation_latin_cache{}))
+                         .first;
+                it->second.build(table, case_1st, case_lvl, weighting);
+            }
+            return it->second;
         }
     }
 
@@ -1768,12 +1811,12 @@ namespace boost { namespace text { inline namespace v1 {
         inline temp_table_element::ces_t
         get_ces(cp_seq_t cps, collation_table_data const & table)
         {
-            temp_table_element::ces_t retval;
+            temp_table_element::ces_t retval(cps.size() * 10);
 
-            detail::s2(
+            auto retval_end = detail::s2(
                 cps.begin(),
                 cps.end(),
-                std::back_inserter(retval),
+                retval.begin(),
                 table.trie_,
                 table.collation_elements_ ? table.collation_elements_
                                           : &table.collation_element_vec_[0],
@@ -1784,6 +1827,7 @@ namespace boost { namespace text { inline namespace v1 {
                 collation_strength::tertiary,
                 variable_weighting::non_ignorable,
                 detail::retain_case_bits_t::yes);
+            retval.resize(retval_end - retval.begin());
 
 #if BOOST_TEXT_TAILORING_INSTRUMENTATION
             {
