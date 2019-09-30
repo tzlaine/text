@@ -41,7 +41,8 @@ namespace boost { namespace trie {
     {
     private:
         using trie_map_t = trie_map<Key, detail::void_>;
-        using iter_state_t = detail::trie_iterator_state_t<Key, detail::void_>;
+        using iter_state_t =
+            detail::trie_iterator_state_t<Key, detail::void_, false>;
 
         trie_map_t trie_;
 
@@ -517,7 +518,8 @@ namespace boost { namespace trie {
         base_iter_type & base_reference() noexcept { return it_; }
         base_iter_type base_reference() const noexcept { return it_; }
 
-        using state_t = detail::trie_iterator_state_t<Key, detail::void_>;
+        using state_t =
+            detail::trie_iterator_state_t<Key, detail::void_, false>;
 
         explicit const_trie_set_iterator(state_t state) : it_(state) {}
 
@@ -556,7 +558,7 @@ namespace boost { namespace trie {
         base_iter_type base_reference() const noexcept { return it_; }
 
         explicit trie_set_iterator(
-            detail::trie_iterator_state_t<Key, detail::void_> state) :
+            detail::trie_iterator_state_t<Key, detail::void_, false> state) :
             it_(state)
         {}
         explicit trie_set_iterator(const_trie_set_iterator<Key> it) : it_(it) {}

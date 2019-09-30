@@ -177,7 +177,11 @@ namespace boost { namespace trie {
 
     namespace detail {
 
-        template<typename ParentIndexing, typename Key, typename Value>
+        template<
+            typename ParentIndexing,
+            typename Key,
+            typename Value,
+            bool FlatIndices>
         struct trie_node_t;
 
         struct no_index_within_parent_t
@@ -188,21 +192,28 @@ namespace boost { namespace trie {
                 return 0;
             }
 
-            template<typename Key, typename Value, typename Iter>
+            template<
+                typename Key,
+                typename Value,
+                typename Iter,
+                bool FlatIndices>
             void insert_at(
-                std::unique_ptr<
-                    trie_node_t<no_index_within_parent_t, Key, Value>> const &
-                    child,
+                std::unique_ptr<trie_node_t<
+                    no_index_within_parent_t,
+                    Key,
+                    Value,
+                    FlatIndices>> const & child,
                 std::ptrdiff_t offset,
                 Iter it,
                 Iter end) noexcept
             {}
 
-            template<typename Key, typename Value>
-            void insert_ptr(
-                std::unique_ptr<
-                    trie_node_t<no_index_within_parent_t, Key, Value>> const &
-                    child) noexcept
+            template<typename Key, typename Value, bool FlatIndices>
+            void insert_ptr(std::unique_ptr<trie_node_t<
+                                no_index_within_parent_t,
+                                Key,
+                                Value,
+                                FlatIndices>> const & child) noexcept
             {}
 
             template<typename Iter>
@@ -342,12 +353,19 @@ namespace boost { namespace trie {
         C++ standard, in part because it does not have any iterators.  This
         allows trie to do slightly less work when it does insertions and
         erasures.  If you need iterators, use trie_map or trie_set. */
-    template<typename Key, typename Value, typename Compare = less>
+    template<
+        typename Key,
+        typename Value,
+        typename Compare = less,
+        bool FlatIndices = false>
     struct trie
     {
     private:
-        using node_t =
-            detail::trie_node_t<detail::no_index_within_parent_t, Key, Value>;
+        using node_t = detail::trie_node_t<
+            detail::no_index_within_parent_t,
+            Key,
+            Value,
+            FlatIndices>;
 
     public:
         using key_type = Key;
@@ -787,8 +805,256 @@ namespace boost { namespace trie {
 
     namespace detail {
 
-        template<typename ParentIndexing, typename Key, typename Value>
+        template<
+            typename ParentIndexing,
+            typename Key,
+            typename Value,
+            bool FlatIndices>
         struct trie_node_t
+        {
+            using children_t = std::vector<std::unique_ptr<trie_node_t>>;
+            using iterator = typename children_t::iterator;
+            using const_iterator = typename children_t::const_iterator;
+            using key_element = typename Key::value_type;
+            using keys_t = std::vector<key_element>;
+            using key_iterator = typename keys_t::const_iterator;
+
+            trie_node_t() : parent_(nullptr) {}
+            trie_node_t(trie_node_t * parent) : parent_(parent) {}
+            trie_node_t(trie_node_t const & other) :
+                keys_(other.keys_),
+                value_(other.value_),
+                parent_(other.parent_),
+                index_within_parent_(other.index_within_parent_)
+            {
+                children_.reserve(other.children_.size());
+                for (auto const & node : other.children_) {
+                    std::unique_ptr<trie_node_t> new_node(
+                        new trie_node_t(*node));
+                    children_.push_back(std::move(new_node));
+                }
+            }
+            trie_node_t(trie_node_t && other) : parent_(nullptr)
+            {
+                swap(other);
+            }
+            trie_node_t & operator=(trie_node_t const & rhs)
+            {
+                BOOST_ASSERT(
+                    parent_ == nullptr &&
+                    "Assignment of trie_node_ts are defined only for the "
+                    "header node.");
+                trie_node_t temp(rhs);
+                temp.swap(*this);
+                return *this;
+            }
+            trie_node_t & operator=(trie_node_t && rhs)
+            {
+                BOOST_ASSERT(
+                    parent_ == nullptr &&
+                    "Move assignments of trie_node_ts are defined only for the "
+                    "header node.");
+                trie_node_t temp(std::move(rhs));
+                temp.swap(*this);
+                return *this;
+            }
+
+            optional<Value> const & value() const noexcept { return value_; }
+
+            Value & child_value(std::size_t i) const
+            {
+                return *children_[i]->value_;
+            }
+
+            trie_node_t * parent() const noexcept { return parent_; }
+            trie_node_t * min_child() const noexcept
+            {
+                return children_.front().get();
+            }
+            trie_node_t * max_child() const noexcept
+            {
+                return children_.back().get();
+            }
+
+            bool empty() const noexcept { return children_.size() == 0; }
+            std::size_t size() const noexcept { return children_.size(); }
+
+            bool min_value() const noexcept
+            {
+                return !!children_.front()->value_;
+            }
+            bool max_value() const noexcept
+            {
+                return !!children_.back()->value_;
+            }
+
+            const_iterator begin() const noexcept { return children_.begin(); }
+            const_iterator end() const noexcept { return children_.end(); }
+
+            key_iterator key_begin() const noexcept { return keys_.begin(); }
+            key_iterator key_end() const noexcept { return keys_.end(); }
+
+            std::size_t index_within_parent() const noexcept
+            {
+                return index_within_parent_.value();
+            }
+
+            bool before_child_subtree(key_element const & e) const noexcept
+            {
+                return keys_.empty() || e < keys_.front();
+            }
+
+            template<typename Compare>
+            const_iterator
+            lower_bound(key_element const & e, Compare const & comp) const
+                noexcept
+            {
+                auto const it =
+                    std::lower_bound(keys_.begin(), keys_.end(), e, comp);
+                return children_.begin() + (it - keys_.begin());
+            }
+            template<typename Compare>
+            const_iterator
+            find(key_element const & e, Compare const & comp) const noexcept
+            {
+                auto const it = lower_bound(e, comp);
+                auto const end_ = end();
+                if (it != end_ && comp(e, key(it)))
+                    return end_;
+                return it;
+            }
+
+            template<typename Compare>
+            trie_node_t const *
+            child(key_element const & e, Compare const & comp) const noexcept
+            {
+                auto const it = find(e, comp);
+                if (it == children_.end())
+                    return nullptr;
+                return it->get();
+            }
+            trie_node_t const * child(std::size_t i) const noexcept
+            {
+                return children_[i].get();
+            }
+
+            key_element const & key(std::size_t i) const noexcept
+            {
+                return keys_[i];
+            }
+
+            void swap(trie_node_t & other)
+            {
+                BOOST_ASSERT(
+                    parent_ == nullptr &&
+                    "Swaps of trie_node_ts are defined only for the header "
+                    "node.");
+                keys_.swap(other.keys_);
+                children_.swap(other.children_);
+                value_.swap(other.value_);
+                for (auto const & node : children_) {
+                    node->parent_ = this;
+                }
+                for (auto const & node : other.children_) {
+                    node->parent_ = &other;
+                }
+                std::swap(index_within_parent_, other.index_within_parent_);
+            }
+
+            optional<Value> & value() noexcept { return value_; }
+
+            iterator begin() noexcept { return children_.begin(); }
+            iterator end() noexcept { return children_.end(); }
+
+            template<typename Compare>
+            iterator insert(
+                key_element const & e,
+                Compare const & comp,
+                std::unique_ptr<trie_node_t> && child)
+            {
+                BOOST_ASSERT(child->empty());
+                auto it = std::lower_bound(keys_.begin(), keys_.end(), e, comp);
+                it = keys_.insert(it, e);
+                auto const offset = it - keys_.begin();
+                auto child_it = children_.begin() + offset;
+                index_within_parent_.insert_at(
+                    child, offset, child_it, children_.end());
+                return children_.insert(child_it, std::move(child));
+            }
+            iterator insert(std::unique_ptr<trie_node_t> && child)
+            {
+                BOOST_ASSERT(empty());
+                index_within_parent_.insert_ptr(child);
+                return children_.insert(children_.begin(), std::move(child));
+            }
+            void erase(std::size_t i) noexcept
+            {
+                // This empty-keys situation happens only in the header node.
+                if (!keys_.empty())
+                    keys_.erase(keys_.begin() + i);
+                auto it = children_.erase(children_.begin() + i);
+                index_within_parent_.erase(it, children_.end());
+            }
+            void erase(trie_node_t const * child) noexcept
+            {
+                auto const it = std::find_if(
+                    children_.begin(),
+                    children_.end(),
+                    [child](std::unique_ptr<trie_node_t> const & ptr) {
+                        return child == ptr.get();
+                    });
+                BOOST_ASSERT(it != children_.end());
+                erase(it - children_.begin());
+            }
+
+            template<typename Compare>
+            iterator
+            lower_bound(key_element const & e, Compare const & comp) noexcept
+            {
+                auto const it = const_this()->lower_bound(e, comp);
+                return children_.begin() +
+                       (it - const_iterator(children_.begin()));
+            }
+            template<typename Compare>
+            iterator find(key_element const & e, Compare const & comp) noexcept
+            {
+                auto const it = const_this()->find(e, comp);
+                return children_.begin() +
+                       (it - const_iterator(children_.begin()));
+            }
+
+            template<typename Compare>
+            trie_node_t *
+            child(key_element const & e, Compare const & comp) noexcept
+            {
+                return const_cast<trie_node_t *>(const_this()->child(e, comp));
+            }
+            trie_node_t * child(std::size_t i) noexcept
+            {
+                return const_cast<trie_node_t *>(const_this()->child(i));
+            }
+
+        private:
+            trie_node_t const * const_this()
+            {
+                return const_cast<trie_node_t const *>(this);
+            }
+            key_element const & key(const_iterator it) const
+            {
+                return keys_[it - children_.begin()];
+            }
+
+            keys_t keys_;
+            children_t children_;
+            optional<Value> value_;
+            trie_node_t * parent_;
+            ParentIndexing index_within_parent_;
+
+            friend struct index_within_parent_t;
+        };
+
+        template<typename ParentIndexing, typename Key, typename Value>
+        struct trie_node_t<ParentIndexing, Key, Value, true>
         {
             using children_t = std::vector<std::unique_ptr<trie_node_t>>;
             using iterator = typename children_t::iterator;
