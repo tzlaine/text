@@ -1631,57 +1631,39 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
 #if 1
             auto const & latin_cache =
                 detail::get_latin_cache(table, case_1st, case_lvl, weighting);
-            for (; lhs_it != lhs_last && rhs_it != rhs_last;) {
-                auto lhs_next = lhs_it;
-                auto rhs_next = rhs_it;
-                unsigned char const l_c = *lhs_next;
-                unsigned char const r_c = *rhs_next;
-                uint32_t l, r;
-                if (l_c < 0x80) {
-                    // TODO: Process 1 <= n <= 16 values here using SIMD.
-                    l = l_c;
-                    ++lhs_next;
-                } else {
-                    l = detail::advance(lhs_next, lhs_last);
-                }
-                if (r_c < 0x80) {
-                    // TODO: Process 1 <= n <= 16 values here using SIMD.
-                    r = r_c;
-                    ++rhs_next;
-                } else {
-                    r = detail::advance(rhs_next, rhs_last);
-                }
-                if (collation_latin_cache::size <= l ||
-                    collation_latin_cache::size <= r) {
-                    break;
-                }
-                auto l_ces = latin_cache[l];
-                auto r_ces = latin_cache[r];
-                auto const mismatches = algorithm::mismatch(
-                    l_ces.begin(), l_ces.end(), r_ces.begin(), r_ces.end());
-                auto const l_at_end = mismatches.first == l_ces.end();
-                auto const r_at_end = mismatches.second == r_ces.end();
-                if (l_at_end && std::any_of(
-                                    mismatches.second,
-                                    r_ces.end(),
-                                    [](detail::collation_element const & ce) {
-                                        return ce.l1_;
-                                    })) {
-                    return -1;
-                }
-                if (r_at_end && std::any_of(
-                                    mismatches.first,
-                                    l_ces.end(),
-                                    [](detail::collation_element const & ce) {
-                                        return ce.l1_;
-                                    })) {
-                    return 1;
-                }
-                lhs_it = lhs_next;
-                rhs_it = rhs_next;
-            }
+            auto get_nonzero_latin_primary =
+                [&latin_cache](auto & it, auto last) {
+                    uint32_t primary = 0;
+                    for (; it != last;) {
+                        auto next = it;
+                        unsigned char const c = *next;
+                        uint32_t cp;
+                        if (c < 0x80) {
+                            // TODO: Process 1 <= n <= 16 values here using
+                            // SIMD.
+                            cp = c;
+                            next += 1; // TODO
+                        } else {
+                            cp = detail::advance(next, last);
+                            if (collation_latin_cache::size <= cp)
+                                break;
+                        }
+                        auto ces = latin_cache[cp];
+                        primary = ces.begin()->l1_;
+                        if (primary)
+                            break;
+                        it = next;
+                    }
+                    return primary;
+                };
+            uint32_t l_primary = get_nonzero_latin_primary(lhs_it, lhs_last);
+            uint32_t r_primary = get_nonzero_latin_primary(rhs_it, rhs_last);
             if (lhs_it == lhs_last && rhs_it == rhs_last)
                 return 0;
+            if (l_primary < r_primary)
+                return -1;
+            if (r_primary < l_primary)
+                return 1;
 
 //            std::cout << "CP2\n";
 #endif
