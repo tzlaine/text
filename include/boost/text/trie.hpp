@@ -2,6 +2,8 @@
 #define BOOST_TEXT_TRIE_HPP
 
 #include <boost/optional.hpp>
+#include <boost/text/trie_fwd.hpp>
+#include <boost/algorithm/cxx14/equal.hpp>
 
 #include <memory>
 #include <type_traits>
@@ -10,22 +12,10 @@
 
 namespace boost { namespace trie {
 
-    /** A statically polymorphic less-than compariason object type.  This is
-        only necessary for pre-C++14 portablility. */
-    struct less
-    {
-        template<typename T>
-        bool operator()(T const & lhs, T const & rhs) const
-            noexcept(noexcept(std::less<T>{}(lhs, rhs)))
-        {
-            return std::less<T>{}(lhs, rhs);
-        }
-    };
-
     /** An optional reference.  Its optionality is testable, via the operator
         bool() members, and it is implicitly convertible to the underlying
         value type. */
-    template<typename T>
+    template<typename T, bool Const = std::is_const<T>::value>
     struct optional_ref
     {
     private:
@@ -95,8 +85,46 @@ namespace boost { namespace trie {
         }
     };
 
+    // TODO: This specialization is inexplicably assignable.
+    template<typename T>
+    struct optional_ref<T, true>
+    {
+    private:
+        T * t_;
+
+    public:
+        optional_ref() : t_(nullptr) {}
+        optional_ref(T & t) : t_(&t) {}
+
+        explicit operator bool() const & noexcept { return t_ != nullptr; }
+        explicit operator bool() && noexcept { return t_ != nullptr; }
+
+        T & operator*() const noexcept
+        {
+            BOOST_ASSERT(t_);
+            return *t_;
+        }
+        T * operator->() const noexcept
+        {
+            BOOST_ASSERT(t_);
+            return t_;
+        }
+
+        operator T &() const & noexcept
+        {
+            BOOST_ASSERT(t_);
+            return *t_;
+        }
+
+        operator T &() const && noexcept
+        {
+            BOOST_ASSERT(t_);
+            return *t_;
+        }
+    };
+
     template<>
-    struct optional_ref<bool>
+    struct optional_ref<bool, false>
     {
     private:
         bool * t_;
@@ -142,7 +170,7 @@ namespace boost { namespace trie {
     };
 
     template<>
-    struct optional_ref<bool const>
+    struct optional_ref<bool const, true>
     {
     private:
         bool const * t_;
@@ -150,15 +178,6 @@ namespace boost { namespace trie {
     public:
         optional_ref() : t_(nullptr) {}
         optional_ref(bool const & t) : t_(&t) {}
-
-        template<typename U>
-        auto operator=(U && u)
-            -> decltype(*this->t_ = static_cast<U &&>(u), *this)
-        {
-            BOOST_ASSERT(t_);
-            *t_ = static_cast<U &&>(u);
-            return *this;
-        }
 
         explicit operator bool() const & noexcept { return t_ != nullptr; }
         explicit operator bool() && noexcept { return t_ != nullptr; }
@@ -181,7 +200,7 @@ namespace boost { namespace trie {
             typename ParentIndexing,
             typename Key,
             typename Value,
-            bool FlatIndices>
+            std::size_t KeySize = 0>
         struct trie_node_t;
 
         struct no_index_within_parent_t
@@ -196,24 +215,24 @@ namespace boost { namespace trie {
                 typename Key,
                 typename Value,
                 typename Iter,
-                bool FlatIndices>
+                std::size_t KeySize>
             void insert_at(
                 std::unique_ptr<trie_node_t<
                     no_index_within_parent_t,
                     Key,
                     Value,
-                    FlatIndices>> const & child,
+                    KeySize>> const & child,
                 std::ptrdiff_t offset,
                 Iter it,
                 Iter end) noexcept
             {}
 
-            template<typename Key, typename Value, bool FlatIndices>
+            template<typename Key, typename Value, std::size_t KeySize>
             void insert_ptr(std::unique_ptr<trie_node_t<
                                 no_index_within_parent_t,
                                 Key,
                                 Value,
-                                FlatIndices>> const & child) noexcept
+                                KeySize>> const & child) noexcept
             {}
 
             template<typename Iter>
@@ -356,16 +375,13 @@ namespace boost { namespace trie {
     template<
         typename Key,
         typename Value,
-        typename Compare = less,
-        bool FlatIndices = false>
+        typename Compare,
+        std::size_t KeySize>
     struct trie
     {
     private:
-        using node_t = detail::trie_node_t<
-            detail::no_index_within_parent_t,
-            Key,
-            Value,
-            FlatIndices>;
+        using node_t = detail::
+            trie_node_t<detail::no_index_within_parent_t, Key, Value, KeySize>;
 
     public:
         using key_type = Key;
@@ -537,7 +553,7 @@ namespace boost { namespace trie {
         OutIter copy_next_key_elements(match_result prev, OutIter out) const
         {
             auto node = to_node_ptr(prev.node);
-            return std::copy(node->key_begin(), node->key_end(), out);
+            return node->copy_next_key_elements(out);
         }
 
         /** Returns an optional reference to the const value associated with
@@ -677,7 +693,35 @@ namespace boost { namespace trie {
             }
         }
 
-        /** Erases the key/value pair associated with `key` from this.
+        /** Inserts the key/value pair `[first, last)`, `value` into *this, or
+            assigns `value` over the existing value associated with `[first,
+            last)`, if this key is already found in *this.  The `inserted`
+            field of the result will be true if the operation resulted in a
+            new insertion, or false otherwise. */
+        template<typename KeyIter, typename Sentinel>
+        void insert_or_assign(KeyIter first, Sentinel last, Value value)
+        {
+            auto it = first;
+            auto match = longest_match_impl<false>(it, last);
+            if (it == last && match.match) {
+                const_cast<Value &>(*to_node_ptr(match.node)->value()) =
+                    std::move(value);
+            }
+            insert(first, last, std::move(value));
+        }
+
+        /** Inserts the key/value pair `key`, `value` into *this, or assigns
+            `value` over the existing value associated with `key`, if `key` is
+            already found in *this.  The `inserted` field of the result will
+            be true if the operation resulted in a new insertion, or false
+            otherwise. */
+        template<typename KeyRange>
+        void insert_or_assign(KeyRange const & key, Value value)
+        {
+            insert_or_assign(std::begin(key), std::end(key), std::move(value));
+        }
+
+        /** Erases the key/value pair associated with `key` from *this.
             Returns true if the key is found in *this, false otherwise. */
         template<typename KeyRange>
         bool erase(KeyRange const & key)
@@ -687,10 +731,19 @@ namespace boost { namespace trie {
             auto match = longest_match_impl<false>(first, last);
             if (first != last || !match.match)
                 return false;
+            return erase(match);
+        }
+
+        /** Erases the key/value pair associated with `match` from *this.
+            Returns true if the key is found in *this, false otherwise. */
+        bool erase(match_result match) noexcept
+        {
+            auto node = const_cast<node_t *>(to_node_ptr(match.node));
+            if (node == &header_)
+                return false;
 
             --size_;
 
-            auto node = const_cast<node_t *>(to_node_ptr(match.node));
             if (!node->empty()) {
                 // node has a value, but also children.  Remove the value and
                 // return the next-iterator.
@@ -720,6 +773,17 @@ namespace boost { namespace trie {
             header_.swap(other.header_);
             std::swap(size_, other.size_);
             std::swap(comp_, other.comp_);
+        }
+
+        friend bool operator==(trie const & lhs, trie const & rhs)
+        {
+            if (lhs.size_ != rhs.size_)
+                return false;
+            return lhs.header_ == rhs.header_;
+        }
+        friend bool operator!=(trie const & lhs, trie const & rhs)
+        {
+            return !(lhs == rhs);
         }
 
 #ifndef BOOST_TEXT_DOXYGEN
@@ -795,6 +859,8 @@ namespace boost { namespace trie {
         size_type size_;
         key_compare comp_;
 
+        template<typename Key2, typename Value2, typename Compare2>
+        friend struct trie_map;
 #endif
     };
 
@@ -804,29 +870,29 @@ namespace boost { namespace trie {
             typename ParentIndexing,
             typename Key,
             typename Value,
-            bool FlatIndices>
+            std::size_t KeySize>
         struct trie_node_t
         {
             using children_t = std::vector<std::unique_ptr<trie_node_t>>;
             using iterator = typename children_t::iterator;
             using const_iterator = typename children_t::const_iterator;
             using key_element = typename Key::value_type;
-            using keys_t = std::vector<key_element>;
-            using key_iterator = typename keys_t::const_iterator;
+
+            static_assert(std::is_unsigned<key_element>::value);
 
             trie_node_t() : parent_(nullptr) {}
             trie_node_t(trie_node_t * parent) : parent_(parent) {}
             trie_node_t(trie_node_t const & other) :
-                keys_(other.keys_),
+                children_(other.children_.size()),
                 value_(other.value_),
                 parent_(other.parent_),
                 index_within_parent_(other.index_within_parent_)
             {
-                children_.reserve(other.children_.size());
-                for (auto const & node : other.children_) {
-                    std::unique_ptr<trie_node_t> new_node(
-                        new trie_node_t(*node));
-                    children_.push_back(std::move(new_node));
+                for (int i = 0, end = (int)children_.size(); i < end; ++i) {
+                    if (other.children_[i]) {
+                        children_[i].reset(
+                            new trie_node_t(*other.children_[i]));
+                    }
                 }
             }
             trie_node_t(trie_node_t && other) : parent_(nullptr)
@@ -854,6 +920,8 @@ namespace boost { namespace trie {
                 return *this;
             }
 
+            auto max_size() const noexcept { return KeySize; }
+
             optional<Value> const & value() const noexcept { return value_; }
 
             Value & child_value(std::size_t i) const
@@ -862,6 +930,7 @@ namespace boost { namespace trie {
             }
 
             trie_node_t * parent() const noexcept { return parent_; }
+#if 0
             trie_node_t * min_child() const noexcept
             {
                 return children_.front().get();
@@ -870,10 +939,14 @@ namespace boost { namespace trie {
             {
                 return children_.back().get();
             }
+#endif
 
             bool empty() const noexcept { return children_.size() == 0; }
+#if 0
             std::size_t size() const noexcept { return children_.size(); }
+#endif
 
+#if 0
             bool min_value() const noexcept
             {
                 return !!children_.front()->value_;
@@ -882,12 +955,17 @@ namespace boost { namespace trie {
             {
                 return !!children_.back()->value_;
             }
+#endif
 
+#if 0
             const_iterator begin() const noexcept { return children_.begin(); }
+#endif
             const_iterator end() const noexcept { return children_.end(); }
 
+#if 0
             key_iterator key_begin() const noexcept { return keys_.begin(); }
             key_iterator key_end() const noexcept { return keys_.end(); }
+#endif
 
             std::size_t index_within_parent() const noexcept
             {
@@ -896,37 +974,30 @@ namespace boost { namespace trie {
 
             bool before_child_subtree(key_element const & e) const noexcept
             {
-                return keys_.empty() || e < keys_.front();
+                return e < key_element(0);
             }
 
             template<typename Compare>
             const_iterator
-            lower_bound(key_element const & e, Compare const & comp) const
-                noexcept
+            lower_bound(key_element const & e, Compare const &) const noexcept
             {
-                auto const it =
-                    std::lower_bound(keys_.begin(), keys_.end(), e, comp);
-                return children_.begin() + (it - keys_.begin());
+                return children_.begin() + e;
             }
             template<typename Compare>
             const_iterator
             find(key_element const & e, Compare const & comp) const noexcept
             {
                 auto const it = lower_bound(e, comp);
-                auto const end_ = end();
-                if (it != end_ && comp(e, key(it)))
-                    return end_;
+                if (children_.empty() || !*it)
+                    return children_.end();
                 return it;
             }
 
             template<typename Compare>
             trie_node_t const *
-            child(key_element const & e, Compare const & comp) const noexcept
+            child(key_element const & e, Compare const &) const noexcept
             {
-                auto const it = find(e, comp);
-                if (it == children_.end())
-                    return nullptr;
-                return it->get();
+                return children_[e].get();
             }
             trie_node_t const * child(std::size_t i) const noexcept
             {
@@ -935,7 +1006,22 @@ namespace boost { namespace trie {
 
             key_element const & key(std::size_t i) const noexcept
             {
-                return keys_[i];
+                BOOST_ASSERT(key_element(i) == i);
+                return key_element(i);
+            }
+
+            template<typename OutIter>
+            OutIter copy_next_key_elements(OutIter out) const
+            {
+                for (key_element i = 0, end = (key_element)children_.size();
+                     i < end;
+                     ++i) {
+                    if (children_[i]) {
+                        *out = i;
+                        ++out;
+                    }
+                }
+                return out;
             }
 
             void swap(trie_node_t & other)
@@ -944,22 +1030,25 @@ namespace boost { namespace trie {
                     parent_ == nullptr &&
                     "Swaps of trie_node_ts are defined only for the header "
                     "node.");
-                keys_.swap(other.keys_);
                 children_.swap(other.children_);
                 value_.swap(other.value_);
                 for (auto const & node : children_) {
-                    node->parent_ = this;
+                    if (node)
+                        node->parent_ = this;
                 }
                 for (auto const & node : other.children_) {
-                    node->parent_ = &other;
+                    if (node)
+                        node->parent_ = &other;
                 }
                 std::swap(index_within_parent_, other.index_within_parent_);
             }
 
             optional<Value> & value() noexcept { return value_; }
 
+#if 0
             iterator begin() noexcept { return children_.begin(); }
             iterator end() noexcept { return children_.end(); }
+#endif
 
             template<typename Compare>
             iterator insert(
@@ -967,27 +1056,25 @@ namespace boost { namespace trie {
                 Compare const & comp,
                 std::unique_ptr<trie_node_t> && child)
             {
-                BOOST_ASSERT(child->empty());
-                auto it = std::lower_bound(keys_.begin(), keys_.end(), e, comp);
-                it = keys_.insert(it, e);
-                auto const offset = it - keys_.begin();
-                auto child_it = children_.begin() + offset;
+                if (children_.empty())
+                    children_.resize(max_size());
+                auto child_it = children_.begin() + e;
                 index_within_parent_.insert_at(
-                    child, offset, child_it, children_.end());
-                return children_.insert(child_it, std::move(child));
+                    child, e, child_it, children_.end());
+                children_[e] = std::move(child);
+                return child_it;
             }
             iterator insert(std::unique_ptr<trie_node_t> && child)
             {
-                BOOST_ASSERT(empty());
+                if (children_.empty())
+                    children_.resize(max_size());
                 index_within_parent_.insert_ptr(child);
                 return children_.insert(children_.begin(), std::move(child));
             }
             void erase(std::size_t i) noexcept
             {
-                // This empty-keys situation happens only in the header node.
-                if (!keys_.empty())
-                    keys_.erase(keys_.begin() + i);
-                auto it = children_.erase(children_.begin() + i);
+                auto it = children_.begin() + i;
+                it->reset(nullptr);
                 index_within_parent_.erase(it, children_.end());
             }
             void erase(trie_node_t const * child) noexcept
@@ -1004,29 +1091,53 @@ namespace boost { namespace trie {
 
             template<typename Compare>
             iterator
-            lower_bound(key_element const & e, Compare const & comp) noexcept
+            lower_bound(key_element const & e, Compare const &) noexcept
             {
-                auto const it = const_this()->lower_bound(e, comp);
-                return children_.begin() +
-                       (it - const_iterator(children_.begin()));
+                return children_.begin() + e;
             }
             template<typename Compare>
             iterator find(key_element const & e, Compare const & comp) noexcept
             {
-                auto const it = const_this()->find(e, comp);
-                return children_.begin() +
-                       (it - const_iterator(children_.begin()));
+                if (children_.empty())
+                    return children_.end();
+                auto const it = lower_bound(e, comp);
+                if (!*it)
+                    return children_.end();
+                return it;
             }
 
             template<typename Compare>
-            trie_node_t *
-            child(key_element const & e, Compare const & comp) noexcept
+            trie_node_t * child(key_element const & e, Compare const &) noexcept
             {
-                return const_cast<trie_node_t *>(const_this()->child(e, comp));
+                return children_[e].get();
             }
             trie_node_t * child(std::size_t i) noexcept
             {
-                return const_cast<trie_node_t *>(const_this()->child(i));
+                return children_[i].get();
+            }
+
+            friend bool
+            operator==(trie_node_t const & lhs, trie_node_t const & rhs)
+            {
+                if (lhs.value_ != rhs.value_)
+                    return false;
+                return algorithm::equal(
+                    lhs.children_.begin(),
+                    lhs.children_.end(),
+                    rhs.children_.begin(),
+                    rhs.children_.end(),
+                    [](auto const & l_ptr, auto const & r_ptr) {
+                        if (!l_ptr && !r_ptr)
+                            return true;
+                        if (!l_ptr || !r_ptr)
+                            return false;
+                        return *l_ptr == *r_ptr;
+                    });
+            }
+            friend bool
+            operator!=(trie_node_t const & lhs, trie_node_t const & rhs)
+            {
+                return !(lhs == rhs);
             }
 
         private:
@@ -1036,10 +1147,9 @@ namespace boost { namespace trie {
             }
             key_element const & key(const_iterator it) const
             {
-                return keys_[it - children_.begin()];
+                return key_element(it - children_.begin());
             }
 
-            keys_t keys_;
             children_t children_;
             optional<Value> value_;
             trie_node_t * parent_;
@@ -1049,7 +1159,7 @@ namespace boost { namespace trie {
         };
 
         template<typename ParentIndexing, typename Key, typename Value>
-        struct trie_node_t<ParentIndexing, Key, Value, true>
+        struct trie_node_t<ParentIndexing, Key, Value, 0>
         {
             using children_t = std::vector<std::unique_ptr<trie_node_t>>;
             using iterator = typename children_t::iterator;
@@ -1182,6 +1292,12 @@ namespace boost { namespace trie {
                 return keys_[i];
             }
 
+            template<typename OutIter>
+            OutIter copy_next_key_elements(OutIter out) const
+            {
+                return std::copy(key_begin(), key_end(), out);
+            }
+
             void swap(trie_node_t & other)
             {
                 BOOST_ASSERT(
@@ -1271,6 +1387,30 @@ namespace boost { namespace trie {
             trie_node_t * child(std::size_t i) noexcept
             {
                 return const_cast<trie_node_t *>(const_this()->child(i));
+            }
+
+            friend bool
+            operator==(trie_node_t const & lhs, trie_node_t const & rhs)
+            {
+                if (lhs.keys_ != rhs.keys_ || lhs.value_ != rhs.value_)
+                    return false;
+                return algorithm::equal(
+                    lhs.children_.begin(),
+                    lhs.children_.end(),
+                    rhs.children_.begin(),
+                    rhs.children_.end(),
+                    [](auto const & l_ptr, auto const & r_ptr) {
+                        if (!l_ptr && !r_ptr)
+                            return true;
+                        if (!l_ptr || !r_ptr)
+                            return false;
+                        return *l_ptr == *r_ptr;
+                    });
+            }
+            friend bool
+            operator!=(trie_node_t const & lhs, trie_node_t const & rhs)
+            {
+                return !(lhs == rhs);
             }
 
         private:

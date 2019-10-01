@@ -594,11 +594,8 @@ TEST(trie_map1, erase)
 
 TEST(trie_node_t, all)
 {
-    using node_t = trie::detail::trie_node_t<
-        trie::detail::index_within_parent_t,
-        std::string,
-        int,
-        false>;
+    using node_t = trie::detail::
+        trie_node_t<trie::detail::index_within_parent_t, std::string, int>;
 
     {
         node_t node;

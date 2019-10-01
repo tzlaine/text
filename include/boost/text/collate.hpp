@@ -423,7 +423,23 @@ namespace boost { namespace text { inline namespace v1 {
                         *(*size_out)++ = 1;
                     continue;
                 }
-                first += collation_.size;
+
+                {
+                    auto it_16 = boost::text::v1::as_utf16(first, last).begin();
+                    auto s = collation_.size;
+                    int cps = 0;
+                    while (s) {
+                        if (boost::text::v1::high_surrogate(*it_16)) {
+                            s -= 2;
+                            std::advance(it_16, 2);
+                        } else {
+                            --s;
+                            --it_16;
+                        }
+                        ++cps;
+                    }
+                    first += cps;
+                }
 
                 // S2.1.1 Process any nonstarters following S.
                 auto nonstarter_last = first;
@@ -452,13 +468,13 @@ namespace boost { namespace text { inline namespace v1 {
                     ++nonstarter_first;
                 }
 
-                auto const collation_it = const_trie_iterator_t(collation_);
+                auto const & collation_value = *trie[collation_];
 
                 // S2.4
                 auto const initial_out = out;
                 out = std::copy(
-                    collation_it->value.begin(collation_elements_first),
-                    collation_it->value.end(collation_elements_first),
+                    collation_value.begin(collation_elements_first),
+                    collation_value.end(collation_elements_first),
                     out);
 
                 // S2.3
@@ -471,7 +487,7 @@ namespace boost { namespace text { inline namespace v1 {
                     retain_case_bits);
 
                 if (size_out) {
-                    *(*size_out)++ = collation_it->value.size();
+                    *(*size_out)++ = collation_value.size();
                     for (int i = 1; i < collation_.size; ++i) {
                         *(*size_out)++ = 0;
                     }

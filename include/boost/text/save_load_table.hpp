@@ -53,7 +53,9 @@ namespace boost { namespace text { inline namespace v1 {
     {
         auto const & table = *table_proper.data_;
 
-        detail::header_t header(table);
+        detail::collation_trie_t::trie_map_type trie_map(table.trie_.impl_);
+
+        detail::header_t header(table, trie_map);
 
         filesystem::ofstream ofs(path, std::ios_base::binary);
 
@@ -66,7 +68,7 @@ namespace boost { namespace text { inline namespace v1 {
 
         detail::write_simple_reorders(table.simple_reorders_, ofs);
 
-        detail::write_trie(table.trie_, ofs);
+        detail::write_trie(trie_map, ofs);
     }
 
     /** Reads a collation table from `path`. */
@@ -97,6 +99,7 @@ namespace boost { namespace text { inline namespace v1 {
         detail::header_to_table(header, table);
 
         detail::read_trie(ifs, table.trie_, header.trie_.value());
+
         return retval;
     }
 

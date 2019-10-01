@@ -232,6 +232,7 @@ namespace boost { namespace text { inline namespace v1 {
             table.collation_element_vec_.insert(
                 table.collation_element_vec_.end(), ces.begin(), ces.end());
             value.last_ = table.collation_element_vec_.size();
+
             table.trie_.insert_or_assign(cps, value);
 
 #if BOOST_TEXT_TAILORING_INSTRUMENTATION
@@ -1322,7 +1323,7 @@ namespace boost { namespace text { inline namespace v1 {
             bool first)
         {
             if (subseq.match && !first)
-                table.trie_.erase(trie_iterator_t(subseq));
+                table.trie_.erase(subseq);
             if (!subseq.leaf) {
                 container::small_vector<uint32_t, 256> next_cps;
                 table.trie_.copy_next_key_elements(

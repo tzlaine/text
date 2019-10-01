@@ -4,6 +4,7 @@
 #include <boost/text/collation_fwd.hpp>
 #include <boost/text/string_view.hpp>
 #include <boost/text/trie_map.hpp>
+#include <boost/text/transcode_view.hpp>
 #include <boost/text/detail/collation_constants.hpp>
 #include <boost/text/detail/lzw.hpp>
 #include <boost/text/detail/normalization_data.hpp>
@@ -186,6 +187,13 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             return at;
         }
 
+        iterator erase(iterator at) noexcept
+        {
+            BOOST_ASSERT(at == std::prev(end()));
+            --size_;
+            return --at;
+        }
+
         storage_t cps_;
         int size_;
 
@@ -203,11 +211,120 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         }
     };
 
-    using collation_trie_t =
-        trie::trie_map<collation_trie_key<32>, collation_elements>;
+    // Adapts a UTF-16 trie for use with CP sequences.
+    struct collation_trie_t
+    {
+        using impl_type = trie::trie<
+            collation_trie_key<32>,
+            collation_elements,
+            trie::less,
+            1u << 16>;
+        using trie_map_type =
+            trie::trie_map<collation_trie_key<32>, collation_elements>;
+        using value_type = typename impl_type::value_type;
+        using match_result = typename impl_type::match_result;
+
+        template<typename KeyRange>
+        bool contains(KeyRange const & key) const noexcept
+        {
+            static_assert(std::is_same<
+                          std::decay_t<decltype(*std::begin(key))>,
+                          uint32_t>::value);
+            return impl_.contains(boost::text::v1::as_utf16(key));
+        }
+
+        template<typename KeyIter, typename Sentinel>
+        match_result longest_subsequence(KeyIter first, Sentinel last) const
+            noexcept
+        {
+            static_assert(
+                std::is_same<std::decay_t<decltype(*first)>, uint32_t>::value);
+            return impl_.longest_subsequence(
+                boost::text::v1::as_utf16(first, last));
+        }
+
+        template<typename KeyIter, typename Sentinel>
+        match_result longest_match(KeyIter first, Sentinel last) const noexcept
+        {
+            static_assert(
+                std::is_same<std::decay_t<decltype(*first)>, uint32_t>::value);
+            return impl_.longest_match(boost::text::v1::as_utf16(first, last));
+        }
+
+        match_result extend_subsequence(match_result prev, uint32_t cp) const
+            noexcept
+        {
+            auto const r = boost::text::v1::as_utf16(&cp, &cp + 1);
+            return impl_.extend_subsequence(prev, r.begin(), r.end());
+        }
+
+        template<typename KeyRange>
+        trie::optional_ref<value_type const>
+        operator[](KeyRange const & key) const noexcept
+        {
+            static_assert(std::is_same<
+                          std::decay_t<decltype(*std::begin(key))>,
+                          uint32_t>::value);
+            return impl_[boost::text::v1::as_utf16(key)];
+        }
+
+        trie::optional_ref<value_type const>
+        operator[](match_result match) const noexcept
+        {
+            return impl_[match];
+        }
+
+        template<typename OutIter>
+        OutIter copy_next_key_elements(match_result prev, OutIter out) const
+        {
+            return impl_.copy_next_key_elements(prev, out);
+        }
+
+        template<typename KeyRange>
+        bool insert(KeyRange const & key, value_type value)
+        {
+            static_assert(std::is_same<
+                          std::decay_t<decltype(*std::begin(key))>,
+                          uint32_t>::value);
+            return impl_.insert(
+                boost::text::v1::as_utf16(key), std::move(value));
+        }
+
+        template<typename KeyIter, typename Sentinel>
+        void insert_or_assign(KeyIter first, Sentinel last, value_type value)
+        {
+            static_assert(
+                std::is_same<std::decay_t<decltype(*first)>, uint32_t>::value);
+            return impl_.insert_or_assign(
+                boost::text::v1::as_utf16(first, last), std::move(value));
+        }
+
+        template<typename KeyRange>
+        void insert_or_assign(KeyRange const & key, value_type value)
+        {
+            static_assert(std::is_same<
+                          std::decay_t<decltype(*std::begin(key))>,
+                          uint32_t>::value);
+            return impl_.insert_or_assign(
+                boost::text::v1::as_utf16(key), std::move(value));
+        }
+
+        bool erase(match_result match) noexcept { return impl_.erase(match); }
+
+        friend bool
+        operator==(collation_trie_t const & lhs, collation_trie_t const & rhs)
+        {
+            return lhs.impl_ == rhs.impl_;
+        }
+        friend bool
+        operator!=(collation_trie_t const & lhs, collation_trie_t const & rhs)
+        {
+            return lhs.impl_ != rhs.impl_;
+        }
+
+        impl_type impl_;
+    };
     using trie_match_t = collation_trie_t::match_result;
-    using trie_iterator_t = collation_trie_t::iterator;
-    using const_trie_iterator_t = collation_trie_t::const_iterator;
 
     BOOST_TEXT_DECL void
         make_trie_keys(std::array<collation_trie_key<3>, 39272> &);

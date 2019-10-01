@@ -106,13 +106,13 @@ namespace boost { namespace trie {
                 typename Key,
                 typename Value,
                 typename Iter,
-                bool FlatIndices>
+                std::size_t KeySize>
             void insert_at(
                 std::unique_ptr<trie_node_t<
                     index_within_parent_t,
                     Key,
                     Value,
-                    FlatIndices>> const & child,
+                    KeySize>> const & child,
                 std::ptrdiff_t offset,
                 Iter it,
                 Iter end)
@@ -123,12 +123,12 @@ namespace boost { namespace trie {
                 }
             }
 
-            template<typename Key, typename Value, bool FlatIndices>
+            template<typename Key, typename Value, std::size_t KeySize>
             void insert_ptr(std::unique_ptr<trie_node_t<
                                 index_within_parent_t,
                                 Key,
                                 Value,
-                                FlatIndices>> const & child)
+                                KeySize>> const & child)
             {
                 child->index_within_parent_.value_ = 0;
             }
@@ -145,25 +145,25 @@ namespace boost { namespace trie {
             std::size_t value_;
         };
 
-        template<typename Key, typename Value, bool FlatIndices>
+        template<typename Key, typename Value, std::size_t KeySize = 0>
         struct trie_iterator_state_t
         {
-            trie_node_t<index_within_parent_t, Key, Value, FlatIndices> const *
+            trie_node_t<index_within_parent_t, Key, Value, KeySize> const *
                 parent_;
             std::size_t index_;
         };
 
-        template<typename Key, typename Value, bool FlatIndices>
-        trie_iterator_state_t<Key, Value, FlatIndices>
-        parent_state(trie_iterator_state_t<Key, Value, FlatIndices> state)
+        template<typename Key, typename Value, std::size_t KeySize>
+        trie_iterator_state_t<Key, Value, KeySize>
+        parent_state(trie_iterator_state_t<Key, Value, KeySize> state)
         {
             return {state.parent_->parent(),
                     state.parent_->index_within_parent()};
         }
 
-        template<typename Key, typename Value, bool FlatIndices>
+        template<typename Key, typename Value, std::size_t KeySize>
         Key reconstruct_key(
-            trie_iterator_state_t<Key, Value, FlatIndices>
+            trie_iterator_state_t<Key, Value, KeySize>
                 state) noexcept(noexcept(std::declval<Key &>()
                                              .insert(
                                                  std::declval<Key &>().end(),
@@ -179,9 +179,9 @@ namespace boost { namespace trie {
             return retval;
         }
 
-        template<typename Key, typename Value, bool FlatIndices>
-        trie_node_t<index_within_parent_t, Key, Value, FlatIndices> const *
-        to_node(trie_iterator_state_t<Key, Value, FlatIndices> state)
+        template<typename Key, typename Value, std::size_t KeySize>
+        trie_node_t<index_within_parent_t, Key, Value, KeySize> const *
+        to_node(trie_iterator_state_t<Key, Value, KeySize> state)
         {
             if (state.index_ < state.parent_->size())
                 return state.parent_->child(state.index_);
@@ -212,13 +212,13 @@ namespace boost { namespace trie {
         \param Compare The type of the comparison object used to compare
         elements of the key-type.
     */
-    template<typename Key, typename Value, typename Compare = less>
+    template<typename Key, typename Value, typename Compare>
     struct trie_map
     {
     private:
-        using node_t = detail::
-            trie_node_t<detail::index_within_parent_t, Key, Value, false>;
-        using iter_state_t = detail::trie_iterator_state_t<Key, Value, false>;
+        using node_t =
+            detail::trie_node_t<detail::index_within_parent_t, Key, Value>;
+        using iter_state_t = detail::trie_iterator_state_t<Key, Value>;
 
     public:
         using key_type = Key;
@@ -260,6 +260,13 @@ namespace boost { namespace trie {
             comp_(comp)
         {
             insert(std::begin(r), std::end(r));
+        }
+        template<std::size_t KeySize>
+        explicit trie_map(
+            boost::trie::trie<Key, Value, Compare, KeySize> const & trie)
+        {
+            Key key;
+            from_trie_impl(trie.header_, key);
         }
         trie_map(std::initializer_list<value_type> il) : size_(0)
         {
@@ -842,6 +849,31 @@ namespace boost { namespace trie {
             return static_cast<node_t const *>(ptr);
         }
 
+        template<std::size_t KeySize>
+        void from_trie_impl(
+            detail::trie_node_t<
+                detail::no_index_within_parent_t,
+                Key,
+                Value,
+                KeySize> const & node,
+            Key & key)
+        {
+            // TODO: Use an iterative approach instead?
+
+            if (!!node.value()) {
+                insert(key, *node.value());
+            }
+
+            std::vector<key_element_type> next_elements;
+            node.copy_next_key_elements(std::back_inserter(next_elements));
+            for (auto const & e : next_elements) {
+                auto const * n = node.child(e, comp_);
+                key.insert(key.end(), e);
+                from_trie_impl(*n, key);
+                key.erase(std::prev(key.end()));
+            }
+        }
+
         template<typename KeyIter, typename Sentinel>
         match_result longest_match_impl(KeyIter & first, Sentinel last) const
             noexcept
@@ -970,7 +1002,7 @@ namespace boost { namespace trie {
                                          trie_element<Key, Value const &>>
     {
     private:
-        using state_t = detail::trie_iterator_state_t<Key, Value, false>;
+        using state_t = detail::trie_iterator_state_t<Key, Value>;
         state_t state_;
         using ref_type = trie_element<Key, Value const &>;
         using ptr_type = stl_interfaces::proxy_arrow_result<ref_type>;
@@ -985,8 +1017,7 @@ namespace boost { namespace trie {
             auto node = static_cast<detail::trie_node_t<
                 detail::index_within_parent_t,
                 Key,
-                Value,
-                false> const *>(match_result.node);
+                Value> const *>(match_result.node);
             state_.parent_ = node->parent();
             state_.index_ = node->index_within_parent();
         }
@@ -1167,7 +1198,7 @@ namespace boost { namespace trie {
 
     private:
         explicit trie_map_iterator(
-            detail::trie_iterator_state_t<Key, Value, false> state) :
+            detail::trie_iterator_state_t<Key, Value> state) :
             it_(state)
         {}
         explicit trie_map_iterator(const_trie_map_iterator<Key, Value> it) :

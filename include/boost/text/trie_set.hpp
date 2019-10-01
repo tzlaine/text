@@ -36,13 +36,12 @@ namespace boost { namespace trie {
         \param Compare The type of the comparison object used to compare
         elements of the key-type.
     */
-    template<typename Key, typename Compare = less>
+    template<typename Key, typename Compare>
     struct trie_set
     {
     private:
         using trie_map_t = trie_map<Key, detail::void_>;
-        using iter_state_t =
-            detail::trie_iterator_state_t<Key, detail::void_, false>;
+        using iter_state_t = detail::trie_iterator_state_t<Key, detail::void_>;
 
         trie_map_t trie_;
 
@@ -518,8 +517,7 @@ namespace boost { namespace trie {
         base_iter_type & base_reference() noexcept { return it_; }
         base_iter_type base_reference() const noexcept { return it_; }
 
-        using state_t =
-            detail::trie_iterator_state_t<Key, detail::void_, false>;
+        using state_t = detail::trie_iterator_state_t<Key, detail::void_>;
 
         explicit const_trie_set_iterator(state_t state) : it_(state) {}
 
@@ -558,7 +556,7 @@ namespace boost { namespace trie {
         base_iter_type base_reference() const noexcept { return it_; }
 
         explicit trie_set_iterator(
-            detail::trie_iterator_state_t<Key, detail::void_, false> state) :
+            detail::trie_iterator_state_t<Key, detail::void_> state) :
             it_(state)
         {}
         explicit trie_set_iterator(const_trie_set_iterator<Key> it) : it_(it) {}

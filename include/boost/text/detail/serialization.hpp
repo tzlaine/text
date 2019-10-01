@@ -68,11 +68,13 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
     struct header_t
     {
         header_t() {}
-        header_t(collation_table_data const & table)
+        header_t(
+            collation_table_data const & table,
+            collation_trie_t::trie_map_type const & trie)
         {
             version_ = detail::serialization_version;
             collation_elements_ = int(table.collation_element_vec_.size());
-            trie_ = int(table.trie_.size());
+            trie_ = int(trie.size());
             nonsimple_reorders_ = int(table.nonsimple_reorders_.size());
             simple_reorders_ = int(table.simple_reorders_.size());
             have_strength_ = !!table.strength_;
@@ -167,12 +169,12 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             endian::little_uint16_buf_t last;
             read_bytes(in, last);
             collation_elements const value{first.value(), last.value()};
-            trie.insert(key, value);
+            trie[key] = value;
         }
     }
 
     template<typename Sink>
-    void write_trie(collation_trie_t const & trie, Sink & out)
+    void write_trie(collation_trie_t::trie_map_type const & trie, Sink & out)
     {
         for (auto const & element : trie) {
             endian::little_int32_buf_t key_size;
