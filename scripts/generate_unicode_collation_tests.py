@@ -96,8 +96,10 @@ TEST(collation, relative_{4}_{5})
             auto const curr_32 = as_utf32(curr);
             EXPECT_LE(
                 boost::text::collate(
-                    prev_32,
-                    curr_32,
+                    prev_32.begin(),
+                    prev_32.end(),
+                    curr_32.begin(),
+                    curr_32.end(),
                     table(),
                     boost::text::collation_strength::identical,
                     boost::text::case_first::off,
