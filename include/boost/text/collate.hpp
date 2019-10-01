@@ -1579,6 +1579,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             auto rhs_it = rhs_first;
 
 #if 1
+#if 0
             // Looking for a common prefix does not work very well if L2 is
             // backward.
             if (collation_strength::secondary <= strength &&
@@ -1605,8 +1606,9 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                     table);
                 return boost::text::v1::compare(lhs_sk, rhs_sk);
             }
+#endif
 
-//            std::cout << "CP0\n";
+            //            std::cout << "CP0\n";
 
             // This is std::ranges::mismatch(), but I can't use that yet.
             for (; lhs_it != lhs_last && rhs_it != rhs_last;

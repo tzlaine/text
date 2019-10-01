@@ -53,6 +53,28 @@ TEST(collation, relative_non_ignorable_2)
                 << "curr_cps (FCC):   " << ce_dumper(curr_cps)
                 << "curr_key:         " << ce_dumper(curr_key) << "\n"
             ;
+
+            boost::text::string prev = boost::text::to_string(prev_cps);
+            boost::text::string curr = boost::text::to_string(curr_cps);
+            auto const prev_32 = as_utf32(prev);
+            auto const curr_32 = as_utf32(curr);
+            EXPECT_LE(
+                boost::text::collate(
+                    prev_32,
+                    curr_32,
+                    table(),
+                    boost::text::collation_strength::identical,
+                    boost::text::case_first::off,
+                    boost::text::case_level::off,
+                    boost::text::variable_weighting::non_ignorable),
+                0)
+                << "prev un-norm cps: " << ce_dumper(prev_un_norm)
+                << "prev_cps (FCC):   " << ce_dumper(prev_cps)
+                << "prev_key:         " << ce_dumper(prev_key) << "\n"
+                << "curr un-norm cps: " << ce_dumper(curr_un_norm)
+                << "curr_cps (FCC):   " << ce_dumper(curr_cps)
+                << "curr_key:         " << ce_dumper(curr_key) << "\n"
+            ;
         }
 
         std::swap(curr_un_norm, prev_un_norm);
