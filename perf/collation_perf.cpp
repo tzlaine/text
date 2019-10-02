@@ -70,11 +70,12 @@ U_NAMESPACE_QUALIFIER Collator * coll =
 
 void BM_std_string_compare(benchmark::State & state)
 {
-    auto const & str0 = std_strings[0];
+    auto const * str0 = &std_strings[0];
     while (state.KeepRunning()) {
         for (auto const & x : std_strings) {
-            benchmark::DoNotOptimize(std_string_compare(x, str0));
-            benchmark::DoNotOptimize(std_string_compare(str0, x));
+            benchmark::DoNotOptimize(std_string_compare(x, *str0));
+            benchmark::DoNotOptimize(std_string_compare(*str0, x));
+            str0 = &x;
         }
     }
 }
@@ -105,6 +106,7 @@ void BM_text_string_compare(benchmark::State & state)
                 boost::text::collate(boost::text::as_utf32(x), str0, table));
             benchmark::DoNotOptimize(
                 boost::text::collate(str0, boost::text::as_utf32(x), table));
+            str0 = boost::text::as_utf32(x);
         }
     }
 }
@@ -143,11 +145,12 @@ void BM_text_string_sort(benchmark::State & state)
 #ifndef NO_ICU
 void BM_icu_string_compare(benchmark::State & state)
 {
-    auto const & str0 = icu_strings[0];
+    auto const * str0 = &icu_strings[0];
     while (state.KeepRunning()) {
         for (auto const & x : icu_strings) {
-            benchmark::DoNotOptimize(coll->compare(x, str0));
-            benchmark::DoNotOptimize(coll->compare(str0, x));
+            benchmark::DoNotOptimize(coll->compare(x, *str0));
+            benchmark::DoNotOptimize(coll->compare(*str0, x));
+            str0 = &x;
         }
     }
 }
