@@ -1465,12 +1465,37 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             for (; it != last;) {
                 unsigned char const c = *it;
                 if (c < 0x80) {
-                    uint32_t cps[16];
-                    // TODO: Process 1 <= n <= 16 values here using
-                    // SIMD.
+                    std::array<int32_t, 16> cps;
+#if BOOST_TEXT_USE_SIMD
+                    int incr = 1;
+                    if ((int)sizeof(__m128i) <= last - it) {
+                        __m128i zero = _mm_set1_epi8(0);
+                        __m128i chunk = load_chars_for_sse(it);
+                        int32_t const mask = _mm_movemask_epi8(chunk);
+
+                        __m128i half = _mm_unpacklo_epi8(chunk, zero);
+                        __m128i qrtr = _mm_unpacklo_epi16(half, zero);
+                        int32_t * out_ptr = cps.data();
+                        _mm_storeu_si128((__m128i *)out_ptr, qrtr);
+                        qrtr = _mm_unpackhi_epi16(half, zero);
+                        _mm_storeu_si128((__m128i *)(out_ptr + 4), qrtr);
+
+                        half = _mm_unpackhi_epi8(chunk, zero);
+                        qrtr = _mm_unpacklo_epi16(half, zero);
+                        _mm_storeu_si128((__m128i *)(out_ptr + 8), qrtr);
+                        qrtr = _mm_unpackhi_epi16(half, zero);
+                        _mm_storeu_si128((__m128i *)(out_ptr + 12), qrtr);
+
+                        incr = mask == 0 ? 16 : trailing_zeros(mask);
+                    } else {
+                        cps[0] = c;
+                    }
+                    auto const cps_end = cps.data() + incr;
+#else
                     cps[0] = c;
-                    auto cps_end = cps + 1;
-                    auto cps_it = cps;
+                    auto const cps_end = cps.data() + 1;
+#endif
+                    auto cps_it = cps.data();
                     for (; cps_it < cps_end; ++cps_it) {
                         uint32_t cp = *cps_it;
                         trie_match_t coll =
@@ -1493,7 +1518,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                                 return retval;
                         }
                     }
-                    it += cps_it - cps;
+                    it += cps_it - cps.data();
                 } else {
                     auto next = it;
                     uint32_t cp = detail::advance(next, last);
