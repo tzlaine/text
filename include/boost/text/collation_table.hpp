@@ -138,10 +138,9 @@ namespace boost { namespace text { inline namespace v1 {
             uint16_t last_secondary_in_primary_ = last_secondary_in_primary;
         };
 
-        struct collation_latin_cache
+        struct collation_bmp_cache
         {
-            // TODO: ccc=0 range goes all the way up to 0x300...
-            static int const size = 0x180;
+            static int const size = 1 << 16;
 
             static uint32_t
             key(case_first case_1st,
@@ -198,7 +197,7 @@ namespace boost { namespace text { inline namespace v1 {
             optional<case_level> case_level_;
             optional<case_first> case_first_;
 
-            mutable std::map<uint32_t, collation_latin_cache> latin_caches_;
+            mutable std::map<uint32_t, collation_bmp_cache> bmp_caches_;
         };
 
         inline bool operator==(
@@ -342,13 +341,13 @@ namespace boost { namespace text { inline namespace v1 {
                        : &data_->collation_element_vec_[0];
         }
 
-        void build_default_latin_cache()
+        void build_default_bmp_cache()
         {
-            uint32_t const key = detail::collation_latin_cache::key(
+            uint32_t const key = detail::collation_bmp_cache::key(
                 case_first::off,
                 case_level::off,
                 variable_weighting::non_ignorable);
-            detail::collation_latin_cache & cache = data_->latin_caches_[key];
+            detail::collation_bmp_cache & cache = data_->bmp_caches_[key];
             cache.build(
                 *this,
                 case_first::off,
@@ -376,7 +375,7 @@ namespace boost { namespace text { inline namespace v1 {
             collation_table const & table, filesystem::path const & path);
         friend collation_table load_table(filesystem::path const & path);
 
-        friend detail::collation_latin_cache const & detail::get_latin_cache(
+        friend detail::collation_bmp_cache const & detail::get_bmp_cache(
             collation_table const & table,
             case_first case_1st,
             case_level case_lvl,
@@ -392,7 +391,7 @@ namespace boost { namespace text { inline namespace v1 {
 #endif
 
     namespace detail {
-        inline void collation_latin_cache::build(
+        inline void collation_bmp_cache::build(
             collation_table const & table,
             case_first case_1st,
             case_level case_lvl,
@@ -420,18 +419,18 @@ namespace boost { namespace text { inline namespace v1 {
         }
 
         // TODO: This is not threadsafe!
-        inline collation_latin_cache const & get_latin_cache(
+        inline collation_bmp_cache const & get_bmp_cache(
             collation_table const & table,
             case_first case_1st,
             case_level case_lvl,
             variable_weighting weighting)
         {
             uint32_t const key =
-                collation_latin_cache::key(case_1st, case_lvl, weighting);
-            auto it = table.data_->latin_caches_.find(key);
-            if (it == table.data_->latin_caches_.end()) {
-                it = table.data_->latin_caches_
-                         .insert(std::make_pair(key, collation_latin_cache{}))
+                collation_bmp_cache::key(case_1st, case_lvl, weighting);
+            auto it = table.data_->bmp_caches_.find(key);
+            if (it == table.data_->bmp_caches_.end()) {
+                it = table.data_->bmp_caches_
+                         .insert(std::make_pair(key, collation_bmp_cache{}))
                          .first;
                 it->second.build(table, case_1st, case_lvl, weighting);
             }
@@ -1422,7 +1421,7 @@ namespace boost { namespace text { inline namespace v1 {
         collation_table retval;
         retval.data_->collation_elements_ = detail::collation_elements_ptr();
         retval.data_->trie_ = detail::make_default_trie();
-        retval.build_default_latin_cache();
+        retval.build_default_bmp_cache();
         return retval;
     }
 
@@ -1755,7 +1754,7 @@ namespace boost { namespace text { inline namespace v1 {
                     table.data_->simple_reorders_));
         }
 
-        table.build_default_latin_cache();
+        table.build_default_bmp_cache();
 
         return table;
     }

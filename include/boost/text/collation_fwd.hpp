@@ -265,9 +265,9 @@ namespace boost { namespace text { inline namespace v1 {
                 return l2_weight_order::forward;
         }
 
-        struct collation_latin_cache;
+        struct collation_bmp_cache;
 
-        inline collation_latin_cache const & get_latin_cache(
+        inline collation_bmp_cache const & get_bmp_cache(
             collation_table const & table,
             case_first case_1st,
             case_level case_lvl,

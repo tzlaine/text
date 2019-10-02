@@ -1439,20 +1439,20 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             return 0;
 
 #if 1
-        auto const & latin_cache =
-            detail::get_latin_cache(table, case_1st, case_lvl, weighting);
-        auto latin_cp = [](auto it, auto last) {
+        auto const & bmp_cache =
+            detail::get_bmp_cache(table, case_1st, case_lvl, weighting);
+        auto bmp_cp = [](auto it, auto last) {
             unsigned char const c = *it;
             if (c < 0x80) {
                 return true;
             } else {
                 uint32_t cp = detail::advance(it, last);
-                return cp < collation_latin_cache::size;
+                return cp < collation_bmp_cache::size;
             }
             return false;
         };
-        auto latin_primary =
-            [](auto & it, auto last, auto const & latin, auto & primaries) {
+        auto bmp_primary =
+            [](auto & it, auto last, auto const & bmp, auto & primaries) {
                 for (; it != last;) {
                     unsigned char const c = *it;
                     if (c < 0x80) {
@@ -1464,7 +1464,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                         auto cps_it = cps;
                         for (; cps_it < cps_end && primaries.empty();
                              ++cps_it) {
-                            for (auto const & ce : latin[*cps_it]) {
+                            for (auto const & ce : bmp[*cps_it]) {
                                 if (ce.l1_)
                                     primaries.push_back(ce.l1_);
                             }
@@ -1473,9 +1473,9 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                     } else {
                         auto next = it;
                         uint32_t cp = detail::advance(next, last);
-                        if (collation_latin_cache::size <= cp)
+                        if (collation_bmp_cache::size <= cp)
                             break;
-                        for (auto const & ce : latin[cp]) {
+                        for (auto const & ce : bmp[cp]) {
                             if (ce.l1_)
                                 primaries.push_back(ce.l1_);
                         }
@@ -1490,35 +1490,47 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         // while (lhs_it != lhs_last && rhs_it != rhs_last) {
             container::static_vector<uint32_t, 10> l_primaries;
             container::static_vector<uint32_t, 10> r_primaries;
-            if (latin_cp(lhs_it, lhs_last) && latin_cp(rhs_it, rhs_last)) {
+            if (bmp_cp(lhs_it, lhs_last) && bmp_cp(rhs_it, rhs_last)) {
 #if 0
-                std::cout << "Using latin cache.\n";
+                std::cout << "Using bmp cache.\n";
+                std::cout << "left ";
 #endif
-                latin_primary(lhs_it, lhs_last, latin_cache, l_primaries);
-                latin_primary(rhs_it, rhs_last, latin_cache, r_primaries);
+                bmp_primary(lhs_it, lhs_last, bmp_cache, l_primaries);
+#if 0
+                std::cout << "right ";
+#endif
+                bmp_primary(rhs_it, rhs_last, bmp_cache, r_primaries);
                 if (lhs_it == lhs_last && rhs_it == rhs_last) {
 #if 0
-                    std::cout << "latin fast path reached end; returning 0\n";
+                    std::cout << "bmp fast path reached end; returning 0\n";
 #endif
                     return 0;
                 }
                 if (l_primaries < r_primaries) {
 #if 0
-                    std::cout
-                        << "latin fast path saw nonzero primary on right (0x"
-                        << std::hex << r_primary << ", left=0x" << std::hex
-                        << l_primary << "); returning -1\n"
-                        << std::dec;
+                    std::cout << "bmp fast path saw nonzero primary on right (";
+                    for (auto x : r_primaries) {
+                        std::cout << std::hex << x << " ";
+                    }
+                    std::cout << ", left=";
+                    for (auto x : l_primaries) {
+                        std::cout << std::hex << x << " ";
+                    }
+                    std::cout << "); returning -1\n" << std::dec;
 #endif
                     return -1;
                 }
                 if (r_primaries < l_primaries) {
 #if 0
-                    std::cout
-                        << "latin fast path saw nonzero primary on left (0x"
-                        << std::hex << l_primary << ", right=0x" << std::hex
-                        << r_primary << "); returning -1\n"
-                        << std::dec;
+                    std::cout << "bmp fast path saw nonzero primary on left (";
+                    for (auto x : l_primaries) {
+                        std::cout << std::hex << x << " ";
+                    }
+                    std::cout << ", right=";
+                    for (auto x : r_primaries) {
+                        std::cout << std::hex << x << " ";
+                    }
+                    std::cout << "); returning 1\n" << std::dec;
 #endif
                     return 1;
                 }
