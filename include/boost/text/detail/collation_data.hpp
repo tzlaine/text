@@ -243,12 +243,29 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                 boost::text::v1::as_utf16(first, last));
         }
 
+        match_result longest_subsequence(uint16_t cu) const noexcept
+        {
+            return impl_.longest_subsequence(&cu, &cu + 1);
+        }
+
+        match_result longest_subsequence(uint32_t cp) const noexcept
+        {
+            auto const r = boost::text::v1::as_utf16(&cp, &cp + 1);
+            return impl_.longest_subsequence(r.begin(), r.end());
+        }
+
         template<typename KeyIter, typename Sentinel>
         match_result longest_match(KeyIter first, Sentinel last) const noexcept
         {
             static_assert(
                 std::is_same<std::decay_t<decltype(*first)>, uint32_t>::value);
             return impl_.longest_match(boost::text::v1::as_utf16(first, last));
+        }
+
+        match_result extend_subsequence(match_result prev, uint16_t cu) const
+            noexcept
+        {
+            return impl_.extend_subsequence(prev, cu);
         }
 
         match_result extend_subsequence(match_result prev, uint32_t cp) const

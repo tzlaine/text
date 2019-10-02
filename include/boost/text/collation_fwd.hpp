@@ -265,13 +265,22 @@ namespace boost { namespace text { inline namespace v1 {
                 return l2_weight_order::forward;
         }
 
-        struct collation_bmp_cache;
-
-        inline collation_bmp_cache const & get_bmp_cache(
-            collation_table const & table,
+        template<
+            typename CPIter1,
+            typename Sentinel1,
+            typename CPIter2,
+            typename Sentinel2>
+        inline int collate(
+            CPIter1 lhs_first,
+            Sentinel1 lhs_last,
+            CPIter2 rhs_first,
+            Sentinel2 rhs_last,
+            collation_strength strength,
             case_first case_1st,
             case_level case_lvl,
-            variable_weighting weighting);
+            variable_weighting weighting,
+            l2_weight_order l2_order,
+            collation_table const & table);
     }
 
 }}}

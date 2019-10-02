@@ -859,7 +859,9 @@ namespace boost { namespace text { inline namespace v1 {
             case_level case_lvl,
             variable_weighting weighting,
             l2_weight_order l2_order,
-            collation_table const & table);
+            collation_table const & table,
+            collation_trie_t const & trie,
+            collation_element const * ces_begin);
 
         template<
             typename Tag1,
@@ -880,7 +882,9 @@ namespace boost { namespace text { inline namespace v1 {
             case_level case_lvl,
             variable_weighting weighting,
             l2_weight_order l2_order,
-            collation_table const & table)
+            collation_table const & table,
+            collation_trie_t const & trie,
+            collation_element const * ces_begin)
         {
             auto const lhs = boost::text::v1::as_utf32(lhs_first, lhs_last);
             auto const rhs = boost::text::v1::as_utf32(rhs_first, rhs_last);
@@ -910,7 +914,7 @@ namespace boost { namespace text { inline namespace v1 {
             typename Sentinel1,
             typename CPIter2,
             typename Sentinel2>
-        auto collate(
+        int collate(
             CPIter1 lhs_first,
             Sentinel1 lhs_last,
             CPIter2 rhs_first,
@@ -920,27 +924,7 @@ namespace boost { namespace text { inline namespace v1 {
             case_level case_lvl,
             variable_weighting weighting,
             l2_weight_order l2_order,
-            collation_table const & table)
-            -> detail::cp_iter_ret_t<int, CPIter1>
-        {
-            auto lhs_u =
-                detail::unpack_iterator_and_sentinel(lhs_first, lhs_last);
-            auto rhs_u =
-                detail::unpack_iterator_and_sentinel(rhs_first, rhs_last);
-            return collate_impl(
-                lhs_u.tag_,
-                lhs_u.f_,
-                lhs_u.l_,
-                rhs_u.tag_,
-                rhs_u.f_,
-                rhs_u.l_,
-                strength,
-                case_1st,
-                case_lvl,
-                weighting,
-                l2_order,
-                table);
-        }
+            collation_table const & table);
     }
 
 #ifdef BOOST_TEXT_DOXYGEN
@@ -1404,6 +1388,42 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         return text_sort_key(std::move(bytes));
     }
 
+    template<
+        typename CPIter1,
+        typename Sentinel1,
+        typename CPIter2,
+        typename Sentinel2>
+    int collate(
+        CPIter1 lhs_first,
+        Sentinel1 lhs_last,
+        CPIter2 rhs_first,
+        Sentinel2 rhs_last,
+        collation_strength strength,
+        case_first case_1st,
+        case_level case_lvl,
+        variable_weighting weighting,
+        l2_weight_order l2_order,
+        collation_table const & table)
+    {
+        auto lhs_u = detail::unpack_iterator_and_sentinel(lhs_first, lhs_last);
+        auto rhs_u = detail::unpack_iterator_and_sentinel(rhs_first, rhs_last);
+        return collate_impl(
+            lhs_u.tag_,
+            lhs_u.f_,
+            lhs_u.l_,
+            rhs_u.tag_,
+            rhs_u.f_,
+            rhs_u.l_,
+            strength,
+            case_1st,
+            case_lvl,
+            weighting,
+            l2_order,
+            table,
+            table.data_->trie_,
+            table.collation_elements_begin());
+    }
+
     template<typename Iter, typename Sentinel>
     auto collate_impl(
         utf8_tag,
@@ -1417,7 +1437,9 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         case_level case_lvl,
         variable_weighting weighting,
         l2_weight_order l2_order,
-        collation_table const & table)
+        collation_table const & table,
+        collation_trie_t const & trie,
+        collation_element const * ces_begin)
     {
         auto lhs_it = lhs_first;
         auto rhs_it = rhs_first;
@@ -1439,104 +1461,98 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             return 0;
 
 #if 1
-        auto const & bmp_cache =
-            detail::get_bmp_cache(table, case_1st, case_lvl, weighting);
-        auto bmp_cp = [](auto it, auto last) {
-            unsigned char const c = *it;
-            if (c < 0x80) {
-                return true;
-            } else {
-                uint32_t cp = detail::advance(it, last);
-                return cp < collation_bmp_cache::size;
-            }
-            return false;
-        };
-        auto bmp_primary =
-            [](auto & it, auto last, auto const & bmp, auto & primaries) {
-                for (; it != last;) {
-                    unsigned char const c = *it;
-                    if (c < 0x80) {
-                        uint32_t cps[16];
-                        // TODO: Process 1 <= n <= 16 values here using
-                        // SIMD.
-                        cps[0] = c;
-                        auto cps_end = cps + 1;
-                        auto cps_it = cps;
-                        for (; cps_it < cps_end && primaries.empty();
-                             ++cps_it) {
-                            for (auto const & ce : bmp[*cps_it]) {
-                                if (ce.l1_)
-                                    primaries.push_back(ce.l1_);
+        auto next_primary = [&](auto & it, auto last) {
+            for (; it != last;) {
+                unsigned char const c = *it;
+                if (c < 0x80) {
+                    uint32_t cps[16];
+                    // TODO: Process 1 <= n <= 16 values here using
+                    // SIMD.
+                    cps[0] = c;
+                    auto cps_end = cps + 1;
+                    auto cps_it = cps;
+                    for (; cps_it < cps_end; ++cps_it) {
+                        uint32_t cp = *cps_it;
+                        trie_match_t coll =
+                            trie.longest_subsequence((uint16_t)cp);
+                        if (coll.match) {
+                            // TODO: Get the CEs for the entire match the
+                            // would be found in s2(), starting from here.
+                            uint32_t retval = trie[coll]->begin(ces_begin)->l1_;
+                            if (retval) {
+#if 0
+                                std::cout << "Match!\n";
+#endif
+                                return retval;
                             }
+                        } else {
+                            uint32_t retval =
+                                (implicit_weights_final_lead_byte << 24) |
+                                (cp & 0xffffff);
+                            if (retval)
+                                return retval;
                         }
-                        it += cps_it - cps;
-                    } else {
-                        auto next = it;
-                        uint32_t cp = detail::advance(next, last);
-                        if (collation_bmp_cache::size <= cp)
-                            break;
-                        for (auto const & ce : bmp[cp]) {
-                            if (ce.l1_)
-                                primaries.push_back(ce.l1_);
-                        }
-                        it = next;
                     }
-                    if (!primaries.empty())
-                        return;
+                    it += cps_it - cps;
+                } else {
+                    auto next = it;
+                    uint32_t cp = detail::advance(next, last);
+                    trie_match_t coll = trie.longest_subsequence(cp);
+                    if (coll.match) {
+                        // TODO: Get the CEs for the entire match the would be
+                        // found in s2(), starting from here.
+                        auto retval = trie[coll]->begin(ces_begin)->l1_;
+                        if (retval) {
+#if 0
+                            std::cout << "Match!\n";
+#endif
+                            return retval;
+                        }
+                    } else {
+                        uint32_t retval =
+                            (implicit_weights_final_lead_byte << 24) |
+                            (cp & 0xffffff);
+                        if (retval)
+                            return retval;
+                    }
+                    it = next;
                 }
-            };
+            }
+            return 0u;
+        };
 
         // Look for a non-ignorable primary, or the end of each sequence.
         // while (lhs_it != lhs_last && rhs_it != rhs_last) {
-            container::static_vector<uint32_t, 10> l_primaries;
-            container::static_vector<uint32_t, 10> r_primaries;
-            if (bmp_cp(lhs_it, lhs_last) && bmp_cp(rhs_it, rhs_last)) {
 #if 0
-                std::cout << "Using bmp cache.\n";
                 std::cout << "left ";
 #endif
-                bmp_primary(lhs_it, lhs_last, bmp_cache, l_primaries);
+        uint32_t const l_primary = next_primary(lhs_it, lhs_last);
 #if 0
                 std::cout << "right ";
 #endif
-                bmp_primary(rhs_it, rhs_last, bmp_cache, r_primaries);
-                if (lhs_it == lhs_last && rhs_it == rhs_last) {
+        uint32_t const r_primary = next_primary(rhs_it, rhs_last);
+        if (l_primary < r_primary) {
 #if 0
-                    std::cout << "bmp fast path reached end; returning 0\n";
+            std::cout << "fast path saw nonzero primary on right (";
+            std::cout << std::hex << r_primary << " ";
+            std::cout << ", left=";
+            std::cout << std::hex << l_primary << " ";
+            std::cout << "); returning -1\n" << std::dec;
 #endif
-                    return 0;
-                }
-                if (l_primaries < r_primaries) {
+            return -1;
+        }
+        if (r_primary < l_primary) {
 #if 0
-                    std::cout << "bmp fast path saw nonzero primary on right (";
-                    for (auto x : r_primaries) {
-                        std::cout << std::hex << x << " ";
-                    }
-                    std::cout << ", left=";
-                    for (auto x : l_primaries) {
-                        std::cout << std::hex << x << " ";
-                    }
-                    std::cout << "); returning -1\n" << std::dec;
+            std::cout << "bmp fast path saw nonzero primary on left (";
+            std::cout << std::hex << l_primary << " ";
+            std::cout << ", right=";
+            std::cout << std::hex << l_primary << " ";
+            std::cout << "); returning 1\n" << std::dec;
 #endif
-                    return -1;
-                }
-                if (r_primaries < l_primaries) {
-#if 0
-                    std::cout << "bmp fast path saw nonzero primary on left (";
-                    for (auto x : l_primaries) {
-                        std::cout << std::hex << x << " ";
-                    }
-                    std::cout << ", right=";
-                    for (auto x : r_primaries) {
-                        std::cout << std::hex << x << " ";
-                    }
-                    std::cout << "); returning 1\n" << std::dec;
-#endif
-                    return 1;
-                }
-                BOOST_ASSERT(boost::text::v1::starts_encoded(lhs_it, lhs_last));
-                BOOST_ASSERT(boost::text::v1::starts_encoded(rhs_it, rhs_last));
-            }
+            return 1;
+        }
+        BOOST_ASSERT(boost::text::v1::starts_encoded(lhs_it, lhs_last));
+        BOOST_ASSERT(boost::text::v1::starts_encoded(rhs_it, rhs_last));
 
         // }
 #endif

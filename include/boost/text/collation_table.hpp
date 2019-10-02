@@ -138,45 +138,6 @@ namespace boost { namespace text { inline namespace v1 {
             uint16_t last_secondary_in_primary_ = last_secondary_in_primary;
         };
 
-        struct collation_bmp_cache
-        {
-            static int const size = 1 << 16;
-
-            static uint32_t
-            key(case_first case_1st,
-                case_level case_lvl,
-                variable_weighting weighting) noexcept
-            {
-                return (static_cast<uint32_t>(case_1st) << 2) |
-                       (static_cast<uint32_t>(case_lvl) << 1) |
-                       (static_cast<uint32_t>(weighting) << 0);
-            }
-
-            void build(
-                collation_table const & table,
-                case_first case_1st,
-                case_level case_lvl,
-                variable_weighting weighting);
-
-            struct result_type
-            {
-                collation_element const * begin() const noexcept { return f_; }
-                collation_element const * end() const noexcept { return l_; }
-                collation_element const * f_;
-                collation_element const * l_;
-            };
-
-            result_type operator[](uint32_t cp) const noexcept
-            {
-                BOOST_ASSERT(cp < (uint32_t)size);
-                auto * ces = ces_.data();
-                return {ces + end_offsets_[cp], ces + end_offsets_[cp + 1]};
-            }
-
-            std::vector<collation_element> ces_;
-            std::array<uint32_t, size + 1> end_offsets_;
-        };
-
         struct collation_table_data
         {
             collation_table_data() : collation_elements_(nullptr)
@@ -196,8 +157,6 @@ namespace boost { namespace text { inline namespace v1 {
             optional<l2_weight_order> l2_order_;
             optional<case_level> case_level_;
             optional<case_first> case_first_;
-
-            mutable std::map<uint32_t, collation_bmp_cache> bmp_caches_;
         };
 
         inline bool operator==(
@@ -341,20 +300,6 @@ namespace boost { namespace text { inline namespace v1 {
                        : &data_->collation_element_vec_[0];
         }
 
-        void build_default_bmp_cache()
-        {
-            uint32_t const key = detail::collation_bmp_cache::key(
-                case_first::off,
-                case_level::off,
-                variable_weighting::non_ignorable);
-            detail::collation_bmp_cache & cache = data_->bmp_caches_[key];
-            cache.build(
-                *this,
-                case_first::off,
-                case_level::off,
-                variable_weighting::non_ignorable);
-        }
-
         std::shared_ptr<detail::collation_table_data> data_;
 
         friend collation_table default_collation_table();
@@ -375,11 +320,22 @@ namespace boost { namespace text { inline namespace v1 {
             collation_table const & table, filesystem::path const & path);
         friend collation_table load_table(filesystem::path const & path);
 
-        friend detail::collation_bmp_cache const & detail::get_bmp_cache(
-            collation_table const & table,
+        template<
+            typename CPIter1,
+            typename Sentinel1,
+            typename CPIter2,
+            typename Sentinel2>
+        friend int detail::collate(
+            CPIter1 lhs_first,
+            Sentinel1 lhs_last,
+            CPIter2 rhs_first,
+            Sentinel2 rhs_last,
+            collation_strength strength,
             case_first case_1st,
             case_level case_lvl,
-            variable_weighting weighting);
+            variable_weighting weighting,
+            l2_weight_order l2_order,
+            collation_table const & table);
 #endif
     };
 
@@ -389,56 +345,6 @@ namespace boost { namespace text { inline namespace v1 {
     bool operator!=(collation_table const & lhs, collation_table const & rhs);
 
 #endif
-
-    namespace detail {
-        inline void collation_bmp_cache::build(
-            collation_table const & table,
-            case_first case_1st,
-            case_level case_lvl,
-            variable_weighting weighting)
-        {
-#if 0
-            std::array<uint32_t, size> cps;
-            std::iota(cps.begin(), cps.end(), 0);
-
-            end_offsets_[0] = 0;
-            uint32_t * sizes_out = end_offsets_.data() + 1;
-            std::array<detail::collation_element, size * 10> local_ces;
-            auto ces_end = table.copy_collation_elements(
-                cps.begin(),
-                cps.end(),
-                local_ces.data(),
-                collation_strength::quaternary,
-                case_1st,
-                case_lvl,
-                weighting,
-                &sizes_out);
-            ces_.resize(ces_end - local_ces.data());
-            std::copy(local_ces.data(), ces_end, ces_.begin());
-            std::partial_sum(
-                end_offsets_.begin(), end_offsets_.end(), end_offsets_.begin());
-#endif
-        }
-
-        // TODO: This is not threadsafe!
-        inline collation_bmp_cache const & get_bmp_cache(
-            collation_table const & table,
-            case_first case_1st,
-            case_level case_lvl,
-            variable_weighting weighting)
-        {
-            uint32_t const key =
-                collation_bmp_cache::key(case_1st, case_lvl, weighting);
-            auto it = table.data_->bmp_caches_.find(key);
-            if (it == table.data_->bmp_caches_.end()) {
-                it = table.data_->bmp_caches_
-                         .insert(std::make_pair(key, collation_bmp_cache{}))
-                         .first;
-                it->second.build(table, case_1st, case_lvl, weighting);
-            }
-            return it->second;
-        }
-    }
 
     /** A function object suitable for use with standard algorithms that
         accept a comparison object. */
@@ -1423,7 +1329,6 @@ namespace boost { namespace text { inline namespace v1 {
         collation_table retval;
         retval.data_->collation_elements_ = detail::collation_elements_ptr();
         retval.data_->trie_ = detail::make_default_trie();
-        retval.build_default_bmp_cache();
         return retval;
     }
 
@@ -1755,8 +1660,6 @@ namespace boost { namespace text { inline namespace v1 {
                     table.data_->nonsimple_reorders_,
                     table.data_->simple_reorders_));
         }
-
-        table.build_default_bmp_cache();
 
         return table;
     }
