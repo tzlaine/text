@@ -878,7 +878,7 @@ namespace boost { namespace trie {
             using const_iterator = typename children_t::const_iterator;
             using key_element = typename Key::value_type;
 
-            static_assert(std::is_unsigned<key_element>::value);
+            static_assert(std::is_unsigned<key_element>::value, "");
 
             trie_node_t() : parent_(nullptr) {}
             trie_node_t(trie_node_t * parent) : parent_(parent) {}

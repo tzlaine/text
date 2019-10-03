@@ -229,7 +229,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         {
             static_assert(std::is_same<
                           std::decay_t<decltype(*std::begin(key))>,
-                          uint32_t>::value);
+                          uint32_t>::value, "");
             return impl_.contains(boost::text::v1::as_utf16(key));
         }
 
@@ -238,7 +238,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             noexcept
         {
             static_assert(
-                std::is_same<std::decay_t<decltype(*first)>, uint32_t>::value);
+                std::is_same<std::decay_t<decltype(*first)>, uint32_t>::value, "");
             return impl_.longest_subsequence(
                 boost::text::v1::as_utf16(first, last));
         }
@@ -258,7 +258,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         match_result longest_match(KeyIter first, Sentinel last) const noexcept
         {
             static_assert(
-                std::is_same<std::decay_t<decltype(*first)>, uint32_t>::value);
+                std::is_same<std::decay_t<decltype(*first)>, uint32_t>::value, "");
             return impl_.longest_match(boost::text::v1::as_utf16(first, last));
         }
 
@@ -281,7 +281,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         {
             static_assert(std::is_same<
                           std::decay_t<decltype(*std::begin(key))>,
-                          uint32_t>::value);
+                          uint32_t>::value, "");
             return impl_[boost::text::v1::as_utf16(key)];
         }
 
@@ -302,7 +302,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         {
             static_assert(std::is_same<
                           std::decay_t<decltype(*std::begin(key))>,
-                          uint32_t>::value);
+                          uint32_t>::value, "");
             return impl_.insert(
                 boost::text::v1::as_utf16(key), std::move(value));
         }
