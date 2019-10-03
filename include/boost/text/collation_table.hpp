@@ -397,6 +397,7 @@ namespace boost { namespace text { inline namespace v1 {
             case_level case_lvl,
             variable_weighting weighting)
         {
+#if 0
             std::array<uint32_t, size> cps;
             std::iota(cps.begin(), cps.end(), 0);
 
@@ -416,6 +417,7 @@ namespace boost { namespace text { inline namespace v1 {
             std::copy(local_ces.data(), ces_end, ces_.begin());
             std::partial_sum(
                 end_offsets_.begin(), end_offsets_.end(), end_offsets_.begin());
+#endif
         }
 
         // TODO: This is not threadsafe!
