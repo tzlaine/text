@@ -35,41 +35,43 @@ namespace boost { namespace text { inline namespace v1 {
         struct throw_on_encoding_error
         {};
 
-        inline BOOST_TEXT_CXX14_CONSTEXPR int
-        read_into_buf(uint32_t cp, char buf[5])
+        template<typename OutIter>
+        inline BOOST_TEXT_CXX14_CONSTEXPR OutIter
+        read_into_buf(uint32_t cp, OutIter buf)
         {
             if (cp < 0x80) {
-                buf[0] = static_cast<char>(cp);
-                buf[1] = '\0';
-                return 0;
+                *buf = static_cast<char>(cp);
+                ++buf;
             } else if (cp < 0x800) {
-                buf[0] = static_cast<char>(0xC0 + (cp >> 6));
-                buf[1] = static_cast<char>(0x80 + (cp & 0x3f));
-                buf[2] = '\0';
-                return 1;
+                *buf = static_cast<char>(0xC0 + (cp >> 6));
+                ++buf;
+                *buf = static_cast<char>(0x80 + (cp & 0x3f));
+                ++buf;
             } else if (cp < 0x10000) {
-                buf[0] = static_cast<char>(0xe0 + (cp >> 12));
-                buf[1] = static_cast<char>(0x80 + ((cp >> 6) & 0x3f));
-                buf[2] = static_cast<char>(0x80 + (cp & 0x3f));
-                buf[3] = '\0';
-                return 2;
+                *buf = static_cast<char>(0xe0 + (cp >> 12));
+                ++buf;
+                *buf = static_cast<char>(0x80 + ((cp >> 6) & 0x3f));
+                ++buf;
+                *buf = static_cast<char>(0x80 + (cp & 0x3f));
+                ++buf;
             } else {
-                buf[0] = static_cast<char>(0xf0 + (cp >> 18));
-                buf[1] = static_cast<char>(0x80 + ((cp >> 12) & 0x3f));
-                buf[2] = static_cast<char>(0x80 + ((cp >> 6) & 0x3f));
-                buf[3] = static_cast<char>(0x80 + (cp & 0x3f));
-                buf[4] = '\0';
-                return 3;
+                *buf = static_cast<char>(0xf0 + (cp >> 18));
+                ++buf;
+                *buf = static_cast<char>(0x80 + ((cp >> 12) & 0x3f));
+                ++buf;
+                *buf = static_cast<char>(0x80 + ((cp >> 6) & 0x3f));
+                ++buf;
+                *buf = static_cast<char>(0x80 + (cp & 0x3f));
+                ++buf;
             }
+            return buf;
         }
 
         template<typename OutIter>
         BOOST_TEXT_CXX14_CONSTEXPR OutIter
         write_cp_utf8(uint32_t cp, OutIter out)
         {
-            char buf[5] = {0};
-            auto const n = read_into_buf(cp, buf);
-            return std::copy(buf, buf + n + 1, out);
+            return detail::read_into_buf(cp, out);
         }
 
         template<typename OutIter>
@@ -981,7 +983,8 @@ namespace boost { namespace text { inline namespace v1 {
                 --index_;
             } else {
                 --it_;
-                index_ = read_into_buf();
+                auto out = read_into_buf();
+                index_ = out - buf_.data() - 1;
             }
             return *this;
         }
@@ -1019,11 +1022,13 @@ namespace boost { namespace text { inline namespace v1 {
             return buf_[index_] == '\0';
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR int read_into_buf() noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR char * read_into_buf() noexcept(!throw_on_error)
         {
             uint32_t cp = static_cast<uint32_t>(*it_);
             index_ = 0;
-            return detail::read_into_buf(cp, buf_.data());
+            char * retval = detail::read_into_buf(cp, buf_.data());
+            *retval = 0;
+            return retval;
         }
 
         Iter first_;
@@ -1961,7 +1966,8 @@ namespace boost { namespace text { inline namespace v1 {
                 --index_;
             } else {
                 --it_;
-                index_ = read_into_buf();
+                auto out = read_into_buf();
+                index_ = out - buf_.data() - 1;
             }
             return *this;
         }
@@ -1994,11 +2000,12 @@ namespace boost { namespace text { inline namespace v1 {
     private:
         constexpr bool at_buf_end() const noexcept { return buf_[index_] == 0; }
 
-        BOOST_TEXT_CXX14_CONSTEXPR int read_into_buf() noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR uint16_t *
+        read_into_buf() noexcept(!throw_on_error)
         {
             auto const last = detail::write_cp_utf16(*it_, buf_.data());
             *last = 0;
-            return last - buf_.data() - 1;
+            return last;
         }
 
         Iter first_;
@@ -2766,7 +2773,8 @@ namespace boost { namespace text { inline namespace v1 {
                 --index_;
             } else {
                 decrement();
-                index_ = read_into_buf();
+                auto out = read_into_buf();
+                index_ = out - buf_.data() - 1;
             }
             return *this;
         }
@@ -2814,7 +2822,7 @@ namespace boost { namespace text { inline namespace v1 {
             return buf_[index_] == '\0';
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR int read_into_buf() noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR char * read_into_buf() noexcept(!throw_on_error)
         {
             Iter next = it_;
 
@@ -2840,7 +2848,9 @@ namespace boost { namespace text { inline namespace v1 {
                 cp = replacement_character();
             }
 
-            return detail::read_into_buf(cp, buf_.data());
+            char * retval = detail::read_into_buf(cp, buf_.data());
+            *retval = 0;
+            return retval;
         }
 
         BOOST_TEXT_CXX14_CONSTEXPR void increment() noexcept
@@ -3209,7 +3219,8 @@ namespace boost { namespace text { inline namespace v1 {
                 --index_;
             } else {
                 --it_;
-                index_ = read_into_buf();
+                auto out = read_into_buf();
+                index_ = out - buf_.data() - 1;
             }
             return *this;
         }
@@ -3242,11 +3253,12 @@ namespace boost { namespace text { inline namespace v1 {
     private:
         constexpr bool at_buf_end() const noexcept { return buf_[index_] == 0; }
 
-        BOOST_TEXT_CXX14_CONSTEXPR int read_into_buf() noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR uint16_t *
+        read_into_buf() noexcept(!throw_on_error)
         {
             auto const last = detail::write_cp_utf16(*it_, buf_.data());
             *last = 0;
-            return last - buf_.data() - 1;
+            return last;
         }
 
         utf_8_to_32_iterator<Iter, Sentinel> it_;
