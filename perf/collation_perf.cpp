@@ -51,20 +51,7 @@ std::string get_utf8_text(bool european)
 
 int std_string_compare(std::string const & lhs, std::string const & rhs)
 {
-    auto mismatches = boost::algorithm::mismatch(
-        lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
-    if (mismatches.first == lhs.end() && mismatches.second == rhs.end())
-        return 0;
-    if (mismatches.first == lhs.end())
-        return -1;
-    if (mismatches.second == rhs.end())
-        return 1;
-
-    if (*mismatches.first < *mismatches.second)
-        return -1;
-    if (*mismatches.second < *mismatches.first)
-        return 1;
-    return 0;
+    return strcmp(lhs.c_str(), rhs.c_str());
 }
 
 boost::text::collation_table const table =
@@ -195,6 +182,42 @@ void BM_icu_string_sort(benchmark::State & state)
         benchmark::ClobberMemory();
     }
 }
+
+void BM_icu_string_compare_utf8(benchmark::State & state)
+{
+    U_NAMESPACE_QUALIFIER StringPiece str0(std_strings[0]);
+    while (state.KeepRunning()) {
+        for (auto const & x_ : std_strings) {
+            U_NAMESPACE_QUALIFIER StringPiece x(x_);
+            UErrorCode ec = U_ZERO_ERROR;
+            benchmark::DoNotOptimize(coll->compareUTF8(x, str0, ec));
+            ec = U_ZERO_ERROR;
+            benchmark::DoNotOptimize(coll->compareUTF8(str0, x, ec));
+            str0 = x;
+        }
+    }
+}
+
+void BM_icu_string_sort_utf8(benchmark::State & state)
+{
+    std::vector<std::string> local_std_strings = std_strings;
+    while (state.KeepRunning()) {
+        state.PauseTiming();
+        local_std_strings = std_strings;
+        state.ResumeTiming();
+        std::sort(
+            local_std_strings.begin(),
+            local_std_strings.end(),
+            [](std::string const & lhs_, std::string & rhs_) {
+                U_NAMESPACE_QUALIFIER StringPiece lhs(lhs_);
+                U_NAMESPACE_QUALIFIER StringPiece rhs(rhs_);
+                UErrorCode ec = U_ZERO_ERROR;
+                return coll->compareUTF8(lhs, rhs, ec) ==
+                       U_NAMESPACE_QUALIFIER Collator::LESS;
+            });
+        benchmark::ClobberMemory();
+    }
+}
 #endif
 
 BENCHMARK(BM_std_string_compare);
@@ -206,6 +229,8 @@ BENCHMARK(BM_text_string_sort);
 BENCHMARK(BM_icu_string_compare);
 BENCHMARK(BM_icu_string_make_key);
 BENCHMARK(BM_icu_string_sort);
+BENCHMARK(BM_icu_string_compare_utf8);
+BENCHMARK(BM_icu_string_sort_utf8);
 #endif
 
 std::string usage_string()
