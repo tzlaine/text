@@ -8,7 +8,14 @@ macro(add_perf_executable name)
     target_compile_options(${name} PRIVATE ${warnings_flag})
     target_link_libraries(${name} text benchmark)
     if (ICU_FOUND)
-        target_link_libraries(${name} ${ICU_LIBRARIES})
+        target_include_directories(${name} PRIVATE ${ICU_INCLUDE_DIR})
+        target_link_libraries(
+            ${name}
+            ${ICU_LIBRARIES}
+            ${ICU_IN_LIBRARY_RELEASE}
+            ${ICU_DT_LIBRARY_RELEASE}
+            ${ICU_UC_LIBRARY_RELEASE}
+        )
     endif ()
     set_property(TARGET ${name} PROPERTY CXX_STANDARD ${CXX_STD})
     if (clang_on_linux)

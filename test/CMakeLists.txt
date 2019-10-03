@@ -55,7 +55,14 @@ macro(add_test_executable name group)
     target_compile_options(${local_name} PRIVATE ${warnings_flag})
     target_link_libraries(${local_name} text gtest gtest_main)
     if (ICU_FOUND)
-        target_link_libraries(${local_name} ${ICU_LIBRARIES})
+        target_include_directories(${local_name} PRIVATE ${ICU_INCLUDE_DIR})
+        target_link_libraries(
+            ${local_name}
+            ${ICU_LIBRARIES}
+            ${ICU_IN_LIBRARY_RELEASE}
+            ${ICU_DT_LIBRARY_RELEASE}
+            ${ICU_UC_LIBRARY_RELEASE}
+        )
     endif ()
     if (NOT MSVC AND NOT LIMIT_TESTING_FOR_CI) # Boost auto-linking handles this with MSVC.
         target_link_libraries(${local_name} boost_system boost_filesystem)
