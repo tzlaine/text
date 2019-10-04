@@ -347,6 +347,41 @@ namespace boost { namespace text { inline namespace v1 {
             return retval;
         }
 
+        template<typename CPIter>
+        trie_match_t s2_1(
+            CPIter & first,
+            CPIter last,
+            trie_match_t collation,
+            detail::collation_trie_t const & trie)
+        {
+            // S2.1.1 Process any nonstarters following S.
+            auto nonstarter_last = first;
+            if (!collation.leaf) {
+                nonstarter_last = std::find_if(first, last, [](uint32_t cp) {
+                    return detail::ccc(cp) == 0;
+                });
+            }
+
+            // S2.1.2
+            auto nonstarter_first = first;
+            while (!collation.leaf && nonstarter_first != nonstarter_last &&
+                   detail::ccc(*(nonstarter_first - 1)) <
+                       detail::ccc(*nonstarter_first)) {
+                auto const cp = *nonstarter_first;
+                auto coll = trie.extend_subsequence(collation, cp);
+                // S2.1.3
+                if (coll.match && collation.size < coll.size) {
+                    std::copy_backward(
+                        first, nonstarter_first, nonstarter_first + 1);
+                    *first++ = cp;
+                    collation = coll;
+                }
+                ++nonstarter_first;
+            }
+
+            return collation;
+        }
+
         template<
             typename CPIter,
             typename CPOutIter,
@@ -448,32 +483,8 @@ namespace boost { namespace text { inline namespace v1 {
                     first += cps;
                 }
 
-                // S2.1.1 Process any nonstarters following S.
-                auto nonstarter_last = first;
-                if (!collation_.leaf) {
-                    nonstarter_last =
-                        std::find_if(first, last, [](uint32_t cp) {
-                            return detail::ccc(cp) == 0;
-                        });
-                }
-
-                // S2.1.2
-                auto nonstarter_first = first;
-                while (!collation_.leaf &&
-                       nonstarter_first != nonstarter_last &&
-                       detail::ccc(*(nonstarter_first - 1)) <
-                           detail::ccc(*nonstarter_first)) {
-                    auto const cp = *nonstarter_first;
-                    auto coll = trie.extend_subsequence(collation_, cp);
-                    // S2.1.3
-                    if (coll.match && collation_.size < coll.size) {
-                        std::copy_backward(
-                            first, nonstarter_first, nonstarter_first + 1);
-                        *first++ = cp;
-                        collation_ = coll;
-                    }
-                    ++nonstarter_first;
-                }
+                // S2.1
+                collation_ = s2_1(first, last, collation_, trie);
 
                 auto const & collation_value = *trie[collation_];
 
@@ -1546,6 +1557,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
 
         // Look for a non-ignorable primary, or the end of each sequence.
         // TODO: Loop here when the primaries are equal {
+#if 0
         uint32_t const l_primary = next_primary(lhs_it, lhs_last);
         uint32_t const r_primary = next_primary(rhs_it, rhs_last);
         if (l_primary < r_primary)
@@ -1554,7 +1566,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             return 1;
         BOOST_ASSERT(boost::text::v1::starts_encoded(lhs_it, lhs_last));
         BOOST_ASSERT(boost::text::v1::starts_encoded(rhs_it, rhs_last));
-
+#endif
         // }
 
         auto const lhs = boost::text::v1::as_utf32(lhs_first, lhs_last);
