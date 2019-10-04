@@ -1485,7 +1485,6 @@ namespace boost { namespace text { inline namespace v1 {
             detail::add_derived_elements(
                 symbol_lookup
                     [detail::first_implicit - detail::first_tertiary_ignorable],
-                variable_weighting::non_ignorable,
                 std::back_inserter(logical_positions[detail::first_implicit]),
                 table.data_->trie_,
                 table.collation_elements_begin(),
@@ -1494,9 +1493,7 @@ namespace boost { namespace text { inline namespace v1 {
                         ce,
                         table.data_->nonsimple_reorders_,
                         table.data_->simple_reorders_);
-                },
-                collation_strength::tertiary,
-                detail::retain_case_bits_t::yes);
+                });
 
             lookup_and_assign(detail::first_trailing);
         }

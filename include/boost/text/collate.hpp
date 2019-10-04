@@ -125,13 +125,10 @@ namespace boost { namespace text { inline namespace v1 {
         template<typename OutIter, typename LeadByteFunc>
         inline OutIter add_derived_elements(
             uint32_t cp,
-            variable_weighting weighting,
             OutIter out,
             detail::collation_trie_t const & trie,
             collation_element const * collation_elements_first,
-            LeadByteFunc const & lead_byte,
-            collation_strength strength,
-            retain_case_bits_t retain_case_bits)
+            LeadByteFunc const & lead_byte)
         {
             // Core Han Unified Ideographs
             std::array<uint32_t, 12> const CJK_Compatibility_Ideographs = {
@@ -446,13 +443,10 @@ namespace boost { namespace text { inline namespace v1 {
                     collation_element derived_ces[32];
                     auto const derived_ces_end = detail::add_derived_elements(
                         cp,
-                        weighting,
                         derived_ces,
                         trie,
                         collation_elements_first,
-                        lead_byte,
-                        strength,
-                        retain_case_bits);
+                        lead_byte);
                     after_variable = detail::s2_3(
                         derived_ces,
                         derived_ces_end,
