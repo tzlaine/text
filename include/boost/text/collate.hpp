@@ -1472,43 +1472,23 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         if (lhs_it == lhs_last && rhs_it == rhs_last)
             return 0;
 
+#if 0
         auto next_primary = [&](auto & it, auto last) {
             for (; it != last;) {
                 unsigned char const c = *it;
                 if (c < 0x80) {
-                    std::array<int32_t, 16> cps;
-#if BOOST_TEXT_USE_SIMD
                     int incr = 1;
+#if BOOST_TEXT_USE_SIMD
                     if ((int)sizeof(__m128i) <= last - it) {
-                        __m128i zero = _mm_set1_epi8(0);
                         __m128i chunk = load_chars_for_sse(it);
                         int32_t const mask = _mm_movemask_epi8(chunk);
-
-                        __m128i half = _mm_unpacklo_epi8(chunk, zero);
-                        __m128i qrtr = _mm_unpacklo_epi16(half, zero);
-                        int32_t * out_ptr = cps.data();
-                        _mm_storeu_si128((__m128i *)out_ptr, qrtr);
-                        qrtr = _mm_unpackhi_epi16(half, zero);
-                        _mm_storeu_si128((__m128i *)(out_ptr + 4), qrtr);
-
-                        half = _mm_unpackhi_epi8(chunk, zero);
-                        qrtr = _mm_unpacklo_epi16(half, zero);
-                        _mm_storeu_si128((__m128i *)(out_ptr + 8), qrtr);
-                        qrtr = _mm_unpackhi_epi16(half, zero);
-                        _mm_storeu_si128((__m128i *)(out_ptr + 12), qrtr);
-
                         incr = mask == 0 ? 16 : trailing_zeros(mask);
-                    } else {
-                        cps[0] = c;
                     }
-                    auto const cps_end = cps.data() + incr;
-#else
-                    cps[0] = c;
-                    auto const cps_end = cps.data() + 1;
 #endif
-                    auto cps_it = cps.data();
+                    auto cps_it = it;
+                    auto const cps_end = cps_it + incr;
                     for (; cps_it < cps_end; ++cps_it) {
-                        uint32_t cp = *cps_it;
+                        uint32_t const cp = (unsigned char)*cps_it;
                         trie_match_t coll =
                             trie.longest_subsequence((uint16_t)cp);
                         if (coll.match) {
@@ -1525,7 +1505,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                                 return retval;
                         }
                     }
-                    it += cps_it - cps.data();
+                    it += cps_it - cps_end;
                 } else {
                     auto next = it;
                     uint32_t cp = detail::advance(next, last);
@@ -1551,7 +1531,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
 
         // Look for a non-ignorable primary, or the end of each sequence.
         // TODO: Loop here when the primaries are equal {
-#if 0
+
         uint32_t const l_primary = next_primary(lhs_it, lhs_last);
         uint32_t const r_primary = next_primary(rhs_it, rhs_last);
         if (l_primary < r_primary)
