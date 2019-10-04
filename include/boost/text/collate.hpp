@@ -345,20 +345,25 @@ namespace boost { namespace text { inline namespace v1 {
         }
 
         template<typename CPIter>
-        trie_match_t s2_1(
-            CPIter & first,
-            CPIter last,
-            trie_match_t collation,
-            detail::collation_trie_t const & trie)
+        CPIter s2_1_1(CPIter first, CPIter last, trie_match_t collation)
         {
             // S2.1.1 Process any nonstarters following S.
-            auto nonstarter_last = first;
+            auto retval = first;
             if (!collation.leaf) {
-                nonstarter_last = std::find_if(first, last, [](uint32_t cp) {
+                retval = std::find_if(first, last, [](uint32_t cp) {
                     return detail::ccc(cp) == 0;
                 });
             }
+            return retval;
+        }
 
+        template<typename CPIter>
+        trie_match_t s2_1_2(
+            CPIter & first,
+            CPIter nonstarter_last,
+            trie_match_t collation,
+            detail::collation_trie_t const & trie)
+        {
             // S2.1.2
             auto nonstarter_first = first;
             while (!collation.leaf && nonstarter_first != nonstarter_last &&
@@ -377,6 +382,17 @@ namespace boost { namespace text { inline namespace v1 {
             }
 
             return collation;
+        }
+
+        template<typename CPIter>
+        trie_match_t s2_1(
+            CPIter & first,
+            CPIter last,
+            trie_match_t collation,
+            detail::collation_trie_t const & trie)
+        {
+            auto nonstarter_last = s2_1_1(first, last, collation);
+            return s2_1_2(first, nonstarter_last, collation, trie);
         }
 
         template<
