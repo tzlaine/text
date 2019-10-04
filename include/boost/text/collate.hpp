@@ -331,6 +331,22 @@ namespace boost { namespace text { inline namespace v1 {
             return after_variable;
         }
 
+        inline std::array<bool, 256> const &
+        get_derived_element_high_two_bytes()
+        {
+            static std::array<bool, 256> retval = {{}};
+            for (auto seg : make_implicit_weights_segments()) {
+                for (uint32_t i = (seg.first_ >> 12),
+                              end = (seg.last_ >> 12) + 1;
+                     i != end;
+                     ++i) {
+                    BOOST_ASSERT(i < 256u);
+                    retval[i] = true;
+                }
+            }
+            return retval;
+        }
+
         template<
             typename CPIter,
             typename CPOutIter,
@@ -349,17 +365,8 @@ namespace boost { namespace text { inline namespace v1 {
            SizeOutIter * size_out = nullptr)
             -> detail::cp_iter_ret_t<CPOutIter, CPIter>
         {
-            std::array<bool, 256> derived_element_high_two_bytes = {{}};
-            // TODO: Pull out into its own func.
-            for (auto seg : make_implicit_weights_segments()) {
-                for (uint32_t i = (seg.first_ >> 12),
-                              end = (seg.last_ >> 12) + 1;
-                     i != end;
-                     ++i) {
-                    BOOST_ASSERT(i < 256u);
-                    derived_element_high_two_bytes[i] = true;
-                }
-            }
+            std::array<bool, 256> const & derived_element_high_two_bytes =
+                get_derived_element_high_two_bytes();
 
             bool after_variable = false;
             while (first != last) {
@@ -1538,7 +1545,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         };
 
         // Look for a non-ignorable primary, or the end of each sequence.
-        // TODO {
+        // TODO: Loop here when the primaries are equal {
         uint32_t const l_primary = next_primary(lhs_it, lhs_last);
         uint32_t const r_primary = next_primary(rhs_it, rhs_last);
         if (l_primary < r_primary)
