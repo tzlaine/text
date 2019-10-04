@@ -1460,7 +1460,6 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         if (lhs_it == lhs_last && rhs_it == rhs_last)
             return 0;
 
-#if 1
         auto next_primary = [&](auto & it, auto last) {
             for (; it != last;) {
                 unsigned char const c = *it;
@@ -1504,12 +1503,8 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                             // TODO: Get the CEs for the entire match the
                             // would be found in s2(), starting from here.
                             uint32_t retval = trie[coll]->begin(ces_begin)->l1_;
-                            if (retval) {
-#if 0
-                                std::cout << "Match!\n";
-#endif
+                            if (retval)
                                 return retval;
-                            }
                         } else {
                             uint32_t retval =
                                 (implicit_weights_final_lead_byte << 24) |
@@ -1527,12 +1522,8 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                         // TODO: Get the CEs for the entire match the would be
                         // found in s2(), starting from here.
                         auto retval = trie[coll]->begin(ces_begin)->l1_;
-                        if (retval) {
-#if 0
-                            std::cout << "Match!\n";
-#endif
+                        if (retval)
                             return retval;
-                        }
                     } else {
                         uint32_t retval =
                             (implicit_weights_final_lead_byte << 24) |
@@ -1547,42 +1538,17 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         };
 
         // Look for a non-ignorable primary, or the end of each sequence.
-        // while (lhs_it != lhs_last && rhs_it != rhs_last) {
-#if 0
-                std::cout << "left ";
-#endif
+        // TODO {
         uint32_t const l_primary = next_primary(lhs_it, lhs_last);
-#if 0
-                std::cout << "right ";
-#endif
         uint32_t const r_primary = next_primary(rhs_it, rhs_last);
-        if (l_primary < r_primary) {
-#if 0
-            std::cout << "fast path saw nonzero primary on right (";
-            std::cout << std::hex << r_primary << " ";
-            std::cout << ", left=";
-            std::cout << std::hex << l_primary << " ";
-            std::cout << "); returning -1\n" << std::dec;
-#endif
+        if (l_primary < r_primary)
             return -1;
-        }
-        if (r_primary < l_primary) {
-#if 0
-            std::cout << "bmp fast path saw nonzero primary on left (";
-            std::cout << std::hex << l_primary << " ";
-            std::cout << ", right=";
-            std::cout << std::hex << l_primary << " ";
-            std::cout << "); returning 1\n" << std::dec;
-#endif
+        if (r_primary < l_primary)
             return 1;
-        }
         BOOST_ASSERT(boost::text::v1::starts_encoded(lhs_it, lhs_last));
         BOOST_ASSERT(boost::text::v1::starts_encoded(rhs_it, rhs_last));
 
         // }
-#endif
-
-        // TODO uint32_t const merge_separator_primary = 0x02000000;
 
         auto const lhs = boost::text::v1::as_utf32(lhs_first, lhs_last);
         auto const rhs = boost::text::v1::as_utf32(rhs_first, rhs_last);
@@ -1605,10 +1571,6 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             l2_order,
             table);
 
-#if 0
-        std::cout << "end of collate(); returning "
-                  << boost::text::v1::compare(lhs_sk, rhs_sk) << "\n";
-#endif
         return boost::text::v1::compare(lhs_sk, rhs_sk);
     }
 
