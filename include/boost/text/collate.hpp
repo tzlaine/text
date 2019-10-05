@@ -243,6 +243,20 @@ namespace boost { namespace text { inline namespace v1 {
             return ce.l1_ == 0;
         }
 
+        template<typename CEIter>
+        inline void s2_3_case_bits(CEIter first, CEIter last)
+        {
+            for (auto it = first; it != last; ++it) {
+                auto & ce = *it;
+                // The top two bits in each byte in FractionalUCA.txt's L3
+                // weights are for the case level.
+                // http://www.unicode.org/reports/tr35/tr35-collation.html#File_Format_FractionalUCA_txt
+                uint16_t const l3 = ce.l3_ & disable_case_level_mask;
+
+                ce.l3_ = l3;
+            }
+        }
+
         // http://www.unicode.org/reports/tr10/#Variable_Weighting
         template<typename CEIter>
         inline bool s2_3(
@@ -253,24 +267,6 @@ namespace boost { namespace text { inline namespace v1 {
             bool after_variable,
             retain_case_bits_t retain_case_bits)
         {
-            if (retain_case_bits == retain_case_bits_t::no) {
-                for (auto it = first; it != last; ++it) {
-                    auto & ce = *it;
-                    // The top two bits in each byte in FractionalUCA.txt's L3
-                    // weights are for the case level.
-                    // http://www.unicode.org/reports/tr35/tr35-collation.html#File_Format_FractionalUCA_txt
-                    uint16_t const l3 = ce.l3_ & disable_case_level_mask;
-
-                    ce.l3_ = l3;
-                }
-            }
-
-            if (weighting == variable_weighting::non_ignorable)
-                return after_variable;
-
-            if (strength == collation_strength::primary)
-                return after_variable;
-
             // http://www.unicode.org/reports/tr10/#Implicit_Weights says: "If
             // a fourth or higher weights are used, then the same pattern is
             // followed for those weights. They are set to a non-zero value in
@@ -463,13 +459,16 @@ namespace boost { namespace text { inline namespace v1 {
                         trie,
                         collation_elements_first,
                         lead_byte);
-                    after_variable = detail::s2_3(
-                        derived_ces,
-                        derived_ces_end,
-                        strength,
-                        weighting,
-                        after_variable,
-                        retain_case_bits);
+                    if (weighting != variable_weighting::non_ignorable &&
+                        strength != collation_strength::primary) {
+                        after_variable = detail::s2_3(
+                            derived_ces,
+                            derived_ces_end,
+                            strength,
+                            weighting,
+                            after_variable,
+                            retain_case_bits);
+                    }
                     out = std::copy(derived_ces, derived_ces_end, out);
                     if (size_out)
                         *(*size_out)++ = 1;
@@ -506,13 +505,20 @@ namespace boost { namespace text { inline namespace v1 {
                     out);
 
                 // S2.3
-                after_variable = detail::s2_3(
-                    initial_out,
-                    out,
-                    strength,
-                    weighting,
-                    after_variable,
-                    retain_case_bits);
+                if (retain_case_bits == retain_case_bits_t::no &&
+                    collation_strength::tertiary <= strength) {
+                    s2_3_case_bits(initial_out, out);
+                }
+                if (weighting != variable_weighting::non_ignorable &&
+                    strength != collation_strength::primary) {
+                    after_variable = detail::s2_3(
+                        initial_out,
+                        out,
+                        strength,
+                        weighting,
+                        after_variable,
+                        retain_case_bits);
+                }
 
                 if (size_out) {
                     *(*size_out)++ = collation_value.size();
