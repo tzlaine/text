@@ -76,6 +76,7 @@ add_library(text
     src/normalization_data_compose.cpp
     src/collation_data_0.cpp
     src/collation_data_1.cpp
+    src/collation_data_2.cpp
     src/case_mapping.cpp
     src/data_versions.cpp
 )

@@ -856,7 +856,8 @@ namespace boost { namespace trie {
                 Key,
                 Value,
                 KeySize> const & node,
-            Key & key)
+            Key & key,
+            bool root = true)
         {
             // TODO: Use an iterative approach instead?
 
@@ -868,9 +869,11 @@ namespace boost { namespace trie {
             node.copy_next_key_elements(std::back_inserter(next_elements));
             for (auto const & e : next_elements) {
                 auto const * n = node.child(e, comp_);
-                key.insert(key.end(), e);
-                from_trie_impl(*n, key);
-                key.erase(std::prev(key.end()));
+                if (!root)
+                    key.insert(key.end(), e);
+                from_trie_impl(*n, key, false);
+                if (!root)
+                    key.erase(std::prev(key.end()));
             }
         }
 

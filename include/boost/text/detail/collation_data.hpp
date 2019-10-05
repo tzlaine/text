@@ -413,6 +413,15 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         return {};
     }
 
+    BOOST_TEXT_DECL
+    uint32_t default_table_min_nonstarter() noexcept;
+
+    BOOST_TEXT_DECL
+    uint32_t default_table_max_nonstarter() noexcept;
+
+    BOOST_TEXT_DECL
+    unsigned char const * default_table_nonstarters_ptr() noexcept;
+
     template<typename OutIter>
     struct lzw_to_coll_elem_iter
     {
