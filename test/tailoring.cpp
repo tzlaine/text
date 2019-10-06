@@ -42,6 +42,24 @@ namespace std {
     }
 }
 
+namespace boost { namespace text {
+    namespace v1 {
+#if !BOOST_TEXT_COLLATE_INSTRUMENTATION
+        inline std::ostream &
+        operator<<(std::ostream & os, text_sort_key const & k)
+        {
+            os << std::hex << "[";
+            for (auto x : k) {
+                os << " " << x;
+            }
+            os << " ]" << std::dec;
+            return os;
+        }
+#endif
+    }
+}}
+
+
 TEST(tailoring, case_first)
 {
     std::array<std::array<uint32_t, 3>, 4> const default_ordering = {{
@@ -1251,15 +1269,41 @@ TEST(tailoring, th)
     for (int i = 0, end = int(lines.size()) - 1; i < end; ++i) {
         auto const i_ = text::as_utf32(lines[i]);
         auto const i_1 = text::as_utf32(lines[i + 1]);
-        EXPECT_LE(
-            text::collate(
-                i_.begin(),
-                i_.end(),
-                i_1.begin(),
-                i_1.end(),
-                table,
-                text::collation_strength::tertiary),
-            0);
+        auto const collation = text::collate(
+            i_.begin(),
+            i_.end(),
+            i_1.begin(),
+            i_1.end(),
+            table,
+            text::collation_strength::tertiary);
+        EXPECT_LE(collation, 0) << "i=" << i;
+        if (0 < collation) {
+            for (auto cp : i_) {
+                std::cout << "0x" << std::hex << cp << " ";
+            }
+            std::cout << "\n";
+
+            std::cout << text::collation_sort_key(
+                             i_.begin(),
+                             i_.end(),
+                             table,
+                             text::collation_strength::tertiary)
+                      << "\n";
+
+            for (auto cp : i_1) {
+                std::cout << "0x" << std::hex << cp << " ";
+            }
+            std::cout << "\n";
+
+            std::cout << text::collation_sort_key(
+                             i_1.begin(),
+                             i_1.end(),
+                             table,
+                             text::collation_strength::tertiary)
+                      << "\n";
+
+            std::cout << "\n";
+        }
     }
 
     {

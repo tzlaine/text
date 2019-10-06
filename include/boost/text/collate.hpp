@@ -362,6 +362,8 @@ namespace boost { namespace text { inline namespace v1 {
         {
             // S2.1.2
             auto nonstarter_first = first;
+            // TODO: Just check detail::ccc(*nonstarter_first) != 0;
+            // otherwise, I think FCC guarantees the rest.
             while (!collation.leaf && nonstarter_first != nonstarter_last &&
                    detail::ccc(*(nonstarter_first - 1)) <
                        detail::ccc(*nonstarter_first)) {
@@ -459,7 +461,7 @@ namespace boost { namespace text { inline namespace v1 {
                         trie,
                         collation_elements_first,
                         lead_byte);
-                    if (weighting != variable_weighting::non_ignorable &&
+                    if (weighting == variable_weighting::shifted &&
                         strength != collation_strength::primary) {
                         after_variable = detail::s2_3(
                             derived_ces,
@@ -880,7 +882,7 @@ namespace boost { namespace text { inline namespace v1 {
             return it;
         }
 
-        template<typename Iter, typename Sentinel>
+        template<typename Iter, typename Sentinel, typename LeadByteFunc>
         auto collate_impl(
             utf8_tag,
             Iter lhs_first,
@@ -895,7 +897,8 @@ namespace boost { namespace text { inline namespace v1 {
             l2_weight_order l2_order,
             collation_table const & table,
             collation_trie_t const & trie,
-            collation_element const * ces_begin);
+            collation_element const * ces_first,
+            LeadByteFunc const & lead_byte);
 
         template<
             typename Tag1,
@@ -903,7 +906,8 @@ namespace boost { namespace text { inline namespace v1 {
             typename Sentinel1,
             typename Tag2,
             typename Iter2,
-            typename Sentinel2>
+            typename Sentinel2,
+            typename LeadByteFunc>
         auto collate_impl(
             Tag1,
             Iter1 lhs_first,
@@ -918,7 +922,8 @@ namespace boost { namespace text { inline namespace v1 {
             l2_weight_order l2_order,
             collation_table const & table,
             collation_trie_t const & trie,
-            collation_element const * ces_begin)
+            collation_element const * ces_first,
+            LeadByteFunc const & lead_byte)
         {
             auto const lhs = boost::text::v1::as_utf32(lhs_first, lhs_last);
             auto const rhs = boost::text::v1::as_utf32(rhs_first, rhs_last);
@@ -1439,6 +1444,15 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         l2_weight_order l2_order,
         collation_table const & table)
     {
+        if (table.l2_order())
+            l2_order = *table.l2_order();
+        if (table.weighting())
+            weighting = *table.weighting();
+        if (table.case_1st())
+            case_1st = *table.case_1st();
+        if (table.case_lvl())
+            case_lvl = *table.case_lvl();
+
         auto lhs_u = detail::unpack_iterator_and_sentinel(lhs_first, lhs_last);
         auto rhs_u = detail::unpack_iterator_and_sentinel(rhs_first, rhs_last);
         return collate_impl(
@@ -1455,10 +1469,23 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             l2_order,
             table,
             table.data_->trie_,
-            table.collation_elements_begin());
+            table.collation_elements_begin(),
+            [&table](detail::collation_element ce) {
+                return detail::lead_byte(
+                    ce,
+                    table.data_->nonsimple_reorders_,
+                    table.data_->simple_reorders_);
+            });
     }
 
-    template<typename Iter, typename Sentinel>
+    template<typename Iter>
+    struct next_primary_result
+    {
+        Iter it_;
+        uint32_t cp_;
+    };
+
+    template<typename Iter, typename Sentinel, typename LeadByteFunc>
     auto collate_impl(
         utf8_tag,
         Iter lhs_first,
@@ -1473,10 +1500,18 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         l2_weight_order l2_order,
         collation_table const & table,
         collation_trie_t const & trie,
-        collation_element const * ces_begin)
+        collation_element const * ces_first,
+        LeadByteFunc const & lead_byte)
     {
+#define INSTRUMENT 0
+#if INSTRUMENT
+        std::cout << "\n\ncollate_impl():\n";
+#endif
+
         auto lhs_it = lhs_first;
         auto rhs_it = rhs_first;
+
+        // TODO: Skip this when l2_order == l2_weight_order::backward.
 
         // This is std::ranges::mismatch(), but I can't use that yet.
         for (; lhs_it != lhs_last && rhs_it != rhs_last; ++lhs_it, ++rhs_it) {
@@ -1494,8 +1529,51 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         if (lhs_it == lhs_last && rhs_it == rhs_last)
             return 0;
 
+        // TODO: This should be our new starting point for all passes below,
+        // *not* {lhs,rhs}_first.
 #if 0
-        auto next_primary = [&](auto & it, auto last) {
+        auto lhs_identical_prefix_it = lhs_it;
+        auto rhs_identical_prefix_it = rhs_it;
+#endif
+
+        // TODO: Profile the use of the identicals-skipping code above in the
+        // main loop of each pass below, not just at the beginning.
+
+        auto unshifted_primary = [&](auto ce) {
+            return ce.l1_ && (weighting == variable_weighting::non_ignorable ||
+                              strength == collation_strength::primary ||
+                              !detail::variable(ce));
+        };
+
+        auto unshifted_primary_seq = [&](auto first, auto last) {
+            auto const it = std::find_if(first, last, [&](auto ce) {
+                return ce.l1_ &&
+                       (weighting == variable_weighting::non_ignorable ||
+                        strength == collation_strength::primary ||
+                        !detail::variable(ce));
+            });
+            return it == last ? 0 : it->l1_;
+        };
+
+        auto unshifted_derived_primary = [&](uint32_t cp) {
+            collation_element ces[32];
+            auto ces_end = detail::s2(
+                &cp,
+                &cp + 1,
+                ces,
+                trie,
+                ces_first,
+                lead_byte,
+                collation_strength::primary,
+                variable_weighting::non_ignorable,
+                retain_case_bits_t::yes);
+            return unshifted_primary_seq(ces, ces_end);
+        };
+
+        // Returns the CP that starts the primary-bearing sequence of CEs, and
+        // the iterator just past the CP.
+        auto next_primary = [&](Iter it, Sentinel last) {
+            using result_t = next_primary_result<Iter>;
             for (; it != last;) {
                 unsigned char const c = *it;
                 if (c < 0x80) {
@@ -1507,63 +1585,290 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                         incr = mask == 0 ? 16 : trailing_zeros(mask);
                     }
 #endif
-                    auto cps_it = it;
-                    auto const cps_end = cps_it + incr;
-                    for (; cps_it < cps_end; ++cps_it) {
-                        uint32_t const cp = (unsigned char)*cps_it;
+                    for (auto const end = it + incr; it < end; ++it) {
+                        uint32_t const cp = (unsigned char)*it;
                         trie_match_t coll =
                             trie.longest_subsequence((uint16_t)cp);
                         if (coll.match) {
-                            // TODO: Get the CEs for the entire match the
-                            // would be found in s2(), starting from here.
-                            uint32_t retval = trie[coll]->begin(ces_begin)->l1_;
-                            if (retval)
-                                return retval;
+                            if (unshifted_primary_seq(
+                                    trie[coll]->begin(ces_first),
+                                    trie[coll]->end(ces_first))) {
+                                return result_t{++it, cp};
+                            }
                         } else {
-                            uint32_t retval =
-                                (implicit_weights_final_lead_byte << 24) |
-                                (cp & 0xffffff);
-                            if (retval)
-                                return retval;
+                            if (unshifted_derived_primary(cp))
+                                return result_t{++it, cp};
                         }
                     }
-                    it += cps_it - cps_end;
                 } else {
                     auto next = it;
                     uint32_t cp = detail::advance(next, last);
                     trie_match_t coll = trie.longest_subsequence(cp);
-                    if (coll.match) {
-                        // TODO: Get the CEs for the entire match the would be
-                        // found in s2(), starting from here.
-                        auto retval = trie[coll]->begin(ces_begin)->l1_;
-                        if (retval)
-                            return retval;
-                    } else {
-                        uint32_t retval =
-                            (implicit_weights_final_lead_byte << 24) |
-                            (cp & 0xffffff);
-                        if (retval)
-                            return retval;
-                    }
                     it = next;
+                    if (coll.match) {
+                        if (unshifted_primary_seq(
+                                trie[coll]->begin(ces_first),
+                                trie[coll]->end(ces_first))) {
+                            return result_t{it, cp};
+                        }
+                    } else {
+                        if (unshifted_derived_primary(cp))
+                            return result_t{it, cp};
+                    }
                 }
             }
-            return 0u;
+            return result_t{it, 0};
         };
 
-        // Look for a non-ignorable primary, or the end of each sequence.
-        // TODO: Loop here when the primaries are equal {
+        auto back_up_before_nonstarters =
+            [&](Iter first, Iter & it, uint32_t & cp) {
+                auto prev = detail::decrement(first, it);
+                while (it != first && table.nonstarter(cp)) {
+                    auto it2 = prev;
+                    auto prev2 = detail::decrement(first, prev);
+                    auto temp = prev2;
+                    auto cp2 = detail::advance(temp, it);
 
-        uint32_t const l_primary = next_primary(lhs_it, lhs_last);
-        uint32_t const r_primary = next_primary(rhs_it, rhs_last);
-        if (l_primary < r_primary)
-            return -1;
-        if (r_primary < l_primary)
-            return 1;
-        BOOST_ASSERT(boost::text::v1::starts_encoded(lhs_it, lhs_last));
-        BOOST_ASSERT(boost::text::v1::starts_encoded(rhs_it, rhs_last));
+                    // Check that moving backward one CP still includes the
+                    // current CP cp.
+                    uint32_t cps[] = {cp2, cp};
+                    auto const cus = boost::text::v1::as_utf16(cps);
+                    auto coll = trie.longest_subsequence(cps, cps + 2);
+                    if (coll.size != std::distance(cus.begin(), cus.end()))
+                        break;
+
+                    it = it2;
+                    prev = prev2;
+                    cp = cp2;
+                }
+            };
+
+        container::small_vector<uint32_t, 64> cps;
+        container::small_vector<Iter, 64> cp_end_iters;
+
+        auto get_primaries =
+            [&](Iter & it, Sentinel last, uint32_t cp, auto & primaries) {
+                trie_match_t coll = trie.longest_subsequence(cp);
+                if (coll.match) {
+                    // S2.1
+                    if (!coll.leaf) {
+                        // Find the longest match, one CP at a time.
+                        auto next = it;
+                        cps.clear();
+                        cp_end_iters.clear();
+                        cps.push_back(cp);
+                        cp_end_iters.push_back(next);
+                        auto last_match = coll;
+                        auto last_match_cps_size = 1;
+                        while (next != last) {
+                            auto temp = next;
+                            cp = detail::advance(temp, last);
+                            auto extended_coll =
+                                trie.extend_subsequence(coll, cp);
+                            if (extended_coll == coll)
+                                break;
+                            next = temp;
+                            coll = extended_coll;
+                            if (coll.match)
+                                last_match = coll;
+                            cps.push_back(cp);
+                            cp_end_iters.push_back(next);
+                            last_match_cps_size = cps.size();
+                        }
+
+                        cps.resize(last_match_cps_size);
+                        cp_end_iters.resize(last_match_cps_size);
+
+                        // S2.1.1
+                        while (next != last) {
+                            cp = detail::advance(next, last);
+                            if (detail::ccc(cp) == 0)
+                                break;
+                            cps.push_back(cp);
+                            cp_end_iters.push_back(next);
+                        }
+
+#if INSTRUMENT
+                        auto const & collation_value = *trie[coll];
+                        std::cout << "coll.match, coll_value="
+                                  << collation_value.first_ << " "
+                                  << collation_value.last_
+                                  << " getting CEs for: ";
+                        for (auto cp : cps) {
+                            std::cout << "0x" << std::hex << cp << " ";
+                        }
+                        std::cout << std::dec << "\n";
 #endif
-        // }
+
+                        // S2.1.2
+                        auto cps_it = cps.begin() + last_match_cps_size;
+                        coll = detail::s2_1_2(cps_it, cps.end(), coll, trie);
+                        it = cp_end_iters[cps_it - cps.begin() - 1];
+                    }
+
+                    auto const & collation_value = *trie[coll];
+#if INSTRUMENT
+                    std::cout << "final coll.match, coll_value="
+                              << collation_value.first_ << " "
+                              << collation_value.last_ << "\n";
+#endif
+
+#if 0
+                    auto primary = unshifted_primary_seq(
+                        collation_value.begin(ces_first),
+                        collation_value.end(ces_first));
+                    primaries.push_back(primary); // TODO: -> uint32_t return.
+#endif
+                    primaries.resize(32);
+                    auto primaries_it = primaries.data();
+                    for (auto ces_it = collation_value.begin(ces_first),
+                              ces_end = collation_value.end(ces_first);
+                         ces_it != ces_end;
+                         ++ces_it) {
+                        if (unshifted_primary(*ces_it))
+                            *primaries_it++ = ces_it->l1_;
+                    }
+                    primaries.resize(primaries_it - primaries.data());
+                } else {
+                    // Reuse the logic in s2() to get derived elements.
+                    collation_element ces[32];
+                    auto ces_end = detail::s2(
+                        &cp,
+                        &cp + 1,
+                        ces,
+                        trie,
+                        ces_first,
+                        lead_byte,
+                        collation_strength::primary,
+                        variable_weighting::non_ignorable,
+                        retain_case_bits_t::yes);
+
+                    primaries.resize(32);
+                    auto primaries_it = primaries.data();
+                    for (auto ces_it = ces; ces_it != ces_end; ++ces_it) {
+                        if (unshifted_primary(*ces_it))
+                            *primaries_it++ = ces_it->l1_;
+                    }
+                    primaries.resize(primaries_it - primaries.data());
+                }
+            };
+
+        // Look for a non-ignorable primary, or the end of each sequence.
+        container::small_vector<uint32_t, 256> l_primaries;
+        container::small_vector<uint32_t, 256> r_primaries;
+        // TODO: Loop here when the primaries are equal, like:
+        // while (lhs_it != lhs_last && rhs_it != rhs_last)
+        {
+            {
+                auto u32 = v1::as_utf32(rhs_it, rhs_last);
+                if (u32.front() == 0xfe47 && u32.back() == 0x0041)
+                    std::cout << "YAY\n";
+                if (u32.front() == 0x249c && u32.back() == 0x0021)
+                    std::cout << "YAY\n";
+                if (u32.front() == 0x0438 && u32.back() == 0x0306)
+                    std::cout << "YAY\n";
+            }
+            auto l_prim = next_primary(lhs_it, lhs_last);
+            auto r_prim = next_primary(rhs_it, rhs_last);
+
+#if INSTRUMENT
+            std::cout << "l_prim.cp_=" << std::hex << "0x" << l_prim.cp_
+                      << std::dec << "\n";
+            std::cout << "r_prim.cp_=" << std::hex << "0x" << r_prim.cp_
+                      << std::dec << "\n";
+
+            if (l_prim.cp_ == 0xf8b && r_prim.cp_ == 0xf71)
+                std::cout << "YAY\n";
+#endif
+
+            if (table.nonstarter(l_prim.cp_))
+                back_up_before_nonstarters(lhs_first, l_prim.it_, l_prim.cp_);
+            if (table.nonstarter(r_prim.cp_))
+                back_up_before_nonstarters(rhs_first, r_prim.it_, r_prim.cp_);
+
+            get_primaries(l_prim.it_, lhs_last, l_prim.cp_, l_primaries);
+            get_primaries(r_prim.it_, rhs_last, r_prim.cp_, r_primaries);
+
+            // 60 - tailoring_g0 (Failed)
+            // 62 - tailoring_suppressions_g0 (Failed)
+
+#if INSTRUMENT
+            auto dump = [](char const * name, auto const & prims) {
+                std::cout << name << " prims: ";
+                for (auto l1 : prims) {
+                    std::cout << "0x" << std::hex << l1 << " ";
+                }
+                std::cout << std::dec << "\n";
+            };
+#endif
+
+            // Though we may have gotten multiple primaries, we can only look
+            // at the first one.  Consider this case, where X(Y) means CP(CE):
+            // left=A(8) B(0) C(7) right=DE(8,6).  We don't want to compare *
+            // on the left to *,6 on the right and determine that right <
+            // left.
+            if (1u < l_primaries.size())
+                l_primaries.resize(1);
+            if (1u < r_primaries.size())
+                r_primaries.resize(1);
+
+#if 1
+            if (l_primaries < r_primaries) {
+#if INSTRUMENT
+                std::cout << "early return -1\n";
+                dump("left", l_primaries);
+                dump("right", r_primaries);
+#endif
+                return -1;
+            }
+            if (r_primaries < l_primaries) {
+#if INSTRUMENT
+                std::cout << "early return 1\n";
+                dump("left", l_primaries);
+                dump("right", r_primaries);
+#endif
+                return 1;
+            }
+
+            lhs_it = l_prim.it_;
+            rhs_it = r_prim.it_;
+#endif
+
+            BOOST_ASSERT(boost::text::v1::starts_encoded(lhs_it, lhs_last));
+            BOOST_ASSERT(boost::text::v1::starts_encoded(rhs_it, rhs_last));
+        }
+
+        if (strength == collation_strength::primary)
+            return 0;
+
+        lhs_it = lhs_first;
+        rhs_it = rhs_first;
+
+        // TODO: Secondary
+
+        // if (strength == collation_strength::secondary)
+        //     return 0;
+
+        lhs_it = lhs_first;
+        rhs_it = rhs_first;
+
+        // TODO: Tertiary
+
+        // if (strength == collation_strength::tertiary)
+        //     return 0;
+
+        lhs_it = lhs_first;
+        rhs_it = rhs_first;
+
+        // TODO: Quaternary
+
+        // if (strength == collation_strength::quaternary)
+        //     return 0;
+
+        lhs_it = lhs_first;
+        rhs_it = rhs_first;
+
+        // TODO: Identical
 
         auto const lhs = boost::text::v1::as_utf32(lhs_first, lhs_last);
         auto const rhs = boost::text::v1::as_utf32(rhs_first, rhs_last);
