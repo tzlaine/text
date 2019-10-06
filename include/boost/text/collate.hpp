@@ -1483,6 +1483,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
     {
         Iter it_;
         uint32_t cp_;
+        uint32_t derived_primary_;
     };
 
     template<typename Iter, typename Sentinel, typename LeadByteFunc>
@@ -1511,23 +1512,24 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         auto lhs_it = lhs_first;
         auto rhs_it = rhs_first;
 
-        // TODO: Skip this when l2_order == l2_weight_order::backward.
-
-        // This is std::ranges::mismatch(), but I can't use that yet.
-        for (; lhs_it != lhs_last && rhs_it != rhs_last; ++lhs_it, ++rhs_it) {
-            if (*lhs_it != *rhs_it) {
-                // Back up to the start of the current CP.
-                while (lhs_it != lhs_first) {
-                    --lhs_it;
-                    --rhs_it;
-                    if (!boost::text::v1::continuation(*lhs_it))
-                        break;
+        if (l2_order == l2_weight_order::forward) {
+            // This is std::ranges::mismatch(), but I can't use that yet.
+            for (; lhs_it != lhs_last && rhs_it != rhs_last;
+                 ++lhs_it, ++rhs_it) {
+                if (*lhs_it != *rhs_it) {
+                    // Back up to the start of the current CP.
+                    while (lhs_it != lhs_first) {
+                        --lhs_it;
+                        --rhs_it;
+                        if (!boost::text::v1::continuation(*lhs_it))
+                            break;
+                    }
+                    break;
                 }
-                break;
             }
+            if (lhs_it == lhs_last && rhs_it == rhs_last)
+                return 0;
         }
-        if (lhs_it == lhs_last && rhs_it == rhs_last)
-            return 0;
 
         // TODO: This should be our new starting point for all passes below,
         // *not* {lhs,rhs}_first.
@@ -1538,12 +1540,6 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
 
         // TODO: Profile the use of the identicals-skipping code above in the
         // main loop of each pass below, not just at the beginning.
-
-        auto unshifted_primary = [&](auto ce) {
-            return ce.l1_ && (weighting == variable_weighting::non_ignorable ||
-                              strength == collation_strength::primary ||
-                              !detail::variable(ce));
-        };
 
         auto unshifted_primary_seq = [&](auto first, auto last) {
             auto const it = std::find_if(first, last, [&](auto ce) {
@@ -1593,11 +1589,12 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                             if (unshifted_primary_seq(
                                     trie[coll]->begin(ces_first),
                                     trie[coll]->end(ces_first))) {
-                                return result_t{++it, cp};
+                                return result_t{++it, cp, 0};
                             }
                         } else {
-                            if (unshifted_derived_primary(cp))
-                                return result_t{++it, cp};
+                            auto const p = unshifted_derived_primary(cp);
+                            if (p)
+                                return result_t{++it, cp, p};
                         }
                     }
                 } else {
@@ -1609,45 +1606,48 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                         if (unshifted_primary_seq(
                                 trie[coll]->begin(ces_first),
                                 trie[coll]->end(ces_first))) {
-                            return result_t{it, cp};
+                            return result_t{it, cp, 0};
                         }
                     } else {
-                        if (unshifted_derived_primary(cp))
-                            return result_t{it, cp};
+                        auto const p = unshifted_derived_primary(cp);
+                        if (p)
+                            return result_t{it, cp, p};
                     }
                 }
             }
             return result_t{it, 0};
         };
 
-        auto back_up_before_nonstarters =
-            [&](Iter first, Iter & it, uint32_t & cp) {
-                auto prev = detail::decrement(first, it);
-                while (it != first && table.nonstarter(cp)) {
-                    auto it2 = prev;
-                    auto prev2 = detail::decrement(first, prev);
-                    auto temp = prev2;
-                    auto cp2 = detail::advance(temp, it);
+        auto back_up_before_nonstarters = [&](Iter first,
+                                              Iter & it,
+                                              uint32_t & cp,
+                                              uint32_t & derived_primary) {
+            auto prev = detail::decrement(first, it);
+            while (it != first && table.nonstarter(cp)) {
+                auto it2 = prev;
+                auto prev2 = detail::decrement(first, prev);
+                auto temp = prev2;
+                auto cp2 = detail::advance(temp, it);
 
-                    // Check that moving backward one CP still includes the
-                    // current CP cp.
-                    uint32_t cps[] = {cp2, cp};
-                    auto const cus = boost::text::v1::as_utf16(cps);
-                    auto coll = trie.longest_subsequence(cps, cps + 2);
-                    if (coll.size != std::distance(cus.begin(), cus.end()))
-                        break;
+                // Check that moving backward one CP still includes the
+                // current CP cp.
+                uint32_t cps[] = {cp2, cp};
+                auto const cus = boost::text::v1::as_utf16(cps);
+                auto coll = trie.longest_subsequence(cps, cps + 2);
+                if (coll.size != std::distance(cus.begin(), cus.end()))
+                    break;
 
-                    it = it2;
-                    prev = prev2;
-                    cp = cp2;
-                }
-            };
+                it = it2;
+                prev = prev2;
+                cp = cp2;
+            }
+        };
 
         container::small_vector<uint32_t, 64> cps;
         container::small_vector<Iter, 64> cp_end_iters;
 
-        auto get_primaries =
-            [&](Iter & it, Sentinel last, uint32_t cp, auto & primaries) {
+        auto get_primary =
+            [&](Iter & it, Sentinel last, uint32_t cp) {
                 trie_match_t coll = trie.longest_subsequence(cp);
                 if (coll.match) {
                     // S2.1
@@ -1713,49 +1713,16 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                               << collation_value.last_ << "\n";
 #endif
 
-#if 0
-                    auto primary = unshifted_primary_seq(
+                    return unshifted_primary_seq(
                         collation_value.begin(ces_first),
                         collation_value.end(ces_first));
-                    primaries.push_back(primary); // TODO: -> uint32_t return.
-#endif
-                    primaries.resize(32);
-                    auto primaries_it = primaries.data();
-                    for (auto ces_it = collation_value.begin(ces_first),
-                              ces_end = collation_value.end(ces_first);
-                         ces_it != ces_end;
-                         ++ces_it) {
-                        if (unshifted_primary(*ces_it))
-                            *primaries_it++ = ces_it->l1_;
-                    }
-                    primaries.resize(primaries_it - primaries.data());
                 } else {
-                    // Reuse the logic in s2() to get derived elements.
-                    collation_element ces[32];
-                    auto ces_end = detail::s2(
-                        &cp,
-                        &cp + 1,
-                        ces,
-                        trie,
-                        ces_first,
-                        lead_byte,
-                        collation_strength::primary,
-                        variable_weighting::non_ignorable,
-                        retain_case_bits_t::yes);
-
-                    primaries.resize(32);
-                    auto primaries_it = primaries.data();
-                    for (auto ces_it = ces; ces_it != ces_end; ++ces_it) {
-                        if (unshifted_primary(*ces_it))
-                            *primaries_it++ = ces_it->l1_;
-                    }
-                    primaries.resize(primaries_it - primaries.data());
+                    return unshifted_derived_primary(cp);
                 }
             };
 
         // Look for a non-ignorable primary, or the end of each sequence.
-        container::small_vector<uint32_t, 256> l_primaries;
-        container::small_vector<uint32_t, 256> r_primaries;
+
         // TODO: Loop here when the primaries are equal, like:
         // while (lhs_it != lhs_last && rhs_it != rhs_last)
         {
@@ -1781,58 +1748,41 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                 std::cout << "YAY\n";
 #endif
 
-            if (table.nonstarter(l_prim.cp_))
-                back_up_before_nonstarters(lhs_first, l_prim.it_, l_prim.cp_);
-            if (table.nonstarter(r_prim.cp_))
-                back_up_before_nonstarters(rhs_first, r_prim.it_, r_prim.cp_);
+            if (table.nonstarter(l_prim.cp_)) {
+                back_up_before_nonstarters(
+                    lhs_first, l_prim.it_, l_prim.cp_, l_prim.derived_primary_);
+            }
+            if (table.nonstarter(r_prim.cp_)) {
+                back_up_before_nonstarters(
+                    rhs_first, r_prim.it_, r_prim.cp_, r_prim.derived_primary_);
+            }
 
-            get_primaries(l_prim.it_, lhs_last, l_prim.cp_, l_primaries);
-            get_primaries(r_prim.it_, rhs_last, r_prim.cp_, r_primaries);
+            auto l_primary = l_prim.derived_primary_;
+            if (!l_primary)
+                l_primary = get_primary(l_prim.it_, lhs_last, l_prim.cp_);
+            auto r_primary = r_prim.derived_primary_;
+            if (!r_primary)
+                r_primary = get_primary(r_prim.it_, rhs_last, r_prim.cp_);
 
-            // 60 - tailoring_g0 (Failed)
-            // 62 - tailoring_suppressions_g0 (Failed)
-
-#if INSTRUMENT
-            auto dump = [](char const * name, auto const & prims) {
-                std::cout << name << " prims: ";
-                for (auto l1 : prims) {
-                    std::cout << "0x" << std::hex << l1 << " ";
-                }
-                std::cout << std::dec << "\n";
-            };
-#endif
-
-            // Though we may have gotten multiple primaries, we can only look
-            // at the first one.  Consider this case, where X(Y) means CP(CE):
-            // left=A(8) B(0) C(7) right=DE(8,6).  We don't want to compare *
-            // on the left to *,6 on the right and determine that right <
-            // left.
-            if (1u < l_primaries.size())
-                l_primaries.resize(1);
-            if (1u < r_primaries.size())
-                r_primaries.resize(1);
-
-#if 1
-            if (l_primaries < r_primaries) {
+            if (l_primary < r_primary) {
 #if INSTRUMENT
                 std::cout << "early return -1\n";
-                dump("left", l_primaries);
-                dump("right", r_primaries);
+                std::cout << " left: "
+                          << "0x" << std::hex << l_primary << std::dec << "\n";
 #endif
                 return -1;
             }
-            if (r_primaries < l_primaries) {
+            if (r_primary < l_primary) {
 #if INSTRUMENT
                 std::cout << "early return 1\n";
-                dump("left", l_primaries);
-                dump("right", r_primaries);
+                std::cout << "right: "
+                          << "0x" << std::hex << r_primary << std::dec << "\n";
 #endif
                 return 1;
             }
 
             lhs_it = l_prim.it_;
             rhs_it = r_prim.it_;
-#endif
 
             BOOST_ASSERT(boost::text::v1::starts_encoded(lhs_it, lhs_last));
             BOOST_ASSERT(boost::text::v1::starts_encoded(rhs_it, rhs_last));
