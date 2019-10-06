@@ -1349,44 +1349,6 @@ namespace boost { namespace text { inline namespace v1 {
             detail::default_table_max_nonstarter() + 1;
         retval.data_->nonstarters_ = detail::default_table_nonstarters_ptr();
 
-#if 0 // TODO: Remove.  This is here to test the Python table generation code.
-        std::vector<uint32_t> cps = {
-            183,   774,   903,   1619,  1620,  1621,  2494,  2519,  2878,
-            2902,  2903,  3006,  3031,  3158,  3266,  3285,  3286,  3390,
-            3415,  3530,  3535,  3551,  3585,  3586,  3587,  3588,  3589,
-            3590,  3591,  3592,  3593,  3594,  3595,  3596,  3597,  3598,
-            3599,  3600,  3601,  3602,  3603,  3604,  3605,  3606,  3607,
-            3608,  3609,  3610,  3611,  3612,  3613,  3614,  3615,  3616,
-            3617,  3618,  3619,  3620,  3621,  3622,  3623,  3624,  3625,
-            3626,  3627,  3628,  3629,  3630,  3634,  3713,  3714,  3716,
-            3719,  3720,  3722,  3725,  3732,  3733,  3734,  3735,  3737,
-            3738,  3739,  3740,  3741,  3742,  3743,  3745,  3746,  3747,
-            3749,  3751,  3754,  3755,  3757,  3758,  3762,  3804,  3805,
-            3806,  3807,  3953,  3954,  3955,  3956,  3957,  3968,  3969,
-            4142,  6528,  6529,  6530,  6531,  6532,  6533,  6534,  6535,
-            6536,  6537,  6538,  6539,  6540,  6541,  6542,  6543,  6544,
-            6545,  6546,  6547,  6548,  6549,  6550,  6551,  6552,  6553,
-            6554,  6555,  6556,  6557,  6558,  6559,  6560,  6561,  6562,
-            6563,  6564,  6565,  6566,  6567,  6568,  6569,  6570,  6571,
-            6965,  43648, 43649, 43650, 43651, 43652, 43653, 43654, 43655,
-            43656, 43657, 43658, 43659, 43660, 43661, 43662, 43663, 43664,
-            43665, 43666, 43667, 43668, 43669, 43670, 43671, 43672, 43673,
-            43674, 43675, 43676, 43677, 43678, 43679, 43680, 43681, 43682,
-            43683, 43684, 43685, 43686, 43687, 43688, 43689, 43690, 43691,
-            43692, 43693, 43694, 43695, 69927, 70462, 70487, 70832, 70842,
-            70845, 71087};
-
-        for (uint32_t cp = retval.data_->nonstarter_first_,
-                      end = retval.data_->nonstarter_last_;
-             cp < end;
-             ++cp) {
-            const bool table_says = retval.nonstarter(cp);
-            const bool binary_search_says =
-                std::binary_search(cps.begin(), cps.end(), cp);
-            BOOST_ASSERT(table_says == binary_search_says);
-        }
-#endif
-
         return retval;
     }
 
@@ -1779,27 +1741,6 @@ namespace boost { namespace text { inline namespace v1 {
             table.data_->nonstarter_first_ == table.data_->nonstarter_last_
                 ? nullptr
                 : table.data_->nonstarter_table_.data();
-
-#if 0 // TODO: Remove.  This is here to test the Python table generation code.
-        std::vector<uint32_t> cps;
-        detail::fill_nonstarters(table.data_->trie_, cps);
-
-        std::cout << "******************************** CPS:\n";
-        for (auto cp : cps) {
-            std::cout << "0x" << std::hex << cp << "\n";
-        }
-        std::cout << std::dec;
-
-        for (uint32_t cp = table.data_->nonstarter_first_,
-                      end = table.data_->nonstarter_last_;
-             cp < end;
-             ++cp) {
-            const bool table_says = table.nonstarter(cp);
-            const bool binary_search_says =
-                std::binary_search(cps.begin(), cps.end(), cp);
-            BOOST_ASSERT(table_says == binary_search_says);
-        }
-#endif
 
         return table;
     }
