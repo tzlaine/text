@@ -15,6 +15,8 @@
 
 #include <cstdint>
 
+#include <iostream> // TODO
+
 
 #ifndef BOOST_TEXT_COLLATION_DATA_INSTRUMENTATION
 #define BOOST_TEXT_COLLATION_DATA_INSTRUMENTATION 0
@@ -97,6 +99,13 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         return collation_strength::identical;
     }
 
+    inline bool variable(collation_element ce) noexcept
+    {
+        auto const lo = min_variable_collation_weight;
+        auto const hi = max_variable_collation_weight;
+        return lo <= ce.l1_ && ce.l1_ <= hi;
+    }
+
     BOOST_TEXT_DECL void
         make_collation_elements(std::array<collation_element, 39841> &);
 
@@ -120,6 +129,12 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
     {
         using iterator = collation_element const *;
 
+        constexpr collation_elements() noexcept : first_(0u), last_(0u) {}
+        constexpr collation_elements(uint16_t first, uint16_t last) noexcept :
+            first_(first),
+            last_(last)
+        {}
+
         iterator begin(collation_element const * elements) const noexcept
         {
             return elements + first_;
@@ -129,17 +144,68 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             return elements + last_;
         }
 
+        uint16_t first() const noexcept { return first_; }
+        uint16_t last() const noexcept { return last_; }
+
+        unsigned char lead_primary(variable_weighting weighting) const noexcept
+        {
+            return weighting == variable_weighting::non_ignorable
+                       ? lead_primary_
+                       : lead_primary_shifted_;
+        }
+        unsigned char lead_secondary() const noexcept
+        {
+            return lead_secondary_;
+        }
+        unsigned char lead_tertiary() const noexcept { return lead_tertiary_; }
+        unsigned char lead_quaternary() const noexcept
+        {
+            return lead_quaternary_;
+        }
+
         int size() const noexcept { return last_ - first_; }
         explicit operator bool() const noexcept { return first_ != last_; }
 
+        void fill_non_ignorables(collation_element const * elements) noexcept
+        {
+            for (auto it = begin(elements), last = end(elements); it != last;
+                 ++it) {
+                if (it->l1_ && !lead_primary_)
+                    lead_primary_ = it->l1_ >> 24;
+                if (it->l1_ && !lead_primary_shifted_ && !detail::variable(*it))
+                    lead_primary_shifted_ = it->l1_ >> 24;
+                if (it->l2_ && !lead_secondary_)
+                    lead_secondary_ = it->l2_ >> 8;
+                if (it->l3_ && !lead_tertiary_)
+                    lead_tertiary_ = it->l3_ >> 8;
+                if (it->l4_ && !lead_quaternary_)
+                    lead_quaternary_ = it->l4_ >> 24;
+            }
+        }
+
+        void reset_non_ignorables() noexcept
+        {
+            lead_primary_ = 0;
+            lead_primary_shifted_ = 0;
+            lead_secondary_ = 0;
+            lead_tertiary_ = 0;
+            lead_quaternary_ = 0;
+        }
+
+    private:
         uint16_t first_;
         uint16_t last_;
+        unsigned char lead_primary_ = 0;
+        unsigned char lead_primary_shifted_ = 0;
+        unsigned char lead_secondary_ = 0;
+        unsigned char lead_tertiary_ = 0;
+        unsigned char lead_quaternary_ = 0;
     };
 
     inline bool
     operator==(collation_elements lhs, collation_elements rhs) noexcept
     {
-        return lhs.first_ == rhs.first_ && lhs.last_ == rhs.last_;
+        return lhs.first() == rhs.first() && lhs.last() == rhs.last();
     }
     inline bool
     operator!=(collation_elements lhs, collation_elements rhs) noexcept
@@ -358,12 +424,16 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         }
         return retval;
     }
-    inline std::array<collation_elements, 39272> const & trie_values()
+    inline std::array<collation_elements, 39272> const &
+    trie_values(collation_element const * p)
     {
         static std::array<collation_elements, 39272> retval;
         static bool once = true;
         if (once) {
             make_trie_values(retval);
+            for (auto & ces : retval) {
+                ces.fill_non_ignorables(p);
+            }
             once = false;
         }
         return retval;

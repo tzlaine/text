@@ -190,11 +190,12 @@ namespace boost { namespace text { inline namespace v1 {
             detail::cp_seq_t const & cps,
             detail::temp_table_element::ces_t const & ces)
         {
-            detail::collation_elements value{
-                static_cast<uint16_t>(table.collation_element_vec_.size())};
+            auto const value_first =
+                (uint16_t)table.collation_element_vec_.size();
             table.collation_element_vec_.insert(
                 table.collation_element_vec_.end(), ces.begin(), ces.end());
-            value.last_ = table.collation_element_vec_.size();
+            detail::collation_elements value{
+                value_first, (uint16_t)table.collation_element_vec_.size()};
 
             table.trie_.insert_or_assign(cps, value);
 
@@ -409,8 +410,10 @@ namespace boost { namespace text { inline namespace v1 {
                 element.cps_.assign(
                     trie_keys()[i].begin(), trie_keys()[i].end());
                 element.ces_.assign(
-                    trie_values()[i].begin(collation_elements_ptr()),
-                    trie_values()[i].end(collation_elements_ptr()));
+                    trie_values(collation_elements_ptr())[i].begin(
+                        collation_elements_ptr()),
+                    trie_values(collation_elements_ptr())[i].end(
+                        collation_elements_ptr()));
                 retval = retval.push_back(element);
 #if BOOST_TEXT_TAILORING_INSTRUMENTATION
                 if (trie_keys()[i].size_ == 1 &&
@@ -1313,7 +1316,8 @@ namespace boost { namespace text { inline namespace v1 {
             }
         };
 
-        inline collation_trie_t make_default_trie()
+        inline collation_trie_t
+        make_default_trie(bool reset_non_ignorables = false)
         {
             collation_trie_t retval;
             std::vector<key_and_index_t> key_and_indices;
@@ -1329,8 +1333,10 @@ namespace boost { namespace text { inline namespace v1 {
                 std::sort(key_and_indices.begin(), key_and_indices.end());
             }
             for (auto kai : key_and_indices) {
-                retval.insert(
-                    trie_keys()[kai.index_], trie_values()[kai.index_]);
+                auto value = trie_values(collation_elements_ptr())[kai.index_];
+                if (reset_non_ignorables)
+                    value.reset_non_ignorables();
+                retval.insert(trie_keys()[kai.index_], value);
             }
             return retval;
         }
@@ -1500,6 +1506,32 @@ namespace boost { namespace text { inline namespace v1 {
                 c |= (1 << (table_element & 0b111));
             }
         }
+
+        inline void fill_non_ignorables_impl(
+            collation_trie_t::impl_type & trie,
+            trie_match_t coll,
+            collation_element const * p)
+        {
+            auto node_ref = trie[coll];
+            if (node_ref)
+                node_ref->fill_non_ignorables(p);
+
+            std::vector<uint16_t> next_elements;
+            trie.copy_next_key_elements(
+                coll, std::back_inserter(next_elements));
+            for (uint16_t cu : next_elements) {
+                fill_non_ignorables_impl(
+                    trie, trie.extend_subsequence(coll, cu), p);
+            }
+        }
+
+        inline void fill_non_ignorables(
+            collation_trie_t & trie, collation_element const * p)
+        {
+            uint16_t const * null = nullptr;
+            detail::fill_non_ignorables_impl(
+                trie.impl_, trie.impl_.longest_subsequence(null, null), p);
+        }
     }
 
     inline collation_table tailored_collation_table(
@@ -1511,7 +1543,7 @@ namespace boost { namespace text { inline namespace v1 {
         detail::temp_table_t temp_table = detail::make_temp_table();
 
         collation_table table;
-        table.data_->trie_ = detail::make_default_trie();
+        table.data_->trie_ = detail::make_default_trie(true);
         table.data_->collation_element_vec_.assign(
             detail::collation_elements_ptr(),
             detail::collation_elements_ptr() +
@@ -1741,6 +1773,9 @@ namespace boost { namespace text { inline namespace v1 {
             table.data_->nonstarter_first_ == table.data_->nonstarter_last_
                 ? nullptr
                 : table.data_->nonstarter_table_.data();
+
+        detail::fill_non_ignorables(
+            table.data_->trie_, table.data_->collation_element_vec_.data());
 
         return table;
     }

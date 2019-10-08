@@ -231,13 +231,6 @@ namespace boost { namespace text { inline namespace v1 {
             return out;
         }
 
-        inline bool variable(collation_element ce) noexcept
-        {
-            auto const lo = min_variable_collation_weight;
-            auto const hi = max_variable_collation_weight;
-            return lo <= ce.l1_ && ce.l1_ <= hi;
-        }
-
         inline bool ignorable(collation_element ce) noexcept
         {
             return ce.l1_ == 0;
@@ -1483,6 +1476,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
     {
         Iter it_;
         uint32_t cp_;
+        unsigned char lead_primary_;
         uint32_t derived_primary_;
     };
 
@@ -1586,15 +1580,14 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                         trie_match_t coll =
                             trie.longest_subsequence((uint16_t)cp);
                         if (coll.match) {
-                            if (unshifted_primary_seq(
-                                    trie[coll]->begin(ces_first),
-                                    trie[coll]->end(ces_first))) {
-                                return result_t{++it, cp, 0};
-                            }
+                            auto lead_primary =
+                                trie[coll]->lead_primary(weighting);
+                            if (lead_primary)
+                                return result_t{++it, cp, lead_primary, 0};
                         } else {
                             auto const p = unshifted_derived_primary(cp);
                             if (p)
-                                return result_t{++it, cp, p};
+                                return result_t{++it, cp, 0, p};
                         }
                     }
                 } else {
@@ -1603,24 +1596,23 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                     trie_match_t coll = trie.longest_subsequence(cp);
                     it = next;
                     if (coll.match) {
-                        if (unshifted_primary_seq(
-                                trie[coll]->begin(ces_first),
-                                trie[coll]->end(ces_first))) {
-                            return result_t{it, cp, 0};
-                        }
+                        auto lead_primary = trie[coll]->lead_primary(weighting);
+                        if (lead_primary)
+                            return result_t{+it, cp, lead_primary, 0};
                     } else {
                         auto const p = unshifted_derived_primary(cp);
                         if (p)
-                            return result_t{it, cp, p};
+                            return result_t{it, cp, 0, p};
                     }
                 }
             }
-            return result_t{it, 0};
+            return result_t{it, 0, 0, 0};
         };
 
         auto back_up_before_nonstarters = [&](Iter first,
                                               Iter & it,
                                               uint32_t & cp,
+                                              unsigned char & lead_primary,
                                               uint32_t & derived_primary) {
             auto prev = detail::decrement(first, it);
             while (it != first && table.nonstarter(cp)) {
@@ -1640,6 +1632,8 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                 it = it2;
                 prev = prev2;
                 cp = cp2;
+
+                lead_primary = 0;
             }
         };
 
@@ -1726,6 +1720,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         // TODO: Loop here when the primaries are equal, like:
         // while (lhs_it != lhs_last && rhs_it != rhs_last)
         {
+#if 0
             {
                 auto u32 = v1::as_utf32(rhs_it, rhs_last);
                 if (u32.front() == 0xfe47 && u32.back() == 0x0041)
@@ -1735,6 +1730,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                 if (u32.front() == 0x0438 && u32.back() == 0x0306)
                     std::cout << "YAY\n";
             }
+#endif
             auto l_prim = next_primary(lhs_it, lhs_last);
             auto r_prim = next_primary(rhs_it, rhs_last);
 
@@ -1750,17 +1746,38 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
 
             if (table.nonstarter(l_prim.cp_)) {
                 back_up_before_nonstarters(
-                    lhs_first, l_prim.it_, l_prim.cp_, l_prim.derived_primary_);
+                    lhs_first,
+                    l_prim.it_,
+                    l_prim.cp_,
+                    l_prim.lead_primary_,
+                    l_prim.derived_primary_);
             }
             if (table.nonstarter(r_prim.cp_)) {
                 back_up_before_nonstarters(
-                    rhs_first, r_prim.it_, r_prim.cp_, r_prim.derived_primary_);
+                    rhs_first,
+                    r_prim.it_,
+                    r_prim.cp_,
+                    r_prim.lead_primary_,
+                    r_prim.derived_primary_);
             }
 
-            auto l_primary = l_prim.derived_primary_;
+            uint32_t l_primary = l_prim.derived_primary_
+                                     ? l_prim.derived_primary_ >> 24
+                                     : l_prim.lead_primary_;
+            uint32_t r_primary = r_prim.derived_primary_
+                                     ? r_prim.derived_primary_ >> 24
+                                     : r_prim.lead_primary_;
+            if (l_primary && r_primary) {
+                if (l_primary < r_primary)
+                    return -1;
+                if (r_primary < l_primary)
+                    return 1;
+            }
+
+            l_primary = l_prim.derived_primary_;
             if (!l_primary)
                 l_primary = get_primary(l_prim.it_, lhs_last, l_prim.cp_);
-            auto r_primary = r_prim.derived_primary_;
+            r_primary = r_prim.derived_primary_;
             if (!r_primary)
                 r_primary = get_primary(r_prim.it_, rhs_last, r_prim.cp_);
 
