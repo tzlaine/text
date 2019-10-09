@@ -42,22 +42,19 @@ namespace std {
     }
 }
 
-namespace boost { namespace text {
-    namespace v1 {
 #if !BOOST_TEXT_COLLATE_INSTRUMENTATION
-        inline std::ostream &
-        operator<<(std::ostream & os, text_sort_key const & k)
-        {
-            os << std::hex << "[";
-            for (auto x : k) {
-                os << " " << x;
-            }
-            os << " ]" << std::dec;
-            return os;
+namespace boost { namespace text { namespace v1 {
+    inline std::ostream & operator<<(std::ostream & os, text_sort_key const & k)
+    {
+        os << std::hex << "[";
+        for (auto x : k) {
+            os << " " << x;
         }
-#endif
+        os << " ]" << std::dec;
+        return os;
     }
-}}
+}}}
+#endif
 
 
 TEST(tailoring, case_first)

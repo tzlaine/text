@@ -15,8 +15,6 @@
 
 #include <cstdint>
 
-#include <iostream> // TODO
-
 
 #ifndef BOOST_TEXT_COLLATION_DATA_INSTRUMENTATION
 #define BOOST_TEXT_COLLATION_DATA_INSTRUMENTATION 0
