@@ -1477,7 +1477,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         uint32_t cp_;
         unsigned char lead_primary_;
         uint32_t derived_primary_;
-        bool leaf_;
+        trie_match_t coll_;
     };
 
     template<typename Iter, typename Sentinel, typename LeadByteFunc>
@@ -1586,12 +1586,12 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                                 trie[coll]->lead_primary(weighting);
                             if (lead_primary)
                                 return result_t{
-                                    ++it, cp, lead_primary, 0, coll.leaf};
+                                    ++it, cp, lead_primary, 0, coll};
                         } else {
                             auto const p =
                                 unshifted_derived_primary(cp, primaries);
                             if (p)
-                                return result_t{++it, cp, 0, p, coll.leaf};
+                                return result_t{++it, cp, 0, p, coll};
                         }
                     }
                 } else {
@@ -1602,15 +1602,15 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                     if (coll.match) {
                         auto lead_primary = trie[coll]->lead_primary(weighting);
                         if (lead_primary)
-                            return result_t{it, cp, lead_primary, 0, coll.leaf};
+                            return result_t{it, cp, lead_primary, 0, coll};
                     } else {
                         auto const p = unshifted_derived_primary(cp, primaries);
                         if (p)
-                            return result_t{it, cp, 0, p, coll.leaf};
+                            return result_t{it, cp, 0, p, coll};
                     }
                 }
             }
-            return result_t{it, 0, 0, 0, false};
+            return result_t{it, 0, 0, 0, trie_match_t{}};
         };
 
         auto back_up_before_nonstarters = [&](Iter first,
@@ -1619,6 +1619,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                                               unsigned char & lead_primary,
                                               auto & primaries,
                                               auto prev_primaries_size) {
+            bool retval = false;
             auto prev = detail::decrement(first, it);
             while (it != first && table.nonstarter(cp)) {
                 auto it2 = prev;
@@ -1640,18 +1641,27 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
 
                 lead_primary = 0;
                 primaries.resize(prev_primaries_size);
+
+                retval = true;
 #if INSTRUMENT
                 std::cout << "    backing up one CP.\n";
 #endif
             }
+            return retval;
         };
 
         container::small_vector<uint32_t, 64> cps;
         container::small_vector<Iter, 64> cp_end_iters;
 
         auto get_primary =
-            [&](Iter & it, Sentinel last, uint32_t cp, auto & primaries) {
-                trie_match_t coll = trie.longest_subsequence(cp);
+            [&](Iter & it,
+                Sentinel last,
+                uint32_t cp,
+                trie_match_t coll,
+                bool backed_up,
+                auto & primaries) {
+                if (backed_up)
+                    coll = trie.longest_subsequence(cp);
                 if (coll.match) {
                     // S2.1
                     if (!coll.leaf) {
@@ -1738,11 +1748,12 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                       << std::dec << "\n";
 #endif
 
+            bool l_backed_up = false;
             if (table.nonstarter(l_prim.cp_)) {
 #if INSTRUMENT
                 std::cout << "backing up the left.\n";
 #endif
-                back_up_before_nonstarters(
+                l_backed_up = back_up_before_nonstarters(
                     lhs_first,
                     l_prim.it_,
                     l_prim.cp_,
@@ -1750,11 +1761,12 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                     l_primaries,
                     prev_l_primaries_size);
             }
+            bool r_backed_up = false;
             if (table.nonstarter(r_prim.cp_)) {
 #if INSTRUMENT
                 std::cout << "backing up the right.\n";
 #endif
-                back_up_before_nonstarters(
+                r_backed_up = back_up_before_nonstarters(
                     rhs_first,
                     r_prim.it_,
                     r_prim.cp_,
@@ -1763,9 +1775,9 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                     prev_r_primaries_size);
             }
 
-            if ((l_prim.leaf_ || lhs_it == lhs_last) &&
-                (r_prim.leaf_ || rhs_it == rhs_last) && l_primaries.empty() &&
-                r_primaries.empty()) {
+            if ((l_prim.coll_.leaf || lhs_it == lhs_last) &&
+                (r_prim.coll_.leaf || rhs_it == rhs_last) &&
+                l_primaries.empty() && r_primaries.empty()) {
                 uint32_t l_primary = l_prim.derived_primary_
                                          ? l_prim.derived_primary_ >> 24
                                          : l_prim.lead_primary_;
@@ -1823,14 +1835,26 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
 #if INSTRUMENT
                 std::cout << "left get_primary()\n";
 #endif
-                get_primary(l_prim.it_, lhs_last, l_prim.cp_, l_primaries);
+                get_primary(
+                    l_prim.it_,
+                    lhs_last,
+                    l_prim.cp_,
+                    l_prim.coll_,
+                    l_backed_up,
+                    l_primaries);
             }
             uint32_t r_primary = r_prim.derived_primary_;
             if (!r_primary && rhs_it != rhs_last) {
 #if INSTRUMENT
                 std::cout << "right get_primary()\n";
 #endif
-                get_primary(r_prim.it_, rhs_last, r_prim.cp_, r_primaries);
+                get_primary(
+                    r_prim.it_,
+                    rhs_last,
+                    r_prim.cp_,
+                    r_prim.coll_,
+                    r_backed_up,
+                    r_primaries);
             }
 
 #if INSTRUMENT
