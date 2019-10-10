@@ -375,7 +375,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         void insert_or_assign(KeyIter first, Sentinel last, value_type value)
         {
             static_assert(
-                std::is_same<std::decay_t<decltype(*first)>, uint32_t>::value);
+                std::is_same<std::decay_t<decltype(*first)>, uint32_t>::value, "");
             return impl_.insert_or_assign(
                 boost::text::v1::as_utf16(first, last), std::move(value));
         }
@@ -385,7 +385,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         {
             static_assert(std::is_same<
                           std::decay_t<decltype(*std::begin(key))>,
-                          uint32_t>::value);
+                          uint32_t>::value, "");
             return impl_.insert_or_assign(
                 boost::text::v1::as_utf16(key), std::move(value));
         }
