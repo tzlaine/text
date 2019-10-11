@@ -9,8 +9,8 @@
 #include <boost/algorithm/cxx14/mismatch.hpp>
 #include <boost/container/small_vector.hpp>
 
-#include <deque>
 #include <unordered_map>
+#include <vector>
 
 
 #ifndef BOOST_TEXT_DOXYGEN
@@ -280,8 +280,8 @@ namespace boost { namespace text { inline namespace v1 {
             CPIter get_first,
             CPIter get_last,
             Sentinel last,
-            std::deque<collation_element> & ces,
-            std::deque<int> & ce_sizes,
+            std::vector<collation_element> & ces,
+            std::vector<int> & ce_sizes,
             collation_table const & table,
             collation_strength strength,
             case_level case_lvl,
@@ -501,8 +501,8 @@ namespace boost { namespace text { inline namespace v1 {
         utf32_view<CPIter> search_mismatch_impl(
             CPIter it,
             container::small_vector<collation_element, N> const & pattern_ces,
-            std::deque<collation_element> const & str_ces,
-            std::deque<int> const & str_ce_sizes,
+            std::vector<collation_element> const & str_ces,
+            std::vector<int> const & str_ce_sizes,
             StrCEsIter str_ces_first,
             StrCEsIter str_ces_last,
             PatternCEsIter pattern_ces_first,
@@ -574,8 +574,8 @@ namespace boost { namespace text { inline namespace v1 {
                 CPIter it,
                 container::small_vector<collation_element, N> const &
                     pattern_ces,
-                std::deque<collation_element> const & str_ces,
-                std::deque<int> const & str_ce_sizes,
+                std::vector<collation_element> const & str_ces,
+                std::vector<int> const & str_ce_sizes,
                 AtBreakFunc at_break,
                 PopFrontFunc pop_front,
                 PopsFunc pops_on_mismatch)
@@ -607,8 +607,8 @@ namespace boost { namespace text { inline namespace v1 {
                 CPIter it,
                 container::small_vector<collation_element, N> const &
                     pattern_ces,
-                std::deque<collation_element> const & str_ces,
-                std::deque<int> const & str_ce_sizes,
+                std::vector<collation_element> const & str_ces,
+                std::vector<int> const & str_ce_sizes,
                 AtBreakFunc at_break,
                 PopFrontFunc pop_front,
                 PopsFunc pops_on_mismatch)
@@ -650,8 +650,8 @@ namespace boost { namespace text { inline namespace v1 {
 
             std::ptrdiff_t const pattern_length = pattern_ces.size();
 
-            std::deque<collation_element> str_ces;
-            std::deque<int> str_ce_sizes;
+            std::vector<collation_element> str_ces;
+            std::vector<int> str_ce_sizes;
 
             auto it = first;
 
@@ -661,14 +661,13 @@ namespace boost { namespace text { inline namespace v1 {
                 auto const old_str_ce_sizes_size = str_ce_sizes.size();
 #endif
                 str_ces.erase(str_ces.begin(), str_ces.begin() + ces);
-                while (0 < ces) {
-                    ces -= str_ce_sizes.front();
-                    str_ce_sizes.pop_front();
-                    ++it;
+                auto sizes_it = str_ce_sizes.begin();
+                for (; 0 < ces; ++sizes_it, ++it) {
+                    ces -= *sizes_it;
                 }
-                while (!str_ce_sizes.empty() && !str_ce_sizes.front()) {
-                    str_ce_sizes.pop_front();
-                }
+                sizes_it = std::find_if(
+                    sizes_it, str_ce_sizes.end(), [](int s) { return s != 0; });
+                str_ce_sizes.erase(str_ce_sizes.begin(), sizes_it);
                 str_ces.erase(str_ces.begin(), str_ces.begin() - ces);
 #if BOOST_TEXT_COLLATION_SEARCH_INSTRUMENTATION
                 std::cout << " === Popped "
@@ -791,7 +790,7 @@ namespace boost { namespace text { inline namespace v1 {
         utf32_view<CPIter2> operator()(CPIter2 first, Sentinel2 last) const
         {
             using mismatch_t = std::pair<
-                std::deque<detail::collation_element>::const_iterator,
+                std::vector<detail::collation_element>::const_iterator,
                 container::small_vector<detail::collation_element, 256>::
                     const_iterator>;
             return detail::search_impl<detail::mismatch_dir::fwd>(
@@ -803,7 +802,7 @@ namespace boost { namespace text { inline namespace v1 {
                 strength_,
                 case_level_,
                 weighting_,
-                [](mismatch_t, std::deque<detail::collation_element> const &) {
+                [](mismatch_t, std::vector<detail::collation_element> const &) {
                     return 1;
                 });
         }
@@ -1103,7 +1102,7 @@ namespace boost { namespace text { inline namespace v1 {
         utf32_view<CPIter2> operator()(CPIter2 first, Sentinel2 last) const
         {
             using mismatch_t = std::pair<
-                std::deque<detail::collation_element>::const_reverse_iterator,
+                std::vector<detail::collation_element>::const_reverse_iterator,
                 ces_t::const_reverse_iterator>;
             return detail::search_impl<detail::mismatch_dir::rev>(
                 first,
@@ -1116,7 +1115,7 @@ namespace boost { namespace text { inline namespace v1 {
                 weighting_,
                 [this](
                     mismatch_t,
-                    std::deque<detail::collation_element> const & str_ces) {
+                    std::vector<detail::collation_element> const & str_ces) {
                     return skips_[str_ces[pattern_ces_.size() - 1]];
                 });
         }
@@ -1429,7 +1428,7 @@ namespace boost { namespace text { inline namespace v1 {
         utf32_view<CPIter2> operator()(CPIter2 first, Sentinel2 last) const
         {
             using mismatch_t = std::pair<
-                std::deque<detail::collation_element>::const_reverse_iterator,
+                std::vector<detail::collation_element>::const_reverse_iterator,
                 ces_t::const_reverse_iterator>;
             return detail::search_impl<detail::mismatch_dir::rev>(
                 first,
@@ -1442,7 +1441,7 @@ namespace boost { namespace text { inline namespace v1 {
                 weighting_,
                 [this](
                     mismatch_t mismatch,
-                    std::deque<detail::collation_element> const & str_ces) {
+                    std::vector<detail::collation_element> const & str_ces) {
                     auto const skip_lookup = skips_[*mismatch.first];
                     auto const mismatch_index = str_ces.rend() - mismatch.first;
                     auto const m = mismatch_index - skip_lookup - 1;
