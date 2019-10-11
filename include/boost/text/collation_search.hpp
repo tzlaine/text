@@ -38,7 +38,7 @@ namespace boost { namespace text {
 
         /** Returns the code point subrange within `r` in which `searcher` finds
             its pattern.  If the pattern is not found, the resulting range will
-           be empty.
+            be empty.
 
             This function only participates in overload resolution if
             `searcher(first, last)` is well formed. */
@@ -47,8 +47,8 @@ namespace boost { namespace text {
         collation_search(CPRange & r, Searcher const & searcher);
 
         /** Returns the grapheme subrange within `r` in which `searcher` finds
-           its pattern.  If the pattern is not found, the resulting range will
-           be empty.
+            its pattern.  If the pattern is not found, the resulting range will
+            be empty.
 
             This function only participates in overload resolution if
             `GraphemeRange` models the GraphemeRange concept. */
@@ -648,6 +648,8 @@ namespace boost { namespace text { inline namespace v1 {
             if (first == last || pattern_ces.empty())
                 return utf32_view<CPIter>(first, first);
 
+            std::ptrdiff_t const pattern_length = pattern_ces.size();
+
             std::deque<collation_element> str_ces;
             std::deque<int> str_ce_sizes;
 
@@ -682,7 +684,6 @@ namespace boost { namespace text { inline namespace v1 {
 
             while (it != last) {
                 if (at_break(it)) {
-                    std::ptrdiff_t const pattern_length = pattern_ces.size();
                     std::ptrdiff_t const str_ces_needed_for_search =
                         pattern_length - (std::ptrdiff_t)str_ces.size();
                     // We need to have sufficient lookahead (at least
@@ -749,16 +750,16 @@ namespace boost { namespace text { inline namespace v1 {
 
     /** A searcher for use with the collation_search() algorithm.  This
         searcher uses a simple brute-force matching algorithm, like that
-       found in `std::search()`. */
+        found in `std::search()`. */
     template<typename CPIter, typename Sentinel, typename BreakFunc>
     struct simple_collation_searcher
     {
         /** Constructs a simple_collation_searcher from: a sequence of code
             points to find; a break function to use to determine which code
-            points are acceptable match boundaries; and a collation table
-           with collation configuration settings.  Consider using
-            make_simple_collation_searcher() instead of using this
-           constructor directly. */
+            points are acceptable match boundaries; and a collation table with
+            collation configuration settings.  Consider using
+            make_simple_collation_searcher() instead of using this constructor
+            directly. */
         simple_collation_searcher(
             CPIter pattern_first,
             Sentinel pattern_last,
@@ -785,7 +786,7 @@ namespace boost { namespace text { inline namespace v1 {
 
         /** Returns a code point range indicating the matching subsequence
             within `[first, last)` in which this searcher's pattern was
-           found. The range will be empty if no match exists. */
+            found. The range will be empty if no match exists. */
         template<typename CPIter2, typename Sentinel2>
         utf32_view<CPIter2> operator()(CPIter2 first, Sentinel2 last) const
         {
@@ -831,9 +832,9 @@ namespace boost { namespace text { inline namespace v1 {
         collation_flags flags = collation_flags::none);
 
     /** Returns a simple_collation_searcher that will find the pattern
-        `[first, last)`.  Any occurence of the pattern must be found
-       starting at and ending at a boundary found by `break_fn` (e.g. a
-       grapheme or word boundary).
+        `[first, last)`.  Any occurence of the pattern must be found starting
+        at and ending at a boundary found by `break_fn` (e.g. a grapheme or
+        word boundary).
 
         This function only participates in overload resolution if `CPIter`
         models the CPIter concept. */
@@ -845,8 +846,8 @@ namespace boost { namespace text { inline namespace v1 {
         collation_table const & table,
         collation_flags flags = collation_flags::none);
 
-    /** Returns a simple_collation_searcher that will find the pattern `r`.
-       A match must begin and end at a grapheme boundary.
+    /** Returns a simple_collation_searcher that will find the pattern `r`.  A
+        match must begin and end at a grapheme boundary.
 
         This function only participates in overload resolution if `CPRange`
         models the CPRange concept. */
@@ -857,7 +858,7 @@ namespace boost { namespace text { inline namespace v1 {
         collation_flags flags = collation_flags::none);
 
     /** Returns a simple_collation_searcher that will find the pattern `r`.
-       A match must begin and end at a grapheme boundary.
+        A match must begin and end at a grapheme boundary.
 
         This function only participates in overload resolution if
         `GraphemeRange` models the GraphemeRange concept. */
@@ -868,8 +869,8 @@ namespace boost { namespace text { inline namespace v1 {
         collation_flags flags = collation_flags::none);
 
     /** Returns a simple_collation_searcher that will find the pattern `r`.
-        Any occurence of the pattern must be found starting at and ending at
-       a boundary found by `break_fn` (e.g. a grapheme or word boundary).
+        Any occurence of the pattern must be found starting at and ending at a
+        boundary found by `break_fn` (e.g. a grapheme or word boundary).
 
         This function only participates in overload resolution if `CPRange`
         models the CPRange concept. */
@@ -882,7 +883,7 @@ namespace boost { namespace text { inline namespace v1 {
 
     /** Returns a simple_collation_searcher that will find the pattern `r`.
         Any occurence of the pattern must be found starting at and ending at
-       a boundary found by `break_fn` (e.g. a grapheme or word boundary).
+        a boundary found by `break_fn` (e.g. a grapheme or word boundary).
 
         This function only participates in overload resolution if
         `GraphemeRange` models the GraphemeRange concept. */
@@ -1053,10 +1054,10 @@ namespace boost { namespace text { inline namespace v1 {
     {
         /** Constructs a boyer_moore_horspool_collation_searcher from a
             sequence of code points to find, a break function to use to
-            determine which code points are acceptable match boundaries, and
-           a collation table with collation configuration settings.
-           Consider using make_boyer_moore_horspool_collation_searcher()
-           instead of using this constructor directly. */
+            determine which code points are acceptable match boundaries, and a
+            collation table with collation configuration settings.  Consider
+            using make_boyer_moore_horspool_collation_searcher() instead of
+            using this constructor directly. */
         boyer_moore_horspool_collation_searcher(
             CPIter pattern_first,
             Sentinel pattern_last,
@@ -1097,7 +1098,7 @@ namespace boost { namespace text { inline namespace v1 {
 
         /** Returns a code point range indicating the matching subsequence
             within `[first, last)` in which this searcher's pattern was
-           found. The range will be empty if no match exists.*/
+            found. The range will be empty if no match exists.*/
         template<typename CPIter2, typename Sentinel2>
         utf32_view<CPIter2> operator()(CPIter2 first, Sentinel2 last) const
         {
@@ -1187,7 +1188,7 @@ namespace boost { namespace text { inline namespace v1 {
     /** Returns a boyer_moore_horspool_collation_searcher that will find the
         pattern `r`.  Any occurence of the pattern must be found starting at
         and ending at a boundary found by `break_fn` (e.g. a grapheme or
-       word boundary.
+        word boundary.
 
         This function only participates in overload resolution if `CPRange`
         models the CPRange concept). */
@@ -1201,7 +1202,7 @@ namespace boost { namespace text { inline namespace v1 {
     /** Returns a boyer_moore_horspool_collation_searcher that will find the
         pattern `r`.  Any occurence of the pattern must be found starting at
         and ending at a boundary found by `break_fn` (e.g. a grapheme or
-       word boundary).
+        word boundary).
 
         This function only participates in overload resolution if
         `GraphemeRange` models the GraphemeRange concept. */
@@ -1384,8 +1385,8 @@ namespace boost { namespace text { inline namespace v1 {
     {
         /** Constructs a boyer_moore_collation_searcher from: a sequence of
             code points to find; a break function to use to determine which
-            code points are acceptable match boundaries; and a collation
-           table with collation configuration settings.  Consider using
+            code points are acceptable match boundaries; and a collation table
+            with collation configuration settings.  Consider using
             make_boyer_moore_collation_searcher() instead of using this
             constructor directly. */
         boyer_moore_collation_searcher(
@@ -1423,7 +1424,7 @@ namespace boost { namespace text { inline namespace v1 {
 
         /** Returns a code point range indicating the matching subsequence
             within `[first, last)` in which this searcher's pattern was
-           found. The range will be empty if no match exists.*/
+            found. The range will be empty if no match exists.*/
         template<typename CPIter2, typename Sentinel2>
         utf32_view<CPIter2> operator()(CPIter2 first, Sentinel2 last) const
         {
@@ -1537,8 +1538,8 @@ namespace boost { namespace text { inline namespace v1 {
 
     /** Returns a boyer_moore_collation_searcher that will find the pattern
         `[first, last)`.  Any occurence of the pattern must be found
-       starting at and ending at a boundary found by `break_fn` (e.g. a
-       grapheme or word boundary).
+        starting at and ending at a boundary found by `break_fn` (e.g. a
+        grapheme or word boundary).
 
         This function only participates in overload resolution if `CPIter`
         models the CPIter concept. */
@@ -1760,7 +1761,7 @@ namespace boost { namespace text { inline namespace v1 {
         last)`, or an empty range if no such occurrence is found.  Any
         occurence of the pattern must be found starting at and ending at a
         boundary found by `break_fn` (e.g. a grapheme or word boundary).
-       This function uses the same simple brute-force matching approach as
+        This function uses the same simple brute-force matching approach as
         `std::search()`. */
     template<
         typename CPIter1,
@@ -1786,10 +1787,10 @@ namespace boost { namespace text { inline namespace v1 {
 
     /** Returns a code point range indicating the first occurrence of
         `pattern` in `str`, or an empty range if no such occurrence is
-       found. Any occurence of the pattern must be found starting at and
-       ending at a boundary found by `break_fn` (e.g. a grapheme or word
-       boundary).  This function uses the same simple brute-force matching
-       approach as `std::search()`.
+        found. Any occurence of the pattern must be found starting at and
+        ending at a boundary found by `break_fn` (e.g. a grapheme or word
+        boundary).  This function uses the same simple brute-force matching
+        approach as `std::search()`.
 
         This function only participates in overload resolution if `CPRange1`
         models the CPRange concept. */
@@ -1803,9 +1804,9 @@ namespace boost { namespace text { inline namespace v1 {
 
     /** Returns a grapheme range indicating the first occurrence of
        `pattern` in `str`, or an empty range if no such occurrence is found.
-       Any occurence of the pattern must be found starting at and ending at
-       a boundary found by `break_fn` (e.g. a grapheme or word boundary).
-       This function uses the same simple brute-force matching approach as
+        Any occurence of the pattern must be found starting at and ending at
+        a boundary found by `break_fn` (e.g. a grapheme or word boundary).
+        This function uses the same simple brute-force matching approach as
         `std::search()`.
 
         This function only participates in overload resolution if
@@ -1902,9 +1903,9 @@ namespace boost { namespace text { inline namespace v1 {
 
     /** Returns a code point range indicating the first occurrence of
         `pattern` in `str`, or an empty range if no such occurrence is
-       found. A match must begin and end at a grapheme boundary.  This
-       function uses the same simple brute-force matching approach as
-       `std::search()`.
+        found. A match must begin and end at a grapheme boundary.  This
+        function uses the same simple brute-force matching approach as
+        `std::search()`.
 
         This function only participates in overload resolution if `CPRange1`
         models the CPRange concept. */
@@ -1917,9 +1918,9 @@ namespace boost { namespace text { inline namespace v1 {
 
     /** Returns a code point range indicating the first occurrence of
         `pattern` in `str`, or an empty range if no such occurrence is
-       found. A match must begin and end at a grapheme boundary.  This
-       function uses the same simple brute-force matching approach as
-       `std::search()`.
+        found. A match must begin and end at a grapheme boundary.  This
+        function uses the same simple brute-force matching approach as
+        `std::search()`.
 
         This function only participates in overload resolution if
         `GraphemeRange1` models the GraphemeRange concept. */

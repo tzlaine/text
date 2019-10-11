@@ -1,6 +1,14 @@
 #include <boost/text/collation_search.hpp>
 #include <boost/text/text.hpp>
 
+#ifndef NO_ICU
+#include <unicode/coll.h>
+#include <unicode/sortkey.h>
+#include <unicode/unistr.h>
+#include <unicode/stsearch.h>
+U_NAMESPACE_USE
+#endif
+
 #include <benchmark/benchmark.h>
 
 
@@ -84,6 +92,15 @@ boost::text::text const corpus =
     "velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint "
     "occaecat cupidatat non proident, sunt in culpa qui officia deserunt "
     "mollit anim id est laborum.";
+#ifndef NO_ICU
+UErrorCode ec = U_ZERO_ERROR;
+U_NAMESPACE_QUALIFIER UnicodeString const icu_short_pattern = "int";
+U_NAMESPACE_QUALIFIER UnicodeString const icu_long_pattern =
+    "occaecat cupidatat non proident";
+U_NAMESPACE_QUALIFIER UnicodeString const icu_corpus =
+    corpus.begin().base().base();
+#endif
+
 
 void BM_search_convenience_short(benchmark::State & state)
 {
@@ -153,6 +170,42 @@ void BM_search_bm_long(benchmark::State & state)
     }
 }
 
+#ifndef NO_ICU
+void BM_search_bm_icu_short(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+        for (int i = 0, end = state.range(0); i < end; ++i) {
+            ec = U_ZERO_ERROR;
+            U_NAMESPACE_QUALIFIER StringSearch iter(
+                icu_short_pattern,
+                icu_corpus,
+                U_NAMESPACE_QUALIFIER Locale::getUS(),
+                nullptr,
+                ec);
+            ec = U_ZERO_ERROR;
+            benchmark::DoNotOptimize(iter.first(ec));
+        }
+    }
+}
+
+void BM_search_bm_icu_long(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+        for (int i = 0, end = state.range(0); i < end; ++i) {
+            ec = U_ZERO_ERROR;
+            U_NAMESPACE_QUALIFIER StringSearch iter(
+                icu_long_pattern,
+                icu_corpus,
+                U_NAMESPACE_QUALIFIER Locale::getUS(),
+                nullptr,
+                ec);
+            ec = U_ZERO_ERROR;
+            benchmark::DoNotOptimize(iter.first(ec));
+        }
+    }
+}
+#endif
+
 void BM_search_bmh_short(benchmark::State & state)
 {
     while (state.KeepRunning()) {
@@ -185,6 +238,10 @@ BENCHMARK(BM_search_simple_short)->Range(1, 2 << 7);
 BENCHMARK(BM_search_simple_long)->Range(1, 2 << 7);
 BENCHMARK(BM_search_bm_short)->Range(1, 2 << 7);
 BENCHMARK(BM_search_bm_long)->Range(1, 2 << 7);
+#ifndef NO_ICU
+BENCHMARK(BM_search_bm_icu_short)->Range(1, 2 << 7);
+BENCHMARK(BM_search_bm_icu_long)->Range(1, 2 << 7);
+#endif
 BENCHMARK(BM_search_bmh_short)->Range(1, 2 << 7);
 BENCHMARK(BM_search_bmh_long)->Range(1, 2 << 7);
 
