@@ -930,42 +930,10 @@ namespace boost { namespace trie {
             }
 
             trie_node_t * parent() const noexcept { return parent_; }
-#if 0
-            trie_node_t * min_child() const noexcept
-            {
-                return children_.front().get();
-            }
-            trie_node_t * max_child() const noexcept
-            {
-                return children_.back().get();
-            }
-#endif
 
             bool empty() const noexcept { return children_.size() == 0; }
-#if 0
-            std::size_t size() const noexcept { return children_.size(); }
-#endif
 
-#if 0
-            bool min_value() const noexcept
-            {
-                return !!children_.front()->value_;
-            }
-            bool max_value() const noexcept
-            {
-                return !!children_.back()->value_;
-            }
-#endif
-
-#if 0
-            const_iterator begin() const noexcept { return children_.begin(); }
-#endif
             const_iterator end() const noexcept { return children_.end(); }
-
-#if 0
-            key_iterator key_begin() const noexcept { return keys_.begin(); }
-            key_iterator key_end() const noexcept { return keys_.end(); }
-#endif
 
             std::size_t index_within_parent() const noexcept
             {
@@ -1044,11 +1012,6 @@ namespace boost { namespace trie {
             }
 
             optional<Value> & value() noexcept { return value_; }
-
-#if 0
-            iterator begin() noexcept { return children_.begin(); }
-            iterator end() noexcept { return children_.end(); }
-#endif
 
             template<typename Compare>
             iterator insert(
