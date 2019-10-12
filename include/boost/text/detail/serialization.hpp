@@ -186,10 +186,10 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                 write_bytes(cp, out);
             }
             endian::little_uint16_buf_t first;
-            first = element.value.first_;
+            first = element.value.first();
             write_bytes(first, out);
             endian::little_uint16_buf_t last;
-            last = element.value.last_;
+            last = element.value.last();
             write_bytes(last, out);
         }
     }
