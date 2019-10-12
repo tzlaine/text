@@ -47,9 +47,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x54ee);
     auto const rel = std::vector<uint32_t>(1, 0x5baf);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -57,9 +66,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5baf);
     auto const rel = std::vector<uint32_t>(1, 0x5bb5);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -67,9 +85,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5bb5);
     auto const rel = std::vector<uint32_t>(1, 0x5ea8);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -77,9 +104,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5ea8);
     auto const rel = std::vector<uint32_t>(1, 0x6d88);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -87,9 +123,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6d88);
     auto const rel = std::vector<uint32_t>(1, 0x7ee1);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -97,9 +142,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7ee1);
     auto const rel = std::vector<uint32_t>(1, 0x8653);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -107,9 +161,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8653);
     auto const rel = std::vector<uint32_t>(1, 0x9e2e);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -117,9 +180,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9e2e);
     auto const rel = std::vector<uint32_t>(1, 0x5a4b);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -127,9 +199,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5a4b);
     auto const rel = std::vector<uint32_t>(1, 0x689f);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -137,9 +218,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x689f);
     auto const rel = std::vector<uint32_t>(1, 0x7107);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -147,9 +237,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7107);
     auto const rel = std::vector<uint32_t>(1, 0x7307);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -157,9 +256,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7307);
     auto const rel = std::vector<uint32_t>(1, 0x900d);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -167,9 +275,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x900d);
     auto const rel = std::vector<uint32_t>(1, 0x75da);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -177,9 +294,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x75da);
     auto const rel = std::vector<uint32_t>(1, 0x75df);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -187,9 +313,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x75df);
     auto const rel = std::vector<uint32_t>(1, 0x785d);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -197,9 +332,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x785d);
     auto const rel = std::vector<uint32_t>(1, 0x7863);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -207,9 +351,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7863);
     auto const rel = std::vector<uint32_t>(1, 0x7a99);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -217,9 +370,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7a99);
     auto const rel = std::vector<uint32_t>(1, 0x8427);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -227,9 +389,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8427);
     auto const rel = std::vector<uint32_t>(1, 0x9500);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -237,9 +408,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9500);
     auto const rel = std::vector<uint32_t>(1, 0x63f1);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -247,9 +427,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x63f1);
     auto const rel = std::vector<uint32_t>(1, 0x7d83);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -257,9 +446,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7d83);
     auto const rel = std::vector<uint32_t>(1, 0x7fdb);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -267,9 +465,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7fdb);
     auto const rel = std::vector<uint32_t>(1, 0x8437);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -277,9 +484,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8437);
     auto const rel = std::vector<uint32_t>(1, 0x560b);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -287,9 +503,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x560b);
     auto const rel = std::vector<uint32_t>(1, 0x5610);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -297,9 +522,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5610);
     auto const rel = std::vector<uint32_t>(1, 0x6b4a);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -307,9 +541,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6b4a);
     auto const rel = std::vector<uint32_t>(1, 0x6f47);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -317,9 +560,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6f47);
     auto const rel = std::vector<uint32_t>(1, 0x7bab);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -327,9 +579,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7bab);
     auto const rel = std::vector<uint32_t>(1, 0x8e03);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -337,9 +598,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8e03);
     auto const rel = std::vector<uint32_t>(1, 0x5635);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -347,9 +617,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5635);
     auto const rel = std::vector<uint32_t>(1, 0x5f47);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -357,9 +636,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5f47);
     auto const rel = std::vector<uint32_t>(1, 0x61a2);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -367,9 +655,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x61a2);
     auto const rel = std::vector<uint32_t>(1, 0x3a4b);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -377,9 +674,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x3a4b);
     auto const rel = std::vector<uint32_t>(1, 0x7362);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -387,9 +693,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7362);
     auto const rel = std::vector<uint32_t>(1, 0x92b7);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -397,9 +712,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x92b7);
     auto const rel = std::vector<uint32_t>(1, 0x9704);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -407,9 +731,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9704);
     auto const rel = std::vector<uint32_t>(1, 0x81ae);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -417,9 +750,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x81ae);
     auto const rel = std::vector<uint32_t>(1, 0x856d);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -427,9 +769,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x856d);
     auto const rel = std::vector<uint32_t>(1, 0x9d1e);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -437,9 +788,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9d1e);
     auto const rel = std::vector<uint32_t>(1, 0x7a58);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -447,9 +807,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7a58);
     auto const rel = std::vector<uint32_t>(1, 0x7c18);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -457,9 +826,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7c18);
     auto const rel = std::vector<uint32_t>(1, 0x87c2);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -467,9 +845,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x87c2);
     auto const rel = std::vector<uint32_t>(1, 0x87cf);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -477,9 +864,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x87cf);
     auto const rel = std::vector<uint32_t>(1, 0x9b48);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -487,9 +883,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9b48);
     auto const rel = std::vector<uint32_t>(1, 0x9d35);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -497,9 +902,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9d35);
     auto const rel = std::vector<uint32_t>(1, 0x56a3);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -507,9 +921,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x56a3);
     auto const rel = std::vector<uint32_t>(1, 0x7c2b);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -517,9 +940,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7c2b);
     auto const rel = std::vector<uint32_t>(1, 0x85c3);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -527,9 +959,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x85c3);
     auto const rel = std::vector<uint32_t>(1, 0x87f0);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -537,9 +978,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x87f0);
     auto const rel = std::vector<uint32_t>(1, 0x701f);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -547,9 +997,18 @@ TEST(tailoring, zh_zhuyin_012_000)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x701f);
     auto const rel = std::vector<uint32_t>(1, 0x6af9);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -561,9 +1020,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6af9);
     auto const rel = std::vector<uint32_t>(1, 0x24473);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -571,9 +1039,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x24473);
     auto const rel = std::vector<uint32_t>(1, 0x9ac7);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -581,9 +1058,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9ac7);
     auto const rel = std::vector<uint32_t>(1, 0x56bb);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -591,9 +1077,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x56bb);
     auto const rel = std::vector<uint32_t>(1, 0x56c2);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -601,9 +1096,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x56c2);
     auto const rel = std::vector<uint32_t>(1, 0x8828);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -611,9 +1115,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8828);
     auto const rel = std::vector<uint32_t>(1, 0x9a4d);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -621,9 +1134,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9a4d);
     auto const rel = std::vector<uint32_t>(1, 0x9ad0);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -631,9 +1153,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9ad0);
     auto const rel = std::vector<uint32_t>(1, 0x6bca);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -641,9 +1172,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6bca);
     auto const rel = std::vector<uint32_t>(1, 0x8648);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -651,9 +1191,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8648);
     auto const rel = std::vector<uint32_t>(1, 0x6d28);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -661,9 +1210,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6d28);
     auto const rel = std::vector<uint32_t>(1, 0x3b35);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -671,9 +1229,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x3b35);
     auto const rel = std::vector<uint32_t>(1, 0x7b05);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -681,9 +1248,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7b05);
     auto const rel = std::vector<uint32_t>(1, 0x5d24);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -691,9 +1267,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5d24);
     auto const rel = std::vector<uint32_t>(1, 0x6dc6);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -701,9 +1286,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6dc6);
     auto const rel = std::vector<uint32_t>(1, 0x8a24);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -711,9 +1305,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8a24);
     auto const rel = std::vector<uint32_t>(1, 0x90e9);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -721,9 +1324,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x90e9);
     auto const rel = std::vector<uint32_t>(1, 0x6bbd);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -731,9 +1343,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6bbd);
     auto const rel = std::vector<uint32_t>(1, 0x7b4a);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -741,9 +1362,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7b4a);
     auto const rel = std::vector<uint32_t>(1, 0x8ab5);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -751,9 +1381,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8ab5);
     auto const rel = std::vector<uint32_t>(1, 0x2e8c);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -761,9 +1400,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x2e8c);
     auto const rel = std::vector<uint32_t>(1, 0x2e8d);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -771,9 +1419,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x2e8d);
     auto const rel = std::vector<uint32_t>(1, 0x5c0f);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -781,9 +1438,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5c0f);
     auto const rel = std::vector<uint32_t>(1, 0x6653);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -791,9 +1457,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6653);
     auto const rel = std::vector<uint32_t>(1, 0x6681);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -801,9 +1476,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6681);
     auto const rel = std::vector<uint32_t>(1, 0x7b71);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -811,9 +1495,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7b71);
     auto const rel = std::vector<uint32_t>(1, 0x7b7f);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -821,9 +1514,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7b7f);
     auto const rel = std::vector<uint32_t>(1, 0x769b);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -831,9 +1533,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x769b);
     auto const rel = std::vector<uint32_t>(1, 0x66c9);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -841,9 +1552,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x66c9);
     auto const rel = std::vector<uint32_t>(1, 0x7be0);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -851,9 +1571,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7be0);
     auto const rel = std::vector<uint32_t>(1, 0x76a2);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -861,9 +1590,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x76a2);
     auto const rel = std::vector<uint32_t>(1, 0x8b0f);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -871,9 +1609,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8b0f);
     auto const rel = std::vector<uint32_t>(1, 0x5b5d);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -881,9 +1628,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5b5d);
     auto const rel = std::vector<uint32_t>(1, 0x8096);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -891,9 +1647,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8096);
     auto const rel = std::vector<uint32_t>(1, 0x52b9);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -901,9 +1666,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x52b9);
     auto const rel = std::vector<uint32_t>(1, 0x54b2);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -911,9 +1685,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x54b2);
     auto const rel = std::vector<uint32_t>(1, 0x4ff2);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -921,9 +1704,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x4ff2);
     auto const rel = std::vector<uint32_t>(1, 0x6548);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -931,9 +1723,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6548);
     auto const rel = std::vector<uint32_t>(1, 0x6821);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -941,9 +1742,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6821);
     auto const rel = std::vector<uint32_t>(1, 0x6d8d);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -951,9 +1761,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6d8d);
     auto const rel = std::vector<uint32_t>(1, 0x7b11);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -961,9 +1780,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7b11);
     auto const rel = std::vector<uint32_t>(1, 0x5578);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -971,9 +1799,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5578);
     auto const rel = std::vector<uint32_t>(1, 0x509a);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -981,9 +1818,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x509a);
     auto const rel = std::vector<uint32_t>(1, 0x6569);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -991,9 +1837,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6569);
     auto const rel = std::vector<uint32_t>(1, 0x35db);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1001,9 +1856,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x35db);
     auto const rel = std::vector<uint32_t>(1, 0x8a68);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1011,9 +1875,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8a68);
     auto const rel = std::vector<uint32_t>(1, 0x5628);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1021,9 +1894,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5628);
     auto const rel = std::vector<uint32_t>(1, 0x8a9f);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1031,9 +1913,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8a9f);
     auto const rel = std::vector<uint32_t>(1, 0x562f);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1041,9 +1932,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x562f);
     auto const rel = std::vector<uint32_t>(1, 0x6b57);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1051,9 +1951,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6b57);
     auto const rel = std::vector<uint32_t>(1, 0x71bd);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1061,9 +1970,18 @@ TEST(tailoring, zh_zhuyin_013_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x71bd);
     auto const rel = std::vector<uint32_t>(1, 0x97a9);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1075,9 +1993,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x97a9);
     auto const rel = std::vector<uint32_t>(1, 0x6585);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1085,9 +2012,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6585);
     auto const rel = std::vector<uint32_t>(1, 0x6586);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1095,9 +2031,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6586);
     auto const rel = std::vector<uint32_t>(1, 0x4567);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1105,9 +2050,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x4567);
     auto const rel = std::vector<uint32_t>(1, 0x6077);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1115,9 +2069,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6077);
     auto const rel = std::vector<uint32_t>(1, 0x6ee7);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1125,9 +2088,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6ee7);
     auto const rel = std::vector<uint32_t>(1, 0x4f11);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1135,9 +2107,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x4f11);
     auto const rel = std::vector<uint32_t>(1, 0x4fe2);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1145,9 +2126,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x4fe2);
     auto const rel = std::vector<uint32_t>(1, 0x54bb);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1155,9 +2145,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x54bb);
     auto const rel = std::vector<uint32_t>(1, 0x5ea5);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1165,9 +2164,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5ea5);
     auto const rel = std::vector<uint32_t>(1, 0x3cdc);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1175,9 +2183,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x3cdc);
     auto const rel = std::vector<uint32_t>(1, 0x4fee);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1185,9 +2202,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x4fee);
     auto const rel = std::vector<uint32_t>(1, 0x70cb);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1195,9 +2221,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x70cb);
     auto const rel = std::vector<uint32_t>(1, 0x70cc);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1205,9 +2240,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x70cc);
     auto const rel = std::vector<uint32_t>(1, 0x7f9e);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1215,9 +2259,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7f9e);
     auto const rel = std::vector<uint32_t>(1, 0x8119);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1225,9 +2278,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8119);
     auto const rel = std::vector<uint32_t>(1, 0x8129);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1235,9 +2297,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8129);
     auto const rel = std::vector<uint32_t>(1, 0x9e3a);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1245,9 +2316,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9e3a);
     auto const rel = std::vector<uint32_t>(1, 0x81f9);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1255,9 +2335,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x81f9);
     auto const rel = std::vector<uint32_t>(1, 0x8c85);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1265,9 +2354,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8c85);
     auto const rel = std::vector<uint32_t>(1, 0x9990);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1275,9 +2373,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9990);
     auto const rel = std::vector<uint32_t>(1, 0x929d);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1285,9 +2392,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x929d);
     auto const rel = std::vector<uint32_t>(1, 0x9ae4);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1295,9 +2411,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9ae4);
     auto const rel = std::vector<uint32_t>(1, 0x6a07);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1305,9 +2430,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6a07);
     auto const rel = std::vector<uint32_t>(1, 0x9af9);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1315,9 +2449,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9af9);
     auto const rel = std::vector<uint32_t>(1, 0x9380);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1325,9 +2468,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9380);
     auto const rel = std::vector<uint32_t>(1, 0x9d42);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1335,9 +2487,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9d42);
     auto const rel = std::vector<uint32_t>(1, 0x93c5);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1345,9 +2506,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x93c5);
     auto const rel = std::vector<uint32_t>(1, 0x9948);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1355,9 +2525,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9948);
     auto const rel = std::vector<uint32_t>(1, 0x9c43);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1365,9 +2544,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9c43);
     auto const rel = std::vector<uint32_t>(1, 0x98cd);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1375,9 +2563,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x98cd);
     auto const rel = std::vector<uint32_t>(1, 0x82ec);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1385,9 +2582,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x82ec);
     auto const rel = std::vector<uint32_t>(1, 0x673d);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1395,9 +2601,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x673d);
     auto const rel = std::vector<uint32_t>(1, 0x7d87);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1405,9 +2620,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7d87);
     auto const rel = std::vector<uint32_t>(1, 0x6eeb);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1415,9 +2639,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6eeb);
     auto const rel = std::vector<uint32_t>(1, 0x7cd4);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1425,9 +2658,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7cd4);
     auto const rel = std::vector<uint32_t>(1, 0x79c0);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1435,9 +2677,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x79c0);
     auto const rel = std::vector<uint32_t>(1, 0x5cab);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1445,9 +2696,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5cab);
     auto const rel = std::vector<uint32_t>(1, 0x5cc0);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1455,9 +2715,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5cc0);
     auto const rel = std::vector<uint32_t>(1, 0x73db);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1465,9 +2734,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x73db);
     auto const rel = std::vector<uint32_t>(1, 0x7ee3);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1475,9 +2753,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7ee3);
     auto const rel = std::vector<uint32_t>(1, 0x7407);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1485,9 +2772,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7407);
     auto const rel = std::vector<uint32_t>(1, 0x8896);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1495,9 +2791,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8896);
     auto const rel = std::vector<uint32_t>(1, 0x9508);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1505,9 +2810,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9508);
     auto const rel = std::vector<uint32_t>(1, 0x55c5);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1515,9 +2829,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x55c5);
     auto const rel = std::vector<uint32_t>(1, 0x6eb4);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1525,9 +2848,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6eb4);
     auto const rel = std::vector<uint32_t>(1, 0x7493);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1535,9 +2867,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7493);
     auto const rel = std::vector<uint32_t>(1, 0x890e);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1545,9 +2886,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x890e);
     auto const rel = std::vector<uint32_t>(1, 0x890f);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1555,9 +2905,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x890f);
     auto const rel = std::vector<uint32_t>(1, 0x92b9);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1565,9 +2924,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x92b9);
     auto const rel = std::vector<uint32_t>(1, 0x8791);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1575,9 +2943,18 @@ TEST(tailoring, zh_zhuyin_013_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8791);
     auto const rel = std::vector<uint32_t>(1, 0x7e4d);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1589,9 +2966,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7e4d);
     auto const rel = std::vector<uint32_t>(1, 0x7e61);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1599,9 +2985,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7e61);
     auto const rel = std::vector<uint32_t>(1, 0x93e5);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1609,9 +3004,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x93e5);
     auto const rel = std::vector<uint32_t>(1, 0x93fd);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1619,9 +3023,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x93fd);
     auto const rel = std::vector<uint32_t>(1, 0x9f45);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1629,9 +3042,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9f45);
     auto const rel = std::vector<uint32_t>(1, 0x9bb4);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1639,9 +3061,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9bb4);
     auto const rel = std::vector<uint32_t>(1, 0x353e);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1649,9 +3080,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x353e);
     auto const rel = std::vector<uint32_t>(1, 0x4ed9);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1659,9 +3099,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x4ed9);
     auto const rel = std::vector<uint32_t>(1, 0x4eda);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1669,9 +3118,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x4eda);
     auto const rel = std::vector<uint32_t>(1, 0x5c73);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1679,9 +3137,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5c73);
     auto const rel = std::vector<uint32_t>(1, 0x5148);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1689,9 +3156,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5148);
     auto const rel = std::vector<uint32_t>(1, 0x597e);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1699,9 +3175,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x597e);
     auto const rel = std::vector<uint32_t>(1, 0x7ea4);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1709,9 +3194,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7ea4);
     auto const rel = std::vector<uint32_t>(1, 0x4f61);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1719,9 +3213,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x4f61);
     auto const rel = std::vector<uint32_t>(1, 0x5ffa);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1729,9 +3232,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5ffa);
     auto const rel = std::vector<uint32_t>(1, 0x6c19);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1739,9 +3251,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6c19);
     auto const rel = std::vector<uint32_t>(1, 0x6774);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1749,9 +3270,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6774);
     auto const rel = std::vector<uint32_t>(1, 0x79c8);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1759,9 +3289,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x79c8);
     auto const rel = std::vector<uint32_t>(1, 0x67ae);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1769,9 +3308,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x67ae);
     auto const rel = std::vector<uint32_t>(1, 0x7946);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1779,9 +3327,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7946);
     auto const rel = std::vector<uint32_t>(1, 0x7c7c);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1789,9 +3346,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7c7c);
     auto const rel = std::vector<uint32_t>(1, 0x82ee);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1799,9 +3365,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x82ee);
     auto const rel = std::vector<uint32_t>(1, 0x73d7);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1809,9 +3384,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x73d7);
     auto const rel = std::vector<uint32_t>(1, 0x6380);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1819,9 +3403,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6380);
     auto const rel = std::vector<uint32_t>(1, 0x83b6);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1829,9 +3422,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x83b6);
     auto const rel = std::vector<uint32_t>(1, 0x8a2e);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1839,9 +3441,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8a2e);
     auto const rel = std::vector<uint32_t>(1, 0x94e6);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1849,9 +3460,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x94e6);
     auto const rel = std::vector<uint32_t>(1, 0x23519);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1859,9 +3479,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x23519);
     auto const rel = std::vector<uint32_t>(1, 0x50ca);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1869,9 +3498,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x50ca);
     auto const rel = std::vector<uint32_t>(1, 0x8df9);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1879,9 +3517,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8df9);
     auto const rel = std::vector<uint32_t>(1, 0x9170);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1889,9 +3536,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9170);
     auto const rel = std::vector<uint32_t>(1, 0x9528);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1899,9 +3555,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9528);
     auto const rel = std::vector<uint32_t>(1, 0x5615);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1909,9 +3574,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5615);
     auto const rel = std::vector<uint32_t>(1, 0x929b);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1919,9 +3593,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x929b);
     auto const rel = std::vector<uint32_t>(1, 0x9c9c);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1929,9 +3612,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9c9c);
     auto const rel = std::vector<uint32_t>(1, 0x97ef);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1939,9 +3631,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x97ef);
     auto const rel = std::vector<uint32_t>(1, 0x5b10);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1949,9 +3650,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5b10);
     auto const rel = std::vector<uint32_t>(1, 0x61b8);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1959,9 +3669,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x61b8);
     auto const rel = std::vector<uint32_t>(1, 0x66b9);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1969,9 +3688,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x66b9);
     auto const rel = std::vector<uint32_t>(1, 0x9341);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1979,9 +3707,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9341);
     auto const rel = std::vector<uint32_t>(1, 0x859f);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1989,9 +3726,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x859f);
     auto const rel = std::vector<uint32_t>(1, 0x893c);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -1999,9 +3745,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x893c);
     auto const rel = std::vector<uint32_t>(1, 0x97f1);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2009,9 +3764,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x97f1);
     auto const rel = std::vector<uint32_t>(1, 0x9bae);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2019,9 +3783,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9bae);
     auto const rel = std::vector<uint32_t>(1, 0x8e6e);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2029,9 +3802,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8e6e);
     auto const rel = std::vector<uint32_t>(1, 0x99a6);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2039,9 +3821,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x99a6);
     auto const rel = std::vector<uint32_t>(1, 0x4d4c);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2049,9 +3840,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x4d4c);
     auto const rel = std::vector<uint32_t>(1, 0x5eef);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2059,9 +3859,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5eef);
     auto const rel = std::vector<uint32_t>(1, 0x6515);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2069,9 +3878,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6515);
     auto const rel = std::vector<uint32_t>(1, 0x7e8e);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2079,9 +3897,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7e8e);
     auto const rel = std::vector<uint32_t>(1, 0x9db1);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2089,9 +3916,18 @@ TEST(tailoring, zh_zhuyin_013_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9db1);
     auto const rel = std::vector<uint32_t>(1, 0x8e9a);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2103,9 +3939,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8e9a);
     auto const rel = std::vector<uint32_t>(1, 0x7e96);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2113,9 +3958,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7e96);
     auto const rel = std::vector<uint32_t>(1, 0x8973);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2123,9 +3977,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8973);
     auto const rel = std::vector<uint32_t>(1, 0x9c7b);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2133,9 +3996,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9c7b);
     auto const rel = std::vector<uint32_t>(1, 0x4f2d);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2143,9 +4015,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x4f2d);
     auto const rel = std::vector<uint32_t>(1, 0x95f2);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2153,9 +4034,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x95f2);
     auto const rel = std::vector<uint32_t>(1, 0x59b6);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2163,9 +4053,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x59b6);
     auto const rel = std::vector<uint32_t>(1, 0x5f26);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2173,9 +4072,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5f26);
     auto const rel = std::vector<uint32_t>(1, 0x8d24);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2183,9 +4091,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8d24);
     auto const rel = std::vector<uint32_t>(1, 0x54b8);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2193,9 +4110,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x54b8);
     auto const rel = std::vector<uint32_t>(1, 0x6326);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2203,9 +4129,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6326);
     auto const rel = std::vector<uint32_t>(1, 0x80d8);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2213,9 +4148,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x80d8);
     auto const rel = std::vector<uint32_t>(1, 0x5a34);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2223,9 +4167,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5a34);
     auto const rel = std::vector<uint32_t>(1, 0x550c);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2233,9 +4186,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x550c);
     auto const rel = std::vector<uint32_t>(1, 0x5563);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2243,9 +4205,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5563);
     auto const rel = std::vector<uint32_t>(1, 0x5a39);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2253,9 +4224,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5a39);
     auto const rel = std::vector<uint32_t>(1, 0x5a71);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2263,9 +4243,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5a71);
     auto const rel = std::vector<uint32_t>(1, 0x6d8e);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2273,9 +4262,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6d8e);
     auto const rel = std::vector<uint32_t>(1, 0x7d43);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2283,9 +4281,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7d43);
     auto const rel = std::vector<uint32_t>(1, 0x8237);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2293,9 +4300,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8237);
     auto const rel = std::vector<uint32_t>(1, 0x86bf);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2303,9 +4319,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x86bf);
     auto const rel = std::vector<uint32_t>(1, 0x8854);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2313,9 +4338,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8854);
     auto const rel = std::vector<uint32_t>(1, 0x3b79);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2323,9 +4357,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x3b79);
     auto const rel = std::vector<uint32_t>(1, 0x75eb);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2333,9 +4376,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x75eb);
     auto const rel = std::vector<uint32_t>(1, 0x86dd);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2343,9 +4395,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x86dd);
     auto const rel = std::vector<uint32_t>(1, 0x9591);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2353,9 +4414,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9591);
     auto const rel = std::vector<uint32_t>(1, 0x9592);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2363,9 +4433,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9592);
     auto const rel = std::vector<uint32_t>(1, 0x9e47);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2373,9 +4452,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9e47);
     auto const rel = std::vector<uint32_t>(1, 0x5acc);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2383,9 +4471,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5acc);
     auto const rel = std::vector<uint32_t>(1, 0x8858);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2393,9 +4490,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8858);
     auto const rel = std::vector<uint32_t>(1, 0x929c);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2403,9 +4509,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x929c);
     auto const rel = std::vector<uint32_t>(1, 0x5afa);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2413,9 +4528,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5afa);
     auto const rel = std::vector<uint32_t>(1, 0x5afb);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2423,9 +4547,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5afb);
     auto const rel = std::vector<uint32_t>(1, 0x61aa);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2433,9 +4566,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x61aa);
     auto const rel = std::vector<uint32_t>(1, 0x648f);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2443,9 +4585,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x648f);
     auto const rel = std::vector<uint32_t>(1, 0x6f96);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2453,9 +4604,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6f96);
     auto const rel = std::vector<uint32_t>(1, 0x7509);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2463,9 +4623,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7509);
     auto const rel = std::vector<uint32_t>(1, 0x7a34);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2473,9 +4642,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7a34);
     auto const rel = std::vector<uint32_t>(1, 0x8ab8);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2483,9 +4661,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8ab8);
     auto const rel = std::vector<uint32_t>(1, 0x8ce2);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2493,9 +4680,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8ce2);
     auto const rel = std::vector<uint32_t>(1, 0x3bd7);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2503,9 +4699,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x3bd7);
     auto const rel = std::vector<uint32_t>(1, 0x3d6a);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2513,9 +4718,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x3d6a);
     auto const rel = std::vector<uint32_t>(1, 0x71c5);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2523,9 +4737,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x71c5);
     auto const rel = std::vector<uint32_t>(1, 0x8af4);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2533,9 +4756,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8af4);
     auto const rel = std::vector<uint32_t>(1, 0x8f31);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2543,9 +4775,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8f31);
     auto const rel = std::vector<uint32_t>(1, 0x918e);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2553,9 +4794,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x918e);
     auto const rel = std::vector<uint32_t>(1, 0x7647);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2563,9 +4813,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7647);
     auto const rel = std::vector<uint32_t>(1, 0x764e);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2573,9 +4832,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x764e);
     auto const rel = std::vector<uint32_t>(1, 0x77af);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2583,9 +4851,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x77af);
     auto const rel = std::vector<uint32_t>(1, 0x85d6);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2593,9 +4870,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x85d6);
     auto const rel = std::vector<uint32_t>(1, 0x3c0a);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2603,9 +4889,18 @@ TEST(tailoring, zh_zhuyin_013_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x3c0a);
     auto const rel = std::vector<uint32_t>(1, 0x7925);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2617,9 +4912,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7925);
     auto const rel = std::vector<uint32_t>(1, 0x4554);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2627,9 +4931,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x4554);
     auto const rel = std::vector<uint32_t>(1, 0x9e79);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2637,9 +4950,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9e79);
     auto const rel = std::vector<uint32_t>(1, 0x9e99);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2647,9 +4969,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9e99);
     auto const rel = std::vector<uint32_t>(1, 0x8d12);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2657,9 +4988,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8d12);
     auto const rel = std::vector<uint32_t>(1, 0x9df3);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2667,9 +5007,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9df3);
     auto const rel = std::vector<uint32_t>(1, 0x9df4);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2677,9 +5026,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9df4);
     auto const rel = std::vector<uint32_t>(1, 0x9dfc);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2687,9 +5045,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9dfc);
     auto const rel = std::vector<uint32_t>(1, 0x51bc);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2697,9 +5064,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x51bc);
     auto const rel = std::vector<uint32_t>(1, 0x72dd);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2707,9 +5083,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x72dd);
     auto const rel = std::vector<uint32_t>(1, 0x39e5);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2717,9 +5102,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x39e5);
     auto const rel = std::vector<uint32_t>(1, 0x663e);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2727,9 +5121,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x663e);
     auto const rel = std::vector<uint32_t>(1, 0x5d04);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2737,9 +5140,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5d04);
     auto const rel = std::vector<uint32_t>(1, 0x3b60);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2747,9 +5159,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x3b60);
     auto const rel = std::vector<uint32_t>(1, 0x6be8);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2757,9 +5178,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6be8);
     auto const rel = std::vector<uint32_t>(1, 0x70cd);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2767,9 +5197,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x70cd);
     auto const rel = std::vector<uint32_t>(1, 0x7303);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2777,9 +5216,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7303);
     auto const rel = std::vector<uint32_t>(1, 0x86ac);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2787,9 +5235,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x86ac);
     auto const rel = std::vector<uint32_t>(1, 0x9669);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2797,9 +5254,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9669);
     auto const rel = std::vector<uint32_t>(1, 0x8d7b);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2807,9 +5273,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8d7b);
     auto const rel = std::vector<uint32_t>(1, 0x967a);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2817,9 +5292,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x967a);
     auto const rel = std::vector<uint32_t>(1, 0x7b45);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2827,9 +5311,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7b45);
     auto const rel = std::vector<uint32_t>(1, 0x5c1f);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2837,9 +5330,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5c1f);
     auto const rel = std::vector<uint32_t>(1, 0x5c20);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2847,9 +5349,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5c20);
     auto const rel = std::vector<uint32_t>(1, 0x641f);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2857,9 +5368,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x641f);
     auto const rel = std::vector<uint32_t>(1, 0x8de3);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2867,9 +5387,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8de3);
     auto const rel = std::vector<uint32_t>(1, 0x3b0e);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2877,9 +5406,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x3b0e);
     auto const rel = std::vector<uint32_t>(1, 0x7992);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2887,9 +5425,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7992);
     auto const rel = std::vector<uint32_t>(1, 0x9291);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2897,9 +5444,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9291);
     auto const rel = std::vector<uint32_t>(1, 0x7bb2);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2907,9 +5463,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7bb2);
     auto const rel = std::vector<uint32_t>(1, 0x5dae);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2917,9 +5482,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5dae);
     auto const rel = std::vector<uint32_t>(1, 0x736b);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2927,9 +5501,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x736b);
     auto const rel = std::vector<uint32_t>(1, 0x96aa);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2937,9 +5520,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x96aa);
     auto const rel = std::vector<uint32_t>(1, 0x736e);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2947,9 +5539,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x736e);
     auto const rel = std::vector<uint32_t>(1, 0x934c);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2957,9 +5558,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x934c);
     auto const rel = std::vector<uint32_t>(1, 0x71f9);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2967,9 +5577,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x71f9);
     auto const rel = std::vector<uint32_t>(1, 0x85d3);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2977,9 +5596,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x85d3);
     auto const rel = std::vector<uint32_t>(1, 0x9855);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2987,9 +5615,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9855);
     auto const rel = std::vector<uint32_t>(1, 0x5e70);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -2997,9 +5634,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5e70);
     auto const rel = std::vector<uint32_t>(1, 0x6507);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3007,9 +5653,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6507);
     auto const rel = std::vector<uint32_t>(1, 0x6af6);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3017,9 +5672,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6af6);
     auto const rel = std::vector<uint32_t>(1, 0x8b63);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3027,9 +5691,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8b63);
     auto const rel = std::vector<uint32_t>(1, 0x861a);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3037,9 +5710,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x861a);
     auto const rel = std::vector<uint32_t>(1, 0x4606);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3047,9 +5729,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x4606);
     auto const rel = std::vector<uint32_t>(1, 0x496a);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3057,9 +5748,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x496a);
     auto const rel = std::vector<uint32_t>(1, 0x7381);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3067,9 +5767,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7381);
     auto const rel = std::vector<uint32_t>(1, 0x97c5);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3077,9 +5786,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x97c5);
     auto const rel = std::vector<uint32_t>(1, 0x986f);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3087,9 +5805,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x986f);
     auto const rel = std::vector<uint32_t>(1, 0x7066);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3097,9 +5824,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7066);
     auto const rel = std::vector<uint32_t>(1, 0x4f23);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3107,9 +5843,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x4f23);
     auto const rel = std::vector<uint32_t>(1, 0x53bf);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3117,9 +5862,18 @@ TEST(tailoring, zh_zhuyin_013_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x53bf);
     auto const rel = std::vector<uint32_t>(1, 0x5c98);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3131,9 +5885,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5c98);
     auto const rel = std::vector<uint32_t>(1, 0x2070e);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3141,9 +5904,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x2070e);
     auto const rel = std::vector<uint32_t>(1, 0x73b0);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3151,9 +5923,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x73b0);
     auto const rel = std::vector<uint32_t>(1, 0x7ebf);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3161,9 +5942,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7ebf);
     auto const rel = std::vector<uint32_t>(1, 0x81fd);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3171,9 +5961,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x81fd);
     auto const rel = std::vector<uint32_t>(1, 0x82cb);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3181,9 +5980,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x82cb);
     auto const rel = std::vector<uint32_t>(1, 0x549e);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3191,9 +5999,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x549e);
     auto const rel = std::vector<uint32_t>(1, 0x59ed);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3201,9 +6018,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x59ed);
     auto const rel = std::vector<uint32_t>(1, 0x5baa);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3211,9 +6037,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5baa);
     auto const rel = std::vector<uint32_t>(1, 0x770c);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3221,9 +6056,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x770c);
     auto const rel = std::vector<uint32_t>(1, 0x9650);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3231,9 +6075,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9650);
     auto const rel = std::vector<uint32_t>(1, 0x54ef);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3241,9 +6094,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x54ef);
     auto const rel = std::vector<uint32_t>(1, 0x57b7);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3251,9 +6113,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x57b7);
     auto const rel = std::vector<uint32_t>(1, 0x5a0a);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3261,9 +6132,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5a0a);
     auto const rel = std::vector<uint32_t>(1, 0x5a28);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3271,9 +6151,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5a28);
     auto const rel = std::vector<uint32_t>(1, 0x5cf4);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3281,9 +6170,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5cf4);
     auto const rel = std::vector<uint32_t>(1, 0x3a87);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3291,9 +6189,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x3a87);
     auto const rel = std::vector<uint32_t>(1, 0x6d80);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3301,9 +6208,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6d80);
     auto const rel = std::vector<uint32_t>(1, 0x9665);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3311,9 +6227,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9665);
     auto const rel = std::vector<uint32_t>(1, 0x665b);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3321,9 +6246,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x665b);
     auto const rel = std::vector<uint32_t>(1, 0x73fe);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3331,9 +6265,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x73fe);
     auto const rel = std::vector<uint32_t>(1, 0x784d);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3341,9 +6284,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x784d);
     auto const rel = std::vector<uint32_t>(1, 0x83a7);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3351,9 +6303,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x83a7);
     auto const rel = std::vector<uint32_t>(1, 0x9677);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3361,9 +6322,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9677);
     auto const rel = std::vector<uint32_t>(1, 0x9985);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3371,9 +6341,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9985);
     auto const rel = std::vector<uint32_t>(1, 0x774d);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3381,9 +6360,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x774d);
     auto const rel = std::vector<uint32_t>(1, 0x7d64);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3391,9 +6379,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7d64);
     auto const rel = std::vector<uint32_t>(1, 0x7f10);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3401,9 +6398,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7f10);
     auto const rel = std::vector<uint32_t>(1, 0x7fa1);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3411,9 +6417,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7fa1);
     auto const rel = std::vector<uint32_t>(1, 0x732e);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3421,9 +6436,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x732e);
     auto const rel = std::vector<uint32_t>(1, 0x7caf);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3431,9 +6455,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7caf);
     auto const rel = std::vector<uint32_t>(1, 0x7fa8);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3441,9 +6474,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7fa8);
     auto const rel = std::vector<uint32_t>(1, 0x817a);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3451,9 +6493,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x817a);
     auto const rel = std::vector<uint32_t>(1, 0x8706);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3461,9 +6512,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8706);
     auto const rel = std::vector<uint32_t>(1, 0x49df);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3471,9 +6531,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x49df);
     auto const rel = std::vector<uint32_t>(1, 0x50e9);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3481,9 +6550,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x50e9);
     auto const rel = std::vector<uint32_t>(1, 0x50f4);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3491,9 +6569,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x50f4);
     auto const rel = std::vector<uint32_t>(1, 0x21416);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3501,9 +6588,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x21416);
     auto const rel = std::vector<uint32_t>(1, 0x7dab);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3511,9 +6607,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7dab);
     auto const rel = std::vector<uint32_t>(1, 0x8aa2);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3521,9 +6626,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8aa2);
     auto const rel = std::vector<uint32_t>(1, 0x648a);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3531,9 +6645,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x648a);
     auto const rel = std::vector<uint32_t>(1, 0x7dda);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3541,9 +6664,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7dda);
     auto const rel = std::vector<uint32_t>(1, 0x92e7);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3551,9 +6683,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x92e7);
     auto const rel = std::vector<uint32_t>(1, 0x61b2);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3561,9 +6702,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x61b2);
     auto const rel = std::vector<uint32_t>(1, 0x3b17);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3571,9 +6721,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x3b17);
     auto const rel = std::vector<uint32_t>(1, 0x6a4c);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3581,9 +6740,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6a4c);
     auto const rel = std::vector<uint32_t>(1, 0x7e23);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3591,9 +6759,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7e23);
     auto const rel = std::vector<uint32_t>(1, 0x930e);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3601,9 +6778,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x930e);
     auto const rel = std::vector<uint32_t>(1, 0x9921);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3611,9 +6797,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9921);
     auto const rel = std::vector<uint32_t>(1, 0x58cf);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3621,9 +6816,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x58cf);
     auto const rel = std::vector<uint32_t>(1, 0x8c4f);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3631,9 +6835,18 @@ TEST(tailoring, zh_zhuyin_013_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8c4f);
     auto const rel = std::vector<uint32_t>(1, 0x493c);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3645,9 +6858,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x493c);
     auto const rel = std::vector<uint32_t>(1, 0x9eb2);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3655,9 +6877,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9eb2);
     auto const rel = std::vector<uint32_t>(1, 0x7017);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3665,9 +6896,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7017);
     auto const rel = std::vector<uint32_t>(1, 0x81d4);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3675,9 +6915,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x81d4);
     auto const rel = std::vector<uint32_t>(1, 0x737b);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3685,9 +6934,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x737b);
     auto const rel = std::vector<uint32_t>(1, 0x7cee);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3695,9 +6953,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7cee);
     auto const rel = std::vector<uint32_t>(1, 0x9f38);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3705,9 +6972,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9f38);
     auto const rel = std::vector<uint32_t>(1, 0x50f2);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3715,9 +6991,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x50f2);
     auto const rel = std::vector<uint32_t>(1, 0x7e4a);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3725,9 +7010,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7e4a);
     auto const rel = std::vector<uint32_t>(1, 0x9466);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3735,9 +7029,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9466);
     auto const rel = std::vector<uint32_t>(1, 0x5fc3);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3745,9 +7048,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5fc3);
     auto const rel = std::vector<uint32_t>(1, 0x59a1);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3755,9 +7067,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x59a1);
     auto const rel = std::vector<uint32_t>(1, 0x5ffb);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3765,9 +7086,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5ffb);
     auto const rel = std::vector<uint32_t>(1, 0x8f9b);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3775,9 +7105,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8f9b);
     auto const rel = std::vector<uint32_t>(1, 0x90a4);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3785,9 +7124,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x90a4);
     auto const rel = std::vector<uint32_t>(1, 0x6615);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3795,9 +7143,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6615);
     auto const rel = std::vector<uint32_t>(1, 0x677a);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3805,9 +7162,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x677a);
     auto const rel = std::vector<uint32_t>(1, 0x6b23);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3815,9 +7181,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6b23);
     auto const rel = std::vector<uint32_t>(1, 0x7098);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3825,9 +7200,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7098);
     auto const rel = std::vector<uint32_t>(1, 0x82af);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3835,9 +7219,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x82af);
     auto const rel = std::vector<uint32_t>(1, 0x76fa);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3845,9 +7238,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x76fa);
     auto const rel = std::vector<uint32_t>(1, 0x4ffd);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3855,9 +7257,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x4ffd);
     auto const rel = std::vector<uint32_t>(1, 0x3b62);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3865,9 +7276,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x3b62);
     auto const rel = std::vector<uint32_t>(1, 0x60de);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3875,9 +7295,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x60de);
     auto const rel = std::vector<uint32_t>(1, 0x8a22);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3885,9 +7314,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8a22);
     auto const rel = std::vector<uint32_t>(1, 0x920a);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3895,9 +7333,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x920a);
     auto const rel = std::vector<uint32_t>(1, 0x950c);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3905,9 +7352,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x950c);
     auto const rel = std::vector<uint32_t>(1, 0x65b0);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3915,9 +7371,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x65b0);
     auto const rel = std::vector<uint32_t>(1, 0x6b46);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3925,9 +7390,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6b46);
     auto const rel = std::vector<uint32_t>(1, 0x5ede);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3935,9 +7409,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5ede);
     auto const rel = std::vector<uint32_t>(1, 0x92c5);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3945,9 +7428,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x92c5);
     auto const rel = std::vector<uint32_t>(1, 0x5b1c);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3955,9 +7447,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5b1c);
     auto const rel = std::vector<uint32_t>(1, 0x85aa);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3965,9 +7466,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x85aa);
     auto const rel = std::vector<uint32_t>(1, 0x99a8);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3975,9 +7485,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x99a8);
     auto const rel = std::vector<uint32_t>(1, 0x946b);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3985,9 +7504,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x946b);
     auto const rel = std::vector<uint32_t>(1, 0x99ab);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -3995,9 +7523,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x99ab);
     auto const rel = std::vector<uint32_t>(1, 0x6794);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4005,9 +7542,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6794);
     auto const rel = std::vector<uint32_t>(1, 0x3726);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4015,9 +7561,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x3726);
     auto const rel = std::vector<uint32_t>(1, 0x8951);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4025,9 +7580,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8951);
     auto const rel = std::vector<uint32_t>(1, 0x9414);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4035,9 +7599,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9414);
     auto const rel = std::vector<uint32_t>(1, 0x4f08);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4045,9 +7618,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x4f08);
     auto const rel = std::vector<uint32_t>(1, 0x3430);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4055,9 +7637,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x3430);
     auto const rel = std::vector<uint32_t>(1, 0x4f29);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4065,9 +7656,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x4f29);
     auto const rel = std::vector<uint32_t>(1, 0x56df);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4075,9 +7675,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x56df);
     auto const rel = std::vector<uint32_t>(1, 0x9620);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4085,9 +7694,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9620);
     auto const rel = std::vector<uint32_t>(1, 0x5b5e);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4095,9 +7713,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5b5e);
     auto const rel = std::vector<uint32_t>(1, 0x3b44);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4105,9 +7732,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x3b44);
     auto const rel = std::vector<uint32_t>(1, 0x248f2);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4115,9 +7751,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x248f2);
     auto const rel = std::vector<uint32_t>(1, 0x4fe1);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4125,9 +7770,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x4fe1);
     auto const rel = std::vector<uint32_t>(1, 0x8ed0);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4135,9 +7789,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8ed0);
     auto const rel = std::vector<uint32_t>(1, 0x812a);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4145,9 +7808,18 @@ TEST(tailoring, zh_zhuyin_013_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x812a);
     auto const rel = std::vector<uint32_t>(1, 0x8845);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4159,9 +7831,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8845);
     auto const rel = std::vector<uint32_t>(1, 0x8a2b);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4169,9 +7850,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8a2b);
     auto const rel = std::vector<uint32_t>(1, 0x712e);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4179,9 +7869,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x712e);
     auto const rel = std::vector<uint32_t>(1, 0x7161);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4189,9 +7888,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7161);
     auto const rel = std::vector<uint32_t>(1, 0x99b8);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4199,9 +7907,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x99b8);
     auto const rel = std::vector<uint32_t>(1, 0x820b);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4209,9 +7926,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x820b);
     auto const rel = std::vector<uint32_t>(1, 0x9856);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4219,9 +7945,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9856);
     auto const rel = std::vector<uint32_t>(1, 0x91c1);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4229,9 +7964,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x91c1);
     auto const rel = std::vector<uint32_t>(1, 0x5fc4);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4239,9 +7983,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5fc4);
     auto const rel = std::vector<uint32_t>(1, 0x567a);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4249,9 +8002,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x567a);
     auto const rel = std::vector<uint32_t>(1, 0x4e61);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4259,9 +8021,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x4e61);
     auto const rel = std::vector<uint32_t>(1, 0x8297);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4269,9 +8040,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8297);
     auto const rel = std::vector<uint32_t>(1, 0x76f8);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4279,9 +8059,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x76f8);
     auto const rel = std::vector<uint32_t>(1, 0x9999);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4289,9 +8078,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9999);
     auto const rel = std::vector<uint32_t>(1, 0x53a2);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4299,9 +8097,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x53a2);
     auto const rel = std::vector<uint32_t>(1, 0x554c);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4309,9 +8116,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x554c);
     auto const rel = std::vector<uint32_t>(1, 0x90f7);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4319,9 +8135,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x90f7);
     auto const rel = std::vector<uint32_t>(1, 0x5ec2);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4329,9 +8154,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5ec2);
     auto const rel = std::vector<uint32_t>(1, 0x6e58);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4339,9 +8173,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6e58);
     auto const rel = std::vector<uint32_t>(1, 0x7f03);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4349,9 +8192,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7f03);
     auto const rel = std::vector<uint32_t>(1, 0x9109);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4359,9 +8211,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9109);
     auto const rel = std::vector<uint32_t>(1, 0x910a);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4369,9 +8230,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x910a);
     auto const rel = std::vector<uint32_t>(1, 0x7a25);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4379,9 +8249,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7a25);
     auto const rel = std::vector<uint32_t>(1, 0x8459);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4389,9 +8268,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8459);
     auto const rel = std::vector<uint32_t>(1, 0x9115);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4399,9 +8287,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9115);
     auto const rel = std::vector<uint32_t>(1, 0x7bb1);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4409,9 +8306,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7bb1);
     auto const rel = std::vector<uint32_t>(1, 0x7dd7);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4419,9 +8325,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7dd7);
     auto const rel = std::vector<uint32_t>(1, 0x81b7);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4429,9 +8344,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x81b7);
     auto const rel = std::vector<uint32_t>(1, 0x858c);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4439,9 +8363,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x858c);
     auto const rel = std::vector<uint32_t>(1, 0x8944);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4449,9 +8382,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8944);
     auto const rel = std::vector<uint32_t>(1, 0x5fc0);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4459,9 +8401,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5fc0);
     auto const rel = std::vector<uint32_t>(1, 0x9aa7);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4469,9 +8420,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9aa7);
     auto const rel = std::vector<uint32_t>(1, 0x9e98);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4479,9 +8439,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9e98);
     auto const rel = std::vector<uint32_t>(1, 0x6b00);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4489,9 +8458,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6b00);
     auto const rel = std::vector<uint32_t>(1, 0x74d6);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4499,9 +8477,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x74d6);
     auto const rel = std::vector<uint32_t>(1, 0x9576);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4509,9 +8496,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9576);
     auto const rel = std::vector<uint32_t>(1, 0x9472);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4519,9 +8515,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9472);
     auto const rel = std::vector<uint32_t>(1, 0x9a64);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4529,9 +8534,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9a64);
     auto const rel = std::vector<uint32_t>(1, 0x4f6d);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4539,9 +8553,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x4f6d);
     auto const rel = std::vector<uint32_t>(1, 0x74e8);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4549,9 +8572,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x74e8);
     auto const rel = std::vector<uint32_t>(1, 0x8be6);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4559,9 +8591,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8be6);
     auto const rel = std::vector<uint32_t>(1, 0x5ea0);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4569,9 +8610,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5ea0);
     auto const rel = std::vector<uint32_t>(1, 0x6819);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4579,9 +8629,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6819);
     auto const rel = std::vector<uint32_t>(1, 0x7965);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4589,9 +8648,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7965);
     auto const rel = std::vector<uint32_t>(1, 0x7d74);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4599,9 +8667,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7d74);
     auto const rel = std::vector<uint32_t>(1, 0x7fd4);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4609,9 +8686,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7fd4);
     auto const rel = std::vector<uint32_t>(1, 0x8a73);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4619,9 +8705,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8a73);
     auto const rel = std::vector<uint32_t>(1, 0x8ded);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4629,9 +8724,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8ded);
     auto const rel = std::vector<uint32_t>(1, 0x4eab);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4639,9 +8743,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x4eab);
     auto const rel = std::vector<uint32_t>(1, 0x4eaf);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4649,9 +8762,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x4eaf);
     auto const rel = std::vector<uint32_t>(1, 0x54cd);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4659,9 +8781,18 @@ TEST(tailoring, zh_zhuyin_013_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x54cd);
     auto const rel = std::vector<uint32_t>(1, 0x9977);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4673,9 +8804,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9977);
     auto const rel = std::vector<uint32_t>(1, 0x6651);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4683,9 +8823,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6651);
     auto const rel = std::vector<uint32_t>(1, 0x98e8);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4693,9 +8842,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x98e8);
     auto const rel = std::vector<uint32_t>(1, 0x60f3);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4703,9 +8861,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x60f3);
     auto const rel = std::vector<uint32_t>(1, 0x9284);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4713,9 +8880,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9284);
     auto const rel = std::vector<uint32_t>(1, 0x9909);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4723,9 +8899,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9909);
     auto const rel = std::vector<uint32_t>(1, 0x9c9e);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4733,9 +8918,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9c9e);
     auto const rel = std::vector<uint32_t>(1, 0x66cf);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4743,9 +8937,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x66cf);
     auto const rel = std::vector<uint32_t>(1, 0x9b9d);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4753,9 +8956,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9b9d);
     auto const rel = std::vector<uint32_t>(1, 0x8801);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4763,9 +8975,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8801);
     auto const rel = std::vector<uint32_t>(1, 0x9bd7);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4773,9 +8994,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9bd7);
     auto const rel = std::vector<uint32_t>(1, 0x97ff);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4783,9 +9013,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x97ff);
     auto const rel = std::vector<uint32_t>(1, 0x9957);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4793,9 +9032,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9957);
     auto const rel = std::vector<uint32_t>(1, 0x995f);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4803,9 +9051,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x995f);
     auto const rel = std::vector<uint32_t>(1, 0x9c76);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4813,9 +9070,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9c76);
     auto const rel = std::vector<uint32_t>(1, 0x5411);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4823,9 +9089,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5411);
     auto const rel = std::vector<uint32_t>(1, 0x59e0);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4833,9 +9108,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x59e0);
     auto const rel = std::vector<uint32_t>(1, 0x5df7);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4843,9 +9127,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5df7);
     auto const rel = std::vector<uint32_t>(1, 0x8683);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4853,9 +9146,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8683);
     auto const rel = std::vector<uint32_t>(1, 0x9879);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4863,9 +9165,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9879);
     auto const rel = std::vector<uint32_t>(1, 0x73e6);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4873,9 +9184,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x73e6);
     auto const rel = std::vector<uint32_t>(1, 0x5842);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4883,9 +9203,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5842);
     auto const rel = std::vector<uint32_t>(1, 0x7f3f);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4893,9 +9222,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7f3f);
     auto const rel = std::vector<uint32_t>(1, 0x8856);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4903,9 +9241,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8856);
     auto const rel = std::vector<uint32_t>(1, 0x8c61);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4913,9 +9260,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8c61);
     auto const rel = std::vector<uint32_t>(1, 0x9805);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4923,9 +9279,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9805);
     auto const rel = std::vector<uint32_t>(1, 0x842b);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4933,9 +9298,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x842b);
     auto const rel = std::vector<uint32_t>(1, 0x50cf);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4943,9 +9317,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x50cf);
     auto const rel = std::vector<uint32_t>(1, 0x52e8);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4953,9 +9336,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x52e8);
     auto const rel = std::vector<uint32_t>(1, 0x9297);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4963,9 +9355,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9297);
     auto const rel = std::vector<uint32_t>(1, 0x5d91);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4973,9 +9374,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5d91);
     auto const rel = std::vector<uint32_t>(1, 0x6a61);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4983,9 +9393,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6a61);
     auto const rel = std::vector<uint32_t>(1, 0x95c0);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -4993,9 +9412,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x95c0);
     auto const rel = std::vector<uint32_t>(1, 0x56ae);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5003,9 +9431,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x56ae);
     auto const rel = std::vector<uint32_t>(1, 0x87d3);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5013,9 +9450,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x87d3);
     auto const rel = std::vector<uint32_t>(1, 0x8950);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5023,9 +9469,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8950);
     auto const rel = std::vector<uint32_t>(1, 0x940c);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5033,9 +9488,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x940c);
     auto const rel = std::vector<uint32_t>(1, 0x9c4c);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5043,9 +9507,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9c4c);
     auto const rel = std::vector<uint32_t>(1, 0x697f);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5053,9 +9526,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x697f);
     auto const rel = std::vector<uint32_t>(1, 0x9c5c);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5063,9 +9545,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9c5c);
     auto const rel = std::vector<uint32_t>(1, 0x661f);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5073,9 +9564,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x661f);
     auto const rel = std::vector<uint32_t>(1, 0x57b6);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5083,9 +9583,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x57b6);
     auto const rel = std::vector<uint32_t>(1, 0x9a8d);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5093,9 +9602,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9a8d);
     auto const rel = std::vector<uint32_t>(1, 0x60fa);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5103,9 +9621,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x60fa);
     auto const rel = std::vector<uint32_t>(1, 0x7329);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5113,9 +9640,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7329);
     auto const rel = std::vector<uint32_t>(1, 0x714b);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5123,9 +9659,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x714b);
     auto const rel = std::vector<uint32_t>(1, 0x7446);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5133,9 +9678,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7446);
     auto const rel = std::vector<uint32_t>(1, 0x8165);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5143,9 +9697,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8165);
     auto const rel = std::vector<uint32_t>(1, 0x86f5);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5153,9 +9716,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x86f5);
     auto const rel = std::vector<uint32_t>(1, 0x89ea);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5163,9 +9735,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x89ea);
     auto const rel = std::vector<uint32_t>(1, 0x7bb5);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5173,9 +9754,18 @@ TEST(tailoring, zh_zhuyin_013_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7bb5);
     auto const rel = std::vector<uint32_t>(1, 0x7bc2);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5187,9 +9777,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7bc2);
     auto const rel = std::vector<uint32_t>(1, 0x9b8f);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5197,9 +9796,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9b8f);
     auto const rel = std::vector<uint32_t>(1, 0x66d0);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5207,9 +9815,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x66d0);
     auto const rel = std::vector<uint32_t>(1, 0x89f2);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5217,9 +9834,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x89f2);
     auto const rel = std::vector<uint32_t>(1, 0x935f);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5227,9 +9853,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x935f);
     auto const rel = std::vector<uint32_t>(1, 0x9a02);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5237,9 +9872,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9a02);
     auto const rel = std::vector<uint32_t>(1, 0x76a8);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5247,9 +9891,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x76a8);
     auto const rel = std::vector<uint32_t>(1, 0x9bf9);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5257,9 +9910,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9bf9);
     auto const rel = std::vector<uint32_t>(1, 0x5211);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5267,9 +9929,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5211);
     auto const rel = std::vector<uint32_t>(1, 0x884c);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5277,9 +9948,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x884c);
     auto const rel = std::vector<uint32_t>(1, 0x5f62);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5287,9 +9967,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5f62);
     auto const rel = std::vector<uint32_t>(1, 0x90a2);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5297,9 +9986,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x90a2);
     auto const rel = std::vector<uint32_t>(1, 0x4f80);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5307,9 +10005,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x4f80);
     auto const rel = std::vector<uint32_t>(1, 0x9649);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5317,9 +10024,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9649);
     auto const rel = std::vector<uint32_t>(1, 0x578b);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5327,9 +10043,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x578b);
     auto const rel = std::vector<uint32_t>(1, 0x6d10);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5337,9 +10062,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6d10);
     auto const rel = std::vector<uint32_t>(1, 0x90c9);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5347,9 +10081,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x90c9);
     auto const rel = std::vector<uint32_t>(1, 0x9498);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5357,9 +10100,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9498);
     auto const rel = std::vector<uint32_t>(1, 0x5a19);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5367,9 +10119,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5a19);
     auto const rel = std::vector<uint32_t>(1, 0x8365);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5377,9 +10138,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8365);
     auto const rel = std::vector<uint32_t>(1, 0x9658);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5387,9 +10157,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9658);
     auto const rel = std::vector<uint32_t>(1, 0x784e);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5397,9 +10176,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x784e);
     auto const rel = std::vector<uint32_t>(1, 0x94cf);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5407,9 +10195,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x94cf);
     auto const rel = std::vector<uint32_t>(1, 0x9203);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5417,9 +10214,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9203);
     auto const rel = std::vector<uint32_t>(1, 0x6ece);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5427,9 +10233,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6ece);
     auto const rel = std::vector<uint32_t>(1, 0x9276);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5437,9 +10252,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9276);
     auto const rel = std::vector<uint32_t>(1, 0x9292);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5447,9 +10271,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9292);
     auto const rel = std::vector<uint32_t>(1, 0x92de);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5457,9 +10290,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x92de);
     auto const rel = std::vector<uint32_t>(1, 0x3a18);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5467,9 +10309,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x3a18);
     auto const rel = std::vector<uint32_t>(1, 0x7772);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5477,9 +10328,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7772);
     auto const rel = std::vector<uint32_t>(1, 0x9192);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5487,9 +10347,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9192);
     auto const rel = std::vector<uint32_t>(1, 0x64e4);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5497,9 +10366,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x64e4);
     auto const rel = std::vector<uint32_t>(1, 0x5174);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5507,9 +10385,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5174);
     auto const rel = std::vector<uint32_t>(1, 0x674f);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5517,9 +10404,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x674f);
     auto const rel = std::vector<uint32_t>(1, 0x59d3);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5527,9 +10423,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x59d3);
     auto const rel = std::vector<uint32_t>(1, 0x5e78);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5537,9 +10442,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5e78);
     auto const rel = std::vector<uint32_t>(1, 0x6027);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5547,9 +10461,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6027);
     auto const rel = std::vector<uint32_t>(1, 0x5016);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5557,9 +10480,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5016);
     auto const rel = std::vector<uint32_t>(1, 0x8347);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5567,9 +10499,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8347);
     auto const rel = std::vector<uint32_t>(1, 0x5a5e);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5577,9 +10518,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5a5e);
     auto const rel = std::vector<uint32_t>(1, 0x60bb);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5587,9 +10537,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x60bb);
     auto const rel = std::vector<uint32_t>(1, 0x6dac);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5597,9 +10556,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6dac);
     auto const rel = std::vector<uint32_t>(1, 0x8395);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5607,9 +10575,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8395);
     auto const rel = std::vector<uint32_t>(1, 0x7dc8);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5617,9 +10594,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7dc8);
     auto const rel = std::vector<uint32_t>(1, 0x8208);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5627,9 +10613,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8208);
     auto const rel = std::vector<uint32_t>(1, 0x5b39);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5637,9 +10632,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5b39);
     auto const rel = std::vector<uint32_t>(1, 0x81d6);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5647,9 +10651,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x81d6);
     auto const rel = std::vector<uint32_t>(1, 0x54d8);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5657,9 +10670,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x54d8);
     auto const rel = std::vector<uint32_t>(1, 0x88c4);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5667,9 +10689,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x88c4);
     auto const rel = std::vector<uint32_t>(1, 0x8b03);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5677,9 +10708,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8b03);
     auto const rel = std::vector<uint32_t>(1, 0x5401);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5687,9 +10727,18 @@ TEST(tailoring, zh_zhuyin_013_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5401);
     auto const rel = std::vector<uint32_t>(1, 0x620c);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5701,9 +10750,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x620c);
     auto const rel = std::vector<uint32_t>(1, 0x65f4);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5711,9 +10769,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x65f4);
     auto const rel = std::vector<uint32_t>(1, 0x759e);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5721,9 +10788,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x759e);
     auto const rel = std::vector<uint32_t>(1, 0x76f1);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5731,9 +10807,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x76f1);
     auto const rel = std::vector<uint32_t>(1, 0x6b28);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5741,9 +10826,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6b28);
     auto const rel = std::vector<uint32_t>(1, 0x80e5);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5751,9 +10845,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x80e5);
     auto const rel = std::vector<uint32_t>(1, 0x987b);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5761,9 +10864,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x987b);
     auto const rel = std::vector<uint32_t>(1, 0x6647);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5771,9 +10883,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6647);
     auto const rel = std::vector<uint32_t>(1, 0x8a0f);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5781,9 +10902,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8a0f);
     auto const rel = std::vector<uint32_t>(1, 0x987c);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5791,9 +10921,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x987c);
     auto const rel = std::vector<uint32_t>(1, 0x8657);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5801,9 +10940,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8657);
     auto const rel = std::vector<uint32_t>(1, 0x865a);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5811,9 +10959,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x865a);
     auto const rel = std::vector<uint32_t>(1, 0x8c1e);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5821,9 +10978,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8c1e);
     auto const rel = std::vector<uint32_t>(1, 0x5aad);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5831,9 +10997,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5aad);
     auto const rel = std::vector<uint32_t>(1, 0x5e41);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5841,9 +11016,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5e41);
     auto const rel = std::vector<uint32_t>(1, 0x63df);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5851,9 +11035,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x63df);
     auto const rel = std::vector<uint32_t>(1, 0x6e51);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5861,9 +11054,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6e51);
     auto const rel = std::vector<uint32_t>(1, 0x247e0);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5871,9 +11073,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x247e0);
     auto const rel = std::vector<uint32_t>(1, 0x865b);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5881,9 +11092,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x865b);
     auto const rel = std::vector<uint32_t>(1, 0x88c7);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5891,9 +11111,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x88c7);
     auto const rel = std::vector<uint32_t>(1, 0x9808);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5901,9 +11130,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9808);
     auto const rel = std::vector<uint32_t>(1, 0x6948);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5911,9 +11149,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6948);
     auto const rel = std::vector<uint32_t>(1, 0x7aa2);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5921,9 +11168,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7aa2);
     auto const rel = std::vector<uint32_t>(1, 0x980a);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5931,9 +11187,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x980a);
     auto const rel = std::vector<uint32_t>(1, 0x5618);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5941,9 +11206,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5618);
     auto const rel = std::vector<uint32_t>(1, 0x9700);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5951,9 +11225,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9700);
     auto const rel = std::vector<uint32_t>(1, 0x5653);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5961,9 +11244,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5653);
     auto const rel = std::vector<uint32_t>(1, 0x589f);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5971,9 +11263,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x589f);
     auto const rel = std::vector<uint32_t>(1, 0x5b03);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5981,9 +11282,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5b03);
     auto const rel = std::vector<uint32_t>(1, 0x7e03);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -5991,9 +11301,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7e03);
     auto const rel = std::vector<uint32_t>(1, 0x8751);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6001,9 +11320,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8751);
     auto const rel = std::vector<uint32_t>(1, 0x9b46);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6011,9 +11339,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9b46);
     auto const rel = std::vector<uint32_t>(1, 0x6b54);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6021,9 +11358,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6b54);
     auto const rel = std::vector<uint32_t>(1, 0x8566);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6031,9 +11377,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8566);
     auto const rel = std::vector<uint32_t>(1, 0x8add);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6041,9 +11396,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8add);
     auto const rel = std::vector<uint32_t>(1, 0x8b43);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6051,9 +11415,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8b43);
     auto const rel = std::vector<uint32_t>(1, 0x7e7b);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6061,9 +11434,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7e7b);
     auto const rel = std::vector<uint32_t>(1, 0x9450);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6071,9 +11453,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9450);
     auto const rel = std::vector<uint32_t>(1, 0x9a49);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6081,9 +11472,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9a49);
     auto const rel = std::vector<uint32_t>(1, 0x9b1a);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6091,9 +11491,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9b1a);
     auto const rel = std::vector<uint32_t>(1, 0x9b56);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6101,9 +11510,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9b56);
     auto const rel = std::vector<uint32_t>(1, 0x4fc6);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6111,9 +11529,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x4fc6);
     auto const rel = std::vector<uint32_t>(1, 0x5f90);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6121,9 +11548,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5f90);
     auto const rel = std::vector<uint32_t>(1, 0x84a3);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6131,9 +11567,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x84a3);
     auto const rel = std::vector<uint32_t>(1, 0x8bb8);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6141,9 +11586,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8bb8);
     auto const rel = std::vector<uint32_t>(1, 0x5474);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6151,9 +11605,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5474);
     auto const rel = std::vector<uint32_t>(1, 0x59c1);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6161,9 +11624,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x59c1);
     auto const rel = std::vector<uint32_t>(1, 0x8be9);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6171,9 +11643,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8be9);
     auto const rel = std::vector<uint32_t>(1, 0x5194);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6181,9 +11662,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5194);
     auto const rel = std::vector<uint32_t>(1, 0x6829);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6191,9 +11681,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6829);
     auto const rel = std::vector<uint32_t>(1, 0x73dd);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6201,9 +11700,18 @@ TEST(tailoring, zh_zhuyin_013_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x73dd);
     auto const rel = std::vector<uint32_t>(1, 0x5066);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6215,9 +11723,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5066);
     auto const rel = std::vector<uint32_t>(1, 0x8a31);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6225,9 +11742,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8a31);
     auto const rel = std::vector<uint32_t>(1, 0x668a);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6235,9 +11761,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x668a);
     auto const rel = std::vector<uint32_t>(1, 0x8a61);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6245,9 +11780,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8a61);
     auto const rel = std::vector<uint32_t>(1, 0x7a30);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6255,9 +11799,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7a30);
     auto const rel = std::vector<uint32_t>(1, 0x7cc8);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6265,9 +11818,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7cc8);
     auto const rel = std::vector<uint32_t>(1, 0x9126);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6275,9 +11837,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9126);
     auto const rel = std::vector<uint32_t>(1, 0x9191);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6285,9 +11856,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9191);
     auto const rel = std::vector<uint32_t>(1, 0x76e8);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6295,9 +11875,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x76e8);
     auto const rel = std::vector<uint32_t>(1, 0x65ed);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6305,9 +11894,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x65ed);
     auto const rel = std::vector<uint32_t>(1, 0x4f35);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6315,9 +11913,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x4f35);
     auto const rel = std::vector<uint32_t>(1, 0x5e8f);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6325,9 +11932,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5e8f);
     auto const rel = std::vector<uint32_t>(1, 0x6c7f);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6335,9 +11951,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6c7f);
     auto const rel = std::vector<uint32_t>(1, 0x4f90);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6345,9 +11970,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x4f90);
     auto const rel = std::vector<uint32_t>(1, 0x5379);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6355,9 +11989,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5379);
     auto const rel = std::vector<uint32_t>(1, 0x6034);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6365,9 +12008,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6034);
     auto const rel = std::vector<uint32_t>(1, 0x6c80);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6375,9 +12027,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6c80);
     auto const rel = std::vector<uint32_t>(1, 0x82a7);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6385,9 +12046,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x82a7);
     auto const rel = std::vector<uint32_t>(1, 0x53d9);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6395,9 +12065,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x53d9);
     auto const rel = std::vector<uint32_t>(1, 0x6064);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6405,9 +12084,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6064);
     auto const rel = std::vector<uint32_t>(1, 0x662b);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6415,9 +12103,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x662b);
     auto const rel = std::vector<uint32_t>(1, 0x6d2b);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6425,9 +12122,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6d2b);
     auto const rel = std::vector<uint32_t>(1, 0x460f);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6435,9 +12141,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x460f);
     auto const rel = std::vector<uint32_t>(1, 0x57bf);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6445,9 +12160,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x57bf);
     auto const rel = std::vector<uint32_t>(1, 0x6b30);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6455,9 +12179,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6b30);
     auto const rel = std::vector<uint32_t>(1, 0x6b88);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6465,9 +12198,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6b88);
     auto const rel = std::vector<uint32_t>(1, 0x70c5);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6475,9 +12217,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x70c5);
     auto const rel = std::vector<uint32_t>(1, 0x73ec);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6485,9 +12236,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x73ec);
     auto const rel = std::vector<uint32_t>(1, 0x52d6);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6495,9 +12255,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x52d6);
     auto const rel = std::vector<uint32_t>(1, 0x654d);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6505,9 +12274,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x654d);
     auto const rel = std::vector<uint32_t>(1, 0x6558);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6515,9 +12293,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6558);
     auto const rel = std::vector<uint32_t>(1, 0x52d7);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6525,9 +12312,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x52d7);
     auto const rel = std::vector<uint32_t>(1, 0x70fc);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6535,9 +12331,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x70fc);
     auto const rel = std::vector<uint32_t>(1, 0x7eea);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6545,9 +12350,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7eea);
     auto const rel = std::vector<uint32_t>(1, 0x7eed);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6555,9 +12369,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7eed);
     auto const rel = std::vector<uint32_t>(1, 0x9157);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6565,9 +12388,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9157);
     auto const rel = std::vector<uint32_t>(1, 0x55a3);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6575,9 +12407,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x55a3);
     auto const rel = std::vector<uint32_t>(1, 0x58fb);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6585,9 +12426,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x58fb);
     auto const rel = std::vector<uint32_t>(1, 0x5a7f);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6595,9 +12445,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5a7f);
     auto const rel = std::vector<uint32_t>(1, 0x6702);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6605,9 +12464,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6702);
     auto const rel = std::vector<uint32_t>(1, 0x6e86);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6615,9 +12483,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6e86);
     auto const rel = std::vector<uint32_t>(1, 0x7d6e);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6625,9 +12502,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7d6e);
     auto const rel = std::vector<uint32_t>(1, 0x8a39);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6635,9 +12521,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8a39);
     auto const rel = std::vector<uint32_t>(1, 0x6149);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6645,9 +12540,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6149);
     auto const rel = std::vector<uint32_t>(1, 0x7166);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6655,9 +12559,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7166);
     auto const rel = std::vector<uint32_t>(1, 0x8cc9);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6665,9 +12578,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8cc9);
     auto const rel = std::vector<uint32_t>(1, 0x69d2);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6675,9 +12597,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x69d2);
     auto const rel = std::vector<uint32_t>(1, 0x6f35);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6685,9 +12616,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6f35);
     auto const rel = std::vector<uint32_t>(1, 0x6f4a);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6695,9 +12635,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6f4a);
     auto const rel = std::vector<uint32_t>(1, 0x76e2);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6705,9 +12654,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x76e2);
     auto const rel = std::vector<uint32_t>(1, 0x7781);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6715,9 +12673,18 @@ TEST(tailoring, zh_zhuyin_013_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7781);
     auto const rel = std::vector<uint32_t>(1, 0x7dd2);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6729,9 +12696,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7dd2);
     auto const rel = std::vector<uint32_t>(1, 0x805f);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6739,9 +12715,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x805f);
     auto const rel = std::vector<uint32_t>(1, 0x84c4);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6749,9 +12734,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x84c4);
     auto const rel = std::vector<uint32_t>(1, 0x928a);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6759,9 +12753,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x928a);
     auto const rel = std::vector<uint32_t>(1, 0x735d);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6769,9 +12772,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x735d);
     auto const rel = std::vector<uint32_t>(1, 0x7a38);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6779,9 +12791,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7a38);
     auto const rel = std::vector<uint32_t>(1, 0x7dd6);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6789,9 +12810,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7dd6);
     auto const rel = std::vector<uint32_t>(1, 0x9b63);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6799,9 +12829,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9b63);
     auto const rel = std::vector<uint32_t>(1, 0x77b2);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6809,9 +12848,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x77b2);
     auto const rel = std::vector<uint32_t>(1, 0x85c7);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6819,9 +12867,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x85c7);
     auto const rel = std::vector<uint32_t>(1, 0x85da);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6829,9 +12886,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x85da);
     auto const rel = std::vector<uint32_t>(1, 0x7e8c);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6839,9 +12905,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7e8c);
     auto const rel = std::vector<uint32_t>(1, 0x9c6e);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6849,9 +12924,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9c6e);
     auto const rel = std::vector<uint32_t>(1, 0x8053);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6859,9 +12943,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8053);
     auto const rel = std::vector<uint32_t>(1, 0x7d9a);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6869,9 +12962,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7d9a);
     auto const rel = std::vector<uint32_t>(1, 0x84ff);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6879,9 +12981,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x84ff);
     auto const rel = std::vector<uint32_t>(1, 0x524a);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6889,9 +13000,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x524a);
     auto const rel = std::vector<uint32_t>(1, 0x75b6);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6899,9 +13019,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x75b6);
     auto const rel = std::vector<uint32_t>(1, 0x3ee1);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6909,9 +13038,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x3ee1);
     auto const rel = std::vector<uint32_t>(1, 0x8486);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6919,9 +13057,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8486);
     auto const rel = std::vector<uint32_t>(1, 0x9774);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6929,9 +13076,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9774);
     auto const rel = std::vector<uint32_t>(1, 0x35fe);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6939,9 +13095,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x35fe);
     auto const rel = std::vector<uint32_t>(1, 0x8fa5);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6949,9 +13114,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8fa5);
     auto const rel = std::vector<uint32_t>(1, 0x8faa);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6959,9 +13133,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8faa);
     auto const rel = std::vector<uint32_t>(1, 0x859b);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6969,9 +13152,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x859b);
     auto const rel = std::vector<uint32_t>(1, 0x97be);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6979,9 +13171,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x97be);
     auto const rel = std::vector<uint32_t>(1, 0x7a74);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6989,9 +13190,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7a74);
     auto const rel = std::vector<uint32_t>(1, 0x6588);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -6999,9 +13209,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6588);
     auto const rel = std::vector<uint32_t>(1, 0x4e74);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7009,9 +13228,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x4e74);
     auto const rel = std::vector<uint32_t>(1, 0x5b66);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7019,9 +13247,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5b66);
     auto const rel = std::vector<uint32_t>(1, 0x5ca4);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7029,9 +13266,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5ca4);
     auto const rel = std::vector<uint32_t>(1, 0x5cc3);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7039,9 +13285,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5cc3);
     auto const rel = std::vector<uint32_t>(1, 0x6cf6);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7049,9 +13304,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6cf6);
     auto const rel = std::vector<uint32_t>(1, 0x8313);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7059,9 +13323,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8313);
     auto const rel = std::vector<uint32_t>(1, 0x9e34);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7069,9 +13342,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9e34);
     auto const rel = std::vector<uint32_t>(1, 0x8895);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7079,9 +13361,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8895);
     auto const rel = std::vector<uint32_t>(1, 0x8e05);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7089,9 +13380,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8e05);
     auto const rel = std::vector<uint32_t>(1, 0x58c6);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7099,9 +13399,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x58c6);
     auto const rel = std::vector<uint32_t>(1, 0x5b78);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7109,9 +13418,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5b78);
     auto const rel = std::vector<uint32_t>(1, 0x5da8);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7119,9 +13437,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5da8);
     auto const rel = std::vector<uint32_t>(1, 0x6fa9);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7129,9 +13456,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6fa9);
     auto const rel = std::vector<uint32_t>(1, 0x71e2);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7139,9 +13475,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x71e2);
     auto const rel = std::vector<uint32_t>(1, 0x3d85);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7149,9 +13494,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x3d85);
     auto const rel = std::vector<uint32_t>(1, 0x89f7);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7159,9 +13513,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x89f7);
     auto const rel = std::vector<uint32_t>(1, 0x96e4);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7169,9 +13532,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x96e4);
     auto const rel = std::vector<uint32_t>(1, 0x9dfd);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7179,9 +13551,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9dfd);
     auto const rel = std::vector<uint32_t>(1, 0x96ea);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7189,9 +13570,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x96ea);
     auto const rel = std::vector<uint32_t>(1, 0x9cd5);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7199,9 +13589,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9cd5);
     auto const rel = std::vector<uint32_t>(1, 0x9c48);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7209,9 +13608,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9c48);
     auto const rel = std::vector<uint32_t>(1, 0x8840);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7219,9 +13627,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8840);
     auto const rel = std::vector<uint32_t>(1, 0x3570);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7229,9 +13646,18 @@ TEST(tailoring, zh_zhuyin_013_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x3570);
     auto const rel = std::vector<uint32_t>(1, 0x5437);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7243,9 +13669,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5437);
     auto const rel = std::vector<uint32_t>(1, 0x5779);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7253,9 +13688,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5779);
     auto const rel = std::vector<uint32_t>(1, 0x72d8);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7263,9 +13707,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x72d8);
     auto const rel = std::vector<uint32_t>(1, 0x6856);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7273,9 +13726,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6856);
     auto const rel = std::vector<uint32_t>(1, 0x8c11);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7283,9 +13745,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8c11);
     auto const rel = std::vector<uint32_t>(1, 0x8d90);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7293,9 +13764,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8d90);
     auto const rel = std::vector<uint32_t>(1, 0x8b14);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7303,9 +13783,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8b14);
     auto const rel = std::vector<uint32_t>(1, 0x7025);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7313,9 +13802,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7025);
     auto const rel = std::vector<uint32_t>(1, 0x81a4);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7323,9 +13821,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x81a4);
     auto const rel = std::vector<uint32_t>(1, 0x6a30);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7333,9 +13840,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6a30);
     auto const rel = std::vector<uint32_t>(1, 0x825d);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7343,9 +13859,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x825d);
     auto const rel = std::vector<uint32_t>(1, 0x8f4c);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7353,9 +13878,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8f4c);
     auto const rel = std::vector<uint32_t>(1, 0x5405);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7363,9 +13897,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5405);
     auto const rel = std::vector<uint32_t>(1, 0x8f69);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7373,9 +13916,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8f69);
     auto const rel = std::vector<uint32_t>(1, 0x660d);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7383,9 +13935,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x660d);
     auto const rel = std::vector<uint32_t>(1, 0x5ba3);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7393,9 +13954,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5ba3);
     auto const rel = std::vector<uint32_t>(1, 0x5f32);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7403,9 +13973,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5f32);
     auto const rel = std::vector<uint32_t>(1, 0x8ed2);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7413,9 +13992,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8ed2);
     auto const rel = std::vector<uint32_t>(1, 0x688b);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7423,9 +14011,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x688b);
     auto const rel = std::vector<uint32_t>(1, 0x8c16);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7433,9 +14030,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8c16);
     auto const rel = std::vector<uint32_t>(1, 0x55a7);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7443,9 +14049,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x55a7);
     auto const rel = std::vector<uint32_t>(1, 0x5847);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7453,9 +14068,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5847);
     auto const rel = std::vector<uint32_t>(1, 0x5a97);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7463,9 +14087,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5a97);
     auto const rel = std::vector<uint32_t>(1, 0x6103);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7473,9 +14106,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6103);
     auto const rel = std::vector<uint32_t>(1, 0x610b);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7483,9 +14125,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x610b);
     auto const rel = std::vector<uint32_t>(1, 0x63ce);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7493,9 +14144,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x63ce);
     auto const rel = std::vector<uint32_t>(1, 0x6684);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7503,9 +14163,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6684);
     auto const rel = std::vector<uint32_t>(1, 0x714a);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7513,9 +14182,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x714a);
     auto const rel = std::vector<uint32_t>(1, 0x7444);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7523,9 +14201,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7444);
     auto const rel = std::vector<uint32_t>(1, 0x8431);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7533,9 +14220,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8431);
     auto const rel = std::vector<uint32_t>(1, 0x8432);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7543,9 +14239,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8432);
     auto const rel = std::vector<uint32_t>(1, 0x777b);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7553,9 +14258,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x777b);
     auto const rel = std::vector<uint32_t>(1, 0x84d2);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7563,9 +14277,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x84d2);
     auto const rel = std::vector<uint32_t>(1, 0x5107);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7573,9 +14296,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5107);
     auto const rel = std::vector<uint32_t>(1, 0x7bae);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7583,9 +14315,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7bae);
     auto const rel = std::vector<uint32_t>(1, 0x7e07);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7593,9 +14334,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7e07);
     auto const rel = std::vector<uint32_t>(1, 0x7fe7);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7603,9 +14353,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7fe7);
     auto const rel = std::vector<uint32_t>(1, 0x8756);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7613,9 +14372,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8756);
     auto const rel = std::vector<uint32_t>(1, 0x92d7);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7623,9 +14391,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x92d7);
     auto const rel = std::vector<uint32_t>(1, 0x61c1);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7633,9 +14410,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x61c1);
     auto const rel = std::vector<uint32_t>(1, 0x79a4);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7643,9 +14429,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x79a4);
     auto const rel = std::vector<uint32_t>(1, 0x8ae0);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7653,9 +14448,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8ae0);
     auto const rel = std::vector<uint32_t>(1, 0x8afc);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7663,9 +14467,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8afc);
     auto const rel = std::vector<uint32_t>(1, 0x857f);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7673,9 +14486,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x857f);
     auto const rel = std::vector<uint32_t>(1, 0x9379);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7683,9 +14505,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9379);
     auto const rel = std::vector<uint32_t>(1, 0x99fd);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7693,9 +14524,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x99fd);
     auto const rel = std::vector<uint32_t>(1, 0x7ffe);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7703,9 +14543,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7ffe);
     auto const rel = std::vector<uint32_t>(1, 0x8809);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7713,9 +14562,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8809);
     auto const rel = std::vector<uint32_t>(1, 0x77ce);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7723,9 +14581,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x77ce);
     auto const rel = std::vector<uint32_t>(1, 0x85fc);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7733,9 +14600,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x85fc);
     auto const rel = std::vector<uint32_t>(1, 0x8610);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7743,9 +14619,18 @@ TEST(tailoring, zh_zhuyin_013_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8610);
     auto const rel = std::vector<uint32_t>(1, 0x8b5e);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7757,9 +14642,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8b5e);
     auto const rel = std::vector<uint32_t>(1, 0x7384);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7767,9 +14661,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7384);
     auto const rel = std::vector<uint32_t>(1, 0x73b9);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7777,9 +14680,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x73b9);
     auto const rel = std::vector<uint32_t>(1, 0x3623);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7787,9 +14699,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x3623);
     auto const rel = std::vector<uint32_t>(1, 0x75c3);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7797,9 +14718,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x75c3);
     auto const rel = std::vector<uint32_t>(1, 0x60ac);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7807,9 +14737,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x60ac);
     auto const rel = std::vector<uint32_t>(1, 0x65cb);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7817,9 +14756,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x65cb);
     auto const rel = std::vector<uint32_t>(1, 0x7401);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7827,9 +14775,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7401);
     auto const rel = std::vector<uint32_t>(1, 0x8701);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7837,9 +14794,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8701);
     auto const rel = std::vector<uint32_t>(1, 0x5ad9);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7847,9 +14813,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5ad9);
     auto const rel = std::vector<uint32_t>(1, 0x6f29);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7857,9 +14832,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6f29);
     auto const rel = std::vector<uint32_t>(1, 0x66b6);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7867,9 +14851,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x66b6);
     auto const rel = std::vector<uint32_t>(1, 0x7487);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7877,9 +14870,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7487);
     auto const rel = std::vector<uint32_t>(1, 0x4062);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7887,9 +14889,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x4062);
     auto const rel = std::vector<uint32_t>(1, 0x6a88);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7897,9 +14908,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6a88);
     auto const rel = std::vector<uint32_t>(1, 0x74bf);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7907,9 +14927,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x74bf);
     auto const rel = std::vector<uint32_t>(1, 0x61f8);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7917,9 +14946,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x61f8);
     auto const rel = std::vector<uint32_t>(1, 0x54ba);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7927,9 +14965,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x54ba);
     auto const rel = std::vector<uint32_t>(1, 0x6645);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7937,9 +14984,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6645);
     auto const rel = std::vector<uint32_t>(1, 0x70dc);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7947,9 +15003,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x70dc);
     auto const rel = std::vector<uint32_t>(1, 0x9009);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7957,9 +15022,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9009);
     auto const rel = std::vector<uint32_t>(1, 0x3535);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7967,9 +15041,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x3535);
     auto const rel = std::vector<uint32_t>(1, 0x9078);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7977,9 +15060,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9078);
     auto const rel = std::vector<uint32_t>(1, 0x9848);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7987,9 +15079,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9848);
     auto const rel = std::vector<uint32_t>(1, 0x7663);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -7997,9 +15098,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7663);
     auto const rel = std::vector<uint32_t>(1, 0x766c);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8007,9 +15117,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x766c);
     auto const rel = std::vector<uint32_t>(1, 0x6030);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8017,9 +15136,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6030);
     auto const rel = std::vector<uint32_t>(1, 0x6ceb);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8027,9 +15155,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6ceb);
     auto const rel = std::vector<uint32_t>(1, 0x39e6);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8037,9 +15174,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x39e6);
     auto const rel = std::vector<uint32_t>(1, 0x6621);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8047,9 +15193,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6621);
     auto const rel = std::vector<uint32_t>(1, 0x70ab);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8057,9 +15212,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x70ab);
     auto const rel = std::vector<uint32_t>(1, 0x7eda);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8067,9 +15231,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7eda);
     auto const rel = std::vector<uint32_t>(1, 0x7729);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8077,9 +15250,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7729);
     auto const rel = std::vector<uint32_t>(1, 0x94c9);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8087,9 +15269,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x94c9);
     auto const rel = std::vector<uint32_t>(1, 0x7404);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8097,9 +15288,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7404);
     auto const rel = std::vector<uint32_t>(1, 0x7734);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8107,9 +15307,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7734);
     auto const rel = std::vector<uint32_t>(1, 0x8852);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8117,9 +15326,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8852);
     auto const rel = std::vector<uint32_t>(1, 0x88a8);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8127,9 +15345,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x88a8);
     auto const rel = std::vector<uint32_t>(1, 0x6e32);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8137,9 +15364,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6e32);
     auto const rel = std::vector<uint32_t>(1, 0x7d62);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8147,9 +15383,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7d62);
     auto const rel = std::vector<uint32_t>(1, 0x6965);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8157,9 +15402,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6965);
     auto const rel = std::vector<uint32_t>(1, 0x6966);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8167,9 +15421,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6966);
     auto const rel = std::vector<uint32_t>(1, 0x9249);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8177,9 +15440,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9249);
     auto const rel = std::vector<uint32_t>(1, 0x78b9);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8187,9 +15459,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x78b9);
     auto const rel = std::vector<uint32_t>(1, 0x8519);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8197,9 +15478,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8519);
     auto const rel = std::vector<uint32_t>(1, 0x955f);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8207,9 +15497,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x955f);
     auto const rel = std::vector<uint32_t>(1, 0x9799);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8217,9 +15516,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9799);
     auto const rel = std::vector<uint32_t>(1, 0x98b4);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8227,9 +15535,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x98b4);
     auto const rel = std::vector<uint32_t>(1, 0x7e3c);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8237,9 +15554,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7e3c);
     auto const rel = std::vector<uint32_t>(1, 0x7e4f);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8247,9 +15573,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7e4f);
     auto const rel = std::vector<uint32_t>(1, 0x93c7);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8257,9 +15592,18 @@ TEST(tailoring, zh_zhuyin_013_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x93c7);
     auto const rel = std::vector<uint32_t>(1, 0x8b82);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8271,9 +15615,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8b82);
     auto const rel = std::vector<uint32_t>(1, 0x8d19);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8281,9 +15634,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8d19);
     auto const rel = std::vector<uint32_t>(1, 0x9c1a);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8291,9 +15653,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9c1a);
     auto const rel = std::vector<uint32_t>(1, 0x5743);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8301,9 +15672,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5743);
     auto const rel = std::vector<uint32_t>(1, 0x52cb);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8311,9 +15691,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x52cb);
     auto const rel = std::vector<uint32_t>(1, 0x57d9);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8321,9 +15710,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x57d9);
     auto const rel = std::vector<uint32_t>(1, 0x7104);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8331,9 +15729,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7104);
     auto const rel = std::vector<uint32_t>(1, 0x52db);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8341,9 +15748,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x52db);
     auto const rel = std::vector<uint32_t>(1, 0x5864);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8351,9 +15767,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5864);
     auto const rel = std::vector<uint32_t>(1, 0x718f);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8361,9 +15786,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x718f);
     auto const rel = std::vector<uint32_t>(1, 0x7aa8);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8371,9 +15805,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7aa8);
     auto const rel = std::vector<uint32_t>(1, 0x52f2);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8381,9 +15824,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x52f2);
     auto const rel = std::vector<uint32_t>(1, 0x8512);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8391,9 +15843,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8512);
     auto const rel = std::vector<uint32_t>(1, 0x52f3);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8401,9 +15862,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x52f3);
     auto const rel = std::vector<uint32_t>(1, 0x99e8);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8411,9 +15881,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x99e8);
     auto const rel = std::vector<uint32_t>(1, 0x58ce);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8421,9 +15900,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x58ce);
     auto const rel = std::vector<uint32_t>(1, 0x736f);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8431,9 +15919,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x736f);
     auto const rel = std::vector<uint32_t>(1, 0x85ab);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8441,9 +15938,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x85ab);
     auto const rel = std::vector<uint32_t>(1, 0x66db);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8451,9 +15957,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x66db);
     auto const rel = std::vector<uint32_t>(1, 0x71fb);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8461,9 +15976,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x71fb);
     auto const rel = std::vector<uint32_t>(1, 0x81d0);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8471,9 +15995,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x81d0);
     auto const rel = std::vector<uint32_t>(1, 0x85b0);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8481,9 +16014,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x85b0);
     auto const rel = std::vector<uint32_t>(1, 0x77c4);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8491,9 +16033,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x77c4);
     auto const rel = std::vector<uint32_t>(1, 0x7e81);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8501,9 +16052,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7e81);
     auto const rel = std::vector<uint32_t>(1, 0x860d);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8511,9 +16071,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x860d);
     auto const rel = std::vector<uint32_t>(1, 0x58e6);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8521,9 +16090,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x58e6);
     auto const rel = std::vector<uint32_t>(1, 0x91ba);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8531,9 +16109,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x91ba);
     auto const rel = std::vector<uint32_t>(1, 0x5bfb);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8541,9 +16128,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5bfb);
     auto const rel = std::vector<uint32_t>(1, 0x5ef5);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8551,9 +16147,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5ef5);
     auto const rel = std::vector<uint32_t>(1, 0x65ec);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8561,9 +16166,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x65ec);
     auto const rel = std::vector<uint32_t>(1, 0x9a6f);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8571,9 +16185,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9a6f);
     auto const rel = std::vector<uint32_t>(1, 0x674a);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8581,9 +16204,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x674a);
     auto const rel = std::vector<uint32_t>(1, 0x5de1);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8591,9 +16223,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5de1);
     auto const rel = std::vector<uint32_t>(1, 0x7543);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8601,9 +16242,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7543);
     auto const rel = std::vector<uint32_t>(1, 0x8be2);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8611,9 +16261,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8be2);
     auto const rel = std::vector<uint32_t>(1, 0x5ccb);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8621,9 +16280,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5ccb);
     auto const rel = std::vector<uint32_t>(1, 0x6042);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8631,9 +16299,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6042);
     auto const rel = std::vector<uint32_t>(1, 0x6d35);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8641,9 +16318,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6d35);
     auto const rel = std::vector<uint32_t>(1, 0x6d54);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8651,9 +16337,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6d54);
     auto const rel = std::vector<uint32_t>(1, 0x7d03);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8661,9 +16356,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7d03);
     auto const rel = std::vector<uint32_t>(1, 0x6812);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8671,9 +16375,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6812);
     auto const rel = std::vector<uint32_t>(1, 0x686a);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8681,9 +16394,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x686a);
     auto const rel = std::vector<uint32_t>(1, 0x6be5);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8691,9 +16413,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6be5);
     auto const rel = std::vector<uint32_t>(1, 0x73e3);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8701,9 +16432,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x73e3);
     auto const rel = std::vector<uint32_t>(1, 0x8340);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8711,9 +16451,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8340);
     auto const rel = std::vector<uint32_t>(1, 0x8368);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8721,9 +16470,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8368);
     auto const rel = std::vector<uint32_t>(1, 0x5071);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8731,9 +16489,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5071);
     auto const rel = std::vector<uint32_t>(1, 0x3704);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8741,9 +16508,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x3704);
     auto const rel = std::vector<uint32_t>(1, 0x5c0b);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8751,9 +16527,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5c0b);
     auto const rel = std::vector<uint32_t>(1, 0x5faa);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8761,9 +16546,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5faa);
     auto const rel = std::vector<uint32_t>(1, 0x63d7);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8771,9 +16565,18 @@ TEST(tailoring, zh_zhuyin_013_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x63d7);
     auto const rel = std::vector<uint32_t>(1, 0x295b0);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8785,9 +16588,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x295b0);
     auto const rel = std::vector<uint32_t>(1, 0x8a62);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8795,9 +16607,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8a62);
     auto const rel = std::vector<uint32_t>(1, 0x99b4);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8805,9 +16626,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x99b4);
     auto const rel = std::vector<uint32_t>(1, 0x69c6);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8815,9 +16645,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x69c6);
     auto const rel = std::vector<uint32_t>(1, 0x6f43);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8825,9 +16664,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6f43);
     auto const rel = std::vector<uint32_t>(1, 0x9c9f);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8835,9 +16683,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9c9f);
     auto const rel = std::vector<uint32_t>(1, 0x565a);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8845,9 +16702,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x565a);
     auto const rel = std::vector<uint32_t>(1, 0x3d4c);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8855,9 +16721,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x3d4c);
     auto const rel = std::vector<uint32_t>(1, 0x6f6f);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8865,9 +16740,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6f6f);
     auto const rel = std::vector<uint32_t>(1, 0x9129);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8875,9 +16759,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9129);
     auto const rel = std::vector<uint32_t>(1, 0x6533);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8885,9 +16778,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6533);
     auto const rel = std::vector<uint32_t>(1, 0x6a33);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8895,9 +16797,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6a33);
     auto const rel = std::vector<uint32_t>(1, 0x71d6);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8905,9 +16816,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x71d6);
     auto const rel = std::vector<uint32_t>(1, 0x7495);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8915,9 +16835,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7495);
     auto const rel = std::vector<uint32_t>(1, 0x87f3);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8925,9 +16854,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x87f3);
     auto const rel = std::vector<uint32_t>(1, 0x9c4f);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8935,9 +16873,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9c4f);
     auto const rel = std::vector<uint32_t>(1, 0x9c58);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8945,9 +16892,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9c58);
     auto const rel = std::vector<uint32_t>(1, 0x7065);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8955,9 +16911,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7065);
     auto const rel = std::vector<uint32_t>(1, 0x5342);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8965,9 +16930,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5342);
     auto const rel = std::vector<uint32_t>(1, 0x8bad);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8975,9 +16949,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8bad);
     auto const rel = std::vector<uint32_t>(1, 0x8baf);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8985,9 +16968,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8baf);
     auto const rel = std::vector<uint32_t>(1, 0x4f28);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -8995,9 +16987,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x4f28);
     auto const rel = std::vector<uint32_t>(1, 0x6c5b);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9005,9 +17006,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6c5b);
     auto const rel = std::vector<uint32_t>(1, 0x8fc5);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9015,9 +17025,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8fc5);
     auto const rel = std::vector<uint32_t>(1, 0x4f9a);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9025,9 +17044,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x4f9a);
     auto const rel = std::vector<uint32_t>(1, 0x5dfa);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9035,9 +17063,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5dfa);
     auto const rel = std::vector<uint32_t>(1, 0x5f87);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9045,9 +17082,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5f87);
     auto const rel = std::vector<uint32_t>(1, 0x72e5);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9055,9 +17101,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x72e5);
     auto const rel = std::vector<uint32_t>(1, 0x6b89);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9065,9 +17120,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6b89);
     auto const rel = std::vector<uint32_t>(1, 0x8a0a);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9075,9 +17139,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8a0a);
     auto const rel = std::vector<uint32_t>(1, 0x8a13);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9085,9 +17158,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8a13);
     auto const rel = std::vector<uint32_t>(1, 0x8a19);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9095,9 +17177,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8a19);
     auto const rel = std::vector<uint32_t>(1, 0x8fff);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9105,9 +17196,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8fff);
     auto const rel = std::vector<uint32_t>(1, 0x900a);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9115,9 +17215,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x900a);
     auto const rel = std::vector<uint32_t>(1, 0x595e);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9125,9 +17234,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x595e);
     auto const rel = std::vector<uint32_t>(1, 0x5dfd);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9135,9 +17253,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5dfd);
     auto const rel = std::vector<uint32_t>(1, 0x6bbe);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9145,9 +17272,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6bbe);
     auto const rel = std::vector<uint32_t>(1, 0x7a04);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9155,9 +17291,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7a04);
     auto const rel = std::vector<uint32_t>(1, 0x613b);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9165,9 +17310,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x613b);
     auto const rel = std::vector<uint32_t>(1, 0x8cd0);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9175,9 +17329,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8cd0);
     auto const rel = std::vector<uint32_t>(1, 0x905c);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9185,9 +17348,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x905c);
     auto const rel = std::vector<uint32_t>(1, 0x5640);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9195,9 +17367,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5640);
     auto const rel = std::vector<uint32_t>(1, 0x6f60);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9205,9 +17386,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6f60);
     auto const rel = std::vector<uint32_t>(1, 0x8548);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9215,9 +17405,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8548);
     auto const rel = std::vector<uint32_t>(1, 0x9d55);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9225,9 +17424,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9d55);
     auto const rel = std::vector<uint32_t>(1, 0x720b);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9235,9 +17443,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x720b);
     auto const rel = std::vector<uint32_t>(1, 0x9868);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9245,9 +17462,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9868);
     auto const rel = std::vector<uint32_t>(1, 0x9442);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9255,9 +17481,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9442);
     auto const rel = std::vector<uint32_t>(1, 0x5691);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9265,9 +17500,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5691);
     auto const rel = std::vector<uint32_t>(1, 0x51f6);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9275,9 +17519,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x51f6);
     auto const rel = std::vector<uint32_t>(1, 0x5144);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9285,9 +17538,18 @@ TEST(tailoring, zh_zhuyin_013_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5144);
     auto const rel = std::vector<uint32_t>(1, 0x342b);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9299,9 +17561,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x342b);
     auto const rel = std::vector<uint32_t>(1, 0x5147);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9309,9 +17580,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5147);
     auto const rel = std::vector<uint32_t>(1, 0x5308);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9319,9 +17599,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5308);
     auto const rel = std::vector<uint32_t>(1, 0x8bbb);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9329,9 +17618,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8bbb);
     auto const rel = std::vector<uint32_t>(1, 0x5ff7);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9339,9 +17637,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5ff7);
     auto const rel = std::vector<uint32_t>(1, 0x6c79);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9349,9 +17656,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6c79);
     auto const rel = std::vector<uint32_t>(1, 0x54c5);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9359,9 +17675,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x54c5);
     auto const rel = std::vector<uint32_t>(1, 0x605f);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9369,9 +17694,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x605f);
     auto const rel = std::vector<uint32_t>(1, 0x6d36);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9379,9 +17713,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6d36);
     auto const rel = std::vector<uint32_t>(1, 0x80f7);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9389,9 +17732,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x80f7);
     auto const rel = std::vector<uint32_t>(1, 0x80f8);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9399,9 +17751,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x80f8);
     auto const rel = std::vector<uint32_t>(1, 0x8a29);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9409,9 +17770,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8a29);
     auto const rel = std::vector<uint32_t>(1, 0x8a7e);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9419,9 +17789,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8a7e);
     auto const rel = std::vector<uint32_t>(1, 0x8cef);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9429,9 +17808,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8cef);
     auto const rel = std::vector<uint32_t>(1, 0x96c4);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9439,9 +17827,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x96c4);
     auto const rel = std::vector<uint32_t>(1, 0x718a);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9449,9 +17846,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x718a);
     auto const rel = std::vector<uint32_t>(1, 0x713d);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9459,9 +17865,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x713d);
     auto const rel = std::vector<uint32_t>(1, 0x8bc7);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9469,9 +17884,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8bc7);
     auto const rel = std::vector<uint32_t>(1, 0x7138);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9479,9 +17903,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7138);
     auto const rel = std::vector<uint32_t>(1, 0x8a57);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9489,9 +17922,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8a57);
     auto const rel = std::vector<uint32_t>(1, 0x5910);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9499,9 +17941,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5910);
     auto const rel = std::vector<uint32_t>(1, 0x657b);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9509,9 +17960,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x657b);
     auto const rel = std::vector<uint32_t>(1, 0x22fcc);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9519,9 +17979,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x22fcc);
     auto const rel = std::vector<uint32_t>{0xfdd0, 0x3113};
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9529,9 +17998,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0xfdd0, 0x3113};
     auto const rel = std::vector<uint32_t>(1, 0x4e4b);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9539,9 +18017,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x4e4b);
     auto const rel = std::vector<uint32_t>(1, 0x652f);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9549,9 +18036,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x652f);
     auto const rel = std::vector<uint32_t>(1, 0x536e);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9559,9 +18055,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x536e);
     auto const rel = std::vector<uint32_t>(1, 0x6c41);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9569,9 +18074,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6c41);
     auto const rel = std::vector<uint32_t>(1, 0x5431);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9579,9 +18093,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5431);
     auto const rel = std::vector<uint32_t>(1, 0x5df5);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9589,9 +18112,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5df5);
     auto const rel = std::vector<uint32_t>(1, 0x6c65);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9599,9 +18131,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6c65);
     auto const rel = std::vector<uint32_t>(1, 0x5767);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9609,9 +18150,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5767);
     auto const rel = std::vector<uint32_t>(1, 0x679d);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9619,9 +18169,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x679d);
     auto const rel = std::vector<uint32_t>(1, 0x6cdc);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9629,9 +18188,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6cdc);
     auto const rel = std::vector<uint32_t>(1, 0x77e5);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9639,9 +18207,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x77e5);
     auto const rel = std::vector<uint32_t>(1, 0x7ec7);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9649,9 +18226,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7ec7);
     auto const rel = std::vector<uint32_t>(1, 0x80a2);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9659,9 +18245,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x80a2);
     auto const rel = std::vector<uint32_t>(1, 0x829d);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9669,9 +18264,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x829d);
     auto const rel = std::vector<uint32_t>(1, 0x6800);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9679,9 +18283,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6800);
     auto const rel = std::vector<uint32_t>(1, 0x79d3);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9689,9 +18302,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x79d3);
     auto const rel = std::vector<uint32_t>(1, 0x79d6);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9699,9 +18321,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x79d6);
     auto const rel = std::vector<uint32_t>(1, 0x80d1);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9709,9 +18340,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x80d1);
     auto const rel = std::vector<uint32_t>(1, 0x80dd);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9719,9 +18359,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x80dd);
     auto const rel = std::vector<uint32_t>(1, 0x5001);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9729,9 +18378,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5001);
     auto const rel = std::vector<uint32_t>(1, 0x75b7);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9739,9 +18397,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x75b7);
     auto const rel = std::vector<uint32_t>(1, 0x7957);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9749,9 +18416,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7957);
     auto const rel = std::vector<uint32_t>(1, 0x79ea);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9759,9 +18435,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x79ea);
     auto const rel = std::vector<uint32_t>(1, 0x8102);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9769,9 +18454,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8102);
     auto const rel = std::vector<uint32_t>(1, 0x887c);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9779,9 +18473,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x887c);
     auto const rel = std::vector<uint32_t>(1, 0x96bb);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9789,9 +18492,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x96bb);
     auto const rel = std::vector<uint32_t>(1, 0x6894);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9799,9 +18511,18 @@ TEST(tailoring, zh_zhuyin_013_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6894);
     auto const rel = std::vector<uint32_t>(1, 0x796c);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9813,9 +18534,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x796c);
     auto const rel = std::vector<uint32_t>(1, 0x6925);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9823,9 +18553,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6925);
     auto const rel = std::vector<uint32_t>(1, 0x81f8);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9833,9 +18572,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x81f8);
     auto const rel = std::vector<uint32_t>(1, 0x6220);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9843,9 +18591,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6220);
     auto const rel = std::vector<uint32_t>(1, 0x6418);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9853,9 +18610,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6418);
     auto const rel = std::vector<uint32_t>(1, 0x7a19);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9863,9 +18629,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7a19);
     auto const rel = std::vector<uint32_t>(1, 0x7d95);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9873,9 +18648,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7d95);
     auto const rel = std::vector<uint32_t>(1, 0x69b0);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9883,9 +18667,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x69b0);
     auto const rel = std::vector<uint32_t>(1, 0x7994);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9893,9 +18686,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7994);
     auto const rel = std::vector<uint32_t>(1, 0x8718);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9903,9 +18705,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8718);
     auto const rel = std::vector<uint32_t>(1, 0x99b6);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9913,9 +18724,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x99b6);
     auto const rel = std::vector<uint32_t>(1, 0x3bc4);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9923,9 +18743,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x3bc4);
     auto const rel = std::vector<uint32_t>(1, 0x9cf7);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9933,9 +18762,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9cf7);
     auto const rel = std::vector<uint32_t>(1, 0x9d32);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9943,9 +18781,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9d32);
     auto const rel = std::vector<uint32_t>(1, 0x9d44);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9953,9 +18800,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9d44);
     auto const rel = std::vector<uint32_t>(1, 0x7e54);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9963,9 +18819,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7e54);
     auto const rel = std::vector<uint32_t>(1, 0x9f05);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9973,9 +18838,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9f05);
     auto const rel = std::vector<uint32_t>(1, 0x8635);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9983,9 +18857,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8635);
     auto const rel = std::vector<uint32_t>(1, 0x6267);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -9993,9 +18876,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6267);
     auto const rel = std::vector<uint32_t>(1, 0x4f84);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -10003,9 +18895,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x4f84);
     auto const rel = std::vector<uint32_t>(1, 0x59b7);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -10013,9 +18914,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x59b7);
     auto const rel = std::vector<uint32_t>(1, 0x76f4);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -10023,9 +18933,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x76f4);
     auto const rel = std::vector<uint32_t>(1, 0x59ea);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -10033,9 +18952,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x59ea);
     auto const rel = std::vector<uint32_t>(1, 0x5024);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -10043,9 +18971,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5024);
     auto const rel = std::vector<uint32_t>(1, 0x503c);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -10053,9 +18990,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x503c);
     auto const rel = std::vector<uint32_t>(1, 0x8040);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -10063,9 +19009,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8040);
     auto const rel = std::vector<uint32_t>(1, 0x91de);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -10073,9 +19028,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x91de);
     auto const rel = std::vector<uint32_t>(1, 0x57f4);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -10083,9 +19047,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x57f4);
     auto const rel = std::vector<uint32_t>(1, 0x57f7);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -10093,9 +19066,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x57f7);
     auto const rel = std::vector<uint32_t>(1, 0x21e1c);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -10103,9 +19085,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x21e1c);
     auto const rel = std::vector<uint32_t>(1, 0x6dd4);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -10113,9 +19104,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6dd4);
     auto const rel = std::vector<uint32_t>(1, 0x804c);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -10123,9 +19123,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x804c);
     auto const rel = std::vector<uint32_t>(1, 0x8cad);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -10133,9 +19142,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8cad);
     auto const rel = std::vector<uint32_t>(1, 0x690d);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -10143,9 +19161,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x690d);
     auto const rel = std::vector<uint32_t>(1, 0x6b96);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -10153,9 +19180,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6b96);
     auto const rel = std::vector<uint32_t>(1, 0x7286);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -10163,9 +19199,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7286);
     auto const rel = std::vector<uint32_t>(1, 0x7d77);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -10173,9 +19218,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7d77);
     auto const rel = std::vector<uint32_t>(1, 0x8901);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -10183,9 +19237,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8901);
     auto const rel = std::vector<uint32_t>(1, 0x8dd6);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -10193,9 +19256,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8dd6);
     auto const rel = std::vector<uint32_t>(1, 0x55ed);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -10203,9 +19275,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x55ed);
     auto const rel = std::vector<uint32_t>(1, 0x74e1);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -10213,9 +19294,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x74e1);
     auto const rel = std::vector<uint32_t>(1, 0x7983);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -10223,9 +19313,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7983);
     auto const rel = std::vector<uint32_t>(1, 0x9244);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -10233,9 +19332,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x9244);
     auto const rel = std::vector<uint32_t>(1, 0x588c);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -10243,9 +19351,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x588c);
     auto const rel = std::vector<uint32_t>(1, 0x646d);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -10253,9 +19370,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x646d);
     auto const rel = std::vector<uint32_t>(1, 0x99bd);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -10263,9 +19389,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x99bd);
     auto const rel = std::vector<uint32_t>(1, 0x5b02);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -10273,9 +19408,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x5b02);
     auto const rel = std::vector<uint32_t>(1, 0x6179);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -10283,9 +19427,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6179);
     auto const rel = std::vector<uint32_t>(1, 0x6f10);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -10293,9 +19446,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6f10);
     auto const rel = std::vector<uint32_t>(1, 0x8e2f);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -10303,9 +19465,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x8e2f);
     auto const rel = std::vector<uint32_t>(1, 0x6a34);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -10313,9 +19484,18 @@ TEST(tailoring, zh_zhuyin_013_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x6a34);
     auto const rel = std::vector<uint32_t>(1, 0x81b1);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }

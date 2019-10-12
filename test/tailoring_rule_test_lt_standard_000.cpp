@@ -47,9 +47,18 @@ TEST(tailoring, lt_standard_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x0300);
     auto const rel = std::vector<uint32_t>{0x0307, 0x0300};
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -57,9 +66,18 @@ TEST(tailoring, lt_standard_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x0301);
     auto const rel = std::vector<uint32_t>{0x0307, 0x0301};
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -67,9 +85,18 @@ TEST(tailoring, lt_standard_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x0303);
     auto const rel = std::vector<uint32_t>{0x0307, 0x0303};
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -77,15 +104,30 @@ TEST(tailoring, lt_standard_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x0041);
     auto const rel = std::vector<uint32_t>(1, 0x0105);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         0);
     }
@@ -93,15 +135,30 @@ TEST(tailoring, lt_standard_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x0105);
     auto const rel = std::vector<uint32_t>(1, 0x0104);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::tertiary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         0);
     }
@@ -109,9 +166,18 @@ TEST(tailoring, lt_standard_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x0043);
     auto const rel = std::vector<uint32_t>(1, 0x010d);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -119,15 +185,30 @@ TEST(tailoring, lt_standard_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x010d);
     auto const rel = std::vector<uint32_t>(1, 0x010c);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::tertiary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         0);
     }
@@ -135,15 +216,30 @@ TEST(tailoring, lt_standard_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x0045);
     auto const rel = std::vector<uint32_t>(1, 0x0119);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         0);
     }
@@ -151,15 +247,30 @@ TEST(tailoring, lt_standard_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x0119);
     auto const rel = std::vector<uint32_t>(1, 0x0118);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::tertiary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         0);
     }
@@ -167,15 +278,30 @@ TEST(tailoring, lt_standard_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x0118);
     auto const rel = std::vector<uint32_t>(1, 0x0117);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         0);
     }
@@ -183,15 +309,30 @@ TEST(tailoring, lt_standard_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x0117);
     auto const rel = std::vector<uint32_t>(1, 0x0116);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::tertiary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         0);
     }
@@ -199,15 +340,30 @@ TEST(tailoring, lt_standard_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x0049);
     auto const rel = std::vector<uint32_t>(1, 0x012f);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         0);
     }
@@ -215,15 +371,30 @@ TEST(tailoring, lt_standard_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x012f);
     auto const rel = std::vector<uint32_t>(1, 0x012e);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::tertiary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         0);
     }
@@ -231,15 +402,30 @@ TEST(tailoring, lt_standard_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x012e);
     auto const rel = std::vector<uint32_t>(1, 0x0079);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         0);
     }
@@ -247,15 +433,30 @@ TEST(tailoring, lt_standard_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x0079);
     auto const rel = std::vector<uint32_t>(1, 0x0059);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::tertiary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         0);
     }
@@ -263,9 +464,18 @@ TEST(tailoring, lt_standard_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x0053);
     auto const rel = std::vector<uint32_t>(1, 0x0161);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -273,15 +483,30 @@ TEST(tailoring, lt_standard_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x0161);
     auto const rel = std::vector<uint32_t>(1, 0x0160);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::tertiary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         0);
     }
@@ -289,15 +514,30 @@ TEST(tailoring, lt_standard_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x0055);
     auto const rel = std::vector<uint32_t>(1, 0x0173);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         0);
     }
@@ -305,15 +545,30 @@ TEST(tailoring, lt_standard_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x0173);
     auto const rel = std::vector<uint32_t>(1, 0x0172);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::tertiary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         0);
     }
@@ -321,15 +576,30 @@ TEST(tailoring, lt_standard_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x0172);
     auto const rel = std::vector<uint32_t>(1, 0x016b);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         0);
     }
@@ -337,9 +607,18 @@ TEST(tailoring, lt_standard_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x016b);
     auto const rel = std::vector<uint32_t>(1, 0x016a);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::tertiary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
@@ -348,14 +627,29 @@ TEST(tailoring, lt_standard_000_001)
         rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
+        table(), collation_strength::secondary),
+        0);
     }
     {
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x005a);
     auto const rel = std::vector<uint32_t>(1, 0x017e);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -363,15 +657,30 @@ TEST(tailoring, lt_standard_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x017e);
     auto const rel = std::vector<uint32_t>(1, 0x017d);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::tertiary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         0);
     }

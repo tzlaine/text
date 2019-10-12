@@ -47,9 +47,18 @@ TEST(tailoring, ko_search_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x003d);
     auto const rel = std::vector<uint32_t>(1, 0x2260);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         -1);
     }
@@ -57,15 +66,30 @@ TEST(tailoring, ko_search_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x0627);
     auto const rel = std::vector<uint32_t>(1, 0xfe8e);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::tertiary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         0);
     }
@@ -73,15 +97,30 @@ TEST(tailoring, ko_search_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0xfe8e);
     auto const rel = std::vector<uint32_t>(1, 0xfe8d);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::tertiary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         0);
     }
@@ -89,15 +128,30 @@ TEST(tailoring, ko_search_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0xfe8d);
     auto const rel = std::vector<uint32_t>(1, 0x0622);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         0);
     }
@@ -105,15 +159,30 @@ TEST(tailoring, ko_search_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x0622);
     auto const rel = std::vector<uint32_t>(1, 0xfe82);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::tertiary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         0);
     }
@@ -121,15 +190,30 @@ TEST(tailoring, ko_search_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0xfe82);
     auto const rel = std::vector<uint32_t>(1, 0xfe81);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::tertiary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         0);
     }
@@ -137,15 +221,30 @@ TEST(tailoring, ko_search_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0xfe81);
     auto const rel = std::vector<uint32_t>(1, 0x0623);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         0);
     }
@@ -153,15 +252,30 @@ TEST(tailoring, ko_search_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x0623);
     auto const rel = std::vector<uint32_t>(1, 0xfe84);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::tertiary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         0);
     }
@@ -169,15 +283,30 @@ TEST(tailoring, ko_search_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0xfe84);
     auto const rel = std::vector<uint32_t>(1, 0xfe83);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::tertiary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         0);
     }
@@ -185,15 +314,30 @@ TEST(tailoring, ko_search_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0xfe83);
     auto const rel = std::vector<uint32_t>(1, 0x0625);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         0);
     }
@@ -201,15 +345,30 @@ TEST(tailoring, ko_search_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x0625);
     auto const rel = std::vector<uint32_t>(1, 0xfe88);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::tertiary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         0);
     }
@@ -217,15 +376,30 @@ TEST(tailoring, ko_search_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0xfe88);
     auto const rel = std::vector<uint32_t>(1, 0xfe87);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::tertiary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         0);
     }
@@ -233,15 +407,30 @@ TEST(tailoring, ko_search_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x0648);
     auto const rel = std::vector<uint32_t>(1, 0x06e5);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::tertiary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         0);
     }
@@ -249,15 +438,30 @@ TEST(tailoring, ko_search_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x06e5);
     auto const rel = std::vector<uint32_t>(1, 0xfeee);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::tertiary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         0);
     }
@@ -265,15 +469,30 @@ TEST(tailoring, ko_search_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0xfeee);
     auto const rel = std::vector<uint32_t>(1, 0xfeed);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::tertiary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         0);
     }
@@ -281,15 +500,30 @@ TEST(tailoring, ko_search_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0xfeed);
     auto const rel = std::vector<uint32_t>(1, 0x0624);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         0);
     }
@@ -297,15 +531,30 @@ TEST(tailoring, ko_search_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x0624);
     auto const rel = std::vector<uint32_t>(1, 0xfe86);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::tertiary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         0);
     }
@@ -313,15 +562,30 @@ TEST(tailoring, ko_search_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0xfe86);
     auto const rel = std::vector<uint32_t>(1, 0xfe85);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::tertiary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         0);
     }
@@ -329,15 +593,30 @@ TEST(tailoring, ko_search_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x064a);
     auto const rel = std::vector<uint32_t>(1, 0x06e6);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::tertiary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         0);
     }
@@ -345,15 +624,30 @@ TEST(tailoring, ko_search_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x06e6);
     auto const rel = std::vector<uint32_t>(1, 0xfef3);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::tertiary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         0);
     }
@@ -361,15 +655,30 @@ TEST(tailoring, ko_search_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0xfef3);
     auto const rel = std::vector<uint32_t>(1, 0xfef4);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::tertiary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         0);
     }
@@ -377,15 +686,30 @@ TEST(tailoring, ko_search_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0xfef4);
     auto const rel = std::vector<uint32_t>(1, 0xfef2);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::tertiary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         0);
     }
@@ -393,15 +717,30 @@ TEST(tailoring, ko_search_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0xfef2);
     auto const rel = std::vector<uint32_t>(1, 0xfef1);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::tertiary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         0);
     }
@@ -409,15 +748,30 @@ TEST(tailoring, ko_search_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0xfef1);
     auto const rel = std::vector<uint32_t>(1, 0x0626);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         0);
     }
@@ -425,15 +779,30 @@ TEST(tailoring, ko_search_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x0626);
     auto const rel = std::vector<uint32_t>(1, 0xfe8b);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::tertiary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         0);
     }
@@ -441,15 +810,30 @@ TEST(tailoring, ko_search_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0xfe8b);
     auto const rel = std::vector<uint32_t>(1, 0xfe8c);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::tertiary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         0);
     }
@@ -457,15 +841,30 @@ TEST(tailoring, ko_search_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0xfe8c);
     auto const rel = std::vector<uint32_t>(1, 0xfe8a);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::tertiary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         0);
     }
@@ -473,15 +872,30 @@ TEST(tailoring, ko_search_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0xfe8a);
     auto const rel = std::vector<uint32_t>(1, 0xfe89);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::tertiary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         0);
     }
@@ -489,15 +903,30 @@ TEST(tailoring, ko_search_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0xfe89);
     auto const rel = std::vector<uint32_t>(1, 0x0649);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         0);
     }
@@ -505,15 +934,30 @@ TEST(tailoring, ko_search_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x0649);
     auto const rel = std::vector<uint32_t>(1, 0xfbe8);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::tertiary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         0);
     }
@@ -521,15 +965,30 @@ TEST(tailoring, ko_search_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0xfbe8);
     auto const rel = std::vector<uint32_t>(1, 0xfbe9);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::tertiary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         0);
     }
@@ -537,15 +996,30 @@ TEST(tailoring, ko_search_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0xfbe9);
     auto const rel = std::vector<uint32_t>(1, 0xfef0);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::tertiary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         0);
     }
@@ -553,15 +1027,30 @@ TEST(tailoring, ko_search_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0xfef0);
     auto const rel = std::vector<uint32_t>(1, 0xfeef);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::tertiary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         0);
     }
@@ -569,15 +1058,30 @@ TEST(tailoring, ko_search_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x0647);
     auto const rel = std::vector<uint32_t>(1, 0xfeeb);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::tertiary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         0);
     }
@@ -585,15 +1089,30 @@ TEST(tailoring, ko_search_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0xfeeb);
     auto const rel = std::vector<uint32_t>(1, 0xfeec);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::tertiary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         0);
     }
@@ -601,15 +1120,30 @@ TEST(tailoring, ko_search_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0xfeec);
     auto const rel = std::vector<uint32_t>(1, 0xfeea);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::tertiary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         0);
     }
@@ -617,15 +1151,30 @@ TEST(tailoring, ko_search_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0xfeea);
     auto const rel = std::vector<uint32_t>(1, 0xfee9);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::tertiary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         0);
     }
@@ -633,15 +1182,30 @@ TEST(tailoring, ko_search_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0xfee9);
     auto const rel = std::vector<uint32_t>(1, 0x0629);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         0);
     }
@@ -649,15 +1213,30 @@ TEST(tailoring, ko_search_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x0629);
     auto const rel = std::vector<uint32_t>(1, 0xfe94);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::tertiary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         0);
     }
@@ -665,9 +1244,18 @@ TEST(tailoring, ko_search_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0xfe94);
     auto const rel = std::vector<uint32_t>(1, 0xfe93);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::tertiary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
@@ -676,20 +1264,41 @@ TEST(tailoring, ko_search_000_001)
         rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
+        table(), collation_strength::secondary),
+        0);
     }
     {
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x00b7);
     auto const rel = std::vector<uint32_t>(1, 0x05f3);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         0);
     }
@@ -697,15 +1306,30 @@ TEST(tailoring, ko_search_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x05f3);
     auto const rel = std::vector<uint32_t>(1, 0x05f4);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         0);
     }
@@ -713,9 +1337,18 @@ TEST(tailoring, ko_search_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x05f4);
     auto const rel = std::vector<uint32_t>(1, 0x0640);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         -1);
     // equal to preceeding cps at next-lower strength
@@ -724,20 +1357,41 @@ TEST(tailoring, ko_search_000_001)
         rel.begin(), rel.end(),
         table(), collation_strength::primary),
         0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
+        table(), collation_strength::primary),
+        0);
     }
     {
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x0640);
     auto const rel = std::vector<uint32_t>(1, 0x0e3a);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        -1);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::secondary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        0);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::primary),
         0);
     }
@@ -749,9 +1403,18 @@ TEST(tailoring, ko_search_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x1100);
     auto const rel = std::vector<uint32_t>(1, 0x11a8);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -759,9 +1422,18 @@ TEST(tailoring, ko_search_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1100, 0x1100};
     auto const rel = std::vector<uint32_t>(1, 0x1101);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -769,9 +1441,18 @@ TEST(tailoring, ko_search_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x1101);
     auto const rel = std::vector<uint32_t>(1, 0x11a9);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -779,9 +1460,18 @@ TEST(tailoring, ko_search_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1100, 0x1109};
     auto const rel = std::vector<uint32_t>(1, 0x11aa);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -789,9 +1479,18 @@ TEST(tailoring, ko_search_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x1102);
     auto const rel = std::vector<uint32_t>(1, 0x11ab);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -799,9 +1498,18 @@ TEST(tailoring, ko_search_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1102, 0x110c};
     auto const rel = std::vector<uint32_t>(1, 0x11ac);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -809,9 +1517,18 @@ TEST(tailoring, ko_search_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1102, 0x1112};
     auto const rel = std::vector<uint32_t>(1, 0x11ad);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -819,9 +1536,18 @@ TEST(tailoring, ko_search_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x1103);
     auto const rel = std::vector<uint32_t>(1, 0x11ae);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -829,9 +1555,18 @@ TEST(tailoring, ko_search_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1103, 0x1103};
     auto const rel = std::vector<uint32_t>(1, 0x1104);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -839,9 +1574,18 @@ TEST(tailoring, ko_search_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x1105);
     auto const rel = std::vector<uint32_t>(1, 0x11af);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -849,9 +1593,18 @@ TEST(tailoring, ko_search_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1105, 0x1100};
     auto const rel = std::vector<uint32_t>(1, 0x11b0);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -859,9 +1612,18 @@ TEST(tailoring, ko_search_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1105, 0x1106};
     auto const rel = std::vector<uint32_t>(1, 0x11b1);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -869,9 +1631,18 @@ TEST(tailoring, ko_search_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1105, 0x1107};
     auto const rel = std::vector<uint32_t>(1, 0x11b2);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -879,9 +1650,18 @@ TEST(tailoring, ko_search_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1105, 0x1109};
     auto const rel = std::vector<uint32_t>(1, 0x11b3);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -889,9 +1669,18 @@ TEST(tailoring, ko_search_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1105, 0x1110};
     auto const rel = std::vector<uint32_t>(1, 0x11b4);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -899,9 +1688,18 @@ TEST(tailoring, ko_search_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1105, 0x1111};
     auto const rel = std::vector<uint32_t>(1, 0x11b5);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -909,9 +1707,18 @@ TEST(tailoring, ko_search_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1105, 0x1112};
     auto const rel = std::vector<uint32_t>(1, 0x11b6);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -919,9 +1726,18 @@ TEST(tailoring, ko_search_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x1106);
     auto const rel = std::vector<uint32_t>(1, 0x11b7);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -929,9 +1745,18 @@ TEST(tailoring, ko_search_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x1107);
     auto const rel = std::vector<uint32_t>(1, 0x11b8);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -939,9 +1764,18 @@ TEST(tailoring, ko_search_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1107, 0x1107};
     auto const rel = std::vector<uint32_t>(1, 0x1108);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -949,9 +1783,18 @@ TEST(tailoring, ko_search_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1107, 0x1109};
     auto const rel = std::vector<uint32_t>(1, 0x11b9);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -959,9 +1802,18 @@ TEST(tailoring, ko_search_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x1109);
     auto const rel = std::vector<uint32_t>(1, 0x11ba);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -969,9 +1821,18 @@ TEST(tailoring, ko_search_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1109, 0x1109};
     auto const rel = std::vector<uint32_t>(1, 0x110a);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -979,9 +1840,18 @@ TEST(tailoring, ko_search_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x110a);
     auto const rel = std::vector<uint32_t>(1, 0x11bb);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -989,9 +1859,18 @@ TEST(tailoring, ko_search_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x110b);
     auto const rel = std::vector<uint32_t>(1, 0x11bc);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -999,9 +1878,18 @@ TEST(tailoring, ko_search_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x110c);
     auto const rel = std::vector<uint32_t>(1, 0x11bd);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1009,9 +1897,18 @@ TEST(tailoring, ko_search_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x110c, 0x110c};
     auto const rel = std::vector<uint32_t>(1, 0x110d);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1023,9 +1920,18 @@ TEST(tailoring, ko_search_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x110e);
     auto const rel = std::vector<uint32_t>(1, 0x11be);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1033,9 +1939,18 @@ TEST(tailoring, ko_search_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x110f);
     auto const rel = std::vector<uint32_t>(1, 0x11bf);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1043,9 +1958,18 @@ TEST(tailoring, ko_search_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x1110);
     auto const rel = std::vector<uint32_t>(1, 0x11c0);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1053,9 +1977,18 @@ TEST(tailoring, ko_search_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x1111);
     auto const rel = std::vector<uint32_t>(1, 0x11c1);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1063,9 +1996,18 @@ TEST(tailoring, ko_search_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x1112);
     auto const rel = std::vector<uint32_t>(1, 0x11c2);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1073,9 +2015,18 @@ TEST(tailoring, ko_search_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1161, 0x1175};
     auto const rel = std::vector<uint32_t>(1, 0x1162);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1083,9 +2034,18 @@ TEST(tailoring, ko_search_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1163, 0x1175};
     auto const rel = std::vector<uint32_t>(1, 0x1164);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1093,9 +2053,18 @@ TEST(tailoring, ko_search_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1165, 0x1175};
     auto const rel = std::vector<uint32_t>(1, 0x1166);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1103,9 +2072,18 @@ TEST(tailoring, ko_search_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1167, 0x1175};
     auto const rel = std::vector<uint32_t>(1, 0x1168);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1113,9 +2091,18 @@ TEST(tailoring, ko_search_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1169, 0x1161};
     auto const rel = std::vector<uint32_t>(1, 0x116a);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1123,9 +2110,18 @@ TEST(tailoring, ko_search_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1169, 0x1161, 0x1175};
     auto const rel = std::vector<uint32_t>(1, 0x116b);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1133,9 +2129,18 @@ TEST(tailoring, ko_search_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1169, 0x1175};
     auto const rel = std::vector<uint32_t>(1, 0x116c);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1143,9 +2148,18 @@ TEST(tailoring, ko_search_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x116e, 0x1165};
     auto const rel = std::vector<uint32_t>(1, 0x116f);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1153,9 +2167,18 @@ TEST(tailoring, ko_search_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x116e, 0x1165, 0x1175};
     auto const rel = std::vector<uint32_t>(1, 0x1170);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1163,9 +2186,18 @@ TEST(tailoring, ko_search_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x116e, 0x1175};
     auto const rel = std::vector<uint32_t>(1, 0x1171);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1173,9 +2205,18 @@ TEST(tailoring, ko_search_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1173, 0x1175};
     auto const rel = std::vector<uint32_t>(1, 0x1174);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1183,9 +2224,18 @@ TEST(tailoring, ko_search_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1100, 0x1102};
     auto const rel = std::vector<uint32_t>(1, 0x11fa);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1193,9 +2243,18 @@ TEST(tailoring, ko_search_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1100, 0x1103};
     auto const rel = std::vector<uint32_t>(1, 0x115a);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1203,9 +2262,18 @@ TEST(tailoring, ko_search_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1100, 0x1105};
     auto const rel = std::vector<uint32_t>(1, 0x11c3);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1213,9 +2281,18 @@ TEST(tailoring, ko_search_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1100, 0x1107};
     auto const rel = std::vector<uint32_t>(1, 0x11fb);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1223,9 +2300,18 @@ TEST(tailoring, ko_search_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1100, 0x1109, 0x1100};
     auto const rel = std::vector<uint32_t>(1, 0x11c4);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1233,9 +2319,18 @@ TEST(tailoring, ko_search_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1100, 0x110e};
     auto const rel = std::vector<uint32_t>(1, 0x11fc);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1243,9 +2338,18 @@ TEST(tailoring, ko_search_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1100, 0x110f};
     auto const rel = std::vector<uint32_t>(1, 0x11fd);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1253,9 +2357,18 @@ TEST(tailoring, ko_search_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1100, 0x1112};
     auto const rel = std::vector<uint32_t>(1, 0x11fe);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1263,9 +2376,18 @@ TEST(tailoring, ko_search_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1102, 0x1100};
     auto const rel = std::vector<uint32_t>(1, 0x1113);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1273,9 +2395,18 @@ TEST(tailoring, ko_search_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x1113);
     auto const rel = std::vector<uint32_t>(1, 0x11c5);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1287,9 +2418,18 @@ TEST(tailoring, ko_search_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1102, 0x1102};
     auto const rel = std::vector<uint32_t>(1, 0x1114);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1297,9 +2437,18 @@ TEST(tailoring, ko_search_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x1114);
     auto const rel = std::vector<uint32_t>(1, 0x11ff);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1307,9 +2456,18 @@ TEST(tailoring, ko_search_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1102, 0x1103};
     auto const rel = std::vector<uint32_t>(1, 0x1115);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1317,9 +2475,18 @@ TEST(tailoring, ko_search_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x1115);
     auto const rel = std::vector<uint32_t>(1, 0x11c6);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1327,9 +2494,18 @@ TEST(tailoring, ko_search_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1102, 0x1107};
     auto const rel = std::vector<uint32_t>(1, 0x1116);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1337,9 +2513,18 @@ TEST(tailoring, ko_search_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1102, 0x1109};
     auto const rel = std::vector<uint32_t>(1, 0x115b);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1347,9 +2532,18 @@ TEST(tailoring, ko_search_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x115b);
     auto const rel = std::vector<uint32_t>(1, 0x11c7);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1357,9 +2551,18 @@ TEST(tailoring, ko_search_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1102, 0x110c};
     auto const rel = std::vector<uint32_t>(1, 0x115c);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1367,9 +2570,18 @@ TEST(tailoring, ko_search_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1102, 0x1110};
     auto const rel = std::vector<uint32_t>(1, 0x11c9);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1377,9 +2589,18 @@ TEST(tailoring, ko_search_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1102, 0x1112};
     auto const rel = std::vector<uint32_t>(1, 0x115d);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1387,9 +2608,18 @@ TEST(tailoring, ko_search_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1103, 0x1100};
     auto const rel = std::vector<uint32_t>(1, 0x1117);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1397,9 +2627,18 @@ TEST(tailoring, ko_search_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x1117);
     auto const rel = std::vector<uint32_t>(1, 0x11ca);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1407,9 +2646,18 @@ TEST(tailoring, ko_search_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1103, 0x1105};
     auto const rel = std::vector<uint32_t>(1, 0x115e);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1417,9 +2665,18 @@ TEST(tailoring, ko_search_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x115e);
     auto const rel = std::vector<uint32_t>(1, 0x11cb);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1427,9 +2684,18 @@ TEST(tailoring, ko_search_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1105, 0x1100, 0x1109};
     auto const rel = std::vector<uint32_t>(1, 0x11cc);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1437,9 +2703,18 @@ TEST(tailoring, ko_search_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1105, 0x1102};
     auto const rel = std::vector<uint32_t>(1, 0x1118);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1447,9 +2722,18 @@ TEST(tailoring, ko_search_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x1118);
     auto const rel = std::vector<uint32_t>(1, 0x11cd);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1457,9 +2741,18 @@ TEST(tailoring, ko_search_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1105, 0x1103};
     auto const rel = std::vector<uint32_t>(1, 0x11ce);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1467,9 +2760,18 @@ TEST(tailoring, ko_search_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1105, 0x1103, 0x1112};
     auto const rel = std::vector<uint32_t>(1, 0x11cf);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1477,9 +2779,18 @@ TEST(tailoring, ko_search_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1105, 0x1105};
     auto const rel = std::vector<uint32_t>(1, 0x1119);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1487,9 +2798,18 @@ TEST(tailoring, ko_search_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x1119);
     auto const rel = std::vector<uint32_t>(1, 0x11d0);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1497,9 +2817,18 @@ TEST(tailoring, ko_search_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1105, 0x1106, 0x1100};
     auto const rel = std::vector<uint32_t>(1, 0x11d1);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1507,9 +2836,18 @@ TEST(tailoring, ko_search_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1105, 0x1106, 0x1109};
     auto const rel = std::vector<uint32_t>(1, 0x11d2);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1517,9 +2855,18 @@ TEST(tailoring, ko_search_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1105, 0x1107, 0x1109};
     auto const rel = std::vector<uint32_t>(1, 0x11d3);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1527,9 +2874,18 @@ TEST(tailoring, ko_search_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1105, 0x1107, 0x110b};
     auto const rel = std::vector<uint32_t>(1, 0x11d5);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1537,9 +2893,18 @@ TEST(tailoring, ko_search_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1105, 0x1107, 0x1112};
     auto const rel = std::vector<uint32_t>(1, 0x11d4);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1547,9 +2912,18 @@ TEST(tailoring, ko_search_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1105, 0x1109, 0x1109};
     auto const rel = std::vector<uint32_t>(1, 0x11d6);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1557,9 +2931,18 @@ TEST(tailoring, ko_search_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1105, 0x110b};
     auto const rel = std::vector<uint32_t>(1, 0x111b);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1567,9 +2950,18 @@ TEST(tailoring, ko_search_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1105, 0x110f};
     auto const rel = std::vector<uint32_t>(1, 0x11d8);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1581,9 +2973,18 @@ TEST(tailoring, ko_search_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1105, 0x1112};
     auto const rel = std::vector<uint32_t>(1, 0x111a);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1591,9 +2992,18 @@ TEST(tailoring, ko_search_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1106, 0x1100};
     auto const rel = std::vector<uint32_t>(1, 0x11da);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1601,9 +3011,18 @@ TEST(tailoring, ko_search_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1106, 0x1105};
     auto const rel = std::vector<uint32_t>(1, 0x11db);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1611,9 +3030,18 @@ TEST(tailoring, ko_search_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1106, 0x1107};
     auto const rel = std::vector<uint32_t>(1, 0x111c);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1621,9 +3049,18 @@ TEST(tailoring, ko_search_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x111c);
     auto const rel = std::vector<uint32_t>(1, 0x11dc);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1631,9 +3068,18 @@ TEST(tailoring, ko_search_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1106, 0x1109};
     auto const rel = std::vector<uint32_t>(1, 0x11dd);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1641,9 +3087,18 @@ TEST(tailoring, ko_search_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1106, 0x1109, 0x1109};
     auto const rel = std::vector<uint32_t>(1, 0x11de);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1651,9 +3106,18 @@ TEST(tailoring, ko_search_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1106, 0x110b};
     auto const rel = std::vector<uint32_t>(1, 0x111d);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1661,9 +3125,18 @@ TEST(tailoring, ko_search_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x111d);
     auto const rel = std::vector<uint32_t>(1, 0x11e2);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1671,9 +3144,18 @@ TEST(tailoring, ko_search_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1106, 0x110e};
     auto const rel = std::vector<uint32_t>(1, 0x11e0);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1681,9 +3163,18 @@ TEST(tailoring, ko_search_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1106, 0x1112};
     auto const rel = std::vector<uint32_t>(1, 0x11e1);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1691,9 +3182,18 @@ TEST(tailoring, ko_search_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1107, 0x1100};
     auto const rel = std::vector<uint32_t>(1, 0x111e);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1701,9 +3201,18 @@ TEST(tailoring, ko_search_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1107, 0x1102};
     auto const rel = std::vector<uint32_t>(1, 0x111f);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1711,9 +3220,18 @@ TEST(tailoring, ko_search_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1107, 0x1103};
     auto const rel = std::vector<uint32_t>(1, 0x1120);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1721,9 +3239,18 @@ TEST(tailoring, ko_search_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1107, 0x1105};
     auto const rel = std::vector<uint32_t>(1, 0x11e3);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1731,9 +3258,18 @@ TEST(tailoring, ko_search_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1107, 0x1107, 0x110b};
     auto const rel = std::vector<uint32_t>(1, 0x112c);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1741,9 +3277,18 @@ TEST(tailoring, ko_search_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1107, 0x1109};
     auto const rel = std::vector<uint32_t>(1, 0x1121);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1751,9 +3296,18 @@ TEST(tailoring, ko_search_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1107, 0x1109, 0x1100};
     auto const rel = std::vector<uint32_t>(1, 0x1122);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1761,9 +3315,18 @@ TEST(tailoring, ko_search_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1107, 0x1109, 0x1103};
     auto const rel = std::vector<uint32_t>(1, 0x1123);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1771,9 +3334,18 @@ TEST(tailoring, ko_search_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1107, 0x1109, 0x1107};
     auto const rel = std::vector<uint32_t>(1, 0x1124);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1781,9 +3353,18 @@ TEST(tailoring, ko_search_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1107, 0x1109, 0x1109};
     auto const rel = std::vector<uint32_t>(1, 0x1125);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1791,9 +3372,18 @@ TEST(tailoring, ko_search_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1107, 0x1109, 0x110c};
     auto const rel = std::vector<uint32_t>(1, 0x1126);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1801,9 +3391,18 @@ TEST(tailoring, ko_search_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1107, 0x110b};
     auto const rel = std::vector<uint32_t>(1, 0x112b);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1811,9 +3410,18 @@ TEST(tailoring, ko_search_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x112b);
     auto const rel = std::vector<uint32_t>(1, 0x11e6);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1821,9 +3429,18 @@ TEST(tailoring, ko_search_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1107, 0x110c};
     auto const rel = std::vector<uint32_t>(1, 0x1127);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1831,9 +3448,18 @@ TEST(tailoring, ko_search_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1107, 0x110e};
     auto const rel = std::vector<uint32_t>(1, 0x1128);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1841,9 +3467,18 @@ TEST(tailoring, ko_search_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1107, 0x1110};
     auto const rel = std::vector<uint32_t>(1, 0x1129);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1855,9 +3490,18 @@ TEST(tailoring, ko_search_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1107, 0x1111};
     auto const rel = std::vector<uint32_t>(1, 0x112a);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1865,9 +3509,18 @@ TEST(tailoring, ko_search_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x112a);
     auto const rel = std::vector<uint32_t>(1, 0x11e4);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1875,9 +3528,18 @@ TEST(tailoring, ko_search_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1107, 0x1112};
     auto const rel = std::vector<uint32_t>(1, 0x11e5);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1885,9 +3547,18 @@ TEST(tailoring, ko_search_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1109, 0x1100};
     auto const rel = std::vector<uint32_t>(1, 0x112d);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1895,9 +3566,18 @@ TEST(tailoring, ko_search_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x112d);
     auto const rel = std::vector<uint32_t>(1, 0x11e7);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1905,9 +3585,18 @@ TEST(tailoring, ko_search_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1109, 0x1102};
     auto const rel = std::vector<uint32_t>(1, 0x112e);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1915,9 +3604,18 @@ TEST(tailoring, ko_search_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1109, 0x1103};
     auto const rel = std::vector<uint32_t>(1, 0x112f);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1925,9 +3623,18 @@ TEST(tailoring, ko_search_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x112f);
     auto const rel = std::vector<uint32_t>(1, 0x11e8);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1935,9 +3642,18 @@ TEST(tailoring, ko_search_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1109, 0x1105};
     auto const rel = std::vector<uint32_t>(1, 0x1130);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1945,9 +3661,18 @@ TEST(tailoring, ko_search_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x1130);
     auto const rel = std::vector<uint32_t>(1, 0x11e9);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1955,9 +3680,18 @@ TEST(tailoring, ko_search_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1109, 0x1106};
     auto const rel = std::vector<uint32_t>(1, 0x1131);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1965,9 +3699,18 @@ TEST(tailoring, ko_search_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1109, 0x1107};
     auto const rel = std::vector<uint32_t>(1, 0x1132);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1975,9 +3718,18 @@ TEST(tailoring, ko_search_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x1132);
     auto const rel = std::vector<uint32_t>(1, 0x11ea);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1985,9 +3737,18 @@ TEST(tailoring, ko_search_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1109, 0x1107, 0x1100};
     auto const rel = std::vector<uint32_t>(1, 0x1133);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -1995,9 +3756,18 @@ TEST(tailoring, ko_search_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1109, 0x1109, 0x1109};
     auto const rel = std::vector<uint32_t>(1, 0x1134);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2005,9 +3775,18 @@ TEST(tailoring, ko_search_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1109, 0x110b};
     auto const rel = std::vector<uint32_t>(1, 0x1135);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2015,9 +3794,18 @@ TEST(tailoring, ko_search_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1109, 0x110c};
     auto const rel = std::vector<uint32_t>(1, 0x1136);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2025,9 +3813,18 @@ TEST(tailoring, ko_search_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1109, 0x110e};
     auto const rel = std::vector<uint32_t>(1, 0x1137);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2035,9 +3832,18 @@ TEST(tailoring, ko_search_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1109, 0x110f};
     auto const rel = std::vector<uint32_t>(1, 0x1138);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2045,9 +3851,18 @@ TEST(tailoring, ko_search_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1109, 0x1110};
     auto const rel = std::vector<uint32_t>(1, 0x1139);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2055,9 +3870,18 @@ TEST(tailoring, ko_search_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1109, 0x1111};
     auto const rel = std::vector<uint32_t>(1, 0x113a);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2065,9 +3889,18 @@ TEST(tailoring, ko_search_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1109, 0x1112};
     auto const rel = std::vector<uint32_t>(1, 0x113b);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2075,9 +3908,18 @@ TEST(tailoring, ko_search_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x110b, 0x1100};
     auto const rel = std::vector<uint32_t>(1, 0x1141);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2085,9 +3927,18 @@ TEST(tailoring, ko_search_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x1141);
     auto const rel = std::vector<uint32_t>(1, 0x11ec);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2095,9 +3946,18 @@ TEST(tailoring, ko_search_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x110b, 0x1100, 0x1100};
     auto const rel = std::vector<uint32_t>(1, 0x11ed);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2105,9 +3965,18 @@ TEST(tailoring, ko_search_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x110b, 0x1103};
     auto const rel = std::vector<uint32_t>(1, 0x1142);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2115,9 +3984,18 @@ TEST(tailoring, ko_search_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x110b, 0x1106};
     auto const rel = std::vector<uint32_t>(1, 0x1143);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2125,9 +4003,18 @@ TEST(tailoring, ko_search_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x110b, 0x1107};
     auto const rel = std::vector<uint32_t>(1, 0x1144);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2135,9 +4022,18 @@ TEST(tailoring, ko_search_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x110b, 0x1109};
     auto const rel = std::vector<uint32_t>(1, 0x1145);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2149,9 +4045,18 @@ TEST(tailoring, ko_search_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x110b, 0x110b};
     auto const rel = std::vector<uint32_t>(1, 0x1147);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2159,9 +4064,18 @@ TEST(tailoring, ko_search_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x1147);
     auto const rel = std::vector<uint32_t>(1, 0x11ee);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2169,9 +4083,18 @@ TEST(tailoring, ko_search_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x110b, 0x110c};
     auto const rel = std::vector<uint32_t>(1, 0x1148);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2179,9 +4102,18 @@ TEST(tailoring, ko_search_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x110b, 0x110e};
     auto const rel = std::vector<uint32_t>(1, 0x1149);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2189,9 +4121,18 @@ TEST(tailoring, ko_search_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x110b, 0x110f};
     auto const rel = std::vector<uint32_t>(1, 0x11ef);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2199,9 +4140,18 @@ TEST(tailoring, ko_search_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x110b, 0x1110};
     auto const rel = std::vector<uint32_t>(1, 0x114a);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2209,9 +4159,18 @@ TEST(tailoring, ko_search_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x110b, 0x1111};
     auto const rel = std::vector<uint32_t>(1, 0x114b);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2219,9 +4178,18 @@ TEST(tailoring, ko_search_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x110c, 0x110b};
     auto const rel = std::vector<uint32_t>(1, 0x114d);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2229,9 +4197,18 @@ TEST(tailoring, ko_search_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x110e, 0x110f};
     auto const rel = std::vector<uint32_t>(1, 0x1152);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2239,9 +4216,18 @@ TEST(tailoring, ko_search_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x110e, 0x1112};
     auto const rel = std::vector<uint32_t>(1, 0x1153);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2249,9 +4235,18 @@ TEST(tailoring, ko_search_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1111, 0x1107};
     auto const rel = std::vector<uint32_t>(1, 0x1156);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2259,9 +4254,18 @@ TEST(tailoring, ko_search_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x1156);
     auto const rel = std::vector<uint32_t>(1, 0x11f3);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2269,9 +4273,18 @@ TEST(tailoring, ko_search_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1111, 0x110b};
     auto const rel = std::vector<uint32_t>(1, 0x1157);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2279,9 +4292,18 @@ TEST(tailoring, ko_search_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x1157);
     auto const rel = std::vector<uint32_t>(1, 0x11f4);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2289,9 +4311,18 @@ TEST(tailoring, ko_search_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1112, 0x1102};
     auto const rel = std::vector<uint32_t>(1, 0x11f5);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2299,9 +4330,18 @@ TEST(tailoring, ko_search_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1112, 0x1105};
     auto const rel = std::vector<uint32_t>(1, 0x11f6);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2309,9 +4349,18 @@ TEST(tailoring, ko_search_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1112, 0x1106};
     auto const rel = std::vector<uint32_t>(1, 0x11f7);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2319,9 +4368,18 @@ TEST(tailoring, ko_search_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1112, 0x1107};
     auto const rel = std::vector<uint32_t>(1, 0x11f8);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2329,9 +4387,18 @@ TEST(tailoring, ko_search_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1112, 0x1112};
     auto const rel = std::vector<uint32_t>(1, 0x1158);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2339,9 +4406,18 @@ TEST(tailoring, ko_search_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1161, 0x1169};
     auto const rel = std::vector<uint32_t>(1, 0x1176);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2349,9 +4425,18 @@ TEST(tailoring, ko_search_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1161, 0x116e};
     auto const rel = std::vector<uint32_t>(1, 0x1177);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2359,9 +4444,18 @@ TEST(tailoring, ko_search_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1163, 0x1169};
     auto const rel = std::vector<uint32_t>(1, 0x1178);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2369,9 +4463,18 @@ TEST(tailoring, ko_search_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1163, 0x116d};
     auto const rel = std::vector<uint32_t>(1, 0x1179);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2379,9 +4482,18 @@ TEST(tailoring, ko_search_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1165, 0x1169};
     auto const rel = std::vector<uint32_t>(1, 0x117a);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2389,9 +4501,18 @@ TEST(tailoring, ko_search_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1165, 0x116e};
     auto const rel = std::vector<uint32_t>(1, 0x117b);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2399,9 +4520,18 @@ TEST(tailoring, ko_search_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1165, 0x1173};
     auto const rel = std::vector<uint32_t>(1, 0x117c);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2409,9 +4539,18 @@ TEST(tailoring, ko_search_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1167, 0x1169};
     auto const rel = std::vector<uint32_t>(1, 0x117d);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2423,9 +4562,18 @@ TEST(tailoring, ko_search_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1167, 0x116e};
     auto const rel = std::vector<uint32_t>(1, 0x117e);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2433,9 +4581,18 @@ TEST(tailoring, ko_search_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1169, 0x1165};
     auto const rel = std::vector<uint32_t>(1, 0x117f);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2443,9 +4600,18 @@ TEST(tailoring, ko_search_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1169, 0x1165, 0x1175};
     auto const rel = std::vector<uint32_t>(1, 0x1180);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2453,9 +4619,18 @@ TEST(tailoring, ko_search_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1169, 0x1167, 0x1175};
     auto const rel = std::vector<uint32_t>(1, 0x1181);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2463,9 +4638,18 @@ TEST(tailoring, ko_search_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1169, 0x1169};
     auto const rel = std::vector<uint32_t>(1, 0x1182);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2473,9 +4657,18 @@ TEST(tailoring, ko_search_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1169, 0x116e};
     auto const rel = std::vector<uint32_t>(1, 0x1183);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2483,9 +4676,18 @@ TEST(tailoring, ko_search_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x116d, 0x1163};
     auto const rel = std::vector<uint32_t>(1, 0x1184);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2493,9 +4695,18 @@ TEST(tailoring, ko_search_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x116d, 0x1163, 0x1175};
     auto const rel = std::vector<uint32_t>(1, 0x1185);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2503,9 +4714,18 @@ TEST(tailoring, ko_search_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x116d, 0x1167};
     auto const rel = std::vector<uint32_t>(1, 0x1186);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2513,9 +4733,18 @@ TEST(tailoring, ko_search_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x116d, 0x1169};
     auto const rel = std::vector<uint32_t>(1, 0x1187);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2523,9 +4752,18 @@ TEST(tailoring, ko_search_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x116d, 0x1175};
     auto const rel = std::vector<uint32_t>(1, 0x1188);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2533,9 +4771,18 @@ TEST(tailoring, ko_search_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x116e, 0x1161};
     auto const rel = std::vector<uint32_t>(1, 0x1189);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2543,9 +4790,18 @@ TEST(tailoring, ko_search_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x116e, 0x1161, 0x1175};
     auto const rel = std::vector<uint32_t>(1, 0x118a);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2553,9 +4809,18 @@ TEST(tailoring, ko_search_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x116e, 0x1165, 0x1173};
     auto const rel = std::vector<uint32_t>(1, 0x118b);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2563,9 +4828,18 @@ TEST(tailoring, ko_search_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x116e, 0x1167, 0x1175};
     auto const rel = std::vector<uint32_t>(1, 0x118c);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2573,9 +4847,18 @@ TEST(tailoring, ko_search_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x116e, 0x116e};
     auto const rel = std::vector<uint32_t>(1, 0x118d);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2583,9 +4866,18 @@ TEST(tailoring, ko_search_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1172, 0x1161};
     auto const rel = std::vector<uint32_t>(1, 0x118e);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2593,9 +4885,18 @@ TEST(tailoring, ko_search_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1172, 0x1165};
     auto const rel = std::vector<uint32_t>(1, 0x118f);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2603,9 +4904,18 @@ TEST(tailoring, ko_search_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1172, 0x1165, 0x1175};
     auto const rel = std::vector<uint32_t>(1, 0x1190);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2613,9 +4923,18 @@ TEST(tailoring, ko_search_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1172, 0x1167};
     auto const rel = std::vector<uint32_t>(1, 0x1191);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2623,9 +4942,18 @@ TEST(tailoring, ko_search_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1172, 0x1167, 0x1175};
     auto const rel = std::vector<uint32_t>(1, 0x1192);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2633,9 +4961,18 @@ TEST(tailoring, ko_search_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1172, 0x116e};
     auto const rel = std::vector<uint32_t>(1, 0x1193);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2643,9 +4980,18 @@ TEST(tailoring, ko_search_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1172, 0x1175};
     auto const rel = std::vector<uint32_t>(1, 0x1194);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2653,9 +4999,18 @@ TEST(tailoring, ko_search_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1173, 0x116e};
     auto const rel = std::vector<uint32_t>(1, 0x1195);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2663,9 +5018,18 @@ TEST(tailoring, ko_search_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1173, 0x1173};
     auto const rel = std::vector<uint32_t>(1, 0x1196);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2673,9 +5037,18 @@ TEST(tailoring, ko_search_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1174, 0x116e};
     auto const rel = std::vector<uint32_t>(1, 0x1197);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2687,9 +5060,18 @@ TEST(tailoring, ko_search_000_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1175, 0x1161};
     auto const rel = std::vector<uint32_t>(1, 0x1198);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2697,9 +5079,18 @@ TEST(tailoring, ko_search_000_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1175, 0x1163};
     auto const rel = std::vector<uint32_t>(1, 0x1199);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2707,9 +5098,18 @@ TEST(tailoring, ko_search_000_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1175, 0x1169};
     auto const rel = std::vector<uint32_t>(1, 0x119a);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2717,9 +5117,18 @@ TEST(tailoring, ko_search_000_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1175, 0x116e};
     auto const rel = std::vector<uint32_t>(1, 0x119b);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2727,9 +5136,18 @@ TEST(tailoring, ko_search_000_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1175, 0x1173};
     auto const rel = std::vector<uint32_t>(1, 0x119c);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2737,9 +5155,18 @@ TEST(tailoring, ko_search_000_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1161, 0x1173};
     auto const rel = std::vector<uint32_t>(1, 0x11a3);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2747,9 +5174,18 @@ TEST(tailoring, ko_search_000_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1163, 0x116e};
     auto const rel = std::vector<uint32_t>(1, 0x11a4);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2757,9 +5193,18 @@ TEST(tailoring, ko_search_000_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1167, 0x1163};
     auto const rel = std::vector<uint32_t>(1, 0x11a5);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2767,9 +5212,18 @@ TEST(tailoring, ko_search_000_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1169, 0x1163};
     auto const rel = std::vector<uint32_t>(1, 0x11a6);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
@@ -2777,9 +5231,18 @@ TEST(tailoring, ko_search_000_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1169, 0x1163, 0x1175};
     auto const rel = std::vector<uint32_t>(1, 0x11a7);
+    string const res_str = to_string(res);
+    string const rel_str = to_string(rel);
+    auto const res_view = as_utf32(res);
+    auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
         res.begin(), res.end(),
         rel.begin(), rel.end(),
+        table(), collation_strength::quaternary),
+        0);
+    EXPECT_EQ(collate(
+        res_view.begin(), res_view.end(),
+        rel_view.begin(), rel_view.end(),
         table(), collation_strength::quaternary),
         0);
     }
