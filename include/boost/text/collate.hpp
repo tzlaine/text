@@ -20,6 +20,14 @@
 #define BOOST_TEXT_COLLATE_INSTRUMENTATION 0
 #endif
 
+#ifndef BOOST_TEXT_INSTRUMENT_COLLATE_IMPL
+#define BOOST_TEXT_INSTRUMENT_COLLATE_IMPL 0
+#endif
+
+#if BOOST_TEXT_INSTRUMENT_COLLATE_IMPL
+#include <iostream>
+#endif
+
 #endif
 
 
@@ -1498,8 +1506,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         collation_element const * ces_first,
         LeadByteFunc const & lead_byte)
     {
-#define INSTRUMENT 0
-#if INSTRUMENT
+#if BOOST_TEXT_INSTRUMENT_COLLATE_IMPL
         std::cout << "\n\ncollate_impl():\n";
 #endif
 
@@ -1643,7 +1650,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                 primaries.resize(prev_primaries_size);
 
                 retval = true;
-#if INSTRUMENT
+#if BOOST_TEXT_INSTRUMENT_COLLATE_IMPL
                 std::cout << "    backing up one CP.\n";
 #endif
             }
@@ -1698,7 +1705,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                             cp_end_iters.push_back(next);
                         }
 
-#if INSTRUMENT
+#if BOOST_TEXT_INSTRUMENT_COLLATE_IMPL
                         auto const & collation_value = *trie[coll];
                         std::cout << "coll.match, coll_value="
                                   << collation_value.first() << " "
@@ -1718,7 +1725,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                     }
 
                     auto const & collation_value = *trie[coll];
-#if INSTRUMENT
+#if BOOST_TEXT_INSTRUMENT_COLLATE_IMPL
                     std::cout << "final coll.match coll.size=" << coll.size
                               << " coll.value=" << collation_value.first()
                               << " " << collation_value.last() << "\n";
@@ -1741,7 +1748,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             auto l_prim = next_primary(lhs_it, lhs_last, l_primaries);
             auto r_prim = next_primary(rhs_it, rhs_last, r_primaries);
 
-#if INSTRUMENT
+#if BOOST_TEXT_INSTRUMENT_COLLATE_IMPL
             std::cout << "l_prim.cp_=" << std::hex << "0x" << l_prim.cp_
                       << std::dec << "\n";
             std::cout << "r_prim.cp_=" << std::hex << "0x" << r_prim.cp_
@@ -1750,7 +1757,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
 
             bool l_backed_up = false;
             if (table.nonstarter(l_prim.cp_)) {
-#if INSTRUMENT
+#if BOOST_TEXT_INSTRUMENT_COLLATE_IMPL
                 std::cout << "backing up the left.\n";
 #endif
                 l_backed_up = back_up_before_nonstarters(
@@ -1763,7 +1770,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             }
             bool r_backed_up = false;
             if (table.nonstarter(r_prim.cp_)) {
-#if INSTRUMENT
+#if BOOST_TEXT_INSTRUMENT_COLLATE_IMPL
                 std::cout << "backing up the right.\n";
 #endif
                 r_backed_up = back_up_before_nonstarters(
@@ -1786,7 +1793,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                                          : r_prim.lead_primary_;
                 if (l_primary && r_primary) {
                     if (l_primary < r_primary) {
-#if INSTRUMENT
+#if BOOST_TEXT_INSTRUMENT_COLLATE_IMPL
                         std::cout << "early return -1 (lead byte)\n";
                         std::cout << "left: "
                                   << "0x" << std::hex << l_primary << std::dec
@@ -1797,7 +1804,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                         return -1;
                     }
                     if (r_primary < l_primary) {
-#if INSTRUMENT
+#if BOOST_TEXT_INSTRUMENT_COLLATE_IMPL
                         std::cout << "early return 1 (lead byte)\n";
                         std::cout << "left: "
                                   << "0x" << std::hex << l_primary << std::dec
@@ -1810,7 +1817,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                 }
             }
 
-#if INSTRUMENT
+#if BOOST_TEXT_INSTRUMENT_COLLATE_IMPL
             {
                 std::cout << "before getting primaries:\n";
 
@@ -1832,7 +1839,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
 
             uint32_t l_primary = l_prim.derived_primary_;
             if (!l_primary && lhs_it != lhs_last) {
-#if INSTRUMENT
+#if BOOST_TEXT_INSTRUMENT_COLLATE_IMPL
                 std::cout << "left get_primary()\n";
 #endif
                 get_primary(
@@ -1845,7 +1852,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             }
             uint32_t r_primary = r_prim.derived_primary_;
             if (!r_primary && rhs_it != rhs_last) {
-#if INSTRUMENT
+#if BOOST_TEXT_INSTRUMENT_COLLATE_IMPL
                 std::cout << "right get_primary()\n";
 #endif
                 get_primary(
@@ -1857,7 +1864,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                     r_primaries);
             }
 
-#if INSTRUMENT
+#if BOOST_TEXT_INSTRUMENT_COLLATE_IMPL
             {
                 std::cout << "after getting primaries:\n";
 
@@ -1887,7 +1894,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             auto const r_at_end = mismatches.second == r_primaries.end();
             if (!l_at_end && !r_at_end) {
                 if (*mismatches.first < *mismatches.second) {
-#if INSTRUMENT
+#if BOOST_TEXT_INSTRUMENT_COLLATE_IMPL
                     std::cout << "early return -1\n";
                     std::cout << " left: " << std::hex;
                     for (auto p : l_primaries) {
@@ -1902,7 +1909,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
 #endif
                     return -1;
                 } else {
-#if INSTRUMENT
+#if BOOST_TEXT_INSTRUMENT_COLLATE_IMPL
                     std::cout << "early return 1\n";
                     std::cout << " left: " << std::hex;
                     for (auto p : l_primaries) {
@@ -1918,7 +1925,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                     return 1;
                 }
             } else if (l_at_end && !r_at_end && lhs_it == lhs_last) {
-#if INSTRUMENT
+#if BOOST_TEXT_INSTRUMENT_COLLATE_IMPL
                 std::cout << "early return -1 (right at end)\n";
                 std::cout << " left: " << std::hex;
                 for (auto p : l_primaries) {
@@ -1933,7 +1940,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
 #endif
                 return -1;
             } else if (!l_at_end && r_at_end && rhs_it == rhs_last) {
-#if INSTRUMENT
+#if BOOST_TEXT_INSTRUMENT_COLLATE_IMPL
                 std::cout << "early return 1 (left at end)\n";
                 std::cout << " left: " << std::hex;
                 for (auto p : l_primaries) {
@@ -1958,7 +1965,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             BOOST_ASSERT(boost::text::v1::starts_encoded(lhs_it, lhs_last));
             BOOST_ASSERT(boost::text::v1::starts_encoded(rhs_it, rhs_last));
 
-#if INSTRUMENT
+#if BOOST_TEXT_INSTRUMENT_COLLATE_IMPL
             std::cout << "**************** at end of loop:\n";
 
             std::cout << " left: cps: " << std::hex;
