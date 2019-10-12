@@ -169,7 +169,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             endian::little_uint16_buf_t last;
             read_bytes(in, last);
             collation_elements const value{first.value(), last.value()};
-            trie[key] = value;
+            trie.insert(key, value);
         }
     }
 
