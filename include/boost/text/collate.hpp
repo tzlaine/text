@@ -2041,10 +2041,6 @@ namespace std {
 
 
 /*
-  83/1970 Test   #86: grapheme_iterator_08_g1 ...........................Child aborted***Exception:   0.07 sec
-          Start   87: grapheme_iterator_09_g1
-          Start   91: grapheme_iterator_13_g1
-  88/1970 Test   #91: grapheme_iterator_13_g1 ...........................Child aborted***Exception:   0.07 sec
           Start 1731: tailoring_rule_test_ar_standard_000_g6
 1728/1970 Test #1728: tailoring_rule_test_af_standard_000_g6 ............***Failed    0.99 sec
           Start 1732: tailoring_rule_test_ar_standard_001_g6

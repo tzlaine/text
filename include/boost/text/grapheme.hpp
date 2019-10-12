@@ -20,7 +20,8 @@ namespace boost { namespace text { inline namespace v1 {
     /** Returns the number of bytes controlled by g. */
     int storage_bytes(grapheme const & g) noexcept;
 
-    /** An owning sequence of code points that comprise a grapheme. */
+    /** An owning sequence of code points that comprise a grapheme in
+        FCC-normalized text. */
     struct grapheme
     {
         using const_iterator = utf_8_to_32_iterator<char const *>;
@@ -127,20 +128,17 @@ namespace boost { namespace text { inline namespace v1 {
         /** Constructs *this from the code points [first, last).
 
             \pre The code points in [first, last) comprise at most one
-            grapheme.
-            \pre [first, last) is normalized FCC. */
+            grapheme. */
         constexpr grapheme_ref(CPIter first, CPIter last) noexcept :
             utf32_view<CPIter>(first, last)
         {
             BOOST_ASSERT(
                 boost::text::v1::next_grapheme_break(first, last) == last);
-            BOOST_ASSERT(boost::text::v1::normalized_fcc(first, last));
         }
 
         /** Constructs *this from r.
 
-            \pre The code points in r comprise at most one grapheme.
-            \pre The code points in r are normalized FCC. */
+            \pre The code points in r comprise at most one grapheme. */
         constexpr grapheme_ref(utf32_view<CPIter> r) noexcept :
             grapheme_ref(r.begin(), r.end())
         {}
