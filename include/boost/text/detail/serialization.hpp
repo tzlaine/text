@@ -164,11 +164,22 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                 read_bytes(in, cp);
                 key.cps_.values_[j] = cp.value();
             }
+
             endian::little_uint16_buf_t first;
             read_bytes(in, first);
             endian::little_uint16_buf_t last;
             read_bytes(in, last);
-            collation_elements const value{first.value(), last.value()};
+
+            endian::little_uint8_buf_t lead_primary;
+            read_bytes(in, lead_primary);
+            endian::little_uint8_buf_t lead_primary_shifted;
+            read_bytes(in, lead_primary_shifted);
+
+            collation_elements const value{first.value(),
+                                           last.value(),
+                                           lead_primary.value(),
+                                           lead_primary_shifted.value()};
+
             trie.insert(key, value);
         }
     }
@@ -185,12 +196,22 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                 cp = element.key.cps_.values_[j];
                 write_bytes(cp, out);
             }
+
             endian::little_uint16_buf_t first;
             first = element.value.first();
             write_bytes(first, out);
             endian::little_uint16_buf_t last;
             last = element.value.last();
             write_bytes(last, out);
+
+            endian::little_uint8_buf_t lead_primary;
+            lead_primary =
+                element.value.lead_primary(variable_weighting::non_ignorable);
+            write_bytes(lead_primary, out);
+            endian::little_uint8_buf_t lead_primary_shifted;
+            lead_primary_shifted =
+                element.value.lead_primary(variable_weighting::shifted);
+            write_bytes(lead_primary_shifted, out);
         }
     }
 
