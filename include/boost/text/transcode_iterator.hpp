@@ -981,7 +981,7 @@ namespace boost { namespace text { inline namespace v1 {
         {
             if (0 < index_) {
                 --index_;
-            } else {
+            } else if (it_ != first_) {
                 --it_;
                 auto out = read_into_buf();
                 index_ = out - buf_.data() - 1;
@@ -1964,7 +1964,7 @@ namespace boost { namespace text { inline namespace v1 {
         {
             if (0 < index_) {
                 --index_;
-            } else {
+            } else if (it_ != first_) {
                 --it_;
                 auto out = read_into_buf();
                 index_ = out - buf_.data() - 1;
@@ -2309,7 +2309,7 @@ namespace boost { namespace text { inline namespace v1 {
         BOOST_TEXT_CXX14_CONSTEXPR utf_16_to_32_iterator &
         operator--() noexcept(!throw_on_error)
         {
-            if (boost::text::v1::low_surrogate(*--it_)) {
+            if (it_ != first_ && boost::text::v1::low_surrogate(*--it_)) {
                 if (it_ != first_ &&
                     boost::text::v1::high_surrogate(*std::prev(it_)))
                     --it_;
@@ -2771,7 +2771,7 @@ namespace boost { namespace text { inline namespace v1 {
         {
             if (0 < index_) {
                 --index_;
-            } else {
+            } else if (it_ != first_) {
                 decrement();
                 auto out = read_into_buf();
                 index_ = out - buf_.data() - 1;
