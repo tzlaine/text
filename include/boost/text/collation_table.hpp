@@ -1468,7 +1468,8 @@ namespace boost { namespace text { inline namespace v1 {
             collation_trie_t::trie_map_type trie_map(trie.impl_);
             std::vector<uint16_t> buf;
             for (auto pair : trie_map) {
-                if (boost::text::v1::high_surrogate(
+                if (pair.key.size_ &&
+                    boost::text::v1::high_surrogate(
                         pair.key.cps_.values_[pair.key.size_ - 1])) {
                     continue;
                 }
