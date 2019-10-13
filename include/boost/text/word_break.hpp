@@ -489,23 +489,26 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         // Special case: If state.caps[ph::curr].prop is skippable, we need to
         // skip backward until we find a non-skippable.
         if (detail::skippable(state.caps[ph::curr].prop)) {
-            state.it =
-                boost::text::v1::find_if_not_backward(first, it, [word_prop](uint32_t cp) {
+            auto const prev = boost::text::v1::find_if_not_backward(
+                first, it, [word_prop](uint32_t cp) {
                     return detail::skippable(word_prop(cp));
                 });
-            state.caps[ph::next] =
-                cp_and_word_prop(*std::next(state.it), word_prop);
-            state.caps[ph::curr] = cp_and_word_prop(*state.it, word_prop);
+            if (prev != it) {
+                state.it = prev;
+                state.caps[ph::next] =
+                    cp_and_word_prop(*std::next(state.it), word_prop);
+                state.caps[ph::curr] = cp_and_word_prop(*state.it, word_prop);
 
-            // If we end up on a non-skippable that should break before the
-            // skippable(s) we just moved over, break on the last skippable.
-            if (!detail::skippable(state.caps[ph::curr].prop) &&
-                detail::table_word_break(
-                    state.caps[ph::curr].prop, state.caps[ph::next].prop)) {
-                return ++state.it;
+                // If we end up on a non-skippable that should break before the
+                // skippable(s) we just moved over, break on the last skippable.
+                if (!detail::skippable(state.caps[ph::curr].prop) &&
+                    detail::table_word_break(
+                        state.caps[ph::curr].prop, state.caps[ph::next].prop)) {
+                    return ++state.it;
+                }
+                if (state.it == first)
+                    return first;
             }
-            if (state.it == first)
-                return first;
         }
 
         state.caps[ph::prev_prev] = cp_and_word_prop();
