@@ -132,6 +132,16 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             first_(first),
             last_(last)
         {}
+        constexpr collation_elements(
+            uint16_t first,
+            uint16_t last,
+            unsigned char lead_primary,
+            unsigned char lead_primary_shifted) noexcept :
+            first_(first),
+            last_(last),
+            lead_primary_(lead_primary),
+            lead_primary_shifted_(lead_primary_shifted)
+        {}
 
         iterator begin(collation_element const * elements) const noexcept
         {
@@ -151,15 +161,6 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                        ? lead_primary_
                        : lead_primary_shifted_;
         }
-        unsigned char lead_secondary() const noexcept
-        {
-            return lead_secondary_;
-        }
-        unsigned char lead_tertiary() const noexcept { return lead_tertiary_; }
-        unsigned char lead_quaternary() const noexcept
-        {
-            return lead_quaternary_;
-        }
 
         int size() const noexcept { return last_ - first_; }
         explicit operator bool() const noexcept { return first_ != last_; }
@@ -172,12 +173,6 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                     lead_primary_ = it->l1_ >> 24;
                 if (it->l1_ && !lead_primary_shifted_ && !detail::variable(*it))
                     lead_primary_shifted_ = it->l1_ >> 24;
-                if (it->l2_ && !lead_secondary_)
-                    lead_secondary_ = it->l2_ >> 8;
-                if (it->l3_ && !lead_tertiary_)
-                    lead_tertiary_ = it->l3_ >> 8;
-                if (it->l4_ && !lead_quaternary_)
-                    lead_quaternary_ = it->l4_ >> 24;
             }
         }
 
@@ -185,9 +180,19 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         {
             lead_primary_ = 0;
             lead_primary_shifted_ = 0;
-            lead_secondary_ = 0;
-            lead_tertiary_ = 0;
-            lead_quaternary_ = 0;
+        }
+
+        friend bool
+        operator==(collation_elements lhs, collation_elements rhs) noexcept
+        {
+            return lhs.first_ == rhs.first_ && lhs.last_ == rhs.last_ &&
+                   lhs.lead_primary_ == rhs.lead_primary_ &&
+                   lhs.lead_primary_shifted_ == rhs.lead_primary_shifted_;
+        }
+        friend bool
+        operator!=(collation_elements lhs, collation_elements rhs) noexcept
+        {
+            return !(lhs == rhs);
         }
 
     private:
@@ -195,21 +200,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         uint16_t last_;
         unsigned char lead_primary_ = 0;
         unsigned char lead_primary_shifted_ = 0;
-        unsigned char lead_secondary_ = 0;
-        unsigned char lead_tertiary_ = 0;
-        unsigned char lead_quaternary_ = 0;
     };
-
-    inline bool
-    operator==(collation_elements lhs, collation_elements rhs) noexcept
-    {
-        return lhs.first() == rhs.first() && lhs.last() == rhs.last();
-    }
-    inline bool
-    operator!=(collation_elements lhs, collation_elements rhs) noexcept
-    {
-        return !(lhs == rhs);
-    }
 
     template<int N>
     struct collation_trie_key
