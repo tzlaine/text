@@ -64,6 +64,9 @@ namespace boost { namespace text { inline namespace v1 {
         detail::write_collation_elements(
             table.collation_element_vec_, table.collation_elements_, ofs);
 
+        detail::write_nonstarters(
+            table.nonstarter_table_, table.nonstarters_, ofs);
+
         detail::write_nonsimple_reorders(table.nonsimple_reorders_, ofs);
 
         detail::write_simple_reorders(table.simple_reorders_, ofs);
@@ -89,6 +92,12 @@ namespace boost { namespace text { inline namespace v1 {
             table.collation_element_vec_,
             table.collation_elements_,
             header.collation_elements_.value());
+
+        detail::read_nonstarters(
+            ifs,
+            table.nonstarter_table_,
+            table.nonstarters_,
+            header.nonstarters_.value());
 
         detail::read_nonsimple_reorders(
             ifs, table.nonsimple_reorders_, header.nonsimple_reorders_.value());

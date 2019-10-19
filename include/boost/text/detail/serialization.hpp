@@ -75,6 +75,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             version_ = detail::serialization_version;
             collation_elements_ = int(table.collation_element_vec_.size());
             trie_ = int(trie.size());
+            nonstarters_ = int(table.nonstarter_table_.size());
             nonsimple_reorders_ = int(table.nonsimple_reorders_.size());
             simple_reorders_ = int(table.simple_reorders_.size());
             have_strength_ = !!table.strength_;
@@ -98,6 +99,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
 
         endian::little_int32_buf_t collation_elements_;
         endian::little_int32_buf_t trie_;
+        endian::little_int32_buf_t nonstarters_;
         endian::little_int32_buf_t nonsimple_reorders_;
         endian::little_int32_buf_t simple_reorders_;
 
@@ -243,6 +245,38 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         for (auto ce : collation_element_vec) {
             serialized_collation_element_t const sce = convert(ce);
             write_bytes(sce, out);
+        }
+    }
+
+    template<typename Source>
+    void read_nonstarters(
+        Source & in,
+        std::vector<unsigned char> & nonstarter_table,
+        unsigned char const *& nonstarters,
+        int size)
+    {
+        if (size) {
+            nonstarter_table.resize(size);
+            for (int i = 0; i < size; ++i) {
+                endian::little_uint8_buf_t c;
+                read_bytes(in, c);
+                nonstarter_table[i] = c.value();
+            }
+        } else {
+            nonstarters = default_table_nonstarters_ptr();
+        }
+    }
+
+    template<typename Sink>
+    void write_nonstarters(
+        std::vector<unsigned char> const & nonstarter_table,
+        unsigned char const * nonstarters,
+        Sink & out)
+    {
+        endian::little_uint8_buf_t c;
+        for (unsigned char c_ : nonstarter_table) {
+            c = c_;
+            write_bytes(c, out);
         }
     }
 

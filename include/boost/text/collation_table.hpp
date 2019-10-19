@@ -168,10 +168,14 @@ namespace boost { namespace text { inline namespace v1 {
             collation_table_data const & lhs, collation_table_data const & rhs)
         {
             return lhs.collation_element_vec_ == rhs.collation_element_vec_ &&
+                   ((lhs.collation_elements_ == nullptr) ==
+                    (rhs.collation_elements_ == nullptr)) &&
                    lhs.trie_ == rhs.trie_ &&
                    lhs.nonstarter_first_ == rhs.nonstarter_first_ &&
                    lhs.nonstarter_last_ == rhs.nonstarter_last_ &&
                    lhs.nonstarter_table_ == rhs.nonstarter_table_ &&
+                   ((lhs.nonstarters_ == nullptr) ==
+                    (rhs.nonstarters_ == nullptr)) &&
                    lhs.nonsimple_reorders_ == rhs.nonsimple_reorders_ &&
                    lhs.simple_reorders_ == rhs.simple_reorders_ &&
                    lhs.strength_ == rhs.strength_ &&
