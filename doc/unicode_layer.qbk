@@ -215,10 +215,10 @@ range:
     auto const utf32_range_from_utf8_range =
         boost::text::as_utf32(str);
 
-    auto const utf32_range_from_utf8_iter_and_sentinel =
+    auto const utf32_range_from_utf8_iters =
         boost::text::as_utf32(str.begin(), str.end());
 
-    auto const utf32_range_from_utf8_iters =
+    auto const utf32_range_from_utf8_iter_and_sentinel =
         boost::text::as_utf32(str.data(), boost::text::null_sentinel{});
 
 To support null-terminated strings, you can just pass a pointer to
@@ -272,6 +272,17 @@ The views are all streamable.  They transcode to UTF-8 when streamed to a
 [note Though it does not produce a `utfN_view`, there is a related function
 _to_str_, which takes two UTF-32 iterators and returns a _s_ containing the
 given sequence, UTF-8-encoded.]
+
+[important _u8v_, _u16v_, and _u32v_ are all implemented in terms of C++20's
+`std::ranges::view_interface`.  _Text_ uses a pre-C++20-friendly
+implementation of this from Boost.STLIterfaces (not yet an accepted Boost
+library).  The implication of using `view_interface` is that _u8v_, _u16v_,
+and _u32v_ all have the fullest interface possible, based on the iterator
+and/or sentinel template parameters used to instantiate them.  For instance,
+if you use a random access iterator and no sentinel to instantiate _u32v_, it
+will have an `operator[]`.  If you use a bidirectional iterator instead, it
+will not have `operator[]`.  See `[view.interface]` in the standard for more
+details.]
 
 
 [heading Transcoding Algorithms]

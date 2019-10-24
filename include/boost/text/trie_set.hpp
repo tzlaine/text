@@ -36,7 +36,7 @@ namespace boost { namespace trie {
         \param Compare The type of the comparison object used to compare
         elements of the key-type.
     */
-    template<typename Key, typename Compare = less>
+    template<typename Key, typename Compare>
     struct trie_set
     {
     private:

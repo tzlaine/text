@@ -102,11 +102,17 @@ namespace boost { namespace trie {
 
             std::size_t value() const noexcept { return value_; }
 
-            template<typename Key, typename Value, typename Iter>
+            template<
+                typename Key,
+                typename Value,
+                typename Iter,
+                std::size_t KeySize>
             void insert_at(
-                std::unique_ptr<
-                    trie_node_t<index_within_parent_t, Key, Value>> const &
-                    child,
+                std::unique_ptr<trie_node_t<
+                    index_within_parent_t,
+                    Key,
+                    Value,
+                    KeySize>> const & child,
                 std::ptrdiff_t offset,
                 Iter it,
                 Iter end)
@@ -117,11 +123,12 @@ namespace boost { namespace trie {
                 }
             }
 
-            template<typename Key, typename Value>
-            void
-            insert_ptr(std::unique_ptr<
-                       trie_node_t<index_within_parent_t, Key, Value>> const &
-                           child)
+            template<typename Key, typename Value, std::size_t KeySize>
+            void insert_ptr(std::unique_ptr<trie_node_t<
+                                index_within_parent_t,
+                                Key,
+                                Value,
+                                KeySize>> const & child)
             {
                 child->index_within_parent_.value_ = 0;
             }
@@ -138,25 +145,30 @@ namespace boost { namespace trie {
             std::size_t value_;
         };
 
-        template<typename Key, typename Value>
+        template<typename Key, typename Value, std::size_t KeySize = 0>
         struct trie_iterator_state_t
         {
-            trie_node_t<index_within_parent_t, Key, Value> const * parent_;
+            trie_node_t<index_within_parent_t, Key, Value, KeySize> const *
+                parent_;
             std::size_t index_;
         };
 
-        template<typename Key, typename Value>
-        trie_iterator_state_t<Key, Value>
-        parent_state(trie_iterator_state_t<Key, Value> state)
+        template<typename Key, typename Value, std::size_t KeySize>
+        trie_iterator_state_t<Key, Value, KeySize>
+        parent_state(trie_iterator_state_t<Key, Value, KeySize> state)
         {
             return {state.parent_->parent(),
                     state.parent_->index_within_parent()};
         }
 
-        template<typename Key, typename Value>
-        Key reconstruct_key(trie_iterator_state_t<Key, Value> state) noexcept(
-            noexcept(std::declval<Key &>().insert(
-                std::declval<Key &>().end(), state.parent_->key(state.index_))))
+        template<typename Key, typename Value, std::size_t KeySize>
+        Key reconstruct_key(
+            trie_iterator_state_t<Key, Value, KeySize>
+                state) noexcept(noexcept(std::declval<Key &>()
+                                             .insert(
+                                                 std::declval<Key &>().end(),
+                                                 state.parent_->key(
+                                                     state.index_))))
         {
             Key retval;
             while (state.parent_->parent()) {
@@ -167,9 +179,9 @@ namespace boost { namespace trie {
             return retval;
         }
 
-        template<typename Key, typename Value>
-        trie_node_t<index_within_parent_t, Key, Value> const *
-        to_node(trie_iterator_state_t<Key, Value> state)
+        template<typename Key, typename Value, std::size_t KeySize>
+        trie_node_t<index_within_parent_t, Key, Value, KeySize> const *
+        to_node(trie_iterator_state_t<Key, Value, KeySize> state)
         {
             if (state.index_ < state.parent_->size())
                 return state.parent_->child(state.index_);
@@ -200,7 +212,7 @@ namespace boost { namespace trie {
         \param Compare The type of the comparison object used to compare
         elements of the key-type.
     */
-    template<typename Key, typename Value, typename Compare = less>
+    template<typename Key, typename Value, typename Compare>
     struct trie_map
     {
     private:
@@ -248,6 +260,14 @@ namespace boost { namespace trie {
             comp_(comp)
         {
             insert(std::begin(r), std::end(r));
+        }
+        template<std::size_t KeySize>
+        explicit trie_map(
+            boost::trie::trie<Key, Value, Compare, KeySize> const & trie) :
+            size_(0)
+        {
+            Key key;
+            from_trie_impl(trie.header_, key);
         }
         trie_map(std::initializer_list<value_type> il) : size_(0)
         {
@@ -828,6 +848,34 @@ namespace boost { namespace trie {
         static node_t const * to_node_ptr(void const * ptr)
         {
             return static_cast<node_t const *>(ptr);
+        }
+
+        template<std::size_t KeySize>
+        void from_trie_impl(
+            detail::trie_node_t<
+                detail::no_index_within_parent_t,
+                Key,
+                Value,
+                KeySize> const & node,
+            Key & key,
+            bool root = true)
+        {
+            // TODO: Use an iterative approach instead?
+
+            if (!!node.value()) {
+                insert(key, *node.value());
+            }
+
+            std::vector<key_element_type> next_elements;
+            node.copy_next_key_elements(std::back_inserter(next_elements));
+            for (auto const & e : next_elements) {
+                auto const * n = node.child(e, comp_);
+                if (!root)
+                    key.insert(key.end(), e);
+                from_trie_impl(*n, key, false);
+                if (!root)
+                    key.erase(std::prev(key.end()));
+            }
         }
 
         template<typename KeyIter, typename Sentinel>

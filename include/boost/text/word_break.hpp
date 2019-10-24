@@ -140,7 +140,7 @@ namespace boost { namespace text { inline namespace v1 {
             template<typename WordPropFunc>
             cp_and_word_prop(uint32_t c, WordPropFunc word_prop) :
                 cp(c),
-                prop(boost::text::v1::word_prop(c))
+                prop(word_prop(c))
             {}
 
             uint32_t cp = 0;
@@ -225,20 +225,19 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             Sentinel last,
             WordPropFunc word_prop)
         {
-            if (state.it != first &&
-                !detail::skippable(state.caps[ph::prev].prop) &&
+            if (state.it != first && !detail::skippable(state.caps[ph::prev].prop) &&
                 detail::skippable(state.caps[ph::curr].prop)) {
                 auto last_prop = word_property::Other;
                 auto temp_it = boost::text::v1::find_if_not(
                     state.it, last, [word_prop, &last_prop](uint32_t cp) {
-                        last_prop = boost::text::v1::word_prop(cp);
+                        last_prop = word_prop(cp);
                         return detail::skippable(last_prop);
                     });
                 if (temp_it == last) {
                     --temp_it;
                 } else if (last_prop == word_property::ExtPict) {
                     auto const next_to_last_prop =
-                        boost::text::v1::word_prop(*std::prev(temp_it));
+                        word_prop(*std::prev(temp_it));
                     if (next_to_last_prop == word_property::ZWJ)
                         --temp_it;
                 }
@@ -490,23 +489,26 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         // Special case: If state.caps[ph::curr].prop is skippable, we need to
         // skip backward until we find a non-skippable.
         if (detail::skippable(state.caps[ph::curr].prop)) {
-            state.it = boost::text::v1::find_if_not_backward(
+            auto const prev = boost::text::v1::find_if_not_backward(
                 first, it, [word_prop](uint32_t cp) {
-                    return detail::skippable(boost::text::v1::word_prop(cp));
+                    return detail::skippable(word_prop(cp));
                 });
-            state.caps[ph::next] =
-                cp_and_word_prop(*std::next(state.it), word_prop);
-            state.caps[ph::curr] = cp_and_word_prop(*state.it, word_prop);
+            if (prev != it) {
+                state.it = prev;
+                state.caps[ph::next] =
+                    cp_and_word_prop(*std::next(state.it), word_prop);
+                state.caps[ph::curr] = cp_and_word_prop(*state.it, word_prop);
 
-            // If we end up on a non-skippable that should break before the
-            // skippable(s) we just moved over, break on the last skippable.
-            if (!detail::skippable(state.caps[ph::curr].prop) &&
-                detail::table_word_break(
-                    state.caps[ph::curr].prop, state.caps[ph::next].prop)) {
-                return ++state.it;
+                // If we end up on a non-skippable that should break before the
+                // skippable(s) we just moved over, break on the last skippable.
+                if (!detail::skippable(state.caps[ph::curr].prop) &&
+                    detail::table_word_break(
+                        state.caps[ph::curr].prop, state.caps[ph::next].prop)) {
+                    return ++state.it;
+                }
+                if (state.it == first)
+                    return first;
             }
-            if (state.it == first)
-                return first;
         }
 
         state.caps[ph::prev_prev] = cp_and_word_prop();
@@ -565,8 +567,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             if (detail::skippable(state.caps[ph::prev].prop)) {
                 auto temp_it = boost::text::v1::find_if_not_backward(
                     first, state.it, [word_prop](uint32_t cp) {
-                        return detail::skippable(
-                            boost::text::v1::word_prop(cp));
+                        return detail::skippable(word_prop(cp));
                     });
                 if (temp_it == state.it)
                     return state;
@@ -866,8 +867,8 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             if (detail::ah_letter(state.caps[ph::prev].prop) &&
                 detail::mid_ah(state.caps[ph::curr].prop) &&
                 std::next(state.it) != last) {
-                auto const temp_state = detail::skip_forward(
-                    detail::next(state), first, last, word_prop);
+                auto const temp_state =
+                    detail::skip_forward(detail::next(state), first, last, word_prop);
                 if (temp_state.it == last)
                     return temp_state.it;
                 if (detail::ah_letter(temp_state.caps[ph::curr].prop))
@@ -885,8 +886,8 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             if (state.caps[ph::prev].prop == word_property::Hebrew_Letter &&
                 state.caps[ph::curr].prop == word_property::Double_Quote &&
                 std::next(state.it) != last) {
-                auto const temp_state = detail::skip_forward(
-                    detail::next(state), first, last, word_prop);
+                auto const temp_state =
+                    detail::skip_forward(detail::next(state), first, last, word_prop);
                 if (temp_state.it == last)
                     return temp_state.it;
                 if (temp_state.caps[ph::curr].prop ==
@@ -913,8 +914,8 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             if (state.caps[ph::prev].prop == word_property::Numeric &&
                 detail::mid_num(state.caps[ph::curr].prop) &&
                 std::next(state.it) != last) {
-                auto const temp_state = detail::skip_forward(
-                    detail::next(state), first, last, word_prop);
+                auto const temp_state =
+                    detail::skip_forward(detail::next(state), first, last, word_prop);
                 if (temp_state.it == last)
                     return temp_state.it;
                 if (temp_state.caps[ph::curr].prop == word_property::Numeric)

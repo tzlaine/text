@@ -1,18 +1,17 @@
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="500" height="100">
-  <g fill="#32a852">
-    <rect width="195.418673022" height="20" y="0"></rect>
-    <text x="200.418673022" y="10.0" dy=".35em">Iterators</text>
-  </g>
-  <g fill="#3f6078">
-    <rect width="300.0" height="20" y="25"></rect>
-    <text x="305.0" y="35.0" dy=".35em">Algorithm std::back_inserter</text>
-  </g>
-  <g fill="#ad3939">
-    <rect width="101.575476167" height="20" y="50"></rect>
-    <text x="106.575476167" y="60.0" dy=".35em">Algorithm using SIMD</text>
-  </g>
-  <g fill="#ad9e39">
-    <rect width="149.878405806" height="20" y="75"></rect>
-    <text x="154.878405806" y="85.0" dy=".35em">Algorithm no SIMD</text>
-  </g>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="500" height="125">
+    <rect width="110.66964" height="20" y="0" fill="#32a852"></rect>
+    <text x="115.66964" y="10.0" dy=".35em" fill="black">Iterators</text>
+    <rect width="172.46472" height="20" y="25" fill="#3f6078"></rect>
+    <text x="177.46472" y="35.0" dy=".35em" fill="black">Algorithm std::back_inserter</text>
+    <rect width="56.21388" height="20" y="50" fill="#ad3939"></rect>
+    <text x="61.21388" y="60.0" dy=".35em" fill="black">Algorithm using SIMD</text>
+    <rect width="87.0798" height="20" y="75" fill="#ad9e39"></rect>
+    <text x="92.0798" y="85.0" dy=".35em" fill="black">Algorithm no SIMD</text>
+    <rect width="300" height="20" y="100" fill="white"></rect>
+    <line x1="1" y1="104" x2="300" y2="104" stroke="black" fill="black"></line>
+    <line x1="1" y1="99" x2="1" y2="109" stroke="black" fill="black"></line>
+    <line x1="300" y1="99" x2="300" y2="109" stroke="black" fill="black"></line>
+    <text x="0" y="119.0" dy=".35em" fill="black">0 ns</text>
+    <text x="300" y="119.0" dy=".35em" text-anchor="end" fill="black">2500000 ns</text>
 </svg>

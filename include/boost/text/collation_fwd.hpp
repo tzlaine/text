@@ -12,8 +12,7 @@ namespace boost { namespace text { inline namespace v1 {
 
     /** Collation strength.
 
-        \see https://www.unicode.org/reports/tr10/#Multi_Level_Comparison
-    */
+        \see https://www.unicode.org/reports/tr10/#Multi_Level_Comparison */
     enum class collation_strength {
         primary,
         secondary,
@@ -24,8 +23,7 @@ namespace boost { namespace text { inline namespace v1 {
 
     /** Collation variable weighting.
 
-        \see https://www.unicode.org/reports/tr10/#Variable_Weighting
-    */
+        \see https://www.unicode.org/reports/tr10/#Variable_Weighting */
     enum class variable_weighting { non_ignorable, shifted };
 
     /** The order of L2 collation weights.  Only Canandian French uses
@@ -33,10 +31,10 @@ namespace boost { namespace text { inline namespace v1 {
     enum class l2_weight_order { forward, backward };
 
     /** Controls whether a notional case level used in a tailored collation
-       table.
+        table.
 
         \see
-       https://www.unicode.org/reports/tr35/tr35-collation.html#Case_Parameters
+        https://www.unicode.org/reports/tr35/tr35-collation.html#Case_Parameters
     */
     enum class case_level { on, off };
 
@@ -44,7 +42,7 @@ namespace boost { namespace text { inline namespace v1 {
         points in a tailored collation table.
 
         \see
-       https://www.unicode.org/reports/tr35/tr35-collation.html#Case_Parameters
+        https://www.unicode.org/reports/tr35/tr35-collation.html#Case_Parameters
     */
     enum class case_first { upper, lower, off };
 
@@ -266,6 +264,23 @@ namespace boost { namespace text { inline namespace v1 {
             else
                 return l2_weight_order::forward;
         }
+
+        template<
+            typename CPIter1,
+            typename Sentinel1,
+            typename CPIter2,
+            typename Sentinel2>
+        inline int collate(
+            CPIter1 lhs_first,
+            Sentinel1 lhs_last,
+            CPIter2 rhs_first,
+            Sentinel2 rhs_last,
+            collation_strength strength,
+            case_first case_1st,
+            case_level case_lvl,
+            variable_weighting weighting,
+            l2_weight_order l2_order,
+            collation_table const & table);
     }
 
 }}}

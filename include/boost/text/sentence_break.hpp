@@ -125,6 +125,8 @@ namespace boost { namespace text { inline namespace v1 {
                         boost::text::v1::sentence_prop(cp));
                 });
             }
+            if (it == last)
+                return false;
             return func(boost::text::v1::sentence_prop(*it));
         }
 
@@ -324,23 +326,26 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         // Special case: If state.prop is skippable, we need to skip backward
         // until we find a non-skippable.
         if (detail::skippable(state.prop)) {
-            state.it = boost::text::v1::find_if_not_backward(
+            auto const prev = boost::text::v1::find_if_not_backward(
                 first, state.it, [](uint32_t cp) {
                     return detail::skippable(
                         boost::text::v1::sentence_prop(cp));
                 });
-            state.next_prop =
-                boost::text::v1::sentence_prop(*std::next(state.it));
-            state.prop = boost::text::v1::sentence_prop(*state.it);
+            if (prev != state.it) {
+                state.it = prev;
+                state.next_prop =
+                    boost::text::v1::sentence_prop(*std::next(state.it));
+                state.prop = boost::text::v1::sentence_prop(*state.it);
 
-            // If we end up on a non-skippable that should break before the
-            // skippable(s) we just moved over, break on the last skippable.
-            if (!detail::skippable(state.prop) &&
-                detail::table_sentence_break(state.prop, state.next_prop)) {
-                return ++state.it;
+                // If we end up on a non-skippable that should break before the
+                // skippable(s) we just moved over, break on the last skippable.
+                if (!detail::skippable(state.prop) &&
+                    detail::table_sentence_break(state.prop, state.next_prop)) {
+                    return ++state.it;
+                }
+                if (state.it == first)
+                    return first;
             }
-            if (state.it == first)
-                return first;
         }
 
         state.prev_prev_prop = sentence_property::Other;
