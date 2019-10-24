@@ -7,11 +7,11 @@
 <link rel="home" href="../../../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
 <link rel="up" href="../../../header/boost/text/transcode_iterator_hpp.html" title="Header &lt;boost/text/transcode_iterator.hpp&gt;">
 <link rel="prev" href="utf_16_to_8_iterator.html" title="Struct template utf_16_to_8_iterator">
-<link rel="next" href="utf_32_to_16_back_idm25422.html" title="Struct template utf_32_to_16_back_insert_iterator">
+<link rel="next" href="utf_32_to_16_back_idm25549.html" title="Struct template utf_32_to_16_back_insert_iterator">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <div class="spirit-nav">
-<a accesskey="p" href="utf_16_to_8_iterator.html"><img src="../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../../header/boost/text/transcode_iterator_hpp.html"><img src="../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../images/home.png" alt="Home"></a><a accesskey="n" href="utf_32_to_16_back_idm25422.html"><img src="../../../images/next.png" alt="Next"></a>
+<a accesskey="p" href="utf_16_to_8_iterator.html"><img src="../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../../header/boost/text/transcode_iterator_hpp.html"><img src="../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../images/home.png" alt="Home"></a><a accesskey="n" href="utf_32_to_16_back_idm25549.html"><img src="../../../images/next.png" alt="Next"></a>
 </div>
 <div class="refentry">
 <a name="boost.text.v1.utf_16_to_8_out_iterator"></a><div class="titlepage"></div>
@@ -25,29 +25,29 @@
 </span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Iter<span class="special">&gt;</span> 
 <span class="keyword">struct</span> <a class="link" href="utf_16_to_8_out_iterator.html" title="Struct template utf_16_to_8_out_iterator">utf_16_to_8_out_iterator</a> <span class="special">{</span>
   <span class="comment">// <a class="link" href="utf_16_to_8_out_iterator.html#boost.text.v1.utf_16_to_8_out_iteratorconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <span class="keyword">explicit</span> <a class="link" href="utf_16_to_8_out_iterator.html#idm25414-bb"><span class="identifier">utf_16_to_8_out_iterator</span></a><span class="special">(</span><span class="identifier">Iter</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <a class="link" href="utf_16_to_8_out_iterator.html" title="Struct template utf_16_to_8_out_iterator">utf_16_to_8_out_iterator</a> <span class="special">&amp;</span> <a class="link" href="utf_16_to_8_out_iterator.html#idm25417-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><span class="identifier">uint16_t</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">explicit</span> <a class="link" href="utf_16_to_8_out_iterator.html#idm25541-bb"><span class="identifier">utf_16_to_8_out_iterator</span></a><span class="special">(</span><span class="identifier">Iter</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <a class="link" href="utf_16_to_8_out_iterator.html" title="Struct template utf_16_to_8_out_iterator">utf_16_to_8_out_iterator</a> <span class="special">&amp;</span> <a class="link" href="utf_16_to_8_out_iterator.html#idm25544-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><span class="identifier">uint16_t</span><span class="special">)</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="utf_16_to_8_out_iterator.html#idm25411-bb">public member functions</a></span>
-  <span class="identifier">Iter</span> <a class="link" href="utf_16_to_8_out_iterator.html#idm25412-bb"><span class="identifier">base</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="utf_16_to_8_out_iterator.html#idm25538-bb">public member functions</a></span>
+  <span class="identifier">Iter</span> <a class="link" href="utf_16_to_8_out_iterator.html#idm25539-bb"><span class="identifier">base</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="idm50795"></a><h2>Description</h2>
+<a name="idm50942"></a><h2>Description</h2>
 <p>An out iterator that converts UTF-16 to UTF-8. </p>
 <div class="refsect2">
-<a name="idm50798"></a><h3>
+<a name="idm50945"></a><h3>
 <a name="boost.text.v1.utf_16_to_8_out_iteratorconstruct-copy-destruct"></a><code class="computeroutput">utf_16_to_8_out_iterator</code> 
         public
        construct/copy/destruct</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><span class="keyword">explicit</span> <a name="idm25414-bb"></a><span class="identifier">utf_16_to_8_out_iterator</span><span class="special">(</span><span class="identifier">Iter</span> it<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><a class="link" href="utf_16_to_8_out_iterator.html" title="Struct template utf_16_to_8_out_iterator">utf_16_to_8_out_iterator</a> <span class="special">&amp;</span> <a name="idm25417-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><span class="identifier">uint16_t</span> cu<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">explicit</span> <a name="idm25541-bb"></a><span class="identifier">utf_16_to_8_out_iterator</span><span class="special">(</span><span class="identifier">Iter</span> it<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a class="link" href="utf_16_to_8_out_iterator.html" title="Struct template utf_16_to_8_out_iterator">utf_16_to_8_out_iterator</a> <span class="special">&amp;</span> <a name="idm25544-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><span class="identifier">uint16_t</span> cu<span class="special">)</span><span class="special">;</span></pre></li>
 </ol></div>
 </div>
 <div class="refsect2">
-<a name="idm50826"></a><h3>
-<a name="idm25411-bb"></a><code class="computeroutput">utf_16_to_8_out_iterator</code> public member functions</h3>
-<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><span class="identifier">Iter</span> <a name="idm25412-bb"></a><span class="identifier">base</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li></ol></div>
+<a name="idm50973"></a><h3>
+<a name="idm25538-bb"></a><code class="computeroutput">utf_16_to_8_out_iterator</code> public member functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><span class="identifier">Iter</span> <a name="idm25539-bb"></a><span class="identifier">base</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li></ol></div>
 </div>
 </div>
 </div>
@@ -61,7 +61,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="utf_16_to_8_iterator.html"><img src="../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../../header/boost/text/transcode_iterator_hpp.html"><img src="../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../images/home.png" alt="Home"></a><a accesskey="n" href="utf_32_to_16_back_idm25422.html"><img src="../../../images/next.png" alt="Next"></a>
+<a accesskey="p" href="utf_16_to_8_iterator.html"><img src="../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../../header/boost/text/transcode_iterator_hpp.html"><img src="../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../images/home.png" alt="Home"></a><a accesskey="n" href="utf_32_to_16_back_idm25549.html"><img src="../../../images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

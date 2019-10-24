@@ -7,11 +7,11 @@
 <link rel="home" href="../../../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
 <link rel="up" href="../../../header/boost/text/grapheme_hpp.html" title="Header &lt;boost/text/grapheme.hpp&gt;">
 <link rel="prev" href="grapheme.html" title="Struct grapheme">
-<link rel="next" href="storage_bytes_idm18468.html" title="Function storage_bytes">
+<link rel="next" href="storage_bytes_idm18585.html" title="Function storage_bytes">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <div class="spirit-nav">
-<a accesskey="p" href="grapheme.html"><img src="../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../../header/boost/text/grapheme_hpp.html"><img src="../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../images/home.png" alt="Home"></a><a accesskey="n" href="storage_bytes_idm18468.html"><img src="../../../images/next.png" alt="Next"></a>
+<a accesskey="p" href="grapheme.html"><img src="../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../../header/boost/text/grapheme_hpp.html"><img src="../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../images/home.png" alt="Home"></a><a accesskey="n" href="storage_bytes_idm18585.html"><img src="../../../images/next.png" alt="Next"></a>
 </div>
 <div class="refentry">
 <a name="boost.text.v1.grapheme_ref"></a><div class="titlepage"></div>
@@ -28,84 +28,70 @@
   <span class="keyword">typedef</span> <span class="identifier">CPIter</span> <a name="boost.text.v1.grapheme_ref.iterator"></a><span class="identifier">iterator</span><span class="special">;</span>
 
   <span class="comment">// <a class="link" href="grapheme_ref.html#boost.text.v1.grapheme_refconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <a class="link" href="grapheme_ref.html#idm18425-bb"><span class="identifier">grapheme_ref</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="grapheme_ref.html#idm18428-bb"><span class="identifier">grapheme_ref</span></a><span class="special">(</span><span class="identifier">CPIter</span><span class="special">,</span> <span class="identifier">CPIter</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <a class="link" href="grapheme_ref.html#idm18440-bb"><span class="identifier">grapheme_ref</span></a><span class="special">(</span><a class="link" href="utf32_view.html" title="Struct template utf32_view">utf32_view</a><span class="special">&lt;</span> <span class="identifier">CPIter</span> <span class="special">&gt;</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <a class="link" href="grapheme_ref.html#idm18451-bb"><span class="identifier">grapheme_ref</span></a><span class="special">(</span><a class="link" href="grapheme.html" title="Struct grapheme">grapheme</a> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <a class="link" href="grapheme_ref.html#idm18546-bb"><span class="identifier">grapheme_ref</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="grapheme_ref.html#idm18549-bb"><span class="identifier">grapheme_ref</span></a><span class="special">(</span><span class="identifier">CPIter</span><span class="special">,</span> <span class="identifier">CPIter</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <a class="link" href="grapheme_ref.html#idm18559-bb"><span class="identifier">grapheme_ref</span></a><span class="special">(</span><a class="link" href="utf32_view.html" title="Struct template utf32_view">utf32_view</a><span class="special">&lt;</span> <span class="identifier">CPIter</span> <span class="special">&gt;</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <a class="link" href="grapheme_ref.html#idm18568-bb"><span class="identifier">grapheme_ref</span></a><span class="special">(</span><a class="link" href="grapheme.html" title="Struct grapheme">grapheme</a> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="grapheme_ref.html#idm18457-bb">friend functions</a></span>
-  <span class="keyword">friend</span> <span class="keyword">constexpr</span> <span class="keyword">bool</span> <a class="link" href="grapheme_ref.html#idm18458-bb"><span class="keyword">operator</span><span class="special">==</span></a><span class="special">(</span><a class="link" href="grapheme_ref.html" title="Struct template grapheme_ref">grapheme_ref</a><span class="special">,</span> <a class="link" href="grapheme_ref.html" title="Struct template grapheme_ref">grapheme_ref</a><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="grapheme_ref.html#idm18574-bb">friend functions</a></span>
+  <span class="keyword">friend</span> <span class="keyword">constexpr</span> <span class="keyword">bool</span> <a class="link" href="grapheme_ref.html#idm18575-bb"><span class="keyword">operator</span><span class="special">==</span></a><span class="special">(</span><a class="link" href="grapheme_ref.html" title="Struct template grapheme_ref">grapheme_ref</a><span class="special">,</span> <a class="link" href="grapheme_ref.html" title="Struct template grapheme_ref">grapheme_ref</a><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="idm23969"></a><h2>Description</h2>
+<a name="idm24083"></a><h2>Description</h2>
 <p>A non-owning reference to a range of code points that comprise a grapheme. </p>
 <div class="refsect2">
-<a name="idm23972"></a><h3>
+<a name="idm24086"></a><h3>
 <a name="boost.text.v1.grapheme_refconstruct-copy-destruct"></a><code class="computeroutput">grapheme_ref</code> 
         public
        construct/copy/destruct</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
 <li class="listitem">
-<pre class="literallayout"><a name="idm18425-bb"></a><span class="identifier">grapheme_ref</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><a name="idm18546-bb"></a><span class="identifier">grapheme_ref</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>
 <p>Default ctor. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><a name="idm18428-bb"></a><span class="identifier">grapheme_ref</span><span class="special">(</span><span class="identifier">CPIter</span> first<span class="special">,</span> <span class="identifier">CPIter</span> last<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<pre class="literallayout"><a name="idm18549-bb"></a><span class="identifier">grapheme_ref</span><span class="special">(</span><span class="identifier">CPIter</span> first<span class="special">,</span> <span class="identifier">CPIter</span> last<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
 <p>Constructs *this from the code points [first, last).</p>
 <p>
-
 </p>
 <div class="variablelist"><table border="0" class="variablelist compact">
 <colgroup>
 <col align="left" valign="top">
 <col>
 </colgroup>
-<tbody>
-<tr>
+<tbody><tr>
 <td><p><span class="term">Requires:</span></p></td>
 <td><p>The code points in [first, last) comprise at most one grapheme. </p></td>
-</tr>
-<tr>
-<td><p><span class="term">Requires:</span></p></td>
-<td><p>[first, last) is normalized FCC. </p></td>
-</tr>
-</tbody>
+</tr></tbody>
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><a name="idm18440-bb"></a><span class="identifier">grapheme_ref</span><span class="special">(</span><a class="link" href="utf32_view.html" title="Struct template utf32_view">utf32_view</a><span class="special">&lt;</span> <span class="identifier">CPIter</span> <span class="special">&gt;</span> r<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<pre class="literallayout"><a name="idm18559-bb"></a><span class="identifier">grapheme_ref</span><span class="special">(</span><a class="link" href="utf32_view.html" title="Struct template utf32_view">utf32_view</a><span class="special">&lt;</span> <span class="identifier">CPIter</span> <span class="special">&gt;</span> r<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
 <p>Constructs *this from r.</p>
 <p>
-
 </p>
 <div class="variablelist"><table border="0" class="variablelist compact">
 <colgroup>
 <col align="left" valign="top">
 <col>
 </colgroup>
-<tbody>
-<tr>
+<tbody><tr>
 <td><p><span class="term">Requires:</span></p></td>
 <td><p>The code points in r comprise at most one grapheme. </p></td>
-</tr>
-<tr>
-<td><p><span class="term">Requires:</span></p></td>
-<td><p>The code points in r are normalized FCC. </p></td>
-</tr>
-</tbody>
+</tr></tbody>
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><a name="idm18451-bb"></a><span class="identifier">grapheme_ref</span><span class="special">(</span><a class="link" href="grapheme.html" title="Struct grapheme">grapheme</a> <span class="keyword">const</span> <span class="special">&amp;</span> g<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<pre class="literallayout"><a name="idm18568-bb"></a><span class="identifier">grapheme_ref</span><span class="special">(</span><a class="link" href="grapheme.html" title="Struct grapheme">grapheme</a> <span class="keyword">const</span> <span class="special">&amp;</span> g<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
 <p>Constructs *this from g. </p>
 </li>
 </ol></div>
 </div>
 <div class="refsect2">
-<a name="idm24046"></a><h3>
-<a name="idm18457-bb"></a><code class="computeroutput">grapheme_ref</code> friend functions</h3>
+<a name="idm24152"></a><h3>
+<a name="idm18574-bb"></a><code class="computeroutput">grapheme_ref</code> friend functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
-<pre class="literallayout"><span class="keyword">friend</span> <span class="keyword">constexpr</span> <span class="keyword">bool</span> <a name="idm18458-bb"></a><span class="keyword">operator</span><span class="special">==</span><span class="special">(</span><a class="link" href="grapheme_ref.html" title="Struct template grapheme_ref">grapheme_ref</a> lhs<span class="special">,</span> <a class="link" href="grapheme_ref.html" title="Struct template grapheme_ref">grapheme_ref</a> rhs<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">friend</span> <span class="keyword">constexpr</span> <span class="keyword">bool</span> <a name="idm18575-bb"></a><span class="keyword">operator</span><span class="special">==</span><span class="special">(</span><a class="link" href="grapheme_ref.html" title="Struct template grapheme_ref">grapheme_ref</a> lhs<span class="special">,</span> <a class="link" href="grapheme_ref.html" title="Struct template grapheme_ref">grapheme_ref</a> rhs<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
 <p>Returns true if lhs the same sequence of code points as rhs. </p>
 </li></ol></div>
 </div>
@@ -121,7 +107,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="grapheme.html"><img src="../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../../header/boost/text/grapheme_hpp.html"><img src="../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../images/home.png" alt="Home"></a><a accesskey="n" href="storage_bytes_idm18468.html"><img src="../../../images/next.png" alt="Next"></a>
+<a accesskey="p" href="grapheme.html"><img src="../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../../header/boost/text/grapheme_hpp.html"><img src="../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../images/home.png" alt="Home"></a><a accesskey="n" href="storage_bytes_idm18585.html"><img src="../../../images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

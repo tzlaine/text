@@ -34,19 +34,19 @@
     </h4>
 <p>
       Here are the relative timings for UTF-8 to UTF-16 transcoding, using various
-      methods (smaller is better). The input was several megabytes of text from Wikipedia.
-      "Iterators" is using <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">copy</span></code> from
+      methods (smaller is better). The input was around half a megabyte of text from
+      Wikipedia. "Iterators" is using <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">copy</span></code> from
       <code class="computeroutput"><a class="link" href="../boost/text/v1/utf_8_to_16_iterator.html" title="Struct template utf_8_to_16_iterator">utf_8_to_16_iterator</a></code>
-      to a pointer; "Algorithm std::back_inserter" is using <code class="computeroutput"><a class="link" href="../boost/text/v1/transcode_utf_8_t_idm25000.html" title="Function template transcode_utf_8_to_16">transcode_utf_8_to_16()</a></code> in the SIMD code path, and
+      to a pointer; "Algorithm std::back_inserter" is using <code class="computeroutput"><a class="link" href="../boost/text/v1/transcode_utf_8_t_idm25127.html" title="Function template transcode_utf_8_to_16">transcode_utf_8_to_16()</a></code> in the SIMD code path, and
       outputting to a <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">back_insert_iterator</span></code>; "Algorithm using
-      SIMD" is using <code class="computeroutput"><a class="link" href="../boost/text/v1/transcode_utf_8_t_idm25000.html" title="Function template transcode_utf_8_to_16">transcode_utf_8_to_16()</a></code>
+      SIMD" is using <code class="computeroutput"><a class="link" href="../boost/text/v1/transcode_utf_8_t_idm25127.html" title="Function template transcode_utf_8_to_16">transcode_utf_8_to_16()</a></code>
       from pointer to pointer in the SIMD-using code path; "Algorithm using
-      SIMD" is using <code class="computeroutput"><a class="link" href="../boost/text/v1/transcode_utf_8_t_idm25000.html" title="Function template transcode_utf_8_to_16">transcode_utf_8_to_16()</a></code>
+      SIMD" is using <code class="computeroutput"><a class="link" href="../boost/text/v1/transcode_utf_8_t_idm25127.html" title="Function template transcode_utf_8_to_16">transcode_utf_8_to_16()</a></code>
       from pointer to pointer in the non-SIMD code path; and "ICU" is is
       using <code class="computeroutput"><span class="identifier">UnicodeString</span><span class="special">::</span><span class="identifier">fromUTF8</span><span class="special">()</span></code>.
     </p>
 <p>
-      <span class="inlinemediaobject"><object type="image/svg+xml" data="../../../doc/utf_8_to_16_perf.svg"></object></span>
+      <span class="inlinemediaobject"><object type="image/svg+xml" data="../../../doc/utf_8_to_16_perf.svg" width="500" height="150"></object></span>
     </p>
 <p>
       The ICU performance is shown as something of a baseline, given the ubiquity
@@ -90,18 +90,20 @@
       to UTF-32</a>
     </h4>
 <p>
-      These are relative timings for UTF-8 to UTF-32 transcoding.
+      These are relative timings for UTF-8 to UTF-32 transcoding. It is in the same
+      scale as the chart above.
     </p>
 <p>
-      <span class="inlinemediaobject"><object type="image/svg+xml" data="../../../doc/utf_8_to_32_perf.svg"></object></span>
+      <span class="inlinemediaobject"><object type="image/svg+xml" data="../../../doc/utf_8_to_32_perf.svg" width="500" height="125"></object></span>
     </p>
 <p>
       Again, you can see very similar relationships among the different transcoding
       methods, except that the iterator method is a lot faster.
     </p>
 <p>
-      Note that the SIMD algorithm is quite fast. It and all the SIMD code was originally
-      developed by Bob Steagall, and presented at C++Now in 2018. Thanks, Bob!
+      Note that the SIMD algorithm is quite fast. It &#8212; and all the SIMD code
+      &#8212; was originally developed by Bob Steagall, and presented at C++Now
+      in 2018. Thanks, Bob!
     </p>
 <h4>
 <a name="boost_text__proposed_.performance_considerations.h3"></a>
@@ -113,7 +115,7 @@
     </h4>
 <p>
       Here are the relative timings NFC normalization of UTF-8 strings (smaller is
-      better). The input was several megabytes of text from Wikipedia. "Algorithm
+      better). The input was around half a megabyte of text from Wikipedia. "Algorithm
       with back-inserter" is using <code class="computeroutput"><span class="identifier">normalize_to_nfc</span><span class="special">(</span><span class="identifier">as_utf32</span><span class="special">(</span><span class="identifier">input</span><span class="special">),</span>
       <span class="identifier">utf_32_to_8_back_inserter</span><span class="special">(</span><span class="identifier">output</span><span class="special">))</span></code>
       -- this is the slowest code path, since it uses a back-inserter; "String
@@ -124,7 +126,33 @@
       the fastest code path for ICU.
     </p>
 <p>
-      <span class="inlinemediaobject"><object type="image/svg+xml" data="../../../doc/norm_nfc_perf.svg"></object></span>
+      These charts represent four scenarios: half normalize European languages (English
+      and Portuguese); half normalize non-European languages (Chinese, Korean, Hindi,
+      and Russian); half normalize NFC-normalized input; and half normalize NFD input.
+    </p>
+<p>
+      Normalization of NFC, European script text:
+    </p>
+<p>
+      <span class="inlinemediaobject"><object type="image/svg+xml" data="../../../doc/norm_nfc_euro_from_nfc_perf.svg" width="500" height="125"></object></span>
+    </p>
+<p>
+      Normalization of NFC, non-European script text:
+    </p>
+<p>
+      <span class="inlinemediaobject"><object type="image/svg+xml" data="../../../doc/norm_nfc_non_euro_from_nfc_perf.svg" width="500" height="125"></object></span>
+    </p>
+<p>
+      Normalization of NFD, European script text:
+    </p>
+<p>
+      <span class="inlinemediaobject"><object type="image/svg+xml" data="../../../doc/norm_nfc_euro_from_nfd_perf.svg" width="500" height="125"></object></span>
+    </p>
+<p>
+      Normalization of NFD, non-European script text:
+    </p>
+<p>
+      <span class="inlinemediaobject"><object type="image/svg+xml" data="../../../doc/norm_nfc_non_euro_from_nfd_perf.svg" width="500" height="125"></object></span>
     </p>
 <p>
       Not surprisingly (given the earlier results above), using a back-inserter in
@@ -134,25 +162,85 @@
       In fact, since the same transcoding iterator unpacking logic from the transcoding
       views is applied to the normalization algorithms, the only functional difference
       between "Algorithm with back-inserter" and "String append"
-      is the use of the back-inserter. The Boost.Text string-appending implementation
-      is a bit faster than the equivalent UTF-8 ICU version, and a bit slower than
-      the UTF-16 ICU version.
+      is the use of the back-inserter.
+    </p>
+<p>
+      The best case for Boost.Text is normalizing to NFC in European text that is
+      already NFC. Given the common use of NFC and UTF-8, this is probably the most
+      relevant case for many users. In this case, Boost.Text is factors faster than
+      ICU's UTF-8 code path, and a bit faster than ICU's much faster UTF-16 code
+      path. The remaining charts show that Boost.Text does worse with non-European
+      text, and also worse with text that starts out NFD. In every case, Boost.Text
+      is faster than the UTF-8 ICU code path.
     </p>
 <h4>
 <a name="boost_text__proposed_.performance_considerations.h5"></a>
       <span class="phrase"><a name="boost_text__proposed_.performance_considerations.fcc"></a></span><a class="link" href="performance_considerations.html#boost_text__proposed_.performance_considerations.fcc">FCC</a>
     </h4>
 <p>
-      This is just like the NFC chart, both in its meaning and its results; it is
-      shown here for completeness. Note that the FCC normalization form is what Boost.Text
+      These are just like the NFC chart, both in meaning and results; they are shown
+      here for completeness. Note that the FCC normalization form is what Boost.Text
       uses internally in all the test layer types. See <a href="https://unicode.org/notes/tn5" target="_top">Unicode
       Technical Note #5</a> for details.
     </p>
 <p>
-      <span class="inlinemediaobject"><object type="image/svg+xml" data="../../../doc/norm_fcc_perf.svg"></object></span>
+      Normalization of NFC, European script text:
+    </p>
+<p>
+      <span class="inlinemediaobject"><object type="image/svg+xml" data="../../../doc/norm_fcc_euro_from_nfc_perf.svg" width="500" height="125"></object></span>
+    </p>
+<p>
+      Normalization of NFC, non-European script text:
+    </p>
+<p>
+      <span class="inlinemediaobject"><object type="image/svg+xml" data="../../../doc/norm_fcc_non_euro_from_nfc_perf.svg" width="500" height="125"></object></span>
+    </p>
+<p>
+      Normalization of NFD, European script text:
+    </p>
+<p>
+      <span class="inlinemediaobject"><object type="image/svg+xml" data="../../../doc/norm_fcc_euro_from_nfd_perf.svg" width="500" height="125"></object></span>
+    </p>
+<p>
+      Normalization of NFD, non-European script text:
+    </p>
+<p>
+      <span class="inlinemediaobject"><object type="image/svg+xml" data="../../../doc/norm_fcc_non_euro_from_nfd_perf.svg" width="500" height="125"></object></span>
     </p>
 <h4>
 <a name="boost_text__proposed_.performance_considerations.h6"></a>
+      <span class="phrase"><a name="boost_text__proposed_.performance_considerations.nfd"></a></span><a class="link" href="performance_considerations.html#boost_text__proposed_.performance_considerations.nfd">NFD</a>
+    </h4>
+<p>
+      These are the charts for normalizing to NFD. The meaning of the labels in each
+      one is the same as they were in the NFC charts.
+    </p>
+<p>
+      Normalization of NFC, European script text:
+    </p>
+<p>
+      <span class="inlinemediaobject"><object type="image/svg+xml" data="../../../doc/norm_nfd_euro_from_nfc_perf.svg" width="500" height="125"></object></span>
+    </p>
+<p>
+      Normalization of NFC, non-European script text:
+    </p>
+<p>
+      <span class="inlinemediaobject"><object type="image/svg+xml" data="../../../doc/norm_nfd_non_euro_from_nfc_perf.svg" width="500" height="125"></object></span>
+    </p>
+<p>
+      Normalization of NFD, European script text:
+    </p>
+<p>
+      <span class="inlinemediaobject"><object type="image/svg+xml" data="../../../doc/norm_nfd_euro_from_nfd_perf.svg" width="500" height="125"></object></span>
+    </p>
+<p>
+      Normalization of NFD, non-European script text:
+    </p>
+<p>
+      <span class="inlinemediaobject"><object type="image/svg+xml" data="../../../doc/norm_nfd_non_euro_from_nfd_perf.svg" width="500" height="125"></object></span>
+    </p>
+<h4>
+<a name="boost_text__proposed_.performance_considerations.h7"></a>
       <span class="phrase"><a name="boost_text__proposed_.performance_considerations.miscellaneous_considerations"></a></span><a class="link" href="performance_considerations.html#boost_text__proposed_.performance_considerations.miscellaneous_considerations">Miscellaneous
       Considerations</a>
     </h4>
