@@ -304,7 +304,7 @@ namespace boost { namespace text { inline namespace v1 {
         friend bool
         operator==(collation_table const & lhs, collation_table const & rhs)
         {
-            return *lhs.data_ == *lhs.data_;
+            return *lhs.data_ == *rhs.data_;
         }
 
         friend bool
