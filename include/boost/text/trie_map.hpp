@@ -263,7 +263,8 @@ namespace boost { namespace trie {
         }
         template<std::size_t KeySize>
         explicit trie_map(
-            boost::trie::trie<Key, Value, Compare, KeySize> const & trie)
+            boost::trie::trie<Key, Value, Compare, KeySize> const & trie) :
+            size_(0)
         {
             Key key;
             from_trie_impl(trie.header_, key);
