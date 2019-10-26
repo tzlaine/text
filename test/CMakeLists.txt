@@ -63,6 +63,8 @@ macro(add_test_executable name group)
             ${ICU_DT_LIBRARY_RELEASE}
             ${ICU_UC_LIBRARY_RELEASE}
         )
+    else ()
+        target_compile_definitions(${local_name} PRIVATE -DNO_ICU)
     endif ()
     if (NOT MSVC AND NOT LIMIT_TESTING_FOR_CI) # Boost auto-linking handles this with MSVC.
         target_link_libraries(${local_name} boost_system boost_filesystem)
