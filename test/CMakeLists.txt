@@ -54,7 +54,7 @@ macro(add_test_executable name group)
     add_executable(${local_name} ${name}.cpp)
     target_compile_options(${local_name} PRIVATE ${warnings_flag})
     target_link_libraries(${local_name} text gtest gtest_main)
-    if (ICU_FOUND)
+    if (ICU_FOUND AND NOT LIMIT_TESTING_FOR_CI)
         target_include_directories(${local_name} PRIVATE ${ICU_INCLUDE_DIR})
         target_link_libraries(
             ${local_name}
