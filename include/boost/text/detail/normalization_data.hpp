@@ -50,9 +50,8 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
     using canonical_decomposition = code_points<4>;
 
     /** See
-       http://www.unicode.org/reports/tr44/#Character_Decomposition_Mappings for
-        the source of the "18".
-    */
+        http://www.unicode.org/reports/tr44/#Character_Decomposition_Mappings for
+        the source of the "18". */
     using compatible_decomposition = code_points<18>;
 
     /** The possible results returned by the single code point quick check
@@ -315,33 +314,6 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         return retval;
     }
 
-    inline compatible_decomposition compatible_decompose(uint32_t cp) noexcept
-    {
-        if (detail::hangul_syllable(cp))
-            return detail::decompose_hangul_syllable<18>(cp);
-
-        auto const & map = detail::cp_props_map();
-        auto const it = map.find(cp);
-        if (it == map.end() ||
-            it->second.compatible_decomposition_.last_ ==
-                it->second.compatible_decomposition_.first_) {
-            return compatible_decomposition{{{cp}}, 1};
-        }
-
-        compatible_decomposition retval{
-            {},
-            it->second.compatible_decomposition_.last_ -
-                it->second.compatible_decomposition_.first_};
-        std::copy(
-            detail::all_compatible_decompositions_ptr() +
-                it->second.compatible_decomposition_.first_,
-            detail::all_compatible_decompositions_ptr() +
-                it->second.compatible_decomposition_.last_,
-            retval.storage_.begin());
-
-        return retval;
-    }
-
     inline uint32_t
     compose_hangul(uint32_t cp0, uint32_t cp1, uint32_t cp2 = 0) noexcept
     {
@@ -365,24 +337,6 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         } else {
             return SBase + LVIndex;
         }
-    }
-
-    inline uint32_t compose_unblocked(uint32_t cp0, uint32_t cp1) noexcept
-    {
-        static const two_stage_table<uint32_t, 34, 18> table(
-            detail::composition_map().begin(),
-            detail::composition_map().end(),
-            [](std::pair<uint64_t, uint32_t> p) {
-                auto const key = p.first;
-                uint32_t cp0 = key >> 32;
-                uint32_t cp1 = key & 0xffffffff;
-                BOOST_ASSERT(cp0 < (uint32_t(1) << 17));
-                BOOST_ASSERT(cp1 < (uint32_t(1) << 17));
-                return (cp0 << 17) | cp1;
-            },
-            [](std::pair<uint64_t, uint32_t> p) { return p.second; },
-            0);
-        return table[(cp0 << 17) | cp1];
     }
 
     inline int ccc(uint32_t cp) noexcept
