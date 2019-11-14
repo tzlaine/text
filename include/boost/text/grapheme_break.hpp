@@ -202,6 +202,22 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
     template<typename CPRange, typename CPIter>
     detail::undefined next_grapheme_break(CPRange & range, CPIter it) noexcept;
 
+    /** Returns true iff `it` is at the beginning of a grapheme, or `it ==
+        last`.
+
+        This function only participates in overload resolution if `CPIter`
+        models the CPIter concept. */
+    template<typename CPIter, typename Sentinel>
+    bool at_grapheme_break(CPIter first, CPIter it, Sentinel last) noexcept;
+
+    /** Returns true iff `it` is at the beginning of a grapheme, or `it ==
+        std::end(range)`.
+
+        This function only participates in overload resolution if `CPRange`
+        models the CPRange concept. */
+    template<typename CPRange, typename CPIter>
+    bool at_grapheme_break(CPRange & range, CPIter it) noexcept;
+
 #else
 
     template<typename CPIter, typename Sentinel>
@@ -343,6 +359,25 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
         -> detail::cp_rng_alg_ret_t<detail::iterator_t<CPRange>, CPRange>
     {
         return boost::text::v1::next_grapheme_break(it, std::end(range));
+    }
+
+    template<typename CPIter, typename Sentinel>
+    auto at_grapheme_break(CPIter first, CPIter it, Sentinel last) noexcept
+        -> detail::cp_iter_ret_t<bool, CPIter>
+    {
+        if (it == last)
+            return true;
+        return prev_grapheme_break(first, it, last) == it;
+    }
+
+    template<typename CPRange, typename CPIter>
+    auto at_grapheme_break(CPRange & range, CPIter it) noexcept
+        -> detail::cp_rng_alg_ret_t<bool, CPRange>
+    {
+        if (it == std::end(range))
+            return true;
+        return prev_grapheme_break(std::begin(range), it, std::end(range)) ==
+               it;
     }
 
 #endif
