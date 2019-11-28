@@ -206,7 +206,6 @@
 [def _emdash_              \u2014]
 
 [include intro.qbk]
-[include string_bad.qbk]
 [include overview.qbk]
 [include string_layer.qbk]
 [include unicode_layer.qbk]

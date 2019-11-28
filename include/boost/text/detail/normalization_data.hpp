@@ -50,9 +50,8 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
     using canonical_decomposition = code_points<4>;
 
     /** See
-       http://www.unicode.org/reports/tr44/#Character_Decomposition_Mappings for
-        the source of the "18".
-    */
+        http://www.unicode.org/reports/tr44/#Character_Decomposition_Mappings for
+        the source of the "18". */
     using compatible_decomposition = code_points<18>;
 
     /** The possible results returned by the single code point quick check
@@ -68,30 +67,11 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
 
     BOOST_TEXT_DECL std::array<uint32_t, 3404>
     make_all_canonical_decompositions();
-    BOOST_TEXT_DECL std::array<uint32_t, 8974>
-    make_all_compatible_decompositions();
 
     inline uint32_t const * all_canonical_decompositions_ptr()
     {
         static auto const retval = make_all_canonical_decompositions();
         return retval.data();
-    }
-
-    inline uint32_t const * all_compatible_decompositions_ptr()
-    {
-        static auto const retval = make_all_compatible_decompositions();
-        return retval.data();
-    }
-
-    // TODO: Remove.
-    BOOST_TEXT_DECL std::unordered_map<uint64_t, uint32_t>
-    make_composition_map();
-
-    // TODO: Remove.
-    inline std::unordered_map<uint64_t, uint32_t> const & composition_map()
-    {
-        static auto const retval = make_composition_map();
-        return retval;
     }
 
     struct cp_props
@@ -230,159 +210,9 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         }
     }
 
-    inline std::unordered_multimap<uint32_t, uint32_t> const &
-    compositions_whose_decompositions_start_with_cp_map()
-    {
-        static std::unordered_multimap<uint32_t, uint32_t> retval;
-        if (retval.empty()) {
-            auto const & map = detail::cp_props_map();
-            for (auto const & pair : map) {
-                auto const decomp_it =
-                    detail::all_canonical_decompositions_ptr() +
-                    pair.second.canonical_decomposition_.first_;
-                auto const decomp_end =
-                    detail::all_canonical_decompositions_ptr() +
-                    pair.second.canonical_decomposition_.last_;
-                if (decomp_it != decomp_end) {
-                    retval.insert(
-                        std::pair<uint32_t, uint32_t>(*decomp_it, pair.first));
-                }
-            }
-
-            for (uint32_t cp = 0xAC00, end = 0xD7A3 + 1; cp < end; ++cp) {
-                auto const decomp = detail::decompose_hangul_syllable<4>(cp);
-                retval.insert(
-                    std::pair<uint32_t, uint32_t>(*decomp.begin(), cp));
-            }
-        }
-        return retval;
-    }
-
-    inline std::unordered_set<uint32_t> const &
-    appears_at_noninitial_position_of_decomp_set()
-    {
-        static std::unordered_set<uint32_t> retval;
-        if (retval.empty()) {
-            auto const & map = detail::cp_props_map();
-            for (auto const & pair : map) {
-                auto const decomp_it =
-                    detail::all_canonical_decompositions_ptr() +
-                    pair.second.canonical_decomposition_.first_;
-                auto const decomp_end =
-                    detail::all_canonical_decompositions_ptr() +
-                    pair.second.canonical_decomposition_.last_;
-                if (2 <= decomp_end - decomp_it)
-                    retval.insert(*std::next(decomp_it));
-            }
-
-            for (uint32_t cp = 0xAC00, end = 0xD7A3 + 1; cp < end; ++cp) {
-                auto const decomp = detail::decompose_hangul_syllable<4>(cp);
-                if (2 <= decomp.size_)
-                    retval.insert(*std::next(decomp.begin()));
-            }
-        }
-        return retval;
-    }
-
     inline constexpr uint64_t key(uint64_t cp0, uint32_t cp1) noexcept
     {
         return (cp0 << 32) | cp1;
-    }
-
-    inline canonical_decomposition canonical_decompose(uint32_t cp) noexcept
-    {
-        if (detail::hangul_syllable(cp))
-            return detail::decompose_hangul_syllable<4>(cp);
-
-        auto const & map = detail::cp_props_map();
-        auto const it = map.find(cp);
-        if (it == map.end() || it->second.canonical_decomposition_.last_ ==
-                                   it->second.canonical_decomposition_.first_) {
-            return canonical_decomposition{{{cp}}, 1};
-        }
-
-        canonical_decomposition retval{
-            {},
-            it->second.canonical_decomposition_.last_ -
-                it->second.canonical_decomposition_.first_};
-        std::copy(
-            detail::all_canonical_decompositions_ptr() +
-                it->second.canonical_decomposition_.first_,
-            detail::all_canonical_decompositions_ptr() +
-                it->second.canonical_decomposition_.last_,
-            retval.storage_.begin());
-
-        return retval;
-    }
-
-    inline compatible_decomposition compatible_decompose(uint32_t cp) noexcept
-    {
-        if (detail::hangul_syllable(cp))
-            return detail::decompose_hangul_syllable<18>(cp);
-
-        auto const & map = detail::cp_props_map();
-        auto const it = map.find(cp);
-        if (it == map.end() ||
-            it->second.compatible_decomposition_.last_ ==
-                it->second.compatible_decomposition_.first_) {
-            return compatible_decomposition{{{cp}}, 1};
-        }
-
-        compatible_decomposition retval{
-            {},
-            it->second.compatible_decomposition_.last_ -
-                it->second.compatible_decomposition_.first_};
-        std::copy(
-            detail::all_compatible_decompositions_ptr() +
-                it->second.compatible_decomposition_.first_,
-            detail::all_compatible_decompositions_ptr() +
-                it->second.compatible_decomposition_.last_,
-            retval.storage_.begin());
-
-        return retval;
-    }
-
-    inline uint32_t
-    compose_hangul(uint32_t cp0, uint32_t cp1, uint32_t cp2 = 0) noexcept
-    {
-        uint32_t const SBase = 0xAC00;
-        uint32_t const LBase = 0x1100;
-        uint32_t const VBase = 0x1161;
-        uint32_t const TBase = 0x11A7;
-        // uint32_t const LCount = 19;
-        uint32_t const VCount = 21;
-        uint32_t const TCount = 28;
-        uint32_t const NCount = VCount * TCount; // 588
-        // uint32_t const SCount = LCount * NCount; // 11172
-
-        auto const LIndex = cp0 - LBase;
-        auto const VIndex = cp1 - VBase;
-
-        auto const LVIndex = LIndex * NCount + VIndex * TCount;
-        if (cp2) {
-            auto const TIndex = cp2 - TBase;
-            return SBase + LVIndex + TIndex;
-        } else {
-            return SBase + LVIndex;
-        }
-    }
-
-    inline uint32_t compose_unblocked(uint32_t cp0, uint32_t cp1) noexcept
-    {
-        static const two_stage_table<uint32_t, 34, 18> table(
-            detail::composition_map().begin(),
-            detail::composition_map().end(),
-            [](std::pair<uint64_t, uint32_t> p) {
-                auto const key = p.first;
-                uint32_t cp0 = key >> 32;
-                uint32_t cp1 = key & 0xffffffff;
-                BOOST_ASSERT(cp0 < (uint32_t(1) << 17));
-                BOOST_ASSERT(cp1 < (uint32_t(1) << 17));
-                return (cp0 << 17) | cp1;
-            },
-            [](std::pair<uint64_t, uint32_t> p) { return p.second; },
-            0);
-        return table[(cp0 << 17) | cp1];
     }
 
     inline int ccc(uint32_t cp) noexcept

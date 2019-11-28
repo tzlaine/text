@@ -92,6 +92,31 @@ namespace boost { namespace text { inline namespace v1 {
     detail::unspecified
     next_paragraph_break(GraphemeRange const & range, GraphemeIter it) noexcept;
 
+    /** Returns true iff `it` is at the beginning of a paragraph, or `it ==
+        last`.
+
+        This function only participates in overload resolution if `CPIter`
+        models the CPIter concept. */
+    template<typename CPIter, typename Sentinel>
+    bool at_paragraph_break(CPIter first, CPIter it, Sentinel last) noexcept;
+
+    /** Returns true iff `it` is at the beginning of a paragraph, or `it ==
+        std::end(range)`.
+
+        This function only participates in overload resolution if `CPRange`
+        models the CPRange concept. */
+    template<typename CPRange, typename CPIter>
+    bool at_paragraph_break(CPRange & range, CPIter it) noexcept;
+
+    /** Returns true iff `it` is at the beginning of a paragraph, or `it ==
+        std::end(range)`.
+
+        This function only participates in overload resolution if
+        `GraphemeRange` models the GraphemeRange concept. */
+    template<typename GraphemeRange, typename GraphemeIter>
+    bool
+    at_paragraph_break(GraphemeRange const & range, GraphemeIter it) noexcept;
+
 #else
 
     template<typename CPIter, typename Sentinel>
@@ -169,6 +194,38 @@ namespace boost { namespace text { inline namespace v1 {
                 boost::text::v1::next_paragraph_break(
                     static_cast<cp_iter_t>(it.base()), range.end().base()),
                 range.end().base()};
+    }
+
+    template<typename CPIter, typename Sentinel>
+    auto at_paragraph_break(CPIter first, CPIter it, Sentinel last) noexcept
+        -> detail::cp_iter_ret_t<bool, CPIter>
+    {
+        if (it == last)
+            return true;
+        return prev_paragraph_break(first, it, last) == it;
+    }
+
+    template<typename CPRange, typename CPIter>
+    auto at_paragraph_break(CPRange & range, CPIter it) noexcept
+        -> detail::cp_rng_alg_ret_t<bool, CPRange>
+    {
+        if (it == std::end(range))
+            return true;
+        return prev_paragraph_break(std::begin(range), it, std::end(range)) ==
+               it;
+    }
+
+    template<typename GraphemeRange, typename GraphemeIter>
+    auto
+    at_paragraph_break(GraphemeRange const & range, GraphemeIter it) noexcept
+        -> detail::graph_rng_alg_ret_t<bool, GraphemeRange>
+    {
+        if (it == std::end(range))
+            return true;
+        using cp_iter_t = decltype(range.begin().base());
+        cp_iter_t it_ = static_cast<cp_iter_t>(it.base());
+        return prev_paragraph_break(
+                   range.begin().base(), it_, range.end().base()) == it_;
     }
 
 #endif

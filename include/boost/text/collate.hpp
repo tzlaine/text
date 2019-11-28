@@ -108,18 +108,17 @@ namespace boost { namespace text { inline namespace v1 {
 
     inline bool operator<=(text_sort_key const & lhs, text_sort_key const & rhs)
     {
-        return boost::text::v1::compare(lhs, rhs) < 0;
+        return !(rhs < lhs);
     }
 
     inline bool operator>(text_sort_key const & lhs, text_sort_key const & rhs)
     {
-        return std::lexicographical_compare(
-            rhs.begin(), rhs.end(), lhs.begin(), lhs.end());
+        return rhs < lhs;
     }
 
     inline bool operator>=(text_sort_key const & lhs, text_sort_key const & rhs)
     {
-        return 0 < compare(lhs, rhs);
+        return !(lhs < rhs);
     }
 
     // The code in this file implements the UCA as described in

@@ -5,7 +5,6 @@
 #include <boost/text/normalize.hpp>
 #include <boost/text/segmented_vector.hpp>
 #include <boost/text/string_utility.hpp>
-#include <boost/text/detail/canonical_closure.hpp>
 #include <boost/text/detail/collation_data.hpp>
 #include <boost/text/detail/parser.hpp>
 
@@ -1213,43 +1212,13 @@ namespace boost { namespace text { inline namespace v1 {
                 }
             }
 
-            boost::container::
-                small_vector<detail::canonical_closure_string_t, 64>
-                    relation_closure;
-#ifndef BOOST_TEXT_DOXYGEN
-#define BOOST_TEXT_DO_CANONICAL_CLOSURE 0
-#if BOOST_TEXT_DO_CANONICAL_CLOSURE
-            detail::canonical_closure(
-                relation.begin(),
-                relation.end(),
-                std::back_inserter(relation_closure));
+            detail::add_temp_tailoring(table, relation, reset_ces);
+            temp_table_element element;
+            element.cps_ = std::move(relation);
+            element.ces_ = std::move(reset_ces);
+            element.tailored_ = true;
 
-            for (auto & rel : relation_closure) {
-                detail::canonical_closure_string_t str;
-                boost::text::v1::normalize_to_fcc(rel, std::back_inserter(str));
-                rel = std::move(str);
-            }
-            std::sort(relation_closure.begin(), relation_closure.end());
-            relation_closure.erase(
-                std::unique(relation_closure.begin(), relation_closure.end()),
-                relation_closure.end());
-#else
-            relation_closure.push_back(relation);
-#endif
-#endif
-
-            for (auto & rel : relation_closure) {
-                // TODO: Call add_temp_tailoring() for all prefixes of rel,
-                // when 2 < rel.size(), for WF5?
-
-                detail::add_temp_tailoring(table, rel, reset_ces);
-                temp_table_element element;
-                element.cps_ = std::move(rel);
-                element.ces_ = std::move(reset_ces);
-                element.tailored_ = true;
-
-                temp_table.insert(table_target_it, std::move(element));
-            }
+            temp_table.insert(table_target_it, std::move(element));
         }
 
         inline void suppress_impl(
