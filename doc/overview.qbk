@@ -10,6 +10,12 @@ There are a couple of assorted bits that were necessary or useful to have
 around when implementing various parts of _Text_: _segv_ and
 _trie_\/_trie_m_\/_trie_s_.
 
+The _t_ layer depends on both the Unicode layer and the _s_ layer.  There are
+no other dependencies.  The Unicode layer can be used without touching the
+other layers, and the _s_ layer can be used without touching the other layers:
+
+[$../../doc/layers.svg]
+
 
 [heading The _s_ Layer]
 
