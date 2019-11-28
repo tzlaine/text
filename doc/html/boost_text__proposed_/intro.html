@@ -7,59 +7,32 @@
 <link rel="home" href="../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
 <link rel="up" href="../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
 <link rel="prev" href="../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
-<link rel="next" href="why_is_std__string_so_bad_.html" title="Why is std::string So Bad?">
+<link rel="next" href="an_overview_of_boost_text.html" title="An Overview of Boost.Text">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <div class="spirit-nav">
-<a accesskey="p" href="../index.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="why_is_std__string_so_bad_.html"><img src="../images/next.png" alt="Next"></a>
+<a accesskey="p" href="../index.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="an_overview_of_boost_text.html"><img src="../images/next.png" alt="Next"></a>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="boost_text__proposed_.intro"></a><a class="link" href="intro.html" title="Intro">Intro</a>
 </h2></div></div></div>
-<p>
-      "It's all too much and not enough at the same time."
-    </p>
-<p>
-      <span class="emphasis"><em><span class="bold"><strong>-- Jack Kerouac, referring to <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span></code></strong></span></em></span>
-    </p>
 <h4>
 <a name="boost_text__proposed_.intro.h0"></a>
       <span class="phrase"><a name="boost_text__proposed_.intro.motivation"></a></span><a class="link" href="intro.html#boost_text__proposed_.intro.motivation">Motivation</a>
     </h4>
 <p>
-      <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span></code> is an infamous design. It's fat --
-      why are there so many member functions? It's not fat enough -- what if I need
-      to support non-ASCII characters? I could use <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_string</span><span class="special">&lt;</span><span class="identifier">CharT</span><span class="special">&gt;</span></code> for some <code class="computeroutput"><span class="identifier">CharT</span></code>
-      that works for non-ASCII uses, but then I'm left using multiple types for strings
-      &#8212; each of which is called string &#8212; without any encoding guarantees.
+      C and C++ are the only major production languages that do not have robust Unicode
+      support. This library attempts to provide that support for C++.
     </p>
 <p>
-      Apart from <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span></code> in particular, text handling in C++
-      is problematic in general, due to the lack of Unicode support.
-    </p>
-<p>
-      This library attempts to fill in some of these gaps in C++.
-    </p>
-<p>
-      In part, this library is an attempt to re-think <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span></code>
-      as an interoperable family of types, each suited to a different aspect of string
-      processing.
-    </p>
-<p>
-      In part, this library is a Unicode implementation suitable for use by anyone
-      &#8212; including those who know next to nothing about Unicode.
+      This library provides a Unicode implementation suitable for use by anyone &#8212;
+      including those who know next to nothing about Unicode.
     </p>
 <h4>
 <a name="boost_text__proposed_.intro.h1"></a>
       <span class="phrase"><a name="boost_text__proposed_.intro.features"></a></span><a class="link" href="intro.html#boost_text__proposed_.intro.features">Features</a>
     </h4>
-<p>
-      - A family of types to replace <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span></code>,
-      for users that want "a better string" but do not care about encoding
-      or Unicode. This includes <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code>, <code class="computeroutput"><a class="link" href="../boost/text/v1/string_view.html" title="Struct string_view">string_view</a></code>, <code class="computeroutput"><a class="link" href="../boost/text/v1/repeated_string_view.html" title="Struct repeated_string_view">repeated_string_view</a></code>, <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code>,
-      and <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a></code>.
-    </p>
 <p>
       - Iterators converting UTF-8 to and from UTF-16 and UTF-32.
     </p>
@@ -74,6 +47,16 @@
       <code class="computeroutput"><a class="link" href="../boost/text/v1/text_view.html" title="Struct text_view">text_view</a></code>,
       <code class="computeroutput"><a class="link" href="../boost/text/v1/rope.html" title="Struct rope">rope</a></code>,
       and <code class="computeroutput"><a class="link" href="../boost/text/v1/rope_view.html" title="Struct rope_view">rope_view</a></code>.
+    </p>
+<p>
+      - A family of types to analogous to <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span></code>,
+      to show the integration of strings with Unicode-aware text types (these are
+      required simply because I can't hack such integration support into <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span></code>).
+      This includes <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code>,
+      <code class="computeroutput"><a class="link" href="../boost/text/v1/string_view.html" title="Struct string_view">string_view</a></code>,
+      <code class="computeroutput"><a class="link" href="../boost/text/v1/repeated_string_view.html" title="Struct repeated_string_view">repeated_string_view</a></code>,
+      <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code>,
+      and <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a></code>.
     </p>
 <p>
       - Substrings of each of the string-like types above can be had with no copies
@@ -93,7 +76,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="../index.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="why_is_std__string_so_bad_.html"><img src="../images/next.png" alt="Next"></a>
+<a accesskey="p" href="../index.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="an_overview_of_boost_text.html"><img src="../images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

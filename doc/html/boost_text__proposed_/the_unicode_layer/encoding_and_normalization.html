@@ -220,8 +220,8 @@
         from a pair of iterators or as an iterator-sentinel pair.
       </p>
 <p>
-        Make-functions <code class="computeroutput"><a class="link" href="../../boost/text/v1/as_utf8_idm27213.html" title="Function template as_utf8">as_utf8()</a></code>,
-        <code class="computeroutput"><a class="link" href="../../boost/text/v1/as_utf16_idm27238.html" title="Function template as_utf16">as_utf16()</a></code>, and <code class="computeroutput"><a class="link" href="../../boost/text/v1/as_utf32_idm27263.html" title="Function template as_utf32">as_utf32()</a></code>,
+        Make-functions <code class="computeroutput"><a class="link" href="../../boost/text/v1/as_utf8_idm27131.html" title="Function template as_utf8">as_utf8()</a></code>,
+        <code class="computeroutput"><a class="link" href="../../boost/text/v1/as_utf16_idm27156.html" title="Function template as_utf16">as_utf16()</a></code>, and <code class="computeroutput"><a class="link" href="../../boost/text/v1/as_utf32_idm27181.html" title="Function template as_utf32">as_utf32()</a></code>,
         are also provided. The <code class="computeroutput"><span class="identifier">as_utfN</span><span class="special">()</span></code> functions are overloaded to take an iterator
         and sentinel, or a range:
       </p>
@@ -298,7 +298,7 @@
 </tr>
 <tr><td align="left" valign="top"><p>
           Though it does not produce a <code class="computeroutput"><span class="identifier">utfN_view</span></code>,
-          there is a related function <code class="computeroutput"><a class="link" href="../../boost/text/v1/to_string_idm23359.html" title="Function template to_string">to_string()</a></code>,
+          there is a related function <code class="computeroutput"><a class="link" href="../../boost/text/v1/to_string_idm23277.html" title="Function template to_string">to_string()</a></code>,
           which takes two UTF-32 iterators and returns a <code class="computeroutput"><a class="link" href="../../boost/text/v1/string.html" title="Struct string">string</a></code> containing the given
           sequence, UTF-8-encoded.
         </p></td></tr>
@@ -331,7 +331,7 @@
 <p>
         When you only need to transcode from one UTF encoding to another, use the
         transcoding algorithms instead of the transcoding iterators. The algorithms
-        are quite a bit faster in most cases (<code class="computeroutput"><a class="link" href="../../boost/text/v1/transcode_utf_8_t_idm25152.html" title="Function template transcode_utf_8_to_32">transcode_utf_8_to_32()</a></code>
+        are quite a bit faster in most cases (<code class="computeroutput"><a class="link" href="../../boost/text/v1/transcode_utf_8_t_idm25070.html" title="Function template transcode_utf_8_to_32">transcode_utf_8_to_32()</a></code>
         is particularly faster, as it uses SIMD instructions when available).
       </p>
 <p>
@@ -339,22 +339,22 @@
       </p>
 <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
-            <code class="computeroutput"><a class="link" href="../../boost/text/v1/transcode_utf_8_t_idm25127.html" title="Function template transcode_utf_8_to_16">transcode_utf_8_to_16()</a></code>
+            <code class="computeroutput"><a class="link" href="../../boost/text/v1/transcode_utf_8_t_idm25045.html" title="Function template transcode_utf_8_to_16">transcode_utf_8_to_16()</a></code>
           </li>
 <li class="listitem">
-            <code class="computeroutput"><a class="link" href="../../boost/text/v1/transcode_utf_8_t_idm25152.html" title="Function template transcode_utf_8_to_32">transcode_utf_8_to_32()</a></code>
+            <code class="computeroutput"><a class="link" href="../../boost/text/v1/transcode_utf_8_t_idm25070.html" title="Function template transcode_utf_8_to_32">transcode_utf_8_to_32()</a></code>
           </li>
 <li class="listitem">
-            <code class="computeroutput"><a class="link" href="../../boost/text/v1/transcode_utf_16__idm25177.html" title="Function template transcode_utf_16_to_8">transcode_utf_16_to_8()</a></code>
+            <code class="computeroutput"><a class="link" href="../../boost/text/v1/transcode_utf_16__idm25095.html" title="Function template transcode_utf_16_to_8">transcode_utf_16_to_8()</a></code>
           </li>
 <li class="listitem">
-            <code class="computeroutput"><a class="link" href="../../boost/text/v1/transcode_utf_16__idm25202.html" title="Function template transcode_utf_16_to_32">transcode_utf_16_to_32()</a></code>
+            <code class="computeroutput"><a class="link" href="../../boost/text/v1/transcode_utf_16__idm25120.html" title="Function template transcode_utf_16_to_32">transcode_utf_16_to_32()</a></code>
           </li>
 <li class="listitem">
-            <code class="computeroutput"><a class="link" href="../../boost/text/v1/transcode_utf_32__idm25227.html" title="Function template transcode_utf_32_to_8">transcode_utf_32_to_8()</a></code>
+            <code class="computeroutput"><a class="link" href="../../boost/text/v1/transcode_utf_32__idm25145.html" title="Function template transcode_utf_32_to_8">transcode_utf_32_to_8()</a></code>
           </li>
 <li class="listitem">
-            <code class="computeroutput"><a class="link" href="../../boost/text/v1/transcode_utf_32__idm25252.html" title="Function template transcode_utf_32_to_16">transcode_utf_32_to_16()</a></code>
+            <code class="computeroutput"><a class="link" href="../../boost/text/v1/transcode_utf_32__idm25170.html" title="Function template transcode_utf_32_to_16">transcode_utf_32_to_16()</a></code>
           </li>
 </ul></div>
 <p>
