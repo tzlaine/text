@@ -1644,8 +1644,8 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     }
 
     template<typename CPRange, typename CPIter>
-    bool at_allowed_line_break(CPRange & range, CPIter it) noexcept
-        ->detail::cp_rng_alg_ret_t<bool, CPRange>
+    auto at_allowed_line_break(CPRange & range, CPIter it) noexcept
+        -> detail::cp_rng_alg_ret_t<bool, CPRange>
     {
         if (it == std::end(range))
             return true;
@@ -1654,9 +1654,9 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     }
 
     template<typename GraphemeRange, typename GraphemeIter>
-    bool
+    auto
     at_allowed_line_break(GraphemeRange const & range, GraphemeIter it) noexcept
-        ->detail::graph_rng_alg_ret_t<bool, GraphemeRange>
+        -> detail::graph_rng_alg_ret_t<bool, GraphemeRange>
     {
         if (it == std::end(range))
             return true;

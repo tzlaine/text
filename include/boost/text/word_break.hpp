@@ -1084,7 +1084,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         typename CPIter,
         typename Sentinel,
         typename WordPropFunc = word_prop_callable,
-        typename CPWordBreakFunc = detail::undefined>
+        typename CPWordBreakFunc = detail::default_cp_break>
     auto at_word_break(
         CPIter first,
         CPIter it,
@@ -1102,7 +1102,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         typename CPRange,
         typename CPIter,
         typename WordPropFunc = word_prop_callable,
-        typename CPWordBreakFunc = detail::undefined>
+        typename CPWordBreakFunc = detail::default_cp_break>
     auto at_word_break(
         CPRange & range,
         CPIter it,
@@ -1124,7 +1124,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         typename GraphemeRange,
         typename GraphemeIter,
         typename WordPropFunc = word_prop_callable,
-        typename CPWordBreakFunc = detail::undefined>
+        typename CPWordBreakFunc = detail::default_cp_break>
     auto at_word_break(
         GraphemeRange const & range,
         GraphemeIter it,
