@@ -2508,6 +2508,16 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             {
                 return lhs.next_ == rhs.first_;
             }
+
+            using base_type = stl_interfaces::proxy_iterator_interface<
+                const_reverse_allowed_line_iterator<
+                    CPIter,
+                    ResultType,
+                    PrevFunc,
+                    CPRange>,
+                std::forward_iterator_tag,
+                CPRange>;
+            using base_type::operator++;
         };
     }
 

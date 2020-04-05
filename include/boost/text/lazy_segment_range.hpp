@@ -74,6 +74,16 @@ namespace boost { namespace text { inline namespace v1 {
             {
                 return lhs.prev_ == rhs.last_;
             }
+
+            using base_type = stl_interfaces::proxy_iterator_interface<
+                const_lazy_segment_iterator<
+                    CPIter,
+                    Sentinel,
+                    NextFunc,
+                    CPRange>,
+                std::forward_iterator_tag,
+                CPRange>;
+            using base_type::operator++;
         };
 
         template<
@@ -140,6 +150,16 @@ namespace boost { namespace text { inline namespace v1 {
             {
                 return lhs.next_ == rhs.first_;
             }
+
+            using base_type = stl_interfaces::proxy_iterator_interface<
+                const_reverse_lazy_segment_iterator<
+                    CPIter,
+                    Ignored,
+                    PrevFunc,
+                    CPRange>,
+                std::forward_iterator_tag,
+                CPRange>;
+            using base_type::operator++;
         };
     }
 

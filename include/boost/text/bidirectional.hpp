@@ -315,6 +315,12 @@ namespace boost { namespace text { inline namespace v1 {
                 return lhs.it_ == rhs.it_;
             }
 
+            using base_type = stl_interfaces::iterator_interface<
+                run_seq_iter<CPIter>,
+                std::bidirectional_iterator_tag,
+                prop_and_embedding_t<CPIter>>;
+            using base_type::operator++;
+
         private:
             typename level_run<CPIter>::iterator it_;
             typename run_seq_runs_t<CPIter>::iterator runs_it_;
@@ -2367,6 +2373,16 @@ namespace boost { namespace text { inline namespace v1 {
             {
                 return lhs.state_->at_end();
             }
+
+            using base_type = stl_interfaces::proxy_iterator_interface<
+                const_lazy_bidi_segment_iterator<
+                    CPIter,
+                    Sentinel,
+                    ResultType,
+                    NextLineBreakFunc>,
+                std::bidirectional_iterator_tag,
+                ResultType>;
+            using base_type::operator++;
 
         private:
             bidi_subrange_state<
