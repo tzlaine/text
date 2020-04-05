@@ -666,7 +666,7 @@ namespace {
                                         true};
                 } else if (
                     ' ' <= key_code.key_ && key_code.key_ <= '~' &&
-                    boost::text::utf8::valid_code_point(key_code.key_)) {
+                    boost::text::valid_code_point(key_code.key_)) {
                     // We ignore anything not in this narrow range of ASCII.
                     // This is a limitation of my ability to understand
                     // libcurses, not a limitation of Boost.Text.
