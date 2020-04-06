@@ -119,8 +119,9 @@ install:
       if [[ "$MAC_OSX" == "true" ]]; then
         export CMAKE_URL="http://www.cmake.org/files/v3.7/cmake-3.7.0-Darwin-x86_64.tar.gz"
         travis_retry wget --no-check-certificate --quiet -O - ${CMAKE_URL} | tar --strip-components=3 -xz -C usr
-        brew update
-        brew install lcov
+        # These use of brew are now broken on Travis.
+        #brew update
+        #brew install lcov
       else
         export CMAKE_URL="http://www.cmake.org/files/v3.7/cmake-3.7.0-Linux-x86_64.tar.gz"
         travis_retry wget --no-check-certificate --quiet -O - ${CMAKE_URL} | tar --strip-components=1 -xz -C usr
@@ -145,7 +146,7 @@ script:
         build_dir="build-$BUILD_TYPE-cxx-$CPP"
         mkdir $build_dir
         cd $build_dir
-        cmake -DCXX_STD=${CPP} -DBOOST_ROOT=${DEPS_DIR}/boost_1_64_0 -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DLIMIT_TESTING_FOR_CI=true ..
+        cmake -DCXX_STD=${CPP} -DBOOST_BRANCH=$TRAVIS_BRANCH -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DLIMIT_TESTING_FOR_CI=true ..
         make -j${JOBS} && CTEST_OUTPUT_ON_FAILURE=1 CTEST_PARALLEL_LEVEL=4 make check
         if [ $? -ne 0 ]
         then
@@ -158,7 +159,7 @@ script:
         build_dir="build-cov-cxx-$CPP-coverage"
         mkdir $build_dir
         cd $build_dir
-        cmake -DCXX_STD=${CPP} -DBOOST_ROOT=${DEPS_DIR}/boost_1_64_0 -DCMAKE_BUILD_TYPE=Debug -DLIMIT_TESTING_FOR_CI=true -DBUILD_COVERAGE=true ..
+        cmake -DCXX_STD=${CPP} -DBOOST_BRANCH=$TRAVIS_BRANCH -DCMAKE_BUILD_TYPE=Debug -DLIMIT_TESTING_FOR_CI=true -DBUILD_COVERAGE=true ..
         sudo ln -s /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/llvm-cov /usr/local/bin/llvm-cov
         make -j${JOBS} && CTEST_OUTPUT_ON_FAILURE=1 CTEST_PARALLEL_LEVEL=4 make coverage
         if [ $? -ne 0 ]
