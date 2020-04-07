@@ -5,6 +5,7 @@
 #include <boost/text/trie_fwd.hpp>
 #include <boost/algorithm/cxx14/equal.hpp>
 
+#include <algorithm>
 #include <memory>
 #include <type_traits>
 #include <vector>
