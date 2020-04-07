@@ -41,6 +41,7 @@ else ()
     COMMAND git submodule init libs/move
     COMMAND git submodule init libs/mpl
     COMMAND git submodule init libs/numeric
+    COMMAND git submodule init libs/optional
     COMMAND git submodule init libs/preprocessor
     COMMAND git submodule init libs/range
     COMMAND git submodule init libs/smart_ptr
