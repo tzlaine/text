@@ -8,7 +8,7 @@
 ###############################################################################
 set(Boost_USE_STATIC_LIBS ON)
 find_package(Boost 1.64.0 COMPONENTS ${boost_components})
-if (Boost_INCLUDE_DIR)
+if (false)#Boost_INCLUDE_DIR)
   add_library(boost INTERFACE)
   target_include_directories(boost INTERFACE ${Boost_INCLUDE_DIR})
 else ()
@@ -31,6 +31,7 @@ else ()
     COMMAND git submodule init libs/test
     COMMAND git submodule init libs/algorithm
     COMMAND git submodule init libs/bind
+    COMMAND git submodule init libs/container
     COMMAND git submodule init libs/container_hash
     COMMAND git submodule init libs/exception
     COMMAND git submodule init libs/function
@@ -56,7 +57,7 @@ else ()
     COMMAND git submodule init tools/build
     COMMAND git submodule init libs/headers
     COMMAND git submodule init tools/boost_install
-    COMMAND git submodule update --jobs 3
+    COMMAND git submodule update
     COMMAND ${bootstrap_cmd}
     COMMAND ./b2 headers
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/boost_root
