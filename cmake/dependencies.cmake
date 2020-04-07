@@ -8,7 +8,7 @@
 ###############################################################################
 set(Boost_USE_STATIC_LIBS ON)
 find_package(Boost 1.64.0 COMPONENTS ${boost_components})
-if (false)#Boost_INCLUDE_DIR)
+if (Boost_INCLUDE_DIR)
   add_library(boost INTERFACE)
   target_include_directories(boost INTERFACE ${Boost_INCLUDE_DIR})
 else ()
@@ -32,6 +32,7 @@ else ()
     COMMAND git submodule init libs/algorithm
     COMMAND git submodule init libs/align
     COMMAND git submodule init libs/bind
+    COMMAND git submodule init libs/concept_check
     COMMAND git submodule init libs/container
     COMMAND git submodule init libs/container_hash
     COMMAND git submodule init libs/exception
