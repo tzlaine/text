@@ -31,6 +31,7 @@ else ()
     COMMAND git submodule init libs/test
     COMMAND git submodule init libs/algorithm
     COMMAND git submodule init libs/align
+    COMMAND git submodule init libs/array
     COMMAND git submodule init libs/bind
     COMMAND git submodule init libs/concept_check
     COMMAND git submodule init libs/container
@@ -61,7 +62,7 @@ else ()
     COMMAND git submodule init tools/build
     COMMAND git submodule init libs/headers
     COMMAND git submodule init tools/boost_install
-    COMMAND git submodule update
+    COMMAND git submodule update --jobs 3
     COMMAND ${bootstrap_cmd}
     COMMAND ./b2 headers
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/boost_root
