@@ -127,8 +127,8 @@ install:
         travis_retry wget --no-check-certificate --quiet -O - ${CMAKE_URL} | tar --strip-components=1 -xz -C usr
       fi
     - echo $PATH
-    - travis_retry wget --no-check-certificate --quiet https://dl.bintray.com/boostorg/release/1.64.0/source/boost_1_64_0.tar.bz2
-    - tar xjf boost_1_64_0.tar.bz2
+    #- travis_retry wget --no-check-certificate --quiet https://dl.bintray.com/boostorg/release/1.64.0/source/boost_1_64_0.tar.bz2
+    #- tar xjf boost_1_64_0.tar.bz2
     # Show compiler info
     - $CXX --version
     - which $CXX
