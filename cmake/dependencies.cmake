@@ -30,12 +30,14 @@ else ()
     boost_clone
     COMMAND git submodule init libs/test
     COMMAND git submodule init libs/algorithm
+    COMMAND git submodule init libs/align
     COMMAND git submodule init libs/bind
     COMMAND git submodule init libs/container
     COMMAND git submodule init libs/container_hash
     COMMAND git submodule init libs/exception
     COMMAND git submodule init libs/function
     COMMAND git submodule init libs/integer
+    COMMAND git submodule init libs/intrusive
     COMMAND git submodule init libs/io
     COMMAND git submodule init libs/iterator
     COMMAND git submodule init libs/move
