@@ -169,7 +169,8 @@ namespace boost { namespace stl_interfaces { inline namespace v1 {
 }}}
 
 
-#if 201703L < __cplusplus && defined(__cpp_lib_concepts) || BOOST_STL_INTERFACES_DOXYGEN
+#if 201703L < __cplusplus && defined(__cpp_lib_concepts) ||                    \
+    defined(BOOST_STL_INTERFACES_DOXYGEN)
 
 namespace boost { namespace stl_interfaces { namespace v2 {
 
