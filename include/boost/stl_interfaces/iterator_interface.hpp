@@ -287,8 +287,10 @@ namespace boost { namespace stl_interfaces { inline namespace v1 {
         }
 
         template<typename D = Derived>
-        constexpr pointer operator->() const noexcept(
+        constexpr auto operator-> () const noexcept(
             noexcept(detail::make_pointer<pointer>(*std::declval<D const &>())))
+            -> decltype(
+                detail::make_pointer<pointer>(*std::declval<D const &>()))
         {
             return detail::make_pointer<pointer>(*derived());
         }
@@ -358,8 +360,10 @@ namespace boost { namespace stl_interfaces { inline namespace v1 {
             retval += i;
             return retval;
         }
-        friend BOOST_STL_INTERFACES_HIDDEN_FRIEND_CONSTEXPR Derived
-        operator+(difference_type i, Derived it) noexcept(noexcept(it + i))
+        template<typename DiffT>
+        friend BOOST_STL_INTERFACES_HIDDEN_FRIEND_CONSTEXPR auto
+        operator+(DiffT i, Derived it) noexcept(noexcept(it + i))
+            -> decltype(it + i)
         {
             return it + i;
         }
@@ -398,8 +402,9 @@ namespace boost { namespace stl_interfaces { inline namespace v1 {
         }
 
         template<typename D = Derived>
-        constexpr D & operator-=(difference_type i) noexcept(
+        constexpr auto operator-=(difference_type i) noexcept(
             noexcept(std::declval<D &>() += -i))
+            -> decltype(std::declval<D &>() += -i, std::declval<D &>())
         {
             derived() += -i;
             return derived();
@@ -414,9 +419,11 @@ namespace boost { namespace stl_interfaces { inline namespace v1 {
             return access::base(derived()) - access::base(other);
         }
 
-        friend BOOST_STL_INTERFACES_HIDDEN_FRIEND_CONSTEXPR Derived operator-(
-            Derived it,
-            difference_type i) noexcept(noexcept(Derived(it), it += -i))
+        template<typename DiffT>
+        friend BOOST_STL_INTERFACES_HIDDEN_FRIEND_CONSTEXPR auto
+        operator-(Derived it, DiffT i) noexcept(noexcept(Derived(it), it += -i))
+            -> std::remove_reference_t<
+                decltype(it += -i, std::declval<Derived &>())>
         {
             Derived retval = it;
             retval += -i;
