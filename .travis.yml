@@ -144,6 +144,7 @@ install:
     # Install cmake
     - |
       if [[ "$MAC_OSX" == "true" ]]; then
+        echo ""
         # These use of brew are now broken on Travis.
         # brew update
         # brew install lcov
