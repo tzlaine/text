@@ -2023,7 +2023,7 @@ namespace boost { namespace text { inline namespace v1 {
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
         utf_32_to_16_iterator<Iter, Sentinel, ErrorHandler> const & lhs,
-        Sentinel rhs) noexcept -> decltype(lhs.it_ == rhs)
+        Sentinel rhs) noexcept -> decltype(lhs.base() == rhs)
     {
         return lhs.base() == rhs;
     }
