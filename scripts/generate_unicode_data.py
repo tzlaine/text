@@ -88,7 +88,7 @@ if not args.skip_downloads:
             'https://www.unicode.org/Public/{}/ucd/extracted/{}'.format(args.unicode_version, f), f)
 
     print 'Downloading {}.'.format('emoji-data.txt')
-    urllib.urlretrieve('https://unicode.org/Public/emoji/{}.{}/emoji-data.txt'.format(unicode_major, unicode_minor), 'emoji-data.txt')
+    urllib.urlretrieve('https://unicode.org/Public/{}/ucd/emoji/emoji-data.txt'.format(args.unicode_version), 'emoji-data.txt')
 
     path_root = 'https://www.unicode.org/Public/cldr/{}'.format(args.cldr_version)
     for i in [0, 1, 2]:
