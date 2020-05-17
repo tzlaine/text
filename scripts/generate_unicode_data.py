@@ -90,15 +90,21 @@ if not args.skip_downloads:
     print 'Downloading {}.'.format('emoji-data.txt')
     urllib.urlretrieve('https://unicode.org/Public/emoji/{}.{}/emoji-data.txt'.format(unicode_major, unicode_minor), 'emoji-data.txt')
 
-    zip_file = 'cldr-common-{}.zip'.format(args.cldr_version)
-    print 'Downloading {}.'.format(zip_file)
-    urllib.urlretrieve(
-        'https://www.unicode.org/Public/cldr/{}/{}'.format(args.cldr_version, zip_file), zip_file)
-
-    print 'Unzipping {}.'.format(zip_file)
-    zip_ref = zipfile.ZipFile(zip_file, 'r')
-    zip_ref.extractall('.')
-    zip_ref.close()
+    path_root = 'https://www.unicode.org/Public/cldr/{}'.format(args.cldr_version)
+    for i in [0, 1, 2]:
+        zip_file = 'cldr-common-{}.zip'.format(args.cldr_version + '.0' * i)
+        full_path = path_root + '/' + zip_file
+        print 'Downloading {}.'.format(full_path)
+        urllib.urlretrieve(full_path, zip_file)
+        print 'Unzipping {}.'.format(zip_file)
+        try:
+            zip_ref = zipfile.ZipFile(zip_file, 'r')
+            zip_ref.extractall('.')
+            zip_ref.close()
+            break
+        except:
+            print full_path + ' not found; retrying....'
+            pass
 
     cldr_files = [
         'CollationTest_CLDR_NON_IGNORABLE.txt',
