@@ -8,7 +8,7 @@
 
 #include <boost/stl_interfaces/fwd.hpp>
 
-#if 201703L < __cplusplus && defined(__cpp_lib_concepts)
+#if 201703L < __cplusplus && defined(__cpp_lib_ranges)
 #include <ranges>
 #endif
 
@@ -204,7 +204,7 @@ namespace boost { namespace stl_interfaces { inline namespace v1 {
 }}}
 
 
-#if 201703L < __cplusplus && defined(__cpp_lib_concepts) ||                    \
+#if 201703L < __cplusplus && defined(__cpp_lib_ranges) ||                      \
     defined(BOOST_STL_INTERFACES_DOXYGEN)
 
 namespace boost { namespace stl_interfaces { namespace v2 {
