@@ -8,6 +8,9 @@
 
 #include <boost/stl_interfaces/fwd.hpp>
 
+#if 201703L < __cplusplus && defined(__cpp_lib_concepts)
+#include <ranges>
+#endif
 
 namespace boost { namespace stl_interfaces { inline namespace v1 {
 
