@@ -97,7 +97,7 @@ namespace boost { namespace stl_interfaces { inline namespace v1 {
         std::ranges::end(d))`. */
     template<
         typename Derived,
-        bool Contiguous = discontiguous
+        bool Contiguous = element_layout::discontiguous
 #ifndef BOOST_STL_INTERFACES_DOXYGEN
         ,
         typename E = std::enable_if_t<
