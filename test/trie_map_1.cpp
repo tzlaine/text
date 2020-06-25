@@ -516,6 +516,41 @@ TEST(trie_map, index_operator)
         EXPECT_EQ(trie["foos"], 19);
         EXPECT_EQ(trie[""], 0);
     }
+
+    {
+        trie::trie_map<std::string, int> const trie(
+            {{"foo", 13}, {"bar", 17}, {"foos", 19}, {"", 0}});
+
+        if (trie["foo"])
+            EXPECT_TRUE(true);
+        else
+            EXPECT_TRUE(false);
+        if (trie["bar"])
+            EXPECT_TRUE(true);
+        else
+            EXPECT_TRUE(false);
+        if (trie["foos"])
+            EXPECT_TRUE(true);
+        else
+            EXPECT_TRUE(false);
+        if (trie[""])
+            EXPECT_TRUE(true);
+        else
+            EXPECT_TRUE(false);
+        if (trie["other"])
+            EXPECT_TRUE(false);
+        else
+            EXPECT_TRUE(true);
+    }
+
+    {
+        trie::trie_map<std::string, int> int_counts;
+        auto y = int_counts["Hello"];
+        if (int_counts["Hello"])
+            EXPECT_TRUE(false);
+        else
+            EXPECT_TRUE(true);
+    }
 }
 
 TEST(trie_map, insert)

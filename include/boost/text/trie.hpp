@@ -36,6 +36,7 @@ namespace boost { namespace trie {
         }
 
         explicit operator bool() const & noexcept { return t_ != nullptr; }
+        explicit operator bool() & noexcept { return t_ != nullptr; }
         explicit operator bool() && noexcept { return t_ != nullptr; }
 
         T const & operator*() const noexcept
