@@ -882,11 +882,14 @@ table:
 [collation_configuration]
 
 [important The default Unicode collation algorithm requires the NFD
-normalization form, one of the least compact normalization forms.  This means
-either keeping your data in a memory-hogging normalization form, or paying the
-cost of normalization every time you do a collation.  However, there is a
-variant of the default algorithm that is defined in _tn5_ that allows one to
-use an alternate normalization form called FCC.
+normalization form, one of the least compact normalization forms.  NFC is the
+most widely-used normalization form (most European keyboards produce NFC, and
+W3C recommends NFC for all web text).  This means either keeping your data in
+the most interoperable normalization form (NFC), and paying the cost of
+normalization every time you do a collation, or the less interoperable NFD and
+not having to renormalize when collating.  However, there is a variant of the
+default algorithm that is defined in _tn5_ that allows one to use an alternate
+normalization form called FCC.
 
 FCC is very similar to NFC, except that it is less compact in a few
 cases. _Text_'s collation implementation relies on the inputs being in the FCC
