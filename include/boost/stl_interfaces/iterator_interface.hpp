@@ -273,7 +273,7 @@ namespace boost { namespace stl_interfaces { inline namespace v1 {
     public:
         using iterator_concept = IteratorConcept;
         using iterator_category = detail::concept_category_t<iterator_concept>;
-        using value_type = ValueType;
+        using value_type = std::remove_const_t<ValueType>;
         using reference = Reference;
         using pointer = detail::pointer_t<Pointer, iterator_concept>;
         using difference_type = DifferenceType;
