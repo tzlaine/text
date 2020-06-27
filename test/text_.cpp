@@ -134,17 +134,17 @@ TEST(text_tests, test_ctors)
     EXPECT_EQ(t, ""_t);
     EXPECT_EQ(""_t, t);
 
-    text::text t2("A nonemtpy string");
-    EXPECT_EQ(t2, "A nonemtpy string"_t);
-    EXPECT_EQ("A nonemtpy string"_t, t2);
+    text::text t2("A nonempty string");
+    EXPECT_EQ(t2, "A nonempty string"_t);
+    EXPECT_EQ("A nonempty string"_t, t2);
 
     text::text t3(t2);
-    EXPECT_EQ(t3, "A nonemtpy string"_t);
-    EXPECT_EQ("A nonemtpy string"_t, t3);
+    EXPECT_EQ(t3, "A nonempty string"_t);
+    EXPECT_EQ("A nonempty string"_t, t3);
 
     text::text t4(std::move(t2));
-    EXPECT_EQ(t4, "A nonemtpy string"_t);
-    EXPECT_EQ("A nonemtpy string"_t, t4);
+    EXPECT_EQ(t4, "A nonempty string"_t);
+    EXPECT_EQ("A nonempty string"_t, t4);
     EXPECT_EQ(t2, ""_t);
     EXPECT_EQ(""_t, t2);
 
