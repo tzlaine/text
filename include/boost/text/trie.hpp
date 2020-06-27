@@ -1,3 +1,8 @@
+// Copyright (C) 2020 T. Zachary Laine
+//
+// Distributed under the Boost Software License, Version 1.0. (See
+// accompanying file LICENSE_1_0.txt or copy at
+// http://www.boost.org/LICENSE_1_0.txt)
 #ifndef BOOST_TEXT_TRIE_HPP
 #define BOOST_TEXT_TRIE_HPP
 
@@ -5,6 +10,7 @@
 #include <boost/text/trie_fwd.hpp>
 #include <boost/algorithm/cxx14/equal.hpp>
 
+#include <algorithm>
 #include <memory>
 #include <type_traits>
 #include <vector>
@@ -35,6 +41,7 @@ namespace boost { namespace trie {
         }
 
         explicit operator bool() const & noexcept { return t_ != nullptr; }
+        explicit operator bool() & noexcept { return t_ != nullptr; }
         explicit operator bool() && noexcept { return t_ != nullptr; }
 
         T const & operator*() const noexcept

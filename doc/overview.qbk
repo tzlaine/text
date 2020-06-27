@@ -1,3 +1,8 @@
+[/ Copyright (C) 2020 T. Zachary Laine
+ /
+ / Distributed under the Boost Software License, Version 1.0. (See accompanying
+ / file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+ /]
 [section An Overview of Boost.Text]
 
 _Text_ is composed of three main layers:
@@ -10,12 +15,19 @@ There are a couple of assorted bits that were necessary or useful to have
 around when implementing various parts of _Text_: _segv_ and
 _trie_\/_trie_m_\/_trie_s_.
 
+The _t_ layer depends on both the Unicode layer and the _s_ layer.  There are
+no other dependencies.  The Unicode layer can be used without touching the
+other layers, and the _s_ layer can be used without touching the other layers:
+
+[$../../doc/layers.svg]
+
 
 [heading The _s_ Layer]
 
 The types in this layer are encoding-agnostic.  Together, they form an
-ecosystem of types that constitutes "a better `std::string`".  The types in
-this layer are: _s_, _sv_, _rsv_, _ur_, and _urv_.
+ecosystem of types that constitutes a `std::string`-like type, including some
+complimentary types like ropes and rope views.  The types in this layer are:
+_s_, _sv_, _rsv_, _ur_, and _urv_.
 
 
 [heading The Unicode Layer]
@@ -71,9 +83,9 @@ fine in C++20 and later, but is not fine in earlier versions of standard.  In
 fact, in earlier versions proxy iterators are not iterators at all, by the
 standard's formal definition.
 
-This does not come up a lot in practice.  I have yet to run into any code that
-does not compile or that does not work due to the use of these proxy
-iterators, but it is a potential problem about which you should know.
-Consider yourself warned.
+This does not come up as a real problem very much in practice.  I have yet to
+run into any code that does not compile or that does not work due to the use
+of these proxy iterators, but it is a potential problem about which you should
+know.  Consider yourself warned.
 
 [endsect]

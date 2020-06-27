@@ -1,3 +1,8 @@
+// Copyright (C) 2020 T. Zachary Laine
+//
+// Distributed under the Boost Software License, Version 1.0. (See
+// accompanying file LICENSE_1_0.txt or copy at
+// http://www.boost.org/LICENSE_1_0.txt)
 #ifndef BOOST_TEXT_WORD_BREAK_HPP
 #define BOOST_TEXT_WORD_BREAK_HPP
 
@@ -429,6 +434,57 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         GraphemeIter it,
         WordPropFunc word_prop = WordPropFunc{},
         CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept;
+
+    /** Returns true iff `it` is at the beginning of a word, or `it == last`.
+
+        This function only participates in overload resolution if `CPIter`
+        models the CPIter concept. */
+    template<
+        typename CPIter,
+        typename Sentinel,
+        typename WordPropFunc = word_prop_callable,
+        typename CPWordBreakFunc = detail::undefined>
+    bool at_word_break(
+        CPIter first,
+        CPIter it,
+        Sentinel last,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept;
+
+    /** Returns true iff `it` is at the beginning of a word, or `it ==
+        std::end(range)`.
+
+        This function only participates in overload resolution if `CPRange`
+        models the CPRange concept and `WordPropFunc` models the WordPropFunc
+        concept. */
+    template<
+        typename CPRange,
+        typename CPIter,
+        typename WordPropFunc = word_prop_callable,
+        typename CPWordBreakFunc = detail::undefined>
+    bool at_word_break(
+        CPRange & range,
+        CPIter it,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept;
+
+    /** Returns true iff `it` is at the beginning of a word, or `it ==
+        std::end(range)`.
+
+        This function only participates in overload resolution if
+        `GraphemeRange` models the GraphemeRange concept and `WordPropFunc`
+        models the WordPropFunc concept. */
+    template<
+        typename GraphemeRange,
+        typename GraphemeIter,
+        typename WordPropFunc = word_prop_callable,
+        typename CPWordBreakFunc = detail::undefined>
+    bool at_word_break(
+        GraphemeRange const & range,
+        GraphemeIter it,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept;
+
 #else
 
     template<
@@ -1027,6 +1083,70 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
                     word_prop,
                     cp_break),
                 range.end().base()};
+    }
+
+    template<
+        typename CPIter,
+        typename Sentinel,
+        typename WordPropFunc = word_prop_callable,
+        typename CPWordBreakFunc = detail::default_cp_break>
+    auto at_word_break(
+        CPIter first,
+        CPIter it,
+        Sentinel last,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept
+        -> detail::cp_iter_ret_t<bool, CPIter>
+    {
+        if (it == last)
+            return true;
+        return prev_word_break(first, it, last, word_prop, cp_break) == it;
+    }
+
+    template<
+        typename CPRange,
+        typename CPIter,
+        typename WordPropFunc = word_prop_callable,
+        typename CPWordBreakFunc = detail::default_cp_break>
+    auto at_word_break(
+        CPRange & range,
+        CPIter it,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept
+        -> detail::word_prop_func_ret_t<bool, WordPropFunc, CPRange>
+    {
+        if (it == std::end(range))
+            return true;
+        return prev_word_break(
+                   std::begin(range),
+                   it,
+                   std::end(range),
+                   word_prop,
+                   cp_break) == it;
+    }
+
+    template<
+        typename GraphemeRange,
+        typename GraphemeIter,
+        typename WordPropFunc = word_prop_callable,
+        typename CPWordBreakFunc = detail::default_cp_break>
+    auto at_word_break(
+        GraphemeRange const & range,
+        GraphemeIter it,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept
+        -> detail::graph_word_prop_func_ret_t<bool, WordPropFunc, GraphemeRange>
+    {
+        if (it == std::end(range))
+            return true;
+        using cp_iter_t = decltype(range.begin().base());
+        cp_iter_t it_ = static_cast<cp_iter_t>(it.base());
+        return prev_word_break(
+                   range.begin().base(),
+                   it_,
+                   range.end().base(),
+                   word_prop,
+                   cp_break) == it_;
     }
 
 #endif

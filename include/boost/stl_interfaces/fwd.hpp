@@ -8,11 +8,6 @@
 
 #include <iterator>
 
-#if 201703L <= __cplusplus && __has_include(<stl2/ranges.hpp>) && \
-    !defined(BOOST_STL_INTERFACES_DISABLE_CMCSTL2)
-#include <stl2/ranges.hpp>
-#endif
-
 #ifndef BOOST_STL_INTERFACES_DOXYGEN
 
 #if defined(_MSC_VER) || defined(__GNUC__) && __GNUC__ < 8
@@ -35,9 +30,12 @@ namespace boost { namespace stl_interfaces {
     inline namespace v1 {
 
         /** An enumeration used to indicate whether the underlying data have a
-            contiguous layout when instantiating `view_interface` and
-            `container_interface`. */
-        enum element_layout : bool { discontiguous = false, contiguous = true };
+            contiguous or discontiguous layout when instantiating
+            `view_interface` and `sequence_container_interface`. */
+        enum class element_layout : bool {
+            discontiguous = false,
+            contiguous = true
+        };
 
         namespace v1_dtl {
             template<typename... T>
@@ -90,18 +88,8 @@ namespace boost { namespace stl_interfaces {
             {
             };
         }
-    }
 
-    namespace v2 {
-#if 201703L < __cplusplus && defined(__cpp_lib_concepts)
-        namespace ranges = std::ranges;
-#elif 201703L <= __cplusplus && __has_include(<stl2/ranges.hpp>) && \
-    !defined(BOOST_STL_INTERFACES_DISABLE_CMCSTL2)
-        namespace concepts = std::experimental;
-        namespace ranges = std::experimental::ranges;
-#endif
     }
-
 }}
 
 #endif

@@ -11,51 +11,49 @@ matrix:
           os: osx
           osx_image: xcode7.3
           compiler: clang
-        - env: CPP=14 MAC_OSX=true BUILD_TYPE=Release JOBS=4
+
+        - env: CPP=14 MAC_OSX=true BUILD_TYPE=Debug JOBS=4
           os: osx
-          osx_image: xcode7.3
+          osx_image: xcode8.3
+          compiler: clang
+        - env: CPP=17 MAC_OSX=true BUILD_TYPE=Debug JOBS=4
+          os: osx
+          osx_image: xcode8.3
           compiler: clang
 
         - env: CPP=14 MAC_OSX=true BUILD_TYPE=Debug JOBS=4
           os: osx
-          osx_image: xcode8
+          osx_image: xcode9.4
           compiler: clang
-        - env: CPP=14 MAC_OSX=true BUILD_TYPE=Release JOBS=4
+        - env: CPP=17 MAC_OSX=true BUILD_TYPE=Debug JOBS=4
           os: osx
-          osx_image: xcode8
-          compiler: clang
-
-        - env: CPP=14 MAC_OSX=true BUILD_TYPE=Debug JOBS=4
-          os: osx
-          osx_image: xcode8.1
-          compiler: clang
-        - env: CPP=14 MAC_OSX=true BUILD_TYPE=Release JOBS=4
-          os: osx
-          osx_image: xcode8.1
+          osx_image: xcode9.4
           compiler: clang
 
         - env: CPP=14 MAC_OSX=true BUILD_TYPE=Debug JOBS=4
           os: osx
-          osx_image: xcode8.2
+          osx_image: xcode10.3
           compiler: clang
-        - env: CPP=14 MAC_OSX=true BUILD_TYPE=Release JOBS=4
+        - env: CPP=17 MAC_OSX=true BUILD_TYPE=Debug JOBS=4
           os: osx
-          osx_image: xcode8.2
+          osx_image: xcode10.3
+          compiler: clang
+
+        - env: CPP=14 MAC_OSX=true BUILD_TYPE=Debug JOBS=4
+          os: osx
+          osx_image: xcode11.4
+          compiler: clang
+        - env: CPP=17 MAC_OSX=true BUILD_TYPE=Debug JOBS=4
+          os: osx
+          osx_image: xcode11.4
+          compiler: clang
+        - env: CPP=17 MAC_OSX=true BUILD_TYPE=Release JOBS=4
+          os: osx
+          osx_image: xcode11.4
           compiler: clang
 
         # Gcc
 
-#        - env: GCC_VERSION=6 CPP=14 BUILD_TYPE=Debug JOBS=1
-#          os: linux
-#          compiler: gcc-6
-#          addons: &gcc6
-#            apt:
-#              packages:
-#                - g++-6
-#                - libboost-filesystem-dev
-#                - libboost-system-dev
-#              sources:
-#                - ubuntu-toolchain-r-test
         - env: GCC_VERSION=6 CPP=14 BUILD_TYPE=Release JOBS=4
           os: linux
           compiler: gcc-6
@@ -63,8 +61,8 @@ matrix:
             apt:
               packages:
                 - g++-6
-                - libboost-filesystem-dev
-                - libboost-system-dev
+#                - libboost-filesystem-dev
+#                - libboost-system-dev
               sources:
                 - ubuntu-toolchain-r-test
 
@@ -75,8 +73,6 @@ matrix:
             apt:
               packages:
                 - g++-7
-                - libboost-filesystem-dev
-                - libboost-system-dev
               sources:
                 - ubuntu-toolchain-r-test
 
@@ -87,8 +83,15 @@ matrix:
             apt:
               packages:
                 - g++-8
-                - libboost-filesystem-dev
-                - libboost-system-dev
+              sources:
+                - ubuntu-toolchain-r-test
+        - env: GCC_VERSION=8 CPP=17 BUILD_TYPE=Release JOBS=4
+          os: linux
+          compiler: gcc-8
+          addons: &gcc8
+            apt:
+              packages:
+                - g++-8
               sources:
                 - ubuntu-toolchain-r-test
 
@@ -99,8 +102,15 @@ matrix:
             apt:
               packages:
                 - g++-9
-                - libboost-filesystem-dev
-                - libboost-system-dev
+              sources:
+                - ubuntu-toolchain-r-test
+        - env: GCC_VERSION=9 CPP=17 BUILD_TYPE=Release JOBS=4
+          os: linux
+          compiler: gcc-9
+          addons: &gcc9
+            apt:
+              packages:
+                - g++-9
               sources:
                 - ubuntu-toolchain-r-test
 
@@ -117,17 +127,15 @@ install:
     # Install cmake
     - |
       if [[ "$MAC_OSX" == "true" ]]; then
-        export CMAKE_URL="http://www.cmake.org/files/v3.7/cmake-3.7.0-Darwin-x86_64.tar.gz"
-        travis_retry wget --no-check-certificate --quiet -O - ${CMAKE_URL} | tar --strip-components=3 -xz -C usr
-        brew update
-        brew install lcov
+        export CMAKE_URL="http://www.cmake.org/files/v3.17/cmake-3.17.0-Darwin-x86_64.tar.gz"
+        # These use of brew are now broken on Travis.
+        # brew update
+        # brew install lcov
       else
-        export CMAKE_URL="http://www.cmake.org/files/v3.7/cmake-3.7.0-Linux-x86_64.tar.gz"
-        travis_retry wget --no-check-certificate --quiet -O - ${CMAKE_URL} | tar --strip-components=1 -xz -C usr
+        export CMAKE_URL="http://www.cmake.org/files/v3.17/cmake-3.17.0-Linux-x86_64.tar.gz"
       fi
+      travis_retry wget --no-check-certificate --quiet -O - ${CMAKE_URL} | tar --strip-components=1 -xz -C usr
     - echo $PATH
-    - travis_retry wget --no-check-certificate --quiet https://dl.bintray.com/boostorg/release/1.64.0/source/boost_1_64_0.tar.bz2
-    - tar xjf boost_1_64_0.tar.bz2
     # Show compiler info
     - $CXX --version
     - which $CXX
@@ -145,7 +153,7 @@ script:
         build_dir="build-$BUILD_TYPE-cxx-$CPP"
         mkdir $build_dir
         cd $build_dir
-        cmake -DCXX_STD=${CPP} -DBOOST_ROOT=${DEPS_DIR}/boost_1_64_0 -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DLIMIT_TESTING_FOR_CI=true ..
+        cmake -DCXX_STD=${CPP} -DBOOST_BRANCH=$TRAVIS_BRANCH -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DLIMIT_TESTING_FOR_CI=true ..
         make -j${JOBS} && CTEST_OUTPUT_ON_FAILURE=1 CTEST_PARALLEL_LEVEL=4 make check
         if [ $? -ne 0 ]
         then
@@ -158,7 +166,7 @@ script:
         build_dir="build-cov-cxx-$CPP-coverage"
         mkdir $build_dir
         cd $build_dir
-        cmake -DCXX_STD=${CPP} -DBOOST_ROOT=${DEPS_DIR}/boost_1_64_0 -DCMAKE_BUILD_TYPE=Debug -DLIMIT_TESTING_FOR_CI=true -DBUILD_COVERAGE=true ..
+        cmake -DCXX_STD=${CPP} -DBOOST_BRANCH=$TRAVIS_BRANCH -DCMAKE_BUILD_TYPE=Debug -DLIMIT_TESTING_FOR_CI=true -DBUILD_COVERAGE=true ..
         sudo ln -s /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/llvm-cov /usr/local/bin/llvm-cov
         make -j${JOBS} && CTEST_OUTPUT_ON_FAILURE=1 CTEST_PARALLEL_LEVEL=4 make coverage
         if [ $? -ne 0 ]

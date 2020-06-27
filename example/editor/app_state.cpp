@@ -1,3 +1,8 @@
+// Copyright (C) 2020 T. Zachary Laine
+//
+// Distributed under the Boost Software License, Version 1.0. (See
+// accompanying file LICENSE_1_0.txt or copy at
+// http://www.boost.org/LICENSE_1_0.txt)
 #include "app_state.hpp"
 
 #include <boost/text/transcode_iterator.hpp>
@@ -666,7 +671,7 @@ namespace {
                                         true};
                 } else if (
                     ' ' <= key_code.key_ && key_code.key_ <= '~' &&
-                    boost::text::utf8::valid_code_point(key_code.key_)) {
+                    boost::text::valid_code_point(key_code.key_)) {
                     // We ignore anything not in this narrow range of ASCII.
                     // This is a limitation of my ability to understand
                     // libcurses, not a limitation of Boost.Text.

@@ -1,3 +1,8 @@
+// Copyright (C) 2020 T. Zachary Laine
+//
+// Distributed under the Boost Software License, Version 1.0. (See
+// accompanying file LICENSE_1_0.txt or copy at
+// http://www.boost.org/LICENSE_1_0.txt)
 #ifndef BOOST_TEXT_LAZY_SEGMENT_RANGE_HPP
 #define BOOST_TEXT_LAZY_SEGMENT_RANGE_HPP
 
@@ -74,6 +79,16 @@ namespace boost { namespace text { inline namespace v1 {
             {
                 return lhs.prev_ == rhs.last_;
             }
+
+            using base_type = stl_interfaces::proxy_iterator_interface<
+                const_lazy_segment_iterator<
+                    CPIter,
+                    Sentinel,
+                    NextFunc,
+                    CPRange>,
+                std::forward_iterator_tag,
+                CPRange>;
+            using base_type::operator++;
         };
 
         template<
@@ -140,6 +155,16 @@ namespace boost { namespace text { inline namespace v1 {
             {
                 return lhs.next_ == rhs.first_;
             }
+
+            using base_type = stl_interfaces::proxy_iterator_interface<
+                const_reverse_lazy_segment_iterator<
+                    CPIter,
+                    Ignored,
+                    PrevFunc,
+                    CPRange>,
+                std::forward_iterator_tag,
+                CPRange>;
+            using base_type::operator++;
         };
     }
 

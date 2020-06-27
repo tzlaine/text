@@ -1,3 +1,8 @@
+// Copyright (C) 2020 T. Zachary Laine
+//
+// Distributed under the Boost Software License, Version 1.0. (See
+// accompanying file LICENSE_1_0.txt or copy at
+// http://www.boost.org/LICENSE_1_0.txt)
 #ifndef BOOST_TEXT_SENTENCE_BREAK_HPP
 #define BOOST_TEXT_SENTENCE_BREAK_HPP
 
@@ -304,6 +309,31 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
     template<typename GraphemeRange, typename GraphemeIter>
     detail::unspecified
     next_sentence_break(GraphemeRange const & range, GraphemeIter it) noexcept;
+
+    /** Returns true iff `it` is at the beginning of a sentence, or `it ==
+        last`.
+
+        This function only participates in overload resolution if `CPIter`
+        models the CPIter concept. */
+    template<typename CPIter, typename Sentinel>
+    bool at_sentence_break(CPIter first, CPIter it, Sentinel last) noexcept;
+
+    /** Returns true iff `it` is at the beginning of a sentence, or `it ==
+        std::end(range)`.
+
+        This function only participates in overload resolution if `CPRange`
+        models the CPRange concept. */
+    template<typename CPRange, typename CPIter>
+    bool at_sentence_break(CPRange & range, CPIter it) noexcept;
+
+    /** Returns true iff `it` is at the beginning of a sentence, or `it ==
+        std::end(range)`.
+
+        This function only participates in overload resolution if
+        `GraphemeRange` models the GraphemeRange concept. */
+    template<typename GraphemeRange, typename GraphemeIter>
+    bool
+    at_sentence_break(GraphemeRange const & range, GraphemeIter it) noexcept;
 
 #else
 
@@ -749,6 +779,38 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
                 boost::text::v1::next_sentence_break(
                     static_cast<cp_iter_t>(it.base()), range.end().base()),
                 range.end().base()};
+    }
+
+    template<typename CPIter, typename Sentinel>
+    auto at_sentence_break(CPIter first, CPIter it, Sentinel last) noexcept
+        -> detail::cp_iter_ret_t<bool, CPIter>
+    {
+        if (it == last)
+            return true;
+        return prev_sentence_break(first, it, last) == it;
+    }
+
+    template<typename CPRange, typename CPIter>
+    auto at_sentence_break(CPRange & range, CPIter it) noexcept
+        -> detail::cp_rng_alg_ret_t<bool, CPRange>
+    {
+        if (it == std::end(range))
+            return true;
+        return prev_sentence_break(std::begin(range), it, std::end(range)) ==
+               it;
+    }
+
+    template<typename GraphemeRange, typename GraphemeIter>
+    auto
+    at_sentence_break(GraphemeRange const & range, GraphemeIter it) noexcept
+        -> detail::graph_rng_alg_ret_t<bool, GraphemeRange>
+    {
+        if (it == std::end(range))
+            return true;
+        using cp_iter_t = decltype(range.begin().base());
+        cp_iter_t it_ = static_cast<cp_iter_t>(it.base());
+        return prev_sentence_break(
+                   range.begin().base(), it_, range.end().base()) == it_;
     }
 
 #endif

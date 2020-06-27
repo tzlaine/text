@@ -10,7 +10,7 @@
 
 #include <utility>
 #include <type_traits>
-#if 201711L <= __cpp_lib_three_way_comparison
+#if defined(__cpp_lib_three_way_comparison)
 #include <compare>
 #endif
 
@@ -87,20 +87,6 @@ namespace boost { namespace stl_interfaces {
         {
             using type = IteratorConcept;
         };
-#if 201703L < __cplusplus && defined(__cpp_lib_ranges)
-        template<>
-        struct concept_category<std::contiguous_iterator_tag>
-        {
-            using type = std::random_access_iterator_tag;
-        };
-#elif 201703L <= __cplusplus && __has_include(<stl2/ranges.hpp>) && \
-    !defined(BOOST_STL_INTERFACES_DISABLE_CMCSTL2)
-        template<>
-        struct concept_category<v2::ranges::contiguous_iterator_tag>
-        {
-            using type = std::random_access_iterator_tag;
-        };
-#endif
         template<typename IteratorConcept>
         using concept_category_t =
             typename concept_category<IteratorConcept>::type;
@@ -287,7 +273,7 @@ namespace boost { namespace stl_interfaces { inline namespace v1 {
     public:
         using iterator_concept = IteratorConcept;
         using iterator_category = detail::concept_category_t<iterator_concept>;
-        using value_type = ValueType;
+        using value_type = std::remove_const_t<ValueType>;
         using reference = Reference;
         using pointer = detail::pointer_t<Pointer, iterator_concept>;
         using difference_type = DifferenceType;
@@ -301,8 +287,10 @@ namespace boost { namespace stl_interfaces { inline namespace v1 {
         }
 
         template<typename D = Derived>
-        constexpr pointer operator->() const noexcept(
+        constexpr auto operator-> () const noexcept(
             noexcept(detail::make_pointer<pointer>(*std::declval<D const &>())))
+            -> decltype(
+                detail::make_pointer<pointer>(*std::declval<D const &>()))
         {
             return detail::make_pointer<pointer>(*derived());
         }
@@ -361,15 +349,19 @@ namespace boost { namespace stl_interfaces { inline namespace v1 {
         }
 
         template<typename D = Derived>
-        constexpr D operator+(difference_type i) const
+        constexpr auto operator+(difference_type i) const
             noexcept(noexcept(D(std::declval<D &>()), std::declval<D &>() += i))
+                -> std::remove_reference_t<decltype(
+                    D(std::declval<D &>()),
+                    std::declval<D &>() += i,
+                    std::declval<D &>())>
         {
             D retval = derived();
             retval += i;
             return retval;
         }
         friend BOOST_STL_INTERFACES_HIDDEN_FRIEND_CONSTEXPR Derived
-        operator+(difference_type i, Derived it) noexcept(noexcept(it + i))
+        operator+(difference_type i, Derived it) noexcept
         {
             return it + i;
         }
@@ -408,8 +400,7 @@ namespace boost { namespace stl_interfaces { inline namespace v1 {
         }
 
         template<typename D = Derived>
-        constexpr D & operator-=(difference_type i) noexcept(
-            noexcept(std::declval<D &>() += -i))
+        constexpr D & operator-=(difference_type i) noexcept
         {
             derived() += -i;
             return derived();
@@ -424,33 +415,14 @@ namespace boost { namespace stl_interfaces { inline namespace v1 {
             return access::base(derived()) - access::base(other);
         }
 
-        friend BOOST_STL_INTERFACES_HIDDEN_FRIEND_CONSTEXPR Derived operator-(
-            Derived it,
-            difference_type i) noexcept(noexcept(Derived(it), it += -i))
+        friend BOOST_STL_INTERFACES_HIDDEN_FRIEND_CONSTEXPR Derived
+        operator-(Derived it, difference_type i) noexcept
         {
             Derived retval = it;
             retval += -i;
             return retval;
         }
     };
-
-    /** Implementation of `operator!=()` for all iterators derived from
-        `iterator_interface`, except those with an iterator category derived
-        from `std::random_access_iterator_tag`.  */
-    template<
-        typename IteratorInterface1,
-        typename IteratorInterface2,
-        typename Enable = std::enable_if_t<
-            !v1_dtl::ra_iter<IteratorInterface1>::value &&
-            detail::interoperable<IteratorInterface1, IteratorInterface2>::
-                value>>
-    constexpr auto
-    operator!=(IteratorInterface1 lhs, IteratorInterface2 rhs) noexcept
-        -> decltype(v1_dtl::derived_iterator(lhs), true)
-    {
-        return !detail::common_eq<IteratorInterface1, IteratorInterface2>::call(
-            lhs, rhs);
-    }
 
     /** Implementation of `operator==()`, implemented in terms of the iterator
         underlying IteratorInterface, for all iterators derived from
@@ -482,26 +454,20 @@ namespace boost { namespace stl_interfaces { inline namespace v1 {
     operator==(IteratorInterface1 lhs, IteratorInterface2 rhs) noexcept(
         noexcept(detail::common_diff(lhs, rhs)))
         -> decltype(
-            v1_dtl::derived_iterator(lhs), detail::common_diff(lhs, rhs))
+            v1_dtl::derived_iterator(lhs), detail::common_diff(lhs, rhs) == 0)
     {
         return detail::common_diff(lhs, rhs) == 0;
     }
 
     /** Implementation of `operator!=()` for all iterators derived from
-        `iterator_interface` that have an iterator category derived from
-        `std::random_access_iterator_tag`.  */
-    template<
-        typename IteratorInterface1,
-        typename IteratorInterface2,
-        typename Enable =
-            std::enable_if_t<v1_dtl::ra_iter<IteratorInterface1>::value>>
-    constexpr auto
-    operator!=(IteratorInterface1 lhs, IteratorInterface2 rhs) noexcept(
-        noexcept(detail::common_diff(lhs, rhs)))
-        -> decltype(
-            v1_dtl::derived_iterator(lhs), detail::common_diff(lhs, rhs))
+        `iterator_interface`.  */
+    template<typename IteratorInterface1, typename IteratorInterface2>
+    constexpr auto operator!=(
+        IteratorInterface1 lhs,
+        IteratorInterface2 rhs) noexcept(noexcept(!(lhs == rhs)))
+        -> decltype(v1_dtl::derived_iterator(lhs), !(lhs == rhs))
     {
-        return detail::common_diff(lhs, rhs) != 0;
+        return !(lhs == rhs);
     }
 
     /** Implementation of `operator<()` for all iterators derived from
@@ -512,7 +478,7 @@ namespace boost { namespace stl_interfaces { inline namespace v1 {
     operator<(IteratorInterface1 lhs, IteratorInterface2 rhs) noexcept(
         noexcept(detail::common_diff(lhs, rhs)))
         -> decltype(
-            v1_dtl::derived_iterator(lhs), detail::common_diff(lhs, rhs))
+            v1_dtl::derived_iterator(lhs), detail::common_diff(lhs, rhs) < 0)
     {
         return detail::common_diff(lhs, rhs) < 0;
     }
@@ -525,7 +491,7 @@ namespace boost { namespace stl_interfaces { inline namespace v1 {
     operator<=(IteratorInterface1 lhs, IteratorInterface2 rhs) noexcept(
         noexcept(detail::common_diff(lhs, rhs)))
         -> decltype(
-            v1_dtl::derived_iterator(lhs), detail::common_diff(lhs, rhs))
+            v1_dtl::derived_iterator(lhs), detail::common_diff(lhs, rhs) <= 0)
     {
         return detail::common_diff(lhs, rhs) <= 0;
     }
@@ -538,7 +504,7 @@ namespace boost { namespace stl_interfaces { inline namespace v1 {
     operator>(IteratorInterface1 lhs, IteratorInterface2 rhs) noexcept(
         noexcept(detail::common_diff(lhs, rhs)))
         -> decltype(
-            v1_dtl::derived_iterator(lhs), detail::common_diff(lhs, rhs))
+            v1_dtl::derived_iterator(lhs), detail::common_diff(lhs, rhs) > 0)
     {
         return detail::common_diff(lhs, rhs) > 0;
     }
@@ -551,7 +517,7 @@ namespace boost { namespace stl_interfaces { inline namespace v1 {
     operator>=(IteratorInterface1 lhs, IteratorInterface2 rhs) noexcept(
         noexcept(detail::common_diff(lhs, rhs)))
         -> decltype(
-            v1_dtl::derived_iterator(lhs), detail::common_diff(lhs, rhs))
+            v1_dtl::derived_iterator(lhs), detail::common_diff(lhs, rhs) >= 0)
     {
         return detail::common_diff(lhs, rhs) >= 0;
     }
@@ -574,430 +540,6 @@ namespace boost { namespace stl_interfaces { inline namespace v1 {
         DifferenceType>;
 
 }}}
-
-
-namespace boost { namespace stl_interfaces { namespace v2 {
-
-    // This is only here to satisfy clang-format.
-    namespace v2_dtl {
-    }
-
-    // clang-format off
-
-#if 201703L < __cplusplus && defined(__cpp_lib_concepts) || BOOST_STL_INTERFACES_DOXYGEN
-
-    /** A CRTP template that one may derive from to make defining iterators
-        easier.
-
-        The template parameter `D` for `iterator_interface` may be an
-        incomplete type.  Before any member of the resulting specialization of
-        `iterator_interface` other than special member functions is
-        referenced, `D` shall be complete, and model
-        `std::derived_from<iterator_interface<D>>`. */
-    template<
-      typename D,
-      typename IteratorConcept,
-      typename ValueType,
-      typename Reference = ValueType &,
-      typename Pointer = ValueType *,
-      typename DifferenceType = std::ptrdiff_t>
-      requires std::is_class_v<D> && std::same_as<D, std::remove_cv_t<D>>
-    struct iterator_interface {
-    private:
-      constexpr D& derived() noexcept {
-        return static_cast<D&>(*this);
-      }
-      constexpr const D& derived() const noexcept {
-        return static_cast<const D&>(*this);
-      }
-
-    public:
-      using iterator_concept = IteratorConcept;
-      using iterator_category = detail::concept_category_t<iterator_concept>;
-      using value_type = ValueType;
-      using reference = Reference;
-      using pointer = detail::pointer_t<Pointer, iterator_concept>;
-      using difference_type = DifferenceType;
-
-      constexpr decltype(auto) operator*()
-        requires requires { *access::base(derived()); } {
-          return *access::base(derived());
-        }
-      constexpr decltype(auto) operator*() const
-        requires requires { *access::base(derived()); } {
-          return *access::base(derived());
-        }
-
-      constexpr auto operator->()
-        requires requires { *derived(); } {
-          return detail::make_pointer<pointer>(*derived());
-        }
-      constexpr auto operator->() const
-        requires requires { *derived(); } {
-          return detail::make_pointer<pointer>(*derived());
-        }
-
-      constexpr decltype(auto) operator[](difference_type n) const
-        requires requires { derived() += n; } {
-        D retval = derived();
-        retval += n;
-        return *retval;
-      }
-
-      constexpr decltype(auto) operator++()
-        requires requires { ++access::base(derived()); } &&
-          !requires { derived() += difference_type(1); } {
-            ++access::base(derived());
-            return derived();
-          }
-      constexpr decltype(auto) operator++()
-        requires requires { derived() += difference_type(1); } {
-          return derived() += difference_type(1);
-        }
-      constexpr auto operator++(int) requires requires { ++derived(); } {
-        D retval = derived();
-        ++derived();
-        return retval;
-      }
-      constexpr decltype(auto) operator+=(difference_type n)
-        requires requires { access::base(derived()) += n; } {
-          access::base(derived()) += n;
-          return derived();
-        }
-      friend constexpr auto operator+(D it, difference_type n)
-        requires requires { it += n; } {
-          return it += n;
-        }
-      friend constexpr auto operator+(difference_type n, D it)
-        requires requires { it += n; } {
-          return it ++ n;
-        }
-
-      constexpr decltype(auto) operator--()
-        requires requires { --access::base(derived()); } &&
-          !requires { derived() += difference_type(1); } {
-          --access::base(derived());
-          return derived();
-        }
-      constexpr decltype(auto) operator--()
-        requires requires { derived() += -difference_type(1); } {
-          return derived() += -difference_type(1);
-        }
-      constexpr auto operator--(int) requires requires { --derived(); } {
-        D retval = derived();
-        --derived();
-        return retval;
-      }
-      constexpr decltype(auto) operator-=(difference_type n)
-        requires requires { derived() += -n; } {
-          return derived() += -n;
-        }
-      friend constexpr auto operator-(D lhs, D rhs)
-        requires requires { access::base(lhs) - access::base(rhs); } {
-          return access::base(lhs) - access::base(rhs);
-        }
-      friend constexpr auto operator-(D it, difference_type n)
-        requires requires { it += -n; } {
-          return it += -n;
-        }
-
-      friend constexpr std::strong_equality operator<=>(D lhs, D rhs)
-        requires requires { access::base(lhs) == access::base(rhs); } &&
-          !requires { access::base(lhs) <=> access::base(rhs); } &&
-          !requires { lhs - rhs; } {
-            return access::base(lhs) == access::base(rhs) ?
-                std::strong_equality::equal : std::strong_equality::unequal;
-          }
-      friend constexpr std::strong_ordering operator<=>(D lhs, D rhs)
-        requires requires { access::base(lhs) <=> access::base(rhs); } ||
-          requires { lhs - rhs; } {
-            if constexpr (requires { access::base(lhs) <=> access::base(rhs); }) {
-              return access::base(lhs) <=> access::base(rhs);
-            } else {
-              auto delta = lhs - rhs;
-              if (delta < 0)
-                  return std::strong_ordering::less;
-              if (0 < delta)
-                  return std::strong_ordering::greater;
-              return  std::strong_ordering::equal;
-            }
-          }
-    };
-
-#elif 201703L <= __cplusplus && __has_include(<stl2/ranges.hpp>) && \
-    !defined(BOOST_STL_INTERFACES_DISABLE_CMCSTL2)
-
-    namespace v2_dtl {
-        // These named concepts are used to work around
-        // https://gcc.gnu.org/bugzilla/show_bug.cgi?id=82740
-        template<typename D>
-        BOOST_STL_INTERFACES_CONCEPT base_incr =
-            requires (D & d) { ++access::base(d); };
-
-        template<typename D>
-        BOOST_STL_INTERFACES_CONCEPT base_deref =
-            requires (D & d) { *access::base(d); };
-
-        template<typename D>
-        BOOST_STL_INTERFACES_CONCEPT deref = requires (D & d) { *d; };
-
-        template<typename D>
-        BOOST_STL_INTERFACES_CONCEPT plus_eq = requires (D & d) {
-            d += typename D::difference_type(1); };
-
-        template<typename D>
-        BOOST_STL_INTERFACES_CONCEPT base_plus_eq = requires (D & d) {
-            access::base(d) += typename D::difference_type(1); };
-
-        template<typename D>
-        BOOST_STL_INTERFACES_CONCEPT incr = requires (D & d) { ++d; };
-
-        template<typename D>
-        BOOST_STL_INTERFACES_CONCEPT base_decr =
-            requires (D & d) { --access::base(d); };
-
-        template<typename D>
-        BOOST_STL_INTERFACES_CONCEPT decr = requires (D & d) { --d; };
-
-        template<typename D>
-        BOOST_STL_INTERFACES_CONCEPT base_sub =
-            requires (D & d) { access::base(d) - access::base(d); };
-
-        template<typename D1, typename D2 = D1>
-        BOOST_STL_INTERFACES_CONCEPT base_eq =
-            requires (D1 & d1, D2 & d2) { access::base(d1) == access::base(d2); };
-
-        template<typename D>
-        BOOST_STL_INTERFACES_CONCEPT sub = requires (D & d) { d - d; };
-
-        template<typename D1, typename D2 = D1>
-        BOOST_STL_INTERFACES_CONCEPT eq =
-            requires (D1 & d1, D2 & d2) { d1 == d2; };
-    }
-
-    /** A CRTP template that one may derive from to make defining iterators
-        easier.
-
-        The template parameter `D` for `iterator_interface` may be an
-        incomplete type.  Before any member of the resulting specialization of
-        `iterator_interface` other than special member functions is
-        referenced, `D` shall be complete, and model
-        `std::derived_from<iterator_interface<D>>`. */
-    template<
-      typename D,
-      typename IteratorConcept,
-      typename ValueType,
-      typename Reference = ValueType &,
-      typename Pointer = ValueType *,
-      typename DifferenceType = std::ptrdiff_t>
-      requires std::is_class_v<D> && ranges::same_as<D, std::remove_cv_t<D>>
-    struct iterator_interface {
-    private:
-      constexpr D& derived() noexcept {
-        return static_cast<D&>(*this);
-      }
-      constexpr const D& derived() const noexcept {
-        return static_cast<const D&>(*this);
-      }
-
-    public:
-      using iterator_concept = IteratorConcept;
-      using iterator_category = detail::concept_category_t<iterator_concept>;
-      using value_type = ValueType;
-      using reference = Reference;
-      using pointer = detail::pointer_t<Pointer, iterator_concept>;
-      using difference_type = DifferenceType;
-
-      constexpr decltype(auto) operator*()
-        requires v2_dtl::base_deref<D> {
-          return *access::base(derived());
-        }
-      constexpr decltype(auto) operator*() const
-        requires v2_dtl::base_deref<const D> {
-          return *access::base(derived());
-        }
-
-      constexpr auto operator->()
-        requires v2_dtl::deref<D> {
-          return detail::make_pointer<pointer>(*derived());
-        }
-      constexpr auto operator->() const
-        requires v2_dtl::deref<D> {
-          return detail::make_pointer<pointer>(*derived());
-        }
-
-      constexpr decltype(auto) operator[](difference_type n) const
-        requires v2_dtl::plus_eq<D> {
-          D retval = derived();
-          retval += n;
-          return *retval;
-        }
-
-      constexpr decltype(auto) operator++()
-        requires v2_dtl::base_incr<D> && !v2_dtl::plus_eq<D> {
-          ++access::base(derived());
-          return derived();
-        }
-      constexpr decltype(auto) operator++()
-        requires v2_dtl::plus_eq<D> {
-          return derived() += difference_type(1);
-        }
-      constexpr auto operator++(int) requires v2_dtl::incr<D> {
-        D retval = derived();
-        ++derived();
-        return retval;
-      }
-      constexpr decltype(auto) operator+=(difference_type n)
-        requires v2_dtl::base_plus_eq<D> {
-          access::base(derived()) += n;
-          return derived();
-        }
-      friend constexpr auto operator+(D it, difference_type n)
-        requires v2_dtl::plus_eq<D> {
-          return it += n;
-        }
-      friend constexpr auto operator+(difference_type n, D it)
-        requires v2_dtl::plus_eq<D> {
-          return it += n;
-        }
-
-      constexpr decltype(auto) operator--()
-        requires v2_dtl::base_decr<D> && !v2_dtl::plus_eq<D> {
-          --access::base(derived());
-          return derived();
-        }
-      constexpr decltype(auto) operator--()
-        requires v2_dtl::plus_eq<D> {
-          return derived() += -difference_type(1);
-        }
-      constexpr auto operator--(int) requires v2_dtl::decr<D> {
-        D retval = derived();
-        --derived();
-        return retval;
-      }
-      constexpr decltype(auto) operator-=(difference_type n)
-        requires v2_dtl::plus_eq<D> {
-          return derived() += -n;
-        }
-      friend constexpr auto operator-(D lhs, D rhs)
-        requires v2_dtl::base_sub<D> {
-          return access::base(lhs) - access::base(rhs);
-        }
-      friend constexpr auto operator-(D it, difference_type n)
-        requires v2_dtl::plus_eq<D> {
-          return it += -n;
-        }
-
-#if 201711L <= __cpp_lib_three_way_comparison
-      friend constexpr std::strong_equality operator<=>(D lhs, D rhs)
-        requires requires { access::base(lhs) == access::base(rhs); } &&
-          !requires { access::base(lhs) == access::base(rhs); } &&
-          !requires { lhs - rhs; } {
-            return access::base(lhs) == access::base(rhs) ?
-                std::strong_equality::equal : std::strong_equality::unequal;
-          }
-      friend constexpr std::strong_ordering operator<=>(D lhs, D rhs)
-        requires requires { access::base(lhs) <=> access::base(rhs); } ||
-          requires { lhs - rhs; } {
-            if constexpr (requires { access::base(lhs) <=> access::base(rhs); }) {
-              return access::base(lhs) <=> access::base(rhs);
-            } else {
-              auto delta = lhs - rhs;
-              if (delta < 0)
-                  return std::strong_ordering::less;
-              if (0 < delta)
-                  return std::strong_ordering::greater;
-              return  std::strong_ordering::equal;
-            }
-          }
-#else
-      friend constexpr bool operator<(D lhs, D rhs)
-        requires v2_dtl::eq<D> {
-          return (lhs - rhs) < typename D::difference_type(0);
-        }
-      friend constexpr bool operator<=(D lhs, D rhs)
-        requires v2_dtl::eq<D> {
-          return (lhs - rhs) <= typename D::difference_type(0);
-        }
-      friend constexpr bool operator>(D lhs, D rhs)
-        requires v2_dtl::eq<D> {
-          return (lhs - rhs) > typename D::difference_type(0);
-        }
-      friend constexpr bool operator>=(D lhs, D rhs)
-        requires v2_dtl::eq<D> {
-          return (lhs - rhs) >= typename D::difference_type(0);
-        }
-#endif
-    };
-
-    namespace v2_dtl {
-        template<
-            typename D,
-            typename IteratorConcept,
-            typename ValueType,
-            typename Reference,
-            typename Pointer,
-            typename DifferenceType>
-        void derived_iterator(boost::stl_interfaces::v2::iterator_interface<
-                              D,
-                              IteratorConcept,
-                              ValueType,
-                              Reference,
-                              Pointer,
-                              DifferenceType> const &);
-
-        template<typename D>
-        BOOST_STL_INTERFACES_CONCEPT derived_iter =
-            requires (D & d) { boost::stl_interfaces::v2::v2_dtl::derived_iterator(d); };
-    }
-
-    template<typename D1, typename D2>
-    constexpr bool operator==(D1 lhs, D2 rhs)
-      requires v2_dtl::derived_iter<D1> && v2_dtl::derived_iter<D2> &&
-               detail::interoperable<D1, D2>::value &&
-               (v2_dtl::base_eq<D1, D2> || v2_dtl::sub<D1>) {
-      if constexpr (v2_dtl::base_eq<D1, D2>) {
-        return (access::base(lhs) == access::base(rhs));
-      } else if constexpr (v2_dtl::sub<D1>) {
-        return (lhs - rhs) == typename D1::difference_type(0);
-      }
-    }
-
-    template<typename D1, typename D2>
-    constexpr bool operator!=(D1 lhs, D2 rhs)
-      requires v2_dtl::derived_iter<D1> && v2_dtl::derived_iter<D2> &&
-               detail::interoperable<D1, D2>::value &&
-               (v2_dtl::base_eq<D1, D2> || v2_dtl::eq<D1, D2> || v2_dtl::sub<D1>) {
-        if constexpr (v2_dtl::base_eq<D1, D2>) {
-          return !(access::base(lhs) == access::base(rhs));
-        } else if constexpr (v2_dtl::eq<D1, D2>) {
-          return !(lhs == rhs);
-        } else if constexpr (v2_dtl::sub<D1>) {
-          return (lhs - rhs) != typename D1::difference_type(0);
-        }
-      }
-#endif
-
-    // clang-format on
-
-    /** A template alias useful for defining proxy iterators.  \see
-        `iterator_interface`. */
-    template<
-        typename D,
-        typename IteratorConcept,
-        typename ValueType,
-        typename Reference = ValueType,
-        typename DifferenceType = std::ptrdiff_t>
-    using proxy_iterator_interface = iterator_interface<
-        D,
-        IteratorConcept,
-        ValueType,
-        Reference,
-        proxy_arrow_result<Reference>,
-        DifferenceType>;
-
-}}}
-
 
 #ifdef BOOST_STL_INTERFACES_DOXYGEN
 
@@ -1031,14 +573,7 @@ namespace boost { namespace stl_interfaces { namespace v2 {
     type, concept_name)                                                        \
     static_assert(concept_name<type>, "");
 
-#if 201703L < __cplusplus && defined(__cpp_lib_concepts) ||                    \
-    201703L <= __cplusplus && __has_include(<stl2/ranges.hpp>) &&              \
-    !defined(BOOST_STL_INTERFACES_DISABLE_CMCSTL2)
-#define BOOST_STL_INTERFACES_STATIC_ASSERT_CONCEPT(iter, concept_name)         \
-    BOOST_STL_INTERFACES_STATIC_ASSERT_ITERATOR_CONCEPT_IMPL(iter, concept_name)
-#else
 #define BOOST_STL_INTERFACES_STATIC_ASSERT_CONCEPT(iter, concept_name)
-#endif
 
 #define BOOST_STL_INTERFACES_STATIC_ASSERT_ITERATOR_TRAITS_IMPL(               \
     iter, category, value_t, ref, ptr, diff_t)                                 \

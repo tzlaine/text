@@ -1,3 +1,8 @@
+// Copyright (C) 2020 T. Zachary Laine
+//
+// Distributed under the Boost Software License, Version 1.0. (See
+// accompanying file LICENSE_1_0.txt or copy at
+// http://www.boost.org/LICENSE_1_0.txt)
 #ifndef BOOST_TEXT_TRANSCODE_ITERATOR_HPP
 #define BOOST_TEXT_TRANSCODE_ITERATOR_HPP
 
@@ -2023,7 +2028,7 @@ namespace boost { namespace text { inline namespace v1 {
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
         utf_32_to_16_iterator<Iter, Sentinel, ErrorHandler> const & lhs,
-        Sentinel rhs) noexcept -> decltype(lhs.it_ == rhs)
+        Sentinel rhs) noexcept -> decltype(lhs.base() == rhs)
     {
         return lhs.base() == rhs;
     }

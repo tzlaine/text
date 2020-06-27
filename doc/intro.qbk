@@ -1,35 +1,15 @@
 [section Intro]
 
-"It's all too much and not enough at the same time."
-
-['[*-- Jack Kerouac, referring to `std::string`]]
-
 [heading Motivation]
 
-`std::string` is an infamous design.  It's fat -- why are there so many member
-functions?  It's not fat enough -- what if I need to support non-ASCII
-characters?  I could use `std::basic_string<CharT>` for some `CharT` that
-works for non-ASCII uses, but then I'm left using multiple types for strings
-_emdash_ each of which is called string _emdash_ without any encoding
-guarantees.
+C and C++ are the only major production languages that do not have robust
+Unicode support.  This library attempts to provide that support for C++.
 
-Apart from `std::string` in particular, text handling in C++ is problematic in
-general, due to the lack of Unicode support.
-
-This library attempts to fill in some of these gaps in C++.
-
-In part, this library is an attempt to re-think `std::string` as an
-interoperable family of types, each suited to a different aspect of string
-processing.
-
-In part, this library is a Unicode implementation suitable for use by anyone
+This library provides a Unicode implementation suitable for use by anyone
 _emdash_ including those who know next to nothing about Unicode.
 
-[heading Features]
 
-- A family of types to replace `std::string`, for users that want "a better
-  string" but do not care about encoding or Unicode.  This includes _s_, _sv_,
-  _rsv_, _ur_, and _urv_.
+[heading Features]
 
 - Iterators converting UTF-8 to and from UTF-16 and UTF-32.
 
@@ -39,6 +19,11 @@ _emdash_ including those who know next to nothing about Unicode.
 
 - A family of types for use in Unicode-aware text processing.  This includes
   _t_, _tv_, _r_, and _rv_.
+
+- A family of types to analogous to `std::string`, to show the integration of
+  strings with Unicode-aware text types (these are required simply because I
+  can't hack such integration support into `std::string`).  This includes _s_,
+  _sv_, _rsv_, _ur_, and _urv_.
 
 - Substrings of each of the string-like types above can be had with no copies
   or allocations using a Python-like slicing interface.

@@ -1,3 +1,8 @@
+// Copyright (C) 2020 T. Zachary Laine
+//
+// Distributed under the Boost Software License, Version 1.0. (See
+// accompanying file LICENSE_1_0.txt or copy at
+// http://www.boost.org/LICENSE_1_0.txt)
 #ifndef BOOST_TEXT_COLLATE_HPP
 #define BOOST_TEXT_COLLATE_HPP
 
@@ -108,18 +113,17 @@ namespace boost { namespace text { inline namespace v1 {
 
     inline bool operator<=(text_sort_key const & lhs, text_sort_key const & rhs)
     {
-        return boost::text::v1::compare(lhs, rhs) < 0;
+        return !(rhs < lhs);
     }
 
     inline bool operator>(text_sort_key const & lhs, text_sort_key const & rhs)
     {
-        return std::lexicographical_compare(
-            rhs.begin(), rhs.end(), lhs.begin(), lhs.end());
+        return rhs < lhs;
     }
 
     inline bool operator>=(text_sort_key const & lhs, text_sort_key const & rhs)
     {
-        return 0 < compare(lhs, rhs);
+        return !(lhs < rhs);
     }
 
     // The code in this file implements the UCA as described in
