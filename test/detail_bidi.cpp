@@ -7,7 +7,7 @@
 #include <boost/text/string.hpp>
 #include <boost/text/string_utility.hpp>
 
-#include "bidi_tests.hpp"
+#include "generated/bidi_tests.hpp"
 
 #include <gtest/gtest.h>
 
