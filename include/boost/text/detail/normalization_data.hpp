@@ -327,8 +327,9 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         uint32_t const * last_;
     };
 
-    /** Returns a range of CPs that is the compatible decomposistion of cp.
-        The result will be an empty range if cp has no such decomposition. */
+    /** Returns a range of CPs that is the compatible decomposistion of `cp`.
+        The result will be an empty range if `cp` has no such
+        decomposition. */
     inline decomposition compatible_decompose(uint32_t cp) noexcept
     {
         static const two_stage_table<cp_range_, 18, 10> table(
@@ -348,14 +349,53 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         return decomposition{base + indices.first_, base + indices.last_};
     }
 
-    /** Returns true iff cp is a stable code point under FCC normalization
+    /** Returns true iff `cp` is a stable code point under NFC normalization
+        (meaning that it is ccc=0 and Quick_Check_NFC=Yes).
+
+        \see https://www.unicode.org/reports/tr15/#Stable_Code_Points */
+    inline bool stable_nfc_code_point(uint32_t cp) noexcept
+    {
+        return detail::ccc(cp) &&
+               quick_check_nfc_code_point(cp) == quick_check::yes;
+    }
+
+    /** Returns true iff `cp` is a stable code point under NFD normalization
+        (meaning that it is ccc=0 and Quick_Check_NFD=Yes).
+
+        \see https://www.unicode.org/reports/tr15/#Stable_Code_Points */
+    inline bool stable_nfd_code_point(uint32_t cp) noexcept
+    {
+        return detail::ccc(cp) &&
+               quick_check_nfd_code_point(cp) == quick_check::yes;
+    }
+
+    /** Returns true iff `cp` is a stable code point under NFKC normalization
+        (meaning that it is ccc=0 and Quick_Check_NFKC=Yes).
+
+        \see https://www.unicode.org/reports/tr15/#Stable_Code_Points */
+    inline bool stable_nfkc_code_point(uint32_t cp) noexcept
+    {
+        return detail::ccc(cp) &&
+               quick_check_nfkc_code_point(cp) == quick_check::yes;
+    }
+
+    /** Returns true iff `cp` is a stable code point under NFKD normalization
+        (meaning that it is ccc=0 and Quick_Check_NFKD=Yes).
+
+        \see https://www.unicode.org/reports/tr15/#Stable_Code_Points */
+    inline bool stable_nfkd_code_point(uint32_t cp) noexcept
+    {
+        return detail::ccc(cp) &&
+               quick_check_nfkd_code_point(cp) == quick_check::yes;
+    }
+
+    /** Returns true iff `cp` is a stable code point under FCC normalization
         (meaning that it is ccc=0 and Quick_Check_NFC=Yes).
 
         \see https://www.unicode.org/reports/tr15/#Stable_Code_Points */
     inline bool stable_fcc_code_point(uint32_t cp) noexcept
     {
-        return detail::ccc(cp) &&
-               quick_check_nfc_code_point(cp) == quick_check::yes;
+        return stable_nfc_code_point(cp);
     }
 
     struct lzw_to_cp_props_iter
