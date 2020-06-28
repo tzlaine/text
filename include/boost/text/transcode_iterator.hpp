@@ -875,13 +875,20 @@ namespace boost { namespace text { inline namespace v1 {
     }
 
 
-    /** A UTF-8 to UTF-16 converting iterator.  Set the ErrorHandler template
-        parameter to control error handling.  The default ErrorHandler is
-        use_replacement_character, which simply produces a replacement
-        character.
+    /** A UTF-8 to UTF-16 converting iterator.
+
+        Set the ErrorHandler template parameter to control error handling.  It
+        must be callable, and must have the signature `uint32_t (char const *
+        msg)`.  The `msg` parameter is a message that indicates the kind of
+        error that has occurred; this may be displayed to the user or ignored.
+        The value returned by the ErrorHandler will be used in place of the
+        code point that produced an error.
+
+        The default ErrorHandler is `use_replacement_character`, which simply
+        produces a replacement character.
 
         Iter must be a bidirectional iterator with a 1-byte char
-        value_type. */
+        `value_type`. */
     template<
         typename Iter,
         typename Sentinel = Iter,
@@ -889,13 +896,21 @@ namespace boost { namespace text { inline namespace v1 {
     struct utf_8_to_16_iterator;
 
 
-    /** A UTF-32 to UTF-8 converting iterator.  Set the ErrorHandler template
-        parameter to control error handling.  The default ErrorHandler is
-        use_replacement_character, which simply produces a replacement
+    /** A UTF-32 to UTF-8 converting iterator.
         character.
 
+        Set the ErrorHandler template parameter to control error handling.  It
+        must be callable, and must have the signature `uint32_t (char const *
+        msg)`.  The `msg` parameter is a message that indicates the kind of
+        error that has occurred; this may be displayed to the user or ignored.
+        The value returned by the ErrorHandler will be used in place of the
+        code point that produced an error.
+
+        The default ErrorHandler is `use_replacement_character`, which simply
+        produces a replacement character.
+
         Iter must be a bidirectional iterator with a 4-byte integral
-        value_type. */
+        `value_type`. */
     template<
         typename Iter,
         typename Sentinel = Iter,
@@ -1258,13 +1273,20 @@ namespace boost { namespace text { inline namespace v1 {
     }
 
 
-    /** A UTF-8 to UTF-32 converting iterator.  Set the ErrorHandler template
-        parameter to control error handling.  The default ErrorHandler is
-        use_replacement_character, which simply produces a replacement
-        character.
+    /** A UTF-8 to UTF-32 converting iterator.
+
+        Set the ErrorHandler template parameter to control error handling.  It
+        must be callable, and must have the signature `uint32_t (char const *
+        msg)`.  The `msg` parameter is a message that indicates the kind of
+        error that has occurred; this may be displayed to the user or ignored.
+        The value returned by the ErrorHandler will be used in place of the
+        code point that produced an error.
+
+        The default ErrorHandler is `use_replacement_character`, which simply
+        produces a replacement character.
 
         Iter must be a bidirectional iterator with a 1-byte char
-        value_type. */
+        `value_type`. */
     template<
         typename Iter,
         typename Sentinel = Iter,
@@ -1871,13 +1893,20 @@ namespace boost { namespace text { inline namespace v1 {
     }
 
 
-    /** A UTF-32 to UTF-16 converting iterator.  Set the ErrorHandler template
-        parameter to control error handling.  The default ErrorHandler is
-        use_replacement_character, which simply produces a replacement
-        character.
+    /** A UTF-32 to UTF-16 converting iterator.
+
+        Set the ErrorHandler template parameter to control error handling.  It
+        must be callable, and must have the signature `uint32_t (char const *
+        msg)`.  The `msg` parameter is a message that indicates the kind of
+        error that has occurred; this may be displayed to the user or ignored.
+        The value returned by the ErrorHandler will be used in place of the
+        code point that produced an error.
+
+        The default ErrorHandler is `use_replacement_character`, which simply
+        produces a replacement character.
 
         Iter must be a bidirectional iterator with a 4-byte integral
-        value_type. */
+        `value_type`. */
     template<
         typename Iter,
         typename Sentinel = Iter,
@@ -2235,13 +2264,20 @@ namespace boost { namespace text { inline namespace v1 {
     }
 
 
-    /** A UTF-16 to UTF-32 converting iterator.  Set the ErrorHandler template
-        parameter to control error handling.  The default ErrorHandler is
-        use_replacement_character, which simply produces a replacement
-        character.
+    /** A UTF-16 to UTF-32 converting iterator.
+
+        Set the ErrorHandler template parameter to control error handling.  It
+        must be callable, and must have the signature `uint32_t (char const *
+        msg)`.  The `msg` parameter is a message that indicates the kind of
+        error that has occurred; this may be displayed to the user or ignored.
+        The value returned by the ErrorHandler will be used in place of the
+        code point that produced an error.
+
+        The default ErrorHandler is `use_replacement_character`, which simply
+        produces a replacement character.
 
         Iter must be a bidirectional iterator with a 2-byte char
-        value_type. */
+        `value_type`. */
     template<
         typename Iter,
         typename Sentinel = Iter,
@@ -2680,13 +2716,20 @@ namespace boost { namespace text { inline namespace v1 {
     }
 
 
-    /** A UTF-16 to UTF-8 converting iterator.  Set the ErrorHandler template
-        parameter to control error handling.  The default ErrorHandler is
-        use_replacement_character, which simply produces a replacement
-        character.
+    /** A UTF-16 to UTF-8 converting iterator.
+
+        Set the ErrorHandler template parameter to control error handling.  It
+        must be callable, and must have the signature `uint32_t (char const *
+        msg)`.  The `msg` parameter is a message that indicates the kind of
+        error that has occurred; this may be displayed to the user or ignored.
+        The value returned by the ErrorHandler will be used in place of the
+        code point that produced an error.
+
+        The default ErrorHandler is `use_replacement_character`, which simply
+        produces a replacement character.
 
         Iter must be a bidirectional iterator with a 2-byte integral
-        value_type. */
+        `value_type`. */
     template<
         typename Iter,
         typename Sentinel = Iter,
