@@ -8,15 +8,6 @@
 
 import lzw
 
-removed_from_cp_props_file_form = '''
-    std::array<uint32_t, {3}> make_all_compatible_decompositions()
-    {{
-return {{{{
-{2}
-    }}}};
-    }}
-'''
-
 cp_props_file_form = decls = '''\
 // Copyright (C) 2020 T. Zachary Laine
 //
@@ -40,6 +31,13 @@ namespace boost {{ namespace text {{ inline namespace v1 {{ namespace detail {{
     {{
 return {{{{
 {0}
+    }}}};
+    }}
+
+    std::array<uint32_t, {3}> make_all_compatible_decompositions()
+    {{
+return {{{{
+{2}
     }}}};
     }}
 

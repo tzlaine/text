@@ -6,6 +6,7 @@
 #ifndef BOOST_TEXT_NORMALIZE_HPP
 #define BOOST_TEXT_NORMALIZE_HPP
 
+#include <boost/text/algorithm.hpp>
 #include <boost/text/transcode_algorithm.hpp>
 #include <boost/text/transcode_iterator.hpp>
 #include <boost/text/transcode_view.hpp>
@@ -205,6 +206,75 @@ namespace boost { namespace text { inline namespace v1 {
                 return norm_result<OutIter>{appender.out(), (bool)normalized};
             }
         };
+
+        template<typename OutIter>
+        inline OutIter
+        stream_safe_cp(int & nonstarters, uint32_t cp, OutIter out)
+        {
+            auto decomp = compatible_decompose(cp);
+            uint32_t const degenerate_decomposition[1] = {cp};
+            auto const decomposition_first =
+                decomp.empty() ? std::begin(degenerate_decomposition)
+                               : decomp.first_;
+            auto const decomposition_last =
+                decomp.empty() ? std::end(degenerate_decomposition)
+                               : decomp.last_;
+            auto const starter_first = std::find_if(
+                decomposition_first, decomposition_last, [](auto cp) {
+                    return detail::ccc(cp) == 0;
+                });
+            int const initial_nonstarters = starter_first - decomposition_first;
+            if (30 < nonstarters + initial_nonstarters) {
+                *out = 0x034f; // U+034F COMBINING GRAPHEME JOINER (CGJ)
+                ++out;
+                nonstarters = 0;
+            }
+            *out = cp;
+            ++out;
+            if (starter_first == decomposition_last) {
+                nonstarters += decomposition_last - decomposition_first;
+            } else {
+                auto const starter_last_minus_one = find_if_backward(
+                    starter_first, decomposition_last, [](auto cp) {
+                        return detail::ccc(cp) == 0;
+                    });
+                auto const nonstarter_first =
+                    starter_last_minus_one +
+                    (starter_last_minus_one == decomposition_last ? 0 : 1);
+                nonstarters += decomposition_last - nonstarter_first;
+            }
+            return out;
+        }
+    }
+
+    /** Writes sequence `[first, last)` to `out`, ensuring Stream-Safe Text
+        Format.
+
+        This function only participates in overload resolution if `CPIter`
+        models the CPIter concept.
+
+        \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
+    template<typename CPIter, typename Sentinel, typename OutIter>
+    inline auto stream_safe_copy(CPIter first, Sentinel last, OutIter out)
+        -> detail::cp_iter_ret_t<OutIter, CPIter>
+    {
+        int nonstarters = 0;
+        for (; first != last; ++first) {
+            auto const cp = *first;
+            out = detail::stream_safe_cp(nonstarters, cp, out);
+        }
+        return out;
+    }
+
+    /** Writes sequence `[first, last)` to `out`, ensuring Stream-Safe Text
+        Format.
+
+        \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
+    template<typename CPRange, typename OutIter>
+    inline OutIter stream_safe_copy(CPRange const & r, OutIter out)
+    {
+        return boost::text::v1::stream_safe_copy(
+            std::begin(r), std::end(r), out);
     }
 
     /** Writes sequence `[first, last)` in Unicode normalization form NFD to

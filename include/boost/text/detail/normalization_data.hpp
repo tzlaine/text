@@ -72,10 +72,18 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
 
     BOOST_TEXT_DECL std::array<uint32_t, 3404>
     make_all_canonical_decompositions();
+    BOOST_TEXT_DECL std::array<uint32_t, 8974>
+    make_all_compatible_decompositions();
 
     inline uint32_t const * all_canonical_decompositions_ptr()
     {
         static auto const retval = make_all_canonical_decompositions();
+        return retval.data();
+    }
+
+    inline uint32_t const * all_compatible_decompositions_ptr()
+    {
+        static auto const retval = make_all_compatible_decompositions();
         return retval.data();
     }
 
@@ -92,10 +100,8 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
 
     static_assert(sizeof(cp_props) == 12, "");
 
-    // TODO: Remove.
     BOOST_TEXT_DECL std::unordered_map<uint32_t, cp_props> make_cp_props_map();
 
-    // TODO: Remove.
     inline std::unordered_map<uint32_t, cp_props> const & cp_props_map()
     {
         static auto const retval = make_cp_props_map();
@@ -220,6 +226,16 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         return (cp0 << 32) | cp1;
     }
 
+#if 0
+    struct decomposition
+    {
+        bool empty() const noexcept { return first_ == last_; }
+
+        uint32_t const * first_;
+        uint32_t const * last_;
+    };
+#endif
+
     inline int ccc(uint32_t cp) noexcept
     {
         static const two_stage_table<int, 18, 10> table(
@@ -234,6 +250,26 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                 return p.second.ccc_;
             },
             0);
+#if 0
+        for (auto x : detail::cp_props_map()) {
+            auto const base = all_compatible_decompositions_ptr();
+            decomposition decomp{
+                base + x.second.compatible_decomposition_.first_,
+                base + x.second.compatible_decomposition_.last_};
+            if (std::any_of(decomp.first_, decomp.last_, [&table](auto cp) {
+                    return table[cp] != 0;
+                })) {
+                continue;
+            }
+            std::cout << "0x" << std::hex << x.first << " nfkd--> ";
+            for (auto it = decomp.first_; it != decomp.last_; ++it) {
+                std::cout << std::hex << *it << "(ccc=" << table[*it] << ") ";
+            }
+            std::cout << "\n";
+        }
+        std::cout << std::flush;
+        std::abort();
+#endif
         return table[cp];
     }
 
@@ -311,6 +347,35 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             },
             quick_check::yes);
         return table[cp];
+    }
+
+    struct decomposition
+    {
+        bool empty() const noexcept { return first_ == last_; }
+
+        uint32_t const * first_;
+        uint32_t const * last_;
+    };
+
+    /** Returns a range of CPs that is the compatible decomposistion of cp.
+        The result will be an empty range if cp has no such decomposition. */
+    inline decomposition compatible_decompose(uint32_t cp) noexcept
+    {
+        static const two_stage_table<cp_range_, 18, 10> table(
+            detail::cp_props_map().begin(),
+            detail::cp_props_map().end(),
+            [](std::pair<uint32_t, cp_props> const & p) {
+                auto const key = p.first;
+                BOOST_ASSERT(key < (uint32_t(1) << 18));
+                return key;
+            },
+            [](std::pair<uint32_t, cp_props> const & p) {
+                return p.second.compatible_decomposition_;
+            },
+            cp_range_{0, 0});
+        cp_range_ const indices = table[cp];
+        auto const base = all_compatible_decompositions_ptr();
+        return decomposition{base + indices.first_, base + indices.last_};
     }
 
     /** Returns true iff cp is a stable code point under FCC normalization
