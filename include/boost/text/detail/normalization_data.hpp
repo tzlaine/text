@@ -226,16 +226,6 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         return (cp0 << 32) | cp1;
     }
 
-#if 0
-    struct decomposition
-    {
-        bool empty() const noexcept { return first_ == last_; }
-
-        uint32_t const * first_;
-        uint32_t const * last_;
-    };
-#endif
-
     inline int ccc(uint32_t cp) noexcept
     {
         static const two_stage_table<int, 18, 10> table(
@@ -250,26 +240,6 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                 return p.second.ccc_;
             },
             0);
-#if 0
-        for (auto x : detail::cp_props_map()) {
-            auto const base = all_compatible_decompositions_ptr();
-            decomposition decomp{
-                base + x.second.compatible_decomposition_.first_,
-                base + x.second.compatible_decomposition_.last_};
-            if (std::any_of(decomp.first_, decomp.last_, [&table](auto cp) {
-                    return table[cp] != 0;
-                })) {
-                continue;
-            }
-            std::cout << "0x" << std::hex << x.first << " nfkd--> ";
-            for (auto it = decomp.first_; it != decomp.last_; ++it) {
-                std::cout << std::hex << *it << "(ccc=" << table[*it] << ") ";
-            }
-            std::cout << "\n";
-        }
-        std::cout << std::flush;
-        std::abort();
-#endif
         return table[cp];
     }
 
