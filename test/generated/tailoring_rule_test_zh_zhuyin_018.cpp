@@ -15901,6 +15901,7 @@ TEST(tailoring, zh_zhuyin_018_016)
         table(), collation_strength::primary),
         -1);
     }
+#if 0 // Clearly nothing is less than itself!
     {
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7565);
@@ -15920,6 +15921,7 @@ TEST(tailoring, zh_zhuyin_018_016)
         table(), collation_strength::primary),
         -1);
     }
+#endif
     {
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x7565);
@@ -19505,4 +19507,3 @@ TEST(tailoring, zh_zhuyin_018_019)
         -1);
     }
 }
-

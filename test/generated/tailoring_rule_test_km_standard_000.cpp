@@ -117,6 +117,7 @@ TEST(tailoring, km_standard_000_001)
         table(), collation_strength::secondary),
         0);
     }
+#if 0 // 0x17c8 reordered by a later rule.
     {
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x17c8);
@@ -148,6 +149,7 @@ TEST(tailoring, km_standard_000_001)
         table(), collation_strength::primary),
         0);
     }
+#endif
     {
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x17ce);
