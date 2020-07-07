@@ -46,7 +46,7 @@ namespace boost { namespace text { inline namespace v1 {
                 first, last, std::back_inserter(chars_));
             BOOST_ASSERT(
                 boost::text::v1::next_grapheme_break(begin(), end()) == end());
-            BOOST_ASSERT(boost::text::v1::normalized_fcc(begin(), end()));
+            BOOST_ASSERT(boost::text::v1::normalized<nf::fcc>(begin(), end()));
         }
 
         /** Constructs *this from the code point cp. */
@@ -70,7 +70,7 @@ namespace boost { namespace text { inline namespace v1 {
                 r.begin(), r.end(), std::back_inserter(chars_));
             BOOST_ASSERT(
                 boost::text::v1::next_grapheme_break(begin(), end()) == end());
-            BOOST_ASSERT(boost::text::v1::normalized_fcc(begin(), end()));
+            BOOST_ASSERT(boost::text::v1::normalized<nf::fcc>(begin(), end()));
         }
 
         /** Returns true if *this contains no code points. */

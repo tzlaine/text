@@ -29,10 +29,10 @@ void BM_normalize_000(benchmark::State & state)
         nfkd_str = str_000;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_000);
@@ -56,10 +56,10 @@ void BM_normalize_001(benchmark::State & state)
         nfkd_str = str_001;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_001);
@@ -83,10 +83,10 @@ void BM_normalize_002(benchmark::State & state)
         nfkd_str = str_002;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_002);
@@ -110,10 +110,10 @@ void BM_normalize_003(benchmark::State & state)
         nfkd_str = str_003;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_003);
@@ -137,10 +137,10 @@ void BM_normalize_004(benchmark::State & state)
         nfkd_str = str_004;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_004);
@@ -164,10 +164,10 @@ void BM_normalize_005(benchmark::State & state)
         nfkd_str = str_005;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_005);
@@ -191,10 +191,10 @@ void BM_normalize_006(benchmark::State & state)
         nfkd_str = str_006;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_006);
@@ -218,10 +218,10 @@ void BM_normalize_007(benchmark::State & state)
         nfkd_str = str_007;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_007);
@@ -245,10 +245,10 @@ void BM_normalize_008(benchmark::State & state)
         nfkd_str = str_008;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_008);
@@ -272,10 +272,10 @@ void BM_normalize_009(benchmark::State & state)
         nfkd_str = str_009;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_009);
@@ -299,10 +299,10 @@ void BM_normalize_010(benchmark::State & state)
         nfkd_str = str_010;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_010);
@@ -326,10 +326,10 @@ void BM_normalize_011(benchmark::State & state)
         nfkd_str = str_011;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_011);
@@ -353,10 +353,10 @@ void BM_normalize_012(benchmark::State & state)
         nfkd_str = str_012;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_012);
@@ -380,10 +380,10 @@ void BM_normalize_013(benchmark::State & state)
         nfkd_str = str_013;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_013);
@@ -407,10 +407,10 @@ void BM_normalize_014(benchmark::State & state)
         nfkd_str = str_014;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_014);
@@ -434,10 +434,10 @@ void BM_normalize_015(benchmark::State & state)
         nfkd_str = str_015;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_015);
@@ -461,10 +461,10 @@ void BM_normalize_016(benchmark::State & state)
         nfkd_str = str_016;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_016);
@@ -488,10 +488,10 @@ void BM_normalize_017(benchmark::State & state)
         nfkd_str = str_017;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_017);
@@ -515,10 +515,10 @@ void BM_normalize_018(benchmark::State & state)
         nfkd_str = str_018;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_018);
@@ -542,10 +542,10 @@ void BM_normalize_019(benchmark::State & state)
         nfkd_str = str_019;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_019);
@@ -569,10 +569,10 @@ void BM_normalize_020(benchmark::State & state)
         nfkd_str = str_020;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_020);
@@ -596,10 +596,10 @@ void BM_normalize_021(benchmark::State & state)
         nfkd_str = str_021;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_021);
@@ -623,10 +623,10 @@ void BM_normalize_022(benchmark::State & state)
         nfkd_str = str_022;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_022);
@@ -650,10 +650,10 @@ void BM_normalize_023(benchmark::State & state)
         nfkd_str = str_023;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_023);
@@ -677,10 +677,10 @@ void BM_normalize_024(benchmark::State & state)
         nfkd_str = str_024;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_024);
@@ -704,10 +704,10 @@ void BM_normalize_025(benchmark::State & state)
         nfkd_str = str_025;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_025);
@@ -731,10 +731,10 @@ void BM_normalize_026(benchmark::State & state)
         nfkd_str = str_026;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_026);
@@ -758,10 +758,10 @@ void BM_normalize_027(benchmark::State & state)
         nfkd_str = str_027;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_027);
@@ -785,10 +785,10 @@ void BM_normalize_028(benchmark::State & state)
         nfkd_str = str_028;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_028);
@@ -812,10 +812,10 @@ void BM_normalize_029(benchmark::State & state)
         nfkd_str = str_029;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_029);
@@ -839,10 +839,10 @@ void BM_normalize_030(benchmark::State & state)
         nfkd_str = str_030;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_030);
@@ -866,10 +866,10 @@ void BM_normalize_031(benchmark::State & state)
         nfkd_str = str_031;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_031);
@@ -893,10 +893,10 @@ void BM_normalize_032(benchmark::State & state)
         nfkd_str = str_032;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_032);
@@ -920,10 +920,10 @@ void BM_normalize_033(benchmark::State & state)
         nfkd_str = str_033;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_033);
@@ -947,10 +947,10 @@ void BM_normalize_034(benchmark::State & state)
         nfkd_str = str_034;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_034);
@@ -974,10 +974,10 @@ void BM_normalize_035(benchmark::State & state)
         nfkd_str = str_035;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_035);
@@ -1001,10 +1001,10 @@ void BM_normalize_036(benchmark::State & state)
         nfkd_str = str_036;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_036);
@@ -1028,10 +1028,10 @@ void BM_normalize_037(benchmark::State & state)
         nfkd_str = str_037;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_037);
@@ -1055,10 +1055,10 @@ void BM_normalize_038(benchmark::State & state)
         nfkd_str = str_038;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_038);
@@ -1082,10 +1082,10 @@ void BM_normalize_039(benchmark::State & state)
         nfkd_str = str_039;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_039);
@@ -1109,10 +1109,10 @@ void BM_normalize_040(benchmark::State & state)
         nfkd_str = str_040;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_040);
@@ -1136,10 +1136,10 @@ void BM_normalize_041(benchmark::State & state)
         nfkd_str = str_041;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_041);
@@ -1163,10 +1163,10 @@ void BM_normalize_042(benchmark::State & state)
         nfkd_str = str_042;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_042);
@@ -1190,10 +1190,10 @@ void BM_normalize_043(benchmark::State & state)
         nfkd_str = str_043;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_043);
@@ -1217,10 +1217,10 @@ void BM_normalize_044(benchmark::State & state)
         nfkd_str = str_044;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_044);
@@ -1244,10 +1244,10 @@ void BM_normalize_045(benchmark::State & state)
         nfkd_str = str_045;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_045);
@@ -1271,10 +1271,10 @@ void BM_normalize_046(benchmark::State & state)
         nfkd_str = str_046;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_046);
@@ -1298,10 +1298,10 @@ void BM_normalize_047(benchmark::State & state)
         nfkd_str = str_047;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_047);
@@ -1325,10 +1325,10 @@ void BM_normalize_048(benchmark::State & state)
         nfkd_str = str_048;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_048);
@@ -1352,10 +1352,10 @@ void BM_normalize_049(benchmark::State & state)
         nfkd_str = str_049;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_049);
@@ -1379,10 +1379,10 @@ void BM_normalize_050(benchmark::State & state)
         nfkd_str = str_050;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_050);
@@ -1406,10 +1406,10 @@ void BM_normalize_051(benchmark::State & state)
         nfkd_str = str_051;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_051);
@@ -1433,10 +1433,10 @@ void BM_normalize_052(benchmark::State & state)
         nfkd_str = str_052;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_052);
@@ -1460,10 +1460,10 @@ void BM_normalize_053(benchmark::State & state)
         nfkd_str = str_053;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_053);
@@ -1487,10 +1487,10 @@ void BM_normalize_054(benchmark::State & state)
         nfkd_str = str_054;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_054);
@@ -1514,10 +1514,10 @@ void BM_normalize_055(benchmark::State & state)
         nfkd_str = str_055;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_055);
@@ -1541,10 +1541,10 @@ void BM_normalize_056(benchmark::State & state)
         nfkd_str = str_056;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_056);
@@ -1568,10 +1568,10 @@ void BM_normalize_057(benchmark::State & state)
         nfkd_str = str_057;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_057);
@@ -1595,10 +1595,10 @@ void BM_normalize_058(benchmark::State & state)
         nfkd_str = str_058;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_058);
@@ -1622,10 +1622,10 @@ void BM_normalize_059(benchmark::State & state)
         nfkd_str = str_059;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_059);
@@ -1649,10 +1649,10 @@ void BM_normalize_060(benchmark::State & state)
         nfkd_str = str_060;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_060);
@@ -1676,10 +1676,10 @@ void BM_normalize_061(benchmark::State & state)
         nfkd_str = str_061;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_061);
@@ -1703,10 +1703,10 @@ void BM_normalize_062(benchmark::State & state)
         nfkd_str = str_062;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_062);
@@ -1730,10 +1730,10 @@ void BM_normalize_063(benchmark::State & state)
         nfkd_str = str_063;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_063);
@@ -1757,10 +1757,10 @@ void BM_normalize_064(benchmark::State & state)
         nfkd_str = str_064;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_064);
@@ -1784,10 +1784,10 @@ void BM_normalize_065(benchmark::State & state)
         nfkd_str = str_065;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_065);
@@ -1811,10 +1811,10 @@ void BM_normalize_066(benchmark::State & state)
         nfkd_str = str_066;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_066);
@@ -1838,10 +1838,10 @@ void BM_normalize_067(benchmark::State & state)
         nfkd_str = str_067;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_067);
@@ -1865,10 +1865,10 @@ void BM_normalize_068(benchmark::State & state)
         nfkd_str = str_068;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_068);
@@ -1892,10 +1892,10 @@ void BM_normalize_069(benchmark::State & state)
         nfkd_str = str_069;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_069);
@@ -1919,10 +1919,10 @@ void BM_normalize_070(benchmark::State & state)
         nfkd_str = str_070;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_070);
@@ -1946,10 +1946,10 @@ void BM_normalize_071(benchmark::State & state)
         nfkd_str = str_071;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_071);
@@ -1973,10 +1973,10 @@ void BM_normalize_072(benchmark::State & state)
         nfkd_str = str_072;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_072);
@@ -2000,10 +2000,10 @@ void BM_normalize_073(benchmark::State & state)
         nfkd_str = str_073;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_073);
@@ -2027,10 +2027,10 @@ void BM_normalize_074(benchmark::State & state)
         nfkd_str = str_074;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_074);
@@ -2054,10 +2054,10 @@ void BM_normalize_075(benchmark::State & state)
         nfkd_str = str_075;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_075);
@@ -2081,10 +2081,10 @@ void BM_normalize_076(benchmark::State & state)
         nfkd_str = str_076;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_076);
@@ -2108,10 +2108,10 @@ void BM_normalize_077(benchmark::State & state)
         nfkd_str = str_077;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_077);
@@ -2135,10 +2135,10 @@ void BM_normalize_078(benchmark::State & state)
         nfkd_str = str_078;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_078);
@@ -2162,10 +2162,10 @@ void BM_normalize_079(benchmark::State & state)
         nfkd_str = str_079;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_079);
@@ -2189,10 +2189,10 @@ void BM_normalize_080(benchmark::State & state)
         nfkd_str = str_080;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_080);
@@ -2216,10 +2216,10 @@ void BM_normalize_081(benchmark::State & state)
         nfkd_str = str_081;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_081);
@@ -2243,10 +2243,10 @@ void BM_normalize_082(benchmark::State & state)
         nfkd_str = str_082;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_082);
@@ -2270,10 +2270,10 @@ void BM_normalize_083(benchmark::State & state)
         nfkd_str = str_083;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_083);
@@ -2297,10 +2297,10 @@ void BM_normalize_084(benchmark::State & state)
         nfkd_str = str_084;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_084);
@@ -2324,10 +2324,10 @@ void BM_normalize_085(benchmark::State & state)
         nfkd_str = str_085;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_085);
@@ -2351,10 +2351,10 @@ void BM_normalize_086(benchmark::State & state)
         nfkd_str = str_086;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_086);
@@ -2378,10 +2378,10 @@ void BM_normalize_087(benchmark::State & state)
         nfkd_str = str_087;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_087);
@@ -2405,10 +2405,10 @@ void BM_normalize_088(benchmark::State & state)
         nfkd_str = str_088;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_088);
@@ -2432,10 +2432,10 @@ void BM_normalize_089(benchmark::State & state)
         nfkd_str = str_089;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_089);
@@ -2459,10 +2459,10 @@ void BM_normalize_090(benchmark::State & state)
         nfkd_str = str_090;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_090);
@@ -2486,10 +2486,10 @@ void BM_normalize_091(benchmark::State & state)
         nfkd_str = str_091;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_091);
@@ -2513,10 +2513,10 @@ void BM_normalize_092(benchmark::State & state)
         nfkd_str = str_092;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_092);
@@ -2540,10 +2540,10 @@ void BM_normalize_093(benchmark::State & state)
         nfkd_str = str_093;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_093);
@@ -2567,10 +2567,10 @@ void BM_normalize_094(benchmark::State & state)
         nfkd_str = str_094;
         state.ResumeTiming();
 
-        boost::text::normalize_to_nfc(nfc_str);
-        boost::text::normalize_to_nfd(nfd_str);
-        boost::text::normalize_to_nfkc(nfkc_str);
-        boost::text::normalize_to_nfkd(nfkd_str);
+        boost::text::normalize<boost::text::nf::c>(nfc_str);
+        boost::text::normalize<boost::text::nf::d>(nfd_str);
+        boost::text::normalize<boost::text::nf::kc>(nfkc_str);
+        boost::text::normalize<boost::text::nf::kd>(nfkd_str);
     }
 }
 BENCHMARK(BM_normalize_094);

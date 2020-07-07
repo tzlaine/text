@@ -156,7 +156,7 @@ if args.tests:
 
     print "Tests were just generated.  Don't forget to re-add the hand adjustments to those tests."
     print '''You may now want to do:
-    mv *cpp ../test'''
+    mv relative_collation_test_* ../test && mv *cpp ../test/generated'''
     exit(0)
 
 

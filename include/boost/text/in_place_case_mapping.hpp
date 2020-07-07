@@ -28,7 +28,7 @@ namespace boost { namespace text { inline namespace v1 {
         if (s.size() < t.storage_bytes()) {
             t = s;
         } else {
-            boost::text::v1::normalize_to_fcc(s);
+            boost::text::v1::normalize<nf::fcc>(s);
             t.replace(std::move(s));
         }
     }
@@ -67,7 +67,7 @@ namespace boost { namespace text { inline namespace v1 {
         if (s.size() < t.storage_bytes()) {
             t = s;
         } else {
-            boost::text::v1::normalize_to_fcc(s);
+            boost::text::v1::normalize<nf::fcc>(s);
             t.replace(std::move(s));
         }
     }
@@ -106,7 +106,7 @@ namespace boost { namespace text { inline namespace v1 {
         if (s.size() < t.storage_bytes()) {
             t = s;
         } else {
-            boost::text::v1::normalize_to_fcc(s);
+            boost::text::v1::normalize<nf::fcc>(s);
             t.replace(std::move(s));
         }
     }

@@ -19,6 +19,7 @@ namespace boost { namespace text { inline namespace v1 {
             constexpr char const * ncstr = nullptr;
         }
 
+#if 0
         // NFC/NFKC/FCC dispatch
         template<
             bool WriteToOut,     // false: check norm, true: normalize
@@ -65,8 +66,49 @@ namespace boost { namespace text { inline namespace v1 {
                         r.begin(), r.end(), appender);
             }
         };
+#endif
+
+        template<
+            nf Normalization,
+            typename CPIter,
+            typename Sentinel,
+            typename String,
+            bool UTF8 = utf8_fast_path<CPIter, Sentinel>::value &&
+                            Normalization != nf::d && Normalization != nf::kd>
+        struct normalization_string_appender
+        {
+            using type = icu::utf16_to_utf8_string_appender<String>;
+        };
+
+        template<
+            nf Normalization,
+            typename CPIter,
+            typename Sentinel,
+            typename String>
+        struct normalization_string_appender<
+            Normalization,
+            CPIter,
+            Sentinel,
+            String,
+            true>
+        {
+            using type = icu::utf8_string_appender<String>;
+        };
+
+        template<
+            nf Normalization,
+            typename CPIter,
+            typename Sentinel,
+            typename String>
+        using normalization_string_appender_t =
+            typename normalization_string_appender<
+                Normalization,
+                CPIter,
+                Sentinel,
+                String>::type;
     }
 
+#if 0
     /** Appends sequence `[first, last)` in normalization form NFD to `s`, in
         UTF-8 encoding.
 
@@ -82,8 +124,8 @@ namespace boost { namespace text { inline namespace v1 {
             CPIter>
     {
         detail::icu::utf16_to_utf8_string_appender<String> appender(s);
-        detail::norm_nfd_impl<detail::norm_normalize, int>(
-            detail::norm_nfd, first, last, appender);
+        detail::norm_impl<nf::d, decltype(s.begin()), CPIter, Sentinel>(
+            first, last, appender);
         return s;
     }
 
@@ -113,8 +155,8 @@ namespace boost { namespace text { inline namespace v1 {
             CPIter>
     {
         detail::icu::utf16_to_utf8_string_appender<String> appender(s);
-        detail::norm_nfd_impl<detail::norm_normalize, int>(
-            detail::norm_nfkd, first, last, appender);
+        detail::norm_impl<nf::kd, decltype(s.begin()), CPIter, Sentinel>(
+            first, last, appender);
         return s;
     }
 
@@ -143,11 +185,9 @@ namespace boost { namespace text { inline namespace v1 {
             decltype(s.insert(s.end(), detail::ncstr, detail::ncstr), s),
             CPIter>
     {
-        detail::norm_nfc_append_impl<
-            detail::norm_normalize,
-            detail::norm_nfc,
-            CPIter,
-            Sentinel>::call(detail::norm_nfc, first, last, s);
+        detail::icu::utf16_to_utf8_string_appender<String> appender(s);
+        detail::norm_impl<nf::c, decltype(s.begin()), CPIter, Sentinel>(
+            first, last, appender);
         return s;
     }
 
@@ -176,11 +216,9 @@ namespace boost { namespace text { inline namespace v1 {
             decltype(s.insert(s.end(), detail::ncstr, detail::ncstr), s),
             CPIter>
     {
-        detail::norm_nfc_append_impl<
-            detail::norm_normalize,
-            detail::norm_nfc,
-            CPIter,
-            Sentinel>::call(detail::norm_nfkc, first, last, s);
+        detail::icu::utf16_to_utf8_string_appender<String> appender(s);
+        detail::norm_impl<nf::kc, decltype(s.begin()), CPIter, Sentinel>(
+            first, last, appender);
         return s;
     }
 
@@ -209,11 +247,9 @@ namespace boost { namespace text { inline namespace v1 {
             decltype(s.insert(s.end(), detail::ncstr, detail::ncstr), s),
             CPIter>
     {
-        detail::norm_nfc_append_impl<
-            detail::norm_normalize,
-            detail::norm_fcc,
-            CPIter,
-            Sentinel>::call(detail::norm_nfc, first, last, s);
+        detail::icu::utf16_to_utf8_string_appender<String> appender(s);
+        detail::norm_impl<nf::fcc, decltype(s.begin()), CPIter, Sentinel>(
+            first, last, appender);
         return s;
     }
 
@@ -227,15 +263,52 @@ namespace boost { namespace text { inline namespace v1 {
         return boost::text::v1::normalize_to_fcc_append_utf8(
             std::begin(r), std::end(r), s);
     }
+#endif
 
-    /** Puts the contents of `s` in Unicode normalization form NFD.
-        Normalization is not performed if `s` passes a normalization
-        quick-check. */
-    inline void normalize_to_nfd(string & s)
+    /** Appends sequence `[first, last)` in normalization form `Normalization`
+        to `s`, in UTF-8 encoding.
+
+        This function only participates in overload resolution if `CPIter`
+        models the CPIter concept. */
+    template<
+        nf Normalization,
+        typename CPIter,
+        typename Sentinel,
+        typename String>
+    inline auto
+    normalize_append_utf8(CPIter first, Sentinel last, String & s)
+        -> detail::cp_iter_ret_t<
+            decltype(s.insert(s.end(), detail::ncstr, detail::ncstr), s),
+            CPIter>
+    {
+        detail::normalization_string_appender_t<
+            Normalization,
+            CPIter,
+            Sentinel,
+            String>
+            appender(s);
+        detail::
+            norm_impl<Normalization, decltype(s.begin()), CPIter, Sentinel>::
+                call(first, last, appender);
+        return s;
+    }
+
+    /** Appends sequence `r` in normalization form `Normalizaation` to `s`, in
+        UTF-8 encoding. */
+    template<nf Normalization, typename CPRange, typename String>
+    inline String & normalize_append_utf8(CPRange const & r, String & s)
+    {
+        return boost::text::v1::normalize_append_utf8<Normalization>(
+            std::begin(r), std::end(r), s);
+    }
+
+    /** Puts the contents of `s` in Unicode normalization form `Normalize`. */
+    template<nf Normalization>
+    void normalize(string & s)
     {
         auto const r = as_utf32(s);
         if (detail::normalized_quick_check(r.begin(), r.end(), [](uint32_t cp) {
-                return detail::quick_check_nfd_code_point(cp);
+                return detail::quick_check_code_point<Normalization>(cp);
             }) == detail::quick_check::yes) {
             return;
         }
@@ -243,7 +316,32 @@ namespace boost { namespace text { inline namespace v1 {
         string temp;
         temp.reserve(s.size() / 2 * 3);
 
-        boost::text::v1::normalize_to_nfd_append_utf8(r.begin(), r.end(), temp);
+        boost::text::v1::normalize_append_utf8<Normalization>(
+            r.begin(), r.end(), temp);
+
+        if (temp.size() <= s.capacity())
+            s = temp;
+        else
+            s.swap(temp);
+    }
+
+#if 0
+    /** Puts the contents of `s` in Unicode normalization form NFD.
+        Normalization is not performed if `s` passes a normalization
+        quick-check. */
+    inline void normalize_to_nfd(string & s)
+    {
+        auto const r = as_utf32(s);
+        if (detail::normalized_quick_check(r.begin(), r.end(), [](uint32_t cp) {
+                return detail::quick_check_code_point<nf::d>(cp);
+            }) == detail::quick_check::yes) {
+            return;
+        }
+
+        string temp;
+        temp.reserve(s.size() / 2 * 3);
+
+        boost::text::v1::normalize_append_utf8<nf::d>(r.begin(), r.end(), temp);
 
         if (temp.size() <= s.capacity())
             s = temp;
@@ -258,7 +356,7 @@ namespace boost { namespace text { inline namespace v1 {
     {
         auto const r = as_utf32(s);
         if (detail::normalized_quick_check(r.begin(), r.end(), [](uint32_t cp) {
-                return detail::quick_check_nfkd_code_point(cp);
+                return detail::quick_check_code_point<nf::kd>(cp);
             }) == detail::quick_check::yes) {
             return;
         }
@@ -266,7 +364,7 @@ namespace boost { namespace text { inline namespace v1 {
         string temp;
         temp.reserve(s.size() / 2 * 3);
 
-        boost::text::v1::normalize_to_nfkd_append_utf8(
+        boost::text::v1::normalize_append_utf8<nf::kd>(
             r.begin(), r.end(), temp);
 
         if (temp.size() <= s.capacity())
@@ -282,7 +380,7 @@ namespace boost { namespace text { inline namespace v1 {
     {
         auto const r = as_utf32(s);
         if (detail::normalized_quick_check(r.begin(), r.end(), [](uint32_t cp) {
-                return detail::quick_check_nfc_code_point(cp);
+                return detail::quick_check_code_point<nf::c>(cp);
             }) == detail::quick_check::yes) {
             return;
         }
@@ -290,7 +388,7 @@ namespace boost { namespace text { inline namespace v1 {
         string temp;
         temp.reserve(temp.size());
 
-        boost::text::v1::normalize_to_nfc_append_utf8(r.begin(), r.end(), temp);
+        boost::text::v1::normalize_append_utf8<nf::c>(r.begin(), r.end(), temp);
 
         if (temp.size() <= s.capacity())
             s = temp;
@@ -305,7 +403,7 @@ namespace boost { namespace text { inline namespace v1 {
     {
         auto const r = as_utf32(s);
         if (detail::normalized_quick_check(r.begin(), r.end(), [](uint32_t cp) {
-                return detail::quick_check_nfkc_code_point(cp);
+                return detail::quick_check_code_point<nf::kc>(cp);
             }) == detail::quick_check::yes) {
             return;
         }
@@ -313,7 +411,7 @@ namespace boost { namespace text { inline namespace v1 {
         string temp;
         temp.reserve(s.size());
 
-        boost::text::v1::normalize_to_nfkc_append_utf8(
+        boost::text::v1::normalize_append_utf8<nf::kc>(
             r.begin(), r.end(), temp);
 
         if (temp.size() <= s.capacity())
@@ -331,13 +429,15 @@ namespace boost { namespace text { inline namespace v1 {
         string temp;
         temp.reserve(s.size());
 
-        boost::text::v1::normalize_to_fcc_append_utf8(r.begin(), r.end(), temp);
+        boost::text::v1::normalize_append_utf8<nf::fcc>(
+            r.begin(), r.end(), temp);
 
         if (temp.size() <= s.capacity())
             s = temp;
         else
             s.swap(temp);
     }
+#endif
 
 }}}
 

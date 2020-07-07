@@ -20,7 +20,7 @@
 #define BOOST_TEXT_CHECK_ROPE_NORMALIZATION()                                  \
     do {                                                                       \
         string str(rope_);                                                     \
-        normalize_to_fcc(str);                                                 \
+        normalize<nf::fcc>(str);                                               \
         BOOST_ASSERT(rope_ == str);                                            \
     } while (false)
 #else
@@ -694,13 +694,13 @@ namespace boost { namespace text { inline namespace v1 {
         first = boost::text::v1::find_if_backward(
             mutable_utf32_view_iter(this_rv_first, this_rv_first, this_rv_last),
             first,
-            detail::stable_fcc_code_point);
+            detail::stable_code_point<nf::fcc>);
         mutable_utf32_view_iter last(this_rv_first, rv_last, this_rv_last);
 
         last = boost::text::v1::find_if(
             last,
             mutable_utf32_view_iter(this_rv_last, this_rv_last, this_rv_last),
-            detail::stable_fcc_code_point);
+            detail::stable_code_point<nf::fcc>);
 
         string str(first.base(), rv_first);
         str.insert(str.end(), rv_last, last.base());
@@ -836,7 +836,7 @@ namespace boost { namespace text { inline namespace v1 {
         auto const first =
             mutable_utf32_iter(rope_.begin(), rope_.begin(), rope_.end());
         auto const it = boost::text::v1::find_if_backward(
-            first, last, detail::stable_fcc_code_point);
+            first, last, detail::stable_code_point<nf::fcc>);
         if (it == last)
             return first;
         return it;
@@ -848,7 +848,7 @@ namespace boost { namespace text { inline namespace v1 {
         auto const last =
             mutable_utf32_iter(rope_.begin(), rope_.end(), rope_.end());
         auto const it = boost::text::v1::find_if(
-            first, last, detail::stable_fcc_code_point);
+            first, last, detail::stable_code_point<nf::fcc>);
         return it;
     }
 
@@ -888,11 +888,11 @@ namespace boost { namespace text { inline namespace v1 {
                     boost::text::v1::find_if_backward(
                         utf32_string_iter(str.begin(), str.begin(), str.end()),
                         utf32_string_iter(str.begin(), str_first, str.end()),
-                        detail::stable_fcc_code_point)
+                        detail::stable_code_point<nf::fcc>)
                         .base();
                 auto const suffix = str(str_last - str.end()); // negative index
                 container::small_vector<char, 256> buf;
-                boost::text::v1::normalize_to_fcc(
+                boost::text::v1::normalize<nf::fcc>(
                     boost::text::v1::as_utf32(suffix.begin(), suffix.end()),
                     boost::text::v1::utf_32_to_8_back_inserter(buf));
                 str.replace(suffix, string_view(buf));
@@ -905,17 +905,17 @@ namespace boost { namespace text { inline namespace v1 {
                     find_if(
                         utf32_string_iter(str.begin(), str_first, str.end()),
                         utf32_string_iter(str.begin(), str.end(), str.end()),
-                        detail::stable_fcc_code_point)
+                        detail::stable_code_point<nf::fcc>)
                         .base();
                 auto const prefix = str(str_last - str.begin());
                 container::small_vector<char, 256> buf;
-                boost::text::v1::normalize_to_fcc(
+                boost::text::v1::normalize<nf::fcc>(
                     boost::text::v1::as_utf32(prefix.begin(), prefix.end()),
                     boost::text::v1::utf_32_to_8_back_inserter(buf));
                 str.replace(prefix, string_view(buf));
             }
         } else {
-            boost::text::v1::normalize_to_fcc(str);
+            boost::text::v1::normalize<nf::fcc>(str);
         }
 
         auto const prev_initial_cp = *first;

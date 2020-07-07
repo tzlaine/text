@@ -6,6 +6,7 @@
 #ifndef BOOST_TEXT_DETAIL_NORMALIZATION_DATA_HPP
 #define BOOST_TEXT_DETAIL_NORMALIZATION_DATA_HPP
 
+#include <boost/text/normalize_fwd.hpp>
 #include <boost/text/transcode_iterator.hpp>
 #include <boost/text/detail/lzw.hpp>
 
@@ -244,79 +245,76 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
     }
 
     /** Returns yes, no, or maybe if the given code point indicates that the
-        sequence in which it is found is normalized NFD. */
-    inline quick_check quick_check_nfd_code_point(uint32_t cp) noexcept
+        sequence in which it is found in normalization form Normalization. */
+    template<nf Normalization>
+    quick_check quick_check_code_point(uint32_t cp) noexcept
     {
-        static const two_stage_table<quick_check, 18, 10> table(
-            detail::cp_props_map().begin(),
-            detail::cp_props_map().end(),
-            [](std::pair<uint32_t, cp_props> const & p) {
-                auto const key = p.first;
-                BOOST_ASSERT(key < (uint32_t(1) << 18));
-                return key;
-            },
-            [](std::pair<uint32_t, cp_props> const & p) {
-                return quick_check(p.second.nfd_quick_check_);
-            },
-            quick_check::yes);
-        return table[cp];
-    }
-
-    /** Returns yes, no, or maybe if the given code point indicates that the
-        sequence in which it is found is normalized NFKD. */
-    inline quick_check quick_check_nfkd_code_point(uint32_t cp) noexcept
-    {
-        static const two_stage_table<quick_check, 18, 10> table(
-            detail::cp_props_map().begin(),
-            detail::cp_props_map().end(),
-            [](std::pair<uint32_t, cp_props> const & p) {
-                auto const key = p.first;
-                BOOST_ASSERT(key < (uint32_t(1) << 18));
-                return key;
-            },
-            [](std::pair<uint32_t, cp_props> const & p) {
-                return quick_check(p.second.nfkd_quick_check_);
-            },
-            quick_check::yes);
-        return table[cp];
-    }
-
-    /** Returns yes, no, or maybe if the given code point indicates that the
-        sequence in which it is found is normalized NFC. */
-    inline quick_check quick_check_nfc_code_point(uint32_t cp) noexcept
-    {
-        static const two_stage_table<quick_check, 18, 10> table(
-            detail::cp_props_map().begin(),
-            detail::cp_props_map().end(),
-            [](std::pair<uint32_t, cp_props> const & p) {
-                auto const key = p.first;
-                BOOST_ASSERT(key < (uint32_t(1) << 18));
-                return key;
-            },
-            [](std::pair<uint32_t, cp_props> const & p) {
-                return quick_check(p.second.nfc_quick_check_);
-            },
-            quick_check::yes);
-        return table[cp];
-    }
-
-    /** Returns yes, no, or maybe if the given code point indicates that the
-        sequence in which it is found is normalized NFKC. */
-    inline quick_check quick_check_nfkc_code_point(uint32_t cp) noexcept
-    {
-        static const two_stage_table<quick_check, 18, 10> table(
-            detail::cp_props_map().begin(),
-            detail::cp_props_map().end(),
-            [](std::pair<uint32_t, cp_props> const & p) {
-                auto const key = p.first;
-                BOOST_ASSERT(key < (uint32_t(1) << 18));
-                return key;
-            },
-            [](std::pair<uint32_t, cp_props> const & p) {
-                return quick_check(p.second.nfkc_quick_check_);
-            },
-            quick_check::yes);
-        return table[cp];
+        BOOST_TEXT_STATIC_ASSERT_NORMALIZATION();
+        switch (Normalization) {
+        case nf::c: {
+        case nf::fcc:
+            static const two_stage_table<quick_check, 18, 10> table(
+                detail::cp_props_map().begin(),
+                detail::cp_props_map().end(),
+                [](std::pair<uint32_t, cp_props> const & p) {
+                    auto const key = p.first;
+                    BOOST_ASSERT(key < (uint32_t(1) << 18));
+                    return key;
+                },
+                [](std::pair<uint32_t, cp_props> const & p) {
+                    return quick_check(p.second.nfc_quick_check_);
+                },
+                quick_check::yes);
+            return table[cp];
+        }
+        case nf::d: {
+            static const two_stage_table<quick_check, 18, 10> table(
+                detail::cp_props_map().begin(),
+                detail::cp_props_map().end(),
+                [](std::pair<uint32_t, cp_props> const & p) {
+                    auto const key = p.first;
+                    BOOST_ASSERT(key < (uint32_t(1) << 18));
+                    return key;
+                },
+                [](std::pair<uint32_t, cp_props> const & p) {
+                    return quick_check(p.second.nfd_quick_check_);
+                },
+                quick_check::yes);
+            return table[cp];
+        }
+        case nf::kc: {
+            static const two_stage_table<quick_check, 18, 10> table(
+                detail::cp_props_map().begin(),
+                detail::cp_props_map().end(),
+                [](std::pair<uint32_t, cp_props> const & p) {
+                    auto const key = p.first;
+                    BOOST_ASSERT(key < (uint32_t(1) << 18));
+                    return key;
+                },
+                [](std::pair<uint32_t, cp_props> const & p) {
+                    return quick_check(p.second.nfkc_quick_check_);
+                },
+                quick_check::yes);
+            return table[cp];
+        }
+        case nf::kd: {
+            static const two_stage_table<quick_check, 18, 10> table(
+                detail::cp_props_map().begin(),
+                detail::cp_props_map().end(),
+                [](std::pair<uint32_t, cp_props> const & p) {
+                    auto const key = p.first;
+                    BOOST_ASSERT(key < (uint32_t(1) << 18));
+                    return key;
+                },
+                [](std::pair<uint32_t, cp_props> const & p) {
+                    return quick_check(p.second.nfkd_quick_check_);
+                },
+                quick_check::yes);
+            return table[cp];
+        }
+        default: BOOST_ASSERT(!"Unreachable");
+        }
+        return quick_check::no;
     }
 
     struct decomposition
@@ -349,53 +347,18 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         return decomposition{base + indices.first_, base + indices.last_};
     }
 
-    /** Returns true iff `cp` is a stable code point under NFC normalization
-        (meaning that it is ccc=0 and Quick_Check_NFC=Yes).
+    /** Returns true iff `cp` is a stable code point under normalization form
+        `Normalization` (meaning that it is ccc=0 and
+        Quick_Check_<<Normalization>>=Yes).
 
         \see https://www.unicode.org/reports/tr15/#Stable_Code_Points */
-    inline bool stable_nfc_code_point(uint32_t cp) noexcept
+    template<nf Normalization>
+    bool stable_code_point(uint32_t cp) noexcept
     {
+        BOOST_TEXT_STATIC_ASSERT_NORMALIZATION();
+        constexpr nf form = Normalization == nf::fcc ? nf::c : Normalization;
         return detail::ccc(cp) &&
-               quick_check_nfc_code_point(cp) == quick_check::yes;
-    }
-
-    /** Returns true iff `cp` is a stable code point under NFD normalization
-        (meaning that it is ccc=0 and Quick_Check_NFD=Yes).
-
-        \see https://www.unicode.org/reports/tr15/#Stable_Code_Points */
-    inline bool stable_nfd_code_point(uint32_t cp) noexcept
-    {
-        return detail::ccc(cp) &&
-               quick_check_nfd_code_point(cp) == quick_check::yes;
-    }
-
-    /** Returns true iff `cp` is a stable code point under NFKC normalization
-        (meaning that it is ccc=0 and Quick_Check_NFKC=Yes).
-
-        \see https://www.unicode.org/reports/tr15/#Stable_Code_Points */
-    inline bool stable_nfkc_code_point(uint32_t cp) noexcept
-    {
-        return detail::ccc(cp) &&
-               quick_check_nfkc_code_point(cp) == quick_check::yes;
-    }
-
-    /** Returns true iff `cp` is a stable code point under NFKD normalization
-        (meaning that it is ccc=0 and Quick_Check_NFKD=Yes).
-
-        \see https://www.unicode.org/reports/tr15/#Stable_Code_Points */
-    inline bool stable_nfkd_code_point(uint32_t cp) noexcept
-    {
-        return detail::ccc(cp) &&
-               quick_check_nfkd_code_point(cp) == quick_check::yes;
-    }
-
-    /** Returns true iff `cp` is a stable code point under FCC normalization
-        (meaning that it is ccc=0 and Quick_Check_NFC=Yes).
-
-        \see https://www.unicode.org/reports/tr15/#Stable_Code_Points */
-    inline bool stable_fcc_code_point(uint32_t cp) noexcept
-    {
-        return stable_nfc_code_point(cp);
+               quick_check_code_point<form>(cp) == quick_check::yes;
     }
 
     struct lzw_to_cp_props_iter

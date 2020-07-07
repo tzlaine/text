@@ -86,7 +86,7 @@ TEST(collation, relative_{4}_{5})
             g_cps.begin() + r.first, g_cps.begin() + r.second);
 
         curr_cps.clear();
-        boost::text::normalize_to_fcc(
+        boost::text::normalize<boost::text::nf::fcc>(
             curr_un_norm, std::back_inserter(curr_cps));
 
         curr_key = boost::text::collation_sort_key(
@@ -384,8 +384,8 @@ def comparison_tests(compares, test_strength):
 
         text::string a = {2};
         text::string b = {3};
-        normalize_to_fcc(a);
-        normalize_to_fcc(b);
+        normalize<boost::text::nf::fcc>(a);
+        normalize<boost::text::nf::fcc>(b);
 
         EXPECT_EQ(text::collate(
             text::utf32_range(a),

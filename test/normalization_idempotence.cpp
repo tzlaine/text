@@ -27,16 +27,16 @@ TEST(normalization, idempotence)
         boost::text::string str = boost::text::to_string(cp, cp + 1);
         boost::text::string const initial_str = str;
 
-        boost::text::normalize_to_nfc(str);
+        boost::text::normalize<boost::text::nf::c>(str);
         EXPECT_EQ(str, initial_str);
 
-        boost::text::normalize_to_nfd(str);
+        boost::text::normalize<boost::text::nf::d>(str);
         EXPECT_EQ(str, initial_str);
 
-        boost::text::normalize_to_nfkd(str);
+        boost::text::normalize<boost::text::nf::kd>(str);
         EXPECT_EQ(str, initial_str);
 
-        boost::text::normalize_to_nfkc(str);
+        boost::text::normalize<boost::text::nf::kc>(str);
         EXPECT_EQ(str, initial_str);
     }
 }

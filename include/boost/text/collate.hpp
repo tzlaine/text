@@ -802,7 +802,7 @@ namespace boost { namespace text { inline namespace v1 {
 
             level_sort_key_values_t nfd;
             if (collation_strength::quaternary < strength) {
-                boost::text::v1::normalize_to_nfd(
+                boost::text::v1::normalize<nf::d>(
                     cps_first, cps_last, std::back_inserter(nfd));
             }
 

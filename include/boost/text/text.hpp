@@ -23,7 +23,7 @@
 #define BOOST_TEXT_CHECK_TEXT_NORMALIZATION()                                  \
     do {                                                                       \
         string str2(str_);                                                     \
-        normalize_to_fcc(str2);                                                \
+        normalize<nf::fcc>(str2);                                              \
         BOOST_ASSERT(str_ == str2);                                            \
     } while (false)
 #else
@@ -649,10 +649,10 @@ namespace boost { namespace text { inline namespace v1 {
 
     inline text::text(char const * c_str) : str_(c_str)
     {
-        normalize_to_fcc(str_);
+        normalize<nf::fcc>(str_);
     }
 
-    inline text::text(string s) : str_(std::move(s)) { normalize_to_fcc(str_); }
+    inline text::text(string s) : str_(std::move(s)) { normalize<nf::fcc>(str_); }
 
     inline text::text(text_view tv) : str_()
     {
@@ -660,18 +660,18 @@ namespace boost { namespace text { inline namespace v1 {
         BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
     }
 
-    inline text::text(string_view sv) : str_(sv) { normalize_to_fcc(str_); }
+    inline text::text(string_view sv) : str_(sv) { normalize<nf::fcc>(str_); }
 
     inline text::text(repeated_string_view rsv) : str_(rsv)
     {
-        normalize_to_fcc(str_);
+        normalize<nf::fcc>(str_);
     }
 
     template<typename CharRange>
     text::text(CharRange const & r, detail::rng_alg_ret_t<int *, CharRange>) :
         str_(r)
     {
-        normalize_to_fcc(str_);
+        normalize<nf::fcc>(str_);
     }
 
     template<typename CharIter, typename Sentinel>
@@ -681,7 +681,7 @@ namespace boost { namespace text { inline namespace v1 {
         detail::char_iter_ret_t<void *, CharIter>) :
         str_(first, last)
     {
-        normalize_to_fcc(str_);
+        normalize<nf::fcc>(str_);
     }
 
     template<typename GraphemeRange>
@@ -694,14 +694,14 @@ namespace boost { namespace text { inline namespace v1 {
     inline text & text::operator=(char const * c_str)
     {
         str_ = string_view(c_str);
-        normalize_to_fcc(str_);
+        normalize<nf::fcc>(str_);
         return *this;
     }
 
     inline text & text::operator=(string s)
     {
         str_ = std::move(s);
-        normalize_to_fcc(str_);
+        normalize<nf::fcc>(str_);
         return *this;
     }
 
@@ -715,14 +715,14 @@ namespace boost { namespace text { inline namespace v1 {
     inline text & text::operator=(string_view sv)
     {
         str_ = sv;
-        normalize_to_fcc(str_);
+        normalize<nf::fcc>(str_);
         return *this;
     }
 
     inline text & text::operator=(repeated_string_view rsv)
     {
         str_ = rsv;
-        normalize_to_fcc(str_);
+        normalize<nf::fcc>(str_);
         return *this;
     }
 
@@ -731,7 +731,7 @@ namespace boost { namespace text { inline namespace v1 {
         -> detail::rng_alg_ret_t<text &, CharRange>
     {
         str_ = r;
-        normalize_to_fcc(str_);
+        normalize<nf::fcc>(str_);
         return *this;
     }
 
@@ -902,7 +902,7 @@ namespace boost { namespace text { inline namespace v1 {
         auto const first =
             mutable_utf32_iter(str_.begin(), str_.begin(), str_.end());
         auto const it =
-            find_if_backward(first, last, detail::stable_fcc_code_point);
+            find_if_backward(first, last, detail::stable_code_point<nf::fcc>);
         if (it == last)
             return first;
         return it;
@@ -913,7 +913,8 @@ namespace boost { namespace text { inline namespace v1 {
     {
         auto const last =
             mutable_utf32_iter(str_.begin(), str_.end(), str_.end());
-        auto const it = find_if(first, last, detail::stable_fcc_code_point);
+        auto const it =
+            find_if(first, last, detail::stable_code_point<nf::fcc>);
         return it;
     }
 
@@ -931,7 +932,7 @@ namespace boost { namespace text { inline namespace v1 {
             return from_near_offset;
 
         container::small_vector<char, 256> buf;
-        normalize_to_fcc(first, last, utf_32_to_8_back_inserter(buf));
+        normalize<nf::fcc>(first, last, utf_32_to_8_back_inserter(buf));
         auto const initial_cp =
             *make_utf_8_to_32_iterator(&buf[0], &buf[0], &*buf.end());
         auto const prev_initial_cp = *first;

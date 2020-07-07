@@ -50,6 +50,25 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
             s_->insert(s_->end(), first, last);
         }
 
+        typename String::iterator out() const { return s_->end(); }
+
+    private:
+        String * s_;
+    };
+
+    template<typename String>
+    struct utf16_string_appender
+    {
+        explicit utf16_string_appender(String & s) : s_(&s) {}
+
+        template<typename CharIter>
+        _16_iter_ret_t<void, CharIter> append(CharIter first, CharIter last)
+        {
+            s_->insert(s_->end(), first, last);
+        }
+
+        typename String::iterator out() const { return s_->end(); }
+
     private:
         String * s_;
     };

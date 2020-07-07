@@ -13,20 +13,24 @@ int main ()
 //[ normalize_1
 // 쨰◌̴ᆮ HANGUL SYLLABLE JJYAE, COMBINING TILDE OVERLAY, HANGUL JONGSEONG TIKEUT
 std::array<uint32_t, 4> const nfd = {{ 0x110D, 0x1164, 0x0334, 0x11AE }};
-assert(boost::text::normalized_nfd(nfd.begin(), nfd.end())); // Iterator interface.
+// Iterator interface.
+assert(boost::text::normalized<boost::text::nf::d>(nfd.begin(), nfd.end()));
 
 {
     std::vector<uint32_t> nfc;
-    boost::text::normalize_to_nfc(
-        nfd.begin(), nfd.end(), std::back_inserter(nfc)); // Iterator interface.
-    assert(boost::text::normalized_nfc(nfc));             // Range interface.
+    // Iterator interface.
+    boost::text::normalize<boost::text::nf::c>(
+        nfd.begin(), nfd.end(), std::back_inserter(nfc));
+    // Range interface.
+    assert(boost::text::normalized<boost::text::nf::c>(nfc));
 }
 
 {
     std::vector<uint32_t> nfc;
-    boost::text::normalize_to_nfc(
-        nfd, std::back_inserter(nfc));        // Range interface.
-    assert(boost::text::normalized_nfc(nfc)); // Range interface.
+    // Range interface.
+    boost::text::normalize<boost::text::nf::c>(nfd, std::back_inserter(nfc));
+    // Range interface.
+    assert(boost::text::normalized<boost::text::nf::c>(nfc));
 }
 //]
 }

@@ -368,15 +368,21 @@ normalization form called FCC that is described in _tn5_.  FCC is just as
 compact as the most compact official form, NFC, except in a few degenerate
 cases.  FCC is particularly useful when doing collation.
 
-The algorithms are of the form `normalize_to_X()`, and there are range and
-iterator-based interfaces.  The iterator interfaces require iterators that
-model _CPIter_, and ranges that model _CPRng_.  There are also algorithms that
-can check if a _cp_ sequence is in a certain normalization form.
+The algorithm is invoked as `normalize<X>()`, where `X` is one of the
+enumerators of _nf_ ("Normalization Form").  Range and iterator-based
+overloads are provided.  The iterator interfaces require iterators that model
+_CPIter_, and ranges that model _CPRng_.  There are also algorithms that can
+check if a _cp_ sequence is in a certain normalization form.
 
 [normalize_1]
 
 There are _s_-specific in-place normalization functions as well, in
 _norm_str_header_.
+
+[\note When you're working entirely within a UTF-8 encoding (on both sides of
+the normalization operation), the most efficient version of the normalization
+API is `normalize_append_utf8()`.  See _norm_str_header_ if that's your use
+case. ]
 
 [endsect]
 

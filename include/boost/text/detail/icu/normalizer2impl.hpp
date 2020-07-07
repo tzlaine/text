@@ -274,7 +274,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
             s_->resize(out - s_first, typename String::value_type{});
         }
 
-        int out() const noexcept { return 0; }
+        typename String::iterator out() const noexcept { return s_->end(); }
 
     private:
         String * s_;

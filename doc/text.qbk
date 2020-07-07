@@ -88,6 +88,7 @@
 [def _sbs_                 [classref boost::text::v1::string_builder `string_builder`s]]
 [def _ssb_                 [classref boost::text::v1::static_string_builder `static_string_builder`]]
 [def _ssbs_                [classref boost::text::v1::static_string_builder `static_string_builder`s]]
+[def _nf_                  [classref boost::text::v1::nf `nf`]]
 
 [def _cu_                  code unit]
 [def _cus_                 code units]
