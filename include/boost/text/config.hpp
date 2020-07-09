@@ -21,6 +21,19 @@
 
 #ifndef BOOST_TEXT_DOXYGEN
 
+// The inline namespaces v1 and v2 represent pre- and post-C++20.  v1 is
+// inline for standards before C++20, and v2 is inline for C++20 and later.
+// Note that this only applies to code for which a v2 namespace alternative
+// exists.  Some instances of the v1 namespace may still be inline, if there
+// is no v2 version of its contents.
+#if __cplusplus < 202002L || !defined(__cpp_lib_concepts)
+#    define BOOST_TEXT_NAMESPACE_V1 inline namespace v1
+#    define BOOST_TEXT_NAMESPACE_V2 namespace v2
+#else
+#    define BOOST_TEXT_NAMESPACE_V1 namespace v1
+#    define BOOST_TEXT_NAMESPACE_V2 inline namespace v2
+#endif
+
 // Nothing before GCC 6 has proper C++14 constexpr support.
 #if defined(__GNUC__) && __GNUC__ < 6 && !defined(__clang__)
 #    define BOOST_TEXT_CXX14_CONSTEXPR
