@@ -15,7 +15,8 @@
 
 
 template<template<class...> class Template, typename... Args>
-using ill_formed = typename boost::text::detail::
-    detector<boost::text::detail::nonesuch, void, Template, Args...>;
+using ill_formed = std::integral_constant<
+    bool,
+    !boost::text::detail::is_detected<Template, Args...>::value>;
 
 #endif

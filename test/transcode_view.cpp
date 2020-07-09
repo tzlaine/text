@@ -123,7 +123,7 @@ TEST(transcode_view, detail_unpack_base_case)
 template<typename Iter>
 using bad_unpack_t = decltype(detail::unpack_iterator_and_sentinel(
     std::declval<Iter>(), std::declval<Iter>()));
-static_assert(!ill_formed<bad_unpack_t, uint64_t *>::value_t::value, "");
+static_assert(ill_formed<bad_unpack_t, uint64_t *>::value, "");
 
 TEST(transcode_view, detail_unpack_8_N)
 {
