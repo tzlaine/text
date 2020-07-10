@@ -22,47 +22,6 @@ namespace boost { namespace text { inline namespace v1 {
 
     namespace detail {
 
-#if 0
-        // NOTE: The logic in
-        // http://www.unicode.org/reports/tr15/tr15-45.html#Detecting_Normalization_Forms
-        // seems to indicate that if a supplementary code point is encountered
-        // in normalized_quick_check(), then we should proceed as normal for
-        // this iteration, but then do a double increment of the loop control
-        // variable.  That looks wrong, so I'm leaving that out for now.
-        bool supplemantary(uint32_t cp)
-        {
-            return 0x10000 <= cp && cp <= 0x10FFFF;
-        }
-#endif
-
-        template<typename Iter, typename Sentinel, typename QuickCheckFunc>
-        quick_check normalized_quick_check(
-            Iter first, Sentinel last, QuickCheckFunc && quick_check_) noexcept
-        {
-            quick_check retval = quick_check::yes;
-            int prev_ccc = 0;
-            while (first != last) {
-                auto const cp = *first;
-#if 0
-                // See note above.
-                if (supplemantary(cp))
-                    ++first;
-#endif
-                auto const check = quick_check_(cp);
-                if (check == quick_check::no)
-                    return quick_check::no;
-                if (check == quick_check::maybe)
-                    retval = quick_check::maybe;
-                auto const ccc_ = detail::ccc(cp);
-                if (ccc_ && ccc_ < prev_ccc)
-                    return quick_check::no;
-                prev_ccc = ccc_;
-                ++first;
-            }
-            return retval;
-        }
-
-
         template<typename CPIter, typename Sentinel>
         using utf8_range_expr = is_char_iter<decltype(
             detail::unpack_iterator_and_sentinel(

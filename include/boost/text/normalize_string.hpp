@@ -195,13 +195,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     template<nf Normalization, typename String>
     void normalize(String & s)
     {
-        // TODO: Remove!
         auto const r = as_utf32(s);
-        if (detail::normalized_quick_check(r.begin(), r.end(), [](uint32_t cp) {
-                return detail::quick_check_code_point<Normalization>(cp);
-            }) == detail::quick_check::yes) {
-            return;
-        }
 
         detail::normalize_string_impl<String> impl;
 
@@ -264,13 +258,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<nf Normalization, utf_string String>
     void normalize(String & s)
     {
-        // TODO: Remove!
         auto const r = as_utf32(s);
-        if (detail::normalized_quick_check(r.begin(), r.end(), [](uint32_t cp) {
-                return detail::quick_check_code_point<Normalization>(cp);
-            }) == detail::quick_check::yes) {
-            return;
-        }
 
         String temp;
         if constexpr (detail::reserve_capacity_range<String>) {

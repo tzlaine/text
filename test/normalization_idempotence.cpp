@@ -22,6 +22,8 @@ TEST(normalization, idempotence)
     for (uint32_t i = 0; i < 0x11000; ++i) {
         if (handled_cps.count(i))
             continue;
+        if (boost::text::surrogate(i))
+            continue;
 
         uint32_t cp[1] = {i};
         boost::text::string str = boost::text::to_string(cp, cp + 1);
