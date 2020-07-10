@@ -204,12 +204,14 @@ namespace boost { namespace stl_interfaces { inline namespace v1 {
 #if 201703L < __cplusplus && defined(__cpp_lib_concepts) ||                    \
     defined(BOOST_STL_INTERFACES_DOXYGEN)
 
+#include <ranges>
+
 namespace boost { namespace stl_interfaces { namespace v2 {
 
     /** A template alias for `std::view_interface`.  This only exists to make
         migration from Boost.STLInterfaces to C++20 easier; switch to the one
         in `std` as soon as you can. */
-    template<typename D, bool = v1::discontiguous>
+    template<typename D, bool = false>
     using view_interface = std::ranges::view_interface<D>;
 
 }}}
