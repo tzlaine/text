@@ -25,7 +25,7 @@ namespace boost { namespace text { namespace v2 {
         concept u_x_ptr = std::is_pointer_v<T> && u_x_iter<T, Bytes>;
 
         template<typename T, int Bytes>
-        concept u_x_range = std::ranges::range<T> &&
+        concept u_x_range = std::ranges::forward_range<T> &&
             u_x_iter<std::ranges::iterator_t<T>, Bytes>;
 
         template<typename T, int Bytes>
@@ -82,10 +82,13 @@ namespace boost { namespace text { namespace v2 {
     template<typename T>
     concept u8_code_unit = detail::cu_x<T, 1>;
 
+    // TODO: grapheme_iterator, grapheme_range, apply to grapeme_char_range
+
     template<typename T>
     concept grapheme_char_range =
         // clang-format off
-        std::ranges::range<T> && requires(T const t) {
+        std::ranges::forward_range<T> && requires(T const t) {
+        { t.begin().base() } -> code_point_iter;
         { t.begin().base().base() } -> u8_iter;
         // clang-format on
     };
@@ -105,7 +108,7 @@ namespace boost { namespace text { namespace v2 {
         template<typename T>
         concept eraseable_range =
             // clang-format off
-            std::ranges::range<T> && requires(T t) {
+            std::ranges::sized_range<T> && requires(T t) {
             { t.erase(t.begin(), t.end()) } -> std::same_as<std::ranges::iterator_t<T>>;
             // clang-format on
         };
