@@ -222,12 +222,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
-    /** Appends sequence `[first, last)` in normalization form `Normalization`
-        to `s`.  The output is UTF-8 if `sizeof(*s.begin()) == 1`, and UTF-16
-        otherwise.
-
-        This function only participates in overload resolution if `CPIter`
-        models the CPIter concept. */
+    /** Appends `[first, last)` in normalization form `Normalization` to `s`.
+        The output is UTF-8 if `sizeof(*s.begin()) == 1`, and UTF-16
+        otherwise. */
     template<
         nf Normalization,
         code_point_iterator I,
@@ -242,9 +239,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         return s;
     }
 
-    /** Appends sequence `r` in normalization form `Normalization` to `s`.
-        The output is UTF-8 if `sizeof(*s.begin()) == 1`, and UTF-16
-        otherwise. */
+    /** Appends `r` in normalization form `Normalization` to `s`.  The output
+        is UTF-8 if `sizeof(*s.begin()) == 1`, and UTF-16 otherwise. */
     template<nf Normalization, code_point_range R, utf_string String>
     inline void normalize_append(R const & r, String & s)
     {
