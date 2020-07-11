@@ -20,8 +20,8 @@ namespace boost { namespace text { inline namespace v1 {
             stl_interfaces::reverse_iterator<const_rope_view_iterator>;
     }
 
-    /** A reference to a substring of an unencoded_rope, string, string_view,
-        or repeated_string_view. */
+    /** A reference to a substring of an unencoded_rope, string, or
+        string_view. */
     struct unencoded_rope_view
     {
         using value_type = char;
@@ -63,10 +63,10 @@ namespace boost { namespace text { inline namespace v1 {
 
         /** Constructs an unencoded_rope_view covering the entire given
             string. */
-        unencoded_rope_view(string const & s) noexcept;
+        unencoded_rope_view(std::string const & s) noexcept;
 
         /** Forbid construction from a temporary string. */
-        unencoded_rope_view(string && r) noexcept = delete;
+        unencoded_rope_view(std::string && r) noexcept = delete;
 
         /** Constructs a substring of s, taken from the range of chars at
             offsets [lo, hi).  If either of lo or hi is a negative value x, x
@@ -81,7 +81,7 @@ namespace boost { namespace text { inline namespace v1 {
             \pre lo <= hi
             \post size() == s.size() && begin() == s.begin() + lo && end() ==
             s.begin() + hi */
-        unencoded_rope_view(string const & s, int lo, int hi);
+        unencoded_rope_view(std::string const & s, int lo, int hi);
 
         /** Constructs an unencoded_rope_view from a null-terminated C string.
 
@@ -97,29 +97,6 @@ namespace boost { namespace text { inline namespace v1 {
             ref_(sv),
             which_(which::tv)
         {}
-
-        /** Constructs an unencoded_rope_view covering the entire given
-            repeated_string_view. */
-        unencoded_rope_view(repeated_string_view rsv) noexcept :
-            ref_(repeated_ref(rsv, 0, rsv.size())),
-            which_(which::rtv)
-        {}
-
-        /** Constructs a substring of rsv, taken from the range of chars at
-            offsets [lo, hi).  If either of lo or hi is a negative value x, x
-            is taken to be an offset from the end, and so x + size() is used
-            instead.
-
-            These preconditions apply to the values used after size() is added
-            to any negative arguments.
-
-            \pre 0 <= lo && lo <= rsv.size()
-            \pre 0 <= hi && lhi <= rsv.size()
-            \pre lo <= hi
-            \post size() == rsv.size() && begin() == rsv.begin() + lo && end()
-             == rsv.begin() + hi */
-        unencoded_rope_view(
-            repeated_string_view rsv, size_type lo, size_type hi);
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -231,7 +208,7 @@ namespace boost { namespace text { inline namespace v1 {
         }
 
         /** Assignment from a string. */
-        unencoded_rope_view & operator=(string const & s) noexcept
+        unencoded_rope_view & operator=(std::string const & s) noexcept
         {
             return *this = unencoded_rope_view(s);
         }
@@ -240,7 +217,7 @@ namespace boost { namespace text { inline namespace v1 {
         unencoded_rope_view & operator=(unencoded_rope && r) noexcept = delete;
 
         /** Forbid assignment from a string. */
-        unencoded_rope_view & operator=(string && s) noexcept = delete;
+        unencoded_rope_view & operator=(std::string && s) noexcept = delete;
 
         /** Assignment from a null-terminated C string.
 
@@ -254,12 +231,6 @@ namespace boost { namespace text { inline namespace v1 {
         unencoded_rope_view & operator=(string_view sv) noexcept
         {
             return *this = unencoded_rope_view(sv);
-        }
-
-        /** Assignment from a repeated_string_view. */
-        unencoded_rope_view & operator=(repeated_string_view rsv) noexcept
-        {
-            return *this = unencoded_rope_view(rsv);
         }
 
 #ifdef BOOST_TEXT_DOXYGEN
@@ -302,7 +273,7 @@ namespace boost { namespace text { inline namespace v1 {
 #ifndef BOOST_TEXT_DOXYGEN
 
     private:
-        enum class which { r, tv, rtv };
+        enum class which { r, tv };
 
         struct rope_ref
         {
@@ -321,32 +292,13 @@ namespace boost { namespace text { inline namespace v1 {
             size_type hi_;
         };
 
-        struct repeated_ref
-        {
-            repeated_ref() : rtv_(), lo_(0), hi_(0) {}
-            repeated_ref(
-                repeated_string_view rtv,
-                std::ptrdiff_t lo,
-                std::ptrdiff_t hi) :
-                rtv_(rtv),
-                lo_(lo),
-                hi_(hi)
-            {}
-
-            repeated_string_view rtv_;
-            size_type lo_;
-            size_type hi_;
-        };
-
         union ref
         {
             ref(rope_ref r) : r_(r) {}
             ref(string_view tv) : tv_(tv) {}
-            ref(repeated_ref rtv) : rtv_(rtv) {}
 
             rope_ref r_;
             string_view tv_;
-            repeated_ref rtv_;
         };
 
         unencoded_rope_view(
@@ -404,22 +356,6 @@ namespace boost { namespace text { inline namespace v1 {
 }}}
 
 #include <boost/text/unencoded_rope.hpp>
-
-namespace boost { namespace text { inline namespace v1 {
-
-    inline unencoded_rope_view repeated_string_view::
-    operator()(size_type lo, size_type hi) const
-    {
-        return unencoded_rope_view(*this)(hi, lo);
-    }
-
-    inline unencoded_rope_view repeated_string_view::
-    operator()(size_type cut) const
-    {
-        return unencoded_rope_view(*this)(cut);
-    }
-
-}}}
 
 #ifndef BOOST_TEXT_DOXYGEN
 

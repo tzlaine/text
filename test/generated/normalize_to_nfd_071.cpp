@@ -41,7 +41,7 @@ TEST(normalization, nfd_071_000)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -55,7 +55,7 @@ TEST(normalization, nfd_071_000)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -69,7 +69,7 @@ TEST(normalization, nfd_071_000)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -83,7 +83,7 @@ TEST(normalization, nfd_071_000)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -97,7 +97,7 @@ TEST(normalization, nfd_071_000)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -138,7 +138,7 @@ TEST(normalization, nfd_071_001)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -152,7 +152,7 @@ TEST(normalization, nfd_071_001)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -166,7 +166,7 @@ TEST(normalization, nfd_071_001)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -180,7 +180,7 @@ TEST(normalization, nfd_071_001)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -194,7 +194,7 @@ TEST(normalization, nfd_071_001)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -235,7 +235,7 @@ TEST(normalization, nfd_071_002)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -249,7 +249,7 @@ TEST(normalization, nfd_071_002)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -263,7 +263,7 @@ TEST(normalization, nfd_071_002)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -277,7 +277,7 @@ TEST(normalization, nfd_071_002)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -291,7 +291,7 @@ TEST(normalization, nfd_071_002)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -334,7 +334,7 @@ TEST(normalization, nfd_071_003)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -348,7 +348,7 @@ TEST(normalization, nfd_071_003)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -362,7 +362,7 @@ TEST(normalization, nfd_071_003)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -376,7 +376,7 @@ TEST(normalization, nfd_071_003)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -390,7 +390,7 @@ TEST(normalization, nfd_071_003)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -433,7 +433,7 @@ TEST(normalization, nfd_071_004)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -447,7 +447,7 @@ TEST(normalization, nfd_071_004)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -461,7 +461,7 @@ TEST(normalization, nfd_071_004)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -475,7 +475,7 @@ TEST(normalization, nfd_071_004)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -489,7 +489,7 @@ TEST(normalization, nfd_071_004)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -532,7 +532,7 @@ TEST(normalization, nfd_071_005)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -546,7 +546,7 @@ TEST(normalization, nfd_071_005)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -560,7 +560,7 @@ TEST(normalization, nfd_071_005)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -574,7 +574,7 @@ TEST(normalization, nfd_071_005)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -588,7 +588,7 @@ TEST(normalization, nfd_071_005)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -631,7 +631,7 @@ TEST(normalization, nfd_071_006)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -645,7 +645,7 @@ TEST(normalization, nfd_071_006)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -659,7 +659,7 @@ TEST(normalization, nfd_071_006)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -673,7 +673,7 @@ TEST(normalization, nfd_071_006)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -687,7 +687,7 @@ TEST(normalization, nfd_071_006)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -730,7 +730,7 @@ TEST(normalization, nfd_071_007)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -744,7 +744,7 @@ TEST(normalization, nfd_071_007)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -758,7 +758,7 @@ TEST(normalization, nfd_071_007)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -772,7 +772,7 @@ TEST(normalization, nfd_071_007)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -786,7 +786,7 @@ TEST(normalization, nfd_071_007)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -829,7 +829,7 @@ TEST(normalization, nfd_071_008)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -843,7 +843,7 @@ TEST(normalization, nfd_071_008)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -857,7 +857,7 @@ TEST(normalization, nfd_071_008)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -871,7 +871,7 @@ TEST(normalization, nfd_071_008)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -885,7 +885,7 @@ TEST(normalization, nfd_071_008)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -928,7 +928,7 @@ TEST(normalization, nfd_071_009)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -942,7 +942,7 @@ TEST(normalization, nfd_071_009)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -956,7 +956,7 @@ TEST(normalization, nfd_071_009)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -970,7 +970,7 @@ TEST(normalization, nfd_071_009)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -984,7 +984,7 @@ TEST(normalization, nfd_071_009)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -1027,7 +1027,7 @@ TEST(normalization, nfd_071_010)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1041,7 +1041,7 @@ TEST(normalization, nfd_071_010)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1055,7 +1055,7 @@ TEST(normalization, nfd_071_010)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1069,7 +1069,7 @@ TEST(normalization, nfd_071_010)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -1083,7 +1083,7 @@ TEST(normalization, nfd_071_010)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -1126,7 +1126,7 @@ TEST(normalization, nfd_071_011)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1140,7 +1140,7 @@ TEST(normalization, nfd_071_011)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1154,7 +1154,7 @@ TEST(normalization, nfd_071_011)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1168,7 +1168,7 @@ TEST(normalization, nfd_071_011)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -1182,7 +1182,7 @@ TEST(normalization, nfd_071_011)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -1225,7 +1225,7 @@ TEST(normalization, nfd_071_012)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1239,7 +1239,7 @@ TEST(normalization, nfd_071_012)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1253,7 +1253,7 @@ TEST(normalization, nfd_071_012)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1267,7 +1267,7 @@ TEST(normalization, nfd_071_012)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -1281,7 +1281,7 @@ TEST(normalization, nfd_071_012)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -1324,7 +1324,7 @@ TEST(normalization, nfd_071_013)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1338,7 +1338,7 @@ TEST(normalization, nfd_071_013)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1352,7 +1352,7 @@ TEST(normalization, nfd_071_013)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1366,7 +1366,7 @@ TEST(normalization, nfd_071_013)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -1380,7 +1380,7 @@ TEST(normalization, nfd_071_013)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -1423,7 +1423,7 @@ TEST(normalization, nfd_071_014)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1437,7 +1437,7 @@ TEST(normalization, nfd_071_014)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1451,7 +1451,7 @@ TEST(normalization, nfd_071_014)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1465,7 +1465,7 @@ TEST(normalization, nfd_071_014)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -1479,7 +1479,7 @@ TEST(normalization, nfd_071_014)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -1522,7 +1522,7 @@ TEST(normalization, nfd_071_015)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1536,7 +1536,7 @@ TEST(normalization, nfd_071_015)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1550,7 +1550,7 @@ TEST(normalization, nfd_071_015)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1564,7 +1564,7 @@ TEST(normalization, nfd_071_015)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -1578,7 +1578,7 @@ TEST(normalization, nfd_071_015)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -1621,7 +1621,7 @@ TEST(normalization, nfd_071_016)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1635,7 +1635,7 @@ TEST(normalization, nfd_071_016)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1649,7 +1649,7 @@ TEST(normalization, nfd_071_016)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1663,7 +1663,7 @@ TEST(normalization, nfd_071_016)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -1677,7 +1677,7 @@ TEST(normalization, nfd_071_016)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -1720,7 +1720,7 @@ TEST(normalization, nfd_071_017)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1734,7 +1734,7 @@ TEST(normalization, nfd_071_017)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1748,7 +1748,7 @@ TEST(normalization, nfd_071_017)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1762,7 +1762,7 @@ TEST(normalization, nfd_071_017)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -1776,7 +1776,7 @@ TEST(normalization, nfd_071_017)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -1819,7 +1819,7 @@ TEST(normalization, nfd_071_018)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1833,7 +1833,7 @@ TEST(normalization, nfd_071_018)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1847,7 +1847,7 @@ TEST(normalization, nfd_071_018)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1861,7 +1861,7 @@ TEST(normalization, nfd_071_018)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -1875,7 +1875,7 @@ TEST(normalization, nfd_071_018)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -1918,7 +1918,7 @@ TEST(normalization, nfd_071_019)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1932,7 +1932,7 @@ TEST(normalization, nfd_071_019)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1946,7 +1946,7 @@ TEST(normalization, nfd_071_019)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -1960,7 +1960,7 @@ TEST(normalization, nfd_071_019)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -1974,7 +1974,7 @@ TEST(normalization, nfd_071_019)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -2017,7 +2017,7 @@ TEST(normalization, nfd_071_020)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2031,7 +2031,7 @@ TEST(normalization, nfd_071_020)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2045,7 +2045,7 @@ TEST(normalization, nfd_071_020)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2059,7 +2059,7 @@ TEST(normalization, nfd_071_020)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -2073,7 +2073,7 @@ TEST(normalization, nfd_071_020)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -2116,7 +2116,7 @@ TEST(normalization, nfd_071_021)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2130,7 +2130,7 @@ TEST(normalization, nfd_071_021)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2144,7 +2144,7 @@ TEST(normalization, nfd_071_021)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2158,7 +2158,7 @@ TEST(normalization, nfd_071_021)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -2172,7 +2172,7 @@ TEST(normalization, nfd_071_021)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -2215,7 +2215,7 @@ TEST(normalization, nfd_071_022)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2229,7 +2229,7 @@ TEST(normalization, nfd_071_022)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2243,7 +2243,7 @@ TEST(normalization, nfd_071_022)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2257,7 +2257,7 @@ TEST(normalization, nfd_071_022)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -2271,7 +2271,7 @@ TEST(normalization, nfd_071_022)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -2314,7 +2314,7 @@ TEST(normalization, nfd_071_023)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2328,7 +2328,7 @@ TEST(normalization, nfd_071_023)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2342,7 +2342,7 @@ TEST(normalization, nfd_071_023)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2356,7 +2356,7 @@ TEST(normalization, nfd_071_023)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -2370,7 +2370,7 @@ TEST(normalization, nfd_071_023)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -2413,7 +2413,7 @@ TEST(normalization, nfd_071_024)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2427,7 +2427,7 @@ TEST(normalization, nfd_071_024)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2441,7 +2441,7 @@ TEST(normalization, nfd_071_024)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2455,7 +2455,7 @@ TEST(normalization, nfd_071_024)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -2469,7 +2469,7 @@ TEST(normalization, nfd_071_024)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -2512,7 +2512,7 @@ TEST(normalization, nfd_071_025)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2526,7 +2526,7 @@ TEST(normalization, nfd_071_025)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2540,7 +2540,7 @@ TEST(normalization, nfd_071_025)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2554,7 +2554,7 @@ TEST(normalization, nfd_071_025)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -2568,7 +2568,7 @@ TEST(normalization, nfd_071_025)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -2609,7 +2609,7 @@ TEST(normalization, nfd_071_026)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2623,7 +2623,7 @@ TEST(normalization, nfd_071_026)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2637,7 +2637,7 @@ TEST(normalization, nfd_071_026)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2651,7 +2651,7 @@ TEST(normalization, nfd_071_026)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -2665,7 +2665,7 @@ TEST(normalization, nfd_071_026)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -2706,7 +2706,7 @@ TEST(normalization, nfd_071_027)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2720,7 +2720,7 @@ TEST(normalization, nfd_071_027)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2734,7 +2734,7 @@ TEST(normalization, nfd_071_027)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2748,7 +2748,7 @@ TEST(normalization, nfd_071_027)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -2762,7 +2762,7 @@ TEST(normalization, nfd_071_027)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -2803,7 +2803,7 @@ TEST(normalization, nfd_071_028)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2817,7 +2817,7 @@ TEST(normalization, nfd_071_028)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2831,7 +2831,7 @@ TEST(normalization, nfd_071_028)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2845,7 +2845,7 @@ TEST(normalization, nfd_071_028)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -2859,7 +2859,7 @@ TEST(normalization, nfd_071_028)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -2900,7 +2900,7 @@ TEST(normalization, nfd_071_029)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2914,7 +2914,7 @@ TEST(normalization, nfd_071_029)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2928,7 +2928,7 @@ TEST(normalization, nfd_071_029)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -2942,7 +2942,7 @@ TEST(normalization, nfd_071_029)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -2956,7 +2956,7 @@ TEST(normalization, nfd_071_029)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -2997,7 +2997,7 @@ TEST(normalization, nfd_071_030)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3011,7 +3011,7 @@ TEST(normalization, nfd_071_030)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3025,7 +3025,7 @@ TEST(normalization, nfd_071_030)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3039,7 +3039,7 @@ TEST(normalization, nfd_071_030)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -3053,7 +3053,7 @@ TEST(normalization, nfd_071_030)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -3094,7 +3094,7 @@ TEST(normalization, nfd_071_031)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3108,7 +3108,7 @@ TEST(normalization, nfd_071_031)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3122,7 +3122,7 @@ TEST(normalization, nfd_071_031)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3136,7 +3136,7 @@ TEST(normalization, nfd_071_031)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -3150,7 +3150,7 @@ TEST(normalization, nfd_071_031)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -3191,7 +3191,7 @@ TEST(normalization, nfd_071_032)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3205,7 +3205,7 @@ TEST(normalization, nfd_071_032)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3219,7 +3219,7 @@ TEST(normalization, nfd_071_032)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3233,7 +3233,7 @@ TEST(normalization, nfd_071_032)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -3247,7 +3247,7 @@ TEST(normalization, nfd_071_032)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -3288,7 +3288,7 @@ TEST(normalization, nfd_071_033)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3302,7 +3302,7 @@ TEST(normalization, nfd_071_033)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3316,7 +3316,7 @@ TEST(normalization, nfd_071_033)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3330,7 +3330,7 @@ TEST(normalization, nfd_071_033)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -3344,7 +3344,7 @@ TEST(normalization, nfd_071_033)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -3385,7 +3385,7 @@ TEST(normalization, nfd_071_034)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3399,7 +3399,7 @@ TEST(normalization, nfd_071_034)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3413,7 +3413,7 @@ TEST(normalization, nfd_071_034)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3427,7 +3427,7 @@ TEST(normalization, nfd_071_034)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -3441,7 +3441,7 @@ TEST(normalization, nfd_071_034)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -3482,7 +3482,7 @@ TEST(normalization, nfd_071_035)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3496,7 +3496,7 @@ TEST(normalization, nfd_071_035)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3510,7 +3510,7 @@ TEST(normalization, nfd_071_035)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3524,7 +3524,7 @@ TEST(normalization, nfd_071_035)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -3538,7 +3538,7 @@ TEST(normalization, nfd_071_035)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -3579,7 +3579,7 @@ TEST(normalization, nfd_071_036)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3593,7 +3593,7 @@ TEST(normalization, nfd_071_036)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3607,7 +3607,7 @@ TEST(normalization, nfd_071_036)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3621,7 +3621,7 @@ TEST(normalization, nfd_071_036)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -3635,7 +3635,7 @@ TEST(normalization, nfd_071_036)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -3676,7 +3676,7 @@ TEST(normalization, nfd_071_037)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3690,7 +3690,7 @@ TEST(normalization, nfd_071_037)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3704,7 +3704,7 @@ TEST(normalization, nfd_071_037)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3718,7 +3718,7 @@ TEST(normalization, nfd_071_037)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -3732,7 +3732,7 @@ TEST(normalization, nfd_071_037)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -3773,7 +3773,7 @@ TEST(normalization, nfd_071_038)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3787,7 +3787,7 @@ TEST(normalization, nfd_071_038)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3801,7 +3801,7 @@ TEST(normalization, nfd_071_038)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3815,7 +3815,7 @@ TEST(normalization, nfd_071_038)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -3829,7 +3829,7 @@ TEST(normalization, nfd_071_038)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -3870,7 +3870,7 @@ TEST(normalization, nfd_071_039)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3884,7 +3884,7 @@ TEST(normalization, nfd_071_039)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3898,7 +3898,7 @@ TEST(normalization, nfd_071_039)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3912,7 +3912,7 @@ TEST(normalization, nfd_071_039)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -3926,7 +3926,7 @@ TEST(normalization, nfd_071_039)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -3967,7 +3967,7 @@ TEST(normalization, nfd_071_040)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3981,7 +3981,7 @@ TEST(normalization, nfd_071_040)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -3995,7 +3995,7 @@ TEST(normalization, nfd_071_040)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4009,7 +4009,7 @@ TEST(normalization, nfd_071_040)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -4023,7 +4023,7 @@ TEST(normalization, nfd_071_040)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -4064,7 +4064,7 @@ TEST(normalization, nfd_071_041)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4078,7 +4078,7 @@ TEST(normalization, nfd_071_041)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4092,7 +4092,7 @@ TEST(normalization, nfd_071_041)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4106,7 +4106,7 @@ TEST(normalization, nfd_071_041)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -4120,7 +4120,7 @@ TEST(normalization, nfd_071_041)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -4161,7 +4161,7 @@ TEST(normalization, nfd_071_042)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4175,7 +4175,7 @@ TEST(normalization, nfd_071_042)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4189,7 +4189,7 @@ TEST(normalization, nfd_071_042)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4203,7 +4203,7 @@ TEST(normalization, nfd_071_042)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -4217,7 +4217,7 @@ TEST(normalization, nfd_071_042)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -4258,7 +4258,7 @@ TEST(normalization, nfd_071_043)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4272,7 +4272,7 @@ TEST(normalization, nfd_071_043)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4286,7 +4286,7 @@ TEST(normalization, nfd_071_043)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4300,7 +4300,7 @@ TEST(normalization, nfd_071_043)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -4314,7 +4314,7 @@ TEST(normalization, nfd_071_043)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -4357,7 +4357,7 @@ TEST(normalization, nfd_071_044)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4371,7 +4371,7 @@ TEST(normalization, nfd_071_044)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4385,7 +4385,7 @@ TEST(normalization, nfd_071_044)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4399,7 +4399,7 @@ TEST(normalization, nfd_071_044)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -4413,7 +4413,7 @@ TEST(normalization, nfd_071_044)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -4456,7 +4456,7 @@ TEST(normalization, nfd_071_045)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4470,7 +4470,7 @@ TEST(normalization, nfd_071_045)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4484,7 +4484,7 @@ TEST(normalization, nfd_071_045)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4498,7 +4498,7 @@ TEST(normalization, nfd_071_045)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -4512,7 +4512,7 @@ TEST(normalization, nfd_071_045)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -4555,7 +4555,7 @@ TEST(normalization, nfd_071_046)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4569,7 +4569,7 @@ TEST(normalization, nfd_071_046)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4583,7 +4583,7 @@ TEST(normalization, nfd_071_046)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4597,7 +4597,7 @@ TEST(normalization, nfd_071_046)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -4611,7 +4611,7 @@ TEST(normalization, nfd_071_046)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -4654,7 +4654,7 @@ TEST(normalization, nfd_071_047)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4668,7 +4668,7 @@ TEST(normalization, nfd_071_047)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4682,7 +4682,7 @@ TEST(normalization, nfd_071_047)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4696,7 +4696,7 @@ TEST(normalization, nfd_071_047)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -4710,7 +4710,7 @@ TEST(normalization, nfd_071_047)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -4751,7 +4751,7 @@ TEST(normalization, nfd_071_048)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4765,7 +4765,7 @@ TEST(normalization, nfd_071_048)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4779,7 +4779,7 @@ TEST(normalization, nfd_071_048)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4793,7 +4793,7 @@ TEST(normalization, nfd_071_048)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -4807,7 +4807,7 @@ TEST(normalization, nfd_071_048)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -4848,7 +4848,7 @@ TEST(normalization, nfd_071_049)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4862,7 +4862,7 @@ TEST(normalization, nfd_071_049)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4876,7 +4876,7 @@ TEST(normalization, nfd_071_049)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4890,7 +4890,7 @@ TEST(normalization, nfd_071_049)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -4904,7 +4904,7 @@ TEST(normalization, nfd_071_049)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -4945,7 +4945,7 @@ TEST(normalization, nfd_071_050)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4959,7 +4959,7 @@ TEST(normalization, nfd_071_050)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4973,7 +4973,7 @@ TEST(normalization, nfd_071_050)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -4987,7 +4987,7 @@ TEST(normalization, nfd_071_050)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -5001,7 +5001,7 @@ TEST(normalization, nfd_071_050)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -5042,7 +5042,7 @@ TEST(normalization, nfd_071_051)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5056,7 +5056,7 @@ TEST(normalization, nfd_071_051)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5070,7 +5070,7 @@ TEST(normalization, nfd_071_051)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5084,7 +5084,7 @@ TEST(normalization, nfd_071_051)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -5098,7 +5098,7 @@ TEST(normalization, nfd_071_051)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -5139,7 +5139,7 @@ TEST(normalization, nfd_071_052)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5153,7 +5153,7 @@ TEST(normalization, nfd_071_052)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5167,7 +5167,7 @@ TEST(normalization, nfd_071_052)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5181,7 +5181,7 @@ TEST(normalization, nfd_071_052)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -5195,7 +5195,7 @@ TEST(normalization, nfd_071_052)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -5238,7 +5238,7 @@ TEST(normalization, nfd_071_053)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5252,7 +5252,7 @@ TEST(normalization, nfd_071_053)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5266,7 +5266,7 @@ TEST(normalization, nfd_071_053)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5280,7 +5280,7 @@ TEST(normalization, nfd_071_053)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -5294,7 +5294,7 @@ TEST(normalization, nfd_071_053)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -5337,7 +5337,7 @@ TEST(normalization, nfd_071_054)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5351,7 +5351,7 @@ TEST(normalization, nfd_071_054)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5365,7 +5365,7 @@ TEST(normalization, nfd_071_054)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5379,7 +5379,7 @@ TEST(normalization, nfd_071_054)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -5393,7 +5393,7 @@ TEST(normalization, nfd_071_054)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -5436,7 +5436,7 @@ TEST(normalization, nfd_071_055)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5450,7 +5450,7 @@ TEST(normalization, nfd_071_055)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5464,7 +5464,7 @@ TEST(normalization, nfd_071_055)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5478,7 +5478,7 @@ TEST(normalization, nfd_071_055)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -5492,7 +5492,7 @@ TEST(normalization, nfd_071_055)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -5535,7 +5535,7 @@ TEST(normalization, nfd_071_056)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5549,7 +5549,7 @@ TEST(normalization, nfd_071_056)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5563,7 +5563,7 @@ TEST(normalization, nfd_071_056)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5577,7 +5577,7 @@ TEST(normalization, nfd_071_056)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -5591,7 +5591,7 @@ TEST(normalization, nfd_071_056)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -5634,7 +5634,7 @@ TEST(normalization, nfd_071_057)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5648,7 +5648,7 @@ TEST(normalization, nfd_071_057)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5662,7 +5662,7 @@ TEST(normalization, nfd_071_057)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5676,7 +5676,7 @@ TEST(normalization, nfd_071_057)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -5690,7 +5690,7 @@ TEST(normalization, nfd_071_057)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -5733,7 +5733,7 @@ TEST(normalization, nfd_071_058)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5747,7 +5747,7 @@ TEST(normalization, nfd_071_058)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5761,7 +5761,7 @@ TEST(normalization, nfd_071_058)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5775,7 +5775,7 @@ TEST(normalization, nfd_071_058)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -5789,7 +5789,7 @@ TEST(normalization, nfd_071_058)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -5832,7 +5832,7 @@ TEST(normalization, nfd_071_059)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5846,7 +5846,7 @@ TEST(normalization, nfd_071_059)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5860,7 +5860,7 @@ TEST(normalization, nfd_071_059)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5874,7 +5874,7 @@ TEST(normalization, nfd_071_059)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -5888,7 +5888,7 @@ TEST(normalization, nfd_071_059)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -5931,7 +5931,7 @@ TEST(normalization, nfd_071_060)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5945,7 +5945,7 @@ TEST(normalization, nfd_071_060)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5959,7 +5959,7 @@ TEST(normalization, nfd_071_060)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -5973,7 +5973,7 @@ TEST(normalization, nfd_071_060)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -5987,7 +5987,7 @@ TEST(normalization, nfd_071_060)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -6030,7 +6030,7 @@ TEST(normalization, nfd_071_061)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6044,7 +6044,7 @@ TEST(normalization, nfd_071_061)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6058,7 +6058,7 @@ TEST(normalization, nfd_071_061)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6072,7 +6072,7 @@ TEST(normalization, nfd_071_061)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -6086,7 +6086,7 @@ TEST(normalization, nfd_071_061)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -6129,7 +6129,7 @@ TEST(normalization, nfd_071_062)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6143,7 +6143,7 @@ TEST(normalization, nfd_071_062)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6157,7 +6157,7 @@ TEST(normalization, nfd_071_062)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6171,7 +6171,7 @@ TEST(normalization, nfd_071_062)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -6185,7 +6185,7 @@ TEST(normalization, nfd_071_062)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -6228,7 +6228,7 @@ TEST(normalization, nfd_071_063)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6242,7 +6242,7 @@ TEST(normalization, nfd_071_063)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6256,7 +6256,7 @@ TEST(normalization, nfd_071_063)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6270,7 +6270,7 @@ TEST(normalization, nfd_071_063)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -6284,7 +6284,7 @@ TEST(normalization, nfd_071_063)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -6327,7 +6327,7 @@ TEST(normalization, nfd_071_064)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6341,7 +6341,7 @@ TEST(normalization, nfd_071_064)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6355,7 +6355,7 @@ TEST(normalization, nfd_071_064)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6369,7 +6369,7 @@ TEST(normalization, nfd_071_064)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -6383,7 +6383,7 @@ TEST(normalization, nfd_071_064)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -6426,7 +6426,7 @@ TEST(normalization, nfd_071_065)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6440,7 +6440,7 @@ TEST(normalization, nfd_071_065)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6454,7 +6454,7 @@ TEST(normalization, nfd_071_065)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6468,7 +6468,7 @@ TEST(normalization, nfd_071_065)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -6482,7 +6482,7 @@ TEST(normalization, nfd_071_065)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -6525,7 +6525,7 @@ TEST(normalization, nfd_071_066)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6539,7 +6539,7 @@ TEST(normalization, nfd_071_066)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6553,7 +6553,7 @@ TEST(normalization, nfd_071_066)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6567,7 +6567,7 @@ TEST(normalization, nfd_071_066)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -6581,7 +6581,7 @@ TEST(normalization, nfd_071_066)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -6624,7 +6624,7 @@ TEST(normalization, nfd_071_067)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6638,7 +6638,7 @@ TEST(normalization, nfd_071_067)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6652,7 +6652,7 @@ TEST(normalization, nfd_071_067)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6666,7 +6666,7 @@ TEST(normalization, nfd_071_067)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -6680,7 +6680,7 @@ TEST(normalization, nfd_071_067)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -6723,7 +6723,7 @@ TEST(normalization, nfd_071_068)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6737,7 +6737,7 @@ TEST(normalization, nfd_071_068)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6751,7 +6751,7 @@ TEST(normalization, nfd_071_068)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6765,7 +6765,7 @@ TEST(normalization, nfd_071_068)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -6779,7 +6779,7 @@ TEST(normalization, nfd_071_068)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -6822,7 +6822,7 @@ TEST(normalization, nfd_071_069)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6836,7 +6836,7 @@ TEST(normalization, nfd_071_069)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6850,7 +6850,7 @@ TEST(normalization, nfd_071_069)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6864,7 +6864,7 @@ TEST(normalization, nfd_071_069)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -6878,7 +6878,7 @@ TEST(normalization, nfd_071_069)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -6921,7 +6921,7 @@ TEST(normalization, nfd_071_070)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6935,7 +6935,7 @@ TEST(normalization, nfd_071_070)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6949,7 +6949,7 @@ TEST(normalization, nfd_071_070)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -6963,7 +6963,7 @@ TEST(normalization, nfd_071_070)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -6977,7 +6977,7 @@ TEST(normalization, nfd_071_070)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -7020,7 +7020,7 @@ TEST(normalization, nfd_071_071)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7034,7 +7034,7 @@ TEST(normalization, nfd_071_071)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7048,7 +7048,7 @@ TEST(normalization, nfd_071_071)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7062,7 +7062,7 @@ TEST(normalization, nfd_071_071)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -7076,7 +7076,7 @@ TEST(normalization, nfd_071_071)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -7119,7 +7119,7 @@ TEST(normalization, nfd_071_072)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7133,7 +7133,7 @@ TEST(normalization, nfd_071_072)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7147,7 +7147,7 @@ TEST(normalization, nfd_071_072)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7161,7 +7161,7 @@ TEST(normalization, nfd_071_072)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -7175,7 +7175,7 @@ TEST(normalization, nfd_071_072)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -7218,7 +7218,7 @@ TEST(normalization, nfd_071_073)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7232,7 +7232,7 @@ TEST(normalization, nfd_071_073)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7246,7 +7246,7 @@ TEST(normalization, nfd_071_073)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7260,7 +7260,7 @@ TEST(normalization, nfd_071_073)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -7274,7 +7274,7 @@ TEST(normalization, nfd_071_073)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -7317,7 +7317,7 @@ TEST(normalization, nfd_071_074)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7331,7 +7331,7 @@ TEST(normalization, nfd_071_074)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7345,7 +7345,7 @@ TEST(normalization, nfd_071_074)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7359,7 +7359,7 @@ TEST(normalization, nfd_071_074)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -7373,7 +7373,7 @@ TEST(normalization, nfd_071_074)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -7416,7 +7416,7 @@ TEST(normalization, nfd_071_075)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7430,7 +7430,7 @@ TEST(normalization, nfd_071_075)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7444,7 +7444,7 @@ TEST(normalization, nfd_071_075)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7458,7 +7458,7 @@ TEST(normalization, nfd_071_075)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -7472,7 +7472,7 @@ TEST(normalization, nfd_071_075)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -7515,7 +7515,7 @@ TEST(normalization, nfd_071_076)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7529,7 +7529,7 @@ TEST(normalization, nfd_071_076)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7543,7 +7543,7 @@ TEST(normalization, nfd_071_076)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7557,7 +7557,7 @@ TEST(normalization, nfd_071_076)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -7571,7 +7571,7 @@ TEST(normalization, nfd_071_076)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -7614,7 +7614,7 @@ TEST(normalization, nfd_071_077)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7628,7 +7628,7 @@ TEST(normalization, nfd_071_077)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7642,7 +7642,7 @@ TEST(normalization, nfd_071_077)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7656,7 +7656,7 @@ TEST(normalization, nfd_071_077)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -7670,7 +7670,7 @@ TEST(normalization, nfd_071_077)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -7713,7 +7713,7 @@ TEST(normalization, nfd_071_078)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7727,7 +7727,7 @@ TEST(normalization, nfd_071_078)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7741,7 +7741,7 @@ TEST(normalization, nfd_071_078)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7755,7 +7755,7 @@ TEST(normalization, nfd_071_078)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -7769,7 +7769,7 @@ TEST(normalization, nfd_071_078)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -7812,7 +7812,7 @@ TEST(normalization, nfd_071_079)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7826,7 +7826,7 @@ TEST(normalization, nfd_071_079)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7840,7 +7840,7 @@ TEST(normalization, nfd_071_079)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7854,7 +7854,7 @@ TEST(normalization, nfd_071_079)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -7868,7 +7868,7 @@ TEST(normalization, nfd_071_079)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -7911,7 +7911,7 @@ TEST(normalization, nfd_071_080)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7925,7 +7925,7 @@ TEST(normalization, nfd_071_080)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7939,7 +7939,7 @@ TEST(normalization, nfd_071_080)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -7953,7 +7953,7 @@ TEST(normalization, nfd_071_080)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -7967,7 +7967,7 @@ TEST(normalization, nfd_071_080)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -8010,7 +8010,7 @@ TEST(normalization, nfd_071_081)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8024,7 +8024,7 @@ TEST(normalization, nfd_071_081)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8038,7 +8038,7 @@ TEST(normalization, nfd_071_081)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8052,7 +8052,7 @@ TEST(normalization, nfd_071_081)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -8066,7 +8066,7 @@ TEST(normalization, nfd_071_081)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -8109,7 +8109,7 @@ TEST(normalization, nfd_071_082)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8123,7 +8123,7 @@ TEST(normalization, nfd_071_082)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8137,7 +8137,7 @@ TEST(normalization, nfd_071_082)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8151,7 +8151,7 @@ TEST(normalization, nfd_071_082)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -8165,7 +8165,7 @@ TEST(normalization, nfd_071_082)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -8208,7 +8208,7 @@ TEST(normalization, nfd_071_083)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8222,7 +8222,7 @@ TEST(normalization, nfd_071_083)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8236,7 +8236,7 @@ TEST(normalization, nfd_071_083)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8250,7 +8250,7 @@ TEST(normalization, nfd_071_083)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -8264,7 +8264,7 @@ TEST(normalization, nfd_071_083)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -8307,7 +8307,7 @@ TEST(normalization, nfd_071_084)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8321,7 +8321,7 @@ TEST(normalization, nfd_071_084)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8335,7 +8335,7 @@ TEST(normalization, nfd_071_084)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8349,7 +8349,7 @@ TEST(normalization, nfd_071_084)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -8363,7 +8363,7 @@ TEST(normalization, nfd_071_084)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -8406,7 +8406,7 @@ TEST(normalization, nfd_071_085)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8420,7 +8420,7 @@ TEST(normalization, nfd_071_085)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8434,7 +8434,7 @@ TEST(normalization, nfd_071_085)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8448,7 +8448,7 @@ TEST(normalization, nfd_071_085)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -8462,7 +8462,7 @@ TEST(normalization, nfd_071_085)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -8505,7 +8505,7 @@ TEST(normalization, nfd_071_086)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8519,7 +8519,7 @@ TEST(normalization, nfd_071_086)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8533,7 +8533,7 @@ TEST(normalization, nfd_071_086)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8547,7 +8547,7 @@ TEST(normalization, nfd_071_086)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -8561,7 +8561,7 @@ TEST(normalization, nfd_071_086)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -8604,7 +8604,7 @@ TEST(normalization, nfd_071_087)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8618,7 +8618,7 @@ TEST(normalization, nfd_071_087)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8632,7 +8632,7 @@ TEST(normalization, nfd_071_087)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8646,7 +8646,7 @@ TEST(normalization, nfd_071_087)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -8660,7 +8660,7 @@ TEST(normalization, nfd_071_087)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -8703,7 +8703,7 @@ TEST(normalization, nfd_071_088)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8717,7 +8717,7 @@ TEST(normalization, nfd_071_088)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8731,7 +8731,7 @@ TEST(normalization, nfd_071_088)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8745,7 +8745,7 @@ TEST(normalization, nfd_071_088)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -8759,7 +8759,7 @@ TEST(normalization, nfd_071_088)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -8802,7 +8802,7 @@ TEST(normalization, nfd_071_089)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8816,7 +8816,7 @@ TEST(normalization, nfd_071_089)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8830,7 +8830,7 @@ TEST(normalization, nfd_071_089)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8844,7 +8844,7 @@ TEST(normalization, nfd_071_089)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -8858,7 +8858,7 @@ TEST(normalization, nfd_071_089)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -8901,7 +8901,7 @@ TEST(normalization, nfd_071_090)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8915,7 +8915,7 @@ TEST(normalization, nfd_071_090)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8929,7 +8929,7 @@ TEST(normalization, nfd_071_090)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -8943,7 +8943,7 @@ TEST(normalization, nfd_071_090)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -8957,7 +8957,7 @@ TEST(normalization, nfd_071_090)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -9000,7 +9000,7 @@ TEST(normalization, nfd_071_091)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9014,7 +9014,7 @@ TEST(normalization, nfd_071_091)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9028,7 +9028,7 @@ TEST(normalization, nfd_071_091)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9042,7 +9042,7 @@ TEST(normalization, nfd_071_091)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -9056,7 +9056,7 @@ TEST(normalization, nfd_071_091)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -9099,7 +9099,7 @@ TEST(normalization, nfd_071_092)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9113,7 +9113,7 @@ TEST(normalization, nfd_071_092)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9127,7 +9127,7 @@ TEST(normalization, nfd_071_092)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9141,7 +9141,7 @@ TEST(normalization, nfd_071_092)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -9155,7 +9155,7 @@ TEST(normalization, nfd_071_092)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -9198,7 +9198,7 @@ TEST(normalization, nfd_071_093)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9212,7 +9212,7 @@ TEST(normalization, nfd_071_093)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9226,7 +9226,7 @@ TEST(normalization, nfd_071_093)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9240,7 +9240,7 @@ TEST(normalization, nfd_071_093)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -9254,7 +9254,7 @@ TEST(normalization, nfd_071_093)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -9297,7 +9297,7 @@ TEST(normalization, nfd_071_094)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9311,7 +9311,7 @@ TEST(normalization, nfd_071_094)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9325,7 +9325,7 @@ TEST(normalization, nfd_071_094)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9339,7 +9339,7 @@ TEST(normalization, nfd_071_094)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -9353,7 +9353,7 @@ TEST(normalization, nfd_071_094)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -9396,7 +9396,7 @@ TEST(normalization, nfd_071_095)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9410,7 +9410,7 @@ TEST(normalization, nfd_071_095)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9424,7 +9424,7 @@ TEST(normalization, nfd_071_095)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9438,7 +9438,7 @@ TEST(normalization, nfd_071_095)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -9452,7 +9452,7 @@ TEST(normalization, nfd_071_095)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -9495,7 +9495,7 @@ TEST(normalization, nfd_071_096)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9509,7 +9509,7 @@ TEST(normalization, nfd_071_096)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9523,7 +9523,7 @@ TEST(normalization, nfd_071_096)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9537,7 +9537,7 @@ TEST(normalization, nfd_071_096)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -9551,7 +9551,7 @@ TEST(normalization, nfd_071_096)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -9594,7 +9594,7 @@ TEST(normalization, nfd_071_097)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9608,7 +9608,7 @@ TEST(normalization, nfd_071_097)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9622,7 +9622,7 @@ TEST(normalization, nfd_071_097)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9636,7 +9636,7 @@ TEST(normalization, nfd_071_097)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -9650,7 +9650,7 @@ TEST(normalization, nfd_071_097)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -9693,7 +9693,7 @@ TEST(normalization, nfd_071_098)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9707,7 +9707,7 @@ TEST(normalization, nfd_071_098)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9721,7 +9721,7 @@ TEST(normalization, nfd_071_098)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9735,7 +9735,7 @@ TEST(normalization, nfd_071_098)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -9749,7 +9749,7 @@ TEST(normalization, nfd_071_098)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -9792,7 +9792,7 @@ TEST(normalization, nfd_071_099)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9806,7 +9806,7 @@ TEST(normalization, nfd_071_099)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9820,7 +9820,7 @@ TEST(normalization, nfd_071_099)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9834,7 +9834,7 @@ TEST(normalization, nfd_071_099)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -9848,7 +9848,7 @@ TEST(normalization, nfd_071_099)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -9891,7 +9891,7 @@ TEST(normalization, nfd_071_100)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9905,7 +9905,7 @@ TEST(normalization, nfd_071_100)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9919,7 +9919,7 @@ TEST(normalization, nfd_071_100)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -9933,7 +9933,7 @@ TEST(normalization, nfd_071_100)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -9947,7 +9947,7 @@ TEST(normalization, nfd_071_100)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -9990,7 +9990,7 @@ TEST(normalization, nfd_071_101)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10004,7 +10004,7 @@ TEST(normalization, nfd_071_101)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10018,7 +10018,7 @@ TEST(normalization, nfd_071_101)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10032,7 +10032,7 @@ TEST(normalization, nfd_071_101)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -10046,7 +10046,7 @@ TEST(normalization, nfd_071_101)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -10089,7 +10089,7 @@ TEST(normalization, nfd_071_102)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10103,7 +10103,7 @@ TEST(normalization, nfd_071_102)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10117,7 +10117,7 @@ TEST(normalization, nfd_071_102)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10131,7 +10131,7 @@ TEST(normalization, nfd_071_102)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -10145,7 +10145,7 @@ TEST(normalization, nfd_071_102)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -10188,7 +10188,7 @@ TEST(normalization, nfd_071_103)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10202,7 +10202,7 @@ TEST(normalization, nfd_071_103)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10216,7 +10216,7 @@ TEST(normalization, nfd_071_103)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10230,7 +10230,7 @@ TEST(normalization, nfd_071_103)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -10244,7 +10244,7 @@ TEST(normalization, nfd_071_103)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -10287,7 +10287,7 @@ TEST(normalization, nfd_071_104)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10301,7 +10301,7 @@ TEST(normalization, nfd_071_104)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10315,7 +10315,7 @@ TEST(normalization, nfd_071_104)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10329,7 +10329,7 @@ TEST(normalization, nfd_071_104)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -10343,7 +10343,7 @@ TEST(normalization, nfd_071_104)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -10386,7 +10386,7 @@ TEST(normalization, nfd_071_105)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10400,7 +10400,7 @@ TEST(normalization, nfd_071_105)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10414,7 +10414,7 @@ TEST(normalization, nfd_071_105)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10428,7 +10428,7 @@ TEST(normalization, nfd_071_105)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -10442,7 +10442,7 @@ TEST(normalization, nfd_071_105)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -10485,7 +10485,7 @@ TEST(normalization, nfd_071_106)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10499,7 +10499,7 @@ TEST(normalization, nfd_071_106)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10513,7 +10513,7 @@ TEST(normalization, nfd_071_106)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10527,7 +10527,7 @@ TEST(normalization, nfd_071_106)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -10541,7 +10541,7 @@ TEST(normalization, nfd_071_106)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -10584,7 +10584,7 @@ TEST(normalization, nfd_071_107)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10598,7 +10598,7 @@ TEST(normalization, nfd_071_107)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10612,7 +10612,7 @@ TEST(normalization, nfd_071_107)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10626,7 +10626,7 @@ TEST(normalization, nfd_071_107)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -10640,7 +10640,7 @@ TEST(normalization, nfd_071_107)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -10683,7 +10683,7 @@ TEST(normalization, nfd_071_108)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10697,7 +10697,7 @@ TEST(normalization, nfd_071_108)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10711,7 +10711,7 @@ TEST(normalization, nfd_071_108)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10725,7 +10725,7 @@ TEST(normalization, nfd_071_108)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -10739,7 +10739,7 @@ TEST(normalization, nfd_071_108)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -10782,7 +10782,7 @@ TEST(normalization, nfd_071_109)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10796,7 +10796,7 @@ TEST(normalization, nfd_071_109)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10810,7 +10810,7 @@ TEST(normalization, nfd_071_109)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10824,7 +10824,7 @@ TEST(normalization, nfd_071_109)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -10838,7 +10838,7 @@ TEST(normalization, nfd_071_109)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -10881,7 +10881,7 @@ TEST(normalization, nfd_071_110)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10895,7 +10895,7 @@ TEST(normalization, nfd_071_110)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10909,7 +10909,7 @@ TEST(normalization, nfd_071_110)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10923,7 +10923,7 @@ TEST(normalization, nfd_071_110)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -10937,7 +10937,7 @@ TEST(normalization, nfd_071_110)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -10980,7 +10980,7 @@ TEST(normalization, nfd_071_111)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -10994,7 +10994,7 @@ TEST(normalization, nfd_071_111)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11008,7 +11008,7 @@ TEST(normalization, nfd_071_111)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11022,7 +11022,7 @@ TEST(normalization, nfd_071_111)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -11036,7 +11036,7 @@ TEST(normalization, nfd_071_111)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -11079,7 +11079,7 @@ TEST(normalization, nfd_071_112)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11093,7 +11093,7 @@ TEST(normalization, nfd_071_112)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11107,7 +11107,7 @@ TEST(normalization, nfd_071_112)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11121,7 +11121,7 @@ TEST(normalization, nfd_071_112)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -11135,7 +11135,7 @@ TEST(normalization, nfd_071_112)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -11178,7 +11178,7 @@ TEST(normalization, nfd_071_113)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11192,7 +11192,7 @@ TEST(normalization, nfd_071_113)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11206,7 +11206,7 @@ TEST(normalization, nfd_071_113)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11220,7 +11220,7 @@ TEST(normalization, nfd_071_113)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -11234,7 +11234,7 @@ TEST(normalization, nfd_071_113)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -11277,7 +11277,7 @@ TEST(normalization, nfd_071_114)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11291,7 +11291,7 @@ TEST(normalization, nfd_071_114)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11305,7 +11305,7 @@ TEST(normalization, nfd_071_114)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11319,7 +11319,7 @@ TEST(normalization, nfd_071_114)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -11333,7 +11333,7 @@ TEST(normalization, nfd_071_114)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -11376,7 +11376,7 @@ TEST(normalization, nfd_071_115)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11390,7 +11390,7 @@ TEST(normalization, nfd_071_115)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11404,7 +11404,7 @@ TEST(normalization, nfd_071_115)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11418,7 +11418,7 @@ TEST(normalization, nfd_071_115)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -11432,7 +11432,7 @@ TEST(normalization, nfd_071_115)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -11475,7 +11475,7 @@ TEST(normalization, nfd_071_116)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11489,7 +11489,7 @@ TEST(normalization, nfd_071_116)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11503,7 +11503,7 @@ TEST(normalization, nfd_071_116)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11517,7 +11517,7 @@ TEST(normalization, nfd_071_116)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -11531,7 +11531,7 @@ TEST(normalization, nfd_071_116)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -11574,7 +11574,7 @@ TEST(normalization, nfd_071_117)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11588,7 +11588,7 @@ TEST(normalization, nfd_071_117)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11602,7 +11602,7 @@ TEST(normalization, nfd_071_117)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11616,7 +11616,7 @@ TEST(normalization, nfd_071_117)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -11630,7 +11630,7 @@ TEST(normalization, nfd_071_117)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -11673,7 +11673,7 @@ TEST(normalization, nfd_071_118)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11687,7 +11687,7 @@ TEST(normalization, nfd_071_118)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11701,7 +11701,7 @@ TEST(normalization, nfd_071_118)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11715,7 +11715,7 @@ TEST(normalization, nfd_071_118)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -11729,7 +11729,7 @@ TEST(normalization, nfd_071_118)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -11772,7 +11772,7 @@ TEST(normalization, nfd_071_119)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11786,7 +11786,7 @@ TEST(normalization, nfd_071_119)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11800,7 +11800,7 @@ TEST(normalization, nfd_071_119)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11814,7 +11814,7 @@ TEST(normalization, nfd_071_119)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -11828,7 +11828,7 @@ TEST(normalization, nfd_071_119)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -11871,7 +11871,7 @@ TEST(normalization, nfd_071_120)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11885,7 +11885,7 @@ TEST(normalization, nfd_071_120)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11899,7 +11899,7 @@ TEST(normalization, nfd_071_120)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11913,7 +11913,7 @@ TEST(normalization, nfd_071_120)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -11927,7 +11927,7 @@ TEST(normalization, nfd_071_120)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -11970,7 +11970,7 @@ TEST(normalization, nfd_071_121)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11984,7 +11984,7 @@ TEST(normalization, nfd_071_121)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -11998,7 +11998,7 @@ TEST(normalization, nfd_071_121)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12012,7 +12012,7 @@ TEST(normalization, nfd_071_121)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -12026,7 +12026,7 @@ TEST(normalization, nfd_071_121)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -12069,7 +12069,7 @@ TEST(normalization, nfd_071_122)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12083,7 +12083,7 @@ TEST(normalization, nfd_071_122)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12097,7 +12097,7 @@ TEST(normalization, nfd_071_122)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12111,7 +12111,7 @@ TEST(normalization, nfd_071_122)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -12125,7 +12125,7 @@ TEST(normalization, nfd_071_122)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -12168,7 +12168,7 @@ TEST(normalization, nfd_071_123)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12182,7 +12182,7 @@ TEST(normalization, nfd_071_123)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12196,7 +12196,7 @@ TEST(normalization, nfd_071_123)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12210,7 +12210,7 @@ TEST(normalization, nfd_071_123)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -12224,7 +12224,7 @@ TEST(normalization, nfd_071_123)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -12267,7 +12267,7 @@ TEST(normalization, nfd_071_124)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12281,7 +12281,7 @@ TEST(normalization, nfd_071_124)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12295,7 +12295,7 @@ TEST(normalization, nfd_071_124)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12309,7 +12309,7 @@ TEST(normalization, nfd_071_124)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -12323,7 +12323,7 @@ TEST(normalization, nfd_071_124)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -12366,7 +12366,7 @@ TEST(normalization, nfd_071_125)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12380,7 +12380,7 @@ TEST(normalization, nfd_071_125)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12394,7 +12394,7 @@ TEST(normalization, nfd_071_125)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12408,7 +12408,7 @@ TEST(normalization, nfd_071_125)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -12422,7 +12422,7 @@ TEST(normalization, nfd_071_125)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -12465,7 +12465,7 @@ TEST(normalization, nfd_071_126)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12479,7 +12479,7 @@ TEST(normalization, nfd_071_126)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12493,7 +12493,7 @@ TEST(normalization, nfd_071_126)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12507,7 +12507,7 @@ TEST(normalization, nfd_071_126)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -12521,7 +12521,7 @@ TEST(normalization, nfd_071_126)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -12564,7 +12564,7 @@ TEST(normalization, nfd_071_127)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12578,7 +12578,7 @@ TEST(normalization, nfd_071_127)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12592,7 +12592,7 @@ TEST(normalization, nfd_071_127)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12606,7 +12606,7 @@ TEST(normalization, nfd_071_127)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -12620,7 +12620,7 @@ TEST(normalization, nfd_071_127)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -12663,7 +12663,7 @@ TEST(normalization, nfd_071_128)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12677,7 +12677,7 @@ TEST(normalization, nfd_071_128)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12691,7 +12691,7 @@ TEST(normalization, nfd_071_128)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12705,7 +12705,7 @@ TEST(normalization, nfd_071_128)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -12719,7 +12719,7 @@ TEST(normalization, nfd_071_128)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -12762,7 +12762,7 @@ TEST(normalization, nfd_071_129)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12776,7 +12776,7 @@ TEST(normalization, nfd_071_129)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12790,7 +12790,7 @@ TEST(normalization, nfd_071_129)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12804,7 +12804,7 @@ TEST(normalization, nfd_071_129)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -12818,7 +12818,7 @@ TEST(normalization, nfd_071_129)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -12861,7 +12861,7 @@ TEST(normalization, nfd_071_130)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12875,7 +12875,7 @@ TEST(normalization, nfd_071_130)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12889,7 +12889,7 @@ TEST(normalization, nfd_071_130)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12903,7 +12903,7 @@ TEST(normalization, nfd_071_130)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -12917,7 +12917,7 @@ TEST(normalization, nfd_071_130)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -12960,7 +12960,7 @@ TEST(normalization, nfd_071_131)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12974,7 +12974,7 @@ TEST(normalization, nfd_071_131)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -12988,7 +12988,7 @@ TEST(normalization, nfd_071_131)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13002,7 +13002,7 @@ TEST(normalization, nfd_071_131)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -13016,7 +13016,7 @@ TEST(normalization, nfd_071_131)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -13059,7 +13059,7 @@ TEST(normalization, nfd_071_132)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13073,7 +13073,7 @@ TEST(normalization, nfd_071_132)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13087,7 +13087,7 @@ TEST(normalization, nfd_071_132)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13101,7 +13101,7 @@ TEST(normalization, nfd_071_132)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -13115,7 +13115,7 @@ TEST(normalization, nfd_071_132)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -13158,7 +13158,7 @@ TEST(normalization, nfd_071_133)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13172,7 +13172,7 @@ TEST(normalization, nfd_071_133)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13186,7 +13186,7 @@ TEST(normalization, nfd_071_133)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13200,7 +13200,7 @@ TEST(normalization, nfd_071_133)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -13214,7 +13214,7 @@ TEST(normalization, nfd_071_133)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -13257,7 +13257,7 @@ TEST(normalization, nfd_071_134)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13271,7 +13271,7 @@ TEST(normalization, nfd_071_134)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13285,7 +13285,7 @@ TEST(normalization, nfd_071_134)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13299,7 +13299,7 @@ TEST(normalization, nfd_071_134)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -13313,7 +13313,7 @@ TEST(normalization, nfd_071_134)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -13356,7 +13356,7 @@ TEST(normalization, nfd_071_135)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13370,7 +13370,7 @@ TEST(normalization, nfd_071_135)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13384,7 +13384,7 @@ TEST(normalization, nfd_071_135)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13398,7 +13398,7 @@ TEST(normalization, nfd_071_135)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -13412,7 +13412,7 @@ TEST(normalization, nfd_071_135)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -13455,7 +13455,7 @@ TEST(normalization, nfd_071_136)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13469,7 +13469,7 @@ TEST(normalization, nfd_071_136)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13483,7 +13483,7 @@ TEST(normalization, nfd_071_136)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13497,7 +13497,7 @@ TEST(normalization, nfd_071_136)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -13511,7 +13511,7 @@ TEST(normalization, nfd_071_136)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -13554,7 +13554,7 @@ TEST(normalization, nfd_071_137)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13568,7 +13568,7 @@ TEST(normalization, nfd_071_137)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13582,7 +13582,7 @@ TEST(normalization, nfd_071_137)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13596,7 +13596,7 @@ TEST(normalization, nfd_071_137)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -13610,7 +13610,7 @@ TEST(normalization, nfd_071_137)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -13653,7 +13653,7 @@ TEST(normalization, nfd_071_138)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13667,7 +13667,7 @@ TEST(normalization, nfd_071_138)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13681,7 +13681,7 @@ TEST(normalization, nfd_071_138)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13695,7 +13695,7 @@ TEST(normalization, nfd_071_138)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -13709,7 +13709,7 @@ TEST(normalization, nfd_071_138)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -13752,7 +13752,7 @@ TEST(normalization, nfd_071_139)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13766,7 +13766,7 @@ TEST(normalization, nfd_071_139)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13780,7 +13780,7 @@ TEST(normalization, nfd_071_139)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13794,7 +13794,7 @@ TEST(normalization, nfd_071_139)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -13808,7 +13808,7 @@ TEST(normalization, nfd_071_139)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -13851,7 +13851,7 @@ TEST(normalization, nfd_071_140)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13865,7 +13865,7 @@ TEST(normalization, nfd_071_140)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13879,7 +13879,7 @@ TEST(normalization, nfd_071_140)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13893,7 +13893,7 @@ TEST(normalization, nfd_071_140)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -13907,7 +13907,7 @@ TEST(normalization, nfd_071_140)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -13950,7 +13950,7 @@ TEST(normalization, nfd_071_141)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13964,7 +13964,7 @@ TEST(normalization, nfd_071_141)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13978,7 +13978,7 @@ TEST(normalization, nfd_071_141)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -13992,7 +13992,7 @@ TEST(normalization, nfd_071_141)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -14006,7 +14006,7 @@ TEST(normalization, nfd_071_141)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -14049,7 +14049,7 @@ TEST(normalization, nfd_071_142)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14063,7 +14063,7 @@ TEST(normalization, nfd_071_142)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14077,7 +14077,7 @@ TEST(normalization, nfd_071_142)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14091,7 +14091,7 @@ TEST(normalization, nfd_071_142)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -14105,7 +14105,7 @@ TEST(normalization, nfd_071_142)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -14148,7 +14148,7 @@ TEST(normalization, nfd_071_143)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14162,7 +14162,7 @@ TEST(normalization, nfd_071_143)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14176,7 +14176,7 @@ TEST(normalization, nfd_071_143)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14190,7 +14190,7 @@ TEST(normalization, nfd_071_143)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -14204,7 +14204,7 @@ TEST(normalization, nfd_071_143)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -14247,7 +14247,7 @@ TEST(normalization, nfd_071_144)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14261,7 +14261,7 @@ TEST(normalization, nfd_071_144)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14275,7 +14275,7 @@ TEST(normalization, nfd_071_144)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14289,7 +14289,7 @@ TEST(normalization, nfd_071_144)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -14303,7 +14303,7 @@ TEST(normalization, nfd_071_144)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -14346,7 +14346,7 @@ TEST(normalization, nfd_071_145)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14360,7 +14360,7 @@ TEST(normalization, nfd_071_145)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14374,7 +14374,7 @@ TEST(normalization, nfd_071_145)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14388,7 +14388,7 @@ TEST(normalization, nfd_071_145)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -14402,7 +14402,7 @@ TEST(normalization, nfd_071_145)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -14445,7 +14445,7 @@ TEST(normalization, nfd_071_146)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14459,7 +14459,7 @@ TEST(normalization, nfd_071_146)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14473,7 +14473,7 @@ TEST(normalization, nfd_071_146)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14487,7 +14487,7 @@ TEST(normalization, nfd_071_146)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -14501,7 +14501,7 @@ TEST(normalization, nfd_071_146)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -14544,7 +14544,7 @@ TEST(normalization, nfd_071_147)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14558,7 +14558,7 @@ TEST(normalization, nfd_071_147)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14572,7 +14572,7 @@ TEST(normalization, nfd_071_147)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14586,7 +14586,7 @@ TEST(normalization, nfd_071_147)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -14600,7 +14600,7 @@ TEST(normalization, nfd_071_147)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -14641,7 +14641,7 @@ TEST(normalization, nfd_071_148)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14655,7 +14655,7 @@ TEST(normalization, nfd_071_148)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14669,7 +14669,7 @@ TEST(normalization, nfd_071_148)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14683,7 +14683,7 @@ TEST(normalization, nfd_071_148)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -14697,7 +14697,7 @@ TEST(normalization, nfd_071_148)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -14738,7 +14738,7 @@ TEST(normalization, nfd_071_149)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14752,7 +14752,7 @@ TEST(normalization, nfd_071_149)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14766,7 +14766,7 @@ TEST(normalization, nfd_071_149)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14780,7 +14780,7 @@ TEST(normalization, nfd_071_149)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -14794,7 +14794,7 @@ TEST(normalization, nfd_071_149)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -14835,7 +14835,7 @@ TEST(normalization, nfd_071_150)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14849,7 +14849,7 @@ TEST(normalization, nfd_071_150)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14863,7 +14863,7 @@ TEST(normalization, nfd_071_150)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14877,7 +14877,7 @@ TEST(normalization, nfd_071_150)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -14891,7 +14891,7 @@ TEST(normalization, nfd_071_150)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -14932,7 +14932,7 @@ TEST(normalization, nfd_071_151)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14946,7 +14946,7 @@ TEST(normalization, nfd_071_151)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14960,7 +14960,7 @@ TEST(normalization, nfd_071_151)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -14974,7 +14974,7 @@ TEST(normalization, nfd_071_151)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -14988,7 +14988,7 @@ TEST(normalization, nfd_071_151)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -15029,7 +15029,7 @@ TEST(normalization, nfd_071_152)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15043,7 +15043,7 @@ TEST(normalization, nfd_071_152)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15057,7 +15057,7 @@ TEST(normalization, nfd_071_152)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15071,7 +15071,7 @@ TEST(normalization, nfd_071_152)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -15085,7 +15085,7 @@ TEST(normalization, nfd_071_152)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -15126,7 +15126,7 @@ TEST(normalization, nfd_071_153)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15140,7 +15140,7 @@ TEST(normalization, nfd_071_153)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15154,7 +15154,7 @@ TEST(normalization, nfd_071_153)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15168,7 +15168,7 @@ TEST(normalization, nfd_071_153)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -15182,7 +15182,7 @@ TEST(normalization, nfd_071_153)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -15225,7 +15225,7 @@ TEST(normalization, nfd_071_154)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15239,7 +15239,7 @@ TEST(normalization, nfd_071_154)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15253,7 +15253,7 @@ TEST(normalization, nfd_071_154)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15267,7 +15267,7 @@ TEST(normalization, nfd_071_154)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -15281,7 +15281,7 @@ TEST(normalization, nfd_071_154)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -15324,7 +15324,7 @@ TEST(normalization, nfd_071_155)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15338,7 +15338,7 @@ TEST(normalization, nfd_071_155)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15352,7 +15352,7 @@ TEST(normalization, nfd_071_155)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15366,7 +15366,7 @@ TEST(normalization, nfd_071_155)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -15380,7 +15380,7 @@ TEST(normalization, nfd_071_155)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -15423,7 +15423,7 @@ TEST(normalization, nfd_071_156)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15437,7 +15437,7 @@ TEST(normalization, nfd_071_156)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15451,7 +15451,7 @@ TEST(normalization, nfd_071_156)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15465,7 +15465,7 @@ TEST(normalization, nfd_071_156)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -15479,7 +15479,7 @@ TEST(normalization, nfd_071_156)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -15522,7 +15522,7 @@ TEST(normalization, nfd_071_157)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15536,7 +15536,7 @@ TEST(normalization, nfd_071_157)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15550,7 +15550,7 @@ TEST(normalization, nfd_071_157)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15564,7 +15564,7 @@ TEST(normalization, nfd_071_157)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -15578,7 +15578,7 @@ TEST(normalization, nfd_071_157)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -15621,7 +15621,7 @@ TEST(normalization, nfd_071_158)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15635,7 +15635,7 @@ TEST(normalization, nfd_071_158)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15649,7 +15649,7 @@ TEST(normalization, nfd_071_158)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15663,7 +15663,7 @@ TEST(normalization, nfd_071_158)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -15677,7 +15677,7 @@ TEST(normalization, nfd_071_158)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -15720,7 +15720,7 @@ TEST(normalization, nfd_071_159)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15734,7 +15734,7 @@ TEST(normalization, nfd_071_159)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15748,7 +15748,7 @@ TEST(normalization, nfd_071_159)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15762,7 +15762,7 @@ TEST(normalization, nfd_071_159)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -15776,7 +15776,7 @@ TEST(normalization, nfd_071_159)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -15819,7 +15819,7 @@ TEST(normalization, nfd_071_160)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15833,7 +15833,7 @@ TEST(normalization, nfd_071_160)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15847,7 +15847,7 @@ TEST(normalization, nfd_071_160)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15861,7 +15861,7 @@ TEST(normalization, nfd_071_160)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -15875,7 +15875,7 @@ TEST(normalization, nfd_071_160)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -15918,7 +15918,7 @@ TEST(normalization, nfd_071_161)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15932,7 +15932,7 @@ TEST(normalization, nfd_071_161)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15946,7 +15946,7 @@ TEST(normalization, nfd_071_161)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -15960,7 +15960,7 @@ TEST(normalization, nfd_071_161)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -15974,7 +15974,7 @@ TEST(normalization, nfd_071_161)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -16017,7 +16017,7 @@ TEST(normalization, nfd_071_162)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16031,7 +16031,7 @@ TEST(normalization, nfd_071_162)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16045,7 +16045,7 @@ TEST(normalization, nfd_071_162)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16059,7 +16059,7 @@ TEST(normalization, nfd_071_162)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -16073,7 +16073,7 @@ TEST(normalization, nfd_071_162)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -16116,7 +16116,7 @@ TEST(normalization, nfd_071_163)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16130,7 +16130,7 @@ TEST(normalization, nfd_071_163)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16144,7 +16144,7 @@ TEST(normalization, nfd_071_163)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16158,7 +16158,7 @@ TEST(normalization, nfd_071_163)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -16172,7 +16172,7 @@ TEST(normalization, nfd_071_163)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -16215,7 +16215,7 @@ TEST(normalization, nfd_071_164)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16229,7 +16229,7 @@ TEST(normalization, nfd_071_164)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16243,7 +16243,7 @@ TEST(normalization, nfd_071_164)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16257,7 +16257,7 @@ TEST(normalization, nfd_071_164)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -16271,7 +16271,7 @@ TEST(normalization, nfd_071_164)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -16314,7 +16314,7 @@ TEST(normalization, nfd_071_165)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16328,7 +16328,7 @@ TEST(normalization, nfd_071_165)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16342,7 +16342,7 @@ TEST(normalization, nfd_071_165)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16356,7 +16356,7 @@ TEST(normalization, nfd_071_165)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -16370,7 +16370,7 @@ TEST(normalization, nfd_071_165)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -16413,7 +16413,7 @@ TEST(normalization, nfd_071_166)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16427,7 +16427,7 @@ TEST(normalization, nfd_071_166)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16441,7 +16441,7 @@ TEST(normalization, nfd_071_166)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16455,7 +16455,7 @@ TEST(normalization, nfd_071_166)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -16469,7 +16469,7 @@ TEST(normalization, nfd_071_166)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -16512,7 +16512,7 @@ TEST(normalization, nfd_071_167)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16526,7 +16526,7 @@ TEST(normalization, nfd_071_167)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16540,7 +16540,7 @@ TEST(normalization, nfd_071_167)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16554,7 +16554,7 @@ TEST(normalization, nfd_071_167)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -16568,7 +16568,7 @@ TEST(normalization, nfd_071_167)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -16611,7 +16611,7 @@ TEST(normalization, nfd_071_168)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16625,7 +16625,7 @@ TEST(normalization, nfd_071_168)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16639,7 +16639,7 @@ TEST(normalization, nfd_071_168)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16653,7 +16653,7 @@ TEST(normalization, nfd_071_168)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -16667,7 +16667,7 @@ TEST(normalization, nfd_071_168)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -16710,7 +16710,7 @@ TEST(normalization, nfd_071_169)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16724,7 +16724,7 @@ TEST(normalization, nfd_071_169)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16738,7 +16738,7 @@ TEST(normalization, nfd_071_169)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16752,7 +16752,7 @@ TEST(normalization, nfd_071_169)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -16766,7 +16766,7 @@ TEST(normalization, nfd_071_169)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -16809,7 +16809,7 @@ TEST(normalization, nfd_071_170)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16823,7 +16823,7 @@ TEST(normalization, nfd_071_170)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16837,7 +16837,7 @@ TEST(normalization, nfd_071_170)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16851,7 +16851,7 @@ TEST(normalization, nfd_071_170)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -16865,7 +16865,7 @@ TEST(normalization, nfd_071_170)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -16908,7 +16908,7 @@ TEST(normalization, nfd_071_171)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16922,7 +16922,7 @@ TEST(normalization, nfd_071_171)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16936,7 +16936,7 @@ TEST(normalization, nfd_071_171)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -16950,7 +16950,7 @@ TEST(normalization, nfd_071_171)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -16964,7 +16964,7 @@ TEST(normalization, nfd_071_171)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -17007,7 +17007,7 @@ TEST(normalization, nfd_071_172)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17021,7 +17021,7 @@ TEST(normalization, nfd_071_172)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17035,7 +17035,7 @@ TEST(normalization, nfd_071_172)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17049,7 +17049,7 @@ TEST(normalization, nfd_071_172)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -17063,7 +17063,7 @@ TEST(normalization, nfd_071_172)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -17106,7 +17106,7 @@ TEST(normalization, nfd_071_173)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17120,7 +17120,7 @@ TEST(normalization, nfd_071_173)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17134,7 +17134,7 @@ TEST(normalization, nfd_071_173)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17148,7 +17148,7 @@ TEST(normalization, nfd_071_173)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -17162,7 +17162,7 @@ TEST(normalization, nfd_071_173)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -17205,7 +17205,7 @@ TEST(normalization, nfd_071_174)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17219,7 +17219,7 @@ TEST(normalization, nfd_071_174)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17233,7 +17233,7 @@ TEST(normalization, nfd_071_174)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17247,7 +17247,7 @@ TEST(normalization, nfd_071_174)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -17261,7 +17261,7 @@ TEST(normalization, nfd_071_174)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -17304,7 +17304,7 @@ TEST(normalization, nfd_071_175)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17318,7 +17318,7 @@ TEST(normalization, nfd_071_175)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17332,7 +17332,7 @@ TEST(normalization, nfd_071_175)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17346,7 +17346,7 @@ TEST(normalization, nfd_071_175)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -17360,7 +17360,7 @@ TEST(normalization, nfd_071_175)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -17403,7 +17403,7 @@ TEST(normalization, nfd_071_176)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17417,7 +17417,7 @@ TEST(normalization, nfd_071_176)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17431,7 +17431,7 @@ TEST(normalization, nfd_071_176)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17445,7 +17445,7 @@ TEST(normalization, nfd_071_176)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -17459,7 +17459,7 @@ TEST(normalization, nfd_071_176)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -17502,7 +17502,7 @@ TEST(normalization, nfd_071_177)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17516,7 +17516,7 @@ TEST(normalization, nfd_071_177)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17530,7 +17530,7 @@ TEST(normalization, nfd_071_177)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17544,7 +17544,7 @@ TEST(normalization, nfd_071_177)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -17558,7 +17558,7 @@ TEST(normalization, nfd_071_177)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -17601,7 +17601,7 @@ TEST(normalization, nfd_071_178)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17615,7 +17615,7 @@ TEST(normalization, nfd_071_178)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17629,7 +17629,7 @@ TEST(normalization, nfd_071_178)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17643,7 +17643,7 @@ TEST(normalization, nfd_071_178)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -17657,7 +17657,7 @@ TEST(normalization, nfd_071_178)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -17700,7 +17700,7 @@ TEST(normalization, nfd_071_179)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17714,7 +17714,7 @@ TEST(normalization, nfd_071_179)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17728,7 +17728,7 @@ TEST(normalization, nfd_071_179)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17742,7 +17742,7 @@ TEST(normalization, nfd_071_179)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -17756,7 +17756,7 @@ TEST(normalization, nfd_071_179)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -17799,7 +17799,7 @@ TEST(normalization, nfd_071_180)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17813,7 +17813,7 @@ TEST(normalization, nfd_071_180)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17827,7 +17827,7 @@ TEST(normalization, nfd_071_180)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17841,7 +17841,7 @@ TEST(normalization, nfd_071_180)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -17855,7 +17855,7 @@ TEST(normalization, nfd_071_180)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -17898,7 +17898,7 @@ TEST(normalization, nfd_071_181)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17912,7 +17912,7 @@ TEST(normalization, nfd_071_181)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17926,7 +17926,7 @@ TEST(normalization, nfd_071_181)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -17940,7 +17940,7 @@ TEST(normalization, nfd_071_181)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -17954,7 +17954,7 @@ TEST(normalization, nfd_071_181)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -17997,7 +17997,7 @@ TEST(normalization, nfd_071_182)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18011,7 +18011,7 @@ TEST(normalization, nfd_071_182)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18025,7 +18025,7 @@ TEST(normalization, nfd_071_182)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18039,7 +18039,7 @@ TEST(normalization, nfd_071_182)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -18053,7 +18053,7 @@ TEST(normalization, nfd_071_182)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -18096,7 +18096,7 @@ TEST(normalization, nfd_071_183)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18110,7 +18110,7 @@ TEST(normalization, nfd_071_183)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18124,7 +18124,7 @@ TEST(normalization, nfd_071_183)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18138,7 +18138,7 @@ TEST(normalization, nfd_071_183)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -18152,7 +18152,7 @@ TEST(normalization, nfd_071_183)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -18195,7 +18195,7 @@ TEST(normalization, nfd_071_184)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18209,7 +18209,7 @@ TEST(normalization, nfd_071_184)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18223,7 +18223,7 @@ TEST(normalization, nfd_071_184)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18237,7 +18237,7 @@ TEST(normalization, nfd_071_184)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -18251,7 +18251,7 @@ TEST(normalization, nfd_071_184)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -18294,7 +18294,7 @@ TEST(normalization, nfd_071_185)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18308,7 +18308,7 @@ TEST(normalization, nfd_071_185)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18322,7 +18322,7 @@ TEST(normalization, nfd_071_185)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18336,7 +18336,7 @@ TEST(normalization, nfd_071_185)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -18350,7 +18350,7 @@ TEST(normalization, nfd_071_185)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -18393,7 +18393,7 @@ TEST(normalization, nfd_071_186)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18407,7 +18407,7 @@ TEST(normalization, nfd_071_186)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18421,7 +18421,7 @@ TEST(normalization, nfd_071_186)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18435,7 +18435,7 @@ TEST(normalization, nfd_071_186)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -18449,7 +18449,7 @@ TEST(normalization, nfd_071_186)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -18492,7 +18492,7 @@ TEST(normalization, nfd_071_187)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18506,7 +18506,7 @@ TEST(normalization, nfd_071_187)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18520,7 +18520,7 @@ TEST(normalization, nfd_071_187)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18534,7 +18534,7 @@ TEST(normalization, nfd_071_187)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -18548,7 +18548,7 @@ TEST(normalization, nfd_071_187)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -18591,7 +18591,7 @@ TEST(normalization, nfd_071_188)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18605,7 +18605,7 @@ TEST(normalization, nfd_071_188)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18619,7 +18619,7 @@ TEST(normalization, nfd_071_188)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18633,7 +18633,7 @@ TEST(normalization, nfd_071_188)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -18647,7 +18647,7 @@ TEST(normalization, nfd_071_188)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -18690,7 +18690,7 @@ TEST(normalization, nfd_071_189)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18704,7 +18704,7 @@ TEST(normalization, nfd_071_189)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18718,7 +18718,7 @@ TEST(normalization, nfd_071_189)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18732,7 +18732,7 @@ TEST(normalization, nfd_071_189)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -18746,7 +18746,7 @@ TEST(normalization, nfd_071_189)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -18789,7 +18789,7 @@ TEST(normalization, nfd_071_190)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18803,7 +18803,7 @@ TEST(normalization, nfd_071_190)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18817,7 +18817,7 @@ TEST(normalization, nfd_071_190)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18831,7 +18831,7 @@ TEST(normalization, nfd_071_190)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -18845,7 +18845,7 @@ TEST(normalization, nfd_071_190)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -18888,7 +18888,7 @@ TEST(normalization, nfd_071_191)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18902,7 +18902,7 @@ TEST(normalization, nfd_071_191)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18916,7 +18916,7 @@ TEST(normalization, nfd_071_191)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -18930,7 +18930,7 @@ TEST(normalization, nfd_071_191)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -18944,7 +18944,7 @@ TEST(normalization, nfd_071_191)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -18987,7 +18987,7 @@ TEST(normalization, nfd_071_192)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19001,7 +19001,7 @@ TEST(normalization, nfd_071_192)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19015,7 +19015,7 @@ TEST(normalization, nfd_071_192)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19029,7 +19029,7 @@ TEST(normalization, nfd_071_192)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -19043,7 +19043,7 @@ TEST(normalization, nfd_071_192)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -19086,7 +19086,7 @@ TEST(normalization, nfd_071_193)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19100,7 +19100,7 @@ TEST(normalization, nfd_071_193)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19114,7 +19114,7 @@ TEST(normalization, nfd_071_193)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19128,7 +19128,7 @@ TEST(normalization, nfd_071_193)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -19142,7 +19142,7 @@ TEST(normalization, nfd_071_193)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -19185,7 +19185,7 @@ TEST(normalization, nfd_071_194)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19199,7 +19199,7 @@ TEST(normalization, nfd_071_194)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19213,7 +19213,7 @@ TEST(normalization, nfd_071_194)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19227,7 +19227,7 @@ TEST(normalization, nfd_071_194)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -19241,7 +19241,7 @@ TEST(normalization, nfd_071_194)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -19284,7 +19284,7 @@ TEST(normalization, nfd_071_195)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19298,7 +19298,7 @@ TEST(normalization, nfd_071_195)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19312,7 +19312,7 @@ TEST(normalization, nfd_071_195)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19326,7 +19326,7 @@ TEST(normalization, nfd_071_195)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -19340,7 +19340,7 @@ TEST(normalization, nfd_071_195)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -19383,7 +19383,7 @@ TEST(normalization, nfd_071_196)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19397,7 +19397,7 @@ TEST(normalization, nfd_071_196)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19411,7 +19411,7 @@ TEST(normalization, nfd_071_196)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19425,7 +19425,7 @@ TEST(normalization, nfd_071_196)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -19439,7 +19439,7 @@ TEST(normalization, nfd_071_196)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -19482,7 +19482,7 @@ TEST(normalization, nfd_071_197)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19496,7 +19496,7 @@ TEST(normalization, nfd_071_197)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19510,7 +19510,7 @@ TEST(normalization, nfd_071_197)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19524,7 +19524,7 @@ TEST(normalization, nfd_071_197)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -19538,7 +19538,7 @@ TEST(normalization, nfd_071_197)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -19581,7 +19581,7 @@ TEST(normalization, nfd_071_198)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19595,7 +19595,7 @@ TEST(normalization, nfd_071_198)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19609,7 +19609,7 @@ TEST(normalization, nfd_071_198)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19623,7 +19623,7 @@ TEST(normalization, nfd_071_198)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -19637,7 +19637,7 @@ TEST(normalization, nfd_071_198)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -19678,7 +19678,7 @@ TEST(normalization, nfd_071_199)
 
 
         {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            std::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19692,7 +19692,7 @@ TEST(normalization, nfd_071_199)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            std::string str = boost::text::to_string(c2.begin(), c2.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19706,7 +19706,7 @@ TEST(normalization, nfd_071_199)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            std::string str = boost::text::to_string(c3.begin(), c3.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c3.size());
@@ -19720,7 +19720,7 @@ TEST(normalization, nfd_071_199)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            std::string str = boost::text::to_string(c4.begin(), c4.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());
@@ -19734,7 +19734,7 @@ TEST(normalization, nfd_071_199)
         }
 
         {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            std::string str = boost::text::to_string(c5.begin(), c5.end());
             boost::text::normalize<boost::text::nf::d>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t)c5.size());

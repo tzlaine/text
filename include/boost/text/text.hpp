@@ -1,20 +1,23 @@
+// Copyright (C) 2020 T. Zachary Laine
+//
+// Distributed under the Boost Software License, Version 1.0. (See
+// accompanying file LICENSE_1_0.txt or copy at
+// http://www.boost.org/LICENSE_1_0.txt)
 #ifndef BOOST_TEXT_TEXT_HPP
 #define BOOST_TEXT_TEXT_HPP
 
 #include <boost/text/grapheme.hpp>
 #include <boost/text/grapheme_iterator.hpp>
 #include <boost/text/normalize_string.hpp>
+#include <boost/text/string_view.hpp>
 #include <boost/text/transcode_iterator.hpp>
+#include <boost/text/detail/utility.hpp>
 
-// Copyright (C) 2020 T. Zachary Laine
-//
-// Distributed under the Boost Software License, Version 1.0. (See
-// accompanying file LICENSE_1_0.txt or copy at
-// http://www.boost.org/LICENSE_1_0.txt)
 #include <boost/algorithm/cxx14/equal.hpp>
 #include <boost/container/small_vector.hpp>
 
 #include <iterator>
+#include <climits>
 
 
 #ifndef BOOST_TEXT_DOXYGEN
@@ -22,7 +25,7 @@
 #ifdef BOOST_TEXT_TESTING
 #define BOOST_TEXT_CHECK_TEXT_NORMALIZATION()                                  \
     do {                                                                       \
-        string str2(str_);                                                     \
+        std::string str2(str_);                                                \
         normalize<nf::fcc>(str2);                                              \
         BOOST_ASSERT(str_ == str2);                                            \
     } while (false)
@@ -34,14 +37,11 @@
 
 namespace boost { namespace text { inline namespace v1 {
 
-    struct string_view;
-    struct string;
-    struct repeated_string_view;
     struct text_view;
     struct rope_view;
 
     /** A mutable contiguous null-terminated sequence of graphemes.  The
-        underlying storage is a string that is UTF-8-encoded and
+        underlying storage is a std::string that is UTF-8-encoded and
         FCC-normalized. */
     struct text
     {
@@ -67,16 +67,13 @@ namespace boost { namespace text { inline namespace v1 {
         text(char const * c_str);
 
         /** Constructs a text from a string. */
-        explicit text(string s);
+        explicit text(std::string s);
 
         /** Constructs a text from a text_view. */
         explicit text(text_view tv);
 
         /** Constructs a text from a string_view. */
         explicit text(string_view sv);
-
-        /** Constructs a text from a repeated_string_view. */
-        explicit text(repeated_string_view rsv);
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -124,16 +121,13 @@ namespace boost { namespace text { inline namespace v1 {
         text & operator=(char const * c_str);
 
         /** Assignment from a string. */
-        text & operator=(string s);
+        text & operator=(std::string s);
 
         /** Assignment from a text_view. */
         text & operator=(text_view tv);
 
         /** Assignment from a string_view. */
         text & operator=(string_view sv);
-
-        /** Assignment from a repeated_string_view. */
-        text & operator=(repeated_string_view rsv);
 
 
 #ifdef BOOST_TEXT_DOXYGEN
@@ -167,20 +161,28 @@ namespace boost { namespace text { inline namespace v1 {
 
         iterator begin() noexcept
         {
-            return make_iter(str_.begin(), str_.begin(), str_.end());
+            auto const first = const_cast<char *>(str_.data());
+            auto const last = first + str_.size();
+            return make_iter(first, first, last);
         }
         iterator end() noexcept
         {
-            return make_iter(str_.begin(), str_.end(), str_.end());
+            auto const first = const_cast<char *>(str_.data());
+            auto const last = first + str_.size();
+            return make_iter(first, last, last);
         }
 
         const_iterator begin() const noexcept
         {
-            return make_iter(str_.begin(), str_.begin(), str_.end());
+            auto const first = str_.data();
+            auto const last = first + str_.size();
+            return make_iter(first, first, last);
         }
         const_iterator end() const noexcept
         {
-            return make_iter(str_.begin(), str_.end(), str_.end());
+            auto const first = str_.data();
+            auto const last = first + str_.size();
+            return make_iter(first, last, last);
         }
 
         const_iterator cbegin() const noexcept { return begin(); }
@@ -240,10 +242,6 @@ namespace boost { namespace text { inline namespace v1 {
         /** Inserts the sequence of char from sv into *this starting at
             position at. */
         iterator insert(iterator at, string_view sv);
-
-        /** Inserts the sequence of char from rsv into *this starting at
-            position at. */
-        iterator insert(iterator at, repeated_string_view rsv);
 
         /** Inserts the sequence of char from rv into *this starting at
             position at. */
@@ -338,14 +336,6 @@ namespace boost { namespace text { inline namespace v1 {
             \pre !std::less(old_substr.begin().base().base(),
             begin().base().base()) && !std::less(end().base().base(),
             old_substr.end().base().base()) */
-        text & replace(text_view old_substr, repeated_string_view new_substr);
-
-        /** Replaces the portion of *this delimited by old_substr with the
-            sequence of char from new_substr.
-
-            \pre !std::less(old_substr.begin().base().base(),
-            begin().base().base()) && !std::less(end().base().base(),
-            old_substr.end().base().base()) */
         text & replace(text_view old_substr, rope_view new_substr);
 
 #ifdef BOOST_TEXT_DOXYGEN
@@ -411,21 +401,18 @@ namespace boost { namespace text { inline namespace v1 {
         void swap(text & rhs) noexcept { str_.swap(rhs.str_); }
 
         /** Removes and returns the underlying string from *this. */
-        string extract() && noexcept { return std::move(str_); }
+        std::string extract() && noexcept { return std::move(str_); }
 
         /** Replaces the underlying string in *this.
 
             \pre s is normalized FCC. */
-        void replace(string && s) noexcept { str_ = std::move(s); }
+        void replace(std::string && s) noexcept { str_ = std::move(s); }
 
         /** Appends c_str to *this. */
         text & operator+=(char const * c_str);
 
         /** Appends tv to *this. */
         text & operator+=(string_view sv);
-
-        /** Appends rtv to *this. */
-        text & operator+=(repeated_string_view rsv);
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -515,7 +502,7 @@ namespace boost { namespace text { inline namespace v1 {
         template<typename CPIter>
         struct insert_grapheme_ref_impl;
 
-        string str_;
+        std::string str_;
 
         template<typename CPIter>
         friend struct insert_grapheme_ref_impl;
@@ -620,7 +607,6 @@ namespace boost { namespace text { inline namespace v1 {
 
 }}}
 
-#include <boost/text/string.hpp>
 #include <boost/text/text_view.hpp>
 #include <boost/text/rope.hpp>
 #include <boost/text/normalize.hpp>
@@ -652,24 +638,25 @@ namespace boost { namespace text { inline namespace v1 {
         normalize<nf::fcc>(str_);
     }
 
-    inline text::text(string s) : str_(std::move(s)) { normalize<nf::fcc>(str_); }
-
-    inline text::text(text_view tv) : str_()
+    inline text::text(std::string s) : str_(std::move(s))
     {
-        str_.insert(str_.begin(), string_view(tv));
+        normalize<nf::fcc>(str_);
+    }
+
+    inline text::text(text_view tv) :
+        str_(tv.begin().base().base(), tv.end().base().base())
+    {
         BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
     }
 
-    inline text::text(string_view sv) : str_(sv) { normalize<nf::fcc>(str_); }
-
-    inline text::text(repeated_string_view rsv) : str_(rsv)
+    inline text::text(string_view sv) : str_(sv.begin(), sv.end())
     {
         normalize<nf::fcc>(str_);
     }
 
     template<typename CharRange>
     text::text(CharRange const & r, detail::rng_alg_ret_t<int *, CharRange>) :
-        str_(r)
+        str_(detail::make_string(r.begin(), r.end()))
     {
         normalize<nf::fcc>(str_);
     }
@@ -679,7 +666,7 @@ namespace boost { namespace text { inline namespace v1 {
         CharIter first,
         Sentinel last,
         detail::char_iter_ret_t<void *, CharIter>) :
-        str_(first, last)
+        str_(detail::make_string(first, last))
     {
         normalize<nf::fcc>(str_);
     }
@@ -688,17 +675,18 @@ namespace boost { namespace text { inline namespace v1 {
     text::text(
         GraphemeRange const & r,
         detail::graph_rng_alg_ret_t<int *, GraphemeRange>) :
-        str_(r)
+        str_(
+            detail::make_string(r.begin().base().base(), r.end().base().base()))
     {}
 
     inline text & text::operator=(char const * c_str)
     {
-        str_ = string_view(c_str);
+        str_ = c_str;
         normalize<nf::fcc>(str_);
         return *this;
     }
 
-    inline text & text::operator=(string s)
+    inline text & text::operator=(std::string s)
     {
         str_ = std::move(s);
         normalize<nf::fcc>(str_);
@@ -707,21 +695,14 @@ namespace boost { namespace text { inline namespace v1 {
 
     inline text & text::operator=(text_view tv)
     {
-        str_ = string_view(tv);
+        str_.assign(tv.begin().base().base(), tv.end().base().base());
         BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
         return *this;
     }
 
     inline text & text::operator=(string_view sv)
     {
-        str_ = sv;
-        normalize<nf::fcc>(str_);
-        return *this;
-    }
-
-    inline text & text::operator=(repeated_string_view rsv)
-    {
-        str_ = rsv;
+        str_.assign(sv.begin(), sv.end());
         normalize<nf::fcc>(str_);
         return *this;
     }
@@ -730,7 +711,7 @@ namespace boost { namespace text { inline namespace v1 {
     auto text::operator=(CharRange const & r)
         -> detail::rng_alg_ret_t<text &, CharRange>
     {
-        str_ = r;
+        str_.assign(r.begin(), r.end());
         normalize<nf::fcc>(str_);
         return *this;
     }
@@ -739,7 +720,7 @@ namespace boost { namespace text { inline namespace v1 {
     auto text::operator=(GraphemeRange const & r)
         -> detail::graph_rng_alg_ret_t<text &, GraphemeRange>
     {
-        str_ = r;
+        str_.assign(r.begin().base().base(), r.begin().base().base());
         BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
         return *this;
     }
@@ -765,12 +746,14 @@ namespace boost { namespace text { inline namespace v1 {
 
     inline text::iterator text::insert(iterator at, text const & t)
     {
-        return insert_impl(at, string_view(t), true);
+        return insert_impl(at, string_view(t.str_), true);
     }
 
     inline text::iterator text::insert(iterator at, text_view tv)
     {
-        return insert_impl(at, string_view(tv), true);
+        auto const first = tv.begin().base().base();
+        auto const last = tv.end().base().base();
+        return insert_impl(at, string_view(first, last - first), true);
     }
 
     inline text::iterator text::insert(iterator at, string_view sv)
@@ -778,19 +761,10 @@ namespace boost { namespace text { inline namespace v1 {
         return insert_impl(at, sv, false);
     }
 
-    inline text::iterator text::insert(iterator at, repeated_string_view rsv)
-    {
-        bool const rsv_null_terminated =
-            !rsv.view().empty() && rsv.view().end()[-1] == '\0';
-        if (rsv_null_terminated)
-            rsv = repeat(rsv.view()(0, -1), rsv.count());
-        return insert_impl(at, rsv.begin(), rsv.end(), false);
-    }
-
     inline text & text::erase(text_view tv) noexcept
     {
-        int const at = tv.begin().base().base() - str_.begin();
-        str_.erase(string_view(tv));
+        auto const at = tv.begin().base().base() - str_.data();
+        str_.erase(str_.begin() + at, str_.begin() + at + tv.storage_bytes());
         normalize_subrange(at, at);
         BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
         return *this;
@@ -815,9 +789,11 @@ namespace boost { namespace text { inline namespace v1 {
 
     inline text::iterator text::erase(iterator first, iterator last) noexcept
     {
-        int const offset = first.base().base() - str_.begin();
+        int const offset = first.base().base() - str_.c_str();
         erase(text_view(first, last));
-        return make_iter(str_.begin(), str_.begin() + offset, str_.end());
+        char * str_first = const_cast<char *>(str_.data());
+        return make_iter(
+            str_first, str_first + offset, str_first + str_.size());
     }
 
     inline text & text::replace(text_view old_substr, char const * new_substr)
@@ -827,28 +803,29 @@ namespace boost { namespace text { inline namespace v1 {
 
     inline text & text::replace(text_view old_substr, text const & new_substr)
     {
-        return replace_impl(old_substr, string_view(new_substr), true);
+        return replace_impl(
+            old_substr,
+            string_view(
+                new_substr.begin().base().base(),
+                new_substr.end().base().base() -
+                    new_substr.begin().base().base()),
+            true);
     }
 
     inline text & text::replace(text_view old_substr, text_view new_substr)
     {
-        return replace_impl(old_substr, string_view(new_substr), true);
+        return replace_impl(
+            old_substr,
+            string_view(
+                new_substr.begin().base().base(),
+                new_substr.end().base().base() -
+                    new_substr.begin().base().base()),
+            true);
     }
 
     inline text & text::replace(text_view old_substr, string_view new_substr)
     {
         return replace_impl(old_substr, new_substr, false);
-    }
-
-    inline text &
-    text::replace(text_view old_substr, repeated_string_view new_substr)
-    {
-        bool const new_substr_null_terminated =
-            !new_substr.view().empty() && new_substr.view().end()[-1] == '\0';
-        if (new_substr_null_terminated)
-            new_substr = repeat(new_substr.view()(0, -1), new_substr.count());
-        return replace_impl(
-            old_substr, new_substr.begin(), new_substr.end(), false);
     }
 
     template<typename CharRange>
@@ -882,12 +859,6 @@ namespace boost { namespace text { inline namespace v1 {
         return *this;
     }
 
-    inline text & text::operator+=(repeated_string_view rsv)
-    {
-        insert(end(), rsv);
-        return *this;
-    }
-
     template<typename CharRange>
     auto text::operator+=(CharRange const & r)
         -> detail::rng_alg_ret_t<text &, CharRange>
@@ -899,8 +870,9 @@ namespace boost { namespace text { inline namespace v1 {
     inline text::mutable_utf32_iter
     text::prev_stable_cp(mutable_utf32_iter last) noexcept
     {
+        auto const str_first = const_cast<char *>(str_.data());
         auto const first =
-            mutable_utf32_iter(str_.begin(), str_.begin(), str_.end());
+            mutable_utf32_iter(str_first, str_first, str_first + str_.size());
         auto const it =
             find_if_backward(first, last, detail::stable_code_point<nf::fcc>);
         if (it == last)
@@ -911,8 +883,9 @@ namespace boost { namespace text { inline namespace v1 {
     inline text::mutable_utf32_iter
     text::next_stable_cp(mutable_utf32_iter first) noexcept
     {
-        auto const last =
-            mutable_utf32_iter(str_.begin(), str_.end(), str_.end());
+        auto const str_first = const_cast<char *>(str_.data());
+        auto const str_last = str_first + str_.size();
+        auto const last = mutable_utf32_iter(str_first, str_last, str_last);
         auto const it =
             find_if(first, last, detail::stable_code_point<nf::fcc>);
         return it;
@@ -921,10 +894,13 @@ namespace boost { namespace text { inline namespace v1 {
     inline int
     text::normalize_subrange(int from_near_offset, int to_near_offset)
     {
+        auto const str_first = const_cast<char *>(str_.data());
+        auto const str_last = str_first + str_.size();
+
         mutable_utf32_iter first(
-            str_.begin(), str_.begin() + from_near_offset, str_.end());
+            str_first, str_first + from_near_offset, str_last);
         mutable_utf32_iter last(
-            str_.begin(), str_.begin() + to_near_offset, str_.end());
+            str_first, str_first + to_near_offset, str_last);
         first = prev_stable_cp(first);
         last = next_stable_cp(last);
 
@@ -934,16 +910,18 @@ namespace boost { namespace text { inline namespace v1 {
         container::small_vector<char, 256> buf;
         normalize<nf::fcc>(first, last, utf_32_to_8_back_inserter(buf));
         auto const initial_cp =
-            *make_utf_8_to_32_iterator(&buf[0], &buf[0], &*buf.end());
+            *make_utf_8_to_32_iterator(&buf[0], &buf[0], &buf[0] + buf.size());
         auto const prev_initial_cp = *first;
 
         str_.replace(
-            string_view(first.base(), last.base() - first.base()),
-            string_view(&buf[0], buf.size()));
+            str_.begin() + (first.base() - str_.data()),
+            str_.begin() + (last.base() - str_.data()),
+            buf.begin(),
+            buf.end());
 
         // Return the new lo offset if the first normalized CP changed.
         return initial_cp == prev_initial_cp ? from_near_offset
-                                             : first.base() - str_.begin();
+                                             : first.base() - str_first;
     }
 
     inline text::iterator
@@ -963,21 +941,23 @@ namespace boost { namespace text { inline namespace v1 {
         // The insertion that just happened might be merged into the CP or
         // grapheme ending at the offset of the inserted char(s); if so, back
         // up and return an iterator to that.
+        auto const str_first = const_cast<char *>(str_.data());
+        auto const str_last = str_first + str_.size();
         auto insertion_cp_it =
-            mutable_utf32_iter(str_.begin(), str_.begin() + new_lo, str_.end());
+            mutable_utf32_iter(str_first, str_first + new_lo, str_last);
         auto const first_cp_of_grapheme_it =
             prev_grapheme_break(begin().base(), insertion_cp_it, end().base());
 
-        return make_iter(
-            str_.begin(), first_cp_of_grapheme_it.base(), str_.end());
+        return make_iter(str_first, first_cp_of_grapheme_it.base(), str_last);
     }
 
     template<typename CharIter, typename Sentinel>
     text::iterator text::insert_impl(
         iterator at, CharIter first, Sentinel last, bool first_last_normalized)
     {
-        int const lo = at.base().base() - str_.begin();
-        auto const insertion_it = str_.insert(at.base().base(), first, last);
+        int const lo = at.base().base() - str_.data();
+        auto const insertion_it = str_.insert(
+            str_.begin() + (at.base().base() - str_.data()), first, last);
         int const hi = insertion_it - str_.begin();
         return insert_impl_suffix(lo, hi, first_last_normalized);
     }
@@ -985,8 +965,14 @@ namespace boost { namespace text { inline namespace v1 {
     inline text::iterator
     text::insert_impl(iterator at, string_view sv, bool sv_normalized)
     {
-        int const lo = at.base().base() - str_.begin();
-        auto const insertion_it = str_.insert(at.base().base(), sv);
+        bool const sv_null_terminated = !sv.empty() && sv.back() == '\0';
+        if (sv_null_terminated)
+            sv = detail::substring(sv, 0, -1);
+        int const lo = at.base().base() - str_.data();
+        auto const insertion_it = str_.insert(
+            str_.begin() + (at.base().base() - str_.data()),
+            sv.begin(),
+            sv.end());
         int const hi = insertion_it - str_.begin();
         return insert_impl_suffix(lo, hi, sv_normalized);
     }
@@ -998,10 +984,14 @@ namespace boost { namespace text { inline namespace v1 {
         Sentinel last,
         bool first_last_normalized)
     {
-        int const lo = old_substr.begin().base().base() - str_.begin();
+        int const lo = old_substr.begin().base().base() - str_.data();
         int const old_size = storage_bytes();
         int const old_substr_size = old_substr.storage_bytes();
-        str_.replace(string_view(old_substr), first, last);
+        str_.replace(
+            str_.begin() + (old_substr.begin().base().base() - str_.data()),
+            str_.begin() + (old_substr.end().base().base() - str_.data()),
+            first,
+            last);
         int const new_size = storage_bytes();
         int const hi = lo + old_substr_size + (new_size - old_size);
         if (first_last_normalized) {
@@ -1022,14 +1012,18 @@ namespace boost { namespace text { inline namespace v1 {
         bool new_substr_normalized)
     {
         bool const new_substr_null_terminated =
-            !new_substr.empty() && new_substr.end()[-1] == '\0';
+            !new_substr.empty() && new_substr.back() == '\0';
         if (new_substr_null_terminated)
-            new_substr = new_substr(0, -1);
+            new_substr = detail::substring(new_substr, 0, -1);
 
-        int const lo = old_substr.begin().base().base() - str_.begin();
+        int const lo = old_substr.begin().base().base() - str_.data();
         int const hi = lo + old_substr.storage_bytes() +
                        (new_substr.size() - old_substr.storage_bytes());
-        str_.replace(string_view(old_substr), new_substr);
+        str_.replace(
+            str_.begin() + (old_substr.begin().base().base() - str_.data()),
+            str_.begin() + (old_substr.end().base().base() - str_.data()),
+            new_substr.begin(),
+            new_substr.end());
         if (new_substr_normalized) {
             if (hi < str_.size())
                 normalize_subrange(hi, hi);
@@ -1117,15 +1111,6 @@ namespace boost { namespace text { inline namespace v1 {
 
     /** Creates a new text object that is the concatenation of tv and t. */
     inline text operator+(text_view tv, text const & t) { return text(tv) + t; }
-
-    /** Creates a new text object that is the concatenation of t and rtv. */
-    inline text operator+(text t, repeated_string_view rtv) { return t += rtv; }
-
-    /** Creates a new text object that is the concatenation of rtv and t. */
-    inline text operator+(repeated_string_view rtv, text const & t)
-    {
-        return text(rtv) + t;
-    }
 
 #ifdef BOOST_TEXT_DOXYGEN
 

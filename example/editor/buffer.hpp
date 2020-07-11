@@ -187,10 +187,10 @@ inline buffer_t load_buffer(boost::filesystem::path path, int screen_width)
 
     int const chunk_size = 1 << 16;
     while (ifs.good()) {
-        boost::text::string chunk;
+        std::string chunk;
         chunk.resize(chunk_size, ' ');
 
-        ifs.read(chunk.begin(), chunk_size);
+        ifs.read(const_cast<char *>(chunk.data()), chunk_size);
         if (!ifs.good())
             chunk.resize(ifs.gcount(), ' ');
 

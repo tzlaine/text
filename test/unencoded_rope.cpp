@@ -49,12 +49,8 @@ TEST(unencoded_rope, test_empty)
     std::cout << "t=\"" << t << "\"\n";
 
     {
-        using namespace text::literals;
-        text::unencoded_rope t2(""_s);
-        EXPECT_TRUE(t == t2);
-
-        text::unencoded_rope t3(u8""_s);
-        EXPECT_TRUE(t == t3);
+        text::unencoded_rope t2{std::string()};
+        EXPECT_TRUE(t2 == text::unencoded_rope{});
     }
 }
 
@@ -147,9 +143,8 @@ TEST(unencoded_rope, test_non_empty_const_interface)
     EXPECT_EQ(t_a.rend(), rend(t_a));
 
     {
-        using namespace text::literals;
-        EXPECT_EQ(t_a, "a"_s);
-        EXPECT_EQ(t_ab, "ab"_s);
+        EXPECT_EQ(t_a, std::string("a"));
+        EXPECT_EQ(t_ab, std::string("ab"));
     }
 }
 
@@ -174,7 +169,7 @@ TEST(unencoded_rope, test_ctors)
     EXPECT_EQ("", t2);
 
     std::string const s("An old-school string");
-    text::unencoded_rope t5{text::string(s)};
+    text::unencoded_rope t5{std::string(s)};
     EXPECT_EQ(t5, "An old-school string");
     EXPECT_EQ("An old-school string", t5);
 
@@ -182,11 +177,6 @@ TEST(unencoded_rope, test_ctors)
     text::unencoded_rope t6(tv);
     EXPECT_EQ(t6, "a view ");
     EXPECT_EQ("a view ", t6);
-
-    text::repeated_string_view const rtv(tv, 3);
-    text::unencoded_rope t7(rtv);
-    EXPECT_EQ(t7, "a view a view a view ");
-    EXPECT_EQ("a view a view a view ", t7);
 
     std::list<char> const char_list = {'a', ' ', 'l', 'i', 's', 't'};
     text::unencoded_rope t8(char_list.begin(), char_list.end());
@@ -287,7 +277,7 @@ TEST(unencoded_rope, test_assignment)
     {
         std::string const s("An old-school string");
         text::unencoded_rope t;
-        t = text::string(s);
+        t = std::string(s);
         EXPECT_EQ(t, "An old-school string");
     }
 
@@ -296,11 +286,6 @@ TEST(unencoded_rope, test_assignment)
         text::unencoded_rope t;
         t = tv;
         EXPECT_EQ(t, "a view ");
-
-        text::repeated_string_view const rtv(tv, 3);
-        text::unencoded_rope t2;
-        t2 = rtv;
-        EXPECT_EQ(t2, "a view a view a view ");
     }
 
     {
@@ -409,11 +394,11 @@ TEST(unencoded_rope, test_substr)
 {
     text::unencoded_rope const r =
         text::unencoded_rope("When writing a specialization, ") +
-        text::string("be careful about its location; ") +
+        std::string("be careful about its location; ") +
         text::string_view(
             "or to make it compile will be such a trial as to "
             "kindle its self-immolation") +
-        text::repeated_string_view(".", 3);
+        text::string_view("...");
 
     EXPECT_EQ(r(-4, -1), "n..");
 
@@ -442,7 +427,6 @@ TEST(unencoded_rope, test_substr)
 TEST(unencoded_rope, test_insert)
 {
     text::string_view const tv("a view ");
-    text::repeated_string_view const rtv(tv, 3);
 
     {
         text::unencoded_rope const ct("string");
@@ -474,50 +458,6 @@ TEST(unencoded_rope, test_insert)
         text::unencoded_rope t6 = ct;
         t6.insert(6, tv);
         EXPECT_EQ(t6, "stringa view ");
-
-        text::unencoded_rope t7 = ct;
-        t7.insert(6, t7(0, 3));
-        EXPECT_EQ(t7, "stringstr");
-
-        text::unencoded_rope t8 = ct;
-        t8.insert(2, t8(0, 3));
-        EXPECT_EQ(t8, "ststrring");
-
-        text::unencoded_rope t9 = ct;
-        t9.insert(6, t9(3, 6));
-        EXPECT_EQ(t9, "stringing");
-    }
-
-    {
-        text::unencoded_rope const ct("string");
-
-        text::unencoded_rope t0 = ct;
-        t0.insert(0, rtv);
-        EXPECT_EQ(t0, "a view a view a view string");
-
-        text::unencoded_rope t1 = ct;
-        t1.insert(1, rtv);
-        EXPECT_EQ(t1, "sa view a view a view tring");
-
-        text::unencoded_rope t2 = ct;
-        t2.insert(2, rtv);
-        EXPECT_EQ(t2, "sta view a view a view ring");
-
-        text::unencoded_rope t3 = ct;
-        t3.insert(3, rtv);
-        EXPECT_EQ(t3, "stra view a view a view ing");
-
-        text::unencoded_rope t4 = ct;
-        t4.insert(4, rtv);
-        EXPECT_EQ(t4, "stria view a view a view ng");
-
-        text::unencoded_rope t5 = ct;
-        t5.insert(5, rtv);
-        EXPECT_EQ(t5, "strina view a view a view g");
-
-        text::unencoded_rope t6 = ct;
-        t6.insert(6, rtv);
-        EXPECT_EQ(t6, "stringa view a view a view ");
 
         text::unencoded_rope t7 = ct;
         t7.insert(6, t7(0, 3));
@@ -574,18 +514,11 @@ TEST(unencoded_rope, test_insert)
     {
         char const * str = "";
         text::string_view const tv(str, 1); // explicitly null-terminated
-        text::repeated_string_view const rtv(tv, 3);
 
         {
             text::unencoded_rope t("text");
             t.insert(2, tv);
             EXPECT_EQ(t, "text"); // no null in the middle
-        }
-
-        {
-            text::unencoded_rope t("text");
-            t.insert(2, rtv);
-            EXPECT_EQ(t, "text"); // no nulls in the middle
         }
     }
 }
@@ -598,16 +531,12 @@ TEST(unencoded_rope, test_insert_unencoded_rope_view)
         std::ptrdiff_t const at = i % 2 ? 0 : rv_rope.size();
         switch (i % 3) {
         case 0:
-            rv_rope.insert(at, text::string("text"));
+            rv_rope.insert(at, std::string("text"));
             rv_rope_as_string.insert(at, "text");
             break;
         case 1:
             rv_rope.insert(at, text::string_view("text_view"));
             rv_rope_as_string.insert(at, "text_view");
-            break;
-        case 2:
-            rv_rope.insert(at, text::repeated_string_view("rtv", 2));
-            rv_rope_as_string.insert(at, "rtvrtv");
             break;
         }
     }
@@ -719,7 +648,8 @@ TEST(unencoded_rope, test_replace)
         }
     }
 
-    text::repeated_string_view const really_long_replacement(replacement, 10);
+    text::string_view const really_long_replacement(
+        "REPREPREPREPREPREPREPREPREPREP");
 
     for (int j = 0; j <= ct.size(); ++j) {
         for (int i = 0; i <= j; ++i) {
@@ -844,14 +774,14 @@ TEST(unencoded_rope, test_unformatted_output)
     {
         std::ostringstream oss;
         oss << std::setw(10) << text::unencoded_rope("abc");
-        EXPECT_EQ(oss.str(), "abc");
+        EXPECT_EQ(oss.str(), "       abc");
     }
 
     {
         std::ostringstream oss;
         oss << std::setw(10) << std::left << std::setfill('*')
             << text::unencoded_rope("abc");
-        EXPECT_EQ(oss.str(), "abc");
+        EXPECT_EQ(oss.str(), "abc*******");
     }
 }
 

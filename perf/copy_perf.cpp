@@ -3,8 +3,6 @@
 // Distributed under the Boost Software License, Version 1.0. (See
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
-#include <boost/text/string.hpp>
-
 #include "string_objects.hpp"
 
 #include <benchmark/benchmark.h>
@@ -23,7 +21,7 @@ void BM_string_view_copy(benchmark::State & state)
 void BM_string_copy(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::string(strings[state.range(0)]));
+        benchmark::DoNotOptimize(std::string(strings[state.range(0)]));
     }
 }
 

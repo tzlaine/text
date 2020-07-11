@@ -235,14 +235,14 @@ TEST(tailoring, reordering)
 
     std::sort(reorderings.begin(), reorderings.end());
 
-    text::string reordering_str;
+    std::string reordering_str;
     std::vector<std::array<uint32_t, 1>> cps;
     do {
         reordering_str = "[reorder";
         cps.clear();
         for (auto reorder : reorderings) {
             reordering_str += " ";
-            reordering_str += reorder.name_;
+            reordering_str.append(reorder.name_.begin(), reorder.name_.end());
             cps.insert(cps.end(), reorder.cps_, reorder.cps_ + 4);
             if (reorder.name_ == "Hani")
                 cps.insert(cps.end(), implicit, implicit + 4);
@@ -252,8 +252,8 @@ TEST(tailoring, reordering)
         text::collation_table const table = text::tailored_collation_table(
             reordering_str,
             "reorderings",
-            [](text::string const & s) { std::cout << s; },
-            [](text::string const & s) { std::cout << s; });
+            [](std::string const & s) { std::cout << s; },
+            [](std::string const & s) { std::cout << s; });
 
         for (int i = 0, end = (int)cps.size() - 1; i != end; ++i) {
             EXPECT_LE(
@@ -770,8 +770,8 @@ TEST(tailoring, es)
     text::collation_table const table = text::tailored_collation_table(
         text::data::es::standard_collation_tailoring(),
         "es::standard_collation_tailoring()",
-        [](text::string const & s) { std::cout << s; },
-        [](text::string const & s) { std::cout << s; });
+        [](std::string const & s) { std::cout << s; },
+        [](std::string const & s) { std::cout << s; });
 
     int const cases = 9;
     std::array<container::static_vector<uint32_t, 16>, cases> const lhs = {{
@@ -842,8 +842,8 @@ TEST(tailoring, fi)
     text::collation_table const table = text::tailored_collation_table(
         text::data::fi::standard_collation_tailoring(),
         "fi::standard_collation_tailoring()",
-        [](text::string const & s) { std::cout << s; },
-        [](text::string const & s) { std::cout << s; });
+        [](std::string const & s) { std::cout << s; },
+        [](std::string const & s) { std::cout << s; });
 
     int const cases = 5;
     std::array<container::static_vector<uint32_t, 16>, cases> const lhs = {
@@ -902,8 +902,8 @@ TEST(tailoring, fr)
     text::collation_table const table = text::tailored_collation_table(
         text::data::fr_CA::standard_collation_tailoring(),
         "fr_CA::standard_collation_tailoring()",
-        [](text::string const & s) { std::cout << s; },
-        [](text::string const & s) { std::cout << s; });
+        [](std::string const & s) { std::cout << s; },
+        [](std::string const & s) { std::cout << s; });
 
     {
         int const cases = 12;
@@ -1056,8 +1056,8 @@ TEST(tailoring, ja)
     text::collation_table const table = text::tailored_collation_table(
         text::data::ja::standard_collation_tailoring(),
         "ja::standard_collation_tailoring()",
-        [](text::string const & s) { std::cout << s; },
-        [](text::string const & s) { std::cout << s; });
+        [](std::string const & s) { std::cout << s; },
+        [](std::string const & s) { std::cout << s; });
 
     {
         int const cases = 6;
@@ -1249,13 +1249,13 @@ TEST(tailoring, th)
     text::collation_table const table = text::tailored_collation_table(
         text::data::th::standard_collation_tailoring(),
         "th::standard_collation_tailoring()",
-        [](text::string const & s) { std::cout << s; },
-        [](text::string const & s) { std::cout << s; });
+        [](std::string const & s) { std::cout << s; },
+        [](std::string const & s) { std::cout << s; });
 
     std::ifstream ifs("test/riwords.txt", std::ios_base::binary);
-    std::vector<text::string> lines;
+    std::vector<std::string> lines;
     while (ifs) {
-        text::string line;
+        std::string line;
         char c;
         while (ifs.get(c)) {
             if (c != '\r')
@@ -1442,11 +1442,11 @@ TEST(tailoring, th)
             text::tailored_collation_table(
                 "& c < ab",
                 "custom-tailoring",
-                [](text::string const & s) { std::cout << s; },
-                [](text::string const & s) { std::cout << s; });
+                [](std::string const & s) { std::cout << s; },
+                [](std::string const & s) { std::cout << s; });
 
-        text::string const a("\u0e41ab");
-        text::string const b("\u0e41c");
+        std::string const a("\u0e41ab");
+        std::string const b("\u0e41c");
         auto const a_ = text::as_utf32(a);
         auto const b_ = text::as_utf32(b);
         EXPECT_EQ(
@@ -1469,8 +1469,8 @@ TEST(tailoring, tr)
     text::collation_table const table = text::tailored_collation_table(
         text::data::tr::standard_collation_tailoring(),
         "tr::standard_collation_tailoring()",
-        [](text::string const & s) { std::cout << s; },
-        [](text::string const & s) { std::cout << s; });
+        [](std::string const & s) { std::cout << s; },
+        [](std::string const & s) { std::cout << s; });
 
     int const cases = 11;
     std::array<container::static_vector<uint32_t, 16>, cases> const lhs = {

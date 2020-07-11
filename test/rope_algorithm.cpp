@@ -621,7 +621,7 @@ TEST(rope_algorithm, coll_search_default)
             "ACCATGACCAGGGACACATCCACGAGCACAGCCTACATGGAGCTGAGCAGCCTGAGATCTGAAGAC"
             "ACGGCCATGTATTACTGTGGGAGAGATGTCTGGAGTGGTTATTATTGCCCCGGTAATATTACTACT"
             "ACTACTACTACATGGACGTCTGGGGCAAAGGGACCACG";
-        rope const corpus = repeat("a", 8) + base_pairs;
+        rope const corpus = "aaaaaaaa" + base_pairs;
 
         do_search(table, corpus, base_pairs, 8, corpus.distance(), __LINE__);
     }

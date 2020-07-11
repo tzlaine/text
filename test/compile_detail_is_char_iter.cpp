@@ -5,7 +5,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 #include <boost/text/algorithm.hpp>
 #include <boost/text/string_view.hpp>
-#include <boost/text/string.hpp>
+#include <boost/text/unencoded_rope.hpp>
+#include <boost/text/detail/algorithm.hpp>
 
 #include <array>
 #include <list>
@@ -25,11 +26,11 @@ static_assert(
 static_assert(
     text::detail::is_char_iter<text::string_view::const_reverse_iterator>{}, "");
 
-static_assert(text::detail::is_char_iter<text::string::iterator>{}, "");
-static_assert(text::detail::is_char_iter<text::string::const_iterator>{}, "");
-static_assert(text::detail::is_char_iter<text::string::reverse_iterator>{}, "");
+static_assert(text::detail::is_char_iter<std::string::iterator>{}, "");
+static_assert(text::detail::is_char_iter<std::string::const_iterator>{}, "");
+static_assert(text::detail::is_char_iter<std::string::reverse_iterator>{}, "");
 static_assert(
-    text::detail::is_char_iter<text::string::const_reverse_iterator>{}, "");
+    text::detail::is_char_iter<std::string::const_reverse_iterator>{}, "");
 
 static_assert(text::detail::is_char_iter<text::unencoded_rope_view::iterator>{}, "");
 static_assert(text::detail::is_char_iter<text::unencoded_rope_view::const_iterator>{}, "");

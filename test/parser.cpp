@@ -49,8 +49,8 @@ TEST(parser, exceptions)
         [](text::case_first) {},
         [](text::detail::cp_seq_t const & suppressions) {},
         [](std::vector<text::detail::reorder_group> const & reorder_groups) {},
-        [](text::string const & s) { std::cout << s; },
-        [](text::string const & s) { std::cout << s; }};
+        [](std::string const & s) { std::cout << s; },
+        [](std::string const & s) { std::cout << s; }};
 
     // Exceptions produced by parse() itself.
     {
@@ -616,8 +616,8 @@ TEST(parser, options)
             },
             [](std::vector<text::detail::reorder_group> const &
                    reorder_groups) {},
-            [](text::string const & s) { std::cout << s; },
-            [](text::string const & s) { std::cout << s; }};
+            [](std::string const & s) { std::cout << s; },
+            [](std::string const & s) { std::cout << s; }};
 
         text::string_view sv = "[suppressContractions [abc]]";
         EXPECT_NO_THROW(text::detail::parse(
@@ -638,8 +638,8 @@ TEST(parser, options)
             [](text::detail::cp_seq_t const & suppressions) {},
             [](std::vector<text::detail::reorder_group> const &
                    reorder_groups) {},
-            [](text::string const & s) { std::cout << s; },
-            [](text::string const & s) { std::cout << s; }};
+            [](std::string const & s) { std::cout << s; },
+            [](std::string const & s) { std::cout << s; }};
 
         text::string_view sv;
 
@@ -684,8 +684,8 @@ TEST(parser, options)
             [](text::detail::cp_seq_t const & suppressions) {},
             [](std::vector<text::detail::reorder_group> const &
                    reorder_groups) {},
-            [](text::string const & s) { std::cout << s; },
-            [](text::string const & s) { std::cout << s; }};
+            [](std::string const & s) { std::cout << s; },
+            [](std::string const & s) { std::cout << s; }};
 
         text::string_view sv;
 
@@ -713,8 +713,8 @@ TEST(parser, options)
             [](text::detail::cp_seq_t const & suppressions) {},
             [](std::vector<text::detail::reorder_group> const &
                    reorder_groups) {},
-            [](text::string const & s) { std::cout << s; },
-            [](text::string const & s) { std::cout << s; }};
+            [](std::string const & s) { std::cout << s; },
+            [](std::string const & s) { std::cout << s; }};
 
         text::string_view sv;
 
@@ -737,8 +737,8 @@ TEST(parser, options)
             [](text::detail::cp_seq_t const & suppressions) {},
             [](std::vector<text::detail::reorder_group> const &
                    reorder_groups) {},
-            [](text::string const & s) { std::cout << s; },
-            [](text::string const & s) { std::cout << s; }};
+            [](std::string const & s) { std::cout << s; },
+            [](std::string const & s) { std::cout << s; }};
 
         text::string_view sv;
 
@@ -766,8 +766,8 @@ TEST(parser, options)
             [](text::detail::cp_seq_t const & suppressions) {},
             [](std::vector<text::detail::reorder_group> const &
                    reorder_groups) {},
-            [](text::string const & s) { std::cout << s; },
-            [](text::string const & s) { std::cout << s; }};
+            [](std::string const & s) { std::cout << s; },
+            [](std::string const & s) { std::cout << s; }};
 
         text::string_view sv;
 
@@ -1527,8 +1527,8 @@ TEST(parser, options)
             [](text::detail::cp_seq_t const & suppressions) {},
             [&result](std::vector<text::detail::reorder_group> const &
                           reorder_groups) { result = reorder_groups; },
-            [](text::string const & s) { std::cout << s; },
-            [](text::string const & s) { std::cout << s; }};
+            [](std::string const & s) { std::cout << s; },
+            [](std::string const & s) { std::cout << s; }};
 
         text::string_view sv = "[reorder symbol others punct]";
         EXPECT_NO_THROW(text::detail::parse(
@@ -2276,8 +2276,8 @@ TEST(parser, options)
             [](text::detail::cp_seq_t const & suppressions) {},
             [&result](std::vector<text::detail::reorder_group> const &
                           reorder_groups) { result = reorder_groups; },
-            [](text::string const & s) { std::cout << s; },
-            [](text::string const & s) { std::cout << s; }};
+            [](std::string const & s) { std::cout << s; },
+            [](std::string const & s) { std::cout << s; }};
 
         text::string_view sv = "[reorder symbol punct Grek]";
         EXPECT_NO_THROW(text::detail::parse(
@@ -2296,8 +2296,8 @@ TEST(parser, options)
             [](text::case_first) {},
             [](text::detail::cp_seq_t const & suppressions) {},
             [](std::vector<text::detail::reorder_group> const & reorder_groups) {},
-            [](text::string const & s) { std::cout << s; },
-            [](text::string const & s) { std::cout << s; }};
+            [](std::string const & s) { std::cout << s; },
+            [](std::string const & s) { std::cout << s; }};
         text::string_view sv = "[reorder Sinh Mtei Sylo Saur]";
         EXPECT_NO_THROW(text::detail::parse(
             sv.begin(), sv.end(), callbacks, "<test-string>"));
@@ -2332,8 +2332,8 @@ TEST(parser, rules)
             [](text::case_first) {},
             [](text::detail::cp_seq_t const & suppressions) {},
             [](std::vector<text::detail::reorder_group> const & reorder_groups) {},
-            [](text::string const & s) { std::cout << s; },
-            [](text::string const & s) { std::cout << s; }};
+            [](std::string const & s) { std::cout << s; },
+            [](std::string const & s) { std::cout << s; }};
 
         text::string_view sv;
 

@@ -18,7 +18,7 @@ namespace boost { namespace text { inline namespace v1 {
     inline void in_place_to_lower(
         text & t, case_language lang = case_language::other) noexcept
     {
-        string s;
+        std::string s;
         boost::text::v1::to_lower(
             t.begin().base(),
             t.begin().base(),
@@ -38,7 +38,7 @@ namespace boost { namespace text { inline namespace v1 {
     inline void in_place_to_lower(
         rope & r, case_language lang = case_language::other) noexcept
     {
-        string s;
+        std::string s;
         boost::text::v1::to_lower(
             r.begin().base(),
             r.begin().base(),
@@ -56,7 +56,7 @@ namespace boost { namespace text { inline namespace v1 {
         case_language lang = case_language::other,
         NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept
     {
-        string s;
+        std::string s;
         boost::text::v1::to_title(
             t.begin().base(),
             t.begin().base(),
@@ -80,7 +80,7 @@ namespace boost { namespace text { inline namespace v1 {
         case_language lang = case_language::other,
         NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept
     {
-        string s;
+        std::string s;
         boost::text::v1::to_title(
             r.begin().base(),
             r.begin().base(),
@@ -96,7 +96,7 @@ namespace boost { namespace text { inline namespace v1 {
     inline void in_place_to_upper(
         text & t, case_language lang = case_language::other) noexcept
     {
-        string s;
+        std::string s;
         boost::text::v1::to_upper(
             t.begin().base(),
             t.begin().base(),
@@ -116,7 +116,7 @@ namespace boost { namespace text { inline namespace v1 {
     inline void in_place_to_upper(
         rope & r, case_language lang = case_language::other) noexcept
     {
-        string s;
+        std::string s;
         boost::text::v1::to_upper(
             r.begin().base(),
             r.begin().base(),

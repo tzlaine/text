@@ -20,7 +20,7 @@ using u32_iter = utf_8_to_32_iterator<char const *, null_sentinel>;
 using sentinel_cp_range_t = boost::text::utf32_view<u32_iter, null_sentinel>;
 
 void to_sentinel_cp_range(
-    string & s,
+    std::string & s,
     sentinel_cp_range_t & r,
     std::vector<uint32_t> cps,
     bool normalize = false)
@@ -28,8 +28,8 @@ void to_sentinel_cp_range(
     s = to_string(cps.begin(), cps.end());
     if (normalize)
         boost::text::normalize<nf::d>(s);
-    r = sentinel_cp_range_t{u32_iter(s.begin(), s.begin(), null_sentinel{}),
-                            null_sentinel{}};
+    r = sentinel_cp_range_t{
+        u32_iter(s.data(), s.data(), null_sentinel{}), null_sentinel{}};
 }
 
 
@@ -41,23 +41,23 @@ TEST(sentinel_apis, nfd)
     // 1E0A;1E0A;0044 0307;1E0A;0044 0307;
     // (Ḋ; Ḋ; D◌̇; Ḋ; D◌̇; ) LATIN CAPITAL LETTER D WITH DOT ABOVE
     {
-        string c1_;
+        std::string c1_;
         sentinel_cp_range_t c1;
         to_sentinel_cp_range(c1_, c1, {0x1E0A});
 
-        string c2_;
+        std::string c2_;
         sentinel_cp_range_t c2;
         to_sentinel_cp_range(c2_, c2, {0x1E0A});
 
-        string c3_;
+        std::string c3_;
         sentinel_cp_range_t c3;
         to_sentinel_cp_range(c3_, c3, {0x0044, 0x0307});
 
-        string c4_;
+        std::string c4_;
         sentinel_cp_range_t c4;
         to_sentinel_cp_range(c4_, c4, {0x1E0A});
 
-        string c5_;
+        std::string c5_;
         sentinel_cp_range_t c5;
         to_sentinel_cp_range(c5_, c5, {0x0044, 0x0307});
 
@@ -75,23 +75,23 @@ TEST(sentinel_apis, nfd)
     }
 
     {
-        string c1_;
+        std::string c1_;
         sentinel_cp_range_t c1;
         to_sentinel_cp_range(c1_, c1, {0x1E0A}, true);
 
-        string c2_;
+        std::string c2_;
         sentinel_cp_range_t c2;
         to_sentinel_cp_range(c2_, c2, {0x1E0A}, true);
 
-        string c3_;
+        std::string c3_;
         sentinel_cp_range_t c3;
         to_sentinel_cp_range(c3_, c3, {0x0044, 0x0307}, true);
 
-        string c4_;
+        std::string c4_;
         sentinel_cp_range_t c4;
         to_sentinel_cp_range(c4_, c4, {0x1E0A}, true);
 
-        string c5_;
+        std::string c5_;
         sentinel_cp_range_t c5;
         to_sentinel_cp_range(c5_, c5, {0x0044, 0x0307}, true);
 
@@ -134,7 +134,7 @@ TEST(sentinel_apis, collation)
 {
     // Taken from relative_collation_test_non_ignorable.cpp, first iteration.
 
-    string cps_;
+    std::string cps_;
     sentinel_cp_range_t cps;
     to_sentinel_cp_range(cps_, cps, {0x0338, 0x0334}, true);
 

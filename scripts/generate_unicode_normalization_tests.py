@@ -57,8 +57,8 @@ TEST(normalization, idempotence)
             continue;
 
         uint32_t cp[1] = {{i}};
-        boost::text::string str = boost::text::to_string(cp, cp + 1);
-        boost::text::string const initial_str = str;
+        std::string str = boost::text::to_string(cp, cp + 1);
+        std::string const initial_str = str;
 
         boost::text::normalize<boost::text::nf::c>(str);
         EXPECT_EQ(str, initial_str);
@@ -150,7 +150,7 @@ def generate_perf_test(tests):
             (fields, line, comment) = elem
             all_c1_cps += fields[0]
         test_lines += '''{0}
-boost::text::string const str_{1:03} = boost::text::to_string(cps_{1:03}.begin(), cps_{1:03}.end());'''.format(arrayify(all_c1_cps, 'const cps_{:03}'.format(i)), i)
+std::string const str_{1:03} = boost::text::to_string(cps_{1:03}.begin(), cps_{1:03}.end());'''.format(arrayify(all_c1_cps, 'const cps_{:03}'.format(i)), i)
 
         test_lines += '''
 
@@ -158,7 +158,7 @@ void BM_normalize_{0:03}(benchmark::State & state)
 {{
 '''.format(i)
         for j in range(0, 4):
-            test_lines += '    boost::text::string {0}_str;\n'.format(normalizations[j])
+            test_lines += '    std::string {0}_str;\n'.format(normalizations[j])
         test_lines += '''
     while (state.KeepRunning()) {
         state.PauseTiming();
@@ -208,7 +208,7 @@ TEST(normalization, {0}_{1:03}_{2:03})
 def generate_norm_check(normalization, from_, to_):
     return '''
         {{
-            boost::text::string str = boost::text::to_string({1}.begin(), {1}.end());
+            std::string str = boost::text::to_string({1}.begin(), {1}.end());
             boost::text::normalize<boost::text::nf::{0}>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t){2}.size());

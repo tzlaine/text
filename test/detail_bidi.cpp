@@ -4,7 +4,6 @@
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 #include <boost/text/bidirectional.hpp>
-#include <boost/text/string.hpp>
 #include <boost/text/string_utility.hpp>
 
 #include "generated/bidi_tests.hpp"
@@ -1904,7 +1903,7 @@ TEST(detail_bidi, l2_)
         auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto reordered_runs = l2(runs);
 
-        string result;
+        std::string result;
         uint32_t cps[1] = {0};
         for (auto run : reordered_runs) {
             if (run.reversed()) {
@@ -1948,7 +1947,7 @@ TEST(detail_bidi, l2_)
         auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto reordered_runs = l2(runs);
 
-        string result;
+        std::string result;
         uint32_t cps[1] = {0};
         for (auto run : reordered_runs) {
             if (run.reversed()) {
@@ -2027,7 +2026,7 @@ TEST(detail_bidi, l2_)
         auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto reordered_runs = l2(runs);
 
-        string result;
+        std::string result;
         uint32_t cps[1] = {0};
         for (auto run : reordered_runs) {
             if (run.reversed()) {
@@ -2044,7 +2043,7 @@ TEST(detail_bidi, l2_)
             }
         }
 
-        EXPECT_EQ(result, string(u8"he said \u201c<RAC SNAEM car=.\u201d \u201c<SEOD TI=,\u201d she agreed."));
+        EXPECT_EQ(result, std::string(u8"he said \u201c<RAC SNAEM car=.\u201d \u201c<SEOD TI=,\u201d she agreed."));
     }
     {
         uint32_t cps_[] = {'D', 'I', 'D', ' ', 'Y', 'O', 'U', ' ', 'S', 'A', 'Y', ' ', 0x2019, '>', 'h', 'e', ' ', 's', 'a', 'i', 'd', ' ', 0x201c, '<', 'c', 'a', 'r', ' ', 'M', 'E', 'A', 'N', 'S', ' ', 'C', 'A', 'R', '=', 0x201d, '=', 0x2018, '?'};
@@ -2097,7 +2096,7 @@ TEST(detail_bidi, l2_)
         auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto reordered_runs = l2(runs);
 
-        string result;
+        std::string result;
         uint32_t cps[1] = {0};
         for (auto run : reordered_runs) {
             if (run.reversed()) {
@@ -2114,6 +2113,6 @@ TEST(detail_bidi, l2_)
             }
         }
 
-        EXPECT_EQ(result, string(u8"?\u2018=he said \u201c<RAC SNAEM car=\u201d>\u2019 YAS UOY DID"));
+        EXPECT_EQ(result, std::string(u8"?\u2018=he said \u201c<RAC SNAEM car=\u201d>\u2019 YAS UOY DID"));
     }
 }

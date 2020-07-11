@@ -7,7 +7,6 @@
 #define BOOST_TEXT_DETAIL_ROPE_HPP
 
 #include <boost/text/string_view.hpp>
-#include <boost/text/string.hpp>
 #include <boost/text/transcode_iterator.hpp>
 
 #include <boost/text/detail/btree.hpp>
@@ -30,22 +29,14 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
     constexpr int rope_node_buf_size() noexcept
     {
         return max_(
-                   alignof(string),
-                   max_(
-                       alignof(string_view),
-                       max_(
-                           alignof(repeated_string_view),
-                           alignof(reference<rope_tag>)))) +
+                   alignof(std::string),
+                   max_(alignof(string_view), alignof(reference<rope_tag>))) +
                max_(
-                   sizeof(string),
-                   max_(
-                       sizeof(string_view),
-                       max_(
-                           sizeof(repeated_string_view),
-                           sizeof(reference<rope_tag>))));
+                   sizeof(std::string),
+                   max_(sizeof(string_view), sizeof(reference<rope_tag>)));
     }
 
-    enum class which : char { t, rtv, ref };
+    enum class which : char { t, ref };
 
     constexpr int string_insert_max = BOOST_TEXT_STRING_INSERT_MAX;
 
@@ -56,55 +47,30 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
     {
         leaf_node_t() noexcept : leaf_node_t(string_view()) {}
 
-        leaf_node_t(string && t) noexcept :
-            node_t(true),
-            buf_ptr_(nullptr),
-            which_(which::t)
+        leaf_node_t(std::string && t) noexcept :
+            node_t(true), buf_ptr_(nullptr), which_(which::t)
         {
-            auto at = placement_address<string>(buf_, sizeof(buf_));
+            auto at = placement_address<std::string>(buf_, sizeof(buf_));
             BOOST_ASSERT(at);
-            buf_ptr_ = new (at) string(std::move(t));
+            buf_ptr_ = new (at) std::string(std::move(t));
         }
 
         leaf_node_t(string_view tv) noexcept :
-            node_t(true),
-            buf_ptr_(nullptr),
-            which_(which::t)
+            node_t(true), buf_ptr_(nullptr), which_(which::t)
         {
             auto at = placement_address<string_view>(buf_, sizeof(buf_));
             BOOST_ASSERT(at);
-            buf_ptr_ = new (at) string(tv);
-        }
-
-        leaf_node_t(repeated_string_view rtv) noexcept :
-            node_t(true),
-            buf_ptr_(nullptr),
-            which_(which::rtv)
-        {
-            auto at =
-                placement_address<repeated_string_view>(buf_, sizeof(buf_));
-            BOOST_ASSERT(at);
-            buf_ptr_ = new (at) repeated_string_view(rtv);
+            buf_ptr_ = new (at) std::string(tv);
         }
 
         leaf_node_t(leaf_node_t const & rhs) :
-            node_t(true),
-            buf_ptr_(rhs.buf_ptr_),
-            which_(rhs.which_)
+            node_t(true), buf_ptr_(rhs.buf_ptr_), which_(rhs.which_)
         {
             switch (which_) {
             case which::t: {
-                auto at = placement_address<string>(buf_, sizeof(buf_));
+                auto at = placement_address<std::string>(buf_, sizeof(buf_));
                 BOOST_ASSERT(at);
-                buf_ptr_ = new (at) string(rhs.as_string());
-                break;
-            }
-            case which::rtv: {
-                auto at =
-                    placement_address<repeated_string_view>(buf_, sizeof(buf_));
-                BOOST_ASSERT(at);
-                buf_ptr_ = new (at)
-                    repeated_string_view(rhs.as_repeated_string_view());
+                buf_ptr_ = new (at) std::string(rhs.as_string());
                 break;
             }
             case which::ref: {
@@ -128,10 +94,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                 return;
 
             switch (which_) {
-            case which::t: as_string().~string(); break;
-            case which::rtv:
-                as_repeated_string_view().~repeated_string_view();
-                break;
+            case which::t: as_string().~basic_string(); break;
             case which::ref: as_reference().~reference(); break;
             default: BOOST_ASSERT(!"unhandled rope node case"); break;
             }
@@ -141,23 +104,16 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         {
             switch (which_) {
             case which::t: return as_string().size(); break;
-            case which::rtv: return as_repeated_string_view().size(); break;
             case which::ref: return as_reference().ref_.size(); break;
             default: BOOST_ASSERT(!"unhandled rope node case"); break;
             }
             return -(1 << 30); // This should never execute.
         }
 
-        string const & as_string() const noexcept
+        std::string const & as_string() const noexcept
         {
             BOOST_ASSERT(which_ == which::t);
-            return *static_cast<string *>(buf_ptr_);
-        }
-
-        repeated_string_view const & as_repeated_string_view() const noexcept
-        {
-            BOOST_ASSERT(which_ == which::rtv);
-            return *static_cast<repeated_string_view *>(buf_ptr_);
+            return *static_cast<std::string *>(buf_ptr_);
         }
 
         reference<rope_tag> const & as_reference() const noexcept
@@ -166,19 +122,13 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             return *static_cast<reference<rope_tag> *>(buf_ptr_);
         }
 
-        string & as_string() noexcept
+        std::string & as_string() noexcept
         {
             BOOST_ASSERT(which_ == which::t);
-            return *static_cast<string *>(buf_ptr_);
+            return *static_cast<std::string *>(buf_ptr_);
         }
 
-        repeated_string_view & as_repeated_string_view() noexcept
-        {
-            BOOST_ASSERT(which_ == which::rtv);
-            return *static_cast<repeated_string_view *>(buf_ptr_);
-        }
-
-        reference<rope_tag> & as_reference() noexcept
+       reference<rope_tag> & as_reference() noexcept
         {
             BOOST_ASSERT(which_ == which::ref);
             return *static_cast<reference<rope_tag> *>(buf_ptr_);
@@ -210,10 +160,6 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         case which::t:
             c = *(leaf->as_string().cbegin() + retval.leaf_.offset_);
             break;
-        case which::rtv:
-            c = *(
-                leaf->as_repeated_string_view().begin() + retval.leaf_.offset_);
-            break;
         case which::ref:
             c = *(leaf->as_reference().ref_.begin() + retval.leaf_.offset_);
             break;
@@ -224,20 +170,19 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
 
     inline reference<rope_tag>::reference(
         node_ptr<rope_tag> const & string_node, string_view ref) noexcept :
-        string_(string_node),
-        ref_(ref)
+        string_(string_node), ref_(ref)
     {
         BOOST_ASSERT(string_node);
         BOOST_ASSERT(string_node->leaf_);
         BOOST_ASSERT(string_node.as_leaf()->which_ == which::t);
     }
 
-    inline node_ptr<rope_tag> make_node(string const & t)
+    inline node_ptr<rope_tag> make_node(std::string const & t)
     {
         return node_ptr<rope_tag>(new leaf_node_t<rope_tag>(t));
     }
 
-    inline node_ptr<rope_tag> make_node(string && t)
+    inline node_ptr<rope_tag> make_node(std::string && t)
     {
         return node_ptr<rope_tag>(new leaf_node_t<rope_tag>(std::move(t)));
     }
@@ -245,11 +190,6 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
     inline node_ptr<rope_tag> make_node(string_view tv)
     {
         return node_ptr<rope_tag>(new leaf_node_t<rope_tag>(tv));
-    }
-
-    inline node_ptr<rope_tag> make_node(repeated_string_view rtv)
-    {
-        return node_ptr<rope_tag>(new leaf_node_t<rope_tag>(rtv));
     }
 
     inline node_ptr<rope_tag> make_node(char const * c_str)
@@ -262,7 +202,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
     {
         BOOST_ASSERT(t->which_ == which::t);
         string_view const tv =
-            string_view(t->as_string().begin() + lo, hi - lo);
+            string_view(t->as_string().c_str() + lo, hi - lo);
 
         leaf_node_t<rope_tag> * leaf = nullptr;
         node_ptr<rope_tag> retval(leaf = new leaf_node_t<rope_tag>);
@@ -279,7 +219,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         reference<rope_tag> const & t, std::ptrdiff_t lo, std::ptrdiff_t hi)
     {
         auto const offset =
-            t.ref_.begin() - t.string_.as_leaf()->as_string().begin();
+            t.ref_.begin() - t.string_.as_leaf()->as_string().c_str();
         node_ptr<rope_tag> retval =
             make_ref(t.string_.as_leaf(), lo + offset, hi + offset);
         return retval;
@@ -300,18 +240,6 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             BOOST_ASSERT(lo < INT_MAX);
             BOOST_ASSERT(hi < INT_MAX);
             return make_ref(node.as_leaf(), lo, hi);
-        case which::rtv: {
-            repeated_string_view const & crtv =
-                node.as_leaf()->as_repeated_string_view();
-            int const mod_lo = lo % crtv.view().size();
-            int const mod_hi = hi % crtv.view().size();
-            if (mod_lo != 0 || mod_hi != 0) {
-                return make_node(string(crtv.begin() + lo, crtv.begin() + hi));
-            } else {
-                auto const count = (hi - lo) / crtv.view().size();
-                return make_node(repeated_string_view(crtv.view(), count));
-            }
-        }
         case which::ref: {
             BOOST_ASSERT(lo < INT_MAX);
             BOOST_ASSERT(hi < INT_MAX);
@@ -359,21 +287,6 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
 
         std::ostream & os_;
     };
-
-    struct repeated_range
-    {
-        repeated_string_view::const_iterator first, last;
-        repeated_string_view::const_iterator begin() const { return first; }
-        repeated_string_view::const_iterator end() const { return last; }
-    };
-
-    inline std::ostream & operator<<(std::ostream & os, repeated_range rr)
-    {
-        for (char c : rr) {
-            os << c;
-        }
-        return os;
-    }
 
 }}}}
 

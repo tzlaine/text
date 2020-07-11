@@ -93,7 +93,6 @@ macro(add_test_executable name group)
 endmacro()
 
 add_test_executable(detail_utility 0)
-add_test_executable(detail_iterator 0)
 add_test_executable(utf8 0)
 add_test_executable(utf16 0)
 add_test_executable(transcode_algorithm 0)
@@ -102,9 +101,6 @@ add_test_executable(transcode_insert_iterator 0)
 add_test_executable(transcode_view 0)
 add_test_executable(grapheme_view 0)
 add_test_executable(grapheme_iterator_api 0)
-add_test_executable(string_view 0)
-add_test_executable(string 0)
-add_test_executable(string_builder 0)
 add_test_executable(text_ 0)
 add_test_executable(rope 0)
 add_test_executable(detail_btree_util 0)
@@ -270,10 +266,6 @@ set(compile_sources
     compile_tests_main.cpp
     compile_include_string_view_1.cpp
     compile_include_string_view_2.cpp
-    compile_include_string_view_3.cpp
-    compile_include_string_1.cpp
-    compile_include_string_2.cpp
-    compile_include_string_3.cpp
     compile_include_unencoded_rope_view_1.cpp
     compile_include_unencoded_rope_view_2.cpp
     compile_include_unencoded_rope_view_3.cpp
@@ -282,10 +274,7 @@ set(compile_sources
     compile_include_unencoded_rope_3.cpp
     compile_include_text_view_1.cpp
     compile_include_text_view_2.cpp
-    compile_include_text_view_3.cpp
     compile_include_text_1.cpp
-    compile_include_text_2.cpp
-    compile_include_text_3.cpp
     compile_include_rope_view_1.cpp
     compile_include_rope_view_2.cpp
     compile_include_rope_view_3.cpp

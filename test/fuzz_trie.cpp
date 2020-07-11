@@ -20,10 +20,10 @@
 
 namespace {
 
-    boost::trie::trie<boost::text::string, int> trie;
-    boost::trie::trie_map<boost::text::string, int> trie_map;
-    boost::trie::trie_set<boost::text::string> trie_set;
-    std::map<boost::text::string, int> map;
+    boost::trie::trie<std::string, int> trie;
+    boost::trie::trie_map<std::string, int> trie_map;
+    boost::trie::trie_set<std::string> trie_set;
+    std::map<std::string, int> map;
 
     std::ofstream ofs("fuzz_operations.cpp");
 }
@@ -122,7 +122,7 @@ void insert(boost::text::string_view key, int value)
 #    if 0
         << "trie_map.insert(" << std::quoted(std::string(key.begin(), key.end()))
         << ", " << value << "); // key.size()=" << key.size() << "\n"
-        << "map.insert(std::make_pair(boost::text::string("
+        << "map.insert(std::make_pair(std::string("
         << std::quoted(std::string(key.begin(), key.end())) << "), " << value
         << "));\n"
 #    endif
@@ -131,7 +131,7 @@ void insert(boost::text::string_view key, int value)
     trie.insert(key, value);
     trie_map.insert(key, value);
     trie_set.insert(key);
-    map.insert(std::make_pair(boost::text::string(key), value));
+    map.insert(std::make_pair(std::string(key), value));
 
     check();
 }

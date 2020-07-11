@@ -10,9 +10,7 @@
 
 
 using boost::text::unencoded_rope;
-using boost::text::string;
 using boost::text::string_view;
-using boost::text::repeated_string_view;
 using namespace boost::text::detail;
 
 

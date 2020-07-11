@@ -48,7 +48,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         int prev_column() const noexcept { return prev_column_; }
 
     private:
-        string prev_msg_;
+        std::string prev_msg_;
         int prev_line_;
         int prev_column_;
     };
@@ -120,7 +120,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             return {};
         return (it++)->kind();
     }
-    inline optional<string> next_identifier(token_iter & it, token_iter end)
+    inline optional<std::string> next_identifier(token_iter & it, token_iter end)
     {
         if (it == end)
             return {};
@@ -422,7 +422,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                               static_cast<int>(token_kind::primary_before_star);
     }
 
-    inline bool shares_lead_byte(string const & script)
+    inline bool shares_lead_byte(std::string const & script)
     {
         auto const it = std::find_if(
             reorder_groups().begin(),
@@ -705,12 +705,12 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                     filename));
             }
         } else if (*identifier == "reorder") {
-            std::vector<string> reorderings;
+            std::vector<std::string> reorderings;
             std::vector<reorder_group> final_reorderings;
             auto others_offset = -1;
             final_reorderings.reserve(reorder_groups().size() + 10);
 
-            optional<string> str;
+            optional<std::string> str;
             while ((str = next_identifier(it, end))) {
                 if (*str == "Common" || *str == "Zyyy") {
                     boost::throw_exception(one_token_parse_error(
@@ -765,21 +765,34 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
 
             // http://www.unicode.org/reports/tr35/tr35-collation.html#Interpretation_reordering
 
-            using namespace literals;
-
             // Zzzz=others
             std::replace(
-                reorderings.begin(), reorderings.end(), "Zzzz"_sv, "others"_sv);
+                reorderings.begin(),
+                reorderings.end(),
+                std::string("Zzzz"),
+                std::string("others"));
             // Hrkt=Hira=Kana
             std::replace(
-                reorderings.begin(), reorderings.end(), "Hrkt"_sv, "Hira"_sv);
+                reorderings.begin(),
+                reorderings.end(),
+                std::string("Hrkt"),
+                std::string("Hira"));
             std::replace(
-                reorderings.begin(), reorderings.end(), "Kana"_sv, "Hira"_sv);
+                reorderings.begin(),
+                reorderings.end(),
+                std::string("Kana"),
+                std::string("Hira"));
             // Hans=Hant=Hani
             std::replace(
-                reorderings.begin(), reorderings.end(), "Hans"_sv, "Hani"_sv);
+                reorderings.begin(),
+                reorderings.end(),
+                std::string("Hans"),
+                std::string("Hani"));
             std::replace(
-                reorderings.begin(), reorderings.end(), "Hant"_sv, "Hani"_sv);
+                reorderings.begin(),
+                reorderings.end(),
+                std::string("Hant"),
+                std::string("Hani"));
 
             auto not_in_reorderings = [&reorderings](reorder_group group) {
                 return std::find(

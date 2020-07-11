@@ -60,10 +60,10 @@ TEST(collation, relative_non_ignorable_4)
                 << "curr_key:         " << ce_dumper(curr_key) << "\n"
             ;
 
-            boost::text::string prev = boost::text::to_string(prev_cps);
-            boost::text::string curr = boost::text::to_string(curr_cps);
-            auto const prev_32 = as_utf32(prev);
-            auto const curr_32 = as_utf32(curr);
+            std::string prev = boost::text::to_string(prev_cps);
+            std::string curr = boost::text::to_string(curr_cps);
+            auto const prev_32 = boost::text::v1::as_utf32(prev);
+            auto const curr_32 = boost::text::v1::as_utf32(curr);
             EXPECT_LE(
                 boost::text::collate(
                     prev_32.begin(),

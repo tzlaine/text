@@ -18,8 +18,7 @@
 #include <climits>
 
 
-namespace boost { namespace text { inline namespace v1 {
-    namespace detail {
+namespace boost { namespace text { inline namespace v1 { namespace detail {
 
 #ifdef BOOST_TEXT_NO_CXX14_CONSTEXPR
 
@@ -199,7 +198,6 @@ namespace boost { namespace text { inline namespace v1 {
                 return 1;
             }
         }
-    }
-}}}
+}}}}
 
 #endif

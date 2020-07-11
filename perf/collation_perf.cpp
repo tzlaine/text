@@ -3,7 +3,6 @@
 // Distributed under the Boost Software License, Version 1.0. (See
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
-#include <boost/text/string.hpp>
 #include <boost/text/collate.hpp>
 #include <boost/text/transcode_view.hpp>
 
@@ -63,7 +62,7 @@ boost::text::collation_table const table =
     boost::text::default_collation_table();
 
 std::vector<std::string> std_strings;
-std::vector<boost::text::string> text_strings;
+std::vector<std::string> text_strings;
 #ifndef NO_ICU
 std::vector<U_NAMESPACE_QUALIFIER UnicodeString> icu_strings;
 
@@ -128,7 +127,7 @@ void BM_text_string_make_key(benchmark::State & state)
 
 void BM_text_string_sort(benchmark::State & state)
 {
-    std::vector<boost::text::string> local_text_strings = text_strings;
+    std::vector<std::string> local_text_strings = text_strings;
     while (state.KeepRunning()) {
         state.PauseTiming();
         local_text_strings = text_strings;
@@ -136,8 +135,8 @@ void BM_text_string_sort(benchmark::State & state)
         std::sort(
             local_text_strings.begin(),
             local_text_strings.end(),
-            [](boost::text::string const & lhs,
-               boost::text::string const & rhs) {
+            [](std::string const & lhs,
+               std::string const & rhs) {
                 return boost::text::collate(
                            boost::text::as_utf32(lhs),
                            boost::text::as_utf32(rhs),
@@ -281,7 +280,7 @@ int main(int argc, char ** argv)
             std_strings.push_back(std::string(
                 contents_first + i,
                 contents_first + i + size_and_stride.first));
-            text_strings.push_back(boost::text::string(
+            text_strings.push_back(std::string(
                 contents_first + i,
                 contents_first + i + size_and_stride.first));
 #ifndef NO_ICU

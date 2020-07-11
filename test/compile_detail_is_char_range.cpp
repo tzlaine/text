@@ -6,7 +6,6 @@
 #include <boost/text/algorithm.hpp>
 
 #include <boost/text/string_view.hpp>
-#include <boost/text/string.hpp>
 #include <boost/text/unencoded_rope.hpp>
 #include <boost/text/unencoded_rope_view.hpp>
 #include <boost/text/text.hpp>
@@ -37,8 +36,8 @@ using namespace boost;
 
 static_assert(text::detail::is_char_range<text::string_view>::value, "");
 static_assert(text::detail::is_char_range<text::string_view const>::value, "");
-static_assert(text::detail::is_char_range<text::string>::value, "");
-static_assert(text::detail::is_char_range<text::string const>::value, "");
+static_assert(text::detail::is_char_range<std::string>::value, "");
+static_assert(text::detail::is_char_range<std::string const>::value, "");
 static_assert(text::detail::is_char_range<text::unencoded_rope>::value, "");
 static_assert(text::detail::is_char_range<text::unencoded_rope_view>::value, "");
 static_assert(text::detail::is_char_range<std::string>::value, "");
@@ -97,5 +96,5 @@ static_assert(!text::detail::is_contig_grapheme_char_range<text::rope>::value, "
 static_assert(!text::detail::is_contig_grapheme_char_range<text::rope_view>::value, "");
 
 static_assert(!text::detail::is_char16_range<text::string_view>::value, "");
-static_assert(!text::detail::is_char16_range<text::string>::value, "");
+static_assert(!text::detail::is_char16_range<std::string>::value, "");
 static_assert(text::detail::is_char16_range<std::array<uint16_t, 1>>::value, "");

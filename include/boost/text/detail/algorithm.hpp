@@ -166,27 +166,21 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
     template<
         typename T,
         typename R1,
-        typename Exclude1,
-        typename Exclude2,
-        bool R1IsCharRange = is_char_range<R1>::value &&
-                             !std::is_same<R1, Exclude1>::value &&
-                             !std::is_same<R1, Exclude2>::value>
+        typename Exclude,
+        bool R1IsCharRange =
+            is_char_range<R1>::value && !std::is_same<R1, Exclude>::value>
     struct rng_alg_ret
     {
     };
 
-    template<typename T, typename R1, typename Exclude1, typename Exclude2>
-    struct rng_alg_ret<T, R1, Exclude1, Exclude2, true>
+    template<typename T, typename R1, typename Exclude>
+    struct rng_alg_ret<T, R1, Exclude, true>
     {
         using type = T;
     };
 
-    template<
-        typename T,
-        typename R1,
-        typename Exclude1 = void,
-        typename Exclude2 = void>
-    using rng_alg_ret_t = typename rng_alg_ret<T, R1, Exclude1, Exclude2>::type;
+    template<typename T, typename R1, typename Exclude = void>
+    using rng_alg_ret_t = typename rng_alg_ret<T, R1, Exclude>::type;
 
     template<
         typename T,
@@ -451,8 +445,12 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
     template<typename T>
     using is_grapheme_char_range = std::integral_constant<
         bool,
-        is_char_iter<remove_cv_ref_t<decltype(
-            std::declval<const T>().begin().base().base())>>::value &&
+        is_cp_iter<remove_cv_ref_t<decltype(
+            std::declval<const T>().begin().base())>>::value &&
+            is_cp_iter<remove_cv_ref_t<decltype(
+                std::declval<const T>().end().base())>>::value &&
+            is_char_iter<remove_cv_ref_t<decltype(
+                std::declval<const T>().begin().base().base())>>::value &&
             is_char_iter<remove_cv_ref_t<decltype(
                 std::declval<const T>().end().base().base())>>::value>;
 

@@ -23,11 +23,11 @@ TEST(parser, data)
         [](boost::text::case_first) {},
         [](boost::text::detail::cp_seq_t const & suppressions) {},
         [](std::vector<boost::text::detail::reorder_group> const & reorder_groups) {},
-        [](boost::text::string const & s) {
+        [](std::string const & s) {
             std::cout << s << std::endl;
             throw std::runtime_error("Parser produced an error!");
         },
-        [](boost::text::string const & s) { /*std::cout << s << std::endl;*/ }
+        [](std::string const & s) { /*std::cout << s << std::endl;*/ }
     };
 
 
@@ -37,8 +37,8 @@ TEST(parser, data)
         auto const str = boost::text::data::af::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "af.hpp")
         );
@@ -51,8 +51,8 @@ TEST(parser, data)
         auto const str = boost::text::data::am::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "am.hpp")
         );
@@ -65,8 +65,8 @@ TEST(parser, data)
         auto const str = boost::text::data::ar::compat_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "ar.hpp")
         );
@@ -75,8 +75,8 @@ TEST(parser, data)
         auto const str = boost::text::data::ar::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "ar.hpp")
         );
@@ -89,8 +89,8 @@ TEST(parser, data)
         auto const str = boost::text::data::as::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "as.hpp")
         );
@@ -103,8 +103,8 @@ TEST(parser, data)
         auto const str = boost::text::data::az::search_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "az.hpp")
         );
@@ -113,8 +113,8 @@ TEST(parser, data)
         auto const str = boost::text::data::az::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "az.hpp")
         );
@@ -127,8 +127,8 @@ TEST(parser, data)
         auto const str = boost::text::data::be::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "be.hpp")
         );
@@ -141,8 +141,8 @@ TEST(parser, data)
         auto const str = boost::text::data::bg::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "bg.hpp")
         );
@@ -155,8 +155,8 @@ TEST(parser, data)
         auto const str = boost::text::data::bn::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "bn.hpp")
         );
@@ -165,8 +165,8 @@ TEST(parser, data)
         auto const str = boost::text::data::bn::traditional_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "bn.hpp")
         );
@@ -179,8 +179,8 @@ TEST(parser, data)
         auto const str = boost::text::data::bs::search_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "bs.hpp")
         );
@@ -189,8 +189,8 @@ TEST(parser, data)
         auto const str = boost::text::data::bs::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "bs.hpp")
         );
@@ -203,8 +203,8 @@ TEST(parser, data)
         auto const str = boost::text::data::bs_Cyrl::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "bs_Cyrl.hpp")
         );
@@ -217,8 +217,8 @@ TEST(parser, data)
         auto const str = boost::text::data::ca::search_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "ca.hpp")
         );
@@ -231,8 +231,8 @@ TEST(parser, data)
         auto const str = boost::text::data::chr::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "chr.hpp")
         );
@@ -245,8 +245,8 @@ TEST(parser, data)
         auto const str = boost::text::data::cs::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "cs.hpp")
         );
@@ -259,8 +259,8 @@ TEST(parser, data)
         auto const str = boost::text::data::cy::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "cy.hpp")
         );
@@ -273,8 +273,8 @@ TEST(parser, data)
         auto const str = boost::text::data::da::search_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "da.hpp")
         );
@@ -283,8 +283,8 @@ TEST(parser, data)
         auto const str = boost::text::data::da::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "da.hpp")
         );
@@ -297,8 +297,8 @@ TEST(parser, data)
         auto const str = boost::text::data::de::phonebook_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "de.hpp")
         );
@@ -307,8 +307,8 @@ TEST(parser, data)
         auto const str = boost::text::data::de::search_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "de.hpp")
         );
@@ -321,8 +321,8 @@ TEST(parser, data)
         auto const str = boost::text::data::de_AT::phonebook_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "de_AT.hpp")
         );
@@ -335,8 +335,8 @@ TEST(parser, data)
         auto const str = boost::text::data::dsb::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "dsb.hpp")
         );
@@ -349,8 +349,8 @@ TEST(parser, data)
         auto const str = boost::text::data::ee::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "ee.hpp")
         );
@@ -363,8 +363,8 @@ TEST(parser, data)
         auto const str = boost::text::data::el::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "el.hpp")
         );
@@ -377,8 +377,8 @@ TEST(parser, data)
         auto const str = boost::text::data::en_US_POSIX::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "en_US_POSIX.hpp")
         );
@@ -391,8 +391,8 @@ TEST(parser, data)
         auto const str = boost::text::data::eo::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "eo.hpp")
         );
@@ -405,8 +405,8 @@ TEST(parser, data)
         auto const str = boost::text::data::es::search_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "es.hpp")
         );
@@ -415,8 +415,8 @@ TEST(parser, data)
         auto const str = boost::text::data::es::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "es.hpp")
         );
@@ -425,8 +425,8 @@ TEST(parser, data)
         auto const str = boost::text::data::es::traditional_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "es.hpp")
         );
@@ -439,8 +439,8 @@ TEST(parser, data)
         auto const str = boost::text::data::et::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "et.hpp")
         );
@@ -453,8 +453,8 @@ TEST(parser, data)
         auto const str = boost::text::data::fa::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "fa.hpp")
         );
@@ -467,8 +467,8 @@ TEST(parser, data)
         auto const str = boost::text::data::fa_AF::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "fa_AF.hpp")
         );
@@ -481,8 +481,8 @@ TEST(parser, data)
         auto const str = boost::text::data::fi::search_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "fi.hpp")
         );
@@ -491,8 +491,8 @@ TEST(parser, data)
         auto const str = boost::text::data::fi::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "fi.hpp")
         );
@@ -501,8 +501,8 @@ TEST(parser, data)
         auto const str = boost::text::data::fi::traditional_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "fi.hpp")
         );
@@ -515,8 +515,8 @@ TEST(parser, data)
         auto const str = boost::text::data::fil::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "fil.hpp")
         );
@@ -529,8 +529,8 @@ TEST(parser, data)
         auto const str = boost::text::data::fo::search_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "fo.hpp")
         );
@@ -539,8 +539,8 @@ TEST(parser, data)
         auto const str = boost::text::data::fo::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "fo.hpp")
         );
@@ -553,8 +553,8 @@ TEST(parser, data)
         auto const str = boost::text::data::fr_CA::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "fr_CA.hpp")
         );
@@ -567,8 +567,8 @@ TEST(parser, data)
         auto const str = boost::text::data::gl::search_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "gl.hpp")
         );
@@ -577,8 +577,8 @@ TEST(parser, data)
         auto const str = boost::text::data::gl::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "gl.hpp")
         );
@@ -591,8 +591,8 @@ TEST(parser, data)
         auto const str = boost::text::data::gu::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "gu.hpp")
         );
@@ -605,8 +605,8 @@ TEST(parser, data)
         auto const str = boost::text::data::ha::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "ha.hpp")
         );
@@ -619,8 +619,8 @@ TEST(parser, data)
         auto const str = boost::text::data::haw::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "haw.hpp")
         );
@@ -633,8 +633,8 @@ TEST(parser, data)
         auto const str = boost::text::data::he::search_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "he.hpp")
         );
@@ -643,8 +643,8 @@ TEST(parser, data)
         auto const str = boost::text::data::he::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "he.hpp")
         );
@@ -657,8 +657,8 @@ TEST(parser, data)
         auto const str = boost::text::data::hi::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "hi.hpp")
         );
@@ -671,8 +671,8 @@ TEST(parser, data)
         auto const str = boost::text::data::hr::search_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "hr.hpp")
         );
@@ -681,8 +681,8 @@ TEST(parser, data)
         auto const str = boost::text::data::hr::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "hr.hpp")
         );
@@ -695,8 +695,8 @@ TEST(parser, data)
         auto const str = boost::text::data::hsb::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "hsb.hpp")
         );
@@ -709,8 +709,8 @@ TEST(parser, data)
         auto const str = boost::text::data::hu::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "hu.hpp")
         );
@@ -723,8 +723,8 @@ TEST(parser, data)
         auto const str = boost::text::data::hy::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "hy.hpp")
         );
@@ -737,8 +737,8 @@ TEST(parser, data)
         auto const str = boost::text::data::ig::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "ig.hpp")
         );
@@ -751,8 +751,8 @@ TEST(parser, data)
         auto const str = boost::text::data::is::search_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "is.hpp")
         );
@@ -761,8 +761,8 @@ TEST(parser, data)
         auto const str = boost::text::data::is::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "is.hpp")
         );
@@ -775,8 +775,8 @@ TEST(parser, data)
         auto const str = boost::text::data::ja::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "ja.hpp")
         );
@@ -785,8 +785,8 @@ TEST(parser, data)
         auto const str = boost::text::data::ja::unihan_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "ja.hpp")
         );
@@ -799,8 +799,8 @@ TEST(parser, data)
         auto const str = boost::text::data::ka::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "ka.hpp")
         );
@@ -813,8 +813,8 @@ TEST(parser, data)
         auto const str = boost::text::data::kk::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "kk.hpp")
         );
@@ -827,8 +827,8 @@ TEST(parser, data)
         auto const str = boost::text::data::kl::search_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "kl.hpp")
         );
@@ -837,8 +837,8 @@ TEST(parser, data)
         auto const str = boost::text::data::kl::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "kl.hpp")
         );
@@ -851,8 +851,8 @@ TEST(parser, data)
         auto const str = boost::text::data::km::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "km.hpp")
         );
@@ -865,8 +865,8 @@ TEST(parser, data)
         auto const str = boost::text::data::kn::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "kn.hpp")
         );
@@ -875,8 +875,8 @@ TEST(parser, data)
         auto const str = boost::text::data::kn::traditional_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "kn.hpp")
         );
@@ -889,8 +889,8 @@ TEST(parser, data)
         auto const str = boost::text::data::ko::search_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "ko.hpp")
         );
@@ -899,8 +899,8 @@ TEST(parser, data)
         auto const str = boost::text::data::ko::searchjl_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "ko.hpp")
         );
@@ -909,8 +909,8 @@ TEST(parser, data)
         auto const str = boost::text::data::ko::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "ko.hpp")
         );
@@ -919,8 +919,8 @@ TEST(parser, data)
         auto const str = boost::text::data::ko::unihan_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "ko.hpp")
         );
@@ -933,8 +933,8 @@ TEST(parser, data)
         auto const str = boost::text::data::kok::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "kok.hpp")
         );
@@ -947,8 +947,8 @@ TEST(parser, data)
         auto const str = boost::text::data::ky::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "ky.hpp")
         );
@@ -961,8 +961,8 @@ TEST(parser, data)
         auto const str = boost::text::data::lkt::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "lkt.hpp")
         );
@@ -975,8 +975,8 @@ TEST(parser, data)
         auto const str = boost::text::data::ln::phonetic_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "ln.hpp")
         );
@@ -985,8 +985,8 @@ TEST(parser, data)
         auto const str = boost::text::data::ln::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "ln.hpp")
         );
@@ -999,8 +999,8 @@ TEST(parser, data)
         auto const str = boost::text::data::lo::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "lo.hpp")
         );
@@ -1013,8 +1013,8 @@ TEST(parser, data)
         auto const str = boost::text::data::lt::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "lt.hpp")
         );
@@ -1027,8 +1027,8 @@ TEST(parser, data)
         auto const str = boost::text::data::lv::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "lv.hpp")
         );
@@ -1041,8 +1041,8 @@ TEST(parser, data)
         auto const str = boost::text::data::mk::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "mk.hpp")
         );
@@ -1055,8 +1055,8 @@ TEST(parser, data)
         auto const str = boost::text::data::ml::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "ml.hpp")
         );
@@ -1069,8 +1069,8 @@ TEST(parser, data)
         auto const str = boost::text::data::mn::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "mn.hpp")
         );
@@ -1083,8 +1083,8 @@ TEST(parser, data)
         auto const str = boost::text::data::mr::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "mr.hpp")
         );
@@ -1097,8 +1097,8 @@ TEST(parser, data)
         auto const str = boost::text::data::mt::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "mt.hpp")
         );
@@ -1111,8 +1111,8 @@ TEST(parser, data)
         auto const str = boost::text::data::my::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "my.hpp")
         );
@@ -1125,8 +1125,8 @@ TEST(parser, data)
         auto const str = boost::text::data::nb::search_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "nb.hpp")
         );
@@ -1135,8 +1135,8 @@ TEST(parser, data)
         auto const str = boost::text::data::nb::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "nb.hpp")
         );
@@ -1149,8 +1149,8 @@ TEST(parser, data)
         auto const str = boost::text::data::ne::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "ne.hpp")
         );
@@ -1163,8 +1163,8 @@ TEST(parser, data)
         auto const str = boost::text::data::nn::search_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "nn.hpp")
         );
@@ -1173,8 +1173,8 @@ TEST(parser, data)
         auto const str = boost::text::data::nn::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "nn.hpp")
         );
@@ -1187,8 +1187,8 @@ TEST(parser, data)
         auto const str = boost::text::data::om::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "om.hpp")
         );
@@ -1201,8 +1201,8 @@ TEST(parser, data)
         auto const str = boost::text::data::or_::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "or.hpp")
         );
@@ -1215,8 +1215,8 @@ TEST(parser, data)
         auto const str = boost::text::data::pa::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "pa.hpp")
         );
@@ -1229,8 +1229,8 @@ TEST(parser, data)
         auto const str = boost::text::data::pl::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "pl.hpp")
         );
@@ -1243,8 +1243,8 @@ TEST(parser, data)
         auto const str = boost::text::data::ps::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "ps.hpp")
         );
@@ -1257,8 +1257,8 @@ TEST(parser, data)
         auto const str = boost::text::data::ro::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "ro.hpp")
         );
@@ -1271,8 +1271,8 @@ TEST(parser, data)
         auto const str = boost::text::data::ru::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "ru.hpp")
         );
@@ -1285,8 +1285,8 @@ TEST(parser, data)
         auto const str = boost::text::data::se::search_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "se.hpp")
         );
@@ -1295,8 +1295,8 @@ TEST(parser, data)
         auto const str = boost::text::data::se::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "se.hpp")
         );
@@ -1309,8 +1309,8 @@ TEST(parser, data)
         auto const str = boost::text::data::si::dictionary_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "si.hpp")
         );
@@ -1319,8 +1319,8 @@ TEST(parser, data)
         auto const str = boost::text::data::si::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "si.hpp")
         );
@@ -1333,8 +1333,8 @@ TEST(parser, data)
         auto const str = boost::text::data::sk::search_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "sk.hpp")
         );
@@ -1343,8 +1343,8 @@ TEST(parser, data)
         auto const str = boost::text::data::sk::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "sk.hpp")
         );
@@ -1357,8 +1357,8 @@ TEST(parser, data)
         auto const str = boost::text::data::sl::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "sl.hpp")
         );
@@ -1371,8 +1371,8 @@ TEST(parser, data)
         auto const str = boost::text::data::smn::search_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "smn.hpp")
         );
@@ -1381,8 +1381,8 @@ TEST(parser, data)
         auto const str = boost::text::data::smn::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "smn.hpp")
         );
@@ -1395,8 +1395,8 @@ TEST(parser, data)
         auto const str = boost::text::data::sq::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "sq.hpp")
         );
@@ -1409,8 +1409,8 @@ TEST(parser, data)
         auto const str = boost::text::data::sr::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "sr.hpp")
         );
@@ -1423,8 +1423,8 @@ TEST(parser, data)
         auto const str = boost::text::data::sr_Latn::search_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "sr_Latn.hpp")
         );
@@ -1433,8 +1433,8 @@ TEST(parser, data)
         auto const str = boost::text::data::sr_Latn::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "sr_Latn.hpp")
         );
@@ -1447,8 +1447,8 @@ TEST(parser, data)
         auto const str = boost::text::data::sv::reformed_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "sv.hpp")
         );
@@ -1457,8 +1457,8 @@ TEST(parser, data)
         auto const str = boost::text::data::sv::search_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "sv.hpp")
         );
@@ -1467,8 +1467,8 @@ TEST(parser, data)
         auto const str = boost::text::data::sv::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "sv.hpp")
         );
@@ -1481,8 +1481,8 @@ TEST(parser, data)
         auto const str = boost::text::data::ta::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "ta.hpp")
         );
@@ -1495,8 +1495,8 @@ TEST(parser, data)
         auto const str = boost::text::data::te::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "te.hpp")
         );
@@ -1509,8 +1509,8 @@ TEST(parser, data)
         auto const str = boost::text::data::th::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "th.hpp")
         );
@@ -1523,8 +1523,8 @@ TEST(parser, data)
         auto const str = boost::text::data::to::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "to.hpp")
         );
@@ -1537,8 +1537,8 @@ TEST(parser, data)
         auto const str = boost::text::data::tr::search_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "tr.hpp")
         );
@@ -1547,8 +1547,8 @@ TEST(parser, data)
         auto const str = boost::text::data::tr::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "tr.hpp")
         );
@@ -1561,8 +1561,8 @@ TEST(parser, data)
         auto const str = boost::text::data::ug::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "ug.hpp")
         );
@@ -1575,8 +1575,8 @@ TEST(parser, data)
         auto const str = boost::text::data::uk::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "uk.hpp")
         );
@@ -1589,8 +1589,8 @@ TEST(parser, data)
         auto const str = boost::text::data::und::emoji_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "und.hpp")
         );
@@ -1599,8 +1599,8 @@ TEST(parser, data)
         auto const str = boost::text::data::und::eor_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "und.hpp")
         );
@@ -1609,8 +1609,8 @@ TEST(parser, data)
         auto const str = boost::text::data::und::search_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "und.hpp")
         );
@@ -1623,8 +1623,8 @@ TEST(parser, data)
         auto const str = boost::text::data::ur::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "ur.hpp")
         );
@@ -1637,8 +1637,8 @@ TEST(parser, data)
         auto const str = boost::text::data::uz::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "uz.hpp")
         );
@@ -1651,8 +1651,8 @@ TEST(parser, data)
         auto const str = boost::text::data::vi::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "vi.hpp")
         );
@@ -1661,8 +1661,8 @@ TEST(parser, data)
         auto const str = boost::text::data::vi::traditional_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "vi.hpp")
         );
@@ -1675,8 +1675,8 @@ TEST(parser, data)
         auto const str = boost::text::data::wo::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "wo.hpp")
         );
@@ -1689,8 +1689,8 @@ TEST(parser, data)
         auto const str = boost::text::data::yi::search_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "yi.hpp")
         );
@@ -1699,8 +1699,8 @@ TEST(parser, data)
         auto const str = boost::text::data::yi::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "yi.hpp")
         );
@@ -1713,8 +1713,8 @@ TEST(parser, data)
         auto const str = boost::text::data::yo::standard_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "yo.hpp")
         );
@@ -1727,8 +1727,8 @@ TEST(parser, data)
         auto const str = boost::text::data::zh::big5han_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "zh.hpp")
         );
@@ -1737,8 +1737,8 @@ TEST(parser, data)
         auto const str = boost::text::data::zh::gb2312han_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "zh.hpp")
         );
@@ -1747,8 +1747,8 @@ TEST(parser, data)
         auto const str = boost::text::data::zh::pinyin_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "zh.hpp")
         );
@@ -1757,8 +1757,8 @@ TEST(parser, data)
         auto const str = boost::text::data::zh::stroke_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "zh.hpp")
         );
@@ -1767,8 +1767,8 @@ TEST(parser, data)
         auto const str = boost::text::data::zh::unihan_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "zh.hpp")
         );
@@ -1777,8 +1777,8 @@ TEST(parser, data)
         auto const str = boost::text::data::zh::zhuyin_collation_tailoring();
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "zh.hpp")
         );

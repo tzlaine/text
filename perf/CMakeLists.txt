@@ -38,7 +38,6 @@ macro(add_perf_executable name)
     endif ()
 endmacro()
 
-add_perf_executable(ctor_dtor_perf)
 add_perf_executable(copy_perf)
 add_perf_executable(insert_erase_perf)
 add_perf_executable(for_find_perf) 
@@ -115,44 +114,6 @@ add_custom_target(perf_comparison
     COMMAND ${CMAKE_SOURCE_DIR}/benchmark-v1.2.0/tools/compare_bench.py ${CMAKE_SOURCE_DIR}/perf/latest_snapshot/collation_perf_001.json collation_perf_001.json
     COMMAND ${CMAKE_SOURCE_DIR}/benchmark-v1.2.0/tools/compare_bench.py ${CMAKE_SOURCE_DIR}/perf/latest_snapshot/collation_perf_002.json collation_perf_002.json
     COMMAND ${CMAKE_SOURCE_DIR}/benchmark-v1.2.0/tools/compare_bench.py ${CMAKE_SOURCE_DIR}/perf/latest_snapshot/collation_perf_003.json collation_perf_003.json
-)
-
-
-##################################
-# string_insert_max perf testing #
-##################################
-macro(add_string_insert_max_perf_executable name size)
-    add_executable(${name}_${size} ${name}.cpp)
-    target_compile_options(${name}_${size} PRIVATE ${warnings_flag} -DBOOST_TEXT_STRING_INSERT_MAX=${size})
-    target_link_libraries(${name}_${size} text benchmark)
-    set_property(TARGET ${name}_${size} PROPERTY CXX_STANDARD ${CXX_STD})
-    if (clang_on_linux)
-        target_link_libraries(${name}_${size} c++)
-    endif ()
-endmacro()
-
-add_string_insert_max_perf_executable(string_insert_max_perf 128)
-add_string_insert_max_perf_executable(string_insert_max_perf 256)
-add_string_insert_max_perf_executable(string_insert_max_perf 512)
-add_string_insert_max_perf_executable(string_insert_max_perf 1024)
-add_string_insert_max_perf_executable(string_insert_max_perf 2048)
-add_string_insert_max_perf_executable(string_insert_max_perf 4096)
-add_string_insert_max_perf_executable(string_insert_max_perf 8192)
-add_string_insert_max_perf_executable(string_insert_max_perf 16384)
-add_string_insert_max_perf_executable(string_insert_max_perf 32768)
-add_string_insert_max_perf_executable(string_insert_max_perf 65536)
-
-add_custom_target(find_string_insert_max
-    COMMAND string_insert_max_perf_128
-    COMMAND string_insert_max_perf_256
-    COMMAND string_insert_max_perf_512
-    COMMAND string_insert_max_perf_1024
-    COMMAND string_insert_max_perf_2048
-    COMMAND string_insert_max_perf_4096
-    COMMAND string_insert_max_perf_8192
-    COMMAND string_insert_max_perf_16384
-    COMMAND string_insert_max_perf_32768
-    COMMAND string_insert_max_perf_65536
 )
 
 

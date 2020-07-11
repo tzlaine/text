@@ -51,11 +51,11 @@ void do_simple_search(
 
     sentinel_cp_range str_cp_range{
         sentinel_cp_range_iter(
-            str.begin().base(), str.begin().base(), null_sentinel{}),
+            &*str.begin().base(), &*str.begin().base(), null_sentinel{}),
         null_sentinel{}};
     sentinel_cp_range substr_cp_range{
         sentinel_cp_range_iter(
-            substr.begin().base(), substr.begin().base(), null_sentinel{}),
+            &*substr.begin().base(), &*substr.begin().base(), null_sentinel{}),
         null_sentinel{}};
 
     {
@@ -115,11 +115,11 @@ void do_boyer_moore_search(
 
     sentinel_cp_range str_cp_range{
         sentinel_cp_range_iter(
-            str.begin().base(), str.begin().base(), null_sentinel{}),
+            &*str.begin().base(), &*str.begin().base(), null_sentinel{}),
         null_sentinel{}};
     sentinel_cp_range substr_cp_range{
         sentinel_cp_range_iter(
-            substr.begin().base(), substr.begin().base(), null_sentinel{}),
+            &*substr.begin().base(), &*substr.begin().base(), null_sentinel{}),
         null_sentinel{}};
 
     {
@@ -172,11 +172,11 @@ void do_boyer_moore_horspool_search(
 
     sentinel_cp_range str_cp_range{
         sentinel_cp_range_iter(
-            str.begin().base(), str.begin().base(), null_sentinel{}),
+            &*str.begin().base(), &*str.begin().base(), null_sentinel{}),
         null_sentinel{}};
     sentinel_cp_range substr_cp_range{
         sentinel_cp_range_iter(
-            substr.begin().base(), substr.begin().base(), null_sentinel{}),
+            &*substr.begin().base(), &*substr.begin().base(), null_sentinel{}),
         null_sentinel{}};
 
     {
@@ -204,15 +204,15 @@ void do_boyer_moore_horspool_search(
 
 void do_search(
     collation_table const & table,
-    string const & str_,
-    string const & substr_,
+    std::string const & str_,
+    std::string const & substr_,
     int expected_first,
     int expected_last,
     int line,
     collation_flags flags = collation_flags::none)
 {
-    auto const str = as_utf32(str_);
-    auto const substr = as_utf32(substr_);
+    auto const str = boost::text::v1::as_utf32(str_);
+    auto const substr = boost::text::v1::as_utf32(substr_);
 
     do_simple_search(
         table, str, substr, expected_first, expected_last, line, flags);
@@ -225,20 +225,20 @@ void do_search(
 // Test strings cribbed from Boost.Algorithm's search tests.  Thanks, Marshall!
 TEST(collation_search, default_)
 {
-    string const haystack_1("NOW AN FOWE\220ER ANNMAN THE ANPANMANEND");
-    string const needle_1("ANPANMAN");
-    string const needle_2("MAN THE");
-    string const needle_3("WE\220ER");
-    string const needle_4("NOW ");
-    string const needle_5("NEND");
-    string const needle_6("NOT FOUND");
-    string const needle_7("NOT FO\340ND");
+    std::string const haystack_1("NOW AN FOWE\220ER ANNMAN THE ANPANMANEND");
+    std::string const needle_1("ANPANMAN");
+    std::string const needle_2("MAN THE");
+    std::string const needle_3("WE\220ER");
+    std::string const needle_4("NOW ");
+    std::string const needle_5("NEND");
+    std::string const needle_6("NOT FOUND");
+    std::string const needle_7("NOT FO\340ND");
 
-    string const haystack_2("ABC ABCDAB ABCDABCDABDE");
-    string const needle_11("ABCDABD");
+    std::string const haystack_2("ABC ABCDAB ABCDABCDABDE");
+    std::string const needle_11("ABCDABD");
 
-    string const haystack_3("abra abracad abracadabra");
-    string const needle_12("abracadabra");
+    std::string const haystack_3("abra abracad abracadabra");
+    std::string const needle_12("abracadabra");
 
     auto table = default_table;
 
@@ -281,13 +281,13 @@ TEST(collation_search, default_)
     do_search(table, "", needle_1, 0, 0, __LINE__);
 
     {
-        string const base_pairs =
+        std::string const base_pairs =
             "GATACACCTACCTTCACCAGTTACTCTATGCACTAGGTGCGCCAGGCCCATGCACAAGGGCTTGAG"
             "TGGATGGGAAGGATGTGCCCTAGTGATGGCAGCATAAGCTACGCAGAGAAGTTCCAGGGCAGAGTC"
             "ACCATGACCAGGGACACATCCACGAGCACAGCCTACATGGAGCTGAGCAGCCTGAGATCTGAAGAC"
             "ACGGCCATGTATTACTGTGGGAGAGATGTCTGGAGTGGTTATTATTGCCCCGGTAATATTACTACT"
             "ACTACTACTACATGGACGTCTGGGGCAAAGGGACCACG";
-        string const corpus = repeat("a", 8) + base_pairs;
+        std::string const corpus = std::string(8, 'a') + base_pairs;
 
         do_search(table, corpus, base_pairs, 8, corpus.size(), __LINE__);
     }
@@ -295,14 +295,14 @@ TEST(collation_search, default_)
 
 TEST(collation_search, danish)
 {
-    string const haystack_1(u8"Danish aa ");
-    string const haystack_2(u8"Danish aa");
-    string const haystack_3(u8"Danish a");
-    string const haystack_4(u8"Danish Å ");
-    string const haystack_5(u8"Danish Å");
-    string const needle_1(u8"Å");
-    string const needle_2(u8"aa");
-    string const needle_3(u8"AA");
+    std::string const haystack_1(u8"Danish aa ");
+    std::string const haystack_2(u8"Danish aa");
+    std::string const haystack_3(u8"Danish a");
+    std::string const haystack_4(u8"Danish Å ");
+    std::string const haystack_5(u8"Danish Å");
+    std::string const needle_1(u8"Å");
+    std::string const needle_2(u8"aa");
+    std::string const needle_3(u8"AA");
 
     auto table = danish_table;
 
@@ -530,30 +530,30 @@ TEST(collation_search, danish)
 
 void do_full_match_search(
     collation_table const & table,
-    string const & str_1,
-    string const & str_2,
+    std::string const & str_1,
+    std::string const & str_2,
     int line,
     collation_flags flags = collation_flags::none)
 {
-    auto const r1 = as_utf32(str_1);
+    auto const r1 = boost::text::v1::as_utf32(str_1);
     auto size = std::distance(r1.begin(), r1.end());
     do_search(table, str_1, str_2, 0, size, line, flags);
-    auto const r2 = as_utf32(str_2);
+    auto const r2 = boost::text::v1::as_utf32(str_2);
     size = std::distance(r2.begin(), r2.end());
     do_search(table, str_2, str_1, 0, size, line, flags);
 }
 
 void do_full_no_match_search(
     collation_table const & table,
-    string const & str_1,
-    string const & str_2,
+    std::string const & str_1,
+    std::string const & str_2,
     int line,
     collation_flags flags = collation_flags::none)
 {
-    auto const r1 = as_utf32(str_1);
+    auto const r1 = boost::text::v1::as_utf32(str_1);
     auto size = std::distance(r1.begin(), r1.end());
     do_search(table, str_1, str_2, size, size, line, flags);
-    auto const r2 = as_utf32(str_2);
+    auto const r2 = boost::text::v1::as_utf32(str_2);
     size = std::distance(r2.begin(), r2.end());
     do_search(table, str_2, str_1, size, size, line, flags);
 }
@@ -564,7 +564,7 @@ TEST(collation_search, case_accents_and_punct)
 
     // Ignore accents and case.
     {
-        string const forms[9] = {
+        std::string const forms[9] = {
             u8"resume",
             u8"Resume",
             u8"RESUME",
@@ -593,7 +593,7 @@ TEST(collation_search, case_accents_and_punct)
 
     // Ignore accents, but consider case.
     {
-        string const matchers_1[5] = {
+        std::string const matchers_1[5] = {
             u8"resume",
             u8"résumé",
             u8"re\u0301sume\u0301", // same as above, decomposed
@@ -907,8 +907,26 @@ TEST(collation_search, word_boundaries)
 {
     auto const table = default_table;
 
-    do_simple_word_search(table, as_utf32(u8"pause resume ..."), as_utf32(u8"resume"), 6, 12, __LINE__);
-    do_simple_word_search_not_found(table, as_utf32(u8"resumed"), as_utf32(u8"resume"), __LINE__);
-    do_simple_word_search_not_found(table, as_utf32(u8"unresumed"), as_utf32(u8"resume"), __LINE__);
-    do_simple_word_search_not_found(table, as_utf32(u8"unresume"), as_utf32(u8"resume"), __LINE__);
+    do_simple_word_search(
+        table,
+        boost::text::v1::as_utf32(u8"pause resume ..."),
+        boost::text::v1::as_utf32(u8"resume"),
+        6,
+        12,
+        __LINE__);
+    do_simple_word_search_not_found(
+        table,
+        boost::text::v1::as_utf32(u8"resumed"),
+        boost::text::v1::as_utf32(u8"resume"),
+        __LINE__);
+    do_simple_word_search_not_found(
+        table,
+        boost::text::v1::as_utf32(u8"unresumed"),
+        boost::text::v1::as_utf32(u8"resume"),
+        __LINE__);
+    do_simple_word_search_not_found(
+        table,
+        boost::text::v1::as_utf32(u8"unresume"),
+        boost::text::v1::as_utf32(u8"resume"),
+        __LINE__);
 }

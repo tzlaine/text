@@ -13,9 +13,9 @@
 
 namespace boost { namespace text { namespace data { namespace zh {
 
-inline string big5han_collation_tailoring()
+inline std::string big5han_collation_tailoring()
 {
-    string str;
+    std::string str;
     str += u8"  \n";
     str += u8"  \n";
     str += u8"&[before 2]a<<\xc4\x81<<<\xc4\x80<<\xc3\xa1<<<\xc3\x81<<\xc7\x8e<<<\xc7\x8d<<\xc3\xa0<<<\xc3\x80\n";
@@ -43,9 +43,9 @@ inline string big5han_collation_tailoring()
     return str;
 }
 
-inline string gb2312han_collation_tailoring()
+inline std::string gb2312han_collation_tailoring()
 {
-    string str;
+    std::string str;
     str += u8"  \n";
     str += u8"  \n";
     str += u8"&[before 2]a<<\xc4\x81<<<\xc4\x80<<\xc3\xa1<<<\xc3\x81<<\xc7\x8e<<<\xc7\x8d<<\xc3\xa0<<<\xc3\x80\n";
@@ -68,9 +68,9 @@ inline string gb2312han_collation_tailoring()
     return str;
 }
 
-inline string pinyin_collation_tailoring()
+inline std::string pinyin_collation_tailoring()
 {
-    string str;
+    std::string str;
     str += u8"  \n";
     str += u8"  \n";
     str += u8"&[before 2]a<<\xc4\x81<<<\xc4\x80<<\xc3\xa1<<<\xc3\x81<<\xc7\x8e<<<\xc7\x8d<<\xc3\xa0<<<\xc3\x80\n";
@@ -1951,9 +1951,9 @@ inline string pinyin_collation_tailoring()
     return str;
 }
 
-inline string stroke_collation_tailoring()
+inline std::string stroke_collation_tailoring()
 {
-    string str;
+    std::string str;
     str += u8"  \n";
     str += u8"  \n";
     str += u8"&[before 2]a<<\xc4\x81<<<\xc4\x80<<\xc3\xa1<<<\xc3\x81<<\xc7\x8e<<<\xc7\x8d<<\xc3\xa0<<<\xc3\x80\n";
@@ -2666,9 +2666,9 @@ inline string stroke_collation_tailoring()
     return str;
 }
 
-inline string unihan_collation_tailoring()
+inline std::string unihan_collation_tailoring()
 {
-    string str;
+    std::string str;
     str += u8"  \n";
     str += u8"  \n";
     str += u8"&\xe4\xb8\x80=\\uFDD0\xe4\xb8\x80\n";
@@ -2926,9 +2926,9 @@ inline string unihan_collation_tailoring()
     return str;
 }
 
-inline string zhuyin_collation_tailoring()
+inline std::string zhuyin_collation_tailoring()
 {
-    string str;
+    std::string str;
     str += u8"  \n";
     str += u8"  \n";
     str += u8"&[before 2]a<<\xc4\x81<<<\xc4\x80<<\xc3\xa1<<<\xc3\x81<<\xc7\x8e<<<\xc7\x8d<<\xc3\xa0<<<\xc3\x80\n";

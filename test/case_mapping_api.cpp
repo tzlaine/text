@@ -17,11 +17,11 @@ using u32_iter = utf_8_to_32_iterator<char const *, null_sentinel>;
 using sentinel_cp_range_t = boost::text::utf32_view<u32_iter, null_sentinel>;
 
 void to_sentinel_cp_range(
-    string & s, sentinel_cp_range_t & r, std::vector<uint32_t> cps)
+    std::string & s, sentinel_cp_range_t & r, std::vector<uint32_t> cps)
 {
     s = to_string(cps.begin(), cps.end());
-    r = sentinel_cp_range_t{u32_iter(s.begin(), s.begin(), null_sentinel{}),
-                            null_sentinel{}};
+    r = sentinel_cp_range_t{
+        u32_iter(s.data(), s.data(), null_sentinel{}), null_sentinel{}};
 }
 
 
@@ -30,7 +30,7 @@ TEST(case_mapping_api, all)
     // Taken from case_mapping.cpp case 000.
 
     // 00DF; 00DF; 0053 0073; 0053 0053; # LATIN SMALL LETTER SHARP S
-    string cp_;
+    std::string cp_;
     sentinel_cp_range_t cp;
     to_sentinel_cp_range(cp_, cp, {0x00DF});
 
@@ -46,7 +46,7 @@ TEST(case_mapping_api, all)
         EXPECT_EQ(result, lower);
     }
     { // to_title
-        string from_;
+        std::string from_;
         sentinel_cp_range_t from;
         to_sentinel_cp_range(from_, from, {0x00DF});
         std::vector<uint32_t> title({0x0053, 0x0073});
@@ -60,7 +60,7 @@ TEST(case_mapping_api, all)
         EXPECT_EQ(result, title);
     }
     { // to_title
-        string from_;
+        std::string from_;
         sentinel_cp_range_t from;
         to_sentinel_cp_range(from_, from, {0x00DF, 0x0020, 0x0020, 0x0020});
         std::vector<uint32_t> title({0x0053, 0x0073, 0x0020, 0x0020, 0x0020});
@@ -74,7 +74,7 @@ TEST(case_mapping_api, all)
         EXPECT_EQ(result, title);
     }
     { // to_title
-        string from_;
+        std::string from_;
         sentinel_cp_range_t from;
         to_sentinel_cp_range(from_, from, {0x00DF, 0x0061, 0x0061, 0x0061});
         std::vector<uint32_t> title({0x0053, 0x0073, 0x0061, 0x0061, 0x0061});
@@ -88,7 +88,7 @@ TEST(case_mapping_api, all)
         EXPECT_EQ(result, title);
     }
     { // to_title
-        string from_;
+        std::string from_;
         sentinel_cp_range_t from;
         to_sentinel_cp_range(from_, from, {0x0020, 0x0020, 0x0020, 0x00DF});
         std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0053, 0x0073});
@@ -102,7 +102,7 @@ TEST(case_mapping_api, all)
         EXPECT_EQ(result, title);
     }
     { // to_title
-        string from_;
+        std::string from_;
         sentinel_cp_range_t from;
         to_sentinel_cp_range(
             from_,
@@ -120,7 +120,7 @@ TEST(case_mapping_api, all)
         EXPECT_EQ(result, title);
     }
     { // to_title
-        string from_;
+        std::string from_;
         sentinel_cp_range_t from;
         to_sentinel_cp_range(
             from_,
@@ -138,7 +138,7 @@ TEST(case_mapping_api, all)
         EXPECT_EQ(result, title);
     }
     { // to_title
-        string from_;
+        std::string from_;
         sentinel_cp_range_t from;
         to_sentinel_cp_range(from_, from, {0x0061, 0x0061, 0x0061, 0x00DF});
         std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x00DF});
@@ -152,7 +152,7 @@ TEST(case_mapping_api, all)
         EXPECT_EQ(result, title);
     }
     { // to_title
-        string from_;
+        std::string from_;
         sentinel_cp_range_t from;
         to_sentinel_cp_range(
             from_,
@@ -166,7 +166,7 @@ TEST(case_mapping_api, all)
         EXPECT_EQ(result, title);
     }
     { // to_title
-        string from_;
+        std::string from_;
         sentinel_cp_range_t from;
         to_sentinel_cp_range(
             from_,
@@ -278,137 +278,137 @@ TEST(case_mapping_api, dutch_special_casing)
 TEST(case_mapping_api, greek_special_casing)
 {
     {
-        string const from = u8"άδικος, κείμενο, ίριδα";
-        string const to = u8"ΑΔΙΚΟΣ, ΚΕΙΜΕΝΟ, ΙΡΙΔΑ";
-        string result;
+        std::string const from = u8"άδικος, κείμενο, ίριδα";
+        std::string const to = u8"ΑΔΙΚΟΣ, ΚΕΙΜΕΝΟ, ΙΡΙΔΑ";
+        std::string result;
         to_upper(as_utf32(from), utf_32_to_8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
     {
-        string const from = u8"Πατάτα";
-        string const to = u8"ΠΑΤΑΤΑ";
-        string result;
+        std::string const from = u8"Πατάτα";
+        std::string const to = u8"ΠΑΤΑΤΑ";
+        std::string result;
         to_upper(as_utf32(from), utf_32_to_8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
     {
-        string const from = u8"Αέρας, Μυστήριο, Ωραίο";
-        string const to = u8"ΑΕΡΑΣ, ΜΥΣΤΗΡΙΟ, ΩΡΑΙΟ";
-        string result;
+        std::string const from = u8"Αέρας, Μυστήριο, Ωραίο";
+        std::string const to = u8"ΑΕΡΑΣ, ΜΥΣΤΗΡΙΟ, ΩΡΑΙΟ";
+        std::string result;
         to_upper(as_utf32(from), utf_32_to_8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
     {
-        string const from = u8"Μαΐου, Πόρος, Ρύθμιση";
-        string const to = u8"ΜΑΪΟΥ, ΠΟΡΟΣ, ΡΥΘΜΙΣΗ";
-        string result;
+        std::string const from = u8"Μαΐου, Πόρος, Ρύθμιση";
+        std::string const to = u8"ΜΑΪΟΥ, ΠΟΡΟΣ, ΡΥΘΜΙΣΗ";
+        std::string result;
         to_upper(as_utf32(from), utf_32_to_8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
     {
-        string const from = u8"ΰ, Τηρώ, Μάιος";
-        string const to = u8"Ϋ, ΤΗΡΩ, ΜΑΪΟΣ";
-        string result;
+        std::string const from = u8"ΰ, Τηρώ, Μάιος";
+        std::string const to = u8"Ϋ, ΤΗΡΩ, ΜΑΪΟΣ";
+        std::string result;
         to_upper(as_utf32(from), utf_32_to_8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
     {
-        string const from = u8"άυλος";
-        string const to = u8"ΑΫΛΟΣ";
-        string result;
+        std::string const from = u8"άυλος";
+        std::string const to = u8"ΑΫΛΟΣ";
+        std::string result;
         to_upper(as_utf32(from), utf_32_to_8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
     {
-        string const from = u8"ΑΫΛΟΣ";
-        string const to = u8"ΑΫΛΟΣ";
-        string result;
+        std::string const from = u8"ΑΫΛΟΣ";
+        std::string const to = u8"ΑΫΛΟΣ";
+        std::string result;
         to_upper(as_utf32(from), utf_32_to_8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
     {
-        string const from = u8"Άκλιτα ρήματα ή άκλιτες μετοχές";
-        string const to = u8"ΑΚΛΙΤΑ ΡΗΜΑΤΑ Ή ΑΚΛΙΤΕΣ ΜΕΤΟΧΕΣ";
-        string result;
+        std::string const from = u8"Άκλιτα ρήματα ή άκλιτες μετοχές";
+        std::string const to = u8"ΑΚΛΙΤΑ ΡΗΜΑΤΑ Ή ΑΚΛΙΤΕΣ ΜΕΤΟΧΕΣ";
+        std::string result;
         to_upper(as_utf32(from), utf_32_to_8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
     {
-        string const from = u8"Επειδή η αναγνώριση της αξιοπρέπειας";
-        string const to = u8"ΕΠΕΙΔΗ Η ΑΝΑΓΝΩΡΙΣΗ ΤΗΣ ΑΞΙΟΠΡΕΠΕΙΑΣ";
-        string result;
+        std::string const from = u8"Επειδή η αναγνώριση της αξιοπρέπειας";
+        std::string const to = u8"ΕΠΕΙΔΗ Η ΑΝΑΓΝΩΡΙΣΗ ΤΗΣ ΑΞΙΟΠΡΕΠΕΙΑΣ";
+        std::string result;
         to_upper(as_utf32(from), utf_32_to_8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
     {
-        string const from = u8"νομικού ή διεθνούς";
-        string const to = u8"ΝΟΜΙΚΟΥ Ή ΔΙΕΘΝΟΥΣ";
-        string result;
+        std::string const from = u8"νομικού ή διεθνούς";
+        std::string const to = u8"ΝΟΜΙΚΟΥ Ή ΔΙΕΘΝΟΥΣ";
+        std::string result;
         to_upper(as_utf32(from), utf_32_to_8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
     {
-        string const from = u8"Ἐπειδὴ ἡ ἀναγνώριση";
-        string const to = u8"ΕΠΕΙΔΗ Η ΑΝΑΓΝΩΡΙΣΗ";
-        string result;
+        std::string const from = u8"Ἐπειδὴ ἡ ἀναγνώριση";
+        std::string const to = u8"ΕΠΕΙΔΗ Η ΑΝΑΓΝΩΡΙΣΗ";
+        std::string result;
         to_upper(as_utf32(from), utf_32_to_8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
     {
-        string const from = u8"νομικοῦ ἢ διεθνοῦς";
-        string const to = u8"ΝΟΜΙΚΟΥ Ή ΔΙΕΘΝΟΥΣ";
-        string result;
+        std::string const from = u8"νομικοῦ ἢ διεθνοῦς";
+        std::string const to = u8"ΝΟΜΙΚΟΥ Ή ΔΙΕΘΝΟΥΣ";
+        std::string result;
         to_upper(as_utf32(from), utf_32_to_8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
     {
-        string const from = u8"Νέο, Δημιουργία";
-        string const to = u8"ΝΕΟ, ΔΗΜΙΟΥΡΓΙΑ";
-        string result;
+        std::string const from = u8"Νέο, Δημιουργία";
+        std::string const to = u8"ΝΕΟ, ΔΗΜΙΟΥΡΓΙΑ";
+        std::string result;
         to_upper(as_utf32(from), utf_32_to_8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
     {
-        string const from = u8"Ελάτε να φάτε τα καλύτερα παϊδάκια!";
-        string const to = u8"ΕΛΑΤΕ ΝΑ ΦΑΤΕ ΤΑ ΚΑΛΥΤΕΡΑ ΠΑΪΔΑΚΙΑ!";
-        string result;
+        std::string const from = u8"Ελάτε να φάτε τα καλύτερα παϊδάκια!";
+        std::string const to = u8"ΕΛΑΤΕ ΝΑ ΦΑΤΕ ΤΑ ΚΑΛΥΤΕΡΑ ΠΑΪΔΑΚΙΑ!";
+        std::string result;
         to_upper(as_utf32(from), utf_32_to_8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
     {
-        string const from = u8"Μαΐου, τρόλεϊ";
-        string const to = u8"ΜΑΪΟΥ, ΤΡΟΛΕΪ";
-        string result;
+        std::string const from = u8"Μαΐου, τρόλεϊ";
+        std::string const to = u8"ΜΑΪΟΥ, ΤΡΟΛΕΪ";
+        std::string result;
         to_upper(as_utf32(from), utf_32_to_8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
     {
-        string const from = u8"Το ένα ή το άλλο.";
-        string const to = u8"ΤΟ ΕΝΑ Ή ΤΟ ΑΛΛΟ.";
-        string result;
+        std::string const from = u8"Το ένα ή το άλλο.";
+        std::string const to = u8"ΤΟ ΕΝΑ Ή ΤΟ ΑΛΛΟ.";
+        std::string result;
         to_upper(as_utf32(from), utf_32_to_8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
     {
-        string const from = u8"ρωμέικα";
-        string const to = u8"ΡΩΜΕΪΚΑ";
-        string result;
+        std::string const from = u8"ρωμέικα";
+        std::string const to = u8"ΡΩΜΕΪΚΑ";
+        std::string result;
         to_upper(as_utf32(from), utf_32_to_8_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }

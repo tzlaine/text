@@ -10,7 +10,6 @@
 #include <boost/text/collation_fwd.hpp>
 #include <boost/text/normalize.hpp>
 #include <boost/text/normalize_string.hpp>
-#include <boost/text/string.hpp>
 #include <boost/text/detail/collation_data.hpp>
 
 #include <boost/algorithm/cxx14/equal.hpp>

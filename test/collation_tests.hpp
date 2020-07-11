@@ -51,7 +51,7 @@ std::vector<uint32_t> collate_for_tests(
     boost::text::variable_weighting weighting,
     boost::text::collation_strength strength)
 {
-    boost::text::string str = boost::text::to_string(first_, last_);
+    std::string str = boost::text::to_string(first_, last_);
     boost::text::normalize<boost::text::nf::fcc>(str);
 
     boost::container::static_vector<uint32_t, 1024> buf;

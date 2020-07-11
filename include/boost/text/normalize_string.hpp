@@ -7,7 +7,6 @@
 #define BOOST_TEXT_NORMALIZE_STRING_HPP
 
 #include <boost/text/normalize.hpp>
-#include <boost/text/string.hpp>
 #include <boost/text/transcode_view.hpp>
 #include <boost/text/detail/icu/normalize.hpp>
 

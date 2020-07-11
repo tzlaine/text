@@ -4,11 +4,13 @@
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 #include <boost/text/algorithm.hpp>
-#include <boost/text/string.hpp>
+#include <boost/text/string_view.hpp>
 #include <boost/text/transcode_iterator.hpp>
+#include <boost/text/unencoded_rope.hpp>
 
 #include <array>
 #include <deque>
+#include <list>
 #include <string>
 #include <vector>
 
@@ -60,11 +62,11 @@ static_assert(
 static_assert(
     !text::detail::is_cp_iter<text::string_view::const_reverse_iterator>{}, "");
 
-static_assert(!text::detail::is_cp_iter<text::string::iterator>{}, "");
-static_assert(!text::detail::is_cp_iter<text::string::const_iterator>{}, "");
-static_assert(!text::detail::is_cp_iter<text::string::reverse_iterator>{}, "");
+static_assert(!text::detail::is_cp_iter<std::string::iterator>{}, "");
+static_assert(!text::detail::is_cp_iter<std::string::const_iterator>{}, "");
+static_assert(!text::detail::is_cp_iter<std::string::reverse_iterator>{}, "");
 static_assert(
-    !text::detail::is_cp_iter<text::string::const_reverse_iterator>{}, "");
+    !text::detail::is_cp_iter<std::string::const_reverse_iterator>{}, "");
 
 static_assert(
     !text::detail::is_cp_iter<text::unencoded_rope_view::iterator>{}, "");

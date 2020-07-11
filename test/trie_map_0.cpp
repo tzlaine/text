@@ -7,7 +7,6 @@
 #include "trie_tests.hpp"
 
 #include <boost/text/trie_map.hpp>
-#include <boost/text/string.hpp>
 
 #include <gtest/gtest.h>
 

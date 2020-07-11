@@ -3,8 +3,6 @@
 // Distributed under the Boost Software License, Version 1.0. (See
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
-#include <boost/text/string.hpp>
-
 #include "string_objects.hpp"
 
 #include <benchmark/benchmark.h>
@@ -17,7 +15,9 @@ void BM_string_erase_insert_front(benchmark::State & state)
     auto & string = strings[state.range(0)];
     auto const i = 0;
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(string.erase(string(i, i + 1)).insert(i, "."));
+        benchmark::DoNotOptimize(
+            string.erase(string.begin() + i, string.begin() + i + 1));
+        benchmark::DoNotOptimize(string.insert(i, "."));
     }
 }
 
@@ -27,7 +27,9 @@ void BM_string_erase_insert_back(benchmark::State & state)
     auto const i = string.size() - 1;
     assert(0 <= i);
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(string.erase(string(i, i + 1)).insert(i, "."));
+        benchmark::DoNotOptimize(
+            string.erase(string.begin() + i, string.begin() + i + 1));
+        benchmark::DoNotOptimize(string.insert(i, "."));
         assert(i == string.size() - 1);
     }
 }

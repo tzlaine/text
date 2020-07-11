@@ -47,11 +47,8 @@ TEST(rope, test_empty)
     std::cout << "r=\"" << t << "\"\n";
 
     {
-        text::rope t2(""_s);
+        text::rope t2(std::string{""});
         EXPECT_TRUE(t == t2);
-
-        text::rope t3(u8""_s);
-        EXPECT_TRUE(t == t3);
     }
 }
 
@@ -131,7 +128,7 @@ TEST(rope, test_ctors)
     EXPECT_EQ(""_t, t2);
 
     std::string const s("An old-school string");
-    text::rope t5{text::string(s)};
+    text::rope t5{std::string(s)};
     EXPECT_EQ(t5, "An old-school string"_t);
     EXPECT_EQ("An old-school string"_t, t5);
 
@@ -139,11 +136,6 @@ TEST(rope, test_ctors)
     text::rope t6(tv);
     EXPECT_EQ(t6, "a view "_t);
     EXPECT_EQ("a view "_t, t6);
-
-    text::repeated_string_view const rtv(tv, 3);
-    text::rope t7(rtv);
-    EXPECT_EQ(t7, "a view a view a view "_t);
-    EXPECT_EQ("a view a view a view "_t, t7);
 
     std::list<char> const char_list = {'a', ' ', 'l', 'i', 's', 't'};
     text::rope t8(char_list.begin(), char_list.end());
@@ -244,7 +236,7 @@ TEST(rope, test_assignment)
     {
         std::string const s("An old-school string");
         text::rope t;
-        t = text::string(s);
+        t = std::string(s);
         EXPECT_EQ(t, "An old-school string"_t);
     }
 
@@ -253,11 +245,6 @@ TEST(rope, test_assignment)
         text::rope t;
         t = tv;
         EXPECT_EQ(t, "a view "_t);
-
-        text::repeated_string_view const rtv(tv, 3);
-        text::rope t2;
-        t2 = rtv;
-        EXPECT_EQ(t2, "a view a view a view "_t);
     }
 }
 
@@ -342,11 +329,11 @@ TEST(rope, test_misc)
 TEST(rope, test_substr)
 {
     text::rope const r = text::rope("When writing a specialization, ") +
-                         text::string("be careful about its location; ") +
+                         std::string("be careful about its location; ") +
                          text::string_view(
                              "or to make it compile will be such a trial as to "
                              "kindle its self-immolation") +
-                         text::repeated_string_view(".", 3);
+                         text::string_view("...");
 
     EXPECT_EQ(
         text::rope(std::prev(r.end(), 4), std::prev(r.end(), 1)), "n.."_t);
@@ -366,7 +353,6 @@ TEST(rope, test_insert)
 {
     text::text const t("a view ");
     text::text_view const tv(t);
-    text::repeated_string_view const rsv(tv, 3);
 
     {
         text::rope const ct("string");
@@ -398,38 +384,6 @@ TEST(rope, test_insert)
         text::rope t6 = ct;
         t6.insert(std::next(t6.begin(), 6), tv);
         EXPECT_EQ(t6, "stringa view "_t);
-    }
-
-    {
-        text::rope const ct("string");
-
-        text::rope t0 = ct;
-        t0.insert(std::next(t0.begin(), 0), rsv);
-        EXPECT_EQ(t0, "a view a view a view string"_t);
-
-        text::rope t1 = ct;
-        t1.insert(std::next(t1.begin(), 1), rsv);
-        EXPECT_EQ(t1, "sa view a view a view tring"_t);
-
-        text::rope t2 = ct;
-        t2.insert(std::next(t2.begin(), 2), rsv);
-        EXPECT_EQ(t2, "sta view a view a view ring"_t);
-
-        text::rope t3 = ct;
-        t3.insert(std::next(t3.begin(), 3), rsv);
-        EXPECT_EQ(t3, "stra view a view a view ing"_t);
-
-        text::rope t4 = ct;
-        t4.insert(std::next(t4.begin(), 4), rsv);
-        EXPECT_EQ(t4, "stria view a view a view ng"_t);
-
-        text::rope t5 = ct;
-        t5.insert(std::next(t5.begin(), 5), rsv);
-        EXPECT_EQ(t5, "strina view a view a view g"_t);
-
-        text::rope t6 = ct;
-        t6.insert(std::next(t6.begin(), 6), rsv);
-        EXPECT_EQ(t6, "stringa view a view a view "_t);
     }
 
     // Unicode 9, 3.9/D90
@@ -474,18 +428,11 @@ TEST(rope, test_insert)
     {
         char const * str = "";
         text::string_view const sv(str, 1); // explicitly null-terminated
-        text::repeated_string_view const rsv(sv, 3);
 
         {
             text::rope t("text");
             t.insert(std::next(t.begin(), 2), sv);
             EXPECT_EQ(t, "text"_t); // no null in the middle
-        }
-
-        {
-            text::rope t("text");
-            t.insert(std::next(t.begin(), 2), rsv);
-            EXPECT_EQ(t, "text"_t); // no nulls in the middle
         }
     }
 
@@ -591,16 +538,12 @@ TEST(rope, test_insert_rope_view)
         auto const at = std::next(rv_rope.begin(), at_idx);
         switch (i % 3) {
         case 0:
-            rv_rope.insert(at, text::string("text"));
+            rv_rope.insert(at, std::string("text"));
             rv_rope_as_string.insert(at_idx, "text");
             break;
         case 1:
             rv_rope.insert(at, text::string_view("text_view"));
             rv_rope_as_string.insert(at_idx, "text_view");
-            break;
-        case 2:
-            rv_rope.insert(at, text::repeated_string_view("rtv", 2));
-            rv_rope_as_string.insert(at_idx, "rtvrtv");
             break;
         }
     }
@@ -721,7 +664,8 @@ TEST(rope, test_replace)
         }
     }
 
-    text::repeated_string_view const really_long_replacement("REP", 10);
+    text::string_view const really_long_replacement(
+        "REPREPREPREPREPREPREPREPREPREP");
 
     for (int j = 0, end = ct.distance(); j <= end; ++j) {
         for (int i = 0; i <= j; ++i) {
@@ -872,9 +816,9 @@ TEST(rope, normalization)
     uint32_t const circumflex_utf32[] = {0x302};       // ◌̂
     uint32_t const a_with_circumflex_utf32[] = {0xe2}; // â
 
-    text::string const s_circumflex =
+    std::string const s_circumflex =
         text::to_string(circumflex_utf32, circumflex_utf32 + 1);
-    text::string const s_a_with_circumflex =
+    std::string const s_a_with_circumflex =
         text::to_string(a_with_circumflex_utf32, a_with_circumflex_utf32 + 1);
 
     text::rope const t_circumflex(s_circumflex);

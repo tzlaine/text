@@ -28,9 +28,7 @@ void dump(
     boost::trie::detail::trie_node_t<Key, Value> const & node,
     int indent = 1)
 {
-    auto ind = [indent] {
-        return boost::text::repeated_string_view("  ", indent);
-    };
+    auto ind = [indent] { return string::string(indent * 2, ' '); };
     os << ind() << "==== NODE " << (void *)(&node) << " ====\n"
        << ind() << "  parent=" << node.parent_;
     if (node.parent_ == &node)

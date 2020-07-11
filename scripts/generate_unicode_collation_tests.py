@@ -108,10 +108,10 @@ TEST(collation, relative_{4}_{5})
                 << "curr_key:         " << ce_dumper(curr_key) << "\\n"
             ;
 
-            boost::text::string prev = boost::text::to_string(prev_cps);
-            boost::text::string curr = boost::text::to_string(curr_cps);
-            auto const prev_32 = as_utf32(prev);
-            auto const curr_32 = as_utf32(curr);
+            std::string prev = boost::text::to_string(prev_cps);
+            std::string curr = boost::text::to_string(curr_cps);
+            auto const prev_32 = boost::text::v1::as_utf32(prev);
+            auto const curr_32 = boost::text::v1::as_utf32(curr);
             EXPECT_LE(
                 boost::text::collate(
                     prev_32.begin(),
@@ -322,8 +322,8 @@ data_file_test_form = '''\
 
 using namespace boost;
 
-auto const error = [](text::string const & s) {{ std::cout << s; }};
-auto const warning = [](text::string const & s) {{}};
+auto const error = [](std::string const & s) {{ std::cout << s; }};
+auto const warning = [](std::string const & s) {{}};
 
 {0}
 '''
@@ -340,7 +340,7 @@ TEST(collation_and_tailoring, data_file_test_{1})
 '''
 
 def make_string(s, rules, view):
-    type_ = 'text::string'
+    type_ = 'std::string'
     if view:
         type_ += '_view'
     if rules:
@@ -382,8 +382,8 @@ def comparison_tests(compares, test_strength):
     {{
         // {0} # {1}
 
-        text::string a = {2};
-        text::string b = {3};
+        std::string a = {2};
+        std::string b = {3};
         normalize<boost::text::nf::fcc>(a);
         normalize<boost::text::nf::fcc>(b);
 

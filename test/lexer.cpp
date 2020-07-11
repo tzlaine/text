@@ -80,7 +80,7 @@ int main()
             auto const lines_and_tokens = boost::text::detail::lex(
                 str_begin,
                 str_end,
-                [](boost::text::string const & s) { std::cout << s << "\n"; },
+                [](std::string const & s) { std::cout << s << "\n"; },
                 "<test-string>");
 #ifndef NDEBUG
             dump(std::cout, lines_and_tokens, *it);
@@ -101,7 +101,7 @@ int main()
                 auto const lines_and_tokens = boost::text::detail::lex(
                     str_begin,
                     str_end,
-                    [](boost::text::string const & s) {
+                    [](std::string const & s) {
                         std::cout << s << "\n";
                     },
                     "<test-string>");
@@ -122,7 +122,7 @@ int main()
         auto const lines_and_tokens = boost::text::detail::lex(
             sv.begin(),
             sv.end(),
-            [](boost::text::string const & s) { std::cout << s << "\n"; },
+            [](std::string const & s) { std::cout << s << "\n"; },
             "<test-string>");
 #ifndef NDEBUG
         dump(std::cout, lines_and_tokens, sv);
@@ -137,7 +137,7 @@ int main()
         auto const lines_and_tokens = boost::text::detail::lex(
             sv.begin(),
             sv.end(),
-            [](boost::text::string const & s) { std::cout << s << "\n"; },
+            [](std::string const & s) { std::cout << s << "\n"; },
             "<test-string>");
 #ifndef NDEBUG
         dump(std::cout, lines_and_tokens, sv);
@@ -152,7 +152,7 @@ int main()
         auto const lines_and_tokens = boost::text::detail::lex(
             sv.begin(),
             sv.end(),
-            [](boost::text::string const & s) { std::cout << s << "\n"; },
+            [](std::string const & s) { std::cout << s << "\n"; },
             "<test-string>");
 #ifndef NDEBUG
         dump(std::cout, lines_and_tokens, sv);

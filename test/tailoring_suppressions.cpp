@@ -13,8 +13,8 @@
 
 using namespace boost;
 
-auto const error = [](text::string const & s) { std::cout << s; };
-auto const warning = [](text::string const & s) {};
+auto const error = [](std::string const & s) { std::cout << s; };
+auto const warning = [](std::string const & s) {};
 
 TEST(tailoring, az_search_suppressions_0)
 {
