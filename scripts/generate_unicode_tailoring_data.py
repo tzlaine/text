@@ -255,7 +255,7 @@ import_regex = re.compile(r'\[ *import +([^ \]]+) *\] *')
 single_tailoring_form = '''\
 inline string_view {0}_collation_tailoring()
 {{
-    return string_view(
+    return string_view((char const *)
 {1});
 }}
 
@@ -536,7 +536,7 @@ for k0,v0 in sorted(tailorings_by_file.items()):
                 lines = '\n'.join(chunked_lines)
                 tailorings += single_tailoring_form.format(k, lines)
             else:
-                lines = map(lambda x: '    str += {};'.format(x), chunked_lines)
+                lines = map(lambda x: '    str += (char const *){};'.format(x), chunked_lines)
                 lines = '\n'.join(lines)
                 tailorings += very_long_single_tailoring_form.format(k, lines)
 

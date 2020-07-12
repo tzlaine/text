@@ -15,7 +15,7 @@ namespace boost { namespace text { namespace data { namespace mt {
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(
+    return string_view((char const *)
 u8R"(  
 [caseFirst upper]
 &[before 1]c<ċ<<<Ċ

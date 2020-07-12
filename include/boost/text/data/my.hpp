@@ -15,7 +15,7 @@ namespace boost { namespace text { namespace data { namespace my {
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(
+    return string_view((char const *)
 u8"  \n"
 u8"[normalization on]\n"
 u8"[reorder Mymr]\n"

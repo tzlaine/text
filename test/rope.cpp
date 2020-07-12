@@ -450,7 +450,7 @@ TEST(rope, test_insert)
             EXPECT_EQ(it, std::next(r.begin()));
         }
 
-        char const * combining_diaeresis = u8"\u0308";
+        char const * combining_diaeresis = (char const *)u8"\u0308";
 
         {
             text::rope r("e");

@@ -15,7 +15,7 @@ namespace boost { namespace text { namespace data { namespace de_AT {
 
 inline string_view phonebook_collation_tailoring()
 {
-    return string_view(
+    return string_view((char const *)
 u8R"(  
 &a<ä<<<Ä
 &o<ö<<<Ö

@@ -636,14 +636,14 @@ TEST(text_view_algorithm, coll_search_default)
 
 TEST(text_view_algorithm, coll_search_danish)
 {
-    text const haystack_1_(u8"Danish aa ");
-    text const haystack_2_(u8"Danish aa");
-    text const haystack_3_(u8"Danish a");
-    text const haystack_4_(u8"Danish Å ");
-    text const haystack_5_(u8"Danish Å");
-    text const needle_1_(u8"Å");
-    text const needle_2_(u8"aa");
-    text const needle_3_(u8"AA");
+    text const haystack_1_((char const *)u8"Danish aa ");
+    text const haystack_2_((char const *)u8"Danish aa");
+    text const haystack_3_((char const *)u8"Danish a");
+    text const haystack_4_((char const *)u8"Danish Å ");
+    text const haystack_5_((char const *)u8"Danish Å");
+    text const needle_1_((char const *)u8"Å");
+    text const needle_2_((char const *)u8"aa");
+    text const needle_3_((char const *)u8"AA");
 
     text_view haystack_1 = haystack_1_;
     text_view haystack_2 = haystack_2_;
@@ -911,15 +911,15 @@ TEST(text_view_algorithm, coll_search_case_accents_and_punct)
     // Ignore accents and case.
     {
         text const forms_[9] = {
-            u8"resume",
-            u8"Resume",
-            u8"RESUME",
-            u8"résumé",
-            u8"re\u0301sume\u0301", // same as above, decomposed
-            u8"rèsumè",
-            u8"re\u0300sume\u0300", // same as above, decomposed
-            u8"Résumé",
-            u8"RÉSUMÉ",
+            (char const *)u8"resume",
+            (char const *)u8"Resume",
+            (char const *)u8"RESUME",
+            (char const *)u8"résumé",
+            (char const *)u8"re\u0301sume\u0301", // same as above, decomposed
+            (char const *)u8"rèsumè",
+            (char const *)u8"re\u0300sume\u0300", // same as above, decomposed
+            (char const *)u8"Résumé",
+            (char const *)u8"RÉSUMÉ",
         };
         text_view forms[9] = {
             forms_[0],
@@ -951,11 +951,11 @@ TEST(text_view_algorithm, coll_search_case_accents_and_punct)
     // Ignore accents, but consider case.
     {
         text const matchers_1_[5] = {
-            u8"resume",
-            u8"résumé",
-            u8"re\u0301sume\u0301", // same as above, decomposed
-            u8"rèsumè",
-            u8"re\u0300sume\u0300", // same as above, decomposed
+            (char const *)u8"resume",
+            (char const *)u8"résumé",
+            (char const *)u8"re\u0301sume\u0301", // same as above, decomposed
+            (char const *)u8"rèsumè",
+            (char const *)u8"re\u0300sume\u0300", // same as above, decomposed
         };
         text_view matchers_1[5] = {
             matchers_1_[0],

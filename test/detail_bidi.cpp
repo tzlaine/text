@@ -2043,7 +2043,7 @@ TEST(detail_bidi, l2_)
             }
         }
 
-        EXPECT_EQ(result, std::string(u8"he said \u201c<RAC SNAEM car=.\u201d \u201c<SEOD TI=,\u201d she agreed."));
+        EXPECT_EQ(result, std::string((char const *)u8"he said \u201c<RAC SNAEM car=.\u201d \u201c<SEOD TI=,\u201d she agreed."));
     }
     {
         uint32_t cps_[] = {'D', 'I', 'D', ' ', 'Y', 'O', 'U', ' ', 'S', 'A', 'Y', ' ', 0x2019, '>', 'h', 'e', ' ', 's', 'a', 'i', 'd', ' ', 0x201c, '<', 'c', 'a', 'r', ' ', 'M', 'E', 'A', 'N', 'S', ' ', 'C', 'A', 'R', '=', 0x201d, '=', 0x2018, '?'};
@@ -2113,6 +2113,6 @@ TEST(detail_bidi, l2_)
             }
         }
 
-        EXPECT_EQ(result, std::string(u8"?\u2018=he said \u201c<RAC SNAEM car=\u201d>\u2019 YAS UOY DID"));
+        EXPECT_EQ(result, std::string((char const *)u8"?\u2018=he said \u201c<RAC SNAEM car=\u201d>\u2019 YAS UOY DID"));
     }
 }

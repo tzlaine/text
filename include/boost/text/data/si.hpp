@@ -15,7 +15,7 @@ namespace boost { namespace text { namespace data { namespace si {
 
 inline string_view dictionary_collation_tailoring()
 {
-    return string_view(
+    return string_view((char const *)
 u8R"(  
 [normalization on]
 [reorder Sinh Deva Beng Guru Gujr Orya Taml Telu Knda Mlym]
@@ -26,7 +26,7 @@ u8R"(
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(
+    return string_view((char const *)
 u8R"(  
 [normalization on]
 [reorder Sinh Deva Beng Guru Gujr Orya Taml Telu Knda Mlym]

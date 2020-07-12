@@ -629,14 +629,14 @@ TEST(rope_algorithm, coll_search_default)
 
 TEST(rope_algorithm, coll_search_danish)
 {
-    rope const haystack_1(u8"Danish aa ");
-    rope const haystack_2(u8"Danish aa");
-    rope const haystack_3(u8"Danish a");
-    rope const haystack_4(u8"Danish Å ");
-    rope const haystack_5(u8"Danish Å");
-    rope const needle_1(u8"Å");
-    rope const needle_2(u8"aa");
-    rope const needle_3(u8"AA");
+    rope const haystack_1((char const *)u8"Danish aa ");
+    rope const haystack_2((char const *)u8"Danish aa");
+    rope const haystack_3((char const *)u8"Danish a");
+    rope const haystack_4((char const *)u8"Danish Å ");
+    rope const haystack_5((char const *)u8"Danish Å");
+    rope const needle_1((char const *)u8"Å");
+    rope const needle_2((char const *)u8"aa");
+    rope const needle_3((char const *)u8"AA");
 
     auto table = danish_table;
 
@@ -895,15 +895,15 @@ TEST(rope_algorithm, coll_search_case_accents_and_punct)
     // Ignore accents and case.
     {
         rope const forms[9] = {
-            u8"resume",
-            u8"Resume",
-            u8"RESUME",
-            u8"résumé",
-            u8"re\u0301sume\u0301", // same as above, decomposed
-            u8"rèsumè",
-            u8"re\u0300sume\u0300", // same as above, decomposed
-            u8"Résumé",
-            u8"RÉSUMÉ",
+            (char const *)u8"resume",
+            (char const *)u8"Resume",
+            (char const *)u8"RESUME",
+            (char const *)u8"résumé",
+            (char const *)u8"re\u0301sume\u0301", // same as above, decomposed
+            (char const *)u8"rèsumè",
+            (char const *)u8"re\u0300sume\u0300", // same as above, decomposed
+            (char const *)u8"Résumé",
+            (char const *)u8"RÉSUMÉ",
         };
 
         // At primary strength (ignore accents and case), all the above should
@@ -924,11 +924,11 @@ TEST(rope_algorithm, coll_search_case_accents_and_punct)
     // Ignore accents, but consider case.
     {
         rope const matchers_1[5] = {
-            u8"resume",
-            u8"résumé",
-            u8"re\u0301sume\u0301", // same as above, decomposed
-            u8"rèsumè",
-            u8"re\u0300sume\u0300", // same as above, decomposed
+            (char const *)u8"resume",
+            (char const *)u8"résumé",
+            (char const *)u8"re\u0301sume\u0301", // same as above, decomposed
+            (char const *)u8"rèsumè",
+            (char const *)u8"re\u0300sume\u0300", // same as above, decomposed
         };
 
         for (int i = 0; i < 5; ++i) {
@@ -944,85 +944,85 @@ TEST(rope_algorithm, coll_search_case_accents_and_punct)
 
         do_full_match_search(
             table,
-            u8"Resume",
-            u8"Resume",
+            (char const *)u8"Resume",
+            (char const *)u8"Resume",
             __LINE__,
             collation_flags::ignore_accents);
 
         do_full_match_search(
             table,
-            u8"Resume",
-            u8"Résumé",
+            (char const *)u8"Resume",
+            (char const *)u8"Résumé",
             __LINE__,
             collation_flags::ignore_accents);
 
         do_full_match_search(
             table,
-            u8"Résumé",
-            u8"Résumé",
+            (char const *)u8"Résumé",
+            (char const *)u8"Résumé",
             __LINE__,
             collation_flags::ignore_accents);
 
         do_full_match_search(
             table,
-            u8"RESUME",
-            u8"RESUME",
+            (char const *)u8"RESUME",
+            (char const *)u8"RESUME",
             __LINE__,
             collation_flags::ignore_accents);
 
         do_full_match_search(
             table,
-            u8"RESUME",
-            u8"RÉSUMÉ",
+            (char const *)u8"RESUME",
+            (char const *)u8"RÉSUMÉ",
             __LINE__,
             collation_flags::ignore_accents);
 
         do_full_match_search(
             table,
-            u8"RÉSUMÉ",
-            u8"RÉSUMÉ",
+            (char const *)u8"RÉSUMÉ",
+            (char const *)u8"RÉSUMÉ",
             __LINE__,
             collation_flags::ignore_accents);
 
         do_full_match_search(
             table,
-            u8"resume",
-            u8"résumé",
+            (char const *)u8"resume",
+            (char const *)u8"résumé",
             __LINE__,
             collation_flags::ignore_accents);
 
         do_full_match_search(
             table,
-            u8"resume",
-            u8"re\u0301sume\u0301",
+            (char const *)u8"resume",
+            (char const *)u8"re\u0301sume\u0301",
             __LINE__,
             collation_flags::ignore_accents);
 
         do_full_no_match_search(
             table,
-            u8"resume",
-            u8"Resume",
+            (char const *)u8"resume",
+            (char const *)u8"Resume",
             __LINE__,
             collation_flags::ignore_accents);
 
         do_full_no_match_search(
             table,
-            u8"resume",
-            u8"RESUME",
+            (char const *)u8"resume",
+            (char const *)u8"RESUME",
             __LINE__,
             collation_flags::ignore_accents);
 
         do_full_no_match_search(
             table,
-            u8"résumé",
-            u8"RÉSUMÉ",
+            (char const *)u8"résumé",
+            (char const *)u8"RÉSUMÉ",
             __LINE__,
             collation_flags::ignore_accents);
 
         do_full_no_match_search(
             table,
-            u8"résumé",
-            u8"RÉSUMÉ",
+            (char const *)u8"résumé",
+            (char const *)u8"RÉSUMÉ",
             __LINE__,
             collation_flags::ignore_accents);
     }
@@ -1031,29 +1031,29 @@ TEST(rope_algorithm, coll_search_case_accents_and_punct)
     {
         do_full_match_search(
             table,
-            u8"resume",
-            u8"RESUME",
+            (char const *)u8"resume",
+            (char const *)u8"RESUME",
             __LINE__,
             collation_flags::ignore_case);
 
         do_full_match_search(
             table,
-            u8"résumé",
-            u8"RÉSUMÉ",
+            (char const *)u8"résumé",
+            (char const *)u8"RÉSUMÉ",
             __LINE__,
             collation_flags::ignore_case);
 
         do_full_match_search(
             table,
-            u8"re\u0301sume\u0301", // same as above, decomposed
-            u8"Résumé",
+            (char const *)u8"re\u0301sume\u0301", // same as above, decomposed
+            (char const *)u8"Résumé",
             __LINE__,
             collation_flags::ignore_case);
 
         do_full_no_match_search(
             table,
-            u8"résumé",
-            u8"rèsumè",
+            (char const *)u8"résumé",
+            (char const *)u8"rèsumè",
             __LINE__,
             collation_flags::ignore_case);
     }
@@ -1062,15 +1062,15 @@ TEST(rope_algorithm, coll_search_case_accents_and_punct)
     {
         do_full_match_search(
             table,
-            u8"ellipsis",
-            u8"ellips...is",
+            (char const *)u8"ellipsis",
+            (char const *)u8"ellips...is",
             __LINE__,
             collation_flags::ignore_punctuation);
 
         do_full_match_search(
             table,
-            u8"el...lipsis",
-            u8"ellips...is",
+            (char const *)u8"el...lipsis",
+            (char const *)u8"ellips...is",
             __LINE__,
             collation_flags::ignore_punctuation);
     }
@@ -1080,13 +1080,13 @@ TEST(rope_algorithm, coll_search_grapheme_boundaries)
 {
     auto const table = default_table;
 
-    do_search(table, u8"e\u0301\u0300", u8"e\u0301\u0300", 0, 1, __LINE__);
+    do_search(table, (char const *)u8"e\u0301\u0300", (char const *)u8"e\u0301\u0300", 0, 1, __LINE__);
 
-    do_search(table, u8"e\u0301", u8"e\u0301\u0300", 1, 1, __LINE__);
-    do_search(table, u8"\u0301\u0300", u8"e\u0301\u0300", 1, 1, __LINE__);
-    do_search(table, u8"e", u8"e\u0301\u0300", 1, 1, __LINE__);
-    do_search(table, u8"\u0301", u8"e\u0301\u0300", 1, 1, __LINE__);
-    do_search(table, u8"\u0300", u8"e\u0301\u0300", 1, 1, __LINE__);
+    do_search(table, (char const *)u8"e\u0301", (char const *)u8"e\u0301\u0300", 1, 1, __LINE__);
+    do_search(table, (char const *)u8"\u0301\u0300", (char const *)u8"e\u0301\u0300", 1, 1, __LINE__);
+    do_search(table, (char const *)u8"e", (char const *)u8"e\u0301\u0300", 1, 1, __LINE__);
+    do_search(table, (char const *)u8"\u0301", (char const *)u8"e\u0301\u0300", 1, 1, __LINE__);
+    do_search(table, (char const *)u8"\u0300", (char const *)u8"e\u0301\u0300", 1, 1, __LINE__);
 }
 
 struct prev_word_callable_t
@@ -1153,10 +1153,10 @@ TEST(rope_algorithm, coll_search_word_boundaries)
     auto const table = default_table;
 
     do_simple_word_search(
-        table, u8"pause resume ...", u8"resume", 6, 12, __LINE__);
-    do_simple_word_search_not_found(table, u8"resumed", u8"resume", __LINE__);
-    do_simple_word_search_not_found(table, u8"unresumed", u8"resume", __LINE__);
-    do_simple_word_search_not_found(table, u8"unresume", u8"resume", __LINE__);
+        table, (char const *)u8"pause resume ...", (char const *)u8"resume", 6, 12, __LINE__);
+    do_simple_word_search_not_found(table, (char const *)u8"resumed", (char const *)u8"resume", __LINE__);
+    do_simple_word_search_not_found(table, (char const *)u8"unresumed", (char const *)u8"resume", __LINE__);
+    do_simple_word_search_not_found(table, (char const *)u8"unresume", (char const *)u8"resume", __LINE__);
 }
 
 TEST(rope_algorithm, case_mapping_)

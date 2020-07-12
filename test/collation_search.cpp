@@ -295,14 +295,14 @@ TEST(collation_search, default_)
 
 TEST(collation_search, danish)
 {
-    std::string const haystack_1(u8"Danish aa ");
-    std::string const haystack_2(u8"Danish aa");
-    std::string const haystack_3(u8"Danish a");
-    std::string const haystack_4(u8"Danish Å ");
-    std::string const haystack_5(u8"Danish Å");
-    std::string const needle_1(u8"Å");
-    std::string const needle_2(u8"aa");
-    std::string const needle_3(u8"AA");
+    std::string const haystack_1((char const *)u8"Danish aa ");
+    std::string const haystack_2((char const *)u8"Danish aa");
+    std::string const haystack_3((char const *)u8"Danish a");
+    std::string const haystack_4((char const *)u8"Danish Å ");
+    std::string const haystack_5((char const *)u8"Danish Å");
+    std::string const needle_1((char const *)u8"Å");
+    std::string const needle_2((char const *)u8"aa");
+    std::string const needle_3((char const *)u8"AA");
 
     auto table = danish_table;
 
@@ -565,15 +565,15 @@ TEST(collation_search, case_accents_and_punct)
     // Ignore accents and case.
     {
         std::string const forms[9] = {
-            u8"resume",
-            u8"Resume",
-            u8"RESUME",
-            u8"résumé",
-            u8"re\u0301sume\u0301", // same as above, decomposed
-            u8"rèsumè",
-            u8"re\u0300sume\u0300", // same as above, decomposed
-            u8"Résumé",
-            u8"RÉSUMÉ",
+            (char const *)u8"resume",
+            (char const *)u8"Resume",
+            (char const *)u8"RESUME",
+            (char const *)u8"résumé",
+            (char const *)u8"re\u0301sume\u0301", // same as above, decomposed
+            (char const *)u8"rèsumè",
+            (char const *)u8"re\u0300sume\u0300", // same as above, decomposed
+            (char const *)u8"Résumé",
+            (char const *)u8"RÉSUMÉ",
         };
 
         // At primary strength (ignore accents and case), all the above should
@@ -594,11 +594,11 @@ TEST(collation_search, case_accents_and_punct)
     // Ignore accents, but consider case.
     {
         std::string const matchers_1[5] = {
-            u8"resume",
-            u8"résumé",
-            u8"re\u0301sume\u0301", // same as above, decomposed
-            u8"rèsumè",
-            u8"re\u0300sume\u0300", // same as above, decomposed
+            (char const *)u8"resume",
+            (char const *)u8"résumé",
+            (char const *)u8"re\u0301sume\u0301", // same as above, decomposed
+            (char const *)u8"rèsumè",
+            (char const *)u8"re\u0300sume\u0300", // same as above, decomposed
         };
 
         for (int i = 0; i < 5; ++i) {
@@ -614,85 +614,85 @@ TEST(collation_search, case_accents_and_punct)
 
         do_full_match_search(
             table,
-            u8"Resume",
-            u8"Resume",
+            (char const *)u8"Resume",
+            (char const *)u8"Resume",
             __LINE__,
             collation_flags::ignore_accents);
 
         do_full_match_search(
             table,
-            u8"Resume",
-            u8"Résumé",
+            (char const *)u8"Resume",
+            (char const *)u8"Résumé",
             __LINE__,
             collation_flags::ignore_accents);
 
         do_full_match_search(
             table,
-            u8"Résumé",
-            u8"Résumé",
+            (char const *)u8"Résumé",
+            (char const *)u8"Résumé",
             __LINE__,
             collation_flags::ignore_accents);
 
         do_full_match_search(
             table,
-            u8"RESUME",
-            u8"RESUME",
+            (char const *)u8"RESUME",
+            (char const *)u8"RESUME",
             __LINE__,
             collation_flags::ignore_accents);
 
         do_full_match_search(
             table,
-            u8"RESUME",
-            u8"RÉSUMÉ",
+            (char const *)u8"RESUME",
+            (char const *)u8"RÉSUMÉ",
             __LINE__,
             collation_flags::ignore_accents);
 
         do_full_match_search(
             table,
-            u8"RÉSUMÉ",
-            u8"RÉSUMÉ",
+            (char const *)u8"RÉSUMÉ",
+            (char const *)u8"RÉSUMÉ",
             __LINE__,
             collation_flags::ignore_accents);
 
         do_full_match_search(
             table,
-            u8"resume",
-            u8"résumé",
+            (char const *)u8"resume",
+            (char const *)u8"résumé",
             __LINE__,
             collation_flags::ignore_accents);
 
         do_full_match_search(
             table,
-            u8"resume",
-            u8"re\u0301sume\u0301",
+            (char const *)u8"resume",
+            (char const *)u8"re\u0301sume\u0301",
             __LINE__,
             collation_flags::ignore_accents);
 
         do_full_no_match_search(
             table,
-            u8"resume",
-            u8"Resume",
+            (char const *)u8"resume",
+            (char const *)u8"Resume",
             __LINE__,
             collation_flags::ignore_accents);
 
         do_full_no_match_search(
             table,
-            u8"resume",
-            u8"RESUME",
+            (char const *)u8"resume",
+            (char const *)u8"RESUME",
             __LINE__,
             collation_flags::ignore_accents);
 
         do_full_no_match_search(
             table,
-            u8"résumé",
-            u8"RÉSUMÉ",
+            (char const *)u8"résumé",
+            (char const *)u8"RÉSUMÉ",
             __LINE__,
             collation_flags::ignore_accents);
 
         do_full_no_match_search(
             table,
-            u8"résumé",
-            u8"RÉSUMÉ",
+            (char const *)u8"résumé",
+            (char const *)u8"RÉSUMÉ",
             __LINE__,
             collation_flags::ignore_accents);
     }
@@ -701,29 +701,29 @@ TEST(collation_search, case_accents_and_punct)
     {
         do_full_match_search(
             table,
-            u8"resume",
-            u8"RESUME",
+            (char const *)u8"resume",
+            (char const *)u8"RESUME",
             __LINE__,
             collation_flags::ignore_case);
 
         do_full_match_search(
             table,
-            u8"résumé",
-            u8"RÉSUMÉ",
+            (char const *)u8"résumé",
+            (char const *)u8"RÉSUMÉ",
             __LINE__,
             collation_flags::ignore_case);
 
         do_full_match_search(
             table,
-            u8"re\u0301sume\u0301", // same as above, decomposed
-            u8"Résumé",
+            (char const *)u8"re\u0301sume\u0301", // same as above, decomposed
+            (char const *)u8"Résumé",
             __LINE__,
             collation_flags::ignore_case);
 
         do_full_no_match_search(
             table,
-            u8"résumé",
-            u8"rèsumè",
+            (char const *)u8"résumé",
+            (char const *)u8"rèsumè",
             __LINE__,
             collation_flags::ignore_case);
     }
@@ -732,15 +732,15 @@ TEST(collation_search, case_accents_and_punct)
     {
         do_full_match_search(
             table,
-            u8"ellipsis",
-            u8"ellips...is",
+            (char const *)u8"ellipsis",
+            (char const *)u8"ellips...is",
             __LINE__,
             collation_flags::ignore_punctuation);
 
         do_full_match_search(
             table,
-            u8"el...lipsis",
-            u8"ellips...is",
+            (char const *)u8"el...lipsis",
+            (char const *)u8"ellips...is",
             __LINE__,
             collation_flags::ignore_punctuation);
     }
@@ -750,13 +750,49 @@ TEST(collation_search, grapheme_boundaries)
 {
     auto const table = default_table;
 
-    do_search(table, u8"e\u0301\u0300", u8"e\u0301\u0300", 0, 3, __LINE__);
+    do_search(
+        table,
+        (char const *)u8"e\u0301\u0300",
+        (char const *)u8"e\u0301\u0300",
+        0,
+        3,
+        __LINE__);
 
-    do_search(table, u8"e\u0301", u8"e\u0301\u0300", 2, 2, __LINE__);
-    do_search(table, u8"\u0301\u0300", u8"e\u0301\u0300", 2, 2, __LINE__);
-    do_search(table, u8"e", u8"e\u0301\u0300", 1, 1, __LINE__);
-    do_search(table, u8"\u0301", u8"e\u0301\u0300", 1, 1, __LINE__);
-    do_search(table, u8"\u0300", u8"e\u0301\u0300", 1, 1, __LINE__);
+    do_search(
+        table,
+        (char const *)u8"e\u0301",
+        (char const *)u8"e\u0301\u0300",
+        2,
+        2,
+        __LINE__);
+    do_search(
+        table,
+        (char const *)u8"\u0301\u0300",
+        (char const *)u8"e\u0301\u0300",
+        2,
+        2,
+        __LINE__);
+    do_search(
+        table,
+        (char const *)u8"e",
+        (char const *)u8"e\u0301\u0300",
+        1,
+        1,
+        __LINE__);
+    do_search(
+        table,
+        (char const *)u8"\u0301",
+        (char const *)u8"e\u0301\u0300",
+        1,
+        1,
+        __LINE__);
+    do_search(
+        table,
+        (char const *)u8"\u0300",
+        (char const *)u8"e\u0301\u0300",
+        1,
+        1,
+        __LINE__);
 }
 
 struct prev_word_callable
@@ -909,24 +945,24 @@ TEST(collation_search, word_boundaries)
 
     do_simple_word_search(
         table,
-        boost::text::v1::as_utf32(u8"pause resume ..."),
-        boost::text::v1::as_utf32(u8"resume"),
+        boost::text::v1::as_utf32((char const *)u8"pause resume ..."),
+        boost::text::v1::as_utf32((char const *)u8"resume"),
         6,
         12,
         __LINE__);
     do_simple_word_search_not_found(
         table,
-        boost::text::v1::as_utf32(u8"resumed"),
-        boost::text::v1::as_utf32(u8"resume"),
+        boost::text::v1::as_utf32((char const *)u8"resumed"),
+        boost::text::v1::as_utf32((char const *)u8"resume"),
         __LINE__);
     do_simple_word_search_not_found(
         table,
-        boost::text::v1::as_utf32(u8"unresumed"),
-        boost::text::v1::as_utf32(u8"resume"),
+        boost::text::v1::as_utf32((char const *)u8"unresumed"),
+        boost::text::v1::as_utf32((char const *)u8"resume"),
         __LINE__);
     do_simple_word_search_not_found(
         table,
-        boost::text::v1::as_utf32(u8"unresume"),
-        boost::text::v1::as_utf32(u8"resume"),
+        boost::text::v1::as_utf32((char const *)u8"unresume"),
+        boost::text::v1::as_utf32((char const *)u8"resume"),
         __LINE__);
 }

@@ -72,6 +72,9 @@ namespace boost { namespace text { namespace v2 {
     template<typename T>
     concept code_point_iterator =
         std::forward_iterator<T> && code_point<std::iter_value_t<T>>;
+    template<typename T>
+    concept code_point_range = std::ranges::forward_range<T> &&
+        code_point_iterator<std::ranges::iterator_t<T>>;
 
     template<typename T>
     concept u32_code_unit = code_point<T>;
@@ -88,7 +91,7 @@ namespace boost { namespace text { namespace v2 {
     concept grapheme_char_range =
         // clang-format off
         std::ranges::forward_range<T> && requires(T const t) {
-        { t.begin().base() } -> code_point_iter;
+        { t.begin().base() } -> code_point_iterator;
         { t.begin().base().base() } -> u8_iter;
         // clang-format on
     };
@@ -106,7 +109,7 @@ namespace boost { namespace text { namespace v2 {
 
     namespace detail {
         template<typename T>
-        concept eraseable_range =
+        concept eraseable_sized_range =
             // clang-format off
             std::ranges::sized_range<T> && requires(T t) {
             { t.erase(t.begin(), t.end()) } -> std::same_as<std::ranges::iterator_t<T>>;
@@ -117,7 +120,7 @@ namespace boost { namespace text { namespace v2 {
     template<typename T>
     concept utf8_string =
         // clang-format off
-        eraseable_range<T> && requires(T t, char const * it) {
+        detail::eraseable_sized_range<T> && requires(T t, char const * it) {
         { t.insert(t.end(), it, it) } -> std::same_as<std::ranges::iterator_t<T>>;
         // clang-format on
     };
@@ -125,7 +128,7 @@ namespace boost { namespace text { namespace v2 {
     template<typename T>
     concept utf16_string =
         // clang-format off
-        eraseable_range<T> && requires(T t, uint16_t const * it) {
+        detail::eraseable_sized_range<T> && requires(T t, uint16_t const * it) {
         { t.insert(t.end(), it, it) } -> std::same_as<std::ranges::iterator_t<T>>;
         // clang-format on
     };

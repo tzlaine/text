@@ -39,7 +39,7 @@ TEST(stream_safe, no_CGJ_needed)
 
     {
         char const * already_stream_safe =
-            u8"This is already in \u0f81 stream-safe format.";
+            (char const *)u8"This is already in \u0f81 stream-safe format.";
         std::string result;
         stream_safe_copy(
             as_utf32(already_stream_safe), utf_32_to_8_back_inserter(result));
@@ -49,7 +49,7 @@ TEST(stream_safe, no_CGJ_needed)
 
     {
         char const * already_stream_safe =
-            u8"This is already in "
+            (char const *)u8"This is already in "
             // 10 combiners
             "\u0f81"
             "\u0f81"
@@ -81,7 +81,7 @@ TEST(stream_safe, CGJ_needed_once)
 {
     {
         char const * stream_unsafe =
-            u8"Needs CGJ: \U0001d1bc" // one combiner
+            (char const *)u8"Needs CGJ: \U0001d1bc" // one combiner
             // 10 combiners
             "\u0f81"
             "\u0f81"
@@ -106,7 +106,7 @@ TEST(stream_safe, CGJ_needed_once)
         stream_safe_copy(
             as_utf32(stream_unsafe), utf_32_to_8_back_inserter(result));
         std::string const expected =
-            u8"Needs CGJ: \U0001d1bc" // one combiner
+            (char const *)u8"Needs CGJ: \U0001d1bc" // one combiner
             // 10 combiners
             "\u0f81"
             "\u0f81"
@@ -134,7 +134,7 @@ TEST(stream_safe, CGJ_needed_once)
 
     {
         char const * stream_unsafe =
-            u8"Needs CGJ: \U0001d1bc" // one combiner
+            (char const *)u8"Needs CGJ: \U0001d1bc" // one combiner
             // 10 combiners
             "\u0f81"
             "\u0f81"
@@ -158,7 +158,7 @@ TEST(stream_safe, CGJ_needed_once)
         stream_safe_copy(
             as_utf32(stream_unsafe), utf_32_to_8_back_inserter(result));
         std::string const expected =
-            u8"Needs CGJ: \U0001d1bc" // one combiner
+            (char const *)u8"Needs CGJ: \U0001d1bc" // one combiner
             // 10 combiners
             "\u0f81"
             "\u0f81"
@@ -188,7 +188,7 @@ TEST(stream_safe, CGJ_needed_twice)
 {
     {
         char const * stream_unsafe =
-            u8"Needs CGJ: \U0001d1bc" // one combiner
+            (char const *)u8"Needs CGJ: \U0001d1bc" // one combiner
             // 10 combiners
             "\u0f81"
             "\u0f81"
@@ -232,7 +232,7 @@ TEST(stream_safe, CGJ_needed_twice)
         stream_safe_copy(
             as_utf32(stream_unsafe), utf_32_to_8_back_inserter(result));
         std::string const expected =
-            u8"Needs CGJ: \U0001d1bc" // one combiner
+            (char const *)u8"Needs CGJ: \U0001d1bc" // one combiner
             // 10 combiners
             "\u0f81"
             "\u0f81"
@@ -279,7 +279,7 @@ TEST(stream_safe, CGJ_needed_twice)
 
     {
         char const * stream_unsafe =  // TODO
-            u8"Needs CGJ: \U0001d1bc" // one combiner
+            (char const *)u8"Needs CGJ: \U0001d1bc" // one combiner
             // 10 combiners
             "\u0f81"
             "\u0f81"
@@ -321,7 +321,7 @@ TEST(stream_safe, CGJ_needed_twice)
         stream_safe_copy(
             as_utf32(stream_unsafe), utf_32_to_8_back_inserter(result));
         std::string const expected =
-            u8"Needs CGJ: \U0001d1bc" // one combiner
+            (char const *)u8"Needs CGJ: \U0001d1bc" // one combiner
             // 10 combiners
             "\u0f81"
             "\u0f81"

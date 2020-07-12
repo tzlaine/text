@@ -228,7 +228,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     {
         dtl::normalization_string_appender_t<Normalization, String, I, S>
             appender(s);
-        detail::norm_impl<Normalization, decltype(s.begin()), I, S>::call(
+        v1::detail::norm_impl<Normalization, decltype(s.begin()), I, S>::call(
             first, last, appender);
         return s;
     }
@@ -238,15 +238,15 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<nf Normalization, code_point_range R, utf_string String>
     inline void normalize_append(R const & r, String & s)
     {
-        return boost::text::v1::normalize_append_utf8<Normalization>(
+        return boost::text::normalize_append<Normalization>(
             std::begin(r), std::end(r), s);
     }
 
     namespace detail {
         template<typename T>
-        concept reserve_capacity_range =
+        concept reserve_capacity_sized_range =
             // clang-format off
-            std::ranges::range<T> && requires(T const tc, T t) {
+            std::ranges::sized_range<T> && requires(T const tc, T t) {
             { tc.capacity() } -> std::integral;
             { tc.reserve(tc.capacity()) };
             // clang-format on
@@ -261,17 +261,16 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         auto const r = as_utf32(s);
 
         String temp;
-        if constexpr (detail::reserve_capacity_range<String>) {
+        if constexpr (detail::reserve_capacity_sized_range<String>) {
             if constexpr (Normalization == nf::d || Normalization == nf::kd)
                 temp.reserve(s.size() / 2 * 3);
             else
                 temp.reserve(s.size());
         }
 
-        boost::text::v1::normalize_append_utf8<Normalization>(
-            r.begin(), r.end(), temp);
+        boost::text::normalize_append<Normalization>(r.begin(), r.end(), temp);
 
-        if constexpr (detail::reserve_capacity_range<String>) {
+        if constexpr (detail::reserve_capacity_sized_range<String>) {
             if (temp.size() <= s.capacity()) {
                 s = temp;
                 return;

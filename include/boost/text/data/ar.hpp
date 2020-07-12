@@ -15,7 +15,7 @@ namespace boost { namespace text { namespace data { namespace ar {
 
 inline string_view compat_collation_tailoring()
 {
-    return string_view(
+    return string_view((char const *)
 u8R"(  
 [reorder Arab]
 &ت<<ة<<<ﺔ<<<ﺓ
@@ -25,7 +25,7 @@ u8R"(
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(
+    return string_view((char const *)
 u8"  \n"
 u8"[reorder Arab]\n"
 u8"&[before 2]ت<<‎ة\n"
