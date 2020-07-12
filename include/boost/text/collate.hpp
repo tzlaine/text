@@ -326,10 +326,10 @@ namespace boost { namespace text { inline namespace v1 {
             return after_variable;
         }
 
-        inline std::array<bool, 256> const &
+        inline std::array<bool, 272> const &
         get_derived_element_high_two_bytes()
         {
-            static std::array<bool, 256> retval = {{}};
+            static std::array<bool, 272> retval = {{}};
             for (auto seg : make_implicit_weights_segments()) {
                 for (uint32_t i = (seg.first_ >> 12),
                               end = (seg.last_ >> 12) + 1;
@@ -414,7 +414,7 @@ namespace boost { namespace text { inline namespace v1 {
            SizeOutIter * size_out = nullptr)
             -> detail::cp_iter_ret_t<CPOutIter, CPIter>
         {
-            std::array<bool, 256> const & derived_element_high_two_bytes =
+            std::array<bool, 272> const & derived_element_high_two_bytes =
                 get_derived_element_high_two_bytes();
 
             bool after_variable = false;
