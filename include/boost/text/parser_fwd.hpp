@@ -87,7 +87,7 @@ namespace boost { namespace text { inline namespace v1 {
         inline std::ostream & operator<<(std::ostream & os, token_kind kind)
         {
 #    define CASE(x)                                                            \
-    case token_kind::x: os << #x; break
+    case token_kind::x: os << string_view(#x); break
             switch (kind) {
                 CASE(code_point);
                 CASE(dash);
