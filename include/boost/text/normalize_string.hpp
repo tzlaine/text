@@ -11,18 +11,19 @@
 #include <boost/text/detail/icu/normalize.hpp>
 
 
-namespace boost { namespace text { namespace detail {
+namespace boost { namespace text { namespace dtl {
     template<
         nf Normalization,
         typename String,
         typename CPIter,
         typename Sentinel,
-        bool UTF8Input = utf8_fast_path<CPIter, Sentinel>::value &&
-                             Normalization != nf::d && Normalization != nf::kd,
+        bool UTF8Input =
+            boost::text::v1::detail::utf8_fast_path<CPIter, Sentinel>::value &&
+                Normalization != nf::d && Normalization != nf::kd,
         bool UTF8Output = sizeof(*std::declval<String>().begin()) == 1>
     struct normalization_string_appender
     {
-        using type = icu::utf16_string_appender<String>;
+        using type = v1::detail::icu::utf16_string_appender<String>;
     };
 
     template<
@@ -38,7 +39,7 @@ namespace boost { namespace text { namespace detail {
         false,
         true>
     {
-        using type = icu::utf16_to_utf8_string_appender<String>;
+        using type = v1::detail::icu::utf16_to_utf8_string_appender<String>;
     };
 
     template<
@@ -54,7 +55,7 @@ namespace boost { namespace text { namespace detail {
         true,
         true>
     {
-        using type = icu::utf8_string_appender<String>;
+        using type = v1::detail::icu::utf8_string_appender<String>;
     };
 
     template<
@@ -81,7 +82,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         inline void
         normalize_append_impl_impl(CPIter first, Sentinel last, String & s)
         {
-            detail::normalization_string_appender_t<
+            dtl::normalization_string_appender_t<
                 Normalization,
                 String,
                 CPIter,
@@ -225,7 +226,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         utf_string String>
     inline void normalize_append(I first, S last, String & s)
     {
-        detail::normalization_string_appender_t<Normalization, String, I, S>
+        dtl::normalization_string_appender_t<Normalization, String, I, S>
             appender(s);
         detail::norm_impl<Normalization, decltype(s.begin()), I, S>::call(
             first, last, appender);
