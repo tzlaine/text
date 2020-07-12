@@ -867,7 +867,7 @@ namespace boost { namespace text { inline namespace v1 {
                 boost::text::v1::normalize<nf::fcc>(
                     boost::text::v1::as_utf32(suffix.begin(), suffix.end()),
                     boost::text::v1::utf_32_to_8_back_inserter(buf));
-                str.replace(str.begin(), str_last, buf.begin(), buf.end());
+                str.replace(str.cbegin(), str_last, buf.begin(), buf.end());
             }
 
             if (first.base() != rope_first) {
@@ -885,7 +885,7 @@ namespace boost { namespace text { inline namespace v1 {
                 boost::text::v1::normalize<nf::fcc>(
                     boost::text::v1::as_utf32(prefix.begin(), prefix.end()),
                     boost::text::v1::utf_32_to_8_back_inserter(buf));
-                str.replace(str.begin(), str_last, buf.begin(), buf.end());
+                str.replace(str.cbegin(), str_last, buf.begin(), buf.end());
             }
         } else {
             boost::text::v1::normalize<nf::fcc>(str);
