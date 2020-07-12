@@ -43,7 +43,7 @@ TEST(bidi, bidi_273_000)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -62,7 +62,7 @@ TEST(bidi, bidi_273_000)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -93,7 +93,7 @@ TEST(bidi, bidi_273_000)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -112,7 +112,7 @@ TEST(bidi, bidi_273_000)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -143,7 +143,7 @@ TEST(bidi, bidi_273_000)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -162,7 +162,7 @@ TEST(bidi, bidi_273_000)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -193,7 +193,7 @@ TEST(bidi, bidi_273_000)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -212,7 +212,7 @@ TEST(bidi, bidi_273_000)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -243,7 +243,7 @@ TEST(bidi, bidi_273_000)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -262,7 +262,7 @@ TEST(bidi, bidi_273_000)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -293,7 +293,7 @@ TEST(bidi, bidi_273_000)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -312,7 +312,7 @@ TEST(bidi, bidi_273_000)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -343,7 +343,7 @@ TEST(bidi, bidi_273_000)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -362,7 +362,7 @@ TEST(bidi, bidi_273_000)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -393,7 +393,7 @@ TEST(bidi, bidi_273_000)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -412,7 +412,7 @@ TEST(bidi, bidi_273_000)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -443,7 +443,7 @@ TEST(bidi, bidi_273_000)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -462,7 +462,7 @@ TEST(bidi, bidi_273_000)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -493,7 +493,7 @@ TEST(bidi, bidi_273_000)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -512,7 +512,7 @@ TEST(bidi, bidi_273_000)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -550,7 +550,7 @@ TEST(bidi, bidi_273_001)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -569,7 +569,7 @@ TEST(bidi, bidi_273_001)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -600,7 +600,7 @@ TEST(bidi, bidi_273_001)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -619,7 +619,7 @@ TEST(bidi, bidi_273_001)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -650,7 +650,7 @@ TEST(bidi, bidi_273_001)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -669,7 +669,7 @@ TEST(bidi, bidi_273_001)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -700,7 +700,7 @@ TEST(bidi, bidi_273_001)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -719,7 +719,7 @@ TEST(bidi, bidi_273_001)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -750,7 +750,7 @@ TEST(bidi, bidi_273_001)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -769,7 +769,7 @@ TEST(bidi, bidi_273_001)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -800,7 +800,7 @@ TEST(bidi, bidi_273_001)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -819,7 +819,7 @@ TEST(bidi, bidi_273_001)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -850,7 +850,7 @@ TEST(bidi, bidi_273_001)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -869,7 +869,7 @@ TEST(bidi, bidi_273_001)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -900,7 +900,7 @@ TEST(bidi, bidi_273_001)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -919,7 +919,7 @@ TEST(bidi, bidi_273_001)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -950,7 +950,7 @@ TEST(bidi, bidi_273_001)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -969,7 +969,7 @@ TEST(bidi, bidi_273_001)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -1000,7 +1000,7 @@ TEST(bidi, bidi_273_001)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -1019,7 +1019,7 @@ TEST(bidi, bidi_273_001)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -1057,7 +1057,7 @@ TEST(bidi, bidi_273_002)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -1076,7 +1076,7 @@ TEST(bidi, bidi_273_002)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -1107,7 +1107,7 @@ TEST(bidi, bidi_273_002)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -1126,7 +1126,7 @@ TEST(bidi, bidi_273_002)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -1157,7 +1157,7 @@ TEST(bidi, bidi_273_002)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -1176,7 +1176,7 @@ TEST(bidi, bidi_273_002)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -1207,7 +1207,7 @@ TEST(bidi, bidi_273_002)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -1226,7 +1226,7 @@ TEST(bidi, bidi_273_002)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -1257,7 +1257,7 @@ TEST(bidi, bidi_273_002)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -1276,7 +1276,7 @@ TEST(bidi, bidi_273_002)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -1307,7 +1307,7 @@ TEST(bidi, bidi_273_002)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -1326,7 +1326,7 @@ TEST(bidi, bidi_273_002)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -1357,7 +1357,7 @@ TEST(bidi, bidi_273_002)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -1376,7 +1376,7 @@ TEST(bidi, bidi_273_002)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -1407,7 +1407,7 @@ TEST(bidi, bidi_273_002)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -1426,7 +1426,7 @@ TEST(bidi, bidi_273_002)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -1457,7 +1457,7 @@ TEST(bidi, bidi_273_002)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -1476,7 +1476,7 @@ TEST(bidi, bidi_273_002)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -1507,7 +1507,7 @@ TEST(bidi, bidi_273_002)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -1526,7 +1526,7 @@ TEST(bidi, bidi_273_002)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -1564,7 +1564,7 @@ TEST(bidi, bidi_273_003)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -1583,7 +1583,7 @@ TEST(bidi, bidi_273_003)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -1614,7 +1614,7 @@ TEST(bidi, bidi_273_003)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -1633,7 +1633,7 @@ TEST(bidi, bidi_273_003)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -1664,7 +1664,7 @@ TEST(bidi, bidi_273_003)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -1683,7 +1683,7 @@ TEST(bidi, bidi_273_003)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -1714,7 +1714,7 @@ TEST(bidi, bidi_273_003)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -1733,7 +1733,7 @@ TEST(bidi, bidi_273_003)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -1764,7 +1764,7 @@ TEST(bidi, bidi_273_003)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -1783,7 +1783,7 @@ TEST(bidi, bidi_273_003)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -1814,7 +1814,7 @@ TEST(bidi, bidi_273_003)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -1833,7 +1833,7 @@ TEST(bidi, bidi_273_003)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -1864,7 +1864,7 @@ TEST(bidi, bidi_273_003)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -1883,7 +1883,7 @@ TEST(bidi, bidi_273_003)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -1914,7 +1914,7 @@ TEST(bidi, bidi_273_003)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -1933,7 +1933,7 @@ TEST(bidi, bidi_273_003)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -1964,7 +1964,7 @@ TEST(bidi, bidi_273_003)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -1983,7 +1983,7 @@ TEST(bidi, bidi_273_003)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -2014,7 +2014,7 @@ TEST(bidi, bidi_273_003)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -2033,7 +2033,7 @@ TEST(bidi, bidi_273_003)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -2064,7 +2064,7 @@ TEST(bidi, bidi_273_003)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -2083,7 +2083,7 @@ TEST(bidi, bidi_273_003)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -2114,7 +2114,7 @@ TEST(bidi, bidi_273_003)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -2133,7 +2133,7 @@ TEST(bidi, bidi_273_003)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -2171,7 +2171,7 @@ TEST(bidi, bidi_273_004)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -2190,7 +2190,7 @@ TEST(bidi, bidi_273_004)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -2221,7 +2221,7 @@ TEST(bidi, bidi_273_004)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -2240,7 +2240,7 @@ TEST(bidi, bidi_273_004)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -2271,7 +2271,7 @@ TEST(bidi, bidi_273_004)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -2290,7 +2290,7 @@ TEST(bidi, bidi_273_004)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -2321,7 +2321,7 @@ TEST(bidi, bidi_273_004)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -2340,7 +2340,7 @@ TEST(bidi, bidi_273_004)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -2371,7 +2371,7 @@ TEST(bidi, bidi_273_004)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -2390,7 +2390,7 @@ TEST(bidi, bidi_273_004)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -2421,7 +2421,7 @@ TEST(bidi, bidi_273_004)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -2440,7 +2440,7 @@ TEST(bidi, bidi_273_004)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -2471,7 +2471,7 @@ TEST(bidi, bidi_273_004)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -2490,7 +2490,7 @@ TEST(bidi, bidi_273_004)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -2521,7 +2521,7 @@ TEST(bidi, bidi_273_004)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -2540,7 +2540,7 @@ TEST(bidi, bidi_273_004)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -2571,7 +2571,7 @@ TEST(bidi, bidi_273_004)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -2590,7 +2590,7 @@ TEST(bidi, bidi_273_004)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -2621,7 +2621,7 @@ TEST(bidi, bidi_273_004)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -2640,7 +2640,7 @@ TEST(bidi, bidi_273_004)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -2678,7 +2678,7 @@ TEST(bidi, bidi_273_005)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -2697,7 +2697,7 @@ TEST(bidi, bidi_273_005)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -2728,7 +2728,7 @@ TEST(bidi, bidi_273_005)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -2747,7 +2747,7 @@ TEST(bidi, bidi_273_005)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -2778,7 +2778,7 @@ TEST(bidi, bidi_273_005)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -2797,7 +2797,7 @@ TEST(bidi, bidi_273_005)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -2828,7 +2828,7 @@ TEST(bidi, bidi_273_005)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -2847,7 +2847,7 @@ TEST(bidi, bidi_273_005)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -2878,7 +2878,7 @@ TEST(bidi, bidi_273_005)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -2897,7 +2897,7 @@ TEST(bidi, bidi_273_005)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -2928,7 +2928,7 @@ TEST(bidi, bidi_273_005)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -2947,7 +2947,7 @@ TEST(bidi, bidi_273_005)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -2978,7 +2978,7 @@ TEST(bidi, bidi_273_005)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -2997,7 +2997,7 @@ TEST(bidi, bidi_273_005)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -3028,7 +3028,7 @@ TEST(bidi, bidi_273_005)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -3047,7 +3047,7 @@ TEST(bidi, bidi_273_005)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -3078,7 +3078,7 @@ TEST(bidi, bidi_273_005)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -3097,7 +3097,7 @@ TEST(bidi, bidi_273_005)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -3128,7 +3128,7 @@ TEST(bidi, bidi_273_005)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -3147,7 +3147,7 @@ TEST(bidi, bidi_273_005)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -3185,7 +3185,7 @@ TEST(bidi, bidi_273_006)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -3204,7 +3204,7 @@ TEST(bidi, bidi_273_006)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -3235,7 +3235,7 @@ TEST(bidi, bidi_273_006)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -3254,7 +3254,7 @@ TEST(bidi, bidi_273_006)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -3285,7 +3285,7 @@ TEST(bidi, bidi_273_006)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -3304,7 +3304,7 @@ TEST(bidi, bidi_273_006)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -3335,7 +3335,7 @@ TEST(bidi, bidi_273_006)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -3354,7 +3354,7 @@ TEST(bidi, bidi_273_006)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -3385,7 +3385,7 @@ TEST(bidi, bidi_273_006)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -3404,7 +3404,7 @@ TEST(bidi, bidi_273_006)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -3435,7 +3435,7 @@ TEST(bidi, bidi_273_006)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -3454,7 +3454,7 @@ TEST(bidi, bidi_273_006)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -3485,7 +3485,7 @@ TEST(bidi, bidi_273_006)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -3504,7 +3504,7 @@ TEST(bidi, bidi_273_006)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -3535,7 +3535,7 @@ TEST(bidi, bidi_273_006)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -3554,7 +3554,7 @@ TEST(bidi, bidi_273_006)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -3585,7 +3585,7 @@ TEST(bidi, bidi_273_006)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -3604,7 +3604,7 @@ TEST(bidi, bidi_273_006)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -3635,7 +3635,7 @@ TEST(bidi, bidi_273_006)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -3654,7 +3654,7 @@ TEST(bidi, bidi_273_006)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -3685,7 +3685,7 @@ TEST(bidi, bidi_273_006)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -3704,7 +3704,7 @@ TEST(bidi, bidi_273_006)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -3735,7 +3735,7 @@ TEST(bidi, bidi_273_006)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -3754,7 +3754,7 @@ TEST(bidi, bidi_273_006)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -3785,7 +3785,7 @@ TEST(bidi, bidi_273_006)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -3804,7 +3804,7 @@ TEST(bidi, bidi_273_006)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -3835,7 +3835,7 @@ TEST(bidi, bidi_273_006)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -3854,7 +3854,7 @@ TEST(bidi, bidi_273_006)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -3885,7 +3885,7 @@ TEST(bidi, bidi_273_006)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -3904,7 +3904,7 @@ TEST(bidi, bidi_273_006)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -3935,7 +3935,7 @@ TEST(bidi, bidi_273_006)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -3954,7 +3954,7 @@ TEST(bidi, bidi_273_006)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -3985,7 +3985,7 @@ TEST(bidi, bidi_273_006)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -4004,7 +4004,7 @@ TEST(bidi, bidi_273_006)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -4042,7 +4042,7 @@ TEST(bidi, bidi_273_007)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -4061,7 +4061,7 @@ TEST(bidi, bidi_273_007)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -4092,7 +4092,7 @@ TEST(bidi, bidi_273_007)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -4111,7 +4111,7 @@ TEST(bidi, bidi_273_007)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -4142,7 +4142,7 @@ TEST(bidi, bidi_273_007)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -4161,7 +4161,7 @@ TEST(bidi, bidi_273_007)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -4192,7 +4192,7 @@ TEST(bidi, bidi_273_007)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -4211,7 +4211,7 @@ TEST(bidi, bidi_273_007)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -4242,7 +4242,7 @@ TEST(bidi, bidi_273_007)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -4261,7 +4261,7 @@ TEST(bidi, bidi_273_007)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -4292,7 +4292,7 @@ TEST(bidi, bidi_273_007)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -4311,7 +4311,7 @@ TEST(bidi, bidi_273_007)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -4342,7 +4342,7 @@ TEST(bidi, bidi_273_007)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -4361,7 +4361,7 @@ TEST(bidi, bidi_273_007)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -4392,7 +4392,7 @@ TEST(bidi, bidi_273_007)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -4411,7 +4411,7 @@ TEST(bidi, bidi_273_007)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -4442,7 +4442,7 @@ TEST(bidi, bidi_273_007)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -4461,7 +4461,7 @@ TEST(bidi, bidi_273_007)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -4492,7 +4492,7 @@ TEST(bidi, bidi_273_007)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -4511,7 +4511,7 @@ TEST(bidi, bidi_273_007)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -4542,7 +4542,7 @@ TEST(bidi, bidi_273_007)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -4561,7 +4561,7 @@ TEST(bidi, bidi_273_007)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -4592,7 +4592,7 @@ TEST(bidi, bidi_273_007)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -4611,7 +4611,7 @@ TEST(bidi, bidi_273_007)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -4642,7 +4642,7 @@ TEST(bidi, bidi_273_007)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -4661,7 +4661,7 @@ TEST(bidi, bidi_273_007)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -4692,7 +4692,7 @@ TEST(bidi, bidi_273_007)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -4711,7 +4711,7 @@ TEST(bidi, bidi_273_007)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -4742,7 +4742,7 @@ TEST(bidi, bidi_273_007)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -4761,7 +4761,7 @@ TEST(bidi, bidi_273_007)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -4792,7 +4792,7 @@ TEST(bidi, bidi_273_007)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -4811,7 +4811,7 @@ TEST(bidi, bidi_273_007)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -4842,7 +4842,7 @@ TEST(bidi, bidi_273_007)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -4861,7 +4861,7 @@ TEST(bidi, bidi_273_007)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -4892,7 +4892,7 @@ TEST(bidi, bidi_273_007)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -4911,7 +4911,7 @@ TEST(bidi, bidi_273_007)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -4942,7 +4942,7 @@ TEST(bidi, bidi_273_007)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -4961,7 +4961,7 @@ TEST(bidi, bidi_273_007)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -4992,7 +4992,7 @@ TEST(bidi, bidi_273_007)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -5011,7 +5011,7 @@ TEST(bidi, bidi_273_007)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -5049,7 +5049,7 @@ TEST(bidi, bidi_273_008)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -5068,7 +5068,7 @@ TEST(bidi, bidi_273_008)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -5099,7 +5099,7 @@ TEST(bidi, bidi_273_008)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -5118,7 +5118,7 @@ TEST(bidi, bidi_273_008)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -5149,7 +5149,7 @@ TEST(bidi, bidi_273_008)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -5168,7 +5168,7 @@ TEST(bidi, bidi_273_008)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -5199,7 +5199,7 @@ TEST(bidi, bidi_273_008)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -5218,7 +5218,7 @@ TEST(bidi, bidi_273_008)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -5249,7 +5249,7 @@ TEST(bidi, bidi_273_008)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -5268,7 +5268,7 @@ TEST(bidi, bidi_273_008)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -5299,7 +5299,7 @@ TEST(bidi, bidi_273_008)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -5318,7 +5318,7 @@ TEST(bidi, bidi_273_008)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -5349,7 +5349,7 @@ TEST(bidi, bidi_273_008)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -5368,7 +5368,7 @@ TEST(bidi, bidi_273_008)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -5399,7 +5399,7 @@ TEST(bidi, bidi_273_008)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -5418,7 +5418,7 @@ TEST(bidi, bidi_273_008)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -5449,7 +5449,7 @@ TEST(bidi, bidi_273_008)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -5468,7 +5468,7 @@ TEST(bidi, bidi_273_008)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -5499,7 +5499,7 @@ TEST(bidi, bidi_273_008)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -5518,7 +5518,7 @@ TEST(bidi, bidi_273_008)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -5549,7 +5549,7 @@ TEST(bidi, bidi_273_008)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -5568,7 +5568,7 @@ TEST(bidi, bidi_273_008)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -5599,7 +5599,7 @@ TEST(bidi, bidi_273_008)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -5618,7 +5618,7 @@ TEST(bidi, bidi_273_008)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -5649,7 +5649,7 @@ TEST(bidi, bidi_273_008)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -5668,7 +5668,7 @@ TEST(bidi, bidi_273_008)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -5699,7 +5699,7 @@ TEST(bidi, bidi_273_008)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -5718,7 +5718,7 @@ TEST(bidi, bidi_273_008)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -5749,7 +5749,7 @@ TEST(bidi, bidi_273_008)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -5768,7 +5768,7 @@ TEST(bidi, bidi_273_008)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -5799,7 +5799,7 @@ TEST(bidi, bidi_273_008)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -5818,7 +5818,7 @@ TEST(bidi, bidi_273_008)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -5849,7 +5849,7 @@ TEST(bidi, bidi_273_008)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -5868,7 +5868,7 @@ TEST(bidi, bidi_273_008)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -5899,7 +5899,7 @@ TEST(bidi, bidi_273_008)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -5918,7 +5918,7 @@ TEST(bidi, bidi_273_008)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -5949,7 +5949,7 @@ TEST(bidi, bidi_273_008)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -5968,7 +5968,7 @@ TEST(bidi, bidi_273_008)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -5999,7 +5999,7 @@ TEST(bidi, bidi_273_008)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -6018,7 +6018,7 @@ TEST(bidi, bidi_273_008)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -6056,7 +6056,7 @@ TEST(bidi, bidi_273_009)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -6075,7 +6075,7 @@ TEST(bidi, bidi_273_009)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -6106,7 +6106,7 @@ TEST(bidi, bidi_273_009)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -6125,7 +6125,7 @@ TEST(bidi, bidi_273_009)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -6156,7 +6156,7 @@ TEST(bidi, bidi_273_009)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -6175,7 +6175,7 @@ TEST(bidi, bidi_273_009)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -6206,7 +6206,7 @@ TEST(bidi, bidi_273_009)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -6225,7 +6225,7 @@ TEST(bidi, bidi_273_009)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -6256,7 +6256,7 @@ TEST(bidi, bidi_273_009)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -6275,7 +6275,7 @@ TEST(bidi, bidi_273_009)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -6306,7 +6306,7 @@ TEST(bidi, bidi_273_009)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -6325,7 +6325,7 @@ TEST(bidi, bidi_273_009)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -6356,7 +6356,7 @@ TEST(bidi, bidi_273_009)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -6375,7 +6375,7 @@ TEST(bidi, bidi_273_009)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -6406,7 +6406,7 @@ TEST(bidi, bidi_273_009)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -6425,7 +6425,7 @@ TEST(bidi, bidi_273_009)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -6456,7 +6456,7 @@ TEST(bidi, bidi_273_009)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -6475,7 +6475,7 @@ TEST(bidi, bidi_273_009)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -6506,7 +6506,7 @@ TEST(bidi, bidi_273_009)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -6525,7 +6525,7 @@ TEST(bidi, bidi_273_009)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -6556,7 +6556,7 @@ TEST(bidi, bidi_273_009)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -6575,7 +6575,7 @@ TEST(bidi, bidi_273_009)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -6606,7 +6606,7 @@ TEST(bidi, bidi_273_009)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -6625,7 +6625,7 @@ TEST(bidi, bidi_273_009)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -6656,7 +6656,7 @@ TEST(bidi, bidi_273_009)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -6675,7 +6675,7 @@ TEST(bidi, bidi_273_009)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -6706,7 +6706,7 @@ TEST(bidi, bidi_273_009)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -6725,7 +6725,7 @@ TEST(bidi, bidi_273_009)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -6756,7 +6756,7 @@ TEST(bidi, bidi_273_009)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -6775,7 +6775,7 @@ TEST(bidi, bidi_273_009)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -6806,7 +6806,7 @@ TEST(bidi, bidi_273_009)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -6825,7 +6825,7 @@ TEST(bidi, bidi_273_009)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -6856,7 +6856,7 @@ TEST(bidi, bidi_273_009)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -6875,7 +6875,7 @@ TEST(bidi, bidi_273_009)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -6913,7 +6913,7 @@ TEST(bidi, bidi_273_010)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -6932,7 +6932,7 @@ TEST(bidi, bidi_273_010)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -6963,7 +6963,7 @@ TEST(bidi, bidi_273_010)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -6982,7 +6982,7 @@ TEST(bidi, bidi_273_010)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -7013,7 +7013,7 @@ TEST(bidi, bidi_273_010)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -7032,7 +7032,7 @@ TEST(bidi, bidi_273_010)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -7063,7 +7063,7 @@ TEST(bidi, bidi_273_010)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -7082,7 +7082,7 @@ TEST(bidi, bidi_273_010)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -7113,7 +7113,7 @@ TEST(bidi, bidi_273_010)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -7132,7 +7132,7 @@ TEST(bidi, bidi_273_010)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -7163,7 +7163,7 @@ TEST(bidi, bidi_273_010)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -7182,7 +7182,7 @@ TEST(bidi, bidi_273_010)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -7213,7 +7213,7 @@ TEST(bidi, bidi_273_010)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -7232,7 +7232,7 @@ TEST(bidi, bidi_273_010)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -7263,7 +7263,7 @@ TEST(bidi, bidi_273_010)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -7282,7 +7282,7 @@ TEST(bidi, bidi_273_010)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -7313,7 +7313,7 @@ TEST(bidi, bidi_273_010)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -7332,7 +7332,7 @@ TEST(bidi, bidi_273_010)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -7363,7 +7363,7 @@ TEST(bidi, bidi_273_010)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -7382,7 +7382,7 @@ TEST(bidi, bidi_273_010)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -7413,7 +7413,7 @@ TEST(bidi, bidi_273_010)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -7432,7 +7432,7 @@ TEST(bidi, bidi_273_010)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -7463,7 +7463,7 @@ TEST(bidi, bidi_273_010)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -7482,7 +7482,7 @@ TEST(bidi, bidi_273_010)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -7520,7 +7520,7 @@ TEST(bidi, bidi_273_011)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -7539,7 +7539,7 @@ TEST(bidi, bidi_273_011)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -7570,7 +7570,7 @@ TEST(bidi, bidi_273_011)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -7589,7 +7589,7 @@ TEST(bidi, bidi_273_011)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -7620,7 +7620,7 @@ TEST(bidi, bidi_273_011)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -7639,7 +7639,7 @@ TEST(bidi, bidi_273_011)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -7670,7 +7670,7 @@ TEST(bidi, bidi_273_011)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -7689,7 +7689,7 @@ TEST(bidi, bidi_273_011)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -7720,7 +7720,7 @@ TEST(bidi, bidi_273_011)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -7739,7 +7739,7 @@ TEST(bidi, bidi_273_011)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -7770,7 +7770,7 @@ TEST(bidi, bidi_273_011)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -7789,7 +7789,7 @@ TEST(bidi, bidi_273_011)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -7820,7 +7820,7 @@ TEST(bidi, bidi_273_011)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -7839,7 +7839,7 @@ TEST(bidi, bidi_273_011)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -7870,7 +7870,7 @@ TEST(bidi, bidi_273_011)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -7889,7 +7889,7 @@ TEST(bidi, bidi_273_011)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -7920,7 +7920,7 @@ TEST(bidi, bidi_273_011)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -7939,7 +7939,7 @@ TEST(bidi, bidi_273_011)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -7970,7 +7970,7 @@ TEST(bidi, bidi_273_011)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -7989,7 +7989,7 @@ TEST(bidi, bidi_273_011)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -8027,7 +8027,7 @@ TEST(bidi, bidi_273_012)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -8046,7 +8046,7 @@ TEST(bidi, bidi_273_012)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -8077,7 +8077,7 @@ TEST(bidi, bidi_273_012)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -8096,7 +8096,7 @@ TEST(bidi, bidi_273_012)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -8127,7 +8127,7 @@ TEST(bidi, bidi_273_012)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -8146,7 +8146,7 @@ TEST(bidi, bidi_273_012)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -8177,7 +8177,7 @@ TEST(bidi, bidi_273_012)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -8196,7 +8196,7 @@ TEST(bidi, bidi_273_012)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -8227,7 +8227,7 @@ TEST(bidi, bidi_273_012)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -8246,7 +8246,7 @@ TEST(bidi, bidi_273_012)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -8277,7 +8277,7 @@ TEST(bidi, bidi_273_012)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -8296,7 +8296,7 @@ TEST(bidi, bidi_273_012)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -8327,7 +8327,7 @@ TEST(bidi, bidi_273_012)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -8346,7 +8346,7 @@ TEST(bidi, bidi_273_012)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -8377,7 +8377,7 @@ TEST(bidi, bidi_273_012)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -8396,7 +8396,7 @@ TEST(bidi, bidi_273_012)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -8427,7 +8427,7 @@ TEST(bidi, bidi_273_012)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -8446,7 +8446,7 @@ TEST(bidi, bidi_273_012)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -8477,7 +8477,7 @@ TEST(bidi, bidi_273_012)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -8496,7 +8496,7 @@ TEST(bidi, bidi_273_012)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -8527,7 +8527,7 @@ TEST(bidi, bidi_273_012)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -8546,7 +8546,7 @@ TEST(bidi, bidi_273_012)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -8577,7 +8577,7 @@ TEST(bidi, bidi_273_012)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -8596,7 +8596,7 @@ TEST(bidi, bidi_273_012)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -8634,7 +8634,7 @@ TEST(bidi, bidi_273_013)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -8653,7 +8653,7 @@ TEST(bidi, bidi_273_013)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -8684,7 +8684,7 @@ TEST(bidi, bidi_273_013)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -8703,7 +8703,7 @@ TEST(bidi, bidi_273_013)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -8734,7 +8734,7 @@ TEST(bidi, bidi_273_013)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -8753,7 +8753,7 @@ TEST(bidi, bidi_273_013)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -8784,7 +8784,7 @@ TEST(bidi, bidi_273_013)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -8803,7 +8803,7 @@ TEST(bidi, bidi_273_013)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -8834,7 +8834,7 @@ TEST(bidi, bidi_273_013)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -8853,7 +8853,7 @@ TEST(bidi, bidi_273_013)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -8884,7 +8884,7 @@ TEST(bidi, bidi_273_013)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -8903,7 +8903,7 @@ TEST(bidi, bidi_273_013)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -8934,7 +8934,7 @@ TEST(bidi, bidi_273_013)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -8953,7 +8953,7 @@ TEST(bidi, bidi_273_013)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -8984,7 +8984,7 @@ TEST(bidi, bidi_273_013)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -9003,7 +9003,7 @@ TEST(bidi, bidi_273_013)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -9034,7 +9034,7 @@ TEST(bidi, bidi_273_013)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -9053,7 +9053,7 @@ TEST(bidi, bidi_273_013)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -9084,7 +9084,7 @@ TEST(bidi, bidi_273_013)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -9103,7 +9103,7 @@ TEST(bidi, bidi_273_013)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -9134,7 +9134,7 @@ TEST(bidi, bidi_273_013)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -9153,7 +9153,7 @@ TEST(bidi, bidi_273_013)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -9191,7 +9191,7 @@ TEST(bidi, bidi_273_014)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -9210,7 +9210,7 @@ TEST(bidi, bidi_273_014)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -9241,7 +9241,7 @@ TEST(bidi, bidi_273_014)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -9260,7 +9260,7 @@ TEST(bidi, bidi_273_014)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -9291,7 +9291,7 @@ TEST(bidi, bidi_273_014)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -9310,7 +9310,7 @@ TEST(bidi, bidi_273_014)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -9341,7 +9341,7 @@ TEST(bidi, bidi_273_014)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -9360,7 +9360,7 @@ TEST(bidi, bidi_273_014)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -9391,7 +9391,7 @@ TEST(bidi, bidi_273_014)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -9410,7 +9410,7 @@ TEST(bidi, bidi_273_014)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -9441,7 +9441,7 @@ TEST(bidi, bidi_273_014)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -9460,7 +9460,7 @@ TEST(bidi, bidi_273_014)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -9491,7 +9491,7 @@ TEST(bidi, bidi_273_014)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -9510,7 +9510,7 @@ TEST(bidi, bidi_273_014)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -9541,7 +9541,7 @@ TEST(bidi, bidi_273_014)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -9560,7 +9560,7 @@ TEST(bidi, bidi_273_014)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -9591,7 +9591,7 @@ TEST(bidi, bidi_273_014)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -9610,7 +9610,7 @@ TEST(bidi, bidi_273_014)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -9641,7 +9641,7 @@ TEST(bidi, bidi_273_014)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -9660,7 +9660,7 @@ TEST(bidi, bidi_273_014)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -9691,7 +9691,7 @@ TEST(bidi, bidi_273_014)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -9710,7 +9710,7 @@ TEST(bidi, bidi_273_014)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -9748,7 +9748,7 @@ TEST(bidi, bidi_273_015)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -9767,7 +9767,7 @@ TEST(bidi, bidi_273_015)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -9798,7 +9798,7 @@ TEST(bidi, bidi_273_015)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -9817,7 +9817,7 @@ TEST(bidi, bidi_273_015)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -9848,7 +9848,7 @@ TEST(bidi, bidi_273_015)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -9867,7 +9867,7 @@ TEST(bidi, bidi_273_015)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -9898,7 +9898,7 @@ TEST(bidi, bidi_273_015)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -9917,7 +9917,7 @@ TEST(bidi, bidi_273_015)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -9948,7 +9948,7 @@ TEST(bidi, bidi_273_015)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -9967,7 +9967,7 @@ TEST(bidi, bidi_273_015)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -9998,7 +9998,7 @@ TEST(bidi, bidi_273_015)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -10017,7 +10017,7 @@ TEST(bidi, bidi_273_015)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -10048,7 +10048,7 @@ TEST(bidi, bidi_273_015)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -10067,7 +10067,7 @@ TEST(bidi, bidi_273_015)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -10098,7 +10098,7 @@ TEST(bidi, bidi_273_015)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -10117,7 +10117,7 @@ TEST(bidi, bidi_273_015)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -10148,7 +10148,7 @@ TEST(bidi, bidi_273_015)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -10167,7 +10167,7 @@ TEST(bidi, bidi_273_015)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -10198,7 +10198,7 @@ TEST(bidi, bidi_273_015)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -10217,7 +10217,7 @@ TEST(bidi, bidi_273_015)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -10248,7 +10248,7 @@ TEST(bidi, bidi_273_015)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -10267,7 +10267,7 @@ TEST(bidi, bidi_273_015)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -10298,7 +10298,7 @@ TEST(bidi, bidi_273_015)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -10317,7 +10317,7 @@ TEST(bidi, bidi_273_015)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -10355,7 +10355,7 @@ TEST(bidi, bidi_273_016)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -10374,7 +10374,7 @@ TEST(bidi, bidi_273_016)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -10405,7 +10405,7 @@ TEST(bidi, bidi_273_016)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -10424,7 +10424,7 @@ TEST(bidi, bidi_273_016)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -10455,7 +10455,7 @@ TEST(bidi, bidi_273_016)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -10474,7 +10474,7 @@ TEST(bidi, bidi_273_016)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -10505,7 +10505,7 @@ TEST(bidi, bidi_273_016)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -10524,7 +10524,7 @@ TEST(bidi, bidi_273_016)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -10555,7 +10555,7 @@ TEST(bidi, bidi_273_016)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -10574,7 +10574,7 @@ TEST(bidi, bidi_273_016)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -10605,7 +10605,7 @@ TEST(bidi, bidi_273_016)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -10624,7 +10624,7 @@ TEST(bidi, bidi_273_016)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -10655,7 +10655,7 @@ TEST(bidi, bidi_273_016)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -10674,7 +10674,7 @@ TEST(bidi, bidi_273_016)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -10705,7 +10705,7 @@ TEST(bidi, bidi_273_016)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -10724,7 +10724,7 @@ TEST(bidi, bidi_273_016)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -10755,7 +10755,7 @@ TEST(bidi, bidi_273_016)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -10774,7 +10774,7 @@ TEST(bidi, bidi_273_016)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -10805,7 +10805,7 @@ TEST(bidi, bidi_273_016)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -10824,7 +10824,7 @@ TEST(bidi, bidi_273_016)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -10862,7 +10862,7 @@ TEST(bidi, bidi_273_017)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -10881,7 +10881,7 @@ TEST(bidi, bidi_273_017)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -10912,7 +10912,7 @@ TEST(bidi, bidi_273_017)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -10931,7 +10931,7 @@ TEST(bidi, bidi_273_017)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -10962,7 +10962,7 @@ TEST(bidi, bidi_273_017)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -10981,7 +10981,7 @@ TEST(bidi, bidi_273_017)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -11012,7 +11012,7 @@ TEST(bidi, bidi_273_017)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -11031,7 +11031,7 @@ TEST(bidi, bidi_273_017)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -11062,7 +11062,7 @@ TEST(bidi, bidi_273_017)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -11081,7 +11081,7 @@ TEST(bidi, bidi_273_017)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -11112,7 +11112,7 @@ TEST(bidi, bidi_273_017)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -11131,7 +11131,7 @@ TEST(bidi, bidi_273_017)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -11162,7 +11162,7 @@ TEST(bidi, bidi_273_017)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -11181,7 +11181,7 @@ TEST(bidi, bidi_273_017)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -11212,7 +11212,7 @@ TEST(bidi, bidi_273_017)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -11231,7 +11231,7 @@ TEST(bidi, bidi_273_017)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -11262,7 +11262,7 @@ TEST(bidi, bidi_273_017)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -11281,7 +11281,7 @@ TEST(bidi, bidi_273_017)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -11312,7 +11312,7 @@ TEST(bidi, bidi_273_017)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -11331,7 +11331,7 @@ TEST(bidi, bidi_273_017)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -11362,7 +11362,7 @@ TEST(bidi, bidi_273_017)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -11381,7 +11381,7 @@ TEST(bidi, bidi_273_017)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -11412,7 +11412,7 @@ TEST(bidi, bidi_273_017)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -11431,7 +11431,7 @@ TEST(bidi, bidi_273_017)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -11469,7 +11469,7 @@ TEST(bidi, bidi_273_018)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -11488,7 +11488,7 @@ TEST(bidi, bidi_273_018)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -11519,7 +11519,7 @@ TEST(bidi, bidi_273_018)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -11538,7 +11538,7 @@ TEST(bidi, bidi_273_018)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -11569,7 +11569,7 @@ TEST(bidi, bidi_273_018)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -11588,7 +11588,7 @@ TEST(bidi, bidi_273_018)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -11619,7 +11619,7 @@ TEST(bidi, bidi_273_018)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -11638,7 +11638,7 @@ TEST(bidi, bidi_273_018)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -11669,7 +11669,7 @@ TEST(bidi, bidi_273_018)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -11688,7 +11688,7 @@ TEST(bidi, bidi_273_018)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -11719,7 +11719,7 @@ TEST(bidi, bidi_273_018)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -11738,7 +11738,7 @@ TEST(bidi, bidi_273_018)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -11769,7 +11769,7 @@ TEST(bidi, bidi_273_018)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -11788,7 +11788,7 @@ TEST(bidi, bidi_273_018)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -11819,7 +11819,7 @@ TEST(bidi, bidi_273_018)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -11838,7 +11838,7 @@ TEST(bidi, bidi_273_018)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -11869,7 +11869,7 @@ TEST(bidi, bidi_273_018)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -11888,7 +11888,7 @@ TEST(bidi, bidi_273_018)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -11919,7 +11919,7 @@ TEST(bidi, bidi_273_018)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -11938,7 +11938,7 @@ TEST(bidi, bidi_273_018)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -11976,7 +11976,7 @@ TEST(bidi, bidi_273_019)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -11995,7 +11995,7 @@ TEST(bidi, bidi_273_019)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -12026,7 +12026,7 @@ TEST(bidi, bidi_273_019)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -12045,7 +12045,7 @@ TEST(bidi, bidi_273_019)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -12076,7 +12076,7 @@ TEST(bidi, bidi_273_019)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -12095,7 +12095,7 @@ TEST(bidi, bidi_273_019)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -12126,7 +12126,7 @@ TEST(bidi, bidi_273_019)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -12145,7 +12145,7 @@ TEST(bidi, bidi_273_019)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -12176,7 +12176,7 @@ TEST(bidi, bidi_273_019)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -12195,7 +12195,7 @@ TEST(bidi, bidi_273_019)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -12226,7 +12226,7 @@ TEST(bidi, bidi_273_019)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -12245,7 +12245,7 @@ TEST(bidi, bidi_273_019)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -12276,7 +12276,7 @@ TEST(bidi, bidi_273_019)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -12295,7 +12295,7 @@ TEST(bidi, bidi_273_019)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -12326,7 +12326,7 @@ TEST(bidi, bidi_273_019)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -12345,7 +12345,7 @@ TEST(bidi, bidi_273_019)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -12376,7 +12376,7 @@ TEST(bidi, bidi_273_019)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -12395,7 +12395,7 @@ TEST(bidi, bidi_273_019)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -12426,7 +12426,7 @@ TEST(bidi, bidi_273_019)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -12445,7 +12445,7 @@ TEST(bidi, bidi_273_019)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -12476,7 +12476,7 @@ TEST(bidi, bidi_273_019)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -12495,7 +12495,7 @@ TEST(bidi, bidi_273_019)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -12526,7 +12526,7 @@ TEST(bidi, bidi_273_019)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -12545,7 +12545,7 @@ TEST(bidi, bidi_273_019)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -12583,7 +12583,7 @@ TEST(bidi, bidi_273_020)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -12602,7 +12602,7 @@ TEST(bidi, bidi_273_020)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -12633,7 +12633,7 @@ TEST(bidi, bidi_273_020)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -12652,7 +12652,7 @@ TEST(bidi, bidi_273_020)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -12683,7 +12683,7 @@ TEST(bidi, bidi_273_020)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -12702,7 +12702,7 @@ TEST(bidi, bidi_273_020)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -12733,7 +12733,7 @@ TEST(bidi, bidi_273_020)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -12752,7 +12752,7 @@ TEST(bidi, bidi_273_020)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -12783,7 +12783,7 @@ TEST(bidi, bidi_273_020)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -12802,7 +12802,7 @@ TEST(bidi, bidi_273_020)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -12833,7 +12833,7 @@ TEST(bidi, bidi_273_020)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -12852,7 +12852,7 @@ TEST(bidi, bidi_273_020)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -12883,7 +12883,7 @@ TEST(bidi, bidi_273_020)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -12902,7 +12902,7 @@ TEST(bidi, bidi_273_020)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -12933,7 +12933,7 @@ TEST(bidi, bidi_273_020)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -12952,7 +12952,7 @@ TEST(bidi, bidi_273_020)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -12983,7 +12983,7 @@ TEST(bidi, bidi_273_020)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -13002,7 +13002,7 @@ TEST(bidi, bidi_273_020)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -13033,7 +13033,7 @@ TEST(bidi, bidi_273_020)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -13052,7 +13052,7 @@ TEST(bidi, bidi_273_020)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -13083,7 +13083,7 @@ TEST(bidi, bidi_273_020)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -13102,7 +13102,7 @@ TEST(bidi, bidi_273_020)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -13133,7 +13133,7 @@ TEST(bidi, bidi_273_020)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -13152,7 +13152,7 @@ TEST(bidi, bidi_273_020)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -13190,7 +13190,7 @@ TEST(bidi, bidi_273_021)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -13209,7 +13209,7 @@ TEST(bidi, bidi_273_021)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -13240,7 +13240,7 @@ TEST(bidi, bidi_273_021)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -13259,7 +13259,7 @@ TEST(bidi, bidi_273_021)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -13290,7 +13290,7 @@ TEST(bidi, bidi_273_021)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -13309,7 +13309,7 @@ TEST(bidi, bidi_273_021)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -13340,7 +13340,7 @@ TEST(bidi, bidi_273_021)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -13359,7 +13359,7 @@ TEST(bidi, bidi_273_021)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -13390,7 +13390,7 @@ TEST(bidi, bidi_273_021)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -13409,7 +13409,7 @@ TEST(bidi, bidi_273_021)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -13440,7 +13440,7 @@ TEST(bidi, bidi_273_021)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -13459,7 +13459,7 @@ TEST(bidi, bidi_273_021)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -13490,7 +13490,7 @@ TEST(bidi, bidi_273_021)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -13509,7 +13509,7 @@ TEST(bidi, bidi_273_021)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -13540,7 +13540,7 @@ TEST(bidi, bidi_273_021)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -13559,7 +13559,7 @@ TEST(bidi, bidi_273_021)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -13590,7 +13590,7 @@ TEST(bidi, bidi_273_021)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -13609,7 +13609,7 @@ TEST(bidi, bidi_273_021)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -13640,7 +13640,7 @@ TEST(bidi, bidi_273_021)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -13659,7 +13659,7 @@ TEST(bidi, bidi_273_021)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -13697,7 +13697,7 @@ TEST(bidi, bidi_273_022)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -13716,7 +13716,7 @@ TEST(bidi, bidi_273_022)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -13747,7 +13747,7 @@ TEST(bidi, bidi_273_022)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -13766,7 +13766,7 @@ TEST(bidi, bidi_273_022)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -13797,7 +13797,7 @@ TEST(bidi, bidi_273_022)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -13816,7 +13816,7 @@ TEST(bidi, bidi_273_022)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -13847,7 +13847,7 @@ TEST(bidi, bidi_273_022)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -13866,7 +13866,7 @@ TEST(bidi, bidi_273_022)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -13897,7 +13897,7 @@ TEST(bidi, bidi_273_022)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -13916,7 +13916,7 @@ TEST(bidi, bidi_273_022)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -13947,7 +13947,7 @@ TEST(bidi, bidi_273_022)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -13966,7 +13966,7 @@ TEST(bidi, bidi_273_022)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -13997,7 +13997,7 @@ TEST(bidi, bidi_273_022)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -14016,7 +14016,7 @@ TEST(bidi, bidi_273_022)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -14047,7 +14047,7 @@ TEST(bidi, bidi_273_022)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -14066,7 +14066,7 @@ TEST(bidi, bidi_273_022)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -14097,7 +14097,7 @@ TEST(bidi, bidi_273_022)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -14116,7 +14116,7 @@ TEST(bidi, bidi_273_022)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -14147,7 +14147,7 @@ TEST(bidi, bidi_273_022)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -14166,7 +14166,7 @@ TEST(bidi, bidi_273_022)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -14197,7 +14197,7 @@ TEST(bidi, bidi_273_022)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -14216,7 +14216,7 @@ TEST(bidi, bidi_273_022)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -14247,7 +14247,7 @@ TEST(bidi, bidi_273_022)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -14266,7 +14266,7 @@ TEST(bidi, bidi_273_022)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -14304,7 +14304,7 @@ TEST(bidi, bidi_273_023)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -14323,7 +14323,7 @@ TEST(bidi, bidi_273_023)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -14354,7 +14354,7 @@ TEST(bidi, bidi_273_023)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -14373,7 +14373,7 @@ TEST(bidi, bidi_273_023)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -14404,7 +14404,7 @@ TEST(bidi, bidi_273_023)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -14423,7 +14423,7 @@ TEST(bidi, bidi_273_023)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -14454,7 +14454,7 @@ TEST(bidi, bidi_273_023)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -14473,7 +14473,7 @@ TEST(bidi, bidi_273_023)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -14504,7 +14504,7 @@ TEST(bidi, bidi_273_023)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -14523,7 +14523,7 @@ TEST(bidi, bidi_273_023)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -14554,7 +14554,7 @@ TEST(bidi, bidi_273_023)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -14573,7 +14573,7 @@ TEST(bidi, bidi_273_023)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -14604,7 +14604,7 @@ TEST(bidi, bidi_273_023)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -14623,7 +14623,7 @@ TEST(bidi, bidi_273_023)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -14654,7 +14654,7 @@ TEST(bidi, bidi_273_023)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -14673,7 +14673,7 @@ TEST(bidi, bidi_273_023)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -14704,7 +14704,7 @@ TEST(bidi, bidi_273_023)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -14723,7 +14723,7 @@ TEST(bidi, bidi_273_023)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -14754,7 +14754,7 @@ TEST(bidi, bidi_273_023)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -14773,7 +14773,7 @@ TEST(bidi, bidi_273_023)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -14811,7 +14811,7 @@ TEST(bidi, bidi_273_024)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -14830,7 +14830,7 @@ TEST(bidi, bidi_273_024)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -14861,7 +14861,7 @@ TEST(bidi, bidi_273_024)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -14880,7 +14880,7 @@ TEST(bidi, bidi_273_024)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -14911,7 +14911,7 @@ TEST(bidi, bidi_273_024)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -14930,7 +14930,7 @@ TEST(bidi, bidi_273_024)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -14961,7 +14961,7 @@ TEST(bidi, bidi_273_024)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -14980,7 +14980,7 @@ TEST(bidi, bidi_273_024)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -15011,7 +15011,7 @@ TEST(bidi, bidi_273_024)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -15030,7 +15030,7 @@ TEST(bidi, bidi_273_024)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -15061,7 +15061,7 @@ TEST(bidi, bidi_273_024)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -15080,7 +15080,7 @@ TEST(bidi, bidi_273_024)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -15111,7 +15111,7 @@ TEST(bidi, bidi_273_024)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -15130,7 +15130,7 @@ TEST(bidi, bidi_273_024)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -15161,7 +15161,7 @@ TEST(bidi, bidi_273_024)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -15180,7 +15180,7 @@ TEST(bidi, bidi_273_024)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -15211,7 +15211,7 @@ TEST(bidi, bidi_273_024)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -15230,7 +15230,7 @@ TEST(bidi, bidi_273_024)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -15261,7 +15261,7 @@ TEST(bidi, bidi_273_024)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -15280,7 +15280,7 @@ TEST(bidi, bidi_273_024)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -15318,7 +15318,7 @@ TEST(bidi, bidi_273_025)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -15337,7 +15337,7 @@ TEST(bidi, bidi_273_025)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -15368,7 +15368,7 @@ TEST(bidi, bidi_273_025)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -15387,7 +15387,7 @@ TEST(bidi, bidi_273_025)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -15418,7 +15418,7 @@ TEST(bidi, bidi_273_025)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -15437,7 +15437,7 @@ TEST(bidi, bidi_273_025)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -15468,7 +15468,7 @@ TEST(bidi, bidi_273_025)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -15487,7 +15487,7 @@ TEST(bidi, bidi_273_025)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -15518,7 +15518,7 @@ TEST(bidi, bidi_273_025)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -15537,7 +15537,7 @@ TEST(bidi, bidi_273_025)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -15568,7 +15568,7 @@ TEST(bidi, bidi_273_025)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -15587,7 +15587,7 @@ TEST(bidi, bidi_273_025)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -15618,7 +15618,7 @@ TEST(bidi, bidi_273_025)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -15637,7 +15637,7 @@ TEST(bidi, bidi_273_025)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -15668,7 +15668,7 @@ TEST(bidi, bidi_273_025)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -15687,7 +15687,7 @@ TEST(bidi, bidi_273_025)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -15718,7 +15718,7 @@ TEST(bidi, bidi_273_025)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -15737,7 +15737,7 @@ TEST(bidi, bidi_273_025)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -15768,7 +15768,7 @@ TEST(bidi, bidi_273_025)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -15787,7 +15787,7 @@ TEST(bidi, bidi_273_025)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -15825,7 +15825,7 @@ TEST(bidi, bidi_273_026)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -15844,7 +15844,7 @@ TEST(bidi, bidi_273_026)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -15875,7 +15875,7 @@ TEST(bidi, bidi_273_026)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -15894,7 +15894,7 @@ TEST(bidi, bidi_273_026)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -15925,7 +15925,7 @@ TEST(bidi, bidi_273_026)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -15944,7 +15944,7 @@ TEST(bidi, bidi_273_026)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -15975,7 +15975,7 @@ TEST(bidi, bidi_273_026)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -15994,7 +15994,7 @@ TEST(bidi, bidi_273_026)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -16025,7 +16025,7 @@ TEST(bidi, bidi_273_026)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -16044,7 +16044,7 @@ TEST(bidi, bidi_273_026)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -16075,7 +16075,7 @@ TEST(bidi, bidi_273_026)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -16094,7 +16094,7 @@ TEST(bidi, bidi_273_026)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -16125,7 +16125,7 @@ TEST(bidi, bidi_273_026)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -16144,7 +16144,7 @@ TEST(bidi, bidi_273_026)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -16175,7 +16175,7 @@ TEST(bidi, bidi_273_026)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -16194,7 +16194,7 @@ TEST(bidi, bidi_273_026)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -16225,7 +16225,7 @@ TEST(bidi, bidi_273_026)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -16244,7 +16244,7 @@ TEST(bidi, bidi_273_026)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -16275,7 +16275,7 @@ TEST(bidi, bidi_273_026)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -16294,7 +16294,7 @@ TEST(bidi, bidi_273_026)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -16325,7 +16325,7 @@ TEST(bidi, bidi_273_026)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -16344,7 +16344,7 @@ TEST(bidi, bidi_273_026)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -16382,7 +16382,7 @@ TEST(bidi, bidi_273_027)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -16401,7 +16401,7 @@ TEST(bidi, bidi_273_027)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -16432,7 +16432,7 @@ TEST(bidi, bidi_273_027)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -16451,7 +16451,7 @@ TEST(bidi, bidi_273_027)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -16482,7 +16482,7 @@ TEST(bidi, bidi_273_027)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -16501,7 +16501,7 @@ TEST(bidi, bidi_273_027)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -16532,7 +16532,7 @@ TEST(bidi, bidi_273_027)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -16551,7 +16551,7 @@ TEST(bidi, bidi_273_027)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -16582,7 +16582,7 @@ TEST(bidi, bidi_273_027)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -16601,7 +16601,7 @@ TEST(bidi, bidi_273_027)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -16632,7 +16632,7 @@ TEST(bidi, bidi_273_027)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -16651,7 +16651,7 @@ TEST(bidi, bidi_273_027)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -16682,7 +16682,7 @@ TEST(bidi, bidi_273_027)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -16701,7 +16701,7 @@ TEST(bidi, bidi_273_027)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -16732,7 +16732,7 @@ TEST(bidi, bidi_273_027)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -16751,7 +16751,7 @@ TEST(bidi, bidi_273_027)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -16782,7 +16782,7 @@ TEST(bidi, bidi_273_027)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -16801,7 +16801,7 @@ TEST(bidi, bidi_273_027)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -16835,7 +16835,7 @@ TEST(bidi, bidi_273_027)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -16854,7 +16854,7 @@ TEST(bidi, bidi_273_027)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -16885,7 +16885,7 @@ TEST(bidi, bidi_273_027)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -16904,7 +16904,7 @@ TEST(bidi, bidi_273_027)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -16935,7 +16935,7 @@ TEST(bidi, bidi_273_027)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -16954,7 +16954,7 @@ TEST(bidi, bidi_273_027)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -16985,7 +16985,7 @@ TEST(bidi, bidi_273_027)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -17004,7 +17004,7 @@ TEST(bidi, bidi_273_027)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -17035,7 +17035,7 @@ TEST(bidi, bidi_273_027)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -17054,7 +17054,7 @@ TEST(bidi, bidi_273_027)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -17085,7 +17085,7 @@ TEST(bidi, bidi_273_027)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -17104,7 +17104,7 @@ TEST(bidi, bidi_273_027)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -17142,7 +17142,7 @@ TEST(bidi, bidi_273_028)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -17161,7 +17161,7 @@ TEST(bidi, bidi_273_028)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -17192,7 +17192,7 @@ TEST(bidi, bidi_273_028)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -17211,7 +17211,7 @@ TEST(bidi, bidi_273_028)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -17242,7 +17242,7 @@ TEST(bidi, bidi_273_028)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -17261,7 +17261,7 @@ TEST(bidi, bidi_273_028)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -17292,7 +17292,7 @@ TEST(bidi, bidi_273_028)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -17311,7 +17311,7 @@ TEST(bidi, bidi_273_028)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -17342,7 +17342,7 @@ TEST(bidi, bidi_273_028)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -17361,7 +17361,7 @@ TEST(bidi, bidi_273_028)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -17392,7 +17392,7 @@ TEST(bidi, bidi_273_028)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -17411,7 +17411,7 @@ TEST(bidi, bidi_273_028)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -17442,7 +17442,7 @@ TEST(bidi, bidi_273_028)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -17461,7 +17461,7 @@ TEST(bidi, bidi_273_028)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -17492,7 +17492,7 @@ TEST(bidi, bidi_273_028)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -17511,7 +17511,7 @@ TEST(bidi, bidi_273_028)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -17542,7 +17542,7 @@ TEST(bidi, bidi_273_028)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -17561,7 +17561,7 @@ TEST(bidi, bidi_273_028)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -17592,7 +17592,7 @@ TEST(bidi, bidi_273_028)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -17611,7 +17611,7 @@ TEST(bidi, bidi_273_028)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -17642,7 +17642,7 @@ TEST(bidi, bidi_273_028)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -17661,7 +17661,7 @@ TEST(bidi, bidi_273_028)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -17692,7 +17692,7 @@ TEST(bidi, bidi_273_028)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -17711,7 +17711,7 @@ TEST(bidi, bidi_273_028)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -17742,7 +17742,7 @@ TEST(bidi, bidi_273_028)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -17761,7 +17761,7 @@ TEST(bidi, bidi_273_028)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -17792,7 +17792,7 @@ TEST(bidi, bidi_273_028)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -17811,7 +17811,7 @@ TEST(bidi, bidi_273_028)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -17842,7 +17842,7 @@ TEST(bidi, bidi_273_028)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -17861,7 +17861,7 @@ TEST(bidi, bidi_273_028)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -17892,7 +17892,7 @@ TEST(bidi, bidi_273_028)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -17911,7 +17911,7 @@ TEST(bidi, bidi_273_028)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -17942,7 +17942,7 @@ TEST(bidi, bidi_273_028)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -17961,7 +17961,7 @@ TEST(bidi, bidi_273_028)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -17992,7 +17992,7 @@ TEST(bidi, bidi_273_028)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -18011,7 +18011,7 @@ TEST(bidi, bidi_273_028)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -18042,7 +18042,7 @@ TEST(bidi, bidi_273_028)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -18061,7 +18061,7 @@ TEST(bidi, bidi_273_028)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -18092,7 +18092,7 @@ TEST(bidi, bidi_273_028)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -18111,7 +18111,7 @@ TEST(bidi, bidi_273_028)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -18142,7 +18142,7 @@ TEST(bidi, bidi_273_028)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -18161,7 +18161,7 @@ TEST(bidi, bidi_273_028)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -18192,7 +18192,7 @@ TEST(bidi, bidi_273_028)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -18211,7 +18211,7 @@ TEST(bidi, bidi_273_028)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -18249,7 +18249,7 @@ TEST(bidi, bidi_273_029)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -18268,7 +18268,7 @@ TEST(bidi, bidi_273_029)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -18299,7 +18299,7 @@ TEST(bidi, bidi_273_029)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -18318,7 +18318,7 @@ TEST(bidi, bidi_273_029)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -18349,7 +18349,7 @@ TEST(bidi, bidi_273_029)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -18368,7 +18368,7 @@ TEST(bidi, bidi_273_029)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -18399,7 +18399,7 @@ TEST(bidi, bidi_273_029)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -18418,7 +18418,7 @@ TEST(bidi, bidi_273_029)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -18449,7 +18449,7 @@ TEST(bidi, bidi_273_029)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -18468,7 +18468,7 @@ TEST(bidi, bidi_273_029)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -18499,7 +18499,7 @@ TEST(bidi, bidi_273_029)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -18518,7 +18518,7 @@ TEST(bidi, bidi_273_029)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -18549,7 +18549,7 @@ TEST(bidi, bidi_273_029)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -18568,7 +18568,7 @@ TEST(bidi, bidi_273_029)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -18599,7 +18599,7 @@ TEST(bidi, bidi_273_029)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -18618,7 +18618,7 @@ TEST(bidi, bidi_273_029)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -18649,7 +18649,7 @@ TEST(bidi, bidi_273_029)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -18668,7 +18668,7 @@ TEST(bidi, bidi_273_029)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -18699,7 +18699,7 @@ TEST(bidi, bidi_273_029)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -18718,7 +18718,7 @@ TEST(bidi, bidi_273_029)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -18749,7 +18749,7 @@ TEST(bidi, bidi_273_029)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -18768,7 +18768,7 @@ TEST(bidi, bidi_273_029)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -18799,7 +18799,7 @@ TEST(bidi, bidi_273_029)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -18818,7 +18818,7 @@ TEST(bidi, bidi_273_029)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -18849,7 +18849,7 @@ TEST(bidi, bidi_273_029)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -18868,7 +18868,7 @@ TEST(bidi, bidi_273_029)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -18899,7 +18899,7 @@ TEST(bidi, bidi_273_029)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -18918,7 +18918,7 @@ TEST(bidi, bidi_273_029)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -18949,7 +18949,7 @@ TEST(bidi, bidi_273_029)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -18968,7 +18968,7 @@ TEST(bidi, bidi_273_029)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -18999,7 +18999,7 @@ TEST(bidi, bidi_273_029)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -19018,7 +19018,7 @@ TEST(bidi, bidi_273_029)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -19049,7 +19049,7 @@ TEST(bidi, bidi_273_029)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -19068,7 +19068,7 @@ TEST(bidi, bidi_273_029)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -19099,7 +19099,7 @@ TEST(bidi, bidi_273_029)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -19118,7 +19118,7 @@ TEST(bidi, bidi_273_029)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -19149,7 +19149,7 @@ TEST(bidi, bidi_273_029)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -19168,7 +19168,7 @@ TEST(bidi, bidi_273_029)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -19199,7 +19199,7 @@ TEST(bidi, bidi_273_029)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -19218,7 +19218,7 @@ TEST(bidi, bidi_273_029)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -19256,7 +19256,7 @@ TEST(bidi, bidi_273_030)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -19275,7 +19275,7 @@ TEST(bidi, bidi_273_030)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -19306,7 +19306,7 @@ TEST(bidi, bidi_273_030)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -19325,7 +19325,7 @@ TEST(bidi, bidi_273_030)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -19356,7 +19356,7 @@ TEST(bidi, bidi_273_030)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -19375,7 +19375,7 @@ TEST(bidi, bidi_273_030)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -19406,7 +19406,7 @@ TEST(bidi, bidi_273_030)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -19425,7 +19425,7 @@ TEST(bidi, bidi_273_030)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -19456,7 +19456,7 @@ TEST(bidi, bidi_273_030)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -19475,7 +19475,7 @@ TEST(bidi, bidi_273_030)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -19506,7 +19506,7 @@ TEST(bidi, bidi_273_030)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -19525,7 +19525,7 @@ TEST(bidi, bidi_273_030)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -19556,7 +19556,7 @@ TEST(bidi, bidi_273_030)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -19575,7 +19575,7 @@ TEST(bidi, bidi_273_030)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -19606,7 +19606,7 @@ TEST(bidi, bidi_273_030)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -19625,7 +19625,7 @@ TEST(bidi, bidi_273_030)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -19656,7 +19656,7 @@ TEST(bidi, bidi_273_030)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -19675,7 +19675,7 @@ TEST(bidi, bidi_273_030)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -19706,7 +19706,7 @@ TEST(bidi, bidi_273_030)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -19725,7 +19725,7 @@ TEST(bidi, bidi_273_030)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -19756,7 +19756,7 @@ TEST(bidi, bidi_273_030)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -19775,7 +19775,7 @@ TEST(bidi, bidi_273_030)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -19806,7 +19806,7 @@ TEST(bidi, bidi_273_030)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -19825,7 +19825,7 @@ TEST(bidi, bidi_273_030)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -19856,7 +19856,7 @@ TEST(bidi, bidi_273_030)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -19875,7 +19875,7 @@ TEST(bidi, bidi_273_030)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -19906,7 +19906,7 @@ TEST(bidi, bidi_273_030)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -19925,7 +19925,7 @@ TEST(bidi, bidi_273_030)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -19956,7 +19956,7 @@ TEST(bidi, bidi_273_030)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -19975,7 +19975,7 @@ TEST(bidi, bidi_273_030)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -20006,7 +20006,7 @@ TEST(bidi, bidi_273_030)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -20025,7 +20025,7 @@ TEST(bidi, bidi_273_030)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -20056,7 +20056,7 @@ TEST(bidi, bidi_273_030)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -20075,7 +20075,7 @@ TEST(bidi, bidi_273_030)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -20106,7 +20106,7 @@ TEST(bidi, bidi_273_030)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -20125,7 +20125,7 @@ TEST(bidi, bidi_273_030)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -20156,7 +20156,7 @@ TEST(bidi, bidi_273_030)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -20175,7 +20175,7 @@ TEST(bidi, bidi_273_030)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -20206,7 +20206,7 @@ TEST(bidi, bidi_273_030)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -20225,7 +20225,7 @@ TEST(bidi, bidi_273_030)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -20263,7 +20263,7 @@ TEST(bidi, bidi_273_031)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -20282,7 +20282,7 @@ TEST(bidi, bidi_273_031)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -20313,7 +20313,7 @@ TEST(bidi, bidi_273_031)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -20332,7 +20332,7 @@ TEST(bidi, bidi_273_031)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -20363,7 +20363,7 @@ TEST(bidi, bidi_273_031)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -20382,7 +20382,7 @@ TEST(bidi, bidi_273_031)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -20413,7 +20413,7 @@ TEST(bidi, bidi_273_031)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -20432,7 +20432,7 @@ TEST(bidi, bidi_273_031)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -20463,7 +20463,7 @@ TEST(bidi, bidi_273_031)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -20482,7 +20482,7 @@ TEST(bidi, bidi_273_031)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -20513,7 +20513,7 @@ TEST(bidi, bidi_273_031)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -20532,7 +20532,7 @@ TEST(bidi, bidi_273_031)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -20563,7 +20563,7 @@ TEST(bidi, bidi_273_031)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -20582,7 +20582,7 @@ TEST(bidi, bidi_273_031)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -20613,7 +20613,7 @@ TEST(bidi, bidi_273_031)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -20632,7 +20632,7 @@ TEST(bidi, bidi_273_031)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -20663,7 +20663,7 @@ TEST(bidi, bidi_273_031)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -20682,7 +20682,7 @@ TEST(bidi, bidi_273_031)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -20713,7 +20713,7 @@ TEST(bidi, bidi_273_031)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -20732,7 +20732,7 @@ TEST(bidi, bidi_273_031)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -20763,7 +20763,7 @@ TEST(bidi, bidi_273_031)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -20782,7 +20782,7 @@ TEST(bidi, bidi_273_031)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -20813,7 +20813,7 @@ TEST(bidi, bidi_273_031)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -20832,7 +20832,7 @@ TEST(bidi, bidi_273_031)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -20863,7 +20863,7 @@ TEST(bidi, bidi_273_031)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -20882,7 +20882,7 @@ TEST(bidi, bidi_273_031)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -20913,7 +20913,7 @@ TEST(bidi, bidi_273_031)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -20932,7 +20932,7 @@ TEST(bidi, bidi_273_031)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -20963,7 +20963,7 @@ TEST(bidi, bidi_273_031)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -20982,7 +20982,7 @@ TEST(bidi, bidi_273_031)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -21013,7 +21013,7 @@ TEST(bidi, bidi_273_031)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -21032,7 +21032,7 @@ TEST(bidi, bidi_273_031)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -21063,7 +21063,7 @@ TEST(bidi, bidi_273_031)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -21082,7 +21082,7 @@ TEST(bidi, bidi_273_031)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -21113,7 +21113,7 @@ TEST(bidi, bidi_273_031)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -21132,7 +21132,7 @@ TEST(bidi, bidi_273_031)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -21163,7 +21163,7 @@ TEST(bidi, bidi_273_031)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -21182,7 +21182,7 @@ TEST(bidi, bidi_273_031)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -21213,7 +21213,7 @@ TEST(bidi, bidi_273_031)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -21232,7 +21232,7 @@ TEST(bidi, bidi_273_031)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -21270,7 +21270,7 @@ TEST(bidi, bidi_273_032)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -21289,7 +21289,7 @@ TEST(bidi, bidi_273_032)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -21320,7 +21320,7 @@ TEST(bidi, bidi_273_032)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -21339,7 +21339,7 @@ TEST(bidi, bidi_273_032)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -21370,7 +21370,7 @@ TEST(bidi, bidi_273_032)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -21389,7 +21389,7 @@ TEST(bidi, bidi_273_032)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -21420,7 +21420,7 @@ TEST(bidi, bidi_273_032)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -21439,7 +21439,7 @@ TEST(bidi, bidi_273_032)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -21470,7 +21470,7 @@ TEST(bidi, bidi_273_032)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -21489,7 +21489,7 @@ TEST(bidi, bidi_273_032)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -21520,7 +21520,7 @@ TEST(bidi, bidi_273_032)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -21539,7 +21539,7 @@ TEST(bidi, bidi_273_032)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -21570,7 +21570,7 @@ TEST(bidi, bidi_273_032)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -21589,7 +21589,7 @@ TEST(bidi, bidi_273_032)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -21620,7 +21620,7 @@ TEST(bidi, bidi_273_032)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -21639,7 +21639,7 @@ TEST(bidi, bidi_273_032)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -21670,7 +21670,7 @@ TEST(bidi, bidi_273_032)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -21689,7 +21689,7 @@ TEST(bidi, bidi_273_032)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -21720,7 +21720,7 @@ TEST(bidi, bidi_273_032)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -21739,7 +21739,7 @@ TEST(bidi, bidi_273_032)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -21770,7 +21770,7 @@ TEST(bidi, bidi_273_032)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -21789,7 +21789,7 @@ TEST(bidi, bidi_273_032)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -21820,7 +21820,7 @@ TEST(bidi, bidi_273_032)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -21839,7 +21839,7 @@ TEST(bidi, bidi_273_032)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -21870,7 +21870,7 @@ TEST(bidi, bidi_273_032)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -21889,7 +21889,7 @@ TEST(bidi, bidi_273_032)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -21920,7 +21920,7 @@ TEST(bidi, bidi_273_032)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -21939,7 +21939,7 @@ TEST(bidi, bidi_273_032)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -21977,7 +21977,7 @@ TEST(bidi, bidi_273_033)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -21996,7 +21996,7 @@ TEST(bidi, bidi_273_033)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -22027,7 +22027,7 @@ TEST(bidi, bidi_273_033)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -22046,7 +22046,7 @@ TEST(bidi, bidi_273_033)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -22077,7 +22077,7 @@ TEST(bidi, bidi_273_033)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -22096,7 +22096,7 @@ TEST(bidi, bidi_273_033)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -22127,7 +22127,7 @@ TEST(bidi, bidi_273_033)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -22146,7 +22146,7 @@ TEST(bidi, bidi_273_033)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -22177,7 +22177,7 @@ TEST(bidi, bidi_273_033)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -22196,7 +22196,7 @@ TEST(bidi, bidi_273_033)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -22227,7 +22227,7 @@ TEST(bidi, bidi_273_033)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -22246,7 +22246,7 @@ TEST(bidi, bidi_273_033)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -22277,7 +22277,7 @@ TEST(bidi, bidi_273_033)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -22296,7 +22296,7 @@ TEST(bidi, bidi_273_033)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -22327,7 +22327,7 @@ TEST(bidi, bidi_273_033)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -22346,7 +22346,7 @@ TEST(bidi, bidi_273_033)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -22377,7 +22377,7 @@ TEST(bidi, bidi_273_033)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -22396,7 +22396,7 @@ TEST(bidi, bidi_273_033)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -22427,7 +22427,7 @@ TEST(bidi, bidi_273_033)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -22446,7 +22446,7 @@ TEST(bidi, bidi_273_033)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -22477,7 +22477,7 @@ TEST(bidi, bidi_273_033)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -22496,7 +22496,7 @@ TEST(bidi, bidi_273_033)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -22527,7 +22527,7 @@ TEST(bidi, bidi_273_033)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -22546,7 +22546,7 @@ TEST(bidi, bidi_273_033)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -22577,7 +22577,7 @@ TEST(bidi, bidi_273_033)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -22596,7 +22596,7 @@ TEST(bidi, bidi_273_033)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -22634,7 +22634,7 @@ TEST(bidi, bidi_273_034)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -22653,7 +22653,7 @@ TEST(bidi, bidi_273_034)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -22684,7 +22684,7 @@ TEST(bidi, bidi_273_034)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -22703,7 +22703,7 @@ TEST(bidi, bidi_273_034)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -22734,7 +22734,7 @@ TEST(bidi, bidi_273_034)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -22753,7 +22753,7 @@ TEST(bidi, bidi_273_034)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -22784,7 +22784,7 @@ TEST(bidi, bidi_273_034)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -22803,7 +22803,7 @@ TEST(bidi, bidi_273_034)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -22834,7 +22834,7 @@ TEST(bidi, bidi_273_034)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -22853,7 +22853,7 @@ TEST(bidi, bidi_273_034)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -22884,7 +22884,7 @@ TEST(bidi, bidi_273_034)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -22903,7 +22903,7 @@ TEST(bidi, bidi_273_034)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -22934,7 +22934,7 @@ TEST(bidi, bidi_273_034)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -22953,7 +22953,7 @@ TEST(bidi, bidi_273_034)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -22984,7 +22984,7 @@ TEST(bidi, bidi_273_034)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -23003,7 +23003,7 @@ TEST(bidi, bidi_273_034)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -23034,7 +23034,7 @@ TEST(bidi, bidi_273_034)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -23053,7 +23053,7 @@ TEST(bidi, bidi_273_034)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -23084,7 +23084,7 @@ TEST(bidi, bidi_273_034)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -23103,7 +23103,7 @@ TEST(bidi, bidi_273_034)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -23134,7 +23134,7 @@ TEST(bidi, bidi_273_034)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -23153,7 +23153,7 @@ TEST(bidi, bidi_273_034)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -23184,7 +23184,7 @@ TEST(bidi, bidi_273_034)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -23203,7 +23203,7 @@ TEST(bidi, bidi_273_034)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -23234,7 +23234,7 @@ TEST(bidi, bidi_273_034)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -23253,7 +23253,7 @@ TEST(bidi, bidi_273_034)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -23284,7 +23284,7 @@ TEST(bidi, bidi_273_034)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -23303,7 +23303,7 @@ TEST(bidi, bidi_273_034)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -23341,7 +23341,7 @@ TEST(bidi, bidi_273_035)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -23360,7 +23360,7 @@ TEST(bidi, bidi_273_035)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -23391,7 +23391,7 @@ TEST(bidi, bidi_273_035)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -23410,7 +23410,7 @@ TEST(bidi, bidi_273_035)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -23441,7 +23441,7 @@ TEST(bidi, bidi_273_035)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -23460,7 +23460,7 @@ TEST(bidi, bidi_273_035)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -23491,7 +23491,7 @@ TEST(bidi, bidi_273_035)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -23510,7 +23510,7 @@ TEST(bidi, bidi_273_035)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -23541,7 +23541,7 @@ TEST(bidi, bidi_273_035)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -23560,7 +23560,7 @@ TEST(bidi, bidi_273_035)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -23591,7 +23591,7 @@ TEST(bidi, bidi_273_035)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -23610,7 +23610,7 @@ TEST(bidi, bidi_273_035)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -23641,7 +23641,7 @@ TEST(bidi, bidi_273_035)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -23660,7 +23660,7 @@ TEST(bidi, bidi_273_035)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -23691,7 +23691,7 @@ TEST(bidi, bidi_273_035)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -23710,7 +23710,7 @@ TEST(bidi, bidi_273_035)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -23741,7 +23741,7 @@ TEST(bidi, bidi_273_035)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -23760,7 +23760,7 @@ TEST(bidi, bidi_273_035)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -23791,7 +23791,7 @@ TEST(bidi, bidi_273_035)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -23810,7 +23810,7 @@ TEST(bidi, bidi_273_035)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -23841,7 +23841,7 @@ TEST(bidi, bidi_273_035)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -23860,7 +23860,7 @@ TEST(bidi, bidi_273_035)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -23891,7 +23891,7 @@ TEST(bidi, bidi_273_035)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -23910,7 +23910,7 @@ TEST(bidi, bidi_273_035)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -23941,7 +23941,7 @@ TEST(bidi, bidi_273_035)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -23960,7 +23960,7 @@ TEST(bidi, bidi_273_035)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -23998,7 +23998,7 @@ TEST(bidi, bidi_273_036)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -24017,7 +24017,7 @@ TEST(bidi, bidi_273_036)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -24048,7 +24048,7 @@ TEST(bidi, bidi_273_036)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -24067,7 +24067,7 @@ TEST(bidi, bidi_273_036)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -24098,7 +24098,7 @@ TEST(bidi, bidi_273_036)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -24117,7 +24117,7 @@ TEST(bidi, bidi_273_036)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -24148,7 +24148,7 @@ TEST(bidi, bidi_273_036)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -24167,7 +24167,7 @@ TEST(bidi, bidi_273_036)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -24198,7 +24198,7 @@ TEST(bidi, bidi_273_036)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -24217,7 +24217,7 @@ TEST(bidi, bidi_273_036)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -24248,7 +24248,7 @@ TEST(bidi, bidi_273_036)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -24267,7 +24267,7 @@ TEST(bidi, bidi_273_036)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -24298,7 +24298,7 @@ TEST(bidi, bidi_273_036)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -24317,7 +24317,7 @@ TEST(bidi, bidi_273_036)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -24348,7 +24348,7 @@ TEST(bidi, bidi_273_036)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -24367,7 +24367,7 @@ TEST(bidi, bidi_273_036)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -24398,7 +24398,7 @@ TEST(bidi, bidi_273_036)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -24417,7 +24417,7 @@ TEST(bidi, bidi_273_036)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -24448,7 +24448,7 @@ TEST(bidi, bidi_273_036)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -24467,7 +24467,7 @@ TEST(bidi, bidi_273_036)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -24498,7 +24498,7 @@ TEST(bidi, bidi_273_036)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -24517,7 +24517,7 @@ TEST(bidi, bidi_273_036)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -24548,7 +24548,7 @@ TEST(bidi, bidi_273_036)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -24567,7 +24567,7 @@ TEST(bidi, bidi_273_036)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -24598,7 +24598,7 @@ TEST(bidi, bidi_273_036)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -24617,7 +24617,7 @@ TEST(bidi, bidi_273_036)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -24648,7 +24648,7 @@ TEST(bidi, bidi_273_036)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -24667,7 +24667,7 @@ TEST(bidi, bidi_273_036)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -24705,7 +24705,7 @@ TEST(bidi, bidi_273_037)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -24724,7 +24724,7 @@ TEST(bidi, bidi_273_037)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -24755,7 +24755,7 @@ TEST(bidi, bidi_273_037)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -24774,7 +24774,7 @@ TEST(bidi, bidi_273_037)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -24805,7 +24805,7 @@ TEST(bidi, bidi_273_037)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -24824,7 +24824,7 @@ TEST(bidi, bidi_273_037)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -24855,7 +24855,7 @@ TEST(bidi, bidi_273_037)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -24874,7 +24874,7 @@ TEST(bidi, bidi_273_037)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -24905,7 +24905,7 @@ TEST(bidi, bidi_273_037)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -24924,7 +24924,7 @@ TEST(bidi, bidi_273_037)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -24955,7 +24955,7 @@ TEST(bidi, bidi_273_037)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -24974,7 +24974,7 @@ TEST(bidi, bidi_273_037)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -25005,7 +25005,7 @@ TEST(bidi, bidi_273_037)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -25024,7 +25024,7 @@ TEST(bidi, bidi_273_037)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -25055,7 +25055,7 @@ TEST(bidi, bidi_273_037)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -25074,7 +25074,7 @@ TEST(bidi, bidi_273_037)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -25105,7 +25105,7 @@ TEST(bidi, bidi_273_037)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -25124,7 +25124,7 @@ TEST(bidi, bidi_273_037)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -25155,7 +25155,7 @@ TEST(bidi, bidi_273_037)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -25174,7 +25174,7 @@ TEST(bidi, bidi_273_037)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -25205,7 +25205,7 @@ TEST(bidi, bidi_273_037)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -25224,7 +25224,7 @@ TEST(bidi, bidi_273_037)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -25255,7 +25255,7 @@ TEST(bidi, bidi_273_037)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -25274,7 +25274,7 @@ TEST(bidi, bidi_273_037)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -25305,7 +25305,7 @@ TEST(bidi, bidi_273_037)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -25324,7 +25324,7 @@ TEST(bidi, bidi_273_037)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -25362,7 +25362,7 @@ TEST(bidi, bidi_273_038)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -25381,7 +25381,7 @@ TEST(bidi, bidi_273_038)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -25412,7 +25412,7 @@ TEST(bidi, bidi_273_038)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -25431,7 +25431,7 @@ TEST(bidi, bidi_273_038)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -25462,7 +25462,7 @@ TEST(bidi, bidi_273_038)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -25481,7 +25481,7 @@ TEST(bidi, bidi_273_038)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -25512,7 +25512,7 @@ TEST(bidi, bidi_273_038)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -25531,7 +25531,7 @@ TEST(bidi, bidi_273_038)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -25562,7 +25562,7 @@ TEST(bidi, bidi_273_038)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -25581,7 +25581,7 @@ TEST(bidi, bidi_273_038)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -25612,7 +25612,7 @@ TEST(bidi, bidi_273_038)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -25631,7 +25631,7 @@ TEST(bidi, bidi_273_038)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -25662,7 +25662,7 @@ TEST(bidi, bidi_273_038)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -25681,7 +25681,7 @@ TEST(bidi, bidi_273_038)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -25712,7 +25712,7 @@ TEST(bidi, bidi_273_038)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -25731,7 +25731,7 @@ TEST(bidi, bidi_273_038)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -25762,7 +25762,7 @@ TEST(bidi, bidi_273_038)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -25781,7 +25781,7 @@ TEST(bidi, bidi_273_038)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -25812,7 +25812,7 @@ TEST(bidi, bidi_273_038)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -25831,7 +25831,7 @@ TEST(bidi, bidi_273_038)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -25862,7 +25862,7 @@ TEST(bidi, bidi_273_038)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -25881,7 +25881,7 @@ TEST(bidi, bidi_273_038)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -25912,7 +25912,7 @@ TEST(bidi, bidi_273_038)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -25931,7 +25931,7 @@ TEST(bidi, bidi_273_038)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -25962,7 +25962,7 @@ TEST(bidi, bidi_273_038)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -25981,7 +25981,7 @@ TEST(bidi, bidi_273_038)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -26019,7 +26019,7 @@ TEST(bidi, bidi_273_039)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -26038,7 +26038,7 @@ TEST(bidi, bidi_273_039)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -26069,7 +26069,7 @@ TEST(bidi, bidi_273_039)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -26088,7 +26088,7 @@ TEST(bidi, bidi_273_039)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -26119,7 +26119,7 @@ TEST(bidi, bidi_273_039)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -26138,7 +26138,7 @@ TEST(bidi, bidi_273_039)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -26169,7 +26169,7 @@ TEST(bidi, bidi_273_039)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -26188,7 +26188,7 @@ TEST(bidi, bidi_273_039)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -26219,7 +26219,7 @@ TEST(bidi, bidi_273_039)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -26238,7 +26238,7 @@ TEST(bidi, bidi_273_039)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -26269,7 +26269,7 @@ TEST(bidi, bidi_273_039)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -26288,7 +26288,7 @@ TEST(bidi, bidi_273_039)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -26319,7 +26319,7 @@ TEST(bidi, bidi_273_039)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -26338,7 +26338,7 @@ TEST(bidi, bidi_273_039)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -26369,7 +26369,7 @@ TEST(bidi, bidi_273_039)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -26388,7 +26388,7 @@ TEST(bidi, bidi_273_039)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -26419,7 +26419,7 @@ TEST(bidi, bidi_273_039)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -26438,7 +26438,7 @@ TEST(bidi, bidi_273_039)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -26469,7 +26469,7 @@ TEST(bidi, bidi_273_039)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -26488,7 +26488,7 @@ TEST(bidi, bidi_273_039)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -26519,7 +26519,7 @@ TEST(bidi, bidi_273_039)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -26538,7 +26538,7 @@ TEST(bidi, bidi_273_039)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -26569,7 +26569,7 @@ TEST(bidi, bidi_273_039)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -26588,7 +26588,7 @@ TEST(bidi, bidi_273_039)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -26619,7 +26619,7 @@ TEST(bidi, bidi_273_039)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -26638,7 +26638,7 @@ TEST(bidi, bidi_273_039)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -26669,7 +26669,7 @@ TEST(bidi, bidi_273_039)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -26688,7 +26688,7 @@ TEST(bidi, bidi_273_039)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -26726,7 +26726,7 @@ TEST(bidi, bidi_273_040)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -26745,7 +26745,7 @@ TEST(bidi, bidi_273_040)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -26776,7 +26776,7 @@ TEST(bidi, bidi_273_040)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -26795,7 +26795,7 @@ TEST(bidi, bidi_273_040)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -26826,7 +26826,7 @@ TEST(bidi, bidi_273_040)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -26845,7 +26845,7 @@ TEST(bidi, bidi_273_040)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -26876,7 +26876,7 @@ TEST(bidi, bidi_273_040)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -26895,7 +26895,7 @@ TEST(bidi, bidi_273_040)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -26926,7 +26926,7 @@ TEST(bidi, bidi_273_040)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -26945,7 +26945,7 @@ TEST(bidi, bidi_273_040)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -26976,7 +26976,7 @@ TEST(bidi, bidi_273_040)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -26995,7 +26995,7 @@ TEST(bidi, bidi_273_040)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -27026,7 +27026,7 @@ TEST(bidi, bidi_273_040)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -27045,7 +27045,7 @@ TEST(bidi, bidi_273_040)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -27076,7 +27076,7 @@ TEST(bidi, bidi_273_040)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -27095,7 +27095,7 @@ TEST(bidi, bidi_273_040)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -27126,7 +27126,7 @@ TEST(bidi, bidi_273_040)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -27145,7 +27145,7 @@ TEST(bidi, bidi_273_040)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -27176,7 +27176,7 @@ TEST(bidi, bidi_273_040)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -27195,7 +27195,7 @@ TEST(bidi, bidi_273_040)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -27226,7 +27226,7 @@ TEST(bidi, bidi_273_040)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -27245,7 +27245,7 @@ TEST(bidi, bidi_273_040)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -27276,7 +27276,7 @@ TEST(bidi, bidi_273_040)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -27295,7 +27295,7 @@ TEST(bidi, bidi_273_040)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -27333,7 +27333,7 @@ TEST(bidi, bidi_273_041)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -27352,7 +27352,7 @@ TEST(bidi, bidi_273_041)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -27383,7 +27383,7 @@ TEST(bidi, bidi_273_041)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -27402,7 +27402,7 @@ TEST(bidi, bidi_273_041)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -27433,7 +27433,7 @@ TEST(bidi, bidi_273_041)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -27452,7 +27452,7 @@ TEST(bidi, bidi_273_041)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -27483,7 +27483,7 @@ TEST(bidi, bidi_273_041)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -27502,7 +27502,7 @@ TEST(bidi, bidi_273_041)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -27533,7 +27533,7 @@ TEST(bidi, bidi_273_041)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -27552,7 +27552,7 @@ TEST(bidi, bidi_273_041)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -27583,7 +27583,7 @@ TEST(bidi, bidi_273_041)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -27602,7 +27602,7 @@ TEST(bidi, bidi_273_041)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -27633,7 +27633,7 @@ TEST(bidi, bidi_273_041)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -27652,7 +27652,7 @@ TEST(bidi, bidi_273_041)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -27683,7 +27683,7 @@ TEST(bidi, bidi_273_041)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -27702,7 +27702,7 @@ TEST(bidi, bidi_273_041)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -27733,7 +27733,7 @@ TEST(bidi, bidi_273_041)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -27752,7 +27752,7 @@ TEST(bidi, bidi_273_041)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -27783,7 +27783,7 @@ TEST(bidi, bidi_273_041)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -27802,7 +27802,7 @@ TEST(bidi, bidi_273_041)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -27833,7 +27833,7 @@ TEST(bidi, bidi_273_041)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -27852,7 +27852,7 @@ TEST(bidi, bidi_273_041)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -27883,7 +27883,7 @@ TEST(bidi, bidi_273_041)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -27902,7 +27902,7 @@ TEST(bidi, bidi_273_041)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -27933,7 +27933,7 @@ TEST(bidi, bidi_273_041)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -27952,7 +27952,7 @@ TEST(bidi, bidi_273_041)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -27983,7 +27983,7 @@ TEST(bidi, bidi_273_041)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -28002,7 +28002,7 @@ TEST(bidi, bidi_273_041)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -28040,7 +28040,7 @@ TEST(bidi, bidi_273_042)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -28059,7 +28059,7 @@ TEST(bidi, bidi_273_042)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -28090,7 +28090,7 @@ TEST(bidi, bidi_273_042)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -28109,7 +28109,7 @@ TEST(bidi, bidi_273_042)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -28140,7 +28140,7 @@ TEST(bidi, bidi_273_042)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -28159,7 +28159,7 @@ TEST(bidi, bidi_273_042)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -28190,7 +28190,7 @@ TEST(bidi, bidi_273_042)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -28209,7 +28209,7 @@ TEST(bidi, bidi_273_042)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -28240,7 +28240,7 @@ TEST(bidi, bidi_273_042)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -28259,7 +28259,7 @@ TEST(bidi, bidi_273_042)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -28290,7 +28290,7 @@ TEST(bidi, bidi_273_042)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -28309,7 +28309,7 @@ TEST(bidi, bidi_273_042)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -28340,7 +28340,7 @@ TEST(bidi, bidi_273_042)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -28359,7 +28359,7 @@ TEST(bidi, bidi_273_042)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -28390,7 +28390,7 @@ TEST(bidi, bidi_273_042)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -28409,7 +28409,7 @@ TEST(bidi, bidi_273_042)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -28440,7 +28440,7 @@ TEST(bidi, bidi_273_042)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -28459,7 +28459,7 @@ TEST(bidi, bidi_273_042)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -28490,7 +28490,7 @@ TEST(bidi, bidi_273_042)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -28509,7 +28509,7 @@ TEST(bidi, bidi_273_042)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -28540,7 +28540,7 @@ TEST(bidi, bidi_273_042)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -28559,7 +28559,7 @@ TEST(bidi, bidi_273_042)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -28590,7 +28590,7 @@ TEST(bidi, bidi_273_042)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -28609,7 +28609,7 @@ TEST(bidi, bidi_273_042)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -28647,7 +28647,7 @@ TEST(bidi, bidi_273_043)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -28666,7 +28666,7 @@ TEST(bidi, bidi_273_043)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -28697,7 +28697,7 @@ TEST(bidi, bidi_273_043)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -28716,7 +28716,7 @@ TEST(bidi, bidi_273_043)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -28747,7 +28747,7 @@ TEST(bidi, bidi_273_043)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -28766,7 +28766,7 @@ TEST(bidi, bidi_273_043)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -28797,7 +28797,7 @@ TEST(bidi, bidi_273_043)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -28816,7 +28816,7 @@ TEST(bidi, bidi_273_043)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -28847,7 +28847,7 @@ TEST(bidi, bidi_273_043)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -28866,7 +28866,7 @@ TEST(bidi, bidi_273_043)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -28897,7 +28897,7 @@ TEST(bidi, bidi_273_043)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -28916,7 +28916,7 @@ TEST(bidi, bidi_273_043)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -28947,7 +28947,7 @@ TEST(bidi, bidi_273_043)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -28966,7 +28966,7 @@ TEST(bidi, bidi_273_043)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -28997,7 +28997,7 @@ TEST(bidi, bidi_273_043)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -29016,7 +29016,7 @@ TEST(bidi, bidi_273_043)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -29047,7 +29047,7 @@ TEST(bidi, bidi_273_043)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -29066,7 +29066,7 @@ TEST(bidi, bidi_273_043)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -29097,7 +29097,7 @@ TEST(bidi, bidi_273_043)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -29116,7 +29116,7 @@ TEST(bidi, bidi_273_043)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -29154,7 +29154,7 @@ TEST(bidi, bidi_273_044)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -29173,7 +29173,7 @@ TEST(bidi, bidi_273_044)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -29204,7 +29204,7 @@ TEST(bidi, bidi_273_044)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -29223,7 +29223,7 @@ TEST(bidi, bidi_273_044)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -29254,7 +29254,7 @@ TEST(bidi, bidi_273_044)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -29273,7 +29273,7 @@ TEST(bidi, bidi_273_044)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -29304,7 +29304,7 @@ TEST(bidi, bidi_273_044)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -29323,7 +29323,7 @@ TEST(bidi, bidi_273_044)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -29354,7 +29354,7 @@ TEST(bidi, bidi_273_044)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -29373,7 +29373,7 @@ TEST(bidi, bidi_273_044)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -29404,7 +29404,7 @@ TEST(bidi, bidi_273_044)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -29423,7 +29423,7 @@ TEST(bidi, bidi_273_044)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -29454,7 +29454,7 @@ TEST(bidi, bidi_273_044)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -29473,7 +29473,7 @@ TEST(bidi, bidi_273_044)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -29504,7 +29504,7 @@ TEST(bidi, bidi_273_044)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -29523,7 +29523,7 @@ TEST(bidi, bidi_273_044)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -29554,7 +29554,7 @@ TEST(bidi, bidi_273_044)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -29573,7 +29573,7 @@ TEST(bidi, bidi_273_044)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -29604,7 +29604,7 @@ TEST(bidi, bidi_273_044)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -29623,7 +29623,7 @@ TEST(bidi, bidi_273_044)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -29661,7 +29661,7 @@ TEST(bidi, bidi_273_045)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -29680,7 +29680,7 @@ TEST(bidi, bidi_273_045)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -29711,7 +29711,7 @@ TEST(bidi, bidi_273_045)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -29730,7 +29730,7 @@ TEST(bidi, bidi_273_045)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -29761,7 +29761,7 @@ TEST(bidi, bidi_273_045)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -29780,7 +29780,7 @@ TEST(bidi, bidi_273_045)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -29811,7 +29811,7 @@ TEST(bidi, bidi_273_045)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -29830,7 +29830,7 @@ TEST(bidi, bidi_273_045)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -29861,7 +29861,7 @@ TEST(bidi, bidi_273_045)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -29880,7 +29880,7 @@ TEST(bidi, bidi_273_045)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -29911,7 +29911,7 @@ TEST(bidi, bidi_273_045)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -29930,7 +29930,7 @@ TEST(bidi, bidi_273_045)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -29961,7 +29961,7 @@ TEST(bidi, bidi_273_045)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -29980,7 +29980,7 @@ TEST(bidi, bidi_273_045)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -30011,7 +30011,7 @@ TEST(bidi, bidi_273_045)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -30030,7 +30030,7 @@ TEST(bidi, bidi_273_045)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -30061,7 +30061,7 @@ TEST(bidi, bidi_273_045)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -30080,7 +30080,7 @@ TEST(bidi, bidi_273_045)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -30111,7 +30111,7 @@ TEST(bidi, bidi_273_045)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -30130,7 +30130,7 @@ TEST(bidi, bidi_273_045)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -30168,7 +30168,7 @@ TEST(bidi, bidi_273_046)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -30187,7 +30187,7 @@ TEST(bidi, bidi_273_046)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -30218,7 +30218,7 @@ TEST(bidi, bidi_273_046)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -30237,7 +30237,7 @@ TEST(bidi, bidi_273_046)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -30268,7 +30268,7 @@ TEST(bidi, bidi_273_046)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -30287,7 +30287,7 @@ TEST(bidi, bidi_273_046)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -30318,7 +30318,7 @@ TEST(bidi, bidi_273_046)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -30337,7 +30337,7 @@ TEST(bidi, bidi_273_046)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -30368,7 +30368,7 @@ TEST(bidi, bidi_273_046)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -30387,7 +30387,7 @@ TEST(bidi, bidi_273_046)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -30418,7 +30418,7 @@ TEST(bidi, bidi_273_046)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -30437,7 +30437,7 @@ TEST(bidi, bidi_273_046)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -30468,7 +30468,7 @@ TEST(bidi, bidi_273_046)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -30487,7 +30487,7 @@ TEST(bidi, bidi_273_046)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -30518,7 +30518,7 @@ TEST(bidi, bidi_273_046)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -30537,7 +30537,7 @@ TEST(bidi, bidi_273_046)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -30568,7 +30568,7 @@ TEST(bidi, bidi_273_046)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -30587,7 +30587,7 @@ TEST(bidi, bidi_273_046)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -30618,7 +30618,7 @@ TEST(bidi, bidi_273_046)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -30637,7 +30637,7 @@ TEST(bidi, bidi_273_046)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -30675,7 +30675,7 @@ TEST(bidi, bidi_273_047)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -30694,7 +30694,7 @@ TEST(bidi, bidi_273_047)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -30725,7 +30725,7 @@ TEST(bidi, bidi_273_047)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -30744,7 +30744,7 @@ TEST(bidi, bidi_273_047)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -30775,7 +30775,7 @@ TEST(bidi, bidi_273_047)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -30794,7 +30794,7 @@ TEST(bidi, bidi_273_047)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -30825,7 +30825,7 @@ TEST(bidi, bidi_273_047)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -30844,7 +30844,7 @@ TEST(bidi, bidi_273_047)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -30875,7 +30875,7 @@ TEST(bidi, bidi_273_047)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -30894,7 +30894,7 @@ TEST(bidi, bidi_273_047)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -30925,7 +30925,7 @@ TEST(bidi, bidi_273_047)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -30944,7 +30944,7 @@ TEST(bidi, bidi_273_047)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -30975,7 +30975,7 @@ TEST(bidi, bidi_273_047)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -30994,7 +30994,7 @@ TEST(bidi, bidi_273_047)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -31025,7 +31025,7 @@ TEST(bidi, bidi_273_047)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -31044,7 +31044,7 @@ TEST(bidi, bidi_273_047)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -31075,7 +31075,7 @@ TEST(bidi, bidi_273_047)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -31094,7 +31094,7 @@ TEST(bidi, bidi_273_047)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -31125,7 +31125,7 @@ TEST(bidi, bidi_273_047)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -31144,7 +31144,7 @@ TEST(bidi, bidi_273_047)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -31182,7 +31182,7 @@ TEST(bidi, bidi_273_048)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -31201,7 +31201,7 @@ TEST(bidi, bidi_273_048)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -31232,7 +31232,7 @@ TEST(bidi, bidi_273_048)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -31251,7 +31251,7 @@ TEST(bidi, bidi_273_048)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -31282,7 +31282,7 @@ TEST(bidi, bidi_273_048)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -31301,7 +31301,7 @@ TEST(bidi, bidi_273_048)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -31332,7 +31332,7 @@ TEST(bidi, bidi_273_048)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -31351,7 +31351,7 @@ TEST(bidi, bidi_273_048)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -31382,7 +31382,7 @@ TEST(bidi, bidi_273_048)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -31401,7 +31401,7 @@ TEST(bidi, bidi_273_048)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -31432,7 +31432,7 @@ TEST(bidi, bidi_273_048)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -31451,7 +31451,7 @@ TEST(bidi, bidi_273_048)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -31482,7 +31482,7 @@ TEST(bidi, bidi_273_048)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -31501,7 +31501,7 @@ TEST(bidi, bidi_273_048)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -31532,7 +31532,7 @@ TEST(bidi, bidi_273_048)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -31551,7 +31551,7 @@ TEST(bidi, bidi_273_048)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -31582,7 +31582,7 @@ TEST(bidi, bidi_273_048)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -31601,7 +31601,7 @@ TEST(bidi, bidi_273_048)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -31632,7 +31632,7 @@ TEST(bidi, bidi_273_048)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -31651,7 +31651,7 @@ TEST(bidi, bidi_273_048)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -31682,7 +31682,7 @@ TEST(bidi, bidi_273_048)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -31701,7 +31701,7 @@ TEST(bidi, bidi_273_048)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -31732,7 +31732,7 @@ TEST(bidi, bidi_273_048)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -31751,7 +31751,7 @@ TEST(bidi, bidi_273_048)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -31782,7 +31782,7 @@ TEST(bidi, bidi_273_048)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -31801,7 +31801,7 @@ TEST(bidi, bidi_273_048)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -31832,7 +31832,7 @@ TEST(bidi, bidi_273_048)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -31851,7 +31851,7 @@ TEST(bidi, bidi_273_048)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -31889,7 +31889,7 @@ TEST(bidi, bidi_273_049)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -31908,7 +31908,7 @@ TEST(bidi, bidi_273_049)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -31939,7 +31939,7 @@ TEST(bidi, bidi_273_049)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -31958,7 +31958,7 @@ TEST(bidi, bidi_273_049)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -31989,7 +31989,7 @@ TEST(bidi, bidi_273_049)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -32008,7 +32008,7 @@ TEST(bidi, bidi_273_049)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -32039,7 +32039,7 @@ TEST(bidi, bidi_273_049)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -32058,7 +32058,7 @@ TEST(bidi, bidi_273_049)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -32089,7 +32089,7 @@ TEST(bidi, bidi_273_049)
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -32108,7 +32108,7 @@ TEST(bidi, bidi_273_049)
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]

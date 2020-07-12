@@ -227,13 +227,13 @@ TEST(const_reverse_rope_iterator, test_c_str_ctor)
 
 TEST(both_rope_iterators, test_larger_ropes)
 {
-    int const copies = 40;
+    std::size_t const copies = 40;
 
     {
         text::unencoded_rope r;
 
         text::string_view tv("text");
-        int i = 0;
+        std::size_t i = 0;
         for (; i < text::detail::min_children - 1; ++i) {
             r.insert(0, tv);
         }
@@ -271,7 +271,7 @@ TEST(both_rope_iterators, test_larger_ropes)
     {
         text::unencoded_rope r;
         std::string t("text");
-        for (int i = 0; i < copies; ++i) {
+        for (std::size_t i = 0; i < copies; ++i) {
             r.insert(0, t);
         }
 

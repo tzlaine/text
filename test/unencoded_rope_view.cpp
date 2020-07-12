@@ -20,9 +20,9 @@ TEST(unencoded_rope_view, test_empty)
     EXPECT_EQ(rtv.rbegin(), rtv.rend());
 
     EXPECT_TRUE(rtv.empty());
-    EXPECT_EQ(rtv.size(), 0);
+    EXPECT_EQ(rtv.size(), 0u);
 
-    EXPECT_EQ(rtv.max_size(), PTRDIFF_MAX);
+    EXPECT_EQ(rtv.max_size(), (std::size_t)PTRDIFF_MAX);
 
     EXPECT_EQ(rtv.compare(rtv), 0);
     EXPECT_TRUE(rtv == rtv);
@@ -76,15 +76,15 @@ TEST(unencoded_rope_view, test_non_empty)
     EXPECT_EQ(rtv_a.rbegin() + rtv_a.size(), rtv_a.rend());
 
     EXPECT_FALSE(rtv_a.empty());
-    EXPECT_EQ(rtv_a.size(), 1);
+    EXPECT_EQ(rtv_a.size(), 1u);
 
     EXPECT_FALSE(rtv_ab.empty());
-    EXPECT_EQ(rtv_ab.size(), 2);
+    EXPECT_EQ(rtv_ab.size(), 2u);
 
     EXPECT_EQ(rtv_ab[1], 'b');
 
-    EXPECT_EQ(rtv_a.max_size(), PTRDIFF_MAX);
-    EXPECT_EQ(rtv_ab.max_size(), PTRDIFF_MAX);
+    EXPECT_EQ(rtv_a.max_size(), (std::size_t)PTRDIFF_MAX);
+    EXPECT_EQ(rtv_ab.max_size(), (std::size_t)PTRDIFF_MAX);
 
     EXPECT_EQ(rtv_a.compare(rtv_ab), -1);
     EXPECT_FALSE(rtv_a == rtv_ab);
@@ -146,8 +146,8 @@ TEST(unencoded_rope_view, test_foreach_segment)
         r += "   ";
         r += std::string("text");
 
-        for (int i = 0; i < r.size(); ++i) {
-            for (int j = i; j < r.size(); ++j) {
+        for (std::size_t i = 0; i < r.size(); ++i) {
+            for (std::size_t j = i; j < r.size(); ++j) {
                 text::unencoded_rope_view rv = r(i, j);
                 std::ostringstream oss;
                 oss << rv;
@@ -161,8 +161,8 @@ TEST(unencoded_rope_view, test_foreach_segment)
     {
         text::unencoded_rope r("some");
 
-        for (int i = 0; i < r.size(); ++i) {
-            for (int j = i; j < r.size(); ++j) {
+        for (std::size_t i = 0; i < r.size(); ++i) {
+            for (std::size_t j = i; j < r.size(); ++j) {
                 text::unencoded_rope_view rv = r(i, j);
                 std::ostringstream oss;
                 oss << rv;
@@ -176,8 +176,8 @@ TEST(unencoded_rope_view, test_foreach_segment)
     {
         text::unencoded_rope r(text::string_view("txttxt"));
 
-        for (int i = 0; i < r.size(); ++i) {
-            for (int j = i; j < r.size(); ++j) {
+        for (std::size_t i = 0; i < r.size(); ++i) {
+            for (std::size_t j = i; j < r.size(); ++j) {
                 text::unencoded_rope_view rv = r(i, j);
                 std::ostringstream oss;
                 oss << rv;

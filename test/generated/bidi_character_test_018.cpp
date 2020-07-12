@@ -39,7 +39,7 @@ TEST(bidi_character, bidi_character_018_000)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -70,7 +70,7 @@ TEST(bidi_character, bidi_character_018_000)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -101,7 +101,7 @@ TEST(bidi_character, bidi_character_018_000)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -132,7 +132,7 @@ TEST(bidi_character, bidi_character_018_000)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -163,7 +163,7 @@ TEST(bidi_character, bidi_character_018_000)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -194,7 +194,7 @@ TEST(bidi_character, bidi_character_018_000)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -225,7 +225,7 @@ TEST(bidi_character, bidi_character_018_000)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -256,7 +256,7 @@ TEST(bidi_character, bidi_character_018_000)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -287,7 +287,7 @@ TEST(bidi_character, bidi_character_018_000)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -318,7 +318,7 @@ TEST(bidi_character, bidi_character_018_000)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -353,7 +353,7 @@ TEST(bidi_character, bidi_character_018_001)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -384,7 +384,7 @@ TEST(bidi_character, bidi_character_018_001)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -415,7 +415,7 @@ TEST(bidi_character, bidi_character_018_001)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -446,7 +446,7 @@ TEST(bidi_character, bidi_character_018_001)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -477,7 +477,7 @@ TEST(bidi_character, bidi_character_018_001)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -508,7 +508,7 @@ TEST(bidi_character, bidi_character_018_001)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -539,7 +539,7 @@ TEST(bidi_character, bidi_character_018_001)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -570,7 +570,7 @@ TEST(bidi_character, bidi_character_018_001)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -601,7 +601,7 @@ TEST(bidi_character, bidi_character_018_001)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -632,7 +632,7 @@ TEST(bidi_character, bidi_character_018_001)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -667,7 +667,7 @@ TEST(bidi_character, bidi_character_018_002)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -698,7 +698,7 @@ TEST(bidi_character, bidi_character_018_002)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -729,7 +729,7 @@ TEST(bidi_character, bidi_character_018_002)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -760,7 +760,7 @@ TEST(bidi_character, bidi_character_018_002)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -791,7 +791,7 @@ TEST(bidi_character, bidi_character_018_002)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -822,7 +822,7 @@ TEST(bidi_character, bidi_character_018_002)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -853,7 +853,7 @@ TEST(bidi_character, bidi_character_018_002)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -884,7 +884,7 @@ TEST(bidi_character, bidi_character_018_002)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -915,7 +915,7 @@ TEST(bidi_character, bidi_character_018_002)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -946,7 +946,7 @@ TEST(bidi_character, bidi_character_018_002)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -981,7 +981,7 @@ TEST(bidi_character, bidi_character_018_003)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -1012,7 +1012,7 @@ TEST(bidi_character, bidi_character_018_003)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -1043,7 +1043,7 @@ TEST(bidi_character, bidi_character_018_003)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -1074,7 +1074,7 @@ TEST(bidi_character, bidi_character_018_003)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -1105,7 +1105,7 @@ TEST(bidi_character, bidi_character_018_003)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -1136,7 +1136,7 @@ TEST(bidi_character, bidi_character_018_003)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -1167,7 +1167,7 @@ TEST(bidi_character, bidi_character_018_003)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -1198,7 +1198,7 @@ TEST(bidi_character, bidi_character_018_003)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -1229,7 +1229,7 @@ TEST(bidi_character, bidi_character_018_003)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -1260,7 +1260,7 @@ TEST(bidi_character, bidi_character_018_003)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -1295,7 +1295,7 @@ TEST(bidi_character, bidi_character_018_004)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -1326,7 +1326,7 @@ TEST(bidi_character, bidi_character_018_004)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -1357,7 +1357,7 @@ TEST(bidi_character, bidi_character_018_004)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -1388,7 +1388,7 @@ TEST(bidi_character, bidi_character_018_004)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -1419,7 +1419,7 @@ TEST(bidi_character, bidi_character_018_004)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -1450,7 +1450,7 @@ TEST(bidi_character, bidi_character_018_004)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -1481,7 +1481,7 @@ TEST(bidi_character, bidi_character_018_004)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -1512,7 +1512,7 @@ TEST(bidi_character, bidi_character_018_004)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -1543,7 +1543,7 @@ TEST(bidi_character, bidi_character_018_004)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -1574,7 +1574,7 @@ TEST(bidi_character, bidi_character_018_004)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -1609,7 +1609,7 @@ TEST(bidi_character, bidi_character_018_005)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -1640,7 +1640,7 @@ TEST(bidi_character, bidi_character_018_005)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -1671,7 +1671,7 @@ TEST(bidi_character, bidi_character_018_005)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -1702,7 +1702,7 @@ TEST(bidi_character, bidi_character_018_005)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -1733,7 +1733,7 @@ TEST(bidi_character, bidi_character_018_005)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -1764,7 +1764,7 @@ TEST(bidi_character, bidi_character_018_005)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -1795,7 +1795,7 @@ TEST(bidi_character, bidi_character_018_005)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -1826,7 +1826,7 @@ TEST(bidi_character, bidi_character_018_005)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -1857,7 +1857,7 @@ TEST(bidi_character, bidi_character_018_005)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -1888,7 +1888,7 @@ TEST(bidi_character, bidi_character_018_005)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -1923,7 +1923,7 @@ TEST(bidi_character, bidi_character_018_006)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -1954,7 +1954,7 @@ TEST(bidi_character, bidi_character_018_006)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -1985,7 +1985,7 @@ TEST(bidi_character, bidi_character_018_006)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -2016,7 +2016,7 @@ TEST(bidi_character, bidi_character_018_006)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -2047,7 +2047,7 @@ TEST(bidi_character, bidi_character_018_006)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -2078,7 +2078,7 @@ TEST(bidi_character, bidi_character_018_006)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -2109,7 +2109,7 @@ TEST(bidi_character, bidi_character_018_006)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -2140,7 +2140,7 @@ TEST(bidi_character, bidi_character_018_006)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -2171,7 +2171,7 @@ TEST(bidi_character, bidi_character_018_006)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -2202,7 +2202,7 @@ TEST(bidi_character, bidi_character_018_006)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -2237,7 +2237,7 @@ TEST(bidi_character, bidi_character_018_007)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -2268,7 +2268,7 @@ TEST(bidi_character, bidi_character_018_007)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -2299,7 +2299,7 @@ TEST(bidi_character, bidi_character_018_007)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -2330,7 +2330,7 @@ TEST(bidi_character, bidi_character_018_007)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -2361,7 +2361,7 @@ TEST(bidi_character, bidi_character_018_007)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -2392,7 +2392,7 @@ TEST(bidi_character, bidi_character_018_007)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -2423,7 +2423,7 @@ TEST(bidi_character, bidi_character_018_007)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -2454,7 +2454,7 @@ TEST(bidi_character, bidi_character_018_007)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -2485,7 +2485,7 @@ TEST(bidi_character, bidi_character_018_007)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -2516,7 +2516,7 @@ TEST(bidi_character, bidi_character_018_007)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -2551,7 +2551,7 @@ TEST(bidi_character, bidi_character_018_008)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -2582,7 +2582,7 @@ TEST(bidi_character, bidi_character_018_008)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -2613,7 +2613,7 @@ TEST(bidi_character, bidi_character_018_008)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -2644,7 +2644,7 @@ TEST(bidi_character, bidi_character_018_008)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -2675,7 +2675,7 @@ TEST(bidi_character, bidi_character_018_008)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -2706,7 +2706,7 @@ TEST(bidi_character, bidi_character_018_008)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -2737,7 +2737,7 @@ TEST(bidi_character, bidi_character_018_008)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -2768,7 +2768,7 @@ TEST(bidi_character, bidi_character_018_008)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -2799,7 +2799,7 @@ TEST(bidi_character, bidi_character_018_008)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -2830,7 +2830,7 @@ TEST(bidi_character, bidi_character_018_008)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -2865,7 +2865,7 @@ TEST(bidi_character, bidi_character_018_009)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -2896,7 +2896,7 @@ TEST(bidi_character, bidi_character_018_009)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -2927,7 +2927,7 @@ TEST(bidi_character, bidi_character_018_009)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -2958,7 +2958,7 @@ TEST(bidi_character, bidi_character_018_009)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -2989,7 +2989,7 @@ TEST(bidi_character, bidi_character_018_009)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -3020,7 +3020,7 @@ TEST(bidi_character, bidi_character_018_009)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -3051,7 +3051,7 @@ TEST(bidi_character, bidi_character_018_009)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -3082,7 +3082,7 @@ TEST(bidi_character, bidi_character_018_009)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -3113,7 +3113,7 @@ TEST(bidi_character, bidi_character_018_009)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -3144,7 +3144,7 @@ TEST(bidi_character, bidi_character_018_009)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -3179,7 +3179,7 @@ TEST(bidi_character, bidi_character_018_010)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -3210,7 +3210,7 @@ TEST(bidi_character, bidi_character_018_010)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -3241,7 +3241,7 @@ TEST(bidi_character, bidi_character_018_010)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -3272,7 +3272,7 @@ TEST(bidi_character, bidi_character_018_010)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -3303,7 +3303,7 @@ TEST(bidi_character, bidi_character_018_010)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -3334,7 +3334,7 @@ TEST(bidi_character, bidi_character_018_010)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -3365,7 +3365,7 @@ TEST(bidi_character, bidi_character_018_010)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -3396,7 +3396,7 @@ TEST(bidi_character, bidi_character_018_010)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -3427,7 +3427,7 @@ TEST(bidi_character, bidi_character_018_010)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -3458,7 +3458,7 @@ TEST(bidi_character, bidi_character_018_010)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -3493,7 +3493,7 @@ TEST(bidi_character, bidi_character_018_011)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -3524,7 +3524,7 @@ TEST(bidi_character, bidi_character_018_011)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -3555,7 +3555,7 @@ TEST(bidi_character, bidi_character_018_011)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -3586,7 +3586,7 @@ TEST(bidi_character, bidi_character_018_011)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -3617,7 +3617,7 @@ TEST(bidi_character, bidi_character_018_011)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -3648,7 +3648,7 @@ TEST(bidi_character, bidi_character_018_011)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -3679,7 +3679,7 @@ TEST(bidi_character, bidi_character_018_011)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -3710,7 +3710,7 @@ TEST(bidi_character, bidi_character_018_011)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -3741,7 +3741,7 @@ TEST(bidi_character, bidi_character_018_011)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -3772,7 +3772,7 @@ TEST(bidi_character, bidi_character_018_011)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -3807,7 +3807,7 @@ TEST(bidi_character, bidi_character_018_012)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -3838,7 +3838,7 @@ TEST(bidi_character, bidi_character_018_012)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -3869,7 +3869,7 @@ TEST(bidi_character, bidi_character_018_012)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -3900,7 +3900,7 @@ TEST(bidi_character, bidi_character_018_012)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -3931,7 +3931,7 @@ TEST(bidi_character, bidi_character_018_012)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -3962,7 +3962,7 @@ TEST(bidi_character, bidi_character_018_012)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -3993,7 +3993,7 @@ TEST(bidi_character, bidi_character_018_012)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -4024,7 +4024,7 @@ TEST(bidi_character, bidi_character_018_012)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -4055,7 +4055,7 @@ TEST(bidi_character, bidi_character_018_012)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -4086,7 +4086,7 @@ TEST(bidi_character, bidi_character_018_012)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -4121,7 +4121,7 @@ TEST(bidi_character, bidi_character_018_013)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -4152,7 +4152,7 @@ TEST(bidi_character, bidi_character_018_013)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -4183,7 +4183,7 @@ TEST(bidi_character, bidi_character_018_013)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -4214,7 +4214,7 @@ TEST(bidi_character, bidi_character_018_013)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -4245,7 +4245,7 @@ TEST(bidi_character, bidi_character_018_013)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -4276,7 +4276,7 @@ TEST(bidi_character, bidi_character_018_013)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -4307,7 +4307,7 @@ TEST(bidi_character, bidi_character_018_013)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -4338,7 +4338,7 @@ TEST(bidi_character, bidi_character_018_013)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -4369,7 +4369,7 @@ TEST(bidi_character, bidi_character_018_013)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -4400,7 +4400,7 @@ TEST(bidi_character, bidi_character_018_013)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -4435,7 +4435,7 @@ TEST(bidi_character, bidi_character_018_014)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -4466,7 +4466,7 @@ TEST(bidi_character, bidi_character_018_014)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -4497,7 +4497,7 @@ TEST(bidi_character, bidi_character_018_014)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -4528,7 +4528,7 @@ TEST(bidi_character, bidi_character_018_014)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -4559,7 +4559,7 @@ TEST(bidi_character, bidi_character_018_014)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -4590,7 +4590,7 @@ TEST(bidi_character, bidi_character_018_014)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -4621,7 +4621,7 @@ TEST(bidi_character, bidi_character_018_014)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -4652,7 +4652,7 @@ TEST(bidi_character, bidi_character_018_014)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -4683,7 +4683,7 @@ TEST(bidi_character, bidi_character_018_014)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -4714,7 +4714,7 @@ TEST(bidi_character, bidi_character_018_014)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -4749,7 +4749,7 @@ TEST(bidi_character, bidi_character_018_015)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -4780,7 +4780,7 @@ TEST(bidi_character, bidi_character_018_015)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -4811,7 +4811,7 @@ TEST(bidi_character, bidi_character_018_015)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -4842,7 +4842,7 @@ TEST(bidi_character, bidi_character_018_015)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -4873,7 +4873,7 @@ TEST(bidi_character, bidi_character_018_015)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -4904,7 +4904,7 @@ TEST(bidi_character, bidi_character_018_015)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -4935,7 +4935,7 @@ TEST(bidi_character, bidi_character_018_015)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -4966,7 +4966,7 @@ TEST(bidi_character, bidi_character_018_015)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -4997,7 +4997,7 @@ TEST(bidi_character, bidi_character_018_015)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -5028,7 +5028,7 @@ TEST(bidi_character, bidi_character_018_015)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -5063,7 +5063,7 @@ TEST(bidi_character, bidi_character_018_016)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -5094,7 +5094,7 @@ TEST(bidi_character, bidi_character_018_016)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -5125,7 +5125,7 @@ TEST(bidi_character, bidi_character_018_016)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -5156,7 +5156,7 @@ TEST(bidi_character, bidi_character_018_016)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -5187,7 +5187,7 @@ TEST(bidi_character, bidi_character_018_016)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -5218,7 +5218,7 @@ TEST(bidi_character, bidi_character_018_016)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -5249,7 +5249,7 @@ TEST(bidi_character, bidi_character_018_016)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -5280,7 +5280,7 @@ TEST(bidi_character, bidi_character_018_016)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -5311,7 +5311,7 @@ TEST(bidi_character, bidi_character_018_016)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -5342,7 +5342,7 @@ TEST(bidi_character, bidi_character_018_016)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -5377,7 +5377,7 @@ TEST(bidi_character, bidi_character_018_017)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -5408,7 +5408,7 @@ TEST(bidi_character, bidi_character_018_017)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -5439,7 +5439,7 @@ TEST(bidi_character, bidi_character_018_017)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -5470,7 +5470,7 @@ TEST(bidi_character, bidi_character_018_017)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -5501,7 +5501,7 @@ TEST(bidi_character, bidi_character_018_017)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -5532,7 +5532,7 @@ TEST(bidi_character, bidi_character_018_017)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -5563,7 +5563,7 @@ TEST(bidi_character, bidi_character_018_017)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -5594,7 +5594,7 @@ TEST(bidi_character, bidi_character_018_017)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -5625,7 +5625,7 @@ TEST(bidi_character, bidi_character_018_017)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -5656,7 +5656,7 @@ TEST(bidi_character, bidi_character_018_017)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -5691,7 +5691,7 @@ TEST(bidi_character, bidi_character_018_018)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -5722,7 +5722,7 @@ TEST(bidi_character, bidi_character_018_018)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -5753,7 +5753,7 @@ TEST(bidi_character, bidi_character_018_018)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -5784,7 +5784,7 @@ TEST(bidi_character, bidi_character_018_018)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -5815,7 +5815,7 @@ TEST(bidi_character, bidi_character_018_018)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -5846,7 +5846,7 @@ TEST(bidi_character, bidi_character_018_018)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -5877,7 +5877,7 @@ TEST(bidi_character, bidi_character_018_018)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -5908,7 +5908,7 @@ TEST(bidi_character, bidi_character_018_018)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -5939,7 +5939,7 @@ TEST(bidi_character, bidi_character_018_018)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -5970,7 +5970,7 @@ TEST(bidi_character, bidi_character_018_018)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -6005,7 +6005,7 @@ TEST(bidi_character, bidi_character_018_019)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -6036,7 +6036,7 @@ TEST(bidi_character, bidi_character_018_019)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -6067,7 +6067,7 @@ TEST(bidi_character, bidi_character_018_019)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -6098,7 +6098,7 @@ TEST(bidi_character, bidi_character_018_019)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -6129,7 +6129,7 @@ TEST(bidi_character, bidi_character_018_019)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -6160,7 +6160,7 @@ TEST(bidi_character, bidi_character_018_019)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -6191,7 +6191,7 @@ TEST(bidi_character, bidi_character_018_019)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -6222,7 +6222,7 @@ TEST(bidi_character, bidi_character_018_019)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -6253,7 +6253,7 @@ TEST(bidi_character, bidi_character_018_019)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -6284,7 +6284,7 @@ TEST(bidi_character, bidi_character_018_019)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -6319,7 +6319,7 @@ TEST(bidi_character, bidi_character_018_020)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -6350,7 +6350,7 @@ TEST(bidi_character, bidi_character_018_020)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -6381,7 +6381,7 @@ TEST(bidi_character, bidi_character_018_020)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -6412,7 +6412,7 @@ TEST(bidi_character, bidi_character_018_020)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -6443,7 +6443,7 @@ TEST(bidi_character, bidi_character_018_020)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -6474,7 +6474,7 @@ TEST(bidi_character, bidi_character_018_020)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -6505,7 +6505,7 @@ TEST(bidi_character, bidi_character_018_020)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -6536,7 +6536,7 @@ TEST(bidi_character, bidi_character_018_020)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -6567,7 +6567,7 @@ TEST(bidi_character, bidi_character_018_020)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -6598,7 +6598,7 @@ TEST(bidi_character, bidi_character_018_020)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -6633,7 +6633,7 @@ TEST(bidi_character, bidi_character_018_021)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -6664,7 +6664,7 @@ TEST(bidi_character, bidi_character_018_021)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -6695,7 +6695,7 @@ TEST(bidi_character, bidi_character_018_021)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -6726,7 +6726,7 @@ TEST(bidi_character, bidi_character_018_021)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -6757,7 +6757,7 @@ TEST(bidi_character, bidi_character_018_021)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -6788,7 +6788,7 @@ TEST(bidi_character, bidi_character_018_021)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -6819,7 +6819,7 @@ TEST(bidi_character, bidi_character_018_021)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -6850,7 +6850,7 @@ TEST(bidi_character, bidi_character_018_021)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -6881,7 +6881,7 @@ TEST(bidi_character, bidi_character_018_021)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -6912,7 +6912,7 @@ TEST(bidi_character, bidi_character_018_021)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -6947,7 +6947,7 @@ TEST(bidi_character, bidi_character_018_022)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -6978,7 +6978,7 @@ TEST(bidi_character, bidi_character_018_022)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -7009,7 +7009,7 @@ TEST(bidi_character, bidi_character_018_022)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -7040,7 +7040,7 @@ TEST(bidi_character, bidi_character_018_022)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -7071,7 +7071,7 @@ TEST(bidi_character, bidi_character_018_022)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -7102,7 +7102,7 @@ TEST(bidi_character, bidi_character_018_022)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -7133,7 +7133,7 @@ TEST(bidi_character, bidi_character_018_022)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -7164,7 +7164,7 @@ TEST(bidi_character, bidi_character_018_022)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -7195,7 +7195,7 @@ TEST(bidi_character, bidi_character_018_022)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -7226,7 +7226,7 @@ TEST(bidi_character, bidi_character_018_022)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -7261,7 +7261,7 @@ TEST(bidi_character, bidi_character_018_023)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -7292,7 +7292,7 @@ TEST(bidi_character, bidi_character_018_023)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -7323,7 +7323,7 @@ TEST(bidi_character, bidi_character_018_023)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -7354,7 +7354,7 @@ TEST(bidi_character, bidi_character_018_023)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -7385,7 +7385,7 @@ TEST(bidi_character, bidi_character_018_023)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -7416,7 +7416,7 @@ TEST(bidi_character, bidi_character_018_023)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -7447,7 +7447,7 @@ TEST(bidi_character, bidi_character_018_023)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -7478,7 +7478,7 @@ TEST(bidi_character, bidi_character_018_023)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -7509,7 +7509,7 @@ TEST(bidi_character, bidi_character_018_023)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -7540,7 +7540,7 @@ TEST(bidi_character, bidi_character_018_023)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -7575,7 +7575,7 @@ TEST(bidi_character, bidi_character_018_024)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -7606,7 +7606,7 @@ TEST(bidi_character, bidi_character_018_024)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -7637,7 +7637,7 @@ TEST(bidi_character, bidi_character_018_024)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -7668,7 +7668,7 @@ TEST(bidi_character, bidi_character_018_024)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -7699,7 +7699,7 @@ TEST(bidi_character, bidi_character_018_024)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -7730,7 +7730,7 @@ TEST(bidi_character, bidi_character_018_024)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -7761,7 +7761,7 @@ TEST(bidi_character, bidi_character_018_024)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -7792,7 +7792,7 @@ TEST(bidi_character, bidi_character_018_024)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -7823,7 +7823,7 @@ TEST(bidi_character, bidi_character_018_024)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -7854,7 +7854,7 @@ TEST(bidi_character, bidi_character_018_024)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -7889,7 +7889,7 @@ TEST(bidi_character, bidi_character_018_025)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -7920,7 +7920,7 @@ TEST(bidi_character, bidi_character_018_025)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -7951,7 +7951,7 @@ TEST(bidi_character, bidi_character_018_025)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -7982,7 +7982,7 @@ TEST(bidi_character, bidi_character_018_025)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -8013,7 +8013,7 @@ TEST(bidi_character, bidi_character_018_025)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -8044,7 +8044,7 @@ TEST(bidi_character, bidi_character_018_025)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -8075,7 +8075,7 @@ TEST(bidi_character, bidi_character_018_025)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -8106,7 +8106,7 @@ TEST(bidi_character, bidi_character_018_025)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -8137,7 +8137,7 @@ TEST(bidi_character, bidi_character_018_025)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -8168,7 +8168,7 @@ TEST(bidi_character, bidi_character_018_025)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -8203,7 +8203,7 @@ TEST(bidi_character, bidi_character_018_026)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -8234,7 +8234,7 @@ TEST(bidi_character, bidi_character_018_026)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -8265,7 +8265,7 @@ TEST(bidi_character, bidi_character_018_026)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -8296,7 +8296,7 @@ TEST(bidi_character, bidi_character_018_026)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -8327,7 +8327,7 @@ TEST(bidi_character, bidi_character_018_026)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -8358,7 +8358,7 @@ TEST(bidi_character, bidi_character_018_026)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -8389,7 +8389,7 @@ TEST(bidi_character, bidi_character_018_026)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -8420,7 +8420,7 @@ TEST(bidi_character, bidi_character_018_026)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -8451,7 +8451,7 @@ TEST(bidi_character, bidi_character_018_026)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -8482,7 +8482,7 @@ TEST(bidi_character, bidi_character_018_026)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -8517,7 +8517,7 @@ TEST(bidi_character, bidi_character_018_027)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -8548,7 +8548,7 @@ TEST(bidi_character, bidi_character_018_027)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -8579,7 +8579,7 @@ TEST(bidi_character, bidi_character_018_027)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -8610,7 +8610,7 @@ TEST(bidi_character, bidi_character_018_027)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -8641,7 +8641,7 @@ TEST(bidi_character, bidi_character_018_027)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -8672,7 +8672,7 @@ TEST(bidi_character, bidi_character_018_027)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -8703,7 +8703,7 @@ TEST(bidi_character, bidi_character_018_027)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -8734,7 +8734,7 @@ TEST(bidi_character, bidi_character_018_027)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -8765,7 +8765,7 @@ TEST(bidi_character, bidi_character_018_027)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -8796,7 +8796,7 @@ TEST(bidi_character, bidi_character_018_027)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -8831,7 +8831,7 @@ TEST(bidi_character, bidi_character_018_028)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -8862,7 +8862,7 @@ TEST(bidi_character, bidi_character_018_028)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -8893,7 +8893,7 @@ TEST(bidi_character, bidi_character_018_028)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -8924,7 +8924,7 @@ TEST(bidi_character, bidi_character_018_028)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -8955,7 +8955,7 @@ TEST(bidi_character, bidi_character_018_028)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -8986,7 +8986,7 @@ TEST(bidi_character, bidi_character_018_028)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -9017,7 +9017,7 @@ TEST(bidi_character, bidi_character_018_028)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -9048,7 +9048,7 @@ TEST(bidi_character, bidi_character_018_028)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -9079,7 +9079,7 @@ TEST(bidi_character, bidi_character_018_028)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -9110,7 +9110,7 @@ TEST(bidi_character, bidi_character_018_028)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -9145,7 +9145,7 @@ TEST(bidi_character, bidi_character_018_029)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -9176,7 +9176,7 @@ TEST(bidi_character, bidi_character_018_029)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -9207,7 +9207,7 @@ TEST(bidi_character, bidi_character_018_029)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -9238,7 +9238,7 @@ TEST(bidi_character, bidi_character_018_029)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -9269,7 +9269,7 @@ TEST(bidi_character, bidi_character_018_029)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -9300,7 +9300,7 @@ TEST(bidi_character, bidi_character_018_029)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -9331,7 +9331,7 @@ TEST(bidi_character, bidi_character_018_029)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -9362,7 +9362,7 @@ TEST(bidi_character, bidi_character_018_029)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -9393,7 +9393,7 @@ TEST(bidi_character, bidi_character_018_029)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -9424,7 +9424,7 @@ TEST(bidi_character, bidi_character_018_029)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -9459,7 +9459,7 @@ TEST(bidi_character, bidi_character_018_030)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -9490,7 +9490,7 @@ TEST(bidi_character, bidi_character_018_030)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -9521,7 +9521,7 @@ TEST(bidi_character, bidi_character_018_030)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -9552,7 +9552,7 @@ TEST(bidi_character, bidi_character_018_030)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -9583,7 +9583,7 @@ TEST(bidi_character, bidi_character_018_030)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -9614,7 +9614,7 @@ TEST(bidi_character, bidi_character_018_030)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -9645,7 +9645,7 @@ TEST(bidi_character, bidi_character_018_030)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -9676,7 +9676,7 @@ TEST(bidi_character, bidi_character_018_030)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -9707,7 +9707,7 @@ TEST(bidi_character, bidi_character_018_030)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -9738,7 +9738,7 @@ TEST(bidi_character, bidi_character_018_030)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -9773,7 +9773,7 @@ TEST(bidi_character, bidi_character_018_031)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -9804,7 +9804,7 @@ TEST(bidi_character, bidi_character_018_031)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -9835,7 +9835,7 @@ TEST(bidi_character, bidi_character_018_031)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -9866,7 +9866,7 @@ TEST(bidi_character, bidi_character_018_031)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -9897,7 +9897,7 @@ TEST(bidi_character, bidi_character_018_031)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -9928,7 +9928,7 @@ TEST(bidi_character, bidi_character_018_031)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -9959,7 +9959,7 @@ TEST(bidi_character, bidi_character_018_031)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -9990,7 +9990,7 @@ TEST(bidi_character, bidi_character_018_031)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -10021,7 +10021,7 @@ TEST(bidi_character, bidi_character_018_031)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -10052,7 +10052,7 @@ TEST(bidi_character, bidi_character_018_031)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -10087,7 +10087,7 @@ TEST(bidi_character, bidi_character_018_032)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -10118,7 +10118,7 @@ TEST(bidi_character, bidi_character_018_032)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -10149,7 +10149,7 @@ TEST(bidi_character, bidi_character_018_032)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -10180,7 +10180,7 @@ TEST(bidi_character, bidi_character_018_032)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -10211,7 +10211,7 @@ TEST(bidi_character, bidi_character_018_032)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -10242,7 +10242,7 @@ TEST(bidi_character, bidi_character_018_032)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -10273,7 +10273,7 @@ TEST(bidi_character, bidi_character_018_032)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -10304,7 +10304,7 @@ TEST(bidi_character, bidi_character_018_032)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -10335,7 +10335,7 @@ TEST(bidi_character, bidi_character_018_032)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -10366,7 +10366,7 @@ TEST(bidi_character, bidi_character_018_032)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -10401,7 +10401,7 @@ TEST(bidi_character, bidi_character_018_033)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -10432,7 +10432,7 @@ TEST(bidi_character, bidi_character_018_033)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -10463,7 +10463,7 @@ TEST(bidi_character, bidi_character_018_033)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -10494,7 +10494,7 @@ TEST(bidi_character, bidi_character_018_033)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -10525,7 +10525,7 @@ TEST(bidi_character, bidi_character_018_033)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -10556,7 +10556,7 @@ TEST(bidi_character, bidi_character_018_033)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -10587,7 +10587,7 @@ TEST(bidi_character, bidi_character_018_033)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -10618,7 +10618,7 @@ TEST(bidi_character, bidi_character_018_033)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -10649,7 +10649,7 @@ TEST(bidi_character, bidi_character_018_033)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -10680,7 +10680,7 @@ TEST(bidi_character, bidi_character_018_033)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -10715,7 +10715,7 @@ TEST(bidi_character, bidi_character_018_034)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -10746,7 +10746,7 @@ TEST(bidi_character, bidi_character_018_034)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -10777,7 +10777,7 @@ TEST(bidi_character, bidi_character_018_034)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -10808,7 +10808,7 @@ TEST(bidi_character, bidi_character_018_034)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -10839,7 +10839,7 @@ TEST(bidi_character, bidi_character_018_034)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -10870,7 +10870,7 @@ TEST(bidi_character, bidi_character_018_034)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -10901,7 +10901,7 @@ TEST(bidi_character, bidi_character_018_034)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -10932,7 +10932,7 @@ TEST(bidi_character, bidi_character_018_034)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -10963,7 +10963,7 @@ TEST(bidi_character, bidi_character_018_034)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -10994,7 +10994,7 @@ TEST(bidi_character, bidi_character_018_034)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -11029,7 +11029,7 @@ TEST(bidi_character, bidi_character_018_035)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -11060,7 +11060,7 @@ TEST(bidi_character, bidi_character_018_035)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -11091,7 +11091,7 @@ TEST(bidi_character, bidi_character_018_035)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -11122,7 +11122,7 @@ TEST(bidi_character, bidi_character_018_035)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -11153,7 +11153,7 @@ TEST(bidi_character, bidi_character_018_035)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -11184,7 +11184,7 @@ TEST(bidi_character, bidi_character_018_035)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -11215,7 +11215,7 @@ TEST(bidi_character, bidi_character_018_035)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -11246,7 +11246,7 @@ TEST(bidi_character, bidi_character_018_035)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -11277,7 +11277,7 @@ TEST(bidi_character, bidi_character_018_035)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -11308,7 +11308,7 @@ TEST(bidi_character, bidi_character_018_035)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -11343,7 +11343,7 @@ TEST(bidi_character, bidi_character_018_036)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -11374,7 +11374,7 @@ TEST(bidi_character, bidi_character_018_036)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -11405,7 +11405,7 @@ TEST(bidi_character, bidi_character_018_036)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -11436,7 +11436,7 @@ TEST(bidi_character, bidi_character_018_036)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -11467,7 +11467,7 @@ TEST(bidi_character, bidi_character_018_036)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -11498,7 +11498,7 @@ TEST(bidi_character, bidi_character_018_036)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -11529,7 +11529,7 @@ TEST(bidi_character, bidi_character_018_036)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -11560,7 +11560,7 @@ TEST(bidi_character, bidi_character_018_036)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -11591,7 +11591,7 @@ TEST(bidi_character, bidi_character_018_036)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -11622,7 +11622,7 @@ TEST(bidi_character, bidi_character_018_036)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -11657,7 +11657,7 @@ TEST(bidi_character, bidi_character_018_037)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -11688,7 +11688,7 @@ TEST(bidi_character, bidi_character_018_037)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -11719,7 +11719,7 @@ TEST(bidi_character, bidi_character_018_037)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -11750,7 +11750,7 @@ TEST(bidi_character, bidi_character_018_037)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -11781,7 +11781,7 @@ TEST(bidi_character, bidi_character_018_037)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -11812,7 +11812,7 @@ TEST(bidi_character, bidi_character_018_037)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -11843,7 +11843,7 @@ TEST(bidi_character, bidi_character_018_037)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -11874,7 +11874,7 @@ TEST(bidi_character, bidi_character_018_037)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -11905,7 +11905,7 @@ TEST(bidi_character, bidi_character_018_037)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -11936,7 +11936,7 @@ TEST(bidi_character, bidi_character_018_037)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -11971,7 +11971,7 @@ TEST(bidi_character, bidi_character_018_038)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -12002,7 +12002,7 @@ TEST(bidi_character, bidi_character_018_038)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -12033,7 +12033,7 @@ TEST(bidi_character, bidi_character_018_038)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -12064,7 +12064,7 @@ TEST(bidi_character, bidi_character_018_038)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -12095,7 +12095,7 @@ TEST(bidi_character, bidi_character_018_038)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -12126,7 +12126,7 @@ TEST(bidi_character, bidi_character_018_038)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -12157,7 +12157,7 @@ TEST(bidi_character, bidi_character_018_038)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -12188,7 +12188,7 @@ TEST(bidi_character, bidi_character_018_038)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -12219,7 +12219,7 @@ TEST(bidi_character, bidi_character_018_038)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -12250,7 +12250,7 @@ TEST(bidi_character, bidi_character_018_038)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -12285,7 +12285,7 @@ TEST(bidi_character, bidi_character_018_039)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -12316,7 +12316,7 @@ TEST(bidi_character, bidi_character_018_039)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -12347,7 +12347,7 @@ TEST(bidi_character, bidi_character_018_039)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -12378,7 +12378,7 @@ TEST(bidi_character, bidi_character_018_039)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -12409,7 +12409,7 @@ TEST(bidi_character, bidi_character_018_039)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -12440,7 +12440,7 @@ TEST(bidi_character, bidi_character_018_039)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -12471,7 +12471,7 @@ TEST(bidi_character, bidi_character_018_039)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -12502,7 +12502,7 @@ TEST(bidi_character, bidi_character_018_039)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -12533,7 +12533,7 @@ TEST(bidi_character, bidi_character_018_039)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -12564,7 +12564,7 @@ TEST(bidi_character, bidi_character_018_039)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -12599,7 +12599,7 @@ TEST(bidi_character, bidi_character_018_040)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -12630,7 +12630,7 @@ TEST(bidi_character, bidi_character_018_040)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -12661,7 +12661,7 @@ TEST(bidi_character, bidi_character_018_040)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -12692,7 +12692,7 @@ TEST(bidi_character, bidi_character_018_040)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -12723,7 +12723,7 @@ TEST(bidi_character, bidi_character_018_040)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -12754,7 +12754,7 @@ TEST(bidi_character, bidi_character_018_040)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -12785,7 +12785,7 @@ TEST(bidi_character, bidi_character_018_040)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -12816,7 +12816,7 @@ TEST(bidi_character, bidi_character_018_040)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -12847,7 +12847,7 @@ TEST(bidi_character, bidi_character_018_040)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -12878,7 +12878,7 @@ TEST(bidi_character, bidi_character_018_040)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -12913,7 +12913,7 @@ TEST(bidi_character, bidi_character_018_041)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -12944,7 +12944,7 @@ TEST(bidi_character, bidi_character_018_041)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -12975,7 +12975,7 @@ TEST(bidi_character, bidi_character_018_041)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -13006,7 +13006,7 @@ TEST(bidi_character, bidi_character_018_041)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -13037,7 +13037,7 @@ TEST(bidi_character, bidi_character_018_041)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -13068,7 +13068,7 @@ TEST(bidi_character, bidi_character_018_041)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -13099,7 +13099,7 @@ TEST(bidi_character, bidi_character_018_041)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -13130,7 +13130,7 @@ TEST(bidi_character, bidi_character_018_041)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -13161,7 +13161,7 @@ TEST(bidi_character, bidi_character_018_041)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -13192,7 +13192,7 @@ TEST(bidi_character, bidi_character_018_041)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -13227,7 +13227,7 @@ TEST(bidi_character, bidi_character_018_042)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -13258,7 +13258,7 @@ TEST(bidi_character, bidi_character_018_042)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -13289,7 +13289,7 @@ TEST(bidi_character, bidi_character_018_042)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -13320,7 +13320,7 @@ TEST(bidi_character, bidi_character_018_042)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -13351,7 +13351,7 @@ TEST(bidi_character, bidi_character_018_042)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -13382,7 +13382,7 @@ TEST(bidi_character, bidi_character_018_042)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -13413,7 +13413,7 @@ TEST(bidi_character, bidi_character_018_042)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -13444,7 +13444,7 @@ TEST(bidi_character, bidi_character_018_042)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -13475,7 +13475,7 @@ TEST(bidi_character, bidi_character_018_042)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -13506,7 +13506,7 @@ TEST(bidi_character, bidi_character_018_042)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -13541,7 +13541,7 @@ TEST(bidi_character, bidi_character_018_043)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -13572,7 +13572,7 @@ TEST(bidi_character, bidi_character_018_043)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -13603,7 +13603,7 @@ TEST(bidi_character, bidi_character_018_043)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -13634,7 +13634,7 @@ TEST(bidi_character, bidi_character_018_043)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -13665,7 +13665,7 @@ TEST(bidi_character, bidi_character_018_043)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -13696,7 +13696,7 @@ TEST(bidi_character, bidi_character_018_043)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -13727,7 +13727,7 @@ TEST(bidi_character, bidi_character_018_043)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -13758,7 +13758,7 @@ TEST(bidi_character, bidi_character_018_043)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -13789,7 +13789,7 @@ TEST(bidi_character, bidi_character_018_043)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -13820,7 +13820,7 @@ TEST(bidi_character, bidi_character_018_043)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -13855,7 +13855,7 @@ TEST(bidi_character, bidi_character_018_044)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -13886,7 +13886,7 @@ TEST(bidi_character, bidi_character_018_044)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -13917,7 +13917,7 @@ TEST(bidi_character, bidi_character_018_044)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -13948,7 +13948,7 @@ TEST(bidi_character, bidi_character_018_044)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -13979,7 +13979,7 @@ TEST(bidi_character, bidi_character_018_044)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -14010,7 +14010,7 @@ TEST(bidi_character, bidi_character_018_044)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -14041,7 +14041,7 @@ TEST(bidi_character, bidi_character_018_044)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -14072,7 +14072,7 @@ TEST(bidi_character, bidi_character_018_044)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -14103,7 +14103,7 @@ TEST(bidi_character, bidi_character_018_044)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -14134,7 +14134,7 @@ TEST(bidi_character, bidi_character_018_044)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -14169,7 +14169,7 @@ TEST(bidi_character, bidi_character_018_045)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -14200,7 +14200,7 @@ TEST(bidi_character, bidi_character_018_045)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -14231,7 +14231,7 @@ TEST(bidi_character, bidi_character_018_045)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -14262,7 +14262,7 @@ TEST(bidi_character, bidi_character_018_045)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -14293,7 +14293,7 @@ TEST(bidi_character, bidi_character_018_045)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -14324,7 +14324,7 @@ TEST(bidi_character, bidi_character_018_045)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -14355,7 +14355,7 @@ TEST(bidi_character, bidi_character_018_045)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -14386,7 +14386,7 @@ TEST(bidi_character, bidi_character_018_045)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -14417,7 +14417,7 @@ TEST(bidi_character, bidi_character_018_045)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -14448,7 +14448,7 @@ TEST(bidi_character, bidi_character_018_045)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -14483,7 +14483,7 @@ TEST(bidi_character, bidi_character_018_046)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -14514,7 +14514,7 @@ TEST(bidi_character, bidi_character_018_046)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -14545,7 +14545,7 @@ TEST(bidi_character, bidi_character_018_046)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -14576,7 +14576,7 @@ TEST(bidi_character, bidi_character_018_046)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -14607,7 +14607,7 @@ TEST(bidi_character, bidi_character_018_046)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -14638,7 +14638,7 @@ TEST(bidi_character, bidi_character_018_046)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -14669,7 +14669,7 @@ TEST(bidi_character, bidi_character_018_046)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -14700,7 +14700,7 @@ TEST(bidi_character, bidi_character_018_046)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -14731,7 +14731,7 @@ TEST(bidi_character, bidi_character_018_046)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -14762,7 +14762,7 @@ TEST(bidi_character, bidi_character_018_046)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -14797,7 +14797,7 @@ TEST(bidi_character, bidi_character_018_047)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -14828,7 +14828,7 @@ TEST(bidi_character, bidi_character_018_047)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -14859,7 +14859,7 @@ TEST(bidi_character, bidi_character_018_047)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -14890,7 +14890,7 @@ TEST(bidi_character, bidi_character_018_047)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -14921,7 +14921,7 @@ TEST(bidi_character, bidi_character_018_047)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -14952,7 +14952,7 @@ TEST(bidi_character, bidi_character_018_047)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -14983,7 +14983,7 @@ TEST(bidi_character, bidi_character_018_047)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -15014,7 +15014,7 @@ TEST(bidi_character, bidi_character_018_047)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -15045,7 +15045,7 @@ TEST(bidi_character, bidi_character_018_047)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -15076,7 +15076,7 @@ TEST(bidi_character, bidi_character_018_047)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -15111,7 +15111,7 @@ TEST(bidi_character, bidi_character_018_048)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -15142,7 +15142,7 @@ TEST(bidi_character, bidi_character_018_048)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -15173,7 +15173,7 @@ TEST(bidi_character, bidi_character_018_048)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -15204,7 +15204,7 @@ TEST(bidi_character, bidi_character_018_048)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -15235,7 +15235,7 @@ TEST(bidi_character, bidi_character_018_048)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -15266,7 +15266,7 @@ TEST(bidi_character, bidi_character_018_048)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -15297,7 +15297,7 @@ TEST(bidi_character, bidi_character_018_048)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -15328,7 +15328,7 @@ TEST(bidi_character, bidi_character_018_048)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -15359,7 +15359,7 @@ TEST(bidi_character, bidi_character_018_048)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -15390,7 +15390,7 @@ TEST(bidi_character, bidi_character_018_048)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -15425,7 +15425,7 @@ TEST(bidi_character, bidi_character_018_049)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -15456,7 +15456,7 @@ TEST(bidi_character, bidi_character_018_049)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -15487,7 +15487,7 @@ TEST(bidi_character, bidi_character_018_049)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -15518,7 +15518,7 @@ TEST(bidi_character, bidi_character_018_049)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -15549,7 +15549,7 @@ TEST(bidi_character, bidi_character_018_049)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -15580,7 +15580,7 @@ TEST(bidi_character, bidi_character_018_049)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -15611,7 +15611,7 @@ TEST(bidi_character, bidi_character_018_049)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -15642,7 +15642,7 @@ TEST(bidi_character, bidi_character_018_049)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -15673,7 +15673,7 @@ TEST(bidi_character, bidi_character_018_049)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -15704,7 +15704,7 @@ TEST(bidi_character, bidi_character_018_049)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -15739,7 +15739,7 @@ TEST(bidi_character, bidi_character_018_050)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -15770,7 +15770,7 @@ TEST(bidi_character, bidi_character_018_050)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -15801,7 +15801,7 @@ TEST(bidi_character, bidi_character_018_050)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -15832,7 +15832,7 @@ TEST(bidi_character, bidi_character_018_050)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -15863,7 +15863,7 @@ TEST(bidi_character, bidi_character_018_050)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -15894,7 +15894,7 @@ TEST(bidi_character, bidi_character_018_050)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -15925,7 +15925,7 @@ TEST(bidi_character, bidi_character_018_050)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -15956,7 +15956,7 @@ TEST(bidi_character, bidi_character_018_050)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -15987,7 +15987,7 @@ TEST(bidi_character, bidi_character_018_050)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -16018,7 +16018,7 @@ TEST(bidi_character, bidi_character_018_050)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -16053,7 +16053,7 @@ TEST(bidi_character, bidi_character_018_051)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -16084,7 +16084,7 @@ TEST(bidi_character, bidi_character_018_051)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -16115,7 +16115,7 @@ TEST(bidi_character, bidi_character_018_051)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -16146,7 +16146,7 @@ TEST(bidi_character, bidi_character_018_051)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -16177,7 +16177,7 @@ TEST(bidi_character, bidi_character_018_051)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -16208,7 +16208,7 @@ TEST(bidi_character, bidi_character_018_051)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -16239,7 +16239,7 @@ TEST(bidi_character, bidi_character_018_051)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -16270,7 +16270,7 @@ TEST(bidi_character, bidi_character_018_051)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -16301,7 +16301,7 @@ TEST(bidi_character, bidi_character_018_051)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -16332,7 +16332,7 @@ TEST(bidi_character, bidi_character_018_051)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -16367,7 +16367,7 @@ TEST(bidi_character, bidi_character_018_052)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -16398,7 +16398,7 @@ TEST(bidi_character, bidi_character_018_052)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -16429,7 +16429,7 @@ TEST(bidi_character, bidi_character_018_052)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -16460,7 +16460,7 @@ TEST(bidi_character, bidi_character_018_052)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -16491,7 +16491,7 @@ TEST(bidi_character, bidi_character_018_052)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -16522,7 +16522,7 @@ TEST(bidi_character, bidi_character_018_052)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -16553,7 +16553,7 @@ TEST(bidi_character, bidi_character_018_052)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -16584,7 +16584,7 @@ TEST(bidi_character, bidi_character_018_052)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -16615,7 +16615,7 @@ TEST(bidi_character, bidi_character_018_052)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -16646,7 +16646,7 @@ TEST(bidi_character, bidi_character_018_052)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -16681,7 +16681,7 @@ TEST(bidi_character, bidi_character_018_053)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -16712,7 +16712,7 @@ TEST(bidi_character, bidi_character_018_053)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -16743,7 +16743,7 @@ TEST(bidi_character, bidi_character_018_053)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -16774,7 +16774,7 @@ TEST(bidi_character, bidi_character_018_053)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -16805,7 +16805,7 @@ TEST(bidi_character, bidi_character_018_053)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -16836,7 +16836,7 @@ TEST(bidi_character, bidi_character_018_053)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -16867,7 +16867,7 @@ TEST(bidi_character, bidi_character_018_053)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -16898,7 +16898,7 @@ TEST(bidi_character, bidi_character_018_053)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -16929,7 +16929,7 @@ TEST(bidi_character, bidi_character_018_053)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -16960,7 +16960,7 @@ TEST(bidi_character, bidi_character_018_053)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -16995,7 +16995,7 @@ TEST(bidi_character, bidi_character_018_054)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -17026,7 +17026,7 @@ TEST(bidi_character, bidi_character_018_054)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -17057,7 +17057,7 @@ TEST(bidi_character, bidi_character_018_054)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -17088,7 +17088,7 @@ TEST(bidi_character, bidi_character_018_054)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -17119,7 +17119,7 @@ TEST(bidi_character, bidi_character_018_054)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -17150,7 +17150,7 @@ TEST(bidi_character, bidi_character_018_054)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -17181,7 +17181,7 @@ TEST(bidi_character, bidi_character_018_054)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -17212,7 +17212,7 @@ TEST(bidi_character, bidi_character_018_054)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -17243,7 +17243,7 @@ TEST(bidi_character, bidi_character_018_054)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -17274,7 +17274,7 @@ TEST(bidi_character, bidi_character_018_054)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -17309,7 +17309,7 @@ TEST(bidi_character, bidi_character_018_055)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -17340,7 +17340,7 @@ TEST(bidi_character, bidi_character_018_055)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -17371,7 +17371,7 @@ TEST(bidi_character, bidi_character_018_055)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -17402,7 +17402,7 @@ TEST(bidi_character, bidi_character_018_055)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -17433,7 +17433,7 @@ TEST(bidi_character, bidi_character_018_055)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -17464,7 +17464,7 @@ TEST(bidi_character, bidi_character_018_055)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -17495,7 +17495,7 @@ TEST(bidi_character, bidi_character_018_055)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -17526,7 +17526,7 @@ TEST(bidi_character, bidi_character_018_055)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -17557,7 +17557,7 @@ TEST(bidi_character, bidi_character_018_055)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -17588,7 +17588,7 @@ TEST(bidi_character, bidi_character_018_055)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -17623,7 +17623,7 @@ TEST(bidi_character, bidi_character_018_056)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -17654,7 +17654,7 @@ TEST(bidi_character, bidi_character_018_056)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -17685,7 +17685,7 @@ TEST(bidi_character, bidi_character_018_056)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -17716,7 +17716,7 @@ TEST(bidi_character, bidi_character_018_056)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -17747,7 +17747,7 @@ TEST(bidi_character, bidi_character_018_056)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -17778,7 +17778,7 @@ TEST(bidi_character, bidi_character_018_056)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -17809,7 +17809,7 @@ TEST(bidi_character, bidi_character_018_056)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -17840,7 +17840,7 @@ TEST(bidi_character, bidi_character_018_056)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -17871,7 +17871,7 @@ TEST(bidi_character, bidi_character_018_056)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -17902,7 +17902,7 @@ TEST(bidi_character, bidi_character_018_056)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -17937,7 +17937,7 @@ TEST(bidi_character, bidi_character_018_057)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -17968,7 +17968,7 @@ TEST(bidi_character, bidi_character_018_057)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -17999,7 +17999,7 @@ TEST(bidi_character, bidi_character_018_057)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -18030,7 +18030,7 @@ TEST(bidi_character, bidi_character_018_057)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -18061,7 +18061,7 @@ TEST(bidi_character, bidi_character_018_057)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -18092,7 +18092,7 @@ TEST(bidi_character, bidi_character_018_057)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -18123,7 +18123,7 @@ TEST(bidi_character, bidi_character_018_057)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -18154,7 +18154,7 @@ TEST(bidi_character, bidi_character_018_057)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -18185,7 +18185,7 @@ TEST(bidi_character, bidi_character_018_057)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -18216,7 +18216,7 @@ TEST(bidi_character, bidi_character_018_057)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -18251,7 +18251,7 @@ TEST(bidi_character, bidi_character_018_058)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -18282,7 +18282,7 @@ TEST(bidi_character, bidi_character_018_058)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -18313,7 +18313,7 @@ TEST(bidi_character, bidi_character_018_058)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -18344,7 +18344,7 @@ TEST(bidi_character, bidi_character_018_058)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -18375,7 +18375,7 @@ TEST(bidi_character, bidi_character_018_058)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -18406,7 +18406,7 @@ TEST(bidi_character, bidi_character_018_058)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -18437,7 +18437,7 @@ TEST(bidi_character, bidi_character_018_058)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -18468,7 +18468,7 @@ TEST(bidi_character, bidi_character_018_058)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -18499,7 +18499,7 @@ TEST(bidi_character, bidi_character_018_058)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -18530,7 +18530,7 @@ TEST(bidi_character, bidi_character_018_058)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -18565,7 +18565,7 @@ TEST(bidi_character, bidi_character_018_059)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -18596,7 +18596,7 @@ TEST(bidi_character, bidi_character_018_059)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -18627,7 +18627,7 @@ TEST(bidi_character, bidi_character_018_059)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -18658,7 +18658,7 @@ TEST(bidi_character, bidi_character_018_059)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -18689,7 +18689,7 @@ TEST(bidi_character, bidi_character_018_059)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -18720,7 +18720,7 @@ TEST(bidi_character, bidi_character_018_059)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -18751,7 +18751,7 @@ TEST(bidi_character, bidi_character_018_059)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -18782,7 +18782,7 @@ TEST(bidi_character, bidi_character_018_059)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -18813,7 +18813,7 @@ TEST(bidi_character, bidi_character_018_059)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -18844,7 +18844,7 @@ TEST(bidi_character, bidi_character_018_059)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -18879,7 +18879,7 @@ TEST(bidi_character, bidi_character_018_060)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -18910,7 +18910,7 @@ TEST(bidi_character, bidi_character_018_060)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -18941,7 +18941,7 @@ TEST(bidi_character, bidi_character_018_060)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -18972,7 +18972,7 @@ TEST(bidi_character, bidi_character_018_060)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -19003,7 +19003,7 @@ TEST(bidi_character, bidi_character_018_060)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -19034,7 +19034,7 @@ TEST(bidi_character, bidi_character_018_060)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -19065,7 +19065,7 @@ TEST(bidi_character, bidi_character_018_060)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -19096,7 +19096,7 @@ TEST(bidi_character, bidi_character_018_060)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -19127,7 +19127,7 @@ TEST(bidi_character, bidi_character_018_060)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -19158,7 +19158,7 @@ TEST(bidi_character, bidi_character_018_060)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -19193,7 +19193,7 @@ TEST(bidi_character, bidi_character_018_061)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -19224,7 +19224,7 @@ TEST(bidi_character, bidi_character_018_061)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -19255,7 +19255,7 @@ TEST(bidi_character, bidi_character_018_061)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -19286,7 +19286,7 @@ TEST(bidi_character, bidi_character_018_061)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -19317,7 +19317,7 @@ TEST(bidi_character, bidi_character_018_061)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -19348,7 +19348,7 @@ TEST(bidi_character, bidi_character_018_061)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -19379,7 +19379,7 @@ TEST(bidi_character, bidi_character_018_061)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -19410,7 +19410,7 @@ TEST(bidi_character, bidi_character_018_061)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -19441,7 +19441,7 @@ TEST(bidi_character, bidi_character_018_061)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -19472,7 +19472,7 @@ TEST(bidi_character, bidi_character_018_061)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -19507,7 +19507,7 @@ TEST(bidi_character, bidi_character_018_062)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -19538,7 +19538,7 @@ TEST(bidi_character, bidi_character_018_062)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -19569,7 +19569,7 @@ TEST(bidi_character, bidi_character_018_062)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -19600,7 +19600,7 @@ TEST(bidi_character, bidi_character_018_062)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -19631,7 +19631,7 @@ TEST(bidi_character, bidi_character_018_062)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -19662,7 +19662,7 @@ TEST(bidi_character, bidi_character_018_062)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -19693,7 +19693,7 @@ TEST(bidi_character, bidi_character_018_062)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -19724,7 +19724,7 @@ TEST(bidi_character, bidi_character_018_062)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -19755,7 +19755,7 @@ TEST(bidi_character, bidi_character_018_062)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -19786,7 +19786,7 @@ TEST(bidi_character, bidi_character_018_062)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -19821,7 +19821,7 @@ TEST(bidi_character, bidi_character_018_063)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -19852,7 +19852,7 @@ TEST(bidi_character, bidi_character_018_063)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -19883,7 +19883,7 @@ TEST(bidi_character, bidi_character_018_063)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -19914,7 +19914,7 @@ TEST(bidi_character, bidi_character_018_063)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -19945,7 +19945,7 @@ TEST(bidi_character, bidi_character_018_063)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -19976,7 +19976,7 @@ TEST(bidi_character, bidi_character_018_063)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -20007,7 +20007,7 @@ TEST(bidi_character, bidi_character_018_063)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -20038,7 +20038,7 @@ TEST(bidi_character, bidi_character_018_063)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -20069,7 +20069,7 @@ TEST(bidi_character, bidi_character_018_063)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -20100,7 +20100,7 @@ TEST(bidi_character, bidi_character_018_063)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -20135,7 +20135,7 @@ TEST(bidi_character, bidi_character_018_064)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -20166,7 +20166,7 @@ TEST(bidi_character, bidi_character_018_064)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -20197,7 +20197,7 @@ TEST(bidi_character, bidi_character_018_064)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -20228,7 +20228,7 @@ TEST(bidi_character, bidi_character_018_064)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -20259,7 +20259,7 @@ TEST(bidi_character, bidi_character_018_064)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -20290,7 +20290,7 @@ TEST(bidi_character, bidi_character_018_064)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -20321,7 +20321,7 @@ TEST(bidi_character, bidi_character_018_064)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -20352,7 +20352,7 @@ TEST(bidi_character, bidi_character_018_064)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -20383,7 +20383,7 @@ TEST(bidi_character, bidi_character_018_064)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -20414,7 +20414,7 @@ TEST(bidi_character, bidi_character_018_064)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -20449,7 +20449,7 @@ TEST(bidi_character, bidi_character_018_065)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -20480,7 +20480,7 @@ TEST(bidi_character, bidi_character_018_065)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -20511,7 +20511,7 @@ TEST(bidi_character, bidi_character_018_065)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -20542,7 +20542,7 @@ TEST(bidi_character, bidi_character_018_065)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -20573,7 +20573,7 @@ TEST(bidi_character, bidi_character_018_065)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -20604,7 +20604,7 @@ TEST(bidi_character, bidi_character_018_065)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -20635,7 +20635,7 @@ TEST(bidi_character, bidi_character_018_065)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -20666,7 +20666,7 @@ TEST(bidi_character, bidi_character_018_065)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -20697,7 +20697,7 @@ TEST(bidi_character, bidi_character_018_065)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -20728,7 +20728,7 @@ TEST(bidi_character, bidi_character_018_065)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -20763,7 +20763,7 @@ TEST(bidi_character, bidi_character_018_066)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -20794,7 +20794,7 @@ TEST(bidi_character, bidi_character_018_066)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -20825,7 +20825,7 @@ TEST(bidi_character, bidi_character_018_066)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -20856,7 +20856,7 @@ TEST(bidi_character, bidi_character_018_066)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -20887,7 +20887,7 @@ TEST(bidi_character, bidi_character_018_066)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -20918,7 +20918,7 @@ TEST(bidi_character, bidi_character_018_066)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -20949,7 +20949,7 @@ TEST(bidi_character, bidi_character_018_066)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -20980,7 +20980,7 @@ TEST(bidi_character, bidi_character_018_066)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -21011,7 +21011,7 @@ TEST(bidi_character, bidi_character_018_066)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -21042,7 +21042,7 @@ TEST(bidi_character, bidi_character_018_066)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -21077,7 +21077,7 @@ TEST(bidi_character, bidi_character_018_067)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -21108,7 +21108,7 @@ TEST(bidi_character, bidi_character_018_067)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -21139,7 +21139,7 @@ TEST(bidi_character, bidi_character_018_067)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -21170,7 +21170,7 @@ TEST(bidi_character, bidi_character_018_067)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -21201,7 +21201,7 @@ TEST(bidi_character, bidi_character_018_067)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -21232,7 +21232,7 @@ TEST(bidi_character, bidi_character_018_067)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -21263,7 +21263,7 @@ TEST(bidi_character, bidi_character_018_067)
             bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
@@ -21294,7 +21294,7 @@ TEST(bidi_character, bidi_character_018_067)
             bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]

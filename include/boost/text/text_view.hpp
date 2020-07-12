@@ -27,7 +27,7 @@ namespace boost { namespace text { inline namespace v1 {
     struct text_view
     {
         using value_type = utf32_view<utf_8_to_32_iterator<char const *>>;
-        using size_type = int;
+        using size_type = std::size_t;
         using iterator = grapheme_iterator<utf_8_to_32_iterator<char const *>>;
         using const_iterator = iterator;
         using reverse_iterator =
@@ -79,17 +79,17 @@ namespace boost { namespace text { inline namespace v1 {
 
         /** Returns the number of bytes controlled by *this, not including the
             null terminator. */
-        int storage_bytes() const noexcept
+        size_type storage_bytes() const noexcept
         {
             return last_.base().base() - first_.base().base();
         }
 
         /** Returns the number of graphemes in *this.  This operation is
             O(n). */
-        int distance() const noexcept { return std::distance(begin(), end()); }
+        size_type distance() const noexcept { return std::distance(begin(), end()); }
 
         /** Returns the maximum size in bytes a text_view can have. */
-        int max_bytes() const noexcept { return INT_MAX; }
+        size_type max_bytes() const noexcept { return PTRDIFF_MAX; }
 
         /** Swaps *this with rhs. */
         void swap(text_view & rhs) noexcept

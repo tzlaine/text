@@ -44,7 +44,7 @@ namespace boost { namespace text { inline namespace v1 {
     struct rope
     {
         using value_type = grapheme;
-        using size_type = std::ptrdiff_t;
+        using size_type = std::size_t;
         using iterator = grapheme_iterator<
             utf_8_to_32_iterator<detail::const_rope_iterator>>;
         using const_iterator = iterator;

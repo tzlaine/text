@@ -25,13 +25,13 @@ TEST(rope_detail, test_node_ptr)
         EXPECT_EQ(p0.as_interior()->keys_.size(), 0u);
         EXPECT_EQ(p0.as_interior()->children_.size(), 0u);
 
-        EXPECT_EQ(size(p0.get()), 0);
+        EXPECT_EQ(size(p0.get()), 0u);
 
         (void)children(p0);
         (void)keys(p0);
 
-        EXPECT_EQ(num_children(p0), 0);
-        EXPECT_EQ(num_keys(p0), 0);
+        EXPECT_EQ(num_children(p0), 0u);
+        EXPECT_EQ(num_keys(p0), 0u);
     }
 
     {
@@ -43,9 +43,9 @@ TEST(rope_detail, test_node_ptr)
 
         EXPECT_EQ(p0.as_leaf()->refs_, 2);
         EXPECT_EQ(p0.as_leaf()->leaf_, true);
-        EXPECT_EQ(p0.as_leaf()->size(), 0);
+        EXPECT_EQ(p0.as_leaf()->size(), 0u);
 
-        EXPECT_EQ(size(p0.get()), 0);
+        EXPECT_EQ(size(p0.get()), 0u);
     }
 }
 
@@ -64,8 +64,8 @@ TEST(rope_detail, test_make_node)
         std::string t("some text");
         node_ptr<rope_tag> p = make_node(std::move(t));
 
-        EXPECT_EQ(size(p.get()), 9);
-        EXPECT_EQ(t.size(), 0);
+        EXPECT_EQ(size(p.get()), 9u);
+        EXPECT_EQ(t.size(), 0u);
         EXPECT_EQ(p.as_leaf()->as_string(), "some text");
     }
 
@@ -88,7 +88,7 @@ TEST(rope_detail, test_make_node)
         {
             node_ptr<rope_tag> p_ref0 = make_ref(p_string.as_leaf(), 1, 8);
 
-            EXPECT_EQ(size(p_ref0.get()), 7);
+            EXPECT_EQ(size(p_ref0.get()), 7u);
             EXPECT_EQ(p_ref0.as_leaf()->as_reference().ref_, "ome tex");
             EXPECT_NE(
                 p_ref0.as_leaf()->as_reference().ref_.begin(), t.data() + 1);
@@ -100,7 +100,7 @@ TEST(rope_detail, test_make_node)
             node_ptr<rope_tag> p_ref1 =
                 make_ref(p_ref0.as_leaf()->as_reference(), 1, 6);
 
-            EXPECT_EQ(size(p_ref1.get()), 5);
+            EXPECT_EQ(size(p_ref1.get()), 5u);
             EXPECT_EQ(p_ref1.as_leaf()->as_reference().ref_, "me te");
             EXPECT_NE(
                 p_ref1.as_leaf()->as_reference().ref_.begin(), t.data() + 2);
@@ -158,19 +158,19 @@ TEST(rope_detail, test_find)
         parent.keys_.push_back(5);
         parent.keys_.push_back(9);
 
-        EXPECT_EQ(parent.keys_[0], 4);
-        EXPECT_EQ(parent.keys_[1], 5);
+        EXPECT_EQ(parent.keys_[0], 4u);
+        EXPECT_EQ(parent.keys_[1], 5u);
 
-        EXPECT_EQ(find_child(&parent, 0), 0);
-        EXPECT_EQ(find_child(&parent, 1), 0);
-        EXPECT_EQ(find_child(&parent, 2), 0);
-        EXPECT_EQ(find_child(&parent, 3), 0);
-        EXPECT_EQ(find_child(&parent, 4), 1);
-        EXPECT_EQ(find_child(&parent, 5), 2);
-        EXPECT_EQ(find_child(&parent, 6), 2);
-        EXPECT_EQ(find_child(&parent, 7), 2);
-        EXPECT_EQ(find_child(&parent, 8), 2);
-        EXPECT_EQ(find_child(&parent, 9), 2);
+        EXPECT_EQ(find_child(&parent, 0), 0u);
+        EXPECT_EQ(find_child(&parent, 1), 0u);
+        EXPECT_EQ(find_child(&parent, 2), 0u);
+        EXPECT_EQ(find_child(&parent, 3), 0u);
+        EXPECT_EQ(find_child(&parent, 4), 1u);
+        EXPECT_EQ(find_child(&parent, 5), 2u);
+        EXPECT_EQ(find_child(&parent, 6), 2u);
+        EXPECT_EQ(find_child(&parent, 7), 2u);
+        EXPECT_EQ(find_child(&parent, 8), 2u);
+        EXPECT_EQ(find_child(&parent, 9), 2u);
     }
 
     // find_leaf
@@ -181,17 +181,17 @@ TEST(rope_detail, test_find)
 
         find_leaf(root, 0, found);
         EXPECT_EQ(found.leaf_, &root);
-        EXPECT_EQ(found.offset_, 0);
+        EXPECT_EQ(found.offset_, 0u);
         EXPECT_TRUE(found.path_.empty());
 
         find_leaf(root, 2, found);
         EXPECT_EQ(found.leaf_, &root);
-        EXPECT_EQ(found.offset_, 2);
+        EXPECT_EQ(found.offset_, 2u);
         EXPECT_TRUE(found.path_.empty());
 
         find_leaf(root, 4, found);
         EXPECT_EQ(found.leaf_, &root);
-        EXPECT_EQ(found.offset_, 4);
+        EXPECT_EQ(found.offset_, 4u);
         EXPECT_TRUE(found.path_.empty());
     }
 
@@ -226,7 +226,7 @@ TEST(rope_detail, test_find)
             found_leaf<rope_tag> found;
             find_leaf(root, 0, found);
             EXPECT_EQ(found.leaf_->as_leaf()->as_string(), "left left");
-            EXPECT_EQ(found.offset_, 0);
+            EXPECT_EQ(found.offset_, 0u);
             EXPECT_EQ(found.path_.size(), 2u);
             EXPECT_EQ(found.path_[0], int_root);
             EXPECT_EQ(found.path_[1], int_left);
@@ -236,7 +236,7 @@ TEST(rope_detail, test_find)
             found_leaf<rope_tag> found;
             find_leaf(root, 8, found);
             EXPECT_EQ(found.leaf_->as_leaf()->as_string(), "left left");
-            EXPECT_EQ(found.offset_, 8);
+            EXPECT_EQ(found.offset_, 8u);
             EXPECT_EQ(found.path_.size(), 2u);
             EXPECT_EQ(found.path_[0], int_root);
             EXPECT_EQ(found.path_[1], int_left);
@@ -246,7 +246,7 @@ TEST(rope_detail, test_find)
             found_leaf<rope_tag> found;
             find_leaf(root, 9, found);
             EXPECT_EQ(found.leaf_->as_leaf()->as_string(), "left right");
-            EXPECT_EQ(found.offset_, 0);
+            EXPECT_EQ(found.offset_, 0u);
             EXPECT_EQ(found.path_.size(), 2u);
             EXPECT_EQ(found.path_[0], int_root);
             EXPECT_EQ(found.path_[1], int_left);
@@ -256,7 +256,7 @@ TEST(rope_detail, test_find)
             found_leaf<rope_tag> found;
             find_leaf(root, 10, found);
             EXPECT_EQ(found.leaf_->as_leaf()->as_string(), "left right");
-            EXPECT_EQ(found.offset_, 1);
+            EXPECT_EQ(found.offset_, 1u);
             EXPECT_EQ(found.path_.size(), 2u);
             EXPECT_EQ(found.path_[0], int_root);
             EXPECT_EQ(found.path_[1], int_left);
@@ -266,7 +266,7 @@ TEST(rope_detail, test_find)
             found_leaf<rope_tag> found;
             find_leaf(root, 13, found);
             EXPECT_EQ(found.leaf_->as_leaf()->as_string(), "left right");
-            EXPECT_EQ(found.offset_, 4);
+            EXPECT_EQ(found.offset_, 4u);
             EXPECT_EQ(found.path_.size(), 2u);
             EXPECT_EQ(found.path_[0], int_root);
             EXPECT_EQ(found.path_[1], int_left);
@@ -276,7 +276,7 @@ TEST(rope_detail, test_find)
             found_leaf<rope_tag> found;
             find_leaf(root, 18, found);
             EXPECT_EQ(found.leaf_->as_leaf()->as_string(), "left right");
-            EXPECT_EQ(found.offset_, 9);
+            EXPECT_EQ(found.offset_, 9u);
             EXPECT_EQ(found.path_.size(), 2u);
             EXPECT_EQ(found.path_[0], int_root);
             EXPECT_EQ(found.path_[1], int_left);
@@ -286,7 +286,7 @@ TEST(rope_detail, test_find)
             found_leaf<rope_tag> found;
             find_leaf(root, 19, found);
             EXPECT_EQ(found.leaf_->as_leaf()->as_string(), "right left");
-            EXPECT_EQ(found.offset_, 0);
+            EXPECT_EQ(found.offset_, 0u);
             EXPECT_EQ(found.path_.size(), 2u);
             EXPECT_EQ(found.path_[0], int_root);
             EXPECT_EQ(found.path_[1], int_right);
@@ -296,7 +296,7 @@ TEST(rope_detail, test_find)
             found_leaf<rope_tag> found;
             find_leaf(root, 28, found);
             EXPECT_EQ(found.leaf_->as_leaf()->as_string(), "right left");
-            EXPECT_EQ(found.offset_, 9);
+            EXPECT_EQ(found.offset_, 9u);
             EXPECT_EQ(found.path_.size(), 2u);
             EXPECT_EQ(found.path_[0], int_root);
             EXPECT_EQ(found.path_[1], int_right);
@@ -306,7 +306,7 @@ TEST(rope_detail, test_find)
             found_leaf<rope_tag> found;
             find_leaf(root, 29, found);
             EXPECT_EQ(found.leaf_->as_leaf()->as_string(), "right right");
-            EXPECT_EQ(found.offset_, 0);
+            EXPECT_EQ(found.offset_, 0u);
             EXPECT_EQ(found.path_.size(), 2u);
             EXPECT_EQ(found.path_[0], int_root);
             EXPECT_EQ(found.path_[1], int_right);
@@ -316,7 +316,7 @@ TEST(rope_detail, test_find)
             found_leaf<rope_tag> found;
             find_leaf(root, 40, found);
             EXPECT_EQ(found.leaf_->as_leaf()->as_string(), "right right");
-            EXPECT_EQ(found.offset_, 11);
+            EXPECT_EQ(found.offset_, 11u);
             EXPECT_EQ(found.path_.size(), 2u);
             EXPECT_EQ(found.path_[0], int_root);
             EXPECT_EQ(found.path_[1], int_right);
@@ -367,10 +367,10 @@ TEST(rope_detail, test_insert_erase_child)
         fill_interior_node(parent);
         insert_child(&parent, 0, make_node("X"));
         EXPECT_EQ(parent.children_[0].as_leaf()->as_string(), "X");
-        EXPECT_EQ(parent.keys_[0], 1);
-        EXPECT_EQ(parent.keys_[1], 5);
-        EXPECT_EQ(parent.keys_[2], 6);
-        EXPECT_EQ(parent.keys_[3], 10);
+        EXPECT_EQ(parent.keys_[0], 1u);
+        EXPECT_EQ(parent.keys_[1], 5u);
+        EXPECT_EQ(parent.keys_[2], 6u);
+        EXPECT_EQ(parent.keys_[3], 10u);
     }
 
     {
@@ -378,10 +378,10 @@ TEST(rope_detail, test_insert_erase_child)
         fill_interior_node(parent);
         insert_child(&parent, 2, make_node("X"));
         EXPECT_EQ(parent.children_[2].as_leaf()->as_string(), "X");
-        EXPECT_EQ(parent.keys_[0], 4);
-        EXPECT_EQ(parent.keys_[1], 5);
-        EXPECT_EQ(parent.keys_[2], 6);
-        EXPECT_EQ(parent.keys_[3], 10);
+        EXPECT_EQ(parent.keys_[0], 4u);
+        EXPECT_EQ(parent.keys_[1], 5u);
+        EXPECT_EQ(parent.keys_[2], 6u);
+        EXPECT_EQ(parent.keys_[3], 10u);
     }
 
 
@@ -390,10 +390,10 @@ TEST(rope_detail, test_insert_erase_child)
         fill_interior_node(parent);
         insert_child(&parent, 3, make_node("X"));
         EXPECT_EQ(parent.children_[3].as_leaf()->as_string(), "X");
-        EXPECT_EQ(parent.keys_[0], 4);
-        EXPECT_EQ(parent.keys_[1], 5);
-        EXPECT_EQ(parent.keys_[2], 9);
-        EXPECT_EQ(parent.keys_[3], 10);
+        EXPECT_EQ(parent.keys_[0], 4u);
+        EXPECT_EQ(parent.keys_[1], 5u);
+        EXPECT_EQ(parent.keys_[2], 9u);
+        EXPECT_EQ(parent.keys_[3], 10u);
     }
 
     {
@@ -402,8 +402,8 @@ TEST(rope_detail, test_insert_erase_child)
         erase_child(&parent, 0, dont_adjust_keys);
         EXPECT_EQ(parent.children_[0].as_leaf()->as_string(), " ");
         EXPECT_EQ(parent.children_[1].as_leaf()->as_string(), "text");
-        EXPECT_EQ(parent.keys_[0], 5);
-        EXPECT_EQ(parent.keys_[1], 9);
+        EXPECT_EQ(parent.keys_[0], 5u);
+        EXPECT_EQ(parent.keys_[1], 9u);
     }
 
     {
@@ -412,8 +412,8 @@ TEST(rope_detail, test_insert_erase_child)
         erase_child(&parent, 1);
         EXPECT_EQ(parent.children_[0].as_leaf()->as_string(), "some");
         EXPECT_EQ(parent.children_[1].as_leaf()->as_string(), "text");
-        EXPECT_EQ(parent.keys_[0], 4);
-        EXPECT_EQ(parent.keys_[1], 8);
+        EXPECT_EQ(parent.keys_[0], 4u);
+        EXPECT_EQ(parent.keys_[1], 8u);
     }
 
     {
@@ -422,8 +422,8 @@ TEST(rope_detail, test_insert_erase_child)
         erase_child(&parent, 2);
         EXPECT_EQ(parent.children_[0].as_leaf()->as_string(), "some");
         EXPECT_EQ(parent.children_[1].as_leaf()->as_string(), " ");
-        EXPECT_EQ(parent.keys_[0], 4);
-        EXPECT_EQ(parent.keys_[1], 5);
+        EXPECT_EQ(parent.keys_[0], 4u);
+        EXPECT_EQ(parent.keys_[1], 5u);
     }
 }
 

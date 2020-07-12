@@ -46,7 +46,7 @@ namespace boost { namespace text { inline namespace v1 {
     struct text
     {
         using value_type = grapheme;
-        using size_type = int;
+        using size_type = std::size_t;
         using iterator = grapheme_iterator<utf_8_to_32_iterator<char *>>;
         using const_iterator =
             grapheme_iterator<utf_8_to_32_iterator<char const *>>;
@@ -208,18 +208,18 @@ namespace boost { namespace text { inline namespace v1 {
 
         /** Returns the number of bytes controlled by *this, not including the
             null terminator. */
-        int storage_bytes() const noexcept { return str_.size(); }
+        size_type storage_bytes() const noexcept { return str_.size(); }
 
         /** Returns the number of bytes of storage currently in use by
          *this. */
-        int capacity_bytes() const noexcept { return str_.capacity(); }
+        size_type capacity_bytes() const noexcept { return str_.capacity(); }
 
         /** Returns the number of graphemes in *this.  This operation is
             O(n). */
-        int distance() const noexcept { return std::distance(begin(), end()); }
+        size_type distance() const noexcept { return std::distance(begin(), end()); }
 
         /** Returns the maximum size in bytes a text can have. */
-        int max_bytes() const noexcept { return INT_MAX / 2; }
+        size_type max_bytes() const noexcept { return PTRDIFF_MAX; }
 
         /** Clear.
 
@@ -389,7 +389,7 @@ namespace boost { namespace text { inline namespace v1 {
             bytes.
 
             \post capacity() >= new_size + 1 */
-        void reserve(int new_size) { str_.reserve(new_size); }
+        void reserve(size_type new_size) { str_.reserve(new_size); }
 
         /** Reduces storage used by *this to just the amount necessary to
             contain size() chars.
@@ -476,9 +476,9 @@ namespace boost { namespace text { inline namespace v1 {
         mutable_utf32_iter next_stable_cp(mutable_utf32_iter first) noexcept;
 
         // https://www.unicode.org/reports/tr15/#Concatenation
-        int normalize_subrange(int from_near_offset, int to_near_offset);
+        size_type normalize_subrange(size_type from_near_offset, size_type to_near_offset);
 
-        iterator insert_impl_suffix(int lo, int hi, bool normalized);
+        iterator insert_impl_suffix(size_type lo, size_type hi, bool normalized);
 
         template<typename CharIter, typename Sentinel>
         iterator insert_impl(
@@ -618,7 +618,6 @@ namespace boost { namespace text { inline namespace v1 {
         /** Creates a text from a char string literal. */
         inline text operator"" _t(char const * str, std::size_t len)
         {
-            BOOST_ASSERT(len < INT_MAX / 2);
             return text(str, str + len);
         }
     }
@@ -789,7 +788,7 @@ namespace boost { namespace text { inline namespace v1 {
 
     inline text::iterator text::erase(iterator first, iterator last) noexcept
     {
-        int const offset = first.base().base() - str_.c_str();
+        size_type const offset = first.base().base() - str_.c_str();
         erase(text_view(first, last));
         char * str_first = const_cast<char *>(str_.data());
         return make_iter(
@@ -891,8 +890,8 @@ namespace boost { namespace text { inline namespace v1 {
         return it;
     }
 
-    inline int
-    text::normalize_subrange(int from_near_offset, int to_near_offset)
+    inline text::size_type text::normalize_subrange(
+        size_type from_near_offset, size_type to_near_offset)
     {
         auto const str_first = const_cast<char *>(str_.data());
         auto const str_last = str_first + str_.size();
@@ -925,9 +924,9 @@ namespace boost { namespace text { inline namespace v1 {
     }
 
     inline text::iterator
-    text::insert_impl_suffix(int lo, int hi, bool normalized)
+    text::insert_impl_suffix(size_type lo, size_type hi, bool normalized)
     {
-        int new_lo = lo;
+        size_type new_lo = lo;
         if (normalized) {
             if (hi < str_.size())
                 normalize_subrange(hi, hi);
@@ -955,10 +954,10 @@ namespace boost { namespace text { inline namespace v1 {
     text::iterator text::insert_impl(
         iterator at, CharIter first, Sentinel last, bool first_last_normalized)
     {
-        int const lo = at.base().base() - str_.data();
+        size_type const lo = at.base().base() - str_.data();
         auto const insertion_it = str_.insert(
             str_.begin() + (at.base().base() - str_.data()), first, last);
-        int const hi = insertion_it - str_.begin();
+        size_type const hi = insertion_it - str_.begin();
         return insert_impl_suffix(lo, hi, first_last_normalized);
     }
 
@@ -968,12 +967,12 @@ namespace boost { namespace text { inline namespace v1 {
         bool const sv_null_terminated = !sv.empty() && sv.back() == '\0';
         if (sv_null_terminated)
             sv = detail::substring(sv, 0, -1);
-        int const lo = at.base().base() - str_.data();
+        size_type const lo = at.base().base() - str_.data();
         auto const insertion_it = str_.insert(
             str_.begin() + (at.base().base() - str_.data()),
             sv.begin(),
             sv.end());
-        int const hi = insertion_it - str_.begin();
+        size_type const hi = insertion_it - str_.begin();
         return insert_impl_suffix(lo, hi, sv_normalized);
     }
 
@@ -984,16 +983,16 @@ namespace boost { namespace text { inline namespace v1 {
         Sentinel last,
         bool first_last_normalized)
     {
-        int const lo = old_substr.begin().base().base() - str_.data();
-        int const old_size = storage_bytes();
-        int const old_substr_size = old_substr.storage_bytes();
+        size_type const lo = old_substr.begin().base().base() - str_.data();
+        size_type const old_size = storage_bytes();
+        size_type const old_substr_size = old_substr.storage_bytes();
         str_.replace(
             str_.begin() + (old_substr.begin().base().base() - str_.data()),
             str_.begin() + (old_substr.end().base().base() - str_.data()),
             first,
             last);
-        int const new_size = storage_bytes();
-        int const hi = lo + old_substr_size + (new_size - old_size);
+        size_type const new_size = storage_bytes();
+        size_type const hi = lo + old_substr_size + (new_size - old_size);
         if (first_last_normalized) {
             if (hi < str_.size())
                 normalize_subrange(hi, hi);
@@ -1016,9 +1015,9 @@ namespace boost { namespace text { inline namespace v1 {
         if (new_substr_null_terminated)
             new_substr = detail::substring(new_substr, 0, -1);
 
-        int const lo = old_substr.begin().base().base() - str_.data();
-        int const hi = lo + old_substr.storage_bytes() +
-                       (new_substr.size() - old_substr.storage_bytes());
+        size_type const lo = old_substr.begin().base().base() - str_.data();
+        size_type const hi = lo + old_substr.storage_bytes() +
+                             (new_substr.size() - old_substr.storage_bytes());
         str_.replace(
             str_.begin() + (old_substr.begin().base().base() - str_.data()),
             str_.begin() + (old_substr.end().base().base() - str_.data()),

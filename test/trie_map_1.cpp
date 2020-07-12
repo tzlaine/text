@@ -550,6 +550,7 @@ TEST(trie_map, index_operator)
     {
         trie::trie_map<std::string, int> int_counts;
         auto y = int_counts["Hello"];
+        (void)y;
         if (int_counts["Hello"])
             EXPECT_TRUE(false);
         else

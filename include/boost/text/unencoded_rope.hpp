@@ -32,7 +32,7 @@ namespace boost { namespace text { inline namespace v1 {
     struct unencoded_rope
     {
         using value_type = char;
-        using size_type = std::ptrdiff_t;
+        using size_type = std::size_t;
         using iterator = detail::const_rope_iterator;
         using const_iterator = detail::const_rope_iterator;
         using reverse_iterator = detail::const_reverse_rope_iterator;
@@ -190,9 +190,7 @@ namespace boost { namespace text { inline namespace v1 {
         char operator[](size_type i) const noexcept
         {
             BOOST_ASSERT(ptr_);
-            if (i < 0)
-                i += size();
-            BOOST_ASSERT(0 <= i && i < size());
+            BOOST_ASSERT(i < size());
             detail::found_char found;
             detail::find_char(ptr_, i, found);
             return found.c_;
@@ -209,14 +207,14 @@ namespace boost { namespace text { inline namespace v1 {
             \pre 0 <= lo && lo <= size()
             \pre 0 <= hi && lhi <= size()
             \pre lo <= hi */
-        unencoded_rope_view operator()(size_type lo, size_type hi) const;
+        unencoded_rope_view operator()(std::ptrdiff_t lo, std::ptrdiff_t hi) const;
 
         /** Returns a substring of *this as an unencoded_rope_view, taken from
             the first cut chars when cut => 0, or the last -cut chars when cut <
             0.
 
             \pre 0 <= cut && cut <= size() || 0 <= -cut && -cut <= size() */
-        unencoded_rope_view operator()(size_type cut) const;
+        unencoded_rope_view operator()(std::ptrdiff_t cut) const;
 
         /** Returns the maximum size an unencoded_rope can have. */
         size_type max_size() const noexcept { return PTRDIFF_MAX; }
@@ -669,7 +667,8 @@ namespace boost { namespace text { inline namespace v1 {
             return insert_impl(at, tv, would_allocate);
         }
 
-        bool const rv_null_terminated = !rv.empty() && rv[-1] == '\0';
+        bool const rv_null_terminated =
+            !rv.empty() && rv[rv.size() - 1] == '\0';
         if (rv_null_terminated)
             rv = rv(0, -1);
 
@@ -823,7 +822,8 @@ namespace boost { namespace text { inline namespace v1 {
         if (rope_ref.lo_ == rope_ref.hi_)
             return *this;
 
-        bool const rv_null_terminated = !rv.empty() && rv[-1] == '\0';
+        bool const rv_null_terminated =
+            !rv.empty() && rv[rv.size() - 1] == '\0';
         if (rv_null_terminated)
             rv = rv(0, -1);
 
@@ -988,19 +988,20 @@ namespace boost { namespace text { inline namespace v1 {
     }
 
     inline unencoded_rope_view unencoded_rope::
-    operator()(size_type lo, size_type hi) const
+    operator()(std::ptrdiff_t lo, std::ptrdiff_t hi) const
     {
         if (lo < 0)
             lo += size();
         if (hi < 0)
             hi += size();
-        BOOST_ASSERT(0 <= lo && lo <= size());
-        BOOST_ASSERT(0 <= hi && hi <= size());
+        BOOST_ASSERT(0 <= lo && lo <= (std::ptrdiff_t)size());
+        BOOST_ASSERT(0 <= hi && hi <= (std::ptrdiff_t)size());
         BOOST_ASSERT(lo <= hi);
         return unencoded_rope_view(*this, lo, hi);
     }
 
-    inline unencoded_rope_view unencoded_rope::operator()(size_type cut) const
+    inline unencoded_rope_view
+    unencoded_rope::operator()(std::ptrdiff_t cut) const
     {
         size_type lo = 0;
         size_type hi = cut;
@@ -1330,7 +1331,7 @@ namespace boost { namespace text { inline namespace v1 {
     {}
 
     inline unencoded_rope_view::unencoded_rope_view(
-        std::string const & s, int lo, int hi) :
+        std::string const & s, size_type lo, size_type hi) :
         ref_(detail::substring(s, lo, hi)), which_(which::tv)
     {}
 
@@ -1433,21 +1434,19 @@ namespace boost { namespace text { inline namespace v1 {
 
     inline char unencoded_rope_view::operator[](size_type i) const noexcept
     {
-        if (i < 0)
-            i += size();
-        BOOST_ASSERT(0 <= i && i < size());
+        BOOST_ASSERT(i < size());
         return begin()[i];
     }
 
     inline unencoded_rope_view unencoded_rope_view::
-    operator()(size_type lo, size_type hi) const
+    operator()(std::ptrdiff_t lo, std::ptrdiff_t hi) const
     {
         if (lo < 0)
             lo += size();
         if (hi < 0)
             hi += size();
-        BOOST_ASSERT(0 <= lo && lo <= size());
-        BOOST_ASSERT(0 <= hi && hi <= size());
+        BOOST_ASSERT(0 <= lo && lo <= (std::ptrdiff_t)size());
+        BOOST_ASSERT(0 <= hi && hi <= (std::ptrdiff_t)size());
         BOOST_ASSERT(lo <= hi);
         switch (which_) {
         case which::r:

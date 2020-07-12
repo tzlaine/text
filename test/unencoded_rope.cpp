@@ -22,10 +22,10 @@ TEST(unencoded_rope, test_empty)
     EXPECT_EQ(t.rbegin(), t.rend());
 
     EXPECT_TRUE(t.empty());
-    EXPECT_EQ(t.size(), 0);
+    EXPECT_EQ(t.size(), 0u);
     EXPECT_EQ(t.begin(), t.end());
 
-    EXPECT_EQ(t.max_size(), PTRDIFF_MAX);
+    EXPECT_EQ(t.max_size(), (std::size_t)PTRDIFF_MAX);
 
     EXPECT_EQ(t.compare(t), 0);
     EXPECT_TRUE(t == t);
@@ -63,7 +63,7 @@ TEST(unencoded_rope, test_non_empty_const_interface)
     EXPECT_EQ(t_a.rbegin() + t_a.size(), t_a.rend());
 
     EXPECT_FALSE(t_a.empty());
-    EXPECT_EQ(t_a.size(), 1);
+    EXPECT_EQ(t_a.size(), 1u);
 
     text::unencoded_rope_view tv_a = t_a;
     EXPECT_EQ(tv_a, t_a);
@@ -76,7 +76,7 @@ TEST(unencoded_rope, test_non_empty_const_interface)
     EXPECT_EQ("", t_a(-1, -1));
 
     EXPECT_FALSE(t_ab.empty());
-    EXPECT_EQ(t_ab.size(), 2);
+    EXPECT_EQ(t_ab.size(), 2u);
 
     text::unencoded_rope_view tv_ab = t_ab;
     EXPECT_EQ(tv_ab, t_ab);
@@ -87,8 +87,8 @@ TEST(unencoded_rope, test_non_empty_const_interface)
 
     EXPECT_EQ(t_ab[1], 'b');
 
-    EXPECT_EQ(t_a.max_size(), PTRDIFF_MAX);
-    EXPECT_EQ(t_ab.max_size(), PTRDIFF_MAX);
+    EXPECT_EQ(t_a.max_size(), (std::size_t)PTRDIFF_MAX);
+    EXPECT_EQ(t_ab.max_size(), (std::size_t)PTRDIFF_MAX);
 
     EXPECT_EQ(t_a.compare(t_ab), -1);
     EXPECT_FALSE(t_a == t_ab);
@@ -378,7 +378,7 @@ TEST(unencoded_rope, test_misc)
     {
         text::unencoded_rope t("some text");
         t.clear();
-        EXPECT_EQ(t.size(), 0);
+        EXPECT_EQ(t.size(), 0u);
     }
 
     {
@@ -402,15 +402,15 @@ TEST(unencoded_rope, test_substr)
 
     EXPECT_EQ(r(-4, -1), "n..");
 
-    for (int i = 0; i < r.size(); ++i) {
-        for (int j = i; j < r.size(); ++j) {
+    for (std::size_t i = 0; i < r.size(); ++i) {
+        for (std::size_t j = i; j < r.size(); ++j) {
             text::unencoded_rope const substr(r(i, j));
             text::unencoded_rope_view const rv = r(i, j);
             EXPECT_EQ(substr, rv);
         }
     }
 
-    for (int i = 0; i < r.size(); ++i) {
+    for (std::size_t i = 0; i < r.size(); ++i) {
         {
             text::unencoded_rope const substr(r(i));
             text::unencoded_rope_view const rv = r(i);
@@ -528,7 +528,7 @@ TEST(unencoded_rope, test_insert_unencoded_rope_view)
     text::unencoded_rope rv_rope;
     std::string rv_rope_as_string;
     for (int i = 0; i < 8; ++i) {
-        std::ptrdiff_t const at = i % 2 ? 0 : rv_rope.size();
+        std::size_t const at = i % 2 ? 0 : rv_rope.size();
         switch (i % 3) {
         case 0:
             rv_rope.insert(at, std::string("text"));
@@ -573,8 +573,8 @@ TEST(unencoded_rope, test_erase)
 
     text::unencoded_rope const ct("string");
 
-    for (int j = 0; j <= ct.size(); ++j) {
-        for (int i = 0; i <= j; ++i) {
+    for (std::size_t j = 0; j <= ct.size(); ++j) {
+        for (std::size_t i = 0; i <= j; ++i) {
             text::unencoded_rope t = ct;
             text::unencoded_rope_view const before = t(0, i);
             text::unencoded_rope_view const substr = t(i, j);
@@ -631,8 +631,8 @@ TEST(unencoded_rope, test_replace)
 
     text::unencoded_rope const ct("string");
 
-    for (int j = 0; j <= ct.size(); ++j) {
-        for (int i = 0; i <= j; ++i) {
+    for (std::size_t j = 0; j <= ct.size(); ++j) {
+        for (std::size_t i = 0; i <= j; ++i) {
             text::unencoded_rope t = ct;
             text::unencoded_rope_view const before = t(0, i);
             text::unencoded_rope_view const substr = t(i, j);
@@ -651,8 +651,8 @@ TEST(unencoded_rope, test_replace)
     text::string_view const really_long_replacement(
         "REPREPREPREPREPREPREPREPREPREP");
 
-    for (int j = 0; j <= ct.size(); ++j) {
-        for (int i = 0; i <= j; ++i) {
+    for (std::size_t j = 0; j <= ct.size(); ++j) {
+        for (std::size_t i = 0; i <= j; ++i) {
             text::unencoded_rope t = ct;
             text::unencoded_rope_view const before = t(0, i);
             text::unencoded_rope_view const substr = t(i, j);
@@ -701,8 +701,8 @@ TEST(unencoded_rope, test_replace_iter)
         EXPECT_EQ(t, "\x4d\xd0\xb0\xe4\xba\x8c\xf0\x90\x8c\x82");
     }
 
-    for (int j = 0; j <= ct_string.size(); ++j) {
-        for (int i = 0; i <= j; ++i) {
+    for (std::size_t j = 0; j <= ct_string.size(); ++j) {
+        for (std::size_t i = 0; i <= j; ++i) {
             {
                 text::unencoded_rope t = ct_string;
                 text::unencoded_rope_view const before = t(0, i);

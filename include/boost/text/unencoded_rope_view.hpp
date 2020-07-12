@@ -25,7 +25,7 @@ namespace boost { namespace text { inline namespace v1 {
     struct unencoded_rope_view
     {
         using value_type = char;
-        using size_type = std::ptrdiff_t;
+        using size_type = std::size_t;
         using iterator = detail::const_rope_view_iterator;
         using const_iterator = detail::const_rope_view_iterator;
         using reverse_iterator = detail::const_reverse_rope_view_iterator;
@@ -81,7 +81,7 @@ namespace boost { namespace text { inline namespace v1 {
             \pre lo <= hi
             \post size() == s.size() && begin() == s.begin() + lo && end() ==
             s.begin() + hi */
-        unencoded_rope_view(std::string const & s, int lo, int hi);
+        unencoded_rope_view(std::string const & s, size_type lo, size_type hi);
 
         /** Constructs an unencoded_rope_view from a null-terminated C string.
 
@@ -161,13 +161,13 @@ namespace boost { namespace text { inline namespace v1 {
             \pre 0 <= lo && lo <= size()
             \pre 0 <= hi && lhi <= size()
             \pre lo <= hi */
-        unencoded_rope_view operator()(size_type lo, size_type hi) const;
+        unencoded_rope_view operator()(std::ptrdiff_t lo, std::ptrdiff_t hi) const;
 
         /** Returns a substring of *this, taken from the first cut chars when
             cut => 0, or the last -cut chars when cut < 0.
 
             \pre 0 <= cut && cut <= size() || 0 <= -cut && -cut <= size() */
-        unencoded_rope_view operator()(size_type cut) const
+        unencoded_rope_view operator()(std::ptrdiff_t cut) const
         {
             size_type lo = 0;
             size_type hi = cut;
@@ -302,9 +302,8 @@ namespace boost { namespace text { inline namespace v1 {
         };
 
         unencoded_rope_view(
-            unencoded_rope const * r, std::ptrdiff_t lo, std::ptrdiff_t hi) :
-            ref_(rope_ref(r, lo, hi)),
-            which_(which::r)
+            unencoded_rope const * r, std::size_t lo, std::size_t hi) :
+            ref_(rope_ref(r, lo, hi)), which_(which::r)
         {}
 
         ref ref_;

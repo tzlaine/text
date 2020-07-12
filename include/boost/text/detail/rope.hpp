@@ -26,7 +26,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         string_view ref_;
     };
 
-    constexpr int rope_node_buf_size() noexcept
+    constexpr std::size_t rope_node_buf_size() noexcept
     {
         return max_(
                    alignof(std::string),
@@ -38,7 +38,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
 
     enum class which : char { t, ref };
 
-    constexpr int string_insert_max = BOOST_TEXT_STRING_INSERT_MAX;
+    constexpr std::size_t string_insert_max = BOOST_TEXT_STRING_INSERT_MAX;
 
     static_assert(sizeof(node_ptr<detail::rope_tag>) * 8 <= 64, "");
 
@@ -100,14 +100,14 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             }
         }
 
-        int size() const noexcept
+        std::size_t size() const noexcept
         {
             switch (which_) {
             case which::t: return as_string().size(); break;
             case which::ref: return as_reference().ref_.size(); break;
             default: BOOST_ASSERT(!"unhandled rope node case"); break;
             }
-            return -(1 << 30); // This should never execute.
+            return -std::size_t(1); // This should never execute.
         }
 
         std::string const & as_string() const noexcept
@@ -128,7 +128,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             return *static_cast<std::string *>(buf_ptr_);
         }
 
-       reference<rope_tag> & as_reference() noexcept
+        reference<rope_tag> & as_reference() noexcept
         {
             BOOST_ASSERT(which_ == which::ref);
             return *static_cast<reference<rope_tag> *>(buf_ptr_);
@@ -147,7 +147,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
 
     inline void find_char(
         node_ptr<rope_tag> const & node,
-        std::ptrdiff_t n,
+        std::size_t n,
         found_char & retval) noexcept
     {
         BOOST_ASSERT(node);
@@ -198,7 +198,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
     }
 
     inline node_ptr<rope_tag> make_ref(
-        leaf_node_t<rope_tag> const * t, std::ptrdiff_t lo, std::ptrdiff_t hi)
+        leaf_node_t<rope_tag> const * t, std::size_t lo, std::size_t hi)
     {
         BOOST_ASSERT(t->which_ == which::t);
         string_view const tv =
@@ -216,7 +216,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
     }
 
     inline node_ptr<rope_tag> make_ref(
-        reference<rope_tag> const & t, std::ptrdiff_t lo, std::ptrdiff_t hi)
+        reference<rope_tag> const & t, std::size_t lo, std::size_t hi)
     {
         auto const offset =
             t.ref_.begin() - t.string_.as_leaf()->as_string().c_str();
@@ -226,7 +226,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
     }
 
     inline node_ptr<rope_tag> slice_leaf(
-        node_ptr<rope_tag> const & node, std::ptrdiff_t lo, std::ptrdiff_t hi)
+        node_ptr<rope_tag> const & node, std::size_t lo, std::size_t hi)
     {
         BOOST_ASSERT(node);
         BOOST_ASSERT(0 <= lo && lo <= size(node.get()));
@@ -251,7 +251,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
     }
 
     inline leaf_slices<rope_tag> erase_leaf(
-        node_ptr<rope_tag> const & node, std::ptrdiff_t lo, std::ptrdiff_t hi)
+        node_ptr<rope_tag> const & node, std::size_t lo, std::size_t hi)
     {
         BOOST_ASSERT(node);
         BOOST_ASSERT(0 <= lo && lo <= size(node.get()));

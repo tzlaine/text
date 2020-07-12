@@ -12,14 +12,14 @@ using namespace boost::text::detail;
 
 
 inline node_ptr<int>
-make_interior_with_leaves(int leaf_size, int leaf_value, int leaves)
+make_interior_with_leaves(std::size_t leaf_size, std::size_t leaf_value, std::size_t leaves)
 {
     interior_node_t<int> * int_node = nullptr;
     node_ptr<int> node(int_node = new_interior_node<int>());
     int_node->children_.push_back(
         make_node(std::vector<int>(leaf_size, leaf_value)));
     int_node->keys_.push_back(size(int_node->children_[0].get()));
-    for (int i = 1; i < leaves; ++i) {
+    for (std::size_t i = 1; i < leaves; ++i) {
         int_node->children_.push_back(
             make_node(std::vector<int>(leaf_size, leaf_value)));
         int_node->keys_.push_back(
@@ -78,17 +78,17 @@ TEST(detail_btree, test_btree_erase_entire_node_leaf_children_extra_ref)
         node_ptr<int> extra_ref = root;
         node_ptr<int> extra_ref_2 = root;
 
-        EXPECT_EQ(num_children(root), 3);
+        EXPECT_EQ(num_children(root), 3u);
 
         root = btree_erase(root, 0, children(root)[0].as_leaf());
 
         EXPECT_EQ(root->refs_, 1);
         EXPECT_EQ(extra_ref->refs_, 2);
 
-        EXPECT_EQ(keys(root)[0], 4);
-        EXPECT_EQ(size(children(root)[0].get()), 4);
-        EXPECT_EQ(keys(root)[1], 8);
-        EXPECT_EQ(size(children(root)[1].get()), 4);
+        EXPECT_EQ(keys(root)[0], 4u);
+        EXPECT_EQ(size(children(root)[0].get()), 4u);
+        EXPECT_EQ(keys(root)[1], 8u);
+        EXPECT_EQ(size(children(root)[1].get()), 4u);
     }
 
     {
@@ -96,17 +96,17 @@ TEST(detail_btree, test_btree_erase_entire_node_leaf_children_extra_ref)
         node_ptr<int> extra_ref = root;
         node_ptr<int> extra_ref_2 = root;
 
-        EXPECT_EQ(num_children(root), 3);
+        EXPECT_EQ(num_children(root), 3u);
 
         root = btree_erase(root, 4, children(root)[1].as_leaf());
 
         EXPECT_EQ(root->refs_, 1);
         EXPECT_EQ(extra_ref->refs_, 2);
 
-        EXPECT_EQ(keys(root)[0], 4);
-        EXPECT_EQ(size(children(root)[0].get()), 4);
-        EXPECT_EQ(keys(root)[1], 8);
-        EXPECT_EQ(size(children(root)[1].get()), 4);
+        EXPECT_EQ(keys(root)[0], 4u);
+        EXPECT_EQ(size(children(root)[0].get()), 4u);
+        EXPECT_EQ(keys(root)[1], 8u);
+        EXPECT_EQ(size(children(root)[1].get()), 4u);
     }
 
     {
@@ -114,17 +114,17 @@ TEST(detail_btree, test_btree_erase_entire_node_leaf_children_extra_ref)
         node_ptr<int> extra_ref = root;
         node_ptr<int> extra_ref_2 = root;
 
-        EXPECT_EQ(num_children(root), 3);
+        EXPECT_EQ(num_children(root), 3u);
 
         root = btree_erase(root, 8, children(root)[2].as_leaf());
 
         EXPECT_EQ(root->refs_, 1);
         EXPECT_EQ(extra_ref->refs_, 2);
 
-        EXPECT_EQ(keys(root)[0], 4);
-        EXPECT_EQ(size(children(root)[0].get()), 4);
-        EXPECT_EQ(keys(root)[1], 8);
-        EXPECT_EQ(size(children(root)[1].get()), 4);
+        EXPECT_EQ(keys(root)[0], 4u);
+        EXPECT_EQ(size(children(root)[0].get()), 4u);
+        EXPECT_EQ(keys(root)[1], 8u);
+        EXPECT_EQ(size(children(root)[1].get()), 4u);
     }
 
     {
@@ -132,17 +132,17 @@ TEST(detail_btree, test_btree_erase_entire_node_leaf_children_extra_ref)
         node_ptr<int> extra_ref = root;
         node_ptr<int> extra_ref_2 = root;
 
-        EXPECT_EQ(num_children(root), 3);
+        EXPECT_EQ(num_children(root), 3u);
 
         root = btree_erase(root, 12, children(root)[2].as_leaf());
 
         EXPECT_EQ(root->refs_, 1);
         EXPECT_EQ(extra_ref->refs_, 2);
 
-        EXPECT_EQ(keys(root)[0], 4);
-        EXPECT_EQ(size(children(root)[0].get()), 4);
-        EXPECT_EQ(keys(root)[1], 8);
-        EXPECT_EQ(size(children(root)[1].get()), 4);
+        EXPECT_EQ(keys(root)[0], 4u);
+        EXPECT_EQ(size(children(root)[0].get()), 4u);
+        EXPECT_EQ(keys(root)[1], 8u);
+        EXPECT_EQ(size(children(root)[1].get()), 4u);
     }
 
     {
@@ -158,14 +158,14 @@ TEST(detail_btree, test_btree_erase_entire_node_leaf_children_extra_ref)
         }
         node_ptr<int> extra_ref = root;
 
-        EXPECT_EQ(num_children(root), 2);
+        EXPECT_EQ(num_children(root), 2u);
 
         root = btree_erase(root, 0, children(root)[0].as_leaf());
 
         EXPECT_NE(root.get(), extra_ref.get());
 
         EXPECT_TRUE(root->leaf_);
-        EXPECT_EQ(size(root.get()), 5);
+        EXPECT_EQ(size(root.get()), 5u);
     }
 
     {
@@ -181,14 +181,14 @@ TEST(detail_btree, test_btree_erase_entire_node_leaf_children_extra_ref)
         }
         node_ptr<int> extra_ref = root;
 
-        EXPECT_EQ(num_children(root), 2);
+        EXPECT_EQ(num_children(root), 2u);
 
         root = btree_erase(root, 4, children(root)[1].as_leaf());
 
         EXPECT_NE(root.get(), extra_ref.get());
 
         EXPECT_TRUE(root->leaf_);
-        EXPECT_EQ(size(root.get()), 4);
+        EXPECT_EQ(size(root.get()), 4u);
     }
 
     {
@@ -204,14 +204,14 @@ TEST(detail_btree, test_btree_erase_entire_node_leaf_children_extra_ref)
         }
         node_ptr<int> extra_ref = root;
 
-        EXPECT_EQ(num_children(root), 2);
+        EXPECT_EQ(num_children(root), 2u);
 
         root = btree_erase(root, 9, children(root)[1].as_leaf());
 
         EXPECT_NE(root.get(), extra_ref.get());
 
         EXPECT_TRUE(root->leaf_);
-        EXPECT_EQ(size(root.get()), 4);
+        EXPECT_EQ(size(root.get()), 4u);
     }
 }
 
@@ -233,7 +233,7 @@ TEST(detail_btree, test_btree_erase_entire_node_interior_children)
         left = children(root)[0];
         right = children(root)[1];
 
-        EXPECT_EQ(num_children(root), 2);
+        EXPECT_EQ(num_children(root), 2u);
         EXPECT_EQ(num_children(left), min_children);
         EXPECT_EQ(num_children(right), max_children - 2);
 
@@ -258,7 +258,7 @@ TEST(detail_btree, test_btree_erase_entire_node_interior_children)
         left = children(root)[0];
         right = children(root)[1];
 
-        EXPECT_EQ(num_children(root), 2);
+        EXPECT_EQ(num_children(root), 2u);
         EXPECT_EQ(num_children(left), min_children);
         EXPECT_EQ(num_children(right), max_children - 2);
 
@@ -284,7 +284,7 @@ TEST(detail_btree, test_btree_erase_entire_node_interior_children)
         left = children(root)[0];
         right = children(root)[1];
 
-        EXPECT_EQ(num_children(root), 2);
+        EXPECT_EQ(num_children(root), 2u);
         EXPECT_EQ(num_children(left), min_children);
         EXPECT_EQ(num_children(right), max_children - 1);
 
@@ -311,7 +311,7 @@ TEST(detail_btree, test_btree_erase_entire_node_interior_children)
         left = children(root)[0];
         right = children(root)[1];
 
-        EXPECT_EQ(num_children(root), 2);
+        EXPECT_EQ(num_children(root), 2u);
         EXPECT_EQ(num_children(left), min_children);
         EXPECT_EQ(num_children(right), max_children - 1);
 
@@ -340,7 +340,7 @@ TEST(detail_btree, test_btree_erase_entire_node_interior_children)
         left = children(root)[0];
         right = children(root)[1];
 
-        EXPECT_EQ(num_children(root), 2);
+        EXPECT_EQ(num_children(root), 2u);
         EXPECT_EQ(num_children(left), max_children - 1);
         EXPECT_EQ(num_children(right), min_children);
 
@@ -367,7 +367,7 @@ TEST(detail_btree, test_btree_erase_entire_node_interior_children)
         left = children(root)[0];
         right = children(root)[1];
 
-        EXPECT_EQ(num_children(root), 2);
+        EXPECT_EQ(num_children(root), 2u);
         EXPECT_EQ(num_children(left), max_children - 1);
         EXPECT_EQ(num_children(right), min_children);
 
@@ -393,8 +393,8 @@ TEST(detail_btree, test_btree_erase_entire_node_interior_children)
 
         EXPECT_EQ(num_children(root), max_children - 1);
 
-        int i = 0;
-        std::ptrdiff_t sz = 0;
+        std::size_t i = 0;
+        std::size_t sz = 0;
         for (; i < min_children - 1; ++i) {
             sz += size(children(root)[i].get());
             EXPECT_EQ(keys(root)[i], sz) << "i=" << i;
@@ -418,8 +418,8 @@ TEST(detail_btree, test_btree_erase_entire_node_interior_children)
 
         EXPECT_EQ(num_children(root), max_children - 1);
 
-        int i = 0;
-        std::ptrdiff_t sz = 0;
+        std::size_t i = 0;
+        std::size_t sz = 0;
         for (; i < min_children; ++i) {
             sz += size(children(root)[i].get());
             EXPECT_EQ(keys(root)[i], sz) << "i=" << i;
@@ -452,7 +452,7 @@ TEST(detail_btree, test_btree_erase_entire_node_interior_children)
             root = btree_erase(root, 0, children(left).front().as_leaf());
         }
 
-        EXPECT_EQ(num_children(root), 2);
+        EXPECT_EQ(num_children(root), 2u);
 
         node_ptr<int> left = children(root)[0];
         node_ptr<int> right = children(root)[1];
@@ -486,7 +486,7 @@ TEST(detail_btree, test_btree_erase_entire_node_interior_children)
                 root, min_children * 4, children(center).front().as_leaf());
         }
 
-        EXPECT_EQ(num_children(root), 2);
+        EXPECT_EQ(num_children(root), 2u);
 
         node_ptr<int> left = children(root)[0];
         node_ptr<int> right = children(root)[1];
@@ -520,7 +520,7 @@ TEST(detail_btree, test_btree_erase_entire_node_interior_children)
                 root, size(root.get()), children(right).back().as_leaf());
         }
 
-        EXPECT_EQ(num_children(root), 2);
+        EXPECT_EQ(num_children(root), 2u);
 
         node_ptr<int> left = children(root)[0];
         node_ptr<int> right = children(root)[1];
@@ -552,7 +552,7 @@ TEST(detail_btree, test_btree_erase)
         root = btree_erase(root, 0, 8);
 
         EXPECT_TRUE(root->leaf_);
-        EXPECT_EQ(size(root.get()), 1);
+        EXPECT_EQ(size(root.get()), 1u);
     }
 
 #if 0 // This test expects to split the node, but that doesn't really work
@@ -562,12 +562,12 @@ TEST(detail_btree, test_btree_erase)
 
         root = btree_erase(root, 1, 8);
 
-        EXPECT_EQ(size(root.get()), 2);
-        EXPECT_EQ(num_children(root), 2);
-        EXPECT_EQ(keys(root)[0], 1);
-        EXPECT_EQ(size(children(root)[1].get()), 1);
-        EXPECT_EQ(keys(root)[1], 2);
-        EXPECT_EQ(size(children(root)[1].get()), 1);
+        EXPECT_EQ(size(root.get()), 2u);
+        EXPECT_EQ(num_children(root), 2u);
+        EXPECT_EQ(keys(root)[0], 1u);
+        EXPECT_EQ(size(children(root)[1].get()), 1u);
+        EXPECT_EQ(keys(root)[1], 2u);
+        EXPECT_EQ(size(children(root)[1].get()), 1u);
     }
 #endif
 
@@ -587,7 +587,7 @@ TEST(detail_btree, test_btree_erase)
         left = children(root)[0];
         right = children(root)[1];
 
-        EXPECT_EQ(num_children(root), 2);
+        EXPECT_EQ(num_children(root), 2u);
         EXPECT_EQ(num_children(left), max_children - 1);
         EXPECT_EQ(num_children(right), max_children);
 
@@ -611,7 +611,7 @@ TEST(detail_btree, test_btree_erase)
         left = children(root)[0];
         right = children(root)[1];
 
-        EXPECT_EQ(num_children(root), 2);
+        EXPECT_EQ(num_children(root), 2u);
         EXPECT_EQ(num_children(left), max_children);
         EXPECT_EQ(num_children(right), max_children - 1);
 

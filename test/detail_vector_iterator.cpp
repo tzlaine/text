@@ -224,13 +224,13 @@ TEST(const_reverse_vector_iterator, test_c_str_ctor)
 
 TEST(both_vector_iterators, test_larger_sequences)
 {
-    int const copies = 40;
+    std::size_t const copies = 40;
 
     {
         text::segmented_vector<int> r;
         std::vector<int> vec;
 
-        int i = 0;
+        std::size_t i = 0;
         for (; i < text::detail::min_children - 1; ++i) {
             r.insert(r.begin(), 17);
             vec.insert(vec.begin(), 17);
@@ -263,7 +263,7 @@ TEST(both_vector_iterators, test_larger_sequences)
         text::segmented_vector<int> r;
         std::vector<int> vec;
 
-        for (int i = 0; i < copies; ++i) {
+        for (std::size_t i = 0; i < copies; ++i) {
             r.insert(r.begin(), 17);
             vec.insert(vec.begin(), 17);
         }
@@ -291,11 +291,11 @@ TEST(both_vector_iterators, test_larger_sequences)
 
         repeated.insert(repeated.begin() + 5, 12345);
 
-        for (std::ptrdiff_t i = 0; i < r.size(); ++i) {
+        for (int i = 0; i < r.size(); ++i) {
             EXPECT_EQ(r[i], repeated[i]);
         }
 
-        for (std::ptrdiff_t i = 0; i < r.size(); ++i) {
+        for (int i = 0; i < r.size(); ++i) {
             EXPECT_EQ(*(r.begin() + i), *(repeated.begin() + i));
         }
 

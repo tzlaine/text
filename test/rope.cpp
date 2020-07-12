@@ -24,11 +24,11 @@ TEST(rope, test_empty)
     EXPECT_EQ(t.rbegin(), t.rend());
 
     EXPECT_TRUE(t.empty());
-    EXPECT_EQ(t.storage_bytes(), 0);
-    EXPECT_EQ(t.distance(), 0);
+    EXPECT_EQ(t.storage_bytes(), 0u);
+    EXPECT_EQ(t.distance(), 0u);
     EXPECT_EQ(t.begin(), t.end());
 
-    EXPECT_EQ(t.max_bytes(), PTRDIFF_MAX);
+    EXPECT_EQ(t.max_bytes(), (std::size_t)PTRDIFF_MAX);
 
     EXPECT_TRUE(t == t);
     EXPECT_FALSE(t != t);
@@ -61,21 +61,21 @@ TEST(rope, test_non_empty_const_interface)
     EXPECT_EQ(std::distance(t_a.rbegin(), t_a.rend()), 1);
 
     EXPECT_FALSE(t_a.empty());
-    EXPECT_EQ(t_a.storage_bytes(), 1);
-    EXPECT_EQ(t_a.distance(), 1);
+    EXPECT_EQ(t_a.storage_bytes(), 1u);
+    EXPECT_EQ(t_a.distance(), 1u);
 
     text::rope_view tv_a = t_a;
     EXPECT_EQ(tv_a, t_a);
 
     EXPECT_FALSE(t_ab.empty());
-    EXPECT_EQ(t_ab.storage_bytes(), 2);
-    EXPECT_EQ(t_ab.distance(), 2);
+    EXPECT_EQ(t_ab.storage_bytes(), 2u);
+    EXPECT_EQ(t_ab.distance(), 2u);
 
     text::rope_view tv_ab = t_ab;
     EXPECT_EQ(tv_ab, t_ab);
 
-    EXPECT_EQ(t_a.max_bytes(), PTRDIFF_MAX);
-    EXPECT_EQ(t_ab.max_bytes(), PTRDIFF_MAX);
+    EXPECT_EQ(t_a.max_bytes(), (std::size_t)PTRDIFF_MAX);
+    EXPECT_EQ(t_ab.max_bytes(), (std::size_t)PTRDIFF_MAX);
 
     EXPECT_FALSE(t_a == t_ab);
     EXPECT_TRUE(t_a != t_ab);
@@ -313,8 +313,8 @@ TEST(rope, test_misc)
     {
         text::rope t("some text");
         t.clear();
-        EXPECT_EQ(t.storage_bytes(), 0);
-        EXPECT_EQ(t.distance(), 0);
+        EXPECT_EQ(t.storage_bytes(), 0u);
+        EXPECT_EQ(t.distance(), 0u);
     }
 
     {
@@ -440,13 +440,13 @@ TEST(rope, test_insert)
         {
             text::rope r("e");
             auto const it = r.insert(r.begin(), "f");
-            EXPECT_EQ(r.distance(), 2);
+            EXPECT_EQ(r.distance(), 2u);
             EXPECT_EQ(it, r.begin());
         }
         {
             text::rope r("e");
             auto const it = r.insert(r.end(), "f");
-            EXPECT_EQ(r.distance(), 2);
+            EXPECT_EQ(r.distance(), 2u);
             EXPECT_EQ(it, std::next(r.begin()));
         }
 
@@ -455,29 +455,29 @@ TEST(rope, test_insert)
         {
             text::rope r("e");
             auto const it = r.insert(r.begin(), combining_diaeresis);
-            EXPECT_EQ(r.distance(), 2);
+            EXPECT_EQ(r.distance(), 2u);
             EXPECT_EQ(it, r.begin());
         }
         {
             text::rope r("e");
 
             auto it = r.insert(r.end(), combining_diaeresis);
-            EXPECT_EQ(r.distance(), 1);
+            EXPECT_EQ(r.distance(), 1u);
             EXPECT_EQ(it, r.begin());
 
             it = r.insert(r.end(), combining_diaeresis);
-            EXPECT_EQ(r.distance(), 1);
+            EXPECT_EQ(r.distance(), 1u);
             EXPECT_EQ(it, r.begin());
         }
         {
             text::rope r("et");
 
             auto it = r.insert(std::next(r.begin()), combining_diaeresis);
-            EXPECT_EQ(r.distance(), 2);
+            EXPECT_EQ(r.distance(), 2u);
             EXPECT_EQ(it, r.begin());
 
             it = r.insert(std::next(r.begin()), combining_diaeresis);
-            EXPECT_EQ(r.distance(), 2);
+            EXPECT_EQ(r.distance(), 2u);
             EXPECT_EQ(it, r.begin());
         }
     }
@@ -534,7 +534,7 @@ TEST(rope, test_insert_rope_view)
     text::rope rv_rope;
     std::string rv_rope_as_string;
     for (int i = 0; i < 8; ++i) {
-        std::ptrdiff_t const at_idx = i % 2 ? 0 : rv_rope.distance();
+        std::size_t const at_idx = i % 2 ? 0 : rv_rope.distance();
         auto const at = std::next(rv_rope.begin(), at_idx);
         switch (i % 3) {
         case 0:
@@ -825,9 +825,9 @@ TEST(rope, normalization)
     text::rope const t_a_with_circumflex(s_a_with_circumflex);
     text::rope const t_a_with_circumflex_2("a\xcc\x82" /*a◌̂*/);
 
-    EXPECT_EQ(t_circumflex.distance(), 1);
-    EXPECT_EQ(t_a_with_circumflex.distance(), 1);
-    EXPECT_EQ(t_a_with_circumflex_2.distance(), 1);
+    EXPECT_EQ(t_circumflex.distance(), 1u);
+    EXPECT_EQ(t_a_with_circumflex.distance(), 1u);
+    EXPECT_EQ(t_a_with_circumflex_2.distance(), 1u);
 
     EXPECT_EQ(t_circumflex, "\xcc\x82"_t /*◌̂*/);
     EXPECT_EQ(t_a_with_circumflex, "\xc3\xa2"_t /*â*/);
@@ -842,7 +842,7 @@ TEST(rope, normalization)
             t,
             text::text("\xcc\x82"
                        "aa") /*◌̂aa*/);
-        EXPECT_EQ(t.distance(), 3);
+        EXPECT_EQ(t.distance(), 3u);
     }
     {
         text::rope t = "aa";
@@ -851,13 +851,13 @@ TEST(rope, normalization)
             t,
             text::text("\xc3\xa2"
                        "a") /*âa*/);
-        EXPECT_EQ(t.distance(), 2);
+        EXPECT_EQ(t.distance(), 2u);
     }
     {
         text::rope t = "aa";
         t.insert(std::next(t.begin(), 2), "\xcc\x82" /*◌̂*/);
         EXPECT_EQ(t, text::text("a\xc3\xa2") /*aâ*/);
-        EXPECT_EQ(t.distance(), 2);
+        EXPECT_EQ(t.distance(), 2u);
     }
 
     {
@@ -869,7 +869,7 @@ TEST(rope, normalization)
             t,
             text::text("\xcc\x82\xc3\xa2"
                        "a") /*◌̂âa*/);
-        EXPECT_EQ(t.distance(), 3);
+        EXPECT_EQ(t.distance(), 3u);
     }
     {
         text::rope t =
@@ -880,7 +880,7 @@ TEST(rope, normalization)
             t,
             text::text("\xc3\xa2\xcc\x82"
                        "a") /*â◌̂a*/);
-        EXPECT_EQ(t.distance(), 2); // not 3 because â◌̂ is a single grapheme
+        EXPECT_EQ(t.distance(), 2u); // not 3 because â◌̂ is a single grapheme
     }
     {
         text::rope t =
@@ -888,7 +888,7 @@ TEST(rope, normalization)
             "a";
         t.insert(std::next(t.begin(), 2), "\xcc\x82" /*◌̂*/);
         EXPECT_EQ(t, text::text("\xc3\xa2\xc3\xa2") /*ââ*/);
-        EXPECT_EQ(t.distance(), 2);
+        EXPECT_EQ(t.distance(), 2u);
     }
 
     {
@@ -899,7 +899,7 @@ TEST(rope, normalization)
             t,
             text::text("\xcc\x82"
                        "aa") /*◌̂aa*/);
-        EXPECT_EQ(t.distance(), 3);
+        EXPECT_EQ(t.distance(), 3u);
     }
     {
         text::rope t = "aa";
@@ -909,14 +909,14 @@ TEST(rope, normalization)
             t,
             text::text("\xc3\xa2"
                        "a") /*âa*/);
-        EXPECT_EQ(t.distance(), 2);
+        EXPECT_EQ(t.distance(), 2u);
     }
     {
         text::rope t = "aa";
         t.insert(
             std::next(t.begin(), 2), s_circumflex.begin(), s_circumflex.end());
         EXPECT_EQ(t, text::text("a\xc3\xa2") /*aâ*/);
-        EXPECT_EQ(t.distance(), 2);
+        EXPECT_EQ(t.distance(), 2u);
     }
 
     {
@@ -929,7 +929,7 @@ TEST(rope, normalization)
             t,
             text::text("\xcc\x82\xc3\xa2"
                        "a") /*◌̂âa*/);
-        EXPECT_EQ(t.distance(), 3);
+        EXPECT_EQ(t.distance(), 3u);
     }
     {
         text::rope t =
@@ -941,7 +941,7 @@ TEST(rope, normalization)
             t,
             text::text("\xc3\xa2\xcc\x82"
                        "a") /*â◌̂a*/);
-        EXPECT_EQ(t.distance(), 2); // not 3 because â◌̂ is a single grapheme
+        EXPECT_EQ(t.distance(), 2u); // not 3 because â◌̂ is a single grapheme
     }
     {
         text::rope t =
@@ -950,7 +950,7 @@ TEST(rope, normalization)
         t.insert(
             std::next(t.begin(), 2), s_circumflex.begin(), s_circumflex.end());
         EXPECT_EQ(t, text::text("\xc3\xa2\xc3\xa2") /*ââ*/);
-        EXPECT_EQ(t.distance(), 2);
+        EXPECT_EQ(t.distance(), 2u);
     }
 
     // replace()
@@ -973,7 +973,7 @@ TEST(rope, normalization)
             t,
             text::text("\xcc\x82"
                        "aa") /*◌̂aa*/);
-        EXPECT_EQ(t.distance(), 3);
+        EXPECT_EQ(t.distance(), 3u);
     }
     {
         text::rope t = "aaa";
@@ -982,13 +982,13 @@ TEST(rope, normalization)
             t,
             text::text("\xc3\xa2"
                        "a") /*âa*/);
-        EXPECT_EQ(t.distance(), 2);
+        EXPECT_EQ(t.distance(), 2u);
     }
     {
         text::rope t = "aaa";
         t.replace(third(t), "\xcc\x82" /*◌̂*/);
         EXPECT_EQ(t, text::text("a\xc3\xa2") /*aâ*/);
-        EXPECT_EQ(t.distance(), 2);
+        EXPECT_EQ(t.distance(), 2u);
     }
 
     {
@@ -1000,7 +1000,7 @@ TEST(rope, normalization)
             t,
             text::text("\xcc\x82"
                        "aa") /*◌̂aa*/);
-        EXPECT_EQ(t.distance(), 3);
+        EXPECT_EQ(t.distance(), 3u);
     }
     {
         text::rope t =
@@ -1011,7 +1011,7 @@ TEST(rope, normalization)
             t,
             text::text("\xc3\xa2\xcc\x82"
                        "a") /*â◌̂a*/);
-        EXPECT_EQ(t.distance(), 2); // not 3 because â◌̂ is a single grapheme
+        EXPECT_EQ(t.distance(), 2u); // not 3 because â◌̂ is a single grapheme
     }
     {
         text::rope t =
@@ -1019,7 +1019,7 @@ TEST(rope, normalization)
             "aa";
         t.replace(third(t), "\xcc\x82" /*◌̂*/);
         EXPECT_EQ(t, text::text("\xc3\xa2\xc3\xa2") /*ââ*/);
-        EXPECT_EQ(t.distance(), 2);
+        EXPECT_EQ(t.distance(), 2u);
     }
 
     {
@@ -1029,7 +1029,7 @@ TEST(rope, normalization)
             t,
             text::text("\xcc\x82"
                        "aa") /*◌̂aa*/);
-        EXPECT_EQ(t.distance(), 3);
+        EXPECT_EQ(t.distance(), 3u);
     }
     {
         text::rope t = "aaa";
@@ -1038,13 +1038,13 @@ TEST(rope, normalization)
             t,
             text::text("\xc3\xa2"
                        "a") /*âa*/);
-        EXPECT_EQ(t.distance(), 2);
+        EXPECT_EQ(t.distance(), 2u);
     }
     {
         text::rope t = "aaa";
         t.replace(third(t), s_circumflex.begin(), s_circumflex.end());
         EXPECT_EQ(t, text::text("a\xc3\xa2") /*aâ*/);
-        EXPECT_EQ(t.distance(), 2);
+        EXPECT_EQ(t.distance(), 2u);
     }
 
     {
@@ -1056,7 +1056,7 @@ TEST(rope, normalization)
             t,
             text::text("\xcc\x82"
                        "aa") /*◌̂aa*/);
-        EXPECT_EQ(t.distance(), 3);
+        EXPECT_EQ(t.distance(), 3u);
     }
     {
         text::rope t =
@@ -1067,7 +1067,7 @@ TEST(rope, normalization)
             t,
             text::text("\xc3\xa2\xcc\x82"
                        "a") /*â◌̂a*/);
-        EXPECT_EQ(t.distance(), 2); // not 3 because â◌̂ is a single grapheme
+        EXPECT_EQ(t.distance(), 2u); // not 3 because â◌̂ is a single grapheme
     }
     {
         text::rope t =
@@ -1075,7 +1075,7 @@ TEST(rope, normalization)
             "aa";
         t.replace(third(t), s_circumflex.begin(), s_circumflex.end());
         EXPECT_EQ(t, text::text("\xc3\xa2\xc3\xa2") /*ââ*/);
-        EXPECT_EQ(t.distance(), 2);
+        EXPECT_EQ(t.distance(), 2u);
     }
 }
 

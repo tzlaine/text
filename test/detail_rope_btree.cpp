@@ -87,18 +87,18 @@ TEST(rope_btree, test_btree_split_child)
     EXPECT_EQ(keys(root_2)[2], max_children * 2 * 2 + (max_children - 1) * 5);
 
     EXPECT_EQ(num_children(children(root_2)[0]), min_children);
-    EXPECT_EQ((std::ptrdiff_t)keys(children(root_2)[0]).size(), min_children);
-    EXPECT_EQ(keys(children(root_2)[0])[0], 4);
-    EXPECT_EQ(keys(children(root_2)[0])[1], 8);
-    EXPECT_EQ(keys(children(root_2)[0])[2], 12);
-    EXPECT_EQ(keys(children(root_2)[0])[3], 16);
+    EXPECT_EQ(keys(children(root_2)[0]).size(), min_children);
+    EXPECT_EQ(keys(children(root_2)[0])[0], 4u);
+    EXPECT_EQ(keys(children(root_2)[0])[1], 8u);
+    EXPECT_EQ(keys(children(root_2)[0])[2], 12u);
+    EXPECT_EQ(keys(children(root_2)[0])[3], 16u);
 
     EXPECT_EQ(num_children(children(root_2)[1]), min_children);
-    EXPECT_EQ((std::ptrdiff_t)keys(children(root_2)[1]).size(), min_children);
-    EXPECT_EQ(keys(children(root_2)[1])[0], 4);
-    EXPECT_EQ(keys(children(root_2)[1])[1], 8);
-    EXPECT_EQ(keys(children(root_2)[1])[2], 12);
-    EXPECT_EQ(keys(children(root_2)[1])[3], 16);
+    EXPECT_EQ(keys(children(root_2)[1]).size(), min_children);
+    EXPECT_EQ(keys(children(root_2)[1])[0], 4u);
+    EXPECT_EQ(keys(children(root_2)[1])[1], 8u);
+    EXPECT_EQ(keys(children(root_2)[1])[2], 12u);
+    EXPECT_EQ(keys(children(root_2)[1])[3], 16u);
 }
 
 TEST(rope_btree, test_btree_split_child_extra_ref)
@@ -116,18 +116,18 @@ TEST(rope_btree, test_btree_split_child_extra_ref)
     EXPECT_EQ(keys(root_2)[2], max_children * 2 * 2 + (max_children - 1) * 5);
 
     EXPECT_EQ(num_children(children(root_2)[0]), min_children);
-    EXPECT_EQ((std::ptrdiff_t)keys(children(root_2)[0]).size(), min_children);
-    EXPECT_EQ(keys(children(root_2)[0])[0], 4);
-    EXPECT_EQ(keys(children(root_2)[0])[1], 8);
-    EXPECT_EQ(keys(children(root_2)[0])[2], 12);
-    EXPECT_EQ(keys(children(root_2)[0])[3], 16);
+    EXPECT_EQ(keys(children(root_2)[0]).size(), min_children);
+    EXPECT_EQ(keys(children(root_2)[0])[0], 4u);
+    EXPECT_EQ(keys(children(root_2)[0])[1], 8u);
+    EXPECT_EQ(keys(children(root_2)[0])[2], 12u);
+    EXPECT_EQ(keys(children(root_2)[0])[3], 16u);
 
     EXPECT_EQ(num_children(children(root_2)[1]), min_children);
-    EXPECT_EQ((std::ptrdiff_t)keys(children(root_2)[1]).size(), min_children);
-    EXPECT_EQ(keys(children(root_2)[1])[0], 4);
-    EXPECT_EQ(keys(children(root_2)[1])[1], 8);
-    EXPECT_EQ(keys(children(root_2)[1])[2], 12);
-    EXPECT_EQ(keys(children(root_2)[1])[3], 16);
+    EXPECT_EQ(keys(children(root_2)[1]).size(), min_children);
+    EXPECT_EQ(keys(children(root_2)[1])[0], 4u);
+    EXPECT_EQ(keys(children(root_2)[1])[1], 8u);
+    EXPECT_EQ(keys(children(root_2)[1])[2], 12u);
+    EXPECT_EQ(keys(children(root_2)[1])[3], 16u);
 }
 
 TEST(rope_btree, test_btree_split_leaf)
@@ -136,7 +136,7 @@ TEST(rope_btree, test_btree_split_leaf)
         node_ptr<rope_tag> root = make_tree_left_min();
         node_ptr<rope_tag> left = children(root)[0];
         btree_split_leaf(left, 1, 4);
-        EXPECT_EQ(size(children(left)[1].get()), 4);
+        EXPECT_EQ(size(children(left)[1].get()), 4u);
     }
 
     {
@@ -146,13 +146,13 @@ TEST(rope_btree, test_btree_split_leaf)
 
         EXPECT_EQ(num_children(left), min_children + 1);
 
-        EXPECT_EQ(keys(left)[0], 4);
-        EXPECT_EQ(size(children(left)[1].get()), 1);
-        EXPECT_EQ(keys(left)[1], 5);
-        EXPECT_EQ(size(children(left)[2].get()), 3);
-        EXPECT_EQ(keys(left)[2], 8);
-        EXPECT_EQ(keys(left)[3], 12);
-        EXPECT_EQ(keys(left)[4], 16);
+        EXPECT_EQ(keys(left)[0], 4u);
+        EXPECT_EQ(size(children(left)[1].get()), 1u);
+        EXPECT_EQ(keys(left)[1], 5u);
+        EXPECT_EQ(size(children(left)[2].get()), 3u);
+        EXPECT_EQ(keys(left)[2], 8u);
+        EXPECT_EQ(keys(left)[3], 12u);
+        EXPECT_EQ(keys(left)[4], 16u);
     }
 
     {
@@ -166,15 +166,15 @@ TEST(rope_btree, test_btree_split_leaf)
 
         EXPECT_EQ(num_children(left), min_children + 1);
 
-        EXPECT_EQ(keys(left)[0], 4);
-        EXPECT_EQ(size(children(left)[1].get()), 1);
-        EXPECT_EQ(keys(left)[1], 5);
-        EXPECT_EQ(size(children(left)[2].get()), 3);
-        EXPECT_EQ(keys(left)[2], 8);
-        EXPECT_EQ(keys(left)[3], 12);
-        EXPECT_EQ(keys(left)[4], 16);
+        EXPECT_EQ(keys(left)[0], 4u);
+        EXPECT_EQ(size(children(left)[1].get()), 1u);
+        EXPECT_EQ(keys(left)[1], 5u);
+        EXPECT_EQ(size(children(left)[2].get()), 3u);
+        EXPECT_EQ(keys(left)[2], 8u);
+        EXPECT_EQ(keys(left)[3], 12u);
+        EXPECT_EQ(keys(left)[4], 16u);
 
-        EXPECT_EQ(size(left_1.get()), 4);
+        EXPECT_EQ(size(left_1.get()), 4u);
     }
 }
 
@@ -187,7 +187,7 @@ TEST(rope_btree, test_btree_split_leaf_extra_ref)
         left = btree_split_leaf(left, 1, 4);
         EXPECT_EQ(left->refs_, 3);
         EXPECT_EQ(extra_ref->refs_, 3);
-        EXPECT_EQ(size(children(left)[1].get()), 4);
+        EXPECT_EQ(size(children(left)[1].get()), 4u);
     }
 
     {
@@ -201,13 +201,13 @@ TEST(rope_btree, test_btree_split_leaf_extra_ref)
 
         EXPECT_EQ(num_children(left), min_children + 1);
 
-        EXPECT_EQ(keys(left)[0], 4);
-        EXPECT_EQ(size(children(left)[1].get()), 1);
-        EXPECT_EQ(keys(left)[1], 5);
-        EXPECT_EQ(size(children(left)[2].get()), 3);
-        EXPECT_EQ(keys(left)[2], 8);
-        EXPECT_EQ(keys(left)[3], 12);
-        EXPECT_EQ(keys(left)[4], 16);
+        EXPECT_EQ(keys(left)[0], 4u);
+        EXPECT_EQ(size(children(left)[1].get()), 1u);
+        EXPECT_EQ(keys(left)[1], 5u);
+        EXPECT_EQ(size(children(left)[2].get()), 3u);
+        EXPECT_EQ(keys(left)[2], 8u);
+        EXPECT_EQ(keys(left)[3], 12u);
+        EXPECT_EQ(keys(left)[4], 16u);
     }
 
     {
@@ -225,15 +225,15 @@ TEST(rope_btree, test_btree_split_leaf_extra_ref)
 
         EXPECT_EQ(num_children(left), min_children + 1);
 
-        EXPECT_EQ(keys(left)[0], 4);
-        EXPECT_EQ(size(children(left)[1].get()), 1);
-        EXPECT_EQ(keys(left)[1], 5);
-        EXPECT_EQ(size(children(left)[2].get()), 3);
-        EXPECT_EQ(keys(left)[2], 8);
-        EXPECT_EQ(keys(left)[3], 12);
-        EXPECT_EQ(keys(left)[4], 16);
+        EXPECT_EQ(keys(left)[0], 4u);
+        EXPECT_EQ(size(children(left)[1].get()), 1u);
+        EXPECT_EQ(keys(left)[1], 5u);
+        EXPECT_EQ(size(children(left)[2].get()), 3u);
+        EXPECT_EQ(keys(left)[2], 8u);
+        EXPECT_EQ(keys(left)[3], 12u);
+        EXPECT_EQ(keys(left)[4], 16u);
 
-        EXPECT_EQ(size(left_1.get()), 4);
+        EXPECT_EQ(size(left_1.get()), 4u);
     }
 }
 
@@ -255,17 +255,17 @@ TEST(rope_btree, test_btree_insert_nonfull)
         left = children(new_root)[0];
         right = children(new_root)[1];
 
-        EXPECT_EQ(num_children(new_root), 2);
+        EXPECT_EQ(num_children(new_root), 2u);
         EXPECT_EQ(num_children(left), min_children + 1);
 
-        EXPECT_EQ(keys(left)[0], 4);
-        EXPECT_EQ(size(children(left)[1].get()), 8);
-        EXPECT_EQ(keys(left)[1], 12);
-        EXPECT_EQ(size(children(left)[2].get()), 4);
-        EXPECT_EQ(keys(left)[2], 16);
-        EXPECT_EQ(size(children(left)[3].get()), 4);
-        EXPECT_EQ(keys(left)[3], 20);
-        EXPECT_EQ(keys(left)[4], 24);
+        EXPECT_EQ(keys(left)[0], 4u);
+        EXPECT_EQ(size(children(left)[1].get()), 8u);
+        EXPECT_EQ(keys(left)[1], 12u);
+        EXPECT_EQ(size(children(left)[2].get()), 4u);
+        EXPECT_EQ(keys(left)[2], 16u);
+        EXPECT_EQ(size(children(left)[3].get()), 4u);
+        EXPECT_EQ(keys(left)[3], 20u);
+        EXPECT_EQ(keys(left)[4], 24u);
     }
 
     // Insert into half-full interior child, then into the middle of an
@@ -286,18 +286,18 @@ TEST(rope_btree, test_btree_insert_nonfull)
         left = children(new_root)[0];
         right = children(new_root)[1];
 
-        EXPECT_EQ(num_children(new_root), 2);
+        EXPECT_EQ(num_children(new_root), 2u);
         EXPECT_EQ(num_children(left), min_children + 2);
 
-        EXPECT_EQ(keys(left)[0], 4);
-        EXPECT_EQ(size(children(left)[1].get()), 1);
-        EXPECT_EQ(keys(left)[1], 5);
-        EXPECT_EQ(size(children(left)[2].get()), 8);
-        EXPECT_EQ(keys(left)[2], 13);
-        EXPECT_EQ(size(children(left)[3].get()), 3);
-        EXPECT_EQ(keys(left)[3], 16);
-        EXPECT_EQ(keys(left)[4], 20);
-        EXPECT_EQ(keys(left)[5], 24);
+        EXPECT_EQ(keys(left)[0], 4u);
+        EXPECT_EQ(size(children(left)[1].get()), 1u);
+        EXPECT_EQ(keys(left)[1], 5u);
+        EXPECT_EQ(size(children(left)[2].get()), 8u);
+        EXPECT_EQ(keys(left)[2], 13u);
+        EXPECT_EQ(size(children(left)[3].get()), 3u);
+        EXPECT_EQ(keys(left)[3], 16u);
+        EXPECT_EQ(keys(left)[4], 20u);
+        EXPECT_EQ(keys(left)[5], 24u);
     }
 
     // Insert into full interior child, then between existing leaves.
@@ -316,17 +316,17 @@ TEST(rope_btree, test_btree_insert_nonfull)
         left = children(new_root)[0];
         right = children(new_root)[1];
 
-        EXPECT_EQ(num_children(new_root), 3);
+        EXPECT_EQ(num_children(new_root), 3u);
         EXPECT_EQ(num_children(left), min_children + 1);
 
-        EXPECT_EQ(keys(left)[0], 4);
-        EXPECT_EQ(size(children(left)[1].get()), 8);
-        EXPECT_EQ(keys(left)[1], 12);
-        EXPECT_EQ(size(children(left)[2].get()), 4);
-        EXPECT_EQ(keys(left)[2], 16);
-        EXPECT_EQ(size(children(left)[3].get()), 4);
-        EXPECT_EQ(keys(left)[3], 20);
-        EXPECT_EQ(keys(left)[4], 24);
+        EXPECT_EQ(keys(left)[0], 4u);
+        EXPECT_EQ(size(children(left)[1].get()), 8u);
+        EXPECT_EQ(keys(left)[1], 12u);
+        EXPECT_EQ(size(children(left)[2].get()), 4u);
+        EXPECT_EQ(keys(left)[2], 16u);
+        EXPECT_EQ(size(children(left)[3].get()), 4u);
+        EXPECT_EQ(keys(left)[3], 20u);
+        EXPECT_EQ(keys(left)[4], 24u);
     }
 
     // Insert into almost-full interior child, then between existing leaves.
@@ -340,15 +340,15 @@ TEST(rope_btree, test_btree_insert_nonfull)
         node_ptr<rope_tag> new_root = btree_insert_nonfull(
             root, size(root.get()) - 5, make_node("new node"));
 
-        EXPECT_EQ(num_children(new_root), 3);
+        EXPECT_EQ(num_children(new_root), 3u);
 
         node_ptr<rope_tag> new_right = children(new_root)[2];
         EXPECT_EQ(num_children(new_right), min_children);
 
-        EXPECT_EQ(size(children(new_right)[min_children - 2].get()), 8);
+        EXPECT_EQ(size(children(new_right)[min_children - 2].get()), 8u);
         EXPECT_EQ(
             keys(new_right)[min_children - 2], (min_children - 2) * 5 + 8);
-        EXPECT_EQ(size(children(new_right)[min_children - 1].get()), 5);
+        EXPECT_EQ(size(children(new_right)[min_children - 1].get()), 5u);
         EXPECT_EQ(
             keys(new_right)[min_children - 1], (min_children - 2) * 5 + 8 + 5);
     }
@@ -365,18 +365,18 @@ TEST(rope_btree, test_btree_insert_nonfull)
         node_ptr<rope_tag> new_root = btree_insert_nonfull(
             root, size(root.get()) - 2, make_node("new node"));
 
-        EXPECT_EQ(num_children(new_root), 3);
+        EXPECT_EQ(num_children(new_root), 3u);
 
         node_ptr<rope_tag> new_right = children(new_root)[2];
         EXPECT_EQ(num_children(new_right), min_children + 1);
 
-        EXPECT_EQ(size(children(new_right)[min_children - 2].get()), 3);
+        EXPECT_EQ(size(children(new_right)[min_children - 2].get()), 3u);
         EXPECT_EQ(
             keys(new_right)[min_children - 2], (min_children - 2) * 5 + 3);
-        EXPECT_EQ(size(children(new_right)[min_children - 1].get()), 8);
+        EXPECT_EQ(size(children(new_right)[min_children - 1].get()), 8u);
         EXPECT_EQ(
             keys(new_right)[min_children - 1], (min_children - 2) * 5 + 3 + 8);
-        EXPECT_EQ(size(children(new_right)[min_children].get()), 2);
+        EXPECT_EQ(size(children(new_right)[min_children].get()), 2u);
         EXPECT_EQ(
             keys(new_right)[min_children], (min_children - 2) * 5 + 3 + 8 + 2);
     }
@@ -393,12 +393,12 @@ TEST(rope_btree, test_btree_insert_nonfull)
         node_ptr<rope_tag> new_root =
             btree_insert_nonfull(root, size(root.get()), make_node("new node"));
 
-        EXPECT_EQ(num_children(new_root), 3);
+        EXPECT_EQ(num_children(new_root), 3u);
 
         node_ptr<rope_tag> new_right = children(new_root)[2];
         EXPECT_EQ(num_children(new_right), min_children);
 
-        EXPECT_EQ(size(children(new_right)[min_children - 1].get()), 8);
+        EXPECT_EQ(size(children(new_right)[min_children - 1].get()), 8u);
         EXPECT_EQ(
             keys(new_right)[min_children - 1], (min_children - 1) * 5 + 8);
     }
@@ -418,8 +418,8 @@ TEST(rope_btree, test_btree_insert_nonfull)
 
         left = children(new_root)[0];
 
-        EXPECT_EQ(num_children(new_root), 2);
-        EXPECT_EQ(num_children(left), min_children + 1);
+        EXPECT_EQ(num_children(new_root), 2u);
+        EXPECT_EQ(num_children(left), min_children + 1u);
         EXPECT_NE(root.as_interior(), new_root.as_interior());
     }
 
@@ -437,8 +437,8 @@ TEST(rope_btree, test_btree_insert_nonfull)
 
         left = children(new_root)[0];
 
-        EXPECT_EQ(num_children(new_root), 2);
-        EXPECT_EQ(num_children(left), min_children + 1);
+        EXPECT_EQ(num_children(new_root), 2u);
+        EXPECT_EQ(num_children(left), min_children + 1u);
         EXPECT_NE(root.as_interior(), new_root.as_interior());
         EXPECT_EQ(root.as_interior(), root_2.as_interior());
     }
@@ -456,7 +456,7 @@ TEST(rope_btree, test_btree_insert_nonfull)
 
         node_ptr<rope_tag> new_left = children(new_root)[0];
 
-        EXPECT_EQ(num_children(new_root), 2);
+        EXPECT_EQ(num_children(new_root), 2u);
         EXPECT_EQ(num_children(left), min_children);
         EXPECT_EQ(num_children(new_left), min_children + 1);
     }
@@ -485,17 +485,17 @@ TEST(rope_btree, test_btree_insert_nonfull_extra_ref)
 
         node_ptr<rope_tag> left = children(new_root)[0];
 
-        EXPECT_EQ(num_children(new_root), 2);
+        EXPECT_EQ(num_children(new_root), 2u);
         EXPECT_EQ(num_children(left), min_children + 1);
 
-        EXPECT_EQ(keys(left)[0], 4);
-        EXPECT_EQ(size(children(left)[1].get()), 8);
-        EXPECT_EQ(keys(left)[1], 12);
-        EXPECT_EQ(size(children(left)[2].get()), 4);
-        EXPECT_EQ(keys(left)[2], 16);
-        EXPECT_EQ(size(children(left)[3].get()), 4);
-        EXPECT_EQ(keys(left)[3], 20);
-        EXPECT_EQ(keys(left)[4], 24);
+        EXPECT_EQ(keys(left)[0], 4u);
+        EXPECT_EQ(size(children(left)[1].get()), 8u);
+        EXPECT_EQ(keys(left)[1], 12u);
+        EXPECT_EQ(size(children(left)[2].get()), 4u);
+        EXPECT_EQ(keys(left)[2], 16u);
+        EXPECT_EQ(size(children(left)[3].get()), 4u);
+        EXPECT_EQ(keys(left)[3], 20u);
+        EXPECT_EQ(keys(left)[4], 24u);
     }
 
     // Insert into half-full interior child, then into the middle of an
@@ -521,18 +521,18 @@ TEST(rope_btree, test_btree_insert_nonfull_extra_ref)
 
         node_ptr<rope_tag> left = children(new_root)[0];
 
-        EXPECT_EQ(num_children(new_root), 2);
+        EXPECT_EQ(num_children(new_root), 2u);
         EXPECT_EQ(num_children(left), min_children + 2);
 
-        EXPECT_EQ(keys(left)[0], 4);
-        EXPECT_EQ(size(children(left)[1].get()), 1);
-        EXPECT_EQ(keys(left)[1], 5);
-        EXPECT_EQ(size(children(left)[2].get()), 8);
-        EXPECT_EQ(keys(left)[2], 13);
-        EXPECT_EQ(size(children(left)[3].get()), 3);
-        EXPECT_EQ(keys(left)[3], 16);
-        EXPECT_EQ(keys(left)[4], 20);
-        EXPECT_EQ(keys(left)[5], 24);
+        EXPECT_EQ(keys(left)[0], 4u);
+        EXPECT_EQ(size(children(left)[1].get()), 1u);
+        EXPECT_EQ(keys(left)[1], 5u);
+        EXPECT_EQ(size(children(left)[2].get()), 8u);
+        EXPECT_EQ(keys(left)[2], 13u);
+        EXPECT_EQ(size(children(left)[3].get()), 3u);
+        EXPECT_EQ(keys(left)[3], 16u);
+        EXPECT_EQ(keys(left)[4], 20u);
+        EXPECT_EQ(keys(left)[5], 24u);
     }
 
     // Insert into full interior child, then between existing leaves.
@@ -556,17 +556,17 @@ TEST(rope_btree, test_btree_insert_nonfull_extra_ref)
 
         node_ptr<rope_tag> left = children(new_root)[0];
 
-        EXPECT_EQ(num_children(new_root), 3);
+        EXPECT_EQ(num_children(new_root), 3u);
         EXPECT_EQ(num_children(left), min_children + 1);
 
-        EXPECT_EQ(keys(left)[0], 4);
-        EXPECT_EQ(size(children(left)[1].get()), 8);
-        EXPECT_EQ(keys(left)[1], 12);
-        EXPECT_EQ(size(children(left)[2].get()), 4);
-        EXPECT_EQ(keys(left)[2], 16);
-        EXPECT_EQ(size(children(left)[3].get()), 4);
-        EXPECT_EQ(keys(left)[3], 20);
-        EXPECT_EQ(keys(left)[4], 24);
+        EXPECT_EQ(keys(left)[0], 4u);
+        EXPECT_EQ(size(children(left)[1].get()), 8u);
+        EXPECT_EQ(keys(left)[1], 12u);
+        EXPECT_EQ(size(children(left)[2].get()), 4u);
+        EXPECT_EQ(keys(left)[2], 16u);
+        EXPECT_EQ(size(children(left)[3].get()), 4u);
+        EXPECT_EQ(keys(left)[3], 20u);
+        EXPECT_EQ(keys(left)[4], 24u);
     }
 
     // Insert into almost-full interior child, then between existing leaves.
@@ -586,15 +586,15 @@ TEST(rope_btree, test_btree_insert_nonfull_extra_ref)
         EXPECT_EQ(new_root->refs_, 1);
         EXPECT_EQ(extra_ref->refs_, 2);
 
-        EXPECT_EQ(num_children(new_root), 3);
+        EXPECT_EQ(num_children(new_root), 3u);
 
         node_ptr<rope_tag> new_right = children(new_root)[2];
         EXPECT_EQ(num_children(new_right), min_children);
 
-        EXPECT_EQ(size(children(new_right)[min_children - 2].get()), 8);
+        EXPECT_EQ(size(children(new_right)[min_children - 2].get()), 8u);
         EXPECT_EQ(
             keys(new_right)[min_children - 2], (min_children - 2) * 5 + 8);
-        EXPECT_EQ(size(children(new_right)[min_children - 1].get()), 5);
+        EXPECT_EQ(size(children(new_right)[min_children - 1].get()), 5u);
         EXPECT_EQ(
             keys(new_right)[min_children - 1], (min_children - 2) * 5 + 8 + 5);
     }
@@ -617,18 +617,18 @@ TEST(rope_btree, test_btree_insert_nonfull_extra_ref)
         EXPECT_EQ(new_root->refs_, 1);
         EXPECT_EQ(extra_ref->refs_, 2);
 
-        EXPECT_EQ(num_children(new_root), 3);
+        EXPECT_EQ(num_children(new_root), 3u);
 
         node_ptr<rope_tag> new_right = children(new_root)[2];
         EXPECT_EQ(num_children(new_right), min_children + 1);
 
-        EXPECT_EQ(size(children(new_right)[min_children - 2].get()), 3);
+        EXPECT_EQ(size(children(new_right)[min_children - 2].get()), 3u);
         EXPECT_EQ(
             keys(new_right)[min_children - 2], (min_children - 2) * 5 + 3);
-        EXPECT_EQ(size(children(new_right)[min_children - 1].get()), 8);
+        EXPECT_EQ(size(children(new_right)[min_children - 1].get()), 8u);
         EXPECT_EQ(
             keys(new_right)[min_children - 1], (min_children - 2) * 5 + 3 + 8);
-        EXPECT_EQ(size(children(new_right)[min_children].get()), 2);
+        EXPECT_EQ(size(children(new_right)[min_children].get()), 2u);
         EXPECT_EQ(
             keys(new_right)[min_children], (min_children - 2) * 5 + 3 + 8 + 2);
     }
@@ -651,18 +651,18 @@ TEST(rope_btree, test_btree_insert_nonfull_extra_ref)
         EXPECT_EQ(new_root->refs_, 1);
         EXPECT_EQ(extra_ref->refs_, 2);
 
-        EXPECT_EQ(num_children(new_root), 3);
+        EXPECT_EQ(num_children(new_root), 3u);
 
         node_ptr<rope_tag> new_right = children(new_root)[2];
         EXPECT_EQ(num_children(new_right), min_children);
 
-        EXPECT_EQ(size(children(new_right)[min_children - 1].get()), 8);
+        EXPECT_EQ(size(children(new_right)[min_children - 1].get()), 8u);
         EXPECT_EQ(
             keys(new_right)[min_children - 1], (min_children - 1) * 5 + 8);
     }
 }
 
-int height_at(node_ptr<rope_tag> const & node, std::ptrdiff_t at)
+int height_at(node_ptr<rope_tag> const & node, std::size_t at)
 {
     found_leaf<rope_tag> found;
     find_leaf(node, at, found);
@@ -674,7 +674,7 @@ void check_leaf_heights(node_ptr<rope_tag> const & node)
     found_leaf<rope_tag> found;
     find_leaf(node, 0, found);
     int const first_leaf_height = (int)found.path_.size();
-    std::ptrdiff_t offset = 0;
+    std::size_t offset = 0;
     while (offset != size(node.get())) {
         EXPECT_EQ(height_at(node, offset), first_leaf_height);
         found_leaf<rope_tag> found_next;
@@ -690,7 +690,7 @@ TEST(rope_btree, test_btree_insert)
         root = btree_insert(root, 0, make_node("new"));
 
         EXPECT_FALSE(root->leaf_);
-        EXPECT_EQ(num_children(root), 2);
+        EXPECT_EQ(num_children(root), 2u);
 
         check_leaf_heights(root);
     }
@@ -700,7 +700,7 @@ TEST(rope_btree, test_btree_insert)
         root = btree_insert(root, 4, make_node("new"));
 
         EXPECT_FALSE(root->leaf_);
-        EXPECT_EQ(num_children(root), 2);
+        EXPECT_EQ(num_children(root), 2u);
 
         check_leaf_heights(root);
     }
@@ -710,7 +710,7 @@ TEST(rope_btree, test_btree_insert)
         root = btree_insert(root, 2, make_node("new"));
 
         EXPECT_FALSE(root->leaf_);
-        EXPECT_EQ(num_children(root), 3);
+        EXPECT_EQ(num_children(root), 3u);
 
         check_leaf_heights(root);
     }
@@ -720,7 +720,7 @@ TEST(rope_btree, test_btree_insert)
             make_interior_with_leaves("child", max_children - 1);
         root = btree_insert(root, 2, make_node("new 1"));
 
-        EXPECT_EQ(num_children(root), 2);
+        EXPECT_EQ(num_children(root), 2u);
 
         check_leaf_heights(root);
     }
@@ -730,7 +730,7 @@ TEST(rope_btree, test_btree_insert)
             make_interior_with_leaves("child", max_children);
         root = btree_insert(root, 2, make_node("new 1"));
 
-        EXPECT_EQ(num_children(root), 2);
+        EXPECT_EQ(num_children(root), 2u);
 
         check_leaf_heights(root);
     }
@@ -763,7 +763,7 @@ TEST(rope_btree, test_btree_insert_extra_ref)
         EXPECT_EQ(extra_ref->refs_, 3);
 
         EXPECT_FALSE(root->leaf_);
-        EXPECT_EQ(num_children(root), 2);
+        EXPECT_EQ(num_children(root), 2u);
 
         check_leaf_heights(root);
     }
@@ -778,7 +778,7 @@ TEST(rope_btree, test_btree_insert_extra_ref)
         EXPECT_EQ(extra_ref->refs_, 3);
 
         EXPECT_FALSE(root->leaf_);
-        EXPECT_EQ(num_children(root), 2);
+        EXPECT_EQ(num_children(root), 2u);
 
         check_leaf_heights(root);
     }
@@ -793,7 +793,7 @@ TEST(rope_btree, test_btree_insert_extra_ref)
         EXPECT_EQ(extra_ref->refs_, 4);
 
         EXPECT_FALSE(root->leaf_);
-        EXPECT_EQ(num_children(root), 3);
+        EXPECT_EQ(num_children(root), 3u);
 
         check_leaf_heights(root);
     }
@@ -808,7 +808,7 @@ TEST(rope_btree, test_btree_insert_extra_ref)
         EXPECT_EQ(root->refs_, 1);
         EXPECT_EQ(extra_ref->refs_, 2);
 
-        EXPECT_EQ(num_children(root), 2);
+        EXPECT_EQ(num_children(root), 2u);
 
         check_leaf_heights(root);
     }
@@ -823,7 +823,7 @@ TEST(rope_btree, test_btree_insert_extra_ref)
         EXPECT_EQ(root->refs_, 1);
         EXPECT_EQ(extra_ref->refs_, 2);
 
-        EXPECT_EQ(num_children(root), 2);
+        EXPECT_EQ(num_children(root), 2u);
 
         check_leaf_heights(root);
     }
@@ -854,53 +854,53 @@ TEST(rope_btree, test_btree_erase_entire_node_leaf_children)
     {
         node_ptr<rope_tag> root = make_interior_with_leaves("leaf", 3);
 
-        EXPECT_EQ(num_children(root), 3);
+        EXPECT_EQ(num_children(root), 3u);
 
         root = btree_erase(root, 0, children(root)[0].as_leaf());
 
-        EXPECT_EQ(keys(root)[0], 4);
-        EXPECT_EQ(size(children(root)[0].get()), 4);
-        EXPECT_EQ(keys(root)[1], 8);
-        EXPECT_EQ(size(children(root)[1].get()), 4);
+        EXPECT_EQ(keys(root)[0], 4u);
+        EXPECT_EQ(size(children(root)[0].get()), 4u);
+        EXPECT_EQ(keys(root)[1], 8u);
+        EXPECT_EQ(size(children(root)[1].get()), 4u);
     }
 
     {
         node_ptr<rope_tag> root = make_interior_with_leaves("leaf", 3);
 
-        EXPECT_EQ(num_children(root), 3);
+        EXPECT_EQ(num_children(root), 3u);
 
         root = btree_erase(root, 4, children(root)[1].as_leaf());
 
-        EXPECT_EQ(keys(root)[0], 4);
-        EXPECT_EQ(size(children(root)[0].get()), 4);
-        EXPECT_EQ(keys(root)[1], 8);
-        EXPECT_EQ(size(children(root)[1].get()), 4);
+        EXPECT_EQ(keys(root)[0], 4u);
+        EXPECT_EQ(size(children(root)[0].get()), 4u);
+        EXPECT_EQ(keys(root)[1], 8u);
+        EXPECT_EQ(size(children(root)[1].get()), 4u);
     }
 
     {
         node_ptr<rope_tag> root = make_interior_with_leaves("leaf", 3);
 
-        EXPECT_EQ(num_children(root), 3);
+        EXPECT_EQ(num_children(root), 3u);
 
         root = btree_erase(root, 8, children(root)[2].as_leaf());
 
-        EXPECT_EQ(keys(root)[0], 4);
-        EXPECT_EQ(size(children(root)[0].get()), 4);
-        EXPECT_EQ(keys(root)[1], 8);
-        EXPECT_EQ(size(children(root)[1].get()), 4);
+        EXPECT_EQ(keys(root)[0], 4u);
+        EXPECT_EQ(size(children(root)[0].get()), 4u);
+        EXPECT_EQ(keys(root)[1], 8u);
+        EXPECT_EQ(size(children(root)[1].get()), 4u);
     }
 
     {
         node_ptr<rope_tag> root = make_interior_with_leaves("leaf", 3);
 
-        EXPECT_EQ(num_children(root), 3);
+        EXPECT_EQ(num_children(root), 3u);
 
         root = btree_erase(root, 12, children(root)[2].as_leaf());
 
-        EXPECT_EQ(keys(root)[0], 4);
-        EXPECT_EQ(size(children(root)[0].get()), 4);
-        EXPECT_EQ(keys(root)[1], 8);
-        EXPECT_EQ(size(children(root)[1].get()), 4);
+        EXPECT_EQ(keys(root)[0], 4u);
+        EXPECT_EQ(size(children(root)[0].get()), 4u);
+        EXPECT_EQ(keys(root)[1], 8u);
+        EXPECT_EQ(size(children(root)[1].get()), 4u);
     }
 
 
@@ -916,12 +916,12 @@ TEST(rope_btree, test_btree_erase_entire_node_leaf_children)
                 int_root->keys_.back() + size(int_root->children_[1].get()));
         }
 
-        EXPECT_EQ(num_children(root), 2);
+        EXPECT_EQ(num_children(root), 2u);
 
         root = btree_erase(root, 0, children(root)[0].as_leaf());
 
         EXPECT_TRUE(root->leaf_);
-        EXPECT_EQ(size(root.get()), 5);
+        EXPECT_EQ(size(root.get()), 5u);
     }
 
     {
@@ -936,12 +936,12 @@ TEST(rope_btree, test_btree_erase_entire_node_leaf_children)
                 int_root->keys_.back() + size(int_root->children_[1].get()));
         }
 
-        EXPECT_EQ(num_children(root), 2);
+        EXPECT_EQ(num_children(root), 2u);
 
         root = btree_erase(root, 4, children(root)[1].as_leaf());
 
         EXPECT_TRUE(root->leaf_);
-        EXPECT_EQ(size(root.get()), 4);
+        EXPECT_EQ(size(root.get()), 4u);
     }
 
     {
@@ -956,12 +956,12 @@ TEST(rope_btree, test_btree_erase_entire_node_leaf_children)
                 int_root->keys_.back() + size(int_root->children_[1].get()));
         }
 
-        EXPECT_EQ(num_children(root), 2);
+        EXPECT_EQ(num_children(root), 2u);
 
         root = btree_erase(root, 9, children(root)[1].as_leaf());
 
         EXPECT_TRUE(root->leaf_);
-        EXPECT_EQ(size(root.get()), 4);
+        EXPECT_EQ(size(root.get()), 4u);
     }
 }
 
@@ -972,17 +972,17 @@ TEST(rope_btree, test_btree_erase_entire_node_leaf_children_extra_ref)
         node_ptr<rope_tag> extra_ref = root;
         node_ptr<rope_tag> extra_ref_2 = root;
 
-        EXPECT_EQ(num_children(root), 3);
+        EXPECT_EQ(num_children(root), 3u);
 
         root = btree_erase(root, 0, children(root)[0].as_leaf());
 
         EXPECT_EQ(root->refs_, 1);
         EXPECT_EQ(extra_ref->refs_, 2);
 
-        EXPECT_EQ(keys(root)[0], 4);
-        EXPECT_EQ(size(children(root)[0].get()), 4);
-        EXPECT_EQ(keys(root)[1], 8);
-        EXPECT_EQ(size(children(root)[1].get()), 4);
+        EXPECT_EQ(keys(root)[0], 4u);
+        EXPECT_EQ(size(children(root)[0].get()), 4u);
+        EXPECT_EQ(keys(root)[1], 8u);
+        EXPECT_EQ(size(children(root)[1].get()), 4u);
     }
 
     {
@@ -990,17 +990,17 @@ TEST(rope_btree, test_btree_erase_entire_node_leaf_children_extra_ref)
         node_ptr<rope_tag> extra_ref = root;
         node_ptr<rope_tag> extra_ref_2 = root;
 
-        EXPECT_EQ(num_children(root), 3);
+        EXPECT_EQ(num_children(root), 3u);
 
         root = btree_erase(root, 4, children(root)[1].as_leaf());
 
         EXPECT_EQ(root->refs_, 1);
         EXPECT_EQ(extra_ref->refs_, 2);
 
-        EXPECT_EQ(keys(root)[0], 4);
-        EXPECT_EQ(size(children(root)[0].get()), 4);
-        EXPECT_EQ(keys(root)[1], 8);
-        EXPECT_EQ(size(children(root)[1].get()), 4);
+        EXPECT_EQ(keys(root)[0], 4u);
+        EXPECT_EQ(size(children(root)[0].get()), 4u);
+        EXPECT_EQ(keys(root)[1], 8u);
+        EXPECT_EQ(size(children(root)[1].get()), 4u);
     }
 
     {
@@ -1008,17 +1008,17 @@ TEST(rope_btree, test_btree_erase_entire_node_leaf_children_extra_ref)
         node_ptr<rope_tag> extra_ref = root;
         node_ptr<rope_tag> extra_ref_2 = root;
 
-        EXPECT_EQ(num_children(root), 3);
+        EXPECT_EQ(num_children(root), 3u);
 
         root = btree_erase(root, 8, children(root)[2].as_leaf());
 
         EXPECT_EQ(root->refs_, 1);
         EXPECT_EQ(extra_ref->refs_, 2);
 
-        EXPECT_EQ(keys(root)[0], 4);
-        EXPECT_EQ(size(children(root)[0].get()), 4);
-        EXPECT_EQ(keys(root)[1], 8);
-        EXPECT_EQ(size(children(root)[1].get()), 4);
+        EXPECT_EQ(keys(root)[0], 4u);
+        EXPECT_EQ(size(children(root)[0].get()), 4u);
+        EXPECT_EQ(keys(root)[1], 8u);
+        EXPECT_EQ(size(children(root)[1].get()), 4u);
     }
 
     {
@@ -1026,17 +1026,17 @@ TEST(rope_btree, test_btree_erase_entire_node_leaf_children_extra_ref)
         node_ptr<rope_tag> extra_ref = root;
         node_ptr<rope_tag> extra_ref_2 = root;
 
-        EXPECT_EQ(num_children(root), 3);
+        EXPECT_EQ(num_children(root), 3u);
 
         root = btree_erase(root, 12, children(root)[2].as_leaf());
 
         EXPECT_EQ(root->refs_, 1);
         EXPECT_EQ(extra_ref->refs_, 2);
 
-        EXPECT_EQ(keys(root)[0], 4);
-        EXPECT_EQ(size(children(root)[0].get()), 4);
-        EXPECT_EQ(keys(root)[1], 8);
-        EXPECT_EQ(size(children(root)[1].get()), 4);
+        EXPECT_EQ(keys(root)[0], 4u);
+        EXPECT_EQ(size(children(root)[0].get()), 4u);
+        EXPECT_EQ(keys(root)[1], 8u);
+        EXPECT_EQ(size(children(root)[1].get()), 4u);
     }
 
 
@@ -1053,14 +1053,14 @@ TEST(rope_btree, test_btree_erase_entire_node_leaf_children_extra_ref)
         }
         node_ptr<rope_tag> extra_ref = root;
 
-        EXPECT_EQ(num_children(root), 2);
+        EXPECT_EQ(num_children(root), 2u);
 
         root = btree_erase(root, 0, children(root)[0].as_leaf());
 
         EXPECT_NE(root.get(), extra_ref.get());
 
         EXPECT_TRUE(root->leaf_);
-        EXPECT_EQ(size(root.get()), 5);
+        EXPECT_EQ(size(root.get()), 5u);
     }
 
     {
@@ -1076,14 +1076,14 @@ TEST(rope_btree, test_btree_erase_entire_node_leaf_children_extra_ref)
         }
         node_ptr<rope_tag> extra_ref = root;
 
-        EXPECT_EQ(num_children(root), 2);
+        EXPECT_EQ(num_children(root), 2u);
 
         root = btree_erase(root, 4, children(root)[1].as_leaf());
 
         EXPECT_NE(root.get(), extra_ref.get());
 
         EXPECT_TRUE(root->leaf_);
-        EXPECT_EQ(size(root.get()), 4);
+        EXPECT_EQ(size(root.get()), 4u);
     }
 
     {
@@ -1099,14 +1099,14 @@ TEST(rope_btree, test_btree_erase_entire_node_leaf_children_extra_ref)
         }
         node_ptr<rope_tag> extra_ref = root;
 
-        EXPECT_EQ(num_children(root), 2);
+        EXPECT_EQ(num_children(root), 2u);
 
         root = btree_erase(root, 9, children(root)[1].as_leaf());
 
         EXPECT_NE(root.get(), extra_ref.get());
 
         EXPECT_TRUE(root->leaf_);
-        EXPECT_EQ(size(root.get()), 4);
+        EXPECT_EQ(size(root.get()), 4u);
     }
 }
 
@@ -1131,7 +1131,7 @@ TEST(rope_btree, test_btree_erase_entire_node_interior_children)
         left = children(root)[0];
         right = children(root)[1];
 
-        EXPECT_EQ(num_children(root), 2);
+        EXPECT_EQ(num_children(root), 2u);
         EXPECT_EQ(num_children(left), min_children);
         EXPECT_EQ(num_children(right), max_children - 2);
 
@@ -1156,7 +1156,7 @@ TEST(rope_btree, test_btree_erase_entire_node_interior_children)
         left = children(root)[0];
         right = children(root)[1];
 
-        EXPECT_EQ(num_children(root), 2);
+        EXPECT_EQ(num_children(root), 2u);
         EXPECT_EQ(num_children(left), min_children);
         EXPECT_EQ(num_children(right), max_children - 2);
 
@@ -1183,7 +1183,7 @@ TEST(rope_btree, test_btree_erase_entire_node_interior_children)
         left = children(root)[0];
         right = children(root)[1];
 
-        EXPECT_EQ(num_children(root), 2);
+        EXPECT_EQ(num_children(root), 2u);
         EXPECT_EQ(num_children(left), min_children);
         EXPECT_EQ(num_children(right), max_children - 1);
 
@@ -1211,7 +1211,7 @@ TEST(rope_btree, test_btree_erase_entire_node_interior_children)
         left = children(root)[0];
         right = children(root)[1];
 
-        EXPECT_EQ(num_children(root), 2);
+        EXPECT_EQ(num_children(root), 2u);
         EXPECT_EQ(num_children(left), min_children);
         EXPECT_EQ(num_children(right), max_children - 1);
 
@@ -1241,7 +1241,7 @@ TEST(rope_btree, test_btree_erase_entire_node_interior_children)
         left = children(root)[0];
         right = children(root)[1];
 
-        EXPECT_EQ(num_children(root), 2);
+        EXPECT_EQ(num_children(root), 2u);
         EXPECT_EQ(num_children(left), max_children - 1);
         EXPECT_EQ(num_children(right), min_children);
 
@@ -1269,7 +1269,7 @@ TEST(rope_btree, test_btree_erase_entire_node_interior_children)
         left = children(root)[0];
         right = children(root)[1];
 
-        EXPECT_EQ(num_children(root), 2);
+        EXPECT_EQ(num_children(root), 2u);
         EXPECT_EQ(num_children(left), max_children - 1);
         EXPECT_EQ(num_children(right), min_children);
 
@@ -1296,8 +1296,8 @@ TEST(rope_btree, test_btree_erase_entire_node_interior_children)
 
         EXPECT_EQ(num_children(root), max_children - 1);
 
-        int i = 0;
-        std::ptrdiff_t sz = 0;
+        std::size_t i = 0;
+        std::size_t sz = 0;
         for (; i < min_children - 1; ++i) {
             sz += size(children(root)[i].get());
             EXPECT_EQ(keys(root)[i], sz) << "i=" << i;
@@ -1322,8 +1322,8 @@ TEST(rope_btree, test_btree_erase_entire_node_interior_children)
 
         EXPECT_EQ(num_children(root), max_children - 1);
 
-        int i = 0;
-        std::ptrdiff_t sz = 0;
+        std::size_t i = 0;
+        std::size_t sz = 0;
         for (; i < min_children; ++i) {
             sz += size(children(root)[i].get());
             EXPECT_EQ(keys(root)[i], sz) << "i=" << i;
@@ -1356,7 +1356,7 @@ TEST(rope_btree, test_btree_erase_entire_node_interior_children)
             root = btree_erase(root, 0, children(left).front().as_leaf());
         }
 
-        EXPECT_EQ(num_children(root), 2);
+        EXPECT_EQ(num_children(root), 2u);
 
         node_ptr<rope_tag> left = children(root)[0];
         node_ptr<rope_tag> right = children(root)[1];
@@ -1390,7 +1390,7 @@ TEST(rope_btree, test_btree_erase_entire_node_interior_children)
                 root, min_children * 4, children(center).front().as_leaf());
         }
 
-        EXPECT_EQ(num_children(root), 2);
+        EXPECT_EQ(num_children(root), 2u);
 
         node_ptr<rope_tag> left = children(root)[0];
         node_ptr<rope_tag> right = children(root)[1];
@@ -1424,7 +1424,7 @@ TEST(rope_btree, test_btree_erase_entire_node_interior_children)
                 root, size(root.get()), children(right).back().as_leaf());
         }
 
-        EXPECT_EQ(num_children(root), 2);
+        EXPECT_EQ(num_children(root), 2u);
 
         node_ptr<rope_tag> left = children(root)[0];
         node_ptr<rope_tag> right = children(root)[1];
@@ -1456,7 +1456,7 @@ TEST(rope_btree, test_btree_erase)
         root = btree_erase(root, 0, 8);
 
         EXPECT_TRUE(root->leaf_);
-        EXPECT_EQ(size(root.get()), 1);
+        EXPECT_EQ(size(root.get()), 1u);
     }
 
     {
@@ -1465,7 +1465,7 @@ TEST(rope_btree, test_btree_erase)
         root = btree_erase(root, 1, 8);
 
         EXPECT_FALSE(root->leaf_);
-        EXPECT_EQ(size(root.get()), 2);
+        EXPECT_EQ(size(root.get()), 2u);
     }
 
     // Erasure from non-leaf nodes, entire segments only
@@ -1485,7 +1485,7 @@ TEST(rope_btree, test_btree_erase)
         left = children(root)[0];
         right = children(root)[1];
 
-        EXPECT_EQ(num_children(root), 2);
+        EXPECT_EQ(num_children(root), 2u);
         EXPECT_EQ(num_children(left), max_children - 1);
         EXPECT_EQ(num_children(right), max_children);
 
@@ -1510,7 +1510,7 @@ TEST(rope_btree, test_btree_erase)
         left = children(root)[0];
         right = children(root)[1];
 
-        EXPECT_EQ(num_children(root), 2);
+        EXPECT_EQ(num_children(root), 2u);
         EXPECT_EQ(num_children(left), max_children);
         EXPECT_EQ(num_children(right), max_children - 1);
 
@@ -1532,8 +1532,8 @@ TEST(rope_btree, test_btree_erase)
     std::cout << "Initial size of tree used in the erase tests: " << tree_size
               << "\n";
 
-    for (std::ptrdiff_t i = 0; i < tree_size; ++i) {
-        for (std::ptrdiff_t j = i + 1; j < tree_size; ++j) {
+    for (std::size_t i = 0; i < tree_size; ++i) {
+        for (std::size_t j = i + 1; j < tree_size; ++j) {
             node_ptr<rope_tag> root =
                 make_tree_left_right<max_children, max_children>();
             std::string str(tree_string);
@@ -1543,7 +1543,7 @@ TEST(rope_btree, test_btree_erase)
 
             unencoded_rope const r(root);
 
-            EXPECT_EQ(size(root.get()), (std::ptrdiff_t)str.size())
+            EXPECT_EQ(size(root.get()), str.size())
                 << "i=" << i << " j=" << j;
             EXPECT_TRUE(std::equal(str.begin(), str.end(), r.begin()))
                 << "i=" << i << " j=" << j;

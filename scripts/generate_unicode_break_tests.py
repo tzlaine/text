@@ -142,7 +142,7 @@ bidi_test_form = '''
         for (int idx : expected_reordered_indices) {{
             // Skip FSI, LRI, RLI, and PDI.
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {{
-                EXPECT_EQ(reordered[i], cps[idx])
+                EXPECT_EQ(reordered[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered[i]
                     << " 0x" << cps[idx]
@@ -161,7 +161,7 @@ bidi_test_form = '''
         i = 0;
         for (int idx : expected_reordered_indices) {{
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {{
-                EXPECT_EQ(reordered_2[i], cps[idx])
+                EXPECT_EQ(reordered_2[i], (int)cps[idx])
                     << std::hex
                     << " 0x" << reordered_2[i]
                     << " 0x" << cps[idx]
@@ -221,7 +221,7 @@ bidi_character_test_form = '''
             bidi_reordered_indices(cps.begin(), cps.end(), {1});
         i = 0;
         for (int idx : expected_reordered_indices) {{
-            EXPECT_EQ(reordered[i], cps[idx])
+            EXPECT_EQ(reordered[i], (int)cps[idx])
                 << std::hex
                 << " 0x" << reordered[i]
                 << " 0x" << cps[idx]
