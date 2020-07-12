@@ -519,7 +519,9 @@ namespace boost { namespace text { inline namespace v1 {
         };
 
         string_insertion mutable_insertion_leaf(
-            size_type at, size_type delta, allocation_note_t allocation_note)
+            size_type at,
+            std::ptrdiff_t delta,
+            allocation_note_t allocation_note)
         {
             if (!ptr_)
                 return string_insertion{nullptr};
@@ -828,7 +830,7 @@ namespace boost { namespace text { inline namespace v1 {
             rv = rv(0, -1);
 
         if (string_insertion insertion = mutable_insertion_leaf(
-                rope_ref.lo_, -rv.size(), would_not_allocate)) {
+                rope_ref.lo_, -(std::ptrdiff_t)rv.size(), would_not_allocate)) {
             auto const rv_size = rv.size();
             detail::bump_along_path_to_leaf(ptr_, rope_ref.lo_, -rv_size);
             auto const erase_first =
@@ -854,8 +856,8 @@ namespace boost { namespace text { inline namespace v1 {
 
         auto const lo = first - begin();
         auto const hi = last - begin();
-        if (string_insertion insertion =
-                mutable_insertion_leaf(lo, -(hi - lo), would_not_allocate)) {
+        if (string_insertion insertion = mutable_insertion_leaf(
+                lo, -std::ptrdiff_t(hi - lo), would_not_allocate)) {
             auto const size = hi - lo;
             detail::bump_along_path_to_leaf(ptr_, lo, -size);
             auto const erase_first =
