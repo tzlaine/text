@@ -60,6 +60,11 @@ namespace boost { namespace text { inline namespace v1 {
         /** Constructs a rope from a null-terminated string. */
         rope(char const * c_str);
 
+#if defined(__cpp_char8_t)
+        /** Constructs a rope from a null-terminated string. */
+        rope(char8_t const * c_str);
+#endif
+
         /** Constructs a rope from a string_view. */
         explicit rope(string_view sv);
 
@@ -104,6 +109,11 @@ namespace boost { namespace text { inline namespace v1 {
 
         /** Assignment from a null-terminated string. */
         rope & operator=(char const * c_str);
+
+#if defined(__cpp_char8_t)
+        /** Assignment from a null-terminated string. */
+        rope & operator=(char8_t const * c_str);
+#endif
 
         /** Assignment from a rope_view. */
         rope & operator=(rope_view rv);
@@ -172,6 +182,12 @@ namespace boost { namespace text { inline namespace v1 {
         /** Inserts the sequence of char from c_str into *this starting at
             position at. */
         const_iterator insert(const_iterator at, char const * c_str);
+
+#if defined(__cpp_char8_t)
+        /** Inserts the sequence of char from c_str into *this starting at
+            position at. */
+        const_iterator insert(const_iterator at, char8_t const * c_str);
+#endif
 
         /** Inserts the sequence of char from rv into *this starting at position
             at. */
@@ -298,6 +314,16 @@ namespace boost { namespace text { inline namespace v1 {
             old_substr.end().base().base()) */
         rope & replace(rope_view old_substr, char const * c_str);
 
+#if defined(__cpp_char8_t)
+        /** Replaces the portion of *this delimited by old_substr with the
+            sequence of char from c_str.
+
+            \pre !std::less(old_substr.begin().base().base(),
+            begin().base().base()) && !std::less(end().base().base(),
+            old_substr.end().base().base()) */
+        rope & replace(rope_view old_substr, char8_t const * c_str);
+#endif
+
         /** Replaces the portion of *this delimited by old_substr with the
             sequence [first, last).
 
@@ -320,6 +346,11 @@ namespace boost { namespace text { inline namespace v1 {
 
         /** Appends c_str to *this. */
         rope & operator+=(char const * c_str);
+
+#if defined(__cpp_char8_t)
+        /** Appends c_str to *this. */
+        rope & operator+=(char8_t const * c_str);
+#endif
 
         /** Appends rv to *this. */
         rope & operator+=(rope_view rv);
@@ -478,6 +509,10 @@ namespace boost { namespace text { inline namespace v1 {
 
     inline rope::rope(char const * c_str) : rope_(text(c_str).extract()) {}
 
+#if defined(__cpp_char8_t)
+    inline rope::rope(char8_t const * c_str) : rope((char const *)c_str) {}
+#endif
+
     inline rope::rope(rope_view rv) :
         rope_(rv.begin().base().base(), rv.end().base().base())
     {}
@@ -507,6 +542,13 @@ namespace boost { namespace text { inline namespace v1 {
         swap(temp);
         return *this;
     }
+
+#if defined(__cpp_char8_t)
+    inline rope & rope::operator=(char8_t const * c_str)
+    {
+        return *this = (char const *)c_str;
+    }
+#endif
 
     inline rope & rope::operator=(rope_view rv)
     {
@@ -602,6 +644,14 @@ namespace boost { namespace text { inline namespace v1 {
     {
         return insert_impl(at, std::string(c_str), false);
     }
+
+#if defined(__cpp_char8_t)
+    inline rope::const_iterator
+    rope::insert(const_iterator at, char8_t const * c_str)
+    {
+        return insert_impl(at, std::string((char const *)c_str), false);
+    }
+#endif
 
     inline rope::const_iterator rope::insert(const_iterator at, rope_view rv)
     {
@@ -729,6 +779,13 @@ namespace boost { namespace text { inline namespace v1 {
         return *this;
     }
 
+#if defined(__cpp_char8_t)
+    inline rope & rope::replace(rope_view old_substr, char8_t const * str)
+    {
+        return replace(old_substr, (char const *)str);
+    }
+#endif
+
     template<typename CharIter, typename Sentinel>
     auto rope::replace(rope_view old_substr, CharIter first, Sentinel last)
         -> detail::char_iter_ret_t<rope &, CharIter>
@@ -759,6 +816,13 @@ namespace boost { namespace text { inline namespace v1 {
     {
         return *this += string_view(c_str);
     }
+
+#if defined(__cpp_char8_t)
+    inline rope & rope::operator+=(char8_t const * c_str)
+    {
+        return *this += string_view((char const *)c_str);
+    }
+#endif
 
     inline rope & rope::operator+=(rope_view rv)
     {
@@ -1007,6 +1071,20 @@ namespace boost { namespace text { inline namespace v1 {
     {
         return rope(c_str) += r;
     }
+
+#if defined(__cpp_char8_t)
+    /** Creates a new rope object that is the concatenation of r and c_str. */
+    inline rope operator+(rope t, char8_t const * c_str)
+    {
+        return t += (char const *)c_str;
+    }
+
+    /** Creates a new rope object that is the concatenation of c_str and r. */
+    inline rope operator+(char8_t const * c_str, rope const & r)
+    {
+        return rope((char const *)c_str) += r;
+    }
+#endif
 
     /** Creates a new rope object that is the concatenation of r and r2. */
     inline rope operator+(rope r, rope const & r2) { return r += r2; }

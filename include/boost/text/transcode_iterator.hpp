@@ -596,6 +596,8 @@ namespace boost { namespace text { inline namespace v1 {
             ValueType>;
     }
 
+    // TODO: Templateize and concept constrain for C++20.  The constaint
+    // should be any 8-bit integral.
     /** Returns the first code unit in [first, last) that is not properly
         UTF-8 encoded, or last if no such code unit is found.
 
@@ -617,6 +619,8 @@ namespace boost { namespace text { inline namespace v1 {
         return last;
     }
 
+    // TODO: Concept constrain for C++20.  The constaint should be any 16-bit
+    // integral.
     /** Returns the first code unit in [first, last) that is not properly
         UTF-16 encoded, or last if no such code unit is found.
 
@@ -639,6 +643,8 @@ namespace boost { namespace text { inline namespace v1 {
         return last;
     }
 
+    // TODO: Templateize and concept constrain for C++20.  The constaint
+    // should be any 8-bit integral.
     /** Returns true if [first, last) is properly UTF-8 encoded, or false
         otherwise.
 
@@ -649,6 +655,8 @@ namespace boost { namespace text { inline namespace v1 {
         return boost::text::v1::find_invalid_encoding(first, last) == last;
     }
 
+    // TODO: Concept constrain for C++20.  The constaint should be any 16-bit
+    // integral.
     /** Returns true if [first, last) is properly UTF-16 encoded, or false
         otherwise.
 
@@ -660,6 +668,8 @@ namespace boost { namespace text { inline namespace v1 {
         return boost::text::v1::find_invalid_encoding(first, last) == last;
     }
 
+    // TODO: Templateize and concept constrain for C++20.  The constaint
+    // should be any 8-bit integral.
     /** Returns true if [first, last) is empty or the initial code units in
         [first, last) form a valid Unicode code point, or false otherwise.
 
@@ -677,6 +687,7 @@ namespace boost { namespace text { inline namespace v1 {
         return !detail::end_of_invalid_utf8(first);
     }
 
+    // TODO: Concept constrain for C++20.  The constaint should be any 16-bit
     /** Returns true if [first, last) is empty or the initial code units in
         [first, last) form a valid Unicode code point, or false otherwise.
 
@@ -695,6 +706,8 @@ namespace boost { namespace text { inline namespace v1 {
         return cp_units == 1 || boost::text::v1::low_surrogate(*(first + 1));
     }
 
+    // TODO: Templateize and concept constrain for C++20.  The constaint
+    // should be any 8-bit integral.
     /** Returns true if [first, last) is empty or the final code units in
         [first, last) form a valid Unicode code point, or false otherwise.
 
@@ -712,6 +725,8 @@ namespace boost { namespace text { inline namespace v1 {
         return starts_encoded(it, last);
     }
 
+    // TODO: Concept constrain for C++20.  The constaint should be any 16-bit
+    // integral.
     /** Returns true if [first, last) is empty or the final code units in
         [first, last) form a valid Unicode code point, or false otherwise.
 
@@ -730,6 +745,8 @@ namespace boost { namespace text { inline namespace v1 {
         return starts_encoded(it, last);
     }
 
+    // TODO: Concept constrain for C++20.  The constaint should be any 8-bit
+    // integral.
     /** Returns true if [first, last) is empty or the initial code units in
         [first, last) form a valid Unicode code point, or false otherwise. */
     template<typename Iter>
@@ -752,6 +769,8 @@ namespace boost { namespace text { inline namespace v1 {
         return !detail::end_of_invalid_utf8(buf);
     }
 
+    // TODO: Concept constrain for C++20.  The constaint should be any 16-bit
+    // integral.
     /** Returns true if [first, last) is empty or the initial code units in
         [first, last) form a valid Unicode code point, or false otherwise. */
     template<typename Iter>
@@ -768,6 +787,8 @@ namespace boost { namespace text { inline namespace v1 {
         return cp_units == 1 || boost::text::v1::low_surrogate(*(first + 1));
     }
 
+    // TODO: Concept constrain for C++20.  The constaint should be any 8-bit
+    // integral.
     /** Returns true if [first, last) is empty or the final code units in
         [first, last) form a valid Unicode code point, or false otherwise. */
     template<typename Iter>
@@ -783,6 +804,8 @@ namespace boost { namespace text { inline namespace v1 {
         return boost::text::v1::starts_encoded(it, last);
     }
 
+    // TODO: Concept constrain for C++20.  The constaint should be any 16-bit
+    // integral.
     /** Returns true if [first, last) is empty or the final code units in
         [first, last) form a valid Unicode code point, or false otherwise. */
     template<typename Iter>

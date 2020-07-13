@@ -68,6 +68,11 @@ namespace boost { namespace text { inline namespace v1 {
         /** Forbid construction from a temporary string. */
         unencoded_rope_view(std::string && r) noexcept = delete;
 
+#if defined(__cpp_lib_char8_t)
+        /** Forbid construction from a temporary string. */
+        unencoded_rope_view(std::u8string && r) noexcept = delete;
+#endif
+
         /** Constructs a substring of s, taken from the range of chars at
             offsets [lo, hi).  If either of lo or hi is a negative value x, x
             is taken to be an offset from the end, and so x + size() is used
@@ -218,6 +223,11 @@ namespace boost { namespace text { inline namespace v1 {
 
         /** Forbid assignment from a string. */
         unencoded_rope_view & operator=(std::string && s) noexcept = delete;
+
+#if defined(__cpp_lib_char8_t)
+        /** Forbid assignment from a string. */
+        unencoded_rope_view & operator=(std::u8string && s) noexcept = delete;
+#endif
 
         /** Assignment from a null-terminated C string.
 

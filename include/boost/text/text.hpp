@@ -66,6 +66,11 @@ namespace boost { namespace text { inline namespace v1 {
         /** Constructs a text from a null-terminated string. */
         text(char const * c_str);
 
+#if defined(__cpp_char8_t)
+        /** Constructs a text from a null-terminated string. */
+        text(char8_t const * c_str);
+#endif
+
         /** Constructs a text from a string. */
         explicit text(std::string s);
 
@@ -119,6 +124,11 @@ namespace boost { namespace text { inline namespace v1 {
 #endif
         /** Assignment from a null-terminated string. */
         text & operator=(char const * c_str);
+
+#if defined(__cpp_char8_t)
+        /** Assignment from a null-terminated string. */
+        text & operator=(char8_t const * c_str);
+#endif
 
         /** Assignment from a string. */
         text & operator=(std::string s);
@@ -231,6 +241,12 @@ namespace boost { namespace text { inline namespace v1 {
             position at. */
         iterator insert(iterator at, char const * c_str);
 
+#if defined(__cpp_char8_t)
+        /** Inserts the sequence of char from c_str into *this starting at
+            position at. */
+        iterator insert(iterator at, char8_t const * c_str);
+#endif
+
         /** Inserts the sequence of char from t into *this starting at
             position at. */
         iterator insert(iterator at, text const & t);
@@ -305,6 +321,16 @@ namespace boost { namespace text { inline namespace v1 {
             begin().base().base()) && !std::less(end().base().base(),
             old_substr.end().base().base()) */
         text & replace(text_view old_substr, char const * new_substr);
+
+#if defined(__cpp_char8_t)
+        /** Replaces the portion of *this delimited by old_substr with the
+            sequence of char from new_substr.
+
+            \pre !std::less(old_substr.begin().base().base(),
+            begin().base().base()) && !std::less(end().base().base(),
+            old_substr.end().base().base()) */
+        text & replace(text_view old_substr, char8_t const * new_substr);
+#endif
 
         /** Replaces the portion of *this delimited by old_substr with the
             sequence of char from new_substr.
@@ -410,6 +436,11 @@ namespace boost { namespace text { inline namespace v1 {
 
         /** Appends c_str to *this. */
         text & operator+=(char const * c_str);
+
+#if defined(__cpp_char8_t)
+        /** Appends c_str to *this. */
+        text & operator+=(char8_t const * c_str);
+#endif
 
         /** Appends tv to *this. */
         text & operator+=(string_view sv);
@@ -614,12 +645,19 @@ namespace boost { namespace text { inline namespace v1 {
 namespace boost { namespace text { inline namespace v1 {
 
     namespace literals {
-
         /** Creates a text from a char string literal. */
         inline text operator"" _t(char const * str, std::size_t len)
         {
             return text(str, str + len);
         }
+
+#if defined(__cpp_char8_t)
+        /** Creates a text from a char8_t string literal. */
+        inline text operator"" _t(char8_t const * str, std::size_t len)
+        {
+            return text(str, str + len);
+        }
+#endif
     }
 
 #ifndef BOOST_TEXT_DOXYGEN
@@ -636,6 +674,13 @@ namespace boost { namespace text { inline namespace v1 {
     {
         normalize<nf::fcc>(str_);
     }
+
+#if defined(__cpp_char8_t)
+    inline text::text(char8_t const * c_str) : str_((char const *)c_str)
+    {
+        normalize<nf::fcc>(str_);
+    }
+#endif
 
     inline text::text(std::string s) : str_(std::move(s))
     {
@@ -684,6 +729,13 @@ namespace boost { namespace text { inline namespace v1 {
         normalize<nf::fcc>(str_);
         return *this;
     }
+
+#if defined(__cpp_char8_t)
+    inline text & text::operator=(char8_t const * c_str)
+    {
+        return *this = (char const *)c_str;
+    }
+#endif
 
     inline text & text::operator=(std::string s)
     {
@@ -743,6 +795,13 @@ namespace boost { namespace text { inline namespace v1 {
         return insert(at, string_view(c_str));
     }
 
+#if defined(__cpp_char8_t)
+    inline text::iterator text::insert(iterator at, char8_t const * c_str)
+    {
+        return insert(at, string_view((char const *)c_str));
+    }
+#endif
+
     inline text::iterator text::insert(iterator at, text const & t)
     {
         return insert_impl(at, string_view(t.str_), true);
@@ -800,6 +859,15 @@ namespace boost { namespace text { inline namespace v1 {
         return replace_impl(old_substr, string_view(new_substr), false);
     }
 
+#if defined(__cpp_char8_t)
+    inline text &
+    text::replace(text_view old_substr, char8_t const * new_substr)
+    {
+        return replace_impl(
+            old_substr, string_view((char const *)new_substr), false);
+    }
+#endif
+
     inline text & text::replace(text_view old_substr, text const & new_substr)
     {
         return replace_impl(
@@ -851,6 +919,13 @@ namespace boost { namespace text { inline namespace v1 {
     {
         return operator+=(string_view(c_str));
     }
+
+#if defined(__cpp_char8_t)
+    inline text & text::operator+=(char8_t const * c_str)
+    {
+        return operator+=(string_view((char const *)c_str));
+    }
+#endif
 
     inline text & text::operator+=(string_view sv)
     {
@@ -1047,6 +1122,18 @@ namespace boost { namespace text { inline namespace v1 {
     inline bool
     operator!=(char const * lhs, text const & rhs) noexcept = delete;
 
+#if defined(__cpp_char8_t)
+    inline bool
+    operator==(text const & lhs, char8_t const * rhs) noexcept = delete;
+    inline bool
+    operator==(char8_t const * lhs, text const & rhs) noexcept = delete;
+
+    inline bool
+    operator!=(text const & lhs, char8_t const * rhs) noexcept = delete;
+    inline bool
+    operator!=(char8_t const * lhs, text const & rhs) noexcept = delete;
+#endif
+
     inline bool operator==(text const & lhs, text_view rhs) noexcept
     {
         return algorithm::equal(
@@ -1090,16 +1177,28 @@ namespace boost { namespace text { inline namespace v1 {
         return t;
     }
 
-    /** Creates a new text object that is the concatenation of t and c_str.
-     */
+    /** Creates a new text object that is the concatenation of t and c_str. */
     inline text operator+(text t, char const * c_str) { return t += c_str; }
 
-    /** Creates a new text object that is the concatenation of c_str and t.
-     */
+    /** Creates a new text object that is the concatenation of c_str and t. */
     inline text operator+(char const * c_str, text const & t)
     {
         return text(c_str) + t;
     }
+
+#if defined(__cpp_char8_t)
+    /** Creates a new text object that is the concatenation of t and c_str. */
+    inline text operator+(text t, char8_t const * c_str)
+    {
+        return t += (char const *)c_str;
+    }
+
+    /** Creates a new text object that is the concatenation of c_str and t. */
+    inline text operator+(char8_t const * c_str, text const & t)
+    {
+        return text((char const *)c_str) + t;
+    }
+#endif
 
     /** Creates a new text object that is the concatenation of t and tv. */
     inline text operator+(text t, text_view tv)

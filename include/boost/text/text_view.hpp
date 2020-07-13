@@ -171,6 +171,10 @@ namespace boost { namespace text { inline namespace v1 {
 
     inline int operator+(text_view const & t, char const * c_str) = delete;
 
+#if defined(__cpp_char8_t)
+    inline int operator+(text_view const & t, char8_t const * c_str) = delete;
+#endif
+
 }}}
 
 #include <boost/text/text.hpp>

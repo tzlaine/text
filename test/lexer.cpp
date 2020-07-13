@@ -58,15 +58,25 @@ char const * failure_cases[] = {
     "[]]",
 };
 
-char const * all_cases[] = {case_3_3,    case_3_5_a,  case_3_5_b,  case_3_6_a,
-                            case_3_6_b,  case_3_6_c,  case_3_6_d,  case_3_6_e,
-                            case_3_6_f,  case_3_6_g,  case_3_6_h,  case_3_6_i,
-                            case_3_6_j,  case_3_6_k,  case_3_6_l,  case_3_6_m,
-                            case_3_6_n,  case_3_6_o,  case_3_6_p,  case_3_7,
-                            case_3_9_a,  case_3_9_b,  case_3_9_c,  case_3_9_d,
-                            case_3_10_a, case_3_10_b, case_3_10_c, case_3_11,
-                            case_3_12_a, case_3_12_b, case_3_12_c, case_3_12_d,
-                            case_3_12_e, case_3_12_f, case_3_13,   quotes};
+char const * all_cases[] = {
+    (char const *)case_3_3,    (char const *)case_3_5_a,
+    (char const *)case_3_5_b,  (char const *)case_3_6_a,
+    (char const *)case_3_6_b,  (char const *)case_3_6_c,
+    (char const *)case_3_6_d,  (char const *)case_3_6_e,
+    (char const *)case_3_6_f,  (char const *)case_3_6_g,
+    (char const *)case_3_6_h,  (char const *)case_3_6_i,
+    (char const *)case_3_6_j,  (char const *)case_3_6_k,
+    (char const *)case_3_6_l,  (char const *)case_3_6_m,
+    (char const *)case_3_6_n,  (char const *)case_3_6_o,
+    (char const *)case_3_6_p,  (char const *)case_3_7,
+    (char const *)case_3_9_a,  (char const *)case_3_9_b,
+    (char const *)case_3_9_c,  (char const *)case_3_9_d,
+    (char const *)case_3_10_a, (char const *)case_3_10_b,
+    (char const *)case_3_10_c, (char const *)case_3_11,
+    (char const *)case_3_12_a, (char const *)case_3_12_b,
+    (char const *)case_3_12_c, (char const *)case_3_12_d,
+    (char const *)case_3_12_e, (char const *)case_3_12_f,
+    (char const *)case_3_13,   (char const *)quotes};
 
 
 int main()
