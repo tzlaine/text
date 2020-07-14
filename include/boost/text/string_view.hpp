@@ -14,6 +14,8 @@
 #include <string_view>
 #endif
 
+#include <string>
+
 
 namespace boost { namespace text { inline namespace v1 {
 
