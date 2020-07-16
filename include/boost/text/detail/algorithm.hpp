@@ -216,21 +216,21 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
     template<typename T>
     using is_contig_char_range = std::integral_constant<
         bool,
-        (std::is_same<
-             fixup_ptr_t<detected_t<has_contig_begin, T>>,
-             char const *>::value &&
+        ((std::is_same<
+              fixup_ptr_t<detected_t<has_contig_begin, T>>,
+              char const *>::value &&
+          std::is_same<
+              fixup_ptr_t<detected_t<has_contig_end, T>>,
+              char const *>::value)
+#if defined(__cpp_char8_t)
+         || (std::is_same<
+                 fixup_ptr_t<detected_t<has_contig_begin, T>>,
+                 char8_t const *>::value &&
              std::is_same<
                  fixup_ptr_t<detected_t<has_contig_end, T>>,
-                 char const *>::value
-#if defined(__cpp_char8_t)
-         || std::is_same<
-                fixup_ptr_t<detected_t<has_contig_begin, T>>,
-                char8_t const *>::value &&
-                std::is_same<
-                    fixup_ptr_t<detected_t<has_contig_end, T>>,
-                    char8_t const *>::value
+                 char8_t const *>::value)
 #endif
-         ) &&
+             ) &&
             std::is_convertible<
                 iterator_category_<T>,
                 std::random_access_iterator_tag>::value &&
