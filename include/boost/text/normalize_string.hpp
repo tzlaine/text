@@ -230,7 +230,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             appender(s);
         v1::detail::norm_impl<Normalization, decltype(s.begin()), I, S>::call(
             first, last, appender);
-        return s;
     }
 
     /** Appends `r` in normalization form `Normalization` to `s`.  The output
