@@ -26,12 +26,18 @@
 // Note that this only applies to code for which a v2 namespace alternative
 // exists.  Some instances of the v1 namespace may still be inline, if there
 // is no v2 version of its contents.
-#if __cplusplus < 202002L || !defined(__cpp_lib_concepts)
-#    define BOOST_TEXT_NAMESPACE_V1 inline namespace v1
-#    define BOOST_TEXT_NAMESPACE_V2 namespace v2
-#else
+#if 0 // TODO
+#if 201703L < __cplusplus && defined(__cpp_lib_concepts)
 #    define BOOST_TEXT_NAMESPACE_V1 namespace v1
 #    define BOOST_TEXT_NAMESPACE_V2 inline namespace v2
+#else
+#    define BOOST_TEXT_NAMESPACE_V1 inline namespace v1
+#    define BOOST_TEXT_NAMESPACE_V2 namespace v2
+#endif
+#else
+// TODO: Remove!
+#    define BOOST_TEXT_NAMESPACE_V1 namespace v1
+#    define BOOST_TEXT_NAMESPACE_V2 namespace v2
 #endif
 
 // Nothing before GCC 6 has proper C++14 constexpr support.
