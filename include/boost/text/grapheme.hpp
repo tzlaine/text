@@ -25,8 +25,8 @@ namespace boost { namespace text { inline namespace v1 {
     /** Returns the number of bytes controlled by g. */
     int storage_bytes(grapheme const & g) noexcept;
 
-    /** An owning sequence of code points that comprise a grapheme in
-        FCC-normalized text. */
+    /** An owning sequence of code points that comprise an extended grapheme
+        cluster. */
     struct grapheme
     {
         using const_iterator = utf_8_to_32_iterator<char const *>;
@@ -37,8 +37,7 @@ namespace boost { namespace text { inline namespace v1 {
         /** Constructs *this from the code points [first, last).
 
             \pre The code points in [first, last) comprise at most one
-            grapheme.
-            \pre [first, last) is normalized FCC. */
+            grapheme. */
         template<typename CPIter>
         grapheme(CPIter first, CPIter last)
         {
@@ -46,7 +45,6 @@ namespace boost { namespace text { inline namespace v1 {
                 first, last, std::back_inserter(chars_));
             BOOST_ASSERT(
                 boost::text::v1::next_grapheme_break(begin(), end()) == end());
-            BOOST_ASSERT(boost::text::v1::normalized<nf::fcc>(begin(), end()));
         }
 
         /** Constructs *this from the code point cp. */
@@ -61,8 +59,7 @@ namespace boost { namespace text { inline namespace v1 {
 
             \pre The code points in r comprise at most one grapheme.
             \pre The code points in [first, last) comprise at most one
-            grapheme.
-            \pre [first, last) is normalized FCC. */
+            grapheme. */
         template<typename CPIter>
         grapheme(utf32_view<CPIter> r)
         {
@@ -70,7 +67,6 @@ namespace boost { namespace text { inline namespace v1 {
                 r.begin(), r.end(), std::back_inserter(chars_));
             BOOST_ASSERT(
                 boost::text::v1::next_grapheme_break(begin(), end()) == end());
-            BOOST_ASSERT(boost::text::v1::normalized<nf::fcc>(begin(), end()));
         }
 
         /** Returns true if *this contains no code points. */
