@@ -180,6 +180,28 @@ static_assert(!grapheme_char_range<decltype(graphemes_0)>);
 static_assert(!grapheme_char_range<decltype(graphemes_1)>);
 static_assert(grapheme_char_range<decltype(graphemes_2)>);
 
+
+// utf8_string
+
+static_assert(utf8_string<std::vector<char>>);
+static_assert(utf8_string<std::string>);
+static_assert(utf8_string<std::u8string>);
+static_assert(!utf8_string<std::vector<int>>);
+static_assert(!utf8_string<std::wstring>);
+static_assert(!utf8_string<std::u32string>);
+
+
+// utf16_string
+
+static_assert(utf16_string<std::vector<char16_t>>);
+#if defined(_MSC_VER)
+static_assert(utf16_string<std::wstring>);
+#endif
+static_assert(utf16_string<std::u16string>);
+static_assert(!utf16_string<std::vector<int>>);
+static_assert(!utf16_string<std::u8string>);
+static_assert(!utf16_string<std::u32string>);
+
 #endif
 
 TEST(concepts, test) {}

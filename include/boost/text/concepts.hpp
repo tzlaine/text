@@ -21,25 +21,25 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     template<typename T>
-    concept u32_code_unit = detail::cu_x<T, 4>;
+    concept u8_code_unit = detail::cu_x<T, 1>;
 
     template<typename T>
     concept u16_code_unit = detail::cu_x<T, 2>;
 
     template<typename T>
-    concept u8_code_unit = detail::cu_x<T, 1>;
+    concept u32_code_unit = detail::cu_x<T, 4>;
 
     namespace detail {
         template<typename T, int Bytes>
         concept u_x_iter =
-            std::forward_iterator<T> && cu_x<std::iter_value_t<T>, Bytes>;
+            std::bidirectional_iterator<T> && cu_x<std::iter_value_t<T>, Bytes>;
 
         template<typename T, int Bytes>
         concept u_x_ptr =
             std::is_pointer_v<T> && cu_x<std::iter_value_t<T>, Bytes>;
 
         template<typename T, int Bytes>
-        concept u_x_range = std::ranges::forward_range<T> &&
+        concept u_x_range = std::ranges::bidirectional_range<T> &&
             cu_x<std::ranges::range_value_t<T>, Bytes>;
 
         template<typename T, int Bytes>
@@ -85,7 +85,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<typename T>
     concept grapheme_iter =
         // clang-format off
-        std::forward_iterator<T> &&
+        std::bidirectional_iterator<T> &&
         code_point_range<std::iter_reference_t<T>> &&
         requires(T t) {
         { t.base() } -> code_point_iterator;
@@ -93,7 +93,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     };
 
     template<typename T>
-    concept grapheme_range = std::ranges::forward_range<T> &&
+    concept grapheme_range = std::ranges::bidirectional_range<T> &&
         grapheme_iter<std::ranges::iterator_t<T>>;
 
     template<typename T>
@@ -106,7 +106,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     };
 
     template<typename T>
-    concept grapheme_char_range = std::ranges::forward_range<T> &&
+    concept grapheme_char_range = std::ranges::bidirectional_range<T> &&
         grapheme_char_iter<std::ranges::iterator_t<T>>;
 
     namespace detail {
@@ -136,6 +136,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     concept utf8_string =
         // clang-format off
         detail::eraseable_sized_bidi_range<T> &&
+        u8_code_unit<std::ranges::range_value_t<T>> &&
         requires(T t, char const * it) {
         { t.insert(t.end(), it, it) } ->
             std::same_as<std::ranges::iterator_t<T>>;
@@ -146,6 +147,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     concept utf16_string =
         // clang-format off
         detail::eraseable_sized_bidi_range<T> &&
+        u16_code_unit<std::ranges::range_value_t<T>> &&
         requires(T t, uint16_t const * it) {
         { t.insert(t.end(), it, it) } ->
             std::same_as<std::ranges::iterator_t<T>>;
