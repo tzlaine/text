@@ -3614,4 +3614,158 @@ namespace boost { namespace text { inline namespace v1 {
 
 }}}
 
+#include <boost/text/detail/unpack.hpp>
+
+namespace boost { namespace text { namespace dtl {
+
+    template<typename Tag>
+    struct make_utf8_dispatch;
+
+    template<>
+    struct make_utf8_dispatch<v1::detail::utf8_tag>
+    {
+        template<typename Iter, typename Sentinel>
+        static constexpr Iter call(Iter first, Iter it, Sentinel last) noexcept
+        {
+            return it;
+        }
+    };
+
+    template<>
+    struct make_utf8_dispatch<v1::detail::utf16_tag>
+    {
+        template<typename Iter, typename Sentinel>
+        static constexpr utf_16_to_8_iterator<Iter, Sentinel>
+        call(Iter first, Iter it, Sentinel last) noexcept
+        {
+            return make_utf_16_to_8_iterator(first, it, last);
+        }
+    };
+
+    template<>
+    struct make_utf8_dispatch<v1::detail::utf32_tag>
+    {
+        template<typename Iter, typename Sentinel>
+        static constexpr utf_32_to_8_iterator<Iter, Sentinel>
+        call(Iter first, Iter it, Sentinel last) noexcept
+        {
+            return make_utf_32_to_8_iterator(first, it, last);
+        }
+    };
+
+    template<typename Tag>
+    struct make_utf16_dispatch;
+
+    template<>
+    struct make_utf16_dispatch<v1::detail::utf8_tag>
+    {
+        template<typename Iter, typename Sentinel>
+        static constexpr utf_8_to_16_iterator<Iter, Sentinel>
+        call(Iter first, Iter it, Sentinel last) noexcept
+        {
+            return make_utf_8_to_16_iterator(first, it, last);
+        }
+    };
+
+    template<>
+    struct make_utf16_dispatch<v1::detail::utf16_tag>
+    {
+        template<typename Iter, typename Sentinel>
+        static constexpr Iter call(Iter first, Iter it, Sentinel last) noexcept
+        {
+            return it;
+        }
+    };
+
+    template<>
+    struct make_utf16_dispatch<v1::detail::utf32_tag>
+    {
+        template<typename Iter, typename Sentinel>
+        static constexpr utf_32_to_16_iterator<Iter, Sentinel>
+        call(Iter first, Iter it, Sentinel last) noexcept
+        {
+            return make_utf_32_to_16_iterator(first, it, last);
+        }
+    };
+
+    template<typename Tag>
+    struct make_utf32_dispatch;
+
+    template<>
+    struct make_utf32_dispatch<v1::detail::utf8_tag>
+    {
+        template<typename Iter, typename Sentinel>
+        static constexpr utf_8_to_32_iterator<Iter, Sentinel>
+        call(Iter first, Iter it, Sentinel last) noexcept
+        {
+            return make_utf_8_to_32_iterator(first, it, last);
+        }
+    };
+
+    template<>
+    struct make_utf32_dispatch<v1::detail::utf16_tag>
+    {
+        template<typename Iter, typename Sentinel>
+        static constexpr utf_16_to_32_iterator<Iter, Sentinel>
+        call(Iter first, Iter it, Sentinel last) noexcept
+        {
+            return make_utf_16_to_32_iterator(first, it, last);
+        }
+    };
+
+    template<>
+    struct make_utf32_dispatch<v1::detail::utf32_tag>
+    {
+        template<typename Iter, typename Sentinel>
+        static constexpr Iter call(Iter first, Iter it, Sentinel last) noexcept
+        {
+            return it;
+        }
+    };
+
+}}}
+
+namespace boost { namespace text { inline namespace v1 {
+
+    /** Returns an iterator equivalent to `it` that transcodes `[first, last)`
+        to UTF-8. */
+    template<typename Iter, typename Sentinel>
+    auto make_utf8_iterator(Iter first, Iter it, Sentinel last) noexcept
+    {
+        auto const unpacked = detail::unpack_iterator_and_sentinel(first, last);
+        auto const unpacked_it =
+            detail::unpack_iterator_and_sentinel(it, last).f_;
+        using tag_type = decltype(unpacked.tag_);
+        return dtl::make_utf8_dispatch<tag_type>::call(
+            unpacked.f_, unpacked_it, unpacked.l_);
+    }
+
+    /** Returns an iterator equivalent to `it` that transcodes `[first, last)`
+        to UTF-16. */
+    template<typename Iter, typename Sentinel>
+    auto make_utf16_iterator(Iter first, Iter it, Sentinel last) noexcept
+    {
+        auto const unpacked = detail::unpack_iterator_and_sentinel(first, last);
+        auto const unpacked_it =
+            detail::unpack_iterator_and_sentinel(it, last).f_;
+        using tag_type = decltype(unpacked.tag_);
+        return dtl::make_utf16_dispatch<tag_type>::call(
+            unpacked.f_, unpacked_it, unpacked.l_);
+    }
+
+    /** Returns an iterator equivalent to `it` that transcodes `[first, last)`
+        to UTF-32. */
+    template<typename Iter, typename Sentinel>
+    auto make_utf32_iterator(Iter first, Iter it, Sentinel last) noexcept
+    {
+        auto const unpacked = detail::unpack_iterator_and_sentinel(first, last);
+        auto const unpacked_it =
+            detail::unpack_iterator_and_sentinel(it, last).f_;
+        using tag_type = decltype(unpacked.tag_);
+        return dtl::make_utf32_dispatch<tag_type>::call(
+            unpacked.f_, unpacked_it, unpacked.l_);
+    }
+
+}}}
+
 #endif

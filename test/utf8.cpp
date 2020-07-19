@@ -943,3 +943,99 @@ TEST(utf_8, iterator_conversions)
         EXPECT_EQ(it_const, it);
     }
 }
+
+TEST(utf_8, make_utfN_iterator)
+{
+    // Unicode 9, 3.9/D90-D92
+    uint32_t const utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
+    uint16_t const utf16[] = {0x004d, 0x0430, 0x4e8c, 0xd800, 0xdf02};
+    char const utf8[] = {0x4d,
+                         char(0xd0),
+                         char(0xb0),
+                         char(0xe4),
+                         char(0xba),
+                         char(0x8c),
+                         char(0xf0),
+                         char(0x90),
+                         char(0x8c),
+                         char(0x82)};
+
+    // -> UTF-8
+    {
+        std::string result;
+        std::string const expected{std::begin(utf8), std::end(utf8)};
+        std::copy(
+            text::make_utf8_iterator(
+                std::begin(utf32), std::begin(utf32), std::end(utf32)),
+            text::make_utf8_iterator(
+                std::begin(utf32), std::end(utf32), std::end(utf32)),
+            std::back_inserter(result));
+        EXPECT_EQ(result, expected);
+    }
+
+    {
+        std::string result;
+        std::string const expected{std::begin(utf8), std::end(utf8)};
+        std::copy(
+            text::make_utf8_iterator(
+                std::begin(utf16), std::begin(utf16), std::end(utf16)),
+            text::make_utf8_iterator(
+                std::begin(utf16), std::end(utf16), std::end(utf16)),
+            std::back_inserter(result));
+        EXPECT_EQ(result, expected);
+    }
+
+    // -> UTF-16
+    {
+        std::vector<uint16_t> result;
+        std::vector<uint16_t> const expected{
+            std::begin(utf16), std::end(utf16)};
+        std::copy(
+            text::make_utf16_iterator(
+                std::begin(utf8), std::begin(utf8), std::end(utf8)),
+            text::make_utf16_iterator(
+                std::begin(utf8), std::end(utf8), std::end(utf8)),
+            std::back_inserter(result));
+        EXPECT_EQ(result, expected);
+    }
+
+    {
+        std::vector<uint16_t> result;
+        std::vector<uint16_t> const expected{
+            std::begin(utf16), std::end(utf16)};
+        std::copy(
+            text::make_utf16_iterator(
+                std::begin(utf32), std::begin(utf32), std::end(utf32)),
+            text::make_utf16_iterator(
+                std::begin(utf32), std::end(utf32), std::end(utf32)),
+            std::back_inserter(result));
+        EXPECT_EQ(result, expected);
+    }
+
+    // -> UTF-32
+    {
+        std::vector<uint32_t> result;
+        std::vector<uint32_t> const expected{
+            std::begin(utf32), std::end(utf32)};
+        std::copy(
+            text::make_utf32_iterator(
+                std::begin(utf8), std::begin(utf8), std::end(utf8)),
+            text::make_utf32_iterator(
+                std::begin(utf8), std::end(utf8), std::end(utf8)),
+            std::back_inserter(result));
+        EXPECT_EQ(result, expected);
+    }
+
+    {
+        std::vector<uint32_t> result;
+        std::vector<uint32_t> const expected{
+            std::begin(utf32), std::end(utf32)};
+        std::copy(
+            text::make_utf32_iterator(
+                std::begin(utf16), std::begin(utf16), std::end(utf16)),
+            text::make_utf32_iterator(
+                std::begin(utf16), std::end(utf16), std::end(utf16)),
+            std::back_inserter(result));
+        EXPECT_EQ(result, expected);
+    }
+}
