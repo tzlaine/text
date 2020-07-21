@@ -513,7 +513,7 @@ namespace boost { namespace text {
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
-        // TODO
+    // TODO
 
 }}}
 
@@ -537,10 +537,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<
         nf Normalization,
         utf_string String,
-        std::bidirectional_iterator StringIter,
-        code_point_iterator I>
-    requires std::is_convertible_v<std::ranges::iterator_t<String>, StringIter>
-        // clang-format off
+        code_point_iterator I,
+        typename StringIter = std::ranges::iterator_t<String>>
     replace_result<StringIter> replace(
         String & string,
         StringIter str_first,
@@ -548,7 +546,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         I first,
         I last,
         insertion_normalization insertion_norm = insertion_unnormalized)
-    // clang-format on
     {
         return dtl::replace_impl<Normalization>(
             string, str_first, str_last, first, last, insertion_norm);
@@ -567,11 +564,14 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         the inserted string does.
 
         \pre `string` is in normalization form `Normalization`. */
-    template<nf Normalization, utf_string String, code_point_iterator R>
-    replace_result<std::ranges::iterator_t<String>> replace(
+    template<nf Normalization,
+             utf_string String,
+             code_point_iterator R,
+             typename StringIter = std::ranges::iterator_t<String>>
+    replace_result<StringIter> replace(
         String & string,
-        std::ranges::iterator_t<String> str_first,
-        std::ranges::iterator_t<String> str_last,
+        StringIter str_first,
+        StringIter str_last,
         R const & r,
         insertion_normalization insertion_norm = insertion_unnormalized)
     {
@@ -593,17 +593,14 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<
         nf Normalization,
         utf_string String,
-        std::bidirectional_iterator StringIter,
-        code_point_iterator I>
-    requires std::is_convertible_v<std::ranges::iterator_t<String>, StringIter>
-        // clang-format off
+        code_point_iterator I,
+        typename StringIter = std::ranges::iterator_t<String>>
     replace_result<StringIter> insert(
         String & string,
         StringIter at,
         I first,
         I last,
         insertion_normalization insertion_norm = insertion_unnormalized)
-    // clang-format on
     {
         return boost::text::v2::replace<Normalization>(
             string, at, at, first, last, insertion_norm);
@@ -622,36 +619,30 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<
         nf Normalization,
         utf_string String,
-        std::bidirectional_iterator StringIter,
-        code_point_range R>
-    requires std::is_convertible_v<std::ranges::iterator_t<String>, StringIter>
-        // clang-format off
+        code_point_range R,
+        typename StringIter = std::ranges::iterator_t<String>>
     replace_result<StringIter> insert(
         String & string,
         StringIter at,
         R const & r,
         insertion_normalization insertion_norm = insertion_unnormalized)
-    // clang-format on
     {
         return boost::text::v2::replace<Normalization>(
             string, at, at, std::begin(r), std::end(r), insertion_norm);
     }
 
     /** Erases the subsequence `[str_first, str_last)` within `string`,
-       returning a view indicating the changed portion of `string`.  Note that
-       the insertion operation may mutate some code points just before or just
-       after the erased sequence.
+        returning a view indicating the changed portion of `string`.  Note
+        that the insertion operation may mutate some code points just before
+        or just after the erased sequence.
 
         \pre `string` is in normalization form `Normalization`. */
     template<
         nf Normalization,
         utf_string String,
-        std::bidirectional_iterator StringIter>
-    requires std::is_convertible_v<std::ranges::iterator_t<String>, StringIter>
-        // clang-format off
+        typename StringIter = std::ranges::iterator_t<String>>
     replace_result<StringIter> erase(
         String & string, StringIter str_first, StringIter str_last)
-    // clang-format on
     {
         return dtl::erase_impl<Normalization>(string, str_first, str_last);
     }
