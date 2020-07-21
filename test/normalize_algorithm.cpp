@@ -52,7 +52,7 @@ TEST(normalization_algorithm, dtl_cons_view)
     static_assert(boost::text::v2::code_point_range<decltype(v)>);
 }
 
-TEST(normalization_algorithm, erase)
+TEST(normalization_algorithm, erase_nfc)
 {
     uint16_t const nfc_a_cedilla_ring_above[] = {
         0x0041 /*A 65*/, 0x00b8 /*cedilla, 184*/, 0x030A /*ring above, 778*/
@@ -203,29 +203,252 @@ TEST(normalization_algorithm, erase)
     }
 }
 
-#if 0 // For insert/replace tests
-    uint16_t const nfc_d_dot_above[] = {
-        0x1e0a // LATIN CAPITAL LETTER D WITH DOT ABOVE
+TEST(normalization_algorithm, erase_nfd)
+{
+    // TODO
+}
+
+TEST(normalization_algorithm, replace_nfc)
+{
+    uint16_t const nfc_a_cedilla_ring_above[] = {
+        0x0041 /*A 65*/, 0x00b8 /*cedilla, 184*/, 0x030A /*ring above, 778*/
     };
 
-    uint16_t const nfc_d_dot_below[] = {
-        0x1e0c // LATIN CAPITAL LETTER D WITH DOT BELOW
-    };
-
-    uint16_t const nfc_dot_above[] = {
-        0x0307 // COMBINING DOT ABOVE
-    };
-
-    uint16_t const nfc_dot_below[] = {
-        0x0323 // LATIN CAPITAL LETTER D WITH DOT BELOW
-    };
-
-    // https://www.unicode.org/reports/tr15/#Basic_Example_Table
     {
-        std::vector<uint16_t> str({});
-        boost::text::v2::normalize<boost::text::nf::d>(str);
-        EXPECT_EQ(str, std::vector<uint16_t>({}));
+        // replace the entire string
+        std::vector<uint16_t> str(
+            std::begin(nfc_a_cedilla_ring_above),
+            std::end(nfc_a_cedilla_ring_above));
+        std::vector<uint16_t> const insertion(
+            {0x0044 /*D*/, 0x0307 /*dot above*/});
+        auto const r = boost::text::v1::as_utf32(insertion);
+        boost::text::v2::replace<boost::text::nf::c>(
+            str, str.begin(), str.end(), r.begin(), r.end());
+        EXPECT_EQ(str, std::vector<uint16_t>({0x1e0a /*D+dot above*/}));
     }
-#endif
+
+    {
+        // replace the entire string with noncombiners
+        std::vector<uint16_t> str(
+            std::begin(nfc_a_cedilla_ring_above),
+            std::end(nfc_a_cedilla_ring_above));
+        std::vector<uint16_t> const insertion(
+            {0x0307 /*dot above*/,
+             0x0307 /*dot above*/,
+             0x0307 /*dot above*/,
+             0x0307 /*dot above*/});
+        auto const r = boost::text::v1::as_utf32(insertion);
+        boost::text::v2::replace<boost::text::nf::c>(
+            str, str.begin(), str.end(), r.begin(), r.end());
+        EXPECT_EQ(
+            str,
+            std::vector<uint16_t>(
+                {0x0307 /*dot above*/,
+                 0x0307 /*dot above*/,
+                 0x0307 /*dot above*/,
+                 0x0307 /*dot above*/}));
+    }
+
+    {
+        // replace the entire string with nothing
+        std::vector<uint16_t> str(
+            std::begin(nfc_a_cedilla_ring_above),
+            std::end(nfc_a_cedilla_ring_above));
+        std::vector<uint16_t> const insertion;
+        auto const r = boost::text::v1::as_utf32(insertion);
+        boost::text::v2::replace<boost::text::nf::c>(
+            str, str.begin(), str.end(), r.begin(), r.end());
+        EXPECT_EQ(str, std::vector<uint16_t>());
+    }
+
+    {
+        // replace a prefix
+        std::vector<uint16_t> str(
+            std::begin(nfc_a_cedilla_ring_above),
+            std::end(nfc_a_cedilla_ring_above));
+        std::vector<uint16_t> const insertion(
+            {0x0044 /*D*/, 0x0307 /*dot above*/});
+        auto const r = boost::text::v1::as_utf32(insertion);
+        boost::text::v2::replace<boost::text::nf::c>(
+            str, str.begin() + 0, str.begin() + 2, r.begin(), r.end());
+        EXPECT_EQ(
+            str,
+            std::vector<uint16_t>(
+                {0x1e0a /*D+dot above*/, 0x030A /*ring above*/}));
+    }
+
+    {
+        // replace a prefix with noncombiners
+        std::vector<uint16_t> str(
+            std::begin(nfc_a_cedilla_ring_above),
+            std::end(nfc_a_cedilla_ring_above));
+        std::vector<uint16_t> const insertion(
+            {0x0307 /*dot above*/,
+             0x0307 /*dot above*/,
+             0x0307 /*dot above*/,
+             0x0307 /*dot above*/});
+        auto const r = boost::text::v1::as_utf32(insertion);
+        boost::text::v2::replace<boost::text::nf::c>(
+            str, str.begin() + 0, str.begin() + 2, r.begin(), r.end());
+        EXPECT_EQ(
+            str,
+            std::vector<uint16_t>(
+                {0x0307 /*dot above*/,
+                 0x0307 /*dot above*/,
+                 0x0307 /*dot above*/,
+                 0x0307 /*dot above*/,
+                 0x030A /*ring above*/}));
+    }
+
+    {
+        // replace a prefix with nothing
+        std::vector<uint16_t> str(
+            std::begin(nfc_a_cedilla_ring_above),
+            std::end(nfc_a_cedilla_ring_above));
+        std::vector<uint16_t> const insertion;
+        auto const r = boost::text::v1::as_utf32(insertion);
+        boost::text::v2::replace<boost::text::nf::c>(
+            str, str.begin() + 0, str.begin() + 2, r.begin(), r.end());
+        EXPECT_EQ(str, std::vector<uint16_t>({0x030A /*ring above*/}));
+    }
+
+    {
+        // replace a suffix
+        std::vector<uint16_t> str(
+            std::begin(nfc_a_cedilla_ring_above),
+            std::end(nfc_a_cedilla_ring_above));
+        std::vector<uint16_t> const insertion(
+            {0x0044 /*D*/, 0x0307 /*dot above*/});
+        auto const r = boost::text::v1::as_utf32(insertion);
+        boost::text::v2::replace<boost::text::nf::c>(
+            str, str.begin() + 1, str.begin() + 3, r.begin(), r.end());
+        EXPECT_EQ(
+            str,
+            std::vector<uint16_t>({0x0041 /*A 65*/, 0x1e0a /*D+dot above*/}));
+    }
+
+    {
+        // replace a suffix with noncombiners
+        std::vector<uint16_t> str(
+            std::begin(nfc_a_cedilla_ring_above),
+            std::end(nfc_a_cedilla_ring_above));
+        std::vector<uint16_t> const insertion(
+            {0x0307 /*dot above*/,
+             0x0307 /*dot above*/,
+             0x0307 /*dot above*/,
+             0x0307 /*dot above*/});
+        auto const r = boost::text::v1::as_utf32(insertion);
+        boost::text::v2::replace<boost::text::nf::c>(
+            str, str.begin() + 1, str.begin() + 3, r.begin(), r.end());
+        EXPECT_EQ(
+            str,
+            std::vector<uint16_t>(
+                {0x0226 /*A+dot above*/,
+                 0x0307 /*dot above*/,
+                 0x0307 /*dot above*/,
+                 0x0307 /*dot above*/}));
+    }
+
+    {
+        // replace a suffix with nothing
+        std::vector<uint16_t> str(
+            std::begin(nfc_a_cedilla_ring_above),
+            std::end(nfc_a_cedilla_ring_above));
+        std::vector<uint16_t> const insertion;
+        auto const r = boost::text::v1::as_utf32(insertion);
+        boost::text::v2::replace<boost::text::nf::c>(
+            str, str.begin() + 1, str.begin() + 3, r.begin(), r.end());
+        EXPECT_EQ(str, std::vector<uint16_t>({0x0041 /*A*/}));
+    }
+
+    {
+        // add a dot below, causing the previous composed code point to
+        // decompose and recompose
+        std::vector<uint16_t> str({0x0226 /*A+dot above*/, 'B'});
+        std::vector<uint16_t> const insertion({0x0323 /*dot below*/});
+        auto const r = boost::text::v1::as_utf32(insertion);
+        boost::text::v2::replace<boost::text::nf::c>(
+            str, str.begin() + 1, str.begin() + 2, r.begin(), r.end());
+        EXPECT_EQ(
+            str,
+            std::vector<uint16_t>(
+                {0x1ea0 /*A+dot below*/, 0x0307 /*dot above*/}));
+    }
+
+    {
+        // replace noncombiner(s) with combiner
+        std::vector<uint16_t> str(
+            {0x0307 /*dot above*/,
+             0x0307 /*dot above*/,
+             0x0307 /*dot above*/,
+             0x0307 /*dot above*/});
+        std::vector<uint16_t> const insertion({0x0041 /*A*/});
+        auto const r = boost::text::v1::as_utf32(insertion);
+        boost::text::v2::replace<boost::text::nf::c>(
+            str, str.begin() + 1, str.begin() + 3, r.begin(), r.end());
+        EXPECT_EQ(
+            str,
+            std::vector<uint16_t>(
+                {0x0307 /*dot above*/, 0x0226 /*A+dot above*/}));
+    }
+
+    {
+        // remove a code point, and the code points at the edges of the
+        // deletion combine
+        std::vector<uint16_t> str(
+            {0x0041 /*A*/, 0x00b8 /*cedilla*/, 0x030A /*ring above*/});
+        std::vector<uint16_t> const insertion;
+        auto const r = boost::text::v1::as_utf32(insertion);
+        boost::text::v2::replace<boost::text::nf::c>(
+            str, str.begin() + 1, str.begin() + 2, r.begin(), r.end());
+        EXPECT_EQ(str, std::vector<uint16_t>({0x00c5 /*A+ring above*/}));
+    }
+
+    {
+        // replace a code point, and the inserted code point(s) combine with
+        // the one(s) after the replacement
+        std::vector<uint16_t> str(
+            {0x0041 /*A*/, 0x00b8 /*cedilla*/, 0x030A /*ring above*/});
+        std::vector<uint16_t> const insertion({0x0041 /*A*/});
+        auto const r = boost::text::v1::as_utf32(insertion);
+        boost::text::v2::replace<boost::text::nf::c>(
+            str, str.begin() + 1, str.begin() + 2, r.begin(), r.end());
+        EXPECT_EQ(
+            str,
+            std::vector<uint16_t>({0x0041 /*A*/, 0x00c5 /*A+ring above*/}));
+    }
+
+    {
+        // replace a code point, and the inserted code point(s) combine with
+        // the one(s) before the replacement
+        std::vector<uint16_t> str(
+            {0x0041 /*A*/, 0x00b8 /*cedilla*/, 0x030A /*ring above*/});
+        std::vector<uint16_t> const insertion({0x030A /*ring above*/});
+        auto const r = boost::text::v1::as_utf32(insertion);
+        boost::text::v2::replace<boost::text::nf::c>(
+            str, str.begin() + 1, str.begin() + 2, r.begin(), r.end());
+        EXPECT_EQ(
+            str,
+            std::vector<uint16_t>(
+                {0x00c5 /*A+ring above*/, 0x030A /*ring above*/}));
+    }
+}
+
+TEST(normalization_algorithm, replace_nfd)
+{
+    // TODO
+}
+
+TEST(normalization_algorithm, insert_nfc)
+{
+    // TODO
+}
+
+TEST(normalization_algorithm, insert_nfd)
+{
+    // TODO
+}
+
+// TODO: Exercise UTF-8, sentinel, ans already-normalized cases.
 
 #endif

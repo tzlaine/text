@@ -27,7 +27,7 @@ namespace boost { namespace text {
         and/or just after the insertion due to normalization, the code points
         bounded by this range may be longer than `S`.  Values of this type
         represent the entire sequence of of code points in `D` that have
-        chnaged.
+        changed.
 
         Note that the iterator type refers to the underlying sequence, which
         may not itself be a sequence of code points.  For example, the
@@ -53,7 +53,7 @@ namespace boost { namespace text {
 
     namespace dtl {
         template<nf Normalization, typename CPIter>
-        CPIter prev_stable_cp(CPIter first, CPIter last) noexcept
+        CPIter last_stable_cp(CPIter first, CPIter last) noexcept
         {
             auto const it = find_if_backward(
                 first, last, v1::detail::stable_code_point<Normalization>);
@@ -63,7 +63,7 @@ namespace boost { namespace text {
         }
 
         template<nf Normalization, typename CPIter>
-        CPIter next_stable_cp(CPIter first, CPIter last) noexcept
+        CPIter first_stable_cp(CPIter first, CPIter last) noexcept
         {
             auto const it = find_if(
                 first, last, v1::detail::stable_code_point<Normalization>);
@@ -99,7 +99,10 @@ namespace boost { namespace text {
                 r2_first_(r2_first),
                 it2_(r2_first),
                 in_r1_(true)
-            {}
+            {
+                if (it1_ == r1_last_)
+                    in_r1_ = false;
+            }
             cons_iter(
                 second_iterator it,
                 first_iterator r1_last,
@@ -159,7 +162,7 @@ namespace boost { namespace text {
         private:
             first_iterator r1_last_;
             first_iterator it1_;
-            first_iterator r2_first_;
+            second_iterator r2_first_;
             second_iterator it2_;
             bool in_r1_;
         };
@@ -266,20 +269,176 @@ namespace boost { namespace text {
             CPIter,
             Sentinel>::type;
 
-        template<nf Normalization, typename String, typename Iter>
-        replace_result<Iter> erase_impl(String & string, Iter first, Iter last)
+        template<
+            typename Buffer,
+            bool UTF8 = sizeof(*std::declval<Buffer>().begin()) == 1>
+        struct append_normalized_to_buffer
+        {
+            template<typename Iter>
+            static void call(Buffer buffer, Iter first, Iter last)
+            {
+                auto r = boost::text::as_utf16(first, last);
+                buffer.insert(buffer.end(), r.begin(), r.end());
+            }
+        };
+
+        template<typename Buffer>
+        struct append_normalized_to_buffer<Buffer, true>
+        {
+            template<typename Iter>
+            static void call(Buffer buffer, Iter first, Iter last)
+            {
+                auto r = boost::text::as_utf8(first, last);
+                buffer.insert(buffer.end(), r.begin(), r.end());
+            }
+        };
+
+        template<
+            nf Normalization,
+            typename String,
+            typename StringIter,
+            typename Iter>
+        replace_result<StringIter> replace_impl(
+            String & string,
+            StringIter str_first,
+            StringIter str_last,
+            Iter first,
+            Iter last,
+            insertion_normalization insertion_norm = insertion_unnormalized)
+        {
+            BOOST_TEXT_STATIC_ASSERT_NORMALIZATION();
+
+            auto const string_cps = boost::text::as_utf32(
+                StringIter(string.begin()), StringIter(string.end()));
+            auto const string_cp_first = boost::text::make_utf32_iterator(
+                StringIter(string.begin()),
+                str_first,
+                StringIter(string.end()));
+            auto const string_cp_last = boost::text::make_utf32_iterator(
+                StringIter(string.begin()), str_last, StringIter(string.end()));
+
+            using stable_cps_type =
+                dtl::stable_cps_result_t<decltype(string_cps.begin())>;
+
+            // Find the unstable CPs on either side of the insertion, and make a
+            // range for each, using str_first and str_last as the other bounds
+            // respectively.
+            auto const string_prefix_range = stable_cps_type{
+                dtl::last_stable_cp<Normalization>(
+                    string_cps.begin(), string_cp_first),
+                string_cp_first};
+            auto const string_suffix_range = stable_cps_type{
+                string_cp_last,
+                dtl::first_stable_cp<Normalization>(
+                    string_cp_last, string_cps.end())};
+            auto const insertion_range =
+                dtl::stable_cps_result_t<Iter>{first, last};
+
+            using buffer_type =
+                dtl::normalized_insert_buffer_t<Normalization, String, Iter>;
+            buffer_type buffer;
+
+            auto const insertion_first_stable =
+                dtl::first_stable_cp<Normalization>(first, last);
+            // If the inserted text contains no stable code points, we need to
+            // normalize the prefix, the entire insertion, and the suffix all in
+            // one go.
+            bool const all_at_once = insertion_first_stable == last;
+
+            // [first-stable-cp-before-str_first, first-stable-cp-after-first)
+            auto const lo_cons_view = dtl::cons_view<uint32_t>(
+                string_prefix_range,
+                insertion_range,
+                string_prefix_range.begin(),
+                insertion_first_stable);
+
+            if (all_at_once) {
+                auto const cons_view = dtl::cons_view<uint32_t>(
+                    lo_cons_view,
+                    string_suffix_range,
+                    lo_cons_view.begin(),
+                    string_suffix_range.end());
+                boost::text::v2::normalize_append<Normalization>(
+                    cons_view, buffer);
+            } else {
+                boost::text::v2::normalize_append<Normalization>(
+                    lo_cons_view, buffer);
+            }
+
+            auto const insertion_last_stable =
+                dtl::last_stable_cp<Normalization>(
+                    insertion_first_stable, last);
+
+            if (!all_at_once) {
+                // Middle of insertion is [insertion_first_stable,
+                // insertion_last_stable)
+                if (insertion_norm == insertion_normalized) {
+                    append_normalized_to_buffer<buffer_type>::call(
+                        buffer, insertion_first_stable, insertion_last_stable);
+                } else {
+                    text::normalize_append<Normalization>(
+                        text::as_utf32(
+                            insertion_first_stable, insertion_last_stable),
+                        buffer);
+                }
+            }
+
+            // [first-stable-cp-before-last, first-stable-cp-after-str_last)
+            auto const hi_cons_view = dtl::cons_view<uint32_t>(
+                insertion_range,
+                string_suffix_range,
+                insertion_last_stable,
+                string_suffix_range.end());
+
+            if (!all_at_once)
+                text::normalize_append<Normalization>(hi_cons_view, buffer);
+
+            auto const first_buffer_mismatch = std::mismatch(
+                                                   lo_cons_view.begin(),
+                                                   lo_cons_view.end(),
+                                                   buffer.begin(),
+                                                   buffer.end())
+                                                   .second;
+
+            auto const last_buffer_mismatch =
+                std::mismatch(
+                    std::make_reverse_iterator(hi_cons_view.end()),
+                    std::make_reverse_iterator(hi_cons_view.begin()),
+                    std::make_reverse_iterator(buffer.end()),
+                    std::make_reverse_iterator(
+                        std::next(first_buffer_mismatch)))
+                    .second.base();
+            auto const first_buffer_mismatch_offset =
+                first_buffer_mismatch - buffer.begin();
+            auto const last_buffer_mismatch_offset =
+                last_buffer_mismatch - buffer.begin();
+
+            auto const it = dtl::string_buffer_replace(
+                                string,
+                                string_prefix_range.begin(),
+                                string_suffix_range.end(),
+                                buffer)
+                                .begin();
+            return {
+                std::next(it, first_buffer_mismatch_offset),
+                std::next(it, last_buffer_mismatch_offset)};
+        }
+
+        template<nf Normalization, typename String, typename StringIter>
+        replace_result<StringIter>
+        erase_impl(String & string, StringIter first, StringIter last)
         {
             BOOST_TEXT_STATIC_ASSERT_NORMALIZATION();
 
             if (first == last)
                 return {first, first};
 
-            auto const string_cps =
-                boost::text::as_utf32(Iter(string.begin()), Iter(string.end()));
-            auto const string_cp_first = boost::text::v1::make_utf32_iterator(
-                Iter(string.begin()), first, Iter(string.end()));
-            auto const string_cp_last = boost::text::v1::make_utf32_iterator(
-                Iter(string.begin()), last, Iter(string.end()));
+            auto const string_cps = boost::text::as_utf32(
+                StringIter(string.begin()), StringIter(string.end()));
+            auto const string_cp_first = boost::text::make_utf32_iterator(
+                StringIter(string.begin()), first, StringIter(string.end()));
+            auto const string_cp_last = boost::text::make_utf32_iterator(
+                StringIter(string.begin()), last, StringIter(string.end()));
 
             using stable_cps_type =
                 stable_cps_result_t<decltype(string_cps.begin())>;
@@ -288,12 +447,12 @@ namespace boost { namespace text {
             // range for each, using first and last as the other bounds
             // respectively.
             auto const string_prefix_range = stable_cps_type{
-                dtl::prev_stable_cp<Normalization>(
+                dtl::last_stable_cp<Normalization>(
                     string_cps.begin(), string_cp_first),
                 string_cp_first};
             auto const string_suffix_range = stable_cps_type{
                 string_cp_last,
-                dtl::next_stable_cp<Normalization>(
+                dtl::first_stable_cp<Normalization>(
                     string_cp_last, string_cps.end())};
 
             if (string_prefix_range.empty() || string_suffix_range.empty()) {
@@ -350,7 +509,6 @@ namespace boost { namespace text {
                 std::next(it, last_buffer_mismatch_offset)};
         }
     }
-
 }}
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
@@ -403,11 +561,11 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
     /** Inserts `[first, last)` into string `string`, replacing the sequence
-        `[from, to)` within `string`, and returning a view indicating the
-        changed portion of `string`.  Note that the replacement operation may
-        mutate some code points just before or just after the inserted
-        sequence.  The output is UTF-8 if `sizeof(*s.begin()) == 1`, and
-        UTF-16 otherwise.  The inserted string is not normalized if
+        `[str_first, str_last)` within `string`, and returning a view
+        indicating the changed portion of `string`.  Note that the replacement
+        operation may mutate some code points just before or just after the
+        inserted sequence.  The output is UTF-8 if `sizeof(*s.begin()) == 1`,
+        and UTF-16 otherwise.  The inserted string is not normalized if
         `insertion_norm` is `insertion_normalized`.  The code points at either
         end of the insertion may need to be normalized, regardless of whether
         the inserted string does.
@@ -422,113 +580,40 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         // clang-format off
     replace_result<StringIter> replace(
         String & string,
-        StringIter from,
-        StringIter to,
+        StringIter str_first,
+        StringIter str_last,
         I first,
         I last,
         insertion_normalization insertion_norm = insertion_unnormalized)
     // clang-format on
     {
-        BOOST_TEXT_STATIC_ASSERT_NORMALIZATION();
-
-        if (first == last)
-            return from;
-
-        auto const string_cps =
-            boost::text::as_utf32(Iter(string.begin()), Iter(string.end()));
-        auto const string_cp_from =
-            boost::text::as_utf32(from, string.end()).begin();
-        auto const string_cp_to =
-            boost::text::as_utf32(to, string.end()).begin();
-
-        using stable_cps_type =
-            dtl::stable_cps_result_t<decltype(string_cps.begin())>;
-
-        // Find the unstable CPs on either side of the insertion, and make a
-        // range for each, using from and to as the other bound respectively.
-        auto const string_prefix_range = stable_cps_type{
-            dtl::prev_stable_cp<Normalization>(
-                string_cps.begin(), string_cp_from),
-            string_cp_from};
-        auto const string_suffix_range = stable_cps_type{
-            string_cp_to,
-            dtl::next_stable_cp<Normalization>(string_cp_to, string_cps.end())};
-
-        auto const insertion_first_stable =
-            dtl::next_stable_cp<Normalization>(first, last);
-        // TODO: Special-case the situation where insertion_first_stable ==
-        // last.  In that case, the prefix, insertion, and suffix all need to
-        // be normalized at once.
-        auto const insertion_last_stable =
-            dtl::prev_stable_cp<Normalization>(first, last);
-
-        dtl::normalized_insert_buffer_t<Normalization, String, I> buffer;
-
-        // [first-stable-cp-before-at, first-stable-cp-after-first)
-        auto const lo_cons_view = dtl::cons_view<uint32_t>(
-            string_prefix_range,
-            string,
-            string_prefix_range.begin(),
-            insertion_first_stable);
-        boost::text::v2::normalize_append<Normalization>(lo_cons_view, buffer);
-
-        // Middle of insertion is [insertion_first_stable,
-        // insertion_last_stable)
-        if (insertion_norm == insertion_normalized) {
-            if constexpr (utf8_string<String>) {
-                auto r = text::as_utf8(
-                    insertion_first_stable, insertion_last_stable);
-                buffer.insert(buffer.end(), r.begin(), r.end());
-            } else {
-                auto r = text::as_utf16(
-                    insertion_first_stable, insertion_last_stable);
-                buffer.insert(buffer.end(), r.begin(), r.end());
-            }
-        } else {
-            text::normalize_append<Normalization>(
-                text::as_utf32(insertion_first_stable, insertion_last_stable),
-                buffer);
-        }
-
-        // [first-stable-cp-before-last, first-stable-cp-after-at)
-        auto const hi_cons_view = dtl::cons_view<uint32_t>(
-            string,
-            string_suffix_range,
-            insertion_last_stable,
-            string_suffix_range.end());
-        text::normalize_append<Normalization>(hi_cons_view, buffer);
-
-        auto const retval = dtl::string_buffer_replace(
-            string,
-            string_prefix_range.begin(),
-            string_suffix_range.end(),
-            buffer);
-        return retval; // TODO: Return range of changed CPs.
+        return dtl::replace_impl<Normalization>(
+            string, str_first, str_last, first, last, insertion_norm);
     }
 
 #if 0 // TODO: Only do this if the other range overloads below (with the
       // string subview V) are done.
-    /** Inserts `r` into string `string`, replacing the sequence `[from, to)`
-        within `string`, and returning a view indicating the changed portion
-        of `string`.  Note that the replacement operation may mutate some code
-        points just before or just after the inserted sequence.  The output is
-        UTF-8 if `sizeof(*s.begin()) == 1`, and UTF-16 otherwise.  The
-        inserted string is not normalized if `insertion_norm` is
-        `insertion_normalized`.  The code points at either end of the
-        insertion may need to be normalized, regardless of whether the
-        inserted string does.
+    /** Inserts `r` into string `string`, replacing the sequence `[str_first,
+        str_last)` within `string`, and returning a view indicating the
+        changed portion of `string`.  Note that the replacement operation may
+        mutate some code points just before or just after the inserted
+        sequence.  The output is UTF-8 if `sizeof(*s.begin()) == 1`, and
+        UTF-16 otherwise.  The inserted string is not normalized if
+        `insertion_norm` is `insertion_normalized`.  The code points at either
+        end of the insertion may need to be normalized, regardless of whether
+        the inserted string does.
 
         \pre `string` is in normalization form `Normalization`. */
     template<nf Normalization, utf_string String, code_point_iterator R>
     replace_result<std::ranges::iterator_t<String>> replace(
         String & string,
-        std::ranges::iterator_t<String> from,
-        std::ranges::iterator_t<String> to,
+        std::ranges::iterator_t<String> str_first,
+        std::ranges::iterator_t<String> str_last,
         R const & r,
         insertion_normalization insertion_norm = insertion_unnormalized)
     {
         return boost::text::v2::replace<Normalization>(
-            string, from, to, std::begin(r), std::end(r), insertion_norm);
+            string, str_first, str_last, std::begin(r), std::end(r), insertion_norm);
     }
 #endif
 
@@ -589,10 +674,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             string, at, at, std::begin(r), std::end(r), insertion_norm);
     }
 
-    /** Erases the subsequence `[from, to)` within `string`, returning a view
-        indicating the changed portion of `string`.  Note that the insertion
-        operation may mutate some code points just before or just after the
-        erased sequence.
+    /** Erases the subsequence `[str_first, str_last)` within `string`,
+       returning a view indicating the changed portion of `string`.  Note that
+       the insertion operation may mutate some code points just before or just
+       after the erased sequence.
 
         \pre `string` is in normalization form `Normalization`. */
     template<
@@ -602,10 +687,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     requires std::is_convertible_v<std::ranges::iterator_t<String>, StringIter>
         // clang-format off
     replace_result<StringIter> erase(
-        String & string, StringIter from, StringIter to)
+        String & string, StringIter str_first, StringIter str_last)
     // clang-format on
     {
-        return dtl::erase_impl<Normalization>(string, from, to);
+        return dtl::erase_impl<Normalization>(string, str_first, str_last);
     }
 
     /* TODO: Do these? What are the constraints on V that make sense?
