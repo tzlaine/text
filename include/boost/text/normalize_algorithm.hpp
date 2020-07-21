@@ -513,44 +513,7 @@ namespace boost { namespace text {
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
-#if 0 // TODO
-    /** Inserts sequence `[first, last)` into `cont` at location `at`.
-
-        This function only participates in overload resolution if `CPIter`
-        models the CPIter concept. */
-    template<
-        nf Normalization,
-        typename CPIter,
-        typename Sentinel,
-        typename Cont>
-    inline auto insert(
-        Cont & cont,
-        typename Cont::iterator at,
-        CPIter first,
-        Sentinel last,
-        insertion_normalization insertion_norm = insertion_unnormalized)
-        -> detail::cp_iter_ret_t<typename Cont::iterator, CPIter>
-    {
-        BOOST_TEXT_STATIC_ASSERT_NORMALIZATION();
         // TODO
-        return at;
-    }
-
-    /** Writes sequence `[first, last)` to `out`, ensuring Stream-Safe Text
-        Format.
-
-        \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
-    template<nf Normalization, typename CPRange, typename Cont>
-    inline typename Cont::iterator insert(
-        Cont & cont,
-        typename Cont::iterator at,
-        CPRange const & r,
-        insertion_normalization insertion_norm = insertion_unnormalized)
-    {
-        return boost::text::v1::insert<Normalization>(
-            cont, at, std::begin(r), std::end(r), insertion_norm);
-    }
-#endif
 
 }}}
 
