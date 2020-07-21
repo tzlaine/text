@@ -357,7 +357,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
     {
         BOOST_TEXT_STATIC_ASSERT_NORMALIZATION();
         constexpr nf form = Normalization == nf::fcc ? nf::c : Normalization;
-        return detail::ccc(cp) &&
+        return detail::ccc(cp) == 0 &&
                quick_check_code_point<form>(cp) == quick_check::yes;
     }
 
