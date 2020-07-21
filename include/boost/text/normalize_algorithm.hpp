@@ -275,7 +275,7 @@ namespace boost { namespace text {
         struct append_normalized_to_buffer
         {
             template<typename Iter>
-            static void call(Buffer buffer, Iter first, Iter last)
+            static void call(Buffer & buffer, Iter first, Iter last)
             {
                 auto r = boost::text::as_utf16(first, last);
                 buffer.insert(buffer.end(), r.begin(), r.end());
@@ -286,12 +286,22 @@ namespace boost { namespace text {
         struct append_normalized_to_buffer<Buffer, true>
         {
             template<typename Iter>
-            static void call(Buffer buffer, Iter first, Iter last)
+            static void call(Buffer & buffer, Iter first, Iter last)
             {
                 auto r = boost::text::as_utf8(first, last);
                 buffer.insert(buffer.end(), r.begin(), r.end());
             }
         };
+
+        // TODO: This needs to change to normalizing the middle
+        // (inserted/replaced bits) first int obuffer A, then the prefix into
+        // a separate buffer B, then the suffix after the middle into A.  This
+        // is needed becasue otherwise all-at-once operation happens almost
+        // always, and that's a much slower code path than just doing the
+        // middle by itself.  Alternatively, document that this is the
+        // behavior, and that inserting long sections of NFD into NFC
+        // containers impies worse performance than pre-normalizing and then
+        // inserting.
 
         template<
             nf Normalization,
@@ -358,10 +368,9 @@ namespace boost { namespace text {
                     string_suffix_range,
                     lo_cons_view.begin(),
                     string_suffix_range.end());
-                boost::text::v2::normalize_append<Normalization>(
-                    cons_view, buffer);
+                boost::text::normalize_append<Normalization>(cons_view, buffer);
             } else {
-                boost::text::v2::normalize_append<Normalization>(
+                boost::text::normalize_append<Normalization>(
                     lo_cons_view, buffer);
             }
 
@@ -377,9 +386,7 @@ namespace boost { namespace text {
                         buffer, insertion_first_stable, insertion_last_stable);
                 } else {
                     text::normalize_append<Normalization>(
-                        text::as_utf32(
-                            insertion_first_stable, insertion_last_stable),
-                        buffer);
+                        insertion_first_stable, insertion_last_stable, buffer);
                 }
             }
 
@@ -393,35 +400,33 @@ namespace boost { namespace text {
             if (!all_at_once)
                 text::normalize_append<Normalization>(hi_cons_view, buffer);
 
-            auto const first_buffer_mismatch = std::mismatch(
-                                                   lo_cons_view.begin(),
-                                                   lo_cons_view.end(),
-                                                   buffer.begin(),
-                                                   buffer.end())
-                                                   .second;
-
-            auto const last_buffer_mismatch =
-                std::mismatch(
-                    std::make_reverse_iterator(hi_cons_view.end()),
-                    std::make_reverse_iterator(hi_cons_view.begin()),
-                    std::make_reverse_iterator(buffer.end()),
-                    std::make_reverse_iterator(
-                        std::next(first_buffer_mismatch)))
-                    .second.base();
             auto const first_buffer_mismatch_offset =
-                first_buffer_mismatch - buffer.begin();
-            auto const last_buffer_mismatch_offset =
-                last_buffer_mismatch - buffer.begin();
+                std::mismatch(
+                    string_prefix_range.begin(),
+                    string_prefix_range.end(),
+                    buffer.begin(),
+                    buffer.end())
+                    .second -
+                buffer.begin();
 
-            auto const it = dtl::string_buffer_replace(
-                                string,
-                                string_prefix_range.begin(),
-                                string_suffix_range.end(),
-                                buffer)
-                                .begin();
+            auto const last_buffer_mismatch_offset =
+                std::mismatch(
+                    std::make_reverse_iterator(string_suffix_range.end()),
+                    std::make_reverse_iterator(string_suffix_range.begin()),
+                    std::make_reverse_iterator(buffer.end()),
+                    std::make_reverse_iterator(buffer.begin()))
+                    .second.base() -
+                buffer.end();
+
+            auto const replaced_range = dtl::string_buffer_replace(
+                string,
+                string_prefix_range.begin(),
+                string_suffix_range.end(),
+                buffer);
+
             return {
-                std::next(it, first_buffer_mismatch_offset),
-                std::next(it, last_buffer_mismatch_offset)};
+                std::next(replaced_range.begin(), first_buffer_mismatch_offset),
+                std::next(replaced_range.end(), last_buffer_mismatch_offset)};
         }
 
         template<nf Normalization, typename String, typename StringIter>
@@ -455,11 +460,6 @@ namespace boost { namespace text {
                 dtl::first_stable_cp<Normalization>(
                     string_cp_last, string_cps.end())};
 
-            if (string_prefix_range.empty() || string_suffix_range.empty()) {
-                string.erase(first, last);
-                return {first, first};
-            }
-
             normalized_insert_buffer_t<
                 Normalization,
                 String,
@@ -472,7 +472,7 @@ namespace boost { namespace text {
                 string_suffix_range,
                 string_prefix_range.begin(),
                 string_suffix_range.end());
-            boost::text::v2::normalize_append<Normalization>(cons_view, buffer);
+            boost::text::normalize_append<Normalization>(cons_view, buffer);
 
             auto const first_buffer_mismatch = std::mismatch(
                                                    cons_view.begin(),
@@ -551,35 +551,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             string, str_first, str_last, first, last, insertion_norm);
     }
 
-#if 0 // TODO: Only do this if the other range overloads below (with the
-      // string subview V) are done.
-    /** Inserts `r` into string `string`, replacing the sequence `[str_first,
-        str_last)` within `string`, and returning a view indicating the
-        changed portion of `string`.  Note that the replacement operation may
-        mutate some code points just before or just after the inserted
-        sequence.  The output is UTF-8 if `sizeof(*s.begin()) == 1`, and
-        UTF-16 otherwise.  The inserted string is not normalized if
-        `insertion_norm` is `insertion_normalized`.  The code points at either
-        end of the insertion may need to be normalized, regardless of whether
-        the inserted string does.
-
-        \pre `string` is in normalization form `Normalization`. */
-    template<nf Normalization,
-             utf_string String,
-             code_point_iterator R,
-             typename StringIter = std::ranges::iterator_t<String>>
-    replace_result<StringIter> replace(
-        String & string,
-        StringIter str_first,
-        StringIter str_last,
-        R const & r,
-        insertion_normalization insertion_norm = insertion_unnormalized)
-    {
-        return boost::text::v2::replace<Normalization>(
-            string, str_first, str_last, std::begin(r), std::end(r), insertion_norm);
-    }
-#endif
-
     /** Inserts `[first, last)` into string `string` at location `at`,
         returning a view indicating the changed portion of `string`.  Note
         that the insertion operation may mutate some code points just before
@@ -602,7 +573,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         I last,
         insertion_normalization insertion_norm = insertion_unnormalized)
     {
-        return boost::text::v2::replace<Normalization>(
+        if (first == last)
+            return {at, at};
+        return dtl::replace_impl<Normalization>(
             string, at, at, first, last, insertion_norm);
     }
 
@@ -627,7 +600,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         R const & r,
         insertion_normalization insertion_norm = insertion_unnormalized)
     {
-        return boost::text::v2::replace<Normalization>(
+        if (std::ranges::begin(r) == std::ranges::end(r))
+            return {at, at};
+        return dtl::replace_impl<Normalization>(
             string, at, at, std::begin(r), std::end(r), insertion_norm);
     }
 
@@ -646,23 +621,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     {
         return dtl::erase_impl<Normalization>(string, str_first, str_last);
     }
-
-    /* TODO: Do these? What are the constraints on V that make sense?
-
-    template<nf Normalization, utf_string String, std::ranges::view V>
-    std::ranges::iterator_t<String> erase(String & string, V substring);
-
-    template<
-        nf Normalization,
-        utf_string String,
-        std::ranges::view V,
-        std::ranges::range R>
-    String & replace(
-        String & string,
-        V substring,
-        R const & r,
-        insertion_normalization insertion_norm = insertion_unnormalized);
-    */
 
 }}}
 
