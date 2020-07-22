@@ -304,6 +304,49 @@ namespace boost { namespace text {
         // inserting.
 
         template<
+            typename StringIter,
+            typename Buffer,
+            typename String,
+            typename Iter>
+        replace_result<StringIter> replace_erase_impl_suffix(
+            String & string,
+            Buffer const & buffer,
+            stable_cps_result_t<Iter> string_prefix_range,
+            stable_cps_result_t<Iter> string_suffix_range)
+        {
+            auto const buffer_cps = boost::text::as_utf32(buffer);
+
+            auto const first_buffer_mismatch_offset =
+                std::mismatch(
+                    string_prefix_range.begin(),
+                    string_prefix_range.end(),
+                    buffer_cps.begin(),
+                    buffer_cps.end())
+                    .second.base() -
+                buffer.begin();
+
+            auto const last_buffer_mismatch_offset =
+                std::mismatch(
+                    std::make_reverse_iterator(string_suffix_range.end()),
+                    std::make_reverse_iterator(string_suffix_range.begin()),
+                    std::make_reverse_iterator(buffer_cps.end()),
+                    std::make_reverse_iterator(buffer_cps.begin()))
+                    .second.base()
+                    .base() -
+                buffer.end();
+
+            auto const replaced_range = dtl::string_buffer_replace(
+                string,
+                string_prefix_range.begin(),
+                string_suffix_range.end(),
+                buffer);
+
+            return {
+                std::next(replaced_range.begin(), first_buffer_mismatch_offset),
+                std::next(replaced_range.end(), last_buffer_mismatch_offset)};
+        }
+
+        template<
             nf Normalization,
             typename String,
             typename StringIter,
@@ -318,17 +361,15 @@ namespace boost { namespace text {
         {
             BOOST_TEXT_STATIC_ASSERT_NORMALIZATION();
 
-            auto const string_cps = boost::text::as_utf32(
-                StringIter(string.begin()), StringIter(string.end()));
+            auto const string_cps =
+                boost::text::as_utf32(string.begin(), string.end());
             auto const string_cp_first = boost::text::make_utf32_iterator(
-                StringIter(string.begin()),
-                str_first,
-                StringIter(string.end()));
+                string.begin(), str_first, string.end());
             auto const string_cp_last = boost::text::make_utf32_iterator(
-                StringIter(string.begin()), str_last, StringIter(string.end()));
+                string.begin(), str_last, string.end());
 
             using stable_cps_type =
-                dtl::stable_cps_result_t<decltype(string_cps.begin())>;
+                stable_cps_result_t<decltype(string_cps.begin())>;
 
             // Find the unstable CPs on either side of the insertion, and make a
             // range for each, using str_first and str_last as the other bounds
@@ -400,33 +441,8 @@ namespace boost { namespace text {
             if (!all_at_once)
                 text::normalize_append<Normalization>(hi_cons_view, buffer);
 
-            auto const first_buffer_mismatch_offset =
-                std::mismatch(
-                    string_prefix_range.begin(),
-                    string_prefix_range.end(),
-                    buffer.begin(),
-                    buffer.end())
-                    .second -
-                buffer.begin();
-
-            auto const last_buffer_mismatch_offset =
-                std::mismatch(
-                    std::make_reverse_iterator(string_suffix_range.end()),
-                    std::make_reverse_iterator(string_suffix_range.begin()),
-                    std::make_reverse_iterator(buffer.end()),
-                    std::make_reverse_iterator(buffer.begin()))
-                    .second.base() -
-                buffer.end();
-
-            auto const replaced_range = dtl::string_buffer_replace(
-                string,
-                string_prefix_range.begin(),
-                string_suffix_range.end(),
-                buffer);
-
-            return {
-                std::next(replaced_range.begin(), first_buffer_mismatch_offset),
-                std::next(replaced_range.end(), last_buffer_mismatch_offset)};
+            return dtl::replace_erase_impl_suffix<StringIter>(
+                string, buffer, string_prefix_range, string_suffix_range);
         }
 
         template<nf Normalization, typename String, typename StringIter>
@@ -438,12 +454,12 @@ namespace boost { namespace text {
             if (first == last)
                 return {first, first};
 
-            auto const string_cps = boost::text::as_utf32(
-                StringIter(string.begin()), StringIter(string.end()));
+            auto const string_cps =
+                boost::text::as_utf32(string.begin(), string.end());
             auto const string_cp_first = boost::text::make_utf32_iterator(
-                StringIter(string.begin()), first, StringIter(string.end()));
+                string.begin(), first, string.end());
             auto const string_cp_last = boost::text::make_utf32_iterator(
-                StringIter(string.begin()), last, StringIter(string.end()));
+                string.begin(), last, string.end());
 
             using stable_cps_type =
                 stable_cps_result_t<decltype(string_cps.begin())>;
@@ -474,39 +490,8 @@ namespace boost { namespace text {
                 string_suffix_range.end());
             boost::text::normalize_append<Normalization>(cons_view, buffer);
 
-            auto const first_buffer_mismatch = std::mismatch(
-                                                   cons_view.begin(),
-                                                   cons_view.end(),
-                                                   buffer.begin(),
-                                                   buffer.end())
-                                                   .second;
-            if (first_buffer_mismatch == buffer.end()) {
-                string.erase(first, last);
-                return {first, first};
-            }
-
-            auto const last_buffer_mismatch =
-                std::mismatch(
-                    std::make_reverse_iterator(cons_view.end()),
-                    std::make_reverse_iterator(cons_view.begin()),
-                    std::make_reverse_iterator(buffer.end()),
-                    std::make_reverse_iterator(
-                        std::next(first_buffer_mismatch)))
-                    .second.base();
-            auto const first_buffer_mismatch_offset =
-                first_buffer_mismatch - buffer.begin();
-            auto const last_buffer_mismatch_offset =
-                last_buffer_mismatch - buffer.begin();
-
-            auto const it = dtl::string_buffer_replace(
-                                string,
-                                string_prefix_range.begin(),
-                                string_suffix_range.end(),
-                                buffer)
-                                .begin();
-            return {
-                std::next(it, first_buffer_mismatch_offset),
-                std::next(it, last_buffer_mismatch_offset)};
+            return dtl::replace_erase_impl_suffix<StringIter>(
+                string, buffer, string_prefix_range, string_suffix_range);
         }
     }
 }}
