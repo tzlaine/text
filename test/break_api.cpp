@@ -677,7 +677,7 @@ TEST(break_apis, word_tailoring_MidLetter)
     {
         auto const word = boost::text::word(begin, begin, end);
         std::string const expected_word = "multi";
-        auto const expected = boost::text::v1::as_utf32(expected_word);
+        auto const expected = boost::text::as_utf32(expected_word);
         EXPECT_TRUE(boost::algorithm::equal(
             word.begin(), word.end(), expected.begin(), expected.end()));
     }
@@ -685,7 +685,7 @@ TEST(break_apis, word_tailoring_MidLetter)
     {
         auto const word = boost::text::word(begin, begin, end, midletter_dash);
         std::string const expected_word = "multi-part";
-        auto const expected = boost::text::v1::as_utf32(expected_word);
+        auto const expected = boost::text::as_utf32(expected_word);
         EXPECT_TRUE(boost::algorithm::equal(
             word.begin(), word.end(), expected.begin(), expected.end()));
     }
@@ -693,7 +693,7 @@ TEST(break_apis, word_tailoring_MidLetter)
     {
         auto const word = boost::text::word(cps, begin);
         std::string const expected_word = "multi";
-        auto const expected = boost::text::v1::as_utf32(expected_word);
+        auto const expected = boost::text::as_utf32(expected_word);
         EXPECT_TRUE(boost::algorithm::equal(
             word.begin(), word.end(), expected.begin(), expected.end()));
     }
@@ -701,7 +701,7 @@ TEST(break_apis, word_tailoring_MidLetter)
     {
         auto const word = boost::text::word(cps, begin, midletter_dash);
         std::string const expected_word = "multi-part";
-        auto const expected = boost::text::v1::as_utf32(expected_word);
+        auto const expected = boost::text::as_utf32(expected_word);
         EXPECT_TRUE(boost::algorithm::equal(
             word.begin(), word.end(), expected.begin(), expected.end()));
     }
@@ -712,7 +712,7 @@ TEST(break_apis, word_tailoring_MidLetter)
             "multi", "-", "part", " ", "words", " ", "with", " ", "dashes"};
         int i = 0;
         for (auto word : boost::text::words(begin, end)) {
-            auto const expected = boost::text::v1::as_utf32(expected_words[i]);
+            auto const expected = boost::text::as_utf32(expected_words[i]);
             EXPECT_TRUE(boost::algorithm::equal(
                 word.begin(), word.end(), expected.begin(), expected.end()));
             ++i;
@@ -725,7 +725,7 @@ TEST(break_apis, word_tailoring_MidLetter)
             "multi-part", " ", "words", " ", "with", " ", "dashes"};
         int i = 0;
         for (auto word : boost::text::words(begin, end, midletter_dash)) {
-            auto const expected = boost::text::v1::as_utf32(expected_words[i]);
+            auto const expected = boost::text::as_utf32(expected_words[i]);
             EXPECT_TRUE(boost::algorithm::equal(
                 word.begin(), word.end(), expected.begin(), expected.end()));
             ++i;
@@ -736,7 +736,7 @@ TEST(break_apis, word_tailoring_MidLetter)
         for (auto word :
              boost::text::reversed_words(begin, end, midletter_dash)) {
             --i;
-            auto const expected = boost::text::v1::as_utf32(expected_words[i]);
+            auto const expected = boost::text::as_utf32(expected_words[i]);
             EXPECT_TRUE(boost::algorithm::equal(
                 word.begin(), word.end(), expected.begin(), expected.end()));
         }
@@ -748,7 +748,7 @@ TEST(break_apis, word_tailoring_MidLetter)
             "multi", "-", "part", " ", "words", " ", "with", " ", "dashes"};
         int i = 0;
         for (auto word : boost::text::words(cps)) {
-            auto const expected = boost::text::v1::as_utf32(expected_words[i]);
+            auto const expected = boost::text::as_utf32(expected_words[i]);
             EXPECT_TRUE(boost::algorithm::equal(
                 word.begin(), word.end(), expected.begin(), expected.end()));
             ++i;
@@ -758,7 +758,7 @@ TEST(break_apis, word_tailoring_MidLetter)
         i = 9;
         for (auto word : boost::text::reversed_words(cps)) {
             --i;
-            auto const expected = boost::text::v1::as_utf32(expected_words[i]);
+            auto const expected = boost::text::as_utf32(expected_words[i]);
             EXPECT_TRUE(boost::algorithm::equal(
                 word.begin(), word.end(), expected.begin(), expected.end()));
         }
@@ -770,7 +770,7 @@ TEST(break_apis, word_tailoring_MidLetter)
             "multi-part", " ", "words", " ", "with", " ", "dashes"};
         int i = 0;
         for (auto word : boost::text::words(cps, midletter_dash)) {
-            auto const expected = boost::text::v1::as_utf32(expected_words[i]);
+            auto const expected = boost::text::as_utf32(expected_words[i]);
             EXPECT_TRUE(boost::algorithm::equal(
                 word.begin(), word.end(), expected.begin(), expected.end()));
             ++i;
@@ -780,7 +780,7 @@ TEST(break_apis, word_tailoring_MidLetter)
         i = 7;
         for (auto word : boost::text::reversed_words(cps, midletter_dash)) {
             --i;
-            auto const expected = boost::text::v1::as_utf32(expected_words[i]);
+            auto const expected = boost::text::as_utf32(expected_words[i]);
             EXPECT_TRUE(boost::algorithm::equal(
                 word.begin(), word.end(), expected.begin(), expected.end()));
         }
@@ -849,7 +849,7 @@ TEST(break_apis, word_tailoring_MidLetter_sentinel)
     {
         auto const word = boost::text::word(begin, begin, end);
         std::string const expected_word = "multi";
-        auto const expected = boost::text::v1::as_utf32(expected_word);
+        auto const expected = boost::text::as_utf32(expected_word);
         EXPECT_TRUE(boost::algorithm::equal(
             word.begin(), word.end(), expected.begin(), expected.end()));
     }
@@ -857,7 +857,7 @@ TEST(break_apis, word_tailoring_MidLetter_sentinel)
     {
         auto const word = boost::text::word(begin, begin, end, midletter_dash);
         std::string const expected_word = "multi-part";
-        auto const expected = boost::text::v1::as_utf32(expected_word);
+        auto const expected = boost::text::as_utf32(expected_word);
         EXPECT_TRUE(boost::algorithm::equal(
             word.begin(), word.end(), expected.begin(), expected.end()));
     }
@@ -865,7 +865,7 @@ TEST(break_apis, word_tailoring_MidLetter_sentinel)
     {
         auto const word = boost::text::word(cp_range, begin);
         std::string const expected_word = "multi";
-        auto const expected = boost::text::v1::as_utf32(expected_word);
+        auto const expected = boost::text::as_utf32(expected_word);
         EXPECT_TRUE(boost::algorithm::equal(
             word.begin(), word.end(), expected.begin(), expected.end()));
     }
@@ -873,7 +873,7 @@ TEST(break_apis, word_tailoring_MidLetter_sentinel)
     {
         auto const word = boost::text::word(cp_range, begin, midletter_dash);
         std::string const expected_word = "multi-part";
-        auto const expected = boost::text::v1::as_utf32(expected_word);
+        auto const expected = boost::text::as_utf32(expected_word);
         EXPECT_TRUE(boost::algorithm::equal(
             word.begin(), word.end(), expected.begin(), expected.end()));
     }
@@ -884,7 +884,7 @@ TEST(break_apis, word_tailoring_MidLetter_sentinel)
             "multi", "-", "part", " ", "words", " ", "with", " ", "dashes"};
         int i = 0;
         for (auto word : boost::text::words(begin, end)) {
-            auto const expected = boost::text::v1::as_utf32(expected_words[i]);
+            auto const expected = boost::text::as_utf32(expected_words[i]);
             EXPECT_TRUE(boost::algorithm::equal(
                 word.begin(), word.end(), expected.begin(), expected.end()));
             ++i;
@@ -897,7 +897,7 @@ TEST(break_apis, word_tailoring_MidLetter_sentinel)
             "multi-part", " ", "words", " ", "with", " ", "dashes"};
         int i = 0;
         for (auto word : boost::text::words(begin, end, midletter_dash)) {
-            auto const expected = boost::text::v1::as_utf32(expected_words[i]);
+            auto const expected = boost::text::as_utf32(expected_words[i]);
             EXPECT_TRUE(boost::algorithm::equal(
                 word.begin(), word.end(), expected.begin(), expected.end()));
             ++i;
@@ -910,7 +910,7 @@ TEST(break_apis, word_tailoring_MidLetter_sentinel)
             "multi", "-", "part", " ", "words", " ", "with", " ", "dashes"};
         int i = 0;
         for (auto word : boost::text::words(cp_range)) {
-            auto const expected = boost::text::v1::as_utf32(expected_words[i]);
+            auto const expected = boost::text::as_utf32(expected_words[i]);
             EXPECT_TRUE(boost::algorithm::equal(
                 word.begin(), word.end(), expected.begin(), expected.end()));
             ++i;
@@ -923,7 +923,7 @@ TEST(break_apis, word_tailoring_MidLetter_sentinel)
             "multi-part", " ", "words", " ", "with", " ", "dashes"};
         int i = 0;
         for (auto word : boost::text::words(cp_range, midletter_dash)) {
-            auto const expected = boost::text::v1::as_utf32(expected_words[i]);
+            auto const expected = boost::text::as_utf32(expected_words[i]);
             EXPECT_TRUE(boost::algorithm::equal(
                 word.begin(), word.end(), expected.begin(), expected.end()));
             ++i;
@@ -963,7 +963,7 @@ TEST(break_apis, word_tailoring_cp_break)
         std::string const expected_words[3] = {"snake_case", " ", "camelCase"};
         int i = 0;
         for (auto word : boost::text::words(begin, end)) {
-            auto const expected = boost::text::v1::as_utf32(expected_words[i]);
+            auto const expected = boost::text::as_utf32(expected_words[i]);
             EXPECT_TRUE(boost::algorithm::equal(
                 word.begin(), word.end(), expected.begin(), expected.end()));
             ++i;
@@ -977,7 +977,7 @@ TEST(break_apis, word_tailoring_cp_break)
         int i = 0;
         for (auto word :
              boost::text::words(begin, end, midletter_dash, identifier_break)) {
-            auto const expected = boost::text::v1::as_utf32(expected_words[i]);
+            auto const expected = boost::text::as_utf32(expected_words[i]);
             EXPECT_TRUE(boost::algorithm::equal(
                 word.begin(), word.end(), expected.begin(), expected.end()));
             ++i;
@@ -989,7 +989,7 @@ TEST(break_apis, word_tailoring_cp_break)
         std::string const expected_words[3] = {"snake_case", " ", "camelCase"};
         int i = 0;
         for (auto word : boost::text::words(cps)) {
-            auto const expected = boost::text::v1::as_utf32(expected_words[i]);
+            auto const expected = boost::text::as_utf32(expected_words[i]);
             EXPECT_TRUE(boost::algorithm::equal(
                 word.begin(), word.end(), expected.begin(), expected.end()));
             ++i;
@@ -1003,7 +1003,7 @@ TEST(break_apis, word_tailoring_cp_break)
         int i = 0;
         for (auto word :
              boost::text::words(cps, midletter_dash, identifier_break)) {
-            auto const expected = boost::text::v1::as_utf32(expected_words[i]);
+            auto const expected = boost::text::as_utf32(expected_words[i]);
             EXPECT_TRUE(boost::algorithm::equal(
                 word.begin(), word.end(), expected.begin(), expected.end()));
             ++i;
@@ -1052,7 +1052,7 @@ TEST(break_apis, word_tailoring_cp_break_sentinel)
         std::string const expected_words[3] = {"snake_case", " ", "camelCase"};
         int i = 0;
         for (auto word : boost::text::words(begin, end)) {
-            auto const expected = boost::text::v1::as_utf32(expected_words[i]);
+            auto const expected = boost::text::as_utf32(expected_words[i]);
             EXPECT_TRUE(boost::algorithm::equal(
                 word.begin(), word.end(), expected.begin(), expected.end()));
             ++i;
@@ -1066,7 +1066,7 @@ TEST(break_apis, word_tailoring_cp_break_sentinel)
         int i = 0;
         for (auto word :
              boost::text::words(begin, end, midletter_dash, identifier_break)) {
-            auto const expected = boost::text::v1::as_utf32(expected_words[i]);
+            auto const expected = boost::text::as_utf32(expected_words[i]);
             EXPECT_TRUE(boost::algorithm::equal(
                 word.begin(), word.end(), expected.begin(), expected.end()));
             ++i;
@@ -1078,7 +1078,7 @@ TEST(break_apis, word_tailoring_cp_break_sentinel)
         std::string const expected_words[3] = {"snake_case", " ", "camelCase"};
         int i = 0;
         for (auto word : boost::text::words(cp_range)) {
-            auto const expected = boost::text::v1::as_utf32(expected_words[i]);
+            auto const expected = boost::text::as_utf32(expected_words[i]);
             EXPECT_TRUE(boost::algorithm::equal(
                 word.begin(), word.end(), expected.begin(), expected.end()));
             ++i;
@@ -1092,7 +1092,7 @@ TEST(break_apis, word_tailoring_cp_break_sentinel)
         int i = 0;
         for (auto word :
              boost::text::words(cp_range, midletter_dash, identifier_break)) {
-            auto const expected = boost::text::v1::as_utf32(expected_words[i]);
+            auto const expected = boost::text::as_utf32(expected_words[i]);
             EXPECT_TRUE(boost::algorithm::equal(
                 word.begin(), word.end(), expected.begin(), expected.end()));
             ++i;

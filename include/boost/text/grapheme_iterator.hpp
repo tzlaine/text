@@ -18,7 +18,7 @@
 #include <stdexcept>
 
 
-namespace boost { namespace text { inline namespace v1 {
+namespace boost { namespace text {
 
     /** A bidirectional filtering iterator that iterates over the extended
         grapheme clusters in a sequence of code points. */
@@ -92,7 +92,7 @@ namespace boost { namespace text { inline namespace v1 {
         constexpr grapheme_iterator & operator++() noexcept
         {
             CPIter next_break =
-                boost::text::v1::next_grapheme_break(gr_end(), seq_end());
+                boost::text::next_grapheme_break(gr_end(), seq_end());
             grapheme_first_ = grapheme_last_;
             grapheme_last_ =
                 detail::unpack_iterator_and_sentinel(next_break, seq_end()).f_;
@@ -107,7 +107,7 @@ namespace boost { namespace text { inline namespace v1 {
 
         constexpr grapheme_iterator & operator--() noexcept
         {
-            CPIter prev_break = boost::text::v1::prev_grapheme_break(
+            CPIter prev_break = boost::text::prev_grapheme_break(
                 seq_begin(), std::prev(gr_begin()), seq_end());
             grapheme_last_ = grapheme_first_;
             grapheme_first_ =
@@ -238,6 +238,6 @@ namespace boost { namespace text { inline namespace v1 {
         return it.base() != s;
     }
 
-}}}
+}}
 
 #endif

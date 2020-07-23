@@ -26,7 +26,7 @@ cpp_file_form = decls = '''\
 #include <unordered_map>
 
 
-namespace boost {{ namespace text {{ inline namespace v1 {{ namespace detail {{
+namespace boost {{ namespace text {{ namespace detail {{
 
 std::array<{0}_interval, {1}> const & make_{0}_intervals()
 {{
@@ -52,7 +52,7 @@ BOOST_ASSERT(retval.size() == {6});
 return retval;
 }}
 
-}}}}}}}}
+}}}}}}
 '''
 
 bidi_header_form = decls = '''\
@@ -74,7 +74,7 @@ bidi_header_form = decls = '''\
 #include <stdint.h>
 
 
-namespace boost {{ namespace text {{ inline namespace v1 {{ namespace detail {{
+namespace boost {{ namespace text {{ namespace detail {{
 
 enum class bidi_bracket_type {{
     open,
@@ -136,7 +136,7 @@ inline std::array<uint32_t, {3}> const & bidi_mirroreds() noexcept
     return retval;
 }}
 
-}}}}}}}}
+}}}}}}
 
 #endif
 '''

@@ -13,7 +13,7 @@
 #include <unordered_map>
 
 
-namespace boost { namespace text { inline namespace v1 { namespace detail {
+namespace boost { namespace text { namespace detail {
 
 std::array<implicit_weights_segment, 10> make_implicit_weights_segments()
 {
@@ -520,4 +520,4 @@ lzw_decompress(
 BOOST_ASSERT(buf.empty());
 }
 
-}}}}
+}}}

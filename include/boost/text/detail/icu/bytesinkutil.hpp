@@ -12,7 +12,7 @@
 #include <boost/assert.hpp>
 
 
-namespace boost { namespace text { inline namespace v1 { namespace detail { namespace icu {
+namespace boost { namespace text { namespace detail { namespace icu {
 
     /**
      * \def uprv_lengthof
@@ -178,6 +178,6 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
         }
     }
 
-}}}}}
+}}}}
 
 #endif

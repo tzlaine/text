@@ -6,30 +6,30 @@
 #ifndef BOOST_TEXT_CONCEPTS_HPP
 #define BOOST_TEXT_CONCEPTS_HPP
 
-#if defined(__cpp_lib_concepts)
-
 #include <boost/text/config.hpp>
+
+#if defined(__cpp_lib_concepts)
 
 #include <ranges>
 
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
-    namespace detail {
+    namespace dtl {
         template<typename T, int Bytes>
         concept cu_x = std::is_integral<T>::value && sizeof(T) == Bytes;
     }
 
     template<typename T>
-    concept u8_code_unit = detail::cu_x<T, 1>;
+    concept u8_code_unit = dtl::cu_x<T, 1>;
 
     template<typename T>
-    concept u16_code_unit = detail::cu_x<T, 2>;
+    concept u16_code_unit = dtl::cu_x<T, 2>;
 
     template<typename T>
-    concept u32_code_unit = detail::cu_x<T, 4>;
+    concept u32_code_unit = dtl::cu_x<T, 4>;
 
-    namespace detail {
+    namespace dtl {
         template<typename T, int Bytes>
         concept u_x_iter =
             std::bidirectional_iterator<T> && cu_x<std::iter_value_t<T>, Bytes>;
@@ -48,31 +48,31 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     template<typename T>
-    concept u8_iter = detail::u_x_iter<T, 1>;
+    concept u8_iter = dtl::u_x_iter<T, 1>;
     template<typename T>
-    concept u8_ptr = detail::u_x_ptr<T, 1>;
+    concept u8_ptr = dtl::u_x_ptr<T, 1>;
     template<typename T>
-    concept u8_range = detail::u_x_range<T, 1>;
+    concept u8_range = dtl::u_x_range<T, 1>;
     template<typename T>
-    concept contig_u8_range = detail::contig_u_x_range<T, 1>;
+    concept contig_u8_range = dtl::contig_u_x_range<T, 1>;
 
     template<typename T>
-    concept u16_iter = detail::u_x_iter<T, 2>;
+    concept u16_iter = dtl::u_x_iter<T, 2>;
     template<typename T>
-    concept u16_ptr = detail::u_x_ptr<T, 2>;
+    concept u16_ptr = dtl::u_x_ptr<T, 2>;
     template<typename T>
-    concept u16_range = detail::u_x_range<T, 2>;
+    concept u16_range = dtl::u_x_range<T, 2>;
     template<typename T>
-    concept contig_u16_range = detail::contig_u_x_range<T, 2>;
+    concept contig_u16_range = dtl::contig_u_x_range<T, 2>;
 
     template<typename T>
-    concept u32_iter = detail::u_x_iter<T, 4>;
+    concept u32_iter = dtl::u_x_iter<T, 4>;
     template<typename T>
-    concept u32_ptr = detail::u_x_ptr<T, 4>;
+    concept u32_ptr = dtl::u_x_ptr<T, 4>;
     template<typename T>
-    concept u32_range = detail::u_x_range<T, 4>;
+    concept u32_range = dtl::u_x_range<T, 4>;
     template<typename T>
-    concept contig_u32_range = detail::contig_u_x_range<T, 4>;
+    concept contig_u32_range = dtl::contig_u_x_range<T, 4>;
 
     template<typename T>
     concept code_point = u32_code_unit<T>;
@@ -109,7 +109,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     concept grapheme_char_range = std::ranges::bidirectional_range<T> &&
         grapheme_char_iter<std::ranges::iterator_t<T>>;
 
-    namespace detail {
+    namespace dtl {
         template<typename T>
         using grapheme_bottom_iter_t =
             decltype(std::declval<T>().begin().base().base());
@@ -117,10 +117,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
     template<typename T>
     concept contig_grapheme_char_range = grapheme_char_range<T> &&
-        std::contiguous_iterator<detail::grapheme_bottom_iter_t<T>>;
+        std::contiguous_iterator<dtl::grapheme_bottom_iter_t<T>>;
 
 
-    namespace detail {
+    namespace dtl {
         template<typename T>
         concept eraseable_sized_bidi_range =
             // clang-format off
@@ -135,7 +135,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<typename T>
     concept utf8_string =
         // clang-format off
-        detail::eraseable_sized_bidi_range<T> &&
+        dtl::eraseable_sized_bidi_range<T> &&
         u8_code_unit<std::ranges::range_value_t<T>> &&
         requires(T t, char const * it) {
         { t.insert(t.end(), it, it) } ->
@@ -146,7 +146,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<typename T>
     concept utf16_string =
         // clang-format off
-        detail::eraseable_sized_bidi_range<T> &&
+        dtl::eraseable_sized_bidi_range<T> &&
         u16_code_unit<std::ranges::range_value_t<T>> &&
         requires(T t, uint16_t const * it) {
         { t.insert(t.end(), it, it) } ->

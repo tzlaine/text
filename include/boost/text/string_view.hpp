@@ -17,7 +17,7 @@
 #include <string>
 
 
-namespace boost { namespace text { inline namespace v1 {
+namespace boost { namespace text {
 
 #if defined(__cpp_lib_string_view)
     using string_view = std::string_view;
@@ -44,6 +44,6 @@ namespace boost { namespace text { inline namespace v1 {
         }
     }
 
-}}}
+}}
 
 #endif

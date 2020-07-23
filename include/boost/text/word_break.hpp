@@ -16,7 +16,7 @@
 #include <stdint.h>
 
 
-namespace boost { namespace text { inline namespace v1 {
+namespace boost { namespace text {
 
     /** The word properties defined by Unicode. */
     enum class word_property {
@@ -233,7 +233,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             if (state.it != first && !detail::skippable(state.caps[ph::prev].prop) &&
                 detail::skippable(state.caps[ph::curr].prop)) {
                 auto last_prop = word_property::Other;
-                auto temp_it = boost::text::v1::find_if_not(
+                auto temp_it = boost::text::find_if_not(
                     state.it, last, [word_prop, &last_prop](uint32_t cp) {
                         last_prop = word_prop(cp);
                         return detail::skippable(last_prop);
@@ -315,7 +315,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
     {
         word_property operator()(uint32_t cp) const noexcept
         {
-            return boost::text::v1::word_prop(cp);
+            return boost::text::word_prop(cp);
         }
     };
 
@@ -545,7 +545,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         // Special case: If state.caps[ph::curr].prop is skippable, we need to
         // skip backward until we find a non-skippable.
         if (detail::skippable(state.caps[ph::curr].prop)) {
-            auto const prev = boost::text::v1::find_if_not_backward(
+            auto const prev = boost::text::find_if_not_backward(
                 first, it, [word_prop](uint32_t cp) {
                     return detail::skippable(word_prop(cp));
                 });
@@ -621,7 +621,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         auto skip = [word_prop](
                         detail::word_break_state<CPIter> state, CPIter first) {
             if (detail::skippable(state.caps[ph::prev].prop)) {
-                auto temp_it = boost::text::v1::find_if_not_backward(
+                auto temp_it = boost::text::find_if_not_backward(
                     first, state.it, [word_prop](uint32_t cp) {
                         return detail::skippable(word_prop(cp));
                     });
@@ -1014,7 +1014,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept -> detail::
         word_prop_func_ret_t<detail::iterator_t<CPRange>, WordPropFunc, CPRange>
     {
-        return boost::text::v1::prev_word_break(
+        return boost::text::prev_word_break(
             std::begin(range), it, std::end(range), word_prop, cp_break);
     }
 
@@ -1035,7 +1035,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
     {
         using cp_iter_t = decltype(range.begin().base());
         return {range.begin().base(),
-                boost::text::v1::prev_word_break(
+                boost::text::prev_word_break(
                     range.begin().base(),
                     static_cast<cp_iter_t>(it.base()),
                     range.end().base(),
@@ -1056,7 +1056,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept -> detail::
         word_prop_func_ret_t<detail::iterator_t<CPRange>, WordPropFunc, CPRange>
     {
-        return boost::text::v1::next_word_break(
+        return boost::text::next_word_break(
             it, std::end(range), word_prop, cp_break);
     }
 
@@ -1077,7 +1077,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
     {
         using cp_iter_t = decltype(range.begin().base());
         return {range.begin().base(),
-                boost::text::v1::next_word_break(
+                boost::text::next_word_break(
                     static_cast<cp_iter_t>(it.base()),
                     range.end().base(),
                     word_prop,
@@ -1162,7 +1162,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             auto operator()(CPIter it, Sentinel last) const noexcept
                 -> detail::cp_iter_ret_t<CPIter, CPIter>
             {
-                return boost::text::v1::next_word_break(
+                return boost::text::next_word_break(
                     it, last, word_prop_, cp_break_);
             }
 
@@ -1179,7 +1179,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             auto operator()(CPIter first, CPIter it, CPIter last) const noexcept
                 -> detail::cp_iter_ret_t<CPIter, CPIter>
             {
-                return boost::text::v1::prev_word_break(
+                return boost::text::prev_word_break(
                     first, it, last, word_prop_, cp_break_);
             }
 
@@ -1201,11 +1201,11 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         WordPropFunc word_prop = WordPropFunc{},
         CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept
     {
-        first = boost::text::v1::prev_word_break(
+        first = boost::text::prev_word_break(
             first, it, last, word_prop, cp_break);
         return utf32_view<CPIter>{
             first,
-            boost::text::v1::next_word_break(first, last, word_prop, cp_break)};
+            boost::text::next_word_break(first, last, word_prop, cp_break)};
     }
 
 #ifdef BOOST_TEXT_DOXYGEN
@@ -1353,11 +1353,11 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             WordPropFunc,
             CPRange>
     {
-        auto first = boost::text::v1::prev_word_break(
+        auto first = boost::text::prev_word_break(
             std::begin(range), it, std::end(range), word_prop, cp_break);
         return utf32_view<detail::iterator_t<CPRange>>{
             first,
-            boost::text::v1::next_word_break(
+            boost::text::next_word_break(
                 first, std::end(range), word_prop, cp_break)};
     }
 
@@ -1377,7 +1377,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             GraphemeRange>
     {
         using cp_iter_t = decltype(range.begin().base());
-        auto first = boost::text::v1::prev_word_break(
+        auto first = boost::text::prev_word_break(
             range.begin().base(),
             static_cast<cp_iter_t>(it.base()),
             range.end().base(),
@@ -1385,7 +1385,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             cp_break);
         return {range.begin().base(),
                 first,
-                boost::text::v1::next_word_break(
+                boost::text::next_word_break(
                     first, range.end().base(), word_prop, cp_break),
                 range.end().base()};
     }
@@ -1576,6 +1576,6 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
 
 #endif
 
-}}}
+}}
 
 #endif

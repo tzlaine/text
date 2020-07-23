@@ -16,7 +16,7 @@
 #include <stdint.h>
 
 
-namespace boost { namespace text { inline namespace v1 { namespace detail {
+namespace boost { namespace text { namespace detail {
 
 enum class bidi_bracket_type {
     open,
@@ -1035,6 +1035,6 @@ inline std::array<uint32_t, 420> const & bidi_mirroreds() noexcept
     return retval;
 }
 
-}}}}
+}}}
 
 #endif

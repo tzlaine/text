@@ -15,7 +15,7 @@
 #include <unordered_map>
 
 
-namespace boost { namespace text { inline namespace v1 { namespace detail {
+namespace boost { namespace text { namespace detail {
 
 std::array<line_prop_interval, 49> const & make_line_prop_intervals()
 {
@@ -7350,4 +7350,4 @@ BOOST_ASSERT(retval.size() == 32668);
 return retval;
 }
 
-}}}}
+}}}

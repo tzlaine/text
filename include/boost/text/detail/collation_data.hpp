@@ -26,7 +26,7 @@
 #endif
 
 
-namespace boost { namespace text { inline namespace v1 { namespace detail {
+namespace boost { namespace text { namespace detail {
 
     struct collation_element
     {
@@ -290,7 +290,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             static_assert(std::is_same<
                           std::decay_t<decltype(*std::begin(key))>,
                           uint32_t>::value, "");
-            return impl_.contains(boost::text::v1::as_utf16(key));
+            return impl_.contains(boost::text::as_utf16(key));
         }
 
         template<typename KeyIter, typename Sentinel>
@@ -300,7 +300,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             static_assert(
                 std::is_same<std::decay_t<decltype(*first)>, uint32_t>::value, "");
             return impl_.longest_subsequence(
-                boost::text::v1::as_utf16(first, last));
+                boost::text::as_utf16(first, last));
         }
 
         match_result longest_subsequence(uint16_t cu) const noexcept
@@ -310,7 +310,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
 
         match_result longest_subsequence(uint32_t cp) const noexcept
         {
-            auto const r = boost::text::v1::as_utf16(&cp, &cp + 1);
+            auto const r = boost::text::as_utf16(&cp, &cp + 1);
             return impl_.longest_subsequence(r.begin(), r.end());
         }
 
@@ -319,7 +319,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         {
             static_assert(
                 std::is_same<std::decay_t<decltype(*first)>, uint32_t>::value, "");
-            return impl_.longest_match(boost::text::v1::as_utf16(first, last));
+            return impl_.longest_match(boost::text::as_utf16(first, last));
         }
 
         match_result extend_subsequence(match_result prev, uint16_t cu) const
@@ -331,7 +331,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         match_result extend_subsequence(match_result prev, uint32_t cp) const
             noexcept
         {
-            auto const r = boost::text::v1::as_utf16(&cp, &cp + 1);
+            auto const r = boost::text::as_utf16(&cp, &cp + 1);
             return impl_.extend_subsequence(prev, r.begin(), r.end());
         }
 
@@ -342,7 +342,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             static_assert(std::is_same<
                           std::decay_t<decltype(*std::begin(key))>,
                           uint32_t>::value, "");
-            return impl_[boost::text::v1::as_utf16(key)];
+            return impl_[boost::text::as_utf16(key)];
         }
 
         trie::optional_ref<value_type const>
@@ -364,7 +364,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                           std::decay_t<decltype(*std::begin(key))>,
                           uint32_t>::value, "");
             return impl_.insert(
-                boost::text::v1::as_utf16(key), std::move(value));
+                boost::text::as_utf16(key), std::move(value));
         }
 
         template<typename KeyIter, typename Sentinel>
@@ -373,7 +373,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             static_assert(
                 std::is_same<std::decay_t<decltype(*first)>, uint32_t>::value, "");
             return impl_.insert_or_assign(
-                boost::text::v1::as_utf16(first, last), std::move(value));
+                boost::text::as_utf16(first, last), std::move(value));
         }
 
         template<typename KeyRange>
@@ -383,7 +383,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                           std::decay_t<decltype(*std::begin(key))>,
                           uint32_t>::value, "");
             return impl_.insert_or_assign(
-                boost::text::v1::as_utf16(key), std::move(value));
+                boost::text::as_utf16(key), std::move(value));
         }
 
         bool erase(match_result match) noexcept { return impl_.erase(match); }
@@ -587,6 +587,6 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         return lzw_to_trie_key_iter<OutIter>(out, buf);
     }
 
-}}}}
+}}}
 
 #endif

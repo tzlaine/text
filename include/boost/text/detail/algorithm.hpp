@@ -15,14 +15,14 @@
 #include <utility>
 
 
-namespace boost { namespace text { inline namespace v1 {
+namespace boost { namespace text {
 
     struct unencoded_rope;
     struct unencoded_rope_view;
 
-}}}
+}}
 
-namespace boost { namespace text { inline namespace v1 { namespace detail {
+namespace boost { namespace text { namespace detail {
 
     template<typename T>
     using remove_cv_ref_t =
@@ -633,6 +633,6 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         std::is_pointer<Iter>::value &&
             detected_or<std::false_type, cp_value_type, Iter>::value>;
 
-}}}}
+}}}
 
 #endif

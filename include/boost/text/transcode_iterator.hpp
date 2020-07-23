@@ -19,7 +19,7 @@
 #include <stdexcept>
 
 
-namespace boost { namespace text { inline namespace v1 {
+namespace boost { namespace text {
 
     namespace {
         constexpr uint16_t high_surrogate_base = 0xd7c0;
@@ -190,9 +190,9 @@ namespace boost { namespace text { inline namespace v1 {
     BOOST_TEXT_CXX14_CONSTEXPR detail::enable_utf16_cp_t<T, int>
     code_point_units(T first) noexcept
     {
-        if (boost::text::v1::low_surrogate(first))
+        if (boost::text::low_surrogate(first))
             return -1;
-        if (boost::text::v1::high_surrogate(first))
+        if (boost::text::high_surrogate(first))
             return 2;
         return 1;
     }
@@ -253,7 +253,7 @@ namespace boost { namespace text { inline namespace v1 {
         BOOST_TEXT_CXX14_CONSTEXPR optional_iter<Iter>
         end_of_invalid_utf8(Iter it) noexcept
         {
-            BOOST_ASSERT(!boost::text::v1::continuation(*it));
+            BOOST_ASSERT(!boost::text::continuation(*it));
 
             using detail::in;
 
@@ -262,71 +262,71 @@ namespace boost { namespace text { inline namespace v1 {
 
             if (in(0xc2, *it, 0xdf)) {
                 auto next = it;
-                if (!boost::text::v1::continuation(*++next))
+                if (!boost::text::continuation(*++next))
                     return next;
                 return optional_iter<Iter>{};
             }
 
             if (in(0xe0, *it, 0xe0)) {
                 auto next = it;
-                if (!boost::text::v1::continuation(*++next, 0xa0, 0xbf))
+                if (!boost::text::continuation(*++next, 0xa0, 0xbf))
                     return next;
-                if (!boost::text::v1::continuation(*++next))
+                if (!boost::text::continuation(*++next))
                     return next;
                 return optional_iter<Iter>{};
             }
             if (in(0xe1, *it, 0xec)) {
                 auto next = it;
-                if (!boost::text::v1::continuation(*++next))
+                if (!boost::text::continuation(*++next))
                     return next;
-                if (!boost::text::v1::continuation(*++next))
+                if (!boost::text::continuation(*++next))
                     return next;
                 return optional_iter<Iter>{};
             }
             if (in(0xed, *it, 0xed)) {
                 auto next = it;
-                if (!boost::text::v1::continuation(*++next, 0x80, 0x9f))
+                if (!boost::text::continuation(*++next, 0x80, 0x9f))
                     return next;
-                if (!boost::text::v1::continuation(*++next))
+                if (!boost::text::continuation(*++next))
                     return next;
                 return optional_iter<Iter>{};
             }
             if (in(0xee, *it, 0xef)) {
                 auto next = it;
-                if (!boost::text::v1::continuation(*++next))
+                if (!boost::text::continuation(*++next))
                     return next;
-                if (!boost::text::v1::continuation(*++next))
+                if (!boost::text::continuation(*++next))
                     return next;
                 return optional_iter<Iter>{};
             }
 
             if (in(0xf0, *it, 0xf0)) {
                 auto next = it;
-                if (!boost::text::v1::continuation(*++next, 0x90, 0xbf))
+                if (!boost::text::continuation(*++next, 0x90, 0xbf))
                     return next;
-                if (!boost::text::v1::continuation(*++next))
+                if (!boost::text::continuation(*++next))
                     return next;
-                if (!boost::text::v1::continuation(*++next))
+                if (!boost::text::continuation(*++next))
                     return next;
                 return optional_iter<Iter>{};
             }
             if (in(0xf1, *it, 0xf3)) {
                 auto next = it;
-                if (!boost::text::v1::continuation(*++next))
+                if (!boost::text::continuation(*++next))
                     return next;
-                if (!boost::text::v1::continuation(*++next))
+                if (!boost::text::continuation(*++next))
                     return next;
-                if (!boost::text::v1::continuation(*++next))
+                if (!boost::text::continuation(*++next))
                     return next;
                 return optional_iter<Iter>{};
             }
             if (in(0xf4, *it, 0xf4)) {
                 auto next = it;
-                if (!boost::text::v1::continuation(*++next, 0x80, 0x8f))
+                if (!boost::text::continuation(*++next, 0x80, 0x8f))
                     return next;
-                if (!boost::text::v1::continuation(*++next))
+                if (!boost::text::continuation(*++next))
                     return next;
-                if (!boost::text::v1::continuation(*++next))
+                if (!boost::text::continuation(*++next))
                     return next;
                 return optional_iter<Iter>{};
             }
@@ -340,12 +340,12 @@ namespace boost { namespace text { inline namespace v1 {
             Iter retval = it;
 
             int backup = 0;
-            while (backup < 4 && boost::text::v1::continuation(*--retval)) {
+            while (backup < 4 && boost::text::continuation(*--retval)) {
                 ++backup;
             }
             backup = it - retval;
 
-            if (boost::text::v1::continuation(*retval))
+            if (boost::text::continuation(*retval))
                 return it - 1;
 
             optional_iter<Iter> first_invalid = end_of_invalid_utf8(retval);
@@ -360,7 +360,7 @@ namespace boost { namespace text { inline namespace v1 {
             }
 
             if (1 < backup) {
-                int const cp_bytes = boost::text::v1::code_point_bytes(*retval);
+                int const cp_bytes = boost::text::code_point_bytes(*retval);
                 if (cp_bytes < backup)
                     retval = it - 1;
             }
@@ -375,12 +375,12 @@ namespace boost { namespace text { inline namespace v1 {
 
             int backup = 0;
             while (backup < 4 && it != first &&
-                   boost::text::v1::continuation(*--retval)) {
+                   boost::text::continuation(*--retval)) {
                 ++backup;
             }
             backup = std::distance(retval, it);
 
-            if (boost::text::v1::continuation(*retval)) {
+            if (boost::text::continuation(*retval)) {
                 if (it != first)
                     --it;
                 return it;
@@ -399,7 +399,7 @@ namespace boost { namespace text { inline namespace v1 {
             }
 
             if (1 < backup) {
-                int const cp_bytes = boost::text::v1::code_point_bytes(*retval);
+                int const cp_bytes = boost::text::code_point_bytes(*retval);
                 if (cp_bytes < backup) {
                     if (it != first)
                         --it;
@@ -606,7 +606,7 @@ namespace boost { namespace text { inline namespace v1 {
     find_invalid_encoding(char const * first, char const * last) noexcept
     {
         while (first != last) {
-            int const cp_bytes = boost::text::v1::code_point_bytes(*first);
+            int const cp_bytes = boost::text::code_point_bytes(*first);
             if (cp_bytes == -1 || last - first < cp_bytes)
                 return first;
 
@@ -630,11 +630,11 @@ namespace boost { namespace text { inline namespace v1 {
     find_invalid_encoding(T const * first, T const * last) noexcept
     {
         while (first != last) {
-            int const cp_units = boost::text::v1::code_point_units(*first);
+            int const cp_units = boost::text::code_point_units(*first);
             if (cp_units == -1 || last - first < cp_units)
                 return first;
 
-            if (cp_units == 2 && !boost::text::v1::low_surrogate(*(first + 1)))
+            if (cp_units == 2 && !boost::text::low_surrogate(*(first + 1)))
                 return first;
 
             first += cp_units;
@@ -652,7 +652,7 @@ namespace boost { namespace text { inline namespace v1 {
     inline BOOST_TEXT_CXX14_CONSTEXPR bool
     encoded(char const * first, char const * last) noexcept
     {
-        return boost::text::v1::find_invalid_encoding(first, last) == last;
+        return boost::text::find_invalid_encoding(first, last) == last;
     }
 
     // TODO: Concept constrain for C++20.  The constaint should be any 16-bit
@@ -665,7 +665,7 @@ namespace boost { namespace text { inline namespace v1 {
     BOOST_TEXT_CXX14_CONSTEXPR detail::enable_utf16_cp_t<T, bool>
     encoded(T const * first, T const * last) noexcept
     {
-        return boost::text::v1::find_invalid_encoding(first, last) == last;
+        return boost::text::find_invalid_encoding(first, last) == last;
     }
 
     // TODO: Templateize and concept constrain for C++20.  The constaint
@@ -680,7 +680,7 @@ namespace boost { namespace text { inline namespace v1 {
         if (first == last)
             return true;
 
-        int const cp_bytes = boost::text::v1::code_point_bytes(*first);
+        int const cp_bytes = boost::text::code_point_bytes(*first);
         if (cp_bytes == -1 || last - first < cp_bytes)
             return false;
 
@@ -699,11 +699,11 @@ namespace boost { namespace text { inline namespace v1 {
         if (first == last)
             return true;
 
-        int const cp_units = boost::text::v1::code_point_units(*first);
+        int const cp_units = boost::text::code_point_units(*first);
         if (cp_units == -1 || last - first < cp_units)
             return false;
 
-        return cp_units == 1 || boost::text::v1::low_surrogate(*(first + 1));
+        return cp_units == 1 || boost::text::low_surrogate(*(first + 1));
     }
 
     // TODO: Templateize and concept constrain for C++20.  The constaint
@@ -719,7 +719,7 @@ namespace boost { namespace text { inline namespace v1 {
             return true;
 
         auto it = last;
-        while (first != --it && boost::text::v1::continuation(*it))
+        while (first != --it && boost::text::continuation(*it))
             ;
 
         return starts_encoded(it, last);
@@ -739,7 +739,7 @@ namespace boost { namespace text { inline namespace v1 {
             return true;
 
         auto it = last;
-        if (boost::text::v1::low_surrogate(*--it))
+        if (boost::text::low_surrogate(*--it))
             --it;
 
         return starts_encoded(it, last);
@@ -755,7 +755,7 @@ namespace boost { namespace text { inline namespace v1 {
         if (first == last)
             return true;
 
-        int const cp_bytes = boost::text::v1::code_point_bytes(*first);
+        int const cp_bytes = boost::text::code_point_bytes(*first);
         if (cp_bytes == -1 || last - first < cp_bytes)
             return false;
 
@@ -780,11 +780,11 @@ namespace boost { namespace text { inline namespace v1 {
         if (first == last)
             return true;
 
-        int const cp_units = boost::text::v1::code_point_units(*first);
+        int const cp_units = boost::text::code_point_units(*first);
         if (cp_units == -1 || last - first < cp_units)
             return false;
 
-        return cp_units == 1 || boost::text::v1::low_surrogate(*(first + 1));
+        return cp_units == 1 || boost::text::low_surrogate(*(first + 1));
     }
 
     // TODO: Concept constrain for C++20.  The constaint should be any 8-bit
@@ -798,10 +798,10 @@ namespace boost { namespace text { inline namespace v1 {
             return true;
 
         auto it = last;
-        while (first != --it && boost::text::v1::continuation(*it))
+        while (first != --it && boost::text::continuation(*it))
             ;
 
-        return boost::text::v1::starts_encoded(it, last);
+        return boost::text::starts_encoded(it, last);
     }
 
     // TODO: Concept constrain for C++20.  The constaint should be any 16-bit
@@ -816,10 +816,10 @@ namespace boost { namespace text { inline namespace v1 {
             return true;
 
         auto it = last;
-        if (boost::text::v1::low_surrogate(*--it))
+        if (boost::text::low_surrogate(*--it))
             --it;
 
-        return boost::text::v1::starts_encoded(it, last);
+        return boost::text::starts_encoded(it, last);
     }
 
     /** An error handler type that can be used with the converting iterators;
@@ -2373,9 +2373,9 @@ namespace boost { namespace text { inline namespace v1 {
         BOOST_TEXT_CXX14_CONSTEXPR utf_16_to_32_iterator &
         operator--() noexcept(!throw_on_error)
         {
-            if (it_ != first_ && boost::text::v1::low_surrogate(*--it_)) {
+            if (it_ != first_ && boost::text::low_surrogate(*--it_)) {
                 if (it_ != first_ &&
-                    boost::text::v1::high_surrogate(*std::prev(it_)))
+                    boost::text::high_surrogate(*std::prev(it_)))
                     --it_;
             }
             return *this;
@@ -2900,12 +2900,12 @@ namespace boost { namespace text { inline namespace v1 {
             uint32_t first = static_cast<uint32_t>(*next);
             uint32_t second = 0;
             uint32_t cp = first;
-            if (boost::text::v1::high_surrogate(first)) {
+            if (boost::text::high_surrogate(first)) {
                 if (at_end())
                     cp = replacement_character();
                 else {
                     second = static_cast<uint32_t>(*++next);
-                    if (!boost::text::v1::low_surrogate(second)) {
+                    if (!boost::text::low_surrogate(second)) {
                         ErrorHandler{}(
                             "Invalid UTF-16 sequence; expected low surrogate "
                             "after high surrogate.");
@@ -2914,7 +2914,7 @@ namespace boost { namespace text { inline namespace v1 {
                         cp = (first << 10) + second + surrogate_offset;
                     }
                 }
-            } else if (boost::text::v1::surrogate(first)) {
+            } else if (boost::text::surrogate(first)) {
                 ErrorHandler{}("Invalid initial UTF-16 code unit.");
                 cp = replacement_character();
             }
@@ -2926,9 +2926,9 @@ namespace boost { namespace text { inline namespace v1 {
 
         BOOST_TEXT_CXX14_CONSTEXPR void increment() noexcept
         {
-            if (boost::text::v1::high_surrogate(*it_)) {
+            if (boost::text::high_surrogate(*it_)) {
                 ++it_;
-                if (it_ != last_ && boost::text::v1::low_surrogate(*it_))
+                if (it_ != last_ && boost::text::low_surrogate(*it_))
                     ++it_;
             } else {
                 ++it_;
@@ -2937,7 +2937,7 @@ namespace boost { namespace text { inline namespace v1 {
 
         BOOST_TEXT_CXX14_CONSTEXPR void decrement() noexcept
         {
-            if (boost::text::v1::low_surrogate(*--it_)) {
+            if (boost::text::low_surrogate(*--it_)) {
                 if (it_ != first_)
                     --it_;
             }
@@ -3612,17 +3612,17 @@ namespace boost { namespace text { inline namespace v1 {
         return utf_8_to_16_back_insert_iterator<Container>(c);
     }
 
-}}}
+}}
 
 #include <boost/text/detail/unpack.hpp>
 
-namespace boost { namespace text { namespace dtl {
+namespace boost { namespace text { namespace detail {
 
     template<typename Tag>
     struct make_utf8_dispatch;
 
     template<>
-    struct make_utf8_dispatch<v1::detail::utf8_tag>
+    struct make_utf8_dispatch<detail::utf8_tag>
     {
         template<typename Iter, typename Sentinel>
         static constexpr Iter call(Iter first, Iter it, Sentinel last) noexcept
@@ -3632,7 +3632,7 @@ namespace boost { namespace text { namespace dtl {
     };
 
     template<>
-    struct make_utf8_dispatch<v1::detail::utf16_tag>
+    struct make_utf8_dispatch<detail::utf16_tag>
     {
         template<typename Iter, typename Sentinel>
         static constexpr utf_16_to_8_iterator<Iter, Sentinel>
@@ -3643,7 +3643,7 @@ namespace boost { namespace text { namespace dtl {
     };
 
     template<>
-    struct make_utf8_dispatch<v1::detail::utf32_tag>
+    struct make_utf8_dispatch<detail::utf32_tag>
     {
         template<typename Iter, typename Sentinel>
         static constexpr utf_32_to_8_iterator<Iter, Sentinel>
@@ -3657,7 +3657,7 @@ namespace boost { namespace text { namespace dtl {
     struct make_utf16_dispatch;
 
     template<>
-    struct make_utf16_dispatch<v1::detail::utf8_tag>
+    struct make_utf16_dispatch<detail::utf8_tag>
     {
         template<typename Iter, typename Sentinel>
         static constexpr utf_8_to_16_iterator<Iter, Sentinel>
@@ -3668,7 +3668,7 @@ namespace boost { namespace text { namespace dtl {
     };
 
     template<>
-    struct make_utf16_dispatch<v1::detail::utf16_tag>
+    struct make_utf16_dispatch<detail::utf16_tag>
     {
         template<typename Iter, typename Sentinel>
         static constexpr Iter call(Iter first, Iter it, Sentinel last) noexcept
@@ -3678,7 +3678,7 @@ namespace boost { namespace text { namespace dtl {
     };
 
     template<>
-    struct make_utf16_dispatch<v1::detail::utf32_tag>
+    struct make_utf16_dispatch<detail::utf32_tag>
     {
         template<typename Iter, typename Sentinel>
         static constexpr utf_32_to_16_iterator<Iter, Sentinel>
@@ -3692,7 +3692,7 @@ namespace boost { namespace text { namespace dtl {
     struct make_utf32_dispatch;
 
     template<>
-    struct make_utf32_dispatch<v1::detail::utf8_tag>
+    struct make_utf32_dispatch<detail::utf8_tag>
     {
         template<typename Iter, typename Sentinel>
         static constexpr utf_8_to_32_iterator<Iter, Sentinel>
@@ -3703,7 +3703,7 @@ namespace boost { namespace text { namespace dtl {
     };
 
     template<>
-    struct make_utf32_dispatch<v1::detail::utf16_tag>
+    struct make_utf32_dispatch<detail::utf16_tag>
     {
         template<typename Iter, typename Sentinel>
         static constexpr utf_16_to_32_iterator<Iter, Sentinel>
@@ -3714,7 +3714,7 @@ namespace boost { namespace text { namespace dtl {
     };
 
     template<>
-    struct make_utf32_dispatch<v1::detail::utf32_tag>
+    struct make_utf32_dispatch<detail::utf32_tag>
     {
         template<typename Iter, typename Sentinel>
         static constexpr Iter call(Iter first, Iter it, Sentinel last) noexcept
@@ -3725,7 +3725,7 @@ namespace boost { namespace text { namespace dtl {
 
 }}}
 
-namespace boost { namespace text { inline namespace v1 {
+namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
     /** Returns an iterator equivalent to `it` that transcodes `[first, last)`
         to UTF-8. */
@@ -3736,7 +3736,7 @@ namespace boost { namespace text { inline namespace v1 {
         auto const unpacked_it =
             detail::unpack_iterator_and_sentinel(it, last).f_;
         using tag_type = decltype(unpacked.tag_);
-        return dtl::make_utf8_dispatch<tag_type>::call(
+        return detail::make_utf8_dispatch<tag_type>::call(
             unpacked.f_, unpacked_it, unpacked.l_);
     }
 
@@ -3749,7 +3749,7 @@ namespace boost { namespace text { inline namespace v1 {
         auto const unpacked_it =
             detail::unpack_iterator_and_sentinel(it, last).f_;
         using tag_type = decltype(unpacked.tag_);
-        return dtl::make_utf16_dispatch<tag_type>::call(
+        return detail::make_utf16_dispatch<tag_type>::call(
             unpacked.f_, unpacked_it, unpacked.l_);
     }
 
@@ -3762,10 +3762,44 @@ namespace boost { namespace text { inline namespace v1 {
         auto const unpacked_it =
             detail::unpack_iterator_and_sentinel(it, last).f_;
         using tag_type = decltype(unpacked.tag_);
-        return dtl::make_utf32_dispatch<tag_type>::call(
+        return detail::make_utf32_dispatch<tag_type>::call(
             unpacked.f_, unpacked_it, unpacked.l_);
     }
 
 }}}
+
+#if defined(__cpp_lib_concepts)
+
+#include <boost/text/concepts.hpp>
+
+namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
+
+    /** Returns an iterator equivalent to `it` that transcodes `[first, last)`
+        to UTF-8. */
+    template<std::bidirectional_iterator I, std::sentinel_for<I> S>
+    auto make_utf8_iterator(I first, I it, S last) noexcept
+    {
+        return text::v1::make_utf8_iterator(first, it, last);
+    }
+
+    /** Returns an iterator equivalent to `it` that transcodes `[first, last)`
+        to UTF-16. */
+    template<std::bidirectional_iterator I, std::sentinel_for<I> S>
+    auto make_utf16_iterator(I first, I it, S last) noexcept
+    {
+        return text::v1::make_utf16_iterator(first, it, last);
+    }
+
+    /** Returns an iterator equivalent to `it` that transcodes `[first, last)`
+        to UTF-32. */
+    template<std::bidirectional_iterator I, std::sentinel_for<I> S>
+    auto make_utf32_iterator(I first, I it, S last) noexcept
+    {
+        return text::v1::make_utf32_iterator(first, it, last);
+    }
+
+}}}
+
+#endif
 
 #endif

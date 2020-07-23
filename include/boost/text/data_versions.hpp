@@ -9,7 +9,7 @@
 #include <boost/text/config.hpp>
 
 
-namespace boost { namespace text { inline namespace v1 {
+namespace boost { namespace text {
 
     /** The major, minor, and patch elements of a library version number of
         the form `"major.minor.patch"`. */
@@ -27,6 +27,6 @@ namespace boost { namespace text { inline namespace v1 {
         used by this library. */
     BOOST_TEXT_DECL library_version cldr_version();
 
-}}}
+}}
 
 #endif

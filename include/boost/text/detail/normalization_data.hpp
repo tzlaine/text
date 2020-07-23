@@ -18,7 +18,7 @@
 #include <unordered_set>
 
 
-namespace boost { namespace text { inline namespace v1 { namespace detail {
+namespace boost { namespace text { namespace detail {
 
     template<int Capacity>
     struct code_points
@@ -421,6 +421,6 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         buffer_t * buf_;
     };
 
-}}}}
+}}}
 
 #endif

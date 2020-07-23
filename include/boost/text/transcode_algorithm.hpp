@@ -29,7 +29,7 @@
 #endif
 
 
-namespace boost { namespace text { inline namespace v1 {
+namespace boost { namespace text {
 
     /** The result returned from some variations of the transcode
         algorithms. */
@@ -786,6 +786,6 @@ namespace boost { namespace text { inline namespace v1 {
                 .out;
     }
 
-}}}
+}}
 
 #endif

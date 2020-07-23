@@ -8,7 +8,7 @@
 #define UCPMAP_H_
 
 
-namespace boost { namespace text { inline namespace v1 { namespace detail { namespace icu {
+namespace boost { namespace text { namespace detail { namespace icu {
 
     /**
      * \file
@@ -101,6 +101,6 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
      */
     typedef uint32_t UCPMapValueFilter(const void * context, uint32_t value);
 
-}}}}}
+}}}}
 
 #endif

@@ -125,7 +125,7 @@
 
 /* single-code point definitions -------------------------------------------- */
 
-namespace boost { namespace text { inline namespace v1 { namespace detail { namespace icu {
+namespace boost { namespace text { namespace detail { namespace icu {
 
     /**
      * Is this code point a Unicode noncharacter?
@@ -229,6 +229,6 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
      */
     inline bool u_is_surrogate_trail(UChar32 c) { return (((c)&0x400) != 0); }
 
-}}}}}
+}}}}
 
 #endif

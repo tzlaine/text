@@ -211,8 +211,8 @@ void do_search(
     int line,
     collation_flags flags = collation_flags::none)
 {
-    auto const str = boost::text::v1::as_utf32(str_);
-    auto const substr = boost::text::v1::as_utf32(substr_);
+    auto const str = boost::text::as_utf32(str_);
+    auto const substr = boost::text::as_utf32(substr_);
 
     do_simple_search(
         table, str, substr, expected_first, expected_last, line, flags);
@@ -535,10 +535,10 @@ void do_full_match_search(
     int line,
     collation_flags flags = collation_flags::none)
 {
-    auto const r1 = boost::text::v1::as_utf32(str_1);
+    auto const r1 = boost::text::as_utf32(str_1);
     auto size = std::distance(r1.begin(), r1.end());
     do_search(table, str_1, str_2, 0, size, line, flags);
-    auto const r2 = boost::text::v1::as_utf32(str_2);
+    auto const r2 = boost::text::as_utf32(str_2);
     size = std::distance(r2.begin(), r2.end());
     do_search(table, str_2, str_1, 0, size, line, flags);
 }
@@ -550,10 +550,10 @@ void do_full_no_match_search(
     int line,
     collation_flags flags = collation_flags::none)
 {
-    auto const r1 = boost::text::v1::as_utf32(str_1);
+    auto const r1 = boost::text::as_utf32(str_1);
     auto size = std::distance(r1.begin(), r1.end());
     do_search(table, str_1, str_2, size, size, line, flags);
-    auto const r2 = boost::text::v1::as_utf32(str_2);
+    auto const r2 = boost::text::as_utf32(str_2);
     size = std::distance(r2.begin(), r2.end());
     do_search(table, str_2, str_1, size, size, line, flags);
 }
@@ -945,24 +945,24 @@ TEST(collation_search, word_boundaries)
 
     do_simple_word_search(
         table,
-        boost::text::v1::as_utf32((char const *)u8"pause resume ..."),
-        boost::text::v1::as_utf32((char const *)u8"resume"),
+        boost::text::as_utf32((char const *)u8"pause resume ..."),
+        boost::text::as_utf32((char const *)u8"resume"),
         6,
         12,
         __LINE__);
     do_simple_word_search_not_found(
         table,
-        boost::text::v1::as_utf32((char const *)u8"resumed"),
-        boost::text::v1::as_utf32((char const *)u8"resume"),
+        boost::text::as_utf32((char const *)u8"resumed"),
+        boost::text::as_utf32((char const *)u8"resume"),
         __LINE__);
     do_simple_word_search_not_found(
         table,
-        boost::text::v1::as_utf32((char const *)u8"unresumed"),
-        boost::text::v1::as_utf32((char const *)u8"resume"),
+        boost::text::as_utf32((char const *)u8"unresumed"),
+        boost::text::as_utf32((char const *)u8"resume"),
         __LINE__);
     do_simple_word_search_not_found(
         table,
-        boost::text::v1::as_utf32((char const *)u8"unresume"),
-        boost::text::v1::as_utf32((char const *)u8"resume"),
+        boost::text::as_utf32((char const *)u8"unresume"),
+        boost::text::as_utf32((char const *)u8"resume"),
         __LINE__);
 }

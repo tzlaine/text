@@ -14,7 +14,7 @@
 #include <unordered_map>
 
 
-namespace boost { namespace text { inline namespace v1 { namespace detail {
+namespace boost { namespace text { namespace detail {
 
     std::array<uint32_t, 3404> make_all_canonical_decompositions()
     {
@@ -17190,4 +17190,4 @@ return {{
         return retval;
     }
 
-}}}}
+}}}

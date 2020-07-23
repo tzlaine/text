@@ -18,7 +18,7 @@
 #include <vector>
 
 
-namespace boost { namespace text { inline namespace v1 { namespace detail {
+namespace boost { namespace text { namespace detail {
 
     template<typename T>
     struct node_t;
@@ -1118,6 +1118,6 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
     }
 #endif
 
-}}}}
+}}}
 
 #endif

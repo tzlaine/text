@@ -13,7 +13,7 @@
 
 #include <boost/text/detail/icu/normalizer2impl.hpp>
 
-namespace boost { namespace text { inline namespace v1 { namespace detail { namespace icu {
+namespace boost { namespace text { namespace detail { namespace icu {
 
 static const int32_t norm2_nfkc_data_indexes[Normalizer2Impl::ix_count]={
 0x50,0x6980,0xd104,0xd204,0xd204,0xd204,0xd204,0xd204,0xa0,0xa0,0xaac,0x2958,0x6782,0xfc00,0x1252,0x6000,
@@ -1730,6 +1730,6 @@ static const uint8_t norm2_nfkc_data_smallFCD[256]={
 0,0,0,0,0,0,0,0,0,0,0,0x27,0xdc,2,0x9e,0x90
 };
 
-}}}}}
+}}}}
 
 #endif

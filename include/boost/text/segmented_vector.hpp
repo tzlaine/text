@@ -13,7 +13,7 @@
 #include <initializer_list>
 
 
-namespace boost { namespace text { inline namespace v1 {
+namespace boost { namespace text {
 
     namespace detail {
 
@@ -428,6 +428,6 @@ namespace boost { namespace text { inline namespace v1 {
 #endif
     };
 
-}}}
+}}
 
 #endif

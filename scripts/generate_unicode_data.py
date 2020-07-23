@@ -197,13 +197,13 @@ version_cpp_form = '''\
 #include <boost/text/data_versions.hpp>
 
 
-namespace boost {{ namespace text {{ inline namespace v1 {{
+namespace boost {{ namespace text {{
 
     library_version unicode_version() {{ return {{ {}, {}, {} }}; }}
 
     library_version cldr_version() {{ return {{ {}, {}, {} }}; }}
 
-}}}}}}
+}}}}
 '''
 
 open('data_versions.cpp', 'w').write(version_cpp_form.format(

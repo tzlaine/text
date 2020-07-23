@@ -34,7 +34,7 @@ namespace boost { namespace filesystem {
 
 #endif
 
-namespace boost { namespace text { inline namespace v1 {
+namespace boost { namespace text {
 
     namespace detail {
 
@@ -322,8 +322,8 @@ namespace boost { namespace text { inline namespace v1 {
             data_(std::make_shared<detail::collation_table_data>())
         {}
 
-        detail::collation_element const * collation_elements_begin() const
-            noexcept
+        detail::collation_element const *
+        collation_elements_begin() const noexcept
         {
             return data_->collation_elements_
                        ? data_->collation_elements_
@@ -611,8 +611,8 @@ namespace boost { namespace text { inline namespace v1 {
             uint8_t const byte_disable_mask = disable_case_level_mask >> 8;
 
             uint8_t bytes[] = {uint8_t(l3 >> 8), uint8_t(l3 & 0xff)};
-            uint8_t const case_masks[] = {uint8_t(bytes[0] & byte_mask),
-                                          uint8_t(bytes[1] & byte_mask)};
+            uint8_t const case_masks[] = {
+                uint8_t(bytes[0] & byte_mask), uint8_t(bytes[1] & byte_mask)};
             bytes[0] &= byte_disable_mask;
             bytes[1] &= byte_disable_mask;
 
@@ -1189,7 +1189,8 @@ namespace boost { namespace text { inline namespace v1 {
                         temp_table.replace(temp_table.begin() + i, element);
                         prev_ces = element.ces_;
                         ++i;
-                    } while (i != end && !detail::less(prev_ces, temp_table[i].ces_));
+                    } while (i != end &&
+                             !detail::less(prev_ces, temp_table[i].ces_));
                 }
             }
 
@@ -1253,7 +1254,7 @@ namespace boost { namespace text { inline namespace v1 {
             detail::suppress_impl(table, first_cp_subseq, true);
         }
     }
-}}}
+}}
 
 #ifndef BOOST_TEXT_DOXYGEN
 
@@ -1278,7 +1279,7 @@ namespace std {
 
 #endif
 
-namespace boost { namespace text { inline namespace v1 {
+namespace boost { namespace text {
 
     namespace detail {
 
@@ -1362,11 +1363,11 @@ namespace boost { namespace text { inline namespace v1 {
         parser_diagnostic_callback report_warnings =
             parser_diagnostic_callback());
 
-}}}
+}}
 
 #include <boost/text/collate.hpp>
 
-namespace boost { namespace text { inline namespace v1 {
+namespace boost { namespace text {
 
     inline collation_compare collation_table::compare(
         collation_strength strength,
@@ -1447,12 +1448,12 @@ namespace boost { namespace text { inline namespace v1 {
             std::vector<uint16_t> buf;
             for (auto pair : trie_map) {
                 if (pair.key.size_ &&
-                    boost::text::v1::high_surrogate(
+                    boost::text::high_surrogate(
                         pair.key.cps_.values_[pair.key.size_ - 1])) {
                     continue;
                 }
                 buf.assign(pair.key.begin(), pair.key.end());
-                auto const cps = boost::text::v1::as_utf32(buf);
+                auto const cps = boost::text::as_utf32(buf);
                 std::copy(
                     std::next(cps.begin()),
                     cps.end(),
@@ -1862,6 +1863,6 @@ namespace boost { namespace text { inline namespace v1 {
         }
     }
 
-}}}
+}}
 
 #endif

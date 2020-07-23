@@ -48,7 +48,7 @@ namespace std {
 }
 
 #if !BOOST_TEXT_COLLATE_INSTRUMENTATION
-namespace boost { namespace text { inline namespace v1 {
+namespace boost { namespace text {
     inline std::ostream & operator<<(std::ostream & os, text_sort_key const & k)
     {
         os << std::hex << "[";
@@ -58,7 +58,7 @@ namespace boost { namespace text { inline namespace v1 {
         os << " ]" << std::dec;
         return os;
     }
-}}}
+}}
 #endif
 
 

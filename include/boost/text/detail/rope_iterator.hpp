@@ -9,14 +9,14 @@
 #include <boost/text/detail/iterator.hpp>
 
 
-namespace boost { namespace text { inline namespace v1 {
+namespace boost { namespace text {
 
     struct unencoded_rope_view;
     struct rope_view;
 
-}}}
+}}
 
-namespace boost { namespace text { inline namespace v1 { namespace detail {
+namespace boost { namespace text { namespace detail {
 
     struct const_rope_iterator : stl_interfaces::iterator_interface<
                                      const_rope_iterator,
@@ -98,8 +98,8 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         mutable leaf_node_t<rope_tag> const * leaf_;
         mutable std::ptrdiff_t leaf_start_;
 
-        friend struct ::boost::text::v1::unencoded_rope_view;
-        friend struct ::boost::text::v1::rope_view;
+        friend struct ::boost::text::unencoded_rope_view;
+        friend struct ::boost::text::rope_view;
     };
 
     struct const_rope_view_iterator : stl_interfaces::iterator_interface<
@@ -205,6 +205,6 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         which which_;
     };
 
-}}}}
+}}}
 
 #endif

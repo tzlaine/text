@@ -10,7 +10,7 @@
 #include <boost/assert.hpp>
 
 
-namespace boost { namespace text { inline namespace v1 { namespace detail {
+namespace boost { namespace text { namespace detail {
 
 namespace {
 
@@ -775,4 +775,4 @@ trie_values_()
         std::copy(values.begin(), values.end(), retval.begin());
     }
 
-}}}}
+}}}

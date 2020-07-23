@@ -13,7 +13,7 @@
 #include <iterator>
 
 
-namespace boost { namespace text { inline namespace v1 {
+namespace boost { namespace text {
 
     namespace detail {
         struct rope_iterator;
@@ -178,14 +178,14 @@ namespace boost { namespace text { inline namespace v1 {
         return tv.rend();
     }
 
-}}}
+}}
 
 #include <boost/text/text.hpp>
 #include <boost/text/rope.hpp>
 #include <boost/text/unencoded_rope_view.hpp>
 #include <boost/text/detail/rope_iterator.hpp>
 
-namespace boost { namespace text { inline namespace v1 {
+namespace boost { namespace text {
 
     inline rope_view::rope_view(text const & t) noexcept :
         view_(string_view(t.begin().base().base(), t.storage_bytes()))
@@ -239,19 +239,19 @@ namespace boost { namespace text { inline namespace v1 {
                             first, last, last}};
     }
 
-}}}
+}}
 
 #ifndef BOOST_TEXT_DOXYGEN
 
 namespace std {
     template<>
-    struct hash<boost::text::v1::rope_view>
+    struct hash<boost::text::rope_view>
     {
-        using argument_type = boost::text::v1::rope_view;
+        using argument_type = boost::text::rope_view;
         using result_type = std::size_t;
         result_type operator()(argument_type const & rv) const noexcept
         {
-            return boost::text::v1::detail::hash_grapheme_range(rv);
+            return boost::text::detail::hash_grapheme_range(rv);
         }
     };
 }

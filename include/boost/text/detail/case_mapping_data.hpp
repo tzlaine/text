@@ -14,7 +14,7 @@
 #include <vector>
 
 
-namespace boost { namespace text { inline namespace v1 { namespace detail {
+namespace boost { namespace text { namespace detail {
 
     struct case_mapping_to
     {
@@ -145,6 +145,6 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         return cps.find(cp) != cps.end();
     }
 
-}}}}
+}}}
 
 #endif

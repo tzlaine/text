@@ -12,7 +12,7 @@
 #include <boost/text/detail/btree.hpp>
 
 
-namespace boost { namespace text { inline namespace v1 { namespace detail {
+namespace boost { namespace text { namespace detail {
 
     struct rope_tag;
 
@@ -288,6 +288,6 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         std::ostream & os_;
     };
 
-}}}}
+}}}
 
 #endif

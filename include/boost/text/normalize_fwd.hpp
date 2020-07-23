@@ -6,8 +6,10 @@
 #ifndef BOOST_TEXT_NORMALIZE_FWD_HPP
 #define BOOST_TEXT_NORMALIZE_FWD_HPP
 
+#include <boost/text/config.hpp>
 
-namespace boost { namespace text { inline namespace v1 {
+
+namespace boost { namespace text {
 
     /** The Unicode Normalization Forms.
 
@@ -28,6 +30,6 @@ namespace boost { namespace text { inline namespace v1 {
             (int)Normalization <= (int)nf::fcc,                                \
         "Invalid normalization form.")
 
-}}}
+}}
 
 #endif

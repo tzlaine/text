@@ -12,7 +12,7 @@
 #include <iterator>
 
 
-namespace boost { namespace text { inline namespace v1 {
+namespace boost { namespace text {
 
     namespace detail {
         template<typename Iter>
@@ -181,9 +181,9 @@ namespace boost { namespace text { inline namespace v1 {
     {
         while (first != last) {
             auto const & x = *first;
-            auto const next = boost::text::v1::find_not(first, last, x);
+            auto const next = boost::text::find_not(first, last, x);
             if (first != next) {
-                f(boost::text::v1::foreach_subrange_range<FwdIter, Sentinel>(
+                f(boost::text::foreach_subrange_range<FwdIter, Sentinel>(
                     first, next));
             }
             first = next;
@@ -201,12 +201,12 @@ namespace boost { namespace text { inline namespace v1 {
         using value_type = typename std::iterator_traits<FwdIter>::value_type;
         while (first != last) {
             auto const & x = proj(*first);
-            auto const next = boost::text::v1::find_if_not(
+            auto const next = boost::text::find_if_not(
                 first, last, [&x, proj](const value_type & element) {
                     return proj(element) == x;
                 });
             if (first != next) {
-                f(boost::text::v1::foreach_subrange_range<FwdIter, Sentinel>(
+                f(boost::text::foreach_subrange_range<FwdIter, Sentinel>(
                     first, next));
             }
             first = next;
@@ -221,10 +221,10 @@ namespace boost { namespace text { inline namespace v1 {
     Func foreach_subrange_of(FwdIter first, Sentinel last, T const & x, Func f)
     {
         while (first != last) {
-            first = boost::text::v1::find(first, last, x);
-            auto const next = boost::text::v1::find_not(first, last, x);
+            first = boost::text::find(first, last, x);
+            auto const next = boost::text::find_not(first, last, x);
             if (first != next) {
-                f(boost::text::v1::foreach_subrange_range<FwdIter, Sentinel>(
+                f(boost::text::foreach_subrange_range<FwdIter, Sentinel>(
                     first, next));
             }
             first = next;
@@ -239,10 +239,10 @@ namespace boost { namespace text { inline namespace v1 {
     Func foreach_subrange_if(FwdIter first, Sentinel last, Pred p, Func f)
     {
         while (first != last) {
-            first = boost::text::v1::find_if(first, last, p);
-            auto const next = boost::text::v1::find_if_not(first, last, p);
+            first = boost::text::find_if(first, last, p);
+            auto const next = boost::text::find_if_not(first, last, p);
             if (first != next) {
-                f(boost::text::v1::foreach_subrange_range<FwdIter, Sentinel>(
+                f(boost::text::foreach_subrange_range<FwdIter, Sentinel>(
                     first, next));
             }
             first = next;
@@ -261,6 +261,6 @@ namespace boost { namespace text { inline namespace v1 {
         return true;
     }
 
-}}}
+}}
 
 #endif

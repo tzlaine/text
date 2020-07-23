@@ -18,7 +18,7 @@
 #include <climits>
 
 
-namespace boost { namespace text { inline namespace v1 {
+namespace boost { namespace text {
 
     struct text;
 
@@ -175,11 +175,11 @@ namespace boost { namespace text { inline namespace v1 {
     inline int operator+(text_view const & t, char8_t const * c_str) = delete;
 #endif
 
-}}}
+}}
 
 #include <boost/text/text.hpp>
 
-namespace boost { namespace text { inline namespace v1 {
+namespace boost { namespace text {
 
     inline text_view::text_view(text const & t) noexcept :
         first_(t.begin()),
@@ -192,19 +192,19 @@ namespace boost { namespace text { inline namespace v1 {
         last_(range.end())
     {}
 
-}}}
+}}
 
 #ifndef BOOST_TEXT_DOXYGEN
 
 namespace std {
     template<>
-    struct hash<boost::text::v1::text_view>
+    struct hash<boost::text::text_view>
     {
-        using argument_type = boost::text::v1::text_view;
+        using argument_type = boost::text::text_view;
         using result_type = std::size_t;
         result_type operator()(argument_type const & tv) const noexcept
         {
-            return boost::text::v1::detail::hash_grapheme_range(tv);
+            return boost::text::detail::hash_grapheme_range(tv);
         }
     };
 }

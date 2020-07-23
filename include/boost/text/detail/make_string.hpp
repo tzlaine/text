@@ -9,7 +9,7 @@
 #include <boost/text/detail/sentinel_tag.hpp>
 
 
-namespace boost { namespace text { inline namespace v1 { namespace detail {
+namespace boost { namespace text { namespace detail {
 
     template<typename CharIter>
     auto make_string(CharIter first, CharIter last)
@@ -28,6 +28,6 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             first, std::next(first, boost::text::distance(first, last)));
     }
 
-}}}}
+}}}
 
 #endif

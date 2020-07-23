@@ -5,8 +5,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 #include <boost/text/normalize_algorithm.hpp>
 
-#if defined(__cpp_lib_concepts) // TODO: Make this work transparently for v1.
-
 #include <string>
 #include <vector>
 
@@ -16,7 +14,7 @@
 
 
 template<typename T>
-using erase_from = decltype(boost::text::v2::erase<boost::text::nf::c>(
+using erase_from = decltype(boost::text::erase<boost::text::nf::c>(
     std::declval<T &>(),
     std::declval<T &>().begin(),
     std::declval<T &>().end()));
@@ -27,29 +25,33 @@ static_assert(well_formed<erase_from, std::wstring>::value, "");
 #endif
 static_assert(well_formed<erase_from, std::vector<char>>::value, "");
 static_assert(well_formed<erase_from, std::vector<short>>::value, "");
+#if defined (__cpp_lib_concepts)
 static_assert(ill_formed<erase_from, std::vector<int>>::value, "");
+#endif
 
 
-TEST(normalization_algorithm, dtl_cons_view)
+TEST(normalization_algorithm, detail_cons_view)
 {
     std::string const str1 = "foo";
     std::string str2 = "bar";
     auto r1 = boost::text::as_utf32(str1);
     auto r2 = boost::text::as_utf32(str2);
     auto v =
-        boost::text::dtl::cons_view<uint32_t>(r1, r2, r1.begin(), r2.end());
+        boost::text::detail::cons_view<uint32_t>(r1, r2, r1.begin(), r2.end());
 
     std::vector<int> result;
     std::copy(v.begin(), v.end(), std::back_inserter(result));
     EXPECT_EQ(result, std::vector<int>({'f', 'o', 'o', 'b', 'a', 'r'}));
 
     result.clear();
-    v = boost::text::dtl::cons_view<uint32_t>(
+    v = boost::text::detail::cons_view<uint32_t>(
         r1, r2, std::prev(r1.end(), 1), std::next(r2.begin(), 1));
     std::copy(v.begin(), v.end(), std::back_inserter(result));
     EXPECT_EQ(result, std::vector<int>({'o', 'b'}));
 
-    static_assert(boost::text::v2::code_point_range<decltype(v)>);
+#if defined (__cpp_lib_concepts)
+    static_assert(boost::text::code_point_range<decltype(v)>);
+#endif
 }
 
 TEST(normalization_algorithm, erase_nfc)
@@ -63,7 +65,7 @@ TEST(normalization_algorithm, erase_nfc)
         std::vector<uint16_t> str(
             std::begin(nfc_a_cedilla_ring_above),
             std::end(nfc_a_cedilla_ring_above));
-        auto const result = boost::text::v2::erase<boost::text::nf::c>(
+        auto const result = boost::text::erase<boost::text::nf::c>(
             str, str.begin() + 0, str.begin() + 1);
         EXPECT_EQ(
             str,
@@ -78,7 +80,7 @@ TEST(normalization_algorithm, erase_nfc)
         std::vector<uint16_t> str(
             std::begin(nfc_a_cedilla_ring_above),
             std::end(nfc_a_cedilla_ring_above));
-        auto const result = boost::text::v2::erase<boost::text::nf::c>(
+        auto const result = boost::text::erase<boost::text::nf::c>(
             str, str.begin() + 1, str.begin() + 2);
         EXPECT_EQ(str, std::vector<uint16_t>({0x00c5 /*A+ring above*/}));
         EXPECT_EQ(result.begin(), str.begin());
@@ -90,7 +92,7 @@ TEST(normalization_algorithm, erase_nfc)
         std::vector<uint16_t> str(
             std::begin(nfc_a_cedilla_ring_above),
             std::end(nfc_a_cedilla_ring_above));
-        auto const result = boost::text::v2::erase<boost::text::nf::c>(
+        auto const result = boost::text::erase<boost::text::nf::c>(
             str, str.begin() + 2, str.begin() + 3);
         EXPECT_EQ(
             str, std::vector<uint16_t>({0x0041 /*A*/, 0x00b8 /*cedilla*/}));
@@ -108,7 +110,7 @@ TEST(normalization_algorithm, erase_nfc)
         std::vector<uint16_t> str(
             std::begin(nfc_a_c_cedilla_ring_above),
             std::end(nfc_a_c_cedilla_ring_above));
-        auto const result = boost::text::v2::erase<boost::text::nf::c>(
+        auto const result = boost::text::erase<boost::text::nf::c>(
             str, str.begin() + 1, str.begin() + 2);
         EXPECT_EQ(str, std::vector<uint16_t>({0x00E5 /*a+ring above*/}));
         EXPECT_EQ(result.begin(), str.begin());
@@ -120,7 +122,7 @@ TEST(normalization_algorithm, erase_nfc)
         std::vector<uint16_t> str(
             std::begin(nfc_a_c_cedilla_ring_above),
             std::end(nfc_a_c_cedilla_ring_above));
-        auto const result = boost::text::v2::erase<boost::text::nf::c>(
+        auto const result = boost::text::erase<boost::text::nf::c>(
             str, str.begin(), str.end());
         EXPECT_TRUE(str.empty());
         EXPECT_EQ(result.begin(), str.end());
@@ -139,7 +141,7 @@ TEST(normalization_algorithm, erase_nfc)
         // erase a prefix
         std::vector<uint16_t> str(
             std::begin(nfc_5_rings), std::end(nfc_5_rings));
-        auto const result = boost::text::v2::erase<boost::text::nf::c>(
+        auto const result = boost::text::erase<boost::text::nf::c>(
             str, str.begin() + 0, str.begin() + 2);
         EXPECT_EQ(str, std::vector<uint16_t>(3, 0x030A /*ring above*/));
         EXPECT_EQ(result.begin(), str.begin());
@@ -150,7 +152,7 @@ TEST(normalization_algorithm, erase_nfc)
         // erase noncombiner in the middle
         std::vector<uint16_t> str(
             std::begin(nfc_5_rings), std::end(nfc_5_rings));
-        auto const result = boost::text::v2::erase<boost::text::nf::c>(
+        auto const result = boost::text::erase<boost::text::nf::c>(
             str, str.begin() + 1, str.begin() + 2);
         EXPECT_EQ(str, std::vector<uint16_t>(4, 0x030A /*ring above*/));
         EXPECT_EQ(result.begin(), str.begin() + 1);
@@ -161,7 +163,7 @@ TEST(normalization_algorithm, erase_nfc)
         // erase a suffix
         std::vector<uint16_t> str(
             std::begin(nfc_5_rings), std::end(nfc_5_rings));
-        auto const result = boost::text::v2::erase<boost::text::nf::c>(
+        auto const result = boost::text::erase<boost::text::nf::c>(
             str, str.begin() + 2, str.begin() + 5);
         EXPECT_EQ(str, std::vector<uint16_t>(2, 0x030A /*ring above*/));
         EXPECT_EQ(result.begin(), str.end());
@@ -175,7 +177,7 @@ TEST(normalization_algorithm, erase_nfc)
     {
         // erase a prefix
         std::vector<uint16_t> str(std::begin(nfc_5_as), std::end(nfc_5_as));
-        auto const result = boost::text::v2::erase<boost::text::nf::c>(
+        auto const result = boost::text::erase<boost::text::nf::c>(
             str, str.begin() + 0, str.begin() + 2);
         EXPECT_EQ(str, std::vector<uint16_t>(3, 0x0061 /*a*/));
         EXPECT_EQ(result.begin(), str.begin());
@@ -185,7 +187,7 @@ TEST(normalization_algorithm, erase_nfc)
     {
         // erase noncombiner in the middle
         std::vector<uint16_t> str(std::begin(nfc_5_as), std::end(nfc_5_as));
-        auto const result = boost::text::v2::erase<boost::text::nf::c>(
+        auto const result = boost::text::erase<boost::text::nf::c>(
             str, str.begin() + 1, str.begin() + 2);
         EXPECT_EQ(str, std::vector<uint16_t>(4, 0x0061 /*a*/));
         EXPECT_EQ(result.begin(), str.begin() + 1);
@@ -195,7 +197,7 @@ TEST(normalization_algorithm, erase_nfc)
     {
         // erase a suffix
         std::vector<uint16_t> str(std::begin(nfc_5_as), std::end(nfc_5_as));
-        auto const result = boost::text::v2::erase<boost::text::nf::c>(
+        auto const result = boost::text::erase<boost::text::nf::c>(
             str, str.begin() + 2, str.begin() + 5);
         EXPECT_EQ(str, std::vector<uint16_t>(2, 0x0061 /*a*/));
         EXPECT_EQ(result.begin(), str.end());
@@ -217,7 +219,7 @@ TEST(normalization_algorithm, replace_nfc)
         std::vector<uint16_t> const insertion(
             {0x0044 /*D*/, 0x0307 /*dot above*/});
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::replace<boost::text::nf::c>(
+        auto const result = boost::text::replace<boost::text::nf::c>(
             str, str.begin(), str.end(), r.begin(), r.end());
         EXPECT_EQ(str, std::vector<uint16_t>({0x1e0a /*D+dot above*/}));
         EXPECT_EQ(result.begin(), str.begin());
@@ -235,7 +237,7 @@ TEST(normalization_algorithm, replace_nfc)
              0x0307 /*dot above*/,
              0x0307 /*dot above*/});
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::replace<boost::text::nf::c>(
+        auto const result = boost::text::replace<boost::text::nf::c>(
             str, str.begin(), str.end(), r.begin(), r.end());
         EXPECT_EQ(
             str,
@@ -255,7 +257,7 @@ TEST(normalization_algorithm, replace_nfc)
             std::end(nfc_a_cedilla_ring_above));
         std::vector<uint16_t> const insertion;
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::replace<boost::text::nf::c>(
+        auto const result = boost::text::replace<boost::text::nf::c>(
             str, str.begin(), str.end(), r.begin(), r.end());
         EXPECT_EQ(str, std::vector<uint16_t>());
         EXPECT_EQ(result.begin(), str.begin());
@@ -270,7 +272,7 @@ TEST(normalization_algorithm, replace_nfc)
         std::vector<uint16_t> const insertion(
             {0x0044 /*D*/, 0x0307 /*dot above*/});
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::replace<boost::text::nf::c>(
+        auto const result = boost::text::replace<boost::text::nf::c>(
             str, str.begin() + 0, str.begin() + 2, r.begin(), r.end());
         EXPECT_EQ(
             str,
@@ -291,7 +293,7 @@ TEST(normalization_algorithm, replace_nfc)
              0x0307 /*dot above*/,
              0x0307 /*dot above*/});
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::replace<boost::text::nf::c>(
+        auto const result = boost::text::replace<boost::text::nf::c>(
             str, str.begin() + 0, str.begin() + 2, r.begin(), r.end());
         EXPECT_EQ(
             str,
@@ -312,7 +314,7 @@ TEST(normalization_algorithm, replace_nfc)
             std::end(nfc_a_cedilla_ring_above));
         std::vector<uint16_t> const insertion;
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::replace<boost::text::nf::c>(
+        auto const result = boost::text::replace<boost::text::nf::c>(
             str, str.begin() + 0, str.begin() + 2, r.begin(), r.end());
         EXPECT_EQ(str, std::vector<uint16_t>({0x030A /*ring above*/}));
         EXPECT_EQ(result.begin(), str.begin());
@@ -327,7 +329,7 @@ TEST(normalization_algorithm, replace_nfc)
         std::vector<uint16_t> const insertion(
             {0x0044 /*D*/, 0x0307 /*dot above*/});
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::replace<boost::text::nf::c>(
+        auto const result = boost::text::replace<boost::text::nf::c>(
             str, str.begin() + 1, str.begin() + 3, r.begin(), r.end());
         EXPECT_EQ(
             str,
@@ -347,7 +349,7 @@ TEST(normalization_algorithm, replace_nfc)
              0x0307 /*dot above*/,
              0x0307 /*dot above*/});
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::replace<boost::text::nf::c>(
+        auto const result = boost::text::replace<boost::text::nf::c>(
             str, str.begin() + 1, str.begin() + 3, r.begin(), r.end());
         EXPECT_EQ(
             str,
@@ -367,7 +369,7 @@ TEST(normalization_algorithm, replace_nfc)
             std::end(nfc_a_cedilla_ring_above));
         std::vector<uint16_t> const insertion;
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::replace<boost::text::nf::c>(
+        auto const result = boost::text::replace<boost::text::nf::c>(
             str, str.begin() + 1, str.begin() + 3, r.begin(), r.end());
         EXPECT_EQ(str, std::vector<uint16_t>({0x0041 /*A*/}));
         EXPECT_EQ(result.begin(), str.begin() + 1);
@@ -380,7 +382,7 @@ TEST(normalization_algorithm, replace_nfc)
         std::vector<uint16_t> str({0x0226 /*A+dot above*/, 'B'});
         std::vector<uint16_t> const insertion({0x0323 /*dot below*/});
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::replace<boost::text::nf::c>(
+        auto const result = boost::text::replace<boost::text::nf::c>(
             str, str.begin() + 1, str.begin() + 2, r.begin(), r.end());
         EXPECT_EQ(
             str,
@@ -399,7 +401,7 @@ TEST(normalization_algorithm, replace_nfc)
              0x0307 /*dot above*/});
         std::vector<uint16_t> const insertion({0x0041 /*A*/});
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::replace<boost::text::nf::c>(
+        auto const result = boost::text::replace<boost::text::nf::c>(
             str, str.begin() + 1, str.begin() + 3, r.begin(), r.end());
         EXPECT_EQ(
             str,
@@ -416,7 +418,7 @@ TEST(normalization_algorithm, replace_nfc)
             {0x0041 /*A*/, 0x00b8 /*cedilla*/, 0x030A /*ring above*/});
         std::vector<uint16_t> const insertion;
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::replace<boost::text::nf::c>(
+        auto const result = boost::text::replace<boost::text::nf::c>(
             str, str.begin() + 1, str.begin() + 2, r.begin(), r.end());
         EXPECT_EQ(str, std::vector<uint16_t>({0x00c5 /*A+ring above*/}));
         EXPECT_EQ(result.begin(), str.begin());
@@ -430,7 +432,7 @@ TEST(normalization_algorithm, replace_nfc)
             {0x0041 /*A*/, 0x00b8 /*cedilla*/, 0x030A /*ring above*/});
         std::vector<uint16_t> const insertion({0x0041 /*A*/});
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::replace<boost::text::nf::c>(
+        auto const result = boost::text::replace<boost::text::nf::c>(
             str, str.begin() + 1, str.begin() + 2, r.begin(), r.end());
         EXPECT_EQ(
             str,
@@ -446,7 +448,7 @@ TEST(normalization_algorithm, replace_nfc)
             {0x0041 /*A*/, 0x00b8 /*cedilla*/, 0x030A /*ring above*/});
         std::vector<uint16_t> const insertion({0x030A /*ring above*/});
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::replace<boost::text::nf::c>(
+        auto const result = boost::text::replace<boost::text::nf::c>(
             str, str.begin() + 1, str.begin() + 2, r.begin(), r.end());
         EXPECT_EQ(
             str,
@@ -470,7 +472,7 @@ TEST(normalization_algorithm, insert_nfc)
             std::end(nfc_a_cedilla_ring_above));
         std::vector<uint16_t> const insertion;
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::insert<boost::text::nf::c>(
+        auto const result = boost::text::insert<boost::text::nf::c>(
             str, str.begin(), r.begin(), r.end());
         EXPECT_EQ(
             str,
@@ -489,7 +491,7 @@ TEST(normalization_algorithm, insert_nfc)
         std::vector<uint16_t> const insertion(
             {0x0044 /*D*/, 0x0307 /*dot above*/});
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::insert<boost::text::nf::c>(
+        auto const result = boost::text::insert<boost::text::nf::c>(
             str, str.begin(), r.begin(), r.end());
         EXPECT_EQ(
             str,
@@ -513,7 +515,7 @@ TEST(normalization_algorithm, insert_nfc)
              0x0307 /*dot above*/,
              0x0307 /*dot above*/});
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::insert<boost::text::nf::c>(
+        auto const result = boost::text::insert<boost::text::nf::c>(
             str, str.begin(), r.begin(), r.end());
         EXPECT_EQ(
             str,
@@ -538,7 +540,7 @@ TEST(normalization_algorithm, insert_nfc)
              0x0307 /*dot above*/});
         std::vector<uint16_t> const insertion({0x0044 /*D*/});
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::insert<boost::text::nf::c>(
+        auto const result = boost::text::insert<boost::text::nf::c>(
             str, str.begin(), r.begin(), r.end());
         EXPECT_EQ(
             str,
@@ -558,7 +560,7 @@ TEST(normalization_algorithm, insert_nfc)
             std::end(nfc_a_cedilla_ring_above));
         std::vector<uint16_t> const insertion;
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::insert<boost::text::nf::c>(
+        auto const result = boost::text::insert<boost::text::nf::c>(
             str, str.begin() + 1, r.begin(), r.end());
         EXPECT_EQ(
             str,
@@ -580,7 +582,7 @@ TEST(normalization_algorithm, insert_nfc)
              0x0307 /*dot above*/,
              0x0307 /*dot above*/});
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::insert<boost::text::nf::c>(
+        auto const result = boost::text::insert<boost::text::nf::c>(
             str, str.begin() + 1, r.begin(), r.end());
         EXPECT_EQ(
             str,
@@ -604,7 +606,7 @@ TEST(normalization_algorithm, insert_nfc)
              0x0307 /*dot above*/});
         std::vector<uint16_t> const insertion({0x0044 /*D*/});
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::insert<boost::text::nf::c>(
+        auto const result = boost::text::insert<boost::text::nf::c>(
             str, str.begin() + 2, r.begin(), r.end());
         EXPECT_EQ(
             str,
@@ -624,7 +626,7 @@ TEST(normalization_algorithm, insert_nfc)
             std::end(nfc_a_cedilla_ring_above));
         std::vector<uint16_t> const insertion;
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::insert<boost::text::nf::c>(
+        auto const result = boost::text::insert<boost::text::nf::c>(
             str, str.end(), r.begin(), r.end());
         EXPECT_EQ(
             str,
@@ -643,7 +645,7 @@ TEST(normalization_algorithm, insert_nfc)
         std::vector<uint16_t> const insertion(
             {0x0044 /*D*/, 0x0307 /*dot above*/});
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::insert<boost::text::nf::c>(
+        auto const result = boost::text::insert<boost::text::nf::c>(
             str, str.end(), r.begin(), r.end());
         EXPECT_EQ(
             str,
@@ -669,7 +671,7 @@ TEST(normalization_algorithm, insert_nfc)
              0x0328 /*ogonek*/,
              0x0105 /*a+ogonek*/});
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::insert<boost::text::nf::c>(
+        auto const result = boost::text::insert<boost::text::nf::c>(
             str,
             str.end(),
             r.begin(),
@@ -700,7 +702,7 @@ TEST(normalization_algorithm, insert_nfc)
              0x0307 /*dot above*/,
              0x0307 /*dot above*/});
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::insert<boost::text::nf::c>(
+        auto const result = boost::text::insert<boost::text::nf::c>(
             str, str.end(), r.begin(), r.end());
         EXPECT_EQ(
             str,
@@ -725,7 +727,7 @@ TEST(normalization_algorithm, insert_nfc)
              0x0307 /*dot above*/});
         std::vector<uint16_t> const insertion({0x0044 /*D*/});
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::insert<boost::text::nf::c>(
+        auto const result = boost::text::insert<boost::text::nf::c>(
             str, str.end(), r.begin(), r.end());
         EXPECT_EQ(
             str,
@@ -745,7 +747,7 @@ TEST(normalization_algorithm, insert_nfc)
         std::vector<uint16_t> str({0x0103 /*a+breve*/});
         std::vector<uint16_t> const insertion({0x0328 /*ogonek*/});
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::insert<boost::text::nf::c>(
+        auto const result = boost::text::insert<boost::text::nf::c>(
             str, str.end(), r.begin(), r.end());
         EXPECT_EQ(
             str,
@@ -768,7 +770,7 @@ TEST(normalization_algorithm, insert_nfd)
             std::end(nfd_a_cedilla_ring_above));
         std::vector<uint16_t> const insertion;
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::insert<boost::text::nf::d>(
+        auto const result = boost::text::insert<boost::text::nf::d>(
             str, str.begin(), r.begin(), r.end());
         EXPECT_EQ(
             str,
@@ -787,7 +789,7 @@ TEST(normalization_algorithm, insert_nfd)
         std::vector<uint16_t> const insertion(
             {0x1e0a /*D+dot above*/});
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::insert<boost::text::nf::d>(
+        auto const result = boost::text::insert<boost::text::nf::d>(
             str, str.begin(), r.begin(), r.end());
         EXPECT_EQ(
             str,
@@ -812,7 +814,7 @@ TEST(normalization_algorithm, insert_nfd)
              0x0307 /*dot above*/,
              0x0307 /*dot above*/});
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::insert<boost::text::nf::d>(
+        auto const result = boost::text::insert<boost::text::nf::d>(
             str, str.begin(), r.begin(), r.end());
         EXPECT_EQ(
             str,
@@ -837,7 +839,7 @@ TEST(normalization_algorithm, insert_nfd)
              0x0307 /*dot above*/});
         std::vector<uint16_t> const insertion({0x0044 /*D*/});
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::insert<boost::text::nf::d>(
+        auto const result = boost::text::insert<boost::text::nf::d>(
             str, str.begin(), r.begin(), r.end());
         EXPECT_EQ(
             str,
@@ -858,7 +860,7 @@ TEST(normalization_algorithm, insert_nfd)
             std::end(nfd_a_cedilla_ring_above));
         std::vector<uint16_t> const insertion;
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::insert<boost::text::nf::d>(
+        auto const result = boost::text::insert<boost::text::nf::d>(
             str, str.begin() + 1, r.begin(), r.end());
         EXPECT_EQ(
             str,
@@ -880,7 +882,7 @@ TEST(normalization_algorithm, insert_nfd)
              0x0307 /*dot above*/,
              0x0307 /*dot above*/});
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::insert<boost::text::nf::d>(
+        auto const result = boost::text::insert<boost::text::nf::d>(
             str, str.begin() + 1, r.begin(), r.end());
         EXPECT_EQ(
             str,
@@ -905,7 +907,7 @@ TEST(normalization_algorithm, insert_nfd)
              0x0307 /*dot above*/});
         std::vector<uint16_t> const insertion({0x0044 /*D*/});
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::insert<boost::text::nf::d>(
+        auto const result = boost::text::insert<boost::text::nf::d>(
             str, str.begin() + 2, r.begin(), r.end());
         EXPECT_EQ(
             str,
@@ -926,7 +928,7 @@ TEST(normalization_algorithm, insert_nfd)
             std::end(nfd_a_cedilla_ring_above));
         std::vector<uint16_t> const insertion;
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::insert<boost::text::nf::d>(
+        auto const result = boost::text::insert<boost::text::nf::d>(
             str, str.end(), r.begin(), r.end());
         EXPECT_EQ(
             str,
@@ -944,7 +946,7 @@ TEST(normalization_algorithm, insert_nfd)
             std::end(nfd_a_cedilla_ring_above));
         std::vector<uint16_t> const insertion({0x1e0a /*D+dot above*/});
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::insert<boost::text::nf::d>(
+        auto const result = boost::text::insert<boost::text::nf::d>(
             str, str.end(), r.begin(), r.end());
         EXPECT_EQ(
             str,
@@ -968,7 +970,7 @@ TEST(normalization_algorithm, insert_nfd)
         std::vector<uint16_t> const insertion(
             {0x0061 /*a*/, 0x0105 /*a+ogonek*/, 0x0061 /*a*/});
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::insert<boost::text::nf::d>(
+        auto const result = boost::text::insert<boost::text::nf::d>(
             str,
             str.end(),
             r.begin(),
@@ -998,7 +1000,7 @@ TEST(normalization_algorithm, insert_nfd)
              0x0307 /*dot above*/,
              0x0307 /*dot above*/});
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::insert<boost::text::nf::d>(
+        auto const result = boost::text::insert<boost::text::nf::d>(
             str, str.end(), r.begin(), r.end());
         EXPECT_EQ(
             str,
@@ -1023,7 +1025,7 @@ TEST(normalization_algorithm, insert_nfd)
              0x0307 /*dot above*/});
         std::vector<uint16_t> const insertion({0x0044 /*D*/});
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::insert<boost::text::nf::d>(
+        auto const result = boost::text::insert<boost::text::nf::d>(
             str, str.end(), r.begin(), r.end());
         EXPECT_EQ(
             str,
@@ -1043,7 +1045,7 @@ TEST(normalization_algorithm, insert_nfd)
         std::vector<uint16_t> str({0x0103 /*a+breve*/});
         std::vector<uint16_t> const insertion({0x0328 /*ogonek*/});
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::insert<boost::text::nf::d>(
+        auto const result = boost::text::insert<boost::text::nf::d>(
             str, str.end(), r.begin(), r.end());
         EXPECT_EQ(
             str,
@@ -1061,7 +1063,7 @@ TEST(normalization_algorithm, erase_nfc_utf8)
     {
         // erase a prefix
         std::string str = nfc_a_cedilla_ring_above;
-        auto const result = boost::text::v2::erase<boost::text::nf::c>(
+        auto const result = boost::text::erase<boost::text::nf::c>(
             str, str.begin() + 0, str.begin() + 1);
         EXPECT_EQ(str, "\xcc\xa7\xcc\x8a");
         EXPECT_EQ(result.begin(), str.begin());
@@ -1072,7 +1074,7 @@ TEST(normalization_algorithm, erase_nfc_utf8)
         // erase a combiner in the middle, causing a combination of the CPs
         // before and after
         std::string str = nfc_a_cedilla_ring_above;
-        auto const result = boost::text::v2::erase<boost::text::nf::c>(
+        auto const result = boost::text::erase<boost::text::nf::c>(
             str, str.begin() + 1, str.begin() + 3);
         EXPECT_EQ(str, (char const *)u8"Å");
         EXPECT_EQ(result.begin(), str.begin());
@@ -1082,7 +1084,7 @@ TEST(normalization_algorithm, erase_nfc_utf8)
     {
         // erase a suffix
         std::string str = nfc_a_cedilla_ring_above;
-        auto const result = boost::text::v2::erase<boost::text::nf::c>(
+        auto const result = boost::text::erase<boost::text::nf::c>(
             str, str.begin() + 3, str.begin() + 5);
         EXPECT_EQ(str, "A\xcc\xa7");
         EXPECT_EQ(result.begin(), str.end());
@@ -1095,7 +1097,7 @@ TEST(normalization_algorithm, erase_nfc_utf8)
         // erase noncombiner in the middle, causing a combination of the CPs
         // before and after
         std::string str = nfc_a_c_cedilla_ring_above;
-        auto const result = boost::text::v2::erase<boost::text::nf::c>(
+        auto const result = boost::text::erase<boost::text::nf::c>(
             str, str.begin() + 1, str.begin() + 3);
         EXPECT_EQ(str, (char const *)u8"å");
         EXPECT_EQ(result.begin(), str.begin());
@@ -1105,7 +1107,7 @@ TEST(normalization_algorithm, erase_nfc_utf8)
     {
         // erase the whole thing
         std::string str = nfc_a_c_cedilla_ring_above;
-        auto const result = boost::text::v2::erase<boost::text::nf::c>(
+        auto const result = boost::text::erase<boost::text::nf::c>(
             str, str.begin(), str.end());
         EXPECT_TRUE(str.empty());
         EXPECT_EQ(result.begin(), str.end());
@@ -1117,7 +1119,7 @@ TEST(normalization_algorithm, erase_nfc_utf8)
     {
         // erase a prefix
         std::string str = nfc_5_rings;
-        auto const result = boost::text::v2::erase<boost::text::nf::c>(
+        auto const result = boost::text::erase<boost::text::nf::c>(
             str, str.begin() + 0, str.begin() + 4);
         EXPECT_EQ(str, "\xcc\x8a\xcc\x8a\xcc\x8a");
         EXPECT_EQ(result.begin(), str.begin());
@@ -1127,7 +1129,7 @@ TEST(normalization_algorithm, erase_nfc_utf8)
     {
         // erase noncombiner in the middle
         std::string str = nfc_5_rings;
-        auto const result = boost::text::v2::erase<boost::text::nf::c>(
+        auto const result = boost::text::erase<boost::text::nf::c>(
             str, str.begin() + 2, str.begin() + 4);
         EXPECT_EQ(str, "\xcc\x8a\xcc\x8a\xcc\x8a\xcc\x8a");
         EXPECT_EQ(result.begin(), str.begin() + 2);
@@ -1137,7 +1139,7 @@ TEST(normalization_algorithm, erase_nfc_utf8)
     {
         // erase a suffix
         std::string str = nfc_5_rings;
-        auto const result = boost::text::v2::erase<boost::text::nf::c>(
+        auto const result = boost::text::erase<boost::text::nf::c>(
             str, str.begin() + 4, str.begin() + 10);
         EXPECT_EQ(str, "\xcc\x8a\xcc\x8a");
         EXPECT_EQ(result.begin(), str.end());
@@ -1149,7 +1151,7 @@ TEST(normalization_algorithm, erase_nfc_utf8)
     {
         // erase a prefix
         std::string str = nfc_5_as;
-        auto const result = boost::text::v2::erase<boost::text::nf::c>(
+        auto const result = boost::text::erase<boost::text::nf::c>(
             str, str.begin() + 0, str.begin() + 2);
         EXPECT_EQ(str, std::string(3, 0x0061 /*a*/));
         EXPECT_EQ(result.begin(), str.begin());
@@ -1159,7 +1161,7 @@ TEST(normalization_algorithm, erase_nfc_utf8)
     {
         // erase noncombiner in the middle
         std::string str = nfc_5_as;
-        auto const result = boost::text::v2::erase<boost::text::nf::c>(
+        auto const result = boost::text::erase<boost::text::nf::c>(
             str, str.begin() + 1, str.begin() + 2);
         EXPECT_EQ(str, std::string(4, 0x0061 /*a*/));
         EXPECT_EQ(result.begin(), str.begin() + 1);
@@ -1169,7 +1171,7 @@ TEST(normalization_algorithm, erase_nfc_utf8)
     {
         // erase a suffix
         std::string str = nfc_5_as;
-        auto const result = boost::text::v2::erase<boost::text::nf::c>(
+        auto const result = boost::text::erase<boost::text::nf::c>(
             str, str.begin() + 2, str.begin() + 5);
         EXPECT_EQ(str, std::string(2, 0x0061 /*a*/));
         EXPECT_EQ(result.begin(), str.end());
@@ -1191,7 +1193,7 @@ TEST(normalization_algorithm, insert_nfc_utf8)
             std::end(nfc_a_cedilla_ring_above));
         std::vector<uint16_t> const insertion;
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::insert<boost::text::nf::c>(
+        auto const result = boost::text::insert<boost::text::nf::c>(
             str, str.begin(), r.begin(), r.end());
         EXPECT_EQ(
             str,
@@ -1210,7 +1212,7 @@ TEST(normalization_algorithm, insert_nfc_utf8)
         std::vector<uint16_t> const insertion(
             {0x0044 /*D*/, 0x0307 /*dot above*/});
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::insert<boost::text::nf::c>(
+        auto const result = boost::text::insert<boost::text::nf::c>(
             str, str.begin(), r.begin(), r.end());
         EXPECT_EQ(
             str,
@@ -1234,7 +1236,7 @@ TEST(normalization_algorithm, insert_nfc_utf8)
              0x0307 /*dot above*/,
              0x0307 /*dot above*/});
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::insert<boost::text::nf::c>(
+        auto const result = boost::text::insert<boost::text::nf::c>(
             str, str.begin(), r.begin(), r.end());
         EXPECT_EQ(
             str,
@@ -1259,7 +1261,7 @@ TEST(normalization_algorithm, insert_nfc_utf8)
              0x0307 /*dot above*/});
         std::vector<uint16_t> const insertion({0x0044 /*D*/});
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::insert<boost::text::nf::c>(
+        auto const result = boost::text::insert<boost::text::nf::c>(
             str, str.begin(), r.begin(), r.end());
         EXPECT_EQ(
             str,
@@ -1279,7 +1281,7 @@ TEST(normalization_algorithm, insert_nfc_utf8)
             std::end(nfc_a_cedilla_ring_above));
         std::vector<uint16_t> const insertion;
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::insert<boost::text::nf::c>(
+        auto const result = boost::text::insert<boost::text::nf::c>(
             str, str.begin() + 1, r.begin(), r.end());
         EXPECT_EQ(
             str,
@@ -1301,7 +1303,7 @@ TEST(normalization_algorithm, insert_nfc_utf8)
              0x0307 /*dot above*/,
              0x0307 /*dot above*/});
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::insert<boost::text::nf::c>(
+        auto const result = boost::text::insert<boost::text::nf::c>(
             str, str.begin() + 1, r.begin(), r.end());
         EXPECT_EQ(
             str,
@@ -1325,7 +1327,7 @@ TEST(normalization_algorithm, insert_nfc_utf8)
              0x0307 /*dot above*/});
         std::vector<uint16_t> const insertion({0x0044 /*D*/});
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::insert<boost::text::nf::c>(
+        auto const result = boost::text::insert<boost::text::nf::c>(
             str, str.begin() + 2, r.begin(), r.end());
         EXPECT_EQ(
             str,
@@ -1345,7 +1347,7 @@ TEST(normalization_algorithm, insert_nfc_utf8)
             std::end(nfc_a_cedilla_ring_above));
         std::vector<uint16_t> const insertion;
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::insert<boost::text::nf::c>(
+        auto const result = boost::text::insert<boost::text::nf::c>(
             str, str.end(), r.begin(), r.end());
         EXPECT_EQ(
             str,
@@ -1364,7 +1366,7 @@ TEST(normalization_algorithm, insert_nfc_utf8)
         std::vector<uint16_t> const insertion(
             {0x0044 /*D*/, 0x0307 /*dot above*/});
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::insert<boost::text::nf::c>(
+        auto const result = boost::text::insert<boost::text::nf::c>(
             str, str.end(), r.begin(), r.end());
         EXPECT_EQ(
             str,
@@ -1390,7 +1392,7 @@ TEST(normalization_algorithm, insert_nfc_utf8)
              0x0328 /*ogonek*/,
              0x0105 /*a+ogonek*/});
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::insert<boost::text::nf::c>(
+        auto const result = boost::text::insert<boost::text::nf::c>(
             str,
             str.end(),
             r.begin(),
@@ -1421,7 +1423,7 @@ TEST(normalization_algorithm, insert_nfc_utf8)
              0x0307 /*dot above*/,
              0x0307 /*dot above*/});
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::insert<boost::text::nf::c>(
+        auto const result = boost::text::insert<boost::text::nf::c>(
             str, str.end(), r.begin(), r.end());
         EXPECT_EQ(
             str,
@@ -1446,7 +1448,7 @@ TEST(normalization_algorithm, insert_nfc_utf8)
              0x0307 /*dot above*/});
         std::vector<uint16_t> const insertion({0x0044 /*D*/});
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::insert<boost::text::nf::c>(
+        auto const result = boost::text::insert<boost::text::nf::c>(
             str, str.end(), r.begin(), r.end());
         EXPECT_EQ(
             str,
@@ -1466,7 +1468,7 @@ TEST(normalization_algorithm, insert_nfc_utf8)
         std::vector<uint16_t> str({0x0103 /*a+breve*/});
         std::vector<uint16_t> const insertion({0x0328 /*ogonek*/});
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::v2::insert<boost::text::nf::c>(
+        auto const result = boost::text::insert<boost::text::nf::c>(
             str, str.end(), r.begin(), r.end());
         EXPECT_EQ(
             str,
@@ -1478,5 +1480,3 @@ TEST(normalization_algorithm, insert_nfc_utf8)
 #endif
 
 // TODO: Exercise UTF-8 (incl. C-style strings for exercising sentinel paths)
-
-#endif

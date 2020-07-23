@@ -11,7 +11,7 @@
 #include <boost/text/case_mapping.hpp>
 
 
-namespace boost { namespace text { inline namespace v1 {
+namespace boost { namespace text {
 
     /** Changes the case of `t` to lower-case, using language-specific
         handling as indicated by `lang`. */
@@ -19,16 +19,16 @@ namespace boost { namespace text { inline namespace v1 {
         text & t, case_language lang = case_language::other) noexcept
     {
         std::string s;
-        boost::text::v1::to_lower(
+        boost::text::to_lower(
             t.begin().base(),
             t.begin().base(),
             t.end().base(),
-            boost::text::v1::utf_32_to_8_inserter(s, s.end()),
+            boost::text::utf_32_to_8_inserter(s, s.end()),
             lang);
         if (s.size() < t.storage_bytes()) {
             t = s;
         } else {
-            boost::text::v1::normalize<nf::fcc>(s);
+            boost::text::normalize<nf::fcc>(s);
             t.replace(std::move(s));
         }
     }
@@ -39,11 +39,11 @@ namespace boost { namespace text { inline namespace v1 {
         rope & r, case_language lang = case_language::other) noexcept
     {
         std::string s;
-        boost::text::v1::to_lower(
+        boost::text::to_lower(
             r.begin().base(),
             r.begin().base(),
             r.end().base(),
-            boost::text::v1::utf_32_to_8_inserter(s, s.end()),
+            boost::text::utf_32_to_8_inserter(s, s.end()),
             lang);
         r = s;
     }
@@ -57,17 +57,17 @@ namespace boost { namespace text { inline namespace v1 {
         NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept
     {
         std::string s;
-        boost::text::v1::to_title(
+        boost::text::to_title(
             t.begin().base(),
             t.begin().base(),
             t.end().base(),
-            boost::text::v1::utf_32_to_8_inserter(s, s.end()),
+            boost::text::utf_32_to_8_inserter(s, s.end()),
             lang,
             next_word_break);
         if (s.size() < t.storage_bytes()) {
             t = s;
         } else {
-            boost::text::v1::normalize<nf::fcc>(s);
+            boost::text::normalize<nf::fcc>(s);
             t.replace(std::move(s));
         }
     }
@@ -81,11 +81,11 @@ namespace boost { namespace text { inline namespace v1 {
         NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept
     {
         std::string s;
-        boost::text::v1::to_title(
+        boost::text::to_title(
             r.begin().base(),
             r.begin().base(),
             r.end().base(),
-            boost::text::v1::utf_32_to_8_inserter(s, s.end()),
+            boost::text::utf_32_to_8_inserter(s, s.end()),
             lang,
             next_word_break);
         r = s;
@@ -97,16 +97,16 @@ namespace boost { namespace text { inline namespace v1 {
         text & t, case_language lang = case_language::other) noexcept
     {
         std::string s;
-        boost::text::v1::to_upper(
+        boost::text::to_upper(
             t.begin().base(),
             t.begin().base(),
             t.end().base(),
-            boost::text::v1::utf_32_to_8_inserter(s, s.end()),
+            boost::text::utf_32_to_8_inserter(s, s.end()),
             lang);
         if (s.size() < t.storage_bytes()) {
             t = s;
         } else {
-            boost::text::v1::normalize<nf::fcc>(s);
+            boost::text::normalize<nf::fcc>(s);
             t.replace(std::move(s));
         }
     }
@@ -117,15 +117,15 @@ namespace boost { namespace text { inline namespace v1 {
         rope & r, case_language lang = case_language::other) noexcept
     {
         std::string s;
-        boost::text::v1::to_upper(
+        boost::text::to_upper(
             r.begin().base(),
             r.begin().base(),
             r.end().base(),
-            boost::text::v1::utf_32_to_8_inserter(s, s.end()),
+            boost::text::utf_32_to_8_inserter(s, s.end()),
             lang);
         r = s;
     }
 
-}}}
+}}
 
 #endif

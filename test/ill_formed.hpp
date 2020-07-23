@@ -17,11 +17,11 @@
 template<template<class...> class Template, typename... Args>
 using ill_formed = std::integral_constant<
     bool,
-    !boost::text::v1::detail::is_detected<Template, Args...>::value>;
+    !boost::text::detail::is_detected<Template, Args...>::value>;
 
 template<template<class...> class Template, typename... Args>
 using well_formed = std::integral_constant<
     bool,
-    boost::text::v1::detail::is_detected<Template, Args...>::value>;
+    boost::text::detail::is_detected<Template, Args...>::value>;
 
 #endif

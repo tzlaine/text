@@ -35,7 +35,7 @@
 
 #endif
 
-namespace boost { namespace text { inline namespace v1 {
+namespace boost { namespace text {
 
     struct text_view;
     struct rope_view;
@@ -553,7 +553,7 @@ namespace boost { namespace text { inline namespace v1 {
                 return at;
 
             std::array<char, 1024> buf;
-            auto out = boost::text::v1::transcode_utf_32_to_8(
+            auto out = boost::text::transcode_utf_32_to_8(
                 g.begin(), g.end(), buf.data());
             return t.insert_impl(
                 at, string_view(buf.data(), out - buf.data()), true);
@@ -636,13 +636,13 @@ namespace boost { namespace text { inline namespace v1 {
         return t.crend();
     }
 
-}}}
+}}
 
 #include <boost/text/text_view.hpp>
 #include <boost/text/rope.hpp>
 #include <boost/text/normalize.hpp>
 
-namespace boost { namespace text { inline namespace v1 {
+namespace boost { namespace text {
 
     namespace literals {
         /** Creates a text from a char string literal. */
@@ -1244,19 +1244,19 @@ namespace boost { namespace text { inline namespace v1 {
 
 #endif
 
-}}}
+}}
 
 #ifndef BOOST_TEXT_DOXYGEN
 
 namespace std {
     template<>
-    struct hash<boost::text::v1::text>
+    struct hash<boost::text::text>
     {
-        using argument_type = boost::text::v1::text;
+        using argument_type = boost::text::text;
         using result_type = std::size_t;
         result_type operator()(argument_type const & t) const noexcept
         {
-            return boost::text::v1::detail::hash_grapheme_range(t);
+            return boost::text::detail::hash_grapheme_range(t);
         }
     };
 }

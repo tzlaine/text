@@ -10,7 +10,7 @@
 #include <boost/text/detail/rope.hpp>
 
 
-namespace boost { namespace text { inline namespace v1 {
+namespace boost { namespace text {
 
     struct unencoded_rope;
 
@@ -362,7 +362,7 @@ namespace boost { namespace text { inline namespace v1 {
     inline int
     operator+(unencoded_rope_view lhs, unencoded_rope_view rhs) = delete;
 
-}}}
+}}
 
 #include <boost/text/unencoded_rope.hpp>
 
@@ -370,13 +370,13 @@ namespace boost { namespace text { inline namespace v1 {
 
 namespace std {
     template<>
-    struct hash<boost::text::v1::unencoded_rope_view>
+    struct hash<boost::text::unencoded_rope_view>
     {
-        using argument_type = boost::text::v1::unencoded_rope_view;
+        using argument_type = boost::text::unencoded_rope_view;
         using result_type = std::size_t;
         result_type operator()(argument_type const & urv) const noexcept
         {
-            return boost::text::v1::detail::hash_char_range(urv);
+            return boost::text::detail::hash_char_range(urv);
         }
     };
 }

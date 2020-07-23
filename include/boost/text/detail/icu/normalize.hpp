@@ -7,7 +7,7 @@
 #include <boost/text/detail/icu/norm2_nfkc_data.hpp>
 
 
-namespace boost { namespace text { inline namespace v1 { namespace detail { namespace icu {
+namespace boost { namespace text { namespace detail { namespace icu {
 
     inline Normalizer2Impl & nfc_norm()
     {
@@ -81,7 +81,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
         template<typename CharIter>
         char_iter_ret_t<void, CharIter> append(CharIter first, CharIter last)
         {
-            out_ = boost::text::v1::transcode_utf_8_to_32(first, last, out_);
+            out_ = boost::text::transcode_utf_8_to_32(first, last, out_);
         }
 
         UTF32OutIter out() const { return out_; }
@@ -99,6 +99,6 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
         bool out() const { return true; }
     };
 
-}}}}}
+}}}}
 
 #endif

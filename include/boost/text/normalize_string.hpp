@@ -11,19 +11,19 @@
 #include <boost/text/detail/icu/normalize.hpp>
 
 
-namespace boost { namespace text { namespace dtl {
+namespace boost { namespace text { namespace detail {
     template<
         nf Normalization,
         typename String,
         typename CPIter,
         typename Sentinel,
         bool UTF8Input =
-            boost::text::v1::detail::utf8_fast_path<CPIter, Sentinel>::value &&
+            boost::text::detail::utf8_fast_path<CPIter, Sentinel>::value &&
                 Normalization != nf::d && Normalization != nf::kd,
         bool UTF8Output = sizeof(*std::declval<String>().begin()) == 1>
     struct normalization_string_appender
     {
-        using type = v1::detail::icu::utf16_string_appender<String>;
+        using type = detail::icu::utf16_string_appender<String>;
     };
 
     template<
@@ -39,7 +39,7 @@ namespace boost { namespace text { namespace dtl {
         false,
         true>
     {
-        using type = v1::detail::icu::utf16_to_utf8_string_appender<String>;
+        using type = detail::icu::utf16_to_utf8_string_appender<String>;
     };
 
     template<
@@ -55,7 +55,7 @@ namespace boost { namespace text { namespace dtl {
         true,
         true>
     {
-        using type = v1::detail::icu::utf8_string_appender<String>;
+        using type = detail::icu::utf8_string_appender<String>;
     };
 
     template<
@@ -73,7 +73,7 @@ namespace boost { namespace text { namespace dtl {
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
-    namespace detail {
+    namespace dtl {
         template<
             nf Normalization,
             typename CPIter,
@@ -82,7 +82,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         inline void
         normalize_append_impl_impl(CPIter first, Sentinel last, String & s)
         {
-            dtl::normalization_string_appender_t<
+            detail::normalization_string_appender_t<
                 Normalization,
                 String,
                 CPIter,
@@ -131,7 +131,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
         template<
             typename String,
-            bool Enable = is_detected<has_capacity_reserve, String>::value>
+            bool Enable =
+                detail::is_detected<has_capacity_reserve, String>::value>
         struct normalize_string_impl
         {
             static void prefix(String const & s, String & temp) {}
@@ -171,21 +172,20 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         typename CPIter,
         typename Sentinel,
         typename String>
-    inline auto normalize_append(CPIter first, Sentinel last, String & s)
-        -> detail::cp_iter_ret_t<
-            decltype(detail::normalize_append_impl<Normalization, String>::call(
+    auto normalize_append(CPIter first, Sentinel last, String & s)
+        ->detail::cp_iter_ret_t<
+            decltype(dtl::normalize_append_impl<Normalization, String>::call(
                 first, last, s)),
             CPIter>
     {
-        detail::normalize_append_impl<Normalization, String>::call(
-            first, last, s);
+        dtl::normalize_append_impl<Normalization, String>::call(first, last, s);
     }
 
     /** Appends sequence `r` in normalization form `Normalization` to `s`.
         The output is UTF-8 if `sizeof(*s.begin()) == 1`, and UTF-16
         otherwise. */
     template<nf Normalization, typename CPRange, typename String>
-    inline void normalize_append(CPRange const & r, String & s)
+    void normalize_append(CPRange const & r, String & s)
     {
         return boost::text::v1::normalize_append<Normalization>(
             std::begin(r), std::end(r), s);
@@ -197,7 +197,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     {
         auto const r = as_utf32(s);
 
-        detail::normalize_string_impl<String> impl;
+        dtl::normalize_string_impl<String> impl;
 
         String temp;
         impl.prefix(s, temp);
@@ -226,9 +226,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         utf_string String>
     inline void normalize_append(I first, S last, String & s)
     {
-        dtl::normalization_string_appender_t<Normalization, String, I, S>
+        detail::normalization_string_appender_t<Normalization, String, I, S>
             appender(s);
-        v1::detail::norm_impl<Normalization, decltype(s.begin()), I, S>::call(
+        detail::norm_impl<Normalization, decltype(s.begin()), I, S>::call(
             first, last, appender);
     }
 
@@ -241,7 +241,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             std::begin(r), std::end(r), s);
     }
 
-    namespace detail {
+    namespace dtl {
         template<typename T>
         concept reserve_capacity_sized_range =
             // clang-format off
@@ -260,7 +260,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         auto const r = as_utf32(s);
 
         String temp;
-        if constexpr (detail::reserve_capacity_sized_range<String>) {
+        if constexpr (dtl::reserve_capacity_sized_range<String>) {
             if constexpr (Normalization == nf::d || Normalization == nf::kd)
                 temp.reserve(s.size() / 2 * 3);
             else
@@ -269,7 +269,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
         boost::text::normalize_append<Normalization>(r.begin(), r.end(), temp);
 
-        if constexpr (detail::reserve_capacity_sized_range<String>) {
+        if constexpr (dtl::reserve_capacity_sized_range<String>) {
             if (temp.size() <= s.capacity()) {
                 s = temp;
                 return;

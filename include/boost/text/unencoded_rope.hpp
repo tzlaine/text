@@ -17,7 +17,7 @@
 #endif
 
 
-namespace boost { namespace text { inline namespace v1 {
+namespace boost { namespace text {
 
     struct unencoded_rope_view;
 
@@ -591,7 +591,7 @@ namespace boost { namespace text { inline namespace v1 {
 #endif
     };
 
-}}}
+}}
 
 #include <boost/text/detail/rope_iterator.hpp>
 #include <boost/text/unencoded_rope_view.hpp>
@@ -599,7 +599,7 @@ namespace boost { namespace text { inline namespace v1 {
 
 #ifndef BOOST_TEXT_DOXYGEN
 
-namespace boost { namespace text { inline namespace v1 {
+namespace boost { namespace text {
 
     inline unencoded_rope::unencoded_rope(char const * c_str) : ptr_(nullptr)
     {
@@ -1065,11 +1065,11 @@ namespace boost { namespace text { inline namespace v1 {
                rv.ref_.r_.r_ == this;
     }
 
-}}}
+}}
 
 #endif
 
-namespace boost { namespace text { inline namespace v1 {
+namespace boost { namespace text {
 
     inline bool
     operator==(char const * lhs, unencoded_rope const & rhs) noexcept
@@ -1642,19 +1642,19 @@ namespace boost { namespace text { inline namespace v1 {
         }
 #endif
     }
-}}}
+}}
 
 #ifndef BOOST_TEXT_DOXYGEN
 
 namespace std {
     template<>
-    struct hash<boost::text::v1::unencoded_rope>
+    struct hash<boost::text::unencoded_rope>
     {
-        using argument_type = boost::text::v1::unencoded_rope;
+        using argument_type = boost::text::unencoded_rope;
         using result_type = std::size_t;
         result_type operator()(argument_type const & ur) const noexcept
         {
-            return boost::text::v1::detail::hash_char_range(ur);
+            return boost::text::detail::hash_char_range(ur);
         }
     };
 }

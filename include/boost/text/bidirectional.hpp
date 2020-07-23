@@ -23,7 +23,7 @@
 #include <stack>
 
 
-namespace boost { namespace text { inline namespace v1 {
+namespace boost { namespace text {
 
     namespace detail {
         struct bidi_prop_interval
@@ -114,7 +114,7 @@ namespace boost { namespace text { inline namespace v1 {
             if (it == last)
                 return it;
 
-            using boost::text::v1::bidi_prop;
+            using boost::text::bidi_prop;
             BOOST_ASSERT(detail::isolate_initiator(bidi_prop(*it)));
 
             int iis = 1;
@@ -157,7 +157,7 @@ namespace boost { namespace text { inline namespace v1 {
         int p2_p3(CPIter first, Sentinel last) noexcept
         {
             // https://unicode.org/reports/tr9/#P2
-            using boost::text::v1::bidi_prop;
+            using boost::text::bidi_prop;
 
             auto retval = 0;
 
@@ -406,7 +406,7 @@ namespace boost { namespace text { inline namespace v1 {
         {
             all_runs_t<CPIter> retval;
             using iter_t = decltype(first);
-            boost::text::v1::foreach_subrange(
+            boost::text::foreach_subrange(
                 first,
                 last,
                 [for_emission, &retval](foreach_subrange_range<iter_t> r) {
@@ -573,11 +573,11 @@ namespace boost { namespace text { inline namespace v1 {
             auto const first = seq.begin();
             while (it != first) {
                 auto const from_it =
-                    boost::text::v1::find_if_backward(first, it, en);
+                    boost::text::find_if_backward(first, it, en);
                 if (from_it == it)
                     break;
                 auto const pred_it =
-                    boost::text::v1::find_if_backward(first, from_it, strong);
+                    boost::text::find_if_backward(first, from_it, strong);
                 if ((pred_it == from_it && seq.sos() == trigger) ||
                     pred_it->prop() == trigger) {
                     from_it->prop_ = (uint8_t)replacement;
@@ -668,7 +668,7 @@ namespace boost { namespace text { inline namespace v1 {
         inline void w5(run_sequence_t<CPIter> & seq) noexcept
         {
             using iter_t = decltype(seq.begin());
-            boost::text::v1::foreach_subrange_if(
+            boost::text::foreach_subrange_if(
                 seq.begin(),
                 seq.end(),
                 [](prop_and_embedding_t<CPIter> pae) {
@@ -961,7 +961,7 @@ namespace boost { namespace text { inline namespace v1 {
             };
 
             using iter_t = decltype(seq.begin());
-            boost::text::v1::foreach_subrange_if(
+            boost::text::foreach_subrange_if(
                 seq.begin(),
                 seq.end(),
                 neutral_or_isolate<CPIter>,
@@ -1042,7 +1042,7 @@ namespace boost { namespace text { inline namespace v1 {
             // L1.1, L1.2
             for (auto it = line.begin(), end = line.end(); it != end; ++it) {
                 auto const original_prop =
-                    boost::text::v1::bidi_prop(it.base()->cp());
+                    boost::text::bidi_prop(it.base()->cp());
                 if (original_prop == bidi_property::B ||
                     original_prop == bidi_property::S) {
                     it.base()->embedding_ = paragraph_embedding_level;
@@ -1052,11 +1052,11 @@ namespace boost { namespace text { inline namespace v1 {
             // L1.3, L1.4
             using iter_t = decltype(line.begin().base());
             auto const last = line.end().base();
-            boost::text::v1::foreach_subrange_if(
+            boost::text::foreach_subrange_if(
                 line.begin().base(),
                 line.end().base(),
                 [](prop_and_embedding_t<CPIter> pae) {
-                    auto const original_prop = boost::text::v1::bidi_prop(pae.cp());
+                    auto const original_prop = boost::text::bidi_prop(pae.cp());
                     return original_prop == bidi_property::WS ||
                            original_prop == bidi_property::FSI ||
                            original_prop == bidi_property::LRI ||
@@ -1068,7 +1068,7 @@ namespace boost { namespace text { inline namespace v1 {
                     bool reset = r.end() == last;
                     if (!reset) {
                         auto const original_next_prop =
-                            boost::text::v1::bidi_prop(r.end()->cp());
+                            boost::text::bidi_prop(r.end()->cp());
                         reset = original_next_prop == bidi_property::S ||
                                 original_next_prop == bidi_property::B;
                     }
@@ -1147,7 +1147,7 @@ namespace boost { namespace text { inline namespace v1 {
             if (detail::even(lo))
                 ++lo;
             for (int i = hi; i-- > lo;) {
-                boost::text::v1::foreach_subrange_if(
+                boost::text::foreach_subrange_if(
                     retval.begin(),
                     retval.end(),
                     [i](reordered_run<CPIter> run) {
@@ -1296,7 +1296,7 @@ namespace boost { namespace text { inline namespace v1 {
                     last_ = last.it_;
                     grapheme_ = value_t(
                         it.it_,
-                        boost::text::v1::next_grapheme_break(it.it_, last_));
+                        boost::text::next_grapheme_break(it.it_, last_));
                 } else if (kind_ == fwd_rev_cp_iter_kind::rev_user_it) {
                     if (it == last) { // end iterator case
                         last_ = first.it_;
@@ -1306,7 +1306,7 @@ namespace boost { namespace text { inline namespace v1 {
                         last_ = first.it_;
                         first_ = last.it_;
                         grapheme_ = value_t(
-                            boost::text::v1::prev_grapheme_break(
+                            boost::text::prev_grapheme_break(
                                 first_, std::prev(it.it_), last_),
                             it.it_);
                     }
@@ -1324,14 +1324,14 @@ namespace boost { namespace text { inline namespace v1 {
                     auto const first = grapheme_.end().it_;
                     grapheme_ = value_t(
                         first,
-                        boost::text::v1::next_grapheme_break(first, last_));
+                        boost::text::next_grapheme_break(first, last_));
                 } else if (kind_ == kind_t::rev_user_it) {
                     auto const last = grapheme_.begin().it_;
                     if (last == first_) {
                         grapheme_ = value_t(first_, first_);
                     } else {
                         grapheme_ = value_t(
-                            boost::text::v1::prev_grapheme_break(
+                            boost::text::prev_grapheme_break(
                                 first_, std::prev(last), last_),
                             last);
                     }
@@ -1351,7 +1351,7 @@ namespace boost { namespace text { inline namespace v1 {
                         grapheme_ = value_t(first_, first_);
                     } else {
                         grapheme_ = value_t(
-                            boost::text::v1::prev_grapheme_break(
+                            boost::text::prev_grapheme_break(
                                 first_, std::prev(last), last_),
                             last);
                     }
@@ -1359,7 +1359,7 @@ namespace boost { namespace text { inline namespace v1 {
                     auto const first = grapheme_.end().it_;
                     grapheme_ = value_t(
                         first,
-                        boost::text::v1::next_grapheme_break(first, last_));
+                        boost::text::next_grapheme_break(first, last_));
                 } else {
                     --ait_;
                     grapheme_ = value_t(
@@ -1559,7 +1559,7 @@ namespace boost { namespace text { inline namespace v1 {
                     reordered_runs_t<CPIter> local_reordered_runs;
                     auto pae_it = reorderd_runs_it->begin();
 
-                    for (auto grapheme : boost::text::v1::graphemes(
+                    for (auto grapheme : boost::text::graphemes(
                              pae_cp_iterator{reorderd_runs_it->begin()},
                              pae_cp_iterator{reorderd_runs_it->end()})) {
                         if (1 < std::distance(
@@ -1782,7 +1782,7 @@ namespace boost { namespace text { inline namespace v1 {
                     };
 
                 for (auto it = para_first; it != para_last; ++it) {
-                    auto const prop = boost::text::v1::bidi_prop(*it);
+                    auto const prop = boost::text::bidi_prop(*it);
                     props_and_embeddings_.push_back(
                         prop_and_embedding_t<CPIter>{it,
                                                      stack.top().embedding_,
@@ -2747,6 +2747,6 @@ namespace boost { namespace text { inline namespace v1 {
 
 #endif
 
-}}}
+}}
 
 #endif

@@ -62,8 +62,8 @@ TEST(collation, relative_shifted_0)
 
             std::string prev = boost::text::to_string(prev_cps);
             std::string curr = boost::text::to_string(curr_cps);
-            auto const prev_32 = boost::text::v1::as_utf32(prev);
-            auto const curr_32 = boost::text::v1::as_utf32(curr);
+            auto const prev_32 = boost::text::as_utf32(prev);
+            auto const curr_32 = boost::text::as_utf32(curr);
             EXPECT_LE(
                 boost::text::collate(
                     prev_32.begin(),

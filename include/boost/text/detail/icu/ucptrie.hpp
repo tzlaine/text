@@ -17,7 +17,7 @@
 #include <memory>
 
 
-namespace boost { namespace text { inline namespace v1 { namespace detail { namespace icu {
+namespace boost { namespace text { namespace detail { namespace icu {
 
     /**
      * \file
@@ -894,6 +894,6 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
         return (idx << 3) | i;
     }
 
-}}}}}
+}}}}
 
 #endif

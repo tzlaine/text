@@ -11,7 +11,7 @@
 #include <boost/assert.hpp>
 
 
-namespace boost { namespace text { inline namespace v1 { namespace detail {
+namespace boost { namespace text { namespace detail {
 
 constexpr uint32_t default_table_min_nonstarter_ = 183;
 constexpr uint32_t default_table_max_nonstarter_ = 71087;
@@ -29,4 +29,4 @@ uint32_t default_table_max_nonstarter() noexcept
 unsigned char const * default_table_nonstarters_ptr() noexcept
 { return default_table_nonstarters.data(); }
 
-}}}}
+}}}

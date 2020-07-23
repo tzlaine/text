@@ -8,6 +8,9 @@
 
 #include <boost/config.hpp>
 
+// Included for definition of __cpp_lib_concepts.
+#include <iterator>
+
 
 /** When you insert into a rope, the incoming sequence may be inserted as a
     new segment, or if it falls within an existing string-segment, it may be
@@ -26,17 +29,11 @@
 // Note that this only applies to code for which a v2 namespace alternative
 // exists.  Some instances of the v1 namespace may still be inline, if there
 // is no v2 version of its contents.
-#if 0 // TODO
-#if 201703L < __cplusplus && defined(__cpp_lib_concepts)
+#if defined(__cpp_lib_concepts)
 #    define BOOST_TEXT_NAMESPACE_V1 namespace v1
 #    define BOOST_TEXT_NAMESPACE_V2 inline namespace v2
 #else
 #    define BOOST_TEXT_NAMESPACE_V1 inline namespace v1
-#    define BOOST_TEXT_NAMESPACE_V2 namespace v2
-#endif
-#else
-// TODO: Remove!
-#    define BOOST_TEXT_NAMESPACE_V1 namespace v1
 #    define BOOST_TEXT_NAMESPACE_V2 namespace v2
 #endif
 

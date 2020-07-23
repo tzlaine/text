@@ -15,7 +15,7 @@
 #include <functional>
 
 
-namespace boost { namespace text { inline namespace v1 {
+namespace boost { namespace text {
 
     /** The type of callback used to report errors and warnings encountered
         during parsing. */
@@ -171,6 +171,6 @@ namespace boost { namespace text { inline namespace v1 {
             string_view filename);
     }
 
-}}}
+}}
 
 #endif

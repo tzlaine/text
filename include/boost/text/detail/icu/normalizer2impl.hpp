@@ -34,7 +34,7 @@
 #include <mutex>
 
 
-namespace boost { namespace text { inline namespace v1 { namespace detail { namespace icu {
+namespace boost { namespace text { namespace detail { namespace icu {
 
     // Copy/pasted from unorm2.h.
     /**
@@ -269,7 +269,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
             s_->resize(initial_size + dist * 3, typename String::value_type{});
             auto * s_first = &*s_->begin();
             auto * out = s_first + initial_size;
-            out = boost::text::v1::transcode_utf_16_to_8(
+            out = boost::text::transcode_utf_16_to_8(
                 utf16_first, utf16_last, out);
             s_->resize(out - s_first, typename String::value_type{});
         }
@@ -288,7 +288,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
         template<typename Iter>
         _16_iter_ret_t<void, Iter> append(Iter utf16_first, Iter utf16_last)
         {
-            out_ = boost::text::v1::transcode_utf_16_to_32(
+            out_ = boost::text::transcode_utf_16_to_32(
                 utf16_first, utf16_last, out_);
         }
 
@@ -355,10 +355,10 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
         UBool equals_utf8(CharIter otherStart, CharIter otherLimit) const
         {
             auto const other_first =
-                boost::text::v1::make_utf_8_to_16_iterator(
+                boost::text::make_utf_8_to_16_iterator(
                     otherStart, otherStart, otherLimit);
             auto const other_last =
-                boost::text::v1::make_utf_8_to_16_iterator(
+                boost::text::make_utf_8_to_16_iterator(
                     otherStart, otherLimit, otherLimit);
             return algorithm::equal(
                 begin(), end(), other_first, other_last);
@@ -397,7 +397,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
             if (!inhibit_flushes) {
                 flush();
                 auto second_to_last = std::prev(sLimit);
-                if (boost::text::v1::low_surrogate(*second_to_last))
+                if (boost::text::low_surrogate(*second_to_last))
                     --second_to_last;
                 appender.append(s, second_to_last);
                 limit = std::copy(second_to_last, sLimit, limit);
@@ -2440,6 +2440,6 @@ namespace boost { namespace text { inline namespace v1 { namespace detail { name
         return impl.getCCFromYesOrMaybeCP(c);
     }
 
-}}}}}
+}}}}
 
 #endif

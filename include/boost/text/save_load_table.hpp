@@ -12,7 +12,7 @@
 #include <boost/filesystem.hpp>
 
 
-namespace boost { namespace text { inline namespace v1 {
+namespace boost { namespace text {
 
     struct collation_table;
 
@@ -117,6 +117,6 @@ namespace boost { namespace text { inline namespace v1 {
         return retval;
     }
 
-}}}
+}}
 
 #endif

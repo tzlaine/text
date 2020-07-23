@@ -18,7 +18,7 @@
 #include <algorithm>
 
 
-namespace boost { namespace text { inline namespace v1 {
+namespace boost { namespace text {
 
     namespace detail {
 
@@ -56,7 +56,7 @@ namespace boost { namespace text { inline namespace v1 {
             {
                 constexpr bool do_writes = !std::is_same<OutIter, bool>::value;
 
-                auto const r = boost::text::v1::as_utf16(first_, last_);
+                auto const r = boost::text::as_utf16(first_, last_);
                 auto first = r.begin();
                 auto const last = r.end();
 
@@ -111,7 +111,7 @@ namespace boost { namespace text { inline namespace v1 {
             {
                 constexpr bool do_writes = !std::is_same<OutIter, bool>::value;
 
-                auto const r = boost::text::v1::as_utf16(first, last);
+                auto const r = boost::text::as_utf16(first, last);
                 detail::icu::ReorderingBuffer<Appender> reorder_buffer(
                     (Normalization == nf::kc ? detail::icu::nfkc_norm()
                                              : detail::icu::nfc_norm()),
@@ -138,7 +138,7 @@ namespace boost { namespace text { inline namespace v1 {
             {
                 constexpr bool do_writes = !std::is_same<OutIter, bool>::value;
 
-                auto const r = boost::text::v1::as_utf8(first, last);
+                auto const r = boost::text::as_utf8(first, last);
                 auto const normalized =
                     (Normalization == nf::kc ? detail::icu::nfkc_norm()
                                              : detail::icu::nfc_norm())
@@ -252,7 +252,7 @@ namespace boost { namespace text { inline namespace v1 {
     template<typename CPRange, typename OutIter>
     inline OutIter stream_safe_copy(CPRange const & r, OutIter out)
     {
-        return boost::text::v1::stream_safe_copy(
+        return boost::text::stream_safe_copy(
             std::begin(r), std::end(r), out);
     }
 
@@ -283,7 +283,7 @@ namespace boost { namespace text { inline namespace v1 {
     template<nf Normalization, typename CPRange, typename OutIter>
     inline OutIter normalize(CPRange const & r, OutIter out)
     {
-        return boost::text::v1::normalize<Normalization>(
+        return boost::text::normalize<Normalization>(
             std::begin(r), std::end(r), out);
     }
 
@@ -310,10 +310,10 @@ namespace boost { namespace text { inline namespace v1 {
     template<nf Normalization, typename CPRange>
     bool normalized(CPRange const & r) noexcept
     {
-        return boost::text::v1::normalized<Normalization>(
+        return boost::text::normalized<Normalization>(
             std::begin(r), std::end(r));
     }
 
-}}}
+}}
 
 #endif

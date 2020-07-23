@@ -12,7 +12,7 @@
 #include <boost/stl_interfaces/view_interface.hpp>
 
 
-namespace boost { namespace text { inline namespace v1 {
+namespace boost { namespace text {
 
     namespace detail {
 
@@ -193,7 +193,7 @@ namespace boost { namespace text { inline namespace v1 {
 #if defined(_MSC_VER)
         friend std::wostream & operator<<(std::wostream & os, utf8_view v)
         {
-            boost::text::v1::transcode_utf_8_to_16(
+            boost::text::transcode_utf_8_to_16(
                 v.begin(), v.end(), std::ostreambuf_iterator<wchar_t>(os));
             return os;
         }
@@ -296,7 +296,7 @@ namespace boost { namespace text { inline namespace v1 {
 
         friend std::ostream & operator<<(std::ostream & os, utf16_view v)
         {
-            boost::text::v1::transcode_utf_16_to_8(
+            boost::text::transcode_utf_16_to_8(
                 v.begin(), v.end(), std::ostreambuf_iterator<char>(os));
             return os;
         }
@@ -408,14 +408,14 @@ namespace boost { namespace text { inline namespace v1 {
 
         friend std::ostream & operator<<(std::ostream & os, utf32_view v)
         {
-            boost::text::v1::transcode_utf_32_to_8(
+            boost::text::transcode_utf_32_to_8(
                 v.begin(), v.end(), std::ostreambuf_iterator<char>(os));
             return os;
         }
 #if defined(_MSC_VER)
         friend std::wostream & operator<<(std::wostream & os, utf32_view v)
         {
-            boost::text::v1::transcode_utf_32_to_16(
+            boost::text::transcode_utf_32_to_16(
                 v.begin(), v.end(), std::ostreambuf_iterator<wchar_t>(os));
             return os;
         }
@@ -480,6 +480,6 @@ namespace boost { namespace text { inline namespace v1 {
         return detail::as_utf32_dispatch<Range>::call(r);
     }
 
-}}}
+}}
 
 #endif

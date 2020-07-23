@@ -15,7 +15,7 @@
 #include <numeric>
 
 
-namespace boost { namespace text { inline namespace v1 {
+namespace boost { namespace text {
 
     /** The list of languages handled specially in the case mapping
         functions. */
@@ -42,7 +42,7 @@ namespace boost { namespace text { inline namespace v1 {
         auto operator()(CPIter it, Sentinel last) const noexcept
             -> detail::cp_iter_ret_t<CPIter, CPIter>
         {
-            return boost::text::v1::next_word_break(it, last);
+            return boost::text::next_word_break(it, last);
         }
 
 #endif
@@ -567,14 +567,14 @@ namespace boost { namespace text { inline namespace v1 {
             // found.
             auto final_sigma = [first,
                                 last](CPIter it, CPIter condition_first) {
-                auto find_it = boost::text::v1::find_if(
+                auto find_it = boost::text::find_if(
                     condition_first, last, [](uint32_t cp) {
                         return !detail::case_ignorable(cp);
                     });
                 if (find_it != last && detail::cased(*find_it))
                     return final_sigma_state_t::none;
 
-                find_it = boost::text::v1::find_if_backward(
+                find_it = boost::text::find_if_backward(
                     first, it, [](uint32_t cp) {
                         return !detail::case_ignorable(cp);
                     });
@@ -693,7 +693,7 @@ namespace boost { namespace text { inline namespace v1 {
 
                     if (all_conditions &
                         (uint16_t)case_condition::After_Soft_Dotted) {
-                        auto find_it = boost::text::v1::find_if_backward(
+                        auto find_it = boost::text::find_if_backward(
                             first, it, [](uint32_t cp) {
                                 return ccc_230_0(cp);
                             });
@@ -710,7 +710,7 @@ namespace boost { namespace text { inline namespace v1 {
                             detail::ccc(*condition_first) == 230) {
                             conditions |= (uint16_t)case_condition::More_Above;
                         } else {
-                            auto find_it = boost::text::v1::find_if(
+                            auto find_it = boost::text::find_if(
                                 condition_first, last, [](uint32_t cp) {
                                     return ccc_230_0(cp);
                                 });
@@ -726,7 +726,7 @@ namespace boost { namespace text { inline namespace v1 {
                     if (all_conditions &
                         (uint16_t)case_condition::Not_Before_Dot) {
                         bool before = false;
-                        auto find_it = boost::text::v1::find_if(
+                        auto find_it = boost::text::find_if(
                             condition_first, last, [](uint32_t cp) {
                                 return ccc_230_0(cp);
                             });
@@ -741,7 +741,7 @@ namespace boost { namespace text { inline namespace v1 {
                     }
 
                     if (all_conditions & (uint16_t)case_condition::After_I) {
-                        auto find_it = boost::text::v1::find_if_backward(
+                        auto find_it = boost::text::find_if_backward(
                             first, it, [](uint32_t cp) {
                                 return ccc_230_0(cp);
                             });
@@ -788,7 +788,7 @@ namespace boost { namespace text { inline namespace v1 {
     template<typename CPIter, typename Sentinel>
     bool is_lower(CPIter first, Sentinel last) noexcept
     {
-        return boost::text::v1::all_of(first, last, [](uint32_t cp) {
+        return boost::text::all_of(first, last, [](uint32_t cp) {
             return !detail::changes_when_lowered(cp);
         });
     }
@@ -885,7 +885,7 @@ namespace boost { namespace text { inline namespace v1 {
         case_language lang = case_language::other) noexcept
         -> detail::cp_rng_alg_ret_t<OutIter, CPRange>
     {
-        return boost::text::v1::to_lower(
+        return boost::text::to_lower(
             std::begin(range), std::begin(range), std::end(range), out, lang);
     }
 
@@ -896,7 +896,7 @@ namespace boost { namespace text { inline namespace v1 {
         case_language lang = case_language::other) noexcept
         -> detail::graph_rng_alg_ret_t<OutIter, GraphemeRange>
     {
-        return boost::text::v1::to_lower(
+        return boost::text::to_lower(
             range.begin().base(),
             range.begin().base(),
             range.end().base(),
@@ -966,7 +966,7 @@ namespace boost { namespace text { inline namespace v1 {
         NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept
         -> detail::cp_rng_alg_ret_t<bool, CPRange>
     {
-        return boost::text::v1::is_title(
+        return boost::text::is_title(
             std::begin(range), std::end(range), next_word_break);
     }
 
@@ -978,7 +978,7 @@ namespace boost { namespace text { inline namespace v1 {
         NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept
         -> detail::graph_rng_alg_ret_t<bool, GraphemeRange>
     {
-        return boost::text::v1::is_title(
+        return boost::text::is_title(
             range.begin().base(), range.end().base(), next_word_break);
     }
 
@@ -1065,7 +1065,7 @@ namespace boost { namespace text { inline namespace v1 {
         NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept
         -> detail::cp_rng_alg_ret_t<OutIter, CPRange>
     {
-        return boost::text::v1::to_title(
+        return boost::text::to_title(
             std::begin(range),
             std::begin(range),
             std::end(range),
@@ -1085,7 +1085,7 @@ namespace boost { namespace text { inline namespace v1 {
         NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept
         -> detail::graph_rng_alg_ret_t<OutIter, GraphemeRange>
     {
-        return boost::text::v1::to_title(
+        return boost::text::to_title(
             range.begin().base(),
             range.begin().base(),
             range.end().base(),
@@ -1101,7 +1101,7 @@ namespace boost { namespace text { inline namespace v1 {
     template<typename CPIter, typename Sentinel>
     bool is_upper(CPIter first, Sentinel last) noexcept
     {
-        return boost::text::v1::all_of(first, last, [](uint32_t cp) {
+        return boost::text::all_of(first, last, [](uint32_t cp) {
             return !detail::changes_when_uppered(cp);
         });
     }
@@ -1130,14 +1130,14 @@ namespace boost { namespace text { inline namespace v1 {
     auto is_upper(CPRange const & range) noexcept
         -> detail::cp_rng_alg_ret_t<bool, CPRange>
     {
-        return boost::text::v1::is_upper(std::begin(range), std::end(range));
+        return boost::text::is_upper(std::begin(range), std::end(range));
     }
 
     template<typename GraphemeRange>
     auto is_upper(GraphemeRange const & range) noexcept
         -> detail::graph_rng_alg_ret_t<bool, GraphemeRange>
     {
-        return boost::text::v1::is_upper(
+        return boost::text::is_upper(
             range.begin().base(), range.end().base());
     }
 
@@ -1199,7 +1199,7 @@ namespace boost { namespace text { inline namespace v1 {
         case_language lang = case_language::other) noexcept
         -> detail::cp_rng_alg_ret_t<OutIter, CPRange>
     {
-        return boost::text::v1::to_upper(
+        return boost::text::to_upper(
             std::begin(range), std::begin(range), std::end(range), out, lang);
     }
 
@@ -1210,7 +1210,7 @@ namespace boost { namespace text { inline namespace v1 {
         case_language lang = case_language::other) noexcept
         -> detail::graph_rng_alg_ret_t<OutIter, GraphemeRange>
     {
-        return boost::text::v1::to_upper(
+        return boost::text::to_upper(
             range.begin().base(),
             range.begin().base(),
             range.end().base(),
@@ -1220,6 +1220,6 @@ namespace boost { namespace text { inline namespace v1 {
 
 #endif
 
-}}}
+}}
 
 #endif
