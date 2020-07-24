@@ -7,6 +7,9 @@
 #define BOOST_TEXT_TRANSCODE_VIEW_HPP
 
 #include <boost/text/transcode_algorithm.hpp>
+#if defined(__cpp_lib_concepts)
+#include <boost/text/concepts.hpp>
+#endif
 #include <boost/text/detail/unpack.hpp>
 
 #include <boost/stl_interfaces/view_interface.hpp>
@@ -147,16 +150,18 @@ namespace boost { namespace text {
         }
     }
 
-
-
     /** A view over UTF-8 code units.  The set of operations available depends
-        on types `Iter` and `Sentinel`.  See [view.interface] in the C++20 or
-        later standard for details. */
-    template<typename Iter, typename Sentinel = Iter>
-    struct utf8_view : stl_interfaces::view_interface<utf8_view<Iter, Sentinel>>
+        on types `I` and `S`.  See [view.interface] in the C++20 or later
+        standard for details. */
+#if defined(__cpp_lib_concepts)
+    template<u8_iter I, std::sentinel_for<I> S = I>
+#else
+    template<typename I, typename S = I>
+#endif
+    struct utf8_view : stl_interfaces::view_interface<utf8_view<I, S>>
     {
-        using iterator = Iter;
-        using sentinel = Sentinel;
+        using iterator = I;
+        using sentinel = S;
 
         constexpr utf8_view() noexcept {}
         constexpr utf8_view(iterator first, sentinel last) noexcept :
@@ -200,75 +205,29 @@ namespace boost { namespace text {
 #endif
 
     private:
-        using iterator_t =
-            decltype(detail::unpack_iterator_and_sentinel(
-                         std::declval<Iter>(), std::declval<Sentinel>())
-                         .f_);
-        using sentinel_t =
-            decltype(detail::unpack_iterator_and_sentinel(
-                         std::declval<Iter>(), std::declval<Sentinel>())
-                         .l_);
+        using iterator_t = decltype(detail::unpack_iterator_and_sentinel(
+                                        std::declval<I>(), std::declval<S>())
+                                        .f_);
+        using sentinel_t = decltype(detail::unpack_iterator_and_sentinel(
+                                        std::declval<I>(), std::declval<S>())
+                                        .l_);
 
         iterator_t first_;
         sentinel_t last_;
     };
 
-    /** Returns a `utf8_view` over the data in `[first, last)`, transcoding
-        the data if necessary. */
-    template<typename Iter, typename Sentinel>
-    constexpr auto as_utf8(Iter first, Sentinel last) noexcept
-    {
-        auto unpacked = detail::unpack_iterator_and_sentinel(first, last);
-        auto r =
-            detail::make_utf8_range_(unpacked.tag_, unpacked.f_, unpacked.l_);
-        return utf8_view<decltype(r.f_), decltype(r.l_)>(r.f_, r.l_);
-    }
-
-    namespace detail {
-        template<
-            typename Range,
-            bool Pointer = char_ptr<Range>::value || _16_ptr<Range>::value ||
-                           cp_ptr<Range>::value>
-        struct as_utf8_dispatch
-        {
-            static constexpr auto call(Range const & r) noexcept
-                -> decltype(as_utf8(std::begin(r), std::end(r)))
-            {
-                return as_utf8(std::begin(r), std::end(r));
-            }
-        };
-
-        template<typename Ptr>
-        struct as_utf8_dispatch<Ptr, true>
-        {
-            static constexpr auto call(Ptr p) noexcept
-                -> decltype(as_utf8(p, null_sentinel{}))
-            {
-                return as_utf8(p, null_sentinel{});
-            }
-        };
-    }
-
-    /** Returns a `utf8_view` over the data in `r`, transcoding the data if
-        necessary. */
-    template<typename Range>
-    constexpr auto as_utf8(Range const & r) noexcept
-        -> decltype(detail::as_utf8_dispatch<Range>::call(r))
-    {
-        return detail::as_utf8_dispatch<Range>::call(r);
-    }
-
-
-
     /** A view over UTF-16 code units.  The set of operations available
-        depends on types `Iter` and `Sentinel`.  See [view.interface] in the
+        depends on types `I` and `S`.  See [view.interface] in the
         C++20 or later standard for details. */
-    template<typename Iter, typename Sentinel = Iter>
-    struct utf16_view
-        : stl_interfaces::view_interface<utf16_view<Iter, Sentinel>>
+#if defined(__cpp_lib_concepts)
+    template<u16_iter I, std::sentinel_for<I> S = I>
+#else
+    template<typename I, typename S = I>
+#endif
+    struct utf16_view : stl_interfaces::view_interface<utf16_view<I, S>>
     {
-        using iterator = Iter;
-        using sentinel = Sentinel;
+        using iterator = I;
+        using sentinel = S;
 
         constexpr utf16_view() noexcept {}
         constexpr utf16_view(iterator first, sentinel last) noexcept :
@@ -312,75 +271,29 @@ namespace boost { namespace text {
 #endif
 
     private:
-        using iterator_t =
-            decltype(detail::unpack_iterator_and_sentinel(
-                         std::declval<Iter>(), std::declval<Sentinel>())
-                         .f_);
-        using sentinel_t =
-            decltype(detail::unpack_iterator_and_sentinel(
-                         std::declval<Iter>(), std::declval<Sentinel>())
-                         .l_);
+        using iterator_t = decltype(detail::unpack_iterator_and_sentinel(
+                                        std::declval<I>(), std::declval<S>())
+                                        .f_);
+        using sentinel_t = decltype(detail::unpack_iterator_and_sentinel(
+                                        std::declval<I>(), std::declval<S>())
+                                        .l_);
 
         iterator_t first_;
         sentinel_t last_;
     };
 
-    /** Returns a `utf16_view` over the data in `[first, last)`, transcoding
-        the data if necessary. */
-    template<typename Iter, typename Sentinel>
-    constexpr auto as_utf16(Iter first, Sentinel last) noexcept
-    {
-        auto unpacked = detail::unpack_iterator_and_sentinel(first, last);
-        auto r =
-            detail::make_utf16_range_(unpacked.tag_, unpacked.f_, unpacked.l_);
-        return utf16_view<decltype(r.f_), decltype(r.l_)>(r.f_, r.l_);
-    }
-
-    namespace detail {
-        template<
-            typename Range,
-            bool Pointer = char_ptr<Range>::value || _16_ptr<Range>::value ||
-                           cp_ptr<Range>::value>
-        struct as_utf16_dispatch
-        {
-            static constexpr auto call(Range const & r) noexcept
-                -> decltype(as_utf16(std::begin(r), std::end(r)))
-            {
-                return as_utf16(std::begin(r), std::end(r));
-            }
-        };
-
-        template<typename Ptr>
-        struct as_utf16_dispatch<Ptr, true>
-        {
-            static constexpr auto call(Ptr p) noexcept
-                -> decltype(as_utf16(p, null_sentinel{}))
-            {
-                return as_utf16(p, null_sentinel{});
-            }
-        };
-    }
-
-    /** Returns a `utf16_view` over the data in `r`, transcoding the data if
-        necessary. */
-    template<typename Range>
-    constexpr auto as_utf16(Range const & r) noexcept
-        -> decltype(detail::as_utf16_dispatch<Range>::call(r))
-    {
-        return detail::as_utf16_dispatch<Range>::call(r);
-    }
-
-
-
     /** A view over UTF-32 code units.  The set of operations available
-        depends on types `Iter` and `Sentinel`.  See [view.interface] in the
+        depends on types `I` and `S`.  See [view.interface] in the
         C++20 or later standard for details. */
-    template<typename Iter, typename Sentinel = Iter>
-    struct utf32_view
-        : stl_interfaces::view_interface<utf32_view<Iter, Sentinel>>
+#if defined(__cpp_lib_concepts)
+    template<u32_iter I, std::sentinel_for<I> S = I>
+#else
+    template<typename I, typename S = I>
+#endif
+    struct utf32_view : stl_interfaces::view_interface<utf32_view<I, S>>
     {
-        using iterator = Iter;
-        using sentinel = Sentinel;
+        using iterator = I;
+        using sentinel = S;
 
         constexpr utf32_view() noexcept {}
         constexpr utf32_view(iterator first, sentinel last) noexcept :
@@ -422,18 +335,112 @@ namespace boost { namespace text {
 #endif
 
     private:
-        using iterator_t =
-            decltype(detail::unpack_iterator_and_sentinel(
-                         std::declval<Iter>(), std::declval<Sentinel>())
-                         .f_);
-        using sentinel_t =
-            decltype(detail::unpack_iterator_and_sentinel(
-                         std::declval<Iter>(), std::declval<Sentinel>())
-                         .l_);
+        using iterator_t = decltype(detail::unpack_iterator_and_sentinel(
+                                        std::declval<I>(), std::declval<S>())
+                                        .f_);
+        using sentinel_t = decltype(detail::unpack_iterator_and_sentinel(
+                                        std::declval<I>(), std::declval<S>())
+                                        .l_);
 
         iterator_t first_;
         sentinel_t last_;
     };
+
+}}
+
+namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
+
+    /** Returns a `utf8_view` over the data in `[first, last)`, transcoding
+        the data if necessary. */
+    template<typename Iter, typename Sentinel>
+    constexpr auto as_utf8(Iter first, Sentinel last) noexcept
+    {
+        auto unpacked = detail::unpack_iterator_and_sentinel(first, last);
+        auto r =
+            detail::make_utf8_range_(unpacked.tag_, unpacked.f_, unpacked.l_);
+        return utf8_view<decltype(r.f_), decltype(r.l_)>(r.f_, r.l_);
+    }
+
+    namespace dtl {
+        template<
+            typename Range,
+            bool Pointer = detail::char_ptr<Range>::value ||
+                           detail::_16_ptr<Range>::value ||
+                           detail::cp_ptr<Range>::value>
+        struct as_utf8_dispatch
+        {
+            static constexpr auto call(Range const & r) noexcept
+                -> decltype(as_utf8(std::begin(r), std::end(r)))
+            {
+                return as_utf8(std::begin(r), std::end(r));
+            }
+        };
+
+        template<typename Ptr>
+        struct as_utf8_dispatch<Ptr, true>
+        {
+            static constexpr auto call(Ptr p) noexcept
+                -> decltype(as_utf8(p, null_sentinel{}))
+            {
+                return as_utf8(p, null_sentinel{});
+            }
+        };
+    }
+
+    /** Returns a `utf8_view` over the data in `r`, transcoding the data if
+        necessary. */
+    template<typename Range>
+    constexpr auto as_utf8(Range const & r) noexcept->decltype(
+        dtl::as_utf8_dispatch<Range>::call(r))
+    {
+        return dtl::as_utf8_dispatch<Range>::call(r);
+    }
+
+    /** Returns a `utf16_view` over the data in `[first, last)`, transcoding
+        the data if necessary. */
+    template<typename Iter, typename Sentinel>
+    constexpr auto as_utf16(Iter first, Sentinel last) noexcept
+    {
+        auto unpacked = detail::unpack_iterator_and_sentinel(first, last);
+        auto r =
+            detail::make_utf16_range_(unpacked.tag_, unpacked.f_, unpacked.l_);
+        return utf16_view<decltype(r.f_), decltype(r.l_)>(r.f_, r.l_);
+    }
+
+    namespace dtl {
+        template<
+            typename Range,
+            bool Pointer = detail::char_ptr<Range>::value ||
+                           detail::_16_ptr<Range>::value ||
+                           detail::cp_ptr<Range>::value>
+        struct as_utf16_dispatch
+        {
+            static constexpr auto call(Range const & r) noexcept
+                -> decltype(as_utf16(std::begin(r), std::end(r)))
+            {
+                return as_utf16(std::begin(r), std::end(r));
+            }
+        };
+
+        template<typename Ptr>
+        struct as_utf16_dispatch<Ptr, true>
+        {
+            static constexpr auto call(Ptr p) noexcept
+                -> decltype(as_utf16(p, null_sentinel{}))
+            {
+                return as_utf16(p, null_sentinel{});
+            }
+        };
+    }
+
+    /** Returns a `utf16_view` over the data in `r`, transcoding the data if
+        necessary. */
+    template<typename Range>
+    constexpr auto as_utf16(Range const & r) noexcept->decltype(
+        dtl::as_utf16_dispatch<Range>::call(r))
+    {
+        return dtl::as_utf16_dispatch<Range>::call(r);
+    }
 
     /** Returns a `utf32_view` over the data in `[first, last)`, transcoding
         the data if necessary. */
@@ -446,11 +453,12 @@ namespace boost { namespace text {
         return utf32_view<decltype(r.f_), decltype(r.l_)>(r.f_, r.l_);
     }
 
-    namespace detail {
+    namespace dtl {
         template<
             typename Range,
-            bool Pointer = char_ptr<Range>::value || _16_ptr<Range>::value ||
-                           cp_ptr<Range>::value>
+            bool Pointer = detail::char_ptr<Range>::value ||
+                           detail::_16_ptr<Range>::value ||
+                           detail::cp_ptr<Range>::value>
         struct as_utf32_dispatch
         {
             static constexpr auto call(Range const & r) noexcept
@@ -474,12 +482,108 @@ namespace boost { namespace text {
     /** Returns a `utf32_view` over the data in `r`, transcoding the data if
         necessary. */
     template<typename Range>
-    constexpr auto as_utf32(Range const & r) noexcept
-        -> decltype(detail::as_utf32_dispatch<Range>::call(r))
+    constexpr auto as_utf32(Range const & r) noexcept->decltype(
+        dtl::as_utf32_dispatch<Range>::call(r))
     {
-        return detail::as_utf32_dispatch<Range>::call(r);
+        return dtl::as_utf32_dispatch<Range>::call(r);
+    }
+}}}
+
+#if defined(__cpp_lib_concepts)
+
+namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
+
+    /** Returns a `utf8_view` over the data in `[first, last)`, transcoding
+        the data if necessary. */
+    template<typename I, std::sentinel_for<I> S>
+        // clang-format off
+        requires u8_iter<I> || u16_iter<I> || u32_iter<I>
+    constexpr auto as_utf8(I first, S last) noexcept
+    // clang-format on
+    {
+        auto unpacked = detail::unpack_iterator_and_sentinel(first, last);
+        auto r =
+            detail::make_utf8_range_(unpacked.tag_, unpacked.f_, unpacked.l_);
+        return utf8_view<decltype(r.f_), decltype(r.l_)>(r.f_, r.l_);
     }
 
-}}
+    /** Returns a `utf8_view` over the data in `r`, transcoding the data if
+        necessary. */
+    template<typename R>
+        // clang-format off
+        requires u8_range<R> || u16_range<R> || u32_range<R> ||
+        u8_ptr<R> || u16_ptr<R> || u32_ptr<R>
+    constexpr auto as_utf8(R const & r) noexcept
+    // clang-format on
+    {
+        if constexpr (std::is_pointer_v<R>) {
+            return text::as_utf8(r, null_sentinel{});
+        } else {
+            return text::as_utf8(std::ranges::begin(r), std::ranges::end(r));
+        }
+    }
+
+    /** Returns a `utf16_view` over the data in `[first, last)`, transcoding
+        the data if necessary. */
+    template<typename I, std::sentinel_for<I> S>
+        // clang-format off
+        requires u8_iter<I> || u16_iter<I> || u32_iter<I>
+    constexpr auto as_utf16(I first, S last) noexcept
+    // clang-format on
+    {
+        auto unpacked = detail::unpack_iterator_and_sentinel(first, last);
+        auto r =
+            detail::make_utf16_range_(unpacked.tag_, unpacked.f_, unpacked.l_);
+        return utf16_view<decltype(r.f_), decltype(r.l_)>(r.f_, r.l_);
+    }
+
+    /** Returns a `utf16_view` over the data in `r`, transcoding the data if
+        necessary. */
+    template<typename R>
+        // clang-format off
+        requires u8_range<R> || u16_range<R> || u32_range<R> ||
+        u8_ptr<R> || u16_ptr<R> || u32_ptr<R>
+    constexpr auto as_utf16(R const & r) noexcept
+    // clang-format on
+    {
+        if constexpr (std::is_pointer_v<R>) {
+            return text::as_utf16(r, null_sentinel{});
+        } else {
+            return text::as_utf16(std::ranges::begin(r), std::ranges::end(r));
+        }
+    }
+
+    /** Returns a `utf32_view` over the data in `[first, last)`, transcoding
+        the data if necessary. */
+    template<typename I, std::sentinel_for<I> S>
+        // clang-format off
+        requires u8_iter<I> || u16_iter<I> || u32_iter<I>
+    constexpr auto as_utf32(I first, S last) noexcept
+    // clang-format on
+    {
+        auto unpacked = detail::unpack_iterator_and_sentinel(first, last);
+        auto r =
+            detail::make_utf32_range_(unpacked.tag_, unpacked.f_, unpacked.l_);
+        return utf32_view<decltype(r.f_), decltype(r.l_)>(r.f_, r.l_);
+    }
+
+    /** Returns a `utf32_view` over the data in `r`, transcoding the data if
+        necessary. */
+    template<typename R>
+        // clang-format off
+        requires u8_range<R> || u16_range<R> || u32_range<R> ||
+        u8_ptr<R> || u16_ptr<R> || u32_ptr<R>
+    constexpr auto as_utf32(R const & r) noexcept
+    // clang-format on
+    {
+        if constexpr (std::is_pointer_v<R>) {
+            return text::as_utf32(r, null_sentinel{});
+        } else {
+            return text::as_utf32(std::ranges::begin(r), std::ranges::end(r));
+        }
+    }
+}}}
+
+#endif
 
 #endif

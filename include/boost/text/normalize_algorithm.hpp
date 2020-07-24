@@ -7,6 +7,9 @@
 #define BOOST_TEXT_NORMALIZE_ALGORITHM_HPP
 
 #include <boost/text/algorithm.hpp>
+#if defined(__cpp_lib_concepts)
+#include <boost/text/concepts.hpp>
+#endif
 #include <boost/text/normalize_string.hpp>
 
 
@@ -607,8 +610,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 }}}
 
 #if defined(__cpp_lib_concepts)
-
-#include <boost/text/concepts.hpp>
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 

@@ -6,6 +6,9 @@
 #ifndef BOOST_TEXT_NORMALIZE_STRING_HPP
 #define BOOST_TEXT_NORMALIZE_STRING_HPP
 
+#if defined(__cpp_lib_concepts)
+#include <boost/text/concepts.hpp>
+#endif
 #include <boost/text/normalize.hpp>
 #include <boost/text/transcode_view.hpp>
 #include <boost/text/detail/icu/normalize.hpp>
@@ -211,8 +214,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 }}}
 
 #if defined(__cpp_lib_concepts)
-
-#include <boost/text/concepts.hpp>
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 

@@ -157,6 +157,13 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<typename T>
     concept utf_string = utf8_string<T> || utf16_string<T>;
 
+    template<typename T>
+    // clang-format off
+    concept transcoding_error_handler = requires(T t) {
+        { t("") } -> code_point;
+        // clang-format on
+    };
+
 }}}
 
 #endif

@@ -695,18 +695,17 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
     /** Copies the code points in the range `r` to `out`, changing the
         encoding from UTF-8.  */
-    template<typename Range, std::output_iterator<uint8_t> O>
+    template<typename R, std::output_iterator<uint8_t> O>
         // clang-format off
-        requires u16_range<Range> || u32_range<Range> ||
-        u16_ptr<Range> || u32_ptr<Range>
-    O transcode_to_utf8(Range const & r, O out)
+        requires u16_range<R> || u32_range<R> || u16_ptr<R> || u32_ptr<R>
+    O transcode_to_utf8(R const & r, O out)
     // clang-format on
     {
-        if constexpr (u16_ptr<Range>) {
+        if constexpr (u16_ptr<R>) {
             return detail::transcode_to_8<false>(
                        detail::utf16_tag{}, r, null_sentinel{}, -1, out)
                 .out;
-        } else if constexpr (u32_ptr<Range>) {
+        } else if constexpr (u32_ptr<R>) {
             return detail::transcode_to_8<false>(
                        detail::utf32_tag{}, r, null_sentinel{}, -1, out)
                 .out;
@@ -735,18 +734,17 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
     /** Copies the code points in the range `r` to `out`, changing the
         encoding from UTF-16.  */
-    template<typename Range, std::output_iterator<uint16_t> O>
+    template<typename R, std::output_iterator<uint16_t> O>
         // clang-format off
-        requires u8_range<Range> || u32_range<Range> ||
-        u8_ptr<Range> || u32_ptr<Range>
-    O transcode_to_utf16(Range const & r, O out)
+        requires u8_range<R> || u32_range<R> || u8_ptr<R> || u32_ptr<R>
+    O transcode_to_utf16(R const & r, O out)
     // clang-format on
     {
-        if constexpr (u8_ptr<Range>) {
+        if constexpr (u8_ptr<R>) {
             return detail::transcode_to_16<false>(
                        detail::utf8_tag{}, r, null_sentinel{}, -1, out)
                 .out;
-        } else if constexpr (u32_ptr<Range>) {
+        } else if constexpr (u32_ptr<R>) {
             return detail::transcode_to_16<false>(
                        detail::utf32_tag{}, r, null_sentinel{}, -1, out)
                 .out;
@@ -775,18 +773,17 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
     /** Copies the code points in the range `r` to `out`, changing the
         encoding from UTF-32.  */
-    template<typename Range, std::output_iterator<uint32_t> O>
+    template<typename R, std::output_iterator<uint32_t> O>
         // clang-format off
-        requires u8_range<Range> || u16_range<Range> ||
-        u8_ptr<Range> || u16_ptr<Range>
-    O transcode_to_utf32(Range const & r, O out)
+        requires u8_range<R> || u16_range<R> || u8_ptr<R> || u16_ptr<R>
+    O transcode_to_utf32(R const & r, O out)
     // clang-format on
     {
-        if constexpr (u8_ptr<Range>) {
+        if constexpr (u8_ptr<R>) {
             return detail::transcode_to_32<false>(
                        detail::utf8_tag{}, r, null_sentinel{}, -1, out)
                 .out;
-        } else if constexpr (u16_ptr<Range>) {
+        } else if constexpr (u16_ptr<R>) {
             return detail::transcode_to_32<false>(
                        detail::utf16_tag{}, r, null_sentinel{}, -1, out)
                 .out;

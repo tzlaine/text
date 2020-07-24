@@ -7,6 +7,9 @@
 #define BOOST_TEXT_TRANSCODE_ITERATOR_HPP
 
 #include <boost/text/config.hpp>
+#if defined(__cpp_lib_concepts)
+#include <boost/text/concepts.hpp>
+#endif
 #include <boost/text/detail/algorithm.hpp>
 
 #include <boost/assert.hpp>
@@ -752,8 +755,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
 #if defined(__cpp_lib_concepts)
 
-#include <boost/text/concepts.hpp>
-
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
     /** Returns the first code unit in [first, last) that is not properly
@@ -916,7 +917,7 @@ namespace boost { namespace text {
         throws std::logic_error on errors. */
     struct throw_logic_error
     {
-        uint32_t operator()(char const * msg)
+        uint32_t operator()(char const * msg) const
         {
             boost::throw_exception(std::logic_error(msg));
             return 0;
@@ -992,10 +993,17 @@ namespace boost { namespace text {
 
         Iter must be a bidirectional iterator with a 1-byte char
         `value_type`. */
+#if defined(__cpp_lib_concepts)
     template<
-        typename Iter,
-        typename Sentinel = Iter,
+        u8_iter I,
+        std::sentinel_for<I> S = I,
+        transcoding_error_handler ErrorHandler = use_replacement_character>
+#else
+    template<
+        typename I,
+        typename Sentinel = I,
         typename ErrorHandler = use_replacement_character>
+#endif
     struct utf_8_to_16_iterator;
 
 
@@ -1012,61 +1020,57 @@ namespace boost { namespace text {
         The default ErrorHandler is `use_replacement_character`, which simply
         produces a replacement character.
 
-        Iter must be a bidirectional iterator with a 4-byte integral
+        I must be a bidirectional iterator with a 4-byte integral
         `value_type`. */
+#if defined(__cpp_lib_concepts)
     template<
-        typename Iter,
-        typename Sentinel = Iter,
+        u32_iter I,
+        std::sentinel_for<I> S = I,
+        transcoding_error_handler ErrorHandler = use_replacement_character>
+#else
+    template<
+        typename I,
+        typename S = I,
         typename ErrorHandler = use_replacement_character>
+#endif
     struct utf_32_to_8_iterator
-        : detail::trans_iter<
-              utf_32_to_8_iterator<Iter, Sentinel, ErrorHandler>,
-              char>
+        : detail::trans_iter<utf_32_to_8_iterator<I, S, ErrorHandler>, char>
     {
         static bool const throw_on_error =
             !noexcept(std::declval<ErrorHandler>()(0));
 
         static_assert(
             std::is_same<
-                typename std::iterator_traits<Iter>::iterator_category,
+                typename std::iterator_traits<I>::iterator_category,
                 std::bidirectional_iterator_tag>::value ||
                 std::is_same<
-                    typename std::iterator_traits<Iter>::iterator_category,
+                    typename std::iterator_traits<I>::iterator_category,
                     std::random_access_iterator_tag>::value,
-            "utf_32_to_8_iterator requires its Iter parameter to be at least "
+            "utf_32_to_8_iterator requires its I parameter to be at least "
             "bidirectional.");
         static_assert(
-            sizeof(typename std::iterator_traits<Iter>::value_type) == 4,
-            "utf_32_to_8_iterator requires its Iter parameter to produce a "
+            sizeof(typename std::iterator_traits<I>::value_type) == 4,
+            "utf_32_to_8_iterator requires its I parameter to produce a "
             "4-byte value_type.");
 
         constexpr utf_32_to_8_iterator() noexcept :
-            first_(),
-            it_(),
-            last_(),
-            index_(4),
-            buf_()
+            first_(), it_(), last_(), index_(4), buf_()
         {}
         explicit BOOST_TEXT_CXX14_CONSTEXPR
-        utf_32_to_8_iterator(Iter first, Iter it, Sentinel last) noexcept :
-            first_(first),
-            it_(it),
-            last_(last),
-            index_(0),
-            buf_()
+        utf_32_to_8_iterator(I first, I it, S last) noexcept :
+            first_(first), it_(it), last_(last), index_(0), buf_()
         {
             if (it_ != last_)
                 read_into_buf();
         }
         template<
-            typename Iter2,
-            typename Sentinel2,
+            typename I2,
+            typename S2,
             typename Enable = std::enable_if_t<
-                std::is_convertible<Iter2, Iter>::value &&
-                std::is_convertible<Sentinel2, Sentinel>::value>>
+                std::is_convertible<I2, I>::value &&
+                std::is_convertible<S2, S>::value>>
         constexpr utf_32_to_8_iterator(
-            utf_32_to_8_iterator<Iter2, Sentinel2, ErrorHandler> const &
-                other) noexcept :
+            utf_32_to_8_iterator<I2, S2, ErrorHandler> const & other) noexcept :
             first_(other.first_),
             it_(other.it_),
             last_(other.last_),
@@ -1082,7 +1086,7 @@ namespace boost { namespace text {
         }
 
         /** This function is constexpr in C++14 and later. */
-        BOOST_TEXT_CXX14_CONSTEXPR Iter base() const noexcept { return it_; }
+        BOOST_TEXT_CXX14_CONSTEXPR I base() const noexcept { return it_; }
 
         /** This function is constexpr in C++14 and later. */
         BOOST_TEXT_CXX14_CONSTEXPR utf_32_to_8_iterator &
@@ -1113,16 +1117,16 @@ namespace boost { namespace text {
         }
 
         template<
-            typename Iter1,
-            typename Sentinel1,
-            typename Iter2,
-            typename Sentinel2,
+            typename I1,
+            typename S1,
+            typename I2,
+            typename S2,
             typename ErrorHandler2,
             typename Enable>
         friend BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
-            utf_32_to_8_iterator<Iter1, Sentinel1, ErrorHandler2> const & lhs,
-            utf_32_to_8_iterator<Iter2, Sentinel2, ErrorHandler2> const &
-                rhs) noexcept -> decltype(lhs.base() == rhs.base());
+            utf_32_to_8_iterator<I1, S1, ErrorHandler2> const & lhs,
+            utf_32_to_8_iterator<I2, S2, ErrorHandler2> const & rhs) noexcept
+            -> decltype(lhs.base() == rhs.base());
 
         friend bool
         operator==(utf_32_to_8_iterator lhs, utf_32_to_8_iterator rhs) noexcept
@@ -1130,9 +1134,8 @@ namespace boost { namespace text {
             return lhs.base() == rhs.base() && lhs.index_ == rhs.index_;
         }
 
-        using base_type = detail::trans_iter<
-            utf_32_to_8_iterator<Iter, Sentinel, ErrorHandler>,
-            char>;
+        using base_type =
+            detail::trans_iter<utf_32_to_8_iterator<I, S, ErrorHandler>, char>;
         using base_type::operator++;
         using base_type::operator--;
 
@@ -1145,7 +1148,8 @@ namespace boost { namespace text {
             return buf_[index_] == '\0';
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR char * read_into_buf() noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR char *
+        read_into_buf() noexcept(!throw_on_error)
         {
             uint32_t cp = static_cast<uint32_t>(*it_);
             index_ = 0;
@@ -1154,14 +1158,22 @@ namespace boost { namespace text {
             return retval;
         }
 
-        Iter first_;
-        Iter it_;
-        Sentinel last_;
+        I first_;
+        I it_;
+        S last_;
         int index_;
         std::array<char, 5> buf_;
 
-        template<typename Iter2, typename Sentinel2, typename ErrorHandler2>
+#if defined(__cpp_lib_concepts)
+        template<
+            u32_iter I2,
+            std::sentinel_for<I2> S2,
+            transcoding_error_handler ErrorHandler2>
+#else
+        template<typename I2, typename S2, typename ErrorHandler2>
+#endif
         friend struct utf_32_to_8_iterator;
+
 #endif
     };
 
@@ -1241,7 +1253,11 @@ namespace boost { namespace text {
 
 
     /** An out iterator that converts UTF-32 to UTF-8. */
+#if defined(__cpp_lib_concepts)
+    template<std::output_iterator<uint8_t> Iter>
+#else
     template<typename Iter>
+#endif
     struct utf_32_to_8_out_iterator
         : detail::trans_ins_iter<utf_32_to_8_out_iterator<Iter>, Iter>
     {
@@ -1347,34 +1363,38 @@ namespace boost { namespace text {
         The default ErrorHandler is `use_replacement_character`, which simply
         produces a replacement character.
 
-        Iter must be a bidirectional iterator with a 1-byte char
+        I must be a bidirectional iterator with a 1-byte char
         `value_type`. */
+#if defined(__cpp_lib_concepts)
     template<
-        typename Iter,
-        typename Sentinel = Iter,
+        u8_iter I,
+        std::sentinel_for<I> S = I,
+        transcoding_error_handler ErrorHandler = use_replacement_character>
+#else
+    template<
+        typename I,
+        typename S = I,
         typename ErrorHandler = use_replacement_character>
+#endif
     struct utf_8_to_32_iterator
-        : detail::trans_iter<
-              utf_8_to_32_iterator<Iter, Sentinel, ErrorHandler>,
-              uint32_t>
+        : detail::trans_iter<utf_8_to_32_iterator<I, S, ErrorHandler>, uint32_t>
     {
         static bool const throw_on_error =
             !noexcept(std::declval<ErrorHandler>()(0));
 
         constexpr utf_8_to_32_iterator() noexcept : first_(), it_(), last_() {}
-        explicit constexpr utf_8_to_32_iterator(
-            Iter first, Iter it, Sentinel last) noexcept :
+        explicit constexpr utf_8_to_32_iterator(I first, I it, S last) noexcept
+            :
             first_(first), it_(it), last_(last)
         {}
         template<
-            typename Iter2,
-            typename Sentinel2,
+            typename I2,
+            typename S2,
             typename Enable = std::enable_if_t<
-                std::is_convertible<Iter2, Iter>::value &&
-                std::is_convertible<Sentinel2, Sentinel>::value>>
+                std::is_convertible<I2, I>::value &&
+                std::is_convertible<S2, S>::value>>
         constexpr utf_8_to_32_iterator(
-            utf_8_to_32_iterator<Iter2, Sentinel2, ErrorHandler> const &
-                other) noexcept :
+            utf_8_to_32_iterator<I2, S2, ErrorHandler> const & other) noexcept :
             first_(other.first_), it_(other.it_), last_(other.last_)
         {}
 
@@ -1391,7 +1411,7 @@ namespace boost { namespace text {
         }
 
         /** This function is constexpr in C++14 and later. */
-        BOOST_TEXT_CXX14_CONSTEXPR Iter base() const noexcept { return it_; }
+        BOOST_TEXT_CXX14_CONSTEXPR I base() const noexcept { return it_; }
 
         /** This function is constexpr in C++14 and later. */
         BOOST_TEXT_CXX14_CONSTEXPR utf_8_to_32_iterator &
@@ -1415,9 +1435,8 @@ namespace boost { namespace text {
             return lhs.base() == rhs.base();
         }
 
-        using base_type = detail::trans_iter<
-            utf_8_to_32_iterator<Iter, Sentinel, ErrorHandler>,
-            uint32_t>;
+        using base_type = detail::
+            trans_iter<utf_8_to_32_iterator<I, S, ErrorHandler>, uint32_t>;
         using base_type::operator++;
         using base_type::operator--;
 
@@ -1426,7 +1445,7 @@ namespace boost { namespace text {
         struct get_value_result
         {
             uint32_t value_;
-            Iter it_;
+            I it_;
         };
 
         BOOST_TEXT_CXX14_CONSTEXPR bool check_continuation(
@@ -1444,7 +1463,7 @@ namespace boost { namespace text {
             }
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR bool at_end(Iter it) const
+        BOOST_TEXT_CXX14_CONSTEXPR bool at_end(I it) const
             noexcept(!throw_on_error)
         {
             if (it == last_) {
@@ -1481,7 +1500,7 @@ namespace boost { namespace text {
             */
 
             uint32_t value = 0;
-            Iter next = it_;
+            I next = it_;
             unsigned char curr_c = *next;
 
             using detail::in;
@@ -1647,14 +1666,13 @@ namespace boost { namespace text {
             }
             return get_value_result{value, next};
 #else
-            Iter next = it_;
+            I next = it_;
             uint32_t const value = detail::advance(next, last_);
             return get_value_result{value, next};
 #endif
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR Iter increment() const
-            noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR I increment() const noexcept(!throw_on_error)
         {
             if (at_end(it_))
                 return it_;
@@ -1664,14 +1682,28 @@ namespace boost { namespace text {
             return get_value().it_;
         }
 
-        Iter first_;
-        Iter it_;
-        Sentinel last_;
+        I first_;
+        I it_;
+        S last_;
 
-        template<typename Iter2, typename Sentinel2, typename ErrorHandler2>
+#if defined(__cpp_lib_concepts)
+        template<
+            u8_iter I2,
+            std::sentinel_for<I2> S2,
+            transcoding_error_handler ErrorHandler2>
+#else
+        template<typename I2, typename S2, typename ErrorHandler2>
+#endif
         friend struct utf_8_to_16_iterator;
 
-        template<typename Iter2, typename Sentinel2, typename ErrorHandler2>
+#if defined(__cpp_lib_concepts)
+        template<
+            u8_iter I2,
+            std::sentinel_for<I2> S2,
+            transcoding_error_handler ErrorHandler2>
+#else
+        template<typename I2, typename S2, typename ErrorHandler2>
+#endif
         friend struct utf_8_to_32_iterator;
 
 #endif
@@ -1788,7 +1820,11 @@ namespace boost { namespace text {
     }
 
     /** An out iterator that converts UTF-8 to UTF-32. */
+#if defined(__cpp_lib_concepts)
+    template<std::output_iterator<uint32_t> Iter>
+#else
     template<typename Iter>
+#endif
     struct utf_8_to_32_out_iterator
         : detail::trans_ins_iter<utf_8_to_32_out_iterator<Iter>, Iter>
     {
@@ -1922,54 +1958,60 @@ namespace boost { namespace text {
         The default ErrorHandler is `use_replacement_character`, which simply
         produces a replacement character.
 
-        Iter must be a bidirectional iterator with a 4-byte integral
+        I must be a bidirectional iterator with a 4-byte integral
         `value_type`. */
+#if defined(__cpp_lib_concepts)
     template<
-        typename Iter,
-        typename Sentinel = Iter,
+        u32_iter I,
+        std::sentinel_for<I> S = I,
+        transcoding_error_handler ErrorHandler = use_replacement_character>
+#else
+    template<
+        typename I,
+        typename S = I,
         typename ErrorHandler = use_replacement_character>
+#endif
     struct utf_32_to_16_iterator
-        : detail::trans_iter<
-              utf_32_to_16_iterator<Iter, Sentinel, ErrorHandler>,
-              uint16_t>
+        : detail::
+              trans_iter<utf_32_to_16_iterator<I, S, ErrorHandler>, uint16_t>
     {
         static bool const throw_on_error =
             !noexcept(std::declval<ErrorHandler>()(0));
 
         static_assert(
             std::is_same<
-                typename std::iterator_traits<Iter>::iterator_category,
+                typename std::iterator_traits<I>::iterator_category,
                 std::bidirectional_iterator_tag>::value ||
                 std::is_same<
-                    typename std::iterator_traits<Iter>::iterator_category,
+                    typename std::iterator_traits<I>::iterator_category,
                     std::random_access_iterator_tag>::value,
-            "utf_32_to_16_iterator requires its Iter parameter to be at "
+            "utf_32_to_16_iterator requires its I parameter to be at "
             "least "
             "bidirectional.");
         static_assert(
-            sizeof(typename std::iterator_traits<Iter>::value_type) == 4,
-            "utf_32_to_16_iterator requires its Iter parameter to produce a "
+            sizeof(typename std::iterator_traits<I>::value_type) == 4,
+            "utf_32_to_16_iterator requires its I parameter to produce a "
             "4-byte value_type.");
 
         constexpr utf_32_to_16_iterator() noexcept :
             first_(), it_(), last_(), index_(2), buf_()
         {}
         explicit BOOST_TEXT_CXX14_CONSTEXPR
-        utf_32_to_16_iterator(Iter first, Iter it, Sentinel last) noexcept :
+        utf_32_to_16_iterator(I first, I it, S last) noexcept :
             first_(first), it_(it), last_(last), index_(0), buf_()
         {
             if (it_ != last_)
                 read_into_buf();
         }
         template<
-            typename Iter2,
-            typename Sentinel2,
+            typename I2,
+            typename S2,
             typename Enable = std::enable_if_t<
-                std::is_convertible<Iter2, Iter>::value &&
-                std::is_convertible<Sentinel2, Sentinel>::value>>
+                std::is_convertible<I2, I>::value &&
+                std::is_convertible<S2, S>::value>>
         constexpr utf_32_to_16_iterator(
-            utf_32_to_16_iterator<Iter2, Sentinel2, ErrorHandler> const &
-                other) noexcept :
+            utf_32_to_16_iterator<I2, S2, ErrorHandler> const & other) noexcept
+            :
             first_(other.first_),
             it_(other.it_),
             last_(other.last_),
@@ -1985,7 +2027,7 @@ namespace boost { namespace text {
         }
 
         /** This function is constexpr in C++14 and later. */
-        BOOST_TEXT_CXX14_CONSTEXPR Iter base() const noexcept { return it_; }
+        BOOST_TEXT_CXX14_CONSTEXPR I base() const noexcept { return it_; }
 
         /** This function is constexpr in C++14 and later. */
         BOOST_TEXT_CXX14_CONSTEXPR utf_32_to_16_iterator &
@@ -2016,16 +2058,16 @@ namespace boost { namespace text {
         }
 
         template<
-            typename Iter1,
-            typename Sentinel1,
-            typename Iter2,
-            typename Sentinel2,
+            typename I1,
+            typename S1,
+            typename I2,
+            typename S2,
             typename ErrorHandler2,
             typename Enable>
         friend BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
-            utf_32_to_16_iterator<Iter1, Sentinel1, ErrorHandler2> const & lhs,
-            utf_32_to_16_iterator<Iter2, Sentinel2, ErrorHandler2> const &
-                rhs) noexcept -> decltype(lhs.base() == rhs.base());
+            utf_32_to_16_iterator<I1, S1, ErrorHandler2> const & lhs,
+            utf_32_to_16_iterator<I2, S2, ErrorHandler2> const & rhs) noexcept
+            -> decltype(lhs.base() == rhs.base());
 
         friend bool operator==(
             utf_32_to_16_iterator lhs, utf_32_to_16_iterator rhs) noexcept
@@ -2033,9 +2075,8 @@ namespace boost { namespace text {
             return lhs.base() == rhs.base() && lhs.index_ == rhs.index_;
         }
 
-        using base_type = detail::trans_iter<
-            utf_32_to_16_iterator<Iter, Sentinel, ErrorHandler>,
-            uint16_t>;
+        using base_type = detail::
+            trans_iter<utf_32_to_16_iterator<I, S, ErrorHandler>, uint16_t>;
         using base_type::operator++;
         using base_type::operator--;
 
@@ -2051,13 +2092,20 @@ namespace boost { namespace text {
             return last;
         }
 
-        Iter first_;
-        Iter it_;
-        Sentinel last_;
+        I first_;
+        I it_;
+        S last_;
         int index_;
         std::array<uint16_t, 4> buf_;
 
-        template<typename Iter2, typename Sentinel2, typename ErrorHandler2>
+#if defined(__cpp_lib_concepts)
+        template<
+            u32_iter I2,
+            std::sentinel_for<I2> S2,
+            transcoding_error_handler ErrorHandler2>
+#else
+        template<typename I2, typename S2, typename ErrorHandler2>
+#endif
         friend struct utf_32_to_16_iterator;
 #endif
     };
@@ -2138,7 +2186,11 @@ namespace boost { namespace text {
 
 
     /** An out iterator that converts UTF-8 to UTF-16. */
+#if defined(__cpp_lib_concepts)
+    template<std::output_iterator<uint16_t> Iter>
+#else
     template<typename Iter>
+#endif
     struct utf_32_to_16_out_iterator
         : detail::trans_ins_iter<utf_32_to_16_out_iterator<Iter>, Iter>
     {
@@ -2245,49 +2297,55 @@ namespace boost { namespace text {
         The default ErrorHandler is `use_replacement_character`, which simply
         produces a replacement character.
 
-        Iter must be a bidirectional iterator with a 2-byte char
+        I must be a bidirectional iterator with a 2-byte char
         `value_type`. */
+#if defined(__cpp_lib_concepts)
     template<
-        typename Iter,
-        typename Sentinel = Iter,
+        u16_iter I,
+        std::sentinel_for<I> S = I,
+        transcoding_error_handler ErrorHandler = use_replacement_character>
+#else
+    template<
+        typename I,
+        typename S = I,
         typename ErrorHandler = use_replacement_character>
+#endif
     struct utf_16_to_32_iterator
-        : detail::trans_iter<
-              utf_16_to_32_iterator<Iter, Sentinel, ErrorHandler>,
-              uint32_t>
+        : detail::
+              trans_iter<utf_16_to_32_iterator<I, S, ErrorHandler>, uint32_t>
     {
         static bool const throw_on_error =
             !noexcept(std::declval<ErrorHandler>()(0));
 
         static_assert(
             std::is_same<
-                typename std::iterator_traits<Iter>::iterator_category,
+                typename std::iterator_traits<I>::iterator_category,
                 std::bidirectional_iterator_tag>::value ||
                 std::is_same<
-                    typename std::iterator_traits<Iter>::iterator_category,
+                    typename std::iterator_traits<I>::iterator_category,
                     std::random_access_iterator_tag>::value,
-            "utf_16_to_32_iterator requires its Iter parameter to be at "
+            "utf_16_to_32_iterator requires its I parameter to be at "
             "least "
             "bidirectional.");
         static_assert(
-            sizeof(typename std::iterator_traits<Iter>::value_type) == 2,
-            "utf_16_to_32_iterator requires its Iter parameter to produce a "
+            sizeof(typename std::iterator_traits<I>::value_type) == 2,
+            "utf_16_to_32_iterator requires its I parameter to produce a "
             "2-byte value_type.");
 
         constexpr utf_16_to_32_iterator() noexcept : first_(), it_(), last_() {}
-        explicit constexpr utf_16_to_32_iterator(
-            Iter first, Iter it, Sentinel last) noexcept :
+        explicit constexpr utf_16_to_32_iterator(I first, I it, S last) noexcept
+            :
             first_(first), it_(it), last_(last)
         {}
         template<
-            typename Iter2,
-            typename Sentinel2,
+            typename I2,
+            typename S2,
             typename Enable = std::enable_if_t<
-                std::is_convertible<Iter2, Iter>::value &&
-                std::is_convertible<Sentinel2, Sentinel>::value>>
+                std::is_convertible<I2, I>::value &&
+                std::is_convertible<S2, S>::value>>
         constexpr utf_16_to_32_iterator(
-            utf_16_to_32_iterator<Iter2, Sentinel2, ErrorHandler> const &
-                other) noexcept :
+            utf_16_to_32_iterator<I2, S2, ErrorHandler> const & other) noexcept
+            :
             first_(other.first_), it_(other.it_), last_(other.last_)
         {}
 
@@ -2301,7 +2359,7 @@ namespace boost { namespace text {
         }
 
         /** This function is constexpr in C++14 and later. */
-        BOOST_TEXT_CXX14_CONSTEXPR Iter base() const noexcept { return it_; }
+        BOOST_TEXT_CXX14_CONSTEXPR I base() const noexcept { return it_; }
 
         /** This function is constexpr in C++14 and later. */
         BOOST_TEXT_CXX14_CONSTEXPR utf_16_to_32_iterator &
@@ -2329,9 +2387,8 @@ namespace boost { namespace text {
             return lhs.base() == rhs.base();
         }
 
-        using base_type = detail::trans_iter<
-            utf_16_to_32_iterator<Iter, Sentinel, ErrorHandler>,
-            uint32_t>;
+        using base_type = detail::
+            trans_iter<utf_16_to_32_iterator<I, S, ErrorHandler>, uint32_t>;
         using base_type::operator++;
         using base_type::operator--;
 
@@ -2340,10 +2397,10 @@ namespace boost { namespace text {
         struct get_value_result
         {
             uint32_t value_;
-            Iter it_;
+            I it_;
         };
 
-        BOOST_TEXT_CXX14_CONSTEXPR bool at_end(Iter it) const
+        BOOST_TEXT_CXX14_CONSTEXPR bool at_end(I it) const
             noexcept(!throw_on_error)
         {
             if (it == last_) {
@@ -2360,7 +2417,7 @@ namespace boost { namespace text {
         get_value(uint16_t curr) const noexcept(!throw_on_error)
         {
             uint32_t value = 0;
-            Iter next = it_;
+            I next = it_;
 
             if (high_surrogate(curr)) {
                 value = (curr - high_surrogate_base) << 10;
@@ -2390,22 +2447,35 @@ namespace boost { namespace text {
             return get_value_result{value, next};
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR Iter increment() const
-            noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR I increment() const noexcept(!throw_on_error)
         {
             if (at_end(it_))
                 return it_;
             return get_value(*it_).it_;
         }
 
-        Iter first_;
-        Iter it_;
-        Sentinel last_;
+        I first_;
+        I it_;
+        S last_;
 
-        template<typename Iter2, typename Sentinel2, typename ErrorHandler2>
+#if defined(__cpp_lib_concepts)
+        template<
+            u32_iter I2,
+            std::sentinel_for<I2> S2,
+            transcoding_error_handler ErrorHandler2>
+#else
+        template<typename I2, typename S2, typename ErrorHandler2>
+#endif
         friend struct utf_32_to_16_iterator;
 
-        template<typename Iter2, typename Sentinel2, typename ErrorHandler2>
+#if defined(__cpp_lib_concepts)
+        template<
+            u16_iter I2,
+            std::sentinel_for<I2> S2,
+            transcoding_error_handler ErrorHandler2>
+#else
+        template<typename I2, typename S2, typename ErrorHandler2>
+#endif
         friend struct utf_16_to_32_iterator;
 
 #endif
@@ -2522,7 +2592,11 @@ namespace boost { namespace text {
     }
 
     /** An out iterator that converts UTF-16 to UTF-32. */
+#if defined(__cpp_lib_concepts)
+    template<std::output_iterator<uint32_t> Iter>
+#else
     template<typename Iter>
+#endif
     struct utf_16_to_32_out_iterator
         : detail::trans_ins_iter<utf_16_to_32_out_iterator<Iter>, Iter>
     {
@@ -2653,52 +2727,57 @@ namespace boost { namespace text {
         The default ErrorHandler is `use_replacement_character`, which simply
         produces a replacement character.
 
-        Iter must be a bidirectional iterator with a 2-byte integral
+        I must be a bidirectional iterator with a 2-byte integral
         `value_type`. */
+#if defined(__cpp_lib_concepts)
     template<
-        typename Iter,
-        typename Sentinel = Iter,
+        u16_iter I,
+        std::sentinel_for<I> S = I,
+        transcoding_error_handler ErrorHandler = use_replacement_character>
+#else
+    template<
+        typename I,
+        typename S = I,
         typename ErrorHandler = use_replacement_character>
+#endif
     struct utf_16_to_8_iterator
-        : detail::trans_iter<
-              utf_16_to_8_iterator<Iter, Sentinel, ErrorHandler>,
-              char>
+        : detail::trans_iter<utf_16_to_8_iterator<I, S, ErrorHandler>, char>
     {
         static bool const throw_on_error =
             !noexcept(std::declval<ErrorHandler>()(0));
 
         static_assert(
             std::is_same<
-                typename std::iterator_traits<Iter>::iterator_category,
+                typename std::iterator_traits<I>::iterator_category,
                 std::bidirectional_iterator_tag>::value ||
                 std::is_same<
-                    typename std::iterator_traits<Iter>::iterator_category,
+                    typename std::iterator_traits<I>::iterator_category,
                     std::random_access_iterator_tag>::value,
-            "utf_16_to_8_iterator requires its Iter parameter to be at least "
+            "utf_16_to_8_iterator requires its I parameter to be at least "
             "bidirectional.");
         static_assert(
-            sizeof(typename std::iterator_traits<Iter>::value_type) == 2,
-            "utf_16_to_8_iterator requires its Iter parameter to produce a "
+            sizeof(typename std::iterator_traits<I>::value_type) == 2,
+            "utf_16_to_8_iterator requires its I parameter to produce a "
             "2-byte value_type.");
 
         constexpr utf_16_to_8_iterator() noexcept :
             first_(), it_(), last_(), index_(4), buf_()
         {}
         explicit BOOST_TEXT_CXX14_CONSTEXPR
-        utf_16_to_8_iterator(Iter first, Iter it, Sentinel last) noexcept :
+        utf_16_to_8_iterator(I first, I it, S last) noexcept :
             first_(first), it_(it), last_(last), index_(0), buf_()
         {
             if (it_ != last_)
                 read_into_buf();
         }
         template<
-            typename Iter2,
-            typename Sentinel2,
+            typename I2,
+            typename S2,
             typename Enable = std::enable_if_t<
-                std::is_convertible<Iter2, Iter>::value &&
-                std::is_convertible<Sentinel2, Sentinel>::value>>
+                std::is_convertible<I2, I>::value &&
+                std::is_convertible<S2, S>::value>>
         constexpr utf_16_to_8_iterator(
-            utf_16_to_8_iterator<Iter2, Sentinel2> const & other) noexcept :
+            utf_16_to_8_iterator<I2, S2> const & other) noexcept :
             first_(other.first_),
             it_(other.it_),
             last_(other.last_),
@@ -2714,7 +2793,7 @@ namespace boost { namespace text {
         }
 
         /** This function is constexpr in C++14 and later. */
-        BOOST_TEXT_CXX14_CONSTEXPR Iter base() const noexcept { return it_; }
+        BOOST_TEXT_CXX14_CONSTEXPR I base() const noexcept { return it_; }
 
         /** This function is constexpr in C++14 and later. */
         BOOST_TEXT_CXX14_CONSTEXPR utf_16_to_8_iterator &
@@ -2745,16 +2824,16 @@ namespace boost { namespace text {
         }
 
         template<
-            typename Iter1,
-            typename Sentinel1,
-            typename Iter2,
-            typename Sentinel2,
+            typename I1,
+            typename S1,
+            typename I2,
+            typename S2,
             typename ErrorHandler2,
             typename Enable>
         friend BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
-            utf_16_to_8_iterator<Iter1, Sentinel1, ErrorHandler2> const & lhs,
-            utf_16_to_8_iterator<Iter2, Sentinel2, ErrorHandler2> const &
-                rhs) noexcept -> decltype(lhs.base() == rhs.base());
+            utf_16_to_8_iterator<I1, S1, ErrorHandler2> const & lhs,
+            utf_16_to_8_iterator<I2, S2, ErrorHandler2> const & rhs) noexcept
+            -> decltype(lhs.base() == rhs.base());
 
         friend bool
         operator==(utf_16_to_8_iterator lhs, utf_16_to_8_iterator rhs) noexcept
@@ -2762,9 +2841,8 @@ namespace boost { namespace text {
             return lhs.base() == rhs.base() && lhs.index_ == rhs.index_;
         }
 
-        using base_type = detail::trans_iter<
-            utf_16_to_8_iterator<Iter, Sentinel, ErrorHandler>,
-            char>;
+        using base_type =
+            detail::trans_iter<utf_16_to_8_iterator<I, S, ErrorHandler>, char>;
         using base_type::operator++;
         using base_type::operator--;
 
@@ -2790,7 +2868,7 @@ namespace boost { namespace text {
         BOOST_TEXT_CXX14_CONSTEXPR char *
         read_into_buf() noexcept(!throw_on_error)
         {
-            Iter next = it_;
+            I next = it_;
 
             uint32_t first = static_cast<uint32_t>(*next);
             uint32_t second = 0;
@@ -2838,9 +2916,9 @@ namespace boost { namespace text {
             }
         }
 
-        Iter first_;
-        Iter it_;
-        Sentinel last_;
+        I first_;
+        I it_;
+        S last_;
         int index_;
         std::array<char, 5> buf_;
 
@@ -2849,7 +2927,14 @@ namespace boost { namespace text {
         static uint32_t const surrogate_offset =
             0x10000 - (high_surrogate_min << 10) - low_surrogate_min;
 
-        template<typename Iter2, typename Sentinel2, typename ErrorHandler2>
+#if defined(__cpp_lib_concepts)
+        template<
+            u16_iter I2,
+            std::sentinel_for<I2> S2,
+            transcoding_error_handler ErrorHandler2>
+#else
+        template<typename I2, typename S2, typename ErrorHandler2>
+#endif
         friend struct utf_16_to_8_iterator;
 #endif
     };
@@ -2958,7 +3043,11 @@ namespace boost { namespace text {
     }
 
     /** An out iterator that converts UTF-16 to UTF-8. */
+#if defined(__cpp_lib_concepts)
+    template<std::output_iterator<uint8_t> Iter>
+#else
     template<typename Iter>
+#endif
     struct utf_16_to_8_out_iterator
         : detail::trans_ins_iter<utf_16_to_8_out_iterator<Iter>, Iter>
     {
@@ -3076,32 +3165,36 @@ namespace boost { namespace text {
     };
 
 
-    template<typename Iter, typename Sentinel, typename ErrorHandler>
+#if defined(__cpp_lib_concepts)
+    template<
+        u8_iter I,
+        std::sentinel_for<I> S,
+        transcoding_error_handler ErrorHandler>
+#else
+    template<typename I, typename S, typename ErrorHandler>
+#endif
     struct utf_8_to_16_iterator
-        : detail::trans_iter<
-              utf_8_to_16_iterator<Iter, Sentinel, ErrorHandler>,
-              uint16_t>
+        : detail::trans_iter<utf_8_to_16_iterator<I, S, ErrorHandler>, uint16_t>
     {
         static bool const throw_on_error =
             !noexcept(std::declval<ErrorHandler>()(0));
 
         constexpr utf_8_to_16_iterator() noexcept : it_(), index_(2), buf_() {}
         explicit BOOST_TEXT_CXX14_CONSTEXPR
-        utf_8_to_16_iterator(Iter first, Iter it, Sentinel last) noexcept :
+        utf_8_to_16_iterator(I first, I it, S last) noexcept :
             it_(first, it, last), index_(0), buf_()
         {
             if (it_.it_ != it_.last_)
                 read_into_buf();
         }
         template<
-            typename Iter2,
-            typename Sentinel2,
+            typename I2,
+            typename S2,
             typename Enable = std::enable_if_t<
-                std::is_convertible<Iter2, Iter>::value &&
-                std::is_convertible<Sentinel2, Sentinel>::value>>
+                std::is_convertible<I2, I>::value &&
+                std::is_convertible<S2, S>::value>>
         constexpr utf_8_to_16_iterator(
-            utf_8_to_16_iterator<Iter2, Sentinel2, ErrorHandler> const &
-                other) noexcept :
+            utf_8_to_16_iterator<I2, S2, ErrorHandler> const & other) noexcept :
             it_(other.it_), index_(other.index_), buf_(other.buf_)
         {}
 
@@ -3113,7 +3206,7 @@ namespace boost { namespace text {
         }
 
         /** This function is constexpr in C++14 and later. */
-        BOOST_TEXT_CXX14_CONSTEXPR Iter base() const noexcept
+        BOOST_TEXT_CXX14_CONSTEXPR I base() const noexcept
         {
             return it_.base();
         }
@@ -3147,16 +3240,16 @@ namespace boost { namespace text {
         }
 
         template<
-            typename Iter1,
-            typename Sentinel1,
-            typename Iter2,
-            typename Sentinel2,
+            typename I1,
+            typename S1,
+            typename I2,
+            typename S2,
             typename ErrorHandler2,
             typename Enable>
         friend BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
-            utf_8_to_16_iterator<Iter1, Sentinel1, ErrorHandler2> const & lhs,
-            utf_8_to_16_iterator<Iter2, Sentinel2, ErrorHandler2> const &
-                rhs) noexcept -> decltype(lhs.base() == rhs.base());
+            utf_8_to_16_iterator<I1, S1, ErrorHandler2> const & lhs,
+            utf_8_to_16_iterator<I2, S2, ErrorHandler2> const & rhs) noexcept
+            -> decltype(lhs.base() == rhs.base());
 
         friend bool
         operator==(utf_8_to_16_iterator lhs, utf_8_to_16_iterator rhs) noexcept
@@ -3164,9 +3257,8 @@ namespace boost { namespace text {
             return lhs.base() == rhs.base() && lhs.index_ == rhs.index_;
         }
 
-        using base_type = detail::trans_iter<
-            utf_8_to_16_iterator<Iter, Sentinel, ErrorHandler>,
-            uint16_t>;
+        using base_type = detail::
+            trans_iter<utf_8_to_16_iterator<I, S, ErrorHandler>, uint16_t>;
         using base_type::operator++;
         using base_type::operator--;
 
@@ -3182,11 +3274,18 @@ namespace boost { namespace text {
             return last;
         }
 
-        utf_8_to_32_iterator<Iter, Sentinel> it_;
+        utf_8_to_32_iterator<I, S> it_;
         int index_;
         std::array<uint16_t, 4> buf_;
 
-        template<typename Iter2, typename Sentinel2, typename ErrorHandler2>
+#if defined(__cpp_lib_concepts)
+        template<
+            u8_iter I2,
+            std::sentinel_for<I2> S2,
+            transcoding_error_handler ErrorHandler2>
+#else
+        template<typename I2, typename S2, typename ErrorHandler2>
+#endif
         friend struct utf_8_to_16_iterator;
 #endif
     };
@@ -3300,7 +3399,11 @@ namespace boost { namespace text {
     }
 
     /** An out iterator that converts UTF-8 to UTF-16. */
+#if defined(__cpp_lib_concepts)
+    template<std::output_iterator<uint16_t> Iter>
+#else
     template<typename Iter>
+#endif
     struct utf_8_to_16_out_iterator
         : detail::trans_ins_iter<utf_8_to_16_out_iterator<Iter>, Iter>
     {

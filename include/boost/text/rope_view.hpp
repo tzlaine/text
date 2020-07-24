@@ -9,6 +9,7 @@
 #include <boost/text/grapheme_iterator.hpp>
 #include <boost/text/unencoded_rope_view.hpp>
 #include <boost/text/transcode_iterator.hpp>
+#include <boost/text/detail/rope_iterator.hpp>
 
 #include <iterator>
 
@@ -16,7 +17,6 @@
 namespace boost { namespace text {
 
     namespace detail {
-        struct rope_iterator;
         struct const_rope_iterator;
         struct const_rope_view_iterator;
     }
@@ -37,8 +37,8 @@ namespace boost { namespace text {
         using reverse_iterator = stl_interfaces::reverse_iterator<iterator>;
         using const_reverse_iterator = reverse_iterator;
 
-        using rope_iterator =
-            grapheme_iterator<utf_8_to_32_iterator<detail::rope_iterator>>;
+        using rope_iterator = grapheme_iterator<
+            utf_8_to_32_iterator<detail::const_rope_iterator>>;
         using const_rope_iterator = grapheme_iterator<
             utf_8_to_32_iterator<detail::const_rope_iterator>>;
 
@@ -183,7 +183,6 @@ namespace boost { namespace text {
 #include <boost/text/text.hpp>
 #include <boost/text/rope.hpp>
 #include <boost/text/unencoded_rope_view.hpp>
-#include <boost/text/detail/rope_iterator.hpp>
 
 namespace boost { namespace text {
 
