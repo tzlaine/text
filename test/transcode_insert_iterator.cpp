@@ -95,14 +95,14 @@ TEST(transcode_insert_iterator, utf16_inserters_long)
         std::copy(
             cus.begin(),
             cus.end(),
-            text::utf_16_to_32_inserter(result, result.end()));
+            text::from_utf16_inserter(result, result.end()));
         EXPECT_EQ(result, cps_copy);
     }
     // UTF-16 pointer -> UTF-32 back inserter
     {
         std::vector<uint32_t> result;
         std::copy(
-            cus.begin(), cus.end(), text::utf_16_to_32_back_inserter(result));
+            cus.begin(), cus.end(), text::from_utf16_back_inserter(result));
         EXPECT_EQ(result, cps_copy);
     }
     // UTF-16 pointer -> UTF-32 front inserter
@@ -111,7 +111,7 @@ TEST(transcode_insert_iterator, utf16_inserters_long)
             std::begin(cps), std::end(cps));
         std::deque<uint32_t> result;
         std::copy(
-            cus.begin(), cus.end(), text::utf_16_to_32_front_inserter(result));
+            cus.begin(), cus.end(), text::from_utf16_front_inserter(result));
         std::reverse(result.begin(), result.end());
         EXPECT_EQ(result, cps_copy_deque);
     }
@@ -122,28 +122,28 @@ TEST(transcode_insert_iterator, utf16_inserters_long)
         std::copy(
             cus.begin(),
             cus.end(),
-            text::utf_16_to_8_inserter(chars, chars.end()));
+            text::from_utf16_inserter(chars, chars.end()));
         std::vector<uint32_t> result;
-        text::transcode_utf_8_to_32(chars, std::back_inserter(result));
+        text::transcode_to_utf32(chars, std::back_inserter(result));
         EXPECT_EQ(result, cps_copy);
     }
     // UTF-16 pointer -> UTF-8 back inserter
     {
         std::vector<char> chars;
         std::copy(
-            cus.begin(), cus.end(), text::utf_16_to_8_back_inserter(chars));
+            cus.begin(), cus.end(), text::from_utf16_back_inserter(chars));
         std::vector<uint32_t> result;
-        text::transcode_utf_8_to_32(chars, std::back_inserter(result));
+        text::transcode_to_utf32(chars, std::back_inserter(result));
         EXPECT_EQ(result, cps_copy);
     }
     // UTF-16 pointer -> UTF-8 front inserter
     {
         std::deque<char> chars;
         std::copy(
-            cus.begin(), cus.end(), text::utf_16_to_8_front_inserter(chars));
+            cus.begin(), cus.end(), text::from_utf16_front_inserter(chars));
         std::reverse(chars.begin(), chars.end());
         std::vector<uint32_t> result;
-        text::transcode_utf_8_to_32(chars, std::back_inserter(result));
+        text::transcode_to_utf32(chars, std::back_inserter(result));
         EXPECT_EQ(result, cps_copy);
     }
 }
@@ -172,14 +172,14 @@ TEST(transcode_insert_iterator, utf16_inserters_errors)
         std::copy(
             cus.begin(),
             cus.end(),
-            text::utf_16_to_32_inserter(result, result.end()));
+            text::from_utf16_inserter(result, result.end()));
         EXPECT_EQ(result, expected_cps);
     }
     // UTF-16 pointer -> UTF-32 back inserter
     {
         std::vector<uint32_t> result;
         std::copy(
-            cus.begin(), cus.end(), text::utf_16_to_32_back_inserter(result));
+            cus.begin(), cus.end(), text::from_utf16_back_inserter(result));
         EXPECT_EQ(result, expected_cps);
     }
     // UTF-16 pointer -> UTF-32 front inserter
@@ -188,7 +188,7 @@ TEST(transcode_insert_iterator, utf16_inserters_errors)
             std::begin(expected_cps), std::end(expected_cps));
         std::deque<uint32_t> result;
         std::copy(
-            cus.begin(), cus.end(), text::utf_16_to_32_front_inserter(result));
+            cus.begin(), cus.end(), text::from_utf16_front_inserter(result));
         std::reverse(result.begin(), result.end());
         EXPECT_EQ(result, expected_cps_deque);
     }
@@ -197,7 +197,7 @@ TEST(transcode_insert_iterator, utf16_inserters_errors)
 TEST(transcode_insert_iterator, utf8_inserters_long)
 {
     std::vector<char> cus;
-    text::transcode_utf_32_to_8(
+    text::transcode_to_utf8(
         std::begin(cps), std::end(cps), std::back_inserter(cus));
 
     std::vector<uint32_t> const cps_copy(std::begin(cps), std::end(cps));
@@ -208,14 +208,14 @@ TEST(transcode_insert_iterator, utf8_inserters_long)
         std::copy(
             cus.begin(),
             cus.end(),
-            text::utf_8_to_32_inserter(result, result.end()));
+            text::from_utf8_inserter(result, result.end()));
         EXPECT_EQ(result, cps_copy);
     }
     // UTF-8 pointer -> UTF-32 back inserter
     {
         std::vector<uint32_t> result;
         std::copy(
-            cus.begin(), cus.end(), text::utf_8_to_32_back_inserter(result));
+            cus.begin(), cus.end(), text::from_utf8_back_inserter(result));
         EXPECT_EQ(result, cps_copy);
     }
     // UTF-8 pointer -> UTF-32 front inserter
@@ -224,7 +224,7 @@ TEST(transcode_insert_iterator, utf8_inserters_long)
             std::begin(cps), std::end(cps));
         std::deque<uint32_t> result;
         std::copy(
-            cus.begin(), cus.end(), text::utf_8_to_32_front_inserter(result));
+            cus.begin(), cus.end(), text::from_utf8_front_inserter(result));
         std::reverse(result.begin(), result.end());
         EXPECT_EQ(result, cps_copy_deque);
     }
@@ -235,9 +235,9 @@ TEST(transcode_insert_iterator, utf8_inserters_long)
         std::copy(
             cus.begin(),
             cus.end(),
-            text::utf_8_to_16_inserter(chars_utf16, chars_utf16.end()));
+            text::from_utf8_inserter(chars_utf16, chars_utf16.end()));
         std::vector<uint32_t> result;
-        text::transcode_utf_16_to_32(chars_utf16, std::back_inserter(result));
+        text::transcode_to_utf32(chars_utf16, std::back_inserter(result));
         EXPECT_EQ(result, cps_copy);
     }
     // UTF-8 pointer -> UTF-16 back inserter
@@ -246,9 +246,9 @@ TEST(transcode_insert_iterator, utf8_inserters_long)
         std::copy(
             cus.begin(),
             cus.end(),
-            text::utf_8_to_16_back_inserter(chars_utf16));
+            text::from_utf8_back_inserter(chars_utf16));
         std::vector<uint32_t> result;
-        text::transcode_utf_16_to_32(chars_utf16, std::back_inserter(result));
+        text::transcode_to_utf32(chars_utf16, std::back_inserter(result));
         EXPECT_EQ(result, cps_copy);
     }
     // UTF-8 pointer -> UTF-16 front inserter
@@ -257,10 +257,10 @@ TEST(transcode_insert_iterator, utf8_inserters_long)
         std::copy(
             cus.begin(),
             cus.end(),
-            text::utf_8_to_16_front_inserter(chars_utf16));
+            text::from_utf8_front_inserter(chars_utf16));
         std::reverse(chars_utf16.begin(), chars_utf16.end());
         std::vector<uint32_t> result;
-        text::transcode_utf_16_to_32(chars_utf16, std::back_inserter(result));
+        text::transcode_to_utf32(chars_utf16, std::back_inserter(result));
         EXPECT_EQ(result, cps_copy);
     }
 }
@@ -290,14 +290,14 @@ TEST(transcode_insert_iterator, utf8_inserters_errors)
         std::copy(
             cus.begin(),
             cus.end(),
-            text::utf_16_to_32_inserter(result, result.end()));
+            text::from_utf16_inserter(result, result.end()));
         EXPECT_EQ(result, expected_cps);
     }
     // UTF-8 pointer -> UTF-32 back inserter
     {
         std::vector<uint32_t> result;
         std::copy(
-            cus.begin(), cus.end(), text::utf_16_to_32_back_inserter(result));
+            cus.begin(), cus.end(), text::from_utf16_back_inserter(result));
         EXPECT_EQ(result, expected_cps);
     }
     // UTF-8 pointer -> UTF-32 front inserter
@@ -306,7 +306,7 @@ TEST(transcode_insert_iterator, utf8_inserters_errors)
             std::begin(expected_cps), std::end(expected_cps));
         std::deque<uint32_t> result;
         std::copy(
-            cus.begin(), cus.end(), text::utf_16_to_32_front_inserter(result));
+            cus.begin(), cus.end(), text::from_utf16_front_inserter(result));
         std::reverse(result.begin(), result.end());
         EXPECT_EQ(result, expected_cps_deque);
     }

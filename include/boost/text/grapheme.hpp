@@ -41,7 +41,7 @@ namespace boost { namespace text {
         template<typename CPIter>
         grapheme(CPIter first, CPIter last)
         {
-            boost::text::transcode_utf_32_to_8(
+            boost::text::transcode_to_utf8(
                 first, last, std::back_inserter(chars_));
             BOOST_ASSERT(
                 boost::text::next_grapheme_break(begin(), end()) == end());
@@ -51,7 +51,7 @@ namespace boost { namespace text {
         grapheme(uint32_t cp)
         {
             uint32_t cps[1] = {cp};
-            boost::text::transcode_utf_32_to_8(
+            boost::text::transcode_to_utf8(
                 cps, cps + 1, std::back_inserter(chars_));
         }
 
@@ -63,7 +63,7 @@ namespace boost { namespace text {
         template<typename CPIter>
         grapheme(utf32_view<CPIter> r)
         {
-            boost::text::transcode_utf_32_to_8(
+            boost::text::transcode_to_utf8(
                 r.begin(), r.end(), std::back_inserter(chars_));
             BOOST_ASSERT(
                 boost::text::next_grapheme_break(begin(), end()) == end());

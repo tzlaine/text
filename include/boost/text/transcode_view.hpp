@@ -296,7 +296,7 @@ namespace boost { namespace text {
 
         friend std::ostream & operator<<(std::ostream & os, utf16_view v)
         {
-            boost::text::transcode_utf_16_to_8(
+            boost::text::transcode_to_utf8(
                 v.begin(), v.end(), std::ostreambuf_iterator<char>(os));
             return os;
         }
@@ -408,14 +408,14 @@ namespace boost { namespace text {
 
         friend std::ostream & operator<<(std::ostream & os, utf32_view v)
         {
-            boost::text::transcode_utf_32_to_8(
+            boost::text::transcode_to_utf8(
                 v.begin(), v.end(), std::ostreambuf_iterator<char>(os));
             return os;
         }
 #if defined(_MSC_VER)
         friend std::wostream & operator<<(std::wostream & os, utf32_view v)
         {
-            boost::text::transcode_utf_32_to_16(
+            boost::text::transcode_to_utf16(
                 v.begin(), v.end(), std::ostreambuf_iterator<wchar_t>(os));
             return os;
         }

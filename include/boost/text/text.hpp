@@ -553,8 +553,8 @@ namespace boost { namespace text {
                 return at;
 
             std::array<char, 1024> buf;
-            auto out = boost::text::transcode_utf_32_to_8(
-                g.begin(), g.end(), buf.data());
+            auto out =
+                boost::text::transcode_to_utf8(g.begin(), g.end(), buf.data());
             return t.insert_impl(
                 at, string_view(buf.data(), out - buf.data()), true);
         }
@@ -982,7 +982,7 @@ namespace boost { namespace text {
             return from_near_offset;
 
         container::small_vector<char, 256> buf;
-        normalize<nf::fcc>(first, last, utf_32_to_8_back_inserter(buf));
+        normalize<nf::fcc>(first, last, from_utf32_back_inserter(buf));
         auto const initial_cp =
             *make_utf_8_to_32_iterator(&buf[0], &buf[0], &buf[0] + buf.size());
         auto const prev_initial_cp = *first;

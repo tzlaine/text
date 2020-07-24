@@ -96,10 +96,14 @@ namespace boost { namespace text {
         }
 
         template<typename T, typename U>
-        struct enable_utf16_cp
-            : std::enable_if<std::is_integral<T>::value && sizeof(T) == 2u, U>
-        {
-        };
+        struct enable_utf8_cp : std::enable_if<is_char_iter<T>::value, U>
+        {};
+        template<typename T, typename U = T>
+        using enable_utf8_cp_t = typename enable_utf8_cp<T, U>::type;
+
+        template<typename T, typename U>
+        struct enable_utf16_cp : std::enable_if<is_16_iter<T>::value, U>
+        {};
         template<typename T, typename U = T>
         using enable_utf16_cp_t = typename enable_utf16_cp<T, U>::type;
     }
@@ -182,13 +186,12 @@ namespace boost { namespace text {
 
     /** Given the first (and possibly only) code unit of a UTF-16 code point,
         returns the number of code units occupied by that code point (in the
-        range [1, 2]).  Returns a value < 0 if first is not a valid initial
-        UTF-16 code unit.
+        range [1, 2]).  Returns a negative value if `first` is not a valid
+        initial UTF-16 code unit.
 
         This function is constexpr in C++14 and later. */
-    template<typename T>
-    BOOST_TEXT_CXX14_CONSTEXPR detail::enable_utf16_cp_t<T, int>
-    code_point_units(T first) noexcept
+    BOOST_TEXT_CXX14_CONSTEXPR int
+    code_point_units(uint16_t first) noexcept
     {
         if (boost::text::low_surrogate(first))
             return -1;
@@ -569,11 +572,17 @@ namespace boost { namespace text {
         struct trans_ins_iter
         {
             using value_type = void;
-            using difference_type = void;
+            using difference_type =
+#if defined(__cpp_lib_concepts)
+                std::ptrdiff_t;
+#else
+                void;
+#endif
             using pointer = void;
             using reference = void;
             using iterator_category = std::output_iterator_tag;
 
+            trans_ins_iter() {}
             trans_ins_iter(Iter it) : it_(it) {}
             Derived & operator*() noexcept { return derived(); }
             Derived & operator++() noexcept { return derived(); }
@@ -596,14 +605,17 @@ namespace boost { namespace text {
             ValueType>;
     }
 
-    // TODO: Templateize and concept constrain for C++20.  The constaint
-    // should be any 8-bit integral.
+}}
+
+namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
+
     /** Returns the first code unit in [first, last) that is not properly
         UTF-8 encoded, or last if no such code unit is found.
 
         This function is constexpr in C++14 and later. */
-    inline BOOST_TEXT_CXX14_CONSTEXPR char const *
-    find_invalid_encoding(char const * first, char const * last) noexcept
+    template<typename Iter>
+    BOOST_TEXT_CXX14_CONSTEXPR detail::enable_utf8_cp_t<Iter>
+    find_invalid_encoding(Iter first, Iter last) noexcept
     {
         while (first != last) {
             int const cp_bytes = boost::text::code_point_bytes(*first);
@@ -619,15 +631,13 @@ namespace boost { namespace text {
         return last;
     }
 
-    // TODO: Concept constrain for C++20.  The constaint should be any 16-bit
-    // integral.
     /** Returns the first code unit in [first, last) that is not properly
         UTF-16 encoded, or last if no such code unit is found.
 
         This function is constexpr in C++14 and later. */
-    template<typename T>
-    BOOST_TEXT_CXX14_CONSTEXPR detail::enable_utf16_cp_t<T, T const *>
-    find_invalid_encoding(T const * first, T const * last) noexcept
+    template<typename Iter>
+    BOOST_TEXT_CXX14_CONSTEXPR detail::enable_utf16_cp_t<Iter>
+    find_invalid_encoding(Iter first, Iter last) noexcept
     {
         while (first != last) {
             int const cp_units = boost::text::code_point_units(*first);
@@ -643,39 +653,35 @@ namespace boost { namespace text {
         return last;
     }
 
-    // TODO: Templateize and concept constrain for C++20.  The constaint
-    // should be any 8-bit integral.
     /** Returns true if [first, last) is properly UTF-8 encoded, or false
         otherwise.
 
         This function is constexpr in C++14 and later. */
-    inline BOOST_TEXT_CXX14_CONSTEXPR bool
-    encoded(char const * first, char const * last) noexcept
+    template<typename Iter>
+    BOOST_TEXT_CXX14_CONSTEXPR detail::enable_utf8_cp_t<Iter, bool> encoded(
+        Iter first, Iter last) noexcept
     {
-        return boost::text::find_invalid_encoding(first, last) == last;
+        return v1::find_invalid_encoding(first, last) == last;
     }
 
-    // TODO: Concept constrain for C++20.  The constaint should be any 16-bit
-    // integral.
     /** Returns true if [first, last) is properly UTF-16 encoded, or false
         otherwise.
 
         This function is constexpr in C++14 and later. */
-    template<typename T>
-    BOOST_TEXT_CXX14_CONSTEXPR detail::enable_utf16_cp_t<T, bool>
-    encoded(T const * first, T const * last) noexcept
+    template<typename Iter>
+    BOOST_TEXT_CXX14_CONSTEXPR detail::enable_utf16_cp_t<Iter, bool> encoded(
+        Iter first, Iter last) noexcept
     {
-        return boost::text::find_invalid_encoding(first, last) == last;
+        return v1::find_invalid_encoding(first, last) == last;
     }
 
-    // TODO: Templateize and concept constrain for C++20.  The constaint
-    // should be any 8-bit integral.
-    /** Returns true if [first, last) is empty or the initial code units in
-        [first, last) form a valid Unicode code point, or false otherwise.
+    /** Returns true if [first, last) is empty or the initial UTF-8 code units
+       in [first, last) form a valid Unicode code point, or false otherwise.
 
         This function is constexpr in C++14 and later. */
-    inline BOOST_TEXT_CXX14_CONSTEXPR bool
-    starts_encoded(char const * first, char const * last) noexcept
+    template<typename Iter>
+    BOOST_TEXT_CXX14_CONSTEXPR detail::enable_utf8_cp_t<Iter, bool>
+    starts_encoded(Iter first, Iter last) noexcept
     {
         if (first == last)
             return true;
@@ -687,94 +693,13 @@ namespace boost { namespace text {
         return !detail::end_of_invalid_utf8(first);
     }
 
-    // TODO: Concept constrain for C++20.  The constaint should be any 16-bit
-    /** Returns true if [first, last) is empty or the initial code units in
-        [first, last) form a valid Unicode code point, or false otherwise.
+    /** Returns true if [first, last) is empty or the initial UTF-16 code
+        units in [first, last) form a valid Unicode code point, or false
+        otherwise.
 
         This function is constexpr in C++14 and later. */
-    template<typename T>
-    BOOST_TEXT_CXX14_CONSTEXPR detail::enable_utf16_cp_t<T, bool>
-    starts_encoded(T const * first, T const * last) noexcept
-    {
-        if (first == last)
-            return true;
-
-        int const cp_units = boost::text::code_point_units(*first);
-        if (cp_units == -1 || last - first < cp_units)
-            return false;
-
-        return cp_units == 1 || boost::text::low_surrogate(*(first + 1));
-    }
-
-    // TODO: Templateize and concept constrain for C++20.  The constaint
-    // should be any 8-bit integral.
-    /** Returns true if [first, last) is empty or the final code units in
-        [first, last) form a valid Unicode code point, or false otherwise.
-
-        This function is constexpr in C++14 and later. */
-    inline BOOST_TEXT_CXX14_CONSTEXPR bool
-    ends_encoded(char const * first, char const * last) noexcept
-    {
-        if (first == last)
-            return true;
-
-        auto it = last;
-        while (first != --it && boost::text::continuation(*it))
-            ;
-
-        return starts_encoded(it, last);
-    }
-
-    // TODO: Concept constrain for C++20.  The constaint should be any 16-bit
-    // integral.
-    /** Returns true if [first, last) is empty or the final code units in
-        [first, last) form a valid Unicode code point, or false otherwise.
-
-        This function is constexpr in C++14 and later. */
-    template<typename T>
-    BOOST_TEXT_CXX14_CONSTEXPR detail::enable_utf16_cp_t<T, bool>
-    ends_encoded(T const * first, T const * last) noexcept
-    {
-        if (first == last)
-            return true;
-
-        auto it = last;
-        if (boost::text::low_surrogate(*--it))
-            --it;
-
-        return starts_encoded(it, last);
-    }
-
-    // TODO: Concept constrain for C++20.  The constaint should be any 8-bit
-    // integral.
-    /** Returns true if [first, last) is empty or the initial code units in
-        [first, last) form a valid Unicode code point, or false otherwise. */
     template<typename Iter>
-    bool starts_encoded(Iter first, Iter last) noexcept
-    {
-        if (first == last)
-            return true;
-
-        int const cp_bytes = boost::text::code_point_bytes(*first);
-        if (cp_bytes == -1 || last - first < cp_bytes)
-            return false;
-
-        char buf[5] = {0};
-        for (int i = 0; i < (int)sizeof(buf); ++i) {
-            buf[i] = *first;
-            if (++first == last)
-                break;
-        }
-
-        return !detail::end_of_invalid_utf8(buf);
-    }
-
-    // TODO: Concept constrain for C++20.  The constaint should be any 16-bit
-    // integral.
-    /** Returns true if [first, last) is empty or the initial code units in
-        [first, last) form a valid Unicode code point, or false otherwise. */
-    template<typename Iter>
-    detail::enable_utf16_cp_t<typename Iter::value, bool>
+    BOOST_TEXT_CXX14_CONSTEXPR detail::enable_utf16_cp_t<Iter, bool>
     starts_encoded(Iter first, Iter last) noexcept
     {
         if (first == last)
@@ -787,12 +712,160 @@ namespace boost { namespace text {
         return cp_units == 1 || boost::text::low_surrogate(*(first + 1));
     }
 
-    // TODO: Concept constrain for C++20.  The constaint should be any 8-bit
-    // integral.
-    /** Returns true if [first, last) is empty or the final code units in
-        [first, last) form a valid Unicode code point, or false otherwise. */
+    /** Returns true if [first, last) is empty or the final UTF-8 code units
+        in [first, last) form a valid Unicode code point, or false otherwise.
+
+        This function is constexpr in C++14 and later. */
     template<typename Iter>
-    bool ends_encoded(Iter first, Iter last) noexcept
+    BOOST_TEXT_CXX14_CONSTEXPR detail::enable_utf8_cp_t<Iter, bool>
+    ends_encoded(Iter first, Iter last) noexcept
+    {
+        if (first == last)
+            return true;
+
+        auto it = last;
+        while (first != --it && boost::text::continuation(*it))
+            ;
+
+        return v1::starts_encoded(it, last);
+    }
+
+    /** Returns true if [first, last) is empty or the final UTF-16 code units
+        in [first, last) form a valid Unicode code point, or false otherwise.
+
+        This function is constexpr in C++14 and later. */
+    template<typename Iter>
+    BOOST_TEXT_CXX14_CONSTEXPR detail::enable_utf16_cp_t<Iter, bool>
+    ends_encoded(Iter first, Iter last) noexcept
+    {
+        if (first == last)
+            return true;
+
+        auto it = last;
+        if (boost::text::low_surrogate(*--it))
+            --it;
+
+        return v1::starts_encoded(it, last);
+    }
+
+}}}
+
+#if defined(__cpp_lib_concepts)
+
+#include <boost/text/concepts.hpp>
+
+namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
+
+    /** Returns the first code unit in [first, last) that is not properly
+        UTF-8 encoded, or last if no such code unit is found. */
+    template<u8_iter I>
+    // clang-format off
+        requires std::random_access_iterator<I>
+    constexpr I find_invalid_encoding(I first, I last) noexcept
+    // clang-format on
+    {
+        while (first != last) {
+            int const cp_bytes = boost::text::code_point_bytes(*first);
+            if (cp_bytes == -1 || last - first < cp_bytes)
+                return first;
+
+            if (detail::end_of_invalid_utf8(first))
+                return first;
+
+            first += cp_bytes;
+        }
+
+        return last;
+    }
+
+    /** Returns the first code unit in [first, last) that is not properly
+        UTF-16 encoded, or last if no such code unit is found. */
+    template<u16_iter I>
+    // clang-format off
+        requires std::random_access_iterator<I>
+    constexpr I find_invalid_encoding(I first, I last) noexcept
+    // clang-format on
+    {
+        while (first != last) {
+            int const cp_units = boost::text::code_point_units(*first);
+            if (cp_units == -1 || last - first < cp_units)
+                return first;
+
+            if (cp_units == 2 && !boost::text::low_surrogate(*(first + 1)))
+                return first;
+
+            first += cp_units;
+        }
+
+        return last;
+    }
+
+    /** Returns true if [first, last) is properly UTF-8 encoded, or false */
+    template<u8_iter I>
+    // clang-format off
+        requires std::random_access_iterator<I>
+    constexpr bool encoded(I first, I last) noexcept
+    // clang-format on
+    {
+        return boost::text::find_invalid_encoding(first, last) == last;
+    }
+
+    /** Returns true if [first, last) is properly UTF-16 encoded, or false */
+    template<u16_iter I>
+    // clang-format off
+        requires std::random_access_iterator<I>
+    constexpr bool encoded(I first, I last) noexcept
+    // clang-format on
+    {
+        return boost::text::find_invalid_encoding(first, last) == last;
+    }
+
+    /** Returns true if [first, last) is empty or the initial UTF-8 code units
+       in [first, last) form a valid Unicode code point, or false
+       otherwise. */
+    template<u8_iter I>
+    // clang-format off
+        requires std::random_access_iterator<I>
+    constexpr bool starts_encoded(I first, I last) noexcept
+    // clang-format on
+    {
+        if (first == last)
+            return true;
+
+        int const cp_bytes = boost::text::code_point_bytes(*first);
+        if (cp_bytes == -1 || last - first < cp_bytes)
+            return false;
+
+        return !detail::end_of_invalid_utf8(first);
+    }
+
+    /** Returns true if [first, last) is empty or the initial UTF-16 code
+        units in [first, last) form a valid Unicode code point, or false
+        otherwise. */
+    template<u16_iter I>
+    // clang-format off
+        requires std::random_access_iterator<I>
+    constexpr bool starts_encoded(I first, I last) noexcept
+    // clang-format on
+    {
+        if (first == last)
+            return true;
+
+        int const cp_units = boost::text::code_point_units(*first);
+        if (cp_units == -1 || last - first < cp_units)
+            return false;
+
+        return cp_units == 1 || boost::text::low_surrogate(*(first + 1));
+    }
+
+    /** Returns true if [first, last) is empty or the final UTF-8 code units
+        in [first, last) form a valid Unicode code point, or false
+        otherwise. */
+    template<u8_iter I>
+    // clang-format off
+        requires std::random_access_iterator<I>
+    constexpr bool ends_encoded(I first, I last) noexcept
+    // clang-format on
     {
         if (first == last)
             return true;
@@ -804,13 +877,14 @@ namespace boost { namespace text {
         return boost::text::starts_encoded(it, last);
     }
 
-    // TODO: Concept constrain for C++20.  The constaint should be any 16-bit
-    // integral.
-    /** Returns true if [first, last) is empty or the final code units in
-        [first, last) form a valid Unicode code point, or false otherwise. */
-    template<typename Iter>
-    detail::enable_utf16_cp_t<typename Iter::value, bool>
-    ends_encoded(Iter first, Iter last) noexcept
+    /** Returns true if [first, last) is empty or the final UTF-16 code units
+        in [first, last) form a valid Unicode code point, or false
+        otherwise. */
+    template<u16_iter I>
+    // clang-format off
+        requires std::random_access_iterator<I>
+    constexpr bool ends_encoded(I first, I last) noexcept
+    // clang-format on
     {
         if (first == last)
             return true;
@@ -821,6 +895,12 @@ namespace boost { namespace text {
 
         return boost::text::starts_encoded(it, last);
     }
+
+}}}
+
+#endif
+
+namespace boost { namespace text {
 
     /** An error handler type that can be used with the converting iterators;
         provides the Unicode replacement character on errors. */
@@ -1123,14 +1203,6 @@ namespace boost { namespace text {
         return rhs.base() != lhs;
     }
 
-    /** Returns a utf_32_to_8_iterator<Iter> constructed from an Iter. */
-    template<typename Iter, typename Sentinel>
-    utf_32_to_8_iterator<Iter, Sentinel>
-    make_utf_32_to_8_iterator(Iter first, Iter it, Sentinel last) noexcept
-    {
-        return utf_32_to_8_iterator<Iter, Sentinel>(first, it, last);
-    }
-
     /** This function is constexpr in C++14 and later. */
     template<
         typename Iter1,
@@ -1173,7 +1245,8 @@ namespace boost { namespace text {
     struct utf_32_to_8_out_iterator
         : detail::trans_ins_iter<utf_32_to_8_out_iterator<Iter>, Iter>
     {
-        utf_32_to_8_out_iterator(Iter it) noexcept :
+        utf_32_to_8_out_iterator() noexcept {}
+        explicit utf_32_to_8_out_iterator(Iter it) noexcept :
             detail::trans_ins_iter<utf_32_to_8_out_iterator<Iter>, Iter>(it)
         {}
 
@@ -1190,28 +1263,19 @@ namespace boost { namespace text {
         }
     };
 
-    /** Returns a utf_32_to_8_out_iterator<Iter> constructed from the given
-        iterator. */
-    template<typename Iter>
-    utf_32_to_8_out_iterator<Iter> utf_32_to_8_out(Iter it) noexcept
-    {
-        return utf_32_to_8_out_iterator<Iter>(it);
-    }
-
     /** An insert-iterator analogous to std::insert_iterator, that also
         converts UTF-32 to UTF-8. */
-    template<typename Container>
-    struct utf_32_to_8_insert_iterator
-        : detail::trans_ins_iter<
-              utf_32_to_8_insert_iterator<Container>,
-              std::insert_iterator<Container>>
+    template<typename Cont>
+    struct utf_32_to_8_insert_iterator : detail::trans_ins_iter<
+                                             utf_32_to_8_insert_iterator<Cont>,
+                                             std::insert_iterator<Cont>>
     {
+        utf_32_to_8_insert_iterator() noexcept {}
         utf_32_to_8_insert_iterator(
-            Container & c, typename Container::iterator it) noexcept :
+            Cont & c, typename Cont::iterator it) noexcept :
             detail::trans_ins_iter<
-                utf_32_to_8_insert_iterator<Container>,
-                std::insert_iterator<Container>>(
-                std::insert_iterator<Container>(c, it))
+                utf_32_to_8_insert_iterator<Cont>,
+                std::insert_iterator<Cont>>(std::insert_iterator<Cont>(c, it))
         {}
 
         utf_32_to_8_insert_iterator & operator=(uint32_t cp)
@@ -1222,28 +1286,20 @@ namespace boost { namespace text {
         }
     };
 
-    /** Returns a utf_32_to_8_insert_iterator<Container> constructed from the
-        given container and iterator. */
-    template<typename Container>
-    utf_32_to_8_insert_iterator<Container> utf_32_to_8_inserter(
-        Container & c, typename Container::iterator it) noexcept
-    {
-        return utf_32_to_8_insert_iterator<Container>(c, it);
-    }
-
     /** An insert-iterator analogous to std::front_insert_iterator, that also
         converts UTF-32 to UTF-8. */
-    template<typename Container>
+    template<typename Cont>
     struct utf_32_to_8_front_insert_iterator
         : detail::trans_ins_iter<
-              utf_32_to_8_front_insert_iterator<Container>,
-              std::front_insert_iterator<Container>>
+              utf_32_to_8_front_insert_iterator<Cont>,
+              std::front_insert_iterator<Cont>>
     {
-        explicit utf_32_to_8_front_insert_iterator(Container & c) noexcept :
+        utf_32_to_8_front_insert_iterator() noexcept {}
+        explicit utf_32_to_8_front_insert_iterator(Cont & c) noexcept :
             detail::trans_ins_iter<
-                utf_32_to_8_front_insert_iterator<Container>,
-                std::front_insert_iterator<Container>>(
-                std::front_insert_iterator<Container>(c))
+                utf_32_to_8_front_insert_iterator<Cont>,
+                std::front_insert_iterator<Cont>>(
+                std::front_insert_iterator<Cont>(c))
         {}
 
         utf_32_to_8_front_insert_iterator & operator=(uint32_t cp)
@@ -1254,28 +1310,20 @@ namespace boost { namespace text {
         }
     };
 
-    /** Returns a utf_32_to_8_insert_iterator<Container> constructed from the
-        given container. */
-    template<typename Container>
-    utf_32_to_8_front_insert_iterator<Container>
-    utf_32_to_8_front_inserter(Container & c) noexcept
-    {
-        return utf_32_to_8_front_insert_iterator<Container>(c);
-    }
-
     /** An insert-iterator analogous to std::back_insert_iterator, that also
         converts UTF-32 to UTF-8. */
-    template<typename Container>
+    template<typename Cont>
     struct utf_32_to_8_back_insert_iterator
         : detail::trans_ins_iter<
-              utf_32_to_8_back_insert_iterator<Container>,
-              std::back_insert_iterator<Container>>
+              utf_32_to_8_back_insert_iterator<Cont>,
+              std::back_insert_iterator<Cont>>
     {
-        explicit utf_32_to_8_back_insert_iterator(Container & c) noexcept :
+        utf_32_to_8_back_insert_iterator() noexcept {}
+        explicit utf_32_to_8_back_insert_iterator(Cont & c) noexcept :
             detail::trans_ins_iter<
-                utf_32_to_8_back_insert_iterator<Container>,
-                std::back_insert_iterator<Container>>(
-                std::back_insert_iterator<Container>(c))
+                utf_32_to_8_back_insert_iterator<Cont>,
+                std::back_insert_iterator<Cont>>(
+                std::back_insert_iterator<Cont>(c))
         {}
 
         utf_32_to_8_back_insert_iterator & operator=(uint32_t cp)
@@ -1285,15 +1333,6 @@ namespace boost { namespace text {
             return *this;
         }
     };
-
-    /** Returns a utf_32_to_8_insert_iterator<Container> constructed from the
-        given container. */
-    template<typename Container>
-    utf_32_to_8_back_insert_iterator<Container>
-    utf_32_to_8_back_inserter(Container & c) noexcept
-    {
-        return utf_32_to_8_back_insert_iterator<Container>(c);
-    }
 
 
     /** A UTF-8 to UTF-32 converting iterator.
@@ -1325,9 +1364,7 @@ namespace boost { namespace text {
         constexpr utf_8_to_32_iterator() noexcept : first_(), it_(), last_() {}
         explicit constexpr utf_8_to_32_iterator(
             Iter first, Iter it, Sentinel last) noexcept :
-            first_(first),
-            it_(it),
-            last_(last)
+            first_(first), it_(it), last_(last)
         {}
         template<
             typename Iter2,
@@ -1338,9 +1375,7 @@ namespace boost { namespace text {
         constexpr utf_8_to_32_iterator(
             utf_8_to_32_iterator<Iter2, Sentinel2, ErrorHandler> const &
                 other) noexcept :
-            first_(other.first_),
-            it_(other.it_),
-            last_(other.last_)
+            first_(other.first_), it_(other.it_), last_(other.last_)
         {}
 
         /** This function is constexpr in C++14 and later. */
@@ -1425,8 +1460,8 @@ namespace boost { namespace text {
         BOOST_TEXT_CXX14_CONSTEXPR get_value_result get_value() const
             noexcept(!throw_on_error)
         {
-        // It turns out that this naive implementation is faster than the
-        // table implementation for the converting iterators.
+            // It turns out that this naive implementation is faster than the
+            // table implementation for the converting iterators.
 #if 1
             /*
                 Unicode 3.9/D92
@@ -1680,14 +1715,6 @@ namespace boost { namespace text {
         return rhs.base() != lhs;
     }
 
-    /** Returns a utf_8_to_32_iterator<Iter> constructed from an Iter. */
-    template<typename Iter, typename Sentinel>
-    utf_8_to_32_iterator<Iter, Sentinel>
-    make_utf_8_to_32_iterator(Iter first, Iter it, Sentinel last) noexcept
-    {
-        return utf_8_to_32_iterator<Iter, Sentinel>(first, it, last);
-    }
-
     /** This function is constexpr in C++14 and later. */
     template<
         typename Iter1,
@@ -1765,6 +1792,7 @@ namespace boost { namespace text {
     struct utf_8_to_32_out_iterator
         : detail::trans_ins_iter<utf_8_to_32_out_iterator<Iter>, Iter>
     {
+        utf_8_to_32_out_iterator() noexcept {}
         explicit utf_8_to_32_out_iterator(Iter it) noexcept :
             detail::trans_ins_iter<utf_8_to_32_out_iterator<Iter>, Iter>(it),
             state_(detail::invalid_table_state)
@@ -1789,28 +1817,19 @@ namespace boost { namespace text {
 #endif
     };
 
-    /** Returns a utf_8_to_32_out_iterator<Iter> constructed from the given
-        iterator. */
-    template<typename Iter>
-    utf_8_to_32_out_iterator<Iter> utf_8_to_32_out(Iter it) noexcept
-    {
-        return utf_8_to_32_out_iterator<Iter>(it);
-    }
-
     /** An insert-iterator analogous to std::insert_iterator, that also
         converts UTF-8 to UTF-32. */
-    template<typename Container>
-    struct utf_8_to_32_insert_iterator
-        : detail::trans_ins_iter<
-              utf_8_to_32_insert_iterator<Container>,
-              std::insert_iterator<Container>>
+    template<typename Cont>
+    struct utf_8_to_32_insert_iterator : detail::trans_ins_iter<
+                                             utf_8_to_32_insert_iterator<Cont>,
+                                             std::insert_iterator<Cont>>
     {
+        utf_8_to_32_insert_iterator() noexcept {}
         utf_8_to_32_insert_iterator(
-            Container & c, typename Container::iterator it) noexcept :
+            Cont & c, typename Cont::iterator it) noexcept :
             detail::trans_ins_iter<
-                utf_8_to_32_insert_iterator<Container>,
-                std::insert_iterator<Container>>(
-                std::insert_iterator<Container>(c, it)),
+                utf_8_to_32_insert_iterator<Cont>,
+                std::insert_iterator<Cont>>(std::insert_iterator<Cont>(c, it)),
             state_(detail::invalid_table_state)
         {}
 
@@ -1828,28 +1847,20 @@ namespace boost { namespace text {
 #endif
     };
 
-    /** Returns a utf_8_to_32_insert_iterator<Container> constructed from the
-        given container and iterator. */
-    template<typename Container>
-    utf_8_to_32_insert_iterator<Container> utf_8_to_32_inserter(
-        Container & c, typename Container::iterator it) noexcept
-    {
-        return utf_8_to_32_insert_iterator<Container>(c, it);
-    }
-
     /** An insert-iterator analogous to std::front_insert_iterator, that also
         converts UTF-8 to UTF-32. */
-    template<typename Container>
+    template<typename Cont>
     struct utf_8_to_32_front_insert_iterator
         : detail::trans_ins_iter<
-              utf_8_to_32_front_insert_iterator<Container>,
-              std::front_insert_iterator<Container>>
+              utf_8_to_32_front_insert_iterator<Cont>,
+              std::front_insert_iterator<Cont>>
     {
-        explicit utf_8_to_32_front_insert_iterator(Container & c) noexcept :
+        utf_8_to_32_front_insert_iterator() noexcept {}
+        explicit utf_8_to_32_front_insert_iterator(Cont & c) noexcept :
             detail::trans_ins_iter<
-                utf_8_to_32_front_insert_iterator<Container>,
-                std::front_insert_iterator<Container>>(
-                std::front_insert_iterator<Container>(c)),
+                utf_8_to_32_front_insert_iterator<Cont>,
+                std::front_insert_iterator<Cont>>(
+                std::front_insert_iterator<Cont>(c)),
             state_(detail::invalid_table_state)
         {}
 
@@ -1867,28 +1878,20 @@ namespace boost { namespace text {
 #endif
     };
 
-    /** Returns a utf_8_to_32_insert_iterator<Container> constructed from the
-        given container. */
-    template<typename Container>
-    utf_8_to_32_front_insert_iterator<Container>
-    utf_8_to_32_front_inserter(Container & c) noexcept
-    {
-        return utf_8_to_32_front_insert_iterator<Container>(c);
-    }
-
     /** An insert-iterator analogous to std::back_insert_iterator, that also
         converts UTF-8 to UTF-32. */
-    template<typename Container>
+    template<typename Cont>
     struct utf_8_to_32_back_insert_iterator
         : detail::trans_ins_iter<
-              utf_8_to_32_back_insert_iterator<Container>,
-              std::back_insert_iterator<Container>>
+              utf_8_to_32_back_insert_iterator<Cont>,
+              std::back_insert_iterator<Cont>>
     {
-        explicit utf_8_to_32_back_insert_iterator(Container & c) noexcept :
+        utf_8_to_32_back_insert_iterator() noexcept {}
+        explicit utf_8_to_32_back_insert_iterator(Cont & c) noexcept :
             detail::trans_ins_iter<
-                utf_8_to_32_back_insert_iterator<Container>,
-                std::back_insert_iterator<Container>>(
-                std::back_insert_iterator<Container>(c)),
+                utf_8_to_32_back_insert_iterator<Cont>,
+                std::back_insert_iterator<Cont>>(
+                std::back_insert_iterator<Cont>(c)),
             state_(detail::invalid_table_state)
         {}
 
@@ -1905,15 +1908,6 @@ namespace boost { namespace text {
         uint32_t cp_;
 #endif
     };
-
-    /** Returns a utf_8_to_32_insert_iterator<Container> constructed from the
-        given container. */
-    template<typename Container>
-    utf_8_to_32_back_insert_iterator<Container>
-    utf_8_to_32_back_inserter(Container & c) noexcept
-    {
-        return utf_8_to_32_back_insert_iterator<Container>(c);
-    }
 
 
     /** A UTF-32 to UTF-16 converting iterator.
@@ -1958,19 +1952,11 @@ namespace boost { namespace text {
             "4-byte value_type.");
 
         constexpr utf_32_to_16_iterator() noexcept :
-            first_(),
-            it_(),
-            last_(),
-            index_(2),
-            buf_()
+            first_(), it_(), last_(), index_(2), buf_()
         {}
         explicit BOOST_TEXT_CXX14_CONSTEXPR
         utf_32_to_16_iterator(Iter first, Iter it, Sentinel last) noexcept :
-            first_(first),
-            it_(it),
-            last_(last),
-            index_(0),
-            buf_()
+            first_(first), it_(it), last_(last), index_(0), buf_()
         {
             if (it_ != last_)
                 read_into_buf();
@@ -2114,14 +2100,6 @@ namespace boost { namespace text {
         return rhs.base() != lhs;
     }
 
-    /** Returns a utf_32_to_16_iterator<Iter> constructed from an Iter. */
-    template<typename Iter, typename Sentinel>
-    utf_32_to_16_iterator<Iter, Sentinel>
-    make_utf_32_to_16_iterator(Iter first, Iter it, Sentinel last) noexcept
-    {
-        return utf_32_to_16_iterator<Iter, Sentinel>(first, it, last);
-    }
-
     /** This function is constexpr in C++14 and later. */
     template<
         typename Iter1,
@@ -2164,7 +2142,8 @@ namespace boost { namespace text {
     struct utf_32_to_16_out_iterator
         : detail::trans_ins_iter<utf_32_to_16_out_iterator<Iter>, Iter>
     {
-        utf_32_to_16_out_iterator(Iter it) noexcept :
+        utf_32_to_16_out_iterator() noexcept {}
+        explicit utf_32_to_16_out_iterator(Iter it) noexcept :
             detail::trans_ins_iter<utf_32_to_16_out_iterator<Iter>, Iter>(it)
         {}
 
@@ -2181,28 +2160,20 @@ namespace boost { namespace text {
         }
     };
 
-    /** Returns a utf_32_to_16_out_iterator<Iter> constructed from the given
-        iterator. */
-    template<typename Iter>
-    utf_32_to_16_out_iterator<Iter> utf_32_to_16_out(Iter it) noexcept
-    {
-        return utf_32_to_16_out_iterator<Iter>(it);
-    }
-
     /** An insert-iterator analogous to std::insert_iterator, that also
         converts UTF-32 to UTF-16. */
-    template<typename Container>
+    template<typename Cont>
     struct utf_32_to_16_insert_iterator
         : detail::trans_ins_iter<
-              utf_32_to_16_insert_iterator<Container>,
-              std::insert_iterator<Container>>
+              utf_32_to_16_insert_iterator<Cont>,
+              std::insert_iterator<Cont>>
     {
+        utf_32_to_16_insert_iterator() noexcept {}
         utf_32_to_16_insert_iterator(
-            Container & c, typename Container::iterator it) noexcept :
+            Cont & c, typename Cont::iterator it) noexcept :
             detail::trans_ins_iter<
-                utf_32_to_16_insert_iterator<Container>,
-                std::insert_iterator<Container>>(
-                std::insert_iterator<Container>(c, it))
+                utf_32_to_16_insert_iterator<Cont>,
+                std::insert_iterator<Cont>>(std::insert_iterator<Cont>(c, it))
         {}
 
         utf_32_to_16_insert_iterator & operator=(uint32_t cp)
@@ -2213,28 +2184,20 @@ namespace boost { namespace text {
         }
     };
 
-    /** Returns a utf_32_to_16_insert_iterator<Container> constructed from the
-        given container and iterator. */
-    template<typename Container>
-    utf_32_to_16_insert_iterator<Container> utf_32_to_16_inserter(
-        Container & c, typename Container::iterator it) noexcept
-    {
-        return utf_32_to_16_insert_iterator<Container>(c, it);
-    }
-
     /** An insert-iterator analogous to std::front_insert_iterator, that also
         converts UTF-32 to UTF-16. */
-    template<typename Container>
+    template<typename Cont>
     struct utf_32_to_16_front_insert_iterator
         : detail::trans_ins_iter<
-              utf_32_to_16_front_insert_iterator<Container>,
-              std::front_insert_iterator<Container>>
+              utf_32_to_16_front_insert_iterator<Cont>,
+              std::front_insert_iterator<Cont>>
     {
-        explicit utf_32_to_16_front_insert_iterator(Container & c) noexcept :
+        utf_32_to_16_front_insert_iterator() noexcept {}
+        explicit utf_32_to_16_front_insert_iterator(Cont & c) noexcept :
             detail::trans_ins_iter<
-                utf_32_to_16_front_insert_iterator<Container>,
-                std::front_insert_iterator<Container>>(
-                std::front_insert_iterator<Container>(c))
+                utf_32_to_16_front_insert_iterator<Cont>,
+                std::front_insert_iterator<Cont>>(
+                std::front_insert_iterator<Cont>(c))
         {}
 
         utf_32_to_16_front_insert_iterator & operator=(uint32_t cp)
@@ -2245,28 +2208,20 @@ namespace boost { namespace text {
         }
     };
 
-    /** Returns a utf_32_to_16_insert_iterator<Container> constructed from the
-        given container. */
-    template<typename Container>
-    utf_32_to_16_front_insert_iterator<Container>
-    utf_32_to_16_front_inserter(Container & c) noexcept
-    {
-        return utf_32_to_16_front_insert_iterator<Container>(c);
-    }
-
     /** An insert-iterator analogous to std::back_insert_iterator, that also
         converts UTF-32 to UTF-16. */
-    template<typename Container>
+    template<typename Cont>
     struct utf_32_to_16_back_insert_iterator
         : detail::trans_ins_iter<
-              utf_32_to_16_back_insert_iterator<Container>,
-              std::back_insert_iterator<Container>>
+              utf_32_to_16_back_insert_iterator<Cont>,
+              std::back_insert_iterator<Cont>>
     {
-        explicit utf_32_to_16_back_insert_iterator(Container & c) noexcept :
+        utf_32_to_16_back_insert_iterator() noexcept {}
+        explicit utf_32_to_16_back_insert_iterator(Cont & c) noexcept :
             detail::trans_ins_iter<
-                utf_32_to_16_back_insert_iterator<Container>,
-                std::back_insert_iterator<Container>>(
-                std::back_insert_iterator<Container>(c))
+                utf_32_to_16_back_insert_iterator<Cont>,
+                std::back_insert_iterator<Cont>>(
+                std::back_insert_iterator<Cont>(c))
         {}
 
         utf_32_to_16_back_insert_iterator & operator=(uint32_t cp)
@@ -2276,15 +2231,6 @@ namespace boost { namespace text {
             return *this;
         }
     };
-
-    /** Returns a utf_32_to_16_insert_iterator<Container> constructed from the
-        given container. */
-    template<typename Container>
-    utf_32_to_16_back_insert_iterator<Container>
-    utf_32_to_16_back_inserter(Container & c) noexcept
-    {
-        return utf_32_to_16_back_insert_iterator<Container>(c);
-    }
 
 
     /** A UTF-16 to UTF-32 converting iterator.
@@ -2331,9 +2277,7 @@ namespace boost { namespace text {
         constexpr utf_16_to_32_iterator() noexcept : first_(), it_(), last_() {}
         explicit constexpr utf_16_to_32_iterator(
             Iter first, Iter it, Sentinel last) noexcept :
-            first_(first),
-            it_(it),
-            last_(last)
+            first_(first), it_(it), last_(last)
         {}
         template<
             typename Iter2,
@@ -2344,9 +2288,7 @@ namespace boost { namespace text {
         constexpr utf_16_to_32_iterator(
             utf_16_to_32_iterator<Iter2, Sentinel2, ErrorHandler> const &
                 other) noexcept :
-            first_(other.first_),
-            it_(other.it_),
-            last_(other.last_)
+            first_(other.first_), it_(other.it_), last_(other.last_)
         {}
 
         /** This function is constexpr in C++14 and later. */
@@ -2507,14 +2449,6 @@ namespace boost { namespace text {
         return rhs.base() != lhs;
     }
 
-    /** Returns a utf_16_to_32_iterator<Iter> constructed from an Iter. */
-    template<typename Iter, typename Sentinel>
-    utf_16_to_32_iterator<Iter, Sentinel>
-    make_utf_16_to_32_iterator(Iter first, Iter it, Sentinel last) noexcept
-    {
-        return utf_16_to_32_iterator<Iter, Sentinel>(first, it, last);
-    }
-
     /** This function is constexpr in C++14 and later. */
     template<
         typename Iter1,
@@ -2592,6 +2526,7 @@ namespace boost { namespace text {
     struct utf_16_to_32_out_iterator
         : detail::trans_ins_iter<utf_16_to_32_out_iterator<Iter>, Iter>
     {
+        utf_16_to_32_out_iterator() noexcept {}
         explicit utf_16_to_32_out_iterator(Iter it) noexcept :
             detail::trans_ins_iter<utf_16_to_32_out_iterator<Iter>, Iter>(it),
             prev_cu_(0)
@@ -2615,28 +2550,20 @@ namespace boost { namespace text {
 #endif
     };
 
-    /** Returns a utf_16_to_32_out_iterator<Iter> constructed from the given
-        iterator. */
-    template<typename Iter>
-    utf_16_to_32_out_iterator<Iter> utf_16_to_32_out(Iter it) noexcept
-    {
-        return utf_16_to_32_out_iterator<Iter>(it);
-    }
-
     /** An insert-iterator analogous to std::insert_iterator, that also
         converts UTF-16 to UTF-32. */
-    template<typename Container>
+    template<typename Cont>
     struct utf_16_to_32_insert_iterator
         : detail::trans_ins_iter<
-              utf_16_to_32_insert_iterator<Container>,
-              std::insert_iterator<Container>>
+              utf_16_to_32_insert_iterator<Cont>,
+              std::insert_iterator<Cont>>
     {
+        utf_16_to_32_insert_iterator() noexcept {}
         utf_16_to_32_insert_iterator(
-            Container & c, typename Container::iterator it) noexcept :
+            Cont & c, typename Cont::iterator it) noexcept :
             detail::trans_ins_iter<
-                utf_16_to_32_insert_iterator<Container>,
-                std::insert_iterator<Container>>(
-                std::insert_iterator<Container>(c, it)),
+                utf_16_to_32_insert_iterator<Cont>,
+                std::insert_iterator<Cont>>(std::insert_iterator<Cont>(c, it)),
             prev_cu_(0)
         {}
 
@@ -2653,28 +2580,20 @@ namespace boost { namespace text {
 #endif
     };
 
-    /** Returns a utf_16_to_32_insert_iterator<Container> constructed from the
-        given container and iterator. */
-    template<typename Container>
-    utf_16_to_32_insert_iterator<Container> utf_16_to_32_inserter(
-        Container & c, typename Container::iterator it) noexcept
-    {
-        return utf_16_to_32_insert_iterator<Container>(c, it);
-    }
-
     /** An insert-iterator analogous to std::front_insert_iterator, that also
         converts UTF-16 to UTF-32. */
-    template<typename Container>
+    template<typename Cont>
     struct utf_16_to_32_front_insert_iterator
         : detail::trans_ins_iter<
-              utf_16_to_32_front_insert_iterator<Container>,
-              std::front_insert_iterator<Container>>
+              utf_16_to_32_front_insert_iterator<Cont>,
+              std::front_insert_iterator<Cont>>
     {
-        explicit utf_16_to_32_front_insert_iterator(Container & c) noexcept :
+        utf_16_to_32_front_insert_iterator() noexcept {}
+        explicit utf_16_to_32_front_insert_iterator(Cont & c) noexcept :
             detail::trans_ins_iter<
-                utf_16_to_32_front_insert_iterator<Container>,
-                std::front_insert_iterator<Container>>(
-                std::front_insert_iterator<Container>(c)),
+                utf_16_to_32_front_insert_iterator<Cont>,
+                std::front_insert_iterator<Cont>>(
+                std::front_insert_iterator<Cont>(c)),
             prev_cu_(0)
         {}
 
@@ -2691,28 +2610,20 @@ namespace boost { namespace text {
 #endif
     };
 
-    /** Returns a utf_16_to_32_insert_iterator<Container> constructed from the
-        given container. */
-    template<typename Container>
-    utf_16_to_32_front_insert_iterator<Container>
-    utf_16_to_32_front_inserter(Container & c) noexcept
-    {
-        return utf_16_to_32_front_insert_iterator<Container>(c);
-    }
-
     /** An insert-iterator analogous to std::back_insert_iterator, that also
         converts UTF-16 to UTF-32. */
-    template<typename Container>
+    template<typename Cont>
     struct utf_16_to_32_back_insert_iterator
         : detail::trans_ins_iter<
-              utf_16_to_32_back_insert_iterator<Container>,
-              std::back_insert_iterator<Container>>
+              utf_16_to_32_back_insert_iterator<Cont>,
+              std::back_insert_iterator<Cont>>
     {
-        explicit utf_16_to_32_back_insert_iterator(Container & c) noexcept :
+        utf_16_to_32_back_insert_iterator() noexcept {}
+        explicit utf_16_to_32_back_insert_iterator(Cont & c) noexcept :
             detail::trans_ins_iter<
-                utf_16_to_32_back_insert_iterator<Container>,
-                std::back_insert_iterator<Container>>(
-                std::back_insert_iterator<Container>(c)),
+                utf_16_to_32_back_insert_iterator<Cont>,
+                std::back_insert_iterator<Cont>>(
+                std::back_insert_iterator<Cont>(c)),
             prev_cu_(0)
         {}
 
@@ -2728,15 +2639,6 @@ namespace boost { namespace text {
         uint16_t prev_cu_;
 #endif
     };
-
-    /** Returns a utf_16_to_32_insert_iterator<Container> constructed from the
-        given container. */
-    template<typename Container>
-    utf_16_to_32_back_insert_iterator<Container>
-    utf_16_to_32_back_inserter(Container & c) noexcept
-    {
-        return utf_16_to_32_back_insert_iterator<Container>(c);
-    }
 
 
     /** A UTF-16 to UTF-8 converting iterator.
@@ -2780,19 +2682,11 @@ namespace boost { namespace text {
             "2-byte value_type.");
 
         constexpr utf_16_to_8_iterator() noexcept :
-            first_(),
-            it_(),
-            last_(),
-            index_(4),
-            buf_()
+            first_(), it_(), last_(), index_(4), buf_()
         {}
         explicit BOOST_TEXT_CXX14_CONSTEXPR
         utf_16_to_8_iterator(Iter first, Iter it, Sentinel last) noexcept :
-            first_(first),
-            it_(it),
-            last_(last),
-            index_(0),
-            buf_()
+            first_(first), it_(it), last_(last), index_(0), buf_()
         {
             if (it_ != last_)
                 read_into_buf();
@@ -2893,7 +2787,8 @@ namespace boost { namespace text {
             return buf_[index_] == '\0';
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR char * read_into_buf() noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR char *
+        read_into_buf() noexcept(!throw_on_error)
         {
             Iter next = it_;
 
@@ -2997,14 +2892,6 @@ namespace boost { namespace text {
         return rhs.base() != lhs;
     }
 
-    /** Returns a utf_16_to_8_iterator<Iter> constructed from an Iter. */
-    template<typename Iter, typename Sentinel>
-    utf_16_to_8_iterator<Iter, Sentinel>
-    make_utf_16_to_8_iterator(Iter first, Iter it, Sentinel last) noexcept
-    {
-        return utf_16_to_8_iterator<Iter, Sentinel>(first, it, last);
-    }
-
     /** This function is constexpr in C++14 and later. */
     template<
         typename Iter1,
@@ -3075,6 +2962,7 @@ namespace boost { namespace text {
     struct utf_16_to_8_out_iterator
         : detail::trans_ins_iter<utf_16_to_8_out_iterator<Iter>, Iter>
     {
+        utf_16_to_8_out_iterator() noexcept {}
         explicit utf_16_to_8_out_iterator(Iter it) noexcept :
             detail::trans_ins_iter<utf_16_to_8_out_iterator<Iter>, Iter>(it),
             prev_cu_(0)
@@ -3098,28 +2986,19 @@ namespace boost { namespace text {
 #endif
     };
 
-    /** Returns a utf_16_to_8_out_iterator<Iter> constructed from the given
-        iterator. */
-    template<typename Iter>
-    utf_16_to_8_out_iterator<Iter> utf_16_to_8_out(Iter it) noexcept
-    {
-        return utf_16_to_8_out_iterator<Iter>(it);
-    }
-
     /** An insert-iterator analogous to std::insert_iterator, that also
         converts UTF-16 to UTF-8. */
-    template<typename Container>
-    struct utf_16_to_8_insert_iterator
-        : detail::trans_ins_iter<
-              utf_16_to_8_insert_iterator<Container>,
-              std::insert_iterator<Container>>
+    template<typename Cont>
+    struct utf_16_to_8_insert_iterator : detail::trans_ins_iter<
+                                             utf_16_to_8_insert_iterator<Cont>,
+                                             std::insert_iterator<Cont>>
     {
+        utf_16_to_8_insert_iterator() noexcept {}
         utf_16_to_8_insert_iterator(
-            Container & c, typename Container::iterator it) noexcept :
+            Cont & c, typename Cont::iterator it) noexcept :
             detail::trans_ins_iter<
-                utf_16_to_8_insert_iterator<Container>,
-                std::insert_iterator<Container>>(
-                std::insert_iterator<Container>(c, it)),
+                utf_16_to_8_insert_iterator<Cont>,
+                std::insert_iterator<Cont>>(std::insert_iterator<Cont>(c, it)),
             prev_cu_(0)
         {}
 
@@ -3136,28 +3015,20 @@ namespace boost { namespace text {
 #endif
     };
 
-    /** Returns a utf_16_to_8_insert_iterator<Container> constructed from the
-        given container and iterator. */
-    template<typename Container>
-    utf_16_to_8_insert_iterator<Container> utf_16_to_8_inserter(
-        Container & c, typename Container::iterator it) noexcept
-    {
-        return utf_16_to_8_insert_iterator<Container>(c, it);
-    }
-
     /** An insert-iterator analogous to std::front_insert_iterator, that also
         converts UTF-16 to UTF-8. */
-    template<typename Container>
+    template<typename Cont>
     struct utf_16_to_8_front_insert_iterator
         : detail::trans_ins_iter<
-              utf_16_to_8_front_insert_iterator<Container>,
-              std::front_insert_iterator<Container>>
+              utf_16_to_8_front_insert_iterator<Cont>,
+              std::front_insert_iterator<Cont>>
     {
-        explicit utf_16_to_8_front_insert_iterator(Container & c) noexcept :
+        utf_16_to_8_front_insert_iterator() noexcept {}
+        explicit utf_16_to_8_front_insert_iterator(Cont & c) noexcept :
             detail::trans_ins_iter<
-                utf_16_to_8_front_insert_iterator<Container>,
-                std::front_insert_iterator<Container>>(
-                std::front_insert_iterator<Container>(c)),
+                utf_16_to_8_front_insert_iterator<Cont>,
+                std::front_insert_iterator<Cont>>(
+                std::front_insert_iterator<Cont>(c)),
             prev_cu_(0)
         {}
 
@@ -3174,28 +3045,20 @@ namespace boost { namespace text {
 #endif
     };
 
-    /** Returns a utf_16_to_8_insert_iterator<Container> constructed from the
-        given container. */
-    template<typename Container>
-    utf_16_to_8_front_insert_iterator<Container>
-    utf_16_to_8_front_inserter(Container & c) noexcept
-    {
-        return utf_16_to_8_front_insert_iterator<Container>(c);
-    }
-
     /** An insert-iterator analogous to std::back_insert_iterator, that also
         converts UTF-16 to UTF-8. */
-    template<typename Container>
+    template<typename Cont>
     struct utf_16_to_8_back_insert_iterator
         : detail::trans_ins_iter<
-              utf_16_to_8_back_insert_iterator<Container>,
-              std::back_insert_iterator<Container>>
+              utf_16_to_8_back_insert_iterator<Cont>,
+              std::back_insert_iterator<Cont>>
     {
-        explicit utf_16_to_8_back_insert_iterator(Container & c) noexcept :
+        utf_16_to_8_back_insert_iterator() noexcept {}
+        explicit utf_16_to_8_back_insert_iterator(Cont & c) noexcept :
             detail::trans_ins_iter<
-                utf_16_to_8_back_insert_iterator<Container>,
-                std::back_insert_iterator<Container>>(
-                std::back_insert_iterator<Container>(c)),
+                utf_16_to_8_back_insert_iterator<Cont>,
+                std::back_insert_iterator<Cont>>(
+                std::back_insert_iterator<Cont>(c)),
             prev_cu_(0)
         {}
 
@@ -3212,15 +3075,6 @@ namespace boost { namespace text {
 #endif
     };
 
-    /** Returns a utf_16_to_8_insert_iterator<Container> constructed from the
-        given container. */
-    template<typename Container>
-    utf_16_to_8_back_insert_iterator<Container>
-    utf_16_to_8_back_inserter(Container & c) noexcept
-    {
-        return utf_16_to_8_back_insert_iterator<Container>(c);
-    }
-
 
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     struct utf_8_to_16_iterator
@@ -3234,9 +3088,7 @@ namespace boost { namespace text {
         constexpr utf_8_to_16_iterator() noexcept : it_(), index_(2), buf_() {}
         explicit BOOST_TEXT_CXX14_CONSTEXPR
         utf_8_to_16_iterator(Iter first, Iter it, Sentinel last) noexcept :
-            it_(first, it, last),
-            index_(0),
-            buf_()
+            it_(first, it, last), index_(0), buf_()
         {
             if (it_.it_ != it_.last_)
                 read_into_buf();
@@ -3250,9 +3102,7 @@ namespace boost { namespace text {
         constexpr utf_8_to_16_iterator(
             utf_8_to_16_iterator<Iter2, Sentinel2, ErrorHandler> const &
                 other) noexcept :
-            it_(other.it_),
-            index_(other.index_),
-            buf_(other.buf_)
+            it_(other.it_), index_(other.index_), buf_(other.buf_)
         {}
 
         /** This function is constexpr in C++14 and later. */
@@ -3379,14 +3229,6 @@ namespace boost { namespace text {
         return rhs.base() != lhs;
     }
 
-    /** Returns a utf_8_to_16_iterator<Iter> constructed from an Iter. */
-    template<typename Iter, typename Sentinel>
-    utf_8_to_16_iterator<Iter, Sentinel>
-    make_utf_8_to_16_iterator(Iter first, Iter it, Sentinel last) noexcept
-    {
-        return utf_8_to_16_iterator<Iter, Sentinel>(first, it, last);
-    }
-
     /** This function is constexpr in C++14 and later. */
     template<
         typename Iter1,
@@ -3462,7 +3304,8 @@ namespace boost { namespace text {
     struct utf_8_to_16_out_iterator
         : detail::trans_ins_iter<utf_8_to_16_out_iterator<Iter>, Iter>
     {
-        utf_8_to_16_out_iterator(Iter it) noexcept :
+        utf_8_to_16_out_iterator() noexcept {}
+        explicit utf_8_to_16_out_iterator(Iter it) noexcept :
             detail::trans_ins_iter<utf_8_to_16_out_iterator<Iter>, Iter>(it),
             state_(detail::invalid_table_state)
         {}
@@ -3486,28 +3329,19 @@ namespace boost { namespace text {
 #endif
     };
 
-    /** Returns a utf_8_to_16_out_iterator<Iter> constructed from the given
-        iterator. */
-    template<typename Iter>
-    utf_8_to_16_out_iterator<Iter> utf_8_to_16_out(Iter it) noexcept
-    {
-        return utf_8_to_16_out_iterator<Iter>(it);
-    }
-
     /** An insert-iterator analogous to std::insert_iterator, that also
         converts UTF-8 to UTF-16. */
-    template<typename Container>
-    struct utf_8_to_16_insert_iterator
-        : detail::trans_ins_iter<
-              utf_8_to_16_insert_iterator<Container>,
-              std::insert_iterator<Container>>
+    template<typename Cont>
+    struct utf_8_to_16_insert_iterator : detail::trans_ins_iter<
+                                             utf_8_to_16_insert_iterator<Cont>,
+                                             std::insert_iterator<Cont>>
     {
+        utf_8_to_16_insert_iterator() noexcept {}
         utf_8_to_16_insert_iterator(
-            Container & c, typename Container::iterator it) noexcept :
+            Cont & c, typename Cont::iterator it) noexcept :
             detail::trans_ins_iter<
-                utf_8_to_16_insert_iterator<Container>,
-                std::insert_iterator<Container>>(
-                std::insert_iterator<Container>(c, it)),
+                utf_8_to_16_insert_iterator<Cont>,
+                std::insert_iterator<Cont>>(std::insert_iterator<Cont>(c, it)),
             state_(detail::invalid_table_state)
         {}
 
@@ -3525,28 +3359,20 @@ namespace boost { namespace text {
 #endif
     };
 
-    /** Returns a utf_8_to_16_insert_iterator<Container> constructed from the
-        given container and iterator. */
-    template<typename Container>
-    utf_8_to_16_insert_iterator<Container> utf_8_to_16_inserter(
-        Container & c, typename Container::iterator it) noexcept
-    {
-        return utf_8_to_16_insert_iterator<Container>(c, it);
-    }
-
     /** An insert-iterator analogous to std::front_insert_iterator, that also
         converts UTF-8 to UTF-16. */
-    template<typename Container>
+    template<typename Cont>
     struct utf_8_to_16_front_insert_iterator
         : detail::trans_ins_iter<
-              utf_8_to_16_front_insert_iterator<Container>,
-              std::front_insert_iterator<Container>>
+              utf_8_to_16_front_insert_iterator<Cont>,
+              std::front_insert_iterator<Cont>>
     {
-        explicit utf_8_to_16_front_insert_iterator(Container & c) noexcept :
+        utf_8_to_16_front_insert_iterator() noexcept {}
+        explicit utf_8_to_16_front_insert_iterator(Cont & c) noexcept :
             detail::trans_ins_iter<
-                utf_8_to_16_front_insert_iterator<Container>,
-                std::front_insert_iterator<Container>>(
-                std::front_insert_iterator<Container>(c)),
+                utf_8_to_16_front_insert_iterator<Cont>,
+                std::front_insert_iterator<Cont>>(
+                std::front_insert_iterator<Cont>(c)),
             state_(detail::invalid_table_state)
         {}
 
@@ -3564,28 +3390,20 @@ namespace boost { namespace text {
 #endif
     };
 
-    /** Returns a utf_8_to_16_insert_iterator<Container> constructed from the
-        given container. */
-    template<typename Container>
-    utf_8_to_16_front_insert_iterator<Container>
-    utf_8_to_16_front_inserter(Container & c) noexcept
-    {
-        return utf_8_to_16_front_insert_iterator<Container>(c);
-    }
-
     /** An insert-iterator analogous to std::back_insert_iterator, that also
         converts UTF-8 to UTF-16. */
-    template<typename Container>
+    template<typename Cont>
     struct utf_8_to_16_back_insert_iterator
         : detail::trans_ins_iter<
-              utf_8_to_16_back_insert_iterator<Container>,
-              std::back_insert_iterator<Container>>
+              utf_8_to_16_back_insert_iterator<Cont>,
+              std::back_insert_iterator<Cont>>
     {
-        explicit utf_8_to_16_back_insert_iterator(Container & c) noexcept :
+        utf_8_to_16_back_insert_iterator() noexcept {}
+        explicit utf_8_to_16_back_insert_iterator(Cont & c) noexcept :
             detail::trans_ins_iter<
-                utf_8_to_16_back_insert_iterator<Container>,
-                std::back_insert_iterator<Container>>(
-                std::back_insert_iterator<Container>(c)),
+                utf_8_to_16_back_insert_iterator<Cont>,
+                std::back_insert_iterator<Cont>>(
+                std::back_insert_iterator<Cont>(c)),
             state_(detail::invalid_table_state)
         {}
 
@@ -3603,16 +3421,107 @@ namespace boost { namespace text {
 #endif
     };
 
-    /** Returns a utf_8_to_16_insert_iterator<Container> constructed from the
-        given container. */
-    template<typename Container>
-    utf_8_to_16_back_insert_iterator<Container>
-    utf_8_to_16_back_inserter(Container & c) noexcept
+}}
+
+namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
+
+    /** Returns a utf_32_to_8_iterator<Iter>. */
+    template<typename Iter, typename Sentinel>
+    utf_32_to_8_iterator<Iter, Sentinel>
+    make_utf_32_to_8_iterator(Iter first, Iter it, Sentinel last) noexcept
     {
-        return utf_8_to_16_back_insert_iterator<Container>(c);
+        return utf_32_to_8_iterator<Iter, Sentinel>(first, it, last);
     }
 
-}}
+    /** Returns a utf_32_to_8_out_iterator<Iter> constructed from the given
+        iterator. */
+    template<typename Iter>
+    utf_32_to_8_out_iterator<Iter> utf_32_to_8_out(Iter it) noexcept
+    {
+        return utf_32_to_8_out_iterator<Iter>(it);
+    }
+
+    /** Returns a utf_8_to_32_iterator<Iter, Sentinel>. */
+    template<typename Iter, typename Sentinel>
+    utf_8_to_32_iterator<Iter, Sentinel>
+    make_utf_8_to_32_iterator(Iter first, Iter it, Sentinel last) noexcept
+    {
+        return utf_8_to_32_iterator<Iter, Sentinel>(first, it, last);
+    }
+
+    /** Returns a utf_8_to_32_out_iterator<Iter> constructed from the given
+        iterator. */
+    template<typename Iter>
+    utf_8_to_32_out_iterator<Iter> utf_8_to_32_out(Iter it) noexcept
+    {
+        return utf_8_to_32_out_iterator<Iter>(it);
+    }
+
+    /** Returns a utf_32_to_16_iterator<Iter, Sentinel>. */
+    template<typename Iter, typename Sentinel>
+    utf_32_to_16_iterator<Iter, Sentinel>
+    make_utf_32_to_16_iterator(Iter first, Iter it, Sentinel last) noexcept
+    {
+        return utf_32_to_16_iterator<Iter, Sentinel>(first, it, last);
+    }
+
+    /** Returns a utf_32_to_16_out_iterator<Iter> constructed from the given
+        iterator. */
+    template<typename Iter>
+    utf_32_to_16_out_iterator<Iter> utf_32_to_16_out(Iter it) noexcept
+    {
+        return utf_32_to_16_out_iterator<Iter>(it);
+    }
+
+    /** Returns a utf_16_to_32_iterator<Iter, Sentinel>. */
+    template<typename Iter, typename Sentinel>
+    utf_16_to_32_iterator<Iter, Sentinel>
+    make_utf_16_to_32_iterator(Iter first, Iter it, Sentinel last) noexcept
+    {
+        return utf_16_to_32_iterator<Iter, Sentinel>(first, it, last);
+    }
+
+    /** Returns a utf_16_to_32_out_iterator<Iter> constructed from the given
+        iterator. */
+    template<typename Iter>
+    utf_16_to_32_out_iterator<Iter> utf_16_to_32_out(Iter it) noexcept
+    {
+        return utf_16_to_32_out_iterator<Iter>(it);
+    }
+
+    /** Returns a utf_16_to_8_iterator<Iter, Sentinel>. */
+    template<typename Iter, typename Sentinel>
+    utf_16_to_8_iterator<Iter, Sentinel>
+    make_utf_16_to_8_iterator(Iter first, Iter it, Sentinel last) noexcept
+    {
+        return utf_16_to_8_iterator<Iter, Sentinel>(first, it, last);
+    }
+
+    /** Returns a utf_16_to_8_out_iterator<Iter> constructed from the given
+        iterator. */
+    template<typename Iter>
+    utf_16_to_8_out_iterator<Iter> utf_16_to_8_out(Iter it) noexcept
+    {
+        return utf_16_to_8_out_iterator<Iter>(it);
+    }
+
+    /** Returns a utf_8_to_16_iterator<Iter, Sentinel>. */
+    template<typename Iter, typename Sentinel>
+    utf_8_to_16_iterator<Iter, Sentinel>
+    make_utf_8_to_16_iterator(Iter first, Iter it, Sentinel last) noexcept
+    {
+        return utf_8_to_16_iterator<Iter, Sentinel>(first, it, last);
+    }
+
+    /** Returns a utf_8_to_16_out_iterator<Iter> constructed from the given
+        iterator. */
+    template<typename Iter>
+    utf_8_to_16_out_iterator<Iter> utf_8_to_16_out(Iter it) noexcept
+    {
+        return utf_8_to_16_out_iterator<Iter>(it);
+    }
+
+}}}
 
 #include <boost/text/detail/unpack.hpp>
 
@@ -3638,7 +3547,7 @@ namespace boost { namespace text { namespace detail {
         static constexpr utf_16_to_8_iterator<Iter, Sentinel>
         call(Iter first, Iter it, Sentinel last) noexcept
         {
-            return make_utf_16_to_8_iterator(first, it, last);
+            return v1::make_utf_16_to_8_iterator(first, it, last);
         }
     };
 
@@ -3649,7 +3558,7 @@ namespace boost { namespace text { namespace detail {
         static constexpr utf_32_to_8_iterator<Iter, Sentinel>
         call(Iter first, Iter it, Sentinel last) noexcept
         {
-            return make_utf_32_to_8_iterator(first, it, last);
+            return v1::make_utf_32_to_8_iterator(first, it, last);
         }
     };
 
@@ -3663,7 +3572,7 @@ namespace boost { namespace text { namespace detail {
         static constexpr utf_8_to_16_iterator<Iter, Sentinel>
         call(Iter first, Iter it, Sentinel last) noexcept
         {
-            return make_utf_8_to_16_iterator(first, it, last);
+            return v1::make_utf_8_to_16_iterator(first, it, last);
         }
     };
 
@@ -3684,7 +3593,7 @@ namespace boost { namespace text { namespace detail {
         static constexpr utf_32_to_16_iterator<Iter, Sentinel>
         call(Iter first, Iter it, Sentinel last) noexcept
         {
-            return make_utf_32_to_16_iterator(first, it, last);
+            return v1::make_utf_32_to_16_iterator(first, it, last);
         }
     };
 
@@ -3698,7 +3607,7 @@ namespace boost { namespace text { namespace detail {
         static constexpr utf_8_to_32_iterator<Iter, Sentinel>
         call(Iter first, Iter it, Sentinel last) noexcept
         {
-            return make_utf_8_to_32_iterator(first, it, last);
+            return v1::make_utf_8_to_32_iterator(first, it, last);
         }
     };
 
@@ -3709,7 +3618,7 @@ namespace boost { namespace text { namespace detail {
         static constexpr utf_16_to_32_iterator<Iter, Sentinel>
         call(Iter first, Iter it, Sentinel last) noexcept
         {
-            return make_utf_16_to_32_iterator(first, it, last);
+            return v1::make_utf_16_to_32_iterator(first, it, last);
         }
     };
 
@@ -3723,6 +3632,87 @@ namespace boost { namespace text { namespace detail {
         }
     };
 
+    template<
+        typename Cont,
+        typename UTF8,
+        typename UTF16,
+        typename UTF32,
+        int Bytes = sizeof(typename Cont::value_type)>
+    struct from_utf8_dispatch
+    {
+        using type = UTF8;
+    };
+
+    template<typename Cont, typename UTF8, typename UTF16, typename UTF32>
+    struct from_utf8_dispatch<Cont, UTF8, UTF16, UTF32, 2>
+    {
+        using type = UTF16;
+    };
+
+    template<typename Cont, typename UTF8, typename UTF16, typename UTF32>
+    struct from_utf8_dispatch<Cont, UTF8, UTF16, UTF32, 4>
+    {
+        using type = UTF32;
+    };
+
+    template<typename Cont, typename UTF8, typename UTF16, typename UTF32>
+    using from_utf8_dispatch_t =
+        typename from_utf8_dispatch<Cont, UTF8, UTF16, UTF32>::type;
+
+    template<
+        typename Cont,
+        typename UTF8,
+        typename UTF16,
+        typename UTF32,
+        int Bytes = sizeof(typename Cont::value_type)>
+    struct from_utf16_dispatch
+    {
+        using type = UTF16;
+    };
+
+    template<typename Cont, typename UTF8, typename UTF16, typename UTF32>
+    struct from_utf16_dispatch<Cont, UTF8, UTF16, UTF32, 1>
+    {
+        using type = UTF8;
+    };
+
+    template<typename Cont, typename UTF8, typename UTF16, typename UTF32>
+    struct from_utf16_dispatch<Cont, UTF8, UTF16, UTF32, 4>
+    {
+        using type = UTF32;
+    };
+
+    template<typename Cont, typename UTF8, typename UTF16, typename UTF32>
+    using from_utf16_dispatch_t =
+        typename from_utf16_dispatch<Cont, UTF8, UTF16, UTF32>::type;
+
+    template<
+        typename Cont,
+        typename UTF8,
+        typename UTF16,
+        typename UTF32,
+        int Bytes = sizeof(typename Cont::value_type)>
+    struct from_utf32_dispatch
+    {
+        using type = UTF32;
+    };
+
+    template<typename Cont, typename UTF8, typename UTF16, typename UTF32>
+    struct from_utf32_dispatch<Cont, UTF8, UTF16, UTF32, 1>
+    {
+        using type = UTF8;
+    };
+
+    template<typename Cont, typename UTF8, typename UTF16, typename UTF32>
+    struct from_utf32_dispatch<Cont, UTF8, UTF16, UTF32, 2>
+    {
+        using type = UTF16;
+    };
+
+    template<typename Cont, typename UTF8, typename UTF16, typename UTF32>
+    using from_utf32_dispatch_t =
+        typename from_utf32_dispatch<Cont, UTF8, UTF16, UTF32>::type;
+
 }}}
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
@@ -3730,7 +3720,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     /** Returns an iterator equivalent to `it` that transcodes `[first, last)`
         to UTF-8. */
     template<typename Iter, typename Sentinel>
-    auto make_utf8_iterator(Iter first, Iter it, Sentinel last) noexcept
+    auto utf8_iterator(Iter first, Iter it, Sentinel last) noexcept
     {
         auto const unpacked = detail::unpack_iterator_and_sentinel(first, last);
         auto const unpacked_it =
@@ -3743,7 +3733,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     /** Returns an iterator equivalent to `it` that transcodes `[first, last)`
         to UTF-16. */
     template<typename Iter, typename Sentinel>
-    auto make_utf16_iterator(Iter first, Iter it, Sentinel last) noexcept
+    auto utf16_iterator(Iter first, Iter it, Sentinel last) noexcept
     {
         auto const unpacked = detail::unpack_iterator_and_sentinel(first, last);
         auto const unpacked_it =
@@ -3756,7 +3746,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     /** Returns an iterator equivalent to `it` that transcodes `[first, last)`
         to UTF-32. */
     template<typename Iter, typename Sentinel>
-    auto make_utf32_iterator(Iter first, Iter it, Sentinel last) noexcept
+    auto utf32_iterator(Iter first, Iter it, Sentinel last) noexcept
     {
         auto const unpacked = detail::unpack_iterator_and_sentinel(first, last);
         auto const unpacked_it =
@@ -3766,36 +3756,445 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             unpacked.f_, unpacked_it, unpacked.l_);
     }
 
+    /** Returns a inserting iterator that transcodes from UTF-8 to UTF-8,
+        UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
+        `sizeof(Cont::value_type)`: `1` implies UTF-8; `2` implies UTF-16; and
+        any other size implies UTF-32. */
+    template<typename Cont>
+    auto from_utf8_inserter(Cont & c, typename Cont::iterator it) noexcept
+    {
+        using result_type = detail::from_utf8_dispatch_t<
+            Cont,
+            std::insert_iterator<Cont>,
+            utf_8_to_16_insert_iterator<Cont>,
+            utf_8_to_32_insert_iterator<Cont>>;
+        return result_type(c, it);
+    }
+
+    /** Returns a inserting iterator that transcodes from UTF-16 to UTF-8,
+        UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
+        `sizeof(Cont::value_type)`: `1` implies UTF-8; `2` implies UTF-16; and
+        any other size implies UTF-32. */
+    template<typename Cont>
+    auto from_utf16_inserter(Cont & c, typename Cont::iterator it) noexcept
+    {
+        using result_type = detail::from_utf16_dispatch_t<
+            Cont,
+            utf_16_to_8_insert_iterator<Cont>,
+            std::insert_iterator<Cont>,
+            utf_16_to_32_insert_iterator<Cont>>;
+        return result_type(c, it);
+    }
+
+    /** Returns a inserting iterator that transcodes from UTF-32 to UTF-8,
+        UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
+        `sizeof(Cont::value_type)`: `1` implies UTF-8; `2` implies UTF-16; and
+        any other size implies UTF-32. */
+    template<typename Cont>
+    auto from_utf32_inserter(Cont & c, typename Cont::iterator it) noexcept
+    {
+        using result_type = detail::from_utf32_dispatch_t<
+            Cont,
+            utf_32_to_8_insert_iterator<Cont>,
+            utf_32_to_16_insert_iterator<Cont>,
+            std::insert_iterator<Cont>>;
+        return result_type(c, it);
+    }
+
+    /** Returns a back-inserting iterator that transcodes from UTF-8 to UTF-8,
+        UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
+        `sizeof(Cont::value_type)`: `1` implies UTF-8; `2` implies UTF-16; and
+        any other size implies UTF-32. */
+    template<typename Cont>
+    auto from_utf8_back_inserter(Cont & c) noexcept
+    {
+        using result_type = detail::from_utf8_dispatch_t<
+            Cont,
+            std::back_insert_iterator<Cont>,
+            utf_8_to_16_back_insert_iterator<Cont>,
+            utf_8_to_32_back_insert_iterator<Cont>>;
+        return result_type(c);
+    }
+
+    /** Returns a back-inserting iterator that transcodes from UTF-16 to UTF-8,
+        UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
+        `sizeof(Cont::value_type)`: `1` implies UTF-8; `2` implies UTF-16; and
+        any other size implies UTF-32. */
+    template<typename Cont>
+    auto from_utf16_back_inserter(Cont & c) noexcept
+    {
+        using result_type = detail::from_utf16_dispatch_t<
+            Cont,
+            utf_16_to_8_back_insert_iterator<Cont>,
+            std::back_insert_iterator<Cont>,
+            utf_16_to_32_back_insert_iterator<Cont>>;
+        return result_type(c);
+    }
+
+    /** Returns a back-inserting iterator that transcodes from UTF-32 to UTF-8,
+        UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
+        `sizeof(Cont::value_type)`: `1` implies UTF-8; `2` implies UTF-16; and
+        any other size implies UTF-32. */
+    template<typename Cont>
+    auto from_utf32_back_inserter(Cont & c) noexcept
+    {
+        using result_type = detail::from_utf32_dispatch_t<
+            Cont,
+            utf_32_to_8_back_insert_iterator<Cont>,
+            utf_32_to_16_back_insert_iterator<Cont>,
+            std::back_insert_iterator<Cont>>;
+        return result_type(c);
+    }
+
+    /** Returns a front-inserting iterator that transcodes from UTF-8 to UTF-8,
+        UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
+        `sizeof(Cont::value_type)`: `1` implies UTF-8; `2` implies UTF-16; and
+        any other size implies UTF-32. */
+    template<typename Cont>
+    auto from_utf8_front_inserter(Cont & c) noexcept
+    {
+        using result_type = detail::from_utf8_dispatch_t<
+            Cont,
+            std::front_insert_iterator<Cont>,
+            utf_8_to_16_front_insert_iterator<Cont>,
+            utf_8_to_32_front_insert_iterator<Cont>>;
+        return result_type(c);
+    }
+
+    /** Returns a front-inserting iterator that transcodes from UTF-16 to UTF-8,
+        UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
+        `sizeof(Cont::value_type)`: `1` implies UTF-8; `2` implies UTF-16; and
+        any other size implies UTF-32. */
+    template<typename Cont>
+    auto from_utf16_front_inserter(Cont & c) noexcept
+    {
+        using result_type = detail::from_utf16_dispatch_t<
+            Cont,
+            utf_16_to_8_front_insert_iterator<Cont>,
+            std::front_insert_iterator<Cont>,
+            utf_16_to_32_front_insert_iterator<Cont>>;
+        return result_type(c);
+    }
+
+    /** Returns a front-inserting iterator that transcodes from UTF-32 to UTF-8,
+        UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
+        `sizeof(Cont::value_type)`: `1` implies UTF-8; `2` implies UTF-16; and
+        any other size implies UTF-32. */
+    template<typename Cont>
+    auto from_utf32_front_inserter(Cont & c) noexcept
+    {
+        using result_type = detail::from_utf32_dispatch_t<
+            Cont,
+            utf_32_to_8_front_insert_iterator<Cont>,
+            utf_32_to_16_front_insert_iterator<Cont>,
+            std::front_insert_iterator<Cont>>;
+        return result_type(c);
+    }
+
 }}}
 
 #if defined(__cpp_lib_concepts)
 
-#include <boost/text/concepts.hpp>
-
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
+
+    /** Returns a utf_32_to_8_iterator<I, S>. */
+    template<u32_iter I, std::sentinel_for<I> S>
+    utf_32_to_8_iterator<I, S> make_utf_32_to_8_iterator(
+        I first, I it, S last) noexcept
+    {
+        return utf_32_to_8_iterator<I, S>(first, it, last);
+    }
+
+    /** Returns a utf_32_to_8_out_iterator<O> constructed from the given
+        iterator. */
+    template<std::output_iterator<uint8_t> O>
+    utf_32_to_8_out_iterator<O> utf_32_to_8_out(O it) noexcept
+    {
+        return utf_32_to_8_out_iterator<O>(it);
+    }
+
+    /** Returns a utf_8_to_32_iterator<I, S>. */
+    template<u8_iter I, std::sentinel_for<I> S>
+    utf_8_to_32_iterator<I, S> make_utf_8_to_32_iterator(
+        I first, I it, S last) noexcept
+    {
+        return utf_8_to_32_iterator<I, S>(first, it, last);
+    }
+
+    /** Returns a utf_8_to_32_out_iterator<O> constructed from the given
+        iterator. */
+    template<std::output_iterator<uint32_t> O>
+    utf_8_to_32_out_iterator<O> utf_8_to_32_out(O it) noexcept
+    {
+        return utf_8_to_32_out_iterator<O>(it);
+    }
+
+    /** Returns a utf_32_to_16_iterator<I, S>. */
+    template<u32_iter I, std::sentinel_for<I> S>
+    utf_32_to_16_iterator<I, S> make_utf_32_to_16_iterator(
+        I first, I it, S last) noexcept
+    {
+        return utf_32_to_16_iterator<I, S>(first, it, last);
+    }
+
+    /** Returns a utf_32_to_16_out_iterator<O> constructed from the given
+        iterator. */
+    template<std::output_iterator<uint16_t> O>
+    utf_32_to_16_out_iterator<O> utf_32_to_16_out(O it) noexcept
+    {
+        return utf_32_to_16_out_iterator<O>(it);
+    }
+
+    /** Returns a utf_16_to_32_iterator<I, S>. */
+    template<u16_iter I, std::sentinel_for<I> S>
+    utf_16_to_32_iterator<I, S> make_utf_16_to_32_iterator(
+        I first, I it, S last) noexcept
+    {
+        return utf_16_to_32_iterator<I, S>(first, it, last);
+    }
+
+    /** Returns a utf_16_to_32_out_iterator<O> constructed from the given
+        iterator. */
+    template<std::output_iterator<uint32_t> O>
+    utf_16_to_32_out_iterator<O> utf_16_to_32_out(O it) noexcept
+    {
+        return utf_16_to_32_out_iterator<O>(it);
+    }
+
+    /** Returns a utf_16_to_8_iterator<I, S>. */
+    template<u16_iter I, std::sentinel_for<I> S>
+    utf_16_to_8_iterator<I, S> make_utf_16_to_8_iterator(
+        I first, I it, S last) noexcept
+    {
+        return utf_16_to_8_iterator<I, S>(first, it, last);
+    }
+
+    /** Returns a utf_16_to_8_out_iterator<O> constructed from the given
+        iterator. */
+    template<std::output_iterator<uint8_t> O>
+    utf_16_to_8_out_iterator<O> utf_16_to_8_out(O it) noexcept
+    {
+        return utf_16_to_8_out_iterator<O>(it);
+    }
+
+    /** Returns a utf_8_to_16_iterator<I, S>. */
+    template<u8_iter I, std::sentinel_for<I> S>
+    utf_8_to_16_iterator<I, S> make_utf_8_to_16_iterator(
+        I first, I it, S last) noexcept
+    {
+        return utf_8_to_16_iterator<I, S>(first, it, last);
+    }
+
+    /** Returns a utf_8_to_16_out_iterator<O> constructed from the given
+        iterator. */
+    template<std::output_iterator<uint16_t> O>
+    utf_8_to_16_out_iterator<O> utf_8_to_16_out(O it) noexcept
+    {
+        return utf_8_to_16_out_iterator<O>(it);
+    }
 
     /** Returns an iterator equivalent to `it` that transcodes `[first, last)`
         to UTF-8. */
     template<std::bidirectional_iterator I, std::sentinel_for<I> S>
-    auto make_utf8_iterator(I first, I it, S last) noexcept
+    auto utf8_iterator(I first, I it, S last) noexcept
     {
-        return text::v1::make_utf8_iterator(first, it, last);
+        return text::v1::utf8_iterator(first, it, last);
     }
 
     /** Returns an iterator equivalent to `it` that transcodes `[first, last)`
         to UTF-16. */
     template<std::bidirectional_iterator I, std::sentinel_for<I> S>
-    auto make_utf16_iterator(I first, I it, S last) noexcept
+    auto utf16_iterator(I first, I it, S last) noexcept
     {
-        return text::v1::make_utf16_iterator(first, it, last);
+        return text::v1::utf16_iterator(first, it, last);
     }
 
     /** Returns an iterator equivalent to `it` that transcodes `[first, last)`
         to UTF-32. */
     template<std::bidirectional_iterator I, std::sentinel_for<I> S>
-    auto make_utf32_iterator(I first, I it, S last) noexcept
+    auto utf32_iterator(I first, I it, S last) noexcept
     {
-        return text::v1::make_utf32_iterator(first, it, last);
+        return text::v1::utf32_iterator(first, it, last);
+    }
+
+    /** Returns a inserting iterator that transcodes from UTF-8 to UTF-8,
+        UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
+        `sizeof(Cont::value_type)`: `1` implies UTF-8; `2` implies UTF-16; and
+        any other size implies UTF-32. */
+    template<typename Cont>
+    // clang-format off
+        requires requires { typename Cont::value_type; } &&
+        std::is_integral_v<typename Cont::value_type>
+    auto from_utf8_inserter(Cont & c, typename Cont::iterator it) noexcept
+    // clang-format on
+    {
+        if constexpr (sizeof(typename Cont::value_type) == 1) {
+            return std::insert_iterator<Cont>(c, it);
+        } else if constexpr (sizeof(typename Cont::value_type) == 2) {
+            return utf_8_to_16_insert_iterator<Cont>(c, it);
+        } else {
+            return utf_8_to_32_insert_iterator<Cont>(c, it);
+        }
+    }
+
+    /** Returns a inserting iterator that transcodes from UTF-16 to UTF-8,
+        UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
+        `sizeof(Cont::value_type)`: `1` implies UTF-8; `2` implies UTF-16; and
+        any other size implies UTF-32. */
+    template<typename Cont>
+    // clang-format off
+        requires requires { typename Cont::value_type; } &&
+        std::is_integral_v<typename Cont::value_type>
+    auto from_utf16_inserter(Cont & c, typename Cont::iterator it) noexcept
+    // clang-format on
+    {
+        if constexpr (sizeof(typename Cont::value_type) == 1) {
+            return utf_16_to_8_insert_iterator<Cont>(c, it);
+        } else if constexpr (sizeof(typename Cont::value_type) == 2) {
+            return std::insert_iterator<Cont>(c, it);
+        } else {
+            return utf_16_to_32_insert_iterator<Cont>(c, it);
+        }
+    }
+
+    /** Returns a inserting iterator that transcodes from UTF-32 to UTF-8,
+        UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
+        `sizeof(Cont::value_type)`: `1` implies UTF-8; `2` implies UTF-16; and
+        any other size implies UTF-32. */
+    template<typename Cont>
+    // clang-format off
+        requires requires { typename Cont::value_type; } &&
+        std::is_integral_v<typename Cont::value_type>
+    auto from_utf32_inserter(Cont & c, typename Cont::iterator it) noexcept
+    // clang-format on
+    {
+        if constexpr (sizeof(typename Cont::value_type) == 1) {
+            return utf_32_to_8_insert_iterator<Cont>(c, it);
+        } else if constexpr (sizeof(typename Cont::value_type) == 2) {
+            return utf_32_to_16_insert_iterator<Cont>(c, it);
+        } else {
+            return std::insert_iterator<Cont>(c, it);
+        }
+    }
+
+    /** Returns a back-inserting iterator that transcodes from UTF-8 to UTF-8,
+        UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
+        `sizeof(Cont::value_type)`: `1` implies UTF-8; `2` implies UTF-16; and
+        any other size implies UTF-32. */
+    template<typename Cont>
+    // clang-format off
+        requires requires { typename Cont::value_type; } &&
+        std::is_integral_v<typename Cont::value_type>
+    auto from_utf8_back_inserter(Cont & c) noexcept
+    // clang-format on
+    {
+        if constexpr (sizeof(typename Cont::value_type) == 1) {
+            return std::back_insert_iterator<Cont>(c);
+        } else if constexpr (sizeof(typename Cont::value_type) == 2) {
+            return utf_8_to_16_back_insert_iterator<Cont>(c);
+        } else {
+            return utf_8_to_32_back_insert_iterator<Cont>(c);
+        }
+    }
+
+    /** Returns a back-inserting iterator that transcodes from UTF-16 to UTF-8,
+        UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
+        `sizeof(Cont::value_type)`: `1` implies UTF-8; `2` implies UTF-16; and
+        any other size implies UTF-32. */
+    template<typename Cont>
+    // clang-format off
+        requires requires { typename Cont::value_type; } &&
+        std::is_integral_v<typename Cont::value_type>
+    auto from_utf16_back_inserter(Cont & c) noexcept
+    // clang-format on
+    {
+        if constexpr (sizeof(typename Cont::value_type) == 1) {
+            return utf_16_to_8_back_insert_iterator<Cont>(c);
+        } else if constexpr (sizeof(typename Cont::value_type) == 2) {
+            return std::back_insert_iterator<Cont>(c);
+        } else {
+            return utf_16_to_32_back_insert_iterator<Cont>(c);
+        }
+    }
+
+    /** Returns a back-inserting iterator that transcodes from UTF-32 to UTF-8,
+        UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
+        `sizeof(Cont::value_type)`: `1` implies UTF-8; `2` implies UTF-16; and
+        any other size implies UTF-32. */
+    template<typename Cont>
+    // clang-format off
+        requires requires { typename Cont::value_type; } &&
+        std::is_integral_v<typename Cont::value_type>
+    auto from_utf32_back_inserter(Cont & c) noexcept
+    // clang-format on
+    {
+        if constexpr (sizeof(typename Cont::value_type) == 1) {
+            return utf_32_to_8_back_insert_iterator<Cont>(c);
+        } else if constexpr (sizeof(typename Cont::value_type) == 2) {
+            return utf_32_to_16_back_insert_iterator<Cont>(c);
+        } else {
+            return std::back_insert_iterator<Cont>(c);
+        }
+    }
+
+    /** Returns a front-inserting iterator that transcodes from UTF-8 to UTF-8,
+        UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
+        `sizeof(Cont::value_type)`: `1` implies UTF-8; `2` implies UTF-16; and
+        any other size implies UTF-32. */
+    template<typename Cont>
+    // clang-format off
+        requires requires { typename Cont::value_type; } &&
+        std::is_integral_v<typename Cont::value_type>
+    auto from_utf8_front_inserter(Cont & c) noexcept
+    // clang-format on
+    {
+        if constexpr (sizeof(typename Cont::value_type) == 1) {
+            return std::front_insert_iterator<Cont>(c);
+        } else if constexpr (sizeof(typename Cont::value_type) == 2) {
+            return utf_8_to_16_front_insert_iterator<Cont>(c);
+        } else {
+            return utf_8_to_32_front_insert_iterator<Cont>(c);
+        }
+    }
+
+    /** Returns a front-inserting iterator that transcodes from UTF-16 to UTF-8,
+        UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
+        `sizeof(Cont::value_type)`: `1` implies UTF-8; `2` implies UTF-16; and
+        any other size implies UTF-32. */
+    template<typename Cont>
+    // clang-format off
+        requires requires { typename Cont::value_type; } &&
+        std::is_integral_v<typename Cont::value_type>
+    auto from_utf16_front_inserter(Cont & c) noexcept
+    // clang-format on
+    {
+        if constexpr (sizeof(typename Cont::value_type) == 1) {
+            return utf_16_to_8_front_insert_iterator<Cont>(c);
+        } else if constexpr (sizeof(typename Cont::value_type) == 2) {
+            return std::front_insert_iterator<Cont>(c);
+        } else {
+            return utf_16_to_32_front_insert_iterator<Cont>(c);
+        }
+    }
+
+    /** Returns a front-inserting iterator that transcodes from UTF-32 to UTF-8,
+        UTF-16, or UTF-32.  Which UTF the iterator transcodes to depends on
+        `sizeof(Cont::value_type)`: `1` implies UTF-8; `2` implies UTF-16; and
+        any other size implies UTF-32. */
+    template<typename Cont>
+    // clang-format off
+        requires requires { typename Cont::value_type; } &&
+        std::is_integral_v<typename Cont::value_type>
+    auto from_utf32_front_inserter(Cont & c) noexcept
+    // clang-format on
+    {
+        if constexpr (sizeof(typename Cont::value_type) == 1) {
+            return utf_32_to_8_front_insert_iterator<Cont>(c);
+        } else if constexpr (sizeof(typename Cont::value_type) == 2) {
+            return utf_32_to_16_front_insert_iterator<Cont>(c);
+        } else {
+            return std::front_insert_iterator<Cont>(c);
+        }
     }
 
 }}}

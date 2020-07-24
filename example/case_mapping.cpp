@@ -37,7 +37,7 @@ assert(default_titled_t == boost::text::text("Ijssel"));
 std::string dutch_titled_t;
 boost::text::to_title(
     t,
-    boost::text::utf_32_to_8_inserter(dutch_titled_t, dutch_titled_t.end()),
+    boost::text::from_utf32_inserter(dutch_titled_t, dutch_titled_t.end()),
     boost::text::case_language::dutch);
 assert(dutch_titled_t == "IJssel");
 //]

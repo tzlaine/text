@@ -81,7 +81,7 @@ namespace boost { namespace text { namespace detail { namespace icu {
         template<typename CharIter>
         char_iter_ret_t<void, CharIter> append(CharIter first, CharIter last)
         {
-            out_ = boost::text::transcode_utf_8_to_32(first, last, out_);
+            out_ = boost::text::transcode_to_utf32(first, last, out_);
         }
 
         UTF32OutIter out() const { return out_; }

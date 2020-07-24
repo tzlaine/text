@@ -362,9 +362,9 @@ namespace boost { namespace text {
 
             auto const string_cps =
                 boost::text::as_utf32(string.begin(), string.end());
-            auto const string_cp_first = boost::text::make_utf32_iterator(
+            auto const string_cp_first = boost::text::utf32_iterator(
                 string.begin(), str_first, string.end());
-            auto const string_cp_last = boost::text::make_utf32_iterator(
+            auto const string_cp_last = boost::text::utf32_iterator(
                 string.begin(), str_last, string.end());
 
             using stable_cps_type =
@@ -455,10 +455,10 @@ namespace boost { namespace text {
 
             auto const string_cps =
                 boost::text::as_utf32(string.begin(), string.end());
-            auto const string_cp_first = boost::text::make_utf32_iterator(
+            auto const string_cp_first = boost::text::utf32_iterator(
                 string.begin(), first, string.end());
-            auto const string_cp_last = boost::text::make_utf32_iterator(
-                string.begin(), last, string.end());
+            auto const string_cp_last =
+                boost::text::utf32_iterator(string.begin(), last, string.end());
 
             using stable_cps_type =
                 stable_cps_result_t<decltype(string_cps.begin())>;

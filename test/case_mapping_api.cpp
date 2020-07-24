@@ -288,7 +288,7 @@ TEST(case_mapping_api, greek_special_casing)
         std::string result;
         text::to_upper(
             text::as_utf32(from),
-            text::utf_32_to_8_inserter(result, result.end()));
+            text::from_utf32_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
@@ -298,7 +298,7 @@ TEST(case_mapping_api, greek_special_casing)
         std::string result;
         text::to_upper(
             text::as_utf32(from),
-            text::utf_32_to_8_inserter(result, result.end()));
+            text::from_utf32_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
@@ -308,7 +308,7 @@ TEST(case_mapping_api, greek_special_casing)
         std::string result;
         text::to_upper(
             text::as_utf32(from),
-            text::utf_32_to_8_inserter(result, result.end()));
+            text::from_utf32_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
@@ -318,7 +318,7 @@ TEST(case_mapping_api, greek_special_casing)
         std::string result;
         text::to_upper(
             text::as_utf32(from),
-            text::utf_32_to_8_inserter(result, result.end()));
+            text::from_utf32_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
@@ -328,7 +328,7 @@ TEST(case_mapping_api, greek_special_casing)
         std::string result;
         text::to_upper(
             text::as_utf32(from),
-            text::utf_32_to_8_inserter(result, result.end()));
+            text::from_utf32_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
@@ -338,7 +338,7 @@ TEST(case_mapping_api, greek_special_casing)
         std::string result;
         text::to_upper(
             text::as_utf32(from),
-            text::utf_32_to_8_inserter(result, result.end()));
+            text::from_utf32_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
@@ -348,7 +348,7 @@ TEST(case_mapping_api, greek_special_casing)
         std::string result;
         text::to_upper(
             text::as_utf32(from),
-            text::utf_32_to_8_inserter(result, result.end()));
+            text::from_utf32_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
@@ -360,7 +360,7 @@ TEST(case_mapping_api, greek_special_casing)
         std::string result;
         text::to_upper(
             text::as_utf32(from),
-            text::utf_32_to_8_inserter(result, result.end()));
+            text::from_utf32_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
@@ -372,7 +372,7 @@ TEST(case_mapping_api, greek_special_casing)
         std::string result;
         text::to_upper(
             text::as_utf32(from),
-            text::utf_32_to_8_inserter(result, result.end()));
+            text::from_utf32_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
@@ -382,7 +382,7 @@ TEST(case_mapping_api, greek_special_casing)
         std::string result;
         text::to_upper(
             text::as_utf32(from),
-            text::utf_32_to_8_inserter(result, result.end()));
+            text::from_utf32_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
@@ -392,7 +392,7 @@ TEST(case_mapping_api, greek_special_casing)
         std::string result;
         text::to_upper(
             text::as_utf32(from),
-            text::utf_32_to_8_inserter(result, result.end()));
+            text::from_utf32_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
@@ -402,7 +402,7 @@ TEST(case_mapping_api, greek_special_casing)
         std::string result;
         text::to_upper(
             text::as_utf32(from),
-            text::utf_32_to_8_inserter(result, result.end()));
+            text::from_utf32_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
@@ -412,7 +412,7 @@ TEST(case_mapping_api, greek_special_casing)
         std::string result;
         text::to_upper(
             text::as_utf32(from),
-            text::utf_32_to_8_inserter(result, result.end()));
+            text::from_utf32_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
@@ -424,7 +424,7 @@ TEST(case_mapping_api, greek_special_casing)
         std::string result;
         text::to_upper(
             text::as_utf32(from),
-            text::utf_32_to_8_inserter(result, result.end()));
+            text::from_utf32_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
@@ -434,7 +434,7 @@ TEST(case_mapping_api, greek_special_casing)
         std::string result;
         text::to_upper(
             text::as_utf32(from),
-            text::utf_32_to_8_inserter(result, result.end()));
+            text::from_utf32_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
@@ -444,7 +444,7 @@ TEST(case_mapping_api, greek_special_casing)
         std::string result;
         text::to_upper(
             text::as_utf32(from),
-            text::utf_32_to_8_inserter(result, result.end()));
+            text::from_utf32_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 
@@ -454,7 +454,7 @@ TEST(case_mapping_api, greek_special_casing)
         std::string result;
         text::to_upper(
             text::as_utf32(from),
-            text::utf_32_to_8_inserter(result, result.end()));
+            text::from_utf32_inserter(result, result.end()));
         EXPECT_EQ(result, to) << result << " != " << to;
     }
 }

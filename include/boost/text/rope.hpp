@@ -432,7 +432,7 @@ namespace boost { namespace text {
                 return at;
 
             std::string s;
-            boost::text::transcode_utf_32_to_8(
+            boost::text::transcode_to_utf8(
                 g.begin(), g.end(), std::inserter(s, s.end()));
             return r.insert_impl(at, std::move(s), true);
         }
@@ -930,7 +930,7 @@ namespace boost { namespace text {
                 container::small_vector<char, 256> buf;
                 boost::text::normalize<nf::fcc>(
                     boost::text::as_utf32(suffix.begin(), suffix.end()),
-                    boost::text::utf_32_to_8_back_inserter(buf));
+                    boost::text::from_utf32_back_inserter(buf));
                 str.replace(str.cbegin(), str_last, buf.begin(), buf.end());
             }
 
@@ -948,7 +948,7 @@ namespace boost { namespace text {
                 container::small_vector<char, 256> buf;
                 boost::text::normalize<nf::fcc>(
                     boost::text::as_utf32(prefix.begin(), prefix.end()),
-                    boost::text::utf_32_to_8_back_inserter(buf));
+                    boost::text::from_utf32_back_inserter(buf));
                 str.replace(str.cbegin(), str_last, buf.begin(), buf.end());
             }
         } else {
