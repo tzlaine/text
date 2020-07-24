@@ -983,8 +983,8 @@ namespace boost { namespace text {
 
         container::small_vector<char, 256> buf;
         normalize<nf::fcc>(first, last, from_utf32_back_inserter(buf));
-        auto const initial_cp =
-            *make_utf_8_to_32_iterator(&buf[0], &buf[0], &buf[0] + buf.size());
+        auto const initial_cp = *boost::text::utf32_iterator(
+            &buf[0], &buf[0], &buf[0] + buf.size());
         auto const prev_initial_cp = *first;
 
         str_.replace(

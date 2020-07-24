@@ -306,16 +306,17 @@ TEST(transcode_algorithm, from_utf8_errors_0)
         result.resize(out_last - out_first);
         EXPECT_EQ(
             result,
-            std::vector<uint32_t>({0x0061,
-                                   0xfffd,
-                                   0xfffd,
-                                   0xfffd,
-                                   0x0062,
-                                   0xfffd,
-                                   0x0063,
-                                   0xfffd,
-                                   0xfffd,
-                                   0x0064}));
+            std::vector<uint32_t>(
+                {0x0061,
+                 0xfffd,
+                 0xfffd,
+                 0xfffd,
+                 0x0062,
+                 0xfffd,
+                 0x0063,
+                 0xfffd,
+                 0xfffd,
+                 0x0064}));
     }
     // UTF-8 pointer and sentinel -> UTF-32 pointer
     {
@@ -326,16 +327,17 @@ TEST(transcode_algorithm, from_utf8_errors_0)
         result.resize(out_last - out_first);
         EXPECT_EQ(
             result,
-            std::vector<uint32_t>({0x0061,
-                                   0xfffd,
-                                   0xfffd,
-                                   0xfffd,
-                                   0x0062,
-                                   0xfffd,
-                                   0x0063,
-                                   0xfffd,
-                                   0xfffd,
-                                   0x0064}));
+            std::vector<uint32_t>(
+                {0x0061,
+                 0xfffd,
+                 0xfffd,
+                 0xfffd,
+                 0x0062,
+                 0xfffd,
+                 0x0063,
+                 0xfffd,
+                 0xfffd,
+                 0x0064}));
     }
     // UTF-8 non-pointer -> UTF-32 pointer
     {
@@ -347,16 +349,17 @@ TEST(transcode_algorithm, from_utf8_errors_0)
         result.resize(out_last - out_first);
         EXPECT_EQ(
             result,
-            std::vector<uint32_t>({0x0061,
-                                   0xfffd,
-                                   0xfffd,
-                                   0xfffd,
-                                   0x0062,
-                                   0xfffd,
-                                   0x0063,
-                                   0xfffd,
-                                   0xfffd,
-                                   0x0064}));
+            std::vector<uint32_t>(
+                {0x0061,
+                 0xfffd,
+                 0xfffd,
+                 0xfffd,
+                 0x0062,
+                 0xfffd,
+                 0x0063,
+                 0xfffd,
+                 0xfffd,
+                 0x0064}));
     }
     // UTF-8 pointer -> UTF-32 non-pointer
     {
@@ -367,16 +370,17 @@ TEST(transcode_algorithm, from_utf8_errors_0)
             std::back_inserter(result));
         EXPECT_EQ(
             result,
-            std::vector<uint32_t>({0x0061,
-                                   0xfffd,
-                                   0xfffd,
-                                   0xfffd,
-                                   0x0062,
-                                   0xfffd,
-                                   0x0063,
-                                   0xfffd,
-                                   0xfffd,
-                                   0x0064}));
+            std::vector<uint32_t>(
+                {0x0061,
+                 0xfffd,
+                 0xfffd,
+                 0xfffd,
+                 0x0062,
+                 0xfffd,
+                 0x0063,
+                 0xfffd,
+                 0xfffd,
+                 0x0064}));
     }
     // UTF-8 pointer and sentinel -> UTF-32 non-pointer
     {
@@ -387,16 +391,17 @@ TEST(transcode_algorithm, from_utf8_errors_0)
             std::back_inserter(result));
         EXPECT_EQ(
             result,
-            std::vector<uint32_t>({0x0061,
-                                   0xfffd,
-                                   0xfffd,
-                                   0xfffd,
-                                   0x0062,
-                                   0xfffd,
-                                   0x0063,
-                                   0xfffd,
-                                   0xfffd,
-                                   0x0064}));
+            std::vector<uint32_t>(
+                {0x0061,
+                 0xfffd,
+                 0xfffd,
+                 0xfffd,
+                 0x0062,
+                 0xfffd,
+                 0x0063,
+                 0xfffd,
+                 0xfffd,
+                 0x0064}));
     }
     // UTF-8 non-pointer -> UTF-32 non-pointer
     {
@@ -406,16 +411,17 @@ TEST(transcode_algorithm, from_utf8_errors_0)
             bad_utf8_.begin(), bad_utf8_.end(), std::back_inserter(result));
         EXPECT_EQ(
             result,
-            std::vector<uint32_t>({0x0061,
-                                   0xfffd,
-                                   0xfffd,
-                                   0xfffd,
-                                   0x0062,
-                                   0xfffd,
-                                   0x0063,
-                                   0xfffd,
-                                   0xfffd,
-                                   0x0064}));
+            std::vector<uint32_t>(
+                {0x0061,
+                 0xfffd,
+                 0xfffd,
+                 0xfffd,
+                 0x0062,
+                 0xfffd,
+                 0x0063,
+                 0xfffd,
+                 0xfffd,
+                 0x0064}));
     }
 }
 
@@ -758,8 +764,8 @@ TEST(transcode_algorithm, from_utf16_non_error)
         std::vector<uint32_t> result(10);
         std::list<uint16_t> utf16_(std::begin(utf16), std::end(utf16));
         auto const out_first = &result[0];
-        auto const out_last = text::transcode_to_utf32(
-            utf16_.begin(), utf16_.end(), &result[0]);
+        auto const out_last =
+            text::transcode_to_utf32(utf16_.begin(), utf16_.end(), &result[0]);
         result.resize(out_last - out_first);
         EXPECT_EQ(
             result, std::vector<uint32_t>({0x004d, 0x0430, 0x4e8c, 0x10302}));
@@ -768,8 +774,8 @@ TEST(transcode_algorithm, from_utf16_non_error)
     {
         std::vector<uint32_t> result(10);
         auto const out_first = &result[0];
-        auto const out_last = text::transcode_to_utf32(
-            (uint16_t const *)utf16_null, &result[0]);
+        auto const out_last =
+            text::transcode_to_utf32((uint16_t const *)utf16_null, &result[0]);
         result.resize(out_last - out_first);
         EXPECT_EQ(
             result, std::vector<uint32_t>({0x004d, 0x0430, 0x4e8c, 0x10302}));
@@ -810,57 +816,60 @@ TEST(transcode_algorithm, from_utf16_non_error)
         result.resize(out_last - out_first);
         EXPECT_EQ(
             result,
-            std::vector<char>({0x4d,
-                               char(0xd0),
-                               char(0xb0),
-                               char(0xe4),
-                               char(0xba),
-                               char(0x8c),
-                               char(0xf0),
-                               char(0x90),
-                               char(0x8c),
-                               char(0x82)}));
+            std::vector<char>(
+                {0x4d,
+                 char(0xd0),
+                 char(0xb0),
+                 char(0xe4),
+                 char(0xba),
+                 char(0x8c),
+                 char(0xf0),
+                 char(0x90),
+                 char(0x8c),
+                 char(0x82)}));
     }
     // UTF-16 non-pointer -> UTF-8 pointer
     {
         std::vector<char> result(10);
         std::list<uint16_t> utf16_(std::begin(utf16), std::end(utf16));
         auto const out_first = &result[0];
-        auto const out_last = text::transcode_to_utf8(
-            utf16_.begin(), utf16_.end(), &result[0]);
+        auto const out_last =
+            text::transcode_to_utf8(utf16_.begin(), utf16_.end(), &result[0]);
         result.resize(out_last - out_first);
         EXPECT_EQ(
             result,
-            std::vector<char>({0x4d,
-                               char(0xd0),
-                               char(0xb0),
-                               char(0xe4),
-                               char(0xba),
-                               char(0x8c),
-                               char(0xf0),
-                               char(0x90),
-                               char(0x8c),
-                               char(0x82)}));
+            std::vector<char>(
+                {0x4d,
+                 char(0xd0),
+                 char(0xb0),
+                 char(0xe4),
+                 char(0xba),
+                 char(0x8c),
+                 char(0xf0),
+                 char(0x90),
+                 char(0x8c),
+                 char(0x82)}));
     }
     // UTF-16 single pointer -> UTF-8 pointer
     {
         std::vector<char> result(10);
         auto const out_first = &result[0];
-        auto const out_last = text::transcode_to_utf8(
-            (uint16_t const *)utf16_null, &result[0]);
+        auto const out_last =
+            text::transcode_to_utf8((uint16_t const *)utf16_null, &result[0]);
         result.resize(out_last - out_first);
         EXPECT_EQ(
             result,
-            std::vector<char>({0x4d,
-                               char(0xd0),
-                               char(0xb0),
-                               char(0xe4),
-                               char(0xba),
-                               char(0x8c),
-                               char(0xf0),
-                               char(0x90),
-                               char(0x8c),
-                               char(0x82)}));
+            std::vector<char>(
+                {0x4d,
+                 char(0xd0),
+                 char(0xb0),
+                 char(0xe4),
+                 char(0xba),
+                 char(0x8c),
+                 char(0xf0),
+                 char(0x90),
+                 char(0x8c),
+                 char(0x82)}));
     }
     // UTF-16 array -> UTF-8 pointer
     {
@@ -870,16 +879,17 @@ TEST(transcode_algorithm, from_utf16_non_error)
         result.resize(out_last - out_first);
         EXPECT_EQ(
             result,
-            std::vector<char>({0x4d,
-                               char(0xd0),
-                               char(0xb0),
-                               char(0xe4),
-                               char(0xba),
-                               char(0x8c),
-                               char(0xf0),
-                               char(0x90),
-                               char(0x8c),
-                               char(0x82)}));
+            std::vector<char>(
+                {0x4d,
+                 char(0xd0),
+                 char(0xb0),
+                 char(0xe4),
+                 char(0xba),
+                 char(0x8c),
+                 char(0xf0),
+                 char(0x90),
+                 char(0x8c),
+                 char(0x82)}));
     }
     // UTF-16 pointer -> UTF-8 non-pointer
     {
@@ -888,16 +898,17 @@ TEST(transcode_algorithm, from_utf16_non_error)
             std::begin(utf16), std::end(utf16), std::back_inserter(result));
         EXPECT_EQ(
             result,
-            std::vector<char>({0x4d,
-                               char(0xd0),
-                               char(0xb0),
-                               char(0xe4),
-                               char(0xba),
-                               char(0x8c),
-                               char(0xf0),
-                               char(0x90),
-                               char(0x8c),
-                               char(0x82)}));
+            std::vector<char>(
+                {0x4d,
+                 char(0xd0),
+                 char(0xb0),
+                 char(0xe4),
+                 char(0xba),
+                 char(0x8c),
+                 char(0xf0),
+                 char(0x90),
+                 char(0x8c),
+                 char(0x82)}));
     }
     // UTF-16 non-pointer -> UTF-8 non-pointer
     {
@@ -907,26 +918,27 @@ TEST(transcode_algorithm, from_utf16_non_error)
             utf16_.begin(), utf16_.end(), std::back_inserter(result));
         EXPECT_EQ(
             result,
-            std::vector<char>({0x4d,
-                               char(0xd0),
-                               char(0xb0),
-                               char(0xe4),
-                               char(0xba),
-                               char(0x8c),
-                               char(0xf0),
-                               char(0x90),
-                               char(0x8c),
-                               char(0x82)}));
+            std::vector<char>(
+                {0x4d,
+                 char(0xd0),
+                 char(0xb0),
+                 char(0xe4),
+                 char(0xba),
+                 char(0x8c),
+                 char(0xf0),
+                 char(0x90),
+                 char(0x8c),
+                 char(0x82)}));
     }
 }
 
 TEST(transcode_algorithm, from_long_utf16_sequence)
 {
     std::vector<uint16_t> cus;
-    auto const utf16_first = text::make_utf_32_to_16_iterator(
-        std::begin(cps), std::begin(cps), std::end(cps));
-    auto const utf16_last = text::make_utf_32_to_16_iterator(
-        std::begin(cps), std::end(cps), std::end(cps));
+    auto const utf16_first =
+        text::utf16_iterator(std::begin(cps), std::begin(cps), std::end(cps));
+    auto const utf16_last =
+        text::utf16_iterator(std::begin(cps), std::end(cps), std::end(cps));
     std::copy(utf16_first, utf16_last, std::back_inserter(cus));
 
     std::vector<uint32_t> const cps_copy(std::begin(cps), std::end(cps));
@@ -976,10 +988,8 @@ TEST(transcode_algorithm, from_long_utf16_sequence)
 
     std::vector<char> cps_to_8;
     std::copy(
-        text::make_utf_32_to_8_iterator(
-            std::begin(cps), std::begin(cps), std::end(cps)),
-        text::make_utf_32_to_8_iterator(
-            std::begin(cps), std::end(cps), std::end(cps)),
+        text::utf8_iterator(std::begin(cps), std::begin(cps), std::end(cps)),
+        text::utf8_iterator(std::begin(cps), std::end(cps), std::end(cps)),
         std::back_inserter(cps_to_8));
 
     // UTF-16 pointer -> UTF-8 pointer
@@ -1064,8 +1074,7 @@ TEST(transcode_algorithm, from_utf16_errors_1)
         int i = 0;
         for (auto c : cases) {
             std::list<uint16_t> utf16_(std::begin(c.str_), std::end(c.str_));
-            text::transcode_to_utf32(
-                utf16_.begin(), utf16_.end(), &result[0]);
+            text::transcode_to_utf32(utf16_.begin(), utf16_.end(), &result[0]);
             EXPECT_EQ(result[0], c.utf32_) << "i=" << i;
             ++i;
         }
@@ -1129,8 +1138,7 @@ TEST(transcode_algorithm, from_utf16_errors_2)
         int i = 0;
         for (auto c : cases) {
             std::list<uint16_t> utf16_(std::begin(c.str_), std::end(c.str_));
-            text::transcode_to_utf32(
-                utf16_.begin(), utf16_.end(), &result[0]);
+            text::transcode_to_utf32(utf16_.begin(), utf16_.end(), &result[0]);
             EXPECT_EQ(result[0], c.utf32_) << "i=" << i;
             ++i;
         }
@@ -1182,8 +1190,8 @@ TEST(transcode_algorithm, from_utf32)
         std::vector<uint16_t> result(10);
         std::list<uint32_t> utf32_(std::begin(utf32), std::end(utf32));
         auto const out_first = &result[0];
-        auto const out_last = text::transcode_to_utf16(
-            utf32_.begin(), utf32_.end(), &result[0]);
+        auto const out_last =
+            text::transcode_to_utf16(utf32_.begin(), utf32_.end(), &result[0]);
         result.resize(out_last - out_first);
         EXPECT_EQ(
             result,
@@ -1193,8 +1201,8 @@ TEST(transcode_algorithm, from_utf32)
     {
         std::vector<uint16_t> result(10);
         auto const out_first = &result[0];
-        auto const out_last = text::transcode_to_utf16(
-            (uint32_t const *)utf32_null, &result[0]);
+        auto const out_last =
+            text::transcode_to_utf16((uint32_t const *)utf32_null, &result[0]);
         result.resize(out_last - out_first);
         EXPECT_EQ(
             result,
@@ -1239,57 +1247,60 @@ TEST(transcode_algorithm, from_utf32)
         result.resize(out_last - out_first);
         EXPECT_EQ(
             result,
-            std::vector<char>({0x4d,
-                               char(0xd0),
-                               char(0xb0),
-                               char(0xe4),
-                               char(0xba),
-                               char(0x8c),
-                               char(0xf0),
-                               char(0x90),
-                               char(0x8c),
-                               char(0x82)}));
+            std::vector<char>(
+                {0x4d,
+                 char(0xd0),
+                 char(0xb0),
+                 char(0xe4),
+                 char(0xba),
+                 char(0x8c),
+                 char(0xf0),
+                 char(0x90),
+                 char(0x8c),
+                 char(0x82)}));
     }
     // UTF-32 non-pointer -> UTF-8 pointer
     {
         std::vector<char> result(10);
         std::list<uint32_t> utf32_(std::begin(utf32), std::end(utf32));
         auto const out_first = &result[0];
-        auto const out_last = text::transcode_to_utf8(
-            utf32_.begin(), utf32_.end(), &result[0]);
+        auto const out_last =
+            text::transcode_to_utf8(utf32_.begin(), utf32_.end(), &result[0]);
         result.resize(out_last - out_first);
         EXPECT_EQ(
             result,
-            std::vector<char>({0x4d,
-                               char(0xd0),
-                               char(0xb0),
-                               char(0xe4),
-                               char(0xba),
-                               char(0x8c),
-                               char(0xf0),
-                               char(0x90),
-                               char(0x8c),
-                               char(0x82)}));
+            std::vector<char>(
+                {0x4d,
+                 char(0xd0),
+                 char(0xb0),
+                 char(0xe4),
+                 char(0xba),
+                 char(0x8c),
+                 char(0xf0),
+                 char(0x90),
+                 char(0x8c),
+                 char(0x82)}));
     }
     // UTF-32 single pointer -> UTF-8 pointer
     {
         std::vector<char> result(10);
         auto const out_first = &result[0];
-        auto const out_last = text::transcode_to_utf8(
-            (uint32_t const *)utf32_null, &result[0]);
+        auto const out_last =
+            text::transcode_to_utf8((uint32_t const *)utf32_null, &result[0]);
         result.resize(out_last - out_first);
         EXPECT_EQ(
             result,
-            std::vector<char>({0x4d,
-                               char(0xd0),
-                               char(0xb0),
-                               char(0xe4),
-                               char(0xba),
-                               char(0x8c),
-                               char(0xf0),
-                               char(0x90),
-                               char(0x8c),
-                               char(0x82)}));
+            std::vector<char>(
+                {0x4d,
+                 char(0xd0),
+                 char(0xb0),
+                 char(0xe4),
+                 char(0xba),
+                 char(0x8c),
+                 char(0xf0),
+                 char(0x90),
+                 char(0x8c),
+                 char(0x82)}));
     }
     // UTF-32 array -> UTF-8 pointer
     {
@@ -1299,16 +1310,17 @@ TEST(transcode_algorithm, from_utf32)
         result.resize(out_last - out_first);
         EXPECT_EQ(
             result,
-            std::vector<char>({0x4d,
-                               char(0xd0),
-                               char(0xb0),
-                               char(0xe4),
-                               char(0xba),
-                               char(0x8c),
-                               char(0xf0),
-                               char(0x90),
-                               char(0x8c),
-                               char(0x82)}));
+            std::vector<char>(
+                {0x4d,
+                 char(0xd0),
+                 char(0xb0),
+                 char(0xe4),
+                 char(0xba),
+                 char(0x8c),
+                 char(0xf0),
+                 char(0x90),
+                 char(0x8c),
+                 char(0x82)}));
     }
     // UTF-32 pointer -> UTF-8 non-pointer
     {
@@ -1317,16 +1329,17 @@ TEST(transcode_algorithm, from_utf32)
             std::begin(utf32), std::end(utf32), std::back_inserter(result));
         EXPECT_EQ(
             result,
-            std::vector<char>({0x4d,
-                               char(0xd0),
-                               char(0xb0),
-                               char(0xe4),
-                               char(0xba),
-                               char(0x8c),
-                               char(0xf0),
-                               char(0x90),
-                               char(0x8c),
-                               char(0x82)}));
+            std::vector<char>(
+                {0x4d,
+                 char(0xd0),
+                 char(0xb0),
+                 char(0xe4),
+                 char(0xba),
+                 char(0x8c),
+                 char(0xf0),
+                 char(0x90),
+                 char(0x8c),
+                 char(0x82)}));
     }
     // UTF-32 non-pointer -> UTF-8 non-pointer
     {
@@ -1336,16 +1349,17 @@ TEST(transcode_algorithm, from_utf32)
             utf32_.begin(), utf32_.end(), std::back_inserter(result));
         EXPECT_EQ(
             result,
-            std::vector<char>({0x4d,
-                               char(0xd0),
-                               char(0xb0),
-                               char(0xe4),
-                               char(0xba),
-                               char(0x8c),
-                               char(0xf0),
-                               char(0x90),
-                               char(0x8c),
-                               char(0x82)}));
+            std::vector<char>(
+                {0x4d,
+                 char(0xd0),
+                 char(0xb0),
+                 char(0xe4),
+                 char(0xba),
+                 char(0x8c),
+                 char(0xf0),
+                 char(0x90),
+                 char(0x8c),
+                 char(0x82)}));
     }
 }
 
@@ -1353,10 +1367,8 @@ TEST(transcode_algorithm, from_long_utf32_sequence)
 {
     std::vector<uint16_t> cps_to_16;
     std::copy(
-        text::make_utf_32_to_16_iterator(
-            std::begin(cps), std::begin(cps), std::end(cps)),
-        text::make_utf_32_to_16_iterator(
-            std::begin(cps), std::end(cps), std::end(cps)),
+        text::utf16_iterator(std::begin(cps), std::begin(cps), std::end(cps)),
+        text::utf16_iterator(std::begin(cps), std::end(cps), std::end(cps)),
         std::back_inserter(cps_to_16));
 
     // UTF-32 pointer -> UTF-16 pointer
@@ -1396,18 +1408,16 @@ TEST(transcode_algorithm, from_long_utf32_sequence)
 
     std::vector<char> cps_to_8;
     std::copy(
-        text::make_utf_32_to_8_iterator(
-            std::begin(cps), std::begin(cps), std::end(cps)),
-        text::make_utf_32_to_8_iterator(
-            std::begin(cps), std::end(cps), std::end(cps)),
+        text::utf8_iterator(std::begin(cps), std::begin(cps), std::end(cps)),
+        text::utf8_iterator(std::begin(cps), std::end(cps), std::end(cps)),
         std::back_inserter(cps_to_8));
 
     // UTF-32 pointer -> UTF-8 pointer
     {
         std::vector<char> result(10000);
         auto const out_first = &result[0];
-        auto const out_last = text::transcode_to_utf8(
-            std::begin(cps), std::end(cps), &result[0]);
+        auto const out_last =
+            text::transcode_to_utf8(std::begin(cps), std::end(cps), &result[0]);
         result.resize(out_last - out_first);
         EXPECT_EQ(result, cps_to_8);
     }

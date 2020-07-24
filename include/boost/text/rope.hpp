@@ -956,8 +956,8 @@ namespace boost { namespace text {
         }
 
         auto const prev_initial_cp = *first;
-        auto const initial_cp = *boost::text::make_utf_8_to_32_iterator(
-            str.begin(), str.begin(), str.end());
+        auto const initial_cp =
+            *boost::text::utf32_iterator(str.begin(), str.begin(), str.end());
         auto const new_lo =
             initial_cp == prev_initial_cp ? lo : first.base() - rope_.begin();
 

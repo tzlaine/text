@@ -459,7 +459,7 @@ TEST(sentinel_apis, normalize_nfd)
 
     // utf_8_to_32_iterator/sentinel
     std::vector<uint32_t> result3;
-    auto utf8_it = text::make_utf_8_to_32_iterator(
+    auto utf8_it = text::utf32_iterator(
         &*utf8.begin(), &*utf8.begin(), text::null_sentinel{});
     text::normalize<text::nf::d>(
         utf8_it, text::null_sentinel{}, std::back_inserter(result3));
@@ -468,7 +468,7 @@ TEST(sentinel_apis, normalize_nfd)
 
     // utf_8_to_32_iterator/utf_8_to_32_iterator
     std::vector<uint32_t> result4;
-    auto utf8_end = text::make_utf_8_to_32_iterator(
+    auto utf8_end = text::utf32_iterator(
         &*utf8.begin(),
         &*utf8.begin() + utf8.size(),
         &*utf8.begin() + utf8.size());
@@ -479,9 +479,9 @@ TEST(sentinel_apis, normalize_nfd)
 
     // utf_16_to_32_iterator/utf_16_to_32_iterator
     std::vector<uint32_t> result5;
-    auto utf16_it = text::make_utf_16_to_32_iterator(
+    auto utf16_it = text::utf32_iterator(
         utf16.begin(), utf16.begin(), utf16.end());
-    auto utf16_end = text::make_utf_16_to_32_iterator(
+    auto utf16_end = text::utf32_iterator(
         utf16.begin(), utf16.end(), utf16.end());
     text::normalize<text::nf::d>(
         utf16_it, utf16_end, std::back_inserter(result5));
@@ -512,7 +512,7 @@ TEST(sentinel_apis, normalize_nfkd)
 
     // utf_8_to_32_iterator/sentinel
     std::vector<uint32_t> result3;
-    auto utf8_it = text::make_utf_8_to_32_iterator(
+    auto utf8_it = text::utf32_iterator(
         &*utf8.begin(), &*utf8.begin(), text::null_sentinel{});
     text::normalize<text::nf::kd>(
         utf8_it, text::null_sentinel{}, std::back_inserter(result3));
@@ -521,7 +521,7 @@ TEST(sentinel_apis, normalize_nfkd)
 
     // utf_8_to_32_iterator/utf_8_to_32_iterator
     std::vector<uint32_t> result4;
-    auto utf8_end = text::make_utf_8_to_32_iterator(
+    auto utf8_end = text::utf32_iterator(
         &*utf8.begin(),
         &*utf8.begin() + utf8.size(),
         &*utf8.begin() + utf8.size());
@@ -532,9 +532,9 @@ TEST(sentinel_apis, normalize_nfkd)
 
     // utf_16_to_32_iterator/utf_16_to_32_iterator
     std::vector<uint32_t> result5;
-    auto utf16_it = text::make_utf_16_to_32_iterator(
+    auto utf16_it = text::utf32_iterator(
         utf16.begin(), utf16.begin(), utf16.end());
-    auto utf16_end = text::make_utf_16_to_32_iterator(
+    auto utf16_end = text::utf32_iterator(
         utf16.begin(), utf16.end(), utf16.end());
     text::normalize<text::nf::kd>(
         utf16_it, utf16_end, std::back_inserter(result5));
@@ -582,9 +582,9 @@ TEST(sentinel_apis, normalize_nfc)
 
     // utf_16_to_32_iterator/utf_16_to_32_iterator
     std::vector<uint32_t> result5;
-    auto utf16_it = text::make_utf_16_to_32_iterator(
+    auto utf16_it = text::utf32_iterator(
         utf16.begin(), utf16.begin(), utf16.end());
-    auto utf16_end = text::make_utf_16_to_32_iterator(
+    auto utf16_end = text::utf32_iterator(
         utf16.begin(), utf16.end(), utf16.end());
     text::normalize<text::nf::c>(
         utf16_it, utf16_end, std::back_inserter(result5));
@@ -632,9 +632,9 @@ TEST(sentinel_apis, normalize_nfkc)
 
     // utf_16_to_32_iterator/utf_16_to_32_iterator
     std::vector<uint32_t> result5;
-    auto utf16_it = text::make_utf_16_to_32_iterator(
+    auto utf16_it = text::utf32_iterator(
         utf16.begin(), utf16.begin(), utf16.end());
-    auto utf16_end = text::make_utf_16_to_32_iterator(
+    auto utf16_end = text::utf32_iterator(
         utf16.begin(), utf16.end(), utf16.end());
     text::normalize<text::nf::kc>(
         utf16_it, utf16_end, std::back_inserter(result5));
@@ -682,9 +682,9 @@ TEST(sentinel_apis, normalize_fcc)
 
     // utf_16_to_32_iterator/utf_16_to_32_iterator
     std::vector<uint32_t> result5;
-    auto utf16_it = text::make_utf_16_to_32_iterator(
+    auto utf16_it = text::utf32_iterator(
         utf16.begin(), utf16.begin(), utf16.end());
-    auto utf16_end = text::make_utf_16_to_32_iterator(
+    auto utf16_end = text::utf32_iterator(
         utf16.begin(), utf16.end(), utf16.end());
     text::normalize<text::nf::fcc>(
         utf16_it, utf16_end, std::back_inserter(result5));

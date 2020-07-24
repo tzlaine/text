@@ -81,10 +81,10 @@ uint32_t const cps[] = {
 TEST(transcode_insert_iterator, utf16_inserters_long)
 {
     std::vector<uint16_t> cus;
-    auto const utf16_first = text::make_utf_32_to_16_iterator(
-        std::begin(cps), std::begin(cps), std::end(cps));
-    auto const utf16_last = text::make_utf_32_to_16_iterator(
-        std::begin(cps), std::end(cps), std::end(cps));
+    auto const utf16_first =
+        text::utf16_iterator(std::begin(cps), std::begin(cps), std::end(cps));
+    auto const utf16_last =
+        text::utf16_iterator(std::begin(cps), std::end(cps), std::end(cps));
     std::copy(utf16_first, utf16_last, std::back_inserter(cus));
 
     std::vector<uint32_t> const cps_copy(std::begin(cps), std::end(cps));

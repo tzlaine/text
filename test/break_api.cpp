@@ -224,10 +224,8 @@ TEST(break_apis, grapheme_break_sentinel)
         // 4,2,3 code units, respectively.
         std::array<uint32_t, 3> cps = {{0x1f3fb, 0x308, 0x1100}};
         s = std::string(
-            boost::text::make_utf_32_to_8_iterator(
-                cps.begin(), cps.begin(), cps.end()),
-            boost::text::make_utf_32_to_8_iterator(
-                cps.begin(), cps.end(), cps.end()));
+            boost::text::utf8_iterator(cps.begin(), cps.begin(), cps.end()),
+            boost::text::utf8_iterator(cps.begin(), cps.end(), cps.end()));
         assert(s.size() == 9);
     }
 
@@ -509,10 +507,8 @@ TEST(break_apis, word_break_sentinel)
     {
         std::array<uint32_t, 6> cps = {{0x61, 0x5f, 0x61, 0x2e, 0x3a, 0x61}};
         s = std::string(
-            boost::text::make_utf_32_to_8_iterator(
-                cps.begin(), cps.begin(), cps.end()),
-            boost::text::make_utf_32_to_8_iterator(
-                cps.begin(), cps.end(), cps.end()));
+            boost::text::utf8_iterator(cps.begin(), cps.begin(), cps.end()),
+            boost::text::utf8_iterator(cps.begin(), cps.end(), cps.end()));
     }
 
     char const * c_str = s.c_str();
@@ -1243,9 +1239,9 @@ TEST(break_apis, sentence_break_sentinel)
     {
         std::array<uint32_t, 3> cps = {{0x5b57, 0x3002, 0x5b83}};
         s = std::string(
-            boost::text::make_utf_32_to_8_iterator(
+            boost::text::utf8_iterator(
                 cps.begin(), cps.begin(), cps.end()),
-            boost::text::make_utf_32_to_8_iterator(
+            boost::text::utf8_iterator(
                 cps.begin(), cps.end(), cps.end()));
     }
 
@@ -1726,9 +1722,9 @@ TEST(break_apis, line_break_sentinel)
     {
         std::array<uint32_t, 3> cps = {{0x200b, 0x20, 0x30}};
         s = std::string(
-            boost::text::make_utf_32_to_8_iterator(
+            boost::text::utf8_iterator(
                 cps.begin(), cps.begin(), cps.end()),
-            boost::text::make_utf_32_to_8_iterator(
+            boost::text::utf8_iterator(
                 cps.begin(), cps.end(), cps.end()));
     }
 
@@ -2413,9 +2409,9 @@ TEST(break_apis, paragraph_break_sentinel)
     {
         std::array<uint32_t, 6> const cps = {{0x61, 0xd, 0xa, 0x2e, 0xa, 0x61}};
         s = std::string(
-            boost::text::make_utf_32_to_8_iterator(
+            boost::text::utf8_iterator(
                 cps.begin(), cps.begin(), cps.end()),
-            boost::text::make_utf_32_to_8_iterator(
+            boost::text::utf8_iterator(
                 cps.begin(), cps.end(), cps.end()));
     }
 
@@ -2821,10 +2817,8 @@ TEST(break_apis, bidi_sentinel)
         0, 11, 10, 9, 7, 5, 4, 3, 2, 13};
     {
         s = std::string(
-            boost::text::make_utf_32_to_8_iterator(
-                cps.begin(), cps.begin(), cps.end()),
-            boost::text::make_utf_32_to_8_iterator(
-                cps.begin(), cps.end(), cps.end()));
+            boost::text::utf8_iterator(cps.begin(), cps.begin(), cps.end()),
+            boost::text::utf8_iterator(cps.begin(), cps.end(), cps.end()));
     }
 
     char const * c_str = s.c_str();

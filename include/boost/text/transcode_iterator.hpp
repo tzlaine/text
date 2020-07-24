@@ -3423,106 +3423,6 @@ namespace boost { namespace text {
 
 }}
 
-namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
-
-    /** Returns a utf_32_to_8_iterator<Iter>. */
-    template<typename Iter, typename Sentinel>
-    utf_32_to_8_iterator<Iter, Sentinel>
-    make_utf_32_to_8_iterator(Iter first, Iter it, Sentinel last) noexcept
-    {
-        return utf_32_to_8_iterator<Iter, Sentinel>(first, it, last);
-    }
-
-    /** Returns a utf_32_to_8_out_iterator<Iter> constructed from the given
-        iterator. */
-    template<typename Iter>
-    utf_32_to_8_out_iterator<Iter> utf_32_to_8_out(Iter it) noexcept
-    {
-        return utf_32_to_8_out_iterator<Iter>(it);
-    }
-
-    /** Returns a utf_8_to_32_iterator<Iter, Sentinel>. */
-    template<typename Iter, typename Sentinel>
-    utf_8_to_32_iterator<Iter, Sentinel>
-    make_utf_8_to_32_iterator(Iter first, Iter it, Sentinel last) noexcept
-    {
-        return utf_8_to_32_iterator<Iter, Sentinel>(first, it, last);
-    }
-
-    /** Returns a utf_8_to_32_out_iterator<Iter> constructed from the given
-        iterator. */
-    template<typename Iter>
-    utf_8_to_32_out_iterator<Iter> utf_8_to_32_out(Iter it) noexcept
-    {
-        return utf_8_to_32_out_iterator<Iter>(it);
-    }
-
-    /** Returns a utf_32_to_16_iterator<Iter, Sentinel>. */
-    template<typename Iter, typename Sentinel>
-    utf_32_to_16_iterator<Iter, Sentinel>
-    make_utf_32_to_16_iterator(Iter first, Iter it, Sentinel last) noexcept
-    {
-        return utf_32_to_16_iterator<Iter, Sentinel>(first, it, last);
-    }
-
-    /** Returns a utf_32_to_16_out_iterator<Iter> constructed from the given
-        iterator. */
-    template<typename Iter>
-    utf_32_to_16_out_iterator<Iter> utf_32_to_16_out(Iter it) noexcept
-    {
-        return utf_32_to_16_out_iterator<Iter>(it);
-    }
-
-    /** Returns a utf_16_to_32_iterator<Iter, Sentinel>. */
-    template<typename Iter, typename Sentinel>
-    utf_16_to_32_iterator<Iter, Sentinel>
-    make_utf_16_to_32_iterator(Iter first, Iter it, Sentinel last) noexcept
-    {
-        return utf_16_to_32_iterator<Iter, Sentinel>(first, it, last);
-    }
-
-    /** Returns a utf_16_to_32_out_iterator<Iter> constructed from the given
-        iterator. */
-    template<typename Iter>
-    utf_16_to_32_out_iterator<Iter> utf_16_to_32_out(Iter it) noexcept
-    {
-        return utf_16_to_32_out_iterator<Iter>(it);
-    }
-
-    /** Returns a utf_16_to_8_iterator<Iter, Sentinel>. */
-    template<typename Iter, typename Sentinel>
-    utf_16_to_8_iterator<Iter, Sentinel>
-    make_utf_16_to_8_iterator(Iter first, Iter it, Sentinel last) noexcept
-    {
-        return utf_16_to_8_iterator<Iter, Sentinel>(first, it, last);
-    }
-
-    /** Returns a utf_16_to_8_out_iterator<Iter> constructed from the given
-        iterator. */
-    template<typename Iter>
-    utf_16_to_8_out_iterator<Iter> utf_16_to_8_out(Iter it) noexcept
-    {
-        return utf_16_to_8_out_iterator<Iter>(it);
-    }
-
-    /** Returns a utf_8_to_16_iterator<Iter, Sentinel>. */
-    template<typename Iter, typename Sentinel>
-    utf_8_to_16_iterator<Iter, Sentinel>
-    make_utf_8_to_16_iterator(Iter first, Iter it, Sentinel last) noexcept
-    {
-        return utf_8_to_16_iterator<Iter, Sentinel>(first, it, last);
-    }
-
-    /** Returns a utf_8_to_16_out_iterator<Iter> constructed from the given
-        iterator. */
-    template<typename Iter>
-    utf_8_to_16_out_iterator<Iter> utf_8_to_16_out(Iter it) noexcept
-    {
-        return utf_8_to_16_out_iterator<Iter>(it);
-    }
-
-}}}
-
 #include <boost/text/detail/unpack.hpp>
 
 namespace boost { namespace text { namespace detail {
@@ -3547,7 +3447,7 @@ namespace boost { namespace text { namespace detail {
         static constexpr utf_16_to_8_iterator<Iter, Sentinel>
         call(Iter first, Iter it, Sentinel last) noexcept
         {
-            return v1::make_utf_16_to_8_iterator(first, it, last);
+            return utf_16_to_8_iterator<Iter, Sentinel>(first, it, last);
         }
     };
 
@@ -3558,7 +3458,7 @@ namespace boost { namespace text { namespace detail {
         static constexpr utf_32_to_8_iterator<Iter, Sentinel>
         call(Iter first, Iter it, Sentinel last) noexcept
         {
-            return v1::make_utf_32_to_8_iterator(first, it, last);
+            return utf_32_to_8_iterator<Iter, Sentinel>(first, it, last);
         }
     };
 
@@ -3572,7 +3472,7 @@ namespace boost { namespace text { namespace detail {
         static constexpr utf_8_to_16_iterator<Iter, Sentinel>
         call(Iter first, Iter it, Sentinel last) noexcept
         {
-            return v1::make_utf_8_to_16_iterator(first, it, last);
+            return utf_8_to_16_iterator<Iter, Sentinel>(first, it, last);
         }
     };
 
@@ -3593,7 +3493,7 @@ namespace boost { namespace text { namespace detail {
         static constexpr utf_32_to_16_iterator<Iter, Sentinel>
         call(Iter first, Iter it, Sentinel last) noexcept
         {
-            return v1::make_utf_32_to_16_iterator(first, it, last);
+            return utf_32_to_16_iterator<Iter, Sentinel>(first, it, last);
         }
     };
 
@@ -3607,7 +3507,7 @@ namespace boost { namespace text { namespace detail {
         static constexpr utf_8_to_32_iterator<Iter, Sentinel>
         call(Iter first, Iter it, Sentinel last) noexcept
         {
-            return v1::make_utf_8_to_32_iterator(first, it, last);
+            return utf_8_to_32_iterator<Iter, Sentinel>(first, it, last);
         }
     };
 
@@ -3618,7 +3518,7 @@ namespace boost { namespace text { namespace detail {
         static constexpr utf_16_to_32_iterator<Iter, Sentinel>
         call(Iter first, Iter it, Sentinel last) noexcept
         {
-            return v1::make_utf_16_to_32_iterator(first, it, last);
+            return utf_16_to_32_iterator<Iter, Sentinel>(first, it, last);
         }
     };
 
@@ -3716,6 +3616,54 @@ namespace boost { namespace text { namespace detail {
 }}}
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
+
+    /** Returns a utf_32_to_8_out_iterator<Iter> constructed from the given
+        iterator. */
+    template<typename Iter>
+    utf_32_to_8_out_iterator<Iter> utf_32_to_8_out(Iter it) noexcept
+    {
+        return utf_32_to_8_out_iterator<Iter>(it);
+    }
+
+    /** Returns a utf_8_to_32_out_iterator<Iter> constructed from the given
+        iterator. */
+    template<typename Iter>
+    utf_8_to_32_out_iterator<Iter> utf_8_to_32_out(Iter it) noexcept
+    {
+        return utf_8_to_32_out_iterator<Iter>(it);
+    }
+
+    /** Returns a utf_32_to_16_out_iterator<Iter> constructed from the given
+        iterator. */
+    template<typename Iter>
+    utf_32_to_16_out_iterator<Iter> utf_32_to_16_out(Iter it) noexcept
+    {
+        return utf_32_to_16_out_iterator<Iter>(it);
+    }
+
+    /** Returns a utf_16_to_32_out_iterator<Iter> constructed from the given
+        iterator. */
+    template<typename Iter>
+    utf_16_to_32_out_iterator<Iter> utf_16_to_32_out(Iter it) noexcept
+    {
+        return utf_16_to_32_out_iterator<Iter>(it);
+    }
+
+    /** Returns a utf_16_to_8_out_iterator<Iter> constructed from the given
+        iterator. */
+    template<typename Iter>
+    utf_16_to_8_out_iterator<Iter> utf_16_to_8_out(Iter it) noexcept
+    {
+        return utf_16_to_8_out_iterator<Iter>(it);
+    }
+
+    /** Returns a utf_8_to_16_out_iterator<Iter> constructed from the given
+        iterator. */
+    template<typename Iter>
+    utf_8_to_16_out_iterator<Iter> utf_8_to_16_out(Iter it) noexcept
+    {
+        return utf_8_to_16_out_iterator<Iter>(it);
+    }
 
     /** Returns an iterator equivalent to `it` that transcodes `[first, last)`
         to UTF-8. */
@@ -3897,28 +3845,12 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
-    /** Returns a utf_32_to_8_iterator<I, S>. */
-    template<u32_iter I, std::sentinel_for<I> S>
-    utf_32_to_8_iterator<I, S> make_utf_32_to_8_iterator(
-        I first, I it, S last) noexcept
-    {
-        return utf_32_to_8_iterator<I, S>(first, it, last);
-    }
-
     /** Returns a utf_32_to_8_out_iterator<O> constructed from the given
         iterator. */
     template<std::output_iterator<uint8_t> O>
     utf_32_to_8_out_iterator<O> utf_32_to_8_out(O it) noexcept
     {
         return utf_32_to_8_out_iterator<O>(it);
-    }
-
-    /** Returns a utf_8_to_32_iterator<I, S>. */
-    template<u8_iter I, std::sentinel_for<I> S>
-    utf_8_to_32_iterator<I, S> make_utf_8_to_32_iterator(
-        I first, I it, S last) noexcept
-    {
-        return utf_8_to_32_iterator<I, S>(first, it, last);
     }
 
     /** Returns a utf_8_to_32_out_iterator<O> constructed from the given
@@ -3929,28 +3861,12 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         return utf_8_to_32_out_iterator<O>(it);
     }
 
-    /** Returns a utf_32_to_16_iterator<I, S>. */
-    template<u32_iter I, std::sentinel_for<I> S>
-    utf_32_to_16_iterator<I, S> make_utf_32_to_16_iterator(
-        I first, I it, S last) noexcept
-    {
-        return utf_32_to_16_iterator<I, S>(first, it, last);
-    }
-
     /** Returns a utf_32_to_16_out_iterator<O> constructed from the given
         iterator. */
     template<std::output_iterator<uint16_t> O>
     utf_32_to_16_out_iterator<O> utf_32_to_16_out(O it) noexcept
     {
         return utf_32_to_16_out_iterator<O>(it);
-    }
-
-    /** Returns a utf_16_to_32_iterator<I, S>. */
-    template<u16_iter I, std::sentinel_for<I> S>
-    utf_16_to_32_iterator<I, S> make_utf_16_to_32_iterator(
-        I first, I it, S last) noexcept
-    {
-        return utf_16_to_32_iterator<I, S>(first, it, last);
     }
 
     /** Returns a utf_16_to_32_out_iterator<O> constructed from the given
@@ -3961,28 +3877,12 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         return utf_16_to_32_out_iterator<O>(it);
     }
 
-    /** Returns a utf_16_to_8_iterator<I, S>. */
-    template<u16_iter I, std::sentinel_for<I> S>
-    utf_16_to_8_iterator<I, S> make_utf_16_to_8_iterator(
-        I first, I it, S last) noexcept
-    {
-        return utf_16_to_8_iterator<I, S>(first, it, last);
-    }
-
     /** Returns a utf_16_to_8_out_iterator<O> constructed from the given
         iterator. */
     template<std::output_iterator<uint8_t> O>
     utf_16_to_8_out_iterator<O> utf_16_to_8_out(O it) noexcept
     {
         return utf_16_to_8_out_iterator<O>(it);
-    }
-
-    /** Returns a utf_8_to_16_iterator<I, S>. */
-    template<u8_iter I, std::sentinel_for<I> S>
-    utf_8_to_16_iterator<I, S> make_utf_8_to_16_iterator(
-        I first, I it, S last) noexcept
-    {
-        return utf_8_to_16_iterator<I, S>(first, it, last);
     }
 
     /** Returns a utf_8_to_16_out_iterator<O> constructed from the given

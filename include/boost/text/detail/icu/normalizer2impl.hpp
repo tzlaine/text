@@ -353,14 +353,8 @@ namespace boost { namespace text { namespace detail { namespace icu {
         template<typename CharIter>
         UBool equals_utf8(CharIter otherStart, CharIter otherLimit) const
         {
-            auto const other_first =
-                boost::text::make_utf_8_to_16_iterator(
-                    otherStart, otherStart, otherLimit);
-            auto const other_last =
-                boost::text::make_utf_8_to_16_iterator(
-                    otherStart, otherLimit, otherLimit);
-            return algorithm::equal(
-                begin(), end(), other_first, other_last);
+            auto const other = boost::text::as_utf16(otherStart, otherLimit);
+            return algorithm::equal(begin(), end(), other.begin(), other.end());
         }
 
         UBool append(UChar32 c, uint8_t cc)
