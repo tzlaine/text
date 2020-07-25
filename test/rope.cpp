@@ -340,8 +340,8 @@ TEST(rope, test_substr)
 
     for (int i = 0, i_end = r.distance(); i < i_end; ++i) {
         for (int j = i, j_end = r.distance(); j < j_end; ++j) {
-            auto const first = std::prev(r.begin(), i);
-            auto const last = std::prev(r.begin(), j);
+            auto const first = std::next(r.begin(), i);
+            auto const last = std::next(r.begin(), j);
             text::rope const substr(first, last);
             text::rope_view const rv(first, last);
             EXPECT_EQ(substr, rv);
