@@ -296,14 +296,15 @@ namespace boost { namespace text {
         };
 
         // TODO: This needs to change to normalizing the middle
-        // (inserted/replaced bits) first int obuffer A, then the prefix into
+        // (inserted/replaced bits) first into buffer A, then the prefix into
         // a separate buffer B, then the suffix after the middle into A.  This
         // is needed becasue otherwise all-at-once operation happens almost
         // always, and that's a much slower code path than just doing the
         // middle by itself.  Alternatively, document that this is the
         // behavior, and that inserting long sections of NFD into NFC
         // containers impies worse performance than pre-normalizing and then
-        // inserting.
+        // inserting.  Of course, this should be measured before making such a
+        // change (or even a claim).
 
         template<
             typename StringIter,
