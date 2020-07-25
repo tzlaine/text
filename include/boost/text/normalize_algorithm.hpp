@@ -519,7 +519,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         typename String,
         typename CPIter,
         typename StringIter = typename String::iterator>
-    auto replace(
+    auto normalize_replace(
         String & string,
         StringIter str_first,
         StringIter str_last,
@@ -550,7 +550,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         typename String,
         typename CPIter,
         typename StringIter = typename String::iterator>
-    auto insert(
+    auto normalize_insert(
         String & string,
         StringIter at,
         CPIter first,
@@ -579,7 +579,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         typename String,
         typename CPRange,
         typename StringIter = typename String::iterator>
-    replace_result<StringIter> insert(
+    replace_result<StringIter> normalize_insert(
         String & string,
         StringIter at,
         CPRange const & r,
@@ -601,7 +601,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         nf Normalization,
         typename String,
         typename StringIter = typename String::iterator>
-    replace_result<StringIter> erase(
+    replace_result<StringIter> normalize_erase(
         String & string, StringIter str_first, StringIter str_last)
     {
         return detail::erase_impl<Normalization>(string, str_first, str_last);
@@ -629,7 +629,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         utf_string String,
         code_point_iterator I,
         typename StringIter = std::ranges::iterator_t<String>>
-    replace_result<StringIter> replace(
+    replace_result<StringIter> normalize_replace(
         String & string,
         StringIter str_first,
         StringIter str_last,
@@ -656,7 +656,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         utf_string String,
         code_point_iterator I,
         typename StringIter = std::ranges::iterator_t<String>>
-    replace_result<StringIter> insert(
+    replace_result<StringIter> normalize_insert(
         String & string,
         StringIter at,
         I first,
@@ -684,7 +684,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         utf_string String,
         code_point_range R,
         typename StringIter = std::ranges::iterator_t<String>>
-    replace_result<StringIter> insert(
+    replace_result<StringIter> normalize_insert(
         String & string,
         StringIter at,
         R const & r,
@@ -711,7 +711,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         nf Normalization,
         utf_string String,
         typename StringIter = std::ranges::iterator_t<String>>
-    replace_result<StringIter> erase(
+    replace_result<StringIter> normalize_erase(
         String & string, StringIter str_first, StringIter str_last)
     {
         return detail::erase_impl<Normalization>(string, str_first, str_last);
