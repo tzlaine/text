@@ -743,7 +743,7 @@ TEST(normalization_algorithm, insert_nfc)
 
     {
         // insert a suffix that causes the previous end code point to
-        // recompose.
+        // recompose
         std::vector<uint16_t> str({0x0103 /*a+breve*/});
         std::vector<uint16_t> const insertion({0x0328 /*ogonek*/});
         auto const r = boost::text::as_utf32(insertion);
@@ -1178,10 +1178,9 @@ TEST(normalization_algorithm, erase_nfc_utf8)
     }
 }
 
-#if 0 // TODO: Fix.
 TEST(normalization_algorithm, insert_nfc_utf8)
 {
-    std::string const nfc_a_cedilla_ring_above = "A\xcc\xa7\xcc\x8a";
+    std::string const nfc_a_cedilla_ring_above = "A\xc2\xb8\xcc\x8a";
 
     {
         // insert an empty prefix
@@ -1207,7 +1206,7 @@ TEST(normalization_algorithm, insert_nfc_utf8)
         EXPECT_EQ(
             str,
             "\xe1\xb8\x8a" /*D+dot above*/
-            "A\xcc\xa7\xcc\x8a");
+            "A\xc2\xb8\xcc\x8a");
         EXPECT_EQ(result.begin(), str.begin());
         EXPECT_EQ(result.end(), str.begin() + 3);
     }
@@ -1225,7 +1224,7 @@ TEST(normalization_algorithm, insert_nfc_utf8)
         EXPECT_EQ(
             str,
             "\xcc\x87\xcc\x87\xcc\x87\xcc\x87" /*dots above*/
-            "A\xcc\xa7\xcc\x8a");
+            "A\xc2\xb8\xcc\x8a");
         EXPECT_EQ(result.begin(), str.begin());
         EXPECT_EQ(result.end(), str.begin() + 8);
     }
@@ -1261,7 +1260,7 @@ TEST(normalization_algorithm, insert_nfc_utf8)
 
     {
         // insert noncombiners
-        std::string str = "A\xcc\xa7\xcc\x8a"; // nfc_a_cedilla_ring_above;
+        std::string str = nfc_a_cedilla_ring_above;
         std::string const insertion =
             "\xcc\x87\xcc\x87\xcc\x87\xcc\x87"; // dots above
         auto const r = boost::text::as_utf32(insertion);
@@ -1272,41 +1271,9 @@ TEST(normalization_algorithm, insert_nfc_utf8)
             str,
             "\xc8\xa6"                 /*A+dot above*/
             "\xcc\x87\xcc\x87\xcc\x87" // dots above
-            "\xcc\xa7\xcc\x8a");
+            "\xc2\xb8\xcc\x8a");
         EXPECT_EQ(result.begin(), str.begin());
         EXPECT_EQ(result.end(), str.begin() + 8);
-
-        {
-            std::vector<uint16_t> str(
-                {0x0041 /*A*/,
-                 0x0307 /*dot above*/,
-                 0x0307 /*dot above*/,
-                 0x0307 /*dot above*/,
-                 0x0307 /*dot above*/,
-                 0x00b8 /*cedilla*/,
-                 0x030A /*ring above*/});
-            boost::text::normalize<boost::text::nf::c>(str);
-            EXPECT_EQ(
-                str,
-                std::vector<uint16_t>(
-                    {0x0226 /*A+dot above*/,
-                     0x0307 /*dot above*/,
-                     0x0307 /*dot above*/,
-                     0x0307 /*dot above*/,
-                     0x00b8 /*cedilla*/,
-                     0x030A /*ring above*/}));
-        }
-
-        {
-            std::string str =
-                "A\xcc\x87\xcc\x87\xcc\x87\xcc\x87\xcc\xa7\xcc\x8a";
-            boost::text::normalize<boost::text::nf::c>(str);
-            EXPECT_EQ(
-                str,
-                "\xc8\xa6"                 /*A+dot above*/
-                "\xcc\x87\xcc\x87\xcc\x87" // dots above
-                "\xcc\xa7\xcc\x8a");
-        }
     }
 
     {
@@ -1349,7 +1316,7 @@ TEST(normalization_algorithm, insert_nfc_utf8)
                 str, str.end(), r.begin(), r.end());
         EXPECT_EQ(
             str,
-            "A\xcc\xa7\xcc\x8a"
+            "A\xc2\xb8\xcc\x8a"
             "\xe1\xb8\x8a"); /*D+dot above*/
         EXPECT_EQ(result.begin(), str.end() - 3);
         EXPECT_EQ(result.end(), str.end());
@@ -1375,7 +1342,7 @@ TEST(normalization_algorithm, insert_nfc_utf8)
                 boost::text::insertion_normalized);
         EXPECT_EQ(
             str,
-            "A\xcc\xa7\xcc\x8a"
+            "A\xc2\xb8\xcc\x8a"
             "\xc4\x85" /*a+ogonek*/
             "a"
             "\xcc\xa8" /*ogonek*/
@@ -1395,9 +1362,9 @@ TEST(normalization_algorithm, insert_nfc_utf8)
                 str, str.end(), r.begin(), r.end());
         EXPECT_EQ(
             str,
-            "A\xcc\xa7\xcc\x8a"
+            "A\xc2\xb8\xcc\x8a"
             "\xcc\x87\xcc\x87\xcc\x87\xcc\x87"); // dots above
-        EXPECT_EQ(result.begin(), str.begin() - 8);
+        EXPECT_EQ(result.begin(), str.begin() + 5);
         EXPECT_EQ(result.end(), str.end());
     }
 
@@ -1419,7 +1386,7 @@ TEST(normalization_algorithm, insert_nfc_utf8)
 
     {
         // insert a suffix that causes the previous end code point to
-        // recompose.
+        // recompose
         std::string str = "\xc4\x83"; // a+breve
         std::string const insertion = "\xcc\xa8" /*ogonek*/;
         auto const r = boost::text::as_utf32(insertion);
@@ -1431,6 +1398,3 @@ TEST(normalization_algorithm, insert_nfc_utf8)
         EXPECT_EQ(result.end(), str.end());
     }
 }
-#endif
-
-// TODO: Exercise UTF-8 (incl. C-style strings for exercising sentinel paths)
