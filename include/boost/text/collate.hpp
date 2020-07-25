@@ -489,8 +489,8 @@ namespace boost { namespace text {
                             s -= 2;
                             std::advance(it_16, 2);
                         } else {
-                            --s;
-                            --it_16;
+                            s -= 1;
+                            ++it_16;
                         }
                         ++cps;
                     }
