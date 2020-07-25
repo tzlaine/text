@@ -8,7 +8,7 @@
 
 #include <boost/text/grapheme.hpp>
 #include <boost/text/grapheme_iterator.hpp>
-#include <boost/text/normalize_string.hpp>
+#include <boost/text/normalize_fwd.hpp>
 #include <boost/text/string_view.hpp>
 #include <boost/text/transcode_iterator.hpp>
 #include <boost/text/detail/utility.hpp>
@@ -26,7 +26,7 @@
 #define BOOST_TEXT_CHECK_TEXT_NORMALIZATION()                                  \
     do {                                                                       \
         std::string str2(str_);                                                \
-        normalize<nf::fcc>(str2);                                              \
+        boost::text::normalize<nf::fcc>(str2);                                 \
         BOOST_ASSERT(str_ == str2);                                            \
     } while (false)
 #else
@@ -37,6 +37,8 @@
 
 namespace boost { namespace text {
 
+    template<typename Iter>
+    struct replace_result;
     struct text_view;
     struct rope_view;
 
@@ -226,7 +228,10 @@ namespace boost { namespace text {
 
         /** Returns the number of graphemes in *this.  This operation is
             O(n). */
-        size_type distance() const noexcept { return std::distance(begin(), end()); }
+        size_type distance() const noexcept
+        {
+            return std::distance(begin(), end());
+        }
 
         /** Returns the maximum size in bytes a text can have. */
         size_type max_bytes() const noexcept { return PTRDIFF_MAX; }
@@ -239,29 +244,29 @@ namespace boost { namespace text {
 
         /** Inserts the sequence of char from c_str into *this starting at
             position at. */
-        iterator insert(iterator at, char const * c_str);
+        replace_result<iterator> insert(iterator at, char const * c_str);
 
 #if defined(__cpp_char8_t)
         /** Inserts the sequence of char from c_str into *this starting at
             position at. */
-        iterator insert(iterator at, char8_t const * c_str);
+        replace_result<iterator> insert(iterator at, char8_t const * c_str);
 #endif
 
         /** Inserts the sequence of char from t into *this starting at
             position at. */
-        iterator insert(iterator at, text const & t);
+        replace_result<iterator> insert(iterator at, text const & t);
 
         /** Inserts the sequence of char from tv into *this starting at
             position at. */
-        iterator insert(iterator at, text_view tv);
+        replace_result<iterator> insert(iterator at, text_view tv);
 
         /** Inserts the sequence of char from sv into *this starting at
             position at. */
-        iterator insert(iterator at, string_view sv);
+        replace_result<iterator> insert(iterator at, string_view sv);
 
         /** Inserts the sequence of char from rv into *this starting at
             position at. */
-        iterator insert(iterator at, rope_view rv);
+        replace_result<iterator> insert(iterator at, rope_view rv);
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -270,7 +275,7 @@ namespace boost { namespace text {
             This function only participates in overload resolution if
             `CharRange` models the CharRange concept. */
         template<typename CharRange>
-        iterator insert(iterator at, CharRange const & r);
+        replace_result<iterator> insert(iterator at, CharRange const & r);
 
         /** Inserts the char sequence [first, last) into *this starting at
             position at.
@@ -278,41 +283,43 @@ namespace boost { namespace text {
             This function only participates in overload resolution if
             `CharIter` models the CharIter concept. */
         template<typename CharIter, typename Sentinel>
-        iterator insert(iterator at, CharIter first, Sentinel last);
+        replace_result<iterator>
+        insert(iterator at, CharIter first, Sentinel last);
 
 #else
 
         template<typename CharRange>
         auto insert(iterator at, CharRange const & r)
-            -> detail::rng_alg_ret_t<iterator, CharRange>;
+            -> detail::rng_alg_ret_t<replace_result<iterator>, CharRange>;
 
         template<typename CharIter, typename Sentinel>
         auto insert(iterator at, CharIter first, Sentinel last)
-            -> detail::char_iter_ret_t<iterator, CharIter>;
+            -> detail::char_iter_ret_t<replace_result<iterator>, CharIter>;
 
 #endif
 
         /** Inserts the sequence [first, last) into *this starting at position
             at. */
-        iterator insert(iterator at, const_iterator first, const_iterator last);
+        replace_result<iterator>
+        insert(iterator at, const_iterator first, const_iterator last);
 
         /** Inserts the grapheme g into *this at position at. */
-        iterator insert(iterator at, grapheme const & g);
+        replace_result<iterator> insert(iterator at, grapheme const & g);
 
         /** Inserts the grapheme g into *this at position at. */
         template<typename CPIter>
-        iterator insert(iterator at, grapheme_ref<CPIter> g);
+        replace_result<iterator> insert(iterator at, grapheme_ref<CPIter> g);
 
         /** Erases the portion of *this delimited by tv.
 
             \pre !std::less(tv.begin().base().base(), begin().base().base()) &&
             !std::less(end().base().base(), tv.end().base().base()) */
-        text & erase(text_view tv) noexcept;
+        replace_result<iterator> erase(text_view tv) noexcept;
 
         /** Erases the portion of *this delimited by [first, last).
 
             \pre first <= last */
-        iterator erase(iterator first, iterator last) noexcept;
+        replace_result<iterator> erase(iterator first, iterator last) noexcept;
 
         /** Replaces the portion of *this delimited by old_substr with the
             sequence of char from new_substr.
@@ -320,7 +327,8 @@ namespace boost { namespace text {
             \pre !std::less(old_substr.begin().base().base(),
             begin().base().base()) && !std::less(end().base().base(),
             old_substr.end().base().base()) */
-        text & replace(text_view old_substr, char const * new_substr);
+        replace_result<iterator>
+        replace(text_view old_substr, char const * new_substr);
 
 #if defined(__cpp_char8_t)
         /** Replaces the portion of *this delimited by old_substr with the
@@ -329,7 +337,8 @@ namespace boost { namespace text {
             \pre !std::less(old_substr.begin().base().base(),
             begin().base().base()) && !std::less(end().base().base(),
             old_substr.end().base().base()) */
-        text & replace(text_view old_substr, char8_t const * new_substr);
+        replace_result<iterator>
+        replace(text_view old_substr, char8_t const * new_substr);
 #endif
 
         /** Replaces the portion of *this delimited by old_substr with the
@@ -338,7 +347,8 @@ namespace boost { namespace text {
             \pre !std::less(old_substr.begin().base().base(),
             begin().base().base()) && !std::less(end().base().base(),
             old_substr.end().base().base()) */
-        text & replace(text_view old_substr, text const & new_substr);
+        replace_result<iterator>
+        replace(text_view old_substr, text const & new_substr);
 
         /** Replaces the portion of *this delimited by old_substr with the
             sequence of char from new_substr.
@@ -346,7 +356,8 @@ namespace boost { namespace text {
             \pre !std::less(old_substr.begin().base().base(),
             begin().base().base()) && !std::less(end().base().base(),
             old_substr.end().base().base()) */
-        text & replace(text_view old_substr, text_view new_substr);
+        replace_result<iterator>
+        replace(text_view old_substr, text_view new_substr);
 
         /** Replaves the  portion of *this delimited by old_substr with the
             sequence of char from new_substr.
@@ -354,7 +365,8 @@ namespace boost { namespace text {
             \pre !std::less(old_substr.begin().base().base(),
             begin().base().base()) && !std::less(end().base().base(),
             old_substr.end().base().base()) */
-        text & replace(text_view old_substr, string_view new_substr);
+        replace_result<iterator>
+        replace(text_view old_substr, string_view new_substr);
 
         /** Replaces the portion of *this delimited by old_substr with the
             sequence of char from new_substr.
@@ -362,7 +374,8 @@ namespace boost { namespace text {
             \pre !std::less(old_substr.begin().base().base(),
             begin().base().base()) && !std::less(end().base().base(),
             old_substr.end().base().base()) */
-        text & replace(text_view old_substr, rope_view new_substr);
+        replace_result<iterator>
+        replace(text_view old_substr, rope_view new_substr);
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -376,7 +389,8 @@ namespace boost { namespace text {
             begin().base().base()) && !std::less(end().base().base(),
             old_substr.end().base().base()) */
         template<typename CharRange>
-        text & replace(text_view old_substr, CharRange const & r);
+        replace_result<iterator>
+        replace(text_view old_substr, CharRange const & r);
 
         /** Replaces the portion of *this delimited by old_substr with the
             char sequence [first, last).
@@ -388,17 +402,18 @@ namespace boost { namespace text {
             begin().base().base()) && !std::less(end().base().base(),
             old_substr.end().base().base()) */
         template<typename CharIter, typename Sentinel>
-        text & replace(text_view old_substr, CharIter first, Sentinel last);
+        replace_result<iterator>
+        replace(text_view old_substr, CharIter first, Sentinel last);
 
 #else
 
         template<typename CharRange>
         auto replace(text_view old_substr, CharRange const & r)
-            -> detail::rng_alg_ret_t<text &, CharRange>;
+            -> detail::rng_alg_ret_t<replace_result<iterator>, CharRange>;
 
         template<typename CharIter, typename Sentinel>
         auto replace(text_view old_substr, CharIter first, Sentinel last)
-            -> detail::char_iter_ret_t<text &, CharIter>;
+            -> detail::char_iter_ret_t<replace_result<iterator>, CharIter>;
 
 #endif
 
@@ -408,7 +423,7 @@ namespace boost { namespace text {
             \pre !std::less(old_substr.begin().base().base(),
             begin().base().base()) && !std::less(end().base().base(),
             old_substr.end().base().base()) */
-        text & replace(
+        replace_result<iterator> replace(
             text_view old_substr, const_iterator first, const_iterator last);
 
         /** Reserves storage enough for a string of at least new_size
@@ -480,9 +495,10 @@ namespace boost { namespace text {
     private:
         static iterator make_iter(char * first, char * it, char * last) noexcept
         {
-            return iterator{utf_8_to_32_iterator<char *>{first, first, last},
-                            utf_8_to_32_iterator<char *>{first, it, last},
-                            utf_8_to_32_iterator<char *>{first, last, last}};
+            return iterator{
+                utf_8_to_32_iterator<char *>{first, first, last},
+                utf_8_to_32_iterator<char *>{first, it, last},
+                utf_8_to_32_iterator<char *>{first, last, last}};
         }
 
         static const_iterator make_iter(
@@ -503,32 +519,22 @@ namespace boost { namespace text {
 
         using mutable_utf32_iter = utf_8_to_32_iterator<char *>;
 
-        mutable_utf32_iter prev_stable_cp(mutable_utf32_iter last) noexcept;
-        mutable_utf32_iter next_stable_cp(mutable_utf32_iter first) noexcept;
+        replace_result<iterator>
+        mutation_result(replace_result<std::string::iterator> str_replacement);
 
-        // https://www.unicode.org/reports/tr15/#Concatenation
-        size_type normalize_subrange(size_type from_near_offset, size_type to_near_offset);
-
-        iterator insert_impl_suffix(size_type lo, size_type hi, bool normalized);
-
-        template<typename CharIter, typename Sentinel>
-        iterator insert_impl(
+        template<typename CharIter>
+        replace_result<iterator> insert_impl(
             iterator at,
             CharIter first,
-            Sentinel last,
-            bool first_last_normalized);
-        iterator insert_impl(iterator at, string_view sv, bool sv_normalized);
+            CharIter last,
+            insertion_normalization insertion_norm);
 
-        template<typename CharIter, typename Sentinel>
-        text & replace_impl(
+        template<typename CharIter>
+        replace_result<iterator> replace_impl(
             text_view old_substr,
             CharIter first,
-            Sentinel last,
-            bool first_last_normalized);
-        text & replace_impl(
-            text_view old_substr,
-            string_view new_substr,
-            bool new_substr_normalized);
+            CharIter last,
+            insertion_normalization insertion_norm);
 
         template<typename CPIter>
         struct insert_grapheme_ref_impl;
@@ -540,63 +546,6 @@ namespace boost { namespace text {
 
 #endif // Doxygen
     };
-
-#ifndef BOOST_TEXT_DOXYGEN
-
-    template<typename CPIter>
-    struct text::insert_grapheme_ref_impl
-    {
-        static text::iterator
-        call(text & t, text::iterator at, grapheme_ref<CPIter> g)
-        {
-            if (g.empty())
-                return at;
-
-            std::array<char, 1024> buf;
-            auto out =
-                boost::text::transcode_to_utf8(g.begin(), g.end(), buf.data());
-            return t.insert_impl(
-                at, string_view(buf.data(), out - buf.data()), true);
-        }
-    };
-
-    template<typename Sentinel, typename ErrorHandler>
-    struct text::insert_grapheme_ref_impl<
-        utf_8_to_32_iterator<char const *, Sentinel, ErrorHandler>>
-    {
-        static text::iterator call(
-            text & t,
-            text::iterator at,
-            grapheme_ref<
-                utf_8_to_32_iterator<char const *, Sentinel, ErrorHandler>> g)
-        {
-            return t.insert_impl(
-                at,
-                string_view(
-                    g.begin().base(), g.end().base() - g.begin().base()),
-                true);
-        }
-    };
-
-    template<typename Sentinel, typename ErrorHandler>
-    struct text::insert_grapheme_ref_impl<
-        utf_8_to_32_iterator<char *, Sentinel, ErrorHandler>>
-    {
-        static text::iterator call(
-            text & t,
-            text::iterator at,
-            grapheme_ref<utf_8_to_32_iterator<char *, Sentinel, ErrorHandler>>
-                g)
-        {
-            return t.insert_impl(
-                at,
-                string_view(
-                    g.begin().base(), g.end().base() - g.begin().base()),
-                true);
-        }
-    };
-
-#endif
 
     inline text::iterator begin(text & t) noexcept { return t.begin(); }
     inline text::iterator end(text & t) noexcept { return t.end(); }
@@ -640,7 +589,7 @@ namespace boost { namespace text {
 
 #include <boost/text/text_view.hpp>
 #include <boost/text/rope.hpp>
-#include <boost/text/normalize.hpp>
+#include <boost/text/normalize_algorithm.hpp>
 
 namespace boost { namespace text {
 
@@ -672,19 +621,19 @@ namespace boost { namespace text {
 
     inline text::text(char const * c_str) : str_(c_str)
     {
-        normalize<nf::fcc>(str_);
+        boost::text::normalize<nf::fcc>(str_);
     }
 
 #if defined(__cpp_char8_t)
     inline text::text(char8_t const * c_str) : str_((char const *)c_str)
     {
-        normalize<nf::fcc>(str_);
+        boost::text::normalize<nf::fcc>(str_);
     }
 #endif
 
     inline text::text(std::string s) : str_(std::move(s))
     {
-        normalize<nf::fcc>(str_);
+        boost::text::normalize<nf::fcc>(str_);
     }
 
     inline text::text(text_view tv) :
@@ -695,14 +644,14 @@ namespace boost { namespace text {
 
     inline text::text(string_view sv) : str_(sv.begin(), sv.end())
     {
-        normalize<nf::fcc>(str_);
+        boost::text::normalize<nf::fcc>(str_);
     }
 
     template<typename CharRange>
     text::text(CharRange const & r, detail::rng_alg_ret_t<int *, CharRange>) :
         str_(detail::make_string(r.begin(), r.end()))
     {
-        normalize<nf::fcc>(str_);
+        boost::text::normalize<nf::fcc>(str_);
     }
 
     template<typename CharIter, typename Sentinel>
@@ -712,7 +661,7 @@ namespace boost { namespace text {
         detail::char_iter_ret_t<void *, CharIter>) :
         str_(detail::make_string(first, last))
     {
-        normalize<nf::fcc>(str_);
+        boost::text::normalize<nf::fcc>(str_);
     }
 
     template<typename GraphemeRange>
@@ -726,7 +675,7 @@ namespace boost { namespace text {
     inline text & text::operator=(char const * c_str)
     {
         str_ = c_str;
-        normalize<nf::fcc>(str_);
+        boost::text::normalize<nf::fcc>(str_);
         return *this;
     }
 
@@ -740,7 +689,7 @@ namespace boost { namespace text {
     inline text & text::operator=(std::string s)
     {
         str_ = std::move(s);
-        normalize<nf::fcc>(str_);
+        boost::text::normalize<nf::fcc>(str_);
         return *this;
     }
 
@@ -754,7 +703,7 @@ namespace boost { namespace text {
     inline text & text::operator=(string_view sv)
     {
         str_.assign(sv.begin(), sv.end());
-        normalize<nf::fcc>(str_);
+        boost::text::normalize<nf::fcc>(str_);
         return *this;
     }
 
@@ -763,7 +712,7 @@ namespace boost { namespace text {
         -> detail::rng_alg_ret_t<text &, CharRange>
     {
         str_.assign(r.begin(), r.end());
-        normalize<nf::fcc>(str_);
+        boost::text::normalize<nf::fcc>(str_);
         return *this;
     }
 
@@ -778,138 +727,155 @@ namespace boost { namespace text {
 
     template<typename CharRange>
     auto text::insert(iterator at, CharRange const & r)
-        -> detail::rng_alg_ret_t<iterator, CharRange>
+        -> detail::rng_alg_ret_t<replace_result<iterator>, CharRange>
     {
         return insert(at, std::begin(r), std::end(r));
     }
 
     template<typename CharIter, typename Sentinel>
     auto text::insert(iterator at, CharIter first, Sentinel last)
-        -> detail::char_iter_ret_t<iterator, CharIter>
+        -> detail::char_iter_ret_t<replace_result<iterator>, CharIter>
     {
-        return insert_impl(at, first, last, false);
+        return insert_impl(at, first, last, insertion_not_normalized);
     }
 
-    inline text::iterator text::insert(iterator at, char const * c_str)
+    inline replace_result<text::iterator>
+    text::insert(iterator at, char const * c_str)
     {
         return insert(at, string_view(c_str));
     }
 
 #if defined(__cpp_char8_t)
-    inline text::iterator text::insert(iterator at, char8_t const * c_str)
+    inline replace_result<text::iterator>
+    text::insert(iterator at, char8_t const * c_str)
     {
         return insert(at, string_view((char const *)c_str));
     }
 #endif
 
-    inline text::iterator text::insert(iterator at, text const & t)
+    inline replace_result<text::iterator>
+    text::insert(iterator at, text const & t)
     {
-        return insert_impl(at, string_view(t.str_), true);
+        return insert_impl(
+            at, t.str_.begin(), t.str_.end(), insertion_normalized);
     }
 
-    inline text::iterator text::insert(iterator at, text_view tv)
+    inline replace_result<text::iterator>
+    text::insert(iterator at, text_view tv)
     {
         auto const first = tv.begin().base().base();
         auto const last = tv.end().base().base();
-        return insert_impl(at, string_view(first, last - first), true);
+        return insert_impl(at, first, last, insertion_normalized);
     }
 
-    inline text::iterator text::insert(iterator at, string_view sv)
+    inline replace_result<text::iterator>
+    text::insert(iterator at, string_view sv)
     {
-        return insert_impl(at, sv, false);
+        return insert_impl(at, sv.begin(), sv.end(), insertion_not_normalized);
     }
 
-    inline text & text::erase(text_view tv) noexcept
+    inline replace_result<text::iterator> text::erase(text_view tv) noexcept
     {
-        auto const at = tv.begin().base().base() - str_.data();
-        str_.erase(str_.begin() + at, str_.begin() + at + tv.storage_bytes());
-        normalize_subrange(at, at);
-        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
-        return *this;
+        auto const lo = tv.begin().base().base() - str_.data();
+        auto const hi = tv.end().base().base() - str_.data();
+        auto const retval = boost::text::normalize_erase<nf::fcc>(
+            str_, str_.begin() + lo, str_.begin() + hi);
+        return mutation_result(retval);
     }
 
-    inline text::iterator
+    inline replace_result<text::iterator>
     text::insert(iterator at, const_iterator first, const_iterator last)
     {
         return insert(at, text_view(first, last));
     }
 
-    inline text::iterator text::insert(iterator at, grapheme const & g)
+    inline replace_result<text::iterator>
+    text::insert(iterator at, grapheme const & g)
     {
         return insert(at, grapheme_ref<grapheme::const_iterator>(g));
     }
 
     template<typename CPIter>
-    text::iterator text::insert(iterator at, grapheme_ref<CPIter> g)
+    replace_result<text::iterator>
+    text::insert(iterator at, grapheme_ref<CPIter> g)
     {
         return insert_grapheme_ref_impl<CPIter>::call(*this, at, g);
     }
 
-    inline text::iterator text::erase(iterator first, iterator last) noexcept
+    inline replace_result<text::iterator>
+    text::erase(iterator first, iterator last) noexcept
     {
-        size_type const offset = first.base().base() - str_.c_str();
-        erase(text_view(first, last));
-        char * str_first = const_cast<char *>(str_.data());
-        return make_iter(
-            str_first, str_first + offset, str_first + str_.size());
+        auto const lo = first.base().base() - str_.data();
+        auto const hi = last.base().base() - str_.data();
+        auto const retval = boost::text::normalize_erase<nf::fcc>(
+            str_, str_.begin() + lo, str_.begin() + hi);
+        return mutation_result(retval);
     }
 
-    inline text & text::replace(text_view old_substr, char const * new_substr)
+    inline replace_result<text::iterator>
+    text::replace(text_view old_substr, char const * new_substr)
     {
-        return replace_impl(old_substr, string_view(new_substr), false);
+        auto const insertion = string_view(new_substr);
+        return replace_impl(
+            old_substr,
+            insertion.begin(),
+            insertion.end(),
+            insertion_not_normalized);
     }
 
 #if defined(__cpp_char8_t)
-    inline text &
+    inline replace_result<text::iterator>
     text::replace(text_view old_substr, char8_t const * new_substr)
     {
-        return replace_impl(
-            old_substr, string_view((char const *)new_substr), false);
+        return replace(old_substr, (char const *)new_substr);
     }
 #endif
 
-    inline text & text::replace(text_view old_substr, text const & new_substr)
+    inline replace_result<text::iterator>
+    text::replace(text_view old_substr, text const & new_substr)
     {
         return replace_impl(
             old_substr,
-            string_view(
-                new_substr.begin().base().base(),
-                new_substr.end().base().base() -
-                    new_substr.begin().base().base()),
-            true);
+            new_substr.begin().base().base(),
+            new_substr.end().base().base(),
+            insertion_normalized);
     }
 
-    inline text & text::replace(text_view old_substr, text_view new_substr)
+    inline replace_result<text::iterator>
+    text::replace(text_view old_substr, text_view new_substr)
     {
         return replace_impl(
             old_substr,
-            string_view(
-                new_substr.begin().base().base(),
-                new_substr.end().base().base() -
-                    new_substr.begin().base().base()),
-            true);
+            new_substr.begin().base().base(),
+            new_substr.end().base().base(),
+            insertion_normalized);
     }
 
-    inline text & text::replace(text_view old_substr, string_view new_substr)
+    inline replace_result<text::iterator>
+    text::replace(text_view old_substr, string_view new_substr)
     {
-        return replace_impl(old_substr, new_substr, false);
+        return replace_impl(
+            old_substr,
+            new_substr.begin(),
+            new_substr.end(),
+            insertion_not_normalized);
     }
 
     template<typename CharRange>
     auto text::replace(text_view old_substr, CharRange const & r)
-        -> detail::rng_alg_ret_t<text &, CharRange>
+        -> detail::rng_alg_ret_t<replace_result<iterator>, CharRange>
     {
         return replace(old_substr, std::begin(r), std::end(r));
     }
 
     template<typename CharIter, typename Sentinel>
     auto text::replace(text_view old_substr, CharIter first, Sentinel last)
-        -> detail::char_iter_ret_t<text &, CharIter>
+        -> detail::char_iter_ret_t<replace_result<iterator>, CharIter>
     {
-        return replace_impl(old_substr, first, last, false);
+        return replace_impl(old_substr, first, last, insertion_not_normalized);
     }
 
-    inline text & text::replace(
+    inline replace_result<text::iterator> text::replace(
         text_view old_substr, const_iterator first, const_iterator last)
     {
         return replace(old_substr, text_view(first, last));
@@ -941,174 +907,117 @@ namespace boost { namespace text {
         return *this;
     }
 
-    inline text::mutable_utf32_iter
-    text::prev_stable_cp(mutable_utf32_iter last) noexcept
+    inline replace_result<text::iterator>
+    text::mutation_result(replace_result<std::string::iterator> str_replacement)
     {
         auto const str_first = const_cast<char *>(str_.data());
-        auto const first =
-            mutable_utf32_iter(str_first, str_first, str_first + str_.size());
-        auto const it =
-            find_if_backward(first, last, detail::stable_code_point<nf::fcc>);
-        if (it == last)
-            return first;
-        return it;
-    }
-
-    inline text::mutable_utf32_iter
-    text::next_stable_cp(mutable_utf32_iter first) noexcept
-    {
-        auto const str_first = const_cast<char *>(str_.data());
+        auto const str_lo =
+            str_first + (str_replacement.begin() - str_.begin());
+        auto const str_hi = str_first + (str_replacement.end() - str_.begin());
         auto const str_last = str_first + str_.size();
-        auto const last = mutable_utf32_iter(str_first, str_last, str_last);
-        auto const it =
-            find_if(first, last, detail::stable_code_point<nf::fcc>);
-        return it;
-    }
-
-    inline text::size_type text::normalize_subrange(
-        size_type from_near_offset, size_type to_near_offset)
-    {
-        auto const str_first = const_cast<char *>(str_.data());
-        auto const str_last = str_first + str_.size();
-
-        mutable_utf32_iter first(
-            str_first, str_first + from_near_offset, str_last);
-        mutable_utf32_iter last(
-            str_first, str_first + to_near_offset, str_last);
-        first = prev_stable_cp(first);
-        last = next_stable_cp(last);
-
-        if (first == last)
-            return from_near_offset;
-
-        container::small_vector<char, 256> buf;
-        normalize<nf::fcc>(first, last, from_utf32_back_inserter(buf));
-        auto const initial_cp = *boost::text::utf32_iterator(
-            &buf[0], &buf[0], &buf[0] + buf.size());
-        auto const prev_initial_cp = *first;
-
-        str_.replace(
-            str_.begin() + (first.base() - str_.data()),
-            str_.begin() + (last.base() - str_.data()),
-            buf.begin(),
-            buf.end());
-
-        // Return the new lo offset if the first normalized CP changed.
-        return initial_cp == prev_initial_cp ? from_near_offset
-                                             : first.base() - str_first;
-    }
-
-    inline text::iterator
-    text::insert_impl_suffix(size_type lo, size_type hi, bool normalized)
-    {
-        size_type new_lo = lo;
-        if (normalized) {
-            if (hi < str_.size())
-                normalize_subrange(hi, hi);
-            if (lo)
-                new_lo = normalize_subrange(lo, lo);
-        } else {
-            new_lo = normalize_subrange(lo, hi);
-        }
-        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
 
         // The insertion that just happened might be merged into the CP or
         // grapheme ending at the offset of the inserted char(s); if so, back
         // up and return an iterator to that.
-        auto const str_first = const_cast<char *>(str_.data());
-        auto const str_last = str_first + str_.size();
-        auto insertion_cp_it =
-            mutable_utf32_iter(str_first, str_first + new_lo, str_last);
-        auto const first_cp_of_grapheme_it =
-            prev_grapheme_break(begin().base(), insertion_cp_it, end().base());
+        auto lo_cp_it = mutable_utf32_iter(str_first, str_lo, str_last);
+        auto const lo_grapheme_it = boost::text::prev_grapheme_break(
+            begin().base(), lo_cp_it, end().base());
 
-        return make_iter(str_first, first_cp_of_grapheme_it.base(), str_last);
+        // The insertion that just happened might be merged into the CP or
+        // grapheme starting at the offset of the inserted char(s); if so,
+        // move up and return an iterator to that.
+        auto hi_cp_it = mutable_utf32_iter(str_first, str_hi, str_last);
+        auto hi_grapheme_it = hi_cp_it;
+        if (!boost::text::at_grapheme_break(
+                begin().base(), hi_cp_it, end().base())) {
+            hi_grapheme_it =
+                boost::text::next_grapheme_break(hi_cp_it, end().base());
+        }
+
+        return {
+            iterator(begin().base(), lo_grapheme_it, end().base()),
+            iterator(begin().base(), hi_grapheme_it, end().base())};
     }
 
-    template<typename CharIter, typename Sentinel>
-    text::iterator text::insert_impl(
-        iterator at, CharIter first, Sentinel last, bool first_last_normalized)
+    template<typename CharIter>
+    replace_result<text::iterator> text::insert_impl(
+        iterator at,
+        CharIter first,
+        CharIter last,
+        insertion_normalization insertion_norm)
     {
-        size_type const lo = at.base().base() - str_.data();
-        auto const insertion_it = str_.insert(
-            str_.begin() + (at.base().base() - str_.data()), first, last);
-        size_type const hi = insertion_it - str_.begin();
-        return insert_impl_suffix(lo, hi, first_last_normalized);
+        auto const str_at = str_.begin() + (at.base().base() - str_.data());
+        auto retval = boost::text::normalize_insert<nf::fcc>(
+            str_, str_at, boost::text::as_utf32(first, last), insertion_norm);
+        return mutation_result(retval);
     }
 
-    inline text::iterator
-    text::insert_impl(iterator at, string_view sv, bool sv_normalized)
-    {
-        bool const sv_null_terminated = !sv.empty() && sv.back() == '\0';
-        if (sv_null_terminated)
-            sv = detail::substring(sv, 0, -1);
-        size_type const lo = at.base().base() - str_.data();
-        auto const insertion_it = str_.insert(
-            str_.begin() + (at.base().base() - str_.data()),
-            sv.begin(),
-            sv.end());
-        size_type const hi = insertion_it - str_.begin();
-        return insert_impl_suffix(lo, hi, sv_normalized);
-    }
-
-    template<typename CharIter, typename Sentinel>
-    text & text::replace_impl(
+    template<typename CharIter>
+    replace_result<text::iterator> text::replace_impl(
         text_view old_substr,
         CharIter first,
-        Sentinel last,
-        bool first_last_normalized)
+        CharIter last,
+        insertion_normalization insertion_norm)
     {
-        size_type const lo = old_substr.begin().base().base() - str_.data();
-        size_type const old_size = storage_bytes();
-        size_type const old_substr_size = old_substr.storage_bytes();
-        str_.replace(
-            str_.begin() + (old_substr.begin().base().base() - str_.data()),
-            str_.begin() + (old_substr.end().base().base() - str_.data()),
-            first,
-            last);
-        size_type const new_size = storage_bytes();
-        size_type const hi = lo + old_substr_size + (new_size - old_size);
-        if (first_last_normalized) {
-            if (hi < str_.size())
-                normalize_subrange(hi, hi);
-            if (lo)
-                normalize_subrange(lo, lo);
-        } else {
-            normalize_subrange(lo, hi);
-        }
-        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
-        return *this;
+        auto const str_first =
+            str_.begin() + (old_substr.begin().base().base() - str_.data());
+        auto const str_last =
+            str_.begin() + (old_substr.end().base().base() - str_.data());
+        auto const insertion = boost::text::as_utf32(first, last);
+        auto retval = boost::text::normalize_replace<nf::fcc>(
+            str_,
+            str_first,
+            str_last,
+            insertion.begin(),
+            insertion.end(),
+            insertion_norm);
+        return mutation_result(retval);
     }
 
-    inline text & text::replace_impl(
-        text_view old_substr,
-        string_view new_substr,
-        bool new_substr_normalized)
+    template<typename CPIter>
+    struct text::insert_grapheme_ref_impl
     {
-        bool const new_substr_null_terminated =
-            !new_substr.empty() && new_substr.back() == '\0';
-        if (new_substr_null_terminated)
-            new_substr = detail::substring(new_substr, 0, -1);
+        static auto call(text & t, iterator at, grapheme_ref<CPIter> g)
+        {
+            if (g.empty())
+                return replace_result<iterator>{at, at};
 
-        size_type const lo = old_substr.begin().base().base() - str_.data();
-        size_type const hi = lo + old_substr.storage_bytes() +
-                             (new_substr.size() - old_substr.storage_bytes());
-        str_.replace(
-            str_.begin() + (old_substr.begin().base().base() - str_.data()),
-            str_.begin() + (old_substr.end().base().base() - str_.data()),
-            new_substr.begin(),
-            new_substr.end());
-        if (new_substr_normalized) {
-            if (hi < str_.size())
-                normalize_subrange(hi, hi);
-            if (lo)
-                normalize_subrange(lo, lo);
-        } else {
-            normalize_subrange(lo, hi);
+            std::array<char, 1024> buf;
+            auto out =
+                boost::text::transcode_to_utf8(g.begin(), g.end(), buf.data());
+            return t.insert_impl(at, buf.data(), out, insertion_normalized);
         }
-        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
-        return *this;
-    }
+    };
+
+    template<typename Sentinel, typename ErrorHandler>
+    struct text::insert_grapheme_ref_impl<
+        utf_8_to_32_iterator<char const *, Sentinel, ErrorHandler>>
+    {
+        static auto call(
+            text & t,
+            text::iterator at,
+            grapheme_ref<
+                utf_8_to_32_iterator<char const *, Sentinel, ErrorHandler>> g)
+        {
+            return t.insert_impl(
+                at, g.begin().base(), g.end().base(), insertion_normalized);
+        }
+    };
+
+    template<typename Sentinel, typename ErrorHandler>
+    struct text::insert_grapheme_ref_impl<
+        utf_8_to_32_iterator<char *, Sentinel, ErrorHandler>>
+    {
+        static auto call(
+            text & t,
+            text::iterator at,
+            grapheme_ref<utf_8_to_32_iterator<char *, Sentinel, ErrorHandler>>
+                g)
+        {
+            return t.insert_impl(
+                at, g.begin().base(), g.end().base(), insertion_normalized);
+        }
+    };
 
 #endif // Doxygen
 

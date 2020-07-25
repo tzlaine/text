@@ -244,59 +244,48 @@ TEST(text_tests, test_insert)
     }
 
     {
-        char const * str = "";
-        text::string_view const sv(str, 1); // explicitly null-terminated
-
-        {
-            text::text t("text");
-            t.insert(std::next(t.begin(), 2), sv);
-            EXPECT_EQ(t, "text"_t); // no null in the middle
-        }
-    }
-
-    {
         {
             text::text t("e");
-            auto const it = t.insert(t.begin(), "f");
+            auto const result = t.insert(t.begin(), "f");
             EXPECT_EQ(t.distance(), 2u);
-            EXPECT_EQ(it, t.begin());
+            EXPECT_EQ(result.begin(), t.begin());
         }
         {
             text::text t("e");
-            auto const it = t.insert(t.end(), "f");
+            auto const result = t.insert(t.end(), "f");
             EXPECT_EQ(t.distance(), 2u);
-            EXPECT_EQ(it, std::next(t.begin()));
+            EXPECT_EQ(result.begin(), std::next(t.begin()));
         }
 
         char const * combining_diaeresis = (char const *)u8"\u0308";
 
         {
             text::text t("e");
-            auto const it = t.insert(t.begin(), combining_diaeresis);
+            auto const result = t.insert(t.begin(), combining_diaeresis);
             EXPECT_EQ(t.distance(), 2u);
-            EXPECT_EQ(it, t.begin());
+            EXPECT_EQ(result.begin(), t.begin());
         }
         {
             text::text t("e");
 
-            auto it = t.insert(t.end(), combining_diaeresis);
+            auto result = t.insert(t.end(), combining_diaeresis);
             EXPECT_EQ(t.distance(), 1u);
-            EXPECT_EQ(it, t.begin());
+            EXPECT_EQ(result.begin(), t.begin());
 
-            it = t.insert(t.end(), combining_diaeresis);
+            result = t.insert(t.end(), combining_diaeresis);
             EXPECT_EQ(t.distance(), 1u);
-            EXPECT_EQ(it, t.begin());
+            EXPECT_EQ(result.begin(), t.begin());
         }
         {
             text::text t("et");
 
-            auto it = t.insert(std::next(t.begin()), combining_diaeresis);
+            auto result = t.insert(std::next(t.begin()), combining_diaeresis);
             EXPECT_EQ(t.distance(), 2u);
-            EXPECT_EQ(it, t.begin());
+            EXPECT_EQ(result.begin(), t.begin());
 
-            it = t.insert(std::next(t.begin()), combining_diaeresis);
+            result = t.insert(std::next(t.begin()), combining_diaeresis);
             EXPECT_EQ(t.distance(), 2u);
-            EXPECT_EQ(it, t.begin());
+            EXPECT_EQ(result.begin(), t.begin());
         }
     }
 
@@ -375,15 +364,6 @@ TEST(text_tests, test_replace)
 
     text::text const ct0("REP");
     text::text_view const replacement(ct0);
-    // Explicitly null-terminated.
-    char const * rep = "REP";
-    text::string_view const replacement_with_null(rep, 4);
-
-    {
-        text::text t("string");
-        t.replace(t, replacement_with_null);
-        EXPECT_EQ(t, "REP"_t);
-    }
 
     {
         text::text t("string");

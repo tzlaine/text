@@ -496,7 +496,8 @@ namespace boost { namespace text {
 
 #include <boost/text/text.hpp>
 #include <boost/text/rope_view.hpp>
-#include <boost/text/normalize.hpp>
+#include <boost/text/normalize_string.hpp>
+#include <boost/text/normalize_algorithm.hpp>
 #include <boost/text/detail/rope_iterator.hpp>
 
 #ifndef BOOST_TEXT_DOXYGEN
@@ -1171,20 +1172,24 @@ namespace boost { namespace text {
     inline rope operator+(rope r, text const & t) { return r += t; }
 
 
-    inline text::iterator text::insert(iterator at, rope_view rv)
+    inline replace_result<text::iterator>
+    text::insert(iterator at, rope_view rv)
     {
         return insert_impl(
-            at, rv.begin().base().base(), rv.end().base().base(), true);
+            at,
+            rv.begin().base().base(),
+            rv.end().base().base(),
+            insertion_normalized);
     }
 
-    inline text & text::replace(text_view old_substr, rope_view new_substr)
+    inline replace_result<text::iterator>
+    text::replace(text_view old_substr, rope_view new_substr)
     {
-        replace_impl(
+        return replace_impl(
             old_substr,
             new_substr.begin().base().base(),
             new_substr.end().base().base(),
-            true);
-        return *this;
+            insertion_normalized);
     }
 
 }}
