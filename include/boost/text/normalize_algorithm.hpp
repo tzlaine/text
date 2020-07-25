@@ -209,11 +209,6 @@ namespace boost { namespace text {
             auto const unpacked =
                 boost::text::detail::unpack_iterator_and_sentinel(
                     first_, last_);
-            BOOST_ASSERT((std::is_same<
-                          decltype(unpacked.tag_),
-                          decltype(detail::unpack_iterator_and_sentinel(
-                                       string.begin(), string.end())
-                                       .tag_)>::value));
             auto const first = unpacked.f_;
             auto const last = unpacked.l_;
             auto const replaceable_size = std::distance(first, last);
@@ -231,45 +226,11 @@ namespace boost { namespace text {
             }
         }
 
-        template<
-            nf Normalization,
-            typename String,
-            typename CPIter,
-            typename Sentinel,
-            bool UTF8 =
-                Normalization != nf::d && Normalization !=
-                    nf::kd && detail::utf8_fast_path<CPIter, Sentinel>::value &&
-                sizeof(*std::declval<String>().begin()) == 1>
-        struct normalized_insert_buffer
-        {
-            using type = container::small_vector<uint16_t, 512>;
-        };
-
-        template<
-            nf Normalization,
-            typename String,
-            typename CPIter,
-            typename Sentinel>
-        struct normalized_insert_buffer<
-            Normalization,
-            String,
-            CPIter,
-            Sentinel,
-            true>
-        {
-            using type = container::small_vector<char, 1024>;
-        };
-
-        template<
-            nf Normalization,
-            typename String,
-            typename CPIter,
-            typename Sentinel = CPIter>
-        using normalized_insert_buffer_t = typename normalized_insert_buffer<
-            Normalization,
-            String,
-            CPIter,
-            Sentinel>::type;
+        template<typename String>
+        using normalized_insert_buffer_t = std::conditional_t<
+            sizeof(*std::declval<String>().begin()) == 1,
+            container::small_vector<char, 1024>,
+            container::small_vector<uint16_t, 512>>;
 
         template<
             typename Buffer,
@@ -388,8 +349,7 @@ namespace boost { namespace text {
             auto const insertion_range =
                 detail::stable_cps_result_t<Iter>{first, last};
 
-            using buffer_type =
-                detail::normalized_insert_buffer_t<Normalization, String, Iter>;
+            using buffer_type = detail::normalized_insert_buffer_t<String>;
             buffer_type buffer;
 
             auto const insertion_first_stable =
@@ -479,11 +439,7 @@ namespace boost { namespace text {
                 detail::first_stable_cp<Normalization>(
                     string_cp_last, string_cps.end())};
 
-            normalized_insert_buffer_t<
-                Normalization,
-                String,
-                typename String::iterator>
-                buffer;
+            normalized_insert_buffer_t<String> buffer;
 
             // [first-stable-cp-before-at, first-stable-cp-after-first)
             auto const cons_view = detail::cons_view<uint32_t>(
