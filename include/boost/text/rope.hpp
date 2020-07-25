@@ -955,9 +955,12 @@ namespace boost { namespace text {
             boost::text::normalize<nf::fcc>(str);
         }
 
-        auto const prev_initial_cp = *first;
-        auto const initial_cp =
-            *boost::text::utf32_iterator(str.begin(), str.begin(), str.end());
+        auto const prev_initial_cp =
+            first == last ? boost::text::replacement_character() : *first;
+        auto const initial_cp = str.empty()
+                                    ? boost::text::replacement_character()
+                                    : *boost::text::utf32_iterator(
+                                          str.begin(), str.begin(), str.end());
         auto const new_lo =
             initial_cp == prev_initial_cp ? lo : first.base() - rope_.begin();
 
