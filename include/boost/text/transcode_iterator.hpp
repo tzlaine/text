@@ -1012,6 +1012,7 @@ namespace boost { namespace text {
         static bool const throw_on_error =
             !noexcept(std::declval<ErrorHandler>()(0));
 
+#if !defined(__cpp_lib_concepts)
         static_assert(
             std::is_same<
                 typename std::iterator_traits<I>::iterator_category,
@@ -1025,6 +1026,7 @@ namespace boost { namespace text {
             sizeof(typename std::iterator_traits<I>::value_type) == 4,
             "utf_32_to_8_iterator requires its I parameter to produce a "
             "4-byte value_type.");
+#endif
 
         constexpr utf_32_to_8_iterator() noexcept :
             first_(), it_(), last_(), index_(4), buf_()
@@ -1925,6 +1927,7 @@ namespace boost { namespace text {
         static bool const throw_on_error =
             !noexcept(std::declval<ErrorHandler>()(0));
 
+#if !defined(__cpp_lib_concepts)
         static_assert(
             std::is_same<
                 typename std::iterator_traits<I>::iterator_category,
@@ -1939,6 +1942,7 @@ namespace boost { namespace text {
             sizeof(typename std::iterator_traits<I>::value_type) == 4,
             "utf_32_to_16_iterator requires its I parameter to produce a "
             "4-byte value_type.");
+#endif
 
         constexpr utf_32_to_16_iterator() noexcept :
             first_(), it_(), last_(), index_(2), buf_()
@@ -2251,6 +2255,7 @@ namespace boost { namespace text {
         static bool const throw_on_error =
             !noexcept(std::declval<ErrorHandler>()(0));
 
+#if !defined(__cpp_lib_concepts)
         static_assert(
             std::is_same<
                 typename std::iterator_traits<I>::iterator_category,
@@ -2265,6 +2270,7 @@ namespace boost { namespace text {
             sizeof(typename std::iterator_traits<I>::value_type) == 2,
             "utf_16_to_32_iterator requires its I parameter to produce a "
             "2-byte value_type.");
+#endif
 
         constexpr utf_16_to_32_iterator() noexcept : first_(), it_(), last_() {}
         explicit constexpr utf_16_to_32_iterator(I first, I it, S last) noexcept
@@ -2667,6 +2673,7 @@ namespace boost { namespace text {
         static bool const throw_on_error =
             !noexcept(std::declval<ErrorHandler>()(0));
 
+#if !defined(__cpp_lib_concepts)
         static_assert(
             std::is_same<
                 typename std::iterator_traits<I>::iterator_category,
@@ -2680,6 +2687,7 @@ namespace boost { namespace text {
             sizeof(typename std::iterator_traits<I>::value_type) == 2,
             "utf_16_to_8_iterator requires its I parameter to produce a "
             "2-byte value_type.");
+#endif
 
         constexpr utf_16_to_8_iterator() noexcept :
             first_(), it_(), last_(), index_(4), buf_()
