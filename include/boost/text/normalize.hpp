@@ -7,6 +7,9 @@
 #define BOOST_TEXT_NORMALIZE_HPP
 
 #include <boost/text/algorithm.hpp>
+#if defined(__cpp_lib_concepts)
+#include <boost/text/concepts.hpp>
+#endif
 #include <boost/text/transcode_algorithm.hpp>
 #include <boost/text/transcode_iterator.hpp>
 #include <boost/text/transcode_view.hpp>
@@ -187,8 +190,7 @@ namespace boost { namespace text {
             OutIter>::type;
 
         template<typename OutIter>
-        inline OutIter
-        stream_safe_cp(int & nonstarters, uint32_t cp, OutIter out)
+        OutIter stream_safe_cp(int & nonstarters, uint32_t cp, OutIter out)
         {
             auto decomp = compatible_decompose(cp);
             uint32_t const degenerate_decomposition[1] = {cp};
@@ -234,7 +236,7 @@ namespace boost { namespace text {
 
         \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<typename CPIter, typename Sentinel, typename OutIter>
-    inline auto stream_safe_copy(CPIter first, Sentinel last, OutIter out)
+    auto stream_safe_copy(CPIter first, Sentinel last, OutIter out)
         -> detail::cp_iter_ret_t<OutIter, CPIter>
     {
         int nonstarters = 0;
@@ -250,11 +252,15 @@ namespace boost { namespace text {
 
         \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<typename CPRange, typename OutIter>
-    inline OutIter stream_safe_copy(CPRange const & r, OutIter out)
+    OutIter stream_safe_copy(CPRange const & r, OutIter out)
     {
         return boost::text::stream_safe_copy(
             std::begin(r), std::end(r), out);
     }
+
+}}
+
+namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
     /** Writes sequence `[first, last)` in Unicode normalization form
         `Normalization` to `out`.
@@ -263,9 +269,13 @@ namespace boost { namespace text {
         models the CPIter concept.
 
         \see https://unicode.org/notes/tn5 */
-    template<nf Normalization, typename CPIter, typename Sentinel, typename OutIter>
-    inline auto normalize(CPIter first, Sentinel last, OutIter out)
-        -> detail::cp_iter_ret_t<OutIter, CPIter>
+    template<
+        nf Normalization,
+        typename CPIter,
+        typename Sentinel,
+        typename OutIter>
+    auto normalize(CPIter first, Sentinel last, OutIter out)
+        ->detail::cp_iter_ret_t<OutIter, CPIter>
     {
         BOOST_TEXT_STATIC_ASSERT_NORMALIZATION();
         detail::
@@ -281,10 +291,9 @@ namespace boost { namespace text {
 
         \see https://unicode.org/notes/tn5 */
     template<nf Normalization, typename CPRange, typename OutIter>
-    inline OutIter normalize(CPRange const & r, OutIter out)
+    OutIter normalize(CPRange const & r, OutIter out)
     {
-        return boost::text::normalize<Normalization>(
-            std::begin(r), std::end(r), out);
+        return v1::normalize<Normalization>(std::begin(r), std::end(r), out);
     }
 
     /** Returns true iff the given sequence of code points is in Unicode
@@ -310,10 +319,71 @@ namespace boost { namespace text {
     template<nf Normalization, typename CPRange>
     bool normalized(CPRange const & r) noexcept
     {
-        return boost::text::normalized<Normalization>(
-            std::begin(r), std::end(r));
+        return v1::normalized<Normalization>(std::begin(r), std::end(r));
     }
 
-}}
+}}}
+
+#if defined(__cpp_lib_concepts)
+
+namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
+
+    // TODO: stream-safe functions, once they are stable.
+
+    /** Writes sequence `[first, last)` in Unicode normalization form
+        `Normalization` to `out`.
+
+        \see https://unicode.org/notes/tn5 */
+    template<
+        nf Normalization,
+        u32_iter I,
+        std::sentinel_for<I> S,
+        std::output_iterator<uint32_t> O>
+    auto normalize(I first, S last, O out)
+    {
+        BOOST_TEXT_STATIC_ASSERT_NORMALIZATION();
+        detail::normalization_appender_t<Normalization, I, S, O> appender(out);
+        return detail::norm_impl<Normalization, O, I, S>::call(
+                   first, last, appender)
+            .out_;
+    }
+
+    /** Writes sequence `r` in Unicode normalization form `Normalization` to
+        `out`.
+
+        \see https://unicode.org/notes/tn5 */
+    template<nf Normalization, u32_range R, std::output_iterator<uint32_t> O>
+    O normalize(R const & r, O out)
+    {
+        return boost::text::normalize<Normalization>(
+            std::ranges::begin(r), std::ranges::end(r), out);
+    }
+
+    /** Returns true iff the given sequence of code points is in Unicode
+        normalization form `Normalization`.
+
+        \see https://unicode.org/notes/tn5 */
+    template<nf Normalization, u32_iter I, std::sentinel_for<I> S>
+    auto normalized(I first, S last) noexcept
+    {
+        BOOST_TEXT_STATIC_ASSERT_NORMALIZATION();
+        detail::icu::null_appender appender;
+        return detail::norm_impl<Normalization, bool, I, S>::call(
+                   first, last, appender)
+            .normalized_;
+    }
+
+    /** Returns true iff the given sequence of code points is in Unicode
+        normalization form `Normalization`. */
+    template<nf Normalization, u32_range R>
+    bool normalized(R const & r) noexcept
+    {
+        return boost::text::normalized<Normalization>(
+            std::ranges::begin(r), std::ranges::end(r));
+    }
+
+}}}
+
+#endif
 
 #endif
