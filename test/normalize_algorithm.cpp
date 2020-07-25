@@ -1187,9 +1187,8 @@ TEST(normalization_algorithm, insert_nfc_utf8)
         std::string str = nfc_a_cedilla_ring_above;
         std::string const insertion;
         auto const r = boost::text::as_utf32(insertion);
-        auto const result =
-            boost::text::v2::normalize_insert<boost::text::nf::c>(
-                str, str.begin(), r.begin(), r.end());
+        auto const result = boost::text::normalize_insert<boost::text::nf::c>(
+            str, str.begin(), r.begin(), r.end());
         EXPECT_EQ(str, nfc_a_cedilla_ring_above);
         EXPECT_EQ(result.begin(), str.begin());
         EXPECT_EQ(result.end(), str.begin());
@@ -1200,9 +1199,8 @@ TEST(normalization_algorithm, insert_nfc_utf8)
         std::string str = nfc_a_cedilla_ring_above;
         std::string const insertion = "D\xcc\x87"; // D dot above
         auto const r = boost::text::as_utf32(insertion);
-        auto const result =
-            boost::text::v2::normalize_insert<boost::text::nf::c>(
-                str, str.begin(), r.begin(), r.end());
+        auto const result = boost::text::normalize_insert<boost::text::nf::c>(
+            str, str.begin(), r.begin(), r.end());
         EXPECT_EQ(
             str,
             "\xe1\xb8\x8a" /*D+dot above*/
@@ -1218,9 +1216,8 @@ TEST(normalization_algorithm, insert_nfc_utf8)
         std::string const insertion =
             "\xcc\x87\xcc\x87\xcc\x87\xcc\x87"; // dots above
         auto const r = boost::text::as_utf32(insertion);
-        auto const result =
-            boost::text::v2::normalize_insert<boost::text::nf::c>(
-                str, str.begin(), r.begin(), r.end());
+        auto const result = boost::text::normalize_insert<boost::text::nf::c>(
+            str, str.begin(), r.begin(), r.end());
         EXPECT_EQ(
             str,
             "\xcc\x87\xcc\x87\xcc\x87\xcc\x87" /*dots above*/
@@ -1234,9 +1231,8 @@ TEST(normalization_algorithm, insert_nfc_utf8)
         std::string str = "\xcc\x87\xcc\x87\xcc\x87\xcc\x87"; // dots above
         std::string const insertion = "D";
         auto const r = boost::text::as_utf32(insertion);
-        auto const result =
-            boost::text::v2::normalize_insert<boost::text::nf::c>(
-                str, str.begin(), r.begin(), r.end());
+        auto const result = boost::text::normalize_insert<boost::text::nf::c>(
+            str, str.begin(), r.begin(), r.end());
         EXPECT_EQ(
             str,
             "\xe1\xb8\x8a"               /*D+dot above*/
@@ -1250,9 +1246,8 @@ TEST(normalization_algorithm, insert_nfc_utf8)
         std::string str = nfc_a_cedilla_ring_above;
         std::string const insertion;
         auto const r = boost::text::as_utf32(insertion);
-        auto const result =
-            boost::text::v2::normalize_insert<boost::text::nf::c>(
-                str, str.begin() + 1, r.begin(), r.end());
+        auto const result = boost::text::normalize_insert<boost::text::nf::c>(
+            str, str.begin() + 1, r.begin(), r.end());
         EXPECT_EQ(str, nfc_a_cedilla_ring_above);
         EXPECT_EQ(result.begin(), str.begin() + 1);
         EXPECT_EQ(result.end(), str.begin() + 1);
@@ -1264,9 +1259,8 @@ TEST(normalization_algorithm, insert_nfc_utf8)
         std::string const insertion =
             "\xcc\x87\xcc\x87\xcc\x87\xcc\x87"; // dots above
         auto const r = boost::text::as_utf32(insertion);
-        auto const result =
-            boost::text::v2::normalize_insert<boost::text::nf::c>(
-                str, str.begin() + 1, r.begin(), r.end());
+        auto const result = boost::text::normalize_insert<boost::text::nf::c>(
+            str, str.begin() + 1, r.begin(), r.end());
         EXPECT_EQ(
             str,
             "\xc8\xa6"                 /*A+dot above*/
@@ -1281,9 +1275,8 @@ TEST(normalization_algorithm, insert_nfc_utf8)
         std::string str = "\xcc\x87\xcc\x87\xcc\x87\xcc\x87"; // dots above
         std::string const insertion = "D";
         auto const r = boost::text::as_utf32(insertion);
-        auto const result =
-            boost::text::v2::normalize_insert<boost::text::nf::c>(
-                str, str.begin() + 4, r.begin(), r.end());
+        auto const result = boost::text::normalize_insert<boost::text::nf::c>(
+            str, str.begin() + 4, r.begin(), r.end());
         EXPECT_EQ(
             str,
             "\xcc\x87\xcc\x87" /*dots above*/
@@ -1298,9 +1291,8 @@ TEST(normalization_algorithm, insert_nfc_utf8)
         std::string str = nfc_a_cedilla_ring_above;
         std::string const insertion;
         auto const r = boost::text::as_utf32(insertion);
-        auto const result =
-            boost::text::v2::normalize_insert<boost::text::nf::c>(
-                str, str.end(), r.begin(), r.end());
+        auto const result = boost::text::normalize_insert<boost::text::nf::c>(
+            str, str.end(), r.begin(), r.end());
         EXPECT_EQ(str, nfc_a_cedilla_ring_above);
         EXPECT_EQ(result.begin(), str.end());
         EXPECT_EQ(result.end(), str.end());
@@ -1311,9 +1303,8 @@ TEST(normalization_algorithm, insert_nfc_utf8)
         std::string str = nfc_a_cedilla_ring_above;
         std::string const insertion = "D\xcc\x87";
         auto const r = boost::text::as_utf32(insertion);
-        auto const result =
-            boost::text::v2::normalize_insert<boost::text::nf::c>(
-                str, str.end(), r.begin(), r.end());
+        auto const result = boost::text::normalize_insert<boost::text::nf::c>(
+            str, str.end(), r.begin(), r.end());
         EXPECT_EQ(
             str,
             "A\xc2\xb8\xcc\x8a"
@@ -1333,13 +1324,12 @@ TEST(normalization_algorithm, insert_nfc_utf8)
             "\xcc\xa8" /*ogonek*/
             "\xc4\x85" /*a+ogonek*/;
         auto const r = boost::text::as_utf32(insertion);
-        auto const result =
-            boost::text::v2::normalize_insert<boost::text::nf::c>(
-                str,
-                str.end(),
-                r.begin(),
-                r.end(),
-                boost::text::insertion_normalized);
+        auto const result = boost::text::normalize_insert<boost::text::nf::c>(
+            str,
+            str.end(),
+            r.begin(),
+            r.end(),
+            boost::text::insertion_normalized);
         EXPECT_EQ(
             str,
             "A\xc2\xb8\xcc\x8a"
@@ -1357,9 +1347,8 @@ TEST(normalization_algorithm, insert_nfc_utf8)
         std::string const insertion =
             "\xcc\x87\xcc\x87\xcc\x87\xcc\x87"; // dots above
         auto const r = boost::text::as_utf32(insertion);
-        auto const result =
-            boost::text::v2::normalize_insert<boost::text::nf::c>(
-                str, str.end(), r.begin(), r.end());
+        auto const result = boost::text::normalize_insert<boost::text::nf::c>(
+            str, str.end(), r.begin(), r.end());
         EXPECT_EQ(
             str,
             "A\xc2\xb8\xcc\x8a"
@@ -1373,9 +1362,8 @@ TEST(normalization_algorithm, insert_nfc_utf8)
         std::string str = "\xcc\x87\xcc\x87\xcc\x87\xcc\x87"; // dots above
         std::string const insertion = "D";
         auto const r = boost::text::as_utf32(insertion);
-        auto const result =
-            boost::text::v2::normalize_insert<boost::text::nf::c>(
-                str, str.end(), r.begin(), r.end());
+        auto const result = boost::text::normalize_insert<boost::text::nf::c>(
+            str, str.end(), r.begin(), r.end());
         EXPECT_EQ(
             str,
             "\xcc\x87\xcc\x87\xcc\x87\xcc\x87" // dots above
@@ -1390,9 +1378,8 @@ TEST(normalization_algorithm, insert_nfc_utf8)
         std::string str = "\xc4\x83"; // a+breve
         std::string const insertion = "\xcc\xa8" /*ogonek*/;
         auto const r = boost::text::as_utf32(insertion);
-        auto const result =
-            boost::text::v2::normalize_insert<boost::text::nf::c>(
-                str, str.end(), r.begin(), r.end());
+        auto const result = boost::text::normalize_insert<boost::text::nf::c>(
+            str, str.end(), r.begin(), r.end());
         EXPECT_EQ(str, "\xc4\x85" /*a+ogonek*/ "\xcc\x86" /*breve*/);
         EXPECT_EQ(result.begin(), str.begin());
         EXPECT_EQ(result.end(), str.end());
