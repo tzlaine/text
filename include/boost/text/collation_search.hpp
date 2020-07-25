@@ -28,6 +28,60 @@
 
 namespace boost { namespace text {
 
+    /** The result type returned from the code point overloads of
+        `collation_search()`. */
+    template<typename Iter, typename Sentinel = Iter>
+    struct collation_search_result
+        : stl_interfaces::view_interface<
+              collation_search_result<Iter, Sentinel>>
+    {
+        using iterator = Iter;
+        using sentinel = Sentinel;
+
+        constexpr collation_search_result() noexcept {}
+        constexpr collation_search_result(
+            iterator first, iterator last) noexcept :
+            first_(first), last_(last)
+        {}
+
+        constexpr iterator begin() const noexcept { return first_; }
+        constexpr sentinel end() const noexcept { return last_; }
+
+        friend constexpr bool operator==(
+            collation_search_result lhs,
+            collation_search_result rhs)
+        {
+            return lhs.begin() == rhs.begin() && lhs.end() == rhs.end();
+        }
+        friend constexpr bool operator!=(
+            collation_search_result lhs,
+            collation_search_result rhs)
+        {
+            return !(lhs == rhs);
+        }
+
+        friend std::ostream &
+        operator<<(std::ostream & os, collation_search_result v)
+        {
+            boost::text::transcode_to_utf8(
+                v.begin(), v.end(), std::ostreambuf_iterator<char>(os));
+            return os;
+        }
+#if defined(_MSC_VER)
+        friend std::wostream &
+        operator<<(std::wostream & os, collation_search_result v)
+        {
+            boost::text::transcode_to_utf16(
+                v.begin(), v.end(), std::ostreambuf_iterator<wchar_t>(os));
+            return os;
+        }
+#endif
+
+    private:
+        iterator first_;
+        sentinel last_;
+    };
+
 #ifdef BOOST_TEXT_DOXYGEN
 
     /** Returns the code point subrange within `[first, last)` in which
@@ -37,7 +91,7 @@ namespace boost { namespace text {
         This function only participates in overload resolution if
         `searcher(first, last)` is well formed. */
     template<typename CPIter, typename Sentinel, typename Searcher>
-    utf32_view<CPIter>
+    collation_search_result<CPIter>
     collation_search(CPIter first, Sentinel last, Searcher const & searcher);
 
     /** Returns the code point subrange within `r` in which `searcher` finds
@@ -47,7 +101,7 @@ namespace boost { namespace text {
         This function only participates in overload resolution if
         `searcher(first, last)` is well formed. */
     template<typename CPRange, typename Searcher>
-    utf32_view<CPIter> auto
+    collation_search_result<CPIter>
     collation_search(CPRange & r, Searcher const & searcher);
 
     /** Returns the grapheme subrange within `r` in which `searcher` finds
@@ -62,21 +116,90 @@ namespace boost { namespace text {
 
 #else
 
+    namespace detail {
+        template<typename I, typename S, typename E>
+        collation_search_result<utf_8_to_32_iterator<I, S, E>>
+        make_search_result(
+            utf_8_to_32_iterator<I, S, E> first,
+            utf_8_to_32_iterator<I, S, E> lo,
+            utf_8_to_32_iterator<I, S, E> hi,
+            utf_8_to_32_iterator<I, S, E> last)
+        {
+            return {
+                utf_8_to_32_iterator<I, S, E>{
+                    first.base(), lo.base(), last.base()},
+                utf_8_to_32_iterator<I, S, E>{
+                    first.base(), hi.base(), last.base()}};
+        }
+        template<typename I, typename S, typename E>
+        collation_search_result<utf_16_to_32_iterator<I, S, E>>
+        make_search_result(
+            utf_16_to_32_iterator<I, S, E> first,
+            utf_16_to_32_iterator<I, S, E> lo,
+            utf_16_to_32_iterator<I, S, E> hi,
+            utf_16_to_32_iterator<I, S, E> last)
+        {
+            return {
+                utf_16_to_32_iterator<I, S, E>{
+                    first.base(), lo.base(), last.base()},
+                utf_16_to_32_iterator<I, S, E>{
+                    first.base(), hi.base(), last.base()}};
+        }
+        template<typename I, typename S, typename E>
+        collation_search_result<utf_8_to_32_iterator<I, S, E>>
+        make_search_result(
+            utf_8_to_32_iterator<I, S, E> first,
+            utf_8_to_32_iterator<I, S, E> lo,
+            utf_8_to_32_iterator<I, S, E> hi,
+            S last)
+        {
+            return {
+                utf_8_to_32_iterator<I, S, E>{
+                    first.base(), lo.base(), last.base()},
+                utf_8_to_32_iterator<I, S, E>{
+                    first.base(), hi.base(), last.base()}};
+        }
+        template<typename I, typename S, typename E>
+        collation_search_result<utf_16_to_32_iterator<I, S, E>>
+        make_search_result(
+            utf_16_to_32_iterator<I, S, E> first,
+            utf_16_to_32_iterator<I, S, E> lo,
+            utf_16_to_32_iterator<I, S, E> hi,
+            S last)
+        {
+            return {
+                utf_16_to_32_iterator<I, S, E>{
+                    first.base(), lo.base(), last.base()},
+                utf_16_to_32_iterator<I, S, E>{
+                    first.base(), hi.base(), last.base()}};
+        }
+        template<typename I, typename S>
+        collation_search_result<I>
+        make_search_result(I first, I lo, I hi, S last)
+        {
+            return {lo, hi};
+        }
+    }
+
     template<typename CPIter, typename Sentinel, typename Searcher>
     auto
     collation_search(CPIter first, Sentinel last, Searcher const & searcher)
-        -> decltype(searcher(first, last))
+        -> decltype(detail::make_search_result(first, first, first, last))
     {
-        return searcher(first, last);
+        auto const cps = searcher(first, last);
+        return detail::make_search_result(first, cps.begin(), cps.end(), last);
     }
 
     template<typename CPRange, typename Searcher>
     auto collation_search(CPRange & r, Searcher const & searcher)
         -> detail::cp_rng_alg_ret_t<
-            decltype(searcher(std::begin(r), std::end(r))),
+            decltype(detail::make_search_result(
+                std::begin(r), std::begin(r), std::begin(r), std::end(r))),
             CPRange>
     {
-        return searcher(std::begin(r), std::end(r));
+        auto const cps = searcher(std::begin(r), std::end(r));
+        return detail::make_search_result(
+            std::begin(r), cps.begin(), cps.end(), std::end(r));
     }
 
     template<typename GraphemeRange, typename Searcher>
@@ -86,7 +209,9 @@ namespace boost { namespace text {
             GraphemeRange>
     {
         using cp_iter_t = decltype(r.begin().base());
-        auto const cp_result = searcher(r.begin().base(), r.end().base());
+        auto const cps = searcher(r.begin().base(), r.end().base());
+        auto const cp_result = detail::make_search_result(
+            r.begin().base(), cps.begin(), cps.end(), r.end().base());
         return grapheme_view<cp_iter_t>{
             r.begin().base(),
             cp_result.begin(),
@@ -118,12 +243,11 @@ namespace std {
 namespace boost { namespace text {
 
     namespace detail {
-
         struct coll_search_prev_grapheme_callable
         {
             template<typename CPIter, typename Sentinel>
-            CPIter operator()(CPIter first, CPIter it, Sentinel last) const
-                noexcept
+            CPIter
+            operator()(CPIter first, CPIter it, Sentinel last) const noexcept
             {
                 return boost::text::prev_grapheme_break(first, it, last);
             }
@@ -138,7 +262,8 @@ namespace boost { namespace text {
                 case_lvl == case_level::on
                     ? collation_strength(static_cast<int>(strength) + 1)
                     : strength;
-            ce = detail::modify_for_case(ce, strength, case_first::off, case_lvl);
+            ce = detail::modify_for_case(
+                ce, strength, case_first::off, case_lvl);
             if (strength_for_copies < collation_strength::quaternary) {
                 ce.l4_ = 0;
                 if (strength_for_copies < collation_strength::tertiary) {
@@ -442,8 +567,7 @@ namespace boost { namespace text {
 
             search_skip_table(
                 std::ptrdiff_t pattern_ces, std::ptrdiff_t default_value) :
-                default_(default_value),
-                map_(pattern_ces)
+                default_(default_value), map_(pattern_ces)
             {}
 
             void insert(collation_element key, std::ptrdiff_t value)
@@ -471,8 +595,7 @@ namespace boost { namespace text {
         {
             template<typename Range>
             collation_element_dumper(Range const & r) :
-                first_(&*r.begin()),
-                last_(&*r.end())
+                first_(&*r.begin()), last_(&*r.end())
             {}
 
             friend std::ostream &
@@ -1771,7 +1894,7 @@ namespace boost { namespace text {
         typename CPIter2,
         typename Sentinel2,
         typename BreakFunc>
-    utf32_view<CPIter1> collation_search(
+    collation_search_result<CPIter1> collation_search(
         CPIter1 first,
         Sentinel1 last,
         CPIter2 pattern_first,
@@ -1797,7 +1920,7 @@ namespace boost { namespace text {
         This function only participates in overload resolution if `CPRange1`
         models the CPRange concept. */
     template<typename CPRange1, typename CPRange2, typename BreakFunc>
-    utf32_view<detail::unspecified> collation_search(
+    collation_search_result<detail::unspecified> collation_search(
         CPRange1 & str,
         CPRange2 & pattern,
         BreakFunc break_fn,
@@ -1834,13 +1957,13 @@ namespace boost { namespace text {
         collation_table const & table,
         collation_flags flags = collation_flags::none)
         -> detail::cp_rng_alg_ret_t<
-            utf32_view<detail::iterator_t<decltype(str)>>,
+            collation_search_result<
+                detail::iterator_t<decltype(str)>>,
             CPRange1>
     {
         auto const s = boost::text::make_simple_collation_searcher(
             pattern, break_fn, table, flags);
-        return boost::text::collation_search(
-            std::begin(str), std::end(str), s);
+        return boost::text::collation_search(std::begin(str), std::end(str), s);
     }
 
     template<
@@ -1864,12 +1987,15 @@ namespace boost { namespace text {
             break_fn,
             table,
             flags);
-        auto const cp_result = boost::text::collation_search(
+        auto const cps = boost::text::collation_search(
             str.begin().base(), str.end().base(), s);
-        return grapheme_view<cp_iter_t>{str.begin().base(),
-                                        cp_result.begin(),
-                                        cp_result.end(),
-                                        str.end().base()};
+        auto const cp_result = detail::make_search_result(
+            str.begin().base(), cps.begin(), cps.end(), str.end().base());
+        return grapheme_view<cp_iter_t>{
+            str.begin().base(),
+            cp_result.begin(),
+            cp_result.end(),
+            str.end().base()};
     }
 
 #endif
@@ -1884,7 +2010,7 @@ namespace boost { namespace text {
         typename Sentinel1,
         typename CPIter2,
         typename Sentinel2>
-    utf32_view<CPIter1> collation_search(
+    collation_search_result<CPIter1> collation_search(
         CPIter1 first,
         Sentinel1 last,
         CPIter2 pattern_first,
@@ -1912,7 +2038,7 @@ namespace boost { namespace text {
         This function only participates in overload resolution if `CPRange1`
         models the CPRange concept. */
     template<typename CPRange1, typename CPRange2>
-    utf32_view<detail::unspecified> collation_search(
+    collation_search_result<detail::unspecified> collation_search(
         CPRange1 & str,
         CPRange2 & pattern,
         collation_table const & table,
@@ -1942,7 +2068,8 @@ namespace boost { namespace text {
         collation_table const & table,
         collation_flags flags = collation_flags::none)
         -> detail::cp_rng_alg_ret_t<
-            utf32_view<detail::iterator_t<decltype(str)>>,
+            collation_search_result<
+                detail::iterator_t<decltype(str)>>,
             CPRange1>
     {
         auto const s = boost::text::make_simple_collation_searcher(
@@ -1950,8 +2077,7 @@ namespace boost { namespace text {
             detail::coll_search_prev_grapheme_callable{},
             table,
             flags);
-        return boost::text::collation_search(
-            std::begin(str), std::end(str), s);
+        return boost::text::collation_search(std::begin(str), std::end(str), s);
     }
 
     template<typename GraphemeRange1, typename GraphemeRange2>
@@ -1971,12 +2097,15 @@ namespace boost { namespace text {
             detail::coll_search_prev_grapheme_callable{},
             table,
             flags);
-        auto const cp_result = boost::text::collation_search(
+        auto const cps = boost::text::collation_search(
             str.begin().base(), str.end().base(), s);
-        return grapheme_view<cp_iter_t>{str.begin().base(),
-                                        cp_result.begin(),
-                                        cp_result.end(),
-                                        str.end().base()};
+        auto const cp_result = detail::make_search_result(
+            str.begin().base(), cps.begin(), cps.end(), str.end().base());
+        return grapheme_view<cp_iter_t>{
+            str.begin().base(),
+            cp_result.begin(),
+            cp_result.end(),
+            str.end().base()};
     }
 
 #endif
