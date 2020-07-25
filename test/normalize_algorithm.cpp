@@ -1178,203 +1178,180 @@ TEST(normalization_algorithm, erase_nfc_utf8)
     }
 }
 
-#if 0 // TODO
+#if 0 // TODO: Fix.
 TEST(normalization_algorithm, insert_nfc_utf8)
 {
-    uint16_t const nfc_a_cedilla_ring_above[] = {
-        0x0041 /*A*/, 0x00b8 /*cedilla*/, 0x030A /*ring above*/
-    };
+    std::string const nfc_a_cedilla_ring_above = "A\xcc\xa7\xcc\x8a";
 
     {
         // insert an empty prefix
-        std::vector<uint16_t> str(
-            std::begin(nfc_a_cedilla_ring_above),
-            std::end(nfc_a_cedilla_ring_above));
-        std::vector<uint16_t> const insertion;
+        std::string str = nfc_a_cedilla_ring_above;
+        std::string const insertion;
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::normalize_insert<boost::text::nf::c>(
-            str, str.begin(), r.begin(), r.end());
-        EXPECT_EQ(
-            str,
-            std::vector<uint16_t>(
-                std::begin(nfc_a_cedilla_ring_above),
-                std::end(nfc_a_cedilla_ring_above)));
+        auto const result =
+            boost::text::v2::normalize_insert<boost::text::nf::c>(
+                str, str.begin(), r.begin(), r.end());
+        EXPECT_EQ(str, nfc_a_cedilla_ring_above);
         EXPECT_EQ(result.begin(), str.begin());
         EXPECT_EQ(result.end(), str.begin());
     }
 
     {
         // insert a prefix
-        std::vector<uint16_t> str(
-            std::begin(nfc_a_cedilla_ring_above),
-            std::end(nfc_a_cedilla_ring_above));
-        std::vector<uint16_t> const insertion(
-            {0x0044 /*D*/, 0x0307 /*dot above*/});
+        std::string str = nfc_a_cedilla_ring_above;
+        std::string const insertion = "D\xcc\x87"; // D dot above
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::normalize_insert<boost::text::nf::c>(
-            str, str.begin(), r.begin(), r.end());
+        auto const result =
+            boost::text::v2::normalize_insert<boost::text::nf::c>(
+                str, str.begin(), r.begin(), r.end());
         EXPECT_EQ(
             str,
-            std::vector<uint16_t>(
-                {0x1e0a /*D+dot above*/,
-                 0x0041 /*A*/,
-                 0x00b8 /*cedilla*/,
-                 0x030A /*ring above*/}));
+            "\xe1\xb8\x8a" /*D+dot above*/
+            "A\xcc\xa7\xcc\x8a");
         EXPECT_EQ(result.begin(), str.begin());
-        EXPECT_EQ(result.end(), str.begin() + 1);
+        EXPECT_EQ(result.end(), str.begin() + 3);
     }
 
     {
         // insert a prefix of noncombiners
-        std::vector<uint16_t> str(
-            std::begin(nfc_a_cedilla_ring_above),
-            std::end(nfc_a_cedilla_ring_above));
-        std::vector<uint16_t> const insertion(
-            {0x0307 /*dot above*/,
-             0x0307 /*dot above*/,
-             0x0307 /*dot above*/,
-             0x0307 /*dot above*/});
+        std::string str = nfc_a_cedilla_ring_above;
+
+        std::string const insertion =
+            "\xcc\x87\xcc\x87\xcc\x87\xcc\x87"; // dots above
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::normalize_insert<boost::text::nf::c>(
-            str, str.begin(), r.begin(), r.end());
+        auto const result =
+            boost::text::v2::normalize_insert<boost::text::nf::c>(
+                str, str.begin(), r.begin(), r.end());
         EXPECT_EQ(
             str,
-            std::vector<uint16_t>(
-                {0x0307 /*dot above*/,
-                 0x0307 /*dot above*/,
-                 0x0307 /*dot above*/,
-                 0x0307 /*dot above*/,
-                 0x0041 /*A*/,
-                 0x00b8 /*cedilla*/,
-                 0x030A /*ring above*/}));
+            "\xcc\x87\xcc\x87\xcc\x87\xcc\x87" /*dots above*/
+            "A\xcc\xa7\xcc\x8a");
         EXPECT_EQ(result.begin(), str.begin());
-        EXPECT_EQ(result.end(), str.begin() + 4);
+        EXPECT_EQ(result.end(), str.begin() + 8);
     }
 
     {
         // insert a combiner prefix before noncombiners
-        std::vector<uint16_t> str(
-            {0x0307 /*dot above*/,
-             0x0307 /*dot above*/,
-             0x0307 /*dot above*/,
-             0x0307 /*dot above*/});
-        std::vector<uint16_t> const insertion({0x0044 /*D*/});
+        std::string str = "\xcc\x87\xcc\x87\xcc\x87\xcc\x87"; // dots above
+        std::string const insertion = "D";
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::normalize_insert<boost::text::nf::c>(
-            str, str.begin(), r.begin(), r.end());
+        auto const result =
+            boost::text::v2::normalize_insert<boost::text::nf::c>(
+                str, str.begin(), r.begin(), r.end());
         EXPECT_EQ(
             str,
-            std::vector<uint16_t>(
-                {0x1e0a /*D+dot above*/,
-                 0x0307 /*dot above*/,
-                 0x0307 /*dot above*/,
-                 0x0307 /*dot above*/}));
+            "\xe1\xb8\x8a"               /*D+dot above*/
+            "\xcc\x87\xcc\x87\xcc\x87"); // dots above
         EXPECT_EQ(result.begin(), str.begin());
-        EXPECT_EQ(result.end(), str.begin() + 1);
+        EXPECT_EQ(result.end(), str.begin() + 3);
     }
 
     {
         // insert empty sequence
-        std::vector<uint16_t> str(
-            std::begin(nfc_a_cedilla_ring_above),
-            std::end(nfc_a_cedilla_ring_above));
-        std::vector<uint16_t> const insertion;
+        std::string str = nfc_a_cedilla_ring_above;
+        std::string const insertion;
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::normalize_insert<boost::text::nf::c>(
-            str, str.begin() + 1, r.begin(), r.end());
-        EXPECT_EQ(
-            str,
-            std::vector<uint16_t>(
-                std::begin(nfc_a_cedilla_ring_above),
-                std::end(nfc_a_cedilla_ring_above)));
+        auto const result =
+            boost::text::v2::normalize_insert<boost::text::nf::c>(
+                str, str.begin() + 1, r.begin(), r.end());
+        EXPECT_EQ(str, nfc_a_cedilla_ring_above);
         EXPECT_EQ(result.begin(), str.begin() + 1);
         EXPECT_EQ(result.end(), str.begin() + 1);
     }
 
     {
         // insert noncombiners
-        std::vector<uint16_t> str(
-            std::begin(nfc_a_cedilla_ring_above),
-            std::end(nfc_a_cedilla_ring_above));
-        std::vector<uint16_t> const insertion(
-            {0x0307 /*dot above*/,
-             0x0307 /*dot above*/,
-             0x0307 /*dot above*/,
-             0x0307 /*dot above*/});
+        std::string str = "A\xcc\xa7\xcc\x8a"; // nfc_a_cedilla_ring_above;
+        std::string const insertion =
+            "\xcc\x87\xcc\x87\xcc\x87\xcc\x87"; // dots above
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::normalize_insert<boost::text::nf::c>(
-            str, str.begin() + 1, r.begin(), r.end());
+        auto const result =
+            boost::text::v2::normalize_insert<boost::text::nf::c>(
+                str, str.begin() + 1, r.begin(), r.end());
         EXPECT_EQ(
             str,
-            std::vector<uint16_t>(
-                {0x0226 /*A+dot above*/,
+            "\xc8\xa6"                 /*A+dot above*/
+            "\xcc\x87\xcc\x87\xcc\x87" // dots above
+            "\xcc\xa7\xcc\x8a");
+        EXPECT_EQ(result.begin(), str.begin());
+        EXPECT_EQ(result.end(), str.begin() + 8);
+
+        {
+            std::vector<uint16_t> str(
+                {0x0041 /*A*/,
+                 0x0307 /*dot above*/,
                  0x0307 /*dot above*/,
                  0x0307 /*dot above*/,
                  0x0307 /*dot above*/,
                  0x00b8 /*cedilla*/,
-                 0x030A /*ring above*/}));
-        EXPECT_EQ(result.begin(), str.begin());
-        EXPECT_EQ(result.end(), str.begin() + 4);
+                 0x030A /*ring above*/});
+            boost::text::normalize<boost::text::nf::c>(str);
+            EXPECT_EQ(
+                str,
+                std::vector<uint16_t>(
+                    {0x0226 /*A+dot above*/,
+                     0x0307 /*dot above*/,
+                     0x0307 /*dot above*/,
+                     0x0307 /*dot above*/,
+                     0x00b8 /*cedilla*/,
+                     0x030A /*ring above*/}));
+        }
+
+        {
+            std::string str =
+                "A\xcc\x87\xcc\x87\xcc\x87\xcc\x87\xcc\xa7\xcc\x8a";
+            boost::text::normalize<boost::text::nf::c>(str);
+            EXPECT_EQ(
+                str,
+                "\xc8\xa6"                 /*A+dot above*/
+                "\xcc\x87\xcc\x87\xcc\x87" // dots above
+                "\xcc\xa7\xcc\x8a");
+        }
     }
 
     {
         // insert a combiner into noncombiners
-        std::vector<uint16_t> str(
-            {0x0307 /*dot above*/,
-             0x0307 /*dot above*/,
-             0x0307 /*dot above*/,
-             0x0307 /*dot above*/});
-        std::vector<uint16_t> const insertion({0x0044 /*D*/});
+        std::string str = "\xcc\x87\xcc\x87\xcc\x87\xcc\x87"; // dots above
+        std::string const insertion = "D";
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::normalize_insert<boost::text::nf::c>(
-            str, str.begin() + 2, r.begin(), r.end());
+        auto const result =
+            boost::text::v2::normalize_insert<boost::text::nf::c>(
+                str, str.begin() + 4, r.begin(), r.end());
         EXPECT_EQ(
             str,
-            std::vector<uint16_t>(
-                {0x0307 /*dot above*/,
-                 0x0307 /*dot above*/,
-                 0x1e0a /*D+dot above*/,
-                 0x0307 /*dot above*/}));
-        EXPECT_EQ(result.begin(), str.begin() + 2);
-        EXPECT_EQ(result.end(), str.begin() + 3);
+            "\xcc\x87\xcc\x87" /*dots above*/
+            "\xe1\xb8\x8a"     /*D+dot above*/
+            "\xcc\x87");       // dot above
+        EXPECT_EQ(result.begin(), str.begin() + 4);
+        EXPECT_EQ(result.end(), str.begin() + 7);
     }
 
     {
         // insert an empty suffix
-        std::vector<uint16_t> str(
-            std::begin(nfc_a_cedilla_ring_above),
-            std::end(nfc_a_cedilla_ring_above));
-        std::vector<uint16_t> const insertion;
+        std::string str = nfc_a_cedilla_ring_above;
+        std::string const insertion;
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::normalize_insert<boost::text::nf::c>(
-            str, str.end(), r.begin(), r.end());
-        EXPECT_EQ(
-            str,
-            std::vector<uint16_t>(
-                std::begin(nfc_a_cedilla_ring_above),
-                std::end(nfc_a_cedilla_ring_above)));
+        auto const result =
+            boost::text::v2::normalize_insert<boost::text::nf::c>(
+                str, str.end(), r.begin(), r.end());
+        EXPECT_EQ(str, nfc_a_cedilla_ring_above);
         EXPECT_EQ(result.begin(), str.end());
         EXPECT_EQ(result.end(), str.end());
     }
 
     {
         // insert a suffix
-        std::vector<uint16_t> str(
-            std::begin(nfc_a_cedilla_ring_above),
-            std::end(nfc_a_cedilla_ring_above));
-        std::vector<uint16_t> const insertion(
-            {0x0044 /*D*/, 0x0307 /*dot above*/});
+        std::string str = nfc_a_cedilla_ring_above;
+        std::string const insertion = "D\xcc\x87";
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::normalize_insert<boost::text::nf::c>(
-            str, str.end(), r.begin(), r.end());
+        auto const result =
+            boost::text::v2::normalize_insert<boost::text::nf::c>(
+                str, str.end(), r.begin(), r.end());
         EXPECT_EQ(
             str,
-            std::vector<uint16_t>(
-                {0x0041 /*A*/,
-                 0x00b8 /*cedilla*/,
-                 0x030A /*ring above*/,
-                 0x1e0a /*D+dot above*/}));
-        EXPECT_EQ(result.begin(), str.end() - 1);
+            "A\xcc\xa7\xcc\x8a"
+            "\xe1\xb8\x8a"); /*D+dot above*/
+        EXPECT_EQ(result.begin(), str.end() - 3);
         EXPECT_EQ(result.end(), str.end());
     }
 
@@ -1382,81 +1359,60 @@ TEST(normalization_algorithm, insert_nfc_utf8)
         // insert a suffix, claiming that the suffix is already normalized
         // (this makes forms a result that is not NFC, but proves that the
         // don't-normalize logic works)
-        std::vector<uint16_t> str(
-            std::begin(nfc_a_cedilla_ring_above),
-            std::end(nfc_a_cedilla_ring_above));
-        std::vector<uint16_t> const insertion(
-            {0x0105 /*a+ogonek*/,
-             0x0061 /*a*/,
-             0x0328 /*ogonek*/,
-             0x0105 /*a+ogonek*/});
+        std::string str = nfc_a_cedilla_ring_above;
+        std::string const insertion =
+            "\xc4\x85" /*a+ogonek*/
+            "a"
+            "\xcc\xa8" /*ogonek*/
+            "\xc4\x85" /*a+ogonek*/;
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::normalize_insert<boost::text::nf::c>(
-            str,
-            str.end(),
-            r.begin(),
-            r.end(),
-            boost::text::insertion_normalized);
+        auto const result =
+            boost::text::v2::normalize_insert<boost::text::nf::c>(
+                str,
+                str.end(),
+                r.begin(),
+                r.end(),
+                boost::text::insertion_normalized);
         EXPECT_EQ(
             str,
-            std::vector<uint16_t>(
-                {0x0041 /*A*/,
-                 0x00b8 /*cedilla*/,
-                 0x030A /*ring above*/,
-                 0x0105 /*a+ogonek*/,
-                 0x0061 /*a*/,
-                 0x0328 /*ogonek*/,
-                 0x0105 /*a+ogonek*/}));
-        EXPECT_EQ(result.begin(), str.begin() + 3);
+            "A\xcc\xa7\xcc\x8a"
+            "\xc4\x85" /*a+ogonek*/
+            "a"
+            "\xcc\xa8" /*ogonek*/
+            "\xc4\x85" /*a+ogonek*/);
+        EXPECT_EQ(result.begin(), str.begin() + 5);
         EXPECT_EQ(result.end(), str.end());
     }
 
     {
         // insert a suffix of noncombiners
-        std::vector<uint16_t> str(
-            std::begin(nfc_a_cedilla_ring_above),
-            std::end(nfc_a_cedilla_ring_above));
-        std::vector<uint16_t> const insertion(
-            {0x0307 /*dot above*/,
-             0x0307 /*dot above*/,
-             0x0307 /*dot above*/,
-             0x0307 /*dot above*/});
+        std::string str = nfc_a_cedilla_ring_above;
+        std::string const insertion =
+            "\xcc\x87\xcc\x87\xcc\x87\xcc\x87"; // dots above
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::normalize_insert<boost::text::nf::c>(
-            str, str.end(), r.begin(), r.end());
+        auto const result =
+            boost::text::v2::normalize_insert<boost::text::nf::c>(
+                str, str.end(), r.begin(), r.end());
         EXPECT_EQ(
             str,
-            std::vector<uint16_t>(
-                {0x0041 /*A*/,
-                 0x00b8 /*cedilla*/,
-                 0x030A /*ring above*/,
-                 0x0307 /*dot above*/,
-                 0x0307 /*dot above*/,
-                 0x0307 /*dot above*/,
-                 0x0307 /*dot above*/}));
-        EXPECT_EQ(result.begin(), str.end() - 4);
+            "A\xcc\xa7\xcc\x8a"
+            "\xcc\x87\xcc\x87\xcc\x87\xcc\x87"); // dots above
+        EXPECT_EQ(result.begin(), str.begin() - 8);
         EXPECT_EQ(result.end(), str.end());
     }
 
     {
         // insert a combiner suffix after noncombiners
-        std::vector<uint16_t> str(
-            {0x0307 /*dot above*/,
-             0x0307 /*dot above*/,
-             0x0307 /*dot above*/,
-             0x0307 /*dot above*/});
-        std::vector<uint16_t> const insertion({0x0044 /*D*/});
+        std::string str = "\xcc\x87\xcc\x87\xcc\x87\xcc\x87"; // dots above
+        std::string const insertion = "D";
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::normalize_insert<boost::text::nf::c>(
-            str, str.end(), r.begin(), r.end());
+        auto const result =
+            boost::text::v2::normalize_insert<boost::text::nf::c>(
+                str, str.end(), r.begin(), r.end());
         EXPECT_EQ(
             str,
-            std::vector<uint16_t>(
-                {0x0307 /*dot above*/,
-                 0x0307 /*dot above*/,
-                 0x0307 /*dot above*/,
-                 0x0307 /*dot above*/,
-                 0x0044 /*D*/}));
+            "\xcc\x87\xcc\x87\xcc\x87\xcc\x87" // dots above
+            "D");
         EXPECT_EQ(result.begin(), str.end() - 1);
         EXPECT_EQ(result.end(), str.end());
     }
@@ -1464,14 +1420,13 @@ TEST(normalization_algorithm, insert_nfc_utf8)
     {
         // insert a suffix that causes the previous end code point to
         // recompose.
-        std::vector<uint16_t> str({0x0103 /*a+breve*/});
-        std::vector<uint16_t> const insertion({0x0328 /*ogonek*/});
+        std::string str = "\xc4\x83"; // a+breve
+        std::string const insertion = "\xcc\xa8" /*ogonek*/;
         auto const r = boost::text::as_utf32(insertion);
-        auto const result = boost::text::normalize_insert<boost::text::nf::c>(
-            str, str.end(), r.begin(), r.end());
-        EXPECT_EQ(
-            str,
-            std::vector<uint16_t>({0x0105 /*a+ogonek*/, 0x0306 /*breve*/}));
+        auto const result =
+            boost::text::v2::normalize_insert<boost::text::nf::c>(
+                str, str.end(), r.begin(), r.end());
+        EXPECT_EQ(str, "\xc4\x85" /*a+ogonek*/ "\xcc\x86" /*breve*/);
         EXPECT_EQ(result.begin(), str.begin());
         EXPECT_EQ(result.end(), str.end());
     }
