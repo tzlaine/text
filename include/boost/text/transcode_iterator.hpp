@@ -1069,6 +1069,7 @@ namespace boost { namespace text {
         {
             ++index_;
             if (at_buf_end()) {
+                BOOST_ASSERT(it_ != last_);
                 ++it_;
                 index_ = 0;
                 if (it_ != last_)
@@ -1083,7 +1084,8 @@ namespace boost { namespace text {
         {
             if (0 < index_) {
                 --index_;
-            } else if (it_ != first_) {
+            } else {
+                BOOST_ASSERT(it_ != first_);
                 --it_;
                 auto out = read_into_buf();
                 index_ = out - buf_.data() - 1;
@@ -1364,8 +1366,7 @@ namespace boost { namespace text {
         BOOST_TEXT_CXX14_CONSTEXPR uint32_t operator*() const
             noexcept(!throw_on_error)
         {
-            if (at_end(it_))
-                return replacement_character();
+            BOOST_ASSERT(!at_end(it_));
             unsigned char curr_c = *it_;
             if (curr_c < 0x80)
                 return curr_c;
@@ -1379,6 +1380,7 @@ namespace boost { namespace text {
         BOOST_TEXT_CXX14_CONSTEXPR utf_8_to_32_iterator &
         operator++() noexcept(!throw_on_error)
         {
+            BOOST_ASSERT(it_ != last_);
             it_ = increment();
             return *this;
         }
@@ -1387,6 +1389,7 @@ namespace boost { namespace text {
         BOOST_TEXT_CXX14_CONSTEXPR utf_8_to_32_iterator &
         operator--() noexcept(!throw_on_error)
         {
+            BOOST_ASSERT(it_ != first_);
             it_ = detail::decrement(first_, it_);
             return *this;
         }
@@ -1636,8 +1639,6 @@ namespace boost { namespace text {
 
         BOOST_TEXT_CXX14_CONSTEXPR I increment() const noexcept(!throw_on_error)
         {
-            if (at_end(it_))
-                return it_;
             unsigned char curr_c = *it_;
             if (curr_c < 0x80)
                 return std::next(it_);
@@ -1986,6 +1987,7 @@ namespace boost { namespace text {
         {
             ++index_;
             if (at_buf_end()) {
+                BOOST_ASSERT(it_ != last_);
                 ++it_;
                 index_ = 0;
                 if (it_ != last_)
@@ -2000,7 +2002,8 @@ namespace boost { namespace text {
         {
             if (0 < index_) {
                 --index_;
-            } else if (it_ != first_) {
+            } else {
+                BOOST_ASSERT(it_ != first_);
                 --it_;
                 auto out = read_into_buf();
                 index_ = out - buf_.data() - 1;
@@ -2293,8 +2296,7 @@ namespace boost { namespace text {
         BOOST_TEXT_CXX14_CONSTEXPR uint32_t operator*() const
             noexcept(!throw_on_error)
         {
-            if (at_end(it_))
-                return replacement_character();
+            BOOST_ASSERT(!at_end(it_));
             return get_value(*it_).value_;
         }
 
@@ -2305,6 +2307,7 @@ namespace boost { namespace text {
         BOOST_TEXT_CXX14_CONSTEXPR utf_16_to_32_iterator &
         operator++() noexcept(!throw_on_error)
         {
+            BOOST_ASSERT(it_ != last_);
             it_ = increment();
             return *this;
         }
@@ -2313,7 +2316,8 @@ namespace boost { namespace text {
         BOOST_TEXT_CXX14_CONSTEXPR utf_16_to_32_iterator &
         operator--() noexcept(!throw_on_error)
         {
-            if (it_ != first_ && boost::text::low_surrogate(*--it_)) {
+            BOOST_ASSERT(it_ != first_);
+            if (boost::text::low_surrogate(*--it_)) {
                 if (it_ != first_ &&
                     boost::text::high_surrogate(*std::prev(it_)))
                     --it_;
@@ -2389,8 +2393,6 @@ namespace boost { namespace text {
 
         BOOST_TEXT_CXX14_CONSTEXPR I increment() const noexcept(!throw_on_error)
         {
-            if (at_end(it_))
-                return it_;
             return get_value(*it_).it_;
         }
 
@@ -2730,6 +2732,7 @@ namespace boost { namespace text {
         {
             ++index_;
             if (at_buf_end()) {
+                BOOST_ASSERT(it_ != last_);
                 increment();
                 index_ = 0;
                 if (it_ != last_)
@@ -2744,7 +2747,8 @@ namespace boost { namespace text {
         {
             if (0 < index_) {
                 --index_;
-            } else if (it_ != first_) {
+            } else {
+                BOOST_ASSERT(it_ != first_);
                 decrement();
                 auto out = read_into_buf();
                 index_ = out - buf_.data() - 1;
@@ -3146,6 +3150,7 @@ namespace boost { namespace text {
         {
             ++index_;
             if (at_buf_end()) {
+                BOOST_ASSERT(it_.it_ != it_.last_);
                 ++it_;
                 index_ = 0;
                 if (it_.it_ != it_.last_)
@@ -3161,6 +3166,7 @@ namespace boost { namespace text {
             if (0 < index_) {
                 --index_;
             } else {
+                BOOST_ASSERT(it_.it_ != it_.first_);
                 --it_;
                 auto out = read_into_buf();
                 index_ = out - buf_.data() - 1;
