@@ -19,19 +19,19 @@
 
 using namespace boost::text;
 
-auto const error = [](string const & s) { std::cout << s; };
-auto const warning = [](string const & s) {};
+auto const error = [](std::string const & s) { std::cout << s; };
+auto const warning = [](std::string const & s) {};
 
 collation_table make_save_load_table()
 {
 #ifdef LIMIT_TESTING_FOR_CI
-    string const table_str(data::bn::traditional_collation_tailoring());
+    std::string const table_str(data::bn::traditional_collation_tailoring());
     return tailored_collation_table(
         table_str,
         "bn::traditional_collation_tailoring()", error, warning);
 #else
     if (!exists(boost::filesystem::path("bn_traditional.table"))) {
-        string const table_str(data::bn::traditional_collation_tailoring());
+        std::string const table_str(data::bn::traditional_collation_tailoring());
         collation_table table = tailored_collation_table(
             table_str,
             "bn::traditional_collation_tailoring()", error, warning);
@@ -52,8 +52,8 @@ TEST(tailoring, bn_traditional_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x0994);
     auto const rel = std::vector<uint32_t>(1, 0x0982);
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -71,8 +71,8 @@ TEST(tailoring, bn_traditional_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x0982);
     auto const rel = std::vector<uint32_t>(1, 0x0983);
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -90,8 +90,8 @@ TEST(tailoring, bn_traditional_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x0983);
     auto const rel = std::vector<uint32_t>(1, 0x0981);
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -109,8 +109,8 @@ TEST(tailoring, bn_traditional_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x0981);
     auto const rel = std::vector<uint32_t>{0x0995, 0x09cd};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -128,8 +128,8 @@ TEST(tailoring, bn_traditional_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0995, 0x09cd};
     auto const rel = std::vector<uint32_t>{0x0996, 0x09cd};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -147,8 +147,8 @@ TEST(tailoring, bn_traditional_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0996, 0x09cd};
     auto const rel = std::vector<uint32_t>{0x0997, 0x09cd};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -166,8 +166,8 @@ TEST(tailoring, bn_traditional_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0997, 0x09cd};
     auto const rel = std::vector<uint32_t>{0x0998, 0x09cd};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -185,8 +185,8 @@ TEST(tailoring, bn_traditional_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0998, 0x09cd};
     auto const rel = std::vector<uint32_t>{0x0999, 0x09cd};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -204,8 +204,8 @@ TEST(tailoring, bn_traditional_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0999, 0x09cd};
     auto const rel = std::vector<uint32_t>{0x099a, 0x09cd};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -223,8 +223,8 @@ TEST(tailoring, bn_traditional_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099a, 0x09cd};
     auto const rel = std::vector<uint32_t>{0x099b, 0x09cd};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -242,8 +242,8 @@ TEST(tailoring, bn_traditional_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099b, 0x09cd};
     auto const rel = std::vector<uint32_t>{0x099c, 0x09cd};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -261,8 +261,8 @@ TEST(tailoring, bn_traditional_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099c, 0x09cd};
     auto const rel = std::vector<uint32_t>{0x099d, 0x09cd};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -280,8 +280,8 @@ TEST(tailoring, bn_traditional_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099d, 0x09cd};
     auto const rel = std::vector<uint32_t>{0x099e, 0x09cd};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -299,8 +299,8 @@ TEST(tailoring, bn_traditional_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099e, 0x09cd};
     auto const rel = std::vector<uint32_t>{0x099f, 0x09cd};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -318,8 +318,8 @@ TEST(tailoring, bn_traditional_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099f, 0x09cd};
     auto const rel = std::vector<uint32_t>{0x09a0, 0x09cd};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -337,8 +337,8 @@ TEST(tailoring, bn_traditional_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a0, 0x09cd};
     auto const rel = std::vector<uint32_t>{0x09a1, 0x09cd};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -356,8 +356,8 @@ TEST(tailoring, bn_traditional_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a1, 0x09cd};
     auto const rel = std::vector<uint32_t>{0x09a2, 0x09cd};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -375,8 +375,8 @@ TEST(tailoring, bn_traditional_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a2, 0x09cd};
     auto const rel = std::vector<uint32_t>{0x09a3, 0x09cd};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -394,8 +394,8 @@ TEST(tailoring, bn_traditional_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a3, 0x09cd};
     auto const rel = std::vector<uint32_t>(1, 0x09ce);
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -413,8 +413,8 @@ TEST(tailoring, bn_traditional_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x09ce);
     auto const rel = std::vector<uint32_t>{0x09a4, 0x09cd, 0x200d};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -432,8 +432,8 @@ TEST(tailoring, bn_traditional_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a4, 0x09cd, 0x200d};
     auto const rel = std::vector<uint32_t>{0x09a4, 0x09cd};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -463,8 +463,8 @@ TEST(tailoring, bn_traditional_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a4, 0x09cd};
     auto const rel = std::vector<uint32_t>{0x09a5, 0x09cd};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -482,8 +482,8 @@ TEST(tailoring, bn_traditional_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a5, 0x09cd};
     auto const rel = std::vector<uint32_t>{0x09a6, 0x09cd};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -501,8 +501,8 @@ TEST(tailoring, bn_traditional_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a6, 0x09cd};
     auto const rel = std::vector<uint32_t>{0x09a7, 0x09cd};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -520,8 +520,8 @@ TEST(tailoring, bn_traditional_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a7, 0x09cd};
     auto const rel = std::vector<uint32_t>{0x09a8, 0x09cd};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -539,8 +539,8 @@ TEST(tailoring, bn_traditional_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a8, 0x09cd};
     auto const rel = std::vector<uint32_t>{0x09aa, 0x09cd};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -558,8 +558,8 @@ TEST(tailoring, bn_traditional_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09aa, 0x09cd};
     auto const rel = std::vector<uint32_t>{0x09ab, 0x09cd};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -577,8 +577,8 @@ TEST(tailoring, bn_traditional_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ab, 0x09cd};
     auto const rel = std::vector<uint32_t>{0x09ac, 0x09cd};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -596,8 +596,8 @@ TEST(tailoring, bn_traditional_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ac, 0x09cd};
     auto const rel = std::vector<uint32_t>{0x09ad, 0x09cd};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -615,8 +615,8 @@ TEST(tailoring, bn_traditional_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ad, 0x09cd};
     auto const rel = std::vector<uint32_t>{0x09ae, 0x09cd};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -634,8 +634,8 @@ TEST(tailoring, bn_traditional_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ae, 0x09cd};
     auto const rel = std::vector<uint32_t>{0x09af, 0x09cd};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -653,8 +653,8 @@ TEST(tailoring, bn_traditional_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09af, 0x09cd};
     auto const rel = std::vector<uint32_t>{0x09b0, 0x09cd};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -672,8 +672,8 @@ TEST(tailoring, bn_traditional_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b0, 0x09cd};
     auto const rel = std::vector<uint32_t>{0x09f0, 0x09cd};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -691,8 +691,8 @@ TEST(tailoring, bn_traditional_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09f0, 0x09cd};
     auto const rel = std::vector<uint32_t>{0x09b2, 0x09cd};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -710,8 +710,8 @@ TEST(tailoring, bn_traditional_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b2, 0x09cd};
     auto const rel = std::vector<uint32_t>{0x09f1, 0x09cd};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -729,8 +729,8 @@ TEST(tailoring, bn_traditional_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09f1, 0x09cd};
     auto const rel = std::vector<uint32_t>{0x09b6, 0x09cd};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -748,8 +748,8 @@ TEST(tailoring, bn_traditional_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b6, 0x09cd};
     auto const rel = std::vector<uint32_t>{0x09b7, 0x09cd};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -767,8 +767,8 @@ TEST(tailoring, bn_traditional_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b7, 0x09cd};
     auto const rel = std::vector<uint32_t>{0x09b8, 0x09cd};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -786,8 +786,8 @@ TEST(tailoring, bn_traditional_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b8, 0x09cd};
     auto const rel = std::vector<uint32_t>{0x09b9, 0x09cd};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -805,8 +805,8 @@ TEST(tailoring, bn_traditional_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0995, 0x09cd, 0x0985};
     auto const rel = std::vector<uint32_t>(1, 0x0995);
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -824,8 +824,8 @@ TEST(tailoring, bn_traditional_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0995, 0x09cd, 0x0986};
     auto const rel = std::vector<uint32_t>{0x0995, 0x09be};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -843,8 +843,8 @@ TEST(tailoring, bn_traditional_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0995, 0x09cd, 0x0987};
     auto const rel = std::vector<uint32_t>{0x0995, 0x09bf};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -862,8 +862,8 @@ TEST(tailoring, bn_traditional_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0995, 0x09cd, 0x0988};
     auto const rel = std::vector<uint32_t>{0x0995, 0x09c0};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -881,8 +881,8 @@ TEST(tailoring, bn_traditional_000_001)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0995, 0x09cd, 0x0989};
     auto const rel = std::vector<uint32_t>{0x0995, 0x09c1};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -904,8 +904,8 @@ TEST(tailoring, bn_traditional_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0995, 0x09cd, 0x098a};
     auto const rel = std::vector<uint32_t>{0x0995, 0x09c2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -923,8 +923,8 @@ TEST(tailoring, bn_traditional_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0995, 0x09cd, 0x098b};
     auto const rel = std::vector<uint32_t>{0x0995, 0x09c3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -942,8 +942,8 @@ TEST(tailoring, bn_traditional_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0995, 0x09cd, 0x09e0};
     auto const rel = std::vector<uint32_t>{0x0995, 0x09c4};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -961,8 +961,8 @@ TEST(tailoring, bn_traditional_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0995, 0x09cd, 0x098c};
     auto const rel = std::vector<uint32_t>{0x0995, 0x09e2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -980,8 +980,8 @@ TEST(tailoring, bn_traditional_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0995, 0x09cd, 0x09e1};
     auto const rel = std::vector<uint32_t>{0x0995, 0x09e3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -999,8 +999,8 @@ TEST(tailoring, bn_traditional_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0995, 0x09cd, 0x098f};
     auto const rel = std::vector<uint32_t>{0x0995, 0x09c7};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1018,8 +1018,8 @@ TEST(tailoring, bn_traditional_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0995, 0x09cd, 0x0990};
     auto const rel = std::vector<uint32_t>{0x0995, 0x09c8};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1037,8 +1037,8 @@ TEST(tailoring, bn_traditional_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0995, 0x09cd, 0x0993};
     auto const rel = std::vector<uint32_t>{0x0995, 0x09cb};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1056,8 +1056,8 @@ TEST(tailoring, bn_traditional_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0995, 0x09cd, 0x0994};
     auto const rel = std::vector<uint32_t>{0x0995, 0x09cc};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1075,8 +1075,8 @@ TEST(tailoring, bn_traditional_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0996, 0x09cd, 0x0985};
     auto const rel = std::vector<uint32_t>(1, 0x0996);
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1094,8 +1094,8 @@ TEST(tailoring, bn_traditional_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0996, 0x09cd, 0x0986};
     auto const rel = std::vector<uint32_t>{0x0996, 0x09be};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1113,8 +1113,8 @@ TEST(tailoring, bn_traditional_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0996, 0x09cd, 0x0987};
     auto const rel = std::vector<uint32_t>{0x0996, 0x09bf};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1132,8 +1132,8 @@ TEST(tailoring, bn_traditional_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0996, 0x09cd, 0x0988};
     auto const rel = std::vector<uint32_t>{0x0996, 0x09c0};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1151,8 +1151,8 @@ TEST(tailoring, bn_traditional_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0996, 0x09cd, 0x0989};
     auto const rel = std::vector<uint32_t>{0x0996, 0x09c1};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1170,8 +1170,8 @@ TEST(tailoring, bn_traditional_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0996, 0x09cd, 0x098a};
     auto const rel = std::vector<uint32_t>{0x0996, 0x09c2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1189,8 +1189,8 @@ TEST(tailoring, bn_traditional_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0996, 0x09cd, 0x098b};
     auto const rel = std::vector<uint32_t>{0x0996, 0x09c3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1208,8 +1208,8 @@ TEST(tailoring, bn_traditional_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0996, 0x09cd, 0x09e0};
     auto const rel = std::vector<uint32_t>{0x0996, 0x09c4};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1227,8 +1227,8 @@ TEST(tailoring, bn_traditional_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0996, 0x09cd, 0x098c};
     auto const rel = std::vector<uint32_t>{0x0996, 0x09e2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1246,8 +1246,8 @@ TEST(tailoring, bn_traditional_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0996, 0x09cd, 0x09e1};
     auto const rel = std::vector<uint32_t>{0x0996, 0x09e3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1265,8 +1265,8 @@ TEST(tailoring, bn_traditional_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0996, 0x09cd, 0x098f};
     auto const rel = std::vector<uint32_t>{0x0996, 0x09c7};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1284,8 +1284,8 @@ TEST(tailoring, bn_traditional_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0996, 0x09cd, 0x0990};
     auto const rel = std::vector<uint32_t>{0x0996, 0x09c8};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1303,8 +1303,8 @@ TEST(tailoring, bn_traditional_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0996, 0x09cd, 0x0993};
     auto const rel = std::vector<uint32_t>{0x0996, 0x09cb};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1322,8 +1322,8 @@ TEST(tailoring, bn_traditional_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0996, 0x09cd, 0x0994};
     auto const rel = std::vector<uint32_t>{0x0996, 0x09cc};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1341,8 +1341,8 @@ TEST(tailoring, bn_traditional_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0997, 0x09cd, 0x0985};
     auto const rel = std::vector<uint32_t>(1, 0x0997);
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1360,8 +1360,8 @@ TEST(tailoring, bn_traditional_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0997, 0x09cd, 0x0986};
     auto const rel = std::vector<uint32_t>{0x0997, 0x09be};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1379,8 +1379,8 @@ TEST(tailoring, bn_traditional_000_002)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0997, 0x09cd, 0x0987};
     auto const rel = std::vector<uint32_t>{0x0997, 0x09bf};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1402,8 +1402,8 @@ TEST(tailoring, bn_traditional_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0997, 0x09cd, 0x0988};
     auto const rel = std::vector<uint32_t>{0x0997, 0x09c0};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1421,8 +1421,8 @@ TEST(tailoring, bn_traditional_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0997, 0x09cd, 0x0989};
     auto const rel = std::vector<uint32_t>{0x0997, 0x09c1};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1440,8 +1440,8 @@ TEST(tailoring, bn_traditional_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0997, 0x09cd, 0x098a};
     auto const rel = std::vector<uint32_t>{0x0997, 0x09c2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1459,8 +1459,8 @@ TEST(tailoring, bn_traditional_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0997, 0x09cd, 0x098b};
     auto const rel = std::vector<uint32_t>{0x0997, 0x09c3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1478,8 +1478,8 @@ TEST(tailoring, bn_traditional_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0997, 0x09cd, 0x09e0};
     auto const rel = std::vector<uint32_t>{0x0997, 0x09c4};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1497,8 +1497,8 @@ TEST(tailoring, bn_traditional_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0997, 0x09cd, 0x098c};
     auto const rel = std::vector<uint32_t>{0x0997, 0x09e2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1516,8 +1516,8 @@ TEST(tailoring, bn_traditional_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0997, 0x09cd, 0x09e1};
     auto const rel = std::vector<uint32_t>{0x0997, 0x09e3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1535,8 +1535,8 @@ TEST(tailoring, bn_traditional_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0997, 0x09cd, 0x098f};
     auto const rel = std::vector<uint32_t>{0x0997, 0x09c7};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1554,8 +1554,8 @@ TEST(tailoring, bn_traditional_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0997, 0x09cd, 0x0990};
     auto const rel = std::vector<uint32_t>{0x0997, 0x09c8};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1573,8 +1573,8 @@ TEST(tailoring, bn_traditional_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0997, 0x09cd, 0x0993};
     auto const rel = std::vector<uint32_t>{0x0997, 0x09cb};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1592,8 +1592,8 @@ TEST(tailoring, bn_traditional_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0997, 0x09cd, 0x0994};
     auto const rel = std::vector<uint32_t>{0x0997, 0x09cc};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1611,8 +1611,8 @@ TEST(tailoring, bn_traditional_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0998, 0x09cd, 0x0985};
     auto const rel = std::vector<uint32_t>(1, 0x0998);
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1630,8 +1630,8 @@ TEST(tailoring, bn_traditional_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0998, 0x09cd, 0x0986};
     auto const rel = std::vector<uint32_t>{0x0998, 0x09be};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1649,8 +1649,8 @@ TEST(tailoring, bn_traditional_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0998, 0x09cd, 0x0987};
     auto const rel = std::vector<uint32_t>{0x0998, 0x09bf};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1668,8 +1668,8 @@ TEST(tailoring, bn_traditional_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0998, 0x09cd, 0x0988};
     auto const rel = std::vector<uint32_t>{0x0998, 0x09c0};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1687,8 +1687,8 @@ TEST(tailoring, bn_traditional_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0998, 0x09cd, 0x0989};
     auto const rel = std::vector<uint32_t>{0x0998, 0x09c1};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1706,8 +1706,8 @@ TEST(tailoring, bn_traditional_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0998, 0x09cd, 0x098a};
     auto const rel = std::vector<uint32_t>{0x0998, 0x09c2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1725,8 +1725,8 @@ TEST(tailoring, bn_traditional_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0998, 0x09cd, 0x098b};
     auto const rel = std::vector<uint32_t>{0x0998, 0x09c3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1744,8 +1744,8 @@ TEST(tailoring, bn_traditional_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0998, 0x09cd, 0x09e0};
     auto const rel = std::vector<uint32_t>{0x0998, 0x09c4};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1763,8 +1763,8 @@ TEST(tailoring, bn_traditional_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0998, 0x09cd, 0x098c};
     auto const rel = std::vector<uint32_t>{0x0998, 0x09e2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1782,8 +1782,8 @@ TEST(tailoring, bn_traditional_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0998, 0x09cd, 0x09e1};
     auto const rel = std::vector<uint32_t>{0x0998, 0x09e3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1801,8 +1801,8 @@ TEST(tailoring, bn_traditional_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0998, 0x09cd, 0x098f};
     auto const rel = std::vector<uint32_t>{0x0998, 0x09c7};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1820,8 +1820,8 @@ TEST(tailoring, bn_traditional_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0998, 0x09cd, 0x0990};
     auto const rel = std::vector<uint32_t>{0x0998, 0x09c8};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1839,8 +1839,8 @@ TEST(tailoring, bn_traditional_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0998, 0x09cd, 0x0993};
     auto const rel = std::vector<uint32_t>{0x0998, 0x09cb};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1858,8 +1858,8 @@ TEST(tailoring, bn_traditional_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0998, 0x09cd, 0x0994};
     auto const rel = std::vector<uint32_t>{0x0998, 0x09cc};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1877,8 +1877,8 @@ TEST(tailoring, bn_traditional_000_003)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0999, 0x09cd, 0x0985};
     auto const rel = std::vector<uint32_t>(1, 0x0999);
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1900,8 +1900,8 @@ TEST(tailoring, bn_traditional_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0999, 0x09cd, 0x0986};
     auto const rel = std::vector<uint32_t>{0x0999, 0x09be};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1919,8 +1919,8 @@ TEST(tailoring, bn_traditional_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0999, 0x09cd, 0x0987};
     auto const rel = std::vector<uint32_t>{0x0999, 0x09bf};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1938,8 +1938,8 @@ TEST(tailoring, bn_traditional_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0999, 0x09cd, 0x0988};
     auto const rel = std::vector<uint32_t>{0x0999, 0x09c0};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1957,8 +1957,8 @@ TEST(tailoring, bn_traditional_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0999, 0x09cd, 0x0989};
     auto const rel = std::vector<uint32_t>{0x0999, 0x09c1};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1976,8 +1976,8 @@ TEST(tailoring, bn_traditional_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0999, 0x09cd, 0x098a};
     auto const rel = std::vector<uint32_t>{0x0999, 0x09c2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -1995,8 +1995,8 @@ TEST(tailoring, bn_traditional_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0999, 0x09cd, 0x098b};
     auto const rel = std::vector<uint32_t>{0x0999, 0x09c3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2014,8 +2014,8 @@ TEST(tailoring, bn_traditional_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0999, 0x09cd, 0x09e0};
     auto const rel = std::vector<uint32_t>{0x0999, 0x09c4};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2033,8 +2033,8 @@ TEST(tailoring, bn_traditional_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0999, 0x09cd, 0x098c};
     auto const rel = std::vector<uint32_t>{0x0999, 0x09e2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2052,8 +2052,8 @@ TEST(tailoring, bn_traditional_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0999, 0x09cd, 0x09e1};
     auto const rel = std::vector<uint32_t>{0x0999, 0x09e3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2071,8 +2071,8 @@ TEST(tailoring, bn_traditional_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0999, 0x09cd, 0x098f};
     auto const rel = std::vector<uint32_t>{0x0999, 0x09c7};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2090,8 +2090,8 @@ TEST(tailoring, bn_traditional_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0999, 0x09cd, 0x0990};
     auto const rel = std::vector<uint32_t>{0x0999, 0x09c8};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2109,8 +2109,8 @@ TEST(tailoring, bn_traditional_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0999, 0x09cd, 0x0993};
     auto const rel = std::vector<uint32_t>{0x0999, 0x09cb};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2128,8 +2128,8 @@ TEST(tailoring, bn_traditional_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x0999, 0x09cd, 0x0994};
     auto const rel = std::vector<uint32_t>{0x0999, 0x09cc};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2147,8 +2147,8 @@ TEST(tailoring, bn_traditional_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099a, 0x09cd, 0x0985};
     auto const rel = std::vector<uint32_t>(1, 0x099a);
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2166,8 +2166,8 @@ TEST(tailoring, bn_traditional_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099a, 0x09cd, 0x0986};
     auto const rel = std::vector<uint32_t>{0x099a, 0x09be};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2185,8 +2185,8 @@ TEST(tailoring, bn_traditional_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099a, 0x09cd, 0x0987};
     auto const rel = std::vector<uint32_t>{0x099a, 0x09bf};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2204,8 +2204,8 @@ TEST(tailoring, bn_traditional_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099a, 0x09cd, 0x0988};
     auto const rel = std::vector<uint32_t>{0x099a, 0x09c0};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2223,8 +2223,8 @@ TEST(tailoring, bn_traditional_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099a, 0x09cd, 0x0989};
     auto const rel = std::vector<uint32_t>{0x099a, 0x09c1};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2242,8 +2242,8 @@ TEST(tailoring, bn_traditional_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099a, 0x09cd, 0x098a};
     auto const rel = std::vector<uint32_t>{0x099a, 0x09c2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2261,8 +2261,8 @@ TEST(tailoring, bn_traditional_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099a, 0x09cd, 0x098b};
     auto const rel = std::vector<uint32_t>{0x099a, 0x09c3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2280,8 +2280,8 @@ TEST(tailoring, bn_traditional_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099a, 0x09cd, 0x09e0};
     auto const rel = std::vector<uint32_t>{0x099a, 0x09c4};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2299,8 +2299,8 @@ TEST(tailoring, bn_traditional_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099a, 0x09cd, 0x098c};
     auto const rel = std::vector<uint32_t>{0x099a, 0x09e2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2318,8 +2318,8 @@ TEST(tailoring, bn_traditional_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099a, 0x09cd, 0x09e1};
     auto const rel = std::vector<uint32_t>{0x099a, 0x09e3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2337,8 +2337,8 @@ TEST(tailoring, bn_traditional_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099a, 0x09cd, 0x098f};
     auto const rel = std::vector<uint32_t>{0x099a, 0x09c7};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2356,8 +2356,8 @@ TEST(tailoring, bn_traditional_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099a, 0x09cd, 0x0990};
     auto const rel = std::vector<uint32_t>{0x099a, 0x09c8};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2375,8 +2375,8 @@ TEST(tailoring, bn_traditional_000_004)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099a, 0x09cd, 0x0993};
     auto const rel = std::vector<uint32_t>{0x099a, 0x09cb};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2398,8 +2398,8 @@ TEST(tailoring, bn_traditional_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099a, 0x09cd, 0x0994};
     auto const rel = std::vector<uint32_t>{0x099a, 0x09cc};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2417,8 +2417,8 @@ TEST(tailoring, bn_traditional_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099b, 0x09cd, 0x0985};
     auto const rel = std::vector<uint32_t>(1, 0x099b);
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2436,8 +2436,8 @@ TEST(tailoring, bn_traditional_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099b, 0x09cd, 0x0986};
     auto const rel = std::vector<uint32_t>{0x099b, 0x09be};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2455,8 +2455,8 @@ TEST(tailoring, bn_traditional_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099b, 0x09cd, 0x0987};
     auto const rel = std::vector<uint32_t>{0x099b, 0x09bf};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2474,8 +2474,8 @@ TEST(tailoring, bn_traditional_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099b, 0x09cd, 0x0988};
     auto const rel = std::vector<uint32_t>{0x099b, 0x09c0};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2493,8 +2493,8 @@ TEST(tailoring, bn_traditional_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099b, 0x09cd, 0x0989};
     auto const rel = std::vector<uint32_t>{0x099b, 0x09c1};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2512,8 +2512,8 @@ TEST(tailoring, bn_traditional_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099b, 0x09cd, 0x098a};
     auto const rel = std::vector<uint32_t>{0x099b, 0x09c2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2531,8 +2531,8 @@ TEST(tailoring, bn_traditional_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099b, 0x09cd, 0x098b};
     auto const rel = std::vector<uint32_t>{0x099b, 0x09c3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2550,8 +2550,8 @@ TEST(tailoring, bn_traditional_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099b, 0x09cd, 0x09e0};
     auto const rel = std::vector<uint32_t>{0x099b, 0x09c4};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2569,8 +2569,8 @@ TEST(tailoring, bn_traditional_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099b, 0x09cd, 0x098c};
     auto const rel = std::vector<uint32_t>{0x099b, 0x09e2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2588,8 +2588,8 @@ TEST(tailoring, bn_traditional_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099b, 0x09cd, 0x09e1};
     auto const rel = std::vector<uint32_t>{0x099b, 0x09e3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2607,8 +2607,8 @@ TEST(tailoring, bn_traditional_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099b, 0x09cd, 0x098f};
     auto const rel = std::vector<uint32_t>{0x099b, 0x09c7};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2626,8 +2626,8 @@ TEST(tailoring, bn_traditional_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099b, 0x09cd, 0x0990};
     auto const rel = std::vector<uint32_t>{0x099b, 0x09c8};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2645,8 +2645,8 @@ TEST(tailoring, bn_traditional_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099b, 0x09cd, 0x0993};
     auto const rel = std::vector<uint32_t>{0x099b, 0x09cb};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2664,8 +2664,8 @@ TEST(tailoring, bn_traditional_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099b, 0x09cd, 0x0994};
     auto const rel = std::vector<uint32_t>{0x099b, 0x09cc};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2683,8 +2683,8 @@ TEST(tailoring, bn_traditional_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099c, 0x09cd, 0x0985};
     auto const rel = std::vector<uint32_t>(1, 0x099c);
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2702,8 +2702,8 @@ TEST(tailoring, bn_traditional_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099c, 0x09cd, 0x0986};
     auto const rel = std::vector<uint32_t>{0x099c, 0x09be};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2721,8 +2721,8 @@ TEST(tailoring, bn_traditional_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099c, 0x09cd, 0x0987};
     auto const rel = std::vector<uint32_t>{0x099c, 0x09bf};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2740,8 +2740,8 @@ TEST(tailoring, bn_traditional_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099c, 0x09cd, 0x0988};
     auto const rel = std::vector<uint32_t>{0x099c, 0x09c0};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2759,8 +2759,8 @@ TEST(tailoring, bn_traditional_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099c, 0x09cd, 0x0989};
     auto const rel = std::vector<uint32_t>{0x099c, 0x09c1};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2778,8 +2778,8 @@ TEST(tailoring, bn_traditional_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099c, 0x09cd, 0x098a};
     auto const rel = std::vector<uint32_t>{0x099c, 0x09c2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2797,8 +2797,8 @@ TEST(tailoring, bn_traditional_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099c, 0x09cd, 0x098b};
     auto const rel = std::vector<uint32_t>{0x099c, 0x09c3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2816,8 +2816,8 @@ TEST(tailoring, bn_traditional_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099c, 0x09cd, 0x09e0};
     auto const rel = std::vector<uint32_t>{0x099c, 0x09c4};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2835,8 +2835,8 @@ TEST(tailoring, bn_traditional_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099c, 0x09cd, 0x098c};
     auto const rel = std::vector<uint32_t>{0x099c, 0x09e2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2854,8 +2854,8 @@ TEST(tailoring, bn_traditional_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099c, 0x09cd, 0x09e1};
     auto const rel = std::vector<uint32_t>{0x099c, 0x09e3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2873,8 +2873,8 @@ TEST(tailoring, bn_traditional_000_005)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099c, 0x09cd, 0x098f};
     auto const rel = std::vector<uint32_t>{0x099c, 0x09c7};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2896,8 +2896,8 @@ TEST(tailoring, bn_traditional_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099c, 0x09cd, 0x0990};
     auto const rel = std::vector<uint32_t>{0x099c, 0x09c8};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2915,8 +2915,8 @@ TEST(tailoring, bn_traditional_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099c, 0x09cd, 0x0993};
     auto const rel = std::vector<uint32_t>{0x099c, 0x09cb};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2934,8 +2934,8 @@ TEST(tailoring, bn_traditional_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099c, 0x09cd, 0x0994};
     auto const rel = std::vector<uint32_t>{0x099c, 0x09cc};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2953,8 +2953,8 @@ TEST(tailoring, bn_traditional_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099d, 0x09cd, 0x0985};
     auto const rel = std::vector<uint32_t>(1, 0x099d);
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2972,8 +2972,8 @@ TEST(tailoring, bn_traditional_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099d, 0x09cd, 0x0986};
     auto const rel = std::vector<uint32_t>{0x099d, 0x09be};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -2991,8 +2991,8 @@ TEST(tailoring, bn_traditional_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099d, 0x09cd, 0x0987};
     auto const rel = std::vector<uint32_t>{0x099d, 0x09bf};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3010,8 +3010,8 @@ TEST(tailoring, bn_traditional_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099d, 0x09cd, 0x0988};
     auto const rel = std::vector<uint32_t>{0x099d, 0x09c0};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3029,8 +3029,8 @@ TEST(tailoring, bn_traditional_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099d, 0x09cd, 0x0989};
     auto const rel = std::vector<uint32_t>{0x099d, 0x09c1};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3048,8 +3048,8 @@ TEST(tailoring, bn_traditional_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099d, 0x09cd, 0x098a};
     auto const rel = std::vector<uint32_t>{0x099d, 0x09c2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3067,8 +3067,8 @@ TEST(tailoring, bn_traditional_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099d, 0x09cd, 0x098b};
     auto const rel = std::vector<uint32_t>{0x099d, 0x09c3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3086,8 +3086,8 @@ TEST(tailoring, bn_traditional_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099d, 0x09cd, 0x09e0};
     auto const rel = std::vector<uint32_t>{0x099d, 0x09c4};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3105,8 +3105,8 @@ TEST(tailoring, bn_traditional_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099d, 0x09cd, 0x098c};
     auto const rel = std::vector<uint32_t>{0x099d, 0x09e2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3124,8 +3124,8 @@ TEST(tailoring, bn_traditional_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099d, 0x09cd, 0x09e1};
     auto const rel = std::vector<uint32_t>{0x099d, 0x09e3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3143,8 +3143,8 @@ TEST(tailoring, bn_traditional_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099d, 0x09cd, 0x098f};
     auto const rel = std::vector<uint32_t>{0x099d, 0x09c7};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3162,8 +3162,8 @@ TEST(tailoring, bn_traditional_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099d, 0x09cd, 0x0990};
     auto const rel = std::vector<uint32_t>{0x099d, 0x09c8};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3181,8 +3181,8 @@ TEST(tailoring, bn_traditional_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099d, 0x09cd, 0x0993};
     auto const rel = std::vector<uint32_t>{0x099d, 0x09cb};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3200,8 +3200,8 @@ TEST(tailoring, bn_traditional_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099d, 0x09cd, 0x0994};
     auto const rel = std::vector<uint32_t>{0x099d, 0x09cc};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3219,8 +3219,8 @@ TEST(tailoring, bn_traditional_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099e, 0x09cd, 0x0985};
     auto const rel = std::vector<uint32_t>(1, 0x099e);
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3238,8 +3238,8 @@ TEST(tailoring, bn_traditional_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099e, 0x09cd, 0x0986};
     auto const rel = std::vector<uint32_t>{0x099e, 0x09be};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3257,8 +3257,8 @@ TEST(tailoring, bn_traditional_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099e, 0x09cd, 0x0987};
     auto const rel = std::vector<uint32_t>{0x099e, 0x09bf};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3276,8 +3276,8 @@ TEST(tailoring, bn_traditional_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099e, 0x09cd, 0x0988};
     auto const rel = std::vector<uint32_t>{0x099e, 0x09c0};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3295,8 +3295,8 @@ TEST(tailoring, bn_traditional_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099e, 0x09cd, 0x0989};
     auto const rel = std::vector<uint32_t>{0x099e, 0x09c1};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3314,8 +3314,8 @@ TEST(tailoring, bn_traditional_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099e, 0x09cd, 0x098a};
     auto const rel = std::vector<uint32_t>{0x099e, 0x09c2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3333,8 +3333,8 @@ TEST(tailoring, bn_traditional_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099e, 0x09cd, 0x098b};
     auto const rel = std::vector<uint32_t>{0x099e, 0x09c3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3352,8 +3352,8 @@ TEST(tailoring, bn_traditional_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099e, 0x09cd, 0x09e0};
     auto const rel = std::vector<uint32_t>{0x099e, 0x09c4};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3371,8 +3371,8 @@ TEST(tailoring, bn_traditional_000_006)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099e, 0x09cd, 0x098c};
     auto const rel = std::vector<uint32_t>{0x099e, 0x09e2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3394,8 +3394,8 @@ TEST(tailoring, bn_traditional_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099e, 0x09cd, 0x09e1};
     auto const rel = std::vector<uint32_t>{0x099e, 0x09e3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3413,8 +3413,8 @@ TEST(tailoring, bn_traditional_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099e, 0x09cd, 0x098f};
     auto const rel = std::vector<uint32_t>{0x099e, 0x09c7};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3432,8 +3432,8 @@ TEST(tailoring, bn_traditional_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099e, 0x09cd, 0x0990};
     auto const rel = std::vector<uint32_t>{0x099e, 0x09c8};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3451,8 +3451,8 @@ TEST(tailoring, bn_traditional_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099e, 0x09cd, 0x0993};
     auto const rel = std::vector<uint32_t>{0x099e, 0x09cb};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3470,8 +3470,8 @@ TEST(tailoring, bn_traditional_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099e, 0x09cd, 0x0994};
     auto const rel = std::vector<uint32_t>{0x099e, 0x09cc};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3489,8 +3489,8 @@ TEST(tailoring, bn_traditional_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099f, 0x09cd, 0x0985};
     auto const rel = std::vector<uint32_t>(1, 0x099f);
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3508,8 +3508,8 @@ TEST(tailoring, bn_traditional_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099f, 0x09cd, 0x0986};
     auto const rel = std::vector<uint32_t>{0x099f, 0x09be};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3527,8 +3527,8 @@ TEST(tailoring, bn_traditional_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099f, 0x09cd, 0x0987};
     auto const rel = std::vector<uint32_t>{0x099f, 0x09bf};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3546,8 +3546,8 @@ TEST(tailoring, bn_traditional_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099f, 0x09cd, 0x0988};
     auto const rel = std::vector<uint32_t>{0x099f, 0x09c0};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3565,8 +3565,8 @@ TEST(tailoring, bn_traditional_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099f, 0x09cd, 0x0989};
     auto const rel = std::vector<uint32_t>{0x099f, 0x09c1};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3584,8 +3584,8 @@ TEST(tailoring, bn_traditional_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099f, 0x09cd, 0x098a};
     auto const rel = std::vector<uint32_t>{0x099f, 0x09c2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3603,8 +3603,8 @@ TEST(tailoring, bn_traditional_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099f, 0x09cd, 0x098b};
     auto const rel = std::vector<uint32_t>{0x099f, 0x09c3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3622,8 +3622,8 @@ TEST(tailoring, bn_traditional_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099f, 0x09cd, 0x09e0};
     auto const rel = std::vector<uint32_t>{0x099f, 0x09c4};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3641,8 +3641,8 @@ TEST(tailoring, bn_traditional_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099f, 0x09cd, 0x098c};
     auto const rel = std::vector<uint32_t>{0x099f, 0x09e2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3660,8 +3660,8 @@ TEST(tailoring, bn_traditional_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099f, 0x09cd, 0x09e1};
     auto const rel = std::vector<uint32_t>{0x099f, 0x09e3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3679,8 +3679,8 @@ TEST(tailoring, bn_traditional_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099f, 0x09cd, 0x098f};
     auto const rel = std::vector<uint32_t>{0x099f, 0x09c7};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3698,8 +3698,8 @@ TEST(tailoring, bn_traditional_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099f, 0x09cd, 0x0990};
     auto const rel = std::vector<uint32_t>{0x099f, 0x09c8};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3717,8 +3717,8 @@ TEST(tailoring, bn_traditional_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099f, 0x09cd, 0x0993};
     auto const rel = std::vector<uint32_t>{0x099f, 0x09cb};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3736,8 +3736,8 @@ TEST(tailoring, bn_traditional_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x099f, 0x09cd, 0x0994};
     auto const rel = std::vector<uint32_t>{0x099f, 0x09cc};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3755,8 +3755,8 @@ TEST(tailoring, bn_traditional_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a0, 0x09cd, 0x0985};
     auto const rel = std::vector<uint32_t>(1, 0x09a0);
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3774,8 +3774,8 @@ TEST(tailoring, bn_traditional_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a0, 0x09cd, 0x0986};
     auto const rel = std::vector<uint32_t>{0x09a0, 0x09be};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3793,8 +3793,8 @@ TEST(tailoring, bn_traditional_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a0, 0x09cd, 0x0987};
     auto const rel = std::vector<uint32_t>{0x09a0, 0x09bf};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3812,8 +3812,8 @@ TEST(tailoring, bn_traditional_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a0, 0x09cd, 0x0988};
     auto const rel = std::vector<uint32_t>{0x09a0, 0x09c0};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3831,8 +3831,8 @@ TEST(tailoring, bn_traditional_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a0, 0x09cd, 0x0989};
     auto const rel = std::vector<uint32_t>{0x09a0, 0x09c1};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3850,8 +3850,8 @@ TEST(tailoring, bn_traditional_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a0, 0x09cd, 0x098a};
     auto const rel = std::vector<uint32_t>{0x09a0, 0x09c2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3869,8 +3869,8 @@ TEST(tailoring, bn_traditional_000_007)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a0, 0x09cd, 0x098b};
     auto const rel = std::vector<uint32_t>{0x09a0, 0x09c3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3892,8 +3892,8 @@ TEST(tailoring, bn_traditional_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a0, 0x09cd, 0x09e0};
     auto const rel = std::vector<uint32_t>{0x09a0, 0x09c4};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3911,8 +3911,8 @@ TEST(tailoring, bn_traditional_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a0, 0x09cd, 0x098c};
     auto const rel = std::vector<uint32_t>{0x09a0, 0x09e2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3930,8 +3930,8 @@ TEST(tailoring, bn_traditional_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a0, 0x09cd, 0x09e1};
     auto const rel = std::vector<uint32_t>{0x09a0, 0x09e3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3949,8 +3949,8 @@ TEST(tailoring, bn_traditional_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a0, 0x09cd, 0x098f};
     auto const rel = std::vector<uint32_t>{0x09a0, 0x09c7};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3968,8 +3968,8 @@ TEST(tailoring, bn_traditional_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a0, 0x09cd, 0x0990};
     auto const rel = std::vector<uint32_t>{0x09a0, 0x09c8};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -3987,8 +3987,8 @@ TEST(tailoring, bn_traditional_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a0, 0x09cd, 0x0993};
     auto const rel = std::vector<uint32_t>{0x09a0, 0x09cb};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4006,8 +4006,8 @@ TEST(tailoring, bn_traditional_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a0, 0x09cd, 0x0994};
     auto const rel = std::vector<uint32_t>{0x09a0, 0x09cc};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4025,8 +4025,8 @@ TEST(tailoring, bn_traditional_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a1, 0x09cd, 0x0985};
     auto const rel = std::vector<uint32_t>(1, 0x09a1);
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4044,8 +4044,8 @@ TEST(tailoring, bn_traditional_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a1, 0x09cd, 0x0986};
     auto const rel = std::vector<uint32_t>{0x09a1, 0x09be};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4063,8 +4063,8 @@ TEST(tailoring, bn_traditional_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a1, 0x09cd, 0x0987};
     auto const rel = std::vector<uint32_t>{0x09a1, 0x09bf};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4082,8 +4082,8 @@ TEST(tailoring, bn_traditional_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a1, 0x09cd, 0x0988};
     auto const rel = std::vector<uint32_t>{0x09a1, 0x09c0};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4101,8 +4101,8 @@ TEST(tailoring, bn_traditional_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a1, 0x09cd, 0x0989};
     auto const rel = std::vector<uint32_t>{0x09a1, 0x09c1};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4120,8 +4120,8 @@ TEST(tailoring, bn_traditional_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a1, 0x09cd, 0x098a};
     auto const rel = std::vector<uint32_t>{0x09a1, 0x09c2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4139,8 +4139,8 @@ TEST(tailoring, bn_traditional_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a1, 0x09cd, 0x098b};
     auto const rel = std::vector<uint32_t>{0x09a1, 0x09c3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4158,8 +4158,8 @@ TEST(tailoring, bn_traditional_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a1, 0x09cd, 0x09e0};
     auto const rel = std::vector<uint32_t>{0x09a1, 0x09c4};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4177,8 +4177,8 @@ TEST(tailoring, bn_traditional_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a1, 0x09cd, 0x098c};
     auto const rel = std::vector<uint32_t>{0x09a1, 0x09e2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4196,8 +4196,8 @@ TEST(tailoring, bn_traditional_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a1, 0x09cd, 0x09e1};
     auto const rel = std::vector<uint32_t>{0x09a1, 0x09e3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4215,8 +4215,8 @@ TEST(tailoring, bn_traditional_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a1, 0x09cd, 0x098f};
     auto const rel = std::vector<uint32_t>{0x09a1, 0x09c7};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4234,8 +4234,8 @@ TEST(tailoring, bn_traditional_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a1, 0x09cd, 0x0990};
     auto const rel = std::vector<uint32_t>{0x09a1, 0x09c8};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4253,8 +4253,8 @@ TEST(tailoring, bn_traditional_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a1, 0x09cd, 0x0993};
     auto const rel = std::vector<uint32_t>{0x09a1, 0x09cb};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4272,8 +4272,8 @@ TEST(tailoring, bn_traditional_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a1, 0x09cd, 0x0994};
     auto const rel = std::vector<uint32_t>{0x09a1, 0x09cc};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4291,8 +4291,8 @@ TEST(tailoring, bn_traditional_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a2, 0x09cd, 0x0985};
     auto const rel = std::vector<uint32_t>(1, 0x09a2);
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4310,8 +4310,8 @@ TEST(tailoring, bn_traditional_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a2, 0x09cd, 0x0986};
     auto const rel = std::vector<uint32_t>{0x09a2, 0x09be};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4329,8 +4329,8 @@ TEST(tailoring, bn_traditional_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a2, 0x09cd, 0x0987};
     auto const rel = std::vector<uint32_t>{0x09a2, 0x09bf};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4348,8 +4348,8 @@ TEST(tailoring, bn_traditional_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a2, 0x09cd, 0x0988};
     auto const rel = std::vector<uint32_t>{0x09a2, 0x09c0};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4367,8 +4367,8 @@ TEST(tailoring, bn_traditional_000_008)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a2, 0x09cd, 0x0989};
     auto const rel = std::vector<uint32_t>{0x09a2, 0x09c1};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4390,8 +4390,8 @@ TEST(tailoring, bn_traditional_000_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a2, 0x09cd, 0x098a};
     auto const rel = std::vector<uint32_t>{0x09a2, 0x09c2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4409,8 +4409,8 @@ TEST(tailoring, bn_traditional_000_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a2, 0x09cd, 0x098b};
     auto const rel = std::vector<uint32_t>{0x09a2, 0x09c3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4428,8 +4428,8 @@ TEST(tailoring, bn_traditional_000_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a2, 0x09cd, 0x09e0};
     auto const rel = std::vector<uint32_t>{0x09a2, 0x09c4};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4447,8 +4447,8 @@ TEST(tailoring, bn_traditional_000_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a2, 0x09cd, 0x098c};
     auto const rel = std::vector<uint32_t>{0x09a2, 0x09e2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4466,8 +4466,8 @@ TEST(tailoring, bn_traditional_000_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a2, 0x09cd, 0x09e1};
     auto const rel = std::vector<uint32_t>{0x09a2, 0x09e3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4485,8 +4485,8 @@ TEST(tailoring, bn_traditional_000_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a2, 0x09cd, 0x098f};
     auto const rel = std::vector<uint32_t>{0x09a2, 0x09c7};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4504,8 +4504,8 @@ TEST(tailoring, bn_traditional_000_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a2, 0x09cd, 0x0990};
     auto const rel = std::vector<uint32_t>{0x09a2, 0x09c8};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4523,8 +4523,8 @@ TEST(tailoring, bn_traditional_000_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a2, 0x09cd, 0x0993};
     auto const rel = std::vector<uint32_t>{0x09a2, 0x09cb};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4542,8 +4542,8 @@ TEST(tailoring, bn_traditional_000_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a2, 0x09cd, 0x0994};
     auto const rel = std::vector<uint32_t>{0x09a2, 0x09cc};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4561,8 +4561,8 @@ TEST(tailoring, bn_traditional_000_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a3, 0x09cd, 0x0985};
     auto const rel = std::vector<uint32_t>(1, 0x09a3);
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4580,8 +4580,8 @@ TEST(tailoring, bn_traditional_000_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a3, 0x09cd, 0x0986};
     auto const rel = std::vector<uint32_t>{0x09a3, 0x09be};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4599,8 +4599,8 @@ TEST(tailoring, bn_traditional_000_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a3, 0x09cd, 0x0987};
     auto const rel = std::vector<uint32_t>{0x09a3, 0x09bf};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4618,8 +4618,8 @@ TEST(tailoring, bn_traditional_000_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a3, 0x09cd, 0x0988};
     auto const rel = std::vector<uint32_t>{0x09a3, 0x09c0};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4637,8 +4637,8 @@ TEST(tailoring, bn_traditional_000_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a3, 0x09cd, 0x0989};
     auto const rel = std::vector<uint32_t>{0x09a3, 0x09c1};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4656,8 +4656,8 @@ TEST(tailoring, bn_traditional_000_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a3, 0x09cd, 0x098a};
     auto const rel = std::vector<uint32_t>{0x09a3, 0x09c2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4675,8 +4675,8 @@ TEST(tailoring, bn_traditional_000_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a3, 0x09cd, 0x098b};
     auto const rel = std::vector<uint32_t>{0x09a3, 0x09c3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4694,8 +4694,8 @@ TEST(tailoring, bn_traditional_000_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a3, 0x09cd, 0x09e0};
     auto const rel = std::vector<uint32_t>{0x09a3, 0x09c4};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4713,8 +4713,8 @@ TEST(tailoring, bn_traditional_000_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a3, 0x09cd, 0x098c};
     auto const rel = std::vector<uint32_t>{0x09a3, 0x09e2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4732,8 +4732,8 @@ TEST(tailoring, bn_traditional_000_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a3, 0x09cd, 0x09e1};
     auto const rel = std::vector<uint32_t>{0x09a3, 0x09e3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4751,8 +4751,8 @@ TEST(tailoring, bn_traditional_000_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a3, 0x09cd, 0x098f};
     auto const rel = std::vector<uint32_t>{0x09a3, 0x09c7};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4770,8 +4770,8 @@ TEST(tailoring, bn_traditional_000_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a3, 0x09cd, 0x0990};
     auto const rel = std::vector<uint32_t>{0x09a3, 0x09c8};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4789,8 +4789,8 @@ TEST(tailoring, bn_traditional_000_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a3, 0x09cd, 0x0993};
     auto const rel = std::vector<uint32_t>{0x09a3, 0x09cb};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4808,8 +4808,8 @@ TEST(tailoring, bn_traditional_000_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a3, 0x09cd, 0x0994};
     auto const rel = std::vector<uint32_t>{0x09a3, 0x09cc};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4827,8 +4827,8 @@ TEST(tailoring, bn_traditional_000_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a4, 0x09cd, 0x0985};
     auto const rel = std::vector<uint32_t>(1, 0x09a4);
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4846,8 +4846,8 @@ TEST(tailoring, bn_traditional_000_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a4, 0x09cd, 0x0986};
     auto const rel = std::vector<uint32_t>{0x09a4, 0x09be};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4865,8 +4865,8 @@ TEST(tailoring, bn_traditional_000_009)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a4, 0x09cd, 0x0987};
     auto const rel = std::vector<uint32_t>{0x09a4, 0x09bf};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4888,8 +4888,8 @@ TEST(tailoring, bn_traditional_000_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a4, 0x09cd, 0x0988};
     auto const rel = std::vector<uint32_t>{0x09a4, 0x09c0};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4907,8 +4907,8 @@ TEST(tailoring, bn_traditional_000_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a4, 0x09cd, 0x0989};
     auto const rel = std::vector<uint32_t>{0x09a4, 0x09c1};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4926,8 +4926,8 @@ TEST(tailoring, bn_traditional_000_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a4, 0x09cd, 0x098a};
     auto const rel = std::vector<uint32_t>{0x09a4, 0x09c2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4945,8 +4945,8 @@ TEST(tailoring, bn_traditional_000_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a4, 0x09cd, 0x098b};
     auto const rel = std::vector<uint32_t>{0x09a4, 0x09c3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4964,8 +4964,8 @@ TEST(tailoring, bn_traditional_000_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a4, 0x09cd, 0x09e0};
     auto const rel = std::vector<uint32_t>{0x09a4, 0x09c4};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -4983,8 +4983,8 @@ TEST(tailoring, bn_traditional_000_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a4, 0x09cd, 0x098c};
     auto const rel = std::vector<uint32_t>{0x09a4, 0x09e2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5002,8 +5002,8 @@ TEST(tailoring, bn_traditional_000_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a4, 0x09cd, 0x09e1};
     auto const rel = std::vector<uint32_t>{0x09a4, 0x09e3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5021,8 +5021,8 @@ TEST(tailoring, bn_traditional_000_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a4, 0x09cd, 0x098f};
     auto const rel = std::vector<uint32_t>{0x09a4, 0x09c7};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5040,8 +5040,8 @@ TEST(tailoring, bn_traditional_000_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a4, 0x09cd, 0x0990};
     auto const rel = std::vector<uint32_t>{0x09a4, 0x09c8};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5059,8 +5059,8 @@ TEST(tailoring, bn_traditional_000_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a4, 0x09cd, 0x0993};
     auto const rel = std::vector<uint32_t>{0x09a4, 0x09cb};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5078,8 +5078,8 @@ TEST(tailoring, bn_traditional_000_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a4, 0x09cd, 0x0994};
     auto const rel = std::vector<uint32_t>{0x09a4, 0x09cc};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5097,8 +5097,8 @@ TEST(tailoring, bn_traditional_000_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a5, 0x09cd, 0x0985};
     auto const rel = std::vector<uint32_t>(1, 0x09a5);
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5116,8 +5116,8 @@ TEST(tailoring, bn_traditional_000_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a5, 0x09cd, 0x0986};
     auto const rel = std::vector<uint32_t>{0x09a5, 0x09be};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5135,8 +5135,8 @@ TEST(tailoring, bn_traditional_000_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a5, 0x09cd, 0x0987};
     auto const rel = std::vector<uint32_t>{0x09a5, 0x09bf};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5154,8 +5154,8 @@ TEST(tailoring, bn_traditional_000_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a5, 0x09cd, 0x0988};
     auto const rel = std::vector<uint32_t>{0x09a5, 0x09c0};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5173,8 +5173,8 @@ TEST(tailoring, bn_traditional_000_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a5, 0x09cd, 0x0989};
     auto const rel = std::vector<uint32_t>{0x09a5, 0x09c1};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5192,8 +5192,8 @@ TEST(tailoring, bn_traditional_000_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a5, 0x09cd, 0x098a};
     auto const rel = std::vector<uint32_t>{0x09a5, 0x09c2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5211,8 +5211,8 @@ TEST(tailoring, bn_traditional_000_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a5, 0x09cd, 0x098b};
     auto const rel = std::vector<uint32_t>{0x09a5, 0x09c3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5230,8 +5230,8 @@ TEST(tailoring, bn_traditional_000_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a5, 0x09cd, 0x09e0};
     auto const rel = std::vector<uint32_t>{0x09a5, 0x09c4};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5249,8 +5249,8 @@ TEST(tailoring, bn_traditional_000_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a5, 0x09cd, 0x098c};
     auto const rel = std::vector<uint32_t>{0x09a5, 0x09e2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5268,8 +5268,8 @@ TEST(tailoring, bn_traditional_000_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a5, 0x09cd, 0x09e1};
     auto const rel = std::vector<uint32_t>{0x09a5, 0x09e3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5287,8 +5287,8 @@ TEST(tailoring, bn_traditional_000_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a5, 0x09cd, 0x098f};
     auto const rel = std::vector<uint32_t>{0x09a5, 0x09c7};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5306,8 +5306,8 @@ TEST(tailoring, bn_traditional_000_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a5, 0x09cd, 0x0990};
     auto const rel = std::vector<uint32_t>{0x09a5, 0x09c8};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5325,8 +5325,8 @@ TEST(tailoring, bn_traditional_000_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a5, 0x09cd, 0x0993};
     auto const rel = std::vector<uint32_t>{0x09a5, 0x09cb};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5344,8 +5344,8 @@ TEST(tailoring, bn_traditional_000_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a5, 0x09cd, 0x0994};
     auto const rel = std::vector<uint32_t>{0x09a5, 0x09cc};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5363,8 +5363,8 @@ TEST(tailoring, bn_traditional_000_010)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a6, 0x09cd, 0x0985};
     auto const rel = std::vector<uint32_t>(1, 0x09a6);
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5386,8 +5386,8 @@ TEST(tailoring, bn_traditional_000_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a6, 0x09cd, 0x0986};
     auto const rel = std::vector<uint32_t>{0x09a6, 0x09be};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5405,8 +5405,8 @@ TEST(tailoring, bn_traditional_000_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a6, 0x09cd, 0x0987};
     auto const rel = std::vector<uint32_t>{0x09a6, 0x09bf};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5424,8 +5424,8 @@ TEST(tailoring, bn_traditional_000_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a6, 0x09cd, 0x0988};
     auto const rel = std::vector<uint32_t>{0x09a6, 0x09c0};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5443,8 +5443,8 @@ TEST(tailoring, bn_traditional_000_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a6, 0x09cd, 0x0989};
     auto const rel = std::vector<uint32_t>{0x09a6, 0x09c1};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5462,8 +5462,8 @@ TEST(tailoring, bn_traditional_000_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a6, 0x09cd, 0x098a};
     auto const rel = std::vector<uint32_t>{0x09a6, 0x09c2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5481,8 +5481,8 @@ TEST(tailoring, bn_traditional_000_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a6, 0x09cd, 0x098b};
     auto const rel = std::vector<uint32_t>{0x09a6, 0x09c3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5500,8 +5500,8 @@ TEST(tailoring, bn_traditional_000_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a6, 0x09cd, 0x09e0};
     auto const rel = std::vector<uint32_t>{0x09a6, 0x09c4};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5519,8 +5519,8 @@ TEST(tailoring, bn_traditional_000_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a6, 0x09cd, 0x098c};
     auto const rel = std::vector<uint32_t>{0x09a6, 0x09e2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5538,8 +5538,8 @@ TEST(tailoring, bn_traditional_000_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a6, 0x09cd, 0x09e1};
     auto const rel = std::vector<uint32_t>{0x09a6, 0x09e3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5557,8 +5557,8 @@ TEST(tailoring, bn_traditional_000_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a6, 0x09cd, 0x098f};
     auto const rel = std::vector<uint32_t>{0x09a6, 0x09c7};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5576,8 +5576,8 @@ TEST(tailoring, bn_traditional_000_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a6, 0x09cd, 0x0990};
     auto const rel = std::vector<uint32_t>{0x09a6, 0x09c8};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5595,8 +5595,8 @@ TEST(tailoring, bn_traditional_000_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a6, 0x09cd, 0x0993};
     auto const rel = std::vector<uint32_t>{0x09a6, 0x09cb};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5614,8 +5614,8 @@ TEST(tailoring, bn_traditional_000_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a6, 0x09cd, 0x0994};
     auto const rel = std::vector<uint32_t>{0x09a6, 0x09cc};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5633,8 +5633,8 @@ TEST(tailoring, bn_traditional_000_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a7, 0x09cd, 0x0985};
     auto const rel = std::vector<uint32_t>(1, 0x09a7);
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5652,8 +5652,8 @@ TEST(tailoring, bn_traditional_000_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a7, 0x09cd, 0x0986};
     auto const rel = std::vector<uint32_t>{0x09a7, 0x09be};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5671,8 +5671,8 @@ TEST(tailoring, bn_traditional_000_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a7, 0x09cd, 0x0987};
     auto const rel = std::vector<uint32_t>{0x09a7, 0x09bf};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5690,8 +5690,8 @@ TEST(tailoring, bn_traditional_000_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a7, 0x09cd, 0x0988};
     auto const rel = std::vector<uint32_t>{0x09a7, 0x09c0};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5709,8 +5709,8 @@ TEST(tailoring, bn_traditional_000_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a7, 0x09cd, 0x0989};
     auto const rel = std::vector<uint32_t>{0x09a7, 0x09c1};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5728,8 +5728,8 @@ TEST(tailoring, bn_traditional_000_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a7, 0x09cd, 0x098a};
     auto const rel = std::vector<uint32_t>{0x09a7, 0x09c2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5747,8 +5747,8 @@ TEST(tailoring, bn_traditional_000_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a7, 0x09cd, 0x098b};
     auto const rel = std::vector<uint32_t>{0x09a7, 0x09c3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5766,8 +5766,8 @@ TEST(tailoring, bn_traditional_000_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a7, 0x09cd, 0x09e0};
     auto const rel = std::vector<uint32_t>{0x09a7, 0x09c4};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5785,8 +5785,8 @@ TEST(tailoring, bn_traditional_000_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a7, 0x09cd, 0x098c};
     auto const rel = std::vector<uint32_t>{0x09a7, 0x09e2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5804,8 +5804,8 @@ TEST(tailoring, bn_traditional_000_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a7, 0x09cd, 0x09e1};
     auto const rel = std::vector<uint32_t>{0x09a7, 0x09e3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5823,8 +5823,8 @@ TEST(tailoring, bn_traditional_000_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a7, 0x09cd, 0x098f};
     auto const rel = std::vector<uint32_t>{0x09a7, 0x09c7};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5842,8 +5842,8 @@ TEST(tailoring, bn_traditional_000_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a7, 0x09cd, 0x0990};
     auto const rel = std::vector<uint32_t>{0x09a7, 0x09c8};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5861,8 +5861,8 @@ TEST(tailoring, bn_traditional_000_011)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a7, 0x09cd, 0x0993};
     auto const rel = std::vector<uint32_t>{0x09a7, 0x09cb};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5884,8 +5884,8 @@ TEST(tailoring, bn_traditional_000_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a7, 0x09cd, 0x0994};
     auto const rel = std::vector<uint32_t>{0x09a7, 0x09cc};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5903,8 +5903,8 @@ TEST(tailoring, bn_traditional_000_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a8, 0x09cd, 0x0985};
     auto const rel = std::vector<uint32_t>(1, 0x09a8);
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5922,8 +5922,8 @@ TEST(tailoring, bn_traditional_000_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a8, 0x09cd, 0x0986};
     auto const rel = std::vector<uint32_t>{0x09a8, 0x09be};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5941,8 +5941,8 @@ TEST(tailoring, bn_traditional_000_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a8, 0x09cd, 0x0987};
     auto const rel = std::vector<uint32_t>{0x09a8, 0x09bf};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5960,8 +5960,8 @@ TEST(tailoring, bn_traditional_000_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a8, 0x09cd, 0x0988};
     auto const rel = std::vector<uint32_t>{0x09a8, 0x09c0};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5979,8 +5979,8 @@ TEST(tailoring, bn_traditional_000_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a8, 0x09cd, 0x0989};
     auto const rel = std::vector<uint32_t>{0x09a8, 0x09c1};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -5998,8 +5998,8 @@ TEST(tailoring, bn_traditional_000_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a8, 0x09cd, 0x098a};
     auto const rel = std::vector<uint32_t>{0x09a8, 0x09c2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6017,8 +6017,8 @@ TEST(tailoring, bn_traditional_000_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a8, 0x09cd, 0x098b};
     auto const rel = std::vector<uint32_t>{0x09a8, 0x09c3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6036,8 +6036,8 @@ TEST(tailoring, bn_traditional_000_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a8, 0x09cd, 0x09e0};
     auto const rel = std::vector<uint32_t>{0x09a8, 0x09c4};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6055,8 +6055,8 @@ TEST(tailoring, bn_traditional_000_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a8, 0x09cd, 0x098c};
     auto const rel = std::vector<uint32_t>{0x09a8, 0x09e2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6074,8 +6074,8 @@ TEST(tailoring, bn_traditional_000_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a8, 0x09cd, 0x09e1};
     auto const rel = std::vector<uint32_t>{0x09a8, 0x09e3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6093,8 +6093,8 @@ TEST(tailoring, bn_traditional_000_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a8, 0x09cd, 0x098f};
     auto const rel = std::vector<uint32_t>{0x09a8, 0x09c7};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6112,8 +6112,8 @@ TEST(tailoring, bn_traditional_000_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a8, 0x09cd, 0x0990};
     auto const rel = std::vector<uint32_t>{0x09a8, 0x09c8};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6131,8 +6131,8 @@ TEST(tailoring, bn_traditional_000_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a8, 0x09cd, 0x0993};
     auto const rel = std::vector<uint32_t>{0x09a8, 0x09cb};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6150,8 +6150,8 @@ TEST(tailoring, bn_traditional_000_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09a8, 0x09cd, 0x0994};
     auto const rel = std::vector<uint32_t>{0x09a8, 0x09cc};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6169,8 +6169,8 @@ TEST(tailoring, bn_traditional_000_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09aa, 0x09cd, 0x0985};
     auto const rel = std::vector<uint32_t>(1, 0x09aa);
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6188,8 +6188,8 @@ TEST(tailoring, bn_traditional_000_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09aa, 0x09cd, 0x0986};
     auto const rel = std::vector<uint32_t>{0x09aa, 0x09be};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6207,8 +6207,8 @@ TEST(tailoring, bn_traditional_000_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09aa, 0x09cd, 0x0987};
     auto const rel = std::vector<uint32_t>{0x09aa, 0x09bf};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6226,8 +6226,8 @@ TEST(tailoring, bn_traditional_000_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09aa, 0x09cd, 0x0988};
     auto const rel = std::vector<uint32_t>{0x09aa, 0x09c0};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6245,8 +6245,8 @@ TEST(tailoring, bn_traditional_000_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09aa, 0x09cd, 0x0989};
     auto const rel = std::vector<uint32_t>{0x09aa, 0x09c1};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6264,8 +6264,8 @@ TEST(tailoring, bn_traditional_000_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09aa, 0x09cd, 0x098a};
     auto const rel = std::vector<uint32_t>{0x09aa, 0x09c2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6283,8 +6283,8 @@ TEST(tailoring, bn_traditional_000_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09aa, 0x09cd, 0x098b};
     auto const rel = std::vector<uint32_t>{0x09aa, 0x09c3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6302,8 +6302,8 @@ TEST(tailoring, bn_traditional_000_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09aa, 0x09cd, 0x09e0};
     auto const rel = std::vector<uint32_t>{0x09aa, 0x09c4};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6321,8 +6321,8 @@ TEST(tailoring, bn_traditional_000_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09aa, 0x09cd, 0x098c};
     auto const rel = std::vector<uint32_t>{0x09aa, 0x09e2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6340,8 +6340,8 @@ TEST(tailoring, bn_traditional_000_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09aa, 0x09cd, 0x09e1};
     auto const rel = std::vector<uint32_t>{0x09aa, 0x09e3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6359,8 +6359,8 @@ TEST(tailoring, bn_traditional_000_012)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09aa, 0x09cd, 0x098f};
     auto const rel = std::vector<uint32_t>{0x09aa, 0x09c7};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6382,8 +6382,8 @@ TEST(tailoring, bn_traditional_000_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09aa, 0x09cd, 0x0990};
     auto const rel = std::vector<uint32_t>{0x09aa, 0x09c8};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6401,8 +6401,8 @@ TEST(tailoring, bn_traditional_000_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09aa, 0x09cd, 0x0993};
     auto const rel = std::vector<uint32_t>{0x09aa, 0x09cb};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6420,8 +6420,8 @@ TEST(tailoring, bn_traditional_000_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09aa, 0x09cd, 0x0994};
     auto const rel = std::vector<uint32_t>{0x09aa, 0x09cc};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6439,8 +6439,8 @@ TEST(tailoring, bn_traditional_000_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ab, 0x09cd, 0x0985};
     auto const rel = std::vector<uint32_t>(1, 0x09ab);
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6458,8 +6458,8 @@ TEST(tailoring, bn_traditional_000_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ab, 0x09cd, 0x0986};
     auto const rel = std::vector<uint32_t>{0x09ab, 0x09be};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6477,8 +6477,8 @@ TEST(tailoring, bn_traditional_000_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ab, 0x09cd, 0x0987};
     auto const rel = std::vector<uint32_t>{0x09ab, 0x09bf};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6496,8 +6496,8 @@ TEST(tailoring, bn_traditional_000_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ab, 0x09cd, 0x0988};
     auto const rel = std::vector<uint32_t>{0x09ab, 0x09c0};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6515,8 +6515,8 @@ TEST(tailoring, bn_traditional_000_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ab, 0x09cd, 0x0989};
     auto const rel = std::vector<uint32_t>{0x09ab, 0x09c1};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6534,8 +6534,8 @@ TEST(tailoring, bn_traditional_000_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ab, 0x09cd, 0x098a};
     auto const rel = std::vector<uint32_t>{0x09ab, 0x09c2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6553,8 +6553,8 @@ TEST(tailoring, bn_traditional_000_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ab, 0x09cd, 0x098b};
     auto const rel = std::vector<uint32_t>{0x09ab, 0x09c3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6572,8 +6572,8 @@ TEST(tailoring, bn_traditional_000_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ab, 0x09cd, 0x09e0};
     auto const rel = std::vector<uint32_t>{0x09ab, 0x09c4};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6591,8 +6591,8 @@ TEST(tailoring, bn_traditional_000_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ab, 0x09cd, 0x098c};
     auto const rel = std::vector<uint32_t>{0x09ab, 0x09e2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6610,8 +6610,8 @@ TEST(tailoring, bn_traditional_000_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ab, 0x09cd, 0x09e1};
     auto const rel = std::vector<uint32_t>{0x09ab, 0x09e3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6629,8 +6629,8 @@ TEST(tailoring, bn_traditional_000_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ab, 0x09cd, 0x098f};
     auto const rel = std::vector<uint32_t>{0x09ab, 0x09c7};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6648,8 +6648,8 @@ TEST(tailoring, bn_traditional_000_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ab, 0x09cd, 0x0990};
     auto const rel = std::vector<uint32_t>{0x09ab, 0x09c8};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6667,8 +6667,8 @@ TEST(tailoring, bn_traditional_000_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ab, 0x09cd, 0x0993};
     auto const rel = std::vector<uint32_t>{0x09ab, 0x09cb};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6686,8 +6686,8 @@ TEST(tailoring, bn_traditional_000_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ab, 0x09cd, 0x0994};
     auto const rel = std::vector<uint32_t>{0x09ab, 0x09cc};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6705,8 +6705,8 @@ TEST(tailoring, bn_traditional_000_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ac, 0x09cd, 0x0985};
     auto const rel = std::vector<uint32_t>(1, 0x09ac);
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6724,8 +6724,8 @@ TEST(tailoring, bn_traditional_000_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ac, 0x09cd, 0x0986};
     auto const rel = std::vector<uint32_t>{0x09ac, 0x09be};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6743,8 +6743,8 @@ TEST(tailoring, bn_traditional_000_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ac, 0x09cd, 0x0987};
     auto const rel = std::vector<uint32_t>{0x09ac, 0x09bf};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6762,8 +6762,8 @@ TEST(tailoring, bn_traditional_000_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ac, 0x09cd, 0x0988};
     auto const rel = std::vector<uint32_t>{0x09ac, 0x09c0};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6781,8 +6781,8 @@ TEST(tailoring, bn_traditional_000_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ac, 0x09cd, 0x0989};
     auto const rel = std::vector<uint32_t>{0x09ac, 0x09c1};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6800,8 +6800,8 @@ TEST(tailoring, bn_traditional_000_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ac, 0x09cd, 0x098a};
     auto const rel = std::vector<uint32_t>{0x09ac, 0x09c2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6819,8 +6819,8 @@ TEST(tailoring, bn_traditional_000_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ac, 0x09cd, 0x098b};
     auto const rel = std::vector<uint32_t>{0x09ac, 0x09c3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6838,8 +6838,8 @@ TEST(tailoring, bn_traditional_000_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ac, 0x09cd, 0x09e0};
     auto const rel = std::vector<uint32_t>{0x09ac, 0x09c4};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6857,8 +6857,8 @@ TEST(tailoring, bn_traditional_000_013)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ac, 0x09cd, 0x098c};
     auto const rel = std::vector<uint32_t>{0x09ac, 0x09e2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6880,8 +6880,8 @@ TEST(tailoring, bn_traditional_000_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ac, 0x09cd, 0x09e1};
     auto const rel = std::vector<uint32_t>{0x09ac, 0x09e3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6899,8 +6899,8 @@ TEST(tailoring, bn_traditional_000_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ac, 0x09cd, 0x098f};
     auto const rel = std::vector<uint32_t>{0x09ac, 0x09c7};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6918,8 +6918,8 @@ TEST(tailoring, bn_traditional_000_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ac, 0x09cd, 0x0990};
     auto const rel = std::vector<uint32_t>{0x09ac, 0x09c8};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6937,8 +6937,8 @@ TEST(tailoring, bn_traditional_000_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ac, 0x09cd, 0x0993};
     auto const rel = std::vector<uint32_t>{0x09ac, 0x09cb};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6956,8 +6956,8 @@ TEST(tailoring, bn_traditional_000_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ac, 0x09cd, 0x0994};
     auto const rel = std::vector<uint32_t>{0x09ac, 0x09cc};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6975,8 +6975,8 @@ TEST(tailoring, bn_traditional_000_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ad, 0x09cd, 0x0985};
     auto const rel = std::vector<uint32_t>(1, 0x09ad);
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -6994,8 +6994,8 @@ TEST(tailoring, bn_traditional_000_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ad, 0x09cd, 0x0986};
     auto const rel = std::vector<uint32_t>{0x09ad, 0x09be};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7013,8 +7013,8 @@ TEST(tailoring, bn_traditional_000_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ad, 0x09cd, 0x0987};
     auto const rel = std::vector<uint32_t>{0x09ad, 0x09bf};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7032,8 +7032,8 @@ TEST(tailoring, bn_traditional_000_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ad, 0x09cd, 0x0988};
     auto const rel = std::vector<uint32_t>{0x09ad, 0x09c0};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7051,8 +7051,8 @@ TEST(tailoring, bn_traditional_000_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ad, 0x09cd, 0x0989};
     auto const rel = std::vector<uint32_t>{0x09ad, 0x09c1};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7070,8 +7070,8 @@ TEST(tailoring, bn_traditional_000_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ad, 0x09cd, 0x098a};
     auto const rel = std::vector<uint32_t>{0x09ad, 0x09c2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7089,8 +7089,8 @@ TEST(tailoring, bn_traditional_000_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ad, 0x09cd, 0x098b};
     auto const rel = std::vector<uint32_t>{0x09ad, 0x09c3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7108,8 +7108,8 @@ TEST(tailoring, bn_traditional_000_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ad, 0x09cd, 0x09e0};
     auto const rel = std::vector<uint32_t>{0x09ad, 0x09c4};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7127,8 +7127,8 @@ TEST(tailoring, bn_traditional_000_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ad, 0x09cd, 0x098c};
     auto const rel = std::vector<uint32_t>{0x09ad, 0x09e2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7146,8 +7146,8 @@ TEST(tailoring, bn_traditional_000_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ad, 0x09cd, 0x09e1};
     auto const rel = std::vector<uint32_t>{0x09ad, 0x09e3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7165,8 +7165,8 @@ TEST(tailoring, bn_traditional_000_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ad, 0x09cd, 0x098f};
     auto const rel = std::vector<uint32_t>{0x09ad, 0x09c7};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7184,8 +7184,8 @@ TEST(tailoring, bn_traditional_000_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ad, 0x09cd, 0x0990};
     auto const rel = std::vector<uint32_t>{0x09ad, 0x09c8};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7203,8 +7203,8 @@ TEST(tailoring, bn_traditional_000_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ad, 0x09cd, 0x0993};
     auto const rel = std::vector<uint32_t>{0x09ad, 0x09cb};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7222,8 +7222,8 @@ TEST(tailoring, bn_traditional_000_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ad, 0x09cd, 0x0994};
     auto const rel = std::vector<uint32_t>{0x09ad, 0x09cc};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7241,8 +7241,8 @@ TEST(tailoring, bn_traditional_000_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ae, 0x09cd, 0x0985};
     auto const rel = std::vector<uint32_t>(1, 0x09ae);
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7260,8 +7260,8 @@ TEST(tailoring, bn_traditional_000_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ae, 0x09cd, 0x0986};
     auto const rel = std::vector<uint32_t>{0x09ae, 0x09be};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7279,8 +7279,8 @@ TEST(tailoring, bn_traditional_000_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ae, 0x09cd, 0x0987};
     auto const rel = std::vector<uint32_t>{0x09ae, 0x09bf};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7298,8 +7298,8 @@ TEST(tailoring, bn_traditional_000_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ae, 0x09cd, 0x0988};
     auto const rel = std::vector<uint32_t>{0x09ae, 0x09c0};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7317,8 +7317,8 @@ TEST(tailoring, bn_traditional_000_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ae, 0x09cd, 0x0989};
     auto const rel = std::vector<uint32_t>{0x09ae, 0x09c1};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7336,8 +7336,8 @@ TEST(tailoring, bn_traditional_000_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ae, 0x09cd, 0x098a};
     auto const rel = std::vector<uint32_t>{0x09ae, 0x09c2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7355,8 +7355,8 @@ TEST(tailoring, bn_traditional_000_014)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ae, 0x09cd, 0x098b};
     auto const rel = std::vector<uint32_t>{0x09ae, 0x09c3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7378,8 +7378,8 @@ TEST(tailoring, bn_traditional_000_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ae, 0x09cd, 0x09e0};
     auto const rel = std::vector<uint32_t>{0x09ae, 0x09c4};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7397,8 +7397,8 @@ TEST(tailoring, bn_traditional_000_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ae, 0x09cd, 0x098c};
     auto const rel = std::vector<uint32_t>{0x09ae, 0x09e2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7416,8 +7416,8 @@ TEST(tailoring, bn_traditional_000_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ae, 0x09cd, 0x09e1};
     auto const rel = std::vector<uint32_t>{0x09ae, 0x09e3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7435,8 +7435,8 @@ TEST(tailoring, bn_traditional_000_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ae, 0x09cd, 0x098f};
     auto const rel = std::vector<uint32_t>{0x09ae, 0x09c7};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7454,8 +7454,8 @@ TEST(tailoring, bn_traditional_000_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ae, 0x09cd, 0x0990};
     auto const rel = std::vector<uint32_t>{0x09ae, 0x09c8};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7473,8 +7473,8 @@ TEST(tailoring, bn_traditional_000_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ae, 0x09cd, 0x0993};
     auto const rel = std::vector<uint32_t>{0x09ae, 0x09cb};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7492,8 +7492,8 @@ TEST(tailoring, bn_traditional_000_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09ae, 0x09cd, 0x0994};
     auto const rel = std::vector<uint32_t>{0x09ae, 0x09cc};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7511,8 +7511,8 @@ TEST(tailoring, bn_traditional_000_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09af, 0x09cd, 0x0985};
     auto const rel = std::vector<uint32_t>(1, 0x09af);
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7530,8 +7530,8 @@ TEST(tailoring, bn_traditional_000_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09af, 0x09cd, 0x0986};
     auto const rel = std::vector<uint32_t>{0x09af, 0x09be};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7549,8 +7549,8 @@ TEST(tailoring, bn_traditional_000_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09af, 0x09cd, 0x0987};
     auto const rel = std::vector<uint32_t>{0x09af, 0x09bf};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7568,8 +7568,8 @@ TEST(tailoring, bn_traditional_000_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09af, 0x09cd, 0x0988};
     auto const rel = std::vector<uint32_t>{0x09af, 0x09c0};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7587,8 +7587,8 @@ TEST(tailoring, bn_traditional_000_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09af, 0x09cd, 0x0989};
     auto const rel = std::vector<uint32_t>{0x09af, 0x09c1};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7606,8 +7606,8 @@ TEST(tailoring, bn_traditional_000_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09af, 0x09cd, 0x098a};
     auto const rel = std::vector<uint32_t>{0x09af, 0x09c2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7625,8 +7625,8 @@ TEST(tailoring, bn_traditional_000_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09af, 0x09cd, 0x098b};
     auto const rel = std::vector<uint32_t>{0x09af, 0x09c3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7644,8 +7644,8 @@ TEST(tailoring, bn_traditional_000_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09af, 0x09cd, 0x09e0};
     auto const rel = std::vector<uint32_t>{0x09af, 0x09c4};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7663,8 +7663,8 @@ TEST(tailoring, bn_traditional_000_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09af, 0x09cd, 0x098c};
     auto const rel = std::vector<uint32_t>{0x09af, 0x09e2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7682,8 +7682,8 @@ TEST(tailoring, bn_traditional_000_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09af, 0x09cd, 0x09e1};
     auto const rel = std::vector<uint32_t>{0x09af, 0x09e3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7701,8 +7701,8 @@ TEST(tailoring, bn_traditional_000_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09af, 0x09cd, 0x098f};
     auto const rel = std::vector<uint32_t>{0x09af, 0x09c7};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7720,8 +7720,8 @@ TEST(tailoring, bn_traditional_000_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09af, 0x09cd, 0x0990};
     auto const rel = std::vector<uint32_t>{0x09af, 0x09c8};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7739,8 +7739,8 @@ TEST(tailoring, bn_traditional_000_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09af, 0x09cd, 0x0993};
     auto const rel = std::vector<uint32_t>{0x09af, 0x09cb};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7758,8 +7758,8 @@ TEST(tailoring, bn_traditional_000_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09af, 0x09cd, 0x0994};
     auto const rel = std::vector<uint32_t>{0x09af, 0x09cc};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7777,8 +7777,8 @@ TEST(tailoring, bn_traditional_000_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b0, 0x09cd, 0x0985};
     auto const rel = std::vector<uint32_t>(1, 0x09b0);
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7796,8 +7796,8 @@ TEST(tailoring, bn_traditional_000_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b0, 0x09cd, 0x0986};
     auto const rel = std::vector<uint32_t>{0x09b0, 0x09be};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7815,8 +7815,8 @@ TEST(tailoring, bn_traditional_000_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b0, 0x09cd, 0x0987};
     auto const rel = std::vector<uint32_t>{0x09b0, 0x09bf};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7834,8 +7834,8 @@ TEST(tailoring, bn_traditional_000_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b0, 0x09cd, 0x0988};
     auto const rel = std::vector<uint32_t>{0x09b0, 0x09c0};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7853,8 +7853,8 @@ TEST(tailoring, bn_traditional_000_015)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b0, 0x09cd, 0x0989};
     auto const rel = std::vector<uint32_t>{0x09b0, 0x09c1};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7876,8 +7876,8 @@ TEST(tailoring, bn_traditional_000_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b0, 0x09cd, 0x098a};
     auto const rel = std::vector<uint32_t>{0x09b0, 0x09c2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7895,8 +7895,8 @@ TEST(tailoring, bn_traditional_000_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b0, 0x09cd, 0x098b};
     auto const rel = std::vector<uint32_t>{0x09b0, 0x09c3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7914,8 +7914,8 @@ TEST(tailoring, bn_traditional_000_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b0, 0x09cd, 0x09e0};
     auto const rel = std::vector<uint32_t>{0x09b0, 0x09c4};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7933,8 +7933,8 @@ TEST(tailoring, bn_traditional_000_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b0, 0x09cd, 0x098c};
     auto const rel = std::vector<uint32_t>{0x09b0, 0x09e2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7952,8 +7952,8 @@ TEST(tailoring, bn_traditional_000_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b0, 0x09cd, 0x09e1};
     auto const rel = std::vector<uint32_t>{0x09b0, 0x09e3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7971,8 +7971,8 @@ TEST(tailoring, bn_traditional_000_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b0, 0x09cd, 0x098f};
     auto const rel = std::vector<uint32_t>{0x09b0, 0x09c7};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -7990,8 +7990,8 @@ TEST(tailoring, bn_traditional_000_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b0, 0x09cd, 0x0990};
     auto const rel = std::vector<uint32_t>{0x09b0, 0x09c8};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8009,8 +8009,8 @@ TEST(tailoring, bn_traditional_000_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b0, 0x09cd, 0x0993};
     auto const rel = std::vector<uint32_t>{0x09b0, 0x09cb};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8028,8 +8028,8 @@ TEST(tailoring, bn_traditional_000_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b0, 0x09cd, 0x0994};
     auto const rel = std::vector<uint32_t>{0x09b0, 0x09cc};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8047,8 +8047,8 @@ TEST(tailoring, bn_traditional_000_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09f0, 0x09cd, 0x0985};
     auto const rel = std::vector<uint32_t>(1, 0x09f0);
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8066,8 +8066,8 @@ TEST(tailoring, bn_traditional_000_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09f0, 0x09cd, 0x0986};
     auto const rel = std::vector<uint32_t>{0x09f0, 0x09be};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8085,8 +8085,8 @@ TEST(tailoring, bn_traditional_000_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09f0, 0x09cd, 0x0987};
     auto const rel = std::vector<uint32_t>{0x09f0, 0x09bf};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8104,8 +8104,8 @@ TEST(tailoring, bn_traditional_000_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09f0, 0x09cd, 0x0988};
     auto const rel = std::vector<uint32_t>{0x09f0, 0x09c0};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8123,8 +8123,8 @@ TEST(tailoring, bn_traditional_000_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09f0, 0x09cd, 0x0989};
     auto const rel = std::vector<uint32_t>{0x09f0, 0x09c1};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8142,8 +8142,8 @@ TEST(tailoring, bn_traditional_000_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09f0, 0x09cd, 0x098a};
     auto const rel = std::vector<uint32_t>{0x09f0, 0x09c2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8161,8 +8161,8 @@ TEST(tailoring, bn_traditional_000_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09f0, 0x09cd, 0x098b};
     auto const rel = std::vector<uint32_t>{0x09f0, 0x09c3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8180,8 +8180,8 @@ TEST(tailoring, bn_traditional_000_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09f0, 0x09cd, 0x09e0};
     auto const rel = std::vector<uint32_t>{0x09f0, 0x09c4};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8199,8 +8199,8 @@ TEST(tailoring, bn_traditional_000_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09f0, 0x09cd, 0x098c};
     auto const rel = std::vector<uint32_t>{0x09f0, 0x09e2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8218,8 +8218,8 @@ TEST(tailoring, bn_traditional_000_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09f0, 0x09cd, 0x09e1};
     auto const rel = std::vector<uint32_t>{0x09f0, 0x09e3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8237,8 +8237,8 @@ TEST(tailoring, bn_traditional_000_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09f0, 0x09cd, 0x098f};
     auto const rel = std::vector<uint32_t>{0x09f0, 0x09c7};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8256,8 +8256,8 @@ TEST(tailoring, bn_traditional_000_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09f0, 0x09cd, 0x0990};
     auto const rel = std::vector<uint32_t>{0x09f0, 0x09c8};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8275,8 +8275,8 @@ TEST(tailoring, bn_traditional_000_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09f0, 0x09cd, 0x0993};
     auto const rel = std::vector<uint32_t>{0x09f0, 0x09cb};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8294,8 +8294,8 @@ TEST(tailoring, bn_traditional_000_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09f0, 0x09cd, 0x0994};
     auto const rel = std::vector<uint32_t>{0x09f0, 0x09cc};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8313,8 +8313,8 @@ TEST(tailoring, bn_traditional_000_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b2, 0x09cd, 0x0985};
     auto const rel = std::vector<uint32_t>(1, 0x09b2);
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8332,8 +8332,8 @@ TEST(tailoring, bn_traditional_000_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b2, 0x09cd, 0x0986};
     auto const rel = std::vector<uint32_t>{0x09b2, 0x09be};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8351,8 +8351,8 @@ TEST(tailoring, bn_traditional_000_016)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b2, 0x09cd, 0x0987};
     auto const rel = std::vector<uint32_t>{0x09b2, 0x09bf};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8374,8 +8374,8 @@ TEST(tailoring, bn_traditional_000_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b2, 0x09cd, 0x0988};
     auto const rel = std::vector<uint32_t>{0x09b2, 0x09c0};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8393,8 +8393,8 @@ TEST(tailoring, bn_traditional_000_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b2, 0x09cd, 0x0989};
     auto const rel = std::vector<uint32_t>{0x09b2, 0x09c1};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8412,8 +8412,8 @@ TEST(tailoring, bn_traditional_000_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b2, 0x09cd, 0x098a};
     auto const rel = std::vector<uint32_t>{0x09b2, 0x09c2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8431,8 +8431,8 @@ TEST(tailoring, bn_traditional_000_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b2, 0x09cd, 0x098b};
     auto const rel = std::vector<uint32_t>{0x09b2, 0x09c3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8450,8 +8450,8 @@ TEST(tailoring, bn_traditional_000_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b2, 0x09cd, 0x09e0};
     auto const rel = std::vector<uint32_t>{0x09b2, 0x09c4};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8469,8 +8469,8 @@ TEST(tailoring, bn_traditional_000_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b2, 0x09cd, 0x098c};
     auto const rel = std::vector<uint32_t>{0x09b2, 0x09e2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8488,8 +8488,8 @@ TEST(tailoring, bn_traditional_000_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b2, 0x09cd, 0x09e1};
     auto const rel = std::vector<uint32_t>{0x09b2, 0x09e3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8507,8 +8507,8 @@ TEST(tailoring, bn_traditional_000_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b2, 0x09cd, 0x098f};
     auto const rel = std::vector<uint32_t>{0x09b2, 0x09c7};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8526,8 +8526,8 @@ TEST(tailoring, bn_traditional_000_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b2, 0x09cd, 0x0990};
     auto const rel = std::vector<uint32_t>{0x09b2, 0x09c8};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8545,8 +8545,8 @@ TEST(tailoring, bn_traditional_000_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b2, 0x09cd, 0x0993};
     auto const rel = std::vector<uint32_t>{0x09b2, 0x09cb};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8564,8 +8564,8 @@ TEST(tailoring, bn_traditional_000_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b2, 0x09cd, 0x0994};
     auto const rel = std::vector<uint32_t>{0x09b2, 0x09cc};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8583,8 +8583,8 @@ TEST(tailoring, bn_traditional_000_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09f1, 0x09cd, 0x0985};
     auto const rel = std::vector<uint32_t>(1, 0x09f1);
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8602,8 +8602,8 @@ TEST(tailoring, bn_traditional_000_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09f1, 0x09cd, 0x0986};
     auto const rel = std::vector<uint32_t>{0x09f1, 0x09be};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8621,8 +8621,8 @@ TEST(tailoring, bn_traditional_000_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09f1, 0x09cd, 0x0987};
     auto const rel = std::vector<uint32_t>{0x09f1, 0x09bf};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8640,8 +8640,8 @@ TEST(tailoring, bn_traditional_000_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09f1, 0x09cd, 0x0988};
     auto const rel = std::vector<uint32_t>{0x09f1, 0x09c0};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8659,8 +8659,8 @@ TEST(tailoring, bn_traditional_000_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09f1, 0x09cd, 0x0989};
     auto const rel = std::vector<uint32_t>{0x09f1, 0x09c1};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8678,8 +8678,8 @@ TEST(tailoring, bn_traditional_000_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09f1, 0x09cd, 0x098a};
     auto const rel = std::vector<uint32_t>{0x09f1, 0x09c2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8697,8 +8697,8 @@ TEST(tailoring, bn_traditional_000_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09f1, 0x09cd, 0x098b};
     auto const rel = std::vector<uint32_t>{0x09f1, 0x09c3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8716,8 +8716,8 @@ TEST(tailoring, bn_traditional_000_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09f1, 0x09cd, 0x09e0};
     auto const rel = std::vector<uint32_t>{0x09f1, 0x09c4};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8735,8 +8735,8 @@ TEST(tailoring, bn_traditional_000_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09f1, 0x09cd, 0x098c};
     auto const rel = std::vector<uint32_t>{0x09f1, 0x09e2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8754,8 +8754,8 @@ TEST(tailoring, bn_traditional_000_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09f1, 0x09cd, 0x09e1};
     auto const rel = std::vector<uint32_t>{0x09f1, 0x09e3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8773,8 +8773,8 @@ TEST(tailoring, bn_traditional_000_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09f1, 0x09cd, 0x098f};
     auto const rel = std::vector<uint32_t>{0x09f1, 0x09c7};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8792,8 +8792,8 @@ TEST(tailoring, bn_traditional_000_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09f1, 0x09cd, 0x0990};
     auto const rel = std::vector<uint32_t>{0x09f1, 0x09c8};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8811,8 +8811,8 @@ TEST(tailoring, bn_traditional_000_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09f1, 0x09cd, 0x0993};
     auto const rel = std::vector<uint32_t>{0x09f1, 0x09cb};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8830,8 +8830,8 @@ TEST(tailoring, bn_traditional_000_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09f1, 0x09cd, 0x0994};
     auto const rel = std::vector<uint32_t>{0x09f1, 0x09cc};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8849,8 +8849,8 @@ TEST(tailoring, bn_traditional_000_017)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b6, 0x09cd, 0x0985};
     auto const rel = std::vector<uint32_t>(1, 0x09b6);
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8872,8 +8872,8 @@ TEST(tailoring, bn_traditional_000_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b6, 0x09cd, 0x0986};
     auto const rel = std::vector<uint32_t>{0x09b6, 0x09be};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8891,8 +8891,8 @@ TEST(tailoring, bn_traditional_000_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b6, 0x09cd, 0x0987};
     auto const rel = std::vector<uint32_t>{0x09b6, 0x09bf};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8910,8 +8910,8 @@ TEST(tailoring, bn_traditional_000_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b6, 0x09cd, 0x0988};
     auto const rel = std::vector<uint32_t>{0x09b6, 0x09c0};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8929,8 +8929,8 @@ TEST(tailoring, bn_traditional_000_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b6, 0x09cd, 0x0989};
     auto const rel = std::vector<uint32_t>{0x09b6, 0x09c1};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8948,8 +8948,8 @@ TEST(tailoring, bn_traditional_000_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b6, 0x09cd, 0x098a};
     auto const rel = std::vector<uint32_t>{0x09b6, 0x09c2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8967,8 +8967,8 @@ TEST(tailoring, bn_traditional_000_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b6, 0x09cd, 0x098b};
     auto const rel = std::vector<uint32_t>{0x09b6, 0x09c3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -8986,8 +8986,8 @@ TEST(tailoring, bn_traditional_000_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b6, 0x09cd, 0x09e0};
     auto const rel = std::vector<uint32_t>{0x09b6, 0x09c4};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -9005,8 +9005,8 @@ TEST(tailoring, bn_traditional_000_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b6, 0x09cd, 0x098c};
     auto const rel = std::vector<uint32_t>{0x09b6, 0x09e2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -9024,8 +9024,8 @@ TEST(tailoring, bn_traditional_000_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b6, 0x09cd, 0x09e1};
     auto const rel = std::vector<uint32_t>{0x09b6, 0x09e3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -9043,8 +9043,8 @@ TEST(tailoring, bn_traditional_000_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b6, 0x09cd, 0x098f};
     auto const rel = std::vector<uint32_t>{0x09b6, 0x09c7};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -9062,8 +9062,8 @@ TEST(tailoring, bn_traditional_000_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b6, 0x09cd, 0x0990};
     auto const rel = std::vector<uint32_t>{0x09b6, 0x09c8};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -9081,8 +9081,8 @@ TEST(tailoring, bn_traditional_000_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b6, 0x09cd, 0x0993};
     auto const rel = std::vector<uint32_t>{0x09b6, 0x09cb};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -9100,8 +9100,8 @@ TEST(tailoring, bn_traditional_000_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b6, 0x09cd, 0x0994};
     auto const rel = std::vector<uint32_t>{0x09b6, 0x09cc};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -9119,8 +9119,8 @@ TEST(tailoring, bn_traditional_000_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b7, 0x09cd, 0x0985};
     auto const rel = std::vector<uint32_t>(1, 0x09b7);
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -9138,8 +9138,8 @@ TEST(tailoring, bn_traditional_000_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b7, 0x09cd, 0x0986};
     auto const rel = std::vector<uint32_t>{0x09b7, 0x09be};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -9157,8 +9157,8 @@ TEST(tailoring, bn_traditional_000_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b7, 0x09cd, 0x0987};
     auto const rel = std::vector<uint32_t>{0x09b7, 0x09bf};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -9176,8 +9176,8 @@ TEST(tailoring, bn_traditional_000_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b7, 0x09cd, 0x0988};
     auto const rel = std::vector<uint32_t>{0x09b7, 0x09c0};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -9195,8 +9195,8 @@ TEST(tailoring, bn_traditional_000_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b7, 0x09cd, 0x0989};
     auto const rel = std::vector<uint32_t>{0x09b7, 0x09c1};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -9214,8 +9214,8 @@ TEST(tailoring, bn_traditional_000_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b7, 0x09cd, 0x098a};
     auto const rel = std::vector<uint32_t>{0x09b7, 0x09c2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -9233,8 +9233,8 @@ TEST(tailoring, bn_traditional_000_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b7, 0x09cd, 0x098b};
     auto const rel = std::vector<uint32_t>{0x09b7, 0x09c3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -9252,8 +9252,8 @@ TEST(tailoring, bn_traditional_000_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b7, 0x09cd, 0x09e0};
     auto const rel = std::vector<uint32_t>{0x09b7, 0x09c4};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -9271,8 +9271,8 @@ TEST(tailoring, bn_traditional_000_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b7, 0x09cd, 0x098c};
     auto const rel = std::vector<uint32_t>{0x09b7, 0x09e2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -9290,8 +9290,8 @@ TEST(tailoring, bn_traditional_000_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b7, 0x09cd, 0x09e1};
     auto const rel = std::vector<uint32_t>{0x09b7, 0x09e3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -9309,8 +9309,8 @@ TEST(tailoring, bn_traditional_000_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b7, 0x09cd, 0x098f};
     auto const rel = std::vector<uint32_t>{0x09b7, 0x09c7};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -9328,8 +9328,8 @@ TEST(tailoring, bn_traditional_000_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b7, 0x09cd, 0x0990};
     auto const rel = std::vector<uint32_t>{0x09b7, 0x09c8};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -9347,8 +9347,8 @@ TEST(tailoring, bn_traditional_000_018)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b7, 0x09cd, 0x0993};
     auto const rel = std::vector<uint32_t>{0x09b7, 0x09cb};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -9370,8 +9370,8 @@ TEST(tailoring, bn_traditional_000_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b7, 0x09cd, 0x0994};
     auto const rel = std::vector<uint32_t>{0x09b7, 0x09cc};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -9389,8 +9389,8 @@ TEST(tailoring, bn_traditional_000_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b8, 0x09cd, 0x0985};
     auto const rel = std::vector<uint32_t>(1, 0x09b8);
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -9408,8 +9408,8 @@ TEST(tailoring, bn_traditional_000_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b8, 0x09cd, 0x0986};
     auto const rel = std::vector<uint32_t>{0x09b8, 0x09be};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -9427,8 +9427,8 @@ TEST(tailoring, bn_traditional_000_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b8, 0x09cd, 0x0987};
     auto const rel = std::vector<uint32_t>{0x09b8, 0x09bf};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -9446,8 +9446,8 @@ TEST(tailoring, bn_traditional_000_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b8, 0x09cd, 0x0988};
     auto const rel = std::vector<uint32_t>{0x09b8, 0x09c0};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -9465,8 +9465,8 @@ TEST(tailoring, bn_traditional_000_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b8, 0x09cd, 0x0989};
     auto const rel = std::vector<uint32_t>{0x09b8, 0x09c1};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -9484,8 +9484,8 @@ TEST(tailoring, bn_traditional_000_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b8, 0x09cd, 0x098a};
     auto const rel = std::vector<uint32_t>{0x09b8, 0x09c2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -9503,8 +9503,8 @@ TEST(tailoring, bn_traditional_000_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b8, 0x09cd, 0x098b};
     auto const rel = std::vector<uint32_t>{0x09b8, 0x09c3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -9522,8 +9522,8 @@ TEST(tailoring, bn_traditional_000_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b8, 0x09cd, 0x09e0};
     auto const rel = std::vector<uint32_t>{0x09b8, 0x09c4};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -9541,8 +9541,8 @@ TEST(tailoring, bn_traditional_000_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b8, 0x09cd, 0x098c};
     auto const rel = std::vector<uint32_t>{0x09b8, 0x09e2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -9560,8 +9560,8 @@ TEST(tailoring, bn_traditional_000_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b8, 0x09cd, 0x09e1};
     auto const rel = std::vector<uint32_t>{0x09b8, 0x09e3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -9579,8 +9579,8 @@ TEST(tailoring, bn_traditional_000_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b8, 0x09cd, 0x098f};
     auto const rel = std::vector<uint32_t>{0x09b8, 0x09c7};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -9598,8 +9598,8 @@ TEST(tailoring, bn_traditional_000_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b8, 0x09cd, 0x0990};
     auto const rel = std::vector<uint32_t>{0x09b8, 0x09c8};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -9617,8 +9617,8 @@ TEST(tailoring, bn_traditional_000_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b8, 0x09cd, 0x0993};
     auto const rel = std::vector<uint32_t>{0x09b8, 0x09cb};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -9636,8 +9636,8 @@ TEST(tailoring, bn_traditional_000_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b8, 0x09cd, 0x0994};
     auto const rel = std::vector<uint32_t>{0x09b8, 0x09cc};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -9655,8 +9655,8 @@ TEST(tailoring, bn_traditional_000_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b9, 0x09cd, 0x0985};
     auto const rel = std::vector<uint32_t>(1, 0x09b9);
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -9674,8 +9674,8 @@ TEST(tailoring, bn_traditional_000_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b9, 0x09cd, 0x0986};
     auto const rel = std::vector<uint32_t>{0x09b9, 0x09be};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -9693,8 +9693,8 @@ TEST(tailoring, bn_traditional_000_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b9, 0x09cd, 0x0987};
     auto const rel = std::vector<uint32_t>{0x09b9, 0x09bf};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -9712,8 +9712,8 @@ TEST(tailoring, bn_traditional_000_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b9, 0x09cd, 0x0988};
     auto const rel = std::vector<uint32_t>{0x09b9, 0x09c0};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -9731,8 +9731,8 @@ TEST(tailoring, bn_traditional_000_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b9, 0x09cd, 0x0989};
     auto const rel = std::vector<uint32_t>{0x09b9, 0x09c1};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -9750,8 +9750,8 @@ TEST(tailoring, bn_traditional_000_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b9, 0x09cd, 0x098a};
     auto const rel = std::vector<uint32_t>{0x09b9, 0x09c2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -9769,8 +9769,8 @@ TEST(tailoring, bn_traditional_000_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b9, 0x09cd, 0x098b};
     auto const rel = std::vector<uint32_t>{0x09b9, 0x09c3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -9788,8 +9788,8 @@ TEST(tailoring, bn_traditional_000_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b9, 0x09cd, 0x09e0};
     auto const rel = std::vector<uint32_t>{0x09b9, 0x09c4};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -9807,8 +9807,8 @@ TEST(tailoring, bn_traditional_000_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b9, 0x09cd, 0x098c};
     auto const rel = std::vector<uint32_t>{0x09b9, 0x09e2};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -9826,8 +9826,8 @@ TEST(tailoring, bn_traditional_000_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b9, 0x09cd, 0x09e1};
     auto const rel = std::vector<uint32_t>{0x09b9, 0x09e3};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(
@@ -9845,8 +9845,8 @@ TEST(tailoring, bn_traditional_000_019)
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x09b9, 0x09cd, 0x098f};
     auto const rel = std::vector<uint32_t>{0x09b9, 0x09c7};
-    string const res_str = to_string(res);
-    string const rel_str = to_string(rel);
+    std::string const res_str = to_string(res);
+    std::string const rel_str = to_string(rel);
     auto const res_view = as_utf32(res);
     auto const rel_view = as_utf32(rel);
     EXPECT_EQ(collate(

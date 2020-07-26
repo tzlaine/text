@@ -19,19 +19,19 @@
 
 using namespace boost::text;
 
-auto const error = [](string const & s) { std::cout << s; };
-auto const warning = [](string const & s) {};
+auto const error = [](std::string const & s) { std::cout << s; };
+auto const warning = [](std::string const & s) {};
 
 collation_table make_save_load_table()
 {
 #ifdef LIMIT_TESTING_FOR_CI
-    string const table_str(data::ru::standard_collation_tailoring());
+    std::string const table_str(data::ru::standard_collation_tailoring());
     return tailored_collation_table(
         table_str,
         "ru::standard_collation_tailoring()", error, warning);
 #else
     if (!exists(boost::filesystem::path("ru_standard.table"))) {
-        string const table_str(data::ru::standard_collation_tailoring());
+        std::string const table_str(data::ru::standard_collation_tailoring());
         collation_table table = tailored_collation_table(
             table_str,
             "ru::standard_collation_tailoring()", error, warning);
