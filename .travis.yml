@@ -153,7 +153,7 @@ script:
         build_dir="build-$BUILD_TYPE-cxx-$CPP"
         mkdir $build_dir
         cd $build_dir
-        cmake -DCXX_STD=${CPP} -DBOOST_BRANCH=$TRAVIS_BRANCH -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DLIMIT_TESTING_FOR_CI=true ..
+        cmake -DCXX_STD=${CPP} -DBOOST_BRANCH=$TRAVIS_BRANCH -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DLIMIT_TESTING_FOR_CI=true -DTRAVIS_CI_BUILD=true ..
         make -j${JOBS} && CTEST_OUTPUT_ON_FAILURE=1 CTEST_PARALLEL_LEVEL=4 make check
         if [ $? -ne 0 ]
         then
@@ -166,7 +166,7 @@ script:
         build_dir="build-cov-cxx-$CPP-coverage"
         mkdir $build_dir
         cd $build_dir
-        cmake -DCXX_STD=${CPP} -DBOOST_BRANCH=$TRAVIS_BRANCH -DCMAKE_BUILD_TYPE=Debug -DLIMIT_TESTING_FOR_CI=true -DBUILD_COVERAGE=true ..
+        cmake -DCXX_STD=${CPP} -DBOOST_BRANCH=$TRAVIS_BRANCH -DCMAKE_BUILD_TYPE=Debug -DLIMIT_TESTING_FOR_CI=true -DBUILD_COVERAGE=true -DTRAVIS_CI_BUILD=true ..
         sudo ln -s /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/llvm-cov /usr/local/bin/llvm-cov
         make -j${JOBS} && CTEST_OUTPUT_ON_FAILURE=1 CTEST_PARALLEL_LEVEL=4 make coverage
         if [ $? -ne 0 ]
