@@ -11,17 +11,6 @@
 // Included for definition of __cpp_lib_concepts.
 #include <iterator>
 
-// This horrible hack is here to fix the build on Travis, which is somehow
-// configured so that even with -std=c++14, __cplusplus is < 201103L.
-#if defined(__GNUC__) && defined(BOOST_TEXT_TRAVIS_CI_BUILD)
-#    ifndef(__cplusplus)
-#        define __cplusplus 201402L
-#    elif __cplusplus < 201402L
-#        undef __cplusplus
-#        define __cplusplus 201402L
-#    endif
-#endif
-
 
 /** When you insert into a rope, the incoming sequence may be inserted as a
     new segment, or if it falls within an existing string-segment, it may be

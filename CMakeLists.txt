@@ -2,21 +2,11 @@ cmake_minimum_required(VERSION 3.5)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 project(boost_text)
 
-##################################################
+################################################## 
 # C++ standard version selection
-##################################################
+################################################## 
 set(CXX_STD 14 CACHE STRING "Set to 14, 17, etc., to enable C++14, C++17, etc.")
 message("-- Using -std=c++${CXX_STD}")
-
-
-##################################################
-# Weird Travis CI Accommodation
-##################################################
-set(TRAVIS_CI_BUILD false CACHE BOOL
-    "True only if we're compiling in the Travis build environment")
-if (TRAVIS_CI_BUILD)
-    add_definitions(-DBOOST_TEXT_TRAVIS_CI_BUILD)
-endif()
 
 
 ##################################################
