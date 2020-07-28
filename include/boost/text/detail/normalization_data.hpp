@@ -20,10 +20,10 @@
 
 namespace boost { namespace text { namespace detail {
 
-    template<int Capacity>
+    template<int Capacity, typename T = uint32_t>
     struct code_points
     {
-        using storage_type = std::array<uint32_t, Capacity>;
+        using storage_type = std::array<T, Capacity>;
         using iterator = typename storage_type::iterator;
         using const_iterator = typename storage_type::const_iterator;
 
@@ -33,18 +33,14 @@ namespace boost { namespace text { namespace detail {
         iterator begin() { return storage_.begin(); }
         iterator end() { return storage_.begin() + size_; }
 
-        friend bool operator==(
-            code_points<Capacity> const & lhs,
-            code_points<Capacity> const & rhs)
+        friend bool operator==(code_points const & lhs, code_points const & rhs)
         {
             return lhs.size_ == rhs.size_ && std::equal(
                                                  lhs.storage_.begin(),
                                                  lhs.storage_.end(),
                                                  rhs.storage_.begin());
         }
-        friend bool operator!=(
-            code_points<Capacity> const & lhs,
-            code_points<Capacity> const & rhs)
+        friend bool operator!=(code_points const & lhs, code_points const & rhs)
         {
             return !(lhs == rhs);
         }
@@ -186,26 +182,35 @@ namespace boost { namespace text { namespace detail {
         T default_;
     };
 
+    // Hangul decomposition constants from Unicode 11.0 Section 3.12.
+    enum : int32_t {
+        SBase = 0xAC00,
+        LBase = 0x1100,
+        VBase = 0x1161,
+        TBase = 0x11A7,
+        LCount = 19,
+        VCount = 21,
+        TCount = 28,
+        NCount = VCount * TCount,
+        SCount = LCount * NCount
+    };
+
     inline constexpr bool hangul_syllable(uint32_t cp) noexcept
     {
-        return 0xAC00 <= cp && cp <= 0xD7A3;
+        return SBase <= cp && cp < SBase + SCount;
+    }
+
+    inline constexpr bool hangul_lv(uint32_t cp) noexcept
+    {
+        return hangul_syllable && (cp - SBase) % TCount == 0;
     }
 
     // Hangul decomposition as described in Unicode 11.0 Section 3.12.
-    template<int Capacity>
-    inline code_points<Capacity> decompose_hangul_syllable(uint32_t cp) noexcept
+    template<int Capacity, typename T = uint32_t>
+    inline code_points<Capacity, T>
+    decompose_hangul_syllable(uint32_t cp) noexcept
     {
         BOOST_ASSERT(hangul_syllable(cp));
-
-        uint32_t const SBase = 0xAC00;
-        uint32_t const LBase = 0x1100;
-        uint32_t const VBase = 0x1161;
-        uint32_t const TBase = 0x11A7;
-        // uint32_t const LCount = 19;
-        uint32_t const VCount = 21;
-        uint32_t const TCount = 28;
-        uint32_t const NCount = VCount * TCount; // 588
-        // uint32_t const SCount = LCount * NCount; // 11172
 
         auto const SIndex = cp - SBase;
 
@@ -215,10 +220,10 @@ namespace boost { namespace text { namespace detail {
         auto const LPart = LBase + LIndex;
         auto const VPart = VBase + VIndex;
         if (TIndex == 0) {
-            return code_points<Capacity>{{{LPart, VPart}}, 2};
+            return {{{(T)LPart, (T)VPart}}, 2};
         } else {
             auto const TPart = TBase + TIndex;
-            return code_points<Capacity>{{{LPart, VPart, TPart}}, 3};
+            return {{{(T)LPart, (T)VPart, (T)TPart}}, 3};
         }
     }
 

@@ -14,7 +14,7 @@
 #include <boost/text/transcode_iterator.hpp>
 #include <boost/text/transcode_view.hpp>
 #include <boost/text/detail/normalization_data.hpp>
-#include <boost/text/detail/icu/normalize.hpp>
+#include <boost/text/detail/normalize.hpp>
 
 #include <boost/container/static_vector.hpp>
 
@@ -64,7 +64,7 @@ namespace boost { namespace text {
                 auto const last = r.end();
 
                 int const chunk_size = 512;
-                std::array<detail::icu::UChar, chunk_size> input;
+                std::array<uint16_t, chunk_size> input;
                 auto input_first = input.data();
 
                 while (first != last) {
@@ -79,16 +79,13 @@ namespace boost { namespace text {
                         *input_last++ = *first;
                         ++first;
                     }
-                    detail::icu::ReorderingBuffer<Appender> buffer(
-                        Normalization == nf::kd ? detail::icu::nfkc_norm()
-                                                : detail::icu::nfc_norm(),
-                        appender);
-                    auto const input_new_first =
-                        Normalization == nf::kd
-                            ? detail::icu::nfkc_norm().decompose<do_writes>(
-                                  input.data(), input_last, buffer)
-                            : detail::icu::nfc_norm().decompose<do_writes>(
-                                  input.data(), input_last, buffer);
+                    auto const & table = Normalization == nf::kd
+                                             ? detail::nfkc_table()
+                                             : detail::nfc_table();
+                    detail::reordering_appender<Appender> buffer(
+                        table, appender);
+                    auto const input_new_first = detail::decompose<do_writes>(
+                        table, input.data(), input_last, buffer);
                     if (!do_writes && input_new_first != input_last)
                         return norm_result<OutIter>{appender.out(), false};
                     input_first =
@@ -115,15 +112,14 @@ namespace boost { namespace text {
                 constexpr bool do_writes = !std::is_same<OutIter, bool>::value;
 
                 auto const r = boost::text::as_utf16(first, last);
-                detail::icu::ReorderingBuffer<Appender> reorder_buffer(
-                    (Normalization == nf::kc ? detail::icu::nfkc_norm()
-                                             : detail::icu::nfc_norm()),
-                    appender);
+                auto const & table = Normalization == nf::kc
+                                         ? detail::nfkc_table()
+                                         : detail::nfc_table();
+                detail::reordering_appender<Appender> reorder_buffer(
+                    table, appender);
                 auto const normalized =
-                    (Normalization == nf::kc ? detail::icu::nfkc_norm()
-                                             : detail::icu::nfc_norm())
-                        .compose<Normalization == nf::fcc, do_writes>(
-                            r.begin(), r.end(), reorder_buffer);
+                    detail::compose<Normalization == nf::fcc, do_writes>(
+                        table, r.begin(), r.end(), reorder_buffer);
                 return norm_result<OutIter>{appender.out(), (bool)normalized};
             }
         };
@@ -142,11 +138,12 @@ namespace boost { namespace text {
                 constexpr bool do_writes = !std::is_same<OutIter, bool>::value;
 
                 auto const r = boost::text::as_utf8(first, last);
+                auto const & table = Normalization == nf::kc
+                                         ? detail::nfkc_table()
+                                         : detail::nfc_table();
                 auto const normalized =
-                    (Normalization == nf::kc ? detail::icu::nfkc_norm()
-                                             : detail::icu::nfc_norm())
-                        .composeUTF8<Normalization == nf::fcc, do_writes>(
-                            r.begin(), r.end(), appender);
+                    detail::compose_utf8<Normalization == nf::fcc, do_writes>(
+                        table, r.begin(), r.end(), appender);
                 return norm_result<OutIter>{appender.out(), (bool)normalized};
             }
         };
@@ -160,7 +157,7 @@ namespace boost { namespace text {
                             Normalization != nf::d && Normalization != nf::kd>
         struct normalization_appender
         {
-            using type = icu::utf16_to_utf32_appender<OutIter>;
+            using type = utf16_to_utf32_appender<OutIter>;
         };
 
         template<
@@ -175,7 +172,7 @@ namespace boost { namespace text {
             OutIter,
             true>
         {
-            using type = icu::utf8_to_utf32_appender<OutIter>;
+            using type = utf8_to_utf32_appender<OutIter>;
         };
 
         template<
@@ -254,8 +251,7 @@ namespace boost { namespace text {
     template<typename CPRange, typename OutIter>
     OutIter stream_safe_copy(CPRange const & r, OutIter out)
     {
-        return boost::text::stream_safe_copy(
-            std::begin(r), std::end(r), out);
+        return boost::text::stream_safe_copy(std::begin(r), std::end(r), out);
     }
 
 }}
@@ -304,11 +300,12 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
         \see https://unicode.org/notes/tn5 */
     template<nf Normalization, typename CPIter, typename Sentinel>
-    auto normalized(CPIter first, Sentinel last) noexcept
-        -> detail::cp_iter_ret_t<bool, CPIter>
+    auto normalized(
+        CPIter first,
+        Sentinel last) noexcept->detail::cp_iter_ret_t<bool, CPIter>
     {
         BOOST_TEXT_STATIC_ASSERT_NORMALIZATION();
-        detail::icu::null_appender appender;
+        detail::null_appender appender;
         return detail::norm_impl<Normalization, bool, CPIter, Sentinel>::call(
                    first, last, appender)
             .normalized_;
@@ -321,7 +318,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     {
         return v1::normalized<Normalization>(std::begin(r), std::end(r));
     }
-
 }}}
 
 #if defined(__cpp_lib_concepts)
@@ -367,7 +363,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     auto normalized(I first, S last) noexcept
     {
         BOOST_TEXT_STATIC_ASSERT_NORMALIZATION();
-        detail::icu::null_appender appender;
+        detail::null_appender appender;
         return detail::norm_impl<Normalization, bool, I, S>::call(
                    first, last, appender)
             .normalized_;

@@ -98,6 +98,13 @@ namespace boost { namespace text {
             return out;
         }
 
+        inline constexpr uint32_t
+        surrogates_to_cp(uint16_t hi, uint16_t lo) noexcept
+        {
+            return uint32_t((hi - high_surrogate_base) << 10) +
+                   (lo - low_surrogate_base);
+        }
+
         template<typename T, typename U>
         struct enable_utf8_cp : std::enable_if<is_char_iter<T>::value, U>
         {};
@@ -166,6 +173,20 @@ namespace boost { namespace text {
         return c <= 0x10ffff && !surrogate(c) && !reserved_noncharacter(c);
     }
 
+    /** Returns true if c is a UTF-8 lead code unit (which must be followed by
+        1-3 following units), and false otherwise. */
+    constexpr bool lead_code_unit(unsigned char c) noexcept
+    {
+        return uint8_t(c - 0xc2) <= 0x32;
+    }
+
+    /** Returns true if c is a UTF-8 continuation code unit, and false
+        otherwise. */
+    constexpr bool continuation(unsigned char c) noexcept
+    {
+        return (int8_t)c < -0x40;
+    }
+
     /** Given the first (and possibly only) code unit of a UTF-8 code point,
         returns the number of bytes occupied by that code point (in the range
         [1, 4]).  Returns a value < 0 if first is not a valid initial UTF-8
@@ -173,18 +194,12 @@ namespace boost { namespace text {
 
         This function is constexpr in C++14 and later. */
     inline BOOST_TEXT_CXX14_CONSTEXPR int
-    code_point_bytes(unsigned char first) noexcept
+    code_point_bytes(unsigned char c) noexcept
     {
-        using detail::in;
-        if (first <= 0x7f)
-            return 1;
-        if (in(0xc2, first, 0xdf))
-            return 2;
-        if (in(0xe0, first, 0xef))
-            return 3;
-        if (in(0xf0, first, 0xf4))
-            return 4;
-        return -1;
+        return c <= 0x7f ? 1
+                         : text::lead_code_unit(c)
+                               ? int(0xe0 <= c) + int(0xf0 <= c) + 2
+                               : -1;
     }
 
     /** Given the first (and possibly only) code unit of a UTF-16 code point,
@@ -201,17 +216,6 @@ namespace boost { namespace text {
         if (boost::text::high_surrogate(first))
             return 2;
         return 1;
-    }
-
-    /** Returns true if c is a UTF-8 continuation code unit, and false
-        otherwise.  If optional parameters lo and hi are given, the code unit
-        must also lie in the range [lo, hi]. */
-    constexpr bool continuation(
-        unsigned char c,
-        unsigned char lo = 0x80,
-        unsigned char hi = 0xbf) noexcept
-    {
-        return detail::in(lo, c, hi);
     }
 
     namespace detail {
@@ -261,27 +265,25 @@ namespace boost { namespace text {
         {
             BOOST_ASSERT(!boost::text::continuation(*it));
 
-            using detail::in;
-
-            if (in(0, *it, 0x7f))
+            if (detail::in(0, *it, 0x7f))
                 return optional_iter<Iter>{};
 
-            if (in(0xc2, *it, 0xdf)) {
+            if (detail::in(0xc2, *it, 0xdf)) {
                 auto next = it;
                 if (!boost::text::continuation(*++next))
                     return next;
                 return optional_iter<Iter>{};
             }
 
-            if (in(0xe0, *it, 0xe0)) {
+            if (detail::in(0xe0, *it, 0xe0)) {
                 auto next = it;
-                if (!boost::text::continuation(*++next, 0xa0, 0xbf))
+                if (!detail::in(0xa0, *++next, 0xbf))
                     return next;
                 if (!boost::text::continuation(*++next))
                     return next;
                 return optional_iter<Iter>{};
             }
-            if (in(0xe1, *it, 0xec)) {
+            if (detail::in(0xe1, *it, 0xec)) {
                 auto next = it;
                 if (!boost::text::continuation(*++next))
                     return next;
@@ -289,15 +291,15 @@ namespace boost { namespace text {
                     return next;
                 return optional_iter<Iter>{};
             }
-            if (in(0xed, *it, 0xed)) {
+            if (detail::in(0xed, *it, 0xed)) {
                 auto next = it;
-                if (!boost::text::continuation(*++next, 0x80, 0x9f))
+                if (!detail::in(0x80, *++next, 0x9f))
                     return next;
                 if (!boost::text::continuation(*++next))
                     return next;
                 return optional_iter<Iter>{};
             }
-            if (in(0xee, *it, 0xef)) {
+            if (detail::in(0xee, *it, 0xef)) {
                 auto next = it;
                 if (!boost::text::continuation(*++next))
                     return next;
@@ -306,9 +308,9 @@ namespace boost { namespace text {
                 return optional_iter<Iter>{};
             }
 
-            if (in(0xf0, *it, 0xf0)) {
+            if (detail::in(0xf0, *it, 0xf0)) {
                 auto next = it;
-                if (!boost::text::continuation(*++next, 0x90, 0xbf))
+                if (!detail::in(0x90, *++next, 0xbf))
                     return next;
                 if (!boost::text::continuation(*++next))
                     return next;
@@ -316,7 +318,7 @@ namespace boost { namespace text {
                     return next;
                 return optional_iter<Iter>{};
             }
-            if (in(0xf1, *it, 0xf3)) {
+            if (detail::in(0xf1, *it, 0xf3)) {
                 auto next = it;
                 if (!boost::text::continuation(*++next))
                     return next;
@@ -326,9 +328,9 @@ namespace boost { namespace text {
                     return next;
                 return optional_iter<Iter>{};
             }
-            if (in(0xf4, *it, 0xf4)) {
+            if (detail::in(0xf4, *it, 0xf4)) {
                 auto next = it;
-                if (!boost::text::continuation(*++next, 0x80, 0x8f))
+                if (!detail::in(0x80, *++next, 0x8f))
                     return next;
                 if (!boost::text::continuation(*++next))
                     return next;
@@ -1418,7 +1420,7 @@ namespace boost { namespace text {
             unsigned char lo = 0x80,
             unsigned char hi = 0xbf) const noexcept(!throw_on_error)
         {
-            if (continuation(c, lo, hi)) {
+            if (detail::in(lo, c, hi)) {
                 return true;
             } else {
                 ErrorHandler{}(
@@ -1468,12 +1470,10 @@ namespace boost { namespace text {
             I next = it_;
             unsigned char curr_c = *next;
 
-            using detail::in;
-
             // One-byte case handled by caller
 
             // Two-byte
-            if (in(0xc2, curr_c, 0xdf)) {
+            if (detail::in(0xc2, curr_c, 0xdf)) {
                 value = curr_c & 0b00011111;
                 ++next;
                 if (at_end(next))
@@ -1501,7 +1501,7 @@ namespace boost { namespace text {
                     return get_value_result{replacement_character(), next};
                 value = (value << 6) + (curr_c & 0b00111111);
                 ++next;
-            } else if (in(0xe1, curr_c, 0xec)) {
+            } else if (detail::in(0xe1, curr_c, 0xec)) {
                 value = curr_c & 0b00001111;
                 ++next;
                 if (at_end(next))
@@ -1535,7 +1535,7 @@ namespace boost { namespace text {
                     return get_value_result{replacement_character(), next};
                 value = (value << 6) + (curr_c & 0b00111111);
                 ++next;
-            } else if (in(0xed, curr_c, 0xef)) {
+            } else if (detail::in(0xed, curr_c, 0xef)) {
                 value = curr_c & 0b00001111;
                 ++next;
                 if (at_end(next))
@@ -1577,7 +1577,7 @@ namespace boost { namespace text {
                     return get_value_result{replacement_character(), next};
                 value = (value << 6) + (curr_c & 0b00111111);
                 ++next;
-            } else if (in(0xf1, curr_c, 0xf3)) {
+            } else if (detail::in(0xf1, curr_c, 0xf3)) {
                 value = curr_c & 0b00000111;
                 ++next;
                 if (at_end(next))
@@ -2511,9 +2511,7 @@ namespace boost { namespace text {
                 prev_cu = cu;
             } else if (low_surrogate(cu)) {
                 if (prev_cu) {
-                    uint32_t cp = (prev_cu - high_surrogate_base) << 10;
-                    cp += cu - low_surrogate_base;
-                    *out = cp;
+                    *out = detail::surrogates_to_cp(prev_cu, cu);
                     ++out;
                 } else {
                     *out = replacement_character();
@@ -2958,8 +2956,7 @@ namespace boost { namespace text {
                 prev_cu = cu;
             } else if (low_surrogate(cu)) {
                 if (prev_cu) {
-                    uint32_t cp = (prev_cu - high_surrogate_base) << 10;
-                    cp += cu - low_surrogate_base;
+                    auto const cp = detail::surrogates_to_cp(prev_cu, cu);
                     out = detail::write_cp_utf8(cp, out);
                 } else {
                     out = detail::write_cp_utf8(replacement_character(), out);

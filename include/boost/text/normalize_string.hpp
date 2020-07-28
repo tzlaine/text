@@ -11,7 +11,7 @@
 #endif
 #include <boost/text/normalize.hpp>
 #include <boost/text/transcode_view.hpp>
-#include <boost/text/detail/icu/normalize.hpp>
+#include <boost/text/detail/normalize.hpp>
 
 
 namespace boost { namespace text { namespace detail {
@@ -26,7 +26,7 @@ namespace boost { namespace text { namespace detail {
         bool UTF8Output = sizeof(*std::declval<String>().begin()) == 1>
     struct normalization_string_appender
     {
-        using type = detail::icu::utf16_string_appender<String>;
+        using type = detail::utf16_string_appender<String>;
     };
 
     template<
@@ -42,7 +42,7 @@ namespace boost { namespace text { namespace detail {
         false,
         true>
     {
-        using type = detail::icu::utf16_to_utf8_string_appender<String>;
+        using type = detail::utf16_to_utf8_string_appender<String>;
     };
 
     template<
@@ -58,7 +58,7 @@ namespace boost { namespace text { namespace detail {
         true,
         true>
     {
-        using type = detail::icu::utf8_string_appender<String>;
+        using type = detail::utf8_string_appender<String>;
     };
 
     template<
