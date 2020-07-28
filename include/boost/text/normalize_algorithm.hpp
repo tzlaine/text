@@ -462,7 +462,13 @@ namespace boost { namespace text { namespace detail {
         } else {
             auto const copy_last = buffer.begin() + replaceable_size;
             std::copy(buffer.begin(), copy_last, first);
-            auto const it = string.insert(last, copy_last, buffer.end());
+            // This dance is here because somehow libstdc++ in the Travis
+            // build environment thinks it's being built as C++98 code, in
+            // which std::string::insert() returns void.  This works around
+            // that.
+            auto const insertion_offset = last - string.begin();
+            string.insert(last, copy_last, buffer.end());
+            auto const it = string.begin() + insertion_offset;
             return {
                 std::prev(it, replaceable_size),
                 std::next(it, buffer.end() - copy_last)};
