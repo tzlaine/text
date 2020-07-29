@@ -13,7 +13,7 @@
 #include <cstdint>
 
 
-namespace boost { namespace text { inline namespace v1 {
+namespace boost { namespace text {
 
     /** Collation strength.
 
@@ -288,6 +288,6 @@ namespace boost { namespace text { inline namespace v1 {
             collation_table const & table);
     }
 
-}}}
+}}
 
 #endif

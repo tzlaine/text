@@ -15,7 +15,7 @@ namespace boost { namespace text { namespace data { namespace bn {
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(
+    return string_view((char const *)
 u8R"(  
 [normalization on]
 [reorder Beng Deva Guru Gujr Orya Taml Telu Knda Mlym Sinh]
@@ -25,7 +25,7 @@ u8R"(
 
 inline string_view traditional_collation_tailoring()
 {
-    return string_view(
+    return string_view((char const *)
 u8"  \n"
 u8"[normalization on]\n"
 u8"[reorder Beng Deva Guru Gujr Orya Taml Telu Knda Mlym Sinh]\n"

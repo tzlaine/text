@@ -28,7 +28,7 @@ a 32-bit unsigned value that represents a single Unicode value. Examples are
 U+0041 "A" "LATIN CAPITAL LETTER A" and U+0308 "¨" "COMBINING DIAERESIS".
 
 There are four different Unicode normalization forms.  Normalization is
-necessary because Unicode requires that certain combinations of code points be
+necessary because Unicode requires that certain combinations of _cps_ be
 considered identical.  For instance, the two _cps_ U+0041 U+0308 appear like
 this: "Ä", and the _cp_ U+00C4 appears like this: "Ä".  Since these two
 sequences are not visually distinct, all the algorithms must treat them as the
@@ -81,20 +81,20 @@ allocate memory, in practice they seldom if ever do.
 [heading What About Code Point Properties?]
 
 You might notice that there are no interfaces in this layer that provide
-properties of code points, like whether a particular code point is space or
+properties of _cps_, like whether a particular _cp_ is space or
 punctuation.  The reason for this is that such properties are complicated in
 Unicode.
 
 Unicode defines properties like space and punctuation, but it defines them in
 a highly context-sensitive way; each algorithm has its own set of properties
-it associates with code points.  For instance, the word breaking algorithm is
+it associates with _cps_.  For instance, the word breaking algorithm is
 concerned with single quotes and double quotes, and so has a property for
 each, but other punctuation is spread out among its other properties.  It has
 no property that maps to something like "punctuation".
 
-So if you want to know if a code point is whitespace or not, you might have to
+So if you want to know if a _cp_ is whitespace or not, you might have to
 look it up on a Unicode reference website (and implement a function for
-yourself), or see if the whitespace code points covered by one of the Unicode
+yourself), or see if the whitespace _cps_ covered by one of the Unicode
 algorithms fits your needs and use that algorithm's `*_prop()` function
 (e.g. _word_prop_).
 
@@ -114,11 +114,23 @@ transcoding.  The converting iterators are:
 * _32_to_8_iter_
 * _32_to_16_iter_
 
-By default, these produce the Unicode replacement character `0xFFFD` when
-encountering an invalid encoding.  This replacement character error handling
-strategy is used internally within _Text_ when performing conversions.  The
-exact error handling behavior can be controlled via the `ErrorHandler`
-template parameter.
+There are three make-functions that create these transcoding iterators:
+
+* _8_iter_
+* _16_iter_
+* _32_iter_
+
+A make-function is provided for each to-encoding; `utf16_iterator(a, b, c)`
+returns: a _8_to_16_iter_ if `a`, `b`, and `c` are iterators to UTF-8 _cus_; a
+_32_to_16_iter_ if `a`, `b`, and `c` are iterators to UTF-32 _cus_ (i.e. code
+points); and `b` otherwise.  See the section _unpacking_ for details.
+
+By default, the transcoding iterators produce the Unicode replacement
+character `0xFFFD` when encountering an invalid encoding.  The exact error
+handling behavior can be controlled via the `ErrorHandler` template parameter.
+
+[note The error handling strategy of producing replacement characters is used
+internally within _Text_ when performing conversions. ]
 
 The Unicode standard is flexible with respect to where, in an incoming stream,
 encoding errors are reported.  However, the standard provides recommendations
@@ -144,13 +156,38 @@ _u32v_:
 
 [to_utf32_terse]
 
+[note A make-function is provided for each to-encoding; `utf16_iterator(a, b,
+c)` returns: a _8_to_16_iter_ if `a`, `b`, and `c` are iterators to UTF-8
+_cus_; a _32_to_16_iter_ if `a`, `b`, and `c` are iterators to UTF-32 _cus_
+(i.e. _cps_); and `b` otherwise.  See the section _unpacking_ for details. ]
+
 All the transcoding iterators are bidirectional.  When each one is
 dereferenced, it may read multiple values from the underlying input range.
-For instance, a `utf_8_to_32_iterator i` has to read 1-4 code units to produce
-a code point when you write `*i`.  Therefore, each of these iterators requires
-the endpoints of the underlying range, to ensure that reads outside the
-underlying range generate replacement characters instead of undefined
+For instance, a `utf_8_to_32_iterator i` has to read 1-4 _cus_ to produce a
+_cp_ when performing the operation `*i`.  Therefore, each of these iterators
+requires the endpoints of the underlying range, to ensure that reads outside
+the underlying range generate replacement characters instead of undefined
 behavior.
+
+All the transcoding iterators still exhibit undefined behavior when
+incrementing past the end of the underlying range, or decrementing before the
+beginning of the underlying range.  The generation of replacment characters
+only happens in cases where the number of _cus_ is variable and there is an
+incomplete sequence of _cus_ right at the beginning or end.
+
+For instance, if you have a sequence of UTF-8 that consists of a single broken
+_cp_ sequence:
+
+    // That the full UTF-8 encoding for U+8D00 is 0xe8, 0xb4, 0x80.
+    unsigned char const broken_utf8_for_0x8d00[] = { 0xe8, 0xb4 /* Incomplete! */};
+    auto const it = boost::text::utf32_iterator(
+        std::begin(broken_utf8_for_0x8d00),
+        std::end(broken_utf8_for_0x8d00),
+        std::end(broken_utf8_for_0x8d00));
+
+then `*it` will produce a replacement character, and the behavior of
+`std::next(it)` is defined.  However, the behaviors of `std::prev(it)` and
+`std::next(it, 2)` are each undefined.
 
 In keeping with the ranges and algorithms from `std::ranges`, the transcoding
 iterators accept an underlying input range that may be delimited by different
@@ -179,27 +216,30 @@ their associated functions):
 
 * `utf_N_to_M_insert_iterator` - This is analogous to `std::insert_iterator`,
   but also does the `N` to `M` transcoding.  You can create one using
-  `utf_N_to_M_inserter`.
+  `from_utfN_inserter`.
 
 * `utf_N_to_M_front_insert_iterator` - This is analogous to
   `std::front_insert_iterator`, but also does the `N` to `M` transcoding.  You
-  can create one using `utf_N_to_M_front_inserter`.
+  can create one using `from_utfN_front_inserter`.
 
 * `utf_N_to_M_back_insert_iterator` - This is analogous to
   `std::back_insert_iterator`, but also does the `N` to `M` transcoding.  You
-  can create one using `utf_N_to_M_back_inserter`.
+  can create one using `from_utfN_back_inserter`.
 
-[note The transcoding iterators are available for flexibility.  In particular,
-they can be used with the standard algorithms.  However, this flexibility
-comes at a cost.  When doing a bulk-transcoding operation, using these
-iterators can be substantially slower than using the transcoding algorithms.]
+
+[heading Transcoding Iterator Performance]
+
+The transcoding iterators are available for flexibility.  In particular, they
+can be used with the standard algorithms.  However, this flexibility comes at
+a cost.  When doing a bulk-transcoding operation, using these iterators can be
+substantially slower than using the transcoding algorithms.
 
 
 [heading Transcoding Views]
 
 Using transcoding iterators directly is a bit verbose and tedious.  Also, when
 you use two transcoding iterators as a range/view, it may be the size of 6
-pointers!
+underlying itertors!
 
 So, both for convenience and for size optimization, _Text_ provides view
 templates for UTF-8, UTF-16, and UTF-32: _u8v_, _u16v_, and _u32v_,
@@ -224,7 +264,7 @@ range:
         boost::text::as_utf32(str.begin(), str.end());
 
     auto const utf32_range_from_utf8_iter_and_sentinel =
-        boost::text::as_utf32(str.data(), boost::text::null_sentinel{});
+        boost::text::as_utf32(str.c_str(), boost::text::null_sentinel{});
 
 To support null-terminated strings, you can just pass a pointer to
 `as_utfN()`:
@@ -237,6 +277,27 @@ To support null-terminated strings, you can just pass a pointer to
 You can pass any range of 1-, 2-, or 4-byte integral values to `as_utfN()`,
 and you will get a range that transcodes from UTF-8, UTF-16, or UTF-32 to
 UTF-`N`, respectively.
+
+The views are all streamable.  They transcode to UTF-8 when streamed to a
+`std::basic_ostream<char>`, and they transcode to UTF-16 when streamed to a
+`std::basic_ostream<wchar_t>` (Windows only).
+
+[note Though it does not produce a `utfN_view`, there is a related function
+_to_str_, which takes two UTF-32 iterators and returns a _s_ containing the
+given sequence, UTF-8-encoded.]
+
+[important _u8v_, _u16v_, and _u32v_ are all implemented in terms of C++20's
+`std::ranges::view_interface`.  _Text_ uses a pre-C++20-friendly
+implementation of this from Boost.STLIterfaces.  The implication of using
+`view_interface` is that _u8v_, _u16v_, and _u32v_ all have the fullest
+interface possible, based on the iterator and/or sentinel template parameters
+used to instantiate them.  For instance, if you use a random access iterator
+and no sentinel to instantiate _u32v_, it will have an `operator[]`.  If you
+use a bidirectional iterator instead, it will not have `operator[]`.  See
+`[view.interface]` in the standard for more details.]
+
+
+[heading Iterator "Unpacking"]
 
 A simple way to represent a transcoding view is as a pair of transcoding
 iterators.  However, there is a problem with that approach, since a
@@ -270,24 +331,15 @@ given, so that only the bottom-most underlying pointer or iterator is stored:
 Each of these views stores only the unpacked iterator and sentinel, so each
 view is the size of two pointers, and possibly smaller if a sentinel is used.
 
-The views are all streamable.  They transcode to UTF-8 when streamed to a
-`std::basic_ostream<char>`, and they transcode to UTF-16 when streamed to a
-`std::basic_ostream<wchar_t>` (Windows only).
-
-[note Though it does not produce a `utfN_view`, there is a related function
-_to_str_, which takes two UTF-32 iterators and returns a _s_ containing the
-given sequence, UTF-8-encoded.]
-
-[important _u8v_, _u16v_, and _u32v_ are all implemented in terms of C++20's
-`std::ranges::view_interface`.  _Text_ uses a pre-C++20-friendly
-implementation of this from Boost.STLIterfaces (not yet an accepted Boost
-library).  The implication of using `view_interface` is that _u8v_, _u16v_,
-and _u32v_ all have the fullest interface possible, based on the iterator
-and/or sentinel template parameters used to instantiate them.  For instance,
-if you use a random access iterator and no sentinel to instantiate _u32v_, it
-will have an `operator[]`.  If you use a bidirectional iterator instead, it
-will not have `operator[]`.  See `[view.interface]` in the standard for more
-details.]
+Though this description mentions only `as_utfN()`, the same unpacking logic is
+used in `utfN_iterator()`, `from_utfN_inserter()`, the transcoding algorithms,
+and the normalization algorithms.  This allows you to write
+`boost::text::as_uf32(first, last)` in a generic context, without caring
+whether `first` and `last` are iterators to a sequence of UTF-8, UTF-16, or
+UTF-32.  You also do not need to care about whether `first` and `last` are raw
+pointers, some other kind of iterator, or transcoding iterators.  For example,
+if `first` is a _32_to_8_iter_, the resulting view will use `first.base()` for
+its begin-iterator.
 
 
 [heading Transcoding Algorithms]
@@ -297,14 +349,12 @@ transcoding algorithms instead of the transcoding iterators.  The algorithms
 are quite a bit faster in most cases (_tc_8_to_32_ is particularly faster, as
 it uses SIMD instructions when available).
 
-There are six of these, just as there are six transcoding iterators:
+There are three of these, just as there are three make-functions for
+transcoding iterators:
 
-* _tc_8_to_16_
-* _tc_8_to_32_
-* _tc_16_to_8_
-* _tc_16_to_32_
-* _tc_32_to_8_
-* _tc_32_to_16_
+* _tc_to_8_
+* _tc_to_16_
+* _tc_to_32_
 
 Like the default behavior of the transcoding iterators, these algorithms
 produce the Unicode replacement character `0xFFFD` when encountering an
@@ -320,6 +370,9 @@ views for details.
 [important Though these algorithms are generic, some of the optimizations in
 them require pointers on both the input and output iterators for maximum
 performance.  In performance-critical code paths, stick to pointers.]
+
+[The transcoding algorithms do iterator unpacking.  See the section
+_unpacking_ for details.]
 
 
 [heading Choosing a Transcoding Mechanism]
@@ -359,6 +412,9 @@ by _8_to_32_iter_ like this:
     std::vector<char> char_vec;
     std::copy(first.base(), last.base(), std::back_inserter(char_vec));
 
+See the _unpacking_ section for more detail about how this is used within
+_Text_'s interfaces.
+
 
 [heading Normalization]
 
@@ -368,15 +424,22 @@ normalization form called FCC that is described in _tn5_.  FCC is just as
 compact as the most compact official form, NFC, except in a few degenerate
 cases.  FCC is particularly useful when doing collation.
 
-The algorithms are of the form `normalize_to_X()`, and there are range and
-iterator-based interfaces.  The iterator interfaces require iterators that
-model _CPIter_, and ranges that model _CPRng_.  There are also algorithms that
-can check if a _cp_ sequence is in a certain normalization form.
+The algorithm is invoked as `normalize<X>()`, where `X` is one of the
+enumerators of _nf_ ("Normalization Form").  Range and iterator-based
+overloads are provided.  The iterator interfaces require iterators that model
+_CPIter_, and ranges that model _CPRng_.  There are also algorithms that can
+check if a _cp_ sequence is in a certain normalization form.
 
 [normalize_1]
 
 There are _s_-specific in-place normalization functions as well, in
 _norm_str_header_.
+
+[\note When you're working entirely within a UTF-8 encoding (on both sides of
+the normalization operation), the most efficient version of the normalization
+API is `normalize_append(a, b)`, where `a` and `b` are iterators over an
+underlying sequence of UTF-8.  You can find these interfaces in
+_norm_str_header_ if that's your use case. ]
 
 [endsect]
 
@@ -608,7 +671,7 @@ From _text_seg_, here are some other _cps_ you might want to treat as
 Another example from _text_seg_ is to treat spaces as `MidNum` to support
 languages that use spaces as thousands separators, as in `"€1 234,56"`.
 `MidNum` is like `MidLetter`, but for the interior _cps_ of numbers instead of
-words containing letters.  Here are the space code points you might want to do
+words containing letters.  Here are the space _cps_ you might want to do
 that with:
 
 [table `MidNum` Candidates
@@ -621,7 +684,7 @@ that with:
     [[U+202F NARROW NO-BREAK SPACE]]
 ]
 
-Tailoring the properties for each code point works for some cases, but using
+Tailoring the properties for each _cp_ works for some cases, but using
 tailorings of the meanings of `MidLetter` and `MidNum` can only add to the
 sizes of words; it cannot decrease their sizes.  The word break functions take
 a second optional parameter that allows you to pick arbitrary word breaks
@@ -1117,11 +1180,12 @@ I've only shown the _GrRng_ overloads here for brevity, but there are
 overloads that take a _CPRng_ or a pair of _CPIters_ as well, just like the
 other APIs we've already seen.
 
-[important The searching API does not require FCC-normalized inputs; it will
-search other normalization forms as well.  However, you should be careful
-searching in text that is normalized NFD or NFKD.
+[important The searching API does not require inputs aligned to _gr_
+boundaries.  You can get correct but suspicious-seeming results when you try
+to match using _cps_ that may be part of longer _grs_ in the text being
+searched.
 
-Consider the NFD string `"a\u0300\u0301"` _emdash_ an `'a'` followed by an
+Consider the NFD string `"a\u0300\u0301"` _emdash_ an `'a'` followed by a
 grave accent followed by an acute accent.  This string will not always be
 matched correctly by pattern `"a\u0300"` (or `"a\u0301"`), due to the
 arbitrary ordering of combining marks with the same canonical combining class
@@ -1131,8 +1195,8 @@ for partial _grs_, as in `collation_search("a\u0300", "a\u0300\u0301")`
 for example.
 
 If none of that made sense to you, don't worry.  Just use the text layer
-types, which are always normalized FCC and always deal in graphemes, and
-you'll never have to consider this effect.]
+types, which always deal in whole _grs_, and you'll never have to consider
+this effect.]
 
 [endsect]
 

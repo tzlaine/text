@@ -15,7 +15,7 @@
 #include <unordered_map>
 
 
-namespace boost { namespace text { inline namespace v1 { namespace detail {
+namespace boost { namespace text { namespace detail {
 
 std::array<grapheme_prop_interval, 6> const & make_grapheme_prop_intervals()
 {
@@ -3594,4 +3594,4 @@ BOOST_ASSERT(retval.size() == 15958);
 return retval;
 }
 
-}}}}
+}}}

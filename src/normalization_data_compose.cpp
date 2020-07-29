@@ -11,7 +11,7 @@
 #include <unordered_map>
 
 
-namespace boost { namespace text { inline namespace v1 { namespace detail {
+namespace boost { namespace text { namespace detail {
 
     namespace {
         struct data_t { uint64_t key_; uint32_t value_; };
@@ -972,4 +972,4 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         return retval;
     }
 
-}}}}
+}}}

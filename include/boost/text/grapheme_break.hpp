@@ -17,7 +17,7 @@
 #include <stdint.h>
 
 
-namespace boost { namespace text { inline namespace v1 {
+namespace boost { namespace text {
 
     /** The grapheme properties defined by Unicode. */
     enum class grapheme_property {
@@ -122,7 +122,7 @@ namespace boost { namespace text { inline namespace v1 {
         bool gb11_prefix(CPIter first, CPIter prev_it)
         {
             auto final_prop = grapheme_property::Other;
-            boost::text::v1::find_if_backward(
+            boost::text::find_if_backward(
                 first, prev_it, [&final_prop](uint32_t cp) {
                     final_prop = grapheme_prop(cp);
                     return final_prop != grapheme_property::Extend;
@@ -237,13 +237,13 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
 
         detail::grapheme_break_state<CPIter> state;
         state.it = it;
-        state.prop = boost::text::v1::grapheme_prop(*state.it);
-        state.prev_prop = boost::text::v1::grapheme_prop(*std::prev(state.it));
+        state.prop = boost::text::grapheme_prop(*state.it);
+        state.prev_prop = boost::text::grapheme_prop(*std::prev(state.it));
         state.emoji_state = detail::grapheme_break_emoji_state_t::none;
 
         for (; state.it != first; state = prev(state)) {
             state.prev_prop =
-                boost::text::v1::grapheme_prop(*std::prev(state.it));
+                boost::text::grapheme_prop(*std::prev(state.it));
 
             // When we see an RI, back up to the first RI so we can see what
             // emoji state we're supposed to be in here.
@@ -251,7 +251,7 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
                     detail::grapheme_break_emoji_state_t::none &&
                 state.prop == grapheme_property::Regional_Indicator) {
                 int ris_before = 0;
-                boost::text::v1::find_if_not_backward(
+                boost::text::find_if_not_backward(
                     first, state.it, [&ris_before](uint32_t cp) {
                         bool const ri = grapheme_prop(cp) ==
                                         grapheme_property::Regional_Indicator;
@@ -311,8 +311,8 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
         if (++state.it == last)
             return state.it;
 
-        state.prev_prop = boost::text::v1::grapheme_prop(*std::prev(state.it));
-        state.prop = boost::text::v1::grapheme_prop(*state.it);
+        state.prev_prop = boost::text::grapheme_prop(*std::prev(state.it));
+        state.prop = boost::text::grapheme_prop(*state.it);
 
         state.emoji_state =
             state.prev_prop == grapheme_property::Regional_Indicator
@@ -320,7 +320,7 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
                 : detail::grapheme_break_emoji_state_t::none;
 
         for (; state.it != last; state = next(state)) {
-            state.prop = boost::text::v1::grapheme_prop(*state.it);
+            state.prop = boost::text::grapheme_prop(*state.it);
 
             // GB11
             if (state.prev_prop == grapheme_property::ZWJ &&
@@ -355,7 +355,7 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
     auto prev_grapheme_break(CPRange & range, CPIter it) noexcept
         -> detail::cp_rng_alg_ret_t<detail::iterator_t<CPRange>, CPRange>
     {
-        return boost::text::v1::prev_grapheme_break(
+        return boost::text::prev_grapheme_break(
             std::begin(range), it, std::end(range));
     }
 
@@ -363,7 +363,7 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
     auto next_grapheme_break(CPRange & range, CPIter it) noexcept
         -> detail::cp_rng_alg_ret_t<detail::iterator_t<CPRange>, CPRange>
     {
-        return boost::text::v1::next_grapheme_break(it, std::end(range));
+        return boost::text::next_grapheme_break(it, std::end(range));
     }
 
     template<typename CPIter, typename Sentinel>
@@ -393,7 +393,7 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
         {
             CPIter operator()(CPIter it, Sentinel last) const noexcept
             {
-                return boost::text::v1::next_grapheme_break(it, last);
+                return boost::text::next_grapheme_break(it, last);
             }
         };
 
@@ -403,7 +403,7 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
             CPIter operator()(CPIter first, CPIter it, CPIter last) const
                 noexcept
             {
-                return boost::text::v1::prev_grapheme_break(first, it, last);
+                return boost::text::prev_grapheme_break(first, it, last);
             }
         };
     }
@@ -413,9 +413,9 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
     template<typename CPIter, typename Sentinel>
     utf32_view<CPIter> grapheme(CPIter first, CPIter it, Sentinel last) noexcept
     {
-        first = boost::text::v1::prev_grapheme_break(first, it, last);
+        first = boost::text::prev_grapheme_break(first, it, last);
         return utf32_view<CPIter>{
-            first, boost::text::v1::next_grapheme_break(first, last)};
+            first, boost::text::next_grapheme_break(first, last)};
     }
 #endif
 
@@ -455,10 +455,10 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
     auto grapheme(CPRange & range, CPIter it) noexcept
         -> utf32_view<detail::iterator_t<CPRange>>
     {
-        auto first = boost::text::v1::prev_grapheme_break(
+        auto first = boost::text::prev_grapheme_break(
             std::begin(range), it, std::end(range));
         return utf32_view<CPIter>{
-            first, boost::text::v1::next_grapheme_break(first, range.end())};
+            first, boost::text::next_grapheme_break(first, range.end())};
     }
 #endif
 
@@ -521,6 +521,6 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
 
 #endif
 
-}}}
+}}
 
 #endif

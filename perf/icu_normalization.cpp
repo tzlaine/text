@@ -7,7 +7,7 @@
 #include <boost/text/normalize_string.hpp>
 #include <boost/text/string_view.hpp>
 #include <boost/text/transcode_view.hpp>
-#include <boost/text/detail/icu/normalize.hpp>
+#include <boost/text/normalize.hpp>
 
 #include <unicode/normalizer2.h>
 
@@ -18,7 +18,7 @@
 
 
 std::string file_contents;
-boost::text::string file_contents_text_string;
+std::string file_contents_text_string;
 std::vector<uint32_t> file_cps;
 
 U_NAMESPACE_QUALIFIER UnicodeString file_contents_ustr;
@@ -64,8 +64,8 @@ void BM_text_utf8_fcc(benchmark::State & state)
     while (state.KeepRunning()) {
         std::vector<char> normalized;
         auto r = boost::text::as_utf32(boost::text::string_view(file_contents));
-        benchmark::DoNotOptimize(boost::text::normalize_to_fcc(
-            r, boost::text::utf_32_to_8_back_inserter(normalized)));
+        benchmark::DoNotOptimize(boost::text::normalize<boost::text::nf::fcc>(
+            r, boost::text::from_utf32_back_inserter(normalized)));
     }
 }
 
@@ -74,7 +74,7 @@ void BM_text_utf8_fcc_string_append(benchmark::State & state)
     while (state.KeepRunning()) {
         std::string result;
         auto r = boost::text::as_utf32(boost::text::string_view(file_contents));
-        normalize_to_fcc_append_utf8(r, result);
+        boost::text::normalize_append<boost::text::nf::fcc>(r, result);
         benchmark::ClobberMemory();
     }
 }
@@ -83,9 +83,9 @@ void BM_text_utf8_fcc_string(benchmark::State & state)
 {
     while (state.KeepRunning()) {
         state.PauseTiming();
-        boost::text::string s(file_contents);
+        std::string s(file_contents);
         state.ResumeTiming();
-        normalize_to_fcc(s);
+        boost::text::normalize<boost::text::nf::fcc>(s);
         benchmark::ClobberMemory();
     }
 }
@@ -117,8 +117,8 @@ void BM_text_utf8_nfd(benchmark::State & state)
     while (state.KeepRunning()) {
         std::vector<char> normalized;
         auto r = boost::text::as_utf32(boost::text::string_view(file_contents));
-        benchmark::DoNotOptimize(boost::text::normalize_to_nfd(
-            r, boost::text::utf_32_to_8_back_inserter(normalized)));
+        benchmark::DoNotOptimize(boost::text::normalize<boost::text::nf::d>(
+            r, boost::text::from_utf32_back_inserter(normalized)));
     }
 }
 
@@ -127,7 +127,7 @@ void BM_text_utf8_nfd_string_append(benchmark::State & state)
     while (state.KeepRunning()) {
         std::string result;
         auto r = boost::text::as_utf32(boost::text::string_view(file_contents));
-        normalize_to_nfd_append_utf8(r, result);
+        boost::text::normalize_append<boost::text::nf::d>(r, result);
         benchmark::ClobberMemory();
     }
 }
@@ -138,7 +138,7 @@ void BM_text_utf8_nfd_string(benchmark::State & state)
         state.PauseTiming();
         auto str = file_contents_text_string;
         state.ResumeTiming();
-        boost::text::normalize_to_nfd(str);
+        boost::text::normalize<boost::text::nf::d>(str);
         benchmark::ClobberMemory();
     }
 }
@@ -147,7 +147,7 @@ void BM_text_utf32_nfd(benchmark::State & state)
 {
     while (state.KeepRunning()) {
         std::vector<uint32_t> normalized;
-        benchmark::DoNotOptimize(boost::text::normalize_to_nfd(
+        benchmark::DoNotOptimize(boost::text::normalize<boost::text::nf::d>(
             file_cps, std::back_inserter(normalized)));
     }
 }
@@ -179,8 +179,8 @@ void BM_text_utf8_nfc(benchmark::State & state)
     while (state.KeepRunning()) {
         std::vector<char> normalized;
         auto r = boost::text::as_utf32(boost::text::string_view(file_contents));
-        benchmark::DoNotOptimize(boost::text::normalize_to_nfc(
-            r, boost::text::utf_32_to_8_back_inserter(normalized)));
+        benchmark::DoNotOptimize(boost::text::normalize<boost::text::nf::c>(
+            r, boost::text::from_utf32_back_inserter(normalized)));
     }
 }
 
@@ -189,7 +189,7 @@ void BM_text_utf8_nfc_string_append(benchmark::State & state)
     while (state.KeepRunning()) {
         std::string result;
         auto r = boost::text::as_utf32(boost::text::string_view(file_contents));
-        normalize_to_nfc_append_utf8(r, result);
+        boost::text::normalize_append<boost::text::nf::c>(r, result);
         benchmark::ClobberMemory();
     }
 }
@@ -200,7 +200,7 @@ void BM_text_utf8_nfc_string(benchmark::State & state)
         state.PauseTiming();
         auto str = file_contents_text_string;
         state.ResumeTiming();
-        boost::text::normalize_to_nfc(str);
+        boost::text::normalize<boost::text::nf::c>(str);
         benchmark::ClobberMemory();
     }
 }
@@ -209,7 +209,7 @@ void BM_text_utf32_nfc(benchmark::State & state)
 {
     while (state.KeepRunning()) {
         std::vector<uint32_t> normalized;
-        benchmark::DoNotOptimize(boost::text::normalize_to_nfc(
+        benchmark::DoNotOptimize(boost::text::normalize<boost::text::nf::c>(
             file_cps, std::back_inserter(normalized)));
     }
 }
@@ -241,8 +241,8 @@ void BM_text_utf8_nfkd(benchmark::State & state)
     while (state.KeepRunning()) {
         std::vector<char> normalized;
         auto r = boost::text::as_utf32(boost::text::string_view(file_contents));
-        benchmark::DoNotOptimize(boost::text::normalize_to_nfkd(
-            r, boost::text::utf_32_to_8_back_inserter(normalized)));
+        benchmark::DoNotOptimize(boost::text::normalize<boost::text::nf::kd>(
+            r, boost::text::from_utf32_back_inserter(normalized)));
     }
 }
 
@@ -251,7 +251,7 @@ void BM_text_utf8_nfkd_string_append(benchmark::State & state)
     while (state.KeepRunning()) {
         std::string result;
         auto r = boost::text::as_utf32(boost::text::string_view(file_contents));
-        normalize_to_nfkd_append_utf8(r, result);
+        boost::text::normalize_append<boost::text::nf::kd>(r, result);
         benchmark::ClobberMemory();
     }
 }
@@ -262,7 +262,7 @@ void BM_text_utf8_nfkd_string(benchmark::State & state)
         state.PauseTiming();
         auto str = file_contents_text_string;
         state.ResumeTiming();
-        boost::text::normalize_to_nfkd(str);
+        boost::text::normalize<boost::text::nf::kd>(str);
         benchmark::ClobberMemory();
     }
 }
@@ -271,7 +271,7 @@ void BM_text_utf32_nfkd(benchmark::State & state)
 {
     while (state.KeepRunning()) {
         std::vector<uint32_t> normalized;
-        benchmark::DoNotOptimize(boost::text::normalize_to_nfkd(
+        benchmark::DoNotOptimize(boost::text::normalize<boost::text::nf::kd>(
             file_cps, std::back_inserter(normalized)));
     }
 }
@@ -303,8 +303,8 @@ void BM_text_utf8_nfkc(benchmark::State & state)
     while (state.KeepRunning()) {
         std::vector<char> normalized;
         auto r = boost::text::as_utf32(boost::text::string_view(file_contents));
-        benchmark::DoNotOptimize(boost::text::normalize_to_nfkc(
-            r, boost::text::utf_32_to_8_back_inserter(normalized)));
+        benchmark::DoNotOptimize(boost::text::normalize<boost::text::nf::kc>(
+            r, boost::text::from_utf32_back_inserter(normalized)));
     }
 }
 
@@ -313,7 +313,7 @@ void BM_text_utf8_nfkc_string_append(benchmark::State & state)
     while (state.KeepRunning()) {
         std::string result;
         auto r = boost::text::as_utf32(boost::text::string_view(file_contents));
-        normalize_to_nfkc_append_utf8(r, result);
+        boost::text::normalize_append<boost::text::nf::kc>(r, result);
         benchmark::ClobberMemory();
     }
 }
@@ -324,7 +324,7 @@ void BM_text_utf8_nfkc_string(benchmark::State & state)
         state.PauseTiming();
         auto str = file_contents_text_string;
         state.ResumeTiming();
-        boost::text::normalize_to_nfkc(str);
+        boost::text::normalize<boost::text::nf::kc>(str);
         benchmark::ClobberMemory();
     }
 }
@@ -333,7 +333,7 @@ void BM_text_utf32_nfkc(benchmark::State & state)
 {
     while (state.KeepRunning()) {
         std::vector<uint32_t> normalized;
-        benchmark::DoNotOptimize(boost::text::normalize_to_nfkc(
+        benchmark::DoNotOptimize(boost::text::normalize<boost::text::nf::kc>(
             file_cps, std::back_inserter(normalized)));
     }
 }
@@ -387,9 +387,19 @@ int main(int argc, char ** argv)
 
     getline(ifs, file_contents, '\0');
     file_contents_text_string = file_contents;
-    auto const file_cp_range =
-        boost::text::as_utf32(boost::text::string_view(file_contents));
-    file_cps.assign(file_cp_range.begin(), file_cp_range.end());
+    if (param_1 == "--from-nfc")
+        boost::text::normalize<boost::text::nf::c>(file_contents_text_string);
+    else
+        boost::text::normalize<boost::text::nf::d>(file_contents_text_string);
+    file_contents.assign(
+        file_contents_text_string.begin(), file_contents_text_string.end());
+
+    {
+        auto const file_cp_range =
+            boost::text::as_utf32(boost::text::string_view(file_contents));
+        file_cps.assign(file_cp_range.begin(), file_cp_range.end());
+    }
+
     file_contents_ustr = U_NAMESPACE_QUALIFIER UnicodeString::fromUTF8(
         U_NAMESPACE_QUALIFIER StringPiece(file_contents));
 

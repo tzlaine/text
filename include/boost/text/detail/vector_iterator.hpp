@@ -11,14 +11,14 @@
 #include <iterator>
 
 
-namespace boost { namespace text { inline namespace v1 {
+namespace boost { namespace text {
 
     template<typename T>
     struct segmented_vector;
 
-}}}
+}}
 
-namespace boost { namespace text { inline namespace v1 { namespace detail {
+namespace boost { namespace text { namespace detail {
 
     template<typename T>
     struct const_vector_iterator : stl_interfaces::iterator_interface<
@@ -104,6 +104,6 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         mutable std::ptrdiff_t leaf_start_;
     };
 
-}}}}
+}}}
 
 #endif

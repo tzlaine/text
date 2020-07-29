@@ -10,7 +10,7 @@
 #include <boost/text/lazy_segment_range.hpp>
 
 
-namespace boost { namespace text { inline namespace v1 {
+namespace boost { namespace text {
 
     namespace detail {
         // The logic below is derived from Bidi_Class=Paragraph_Separator in
@@ -131,7 +131,7 @@ namespace boost { namespace text { inline namespace v1 {
         // CRLF special case.
         if (it != first && it != last && *std::prev(it) == 0xd && *it == 0xa)
             --it;
-        auto prev_it = boost::text::v1::find_if_backward(
+        auto prev_it = boost::text::find_if_backward(
             first, it, detail::paragraph_break);
         if (prev_it == it)
             return first;
@@ -144,7 +144,7 @@ namespace boost { namespace text { inline namespace v1 {
     {
         if (first == last)
             return first;
-        first = boost::text::v1::find_if(
+        first = boost::text::find_if(
             std::next(first), last, detail::paragraph_break);
         if (first == last)
             return first;
@@ -160,7 +160,7 @@ namespace boost { namespace text { inline namespace v1 {
     auto prev_paragraph_break(CPRange & range, CPIter it) noexcept
         -> detail::cp_rng_alg_ret_t<detail::iterator_t<CPRange>, CPRange>
     {
-        return boost::text::v1::prev_paragraph_break(
+        return boost::text::prev_paragraph_break(
             std::begin(range), it, std::end(range));
     }
 
@@ -173,7 +173,7 @@ namespace boost { namespace text { inline namespace v1 {
     {
         using cp_iter_t = decltype(range.begin().base());
         return {range.begin().base(),
-                boost::text::v1::prev_paragraph_break(
+                boost::text::prev_paragraph_break(
                     range.begin().base(),
                     static_cast<cp_iter_t>(it.base()),
                     range.end().base()),
@@ -184,7 +184,7 @@ namespace boost { namespace text { inline namespace v1 {
     auto next_paragraph_break(CPRange & range, CPIter it) noexcept
         -> detail::cp_rng_alg_ret_t<detail::iterator_t<CPRange>, CPRange>
     {
-        return boost::text::v1::next_paragraph_break(it, std::end(range));
+        return boost::text::next_paragraph_break(it, std::end(range));
     }
 
     template<typename GraphemeRange, typename GraphemeIter>
@@ -196,7 +196,7 @@ namespace boost { namespace text { inline namespace v1 {
     {
         using cp_iter_t = decltype(range.begin().base());
         return {range.begin().base(),
-                boost::text::v1::next_paragraph_break(
+                boost::text::next_paragraph_break(
                     static_cast<cp_iter_t>(it.base()), range.end().base()),
                 range.end().base()};
     }
@@ -242,7 +242,7 @@ namespace boost { namespace text { inline namespace v1 {
             auto operator()(CPIter it, Sentinel last) const noexcept
                 -> detail::cp_iter_ret_t<CPIter, CPIter>
             {
-                return boost::text::v1::next_paragraph_break(it, last);
+                return boost::text::next_paragraph_break(it, last);
             }
         };
 
@@ -252,7 +252,7 @@ namespace boost { namespace text { inline namespace v1 {
             auto operator()(CPIter first, CPIter it, CPIter last) const noexcept
                 -> detail::cp_iter_ret_t<CPIter, CPIter>
             {
-                return boost::text::v1::prev_paragraph_break(first, it, last);
+                return boost::text::prev_paragraph_break(first, it, last);
             }
         };
     }
@@ -262,9 +262,9 @@ namespace boost { namespace text { inline namespace v1 {
     template<typename CPIter, typename Sentinel>
     utf32_view<CPIter> paragraph(CPIter first, CPIter it, Sentinel last) noexcept
     {
-        first = boost::text::v1::prev_paragraph_break(first, it, last);
+        first = boost::text::prev_paragraph_break(first, it, last);
         return utf32_view<CPIter>{
-            first, boost::text::v1::next_paragraph_break(first, last)};
+            first, boost::text::next_paragraph_break(first, last)};
     }
 
 #ifdef BOOST_TEXT_DOXYGEN
@@ -335,11 +335,11 @@ namespace boost { namespace text { inline namespace v1 {
     auto paragraph(CPRange & range, CPIter it) noexcept -> detail::
         cp_rng_alg_ret_t<utf32_view<detail::iterator_t<CPRange>>, CPRange>
     {
-        auto first = boost::text::v1::prev_paragraph_break(
+        auto first = boost::text::prev_paragraph_break(
             std::begin(range), it, std::end(range));
         return utf32_view<CPIter>{
             first,
-            boost::text::v1::next_paragraph_break(first, std::end(range))};
+            boost::text::next_paragraph_break(first, std::end(range))};
     }
 
     template<typename GraphemeRange, typename GraphemeIter>
@@ -349,14 +349,14 @@ namespace boost { namespace text { inline namespace v1 {
             GraphemeRange>
     {
         using cp_iter_t = decltype(range.begin().base());
-        auto first = boost::text::v1::prev_paragraph_break(
+        auto first = boost::text::prev_paragraph_break(
             range.begin().base(),
             static_cast<cp_iter_t>(it.base()),
             range.end().base());
         return {
             range.begin().base(),
             first,
-            boost::text::v1::next_paragraph_break(first, range.end().base()),
+            boost::text::next_paragraph_break(first, range.end().base()),
             range.end().base()};
     }
 
@@ -463,6 +463,6 @@ namespace boost { namespace text { inline namespace v1 {
 
 #endif
 
-}}}
+}}
 
 #endif

@@ -541,6 +541,58 @@ namespace boost { namespace stl_interfaces { inline namespace v1 {
 
 }}}
 
+#if 201703L < __cplusplus && defined(__cpp_lib_ranges)
+
+namespace boost { namespace stl_interfaces { namespace v2 { namespace detail {
+
+    template<typename Iterator>
+    struct iter_concept;
+
+    template<typename Iterator>
+    requires requires
+    {
+        typename std::iterator_traits<Iterator>::iterator_concept;
+    }
+    struct iter_concept<Iterator>
+    {
+        using type = typename std::iterator_traits<Iterator>::iterator_concept;
+    };
+
+    template<typename Iterator>
+    requires(
+        !requires {
+            typename std::iterator_traits<Iterator>::iterator_concept;
+        } &&
+        requires {
+            typename std::iterator_traits<Iterator>::iterator_category;
+        }) struct iter_concept<Iterator>
+    {
+        using type = typename std::iterator_traits<Iterator>::iterator_category;
+    };
+
+    template<typename Iterator>
+    requires(
+        !requires {
+            typename std::iterator_traits<Iterator>::iterator_concept;
+        } &&
+        !requires {
+            typename std::iterator_traits<Iterator>::iterator_category;
+        }) struct iter_concept<Iterator>
+    {
+        using type = std::random_access_iterator_tag;
+    };
+
+    template<typename Iterator>
+    struct iter_concept
+    {};
+
+    template<typename Iterator>
+    using iter_concept_t = typename iter_concept<Iterator>::type;
+
+}}}}
+
+#endif
+
 #ifdef BOOST_STL_INTERFACES_DOXYGEN
 
 /** `static_asserts` that type `type` models concept `concept_name`.  This is
@@ -605,9 +657,9 @@ namespace boost { namespace stl_interfaces { inline namespace v1 {
 #define BOOST_STL_INTERFACES_STATIC_ASSERT_ITERATOR_TRAITS(                    \
     iter, category, concept, value_type, reference, pointer, difference_type)  \
     static_assert(                                                             \
-        std::is_same<                                                          \
-            typename std::iterator_traits<iter>::iterator_concept,             \
-            concept>::value,                                                   \
+        std::is_same_v<                                                        \
+            boost::stl_interfaces::v2::detail::iter_concept_t<iter>,           \
+            concept>,                                                          \
         "");                                                                   \
     BOOST_STL_INTERFACES_STATIC_ASSERT_ITERATOR_TRAITS_IMPL(                   \
         iter, category, value_type, reference, pointer, difference_type)

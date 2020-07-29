@@ -6,61 +6,24 @@
 #ifndef BOOST_TEXT_NORMALIZE_HPP
 #define BOOST_TEXT_NORMALIZE_HPP
 
+#include <boost/text/algorithm.hpp>
+#if defined(__cpp_lib_concepts)
+#include <boost/text/concepts.hpp>
+#endif
 #include <boost/text/transcode_algorithm.hpp>
 #include <boost/text/transcode_iterator.hpp>
 #include <boost/text/transcode_view.hpp>
 #include <boost/text/detail/normalization_data.hpp>
-#include <boost/text/detail/icu/normalize.hpp>
+#include <boost/text/detail/normalize.hpp>
 
 #include <boost/container/static_vector.hpp>
 
 #include <algorithm>
 
 
-namespace boost { namespace text { inline namespace v1 {
+namespace boost { namespace text {
 
     namespace detail {
-
-#if 0
-        // NOTE: The logic in
-        // http://www.unicode.org/reports/tr15/tr15-45.html#Detecting_Normalization_Forms
-        // seems to indicate that if a supplementary code point is encountered
-        // in normalized_quick_check(), then we should proceed as normal for
-        // this iteration, but then do a double increment of the loop control
-        // variable.  That looks wrong, so I'm leaving that out for now.
-        bool supplemantary(uint32_t cp)
-        {
-            return 0x10000 <= cp && cp <= 0x10FFFF;
-        }
-#endif
-
-        template<typename Iter, typename Sentinel, typename QuickCheckFunc>
-        quick_check normalized_quick_check(
-            Iter first, Sentinel last, QuickCheckFunc && quick_check_) noexcept
-        {
-            quick_check retval = quick_check::yes;
-            int prev_ccc = 0;
-            while (first != last) {
-                auto const cp = *first;
-#if 0
-                // See note above.
-                if (supplemantary(cp))
-                    ++first;
-#endif
-                auto const check = quick_check_(cp);
-                if (check == quick_check::no)
-                    return quick_check::no;
-                if (check == quick_check::maybe)
-                    retval = quick_check::maybe;
-                auto const ccc_ = detail::ccc(cp);
-                if (ccc_ && ccc_ < prev_ccc)
-                    return quick_check::no;
-                prev_ccc = ccc_;
-                ++first;
-            }
-            return retval;
-        }
-
 
         template<typename CPIter, typename Sentinel>
         using utf8_range_expr = is_char_iter<decltype(
@@ -79,377 +42,344 @@ namespace boost { namespace text { inline namespace v1 {
             bool normalized_;
         };
 
-        // The "dispatch" logic here and below selects the proper underlying
-        // implementation, which may operate on UTF-8 or UTF-16.
+        template<
+            nf Normalization,
+            typename OutIter, // will be bool for the check-only case
+            typename CPIter,
+            typename Sentinel,
+            bool UTF8 = utf8_fast_path<CPIter, Sentinel>::value,
+            bool Composition =
+                Normalization != nf::d && Normalization != nf::kd>
+        struct norm_impl
+        {
+            // Primary template does decomposition.
+            template<typename Appender>
+            static norm_result<OutIter>
+            call(CPIter first_, Sentinel last_, Appender appender)
+            {
+                constexpr bool do_writes = !std::is_same<OutIter, bool>::value;
 
-        enum norm_dispatch_constants {
-            norm_nfc = false,
-            norm_nfkc = true,
-            norm_nfd = false,
-            norm_nfkd = true,
-            norm_check = false,
-            norm_normalize = true,
-            norm_fcc = true
+                auto const r = boost::text::as_utf16(first_, last_);
+                auto first = r.begin();
+                auto const last = r.end();
+
+                int const chunk_size = 512;
+                std::array<uint16_t, chunk_size> input;
+                auto input_first = input.data();
+
+                while (first != last) {
+                    int n = 0;
+                    auto input_last = input_first;
+                    for (; first != last && n < chunk_size - 1;
+                         ++first, ++input_last, ++n) {
+                        *input_last = *first;
+                    }
+                    if (high_surrogate(*std::prev(input_last)) &&
+                        first != last) {
+                        *input_last++ = *first;
+                        ++first;
+                    }
+                    auto const & table = Normalization == nf::kd
+                                             ? detail::nfkc_table()
+                                             : detail::nfc_table();
+                    detail::reordering_appender<Appender> buffer(
+                        table, appender);
+                    auto const input_new_first = detail::decompose<do_writes>(
+                        table, input.data(), input_last, buffer);
+                    if (!do_writes && input_new_first != input_last)
+                        return norm_result<OutIter>{appender.out(), false};
+                    input_first =
+                        std::copy(input_new_first, input_last, input.data());
+                }
+
+                return norm_result<OutIter>{appender.out(), true};
+            }
         };
 
-        // NFD/NFKD dispatch
+
         template<
-            bool WriteToOut, // false: check norm, true: normalize
+            nf Normalization,
             typename OutIter,
             typename CPIter,
             typename Sentinel,
-            typename Appender>
-        static norm_result<OutIter> norm_nfd_impl(
-            bool compatible, CPIter first_, Sentinel last_, Appender & appender)
+            bool UTF8>
+        struct norm_impl<Normalization, OutIter, CPIter, Sentinel, UTF8, true>
         {
-            auto const r = boost::text::v1::as_utf16(first_, last_);
-            auto first = r.begin();
-            auto const last = r.end();
-
-            int const chunk_size = 512;
-            std::array<detail::icu::UChar, chunk_size> input;
-            auto input_first = input.data();
-
-            while (first != last) {
-                int n = 0;
-                auto input_last = input_first;
-                for (; first != last && n < chunk_size - 1;
-                     ++first, ++input_last, ++n) {
-                    *input_last = *first;
-                }
-                if (high_surrogate(*std::prev(input_last)) && first != last) {
-                    *input_last++ = *first;
-                    ++first;
-                }
-                detail::icu::ReorderingBuffer<Appender> buffer(
-                    compatible ? detail::icu::nfkc_norm()
-                               : detail::icu::nfc_norm(),
-                    appender);
-                auto const input_new_first =
-                    compatible ? detail::icu::nfkc_norm().decompose<WriteToOut>(
-                                     input.data(), input_last, buffer)
-                               : detail::icu::nfc_norm().decompose<WriteToOut>(
-                                     input.data(), input_last, buffer);
-                if (!WriteToOut && input_new_first != input_last)
-                    return norm_result<OutIter>{appender.out(), false};
-                input_first =
-                    std::copy(input_new_first, input_last, input.data());
-            }
-
-            return norm_result<OutIter>{appender.out(), true};
-        }
-
-
-        template<bool WriteToOut, typename OutIter>
-        using nfc_appender_t = typename std::conditional<
-            WriteToOut,
-            detail::icu::utf16_to_utf32_appender<OutIter>,
-            detail::icu::null_appender>::type;
-
-        // NFC/NFKC/FCC dispatch
-        template<
-            bool WriteToOut,     // false: check norm, true: normalize
-            bool OnlyContiguous, // false: NFC, true: FCC
-            typename OutIter,
-            typename CPIter,
-            typename Sentinel,
-            bool UTF8 = utf8_fast_path<CPIter, Sentinel>::value>
-        struct norm_nfc_impl
-        {
+            template<typename Appender>
             static norm_result<OutIter>
-            call(bool compatible, CPIter first, Sentinel last, OutIter out)
+            call(CPIter first, Sentinel last, Appender appender)
             {
-                auto const r = boost::text::v1::as_utf16(first, last);
-                using appender_type = nfc_appender_t<WriteToOut, OutIter>;
-                appender_type appender(out);
-                detail::icu::ReorderingBuffer<appender_type> buffer(
-                    (compatible ? detail::icu::nfkc_norm()
-                                : detail::icu::nfc_norm()),
-                    appender);
+                constexpr bool do_writes = !std::is_same<OutIter, bool>::value;
+
+                auto const r = boost::text::as_utf16(first, last);
+                auto const & table = Normalization == nf::kc
+                                         ? detail::nfkc_table()
+                                         : detail::nfc_table();
+                detail::reordering_appender<Appender> reorder_buffer(
+                    table, appender);
                 auto const normalized =
-                    (compatible ? detail::icu::nfkc_norm()
-                                : detail::icu::nfc_norm())
-                        .compose<OnlyContiguous, WriteToOut>(
-                            r.begin(), r.end(), buffer);
+                    detail::compose<Normalization == nf::fcc, do_writes>(
+                        table, r.begin(), r.end(), reorder_buffer);
                 return norm_result<OutIter>{appender.out(), (bool)normalized};
             }
         };
 
         template<
-            bool WriteToOut,
-            bool OnlyContiguous,
+            nf Normalization,
             typename OutIter,
             typename CPIter,
             typename Sentinel>
-        struct norm_nfc_impl<
-            WriteToOut,
-            OnlyContiguous,
-            OutIter,
-            CPIter,
-            Sentinel,
-            true>
+        struct norm_impl<Normalization, OutIter, CPIter, Sentinel, true, true>
         {
+            template<typename Appender>
             static norm_result<OutIter>
-            call(bool compatible, CPIter first, Sentinel last, OutIter out)
+            call(CPIter first, Sentinel last, Appender appender)
             {
-                auto const r = boost::text::v1::as_utf8(first, last);
-                typename std::conditional<
-                    WriteToOut,
-                    detail::icu::utf8_to_utf32_appender<OutIter>,
-                    detail::icu::null_appender>::type appender(out);
+                constexpr bool do_writes = !std::is_same<OutIter, bool>::value;
+
+                auto const r = boost::text::as_utf8(first, last);
+                auto const & table = Normalization == nf::kc
+                                         ? detail::nfkc_table()
+                                         : detail::nfc_table();
                 auto const normalized =
-                    (compatible ? detail::icu::nfkc_norm()
-                                : detail::icu::nfc_norm())
-                        .composeUTF8<OnlyContiguous, WriteToOut>(
-                            r.begin(), r.end(), appender);
+                    detail::compose_utf8<Normalization == nf::fcc, do_writes>(
+                        table, r.begin(), r.end(), appender);
                 return norm_result<OutIter>{appender.out(), (bool)normalized};
             }
         };
+
+        template<
+            nf Normalization,
+            typename CPIter,
+            typename Sentinel,
+            typename OutIter,
+            bool UTF8 = utf8_fast_path<CPIter, Sentinel>::value &&
+                            Normalization != nf::d && Normalization != nf::kd>
+        struct normalization_appender
+        {
+            using type = utf16_to_utf32_appender<OutIter>;
+        };
+
+        template<
+            nf Normalization,
+            typename CPIter,
+            typename Sentinel,
+            typename OutIter>
+        struct normalization_appender<
+            Normalization,
+            CPIter,
+            Sentinel,
+            OutIter,
+            true>
+        {
+            using type = utf8_to_utf32_appender<OutIter>;
+        };
+
+        template<
+            nf Normalization,
+            typename CPIter,
+            typename Sentinel,
+            typename OutIter>
+        using normalization_appender_t = typename normalization_appender<
+            Normalization,
+            CPIter,
+            Sentinel,
+            OutIter>::type;
+
+        template<typename OutIter>
+        OutIter stream_safe_cp(int & nonstarters, uint32_t cp, OutIter out)
+        {
+            auto decomp = compatible_decompose(cp);
+            uint32_t const degenerate_decomposition[1] = {cp};
+            auto const decomposition_first =
+                decomp.empty() ? std::begin(degenerate_decomposition)
+                               : decomp.first_;
+            auto const decomposition_last =
+                decomp.empty() ? std::end(degenerate_decomposition)
+                               : decomp.last_;
+            auto const starter_first = std::find_if(
+                decomposition_first, decomposition_last, [](auto cp) {
+                    return detail::ccc(cp) == 0;
+                });
+            int const initial_nonstarters = starter_first - decomposition_first;
+            if (30 < nonstarters + initial_nonstarters) {
+                *out = 0x034f; // U+034F COMBINING GRAPHEME JOINER (CGJ)
+                ++out;
+                nonstarters = 0;
+            }
+            *out = cp;
+            ++out;
+            if (starter_first == decomposition_last) {
+                nonstarters += decomposition_last - decomposition_first;
+            } else {
+                auto const starter_last_minus_one = find_if_backward(
+                    starter_first, decomposition_last, [](auto cp) {
+                        return detail::ccc(cp) == 0;
+                    });
+                auto const nonstarter_first =
+                    starter_last_minus_one +
+                    (starter_last_minus_one == decomposition_last ? 0 : 1);
+                nonstarters += decomposition_last - nonstarter_first;
+            }
+            return out;
+        }
     }
 
-    /** Writes sequence `[first, last)` in Unicode normalization form NFD to
-        `out`.
+    /** Writes sequence `[first, last)` to `out`, ensuring Stream-Safe Text
+        Format.
 
         This function only participates in overload resolution if `CPIter`
-        models the CPIter concept. */
+        models the CPIter concept.
+
+        \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<typename CPIter, typename Sentinel, typename OutIter>
-    inline auto normalize_to_nfd(CPIter first, Sentinel last, OutIter out)
+    auto stream_safe_copy(CPIter first, Sentinel last, OutIter out)
         -> detail::cp_iter_ret_t<OutIter, CPIter>
     {
-        detail::icu::utf16_to_utf32_appender<OutIter> appender(out);
-        return detail::norm_nfd_impl<detail::norm_normalize, OutIter>(
-                   detail::norm_nfd, first, last, appender)
-            .out_;
+        int nonstarters = 0;
+        for (; first != last; ++first) {
+            auto const cp = *first;
+            out = detail::stream_safe_cp(nonstarters, cp, out);
+        }
+        return out;
     }
 
-    /** Writes sequence `r` in Unicode normalization form NFD to `out`. */
+    /** Writes sequence `[first, last)` to `out`, ensuring Stream-Safe Text
+        Format.
+
+        \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<typename CPRange, typename OutIter>
-    inline OutIter normalize_to_nfd(CPRange const & r, OutIter out)
+    OutIter stream_safe_copy(CPRange const & r, OutIter out)
     {
-        return boost::text::v1::normalize_to_nfd(
-            std::begin(r), std::end(r), out);
+        return boost::text::stream_safe_copy(std::begin(r), std::end(r), out);
     }
 
-    /** Writes sequence `[first, last)` in Unicode normalization form NFKD to
-        `out`.
+}}
 
-        This function only participates in overload resolution if `CPIter`
-        models the CPIter concept. */
-    template<typename CPIter, typename Sentinel, typename OutIter>
-    inline auto normalize_to_nfkd(CPIter first, Sentinel last, OutIter out)
-        -> detail::cp_iter_ret_t<OutIter, CPIter>
-    {
-        detail::icu::utf16_to_utf32_appender<OutIter> appender(out);
-        return detail::norm_nfd_impl<detail::norm_normalize, OutIter>(
-                   detail::norm_nfkd, first, last, appender)
-            .out_;
-    }
+namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
-    /** Writes sequence `r` in Unicode normalization form NFKD to `out`. */
-    template<typename CPRange, typename OutIter>
-    inline OutIter normalize_to_nfkd(CPRange const & r, OutIter out)
-    {
-        return boost::text::v1::normalize_to_nfkd(
-            std::begin(r), std::end(r), out);
-    }
-
-    /** Writes sequence `[first, last)` in Unicode normalization form NFC to
-        `out`.
-
-        This function only participates in overload resolution if `CPIter`
-        models the CPIter concept. */
-    template<typename CPIter, typename Sentinel, typename OutIter>
-    inline auto normalize_to_nfc(CPIter first, Sentinel last, OutIter out)
-        -> detail::cp_iter_ret_t<OutIter, CPIter>
-    {
-        return detail::norm_nfc_impl<
-                   detail::norm_normalize,
-                   detail::norm_nfc,
-                   OutIter,
-                   CPIter,
-                   Sentinel>::call(detail::norm_nfc, first, last, out)
-            .out_;
-    }
-
-    /** Writes sequence `r` in Unicode normalization form NFC to `out`. */
-    template<typename CPRange, typename OutIter>
-    inline OutIter normalize_to_nfc(CPRange const & r, OutIter out)
-    {
-        return boost::text::v1::normalize_to_nfc(
-            std::begin(r), std::end(r), out);
-    }
-
-    /** Writes sequence `[first, last)` in Unicode normalization form NFKC to
-        `out`.
-
-        This function only participates in overload resolution if `CPIter`
-        models the CPIter concept. */
-    template<typename CPIter, typename Sentinel, typename OutIter>
-    inline auto normalize_to_nfkc(CPIter first, Sentinel last, OutIter out)
-        -> detail::cp_iter_ret_t<OutIter, CPIter>
-    {
-        return detail::norm_nfc_impl<
-                   detail::norm_normalize,
-                   detail::norm_nfc,
-                   OutIter,
-                   CPIter,
-                   Sentinel>::call(detail::norm_nfkc, first, last, out)
-            .out_;
-    }
-
-    /** Writes sequence `r` in Unicode normalization form NFKC to `out`. */
-    template<typename CPRange, typename OutIter>
-    inline OutIter normalize_to_nfkc(CPRange const & r, OutIter out)
-    {
-        return boost::text::v1::normalize_to_nfkc(
-            std::begin(r), std::end(r), out);
-    }
-
-    /** Returns true iff the given sequence of code points is normalized NFD.
-
-        This function only participates in overload resolution if `CPIter`
-        models the CPIter concept. */
-    template<typename CPIter, typename Sentinel>
-    auto normalized_nfd(CPIter first, Sentinel last) noexcept
-        -> detail::cp_iter_ret_t<bool, CPIter>
-    {
-        detail::icu::null_appender ignored;
-        return detail::norm_nfd_impl<detail::norm_check, bool>(
-                   detail::norm_nfd, first, last, ignored)
-            .normalized_;
-    }
-
-    /** Returns true iff the given range of code points is normalized NFD. */
-    template<typename CPRange>
-    bool normalized_nfd(CPRange const & r) noexcept
-    {
-        return boost::text::v1::normalized_nfd(std::begin(r), std::end(r));
-    }
-
-    /** Returns true iff the given sequence of code points is normalized NFKD.
-
-        This function only participates in overload resolution if `CPIter`
-        models the CPIter concept. */
-    template<typename CPIter, typename Sentinel>
-    auto normalized_nfkd(CPIter first, Sentinel last) noexcept
-        -> detail::cp_iter_ret_t<bool, CPIter>
-    {
-        detail::icu::null_appender ignored;
-        return detail::norm_nfd_impl<detail::norm_check, bool>(
-                   detail::norm_nfkd, first, last, ignored)
-            .normalized_;
-    }
-
-    /** Returns true iff the given range of code points is normalized NFKD. */
-    template<typename CPRange>
-    bool normalized_nfkd(CPRange const & r) noexcept
-    {
-        return boost::text::v1::normalized_nfkd(std::begin(r), std::end(r));
-    }
-
-    /** Returns true iff the given sequence of code points is normalized NFC.
-
-        This function only participates in overload resolution if `CPIter`
-        models the CPIter concept. */
-    template<typename CPIter, typename Sentinel>
-    auto normalized_nfc(CPIter first, Sentinel last) noexcept
-        -> detail::cp_iter_ret_t<bool, CPIter>
-    {
-        return detail::norm_nfc_impl<
-                   detail::norm_check,
-                   detail::norm_nfc,
-                   bool,
-                   CPIter,
-                   Sentinel>::call(detail::norm_nfc, first, last, bool())
-            .normalized_;
-    }
-
-    /** Returns true iff the given range of code points is normalized NFC. */
-    template<typename CPRange>
-    bool normalized_nfc(CPRange const & r) noexcept
-    {
-        return boost::text::v1::normalized_nfc(std::begin(r), std::end(r));
-    }
-
-    /** Returns true iff the given sequence of code points is normalized NFKC.
-
-        This function only participates in overload resolution if `CPIter`
-        models the CPIter concept. */
-    template<typename CPIter, typename Sentinel>
-    auto normalized_nfkc(CPIter first, Sentinel last) noexcept
-        -> detail::cp_iter_ret_t<bool, CPIter>
-    {
-        return detail::norm_nfc_impl<
-                   detail::norm_check,
-                   detail::norm_nfc,
-                   bool,
-                   CPIter,
-                   Sentinel>::call(detail::norm_nfkc, first, last, bool())
-            .normalized_;
-    }
-
-    /** Returns true iff the given range of code points is normalized NFKC. */
-    template<typename CPRange>
-    bool normalized_nfkc(CPRange const & r) noexcept
-    {
-        return boost::text::v1::normalized_nfkc(std::begin(r), std::end(r));
-    }
-
-    /** Writes sequence `[first, last)` in normalization form FCC to `out`.
+    /** Writes sequence `[first, last)` in Unicode normalization form
+        `Normalization` to `out`.
 
         This function only participates in overload resolution if `CPIter`
         models the CPIter concept.
 
         \see https://unicode.org/notes/tn5 */
-    template<typename CPIter, typename Sentinel, typename OutIter>
-    inline auto normalize_to_fcc(CPIter first, Sentinel last, OutIter out)
-        -> detail::cp_iter_ret_t<OutIter, CPIter>
+    template<
+        nf Normalization,
+        typename CPIter,
+        typename Sentinel,
+        typename OutIter>
+    auto normalize(CPIter first, Sentinel last, OutIter out)
+        ->detail::cp_iter_ret_t<OutIter, CPIter>
     {
-        return detail::norm_nfc_impl<
-                   detail::norm_normalize,
-                   detail::norm_fcc,
-                   OutIter,
-                   CPIter,
-                   Sentinel>::call(detail::norm_nfc, first, last, out)
-            .out_;
+        BOOST_TEXT_STATIC_ASSERT_NORMALIZATION();
+        detail::
+            normalization_appender_t<Normalization, CPIter, Sentinel, OutIter>
+                appender(out);
+        return detail::norm_impl<Normalization, OutIter, CPIter, Sentinel>::
+            call(first, last, appender)
+                .out_;
     }
 
-    /** Writes sequence `r` in normalization form FCC to `out`
+    /** Writes sequence `r` in Unicode normalization form `Normalization` to
+        `out`.
 
         \see https://unicode.org/notes/tn5 */
-    template<typename CPRange, typename OutIter>
-    inline OutIter normalize_to_fcc(CPRange const & r, OutIter out)
+    template<nf Normalization, typename CPRange, typename OutIter>
+    OutIter normalize(CPRange const & r, OutIter out)
     {
-        return boost::text::v1::normalize_to_fcc(
-            std::begin(r), std::end(r), out);
+        return v1::normalize<Normalization>(std::begin(r), std::end(r), out);
     }
 
-    /** Returns true iff the given sequence of code points is normalized FCC.
+    /** Returns true iff the given sequence of code points is in Unicode
+        normalization form `Normalization`.
 
         This function only participates in overload resolution if `CPIter`
         models the CPIter concept.
 
         \see https://unicode.org/notes/tn5 */
-    template<typename CPIter, typename Sentinel>
-    auto normalized_fcc(CPIter first, Sentinel last) noexcept
-        -> detail::cp_iter_ret_t<bool, CPIter>
+    template<nf Normalization, typename CPIter, typename Sentinel>
+    auto normalized(
+        CPIter first,
+        Sentinel last) noexcept->detail::cp_iter_ret_t<bool, CPIter>
     {
-        return detail::norm_nfc_impl<
-                   detail::norm_check,
-                   detail::norm_fcc,
-                   bool,
-                   CPIter,
-                   Sentinel>::call(detail::norm_nfc, first, last, bool())
+        BOOST_TEXT_STATIC_ASSERT_NORMALIZATION();
+        detail::null_appender appender;
+        return detail::norm_impl<Normalization, bool, CPIter, Sentinel>::call(
+                   first, last, appender)
             .normalized_;
     }
 
-    /** Returns true iff the given range of code points is normalized FCC. */
-    template<typename CPRange>
-    bool normalized_fcc(CPRange const & r) noexcept
+    /** Returns true iff the given sequence of code points is in Unicode
+        normalization form `Normalization`. */
+    template<nf Normalization, typename CPRange>
+    bool normalized(CPRange const & r) noexcept
     {
-        return boost::text::v1::normalized_fcc(std::begin(r), std::end(r));
+        return v1::normalized<Normalization>(std::begin(r), std::end(r));
+    }
+}}}
+
+#if defined(__cpp_lib_concepts)
+
+namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
+
+    // TODO: stream-safe functions, once they are stable.
+
+    /** Writes sequence `[first, last)` in Unicode normalization form
+        `Normalization` to `out`.
+
+        \see https://unicode.org/notes/tn5 */
+    template<
+        nf Normalization,
+        u32_iter I,
+        std::sentinel_for<I> S,
+        std::output_iterator<uint32_t> O>
+    auto normalize(I first, S last, O out)
+    {
+        BOOST_TEXT_STATIC_ASSERT_NORMALIZATION();
+        detail::normalization_appender_t<Normalization, I, S, O> appender(out);
+        return detail::norm_impl<Normalization, O, I, S>::call(
+                   first, last, appender)
+            .out_;
+    }
+
+    /** Writes sequence `r` in Unicode normalization form `Normalization` to
+        `out`.
+
+        \see https://unicode.org/notes/tn5 */
+    template<nf Normalization, u32_range R, std::output_iterator<uint32_t> O>
+    O normalize(R const & r, O out)
+    {
+        return boost::text::normalize<Normalization>(
+            std::ranges::begin(r), std::ranges::end(r), out);
+    }
+
+    /** Returns true iff the given sequence of code points is in Unicode
+        normalization form `Normalization`.
+
+        \see https://unicode.org/notes/tn5 */
+    template<nf Normalization, u32_iter I, std::sentinel_for<I> S>
+    auto normalized(I first, S last) noexcept
+    {
+        BOOST_TEXT_STATIC_ASSERT_NORMALIZATION();
+        detail::null_appender appender;
+        return detail::norm_impl<Normalization, bool, I, S>::call(
+                   first, last, appender)
+            .normalized_;
+    }
+
+    /** Returns true iff the given sequence of code points is in Unicode
+        normalization form `Normalization`. */
+    template<nf Normalization, u32_range R>
+    bool normalized(R const & r) noexcept
+    {
+        return boost::text::normalized<Normalization>(
+            std::ranges::begin(r), std::ranges::end(r));
     }
 
 }}}
+
+#endif
 
 #endif

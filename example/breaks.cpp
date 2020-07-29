@@ -218,7 +218,7 @@ occaecat cupidatat non proident, sunt in culpa qui officia
 deserunt mollit anim id est laborum.
 ************************************************************
 */
-std::cout << boost::text::repeat("*", 60) << "\n";
+std::cout << "************************************************************\n";
 for (auto line : boost::text::lines(
          cps,
          60,
@@ -235,7 +235,7 @@ for (auto line : boost::text::lines(
     if (!line.hard_break())
         std::cout << "\n";
 }
-std::cout << boost::text::repeat("*", 60) << "\n";
+std::cout << "************************************************************\n";
 //]
 }
 

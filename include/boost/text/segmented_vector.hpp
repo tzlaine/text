@@ -13,7 +13,7 @@
 #include <initializer_list>
 
 
-namespace boost { namespace text { inline namespace v1 {
+namespace boost { namespace text {
 
     namespace detail {
 
@@ -379,8 +379,7 @@ namespace boost { namespace text { inline namespace v1 {
                 std::vector<T> & v = const_cast<std::vector<T> &>(
                     found.leaf_->as_leaf()->as_vec());
                 auto const inserted_size = v.size() + delta;
-                if (delta < 0 &&
-                    (std::ptrdiff_t)v.size() < found.offset_ + -delta) {
+                if (delta < 0 && v.size() < found.offset_ + -delta) {
                     return vec_insertion{nullptr};
                 }
                 if ((0 < inserted_size && inserted_size <= v.capacity()) ||
@@ -429,6 +428,6 @@ namespace boost { namespace text { inline namespace v1 {
 #endif
     };
 
-}}}
+}}
 
 #endif

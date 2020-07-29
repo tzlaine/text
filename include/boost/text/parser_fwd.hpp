@@ -7,7 +7,6 @@
 #define BOOST_TEXT_PARSER_FWD_HPP
 
 #include <boost/text/collation_fwd.hpp>
-#include <boost/text/string.hpp>
 #include <boost/text/detail/collation_data.hpp>
 
 #include <boost/optional.hpp>
@@ -16,21 +15,21 @@
 #include <functional>
 
 
-namespace boost { namespace text { inline namespace v1 {
+namespace boost { namespace text {
 
     /** The type of callback used to report errors and warnings encountered
         during parsing. */
-    using parser_diagnostic_callback = std::function<void(string const &)>;
+    using parser_diagnostic_callback = std::function<void(std::string const &)>;
 
     /** The type of exception thrown when some aspect of the requested
         tailoring cannot be performed. */
     struct tailoring_error : std::exception
     {
         tailoring_error(string_view msg) : msg_(msg) {}
-        char const * what() const noexcept { return msg_.begin(); }
+        char const * what() const noexcept { return msg_.c_str(); }
 
     private:
-        string msg_;
+        std::string msg_;
     };
 
     /** The type of exception thrown when a parse error is encountered. */
@@ -41,12 +40,12 @@ namespace boost { namespace text { inline namespace v1 {
             line_(line),
             column_(column)
         {}
-        char const * what() const noexcept { return msg_.begin(); }
+        char const * what() const noexcept { return msg_.c_str(); }
         int line() const { return line_; }
         int column() const { return column_; }
 
     private:
-        string msg_;
+        std::string msg_;
         int line_;
         int column_;
     };
@@ -88,7 +87,7 @@ namespace boost { namespace text { inline namespace v1 {
         inline std::ostream & operator<<(std::ostream & os, token_kind kind)
         {
 #    define CASE(x)                                                            \
-    case token_kind::x: os << #x; break
+    case token_kind::x: os << string_view(#x); break
             switch (kind) {
                 CASE(code_point);
                 CASE(dash);
@@ -172,6 +171,6 @@ namespace boost { namespace text { inline namespace v1 {
             string_view filename);
     }
 
-}}}
+}}
 
 #endif

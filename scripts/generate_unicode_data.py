@@ -156,7 +156,7 @@ if args.tests:
 
     print "Tests were just generated.  Don't forget to re-add the hand adjustments to those tests."
     print '''You may now want to do:
-    mv *cpp ../test'''
+    mv relative_collation_test_* ../test && mv *cpp ../test/generated'''
     exit(0)
 
 
@@ -197,13 +197,13 @@ version_cpp_form = '''\
 #include <boost/text/data_versions.hpp>
 
 
-namespace boost {{ namespace text {{ inline namespace v1 {{
+namespace boost {{ namespace text {{
 
     library_version unicode_version() {{ return {{ {}, {}, {} }}; }}
 
     library_version cldr_version() {{ return {{ {}, {}, {} }}; }}
 
-}}}}}}
+}}}}
 '''
 
 open('data_versions.cpp', 'w').write(version_cpp_form.format(

@@ -15,7 +15,7 @@ namespace boost { namespace text { namespace data { namespace haw {
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(
+    return string_view((char const *)
 u8R"(  
 &a<e<<<E<i<<<I<o<<<O<u<<<U
 &w<ʻ

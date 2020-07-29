@@ -8,15 +8,6 @@
 
 import lzw
 
-removed_from_cp_props_file_form = '''
-    std::array<uint32_t, {3}> make_all_compatible_decompositions()
-    {{
-return {{{{
-{2}
-    }}}};
-    }}
-'''
-
 cp_props_file_form = decls = '''\
 // Copyright (C) 2020 T. Zachary Laine
 //
@@ -34,12 +25,19 @@ cp_props_file_form = decls = '''\
 #include <unordered_map>
 
 
-namespace boost {{ namespace text {{ inline namespace v1 {{ namespace detail {{
+namespace boost {{ namespace text {{ namespace detail {{
 
     std::array<uint32_t, {1}> make_all_canonical_decompositions()
     {{
 return {{{{
 {0}
+    }}}};
+    }}
+
+    std::array<uint32_t, {3}> make_all_compatible_decompositions()
+    {{
+return {{{{
+{2}
     }}}};
     }}
 
@@ -66,7 +64,7 @@ return {{{{
         return retval;
     }}
 
-}}}}}}}}
+}}}}}}
 '''
 
 compose_file_form = decls = '''\
@@ -83,7 +81,7 @@ compose_file_form = decls = '''\
 #include <unordered_map>
 
 
-namespace boost {{ namespace text {{ inline namespace v1 {{ namespace detail {{
+namespace boost {{ namespace text {{ namespace detail {{
 
     namespace {{
         struct data_t {{ uint64_t key_; uint32_t value_; }};
@@ -104,7 +102,7 @@ namespace boost {{ namespace text {{ inline namespace v1 {{ namespace detail {{
         return retval;
     }}
 
-}}}}}}}}
+}}}}}}
 '''
 
 

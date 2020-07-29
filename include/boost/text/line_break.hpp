@@ -28,7 +28,7 @@
 #include <stdint.h>
 
 
-namespace boost { namespace text { inline namespace v1 {
+namespace boost { namespace text {
 
     /** The line properties defined by Unicode. */
     enum class line_property {
@@ -292,21 +292,21 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             if (state.it != first && !detail::skippable(state.prev_prop) &&
                 detail::lb9_x(state.prev_prop) &&
                 detail::skippable(state.prop)) {
-                auto temp_it = boost::text::v1::find_if_not(
+                auto temp_it = boost::text::find_if_not(
                     std::next(state.it), last, [](uint32_t cp) {
                         return detail::skippable(
-                            boost::text::v1::line_prop(cp));
+                            boost::text::line_prop(cp));
                     });
                 if (temp_it == last) {
                     state.it = temp_it;
                 } else {
-                    auto const temp_prop = boost::text::v1::line_prop(*temp_it);
+                    auto const temp_prop = boost::text::line_prop(*temp_it);
                     state.it = temp_it;
                     state.prop = temp_prop;
                     state.next_prop = line_property::AL;
                     if (std::next(state.it) != last) {
                         state.next_prop =
-                            boost::text::v1::line_prop(*std::next(state.it));
+                            boost::text::line_prop(*std::next(state.it));
                     }
                 }
             }
@@ -325,21 +325,21 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             AfterFunc after)
         {
             if (before(state.prev_prop)) {
-                auto const it = boost::text::v1::find_if_not(
+                auto const it = boost::text::find_if_not(
                     state.it, last, [](uint32_t cp) {
-                        return boost::text::v1::line_prop(cp) ==
+                        return boost::text::line_prop(cp) ==
                                line_property::SP;
                     });
                 if (it == last)
                     return state;
-                auto const temp_prop = boost::text::v1::line_prop(*it);
+                auto const temp_prop = boost::text::line_prop(*it);
                 if (after(temp_prop)) {
                     state.it = it;
                     state.prop = temp_prop;
                     state.next_prop = line_property::AL;
                     if (std::next(state.it) != last) {
                         state.next_prop =
-                            boost::text::v1::line_prop(*std::next(state.it));
+                            boost::text::line_prop(*std::next(state.it));
                     }
                 }
             }
@@ -354,15 +354,15 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             AfterFunc after)
         {
             if (after(state.prop)) {
-                auto const it = boost::text::v1::find_if_not_backward(
+                auto const it = boost::text::find_if_not_backward(
                     first, state.it, [](uint32_t cp) {
-                        auto const prop = boost::text::v1::line_prop(cp);
+                        auto const prop = boost::text::line_prop(cp);
                         return detail::skippable(prop) ||
                                prop == line_property::SP;
                     });
                 if (it == state.it)
                     return state;
-                auto const temp_prop = boost::text::v1::line_prop(*it);
+                auto const temp_prop = boost::text::line_prop(*it);
                 if (before(temp_prop)) {
                     state.it = it;
                     state.it_points_to_prev = true;
@@ -370,7 +370,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                     state.prev_prev_prop = line_property::AL;
                     if (state.it != first) {
                         state.prev_prev_prop =
-                            boost::text::v1::line_prop(*std::prev(state.it));
+                            boost::text::line_prop(*std::prev(state.it));
                     }
                 }
             }
@@ -379,7 +379,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 
         inline bool hard_break_cp(uint32_t cp)
         {
-            auto const prop = boost::text::v1::line_prop(cp);
+            auto const prop = boost::text::line_prop(cp);
             return prop == line_property::BK || prop == line_property::CR ||
                    prop == line_property::LF || prop == line_property::NL;
         }
@@ -422,7 +422,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 
             state.it = it;
 
-            state.prop = boost::text::v1::line_prop(*state.it);
+            state.prop = boost::text::line_prop(*state.it);
 
             // Special case: If state.prop is skippable, we need to skip
             // backward until we find a non-skippable, and if we're in one of
@@ -431,41 +431,41 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             if (state.prop == line_property::SP ||
                 detail::skippable(state.prop)) {
                 auto space_or_skip = [](uint32_t cp) {
-                    auto const prop = boost::text::v1::line_prop(cp);
+                    auto const prop = boost::text::line_prop(cp);
                     return prop == line_property::SP || detail::skippable(prop);
                 };
-                auto it_ = boost::text::v1::find_if_not_backward(
+                auto it_ = boost::text::find_if_not_backward(
                     first, it, space_or_skip);
                 bool in_space_skipper = false;
                 bool backed_up = false;
                 if (it_ != it) {
-                    auto const prop = boost::text::v1::line_prop(*it_);
+                    auto const prop = boost::text::line_prop(*it_);
                     switch (prop) {
                     case line_property::OP: // LB14
                         in_space_skipper = true;
                         break;
                     case line_property::QU: { // LB15
-                        auto it_2 = boost::text::v1::find_if_not(
+                        auto it_2 = boost::text::find_if_not(
                             it, last, space_or_skip);
                         in_space_skipper =
-                            it_2 != last && boost::text::v1::line_prop(*it_2) ==
+                            it_2 != last && boost::text::line_prop(*it_2) ==
                                                 line_property::OP;
                         break;
                     }
                     case line_property::CL: // LB16
                     case line_property::CP: {
-                        auto it_2 = boost::text::v1::find_if_not(
+                        auto it_2 = boost::text::find_if_not(
                             it, last, space_or_skip);
                         in_space_skipper =
-                            it_2 != last && boost::text::v1::line_prop(*it_2) ==
+                            it_2 != last && boost::text::line_prop(*it_2) ==
                                                 line_property::NS;
                         break;
                     }
                     case line_property::B2: { // LB17
-                        auto it_2 = boost::text::v1::find_if_not(
+                        auto it_2 = boost::text::find_if_not(
                             it, last, space_or_skip);
                         in_space_skipper =
-                            it_2 != last && boost::text::v1::line_prop(*it_2) ==
+                            it_2 != last && boost::text::line_prop(*it_2) ==
                                                 line_property::B2;
                         break;
                     }
@@ -474,19 +474,19 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 
                     backed_up = in_space_skipper;
                     if (!in_space_skipper && detail::skippable(state.prop)) {
-                        it_ = boost::text::v1::find_if_not_backward(
+                        it_ = boost::text::find_if_not_backward(
                             first, it, [](uint32_t cp) {
                                 return detail::skippable(
-                                    boost::text::v1::line_prop(cp));
+                                    boost::text::line_prop(cp));
                             });
                         backed_up = it_ != it;
                     }
 
                     if (backed_up) {
                         state.it = it_;
-                        state.prop = boost::text::v1::line_prop(*state.it);
+                        state.prop = boost::text::line_prop(*state.it);
                         state.next_prop =
-                            boost::text::v1::line_prop(*std::next(state.it));
+                            boost::text::line_prop(*std::next(state.it));
                     }
                 }
 
@@ -509,26 +509,26 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             state.prev_prev_prop = line_property::AL;
             if (std::prev(state.it) != first)
                 state.prev_prev_prop =
-                    boost::text::v1::line_prop(*std::prev(state.it, 2));
-            state.prev_prop = boost::text::v1::line_prop(*std::prev(state.it));
+                    boost::text::line_prop(*std::prev(state.it, 2));
+            state.prev_prop = boost::text::line_prop(*std::prev(state.it));
             state.next_prop = line_property::AL;
             if (std::next(state.it) != last)
                 state.next_prop =
-                    boost::text::v1::line_prop(*std::next(state.it));
+                    boost::text::line_prop(*std::next(state.it));
 
             state.emoji_state = detail::line_break_emoji_state_t::none;
 
             auto skip = [](detail::line_break_state<CPIter> state,
                            CPIter first) {
                 if (detail::skippable(state.prev_prop)) {
-                    auto temp_it = boost::text::v1::find_if_not_backward(
+                    auto temp_it = boost::text::find_if_not_backward(
                         first, state.it, [](uint32_t cp) {
                             return detail::skippable(
-                                boost::text::v1::line_prop(cp));
+                                boost::text::line_prop(cp));
                         });
                     if (temp_it == state.it)
                         return state;
-                    auto temp_prev_prop = boost::text::v1::line_prop(*temp_it);
+                    auto temp_prev_prop = boost::text::line_prop(*temp_it);
                     // Don't skip over the skippables id they are immediately
                     // preceded by a hard-break property.
                     if (temp_prev_prop != line_property::BK &&
@@ -544,7 +544,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                             state.prev_prev_prop = line_property::AL;
                         } else {
                             state.prev_prev_prop =
-                                boost::text::v1::line_prop(*std::prev(temp_it));
+                                boost::text::line_prop(*std::prev(temp_it));
                         }
                     }
                 }
@@ -554,7 +554,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             for (; state.it != first; state = detail::prev(state)) {
                 if (std::prev(state.it) != first)
                     state.prev_prev_prop =
-                        boost::text::v1::line_prop(*std::prev(state.it, 2));
+                        boost::text::line_prop(*std::prev(state.it, 2));
                 else
                     state.prev_prev_prop = line_property::AL;
 
@@ -588,7 +588,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                             if (temp_state.it != first &&
                                 std::prev(temp_state.it) != first) {
                                 temp_state.prev_prev_prop =
-                                    boost::text::v1::line_prop(
+                                    boost::text::line_prop(
                                         *std::prev(temp_state.it, 2));
                             } else {
                                 temp_state.prev_prev_prop = line_property::AL;
@@ -643,13 +643,13 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 }
                 if (state.prev_prop == line_property::SP &&
                     state.prop != line_property::SP) {
-                    auto it = boost::text::v1::find_if_not_backward(
+                    auto it = boost::text::find_if_not_backward(
                         first, state.it, [](uint32_t cp) {
-                            return boost::text::v1::line_prop(cp) ==
+                            return boost::text::line_prop(cp) ==
                                    line_property::SP;
                         });
                     if (it != state.it &&
-                        boost::text::v1::line_prop(*it) == line_property::ZW)
+                        boost::text::line_prop(*it) == line_property::ZW)
                         return result_t{state.it, false};
                 }
 
@@ -694,7 +694,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 
                 // Used in LB24.
                 auto after_nu = [](uint32_t cp) {
-                    auto const prop = boost::text::v1::line_prop(cp);
+                    auto const prop = boost::text::line_prop(cp);
                     return prop == line_property::NU ||
                            prop == line_property::SY ||
                            prop == line_property::IS;
@@ -780,23 +780,23 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 
                 // LB24
                 if (after_nu(*state.it)) {
-                    auto it = boost::text::v1::find_if_not_backward(
+                    auto it = boost::text::find_if_not_backward(
                         first, state.it, after_nu);
                     if (it != state.it)
                         ++it;
                     if (it != state.it) {
-                        if (boost::text::v1::line_prop(*it) ==
+                        if (boost::text::line_prop(*it) ==
                             line_property::NU) {
                             state.it = it;
-                            state.prop = boost::text::v1::line_prop(*state.it);
+                            state.prop = boost::text::line_prop(*state.it);
                             state.prev_prop = line_property::AL;
                             state.prev_prev_prop = line_property::AL;
                             if (state.it != first) {
-                                state.prev_prop = boost::text::v1::line_prop(
+                                state.prev_prop = boost::text::line_prop(
                                     *std::prev(state.it));
                                 if (std::prev(state.it) != first) {
                                     state.prev_prev_prop =
-                                        boost::text::v1::line_prop(
+                                        boost::text::line_prop(
                                             *std::prev(state.it, 2));
                                 }
                             }
@@ -894,12 +894,12 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 return result_t{state.it, detail::hard_break_cp(*first)};
 
             state.prev_prev_prop = line_property::AL;
-            state.prev_prop = boost::text::v1::line_prop(*first);
-            state.prop = boost::text::v1::line_prop(*state.it);
+            state.prev_prop = boost::text::line_prop(*first);
+            state.prop = boost::text::line_prop(*state.it);
             state.next_prop = line_property::AL;
             if (std::next(state.it) != last)
                 state.next_prop =
-                    boost::text::v1::line_prop(*std::next(state.it));
+                    boost::text::line_prop(*std::next(state.it));
 
             state.emoji_state = state.prev_prop == line_property::RI
                                     ? line_break_emoji_state_t::first_emoji
@@ -944,7 +944,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
       // all same-extent CPs up to the end of the
       // current grapheme.
                             auto const range =
-                                boost::text::v1::grapheme(first, it, last);
+                                boost::text::grapheme(first, it, last);
                             if (range.begin() != it && range.end() != it) {
                                 auto const grapheme_extent =
                                     cp_extent(first, range.end());
@@ -982,7 +982,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             for (; state.it != last; state = detail::next(state)) {
                 if (std::next(state.it) != last)
                     state.next_prop =
-                        boost::text::v1::line_prop(*std::next(state.it));
+                        boost::text::line_prop(*std::next(state.it));
                 else
                     state.next_prop = line_property::AL;
 
@@ -1042,12 +1042,12 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 if (state.prev_prop == line_property::ZW &&
                     state.prop == line_property::SP) {
                     auto it = find_if_not(state.it, last, [](uint32_t cp) {
-                        return boost::text::v1::line_prop(cp) ==
+                        return boost::text::line_prop(cp) ==
                                line_property::SP;
                     });
                     if (it == last)
                         return break_overlong(result_t{it, false});
-                    auto const prop = boost::text::v1::line_prop(*it);
+                    auto const prop = boost::text::line_prop(*it);
                     if (!lb6(prop) && prop != line_property::ZW &&
                         break_here(it)) {
                         return *latest_result;
@@ -1089,7 +1089,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 
                 // Used in LB24.
                 auto after_nu = [](uint32_t cp) {
-                    auto const prop = boost::text::v1::line_prop(cp);
+                    auto const prop = boost::text::line_prop(cp);
                     return prop == line_property::NU ||
                            prop == line_property::SY ||
                            prop == line_property::IS;
@@ -1107,7 +1107,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                         // LB16
                         auto next_state = detail::next(state);
                         if (std::next(next_state.it) != last) {
-                            next_state.next_prop = boost::text::v1::line_prop(
+                            next_state.next_prop = boost::text::line_prop(
                                 *std::next(next_state.it));
                         } else {
                             next_state.next_prop = line_property::AL;
@@ -1142,13 +1142,13 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 
                     if (state.prev_prop == line_property::NU &&
                         after_nu(*state.it)) {
-                        auto it = boost::text::v1::find_if_not(
+                        auto it = boost::text::find_if_not(
                             state.it, last, after_nu);
                         state.it = --it;
-                        state.prop = boost::text::v1::line_prop(*state.it);
+                        state.prop = boost::text::line_prop(*state.it);
                         state.next_prop = line_property::AL;
                         if (std::next(state.it) != last)
-                            state.next_prop = boost::text::v1::line_prop(
+                            state.next_prop = boost::text::line_prop(
                                 *std::next(state.it));
                     }
 
@@ -1236,13 +1236,13 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 if (state.prev_prop == line_property::NU &&
                     after_nu(*state.it)) {
                     auto it =
-                        boost::text::v1::find_if_not(state.it, last, after_nu);
+                        boost::text::find_if_not(state.it, last, after_nu);
                     state.it = --it;
-                    state.prop = boost::text::v1::line_prop(*state.it);
+                    state.prop = boost::text::line_prop(*state.it);
                     state.next_prop = line_property::AL;
                     if (std::next(state.it) != last) {
                         state.next_prop =
-                            boost::text::v1::line_prop(*std::next(state.it));
+                            boost::text::line_prop(*std::next(state.it));
                     }
                     continue;
                 }
@@ -1533,7 +1533,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     auto prev_hard_line_break(CPRange & range, CPIter it) noexcept
         -> detail::cp_rng_alg_ret_t<detail::iterator_t<CPRange>, CPRange>
     {
-        return boost::text::v1::prev_hard_line_break(
+        return boost::text::prev_hard_line_break(
             std::begin(range), it, std::end(range));
     }
 
@@ -1557,7 +1557,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     auto next_hard_line_break(CPRange & range, CPIter it) noexcept
         -> detail::cp_rng_alg_ret_t<detail::iterator_t<CPRange>, CPRange>
     {
-        return boost::text::v1::next_hard_line_break(it, std::end(range));
+        return boost::text::next_hard_line_break(it, std::end(range));
     }
 
     template<typename GraphemeRange, typename GraphemeIter>
@@ -1580,7 +1580,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             line_break_result<detail::iterator_t<CPRange>>,
             CPRange>
     {
-        return boost::text::v1::prev_allowed_line_break<
+        return boost::text::prev_allowed_line_break<
             detail::iterator_t<CPRange>>(
             std::begin(range), it, std::end(range));
     }
@@ -1593,7 +1593,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             GraphemeRange>
     {
         using cp_iter_t = decltype(range.begin().base());
-        auto const prev = boost::text::v1::prev_allowed_line_break(
+        auto const prev = boost::text::prev_allowed_line_break(
             range.begin().base(),
             static_cast<cp_iter_t>(it.base()),
             range.end().base());
@@ -1607,7 +1607,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             line_break_result<detail::iterator_t<CPRange>>,
             CPRange>
     {
-        return boost::text::v1::next_allowed_line_break<
+        return boost::text::next_allowed_line_break<
             detail::iterator_t<CPRange>>(it, std::end(range));
     }
 
@@ -1619,7 +1619,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             GraphemeRange>
     {
         using cp_iter_t = decltype(range.begin().base());
-        auto const next = boost::text::v1::next_allowed_line_break(
+        auto const next = boost::text::next_allowed_line_break(
             static_cast<cp_iter_t>(it.base()), range.end().base());
         return {{range.begin().base(), next.iter, range.end().base()},
                 next.hard_break};
@@ -1680,7 +1680,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             auto operator()(CPIter it, Sentinel last) noexcept
                 -> detail::cp_iter_ret_t<CPIter, CPIter>
             {
-                return boost::text::v1::next_hard_line_break(it, last);
+                return boost::text::next_hard_line_break(it, last);
             }
         };
 
@@ -1689,7 +1689,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         {
             BreakResult operator()(BreakResult result, Sentinel last) noexcept
             {
-                return boost::text::v1::next_allowed_line_break(
+                return boost::text::next_allowed_line_break(
                     result.iter, last);
             }
         };
@@ -1899,7 +1899,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             auto operator()(CPIter first, CPIter it, CPIter last) noexcept
                 -> detail::cp_iter_ret_t<CPIter, CPIter>
             {
-                return boost::text::v1::prev_hard_line_break(first, it, last);
+                return boost::text::prev_hard_line_break(first, it, last);
             }
         };
 
@@ -1909,7 +1909,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             BreakResult
             operator()(CPIter first, CPIter result, CPIter last) noexcept
             {
-                return boost::text::v1::prev_allowed_line_break(
+                return boost::text::prev_allowed_line_break(
                     first, result, last);
             }
         };
@@ -1920,9 +1920,9 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     template<typename CPIter, typename Sentinel>
     utf32_view<CPIter> line(CPIter first, CPIter it, Sentinel last) noexcept
     {
-        first = boost::text::v1::prev_hard_line_break(first, it, last);
+        first = boost::text::prev_hard_line_break(first, it, last);
         return utf32_view<CPIter>{
-            first, boost::text::v1::next_hard_line_break(first, last)};
+            first, boost::text::next_hard_line_break(first, last)};
     }
 
 #ifdef BOOST_TEXT_DOXYGEN
@@ -1993,11 +1993,11 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         cp_rng_alg_ret_t<utf32_view<detail::iterator_t<CPRange>>, CPRange>
     {
         auto first =
-            boost::text::v1::prev_hard_line_break<detail::iterator_t<CPRange>>(
+            boost::text::prev_hard_line_break<detail::iterator_t<CPRange>>(
                 std::begin(range), it, std::end(range));
         return utf32_view<detail::iterator_t<CPRange>>{
             first,
-            boost::text::v1::next_hard_line_break(first, std::end(range))};
+            boost::text::next_hard_line_break(first, std::end(range))};
     }
 
     template<typename GraphemeRange, typename GraphemeIter>
@@ -2007,14 +2007,14 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             GraphemeRange>
     {
         using cp_iter_t = decltype(range.begin().base());
-        auto first = boost::text::v1::prev_hard_line_break(
+        auto first = boost::text::prev_hard_line_break(
             range.begin().base(),
             static_cast<cp_iter_t>(it.base()),
             range.end().base());
         return {
             range.begin().base(),
             first,
-            boost::text::v1::next_hard_line_break(first, range.end().base()),
+            boost::text::next_hard_line_break(first, range.end().base()),
             range.end().base()};
     }
 
@@ -2307,10 +2307,10 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     allowed_line(CPIter first, CPIter it, Sentinel last) noexcept
     {
         auto const first_ =
-            boost::text::v1::prev_allowed_line_break(first, it, last);
+            boost::text::prev_allowed_line_break(first, it, last);
         return line_break_cp_view<CPIter>{
             first_,
-            boost::text::v1::next_allowed_line_break(first_.iter, last)};
+            boost::text::next_allowed_line_break(first_.iter, last)};
     }
 
 #ifdef BOOST_TEXT_DOXYGEN
@@ -2362,12 +2362,12 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             line_break_cp_view<detail::iterator_t<CPRange>>,
             CPRange>
     {
-        auto const first = boost::text::v1::prev_allowed_line_break<
+        auto const first = boost::text::prev_allowed_line_break<
             detail::iterator_t<CPRange>>(
             std::begin(range), it, std::end(range));
         return line_break_cp_view<detail::iterator_t<CPRange>>{
             first,
-            boost::text::v1::next_allowed_line_break<
+            boost::text::next_allowed_line_break<
                 detail::iterator_t<CPRange>>(first.iter, std::end(range))};
     }
 
@@ -2377,9 +2377,9 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             line_break_grapheme_view<decltype(range.begin().base())>,
             GraphemeRange>
     {
-        auto const first = boost::text::v1::prev_allowed_line_break(range, it);
+        auto const first = boost::text::prev_allowed_line_break(range, it);
         return {first,
-                boost::text::v1::next_allowed_line_break(range, first.iter)};
+                boost::text::next_allowed_line_break(range, first.iter)};
     }
 
     template<typename CPIter, typename Sentinel>
@@ -2641,6 +2641,6 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 
 #endif
 
-}}}
+}}
 
 #endif

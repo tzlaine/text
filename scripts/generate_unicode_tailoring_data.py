@@ -122,11 +122,11 @@ TEST(parser, data)
         [](boost::text::case_first) {{}},
         [](boost::text::detail::cp_seq_t const & suppressions) {{}},
         [](std::vector<boost::text::detail::reorder_group> const & reorder_groups) {{}},
-        [](boost::text::string const & s) {{
+        [](std::string const & s) {{
             std::cout << s << std::endl;
             throw std::runtime_error("Parser produced an error!");
         }},
-        [](boost::text::string const & s) {{ /*std::cout << s << std::endl;*/ }}
+        [](std::string const & s) {{ /*std::cout << s << std::endl;*/ }}
     }};
 
 
@@ -220,9 +220,9 @@ if args.tests:
         auto const str = {0};
         EXPECT_NO_THROW(
             boost::text::detail::lex(
-                str.begin(),
-                str.end(),
-                [](boost::text::string const & s) {{
+                str.data(),
+                str.data() + str.size(),
+                [](std::string const & s) {{
                     std::cout << s << std::endl;
                     throw std::runtime_error("Lexer produced an error!");
                 }},
@@ -235,8 +235,8 @@ if args.tests:
         auto const str = {0};
         EXPECT_NO_THROW(
             boost::text::detail::parse(
-                str.begin(),
-                str.end(),
+                str.data(),
+                str.data() + str.size(),
                 callbacks,
                 "{1}.hpp")
         );
@@ -255,7 +255,7 @@ import_regex = re.compile(r'\[ *import +([^ \]]+) *\] *')
 single_tailoring_form = '''\
 inline string_view {0}_collation_tailoring()
 {{
-    return string_view(
+    return string_view((char const *)
 {1});
 }}
 
@@ -264,7 +264,7 @@ inline string_view {0}_collation_tailoring()
 very_long_single_tailoring_form = '''\
 inline string {0}_collation_tailoring()
 {{
-    string str;
+    std::string str;
 {1}
     return str;
 }}
@@ -311,8 +311,8 @@ tailored_reordering_form = '''\
 
 using namespace boost;
 
-auto const error = [](text::string const & s) {{ std::cout << s; }};
-auto const warning = [](text::string const & s) {{}};
+auto const error = [](std::string const & s) {{ std::cout << s; }};
+auto const warning = [](std::string const & s) {{}};
 
 {0}
 '''
@@ -352,7 +352,7 @@ TEST(tailoring, {0}_{1}_reorders)
 tailoring_string_form = '''\
     g_curr_file = "{0}";
     g_curr_tailoring = "{1}";
-    g_tailoring = data::{0}::{1}_collation_tailoring();
+    g_tailoring = data::{0}::{1}_collation_tailoring().data();
     make_test();
 '''
 
@@ -387,8 +387,8 @@ tailoring_suppression_tests_form = '''\
 
 using namespace boost;
 
-auto const error = [](text::string const & s) {{ std::cout << s; }};
-auto const warning = [](text::string const & s) {{}};
+auto const error = [](std::string const & s) {{ std::cout << s; }};
+auto const warning = [](std::string const & s) {{}};
 {0}
 '''
 
@@ -536,7 +536,7 @@ for k0,v0 in sorted(tailorings_by_file.items()):
                 lines = '\n'.join(chunked_lines)
                 tailorings += single_tailoring_form.format(k, lines)
             else:
-                lines = map(lambda x: '    str += {};'.format(x), chunked_lines)
+                lines = map(lambda x: '    str += (char const *){};'.format(x), chunked_lines)
                 lines = '\n'.join(lines)
                 tailorings += very_long_single_tailoring_form.format(k, lines)
 

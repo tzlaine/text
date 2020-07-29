@@ -15,14 +15,14 @@
 #include <utility>
 
 
-namespace boost { namespace text { inline namespace v1 {
+namespace boost { namespace text {
 
     struct unencoded_rope;
     struct unencoded_rope_view;
 
-}}}
+}}
 
-namespace boost { namespace text { inline namespace v1 { namespace detail {
+namespace boost { namespace text { namespace detail {
 
     template<typename T>
     using remove_cv_ref_t =
@@ -144,6 +144,11 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         std::is_same<char *, typename std::remove_cv<T>::type>::value ||
             std::is_same<char const *, typename std::remove_cv<T>::type>::
                 value ||
+#if defined(__cpp_char8_t)
+            std::is_same<char8_t *, typename std::remove_cv<T>::type>::value ||
+            std::is_same<char8_t const *, typename std::remove_cv<T>::type>::
+                value ||
+#endif
             is_convertible_and_n_bytes<detected_t<value_type_, T>, char, 1>::
                 value>;
 
@@ -166,27 +171,21 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
     template<
         typename T,
         typename R1,
-        typename Exclude1,
-        typename Exclude2,
-        bool R1IsCharRange = is_char_range<R1>::value &&
-                             !std::is_same<R1, Exclude1>::value &&
-                             !std::is_same<R1, Exclude2>::value>
+        typename Exclude,
+        bool R1IsCharRange =
+            is_char_range<R1>::value && !std::is_same<R1, Exclude>::value>
     struct rng_alg_ret
     {
     };
 
-    template<typename T, typename R1, typename Exclude1, typename Exclude2>
-    struct rng_alg_ret<T, R1, Exclude1, Exclude2, true>
+    template<typename T, typename R1, typename Exclude>
+    struct rng_alg_ret<T, R1, Exclude, true>
     {
         using type = T;
     };
 
-    template<
-        typename T,
-        typename R1,
-        typename Exclude1 = void,
-        typename Exclude2 = void>
-    using rng_alg_ret_t = typename rng_alg_ret<T, R1, Exclude1, Exclude2>::type;
+    template<typename T, typename R1, typename Exclude = void>
+    using rng_alg_ret_t = typename rng_alg_ret<T, R1, Exclude>::type;
 
     template<
         typename T,
@@ -217,12 +216,21 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
     template<typename T>
     using is_contig_char_range = std::integral_constant<
         bool,
-        std::is_same<
-            fixup_ptr_t<detected_t<has_contig_begin, T>>,
-            char const *>::value &&
-            std::is_same<
-                fixup_ptr_t<detected_t<has_contig_end, T>>,
-                char const *>::value &&
+        ((std::is_same<
+              fixup_ptr_t<detected_t<has_contig_begin, T>>,
+              char const *>::value &&
+          std::is_same<
+              fixup_ptr_t<detected_t<has_contig_end, T>>,
+              char const *>::value)
+#if defined(__cpp_char8_t)
+         || (std::is_same<
+                 fixup_ptr_t<detected_t<has_contig_begin, T>>,
+                 char8_t const *>::value &&
+             std::is_same<
+                 fixup_ptr_t<detected_t<has_contig_end, T>>,
+                 char8_t const *>::value)
+#endif
+             ) &&
             std::is_convertible<
                 iterator_category_<T>,
                 std::random_access_iterator_tag>::value &&
@@ -451,8 +459,12 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
     template<typename T>
     using is_grapheme_char_range = std::integral_constant<
         bool,
-        is_char_iter<remove_cv_ref_t<decltype(
-            std::declval<const T>().begin().base().base())>>::value &&
+        is_cp_iter<remove_cv_ref_t<decltype(
+            std::declval<const T>().begin().base())>>::value &&
+            is_cp_iter<remove_cv_ref_t<decltype(
+                std::declval<const T>().end().base())>>::value &&
+            is_char_iter<remove_cv_ref_t<decltype(
+                std::declval<const T>().begin().base().base())>>::value &&
             is_char_iter<remove_cv_ref_t<decltype(
                 std::declval<const T>().end().base().base())>>::value>;
 
@@ -621,6 +633,6 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         std::is_pointer<Iter>::value &&
             detected_or<std::false_type, cp_value_type, Iter>::value>;
 
-}}}}
+}}}
 
 #endif

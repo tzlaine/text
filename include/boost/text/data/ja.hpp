@@ -15,7 +15,7 @@ namespace boost { namespace text { namespace data { namespace ja {
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(
+    return string_view((char const *)
 u8"  \n"
 u8"  \n"
 u8"[strength 3]\n"
@@ -435,7 +435,7 @@ u8"  \n");
 
 inline string_view unihan_collation_tailoring()
 {
-    return string_view(
+    return string_view((char const *)
 u8"  \n"
 u8"  \n"
 u8"&一=\\uFDD0一\n"

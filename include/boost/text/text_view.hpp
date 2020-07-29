@@ -18,7 +18,7 @@
 #include <climits>
 
 
-namespace boost { namespace text { inline namespace v1 {
+namespace boost { namespace text {
 
     struct text;
 
@@ -27,7 +27,7 @@ namespace boost { namespace text { inline namespace v1 {
     struct text_view
     {
         using value_type = utf32_view<utf_8_to_32_iterator<char const *>>;
-        using size_type = int;
+        using size_type = std::size_t;
         using iterator = grapheme_iterator<utf_8_to_32_iterator<char const *>>;
         using const_iterator = iterator;
         using reverse_iterator =
@@ -79,17 +79,17 @@ namespace boost { namespace text { inline namespace v1 {
 
         /** Returns the number of bytes controlled by *this, not including the
             null terminator. */
-        int storage_bytes() const noexcept
+        size_type storage_bytes() const noexcept
         {
             return last_.base().base() - first_.base().base();
         }
 
         /** Returns the number of graphemes in *this.  This operation is
             O(n). */
-        int distance() const noexcept { return std::distance(begin(), end()); }
+        size_type distance() const noexcept { return std::distance(begin(), end()); }
 
         /** Returns the maximum size in bytes a text_view can have. */
-        int max_bytes() const noexcept { return INT_MAX; }
+        size_type max_bytes() const noexcept { return PTRDIFF_MAX; }
 
         /** Swaps *this with rhs. */
         void swap(text_view & rhs) noexcept
@@ -171,11 +171,15 @@ namespace boost { namespace text { inline namespace v1 {
 
     inline int operator+(text_view const & t, char const * c_str) = delete;
 
-}}}
+#if defined(__cpp_char8_t)
+    inline int operator+(text_view const & t, char8_t const * c_str) = delete;
+#endif
+
+}}
 
 #include <boost/text/text.hpp>
 
-namespace boost { namespace text { inline namespace v1 {
+namespace boost { namespace text {
 
     inline text_view::text_view(text const & t) noexcept :
         first_(t.begin()),
@@ -188,19 +192,19 @@ namespace boost { namespace text { inline namespace v1 {
         last_(range.end())
     {}
 
-}}}
+}}
 
 #ifndef BOOST_TEXT_DOXYGEN
 
 namespace std {
     template<>
-    struct hash<boost::text::v1::text_view>
+    struct hash<boost::text::text_view>
     {
-        using argument_type = boost::text::v1::text_view;
+        using argument_type = boost::text::text_view;
         using result_type = std::size_t;
         result_type operator()(argument_type const & tv) const noexcept
         {
-            return boost::text::v1::detail::hash_grapheme_range(tv);
+            return boost::text::detail::hash_grapheme_range(tv);
         }
     };
 }

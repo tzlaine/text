@@ -16,7 +16,7 @@
 #include <ostream>
 
 
-namespace boost { namespace text { inline namespace v1 {
+namespace boost { namespace text {
 
     struct grapheme;
     template<typename CPIter>
@@ -25,8 +25,8 @@ namespace boost { namespace text { inline namespace v1 {
     /** Returns the number of bytes controlled by g. */
     int storage_bytes(grapheme const & g) noexcept;
 
-    /** An owning sequence of code points that comprise a grapheme in
-        FCC-normalized text. */
+    /** An owning sequence of code points that comprise an extended grapheme
+        cluster. */
     struct grapheme
     {
         using const_iterator = utf_8_to_32_iterator<char const *>;
@@ -37,23 +37,21 @@ namespace boost { namespace text { inline namespace v1 {
         /** Constructs *this from the code points [first, last).
 
             \pre The code points in [first, last) comprise at most one
-            grapheme.
-            \pre [first, last) is normalized FCC. */
+            grapheme. */
         template<typename CPIter>
         grapheme(CPIter first, CPIter last)
         {
-            boost::text::v1::transcode_utf_32_to_8(
+            boost::text::transcode_to_utf8(
                 first, last, std::back_inserter(chars_));
             BOOST_ASSERT(
-                boost::text::v1::next_grapheme_break(begin(), end()) == end());
-            BOOST_ASSERT(boost::text::v1::normalized_fcc(begin(), end()));
+                boost::text::next_grapheme_break(begin(), end()) == end());
         }
 
         /** Constructs *this from the code point cp. */
         grapheme(uint32_t cp)
         {
             uint32_t cps[1] = {cp};
-            boost::text::v1::transcode_utf_32_to_8(
+            boost::text::transcode_to_utf8(
                 cps, cps + 1, std::back_inserter(chars_));
         }
 
@@ -61,16 +59,14 @@ namespace boost { namespace text { inline namespace v1 {
 
             \pre The code points in r comprise at most one grapheme.
             \pre The code points in [first, last) comprise at most one
-            grapheme.
-            \pre [first, last) is normalized FCC. */
+            grapheme. */
         template<typename CPIter>
         grapheme(utf32_view<CPIter> r)
         {
-            boost::text::v1::transcode_utf_32_to_8(
+            boost::text::transcode_to_utf8(
                 r.begin(), r.end(), std::back_inserter(chars_));
             BOOST_ASSERT(
-                boost::text::v1::next_grapheme_break(begin(), end()) == end());
-            BOOST_ASSERT(boost::text::v1::normalized_fcc(begin(), end()));
+                boost::text::next_grapheme_break(begin(), end()) == end());
         }
 
         /** Returns true if *this contains no code points. */
@@ -137,8 +133,7 @@ namespace boost { namespace text { inline namespace v1 {
         constexpr grapheme_ref(CPIter first, CPIter last) noexcept :
             utf32_view<CPIter>(first, last)
         {
-            BOOST_ASSERT(
-                boost::text::v1::next_grapheme_break(first, last) == last);
+            BOOST_ASSERT(boost::text::next_grapheme_break(first, last) == last);
         }
 
         /** Constructs *this from r.
@@ -222,6 +217,6 @@ namespace boost { namespace text { inline namespace v1 {
         return !(rhs == lhs);
     }
 
-}}}
+}}
 
 #endif

@@ -6,339 +6,281 @@
 #ifndef BOOST_TEXT_NORMALIZE_STRING_HPP
 #define BOOST_TEXT_NORMALIZE_STRING_HPP
 
+#if defined(__cpp_lib_concepts)
+#include <boost/text/concepts.hpp>
+#endif
 #include <boost/text/normalize.hpp>
-#include <boost/text/string.hpp>
 #include <boost/text/transcode_view.hpp>
-#include <boost/text/detail/icu/normalize.hpp>
+#include <boost/text/detail/normalize.hpp>
 
 
-namespace boost { namespace text { inline namespace v1 {
+namespace boost { namespace text { namespace detail {
+    template<
+        nf Normalization,
+        typename String,
+        typename CPIter,
+        typename Sentinel,
+        bool UTF8Input =
+            boost::text::detail::utf8_fast_path<CPIter, Sentinel>::value &&
+                Normalization != nf::d && Normalization != nf::kd,
+        bool UTF8Output = sizeof(*std::declval<String>().begin()) == 1>
+    struct normalization_string_appender
+    {
+        using type = detail::utf16_string_appender<String>;
+    };
 
-    namespace detail {
-        namespace {
-            constexpr char const * ncstr = nullptr;
-        }
+    template<
+        nf Normalization,
+        typename String,
+        typename CPIter,
+        typename Sentinel>
+    struct normalization_string_appender<
+        Normalization,
+        String,
+        CPIter,
+        Sentinel,
+        false,
+        true>
+    {
+        using type = detail::utf16_to_utf8_string_appender<String>;
+    };
 
-        // NFC/NFKC/FCC dispatch
+    template<
+        nf Normalization,
+        typename String,
+        typename CPIter,
+        typename Sentinel>
+    struct normalization_string_appender<
+        Normalization,
+        String,
+        CPIter,
+        Sentinel,
+        true,
+        true>
+    {
+        using type = detail::utf8_string_appender<String>;
+    };
+
+    template<
+        nf Normalization,
+        typename String,
+        typename CPIter,
+        typename Sentinel>
+    using normalization_string_appender_t =
+        typename normalization_string_appender<
+            Normalization,
+            String,
+            CPIter,
+            Sentinel>::type;
+}}}
+
+namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
+
+    namespace dtl {
         template<
-            bool WriteToOut,     // false: check norm, true: normalize
-            bool OnlyContiguous, // false: NFC, true: FCC
+            nf Normalization,
             typename CPIter,
             typename Sentinel,
-            bool UTF8 = is_detected<utf8_range_expr, CPIter, Sentinel>::value>
-        struct norm_nfc_append_impl
+            typename String>
+        inline void
+        normalize_append_impl_impl(CPIter first, Sentinel last, String & s)
         {
-            template<typename String>
-            static void
-            call(bool compatible, CPIter first, Sentinel last, String & s)
-            {
-                auto const r = boost::text::v1::as_utf16(first, last);
-                detail::icu::utf16_to_utf8_string_appender<String> appender(s);
-                (compatible ? detail::icu::nfkc_norm()
-                            : detail::icu::nfc_norm())
-                    .compose<OnlyContiguous, WriteToOut>(
-                        r.begin(), r.end(), appender);
-            }
-        };
+            detail::normalization_string_appender_t<
+                Normalization,
+                String,
+                CPIter,
+                Sentinel>
+                appender(s);
+            detail::norm_impl<
+                Normalization,
+                decltype(s.begin()),
+                CPIter,
+                Sentinel>::call(first, last, appender);
+        }
 
         template<
-            bool WriteToOut,
-            bool OnlyContiguous,
-            typename CPIter,
-            typename Sentinel>
-        struct norm_nfc_append_impl<
-            WriteToOut,
-            OnlyContiguous,
-            CPIter,
-            Sentinel,
-            true>
+            nf Normalization,
+            typename String,
+            bool IntegralElement =
+                std::is_integral<typename std::remove_reference<decltype(
+                    *std::declval<String>().begin())>::type>::value,
+            int ElementSize = sizeof(*std::declval<String>().begin())>
+        struct normalize_append_impl
+        {};
+
+        template<nf Normalization, typename String>
+        struct normalize_append_impl<Normalization, String, true, 1>
         {
-            template<typename String>
-            static void
-            call(bool compatible, CPIter first, Sentinel last, String & s)
+            template<typename CPIter, typename Sentinel>
+            static void call(CPIter first, Sentinel last, String & s)
             {
-                auto const r = boost::text::v1::as_utf8(first, last);
-                detail::icu::utf8_string_appender<String> appender(s);
-                (compatible ? detail::icu::nfkc_norm()
-                            : detail::icu::nfc_norm())
-                    .composeUTF8<OnlyContiguous, WriteToOut>(
-                        r.begin(), r.end(), appender);
+                normalize_append_impl_impl<Normalization>(first, last, s);
+            }
+        };
+
+        template<nf Normalization, typename String>
+        struct normalize_append_impl<Normalization, String, true, 2>
+        {
+            template<typename CPIter, typename Sentinel>
+            static void call(CPIter first, Sentinel last, String & s)
+            {
+                normalize_append_impl_impl<Normalization>(first, last, s);
+            }
+        };
+
+        template<typename T>
+        using has_capacity_reserve =
+            decltype(std::declval<T>().reserve(std::declval<T>().capacity()));
+
+        template<
+            typename String,
+            bool Enable =
+                detail::is_detected<has_capacity_reserve, String>::value>
+        struct normalize_string_impl
+        {
+            static void prefix(String const & s, String & temp) {}
+            static void suffix(String & s, String & temp)
+            {
+                s = std::move(temp);
+            }
+        };
+
+        template<typename String>
+        struct normalize_string_impl<String, true>
+        {
+            static void prefix(String const & s, String & temp)
+            {
+                temp.reserve(s.size() * 2);
+            }
+            static void suffix(String & s, String & temp)
+            {
+                if (temp.size() <= s.capacity()) {
+                    s = temp;
+                } else {
+                    using std::swap;
+                    swap(s, temp);
+                }
             }
         };
     }
 
-    /** Appends sequence `[first, last)` in normalization form NFD to `s`, in
-        UTF-8 encoding.
+    /** Appends sequence `[first, last)` in normalization form `Normalization`
+        to `s`.  The output is UTF-8 if `sizeof(*s.begin()) == 1`, and UTF-16
+        otherwise.
 
         This function only participates in overload resolution if `CPIter`
-        models the CPIter concept.
-
-        \see https://unicode.org/notes/tn5 */
-    template<typename CPIter, typename Sentinel, typename String>
-    inline auto
-    normalize_to_nfd_append_utf8(CPIter first, Sentinel last, String & s)
-        -> detail::cp_iter_ret_t<
-            decltype(s.insert(s.end(), detail::ncstr, detail::ncstr), s),
+        models the CPIter concept. */
+    template<
+        nf Normalization,
+        typename CPIter,
+        typename Sentinel,
+        typename String>
+    auto normalize_append(CPIter first, Sentinel last, String & s)
+        ->detail::cp_iter_ret_t<
+            decltype(dtl::normalize_append_impl<Normalization, String>::call(
+                first, last, s)),
             CPIter>
     {
-        detail::icu::utf16_to_utf8_string_appender<String> appender(s);
-        detail::norm_nfd_impl<detail::norm_normalize, int>(
-            detail::norm_nfd, first, last, appender);
-        return s;
+        dtl::normalize_append_impl<Normalization, String>::call(first, last, s);
     }
 
-    /** Appends sequence `r` in normalization form NFD to `s`, in UTF-8
-        encoding.
-
-        \see https://unicode.org/notes/tn5 */
-    template<typename CPRange, typename String>
-    inline String & normalize_to_nfd_append_utf8(CPRange const & r, String & s)
+    /** Appends sequence `r` in normalization form `Normalization` to `s`.
+        The output is UTF-8 if `sizeof(*s.begin()) == 1`, and UTF-16
+        otherwise. */
+    template<nf Normalization, typename CPRange, typename String>
+    void normalize_append(CPRange const & r, String & s)
     {
-        return boost::text::v1::normalize_to_nfd_append_utf8(
+        return boost::text::v1::normalize_append<Normalization>(
             std::begin(r), std::end(r), s);
     }
 
-    /** Appends sequence `[first, last)` in normalization form NFKD to `s`, in
-        UTF-8 encoding.
-
-        This function only participates in overload resolution if `CPIter`
-        models the CPIter concept.
-
-        \see https://unicode.org/notes/tn5 */
-    template<typename CPIter, typename Sentinel, typename String>
-    inline auto
-    normalize_to_nfkd_append_utf8(CPIter first, Sentinel last, String & s)
-        -> detail::cp_iter_ret_t<
-            decltype(s.insert(s.end(), detail::ncstr, detail::ncstr), s),
-            CPIter>
-    {
-        detail::icu::utf16_to_utf8_string_appender<String> appender(s);
-        detail::norm_nfd_impl<detail::norm_normalize, int>(
-            detail::norm_nfkd, first, last, appender);
-        return s;
-    }
-
-    /** Appends sequence `r` in normalization form NFKD to `s`, in UTF-8
-        encoding.
-
-        \see https://unicode.org/notes/tn5 */
-    template<typename CPRange, typename String>
-    inline String & normalize_to_nfkd_append_utf8(CPRange const & r, String & s)
-    {
-        return boost::text::v1::normalize_to_nfkd_append_utf8(
-            std::begin(r), std::end(r), s);
-    }
-
-    /** Appends sequence `[first, last)` in normalization form NFC to `s`, in
-        UTF-8 encoding.
-
-        This function only participates in overload resolution if `CPIter`
-        models the CPIter concept.
-
-        \see https://unicode.org/notes/tn5 */
-    template<typename CPIter, typename Sentinel, typename String>
-    inline auto
-    normalize_to_nfc_append_utf8(CPIter first, Sentinel last, String & s)
-        -> detail::cp_iter_ret_t<
-            decltype(s.insert(s.end(), detail::ncstr, detail::ncstr), s),
-            CPIter>
-    {
-        detail::norm_nfc_append_impl<
-            detail::norm_normalize,
-            detail::norm_nfc,
-            CPIter,
-            Sentinel>::call(detail::norm_nfc, first, last, s);
-        return s;
-    }
-
-    /** Appends sequence `r` in normalization form NFC to `s`, in UTF-8
-        encoding.
-
-        \see https://unicode.org/notes/tn5 */
-    template<typename CPRange, typename String>
-    inline String & normalize_to_nfc_append_utf8(CPRange const & r, String & s)
-    {
-        return boost::text::v1::normalize_to_nfc_append_utf8(
-            std::begin(r), std::end(r), s);
-    }
-
-    /** Appends sequence `[first, last)` in normalization form NFKC to `s`, in
-        UTF-8 encoding.
-
-        This function only participates in overload resolution if `CPIter`
-        models the CPIter concept.
-
-        \see https://unicode.org/notes/tn5 */
-    template<typename CPIter, typename Sentinel, typename String>
-    inline auto
-    normalize_to_nfkc_append_utf8(CPIter first, Sentinel last, String & s)
-        -> detail::cp_iter_ret_t<
-            decltype(s.insert(s.end(), detail::ncstr, detail::ncstr), s),
-            CPIter>
-    {
-        detail::norm_nfc_append_impl<
-            detail::norm_normalize,
-            detail::norm_nfc,
-            CPIter,
-            Sentinel>::call(detail::norm_nfkc, first, last, s);
-        return s;
-    }
-
-    /** Appends sequence `r` in normalization form NFKC to `s`, in UTF-8
-        encoding.
-
-        \see https://unicode.org/notes/tn5 */
-    template<typename CPRange, typename String>
-    inline String & normalize_to_nfkc_append_utf8(CPRange const & r, String & s)
-    {
-        return boost::text::v1::normalize_to_nfkc_append_utf8(
-            std::begin(r), std::end(r), s);
-    }
-
-    /** Appends sequence `[first, last)` in normalization form FCC to `s`, in
-        UTF-8 encoding.
-
-        This function only participates in overload resolution if `CPIter`
-        models the CPIter concept.
-
-        \see https://unicode.org/notes/tn5 */
-    template<typename CPIter, typename Sentinel, typename String>
-    inline auto
-    normalize_to_fcc_append_utf8(CPIter first, Sentinel last, String & s)
-        -> detail::cp_iter_ret_t<
-            decltype(s.insert(s.end(), detail::ncstr, detail::ncstr), s),
-            CPIter>
-    {
-        detail::norm_nfc_append_impl<
-            detail::norm_normalize,
-            detail::norm_fcc,
-            CPIter,
-            Sentinel>::call(detail::norm_nfc, first, last, s);
-        return s;
-    }
-
-    /** Appends sequence `r` in normalization form FCC to `s`, in UTF-8
-        encoding.
-
-        \see https://unicode.org/notes/tn5 */
-    template<typename CPRange, typename String>
-    inline String & normalize_to_fcc_append_utf8(CPRange const & r, String & s)
-    {
-        return boost::text::v1::normalize_to_fcc_append_utf8(
-            std::begin(r), std::end(r), s);
-    }
-
-    /** Puts the contents of `s` in Unicode normalization form NFD.
-        Normalization is not performed if `s` passes a normalization
-        quick-check. */
-    inline void normalize_to_nfd(string & s)
+    /** Puts the contents of `s` in Unicode normalization form `Normalize`. */
+    template<nf Normalization, typename String>
+    void normalize(String & s)
     {
         auto const r = as_utf32(s);
-        if (detail::normalized_quick_check(r.begin(), r.end(), [](uint32_t cp) {
-                return detail::quick_check_nfd_code_point(cp);
-            }) == detail::quick_check::yes) {
-            return;
-        }
 
-        string temp;
-        temp.reserve(s.size() / 2 * 3);
+        dtl::normalize_string_impl<String> impl;
 
-        boost::text::v1::normalize_to_nfd_append_utf8(r.begin(), r.end(), temp);
+        String temp;
+        impl.prefix(s, temp);
 
-        if (temp.size() <= s.capacity())
-            s = temp;
-        else
-            s.swap(temp);
-    }
-
-    /** Puts the contents of `s` in Unicode normalization form NFKD.
-        Normalization is not performed if `s` passes a normalization
-        quick-check. */
-    inline void normalize_to_nfkd(string & s)
-    {
-        auto const r = as_utf32(s);
-        if (detail::normalized_quick_check(r.begin(), r.end(), [](uint32_t cp) {
-                return detail::quick_check_nfkd_code_point(cp);
-            }) == detail::quick_check::yes) {
-            return;
-        }
-
-        string temp;
-        temp.reserve(s.size() / 2 * 3);
-
-        boost::text::v1::normalize_to_nfkd_append_utf8(
+        boost::text::v1::normalize_append<Normalization>(
             r.begin(), r.end(), temp);
 
-        if (temp.size() <= s.capacity())
-            s = temp;
-        else
-            s.swap(temp);
-    }
-
-    /** Puts the contents of `s` in Unicode normalization form NFC.
-        Normalization is not performed if `s` passes a normalization
-        quick-check. */
-    inline void normalize_to_nfc(string & s)
-    {
-        auto const r = as_utf32(s);
-        if (detail::normalized_quick_check(r.begin(), r.end(), [](uint32_t cp) {
-                return detail::quick_check_nfc_code_point(cp);
-            }) == detail::quick_check::yes) {
-            return;
-        }
-
-        string temp;
-        temp.reserve(temp.size());
-
-        boost::text::v1::normalize_to_nfc_append_utf8(r.begin(), r.end(), temp);
-
-        if (temp.size() <= s.capacity())
-            s = temp;
-        else
-            s.swap(temp);
-    }
-
-    /** Puts the contents of `s` in Unicode normalization form NFKC.
-        Normalization is not performed if `s` passes a normalization
-        quick-check. */
-    inline void normalize_to_nfkc(string & s)
-    {
-        auto const r = as_utf32(s);
-        if (detail::normalized_quick_check(r.begin(), r.end(), [](uint32_t cp) {
-                return detail::quick_check_nfkc_code_point(cp);
-            }) == detail::quick_check::yes) {
-            return;
-        }
-
-        string temp;
-        temp.reserve(s.size());
-
-        boost::text::v1::normalize_to_nfkc_append_utf8(
-            r.begin(), r.end(), temp);
-
-        if (temp.size() <= s.capacity())
-            s = temp;
-        else
-            s.swap(temp);
-    }
-
-    /** Puts the contents of `s` in normalization form FCC. */
-    inline void normalize_to_fcc(string & s)
-    {
-        // http://www.unicode.org/notes/tn5/#FCC
-        auto const r = as_utf32(s);
-
-        string temp;
-        temp.reserve(s.size());
-
-        boost::text::v1::normalize_to_fcc_append_utf8(r.begin(), r.end(), temp);
-
-        if (temp.size() <= s.capacity())
-            s = temp;
-        else
-            s.swap(temp);
+        impl.suffix(s, temp);
     }
 
 }}}
+
+#if defined(__cpp_lib_concepts)
+
+namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
+
+    /** Appends `[first, last)` in normalization form `Normalization` to `s`.
+        The output is UTF-8 if `sizeof(*s.begin()) == 1`, and UTF-16
+        otherwise. */
+    template<
+        nf Normalization,
+        code_point_iterator I,
+        std::sentinel_for<I> S,
+        utf_string String>
+    inline void normalize_append(I first, S last, String & s)
+    {
+        detail::normalization_string_appender_t<Normalization, String, I, S>
+            appender(s);
+        detail::norm_impl<Normalization, decltype(s.begin()), I, S>::call(
+            first, last, appender);
+    }
+
+    /** Appends `r` in normalization form `Normalization` to `s`.  The output
+        is UTF-8 if `sizeof(*s.begin()) == 1`, and UTF-16 otherwise. */
+    template<nf Normalization, code_point_range R, utf_string String>
+    inline void normalize_append(R const & r, String & s)
+    {
+        return boost::text::normalize_append<Normalization>(
+            std::begin(r), std::end(r), s);
+    }
+
+    namespace dtl {
+        template<typename T>
+        concept reserve_capacity_sized_range =
+            // clang-format off
+            std::ranges::sized_range<T> && requires(T const tc, T t) {
+            { tc.capacity() } -> std::integral;
+            { tc.reserve(tc.capacity()) };
+            // clang-format on
+        };
+    }
+
+    /** Puts the contents of `s` into Unicode normalization form
+        `Normalize`. */
+    template<nf Normalization, utf_string String>
+    void normalize(String & s)
+    {
+        auto const r = as_utf32(s);
+
+        String temp;
+        if constexpr (dtl::reserve_capacity_sized_range<String>) {
+            if constexpr (Normalization == nf::d || Normalization == nf::kd)
+                temp.reserve(s.size() / 2 * 3);
+            else
+                temp.reserve(s.size());
+        }
+
+        boost::text::normalize_append<Normalization>(r.begin(), r.end(), temp);
+
+        if constexpr (dtl::reserve_capacity_sized_range<String>) {
+            if (temp.size() <= s.capacity()) {
+                s = temp;
+                return;
+            }
+        }
+        std::ranges::swap(s, temp);
+    }
+
+}}}
+
+#endif
 
 #endif

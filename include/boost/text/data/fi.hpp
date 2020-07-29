@@ -15,7 +15,7 @@ namespace boost { namespace text { namespace data { namespace fi {
 
 inline string_view search_collation_tailoring()
 {
-    return string_view(
+    return string_view((char const *)
 u8R"(  
   
 [normalization on]
@@ -146,7 +146,7 @@ u8R"(
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(
+    return string_view((char const *)
 u8R"(  
 &D\u0335<<đ<<<Đ
 &G\u0335<<ǥ<<<Ǥ
@@ -160,7 +160,7 @@ u8R"(
 
 inline string_view traditional_collation_tailoring()
 {
-    return string_view(
+    return string_view((char const *)
 u8R"(  
 &D<<ð<<<Ð<<đ<<<Đ
 &N<<ŋ<<<Ŋ

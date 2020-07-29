@@ -15,7 +15,7 @@
 #include <unordered_map>
 
 
-namespace boost { namespace text { inline namespace v1 { namespace detail {
+namespace boost { namespace text { namespace detail {
 
 std::array<word_prop_interval, 24> const & make_word_prop_intervals()
 {
@@ -3299,4 +3299,4 @@ BOOST_ASSERT(buf.empty());
 return retval;
 }
 
-}}}}
+}}}

@@ -15,7 +15,7 @@ namespace boost { namespace text { namespace data { namespace ml {
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(
+    return string_view((char const *)
 u8R"(  
 [reorder Mlym Latn Deva Arab Taml Knda Telu Beng Guru Gujr Orya Sinh]
 &ഃ<<ഽ

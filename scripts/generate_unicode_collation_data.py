@@ -34,7 +34,7 @@ constants_header_form = '''\
 #include <cstdint>
 
 
-namespace boost {{ namespace text {{ inline namespace v1 {{ namespace detail {{
+namespace boost {{ namespace text {{ namespace detail {{
 
     enum collation_constants : uint32_t {{
         min_variable_collation_weight = 0x03040000,
@@ -107,7 +107,7 @@ namespace boost {{ namespace text {{ inline namespace v1 {{ namespace detail {{
     BOOST_TEXT_DECL std::array<implicit_weights_segment, 10>
     make_implicit_weights_segments();
 
-}}}}}}}}
+}}}}}}
 
 #endif
 '''
@@ -128,7 +128,7 @@ collation_data_0_file_form = '''\
 #include <unordered_map>
 
 
-namespace boost {{ namespace text {{ inline namespace v1 {{ namespace detail {{
+namespace boost {{ namespace text {{ namespace detail {{
 
 std::array<implicit_weights_segment, {1}> make_implicit_weights_segments()
 {{
@@ -180,7 +180,7 @@ lzw_decompress(
 BOOST_ASSERT(buf.empty());
 }}
 
-}}}}}}}}
+}}}}}}
 '''
 
 trie_file_form = '''\
@@ -196,7 +196,7 @@ trie_file_form = '''\
 #include <boost/assert.hpp>
 
 
-namespace boost {{ namespace text {{ inline namespace v1 {{ namespace detail {{
+namespace boost {{ namespace text {{ namespace detail {{
 
 namespace {{
 
@@ -261,7 +261,7 @@ trie_values_()
         std::copy(values.begin(), values.end(), retval.begin());
     }}
 
-}}}}}}}}
+}}}}}}
 '''
 
 def ccc(cccs_dict, cp):
@@ -871,7 +871,7 @@ if __name__ == "__main__":
 #include <boost/assert.hpp>
 
 
-namespace boost {{ namespace text {{ inline namespace v1 {{ namespace detail {{
+namespace boost {{ namespace text {{ namespace detail {{
 
 constexpr uint32_t default_table_min_nonstarter_ = {0};
 constexpr uint32_t default_table_max_nonstarter_ = {1};
@@ -889,5 +889,5 @@ uint32_t default_table_max_nonstarter() noexcept
 unsigned char const * default_table_nonstarters_ptr() noexcept
 {{ return default_table_nonstarters.data(); }}
 
-}}}}}}}}
+}}}}}}
 '''.format(min_nonstarter, max_nonstarter, gamut / 8, chars_str))

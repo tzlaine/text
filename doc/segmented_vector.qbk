@@ -20,6 +20,7 @@ One nice use case for this template is writing undo systems:
 [segmented_vector]
 
 I don't know if you've ever written an undo system that can do, undo, or redo
-any command you can think of, in less than 40 lines of code, but there one is.
+any command you can think of; it's usually a lot of code.  Here is one in less
+than 40 lines.
 
 [endsect]

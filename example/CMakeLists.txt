@@ -13,10 +13,6 @@ macro(add_sample name)
     endif ()
 endmacro()
 
-add_sample(slicing)
-
-add_sample(hello_world)
-add_sample(param_conventions)
 add_sample(code_point_to_utf8)
 
 add_sample(utf8)
@@ -28,7 +24,6 @@ add_sample(collation_search)
 add_sample(bidirectional)
 add_sample(graphemes)
 add_sample(segmented_vector)
-add_sample(string_builder)
 add_sample(trie)
 
 

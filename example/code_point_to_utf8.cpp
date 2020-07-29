@@ -3,7 +3,7 @@
 // Distributed under the Boost Software License, Version 1.0. (See
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
-#include <boost/text/string.hpp>
+#include <boost/text/transcode_iterator.hpp>
 #include <iostream>
 
 
@@ -51,13 +51,4 @@ int main(int argc, char * argv[])
         std::cout << "0x" << std::hex << int(*it) << " ";
     }
     std::cout << "\n";
-
-#if 0
-    boost::text::utf_8_to_32_iterator<unsigned char const *> const cu_first(
-        code_units);
-    boost::text::utf_8_to_32_iterator<unsigned char const *> const cu_last(
-        code_units_end);
-    std::copy(cu_first, cu_last, code_point);
-    std::cout << "Round-trips back to: 0x" << std::hex << code_point[0] << "\n";
-#endif
 }

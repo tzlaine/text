@@ -15,7 +15,7 @@ namespace boost { namespace text { namespace data { namespace ta {
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(
+    return string_view((char const *)
 u8R"(  
 [normalization on]
 [reorder Taml Deva Beng Guru Gujr Orya Telu Knda Mlym Sinh]

@@ -19,8 +19,8 @@
 #ifdef BOOST_TEXT_TESTING
 #define BOOST_TEXT_CHECK_ROPE_NORMALIZATION()                                  \
     do {                                                                       \
-        string str(rope_);                                                     \
-        normalize_to_fcc(str);                                                 \
+        std::string str(rope_.begin(), rope_.end());                           \
+        normalize<nf::fcc>(str);                                               \
         BOOST_ASSERT(rope_ == str);                                            \
     } while (false)
 #else
@@ -29,7 +29,7 @@
 
 #endif
 
-namespace boost { namespace text { inline namespace v1 {
+namespace boost { namespace text {
 
     namespace detail {
         struct const_rope_iterator;
@@ -44,7 +44,7 @@ namespace boost { namespace text { inline namespace v1 {
     struct rope
     {
         using value_type = grapheme;
-        using size_type = std::ptrdiff_t;
+        using size_type = std::size_t;
         using iterator = grapheme_iterator<
             utf_8_to_32_iterator<detail::const_rope_iterator>>;
         using const_iterator = iterator;
@@ -60,6 +60,11 @@ namespace boost { namespace text { inline namespace v1 {
         /** Constructs a rope from a null-terminated string. */
         rope(char const * c_str);
 
+#if defined(__cpp_char8_t)
+        /** Constructs a rope from a null-terminated string. */
+        rope(char8_t const * c_str);
+#endif
+
         /** Constructs a rope from a string_view. */
         explicit rope(string_view sv);
 
@@ -67,7 +72,7 @@ namespace boost { namespace text { inline namespace v1 {
         explicit rope(rope_view rv);
 
         /** Constructs a rope from a string. */
-        explicit rope(string s);
+        explicit rope(std::string s);
 
         /** Constructs a rope from a text. */
         explicit rope(text t);
@@ -105,6 +110,11 @@ namespace boost { namespace text { inline namespace v1 {
         /** Assignment from a null-terminated string. */
         rope & operator=(char const * c_str);
 
+#if defined(__cpp_char8_t)
+        /** Assignment from a null-terminated string. */
+        rope & operator=(char8_t const * c_str);
+#endif
+
         /** Assignment from a rope_view. */
         rope & operator=(rope_view rv);
 
@@ -112,7 +122,7 @@ namespace boost { namespace text { inline namespace v1 {
         rope & operator=(string_view sv);
 
         /** Move-assignment from a string. */
-        rope & operator=(string s);
+        rope & operator=(std::string s);
 
         /** Move-assignment from a text. */
         rope & operator=(text t);
@@ -173,20 +183,22 @@ namespace boost { namespace text { inline namespace v1 {
             position at. */
         const_iterator insert(const_iterator at, char const * c_str);
 
+#if defined(__cpp_char8_t)
+        /** Inserts the sequence of char from c_str into *this starting at
+            position at. */
+        const_iterator insert(const_iterator at, char8_t const * c_str);
+#endif
+
         /** Inserts the sequence of char from rv into *this starting at position
             at. */
         const_iterator insert(const_iterator at, rope_view rv);
 
         /** Inserts s into *this starting at position at. */
-        const_iterator insert(const_iterator at, string && s);
+        const_iterator insert(const_iterator at, std::string && s);
 
         /** Inserts the sequence of char from sv into *this starting at position
             at. */
         const_iterator insert(const_iterator at, string_view sv);
-
-        /** Inserts the sequence of char from rsv into *this starting at
-            position at. */
-        const_iterator insert(const_iterator at, repeated_string_view rsv);
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -256,14 +268,6 @@ namespace boost { namespace text { inline namespace v1 {
             old_substr.end().base().base()) */
         rope & replace(rope_view old_substr, string_view new_substr);
 
-        /** Replaces the portion of *this delimited by old_substr with the
-            sequence of char from new_substr.
-
-            \pre !std::less(old_substr.begin().base().base(),
-            begin().base().base()) && !std::less(end().base().base(),
-            old_substr.end().base().base()) */
-        rope & replace(rope_view old_substr, repeated_string_view new_substr);
-
 #ifdef BOOST_TEXT_DOXYGEN
 
         /** Replaces the portion of *this delimited by old_substr with the
@@ -310,6 +314,16 @@ namespace boost { namespace text { inline namespace v1 {
             old_substr.end().base().base()) */
         rope & replace(rope_view old_substr, char const * c_str);
 
+#if defined(__cpp_char8_t)
+        /** Replaces the portion of *this delimited by old_substr with the
+            sequence of char from c_str.
+
+            \pre !std::less(old_substr.begin().base().base(),
+            begin().base().base()) && !std::less(end().base().base(),
+            old_substr.end().base().base()) */
+        rope & replace(rope_view old_substr, char8_t const * c_str);
+#endif
+
         /** Replaces the portion of *this delimited by old_substr with the
             sequence [first, last).
 
@@ -333,14 +347,16 @@ namespace boost { namespace text { inline namespace v1 {
         /** Appends c_str to *this. */
         rope & operator+=(char const * c_str);
 
+#if defined(__cpp_char8_t)
+        /** Appends c_str to *this. */
+        rope & operator+=(char8_t const * c_str);
+#endif
+
         /** Appends rv to *this. */
         rope & operator+=(rope_view rv);
 
         /** Appends tv to *this. */
         rope & operator+=(string_view sv);
-
-        /** Appends rtv to *this. */
-        rope & operator+=(repeated_string_view rsv);
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -387,16 +403,16 @@ namespace boost { namespace text { inline namespace v1 {
         mutable_utf32_iter next_stable_cp(mutable_utf32_iter first) noexcept;
 
         const_iterator
-        insert_impl(iterator at, string str, bool str_normalized);
+        insert_impl(iterator at, std::string str, bool str_normalized);
         const_iterator
-        replace_impl(rope_view old_substr, string str, bool str_normalized);
+        replace_impl(rope_view old_substr, std::string str, bool str_normalized);
 
         template<typename CPIter>
         struct insert_grapheme_ref_impl;
 
         unencoded_rope rope_;
 
-        friend struct ::boost::text::v1::rope_view;
+        friend struct ::boost::text::rope_view;
 
         template<typename CPIter>
         friend struct insert_grapheme_ref_impl;
@@ -415,8 +431,8 @@ namespace boost { namespace text { inline namespace v1 {
             if (g.empty())
                 return at;
 
-            string s;
-            boost::text::v1::transcode_utf_32_to_8(
+            std::string s;
+            boost::text::transcode_to_utf8(
                 g.begin(), g.end(), std::inserter(s, s.end()));
             return r.insert_impl(at, std::move(s), true);
         }
@@ -433,7 +449,7 @@ namespace boost { namespace text { inline namespace v1 {
                 utf_8_to_32_iterator<char const *, Sentinel, ErrorHandler>> g)
         {
             return r.insert_impl(
-                at, string(g.begin().base(), g.end().base()), true);
+                at, std::string(g.begin().base(), g.end().base()), true);
         }
     };
 
@@ -448,7 +464,7 @@ namespace boost { namespace text { inline namespace v1 {
                 g)
         {
             return r.insert_impl(
-                at, string(g.begin().base(), g.end().base()), true);
+                at, std::string(g.begin().base(), g.end().base()), true);
         }
     };
 
@@ -476,16 +492,17 @@ namespace boost { namespace text { inline namespace v1 {
         return t.crend();
     }
 
-}}}
+}}
 
 #include <boost/text/text.hpp>
 #include <boost/text/rope_view.hpp>
-#include <boost/text/normalize.hpp>
+#include <boost/text/normalize_string.hpp>
+#include <boost/text/normalize_algorithm.hpp>
 #include <boost/text/detail/rope_iterator.hpp>
 
 #ifndef BOOST_TEXT_DOXYGEN
 
-namespace boost { namespace text { inline namespace v1 {
+namespace boost { namespace text {
 
     inline rope::rope(const_iterator first, const_iterator last) :
         rope(rope_view(first, last))
@@ -493,13 +510,17 @@ namespace boost { namespace text { inline namespace v1 {
 
     inline rope::rope(char const * c_str) : rope_(text(c_str).extract()) {}
 
+#if defined(__cpp_char8_t)
+    inline rope::rope(char8_t const * c_str) : rope((char const *)c_str) {}
+#endif
+
     inline rope::rope(rope_view rv) :
         rope_(rv.begin().base().base(), rv.end().base().base())
     {}
 
     inline rope::rope(string_view sv) : rope_(text(sv).extract()) {}
 
-    inline rope::rope(string s) : rope_(text(std::move(s)).extract()) {}
+    inline rope::rope(std::string s) : rope_(text(std::move(s)).extract()) {}
 
     inline rope::rope(text t) : rope_(std::move(t).extract()) {}
 
@@ -523,6 +544,13 @@ namespace boost { namespace text { inline namespace v1 {
         return *this;
     }
 
+#if defined(__cpp_char8_t)
+    inline rope & rope::operator=(char8_t const * c_str)
+    {
+        return *this = (char const *)c_str;
+    }
+#endif
+
     inline rope & rope::operator=(rope_view rv)
     {
         rope temp(rv);
@@ -537,7 +565,7 @@ namespace boost { namespace text { inline namespace v1 {
         return *this;
     }
 
-    inline rope & rope::operator=(string s)
+    inline rope & rope::operator=(std::string s)
     {
         rope temp(std::move(s));
         swap(temp);
@@ -615,49 +643,48 @@ namespace boost { namespace text { inline namespace v1 {
     inline rope::const_iterator
     rope::insert(const_iterator at, char const * c_str)
     {
-        return insert_impl(at, string(c_str), false);
+        return insert_impl(at, std::string(c_str), false);
     }
+
+#if defined(__cpp_char8_t)
+    inline rope::const_iterator
+    rope::insert(const_iterator at, char8_t const * c_str)
+    {
+        return insert_impl(at, std::string((char const *)c_str), false);
+    }
+#endif
 
     inline rope::const_iterator rope::insert(const_iterator at, rope_view rv)
     {
         // TODO: It would be better if we shared nodes with copied nodes from
         // rv.  Same for unencoded_rope probably.
         return insert_impl(
-            at, string(rv.begin().base().base(), rv.end().base().base()), true);
+            at, std::string(rv.begin().base().base(), rv.end().base().base()), true);
     }
 
-    inline rope::const_iterator rope::insert(const_iterator at, string && s)
+    inline rope::const_iterator rope::insert(const_iterator at, std::string && s)
     {
         return insert_impl(at, std::move(s), false);
     }
 
     inline rope::const_iterator rope::insert(const_iterator at, string_view sv)
     {
-        return insert_impl(at, string(sv), false);
-    }
-
-    inline rope::const_iterator
-    rope::insert(const_iterator at, repeated_string_view rsv)
-    {
-        bool const rsv_null_terminated =
-            !rsv.view().empty() && rsv.view().end()[-1] == '\0';
-        if (rsv_null_terminated)
-            rsv = repeat(rsv.view()(0, -1), rsv.count());
-        return insert_impl(at, string(rsv.begin(), rsv.end()), false);
+        return insert_impl(at, std::string(sv), false);
     }
 
     template<typename CharRange>
     auto rope::insert(const_iterator at, CharRange const & r)
         -> detail::rng_alg_ret_t<rope::const_iterator, CharRange>
     {
-        return insert_impl(at, string(r), false);
+        return insert_impl(
+            at, std::string(detail::make_string(r.begin(), r.end())), false);
     }
 
     template<typename CharIter, typename Sentinel>
     auto rope::insert(const_iterator at, CharIter first, Sentinel last)
         -> detail::char_iter_ret_t<rope::const_iterator, CharIter>
     {
-        return insert_impl(at, string(first, last), false);
+        return insert_impl(at, detail::make_string(first, last), false);
     }
 
     inline rope::const_iterator
@@ -691,18 +718,18 @@ namespace boost { namespace text { inline namespace v1 {
             utf_8_to_32_iterator<detail::const_rope_view_iterator>;
 
         mutable_utf32_view_iter first(this_rv_first, rv_first, this_rv_last);
-        first = boost::text::v1::find_if_backward(
+        first = boost::text::find_if_backward(
             mutable_utf32_view_iter(this_rv_first, this_rv_first, this_rv_last),
             first,
-            detail::stable_fcc_code_point);
+            detail::stable_code_point<nf::fcc>);
         mutable_utf32_view_iter last(this_rv_first, rv_last, this_rv_last);
 
-        last = boost::text::v1::find_if(
+        last = boost::text::find_if(
             last,
             mutable_utf32_view_iter(this_rv_last, this_rv_last, this_rv_last),
-            detail::stable_fcc_code_point);
+            detail::stable_code_point<nf::fcc>);
 
-        string str(first.base(), rv_first);
+        std::string str(first.base(), rv_first);
         str.insert(str.end(), rv_last, last.base());
 
         rope_.replace(
@@ -726,7 +753,7 @@ namespace boost { namespace text { inline namespace v1 {
     {
         replace_impl(
             old_substr,
-            string(
+            std::string(
                 new_substr.begin().base().base(),
                 new_substr.end().base().base()),
             true);
@@ -735,14 +762,7 @@ namespace boost { namespace text { inline namespace v1 {
 
     inline rope & rope::replace(rope_view old_substr, string_view new_substr)
     {
-        replace_impl(old_substr, string(new_substr), false);
-        return *this;
-    }
-
-    inline rope &
-    rope::replace(rope_view old_substr, repeated_string_view new_substr)
-    {
-        replace_impl(old_substr, string(new_substr), false);
+        replace_impl(old_substr, std::string(new_substr), false);
         return *this;
     }
 
@@ -760,11 +780,18 @@ namespace boost { namespace text { inline namespace v1 {
         return *this;
     }
 
+#if defined(__cpp_char8_t)
+    inline rope & rope::replace(rope_view old_substr, char8_t const * str)
+    {
+        return replace(old_substr, (char const *)str);
+    }
+#endif
+
     template<typename CharIter, typename Sentinel>
     auto rope::replace(rope_view old_substr, CharIter first, Sentinel last)
         -> detail::char_iter_ret_t<rope &, CharIter>
     {
-        replace_impl(old_substr, string(first, last), false);
+        replace_impl(old_substr, detail::make_string(first, last), false);
         return *this;
     }
 
@@ -791,6 +818,13 @@ namespace boost { namespace text { inline namespace v1 {
         return *this += string_view(c_str);
     }
 
+#if defined(__cpp_char8_t)
+    inline rope & rope::operator+=(char8_t const * c_str)
+    {
+        return *this += string_view((char const *)c_str);
+    }
+#endif
+
     inline rope & rope::operator+=(rope_view rv)
     {
         insert(end(), rv);
@@ -800,12 +834,6 @@ namespace boost { namespace text { inline namespace v1 {
     inline rope & rope::operator+=(string_view sv)
     {
         insert(end(), sv);
-        return *this;
-    }
-
-    inline rope & rope::operator+=(repeated_string_view rsv)
-    {
-        insert(end(), rsv);
         return *this;
     }
 
@@ -835,8 +863,8 @@ namespace boost { namespace text { inline namespace v1 {
     {
         auto const first =
             mutable_utf32_iter(rope_.begin(), rope_.begin(), rope_.end());
-        auto const it = boost::text::v1::find_if_backward(
-            first, last, detail::stable_fcc_code_point);
+        auto const it = boost::text::find_if_backward(
+            first, last, detail::stable_code_point<nf::fcc>);
         if (it == last)
             return first;
         return it;
@@ -847,21 +875,28 @@ namespace boost { namespace text { inline namespace v1 {
     {
         auto const last =
             mutable_utf32_iter(rope_.begin(), rope_.end(), rope_.end());
-        auto const it = boost::text::v1::find_if(
-            first, last, detail::stable_fcc_code_point);
+        auto const it = boost::text::find_if(
+            first, last, detail::stable_code_point<nf::fcc>);
         return it;
     }
 
     inline rope::const_iterator
-    rope::insert_impl(const_iterator at, string str, bool str_normalized)
+    rope::insert_impl(const_iterator at, std::string str, bool str_normalized)
     {
+        bool const str_null_terminated = !str.empty() && str.back() == '\0';
+        if (str_null_terminated)
+            str.resize(str.size() - 1);
         return replace_impl(rope_view(at, at), std::move(str), str_normalized);
     }
 
     inline rope::const_iterator
-    rope::replace_impl(rope_view old_substr, string str, bool str_normalized)
+    rope::replace_impl(rope_view old_substr, std::string str, bool str_normalized)
     {
         rope_view const this_rv(*this);
+
+        bool const str_null_terminated = !str.empty() && str.back() == '\0';
+        if (str_null_terminated)
+            str.resize(str.size() - 1);
 
         auto const lo =
             old_substr.begin().base().base() - this_rv.begin().base().base();
@@ -880,22 +915,28 @@ namespace boost { namespace text { inline namespace v1 {
         str.insert(str.end(), rope_last, last.base());
 
         if (str_normalized) {
-            using utf32_string_iter = utf_8_to_32_iterator<char const *>;
+            using utf32_string_iter =
+                utf_8_to_32_iterator<std::string::const_iterator>;
 
             if (last.base() != rope_last) {
                 auto const str_first = str.begin() + initial_str_end_offset;
                 auto const str_last =
-                    boost::text::v1::find_if_backward(
+                    boost::text::find_if_backward(
                         utf32_string_iter(str.begin(), str.begin(), str.end()),
                         utf32_string_iter(str.begin(), str_first, str.end()),
-                        detail::stable_fcc_code_point)
+                        detail::stable_code_point<nf::fcc>)
                         .base();
-                auto const suffix = str(str_last - str.end()); // negative index
+                auto const suffix =
+                    detail::substring(str, 0, str_last - str.begin());
                 container::small_vector<char, 256> buf;
-                boost::text::v1::normalize_to_fcc(
-                    boost::text::v1::as_utf32(suffix.begin(), suffix.end()),
-                    boost::text::v1::utf_32_to_8_back_inserter(buf));
-                str.replace(suffix, string_view(buf));
+                boost::text::normalize<nf::fcc>(
+                    boost::text::as_utf32(suffix.begin(), suffix.end()),
+                    boost::text::from_utf32_back_inserter(buf));
+                str.replace(
+                    str.begin(),
+                    str.begin() + (str_last - str.cbegin()),
+                    buf.begin(),
+                    buf.end());
             }
 
             if (first.base() != rope_first) {
@@ -905,22 +946,30 @@ namespace boost { namespace text { inline namespace v1 {
                     find_if(
                         utf32_string_iter(str.begin(), str_first, str.end()),
                         utf32_string_iter(str.begin(), str.end(), str.end()),
-                        detail::stable_fcc_code_point)
+                        detail::stable_code_point<nf::fcc>)
                         .base();
-                auto const prefix = str(str_last - str.begin());
+                auto const prefix =
+                    detail::substring(str, 0, str_last - str.begin());
                 container::small_vector<char, 256> buf;
-                boost::text::v1::normalize_to_fcc(
-                    boost::text::v1::as_utf32(prefix.begin(), prefix.end()),
-                    boost::text::v1::utf_32_to_8_back_inserter(buf));
-                str.replace(prefix, string_view(buf));
+                boost::text::normalize<nf::fcc>(
+                    boost::text::as_utf32(prefix.begin(), prefix.end()),
+                    boost::text::from_utf32_back_inserter(buf));
+                str.replace(
+                    str.begin(),
+                    str.begin() + (str_last - str.cbegin()),
+                    buf.begin(),
+                    buf.end());
             }
         } else {
-            boost::text::v1::normalize_to_fcc(str);
+            boost::text::normalize<nf::fcc>(str);
         }
 
-        auto const prev_initial_cp = *first;
-        auto const initial_cp = *boost::text::v1::make_utf_8_to_32_iterator(
-            str.begin(), str.begin(), str.end());
+        auto const prev_initial_cp =
+            first == last ? boost::text::replacement_character() : *first;
+        auto const initial_cp = str.empty()
+                                    ? boost::text::replacement_character()
+                                    : *boost::text::utf32_iterator(
+                                          str.begin(), str.begin(), str.end());
         auto const new_lo =
             initial_cp == prev_initial_cp ? lo : first.base() - rope_.begin();
 
@@ -933,18 +982,18 @@ namespace boost { namespace text { inline namespace v1 {
         auto insertion_cp_it = mutable_utf32_iter(
             rope_.begin(), rope_.begin() + new_lo, rope_.end());
         auto const first_cp_of_grapheme_it =
-            boost::text::v1::prev_grapheme_break(
+            boost::text::prev_grapheme_break(
                 begin().base(), insertion_cp_it, end().base());
 
         return make_iter(
             rope_.begin(), first_cp_of_grapheme_it.base(), rope_.end());
     }
 
-}}}
+}}
 
 #endif
 
-namespace boost { namespace text { inline namespace v1 {
+namespace boost { namespace text {
 
     inline bool operator==(text const & lhs, rope_view rhs) noexcept
     {
@@ -1035,6 +1084,20 @@ namespace boost { namespace text { inline namespace v1 {
         return rope(c_str) += r;
     }
 
+#if defined(__cpp_char8_t)
+    /** Creates a new rope object that is the concatenation of r and c_str. */
+    inline rope operator+(rope t, char8_t const * c_str)
+    {
+        return t += (char const *)c_str;
+    }
+
+    /** Creates a new rope object that is the concatenation of c_str and r. */
+    inline rope operator+(char8_t const * c_str, rope const & r)
+    {
+        return rope((char const *)c_str) += r;
+    }
+#endif
+
     /** Creates a new rope object that is the concatenation of r and r2. */
     inline rope operator+(rope r, rope const & r2) { return r += r2; }
 
@@ -1045,15 +1108,6 @@ namespace boost { namespace text { inline namespace v1 {
     inline rope operator+(rope_view rv, rope const & r)
     {
         return rope(rv) += r;
-    }
-
-    /** Creates a new rope object that is the concatenation of r and rsv. */
-    inline rope operator+(rope r, repeated_string_view rsv) { return r += rsv; }
-
-    /** Creates a new rope object that is the concatenation of rsv and r. */
-    inline rope operator+(repeated_string_view rsv, rope const & r)
-    {
-        return rope(rsv) += r;
     }
 
 #ifdef BOOST_TEXT_DOXYGEN
@@ -1126,35 +1180,39 @@ namespace boost { namespace text { inline namespace v1 {
     inline rope operator+(rope r, text const & t) { return r += t; }
 
 
-    inline text::iterator text::insert(iterator at, rope_view rv)
+    inline replace_result<text::iterator>
+    text::insert(iterator at, rope_view rv)
     {
         return insert_impl(
-            at, rv.begin().base().base(), rv.end().base().base(), true);
+            at,
+            rv.begin().base().base(),
+            rv.end().base().base(),
+            insertion_normalized);
     }
 
-    inline text & text::replace(text_view old_substr, rope_view new_substr)
+    inline replace_result<text::iterator>
+    text::replace(text_view old_substr, rope_view new_substr)
     {
-        replace_impl(
+        return replace_impl(
             old_substr,
             new_substr.begin().base().base(),
             new_substr.end().base().base(),
-            true);
-        return *this;
+            insertion_normalized);
     }
 
-}}}
+}}
 
 #ifndef BOOST_TEXT_DOXYGEN
 
 namespace std {
     template<>
-    struct hash<boost::text::v1::rope>
+    struct hash<boost::text::rope>
     {
-        using argument_type = boost::text::v1::rope;
+        using argument_type = boost::text::rope;
         using result_type = std::size_t;
         result_type operator()(argument_type const & r) const noexcept
         {
-            return boost::text::v1::detail::hash_grapheme_range(r);
+            return boost::text::detail::hash_grapheme_range(r);
         }
     };
 }

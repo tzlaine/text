@@ -7,7 +7,6 @@
 #define BOOST_TEXT_DETAIL_LEXER_HPP
 
 #include <boost/text/parser_fwd.hpp>
-#include <boost/text/string.hpp>
 #include <boost/text/string_utility.hpp>
 #include <boost/text/transcode_iterator.hpp>
 
@@ -17,7 +16,7 @@
 #include <iomanip>
 
 
-namespace boost { namespace text { inline namespace v1 { namespace detail {
+namespace boost { namespace text { namespace detail {
 
     struct token
     {
@@ -35,7 +34,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             line_(line),
             column_(column)
         {}
-        token(string identifier, int line, int column) :
+        token(std::string identifier, int line, int column) :
             kind_(token_kind::identifier),
             cp_(),
             identifier_(std::move(identifier)),
@@ -49,7 +48,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             BOOST_ASSERT(kind_ == token_kind::code_point);
             return cp_;
         }
-        string const & identifier() const { return identifier_; }
+        std::string const & identifier() const { return identifier_; }
         int line() const { return line_; }
         int column() const { return column_; }
 
@@ -88,7 +87,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
     private:
         token_kind kind_;
         uint32_t cp_;
-        string identifier_;
+        std::string identifier_;
         int line_;
         int column_;
     };
@@ -112,7 +111,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             auto tok_end = lat.tokens_.end();
             if (last_line) {
                 os << (str.begin() + lat.line_starts_[i]);
-                if (str[-1] != '\n')
+                if (str.back() != '\n')
                     os << "\n";
             } else {
                 os.write(
@@ -140,7 +139,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
 
     enum class diag_kind { error, warning, note };
 
-    inline string parse_diagnostic(
+    inline std::string parse_diagnostic(
         diag_kind kind,
         string_view msg,
         int line,
@@ -152,7 +151,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         auto to_string = [](int i) {
             std::ostringstream os;
             os << i;
-            return string(os.str());
+            return std::string(os.str());
         };
 
         if (line < 0 || column < 0) {
@@ -160,9 +159,9 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             column = line_starts.back();
         }
 
-        string str;
+        std::string str;
         if (!filename.empty()) {
-            str += filename;
+            str += std::string(filename);
             str += ":";
         }
         str += to_string(line + 1);
@@ -175,15 +174,15 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             str += "warning: ";
         else
             str += "note: ";
-        str += msg;
-        if (str.empty() || str[-1] != '\n')
+        str += std::string(msg);
+        if (str.empty() || str.back() != '\n')
             str += '\n';
 
         auto const line_start = sv.begin() + line_starts[line];
         auto const line_end = std::find(line_start, sv.end(), '\n');
         str.insert(str.end(), line_start, line_end);
         str += '\n';
-        str += repeated_string_view(" ", column);
+        str += std::string(column, ' ');
         str += "^\n";
 
         return str;
@@ -230,8 +229,8 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         };
 
         auto check_not_in_quote = [&](string_view sv) {
-            string msg("Unquoted newline character '");
-            msg += sv;
+            std::string msg("Unquoted newline character '");
+            msg += std::string(sv);
             msg += "' may not appear inside of a quote";
             if (in_quote)
                 report_error(msg, column);
@@ -264,8 +263,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         };
 
         auto is_space = [&](char initial_char) {
-            auto const code_units =
-                boost::text::v1::code_point_bytes(initial_char);
+            auto const code_units = boost::text::code_point_bytes(initial_char);
             if (code_units < 0 || last - first < code_units - 1)
                 return 0;
             auto const r = as_utf32(first - 1, first - 1 + code_units);
@@ -341,15 +339,14 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             retval.tokens_.push_back(detail::token(cp, line, initial_column));
         };
 
-        auto push_identifier = [&](string id) {
+        auto push_identifier = [&](std::string id) {
             retval.tokens_.push_back(
                 detail::token(std::move(id), line, initial_column));
         };
 
         auto lex_utf8 = [&](char initial_char) {
             // UTF-8 encoded code point.
-            auto const code_units =
-                boost::text::v1::code_point_bytes(initial_char);
+            auto const code_units = boost::text::code_point_bytes(initial_char);
             if (code_units < 0)
                 report_error("Invalid initial UTF-8 code unit", initial_column);
             *buf = initial_char;
@@ -419,7 +416,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
                         consume_one("");
                     newline();
                 } else {
-                    string msg("Unescaped syntax character \'");
+                    std::string msg("Unescaped syntax character \'");
                     msg += initial_char;
                     msg += "\'";
                     report_error(msg, initial_column);
@@ -536,7 +533,7 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             } else if (
                 !in_quote && brackets_nesting == 1 &&
                 is_id_char(initial_char)) {
-                string str;
+                std::string str;
                 str += initial_char;
                 while (first != last && is_id_char(*first)) {
                     str += consume_one("");
@@ -558,6 +555,6 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         return retval;
     }
 
-}}}}
+}}}
 
 #endif

@@ -10,7 +10,7 @@
 #include <boost/text/detail/case_mapping_data.hpp>
 
 
-namespace boost { namespace text { inline namespace v1 { namespace detail {
+namespace boost { namespace text { namespace detail {
 
     std::array<uint32_t, 3007> make_case_cps()
     {
@@ -21442,4 +21442,4 @@ return {{
         return std::unordered_set<uint32_t>(cps.begin(), cps.end());
     }
 
-}}}}
+}}}

@@ -15,7 +15,7 @@ namespace boost { namespace text { namespace data { namespace ca {
 
 inline string_view search_collation_tailoring()
 {
-    return string_view(
+    return string_view((char const *)
 u8R"(  
   
 [normalization on]

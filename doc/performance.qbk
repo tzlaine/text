@@ -27,7 +27,7 @@ non-SIMD code path; and "ICU" is is using `UnicodeString::fromUTF8()`.
 
 The ICU performance is shown as something of a baseline, given the ubiquity of
 ICU's use in Unicode-aware programs.  Note that ICU does not have convenient
-APIs for doing transcoding to an format but UTF-16.
+APIs for doing transcoding to any format but UTF-16.
 
 There are four take-always from this chart (and in fact all the other
 transcoding data):

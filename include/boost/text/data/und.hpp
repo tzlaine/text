@@ -20,7 +20,7 @@ namespace boost { namespace text { namespace data { namespace und {
 // the CE table accomplishes the same thing.
 inline string_view emoji_collation_tailoring()
 {
-    return string_view(
+    return string_view((char const *)
 u8"  \n"
 u8"& [last primary ignorable]<<*🏻🏼🏽🏾🏿🦰🦱🦳🦲\n"
 u8"& [before 1]¤\n"
@@ -344,7 +344,7 @@ u8"  \n");
 
 inline string_view eor_collation_tailoring()
 {
-    return string_view(
+    return string_view((char const *)
 u8R"(  
 &a
   <<ᴀ
@@ -886,7 +886,7 @@ u8R"(
 
 inline string_view search_collation_tailoring()
 {
-    return string_view(
+    return string_view((char const *)
 u8R"(  
 [normalization on]
 [suppressContractions [เ-ไ ເ-ໄ ꪵ ꪶ ꪹ ꪻ ꪼ\u19B5-\u19B7\u19BA]]

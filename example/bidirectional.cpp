@@ -87,7 +87,7 @@ translate English->Arabic, it produces "ثنائي الاتجاه
 مرحبا ، عالم".  I have no idea if it's correct.
 ************************************************************
 */
-std::cout << boost::text::repeat("*", 60) << "\n";
+std::cout << "**************************************************\n";
 for (auto range :
      boost::text::bidirectional_subranges(memory_order_text, 60, extent)) {
     for (auto grapheme : range) {
@@ -102,7 +102,7 @@ for (auto range :
     if (range.allowed_break())
         std::cout << "\n";
 }
-std::cout << boost::text::repeat("*", 60) << "\n";
+std::cout << "**************************************************\n";
 //]
 }
 

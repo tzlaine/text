@@ -9,14 +9,14 @@
 #include <boost/text/detail/iterator.hpp>
 
 
-namespace boost { namespace text { inline namespace v1 {
+namespace boost { namespace text {
 
     struct unencoded_rope_view;
     struct rope_view;
 
-}}}
+}}
 
-namespace boost { namespace text { inline namespace v1 { namespace detail {
+namespace boost { namespace text { namespace detail {
 
     struct const_rope_iterator : stl_interfaces::iterator_interface<
                                      const_rope_iterator,
@@ -79,13 +79,9 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         {
             switch (leaf_->which_) {
             case which::t: {
-                string const * t = static_cast<string *>(leaf_->buf_ptr_);
+                std::string const * t =
+                    static_cast<std::string *>(leaf_->buf_ptr_);
                 return *(t->begin() + (n_ - leaf_start_));
-            }
-            case which::rtv: {
-                repeated_string_view const * rtv =
-                    static_cast<repeated_string_view *>(leaf_->buf_ptr_);
-                return *(rtv->begin() + (n_ - leaf_start_));
             }
             case which::ref: {
                 detail::reference<rope_tag> const * ref =
@@ -102,8 +98,8 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
         mutable leaf_node_t<rope_tag> const * leaf_;
         mutable std::ptrdiff_t leaf_start_;
 
-        friend struct ::boost::text::v1::unencoded_rope_view;
-        friend struct ::boost::text::v1::rope_view;
+        friend struct ::boost::text::unencoded_rope_view;
+        friend struct ::boost::text::rope_view;
     };
 
     struct const_rope_view_iterator : stl_interfaces::iterator_interface<
@@ -121,11 +117,6 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             tv_(it),
             which_(which::tv)
         {}
-        explicit const_rope_view_iterator(
-            const_repeated_chars_iterator it) noexcept :
-            rtv_(it),
-            which_(which::rtv)
-        {}
 
         const_rope_iterator as_rope_iter() const
         {
@@ -138,7 +129,6 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             switch (which_) {
             case which::r: return *r_;
             case which::tv: return *tv_;
-            case which::rtv: return *rtv_;
             }
             return '\0'; // This should never execute.
         }
@@ -147,7 +137,6 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             switch (which_) {
             case which::r: r_ += n; break;
             case which::tv: tv_ += n; break;
-            case which::rtv: rtv_ += n; break;
             }
             return *this;
         }
@@ -160,7 +149,6 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             switch (lhs.which_) {
             case which::r: return lhs.r_ == rhs.r_;
             case which::tv: return lhs.tv_ == rhs.tv_;
-            case which::rtv: return lhs.rtv_ == rhs.rtv_;
             }
             return false; // This should never execute.
         }
@@ -177,7 +165,6 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             switch (lhs.which_) {
             case which::r: return lhs.r_ < rhs.r_;
             case which::tv: return lhs.tv_ < rhs.tv_;
-            case which::rtv: return lhs.rtv_ < rhs.rtv_;
             }
             return false; // This should never execute.
         }
@@ -205,21 +192,19 @@ namespace boost { namespace text { inline namespace v1 { namespace detail {
             switch (lhs.which_) {
             case which::r: return lhs.r_ - rhs.r_;
             case which::tv: return lhs.tv_ - rhs.tv_;
-            case which::rtv: return lhs.rtv_ - rhs.rtv_;
             }
             return 0; // This should never execute.
         }
 
     private:
-        enum class which { r, tv, rtv };
+        enum class which { r, tv };
 
         const_rope_iterator r_;
         char const * tv_;
-        const_repeated_chars_iterator rtv_;
 
         which which_;
     };
 
-}}}}
+}}}
 
 #endif

@@ -53,21 +53,23 @@ TEST(normalization, idempotence)
     for (uint32_t i = 0; i < 0x11000; ++i) {{
         if (handled_cps.count(i))
             continue;
+        if (boost::text::surrogate(i))
+            continue;
 
         uint32_t cp[1] = {{i}};
-        boost::text::string str = boost::text::to_string(cp, cp + 1);
-        boost::text::string const initial_str = str;
+        std::string str = boost::text::to_string(cp, cp + 1);
+        std::string const initial_str = str;
 
-        boost::text::normalize_to_nfc(str);
+        boost::text::normalize<boost::text::nf::c>(str);
         EXPECT_EQ(str, initial_str);
 
-        boost::text::normalize_to_nfd(str);
+        boost::text::normalize<boost::text::nf::d>(str);
         EXPECT_EQ(str, initial_str);
 
-        boost::text::normalize_to_nfkd(str);
+        boost::text::normalize<boost::text::nf::kd>(str);
         EXPECT_EQ(str, initial_str);
 
-        boost::text::normalize_to_nfkc(str);
+        boost::text::normalize<boost::text::nf::kc>(str);
         EXPECT_EQ(str, initial_str);
     }}
 }}
@@ -148,7 +150,7 @@ def generate_perf_test(tests):
             (fields, line, comment) = elem
             all_c1_cps += fields[0]
         test_lines += '''{0}
-boost::text::string const str_{1:03} = boost::text::to_string(cps_{1:03}.begin(), cps_{1:03}.end());'''.format(arrayify(all_c1_cps, 'const cps_{:03}'.format(i)), i)
+std::string const str_{1:03} = boost::text::to_string(cps_{1:03}.begin(), cps_{1:03}.end());'''.format(arrayify(all_c1_cps, 'const cps_{:03}'.format(i)), i)
 
         test_lines += '''
 
@@ -156,7 +158,7 @@ void BM_normalize_{0:03}(benchmark::State & state)
 {{
 '''.format(i)
         for j in range(0, 4):
-            test_lines += '    boost::text::string {0}_str;\n'.format(normalizations[j])
+            test_lines += '    std::string {0}_str;\n'.format(normalizations[j])
         test_lines += '''
     while (state.KeepRunning()) {
         state.PauseTiming();
@@ -168,7 +170,7 @@ void BM_normalize_{0:03}(benchmark::State & state)
 '''
         for j in range(0, 4):
             test_lines += \
-              '        boost::text::normalize_to_{0}({0}_str);\n'.format(normalizations[j])
+              '        boost::text::normalize<boost::text::nf::{0}>({0}_str);\n'.format(normalizations[j][2:], normalizations[j])
         test_lines += '''    }}
 }}
 BENCHMARK(BM_normalize_{:03});
@@ -186,8 +188,8 @@ def generate_test_prefix(normalization, chunk_idx, test_idx, line, comment, fiel
         for i in range(0, 4):
             if fields[f + 1] == fields[i + 1]:
                 normalized_checks += \
-              '        EXPECT_TRUE(boost::text::normalized_{0}(c{1}.begin(), c{1}.end()));\n'.format(\
-                normalizations[i], f + 2)
+              '        EXPECT_TRUE(boost::text::normalized<boost::text::nf::{0}>(c{1}.begin(), c{1}.end()));\n'.format(\
+                normalizations[i][2:], f + 2)
         normalized_checks += '\n'
     return '''
 TEST(normalization, {0}_{1:03}_{2:03})
@@ -206,8 +208,8 @@ TEST(normalization, {0}_{1:03}_{2:03})
 def generate_norm_check(normalization, from_, to_):
     return '''
         {{
-            boost::text::string str = boost::text::to_string({1}.begin(), {1}.end());
-            boost::text::normalize_to_{0}(str);
+            std::string str = boost::text::to_string({1}.begin(), {1}.end());
+            boost::text::normalize<boost::text::nf::{0}>(str);
             auto const r = boost::text::as_utf32(str);
             EXPECT_EQ(std::distance(r.begin(), r.end()), (std::ptrdiff_t){2}.size());
             auto {2}_it = {2}.begin();
@@ -218,7 +220,7 @@ def generate_norm_check(normalization, from_, to_):
                 ++i;
             }}
         }}
-'''.format(normalization, from_, to_)
+'''.format(normalization[2:], from_, to_)
 
 def generate_nfc_tests(tests):
     for i in range(len(tests)):
