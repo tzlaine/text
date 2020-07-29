@@ -106,12 +106,13 @@
 [def _8_to_16_iter_        [classref boost::text::v1::utf_8_to_16_iterator  `utf_8_to_16_iterator`]]
 [def _8_to_32_iter_        [classref boost::text::v1::utf_8_to_32_iterator  `utf_8_to_32_iterator`]]
 
-[def _tc_8_to_16_          [funcref boost::text::v1::transcode_utf_8_to_16  `transcode_utf_8_to_16()`]]
-[def _tc_8_to_32_          [funcref boost::text::v1::transcode_utf_8_to_32  `transcode_utf_8_to_32()`]]
-[def _tc_16_to_8_          [funcref boost::text::v1::transcode_utf_16_to_8  `transcode_utf_16_to_8()`]]
-[def _tc_16_to_32_         [funcref boost::text::v1::transcode_utf_16_to_32 `transcode_utf_16_to_32()`]]
-[def _tc_32_to_8_          [funcref boost::text::v1::transcode_utf_32_to_8  `transcode_utf_32_to_8()`]]
-[def _tc_32_to_16_         [funcref boost::text::v1::transcode_utf_32_to_16 `transcode_utf_32_to_16()`]]
+[def _8_iter_        [funcref boost::text::v1::utf8_iterator  `utf8_iterator()`]]
+[def _16_iter_       [funcref boost::text::v1::utf16_iterator  `utf16_iterator()`]]
+[def _32_iter_       [funcref boost::text::v1::utf32_iterator  `utf32_iterator()`]]
+
+[def _tc_to_8_       [funcref boost::text::v1::transcode_to_utf8  `transcode_to_utf8()`]]
+[def _tc_to_16_      [funcref boost::text::v1::transcode_to_utf16  `transcode_to_utf16()`]]
+[def _tc_to_32_      [funcref boost::text::v1::transcode_to_utf32  `transcode_to_utf32()`]]
 
 [def _norm_str_header_     [link header.boost.text.normalize_string_hpp normalize_string.hpp]]
 
@@ -188,6 +189,7 @@
 [def _ce_                  `constexpr`]
 
 [def _seg_vec_docs_        [link boost_text__proposed_.segmented_vector_ `segmented_vector documentation`]]
+[def _unpacking_           [link boost_text__proposed_.unicode_layer.iterator__unpacking_iterators_ ]]
 
 [def _Rope_                [@https://en.wikipedia.org/wiki/Rope_(data_structure) Rope]]
 [def _Trie_                [@https://en.wikipedia.org/wiki/Trie Trie]]
