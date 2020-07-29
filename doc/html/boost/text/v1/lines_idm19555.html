@@ -1,0 +1,47 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Function template lines</title>
+<link rel="stylesheet" href="../../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="../../../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="up" href="../../../header/boost/text/line_break_hpp.html" title="Header &lt;boost/text/line_break.hpp&gt;">
+<link rel="prev" href="lines_idm19527.html" title="Function template lines">
+<link rel="next" href="lines_idm19580.html" title="Function template lines">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="lines_idm19527.html"><img src="../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../../header/boost/text/line_break_hpp.html"><img src="../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../images/home.png" alt="Home"></a><a accesskey="n" href="lines_idm19580.html"><img src="../../../images/next.png" alt="Next"></a>
+</div>
+<div class="refentry">
+<a name="boost.text.v1.lines_idm19555"></a><div class="titlepage"></div>
+<div class="refnamediv">
+<h2><span class="refentrytitle">Function template lines</span></h2>
+<p>boost::text::v1::lines</p>
+</div>
+<h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
+<div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="comment">// In header: &lt;<a class="link" href="../../../header/boost/text/line_break_hpp.html" title="Header &lt;boost/text/line_break.hpp&gt;">boost/text/line_break.hpp</a>&gt;
+
+</span>
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CPRange<span class="special">,</span> <span class="keyword">typename</span> Extent<span class="special">,</span> <span class="keyword">typename</span> CPExtentFunc<span class="special">&gt;</span> 
+  <span class="emphasis"><em><span class="identifier">unspecified</span></em></span> <span class="identifier">lines</span><span class="special">(</span><span class="identifier">CPRange</span> <span class="special">&amp;</span> range<span class="special">,</span> <span class="identifier">Extent</span> max_extent<span class="special">,</span> 
+                    <span class="identifier">CPExtentFunc</span> cp_extent<span class="special">,</span> <span class="keyword">bool</span> break_overlong_lines <span class="special">=</span> <span class="keyword">true</span><span class="special">)</span><span class="special">;</span></pre></div>
+<div class="refsect1">
+<a name="idm28777"></a><h2>Description</h2>
+<p>Returns a lazy range of the code point ranges in <code class="computeroutput">range</code> delimiting lines. A line that does not end in a hard break will end in a allowed break that does not exceed <code class="computeroutput">max_extent</code>, using the code point extents derived from <code class="computeroutput">CPExtentFunc</code>. When a line has no allowed breaks before it would exceed <code class="computeroutput">max_extent</code>, it will be broken only if <code class="computeroutput">break_overlong_lines</code> is true. If <code class="computeroutput">break_overlong_lines</code> is false, such an unbreakable line will exceed <code class="computeroutput">max_extent</code>. </p>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2018 T. Zachary Laine<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="lines_idm19527.html"><img src="../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../../header/boost/text/line_break_hpp.html"><img src="../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../images/home.png" alt="Home"></a><a accesskey="n" href="lines_idm19580.html"><img src="../../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>
