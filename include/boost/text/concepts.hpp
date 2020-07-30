@@ -8,7 +8,7 @@
 
 #include <boost/text/config.hpp>
 
-#if defined(__cpp_lib_concepts)
+#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
 
 #include <ranges>
 

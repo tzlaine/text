@@ -153,7 +153,7 @@ namespace boost { namespace text {
     /** A view over UTF-8 code units.  The set of operations available depends
         on types `I` and `S`.  See [view.interface] in the C++20 or later
         standard for details. */
-#if defined(__cpp_lib_concepts)
+#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
     template<u8_iter I, std::sentinel_for<I> S = I>
 #else
     template<typename I, typename S = I>
@@ -219,7 +219,7 @@ namespace boost { namespace text {
     /** A view over UTF-16 code units.  The set of operations available
         depends on types `I` and `S`.  See [view.interface] in the
         C++20 or later standard for details. */
-#if defined(__cpp_lib_concepts)
+#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
     template<u16_iter I, std::sentinel_for<I> S = I>
 #else
     template<typename I, typename S = I>
@@ -285,7 +285,7 @@ namespace boost { namespace text {
     /** A view over UTF-32 code units.  The set of operations available
         depends on types `I` and `S`.  See [view.interface] in the
         C++20 or later standard for details. */
-#if defined(__cpp_lib_concepts)
+#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
     template<u32_iter I, std::sentinel_for<I> S = I>
 #else
     template<typename I, typename S = I>
@@ -489,7 +489,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     }
 }}}
 
-#if defined(__cpp_lib_concepts)
+#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 

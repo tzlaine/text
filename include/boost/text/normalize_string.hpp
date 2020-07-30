@@ -213,7 +213,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
 }}}
 
-#if defined(__cpp_lib_concepts)
+#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
