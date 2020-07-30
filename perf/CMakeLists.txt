@@ -3,11 +3,13 @@ if (NOT MSVC)
     set(warnings_flag -Wall)
 endif ()
 
+set(DISABLE_ICU ${LIMIT_TESTING_FOR_CI})
+
 macro(add_perf_executable name)
     add_executable(${name} ${name}.cpp)
     target_compile_options(${name} PRIVATE ${warnings_flag})
     target_link_libraries(${name} text benchmark)
-    if (ICU_FOUND AND NOT LIMIT_TESTING_FOR_CI)
+    if (ICU_FOUND AND NOT DISABLE_ICU)
         target_include_directories(${name} PRIVATE ${ICU_INCLUDE_DIR})
         target_link_libraries(
             ${name}
@@ -120,7 +122,7 @@ add_custom_target(perf_comparison
 ##################################
 # Perf comparisons against ICU   #
 ##################################
-if (NOT ICU_FOUND OR LIMIT_TESTING_FOR_CI)
+if (NOT ICU_FOUND OR DISABLE_ICU)
     return()
 endif()
 
