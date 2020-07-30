@@ -554,7 +554,7 @@ namespace boost { namespace trie {
         }
 
         /** Writes the sequence of elements that would advance `prev` by one
-            element to `out`, and returns the final value of \out after the
+            element to `out`, and returns the final value of `out` after the
             writes. */
         template<typename OutIter>
         OutIter copy_next_key_elements(match_result prev, OutIter out) const
