@@ -408,25 +408,7 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
         };
     }
 
-#if 0
-    /** Returns the bounds of the grapheme that `it` lies within. */
-    template<typename CPIter, typename Sentinel>
-    utf32_view<CPIter> grapheme(CPIter first, CPIter it, Sentinel last) noexcept
-    {
-        first = boost::text::prev_grapheme_break(first, it, last);
-        return utf32_view<CPIter>{
-            first, boost::text::next_grapheme_break(first, last)};
-    }
-#endif
-
 #ifdef BOOST_TEXT_DOXYGEN
-
-#if 0
-    /** Returns the bounds of the grapheme that `it` lies within,
-        as a utf32_view. */
-    template<typename CPRange, typename CPIter>
-    detail::undefined grapheme(CPRange & range, CPIter it) noexcept;
-#endif
 
     /** Returns a lazy range of the code point ranges delimiting graphemes in
         `[first, last)`. */
@@ -449,18 +431,6 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
     detail::undefined reversed_graphemes(CPRange & range) noexcept;
 
 #else
-
-#if 0
-    template<typename CPRange, typename CPIter>
-    auto grapheme(CPRange & range, CPIter it) noexcept
-        -> utf32_view<detail::iterator_t<CPRange>>
-    {
-        auto first = boost::text::prev_grapheme_break(
-            std::begin(range), it, std::end(range));
-        return utf32_view<CPIter>{
-            first, boost::text::next_grapheme_break(first, range.end())};
-    }
-#endif
 
     template<typename CPIter, typename Sentinel>
     lazy_segment_range<
