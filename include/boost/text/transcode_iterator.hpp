@@ -755,7 +755,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
 }}}
 
-#if defined(__cpp_lib_concepts)
+#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
@@ -982,7 +982,7 @@ namespace boost { namespace text {
 
 
     /** A UTF-8 to UTF-16 converting iterator. */
-#if defined(__cpp_lib_concepts)
+#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
     template<
         u8_iter I,
         std::sentinel_for<I> S = I,
@@ -997,7 +997,7 @@ namespace boost { namespace text {
 
 
     /** A UTF-32 to UTF-8 converting iterator. */
-#if defined(__cpp_lib_concepts)
+#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
     template<
         u32_iter I,
         std::sentinel_for<I> S = I,
@@ -1143,7 +1143,7 @@ namespace boost { namespace text {
         int index_;
         std::array<char, 5> buf_;
 
-#if defined(__cpp_lib_concepts)
+#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
         template<
             u32_iter I2,
             std::sentinel_for<I2> S2,
@@ -1232,7 +1232,7 @@ namespace boost { namespace text {
 
 
     /** An out iterator that converts UTF-32 to UTF-8. */
-#if defined(__cpp_lib_concepts)
+#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
     template<std::output_iterator<uint8_t> Iter>
 #else
     template<typename Iter>
@@ -1331,7 +1331,7 @@ namespace boost { namespace text {
 
 
     /** A UTF-8 to UTF-32 converting iterator. */
-#if defined(__cpp_lib_concepts)
+#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
     template<
         u8_iter I,
         std::sentinel_for<I> S = I,
@@ -1649,7 +1649,7 @@ namespace boost { namespace text {
         I it_;
         S last_;
 
-#if defined(__cpp_lib_concepts)
+#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
         template<
             u8_iter I2,
             std::sentinel_for<I2> S2,
@@ -1659,7 +1659,7 @@ namespace boost { namespace text {
 #endif
         friend struct utf_8_to_16_iterator;
 
-#if defined(__cpp_lib_concepts)
+#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
         template<
             u8_iter I2,
             std::sentinel_for<I2> S2,
@@ -1783,7 +1783,7 @@ namespace boost { namespace text {
     }
 
     /** An out iterator that converts UTF-8 to UTF-32. */
-#if defined(__cpp_lib_concepts)
+#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
     template<std::output_iterator<uint32_t> Iter>
 #else
     template<typename Iter>
@@ -1910,7 +1910,7 @@ namespace boost { namespace text {
 
 
     /** A UTF-32 to UTF-16 converting iterator. */
-#if defined(__cpp_lib_concepts)
+#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
     template<
         u32_iter I,
         std::sentinel_for<I> S = I,
@@ -2052,7 +2052,7 @@ namespace boost { namespace text {
         int index_;
         std::array<uint16_t, 4> buf_;
 
-#if defined(__cpp_lib_concepts)
+#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
         template<
             u32_iter I2,
             std::sentinel_for<I2> S2,
@@ -2140,7 +2140,7 @@ namespace boost { namespace text {
 
 
     /** An out iterator that converts UTF-8 to UTF-16. */
-#if defined(__cpp_lib_concepts)
+#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
     template<std::output_iterator<uint16_t> Iter>
 #else
     template<typename Iter>
@@ -2240,7 +2240,7 @@ namespace boost { namespace text {
 
 
     /** A UTF-16 to UTF-32 converting iterator. */
-#if defined(__cpp_lib_concepts)
+#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
     template<
         u16_iter I,
         std::sentinel_for<I> S = I,
@@ -2400,7 +2400,7 @@ namespace boost { namespace text {
         I it_;
         S last_;
 
-#if defined(__cpp_lib_concepts)
+#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
         template<
             u32_iter I2,
             std::sentinel_for<I2> S2,
@@ -2410,7 +2410,7 @@ namespace boost { namespace text {
 #endif
         friend struct utf_32_to_16_iterator;
 
-#if defined(__cpp_lib_concepts)
+#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
         template<
             u16_iter I2,
             std::sentinel_for<I2> S2,
@@ -2532,7 +2532,7 @@ namespace boost { namespace text {
     }
 
     /** An out iterator that converts UTF-16 to UTF-32. */
-#if defined(__cpp_lib_concepts)
+#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
     template<std::output_iterator<uint32_t> Iter>
 #else
     template<typename Iter>
@@ -2656,7 +2656,7 @@ namespace boost { namespace text {
 
 
     /** A UTF-16 to UTF-8 converting iterator. */
-#if defined(__cpp_lib_concepts)
+#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
     template<
         u16_iter I,
         std::sentinel_for<I> S = I,
@@ -2858,7 +2858,7 @@ namespace boost { namespace text {
         static uint32_t const surrogate_offset =
             0x10000 - (high_surrogate_min << 10) - low_surrogate_min;
 
-#if defined(__cpp_lib_concepts)
+#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
         template<
             u16_iter I2,
             std::sentinel_for<I2> S2,
@@ -2973,7 +2973,7 @@ namespace boost { namespace text {
     }
 
     /** An out iterator that converts UTF-16 to UTF-8. */
-#if defined(__cpp_lib_concepts)
+#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
     template<std::output_iterator<uint8_t> Iter>
 #else
     template<typename Iter>
@@ -3095,7 +3095,7 @@ namespace boost { namespace text {
     };
 
 
-#if defined(__cpp_lib_concepts)
+#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
     template<
         u8_iter I,
         std::sentinel_for<I> S,
@@ -3210,7 +3210,7 @@ namespace boost { namespace text {
         int index_;
         std::array<uint16_t, 4> buf_;
 
-#if defined(__cpp_lib_concepts)
+#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
         template<
             u8_iter I2,
             std::sentinel_for<I2> S2,
@@ -3331,7 +3331,7 @@ namespace boost { namespace text {
     }
 
     /** An out iterator that converts UTF-8 to UTF-16. */
-#if defined(__cpp_lib_concepts)
+#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
     template<std::output_iterator<uint16_t> Iter>
 #else
     template<typename Iter>
@@ -3876,7 +3876,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
 }}}
 
-#if defined(__cpp_lib_concepts)
+#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
