@@ -90,7 +90,7 @@ know.  Consider yourself warned.
 
 [endsect]
 
-[section Use of C++20 Concepts]
+[section The `v1` and `v2` Namespaces, and the Use of C++20 Concepts]
 
 For much of this library, there are two interfaces: one in namespace
 `boost::text::v1`, and one in `boost::text::v2`.  The `v1` version uses SFINAE
