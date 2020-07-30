@@ -17,10 +17,10 @@ built with GCC on Linux.
 Here are the relative timings for UTF-8 to UTF-16 transcoding, using various
 methods (smaller is better).  The input was around half a megabyte of text
 from Wikipedia.  "Iterators" is using `std::copy` from _8_to_16_iter_ to a
-pointer; "Algorithm std::back_inserter" is using _tc_8_to_16_ in the SIMD code
+pointer; "Algorithm std::back_inserter" is using _tc_to_16_ in the SIMD code
 path, and outputting to a `std::back_insert_iterator`; "Algorithm using SIMD"
-is using _tc_8_to_16_ from pointer to pointer in the SIMD-using code path;
-"Algorithm using SIMD" is using _tc_8_to_16_ from pointer to pointer in the
+is using _tc_to_16_ from pointer to pointer in the SIMD-using code path;
+"Algorithm using SIMD" is using _tc_to_16_ from pointer to pointer in the
 non-SIMD code path; and "ICU" is is using `UnicodeString::fromUTF8()`.
 
 [$../../doc/utf_8_to_16_perf.svg]
