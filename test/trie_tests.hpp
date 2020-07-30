@@ -25,7 +25,7 @@ namespace std {
 template<typename Key, typename Value>
 void dump(
     std::ostream & os,
-    boost::trie::detail::trie_node_t<Key, Value> const & node,
+    boost::text::detail::trie_node_t<Key, Value> const & node,
     int indent = 1)
 {
     auto ind = [indent] { return string::string(indent * 2, ' '); };
@@ -51,7 +51,7 @@ void dump(
     }
 }
 template<typename Key, typename Value>
-void dump(std::ostream & os, boost::trie::trie_map<Key, Value> const & trie)
+void dump(std::ostream & os, boost::text::trie_map<Key, Value> const & trie)
 {
     os << "==== TRIE ====\n"
        << "  " << trie.size() << " elements\n"

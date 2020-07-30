@@ -10,7 +10,7 @@
 
 void bool_conversions()
 {
-    boost::trie::trie<std::string, bool> t;
+    boost::text::trie<std::string, bool> t;
 
     auto nf = t["not-found"];
 
@@ -22,7 +22,7 @@ void bool_conversions()
 
 void convertible_to_bool_conversions()
 {
-    boost::trie::trie<std::string, int> t;
+    boost::text::trie<std::string, int> t;
 
     auto nf = t["not-found"];
 
@@ -34,7 +34,7 @@ void convertible_to_bool_conversions()
 
 void bool_assignment()
 {
-    boost::trie::trie<std::string, bool> t = {{std::string("found"), false}};
+    boost::text::trie<std::string, bool> t = {{std::string("found"), false}};
 
     auto f = t["found"];
 
@@ -47,7 +47,7 @@ void bool_assignment()
 
 void non_bool_assignment()
 {
-    boost::trie::trie<std::string, int> t = {{std::string("found"), 0}};
+    boost::text::trie<std::string, int> t = {{std::string("found"), 0}};
 
     auto f = t["found"];
 

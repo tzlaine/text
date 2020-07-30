@@ -18,7 +18,7 @@ using namespace boost;
 TEST(trie_map1, const_access)
 {
     {
-        trie::trie_map<std::vector<int>, int> const trie(
+        boost::text::trie_map<std::vector<int>, int> const trie(
             {{{0, 1, 3}, 13}, {{0}, 17}, {{0, 1, 2}, 19}});
 
         EXPECT_FALSE(trie.empty());
@@ -26,10 +26,10 @@ TEST(trie_map1, const_access)
         EXPECT_EQ(trie.max_size(), PTRDIFF_MAX);
 
         {
-            std::vector<trie::trie_element<std::vector<int>, int>> const
+            std::vector<text::trie_element<std::vector<int>, int>> const
                 expected_elements = {
                     {{0}, 17}, {{0, 1, 2}, 19}, {{0, 1, 3}, 13}};
-            std::vector<trie::trie_element<std::vector<int>, int>>
+            std::vector<text::trie_element<std::vector<int>, int>>
                 copied_elements(trie.size());
 
             std::copy(trie.begin(), trie.end(), copied_elements.begin());
@@ -41,7 +41,7 @@ TEST(trie_map1, const_access)
     }
 
     {
-        trie::trie_map<std::string, int> const trie({{"", 42}});
+        boost::text::trie_map<std::string, int> const trie({{"", 42}});
         auto const _it = trie.begin();
         EXPECT_EQ(_it->key, "");
 
@@ -52,7 +52,7 @@ TEST(trie_map1, const_access)
     }
 
     {
-        trie::trie_map<std::wstring, int> const trie({{L"", 42}});
+        boost::text::trie_map<std::wstring, int> const trie({{L"", 42}});
         auto const _it = trie.begin();
         EXPECT_EQ(_it->key, L"");
 
@@ -63,7 +63,7 @@ TEST(trie_map1, const_access)
     }
 
     {
-        trie::trie_map<std::string, int> const trie({{"w", 42}});
+        boost::text::trie_map<std::string, int> const trie({{"w", 42}});
         auto const _it = trie.begin();
         EXPECT_EQ(_it->key, "w");
 
@@ -74,7 +74,7 @@ TEST(trie_map1, const_access)
     }
 
     {
-        trie::trie_map<std::string, int> const trie(
+        boost::text::trie_map<std::string, int> const trie(
             {{"foo", 13}, {"bar", 17}, {"fool", 19}, {"foon", 19}, {"", 42}});
 
 #if ENABLE_DUMP
@@ -242,7 +242,7 @@ TEST(trie_map1, const_access)
 TEST(trie_map1, mutable_access)
 {
     {
-        trie::trie_map<std::vector<int>, int> trie(
+        boost::text::trie_map<std::vector<int>, int> trie(
             {{{0, 1, 3}, 13}, {{0}, 17}, {{0, 1, 2}, 19}});
 
         EXPECT_FALSE(trie.empty());
@@ -250,10 +250,10 @@ TEST(trie_map1, mutable_access)
         EXPECT_EQ(trie.max_size(), PTRDIFF_MAX);
 
         {
-            std::vector<trie::trie_element<std::vector<int>, int>> const
+            std::vector<text::trie_element<std::vector<int>, int>> const
                 expected_elements = {
                     {{0}, 17}, {{0, 1, 2}, 19}, {{0, 1, 3}, 13}};
-            std::vector<trie::trie_element<std::vector<int>, int>>
+            std::vector<text::trie_element<std::vector<int>, int>>
                 copied_elements(trie.size());
 
             std::copy(trie.begin(), trie.end(), copied_elements.begin());
@@ -265,7 +265,7 @@ TEST(trie_map1, mutable_access)
     }
 
     {
-        trie::trie_map<std::string, int> trie({{"", 42}});
+        boost::text::trie_map<std::string, int> trie({{"", 42}});
         auto const _it = trie.begin();
         EXPECT_EQ(_it->key, "");
 
@@ -276,7 +276,7 @@ TEST(trie_map1, mutable_access)
     }
 
     {
-        trie::trie_map<std::string, int> trie({{"w", 42}});
+        boost::text::trie_map<std::string, int> trie({{"w", 42}});
         auto const _it = trie.begin();
         EXPECT_EQ(_it->key, "w");
 
@@ -287,7 +287,7 @@ TEST(trie_map1, mutable_access)
     }
 
     {
-        trie::trie_map<std::string, int> trie(
+        boost::text::trie_map<std::string, int> trie(
             {{"foo", 13}, {"bar", 17}, {"fool", 19}, {"foon", 19}, {"", 42}});
 
 #if ENABLE_DUMP
@@ -455,7 +455,7 @@ TEST(trie_map1, mutable_access)
 TEST(trie_map, index_operator)
 {
     {
-        trie::trie_map<std::string, int> trie(
+        boost::text::trie_map<std::string, int> trie(
             {{"foo", 13}, {"bar", 17}, {"foos", 19}, {"", 0}});
 
         EXPECT_TRUE(trie["foo"]);
@@ -499,7 +499,7 @@ TEST(trie_map, index_operator)
     }
 
     {
-        trie::trie_map<std::string, int> const trie(
+        boost::text::trie_map<std::string, int> const trie(
             {{"foo", 13}, {"bar", 17}, {"foos", 19}, {"", 0}});
 
         EXPECT_TRUE(trie["foo"]);
@@ -522,7 +522,7 @@ TEST(trie_map, index_operator)
     }
 
     {
-        trie::trie_map<std::string, int> const trie(
+        boost::text::trie_map<std::string, int> const trie(
             {{"foo", 13}, {"bar", 17}, {"foos", 19}, {"", 0}});
 
         if (trie["foo"])
@@ -548,7 +548,7 @@ TEST(trie_map, index_operator)
     }
 
     {
-        trie::trie_map<std::string, int> int_counts;
+        boost::text::trie_map<std::string, int> int_counts;
         auto y = int_counts["Hello"];
         (void)y;
         if (int_counts["Hello"])
@@ -560,7 +560,7 @@ TEST(trie_map, index_operator)
 
 TEST(trie_map, insert)
 {
-    trie::trie_map<std::string, int> trie;
+    boost::text::trie_map<std::string, int> trie;
 
     auto result = trie.insert("", -214);
     EXPECT_EQ(result.iter, trie.find(""));
@@ -578,7 +578,7 @@ TEST(trie_map, insert)
 TEST(trie_map1, erase)
 {
     {
-        trie::trie_map<std::string, int> trie(
+        boost::text::trie_map<std::string, int> trie(
             {{"foo", 13}, {"bar", 17}, {"foos", 19}, {"", 42}});
 
         auto it = trie.find("foo");
@@ -602,7 +602,7 @@ TEST(trie_map1, erase)
 
     {
         // Sequence generated by the fuzz test.
-        trie::trie_map<std::string, int> trie;
+        boost::text::trie_map<std::string, int> trie;
         trie.insert(" )", 538976288);      // key.size()=2
         trie.insert(" )", 538976288);      // key.size()=2
         trie.insert(" )", 538976288);      // key.size()=2
@@ -634,8 +634,8 @@ TEST(trie_map1, erase)
 
 TEST(trie_node_t, all)
 {
-    using node_t = trie::detail::
-        trie_node_t<trie::detail::index_within_parent_t, std::string, int>;
+    using node_t = text::detail::
+        trie_node_t<text::detail::index_within_parent_t, std::string, int>;
 
     {
         node_t node;
@@ -644,9 +644,9 @@ TEST(trie_node_t, all)
         EXPECT_TRUE(node.empty());
         EXPECT_EQ(node.size(), 0u);
         EXPECT_EQ(node.begin(), node.end());
-        EXPECT_EQ(node.lower_bound('z', trie::less{}), node.end());
-        EXPECT_EQ(node.find('z', trie::less{}), node.end());
-        EXPECT_EQ(node.child('z', trie::less{}), nullptr);
+        EXPECT_EQ(node.lower_bound('z', text::less{}), node.end());
+        EXPECT_EQ(node.find('z', text::less{}), node.end());
+        EXPECT_EQ(node.child('z', text::less{}), nullptr);
     }
 
     {
@@ -656,9 +656,9 @@ TEST(trie_node_t, all)
         EXPECT_TRUE(node.empty());
         EXPECT_EQ(node.size(), 0u);
         EXPECT_EQ(node.begin(), node.end());
-        EXPECT_EQ(node.lower_bound('z', trie::less{}), node.end());
-        EXPECT_EQ(node.find('z', trie::less{}), node.end());
-        EXPECT_EQ(node.child('z', trie::less{}), nullptr);
+        EXPECT_EQ(node.lower_bound('z', text::less{}), node.end());
+        EXPECT_EQ(node.find('z', text::less{}), node.end());
+        EXPECT_EQ(node.child('z', text::less{}), nullptr);
     }
 
     {
@@ -666,10 +666,10 @@ TEST(trie_node_t, all)
 
         std::unique_ptr<node_t> leaf_z(new node_t(&root));
         node_t * const z_ptr = leaf_z.get();
-        root.insert('z', trie::less{}, std::move(leaf_z));
+        root.insert('z', text::less{}, std::move(leaf_z));
         std::unique_ptr<node_t> leaf_a(new node_t(&root));
         node_t * const a_ptr = leaf_a.get();
-        root.insert('a', trie::less{}, std::move(leaf_a));
+        root.insert('a', text::less{}, std::move(leaf_a));
 
         EXPECT_FALSE(root.value());
         EXPECT_EQ(root.parent(), nullptr);
@@ -680,12 +680,12 @@ TEST(trie_node_t, all)
         EXPECT_FALSE(root.min_value());
         EXPECT_FALSE(root.max_value());
         EXPECT_NE(root.begin(), root.end());
-        EXPECT_EQ(root.lower_bound('a', trie::less{}), root.begin());
-        EXPECT_EQ(root.find('a', trie::less{}), root.begin());
-        EXPECT_EQ(root.child('a', trie::less{}), a_ptr);
-        EXPECT_EQ(root.lower_bound('z', trie::less{}), ++root.begin());
-        EXPECT_EQ(root.find('z', trie::less{}), ++root.begin());
-        EXPECT_EQ(root.child('z', trie::less{}), z_ptr);
+        EXPECT_EQ(root.lower_bound('a', text::less{}), root.begin());
+        EXPECT_EQ(root.find('a', text::less{}), root.begin());
+        EXPECT_EQ(root.child('a', text::less{}), a_ptr);
+        EXPECT_EQ(root.lower_bound('z', text::less{}), ++root.begin());
+        EXPECT_EQ(root.find('z', text::less{}), ++root.begin());
+        EXPECT_EQ(root.child('z', text::less{}), z_ptr);
 
         root.erase(std::size_t(0));
 
@@ -698,12 +698,12 @@ TEST(trie_node_t, all)
         EXPECT_FALSE(root.min_value());
         EXPECT_FALSE(root.max_value());
         EXPECT_NE(root.begin(), root.end());
-        EXPECT_EQ(root.lower_bound('a', trie::less{}), root.begin());
-        EXPECT_EQ(root.find('a', trie::less{}), root.end());
-        EXPECT_EQ(root.child('a', trie::less{}), nullptr);
-        EXPECT_EQ(root.lower_bound('z', trie::less{}), root.begin());
-        EXPECT_EQ(root.find('z', trie::less{}), root.begin());
-        EXPECT_EQ(root.child('z', trie::less{}), z_ptr);
+        EXPECT_EQ(root.lower_bound('a', text::less{}), root.begin());
+        EXPECT_EQ(root.find('a', text::less{}), root.end());
+        EXPECT_EQ(root.child('a', text::less{}), nullptr);
+        EXPECT_EQ(root.lower_bound('z', text::less{}), root.begin());
+        EXPECT_EQ(root.find('z', text::less{}), root.begin());
+        EXPECT_EQ(root.child('z', text::less{}), z_ptr);
     }
 
     {
@@ -711,10 +711,10 @@ TEST(trie_node_t, all)
 
         std::unique_ptr<node_t> leaf_z(new node_t(&root_));
         node_t * const z_ptr = leaf_z.get();
-        root_.insert('z', trie::less{}, std::move(leaf_z));
+        root_.insert('z', text::less{}, std::move(leaf_z));
         std::unique_ptr<node_t> leaf_a(new node_t(&root_));
         node_t * const a_ptr = leaf_a.get();
-        root_.insert('a', trie::less{}, std::move(leaf_a));
+        root_.insert('a', text::less{}, std::move(leaf_a));
 
         node_t const & root = root_;
 
@@ -727,12 +727,12 @@ TEST(trie_node_t, all)
         EXPECT_FALSE(root.min_value());
         EXPECT_FALSE(root.max_value());
         EXPECT_NE(root.begin(), root.end());
-        EXPECT_EQ(root.lower_bound('a', trie::less{}), root.begin());
-        EXPECT_EQ(root.find('a', trie::less{}), root.begin());
-        EXPECT_EQ(root.child('a', trie::less{}), a_ptr);
-        EXPECT_EQ(root.lower_bound('z', trie::less{}), ++root.begin());
-        EXPECT_EQ(root.find('z', trie::less{}), ++root.begin());
-        EXPECT_EQ(root.child('z', trie::less{}), z_ptr);
+        EXPECT_EQ(root.lower_bound('a', text::less{}), root.begin());
+        EXPECT_EQ(root.find('a', text::less{}), root.begin());
+        EXPECT_EQ(root.child('a', text::less{}), a_ptr);
+        EXPECT_EQ(root.lower_bound('z', text::less{}), ++root.begin());
+        EXPECT_EQ(root.find('z', text::less{}), ++root.begin());
+        EXPECT_EQ(root.child('z', text::less{}), z_ptr);
 
         root_.erase(std::size_t(0));
 
@@ -745,11 +745,11 @@ TEST(trie_node_t, all)
         EXPECT_FALSE(root.min_value());
         EXPECT_FALSE(root.max_value());
         EXPECT_NE(root.begin(), root.end());
-        EXPECT_EQ(root.lower_bound('a', trie::less{}), root.begin());
-        EXPECT_EQ(root.find('a', trie::less{}), root.end());
-        EXPECT_EQ(root.child('a', trie::less{}), nullptr);
-        EXPECT_EQ(root.lower_bound('z', trie::less{}), root.begin());
-        EXPECT_EQ(root.find('z', trie::less{}), root.begin());
-        EXPECT_EQ(root.child('z', trie::less{}), z_ptr);
+        EXPECT_EQ(root.lower_bound('a', text::less{}), root.begin());
+        EXPECT_EQ(root.find('a', text::less{}), root.end());
+        EXPECT_EQ(root.child('a', text::less{}), nullptr);
+        EXPECT_EQ(root.lower_bound('z', text::less{}), root.begin());
+        EXPECT_EQ(root.find('z', text::less{}), root.begin());
+        EXPECT_EQ(root.child('z', text::less{}), z_ptr);
     }
 }

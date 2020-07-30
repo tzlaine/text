@@ -274,13 +274,13 @@ namespace boost { namespace text { namespace detail {
     // Adapts a UTF-16 trie for use with CP sequences.
     struct collation_trie_t
     {
-        using impl_type = trie::trie<
+        using impl_type = boost::text::trie<
             collation_trie_key<32>,
             collation_elements,
-            trie::less,
+            boost::text::less,
             1u << 16>;
         using trie_map_type =
-            trie::trie_map<collation_trie_key<32>, collation_elements>;
+            boost::text::trie_map<collation_trie_key<32>, collation_elements>;
         using value_type = typename impl_type::value_type;
         using match_result = typename impl_type::match_result;
 
@@ -336,7 +336,7 @@ namespace boost { namespace text { namespace detail {
         }
 
         template<typename KeyRange>
-        trie::optional_ref<value_type const>
+        boost::text::optional_ref<value_type const>
         operator[](KeyRange const & key) const noexcept
         {
             static_assert(std::is_same<
@@ -345,7 +345,7 @@ namespace boost { namespace text { namespace detail {
             return impl_[boost::text::as_utf16(key)];
         }
 
-        trie::optional_ref<value_type const>
+        boost::text::optional_ref<value_type const>
         operator[](match_result match) const noexcept
         {
             return impl_[match];

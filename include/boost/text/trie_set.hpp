@@ -9,7 +9,7 @@
 #include <boost/text/trie_map.hpp>
 
 
-namespace boost { namespace trie {
+namespace boost { namespace text {
 
     template<typename Key>
     struct trie_set_iterator;
@@ -45,8 +45,9 @@ namespace boost { namespace trie {
     struct trie_set
     {
     private:
-        using trie_map_t = trie_map<Key, detail::void_>;
-        using iter_state_t = detail::trie_iterator_state_t<Key, detail::void_>;
+        using trie_map_t = trie_map<Key, detail::void_type>;
+        using iter_state_t =
+            detail::trie_iterator_state_t<Key, detail::void_type>;
 
         trie_map_t trie_;
 
@@ -162,7 +163,7 @@ namespace boost { namespace trie {
 #endif
 
         /** Returns the iterator pointing to the key, if `key` is found in
-            *this.  Returns end() otherwise. */
+         *this.  Returns end() otherwise. */
         template<typename KeyRange>
         const_iterator find(KeyRange const & key) const noexcept
         {
@@ -213,8 +214,8 @@ namespace boost { namespace trie {
         /** Returns the longest subsequence of `[first, last)` found in *this,
             whether or not it is a match. */
         template<typename KeyIter, typename Sentinel>
-        match_result longest_subsequence(KeyIter first, Sentinel last) const
-            noexcept
+        match_result
+        longest_subsequence(KeyIter first, Sentinel last) const noexcept
         {
             return trie_.longest_subsequence(first, last);
         }
@@ -241,7 +242,7 @@ namespace boost { namespace trie {
         }
 
         /** Returns the longest matching subsequence of `key` found in
-            *this. */
+         *this. */
         template<typename KeyRange>
         match_result longest_match(KeyRange const & key) const noexcept
         {
@@ -255,8 +256,8 @@ namespace boost { namespace trie {
 
         /** Returns the result of extending `prev` by one element, `e`. */
         template<typename KeyElementT>
-        match_result extend_subsequence(match_result prev, KeyElementT e) const
-            noexcept
+        match_result
+        extend_subsequence(match_result prev, KeyElementT e) const noexcept
         {
             return trie_.extend_subsequence(prev, e);
         }
@@ -274,8 +275,8 @@ namespace boost { namespace trie {
             that would form a match, and `prev` otherwise.  `prev` must be a
             match. */
         template<typename KeyElementT>
-        match_result extend_match(match_result prev, KeyElementT e) const
-            noexcept
+        match_result
+        extend_match(match_result prev, KeyElementT e) const noexcept
         {
             return trie_.extend_match(prev, e);
         }
@@ -284,9 +285,8 @@ namespace boost { namespace trie {
             of `[first, last)` found in *this, if that would form a match, and
             `prev` otherwise.  `prev` must be a match. */
         template<typename KeyIter, typename Sentinel>
-        match_result
-        extend_match(match_result prev, KeyIter first, Sentinel last) const
-            noexcept
+        match_result extend_match(
+            match_result prev, KeyIter first, Sentinel last) const noexcept
         {
             return trie_.extend_match(prev, first, last);
         }
@@ -309,7 +309,7 @@ namespace boost { namespace trie {
         void clear() noexcept { trie_.clear(); }
 
         /** Returns the iterator pointing to the key, if `key` is found in
-            *this.  Returns end() otherwise. */
+         *this.  Returns end() otherwise. */
         template<typename KeyRange>
         iterator find(KeyRange const & key) noexcept
         {
@@ -359,10 +359,12 @@ namespace boost { namespace trie {
             of the result will be true if the operation resulted in a new
             insertion, or false otherwise. */
         template<typename KeyIter, typename Sentinel>
-        auto insert(KeyIter first, Sentinel last) -> decltype(
-            translate_insert_result(trie_.insert(first, last, detail::void_{})))
+        auto insert(KeyIter first, Sentinel last)
+            -> decltype(translate_insert_result(
+                trie_.insert(first, last, detail::void_type{})))
         {
-            auto const trie_result = trie_.insert(first, last, detail::void_{});
+            auto const trie_result =
+                trie_.insert(first, last, detail::void_type{});
             return translate_insert_result(trie_result);
         }
 
@@ -372,8 +374,8 @@ namespace boost { namespace trie {
         template<typename KeyRange>
         insert_result insert(KeyRange const & key)
         {
-            auto const trie_result =
-                trie_.insert(std::begin(key), std::end(key), detail::void_{});
+            auto const trie_result = trie_.insert(
+                std::begin(key), std::end(key), detail::void_type{});
             return translate_insert_result(trie_result);
         }
 
@@ -438,7 +440,7 @@ namespace boost { namespace trie {
         }
 
         /** Erases the sequence of keys pointed to by `[first, last)` from
-            *this.  Returns an iterator to the next key in *this. */
+         *this.  Returns an iterator to the next key in *this. */
         iterator erase(iterator first, iterator last)
         {
             auto const trie_first = typename trie_map_t::iterator(first.state_);
@@ -468,8 +470,8 @@ namespace boost { namespace trie {
         insert_result
         translate_insert_result(typename trie_map_t::insert_result trie_result)
         {
-            return insert_result{iterator(trie_result.iter.it_.state_),
-                                 trie_result.inserted};
+            return insert_result{
+                iterator(trie_result.iter.it_.state_), trie_result.inserted};
         }
 
 #endif
@@ -516,13 +518,13 @@ namespace boost { namespace trie {
 #ifndef BOOST_TEXT_DOXYGEN
 
     private:
-        using base_iter_type = const_trie_map_iterator<Key, detail::void_>;
+        using base_iter_type = const_trie_map_iterator<Key, detail::void_type>;
 
         friend boost::stl_interfaces::access;
         base_iter_type & base_reference() noexcept { return it_; }
         base_iter_type base_reference() const noexcept { return it_; }
 
-        using state_t = detail::trie_iterator_state_t<Key, detail::void_>;
+        using state_t = detail::trie_iterator_state_t<Key, detail::void_type>;
 
         explicit const_trie_set_iterator(state_t state) : it_(state) {}
 
@@ -561,7 +563,7 @@ namespace boost { namespace trie {
         base_iter_type base_reference() const noexcept { return it_; }
 
         explicit trie_set_iterator(
-            detail::trie_iterator_state_t<Key, detail::void_> state) :
+            detail::trie_iterator_state_t<Key, detail::void_type> state) :
             it_(state)
         {}
         explicit trie_set_iterator(const_trie_set_iterator<Key> it) : it_(it) {}

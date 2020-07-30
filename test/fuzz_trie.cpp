@@ -20,9 +20,9 @@
 
 namespace {
 
-    boost::trie::trie<std::string, int> trie;
-    boost::trie::trie_map<std::string, int> trie_map;
-    boost::trie::trie_set<std::string> trie_set;
+    boost::text::trie<std::string, int> trie;
+    boost::text::trie_map<std::string, int> trie_map;
+    boost::text::trie_set<std::string> trie_set;
     std::map<std::string, int> map;
 
     std::ofstream ofs("fuzz_operations.cpp");
