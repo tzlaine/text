@@ -875,7 +875,10 @@ namespace boost { namespace text {
 
     /** A searcher for use with the collation_search() algorithm.  This
         searcher uses a simple brute-force matching algorithm, like that
-        found in `std::search()`. */
+        found in `std::search()`.
+
+        BreakFunc must be an invocable type whose signature is `CPIter (CPIter
+        first, CPIter it, Sentinel last)`. */
     template<typename CPIter, typename Sentinel, typename BreakFunc>
     struct simple_collation_searcher
     {
@@ -962,7 +965,10 @@ namespace boost { namespace text {
         word boundary).
 
         This function only participates in overload resolution if `CPIter`
-        models the CPIter concept. */
+        models the CPIter concept.
+
+        BreakFunc must be an invocable type whose signature is `CPIter (CPIter
+        first, CPIter it, Sentinel last)`. */
     template<typename CPIter, typename Sentinel, typename BreakFunc>
     detail::unspecified make_simple_collation_searcher(
         CPIter first,
@@ -998,7 +1004,11 @@ namespace boost { namespace text {
         boundary found by `break_fn` (e.g. a grapheme or word boundary).
 
         This function only participates in overload resolution if `CPRange`
-        models the CPRange concept. */
+        models the CPRange concept.
+
+        BreakFunc must be an invocable type whose signature is `CPIter (CPIter
+        first, CPIter it, Sentinel last)`, where `CPIter` is
+        `decltype(r.begin())` and `Sentinel` is `decltype(r.end())`. */
     template<typename CPRange, typename BreakFunc>
     detail::unspecified make_simple_collation_searcher(
         CPRange & r,
@@ -1011,7 +1021,12 @@ namespace boost { namespace text {
         a boundary found by `break_fn` (e.g. a grapheme or word boundary).
 
         This function only participates in overload resolution if
-        `GraphemeRange` models the GraphemeRange concept. */
+        `GraphemeRange` models the GraphemeRange concept.
+
+        BreakFunc must be an invocable type whose signature is `CPIter (CPIter
+        first, CPIter it, Sentinel last)`, where `CPIter` is
+        `decltype(r.begin().base())` and `Sentinel` is
+        `decltype(r.end().base())`. */
     template<typename GraphemeRange, typename BreakFunc>
     detail::unspecified make_simple_collation_searcher(
         GraphemeRange const & r,
@@ -1173,7 +1188,10 @@ namespace boost { namespace text {
 #endif
 
     /** A searcher for use with the collation_search() algorithm.  This
-        searcher uses the Boyer-Moore-Horspool matching algorithm. */
+        searcher uses the Boyer-Moore-Horspool matching algorithm.
+
+        BreakFunc must be an invocable type whose signature is `CPIter (CPIter
+        first, CPIter it, Sentinel last)`. */
     template<typename CPIter, typename Sentinel, typename BreakFunc>
     struct boyer_moore_horspool_collation_searcher
     {
@@ -1279,7 +1297,10 @@ namespace boost { namespace text {
         grapheme or word boundary).
 
         This function only participates in overload resolution if `CPIter`
-        models the CPIter concept. */
+        models the CPIter concept.
+
+        BreakFunc must be an invocable type whose signature is `CPIter (CPIter
+        first, CPIter it, Sentinel last)`. */
     template<typename CPIter, typename Sentinel, typename BreakFunc>
     detail::unspecified make_boyer_moore_horspool_collation_searcher(
         CPIter first,
@@ -1316,7 +1337,11 @@ namespace boost { namespace text {
         word boundary.
 
         This function only participates in overload resolution if `CPRange`
-        models the CPRange concept). */
+        models the CPRange concept).
+
+        BreakFunc must be an invocable type whose signature is `CPIter (CPIter
+        first, CPIter it, Sentinel last)`, where `CPIter` is
+        `decltype(r.begin())` and `Sentinel` is `decltype(r.end())`. */
     template<typename CPRange, typename BreakFunc>
     detail::unspecified make_boyer_moore_horspool_collation_searcher(
         CPRange & r,
@@ -1330,7 +1355,12 @@ namespace boost { namespace text {
         word boundary).
 
         This function only participates in overload resolution if
-        `GraphemeRange` models the GraphemeRange concept. */
+        `GraphemeRange` models the GraphemeRange concept.
+
+        BreakFunc must be an invocable type whose signature is `CPIter (CPIter
+        first, CPIter it, Sentinel last)`, where `CPIter` is
+        `decltype(r.begin().base())` and `Sentinel` is
+        `decltype(r.end().base())`. */
     template<typename GraphemeRange, typename BreakFunc>
     detail::unspecified make_boyer_moore_horspool_collation_searcher(
         GraphemeRange const & r,
@@ -1504,7 +1534,10 @@ namespace boost { namespace text {
 #endif
 
     /** A searcher for use with the collation_search() algorithm.  This
-        searcher uses the Boyer-Moore matching algorithm. */
+        searcher uses the Boyer-Moore matching algorithm.
+
+        BreakFunc must be an invocable type whose signature is `CPIter (CPIter
+        first, CPIter it, Sentinel last)`. */
     template<typename CPIter, typename Sentinel, typename BreakFunc>
     struct boyer_moore_collation_searcher
     {
@@ -1667,7 +1700,10 @@ namespace boost { namespace text {
         grapheme or word boundary).
 
         This function only participates in overload resolution if `CPIter`
-        models the CPIter concept. */
+        models the CPIter concept.
+
+        BreakFunc must be an invocable type whose signature is `CPIter (CPIter
+        first, CPIter it, Sentinel last)`. */
     template<typename CPIter, typename Sentinel, typename BreakFunc>
     detail::unspecified make_boyer_moore_collation_searcher(
         CPIter first,
@@ -1704,7 +1740,11 @@ namespace boost { namespace text {
         boundary).
 
         This function only participates in overload resolution if `CPRange`
-        models the CPRange concept. */
+        models the CPRange concept.
+
+        BreakFunc must be an invocable type whose signature is `CPIter (CPIter
+        first, CPIter it, Sentinel last)`, where `CPIter` is
+        `decltype(r.begin())` and `Sentinel` is `decltype(r.end())`. */
     template<typename CPRange, typename BreakFunc>
     detail::unspecified make_boyer_moore_collation_searcher(
         CPRange & r,
@@ -1718,7 +1758,12 @@ namespace boost { namespace text {
         boundary).
 
         This function only participates in overload resolution if
-        `GraphemeRange` models the GraphemeRange concept. */
+        `GraphemeRange` models the GraphemeRange concept.
+
+        BreakFunc must be an invocable type whose signature is `CPIter (CPIter
+        first, CPIter it, Sentinel last)`, where `CPIter` is
+        `decltype(r.begin().base())` and `Sentinel` is
+        `decltype(r.end().base())`. */
     template<typename GraphemeRange, typename BreakFunc>
     detail::unspecified make_boyer_moore_collation_searcher(
         GraphemeRange const & r,
@@ -1887,7 +1932,10 @@ namespace boost { namespace text {
         occurence of the pattern must be found starting at and ending at a
         boundary found by `break_fn` (e.g. a grapheme or word boundary).
         This function uses the same simple brute-force matching approach as
-        `std::search()`. */
+        `std::search()`.
+
+        BreakFunc must be an invocable type whose signature is `CPIter1
+        (CPIter1 first, CPIter1 it, Sentinel1 last)`. */
     template<
         typename CPIter1,
         typename Sentinel1,
@@ -1918,7 +1966,11 @@ namespace boost { namespace text {
         approach as `std::search()`.
 
         This function only participates in overload resolution if `CPRange1`
-        models the CPRange concept. */
+        models the CPRange concept.
+
+        BreakFunc must be an invocable type whose signature is `CPIter (CPIter
+        first, CPIter it, Sentinel last)`, where `CPIter` is
+        `decltype(str.begin())` and `Sentinel` is `decltype(str.end())`. */
     template<typename CPRange1, typename CPRange2, typename BreakFunc>
     collation_search_result<detail::unspecified> collation_search(
         CPRange1 & str,
@@ -1935,7 +1987,12 @@ namespace boost { namespace text {
         `std::search()`.
 
         This function only participates in overload resolution if
-        `GraphemeRange1` models the GraphemeRange concept. */
+        `GraphemeRange1` models the GraphemeRange concept.
+
+        BreakFunc must be an invocable type whose signature is `CPIter (CPIter
+        first, CPIter it, Sentinel last)`, where `CPIter` is
+        `decltype(str.begin().base())` and `Sentinel` is
+        `decltype(str.end().base())`. */
     template<
         typename GraphemeRange1,
         typename GraphemeRange2,

@@ -15,7 +15,7 @@ int main ()
 {
 //[ trie_intro
 // Starting with a trie, we can:
-boost::trie::trie<std::string, int> trie(
+boost::text::trie<std::string, int> trie(
     {{"foo", 13}, {"bar", 17}, {"foos", 19}, {"", 42}});
 
 // look up a specific element;
@@ -39,7 +39,7 @@ assert(foos_subsequence.match);
 
 {
 //[ trie_index_results
-boost::trie::trie<std::string, int> trie(
+boost::text::trie<std::string, int> trie(
     {{"foo", 13}, {"bar", 17}, {"foos", 19}, {"", 42}});
 
 // This is the kind of thing you expect from a `std::map`.
@@ -48,7 +48,7 @@ trie["foo"] = 111;
 assert(trie["foo"] == 111);
 
 // What operator[] actually returns though is an optional_ref.
-boost::trie::optional_ref<int> element = trie["foo"];
+boost::text::optional_ref<int> element = trie["foo"];
 // You can ask the optional_ref if it refers to something or not, because it
 // has an explicit conversion to bool.
 if (element) {
@@ -59,7 +59,7 @@ if (element) {
     // Use element_as_int here....
 }
 
-boost::trie::trie<std::string, int> const const_trie(
+boost::text::trie<std::string, int> const const_trie(
     {{"foo", 13}, {"bar", 17}, {"foos", 19}, {"", 42}});
 
 // Because it returns this optional_ref, it's okay to use with constant tries.
@@ -71,7 +71,7 @@ if (element_2) {
     // Use element_as_int here....
 }
 
-boost::trie::trie<std::string, bool> const bool_trie(
+boost::text::trie<std::string, bool> const bool_trie(
     {{"foo", true}, {"bar", true}, {"foos", false}, {"", true}});
 
 // What about optional_ref<bool> you ask?  There are specializations for it

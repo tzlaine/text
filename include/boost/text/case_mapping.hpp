@@ -907,7 +907,10 @@ namespace boost { namespace text {
 #endif
 
     /** Returns true if no code point in `[first, last)` would change in a
-        call to to_title(), and false otherwise. */
+        call to to_title(), and false otherwise.
+
+        NextWordBreakFunc must be an invocable type whose signature is `CPIter
+        (CPIter, Sentinel)`. */
     template<
         typename CPIter,
         typename Sentinel,
@@ -936,7 +939,11 @@ namespace boost { namespace text {
         to_title(), and false otherwise.
 
         This function only participates in overload resolution if `CPRange`
-        models the CPRange concept. */
+        models the CPRange concept.
+
+        NextWordBreakFunc must be an invocable type whose signature is `CPIter
+        (CPIter, Sentinel)`, where `CPIter` is `decltype(range.begin())` and
+        `Sentinel` is `decltype(range.end())`.  */
     template<
         typename CPRange,
         typename NextWordBreakFunc = next_word_break_callable>
@@ -948,7 +955,12 @@ namespace boost { namespace text {
         to_title(), and false otherwise.
 
         This function only participates in overload resolution if
-        `GraphemeRange` models the GraphemeRange concept. */
+        `GraphemeRange` models the GraphemeRange concept.
+
+        NextWordBreakFunc must be an invocable type whose signature is `CPIter
+        (CPIter, Sentinel)`, where `CPIter` is
+        `decltype(range.begin().base())` and `Sentinel` is
+        `decltype(range.end().base())`.  */
     template<
         typename GraphemeRange,
         typename NextWordBreakFunc = next_word_break_callable>
@@ -986,7 +998,10 @@ namespace boost { namespace text {
 
     /** Writes the code point sequence comprising the title-case form of
         `[first, last)` to `out`, using language-specific handling as
-        indicated by `lang`.  The normalization of the result is undefined. */
+        indicated by `lang`.  The normalization of the result is undefined.
+
+        NextWordBreakFunc must be an invocable type whose signature is `CPIter
+        (CPIter, Sentinel)`. */
     template<
         typename CPIter,
         typename Sentinel,
@@ -1025,7 +1040,11 @@ namespace boost { namespace text {
         `lang`.  The normalization of the result is undefined.
 
         This function only participates in overload resolution if `CPRange`
-        models the CPRange concept. */
+        models the CPRange concept.
+
+        NextWordBreakFunc must be an invocable type whose signature is `CPIter
+        (CPIter, Sentinel)`, where `CPIter` is `decltype(range.begin())` and
+        `Sentinel` is `decltype(range.end())`. */
     template<
         typename CPRange,
         typename OutIter,
@@ -1041,7 +1060,12 @@ namespace boost { namespace text {
         `lang`.  The normalization of the result is undefined.
 
         This function only participates in overload resolution if
-        `GraphemeRange` models the GraphemeRange concept. */
+        `GraphemeRange` models the GraphemeRange concept.
+
+        NextWordBreakFunc must be an invocable type whose signature is `CPIter
+        (CPIter, Sentinel)`, where `CPIter` is
+        `decltype(range.begin().base())` and `Sentinel` is
+        `decltype(range.end().base())`. */
     template<
         typename GraphemeRange,
         typename OutIter,

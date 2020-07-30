@@ -11,7 +11,7 @@
 #include <boost/stl_interfaces/reverse_iterator.hpp>
 
 
-namespace boost { namespace trie {
+namespace boost { namespace text {
 
     template<typename Key, typename Value>
     struct trie_map_iterator;
@@ -268,7 +268,7 @@ namespace boost { namespace trie {
         }
         template<std::size_t KeySize>
         explicit trie_map(
-            boost::trie::trie<Key, Value, Compare, KeySize> const & trie) :
+            boost::text::trie<Key, Value, Compare, KeySize> const & trie) :
             size_(0)
         {
             Key key;

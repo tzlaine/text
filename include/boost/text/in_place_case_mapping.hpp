@@ -49,7 +49,10 @@ namespace boost { namespace text {
     }
 
     /** Changes the case of `t` to title-case, using language-specific
-        handling as indicated by `lang`. */
+        handling as indicated by `lang`.
+
+        NextWordBreakFunc must meet the same type requirements as the
+        `NextWordBreakFunc` template parameter to `to_title()`. */
     template<typename NextWordBreakFunc = next_word_break_callable>
     void in_place_to_title(
         text & t,
@@ -73,7 +76,10 @@ namespace boost { namespace text {
     }
 
     /** Changes the case of `r` to title-case, using language-specific
-        handling as indicated by `lang`. */
+        handling as indicated by `lang`.
+
+        NextWordBreakFunc must meet the same type requirements as the
+        `NextWordBreakFunc` template parameter to `to_title()`. */
     template<typename NextWordBreakFunc = next_word_break_callable>
     void in_place_to_title(
         rope & r,

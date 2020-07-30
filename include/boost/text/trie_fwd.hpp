@@ -7,7 +7,7 @@
 #define BOOST_TEXT_TRIE_FWD_HPP
 
 
-namespace boost { namespace trie {
+namespace boost { namespace text {
 
     /** A statically polymorphic less-than compariason object type.  This is
         only necessary for pre-C++14 portablility. */

@@ -16,7 +16,7 @@
 #include <vector>
 
 
-namespace boost { namespace trie {
+namespace boost { namespace text {
 
     /** An optional reference.  Its optionality is testable, via the operator
         bool() members, and it is implicitly convertible to the underlying
@@ -257,7 +257,7 @@ namespace boost { namespace trie {
             Char * end() const noexcept { return last_; }
         };
 
-        struct void_
+        struct void_type
         {};
     }
 

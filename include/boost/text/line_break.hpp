@@ -2173,7 +2173,10 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         point extents derived from `CPExtentFunc`.  When a line has no allowed
         breaks before it would exceed `max_extent`, it will be broken only if
         `break_overlong_lines` is true.  If `break_overlong_lines` is false,
-        such an unbreakable line will exceed `max_extent`. */
+        such an unbreakable line will exceed `max_extent`.
+
+        CPExtentFunc must be an invocable type whose signature is `Extent
+        (CPIter, CPIter)`. */
     template<
         typename CPIter,
         typename Sentinel,
@@ -2192,7 +2195,10 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         derived from `CPExtentFunc`.  When a line has no allowed breaks before
         it would exceed `max_extent`, it will be broken only if
         `break_overlong_lines` is true.  If `break_overlong_lines` is false,
-        such an unbreakable line will exceed `max_extent`. */
+        such an unbreakable line will exceed `max_extent`.
+
+        CPExtentFunc must be an invocable type whose signature is `Extent
+        (CPIter, CPIter)`, where `CPIter` is `decltype(range.begin())`. */
     template<typename CPRange, typename Extent, typename CPExtentFunc>
     detail::unspecified lines(
         CPRange & range,
@@ -2209,7 +2215,11 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         such an unbreakable line will exceed `max_extent`.
 
         This function only participates in overload resolution if
-        `GraphemeRange` models the GraphemeRange concept. */
+        `GraphemeRange` models the GraphemeRange concept.
+
+        CPExtentFunc must be an invocable type whose signature is `Extent
+        (CPIter, CPIter)`, where `CPIter` is
+        `decltype(range.begin().base())`. */
     template<typename GraphemeRange, typename Extent, typename CPExtentFunc>
     detail::unspecified lines(
         GraphemeRange const & range,
