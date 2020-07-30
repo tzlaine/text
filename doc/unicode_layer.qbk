@@ -123,14 +123,14 @@ There are three make-functions that create these transcoding iterators:
 A make-function is provided for each to-encoding; `utf16_iterator(a, b, c)`
 returns: a _8_to_16_iter_ if `a`, `b`, and `c` are iterators to UTF-8 _cus_; a
 _32_to_16_iter_ if `a`, `b`, and `c` are iterators to UTF-32 _cus_ (i.e. code
-points); and `b` otherwise.  See the section _unpacking_ for details.
+points); and `b` otherwise.  See the section on _unpacking_ for details.
 
 By default, the transcoding iterators produce the Unicode replacement
 character `0xFFFD` when encountering an invalid encoding.  The exact error
 handling behavior can be controlled via the `ErrorHandler` template parameter.
 
 [note The error handling strategy of producing replacement characters is used
-internally within _Text_ when performing conversions. ]
+exclusively within _Text_ when performing conversions. ]
 
 The Unicode standard is flexible with respect to where, in an incoming stream,
 encoding errors are reported.  However, the standard provides recommendations
@@ -159,7 +159,8 @@ _u32v_:
 [note A make-function is provided for each to-encoding; `utf16_iterator(a, b,
 c)` returns: a _8_to_16_iter_ if `a`, `b`, and `c` are iterators to UTF-8
 _cus_; a _32_to_16_iter_ if `a`, `b`, and `c` are iterators to UTF-32 _cus_
-(i.e. _cps_); and `b` otherwise.  See the section _unpacking_ for details. ]
+(i.e. _cps_); and `b` otherwise.  See the section on _unpacking_ for
+details. ]
 
 All the transcoding iterators are bidirectional.  When each one is
 dereferenced, it may read multiple values from the underlying input range.
@@ -331,15 +332,14 @@ given, so that only the bottom-most underlying pointer or iterator is stored:
 Each of these views stores only the unpacked iterator and sentinel, so each
 view is the size of two pointers, and possibly smaller if a sentinel is used.
 
-Though this description mentions only `as_utfN()`, the same unpacking logic is
-used in `utfN_iterator()`, `from_utfN_inserter()`, the transcoding algorithms,
-and the normalization algorithms.  This allows you to write
-`boost::text::as_uf32(first, last)` in a generic context, without caring
-whether `first` and `last` are iterators to a sequence of UTF-8, UTF-16, or
-UTF-32.  You also do not need to care about whether `first` and `last` are raw
-pointers, some other kind of iterator, or transcoding iterators.  For example,
-if `first` is a _32_to_8_iter_, the resulting view will use `first.base()` for
-its begin-iterator.
+The same unpacking logic is used in `utfN_iterator()`, `from_utfN_inserter()`,
+the transcoding algorithms, and the normalization algorithms.  This allows you
+to write `boost::text::as_uf32(first, last)` in a generic context, without
+caring whether `first` and `last` are iterators to a sequence of UTF-8,
+UTF-16, or UTF-32.  You also do not need to care about whether `first` and
+`last` are raw pointers, some other kind of iterator, or transcoding
+iterators.  For example, if `first` is a _32_to_8_iter_, the resulting view
+will use `first.base()` for its begin-iterator.
 
 
 [heading Transcoding Algorithms]
@@ -371,7 +371,7 @@ views for details.
 them require pointers on both the input and output iterators for maximum
 performance.  In performance-critical code paths, stick to pointers.]
 
-[The transcoding algorithms do iterator unpacking.  See the section
+[The transcoding algorithms do iterator unpacking.  See the section on
 _unpacking_ for details.]
 
 
