@@ -327,7 +327,13 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         code point of a word).
 
         This function only participates in overload resolution if `CPIter`
-        models the CPIter concept. */
+        models the CPIter concept.
+
+        WordPropFunc must be an invocable type whose signature is
+        `word_property (uint32_t cp)`.  CPWordBreakFunc must be an invocable
+        type whose signature is `bool (uint32_t, uint32_t, uint32_t, uint32_t,
+        uint32_t)`.  See the Text Segmentation section of the tutorial for
+        semantics. */
     template<
         typename CPIter,
         typename Sentinel,
@@ -345,6 +351,12 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
 
         This function only participates in overload resolution if `CPIter`
         models the CPIter concept.
+
+        WordPropFunc must be an invocable type whose signature is
+        `word_property (uint32_t cp)`.  CPWordBreakFunc must be an invocable
+        type whose signature is `bool (uint32_t, uint32_t, uint32_t, uint32_t,
+        uint32_t)`.  See the Text Segmentation section of the tutorial for
+        semantics.
 
         \pre `first` is at the beginning of a word. */
     template<
@@ -365,7 +377,13 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
 
         This function only participates in overload resolution if `CPRange`
         models the CPRange concept and `WordPropFunc` models the WordPropFunc
-        concept. */
+        concept.
+
+        WordPropFunc must be an invocable type whose signature is
+        `word_property (uint32_t cp)`.  CPWordBreakFunc must be an invocable
+        type whose signature is `bool (uint32_t, uint32_t, uint32_t, uint32_t,
+        uint32_t)`.  See the Text Segmentation section of the tutorial for
+        semantics. */
     template<
         typename CPRange,
         typename CPIter,
@@ -384,7 +402,13 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
 
         This function only participates in overload resolution if
         `GraphemeRange` models the GraphemeRange concept and `WordPropFunc`
-        models the WordPropFunc concept. */
+        models the WordPropFunc concept.
+
+        WordPropFunc must be an invocable type whose signature is
+        `word_property (uint32_t cp)`.  CPWordBreakFunc must be an invocable
+        type whose signature is `bool (uint32_t, uint32_t, uint32_t, uint32_t,
+        uint32_t)`.  See the Text Segmentation section of the tutorial for
+        semantics. */
     template<
         typename GraphemeRange,
         typename GraphemeIter,
@@ -402,6 +426,12 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         This function only participates in overload resolution if `CPRange`
         models the CPRange concept and `WordPropFunc` models the WordPropFunc
         concept.
+
+        WordPropFunc must be an invocable type whose signature is
+        `word_property (uint32_t cp)`.  CPWordBreakFunc must be an invocable
+        type whose signature is `bool (uint32_t, uint32_t, uint32_t, uint32_t,
+        uint32_t)`.  See the Text Segmentation section of the tutorial for
+        semantics.
 
         \pre `it` is at the beginning of a word. */
     template<
@@ -423,6 +453,12 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         `GraphemeRange` models the GraphemeRange concept and `WordPropFunc`
         models the WordPropFunc concept.
 
+        WordPropFunc must be an invocable type whose signature is
+        `word_property (uint32_t cp)`.  CPWordBreakFunc must be an invocable
+        type whose signature is `bool (uint32_t, uint32_t, uint32_t, uint32_t,
+        uint32_t)`.  See the Text Segmentation section of the tutorial for
+        semantics.
+
         \pre `it` is at the beginning of a word. */
     template<
         typename GraphemeRange,
@@ -438,7 +474,13 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
     /** Returns true iff `it` is at the beginning of a word, or `it == last`.
 
         This function only participates in overload resolution if `CPIter`
-        models the CPIter concept. */
+        models the CPIter concept.
+
+        WordPropFunc must be an invocable type whose signature is
+        `word_property (uint32_t cp)`.  CPWordBreakFunc must be an invocable
+        type whose signature is `bool (uint32_t, uint32_t, uint32_t, uint32_t,
+        uint32_t)`.  See the Text Segmentation section of the tutorial for
+        semantics. */
     template<
         typename CPIter,
         typename Sentinel,
@@ -473,7 +515,13 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
 
         This function only participates in overload resolution if
         `GraphemeRange` models the GraphemeRange concept and `WordPropFunc`
-        models the WordPropFunc concept. */
+        models the WordPropFunc concept.
+
+        WordPropFunc must be an invocable type whose signature is
+        `word_property (uint32_t cp)`.  CPWordBreakFunc must be an invocable
+        type whose signature is `bool (uint32_t, uint32_t, uint32_t, uint32_t,
+        uint32_t)`.  See the Text Segmentation section of the tutorial for
+        semantics. */
     template<
         typename GraphemeRange,
         typename GraphemeIter,
@@ -516,7 +564,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         state.caps[ph::curr] = cp_and_word_prop(*state.it, word_prop);
 
         // Since cp_break is evaluated unconditionally before the other rules,
-        // we need to do all this her before the special-casing below.
+        // we need to do all this here before the special-casing below.
         if (it != first) {
             state.caps[ph::prev] =
                 cp_and_word_prop(*std::prev(state.it), word_prop);
@@ -1214,7 +1262,13 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
 
         This function only participates in overload resolution if `CPRange`
         models the CPRange concept and `WordPropFunc` models the WordPropFunc
-        concept. */
+        concept.
+
+        WordPropFunc must be an invocable type whose signature is
+        `word_property (uint32_t cp)`.  CPWordBreakFunc must be an invocable
+        type whose signature is `bool (uint32_t, uint32_t, uint32_t, uint32_t,
+        uint32_t)`.  See the Text Segmentation section of the tutorial for
+        semantics. */
     template<
         typename CPRange,
         typename CPIter,
@@ -1231,7 +1285,13 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
 
         This function only participates in overload resolution if
         `GraphemeRange` models the GraphemeRange concept and `WordPropFunc`
-        models the WordPropFunc concept. */
+        models the WordPropFunc concept.
+
+        WordPropFunc must be an invocable type whose signature is
+        `word_property (uint32_t cp)`.  CPWordBreakFunc must be an invocable
+        type whose signature is `bool (uint32_t, uint32_t, uint32_t, uint32_t,
+        uint32_t)`.  See the Text Segmentation section of the tutorial for
+        semantics. */
     template<
         typename GraphemeRange,
         typename GraphemeIter,
@@ -1248,7 +1308,13 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
 
         This function only participates in overload resolution if `CPIter`
         models the CPIter concept and CPIter is equality comparable with
-        Sentinel. */
+        Sentinel.
+
+        WordPropFunc must be an invocable type whose signature is
+        `word_property (uint32_t cp)`.  CPWordBreakFunc must be an invocable
+        type whose signature is `bool (uint32_t, uint32_t, uint32_t, uint32_t,
+        uint32_t)`.  See the Text Segmentation section of the tutorial for
+        semantics. */
     template<
         typename CPIter,
         typename Sentinel,
@@ -1265,7 +1331,13 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
 
         This function only participates in overload resolution if `CPRange`
         models the CPRange concept and `WordPropFunc` models the WordPropFunc
-        concept. */
+        concept.
+
+        WordPropFunc must be an invocable type whose signature is
+        `word_property (uint32_t cp)`.  CPWordBreakFunc must be an invocable
+        type whose signature is `bool (uint32_t, uint32_t, uint32_t, uint32_t,
+        uint32_t)`.  See the Text Segmentation section of the tutorial for
+        semantics. */
     template<
         typename CPRange,
         typename WordPropFunc = word_prop_callable,
@@ -1280,7 +1352,13 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
 
         This function only participates in overload resolution if
         `GraphemeRange` models the GraphemeRange concept and `WordPropFunc`
-        models the WordPropFunc concept. */
+        models the WordPropFunc concept.
+
+        WordPropFunc must be an invocable type whose signature is
+        `word_property (uint32_t cp)`.  CPWordBreakFunc must be an invocable
+        type whose signature is `bool (uint32_t, uint32_t, uint32_t, uint32_t,
+        uint32_t)`.  See the Text Segmentation section of the tutorial for
+        semantics. */
     template<
         typename GraphemeRange,
         typename WordPropFunc = word_prop_callable,
@@ -1295,7 +1373,13 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
 
         This function only participates in overload resolution if `CPIter`
         models the CPIter concept and CPIter is equality comparable with
-        Sentinel. */
+        Sentinel.
+
+        WordPropFunc must be an invocable type whose signature is
+        `word_property (uint32_t cp)`.  CPWordBreakFunc must be an invocable
+        type whose signature is `bool (uint32_t, uint32_t, uint32_t, uint32_t,
+        uint32_t)`.  See the Text Segmentation section of the tutorial for
+        semantics. */
     template<
         typename CPIter,
         typename WordPropFunc = word_prop_callable,
@@ -1311,7 +1395,13 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
 
         This function only participates in overload resolution if `CPRange`
         models the CPRange concept and `WordPropFunc` models the WordPropFunc
-        concept. */
+        concept.
+
+        WordPropFunc must be an invocable type whose signature is
+        `word_property (uint32_t cp)`.  CPWordBreakFunc must be an invocable
+        type whose signature is `bool (uint32_t, uint32_t, uint32_t, uint32_t,
+        uint32_t)`.  See the Text Segmentation section of the tutorial for
+        semantics. */
     template<
         typename CPRange,
         typename WordPropFunc = word_prop_callable,
@@ -1326,7 +1416,13 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
 
         This function only participates in overload resolution if
         `GraphemeRange` models the GraphemeRange concept and `WordPropFunc`
-        models the WordPropFunc concept. */
+        models the WordPropFunc concept.
+
+        WordPropFunc must be an invocable type whose signature is
+        `word_property (uint32_t cp)`.  CPWordBreakFunc must be an invocable
+        type whose signature is `bool (uint32_t, uint32_t, uint32_t, uint32_t,
+        uint32_t)`.  See the Text Segmentation section of the tutorial for
+        semantics. */
     template<
         typename GraphemeRange,
         typename WordPropFunc = word_prop_callable,

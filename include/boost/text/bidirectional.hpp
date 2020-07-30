@@ -2540,7 +2540,10 @@ namespace boost { namespace text {
         in the output.  The Unicode bidirectional algorithm specifies that
         code points with classes RLE, LRE, RLO, LRO, PDF, and BN not appear in
         the output; this implementation additionally removes code points with
-        classes FSI, LRI, RLI, and PDI. */
+        classes FSI, LRI, RLI, and PDI.
+
+        CPExtentFunc must meet the same type requirements as the CPExtentFunc
+        template parameter to `lines()`. */
     template<
         typename CPIter,
         typename Sentinel,
@@ -2580,7 +2583,10 @@ namespace boost { namespace text {
         classes FSI, LRI, RLI, and PDI.
 
         This function only participates in overload resolution if `CPRange`
-        models the CPRange concept. */
+        models the CPRange concept.
+
+        CPExtentFunc must meet the same type requirements as the CPExtentFunc
+        template parameter to `lines()`. */
     template<typename CPRange, typename Extent, typename CPExtentFunc>
     detail::unspecified bidirectional_subranges(
         CPRange & range,
@@ -2615,7 +2621,10 @@ namespace boost { namespace text {
         RLI, and PDI.
 
         This function only participates in overload resolution if
-        `GraphemeRange` models the GraphemeRange concept. */
+        `GraphemeRange` models the GraphemeRange concept.
+
+        CPExtentFunc must meet the same type requirements as the CPExtentFunc
+        template parameter to `lines()`. */
     template<typename GraphemeRange, typename Extent, typename CPExtentFunc>
     detail::unspecified bidirectional_subranges(
         GraphemeRange const & range,
