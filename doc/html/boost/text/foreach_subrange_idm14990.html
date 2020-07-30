@@ -26,7 +26,7 @@
 <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> FwdIter<span class="special">,</span> <span class="keyword">typename</span> Sentinel<span class="special">,</span> <span class="keyword">typename</span> Func<span class="special">,</span> <span class="keyword">typename</span> Proj<span class="special">&gt;</span> 
   <span class="identifier">Func</span> <span class="identifier">foreach_subrange</span><span class="special">(</span><span class="identifier">FwdIter</span> first<span class="special">,</span> <span class="identifier">Sentinel</span> last<span class="special">,</span> <span class="identifier">Func</span> f<span class="special">,</span> <span class="identifier">Proj</span> proj<span class="special">)</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="idm15262"></a><h2>Description</h2>
+<a name="idm15256"></a><h2>Description</h2>
 <p>Calls <code class="computeroutput">f(sub)</code> for each subrange <code class="computeroutput">sub</code> in <code class="computeroutput">[first, last)</code>. A subrange is a contiguous subsequence of elements that for each element <code class="computeroutput">e</code>, <code class="computeroutput">proj(e)</code> each compares equal to <code class="computeroutput">proj()</code> of the first element of the subsequence. Subranges passed to <code class="computeroutput">f</code> are non-overlapping. </p>
 </div>
 </div>

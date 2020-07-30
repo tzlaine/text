@@ -1,0 +1,66 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Struct template trie_insert_result</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="up" href="../../header/boost/text/trie_map_hpp.html" title="Header &lt;boost/text/trie_map.hpp&gt;">
+<link rel="prev" href="const_trie_range.html" title="Struct template const_trie_range">
+<link rel="next" href="trie_map.html" title="Struct template trie_map">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="const_trie_range.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/trie_map_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="trie_map.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="refentry">
+<a name="boost.text.trie_insert_result"></a><div class="titlepage"></div>
+<div class="refnamediv">
+<h2><span class="refentrytitle">Struct template trie_insert_result</span></h2>
+<p>boost::text::trie_insert_result</p>
+</div>
+<h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
+<div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="comment">// In header: &lt;<a class="link" href="../../header/boost/text/trie_map_hpp.html" title="Header &lt;boost/text/trie_map.hpp&gt;">boost/text/trie_map.hpp</a>&gt;
+
+</span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Iter<span class="special">&gt;</span> 
+<span class="keyword">struct</span> <a class="link" href="trie_insert_result.html" title="Struct template trie_insert_result">trie_insert_result</a> <span class="special">{</span>
+  <span class="comment">// types</span>
+  <span class="keyword">typedef</span> <span class="identifier">Iter</span> <a name="boost.text.trie_insert_result.iterator"></a><span class="identifier">iterator</span><span class="special">;</span>
+
+  <span class="comment">// <a class="link" href="trie_insert_result.html#boost.text.trie_insert_resultconstruct-copy-destruct">construct/copy/destruct</a></span>
+  <a class="link" href="trie_insert_result.html#idm24883-bb"><span class="identifier">trie_insert_result</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="trie_insert_result.html#idm24884-bb"><span class="identifier">trie_insert_result</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">,</span> <span class="keyword">bool</span><span class="special">)</span><span class="special">;</span>
+
+  <span class="comment">// public data members</span>
+  <span class="identifier">iterator</span> <span class="identifier">iter</span><span class="special">;</span>
+  <span class="keyword">bool</span> <span class="identifier">inserted</span><span class="special">;</span>
+<span class="special">}</span><span class="special">;</span></pre></div>
+<div class="refsect1">
+<a name="idm55176"></a><h2>Description</h2>
+<p>The result type of insert() operations on a <a class="link" href="trie_map.html" title="Struct template trie_map">trie_map</a> or <a class="link" href="trie_set.html" title="Struct template trie_set">trie_set</a>. </p>
+<div class="refsect2">
+<a name="idm55181"></a><h3>
+<a name="boost.text.trie_insert_resultconstruct-copy-destruct"></a><code class="computeroutput">trie_insert_result</code> 
+        public
+       construct/copy/destruct</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem"><pre class="literallayout"><a name="idm24883-bb"></a><span class="identifier">trie_insert_result</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idm24884-bb"></a><span class="identifier">trie_insert_result</span><span class="special">(</span><span class="identifier">iterator</span> it<span class="special">,</span> <span class="keyword">bool</span> ins<span class="special">)</span><span class="special">;</span></pre></li>
+</ol></div>
+</div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2018 T. Zachary Laine<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="const_trie_range.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/trie_map_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="trie_map.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

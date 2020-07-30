@@ -27,7 +27,7 @@
   <span class="emphasis"><em><span class="identifier">unspecified</span></em></span> <span class="identifier">bidirectional_subranges</span><span class="special">(</span><span class="identifier">CPRange</span> <span class="special">&amp;</span> range<span class="special">,</span> 
                                       <span class="keyword">int</span> paragraph_embedding_level <span class="special">=</span> <span class="special">-</span><span class="number">1</span><span class="special">)</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="idm16274"></a><h2>Description</h2>
+<a name="idm16268"></a><h2>Description</h2>
 <p>Returns a lazy range of code point subranges in <code class="computeroutput">range</code>; each subrange is one of three kinds: a forward-subrange; a reverse-subrange; or a one-code-point subrange used to subtitute a reversed bracketing code point (e.g. <span style="color: red">&lt;lsquo&gt;&lt;/lsquo&gt;</span><span style="color: red">&lt;rsquo&gt;&lt;/rsquo&gt;</span>['<code class="computeroutput">) for its couterpart (e.g.</code>']'`). There is a single iterator type used in the resulting subranges, so this distinction is not exposed in the subrange API.</p>
 <p>Line breaks are determined within the algorithm by calling <code class="computeroutput">lines(first, last)</code>; only hard line breaks are considered.</p>
 <p>If a non-negative <code class="computeroutput">paragraph_embedding_level</code> is provided, it will be used instead of the initial paragraph embedding level computed by the bidirectional algorithm. This applies to all paragraphs found in <code class="computeroutput">range</code>.</p>
