@@ -22,11 +22,11 @@
         Case mapping is conceptually simple. There are three kinds of case: lower-case,
         upper-case, and title-case. Title-case has an upper-case letter at the beginning
         of each word. There are six operations, though there are a few overloads
-        of each. There are three case-mapping algorithms: <code class="computeroutput"><a class="link" href="../../boost/text/v1/to_lower_idm16555.html" title="Function template to_lower">to_lower()</a></code>,
-        <code class="computeroutput"><a class="link" href="../../boost/text/v1/to_title_idm16664.html" title="Function template to_title">to_title()</a></code>, and <code class="computeroutput"><a class="link" href="../../boost/text/v1/to_upper_idm16773.html" title="Function template to_upper">to_upper()</a></code>.
+        of each. There are three case-mapping algorithms: <code class="computeroutput"><a class="link" href="../../boost/text/to_lower_idm15462.html" title="Function template to_lower">to_lower()</a></code>,
+        <code class="computeroutput"><a class="link" href="../../boost/text/to_title_idm15571.html" title="Function template to_title">to_title()</a></code>, and <code class="computeroutput"><a class="link" href="../../boost/text/to_upper_idm15680.html" title="Function template to_upper">to_upper()</a></code>.
         Each of these outputs its result (as code points) via an out-iterator. There
-        are also three case predicates, <code class="computeroutput"><a class="link" href="../../boost/text/v1/is_lower_idm16521.html" title="Function template is_lower">is_lower()</a></code>,
-        <code class="computeroutput"><a class="link" href="../../boost/text/v1/is_title_idm16615.html" title="Function template is_title">is_title()</a></code>, and <code class="computeroutput"><a class="link" href="../../boost/text/v1/is_upper_idm16739.html" title="Function template is_upper">is_upper()</a></code>.
+        are also three case predicates, <code class="computeroutput"><a class="link" href="../../boost/text/is_lower_idm15428.html" title="Function template is_lower">is_lower()</a></code>,
+        <code class="computeroutput"><a class="link" href="../../boost/text/is_title_idm15522.html" title="Function template is_title">is_title()</a></code>, and <code class="computeroutput"><a class="link" href="../../boost/text/is_upper_idm15646.html" title="Function template is_upper">is_upper()</a></code>.
       </p>
 <p>
         For each of these, there are overloads that take the input code point sequence
@@ -49,7 +49,7 @@
       </p>
 <p>
         As a complication, some languages have case-mapping rules that differ from
-        the general case, and so there is an optional <code class="computeroutput"><a class="link" href="../../boost/text/v1/case_language.html" title="Type case_language">case_language</a></code> parameter to the
+        the general case, and so there is an optional <code class="computeroutput"><a class="link" href="../../boost/text/case_language.html" title="Type case_language">case_language</a></code> parameter to the
         <code class="computeroutput"><span class="identifier">to_</span><span class="special">*()</span></code>
         functions that you can specify to get this custom behavior:
       </p>
@@ -62,10 +62,10 @@
     <span class="identifier">t</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">inserter</span><span class="special">(</span><span class="identifier">default_titled_t</span><span class="special">,</span> <span class="identifier">default_titled_t</span><span class="special">.</span><span class="identifier">end</span><span class="special">()));</span>
 <span class="identifier">assert</span><span class="special">(</span><span class="identifier">default_titled_t</span> <span class="special">==</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span><span class="special">(</span><span class="string">"Ijssel"</span><span class="special">));</span>
 
-<span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">dutch_titled_t</span><span class="special">;</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">dutch_titled_t</span><span class="special">;</span>
 <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">to_title</span><span class="special">(</span>
     <span class="identifier">t</span><span class="special">,</span>
-    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">utf_32_to_8_inserter</span><span class="special">(</span><span class="identifier">dutch_titled_t</span><span class="special">,</span> <span class="identifier">dutch_titled_t</span><span class="special">.</span><span class="identifier">end</span><span class="special">()),</span>
+    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">from_utf32_inserter</span><span class="special">(</span><span class="identifier">dutch_titled_t</span><span class="special">,</span> <span class="identifier">dutch_titled_t</span><span class="special">.</span><span class="identifier">end</span><span class="special">()),</span>
     <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">case_language</span><span class="special">::</span><span class="identifier">dutch</span><span class="special">);</span>
 <span class="identifier">assert</span><span class="special">(</span><span class="identifier">dutch_titled_t</span> <span class="special">==</span> <span class="string">"IJssel"</span><span class="special">);</span>
 </pre>
@@ -73,8 +73,8 @@
       </p>
 <p>
         Another complication is that the title-case functions need to know where
-        word boundaries are. By default, they use an instance of <code class="computeroutput"><a class="link" href="../../boost/text/v1/next_word_break_callable.html" title="Struct next_word_break_callable">next_word_break_callable</a></code>, which
-        in turn just calls <code class="computeroutput"><a class="link" href="../../boost/text/v1/next_word_break_idm30187.html" title="Function template next_word_break">next_word_break()</a></code>.
+        word boundaries are. By default, they use an instance of <code class="computeroutput"><a class="link" href="../../boost/text/next_word_break_callable.html" title="Struct next_word_break_callable">next_word_break_callable</a></code>, which
+        in turn just calls <code class="computeroutput"><a class="link" href="../../boost/text/next_word_break_idm27074.html" title="Function template next_word_break">next_word_break()</a></code>.
         You can supply your own callable instead if you need tailored word breaking.
       </p>
 <p>
@@ -82,13 +82,13 @@
         but that are not accounted for by the default Unicode case mapping rules.
         For instance, Dutch capitalizes <code class="computeroutput"><span class="string">"IJ"</span></code>
         at the beginning of title-cased words. This is available in Boost.Text's
-        implementation if you use <code class="computeroutput"><a class="link" href="../../boost/text/v1/case_language.html" title="Type case_language">case_language</a><span class="special">::</span><span class="identifier">dutch</span></code>, as seen above. Boost.Text also implements
+        implementation if you use <code class="computeroutput"><a class="link" href="../../boost/text/case_language.html" title="Type case_language">case_language</a><span class="special">::</span><span class="identifier">dutch</span></code>, as seen above. Boost.Text also implements
         the somewhat complicated rules for upper-casing modern Greek.
       </p>
 <p>
         Finally, there are in-place versions of the case-mapping functions available
-        for use with <code class="computeroutput"><a class="link" href="../../boost/text/v1/text.html" title="Struct text">text</a></code>
-        and <code class="computeroutput"><a class="link" href="../../boost/text/v1/rope.html" title="Struct rope">rope</a></code>:
+        for use with <code class="computeroutput"><a class="link" href="../../boost/text/text.html" title="Struct text">text</a></code>
+        and <code class="computeroutput"><a class="link" href="../../boost/text/rope.html" title="Struct rope">rope</a></code>:
       </p>
 <p>
 </p>

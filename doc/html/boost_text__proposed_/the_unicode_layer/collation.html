@@ -77,7 +77,7 @@
         From the Unicode documentation:
       </p>
 <div class="table">
-<a name="boost_text__proposed_.the_unicode_layer.collation.t0"></a><p class="title"><b>Table&#160;1.5.&#160;Comparison Levels</b></p>
+<a name="boost_text__proposed_.the_unicode_layer.collation.t0"></a><p class="title"><b>Table&#160;1.4.&#160;Comparison Levels</b></p>
 <div class="table-contents"><table class="table" summary="Comparison Levels">
 <colgroup>
 <col>
@@ -307,7 +307,7 @@
 <p>
         I've made every effort to hide the messy details of collation configuration
         from you, because they are super confusing. Instead, Boost.Text uses a set
-        of <code class="computeroutput"><a class="link" href="../../boost/text/v1/collation_flags.html" title="Type collation_flags">collation_flags</a></code>
+        of <code class="computeroutput"><a class="link" href="../../boost/text/collation_flags.html" title="Type collation_flags">collation_flags</a></code>
         that have more recognizable semantics. The flags map directly onto the low-level
         configuration settings. If you have C++14 <code class="computeroutput"><span class="keyword">constexpr</span></code>
         support, combinations of the flags that map to incompatible low-level settings
@@ -404,10 +404,13 @@
 <tr><td align="left" valign="top">
 <p>
           The default Unicode collation algorithm requires the NFD normalization
-          form, one of the least compact normalization forms. This means either keeping
-          your data in a memory-hogging normalization form, or paying the cost of
-          normalization every time you do a collation. However, there is a variant
-          of the default algorithm that is defined in <a href="https://unicode.org/notes/tn5" target="_top">Unicode
+          form, one of the least compact normalization forms. NFC is the most widely-used
+          normalization form (most European keyboards produce NFC, and W3C recommends
+          NFC for all web text). This means either keeping your data in the most
+          interoperable normalization form (NFC), and paying the cost of normalization
+          every time you do a collation, or the less interoperable NFD and not having
+          to renormalize when collating. However, there is a variant of the default
+          algorithm that is defined in <a href="https://unicode.org/notes/tn5" target="_top">Unicode
           Technical Note #5</a> that allows one to use an alternate normalization
           form called FCC.
         </p>
@@ -416,8 +419,8 @@
           Boost.Text's collation implementation relies on the inputs being in the
           FCC normalization form, so the collation functions require inputs to be
           normalized FCC. This happens automatically within the text layer types
-          (<code class="computeroutput"><a class="link" href="../../boost/text/v1/text.html" title="Struct text">text</a></code>,
-          <code class="computeroutput"><a class="link" href="../../boost/text/v1/rope.html" title="Struct rope">rope</a></code>,
+          (<code class="computeroutput"><a class="link" href="../../boost/text/text.html" title="Struct text">text</a></code>,
+          <code class="computeroutput"><a class="link" href="../../boost/text/rope.html" title="Struct rope">rope</a></code>,
           etc.).
         </p>
 </td></tr>
@@ -558,7 +561,7 @@
         in the other example above.
       </p>
 <div class="table">
-<a name="boost_text__proposed_.the_unicode_layer.collation.t1"></a><p class="title"><b>Table&#160;1.6.&#160;Code Point Binary Comparison Vs. Unretained Key Collation</b></p>
+<a name="boost_text__proposed_.the_unicode_layer.collation.t1"></a><p class="title"><b>Table&#160;1.5.&#160;Code Point Binary Comparison Vs. Unretained Key Collation</b></p>
 <div class="table-contents"><table class="table" summary="Code Point Binary Comparison Vs. Unretained Key Collation">
 <colgroup>
 <col>
@@ -746,7 +749,7 @@
         And here are the two binary comparison approaches compared to each other:
       </p>
 <div class="table">
-<a name="boost_text__proposed_.the_unicode_layer.collation.t2"></a><p class="title"><b>Table&#160;1.7.&#160;Code Point Binary Comparison Vs. `char` Binary Comparison (Tree Set)</b></p>
+<a name="boost_text__proposed_.the_unicode_layer.collation.t2"></a><p class="title"><b>Table&#160;1.6.&#160;Code Point Binary Comparison Vs. `char` Binary Comparison (Tree Set)</b></p>
 <div class="table-contents"><table class="table" summary="Code Point Binary Comparison Vs. `char` Binary Comparison (Tree Set)">
 <colgroup>
 <col>
@@ -918,7 +921,7 @@
         from before:
       </p>
 <div class="table">
-<a name="boost_text__proposed_.the_unicode_layer.collation.t3"></a><p class="title"><b>Table&#160;1.8.&#160;`char` Binary Comparison Flat Set Vs. Flat Map</b></p>
+<a name="boost_text__proposed_.the_unicode_layer.collation.t3"></a><p class="title"><b>Table&#160;1.7.&#160;`char` Binary Comparison Flat Set Vs. Flat Map</b></p>
 <div class="table-contents"><table class="table" summary="`char` Binary Comparison Flat Set Vs. Flat Map">
 <colgroup>
 <col>
@@ -1213,7 +1216,7 @@
       </p>
 <p>
         This is something close to the optimal approach, as clunky as it is. Alternatively,
-        we could sort the <code class="computeroutput"><a class="link" href="../../boost/text/v1/text.html" title="Struct text">texts</a></code>
+        we could sort the <code class="computeroutput"><a class="link" href="../../boost/text/text.html" title="Struct text">texts</a></code>
         using a comparator that does a lookup in some side data structure containing
         keys, but that seems even more clunky.
       </p>

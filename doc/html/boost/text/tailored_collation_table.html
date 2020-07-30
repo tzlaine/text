@@ -1,0 +1,71 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Function tailored_collation_table</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="up" href="../../header/boost/text/collation_table_hpp.html" title="Header &lt;boost/text/collation_table.hpp&gt;">
+<link rel="prev" href="default_collation_table.html" title="Function default_collation_table">
+<link rel="next" href="../../header/boost/text/concepts_hpp.html" title="Header &lt;boost/text/concepts.hpp&gt;">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="default_collation_table.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/collation_table_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="../../header/boost/text/concepts_hpp.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="refentry">
+<a name="boost.text.tailored_collation_table"></a><div class="titlepage"></div>
+<div class="refnamediv">
+<h2><span class="refentrytitle">Function tailored_collation_table</span></h2>
+<p>boost::text::tailored_collation_table</p>
+</div>
+<h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
+<div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="comment">// In header: &lt;<a class="link" href="../../header/boost/text/collation_table_hpp.html" title="Header &lt;boost/text/collation_table.hpp&gt;">boost/text/collation_table.hpp</a>&gt;
+
+</span>
+<a class="link" href="collation_table.html" title="Struct collation_table">collation_table</a> 
+<span class="identifier">tailored_collation_table</span><span class="special">(</span><span class="identifier">string_view</span> tailoring<span class="special">,</span> 
+                         <span class="identifier">string_view</span> tailoring_filename <span class="special">=</span> <span class="string">""</span><span class="special">,</span> 
+                         <span class="identifier">parser_diagnostic_callback</span> report_errors <span class="special">=</span> <span class="identifier">parser_diagnostic_callback</span><span class="special">(</span><span class="special">)</span><span class="special">,</span> 
+                         <span class="identifier">parser_diagnostic_callback</span> report_warnings <span class="special">=</span> <span class="identifier">parser_diagnostic_callback</span><span class="special">(</span><span class="special">)</span><span class="special">)</span><span class="special">;</span></pre></div>
+<div class="refsect1">
+<a name="idm22049"></a><h2>Description</h2>
+<p>Returns a collation table tailored using the tailoring specified in <code class="computeroutput">tailoring</code>.</p>
+<p>If <code class="computeroutput">report_errors</code> and/or <code class="computeroutput">report_warnings</code> are provided, they will be used to report parse warnings and errors, respectively.</p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>The <code class="computeroutput">suppressContractions</code> element only supports code points and code point ranges of the form "cp0-cp1".</p></td></tr>
+</table></div>
+<p>
+
+</p>
+<div class="variablelist"><table border="0" class="variablelist compact">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term">Throws:</span></p></td>
+<td>
+<a class="link" href="parse_error.html" title="Struct parse_error">parse_error</a> when a parse error is encountered, or <a class="link" href="tailoring_error.html" title="Struct tailoring_error">tailoring_error</a> when some aspect of the requested tailoring cannot be satisfied. </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2018 T. Zachary Laine<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="default_collation_table.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/collation_table_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="../../header/boost/text/concepts_hpp.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

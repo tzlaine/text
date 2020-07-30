@@ -1,0 +1,112 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Struct template grapheme_iterator</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="up" href="../../header/boost/text/grapheme_iterator_hpp.html" title="Header &lt;boost/text/grapheme_iterator.hpp&gt;">
+<link rel="prev" href="../../header/boost/text/grapheme_iterator_hpp.html" title="Header &lt;boost/text/grapheme_iterator.hpp&gt;">
+<link rel="next" href="operator___idm17548.html" title="Function template operator==">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="../../header/boost/text/grapheme_iterator_hpp.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/grapheme_iterator_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="operator___idm17548.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="refentry">
+<a name="boost.text.grapheme_iterator"></a><div class="titlepage"></div>
+<div class="refnamediv">
+<h2><span class="refentrytitle">Struct template grapheme_iterator</span></h2>
+<p>boost::text::grapheme_iterator</p>
+</div>
+<h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
+<div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="comment">// In header: &lt;<a class="link" href="../../header/boost/text/grapheme_iterator_hpp.html" title="Header &lt;boost/text/grapheme_iterator.hpp&gt;">boost/text/grapheme_iterator.hpp</a>&gt;
+
+</span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CPIter<span class="special">,</span> <span class="keyword">typename</span> Sentinel <span class="special">=</span> <span class="identifier">CPIter</span><span class="special">&gt;</span> 
+<span class="keyword">struct</span> <a class="link" href="grapheme_iterator.html" title="Struct template grapheme_iterator">grapheme_iterator</a> <span class="special">{</span>
+  <span class="comment">// types</span>
+  <span class="keyword">typedef</span> <a class="link" href="grapheme_ref.html" title="Struct template grapheme_ref">grapheme_ref</a><span class="special">&lt;</span> <span class="identifier">CPIter</span> <span class="special">&gt;</span>                           <a name="boost.text.grapheme_iterator.value_type"></a><span class="identifier">value_type</span><span class="special">;</span>       
+  <span class="keyword">typedef</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ptrdiff_t</span>                                   <a name="boost.text.grapheme_iterator.difference_type"></a><span class="identifier">difference_type</span><span class="special">;</span>  
+  <span class="keyword">typedef</span> <span class="identifier">stl_interfaces</span><span class="special">::</span><span class="identifier">proxy_arrow_result</span><span class="special">&lt;</span> <span class="identifier">value_type</span> <span class="special">&gt;</span> <a name="boost.text.grapheme_iterator.pointer"></a><span class="identifier">pointer</span><span class="special">;</span>          
+  <span class="keyword">typedef</span> <span class="identifier">value_type</span>                                       <a name="boost.text.grapheme_iterator.reference"></a><span class="identifier">reference</span><span class="special">;</span>        
+  <span class="keyword">typedef</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">bidirectional_iterator_tag</span>                  <a name="boost.text.grapheme_iterator.iterator_category"></a><span class="identifier">iterator_category</span><span class="special">;</span>
+  <span class="keyword">typedef</span> <span class="identifier">CPIter</span>                                           <a name="boost.text.grapheme_iterator.iterator_type"></a><span class="identifier">iterator_type</span><span class="special">;</span>    
+  <span class="keyword">typedef</span> <span class="identifier">Sentinel</span>                                         <a name="boost.text.grapheme_iterator.sentinel_type"></a><span class="identifier">sentinel_type</span><span class="special">;</span>    
+
+  <span class="comment">// <a class="link" href="grapheme_iterator.html#boost.text.grapheme_iteratorconstruct-copy-destruct">construct/copy/destruct</a></span>
+  <a class="link" href="grapheme_iterator.html#idm17522-bb"><span class="identifier">grapheme_iterator</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <a class="link" href="grapheme_iterator.html#idm17523-bb"><span class="identifier">grapheme_iterator</span></a><span class="special">(</span><span class="identifier">CPIter</span><span class="special">,</span> <span class="identifier">CPIter</span><span class="special">,</span> <span class="identifier">Sentinel</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CPIter2<span class="special">,</span> <span class="keyword">typename</span> Sentinel2<span class="special">,</span> 
+           <span class="keyword">typename</span> Enable <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">enable_if_t</span><span class="special">&lt;</span>                <span class="identifier">std</span><span class="special">::</span><span class="identifier">is_convertible</span><span class="special">&lt;</span><span class="identifier">CPIter2</span><span class="special">,</span> <span class="identifier">CPIter</span><span class="special">&gt;</span><span class="special">::</span><span class="identifier">value</span> <span class="special">&amp;&amp;</span>                <span class="identifier">std</span><span class="special">::</span><span class="identifier">is_convertible</span><span class="special">&lt;</span><span class="identifier">Sentinel2</span><span class="special">,</span> <span class="identifier">Sentinel</span><span class="special">&gt;</span><span class="special">::</span><span class="identifier">value</span><span class="special">&gt;</span> <span class="special">&gt;</span> 
+    <a class="link" href="grapheme_iterator.html#idm17530-bb"><span class="identifier">grapheme_iterator</span></a><span class="special">(</span><a class="link" href="grapheme_iterator.html" title="Struct template grapheme_iterator">grapheme_iterator</a><span class="special">&lt;</span> <span class="identifier">CPIter2</span><span class="special">,</span> <span class="identifier">Sentinel2</span> <span class="special">&gt;</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+
+  <span class="comment">// <a class="link" href="grapheme_iterator.html#idm17499-bb">public member functions</a></span>
+  <span class="keyword">constexpr</span> <span class="identifier">reference</span> <a class="link" href="grapheme_iterator.html#idm17500-bb"><span class="keyword">operator</span><span class="special">*</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">constexpr</span> <span class="identifier">pointer</span> <a class="link" href="grapheme_iterator.html#idm17502-bb"><span class="keyword">operator</span><span class="special">-&gt;</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">constexpr</span> <span class="identifier">CPIter</span> <a class="link" href="grapheme_iterator.html#idm17504-bb"><span class="identifier">base</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">constexpr</span> <a class="link" href="grapheme_iterator.html" title="Struct template grapheme_iterator">grapheme_iterator</a> <span class="special">&amp;</span> <a class="link" href="grapheme_iterator.html#idm17506-bb"><span class="keyword">operator</span><span class="special">++</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">constexpr</span> <a class="link" href="grapheme_iterator.html" title="Struct template grapheme_iterator">grapheme_iterator</a> <a class="link" href="grapheme_iterator.html#idm17509-bb"><span class="keyword">operator</span><span class="special">++</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">constexpr</span> <a class="link" href="grapheme_iterator.html" title="Struct template grapheme_iterator">grapheme_iterator</a> <span class="special">&amp;</span> <a class="link" href="grapheme_iterator.html#idm17514-bb"><span class="keyword">operator</span><span class="special">--</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">constexpr</span> <a class="link" href="grapheme_iterator.html" title="Struct template grapheme_iterator">grapheme_iterator</a> <a class="link" href="grapheme_iterator.html#idm17517-bb"><span class="keyword">operator</span><span class="special">--</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+
+  <span class="comment">// <a class="link" href="grapheme_iterator.html#idm17539-bb">private member functions</a></span>
+  <span class="keyword">constexpr</span> <span class="identifier">CPIter</span> <a class="link" href="grapheme_iterator.html#idm17540-bb"><span class="identifier">seq_begin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">constexpr</span> <span class="identifier">CPIter</span> <a class="link" href="grapheme_iterator.html#idm17542-bb"><span class="identifier">gr_begin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">constexpr</span> <span class="identifier">CPIter</span> <a class="link" href="grapheme_iterator.html#idm17544-bb"><span class="identifier">gr_end</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">constexpr</span> <span class="identifier">Sentinel</span> <a class="link" href="grapheme_iterator.html#idm17546-bb"><span class="identifier">seq_end</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+<span class="special">}</span><span class="special">;</span></pre></div>
+<div class="refsect1">
+<a name="idm24169"></a><h2>Description</h2>
+<p>A bidirectional filtering iterator that iterates over the extended grapheme clusters in a sequence of code points. </p>
+<div class="refsect2">
+<a name="idm24172"></a><h3>
+<a name="boost.text.grapheme_iteratorconstruct-copy-destruct"></a><code class="computeroutput">grapheme_iterator</code> 
+        public
+       construct/copy/destruct</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem"><pre class="literallayout"><a name="idm17522-bb"></a><span class="identifier">grapheme_iterator</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idm17523-bb"></a><span class="identifier">grapheme_iterator</span><span class="special">(</span><span class="identifier">CPIter</span> first<span class="special">,</span> <span class="identifier">CPIter</span> it<span class="special">,</span> <span class="identifier">Sentinel</span> last<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CPIter2<span class="special">,</span> <span class="keyword">typename</span> Sentinel2<span class="special">,</span> 
+         <span class="keyword">typename</span> Enable <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">enable_if_t</span><span class="special">&lt;</span>                <span class="identifier">std</span><span class="special">::</span><span class="identifier">is_convertible</span><span class="special">&lt;</span><span class="identifier">CPIter2</span><span class="special">,</span> <span class="identifier">CPIter</span><span class="special">&gt;</span><span class="special">::</span><span class="identifier">value</span> <span class="special">&amp;&amp;</span>                <span class="identifier">std</span><span class="special">::</span><span class="identifier">is_convertible</span><span class="special">&lt;</span><span class="identifier">Sentinel2</span><span class="special">,</span> <span class="identifier">Sentinel</span><span class="special">&gt;</span><span class="special">::</span><span class="identifier">value</span><span class="special">&gt;</span> <span class="special">&gt;</span> 
+  <a name="idm17530-bb"></a><span class="identifier">grapheme_iterator</span><span class="special">(</span><a class="link" href="grapheme_iterator.html" title="Struct template grapheme_iterator">grapheme_iterator</a><span class="special">&lt;</span> <span class="identifier">CPIter2</span><span class="special">,</span> <span class="identifier">Sentinel2</span> <span class="special">&gt;</span> <span class="keyword">const</span> <span class="special">&amp;</span> other<span class="special">)</span><span class="special">;</span></pre></li>
+</ol></div>
+</div>
+<div class="refsect2">
+<a name="idm24251"></a><h3>
+<a name="idm17499-bb"></a><code class="computeroutput">grapheme_iterator</code> public member functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem"><pre class="literallayout"><span class="keyword">constexpr</span> <span class="identifier">reference</span> <a name="idm17500-bb"></a><span class="keyword">operator</span><span class="special">*</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">constexpr</span> <span class="identifier">pointer</span> <a name="idm17502-bb"></a><span class="keyword">operator</span><span class="special">-&gt;</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">constexpr</span> <span class="identifier">CPIter</span> <a name="idm17504-bb"></a><span class="identifier">base</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">constexpr</span> <a class="link" href="grapheme_iterator.html" title="Struct template grapheme_iterator">grapheme_iterator</a> <span class="special">&amp;</span> <a name="idm17506-bb"></a><span class="keyword">operator</span><span class="special">++</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">constexpr</span> <a class="link" href="grapheme_iterator.html" title="Struct template grapheme_iterator">grapheme_iterator</a> <a name="idm17509-bb"></a><span class="keyword">operator</span><span class="special">++</span><span class="special">(</span><span class="keyword">int</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">constexpr</span> <a class="link" href="grapheme_iterator.html" title="Struct template grapheme_iterator">grapheme_iterator</a> <span class="special">&amp;</span> <a name="idm17514-bb"></a><span class="keyword">operator</span><span class="special">--</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">constexpr</span> <a class="link" href="grapheme_iterator.html" title="Struct template grapheme_iterator">grapheme_iterator</a> <a name="idm17517-bb"></a><span class="keyword">operator</span><span class="special">--</span><span class="special">(</span><span class="keyword">int</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+</ol></div>
+</div>
+<div class="refsect2">
+<a name="idm24346"></a><h3>
+<a name="idm17539-bb"></a><code class="computeroutput">grapheme_iterator</code> private member functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem"><pre class="literallayout"><span class="keyword">constexpr</span> <span class="identifier">CPIter</span> <a name="idm17540-bb"></a><span class="identifier">seq_begin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">constexpr</span> <span class="identifier">CPIter</span> <a name="idm17542-bb"></a><span class="identifier">gr_begin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">constexpr</span> <span class="identifier">CPIter</span> <a name="idm17544-bb"></a><span class="identifier">gr_end</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">constexpr</span> <span class="identifier">Sentinel</span> <a name="idm17546-bb"></a><span class="identifier">seq_end</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+</ol></div>
+</div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2018 T. Zachary Laine<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="../../header/boost/text/grapheme_iterator_hpp.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/grapheme_iterator_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="operator___idm17548.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

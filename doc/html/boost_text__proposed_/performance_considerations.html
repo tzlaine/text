@@ -36,14 +36,13 @@
       Here are the relative timings for UTF-8 to UTF-16 transcoding, using various
       methods (smaller is better). The input was around half a megabyte of text from
       Wikipedia. "Iterators" is using <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">copy</span></code> from
-      <code class="computeroutput"><a class="link" href="../boost/text/v1/utf_8_to_16_iterator.html" title="Struct template utf_8_to_16_iterator">utf_8_to_16_iterator</a></code>
-      to a pointer; "Algorithm std::back_inserter" is using <code class="computeroutput"><a class="link" href="../boost/text/v1/transcode_utf_8_t_idm25045.html" title="Function template transcode_utf_8_to_16">transcode_utf_8_to_16()</a></code> in the SIMD code path, and
-      outputting to a <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">back_insert_iterator</span></code>; "Algorithm using
-      SIMD" is using <code class="computeroutput"><a class="link" href="../boost/text/v1/transcode_utf_8_t_idm25045.html" title="Function template transcode_utf_8_to_16">transcode_utf_8_to_16()</a></code>
+      <code class="computeroutput"><a class="link" href="../boost/text/utf_8_to_16_iterator.html" title="Struct template utf_8_to_16_iterator">utf_8_to_16_iterator</a></code>
+      to a pointer; "Algorithm std::back_inserter" is using <span class="underline">tc_8_to_16</span>
+      in the SIMD code path, and outputting to a <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">back_insert_iterator</span></code>;
+      "Algorithm using SIMD" is using <span class="underline">tc_8_to_16</span>
       from pointer to pointer in the SIMD-using code path; "Algorithm using
-      SIMD" is using <code class="computeroutput"><a class="link" href="../boost/text/v1/transcode_utf_8_t_idm25045.html" title="Function template transcode_utf_8_to_16">transcode_utf_8_to_16()</a></code>
-      from pointer to pointer in the non-SIMD code path; and "ICU" is is
-      using <code class="computeroutput"><span class="identifier">UnicodeString</span><span class="special">::</span><span class="identifier">fromUTF8</span><span class="special">()</span></code>.
+      SIMD" is using <span class="underline">tc_8_to_16</span> from pointer
+      to pointer in the non-SIMD code path; and "ICU" is is using <code class="computeroutput"><span class="identifier">UnicodeString</span><span class="special">::</span><span class="identifier">fromUTF8</span><span class="special">()</span></code>.
     </p>
 <p>
       <span class="inlinemediaobject"><object type="image/svg+xml" data="../../../doc/utf_8_to_16_perf.svg" width="500" height="150"></object></span>
@@ -51,7 +50,7 @@
 <p>
       The ICU performance is shown as something of a baseline, given the ubiquity
       of ICU's use in Unicode-aware programs. Note that ICU does not have convenient
-      APIs for doing transcoding to an format but UTF-16.
+      APIs for doing transcoding to any format but UTF-16.
     </p>
 <p>
       There are four take-always from this chart (and in fact all the other transcoding
@@ -246,7 +245,7 @@
     </h4>
 <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
           Using atomic operations for rope ref counts does not seem to incur much
-          cost. In perf tests, copying a <code class="computeroutput"><a class="link" href="../boost/text/v1/rope.html" title="Struct rope">rope</a></code> is 8ns with non-atomic
+          cost. In perf tests, copying a <code class="computeroutput"><a class="link" href="../boost/text/rope.html" title="Struct rope">rope</a></code> is 8ns with non-atomic
           ints, vs. 9-10ns with atomic ints. Comparison was done on MacOS.
         </li></ul></div>
 </div>

@@ -26,7 +26,7 @@
       a bidirectional iterator over a sequence of <code class="computeroutput"><span class="keyword">char</span></code>.
     </p>
 <p>
-      Example: <code class="computeroutput"><a class="link" href="../boost/text/v1/rope.html" title="Struct rope">rope</a></code><code class="computeroutput"><span class="special">::</span><span class="identifier">iterator</span></code>.
+      Example: <code class="computeroutput"><a class="link" href="../boost/text/rope.html" title="Struct rope">rope</a></code><code class="computeroutput"><span class="special">::</span><span class="identifier">iterator</span></code>.
     </p>
 <p>
       Requirements on <a class="link" href="concepts.html#boost_text__proposed_.concepts.chariter">CharIter</a>.
@@ -34,7 +34,7 @@
       a type that models <a class="link" href="concepts.html#boost_text__proposed_.concepts.chariter">CharIter</a>.
     </p>
 <div class="table">
-<a name="boost_text__proposed_.concepts.t0"></a><p class="title"><b>Table&#160;1.9.&#160;Expression Requirements</b></p>
+<a name="boost_text__proposed_.concepts.t0"></a><p class="title"><b>Table&#160;1.8.&#160;Expression Requirements</b></p>
 <div class="table-contents"><table class="table" summary="Expression Requirements">
 <colgroup>
 <col>
@@ -111,7 +111,7 @@
       is a possibly-discontiguous sequence of <code class="computeroutput"><span class="keyword">char</span></code>.
     </p>
 <p>
-      Example: <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code>.
+      Example: <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code>.
     </p>
 <p>
       Requirements on <a class="link" href="concepts.html#boost_text__proposed_.concepts.charrange">CharRange</a>.
@@ -122,7 +122,7 @@
       is a type equality comparable to <code class="computeroutput"><span class="identifier">Iter</span></code>.
     </p>
 <div class="table">
-<a name="boost_text__proposed_.concepts.t1"></a><p class="title"><b>Table&#160;1.10.&#160;Expression Requirements</b></p>
+<a name="boost_text__proposed_.concepts.t1"></a><p class="title"><b>Table&#160;1.9.&#160;Expression Requirements</b></p>
 <div class="table-contents"><table class="table" summary="Expression Requirements">
 <colgroup>
 <col>
@@ -229,7 +229,7 @@
       is a contiguous sequence of <code class="computeroutput"><span class="keyword">char</span></code>.
     </p>
 <p>
-      Example: <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code>.
+      Example: <code class="computeroutput">std::string</code>.
     </p>
 <p>
       Requirements on <a class="link" href="concepts.html#boost_text__proposed_.concepts.contigcharrange">ContigCharRange</a>.
@@ -240,7 +240,7 @@
       is an iterator type whose value type is (possibly cv-qualified) <code class="computeroutput"><span class="keyword">char</span></code>.
     </p>
 <div class="table">
-<a name="boost_text__proposed_.concepts.t2"></a><p class="title"><b>Table&#160;1.11.&#160;Expression Requirements</b></p>
+<a name="boost_text__proposed_.concepts.t2"></a><p class="title"><b>Table&#160;1.10.&#160;Expression Requirements</b></p>
 <div class="table-contents"><table class="table" summary="Expression Requirements">
 <colgroup>
 <col>
@@ -319,7 +319,7 @@
       a type that models <a class="link" href="concepts.html#boost_text__proposed_.concepts.cpiter">CPIter</a>.
     </p>
 <div class="table">
-<a name="boost_text__proposed_.concepts.t3"></a><p class="title"><b>Table&#160;1.12.&#160;Expression Requirements</b></p>
+<a name="boost_text__proposed_.concepts.t3"></a><p class="title"><b>Table&#160;1.11.&#160;Expression Requirements</b></p>
 <div class="table-contents"><table class="table" summary="Expression Requirements">
 <colgroup>
 <col>
@@ -384,7 +384,7 @@
       integral type.
     </p>
 <p>
-      Example: <code class="computeroutput"><a class="link" href="../boost/text/v1/utf32_view.html" title="Struct template utf32_view">utf32_view</a></code>.
+      Example: <code class="computeroutput"><a class="link" href="../boost/text/utf32_view.html" title="Struct template utf32_view">utf32_view</a></code>.
     </p>
 <p>
       Requirements on <a class="link" href="concepts.html#boost_text__proposed_.concepts.cprange">CPRange</a>.
@@ -396,7 +396,7 @@
       <code class="computeroutput"><span class="identifier">Iter</span></code>.
     </p>
 <div class="table">
-<a name="boost_text__proposed_.concepts.t4"></a><p class="title"><b>Table&#160;1.13.&#160;Expression Requirements</b></p>
+<a name="boost_text__proposed_.concepts.t4"></a><p class="title"><b>Table&#160;1.12.&#160;Expression Requirements</b></p>
 <div class="table-contents"><table class="table" summary="Expression Requirements">
 <colgroup>
 <col>
@@ -505,7 +505,7 @@
       iterator.
     </p>
 <p>
-      Example: <code class="computeroutput"><a class="link" href="../boost/text/v1/text.html" title="Struct text">text</a></code>::iterator.
+      Example: <code class="computeroutput"><a class="link" href="../boost/text/text.html" title="Struct text">text</a></code>::iterator.
     </p>
 <p>
       Requirements on <a class="link" href="concepts.html#boost_text__proposed_.concepts.graphemeiterator">GraphemeIterator</a>.
@@ -519,7 +519,7 @@
       type <code class="computeroutput"><span class="identifier">CharIter</span></code>.
     </p>
 <div class="table">
-<a name="boost_text__proposed_.concepts.t5"></a><p class="title"><b>Table&#160;1.14.&#160;Expression Requirements</b></p>
+<a name="boost_text__proposed_.concepts.t5"></a><p class="title"><b>Table&#160;1.13.&#160;Expression Requirements</b></p>
 <div class="table-contents"><table class="table" summary="Expression Requirements">
 <colgroup>
 <col>
@@ -649,7 +649,7 @@
       iterator.
     </p>
 <p>
-      Example: <code class="computeroutput"><a class="link" href="../boost/text/v1/rope.html" title="Struct rope">rope</a></code>.
+      Example: <code class="computeroutput"><a class="link" href="../boost/text/rope.html" title="Struct rope">rope</a></code>.
     </p>
 <p>
       Requirements on <a class="link" href="concepts.html#boost_text__proposed_.concepts.graphemerange">GraphemeRange</a>.
@@ -663,7 +663,7 @@
       <code class="computeroutput"><span class="identifier">Iter</span></code>.
     </p>
 <div class="table">
-<a name="boost_text__proposed_.concepts.t6"></a><p class="title"><b>Table&#160;1.15.&#160;Expression Requirements</b></p>
+<a name="boost_text__proposed_.concepts.t6"></a><p class="title"><b>Table&#160;1.14.&#160;Expression Requirements</b></p>
 <div class="table-contents"><table class="table" summary="Expression Requirements">
 <colgroup>
 <col>
@@ -828,7 +828,7 @@
       <code class="computeroutput"><span class="keyword">char</span></code>.
     </p>
 <p>
-      Example: <code class="computeroutput"><a class="link" href="../boost/text/v1/text.html" title="Struct text">text</a></code>.
+      Example: <code class="computeroutput"><a class="link" href="../boost/text/text.html" title="Struct text">text</a></code>.
     </p>
 <p>
       Requirements on <a class="link" href="concepts.html#boost_text__proposed_.concepts.contiggraphemerange">ContigGraphemeRange</a>.
@@ -839,7 +839,7 @@
       is an iterator type whose value type is (possibly cv-qualified) <code class="computeroutput"><span class="keyword">char</span></code>.
     </p>
 <div class="table">
-<a name="boost_text__proposed_.concepts.t7"></a><p class="title"><b>Table&#160;1.16.&#160;Expression Requirements</b></p>
+<a name="boost_text__proposed_.concepts.t7"></a><p class="title"><b>Table&#160;1.15.&#160;Expression Requirements</b></p>
 <div class="table-contents"><table class="table" summary="Expression Requirements">
 <colgroup>
 <col>
@@ -906,7 +906,7 @@
     </h4>
 <p>
       A <a class="link" href="concepts.html#boost_text__proposed_.concepts.wordpropfunc">WordPropFunc</a>
-      is a callable taking a code point that returns the <code class="computeroutput"><a class="link" href="../boost/text/v1/word_property.html" title="Type word_property">word_property</a></code> for that code point.
+      is a callable taking a code point that returns the <code class="computeroutput"><a class="link" href="../boost/text/word_property.html" title="Type word_property">word_property</a></code> for that code point.
       A <a class="link" href="concepts.html#boost_text__proposed_.concepts.wordpropfunc">WordPropFunc</a>
       must be stateless.
     </p>
@@ -931,7 +931,7 @@
       is an object convertible to <code class="computeroutput"><span class="identifier">uint32_t</span></code>.
     </p>
 <div class="table">
-<a name="boost_text__proposed_.concepts.t8"></a><p class="title"><b>Table&#160;1.17.&#160;Expression Requirements</b></p>
+<a name="boost_text__proposed_.concepts.t8"></a><p class="title"><b>Table&#160;1.16.&#160;Expression Requirements</b></p>
 <div class="table-contents"><table class="table" summary="Expression Requirements">
 <colgroup>
 <col>
@@ -969,21 +969,21 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><a class="link" href="../boost/text/v1/word_property.html" title="Type word_property">word_property</a></code>
+                <code class="computeroutput"><a class="link" href="../boost/text/word_property.html" title="Type word_property">word_property</a></code>
               </p>
             </td>
 <td>
               <p>
-                Returns the <code class="computeroutput"><a class="link" href="../boost/text/v1/word_property.html" title="Type word_property">word_property</a></code> associated
+                Returns the <code class="computeroutput"><a class="link" href="../boost/text/word_property.html" title="Type word_property">word_property</a></code> associated
                 with <code class="computeroutput"><span class="identifier">cp</span></code>.
               </p>
             </td>
 <td>
               <p>
-                The <code class="computeroutput"><a class="link" href="../boost/text/v1/word_property.html" title="Type word_property">word_property</a></code> produced
-                by <code class="computeroutput"><span class="identifier">f</span></code> may be different
-                than the one indicated by the Unicode standard; this allows customization
-                of word boundaries. <code class="computeroutput"><span class="identifier">f</span></code>
+                The <code class="computeroutput"><a class="link" href="../boost/text/word_property.html" title="Type word_property">word_property</a></code>
+                produced by <code class="computeroutput"><span class="identifier">f</span></code> may
+                be different than the one indicated by the Unicode standard; this
+                allows customization of word boundaries. <code class="computeroutput"><span class="identifier">f</span></code>
                 may not rely on its state being preserved between calls.
               </p>
             </td>
@@ -1032,7 +1032,7 @@
       are objects convertible to <code class="computeroutput"><span class="identifier">uint32_t</span></code>.
     </p>
 <div class="table">
-<a name="boost_text__proposed_.concepts.t9"></a><p class="title"><b>Table&#160;1.18.&#160;Expression Requirements</b></p>
+<a name="boost_text__proposed_.concepts.t9"></a><p class="title"><b>Table&#160;1.17.&#160;Expression Requirements</b></p>
 <div class="table-contents"><table class="table" summary="Expression Requirements">
 <colgroup>
 <col>
@@ -1133,7 +1133,7 @@
       and <code class="computeroutput"><span class="identifier">first</span></code> and <code class="computeroutput"><span class="identifier">last</span></code> are objects of type <code class="computeroutput"><span class="identifier">CPIter</span></code>.
     </p>
 <div class="table">
-<a name="boost_text__proposed_.concepts.t10"></a><p class="title"><b>Table&#160;1.19.&#160;Expression Requirements</b></p>
+<a name="boost_text__proposed_.concepts.t10"></a><p class="title"><b>Table&#160;1.18.&#160;Expression Requirements</b></p>
 <div class="table-contents"><table class="table" summary="Expression Requirements">
 <colgroup>
 <col>
@@ -1205,7 +1205,7 @@
       may not be stateful.
     </p>
 <p>
-      Example: <code class="computeroutput"><a class="link" href="../boost/text/v1/prev_grapheme_bre_idm18401.html" title="Function template prev_grapheme_break">prev_grapheme_break()</a></code>
+      Example: <code class="computeroutput"><a class="link" href="../boost/text/prev_grapheme_bre_idm17321.html" title="Function template prev_grapheme_break">prev_grapheme_break()</a></code>
     </p>
 <p>
       Requirements on <a class="link" href="concepts.html#boost_text__proposed_.concepts.breakfunc">BreakFunc</a>.
@@ -1218,7 +1218,7 @@
       <code class="computeroutput"><span class="identifier">CPIter</span></code>.
     </p>
 <div class="table">
-<a name="boost_text__proposed_.concepts.t11"></a><p class="title"><b>Table&#160;1.20.&#160;Expression Requirements</b></p>
+<a name="boost_text__proposed_.concepts.t11"></a><p class="title"><b>Table&#160;1.19.&#160;Expression Requirements</b></p>
 <div class="table-contents"><table class="table" summary="Expression Requirements">
 <colgroup>
 <col>
@@ -1291,7 +1291,7 @@
       was configured to find.
     </p>
 <p>
-      Example: <code class="computeroutput"><a class="link" href="../boost/text/v1/boyer_moore_colla_idm17263.html" title="Struct template boyer_moore_collation_searcher">boyer_moore_collation_searcher</a></code>
+      Example: <code class="computeroutput"><a class="link" href="../boost/text/boyer_moore_colla_idm16167.html" title="Struct template boyer_moore_collation_searcher">boyer_moore_collation_searcher</a></code>
     </p>
 <p>
       Requirements on <a class="link" href="concepts.html#boost_text__proposed_.concepts.searcher">Searcher</a>.
@@ -1304,7 +1304,7 @@
       <code class="computeroutput"><span class="identifier">CPIter</span></code>.
     </p>
 <div class="table">
-<a name="boost_text__proposed_.concepts.t12"></a><p class="title"><b>Table&#160;1.21.&#160;Expression Requirements</b></p>
+<a name="boost_text__proposed_.concepts.t12"></a><p class="title"><b>Table&#160;1.20.&#160;Expression Requirements</b></p>
 <div class="table-contents"><table class="table" summary="Expression Requirements">
 <colgroup>
 <col>

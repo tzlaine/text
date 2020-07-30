@@ -190,13 +190,14 @@
 </tr>
 <tr><td align="left" valign="top">
 <p>
-          The searching API does not require FCC-normalized inputs; it will search
-          other normalization forms as well. However, you should be careful searching
-          in text that is normalized NFD or NFKD.
+          The searching API does not require inputs aligned to grapheme boundaries.
+          You can get correct but suspicious-seeming results when you try to match
+          using code points that may be part of longer graphemes in the text being
+          searched.
         </p>
 <p>
           Consider the NFD string <code class="computeroutput"><span class="string">"a\u0300\u0301"</span></code>
-          &#8212; an <code class="computeroutput"><span class="char">'a'</span></code> followed by an
+          &#8212; an <code class="computeroutput"><span class="char">'a'</span></code> followed by a
           grave accent followed by an acute accent. This string will not always be
           matched correctly by pattern <code class="computeroutput"><span class="string">"a\u0300"</span></code>
           (or <code class="computeroutput"><span class="string">"a\u0301"</span></code>), due
@@ -207,8 +208,8 @@
         </p>
 <p>
           If none of that made sense to you, don't worry. Just use the text layer
-          types, which are always normalized FCC and always deal in graphemes, and
-          you'll never have to consider this effect.
+          types, which always deal in whole graphemes, and you'll never have to consider
+          this effect.
         </p>
 </td></tr>
 </table></div>

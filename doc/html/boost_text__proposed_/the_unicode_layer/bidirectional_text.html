@@ -37,8 +37,8 @@
         Boost.Text has an implementation of the Unicode bidirectional algorithm.
         The interface for simple uses is straightforward; you just call the algorithm
         with a sequence of code points, and it returns a lazy range of subranges.
-        Each subrange is a <code class="computeroutput"><a class="link" href="../../boost/text/v1/bidirectional_cp_subrange.html" title="Struct template bidirectional_cp_subrange">bidirectional_cp_subrange</a></code> (or
-        <code class="computeroutput"><a class="link" href="../../boost/text/v1/bidirectional_gra_idm16218.html" title="Struct template bidirectional_grapheme_subrange">bidirectional_grapheme_subrange</a></code>
+        Each subrange is a <code class="computeroutput"><a class="link" href="../../boost/text/bidirectional_cp_subrange.html" title="Struct template bidirectional_cp_subrange">bidirectional_cp_subrange</a></code> (or
+        <code class="computeroutput"><a class="link" href="../../boost/text/bidirectional_gra_idm15115.html" title="Struct template bidirectional_grapheme_subrange">bidirectional_grapheme_subrange</a></code>
         for the <a class="link" href="../concepts.html#boost_text__proposed_.concepts.graphemerange">GraphemeRange</a>
         overload):
       </p>
@@ -139,7 +139,7 @@ translate English-&gt;Arabic, it produces "&#1579;&#1606;&#1575;&#1574;&#1610; &
 &#1605;&#1585;&#1581;&#1576;&#1575; &#1548; &#1593;&#1575;&#1604;&#1605;".  I have no idea if it's correct.
 ************************************************************
 */</span>
-<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">repeat</span><span class="special">(</span><span class="string">"*"</span><span class="special">,</span> <span class="number">60</span><span class="special">)</span> <span class="special">&lt;&lt;</span> <span class="string">"\n"</span><span class="special">;</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"**************************************************\n"</span><span class="special">;</span>
 <span class="keyword">for</span> <span class="special">(</span><span class="keyword">auto</span> <span class="identifier">range</span> <span class="special">:</span>
      <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">bidirectional_subranges</span><span class="special">(</span><span class="identifier">memory_order_text</span><span class="special">,</span> <span class="number">60</span><span class="special">,</span> <span class="identifier">extent</span><span class="special">))</span> <span class="special">{</span>
     <span class="keyword">for</span> <span class="special">(</span><span class="keyword">auto</span> <span class="identifier">grapheme</span> <span class="special">:</span> <span class="identifier">range</span><span class="special">)</span> <span class="special">{</span>
@@ -154,7 +154,7 @@ translate English-&gt;Arabic, it produces "&#1579;&#1606;&#1575;&#1574;&#1610; &
     <span class="keyword">if</span> <span class="special">(</span><span class="identifier">range</span><span class="special">.</span><span class="identifier">allowed_break</span><span class="special">())</span>
         <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"\n"</span><span class="special">;</span>
 <span class="special">}</span>
-<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">repeat</span><span class="special">(</span><span class="string">"*"</span><span class="special">,</span> <span class="number">60</span><span class="special">)</span> <span class="special">&lt;&lt;</span> <span class="string">"\n"</span><span class="special">;</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"**************************************************\n"</span><span class="special">;</span>
 </pre>
 <p>
       </p>

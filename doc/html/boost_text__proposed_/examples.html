@@ -26,28 +26,11 @@
       Ok, here is the obligatory "Hello, world!" example:
     </p>
 <p>
-</p>
-<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">text</span><span class="special">/</span><span class="identifier">string</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
-
-<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">iostream</span><span class="special">&gt;</span>
-
-
-<span class="keyword">int</span> <span class="identifier">main</span> <span class="special">()</span>
-<span class="special">{</span>
-    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">string_view</span> <span class="keyword">const</span> <span class="identifier">string_view</span><span class="special">(</span><span class="string">"Hello, world!\n"</span><span class="special">);</span>
-    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">string</span> <span class="keyword">const</span> <span class="identifier">string</span><span class="special">(</span><span class="identifier">u8</span><span class="string">"&#1074;&#1089;&#1077;&#1084; &#1087;&#1088;&#1080;&#1074;&#1077;&#1090;!\n"</span><span class="special">);</span>
-
-    <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">string_view</span><span class="special">;</span>
-    <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">string</span><span class="special">;</span>
-
-    <span class="keyword">return</span> <span class="number">0</span><span class="special">;</span>
-<span class="special">}</span>
-</pre>
-<p>
+      [hello_world]
     </p>
 <p>
-      Pretty simple, we've just made a non-owning <code class="computeroutput"><a class="link" href="../boost/text/v1/string_view.html" title="Struct string_view">string_view</a></code>, and an owning-and-allocating
-      <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code>.
+      Pretty simple, we've just made a non-owning <code class="computeroutput">std::string_view</code>,
+      and an owning-and-allocating <code class="computeroutput">std::string</code>.
       They each say "Hello, World!". The second one is what the Internet
       assures me is idiomatic Russian meaning the same thing.
     </p>
@@ -58,49 +41,36 @@
     </h4>
 <p>
       There are particular parameter passing conventions that some of the Boost.Text
-      types are designed for. For instance, <code class="computeroutput"><a class="link" href="../boost/text/v1/string_view.html" title="Struct string_view">string_view</a></code>, like <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string_view</span></code>,
-      is designed to bind to any <code class="computeroutput"><span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span></code>, <code class="computeroutput"><a class="link" href="../boost/text/v1/string_view.html" title="Struct string_view">string_view</a></code>,
-      or <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code>
-      argument, without making a copy. <code class="computeroutput"><a class="link" href="../boost/text/v1/string_view.html" title="Struct string_view">string_view</a></code> is therefore a replacement
-      for the multiple overloads it would take to handle all those types. If <code class="computeroutput"><a class="link" href="../boost/text/v1/string_view.html" title="Struct string_view">string_view</a></code>
+      types are designed for. For instance, <code class="computeroutput">std::string_view</code>,
+      like <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string_view</span></code>, is designed to bind to any
+      <code class="computeroutput"><span class="keyword">char</span> <span class="keyword">const</span>
+      <span class="special">*</span></code>, <code class="computeroutput">std::string_view</code>,
+      or <code class="computeroutput">std::string</code>
+      argument, without making a copy. <code class="computeroutput">std::string_view</code>
+      is therefore a replacement for the multiple overloads it would take to handle
+      all those types. If <code class="computeroutput">std::string_view</code>
       was not implicitly convertible from <code class="computeroutput"><span class="keyword">char</span>
       <span class="keyword">const</span> <span class="special">*</span></code>
-      and <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code>,
+      and <code class="computeroutput">std::string</code>,
       this is the sort of code you would have to write:
     </p>
 <p>
-</p>
-<pre class="programlisting"><span class="keyword">void</span> <span class="identifier">print_string_without</span> <span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">string_view</span> <span class="identifier">str</span><span class="special">)</span>
-<span class="special">{</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">str</span><span class="special">;</span> <span class="special">}</span>
-
-<span class="keyword">void</span> <span class="identifier">print_string_without</span> <span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">string</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">str</span><span class="special">)</span>
-<span class="special">{</span> <span class="identifier">print_string_without</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">string_view</span><span class="special">(</span><span class="identifier">str</span><span class="special">));</span> <span class="special">}</span>
-
-<span class="keyword">void</span> <span class="identifier">print_string_without</span> <span class="special">(</span><span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span> <span class="identifier">str</span><span class="special">)</span>
-<span class="special">{</span> <span class="identifier">print_string_without</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">string_view</span><span class="special">(</span><span class="identifier">str</span><span class="special">));</span> <span class="special">}</span>
-</pre>
-<p>
+      [params_to_take_string_and_string_view_without]
     </p>
 <p>
-      And here is what you can write with <code class="computeroutput"><a class="link" href="../boost/text/v1/string_view.html" title="Struct string_view">string_view</a></code>'s implicit conversions:
+      And here is what you can write with <code class="computeroutput">std::string_view</code>'s
+      implicit conversions:
     </p>
 <p>
-</p>
-<pre class="programlisting"><span class="keyword">void</span> <span class="identifier">print_string_with</span> <span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">string_view</span> <span class="identifier">str</span><span class="special">)</span>
-<span class="special">{</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">str</span><span class="special">;</span> <span class="special">}</span>
-</pre>
-<p>
+      [params_to_take_string_and_string_view_with]
     </p>
 <p>
       If you want to write a function parameter that handles any of Boost.Text's
-      types, <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a></code> is available:
+      types, <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a></code>
+      is available:
     </p>
 <p>
-</p>
-<pre class="programlisting"><span class="keyword">void</span> <span class="identifier">print_any_string_type</span> <span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">unencoded_rope_view</span> <span class="identifier">str</span><span class="special">)</span>
-<span class="special">{</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">str</span><span class="special">;</span> <span class="special">}</span>
-</pre>
-<p>
+      [params_to_take_anything]
     </p>
 <p>
       And, sure enough, you can call it with any of the Boost.Text types, and even
@@ -108,16 +78,7 @@
       <span class="special">*</span></code>:
     </p>
 <p>
-</p>
-<pre class="programlisting"><span class="identifier">print_any_string_type</span><span class="special">(</span><span class="string">"1\n"</span><span class="special">);</span>
-<span class="identifier">print_any_string_type</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">string_view</span><span class="special">(</span><span class="string">"2\n"</span><span class="special">));</span>
-<span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">str_3</span><span class="special">(</span><span class="string">"3\n"</span><span class="special">);</span>
-<span class="identifier">print_any_string_type</span><span class="special">(</span><span class="identifier">str_3</span><span class="special">);</span>
-<span class="identifier">print_any_string_type</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">repeat</span><span class="special">(</span><span class="string">"4\n"</span><span class="special">,</span> <span class="number">4</span><span class="special">));</span>
-<span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">unencoded_rope</span> <span class="identifier">rope_5</span><span class="special">(</span><span class="string">"5\n"</span><span class="special">);</span>
-<span class="identifier">print_any_string_type</span><span class="special">(</span><span class="identifier">rope_5</span><span class="special">);</span>
-</pre>
-<p>
+      [print_any_string_type_usage]
     </p>
 <div class="note"><table border="0" summary="Note">
 <tr>
@@ -125,14 +86,14 @@
 <th align="left">Note</th>
 </tr>
 <tr><td align="left" valign="top"><p>
-        <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a></code>
-        is less efficient than <code class="computeroutput"><a class="link" href="../boost/text/v1/string_view.html" title="Struct string_view">string_view</a></code> for binding to
-        <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">strings</a></code>
-        and <code class="computeroutput"><a class="link" href="../boost/text/v1/string_view.html" title="Struct string_view">string_views</a></code>
+        <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a></code>
+        is less efficient than <code class="computeroutput">std::string_view</code>
+        for binding to <code class="computeroutput">std::strings</code>
+        and <code class="computeroutput">std::string_views</code>
         (though only a little). If you know you need that extra efficiency, and you
-        know you <span class="bold"><strong>don't</strong></span> need to support <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope.html" title="Struct unencoded_rope">unencoded_ropes</a></code>
-        or <code class="computeroutput"><a class="link" href="../boost/text/v1/repeated_string_view.html" title="Struct repeated_string_view">repeated_string_views</a></code>
-        as arguments to your function, stick to <code class="computeroutput"><a class="link" href="../boost/text/v1/string_view.html" title="Struct string_view">string_view</a></code>.
+        know you <span class="bold"><strong>don't</strong></span> need to support <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope.html" title="Struct unencoded_rope">unencoded_ropes</a></code>
+        or <span class="underline">rsvs</span> as arguments to your function,
+        stick to <code class="computeroutput">std::string_view</code>.
       </p></td></tr>
 </table></div>
 <h4>
@@ -149,7 +110,7 @@
     </p>
 <p>
       In the example directory, there is a program <code class="computeroutput"><span class="identifier">rope_editor</span></code>.
-      It uses a <code class="computeroutput"><a class="link" href="../boost/text/v1/rope.html" title="Struct rope">rope</a></code>
+      It uses a <code class="computeroutput"><a class="link" href="../boost/text/rope.html" title="Struct rope">rope</a></code>
       to store the file you're editing. Even when typing at the beginning of a 1GB
       file, it's very snappy.
     </p>
@@ -167,8 +128,8 @@
       Let's take a look at the editor. We'll get a sense for how Boost.Text is used
       in a larger example. The editor is built using <a href="https://en.wikipedia.org/wiki/Ncurses" target="_top">libcurses</a>,
       a popular Unix library for for making character-based UIs suitable for terminals.
-      It stores the file to edit in a single <code class="computeroutput"><a class="link" href="../boost/text/v1/rope.html" title="Struct rope">rope</a></code>, and uses Boost.Text's line
-      breaking algorithm to determine what portions of the <code class="computeroutput"><a class="link" href="../boost/text/v1/rope.html" title="Struct rope">rope</a></code> are on each line. Each character
+      It stores the file to edit in a single <code class="computeroutput"><a class="link" href="../boost/text/rope.html" title="Struct rope">rope</a></code>, and uses Boost.Text's line
+      breaking algorithm to determine what portions of the <code class="computeroutput"><a class="link" href="../boost/text/rope.html" title="Struct rope">rope</a></code> are on each line. Each character
       cell in the editor is a grapheme, not a code point or code unit. It probably
       mis-renders graphemes containing multiple combining code points &#8212; again,
       it's very minimal. However, all the logic is done in terms of graphemes.
@@ -232,7 +193,7 @@
       an event loop. Do take note of one thing, though. The main update loop uses
       no reference semantics. The application state is moved into the <code class="computeroutput"><span class="identifier">update</span><span class="special">()</span></code>
       function, and a new state is returned. This pattern is attractive when your
-      primary data structure is a <code class="computeroutput"><a class="link" href="../boost/text/v1/rope.html" title="Struct rope">rope</a></code> or <code class="computeroutput"><a class="link" href="../boost/text/v1/segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a></code>, since they're
+      primary data structure is a <code class="computeroutput"><a class="link" href="../boost/text/rope.html" title="Struct rope">rope</a></code> or <code class="computeroutput"><a class="link" href="../boost/text/segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a></code>, since they're
       so cheap to copy. The only reason for the move here is that the undo history
       uses a <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span></code>, which is a lot less copy friendly.
       Without that <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span></code>, we could use value semantics even
@@ -502,10 +463,10 @@
 
     <span class="keyword">int</span> <span class="keyword">const</span> <span class="identifier">chunk_size</span> <span class="special">=</span> <span class="number">1</span> <span class="special">&lt;&lt;</span> <span class="number">16</span><span class="special">;</span>
     <span class="keyword">while</span> <span class="special">(</span><span class="identifier">ifs</span><span class="special">.</span><span class="identifier">good</span><span class="special">())</span> <span class="special">{</span>
-        <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">chunk</span><span class="special">;</span>
+        <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">chunk</span><span class="special">;</span>
         <span class="identifier">chunk</span><span class="special">.</span><span class="identifier">resize</span><span class="special">(</span><span class="identifier">chunk_size</span><span class="special">,</span> <span class="char">' '</span><span class="special">);</span>
 
-        <span class="identifier">ifs</span><span class="special">.</span><span class="identifier">read</span><span class="special">(</span><span class="identifier">chunk</span><span class="special">.</span><span class="identifier">begin</span><span class="special">(),</span> <span class="identifier">chunk_size</span><span class="special">);</span>
+        <span class="identifier">ifs</span><span class="special">.</span><span class="identifier">read</span><span class="special">(</span><span class="keyword">const_cast</span><span class="special">&lt;</span><span class="keyword">char</span> <span class="special">*&gt;(</span><span class="identifier">chunk</span><span class="special">.</span><span class="identifier">data</span><span class="special">()),</span> <span class="identifier">chunk_size</span><span class="special">);</span>
         <span class="keyword">if</span> <span class="special">(!</span><span class="identifier">ifs</span><span class="special">.</span><span class="identifier">good</span><span class="special">())</span>
             <span class="identifier">chunk</span><span class="special">.</span><span class="identifier">resize</span><span class="special">(</span><span class="identifier">ifs</span><span class="special">.</span><span class="identifier">gcount</span><span class="special">(),</span> <span class="char">' '</span><span class="special">);</span>
 
@@ -677,7 +638,7 @@
                                     <span class="keyword">true</span><span class="special">};</span>
             <span class="special">}</span> <span class="keyword">else</span> <span class="keyword">if</span> <span class="special">(</span>
                 <span class="char">' '</span> <span class="special">&lt;=</span> <span class="identifier">key_code</span><span class="special">.</span><span class="identifier">key_</span> <span class="special">&amp;&amp;</span> <span class="identifier">key_code</span><span class="special">.</span><span class="identifier">key_</span> <span class="special">&lt;=</span> <span class="char">'~'</span> <span class="special">&amp;&amp;</span>
-                <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">utf8</span><span class="special">::</span><span class="identifier">valid_code_point</span><span class="special">(</span><span class="identifier">key_code</span><span class="special">.</span><span class="identifier">key_</span><span class="special">))</span> <span class="special">{</span>
+                <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">valid_code_point</span><span class="special">(</span><span class="identifier">key_code</span><span class="special">.</span><span class="identifier">key_</span><span class="special">))</span> <span class="special">{</span>
                 <span class="comment">// We ignore anything not in this narrow range of ASCII.</span>
                 <span class="comment">// This is a limitation of my ability to understand</span>
                 <span class="comment">// libcurses, not a limitation of Boost.Text.</span>
@@ -890,9 +851,9 @@
       This is the action invoked when you hit the delete key. It erases a single
       grapheme that is under the cursor, if any. Note that we're inserting and replacing
       elements in a sequence container of unbounded size. This is still an efficient
-      operation because our sequence container is a <code class="computeroutput"><a class="link" href="../boost/text/v1/segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a></code>. Even if there
+      operation because our sequence container is a <code class="computeroutput"><a class="link" href="../boost/text/segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a></code>. Even if there
       are millions of lines, inserting and erasing is an <code class="computeroutput"><span class="identifier">O</span><span class="special">(</span><span class="number">1</span><span class="special">)</span></code>
-      operation at every place in the sequence (see the <code class="computeroutput"><a class="link" href="../boost/text/v1/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code> part of the string
+      operation at every place in the sequence (see the <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code> part of the string
       layer documentation for why).
     </p>
 <p>
@@ -1133,13 +1094,14 @@
 </tr>
 <tr><td align="left" valign="top"><p>
         <code class="computeroutput"><span class="identifier">grapheme_insertion_deltas</span><span class="special">()</span></code> probably doesn't need to allocate, considering
-        that <code class="computeroutput"><a class="link" href="../boost/text/v1/text.html" title="Struct text">text</a></code>
-        is implemented in terms of <code class="computeroutput"><a class="link" href="../boost/text/v1/string.html" title="Struct string">string</a></code>, which has a small-buffer
-        optimization. Very large graphemes will of course make this function allocate.
-        I could also use a fixed-capacity array of <code class="computeroutput"><span class="number">4</span>
-        <span class="special">*</span> <span class="number">32</span> <span class="special">*</span> <span class="number">3</span></code> bytes and
-        be guaranteed not to allocate. The <code class="computeroutput"><span class="number">4</span></code>
-        is for the maximum code units per code point, the <code class="computeroutput"><span class="number">32</span></code>
+        that <code class="computeroutput"><a class="link" href="../boost/text/text.html" title="Struct text">text</a></code>
+        is implemented in terms of <code class="computeroutput">std::string</code>,
+        which has a small-buffer optimization. Very large graphemes will of course
+        make this function allocate. I could also use a fixed-capacity array of
+        <code class="computeroutput"><span class="number">4</span> <span class="special">*</span>
+        <span class="number">32</span> <span class="special">*</span> <span class="number">3</span></code> bytes and be guaranteed not to allocate.
+        The <code class="computeroutput"><span class="number">4</span></code> is for the maximum code
+        units per code point, the <code class="computeroutput"><span class="number">32</span></code>
         is for the maximum code points per grapheme (because of the <a href="https://unicode.org/reports/tr15/#Stream_Safe_Text_Format" target="_top">Stream-Safe
         Format</a> assumption), and the <code class="computeroutput"><span class="number">3</span></code>
         is the number of graphemes we're working with.

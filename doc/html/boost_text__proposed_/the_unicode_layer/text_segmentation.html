@@ -112,7 +112,7 @@
         that accept <a class="link" href="../concepts.html#boost_text__proposed_.concepts.graphemerange">GraphemeRange</a>
         ranges <a class="link" href="../concepts.html#boost_text__proposed_.concepts.graphemeiterator">GraphemeIterator</a>
         iterators instead. These provide convenient support for using the Unicode
-        layer algorithms with the text layer types like <code class="computeroutput"><a class="link" href="../../boost/text/v1/text.html" title="Struct text">text</a></code> and <code class="computeroutput"><a class="link" href="../../boost/text/v1/rope.html" title="Struct rope">rope</a></code>.
+        layer algorithms with the text layer types like <code class="computeroutput"><a class="link" href="../../boost/text/text.html" title="Struct text">text</a></code> and <code class="computeroutput"><a class="link" href="../../boost/text/rope.html" title="Struct rope">rope</a></code>.
       </p>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">GraphemeRange</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">GraphemeIter</span><span class="special">&gt;</span>
 <span class="keyword">auto</span> <span class="identifier">prev_X_break</span><span class="special">(</span><span class="identifier">GraphemeRange</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">range</span><span class="special">,</span> <span class="identifier">GraphemeIter</span> <span class="identifier">it</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
@@ -190,7 +190,7 @@
 <p>
         In addition to the interface that is used for all the kinds of text segmentation,
         there is an API just for producing grapheme views, similar to the one for
-        producing UTF views. See <code class="computeroutput"><a class="link" href="../../boost/text/v1/as_graphemes_idm18773.html" title="Function template as_graphemes">as_graphemes()</a></code>
+        producing UTF views. See <code class="computeroutput"><a class="link" href="../../boost/text/as_graphemes_idm17691.html" title="Function template as_graphemes">as_graphemes()</a></code>
         for details.
       </p>
 <h5>
@@ -236,7 +236,7 @@
         is broken up into words like this:
       </p>
 <div class="table">
-<a name="boost_text__proposed_.the_unicode_layer.text_segmentation.t0"></a><p class="title"><b>Table&#160;1.2.&#160;Word Break Example</b></p>
+<a name="boost_text__proposed_.the_unicode_layer.text_segmentation.t0"></a><p class="title"><b>Table&#160;1.1.&#160;Word Break Example</b></p>
 <div class="table-contents"><table class="table" summary="Word Break Example">
 <colgroup>
 <col>
@@ -391,7 +391,7 @@
         The word breaking API can be used just as the grapheme break API, except
         that it also has <a class="link" href="../concepts.html#boost_text__proposed_.concepts.graphemerange">GraphemeRange</a>
         overloads. Here are some example calls using only the <a class="link" href="../concepts.html#boost_text__proposed_.concepts.graphemerange">GraphemeRange</a>
-        overloads, with a <code class="computeroutput"><a class="link" href="../../boost/text/v1/text.html" title="Struct text">text</a></code>
+        overloads, with a <code class="computeroutput"><a class="link" href="../../boost/text/text.html" title="Struct text">text</a></code>
         as the <a class="link" href="../concepts.html#boost_text__proposed_.concepts.graphemerange">GraphemeRange</a>:
       </p>
 <p>
@@ -512,7 +512,7 @@
         use case:
       </p>
 <div class="table">
-<a name="boost_text__proposed_.the_unicode_layer.text_segmentation.t1"></a><p class="title"><b>Table&#160;1.3.&#160;`MidLetter` Candidates</b></p>
+<a name="boost_text__proposed_.the_unicode_layer.text_segmentation.t1"></a><p class="title"><b>Table&#160;1.2.&#160;`MidLetter` Candidates</b></p>
 <div class="table-contents"><table class="table" summary="`MidLetter` Candidates">
 <colgroup><col></colgroup>
 <thead><tr><th>
@@ -593,7 +593,7 @@
         Here are the space code points you might want to do that with:
       </p>
 <div class="table">
-<a name="boost_text__proposed_.the_unicode_layer.text_segmentation.t2"></a><p class="title"><b>Table&#160;1.4.&#160;`MidNum` Candidates</b></p>
+<a name="boost_text__proposed_.the_unicode_layer.text_segmentation.t2"></a><p class="title"><b>Table&#160;1.3.&#160;`MidNum` Candidates</b></p>
 <div class="table-contents"><table class="table" summary="`MidNum` Candidates">
 <colgroup><col></colgroup>
 <thead><tr><th>
@@ -755,10 +755,10 @@
         versions. For the <code class="computeroutput"><span class="identifier">allowed</span></code>
         overloads, you may need to know, once you have the break position, whether
         it was a hard line break. The <code class="computeroutput"><span class="identifier">allowed</span></code>
-        overloads therefore return a struct, <code class="computeroutput"><a class="link" href="../../boost/text/v1/line_break_result.html" title="Struct template line_break_result">line_break_result</a></code>. It has an
+        overloads therefore return a struct, <code class="computeroutput"><a class="link" href="../../boost/text/line_break_result.html" title="Struct template line_break_result">line_break_result</a></code>. It has an
         <code class="computeroutput"><span class="special">.</span><span class="identifier">iter</span></code>
         member to indicate the location, and a <code class="computeroutput"><span class="special">.</span><span class="identifier">hard_break</span></code> member to indicate whether that
-        location is a hard line break. Overloads of <code class="computeroutput"><span class="keyword">operator</span><span class="special">==()</span></code> and <code class="computeroutput"><span class="keyword">operator</span><span class="special">!=()</span></code> are defined between <code class="computeroutput"><a class="link" href="../../boost/text/v1/line_break_result.html" title="Struct template line_break_result">line_break_result</a></code> and its iterator
+        location is a hard line break. Overloads of <code class="computeroutput"><span class="keyword">operator</span><span class="special">==()</span></code> and <code class="computeroutput"><span class="keyword">operator</span><span class="special">!=()</span></code> are defined between <code class="computeroutput"><a class="link" href="../../boost/text/line_break_result.html" title="Struct template line_break_result">line_break_result</a></code> and its iterator
         type so that you can treat it as an iterator in generic code if you don't
         care about the hard line break information:
       </p>
@@ -805,7 +805,7 @@
         and <code class="computeroutput"><span class="identifier">next</span></code> functions for allowed
         beaks returned extra information, the other allowed-break functions do as
         well. The rest of the API produces code point or grapheme ranges, and the
-        allowed-break versions produce <code class="computeroutput"><a class="link" href="../../boost/text/v1/line_break_cp_view.html" title="Struct template line_break_cp_view">line_break_cp_views</a></code> or <code class="computeroutput"><a class="link" href="../../boost/text/v1/line_break_grapheme_view.html" title="Struct template line_break_grapheme_view">line_break_grapheme_views</a></code>
+        allowed-break versions produce <code class="computeroutput"><a class="link" href="../../boost/text/line_break_cp_view.html" title="Struct template line_break_cp_view">line_break_cp_views</a></code> or <code class="computeroutput"><a class="link" href="../../boost/text/line_break_grapheme_view.html" title="Struct template line_break_grapheme_view">line_break_grapheme_views</a></code>
         instead, respectively:
       </p>
 <p>
@@ -858,7 +858,7 @@ occaecat cupidatat non proident, sunt in culpa qui officia
 deserunt mollit anim id est laborum.
 ************************************************************
 */</span>
-<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">repeat</span><span class="special">(</span><span class="string">"*"</span><span class="special">,</span> <span class="number">60</span><span class="special">)</span> <span class="special">&lt;&lt;</span> <span class="string">"\n"</span><span class="special">;</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"************************************************************\n"</span><span class="special">;</span>
 <span class="keyword">for</span> <span class="special">(</span><span class="keyword">auto</span> <span class="identifier">line</span> <span class="special">:</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">lines</span><span class="special">(</span>
          <span class="identifier">cps</span><span class="special">,</span>
          <span class="number">60</span><span class="special">,</span>
@@ -875,7 +875,7 @@ deserunt mollit anim id est laborum.
     <span class="keyword">if</span> <span class="special">(!</span><span class="identifier">line</span><span class="special">.</span><span class="identifier">hard_break</span><span class="special">())</span>
         <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"\n"</span><span class="special">;</span>
 <span class="special">}</span>
-<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">repeat</span><span class="special">(</span><span class="string">"*"</span><span class="special">,</span> <span class="number">60</span><span class="special">)</span> <span class="special">&lt;&lt;</span> <span class="string">"\n"</span><span class="special">;</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"************************************************************\n"</span><span class="special">;</span>
 </pre>
 <p>
       </p>

@@ -1,0 +1,67 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Function template collation_sort_key</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="up" href="../../header/boost/text/collate_hpp.html" title="Header &lt;boost/text/collate.hpp&gt;">
+<link rel="prev" href="compare.html" title="Function compare">
+<link rel="next" href="collation_sort_ke_idm15790.html" title="Function template collation_sort_key">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="compare.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/collate_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="collation_sort_ke_idm15790.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="refentry">
+<a name="boost.text.collation_sort_ke_idm15751"></a><div class="titlepage"></div>
+<div class="refnamediv">
+<h2><span class="refentrytitle">Function template collation_sort_key</span></h2>
+<p>boost::text::collation_sort_key</p>
+</div>
+<h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
+<div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="comment">// In header: &lt;<a class="link" href="../../header/boost/text/collate_hpp.html" title="Header &lt;boost/text/collate.hpp&gt;">boost/text/collate.hpp</a>&gt;
+
+</span>
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CPIter<span class="special">,</span> <span class="keyword">typename</span> Sentinel<span class="special">&gt;</span> 
+  <a class="link" href="text_sort_key.html" title="Struct text_sort_key">text_sort_key</a> 
+  <span class="identifier">collation_sort_key</span><span class="special">(</span><span class="identifier">CPIter</span> first<span class="special">,</span> <span class="identifier">Sentinel</span> last<span class="special">,</span> 
+                     <a class="link" href="collation_table.html" title="Struct collation_table">collation_table</a> <span class="keyword">const</span> <span class="special">&amp;</span> table<span class="special">,</span> 
+                     <span class="identifier">collation_strength</span> strength <span class="special">=</span> <span class="identifier">collation_strength</span><span class="special">::</span><span class="identifier">tertiary</span><span class="special">,</span> 
+                     <span class="identifier">case_first</span> case_1st <span class="special">=</span> <span class="identifier">case_first</span><span class="special">::</span><span class="identifier">off</span><span class="special">,</span> 
+                     <span class="identifier">case_level</span> case_lvl <span class="special">=</span> <span class="identifier">case_level</span><span class="special">::</span><span class="identifier">off</span><span class="special">,</span> 
+                     <span class="identifier">variable_weighting</span> weighting <span class="special">=</span> <span class="identifier">variable_weighting</span><span class="special">::</span><span class="identifier">non_ignorable</span><span class="special">,</span> 
+                     <span class="identifier">l2_weight_order</span> l2_order <span class="special">=</span> <span class="identifier">l2_weight_order</span><span class="special">::</span><span class="identifier">forward</span><span class="special">)</span><span class="special">;</span></pre></div>
+<div class="refsect1">
+<a name="idm18358"></a><h2>Description</h2>
+<p>Returns a collation sort key for the code points in <code class="computeroutput">[first, last)</code>, using the given collation table. Any optional settings such as <code class="computeroutput">case_1st</code> will be honored, so long as they do not conflict with the settings on the given table.</p>
+<p>Consider using one of the overloads that takes collation_flags instead.</p>
+<p>This function only participates in overload resolution if <code class="computeroutput">CPIter</code> models the CPIter concept.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0" class="variablelist compact">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term">Requires:</span></p></td>
+<td><p><code class="computeroutput">[first, last)</code> is normalized FCC. </p></td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2018 T. Zachary Laine<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="compare.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/collate_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="collation_sort_ke_idm15790.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>
