@@ -164,6 +164,20 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         // clang-format on
     };
 
+    template<typename T>
+    concept utf_iter = u8_iter<T> || u16_iter<T> || u32_iter<T>;
+
+    template<typename T>
+    // clang-format off
+    concept utf_range_like =
+        u8_range<std::remove_reference_t<T>> ||
+        u16_range<std::remove_reference_t<T>> ||
+        u32_range<std::remove_reference_t<T>> ||
+        u8_ptr<std::remove_reference_t<T>> ||
+        u16_ptr<std::remove_reference_t<T>> ||
+        u32_ptr<std::remove_reference_t<T>>;
+    // clang-format on
+
 }}}
 
 #endif

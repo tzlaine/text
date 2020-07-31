@@ -364,12 +364,13 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     namespace dtl {
         template<
             typename Range,
-            bool Pointer = detail::char_ptr<Range>::value ||
-                           detail::_16_ptr<Range>::value ||
-                           detail::cp_ptr<Range>::value>
+            bool Pointer =
+                detail::char_ptr<std::remove_reference_t<Range>>::value ||
+                detail::_16_ptr<std::remove_reference_t<Range>>::value ||
+                detail::cp_ptr<std::remove_reference_t<Range>>::value>
         struct as_utf8_dispatch
         {
-            static constexpr auto call(Range const & r) noexcept
+            static constexpr auto call(Range r) noexcept
                 -> decltype(as_utf8(std::begin(r), std::end(r)))
             {
                 return as_utf8(std::begin(r), std::end(r));
@@ -390,10 +391,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     /** Returns a `utf8_view` over the data in `r`, transcoding the data if
         necessary. */
     template<typename Range>
-    constexpr auto as_utf8(Range const & r) noexcept->decltype(
-        dtl::as_utf8_dispatch<Range>::call(r))
+    constexpr auto as_utf8(Range && r) noexcept->decltype(
+        dtl::as_utf8_dispatch<Range &&>::call((Range &&) r))
     {
-        return dtl::as_utf8_dispatch<Range>::call(r);
+        return dtl::as_utf8_dispatch<Range &&>::call((Range &&) r);
     }
 
     /** Returns a `utf16_view` over the data in `[first, last)`, transcoding
@@ -410,12 +411,13 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     namespace dtl {
         template<
             typename Range,
-            bool Pointer = detail::char_ptr<Range>::value ||
-                           detail::_16_ptr<Range>::value ||
-                           detail::cp_ptr<Range>::value>
+            bool Pointer =
+                detail::char_ptr<std::remove_reference_t<Range>>::value ||
+                detail::_16_ptr<std::remove_reference_t<Range>>::value ||
+                detail::cp_ptr<std::remove_reference_t<Range>>::value>
         struct as_utf16_dispatch
         {
-            static constexpr auto call(Range const & r) noexcept
+            static constexpr auto call(Range r) noexcept
                 -> decltype(as_utf16(std::begin(r), std::end(r)))
             {
                 return as_utf16(std::begin(r), std::end(r));
@@ -436,10 +438,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     /** Returns a `utf16_view` over the data in `r`, transcoding the data if
         necessary. */
     template<typename Range>
-    constexpr auto as_utf16(Range const & r) noexcept->decltype(
-        dtl::as_utf16_dispatch<Range>::call(r))
+    constexpr auto as_utf16(Range && r) noexcept->decltype(
+        dtl::as_utf16_dispatch<Range &&>::call((Range &&) r))
     {
-        return dtl::as_utf16_dispatch<Range>::call(r);
+        return dtl::as_utf16_dispatch<Range &&>::call((Range &&) r);
     }
 
     /** Returns a `utf32_view` over the data in `[first, last)`, transcoding
@@ -456,12 +458,13 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     namespace dtl {
         template<
             typename Range,
-            bool Pointer = detail::char_ptr<Range>::value ||
-                           detail::_16_ptr<Range>::value ||
-                           detail::cp_ptr<Range>::value>
+            bool Pointer =
+                detail::char_ptr<std::remove_reference_t<Range>>::value ||
+                detail::_16_ptr<std::remove_reference_t<Range>>::value ||
+                detail::cp_ptr<std::remove_reference_t<Range>>::value>
         struct as_utf32_dispatch
         {
-            static constexpr auto call(Range const & r) noexcept
+            static constexpr auto call(Range r) noexcept
                 -> decltype(as_utf32(std::begin(r), std::end(r)))
             {
                 return as_utf32(std::begin(r), std::end(r));
@@ -482,10 +485,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     /** Returns a `utf32_view` over the data in `r`, transcoding the data if
         necessary. */
     template<typename Range>
-    constexpr auto as_utf32(Range const & r) noexcept->decltype(
-        dtl::as_utf32_dispatch<Range>::call(r))
+    constexpr auto as_utf32(Range && r) noexcept->decltype(
+        dtl::as_utf32_dispatch<Range &&>::call((Range &&) r))
     {
-        return dtl::as_utf32_dispatch<Range>::call(r);
+        return dtl::as_utf32_dispatch<Range &&>::call((Range &&) r);
     }
 }}}
 
@@ -495,11 +498,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
     /** Returns a `utf8_view` over the data in `[first, last)`, transcoding
         the data if necessary. */
-    template<typename I, std::sentinel_for<I> S>
-        // clang-format off
-        requires u8_iter<I> || u16_iter<I> || u32_iter<I>
+    template<utf_iter I, std::sentinel_for<I> S>
     constexpr auto as_utf8(I first, S last) noexcept
-    // clang-format on
     {
         auto unpacked = detail::unpack_iterator_and_sentinel(first, last);
         auto r =
@@ -509,14 +509,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
     /** Returns a `utf8_view` over the data in `r`, transcoding the data if
         necessary. */
-    template<typename R>
-        // clang-format off
-        requires u8_range<R> || u16_range<R> || u32_range<R> ||
-        u8_ptr<R> || u16_ptr<R> || u32_ptr<R>
-    constexpr auto as_utf8(R const & r) noexcept
-    // clang-format on
+    template<utf_range_like R>
+    constexpr auto as_utf8(R && r) noexcept
     {
-        if constexpr (std::is_pointer_v<R>) {
+        if constexpr (std::is_pointer_v<std::remove_reference_t<R>>) {
             return text::as_utf8(r, null_sentinel{});
         } else {
             return text::as_utf8(std::ranges::begin(r), std::ranges::end(r));
@@ -525,11 +521,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
     /** Returns a `utf16_view` over the data in `[first, last)`, transcoding
         the data if necessary. */
-    template<typename I, std::sentinel_for<I> S>
-        // clang-format off
-        requires u8_iter<I> || u16_iter<I> || u32_iter<I>
+    template<utf_iter I, std::sentinel_for<I> S>
     constexpr auto as_utf16(I first, S last) noexcept
-    // clang-format on
     {
         auto unpacked = detail::unpack_iterator_and_sentinel(first, last);
         auto r =
@@ -539,14 +532,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
     /** Returns a `utf16_view` over the data in `r`, transcoding the data if
         necessary. */
-    template<typename R>
-        // clang-format off
-        requires u8_range<R> || u16_range<R> || u32_range<R> ||
-        u8_ptr<R> || u16_ptr<R> || u32_ptr<R>
-    constexpr auto as_utf16(R const & r) noexcept
-    // clang-format on
+    template<utf_range_like R>
+    constexpr auto as_utf16(R && r) noexcept
     {
-        if constexpr (std::is_pointer_v<R>) {
+        if constexpr (std::is_pointer_v<std::remove_reference_t<R>>) {
             return text::as_utf16(r, null_sentinel{});
         } else {
             return text::as_utf16(std::ranges::begin(r), std::ranges::end(r));
@@ -555,11 +544,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
     /** Returns a `utf32_view` over the data in `[first, last)`, transcoding
         the data if necessary. */
-    template<typename I, std::sentinel_for<I> S>
-        // clang-format off
-        requires u8_iter<I> || u16_iter<I> || u32_iter<I>
+    template<utf_iter I, std::sentinel_for<I> S>
     constexpr auto as_utf32(I first, S last) noexcept
-    // clang-format on
     {
         auto unpacked = detail::unpack_iterator_and_sentinel(first, last);
         auto r =
@@ -569,14 +555,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
     /** Returns a `utf32_view` over the data in `r`, transcoding the data if
         necessary. */
-    template<typename R>
-        // clang-format off
-        requires u8_range<R> || u16_range<R> || u32_range<R> ||
-        u8_ptr<R> || u16_ptr<R> || u32_ptr<R>
-    constexpr auto as_utf32(R const & r) noexcept
-    // clang-format on
+    template<utf_range_like R>
+    constexpr auto as_utf32(R && r) noexcept
     {
-        if constexpr (std::is_pointer_v<R>) {
+        if constexpr (std::is_pointer_v<std::remove_reference_t<R>>) {
             return text::as_utf32(r, null_sentinel{});
         } else {
             return text::as_utf32(std::ranges::begin(r), std::ranges::end(r));
