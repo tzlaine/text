@@ -1100,8 +1100,7 @@ namespace boost { namespace text {
             typename S1,
             typename I2,
             typename S2,
-            typename ErrorHandler2,
-            typename Enable>
+            typename ErrorHandler2>
         friend BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
             utf_32_to_8_iterator<I1, S1, ErrorHandler2> const & lhs,
             utf_32_to_8_iterator<I2, S2, ErrorHandler2> const & rhs) noexcept
@@ -1200,13 +1199,10 @@ namespace boost { namespace text {
         typename Sentinel1,
         typename Iter2,
         typename Sentinel2,
-        typename ErrorHandler2,
-        typename Enable = std::enable_if_t<
-            std::is_same<Sentinel1, null_sentinel>::value !=
-            std::is_same<Sentinel2, null_sentinel>::value>>
+        typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
-        utf_32_to_8_iterator<Iter1, Sentinel1, ErrorHandler2> const & lhs,
-        utf_32_to_8_iterator<Iter2, Sentinel2, ErrorHandler2> const &
+        utf_32_to_8_iterator<Iter1, Sentinel1, ErrorHandler> const & lhs,
+        utf_32_to_8_iterator<Iter2, Sentinel2, ErrorHandler> const &
             rhs) noexcept -> decltype(lhs.base() == rhs.base())
     {
         return lhs.base() == rhs.base() && rhs.index_ == lhs.index_;
@@ -1218,10 +1214,7 @@ namespace boost { namespace text {
         typename Sentinel1,
         typename Iter2,
         typename Sentinel2,
-        typename ErrorHandler,
-        typename Enable = std::enable_if_t<
-            std::is_same<Sentinel1, null_sentinel>::value !=
-            std::is_same<Sentinel2, null_sentinel>::value>>
+        typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
         utf_32_to_8_iterator<Iter1, Sentinel1, ErrorHandler> const & lhs,
         utf_32_to_8_iterator<Iter2, Sentinel2, ErrorHandler> const &
@@ -1716,10 +1709,7 @@ namespace boost { namespace text {
         typename Sentinel1,
         typename Iter2,
         typename Sentinel2,
-        typename ErrorHandler,
-        typename Enable = std::enable_if_t<
-            std::is_same<Sentinel1, null_sentinel>::value !=
-            std::is_same<Sentinel2, null_sentinel>::value>>
+        typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
         utf_8_to_32_iterator<Iter1, Sentinel1, ErrorHandler> const & lhs,
         utf_8_to_32_iterator<Iter2, Sentinel2, ErrorHandler> const &
@@ -1734,10 +1724,7 @@ namespace boost { namespace text {
         typename Sentinel1,
         typename Iter2,
         typename Sentinel2,
-        typename ErrorHandler,
-        typename Enable = std::enable_if_t<
-            std::is_same<Sentinel1, null_sentinel>::value !=
-            std::is_same<Sentinel2, null_sentinel>::value>>
+        typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
         utf_8_to_32_iterator<Iter1, Sentinel1, ErrorHandler> const & lhs,
         utf_8_to_32_iterator<Iter2, Sentinel2, ErrorHandler> const &
@@ -2016,8 +2003,7 @@ namespace boost { namespace text {
             typename S1,
             typename I2,
             typename S2,
-            typename ErrorHandler2,
-            typename Enable>
+            typename ErrorHandler2>
         friend BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
             utf_32_to_16_iterator<I1, S1, ErrorHandler2> const & lhs,
             utf_32_to_16_iterator<I2, S2, ErrorHandler2> const & rhs) noexcept
@@ -2108,13 +2094,10 @@ namespace boost { namespace text {
         typename Sentinel1,
         typename Iter2,
         typename Sentinel2,
-        typename ErrorHandler2,
-        typename Enable = std::enable_if_t<
-            std::is_same<Sentinel1, null_sentinel>::value !=
-            std::is_same<Sentinel2, null_sentinel>::value>>
+        typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
-        utf_32_to_16_iterator<Iter1, Sentinel1, ErrorHandler2> const & lhs,
-        utf_32_to_16_iterator<Iter2, Sentinel2, ErrorHandler2> const &
+        utf_32_to_16_iterator<Iter1, Sentinel1, ErrorHandler> const & lhs,
+        utf_32_to_16_iterator<Iter2, Sentinel2, ErrorHandler> const &
             rhs) noexcept -> decltype(lhs.base() == rhs.base())
     {
         return lhs.base() == rhs.base() && rhs.index_ == lhs.index_;
@@ -2126,10 +2109,7 @@ namespace boost { namespace text {
         typename Sentinel1,
         typename Iter2,
         typename Sentinel2,
-        typename ErrorHandler,
-        typename Enable = std::enable_if_t<
-            std::is_same<Sentinel1, null_sentinel>::value !=
-            std::is_same<Sentinel2, null_sentinel>::value>>
+        typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
         utf_32_to_16_iterator<Iter1, Sentinel1, ErrorHandler> const & lhs,
         utf_32_to_16_iterator<Iter2, Sentinel2, ErrorHandler> const &
@@ -2467,13 +2447,10 @@ namespace boost { namespace text {
         typename Sentinel1,
         typename Iter2,
         typename Sentinel2,
-        typename ErrorHandler2,
-        typename Enable = std::enable_if_t<
-            std::is_same<Sentinel1, null_sentinel>::value !=
-            std::is_same<Sentinel2, null_sentinel>::value>>
+        typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
-        utf_16_to_32_iterator<Iter1, Sentinel1, ErrorHandler2> const & lhs,
-        utf_16_to_32_iterator<Iter2, Sentinel2, ErrorHandler2> const &
+        utf_16_to_32_iterator<Iter1, Sentinel1, ErrorHandler> const & lhs,
+        utf_16_to_32_iterator<Iter2, Sentinel2, ErrorHandler> const &
             rhs) noexcept -> decltype(lhs.base() == rhs.base())
     {
         return lhs.base() == rhs.base();
@@ -2485,10 +2462,7 @@ namespace boost { namespace text {
         typename Sentinel1,
         typename Iter2,
         typename Sentinel2,
-        typename ErrorHandler,
-        typename Enable = std::enable_if_t<
-            std::is_same<Sentinel1, null_sentinel>::value !=
-            std::is_same<Sentinel2, null_sentinel>::value>>
+        typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
         utf_16_to_32_iterator<Iter1, Sentinel1, ErrorHandler> const & lhs,
         utf_16_to_32_iterator<Iter2, Sentinel2, ErrorHandler> const &
@@ -2759,8 +2733,7 @@ namespace boost { namespace text {
             typename S1,
             typename I2,
             typename S2,
-            typename ErrorHandler2,
-            typename Enable>
+            typename ErrorHandler2>
         friend BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
             utf_16_to_8_iterator<I1, S1, ErrorHandler2> const & lhs,
             utf_16_to_8_iterator<I2, S2, ErrorHandler2> const & rhs) noexcept
@@ -2914,13 +2887,10 @@ namespace boost { namespace text {
         typename Sentinel1,
         typename Iter2,
         typename Sentinel2,
-        typename ErrorHandler2,
-        typename Enable = std::enable_if_t<
-            std::is_same<Sentinel1, null_sentinel>::value !=
-            std::is_same<Sentinel2, null_sentinel>::value>>
+        typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
-        utf_16_to_8_iterator<Iter1, Sentinel1, ErrorHandler2> const & lhs,
-        utf_16_to_8_iterator<Iter2, Sentinel2, ErrorHandler2> const &
+        utf_16_to_8_iterator<Iter1, Sentinel1, ErrorHandler> const & lhs,
+        utf_16_to_8_iterator<Iter2, Sentinel2, ErrorHandler> const &
             rhs) noexcept -> decltype(lhs.base() == rhs.base())
     {
         return lhs.base() == rhs.base() && rhs.index_ == lhs.index_;
@@ -2932,10 +2902,7 @@ namespace boost { namespace text {
         typename Sentinel1,
         typename Iter2,
         typename Sentinel2,
-        typename ErrorHandler,
-        typename Enable = std::enable_if_t<
-            std::is_same<Sentinel1, null_sentinel>::value !=
-            std::is_same<Sentinel2, null_sentinel>::value>>
+        typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
         utf_16_to_8_iterator<Iter1, Sentinel1, ErrorHandler> const & lhs,
         utf_16_to_8_iterator<Iter2, Sentinel2, ErrorHandler> const &
@@ -3176,8 +3143,7 @@ namespace boost { namespace text {
             typename S1,
             typename I2,
             typename S2,
-            typename ErrorHandler2,
-            typename Enable>
+            typename ErrorHandler2>
         friend BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
             utf_8_to_16_iterator<I1, S1, ErrorHandler2> const & lhs,
             utf_8_to_16_iterator<I2, S2, ErrorHandler2> const & rhs) noexcept
@@ -3266,13 +3232,10 @@ namespace boost { namespace text {
         typename Sentinel1,
         typename Iter2,
         typename Sentinel2,
-        typename ErrorHandler2,
-        typename Enable = std::enable_if_t<
-            std::is_same<Sentinel1, null_sentinel>::value !=
-            std::is_same<Sentinel2, null_sentinel>::value>>
+        typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
-        utf_8_to_16_iterator<Iter1, Sentinel1, ErrorHandler2> const & lhs,
-        utf_8_to_16_iterator<Iter2, Sentinel2, ErrorHandler2> const &
+        utf_8_to_16_iterator<Iter1, Sentinel1, ErrorHandler> const & lhs,
+        utf_8_to_16_iterator<Iter2, Sentinel2, ErrorHandler> const &
             rhs) noexcept -> decltype(lhs.base() == rhs.base())
     {
         return lhs.base() == rhs.base() && rhs.index_ == lhs.index_;
@@ -3284,10 +3247,7 @@ namespace boost { namespace text {
         typename Sentinel1,
         typename Iter2,
         typename Sentinel2,
-        typename ErrorHandler,
-        typename Enable = std::enable_if_t<
-            std::is_same<Sentinel1, null_sentinel>::value !=
-            std::is_same<Sentinel2, null_sentinel>::value>>
+        typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
         utf_8_to_16_iterator<Iter1, Sentinel1, ErrorHandler> const & lhs,
         utf_8_to_16_iterator<Iter2, Sentinel2, ErrorHandler> const &
