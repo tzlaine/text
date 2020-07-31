@@ -105,7 +105,7 @@ void BM_text_string_compare(benchmark::State & state)
 {
     auto str0 = boost::text::as_utf32(text_strings[0]);
     while (state.KeepRunning()) {
-        for (auto const & x : text_strings) {
+        for (auto & x : text_strings) {
             benchmark::DoNotOptimize(
                 boost::text::collate(boost::text::as_utf32(x), str0, table));
             benchmark::DoNotOptimize(

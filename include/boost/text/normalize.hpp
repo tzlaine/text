@@ -187,43 +187,6 @@ namespace boost { namespace text {
             OutIter>::type;
     }
 
-    /** Writes sequence `[first, last)` to `out`, ensuring Stream-Safe Text
-        Format.
-
-        This function only participates in overload resolution if `CPIter`
-        models the CPIter concept.
-
-        \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
-    template<typename CPIter, typename Sentinel, typename OutIter>
-    auto stream_safe_copy(CPIter first, Sentinel last, OutIter out)
-        -> detail::cp_iter_ret_t<OutIter, CPIter>
-    {
-        std::size_t const max_nonstarters = 21;
-        std::size_t nonstarters = 0;
-        for (; first != last; ++first) {
-            auto const cp = *first;
-            if (detail::ccc(cp) == 0)
-                nonstarters = 0;
-            else
-                ++nonstarters;
-            if (nonstarters < max_nonstarters) {
-                *out = cp;
-                ++out;
-            }
-        }
-        return out;
-    }
-
-    /** Writes sequence `[first, last)` to `out`, ensuring Stream-Safe Text
-        Format.
-
-        \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
-    template<typename CPRange, typename OutIter>
-    OutIter stream_safe_copy(CPRange const & r, OutIter out)
-    {
-        return boost::text::stream_safe_copy(std::begin(r), std::end(r), out);
-    }
-
 }}
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
@@ -293,8 +256,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 #if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
-
-    // TODO: stream-safe functions, once they are stable.
 
     /** Writes sequence `[first, last)` in Unicode normalization form
         `Normalization` to `out`.

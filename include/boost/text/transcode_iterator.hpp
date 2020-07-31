@@ -955,29 +955,29 @@ namespace boost { namespace text {
     };
 
 
-    template<typename Iter>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator==(Iter p, null_sentinel)
-        -> decltype(detail::null_sent_eq_dispatch<Iter>::call(p))
+    template<typename T>
+    BOOST_TEXT_CXX14_CONSTEXPR auto operator==(T * p, null_sentinel)
+        -> decltype(detail::null_sent_eq_dispatch<T *>::call(p))
     {
-        return detail::null_sent_eq_dispatch<Iter>::call(p);
+        return detail::null_sent_eq_dispatch<T *>::call(p);
     }
-    template<typename Iter>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(Iter p, null_sentinel)
-        -> decltype(detail::null_sent_eq_dispatch<Iter>::call(p))
+    template<typename T>
+    BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(T * p, null_sentinel)
+        -> decltype(detail::null_sent_eq_dispatch<T *>::call(p))
     {
-        return !detail::null_sent_eq_dispatch<Iter>::call(p);
+        return !detail::null_sent_eq_dispatch<T *>::call(p);
     }
-    template<typename Iter>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator==(null_sentinel, Iter p)
-        -> decltype(detail::null_sent_eq_dispatch<Iter>::call(p))
+    template<typename T>
+    BOOST_TEXT_CXX14_CONSTEXPR auto operator==(null_sentinel, T * p)
+        -> decltype(detail::null_sent_eq_dispatch<T *>::call(p))
     {
-        return detail::null_sent_eq_dispatch<Iter>::call(p);
+        return detail::null_sent_eq_dispatch<T *>::call(p);
     }
-    template<typename Iter>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(null_sentinel, Iter p)
-        -> decltype(detail::null_sent_eq_dispatch<Iter>::call(p))
+    template<typename T>
+    BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(null_sentinel, T * p)
+        -> decltype(detail::null_sent_eq_dispatch<T *>::call(p))
     {
-        return !detail::null_sent_eq_dispatch<Iter>::call(p);
+        return !detail::null_sent_eq_dispatch<T *>::call(p);
     }
 
 
