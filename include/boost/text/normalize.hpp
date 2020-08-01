@@ -264,7 +264,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         u32_iter I,
         std::sentinel_for<I> S,
         std::output_iterator<uint32_t> O>
-    auto normalize(I first, S last, O out)
+    O normalize(I first, S last, O out)
     {
         BOOST_TEXT_STATIC_ASSERT_NORMALIZATION();
         detail::normalization_appender_t<Normalization, I, S, O> appender(out);
@@ -289,7 +289,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
         \see https://unicode.org/notes/tn5 */
     template<nf Normalization, u32_iter I, std::sentinel_for<I> S>
-    auto normalized(I first, S last) noexcept
+    bool normalized(I first, S last) noexcept
     {
         BOOST_TEXT_STATIC_ASSERT_NORMALIZATION();
         detail::null_appender appender;
