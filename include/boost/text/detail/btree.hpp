@@ -1120,4 +1120,14 @@ namespace boost { namespace text { namespace detail {
 
 }}}
 
+#if defined(__cpp_lib_concepts)
+
+namespace std::ranges {
+    template<typename Iter>
+    inline constexpr bool
+        enable_borrowed_range<boost::text::detail::reversed_range<Iter>> = true;
+}
+
+#endif
+
 #endif

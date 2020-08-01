@@ -731,4 +731,23 @@ namespace boost { namespace text { namespace detail {
 
 }}}
 
+#if defined(__cpp_lib_concepts)
+
+namespace std::ranges {
+    template<typename Iter>
+    inline constexpr bool
+        enable_borrowed_range<boost::text::replace_result<Iter>> = true;
+
+    template<typename CPIter>
+    inline constexpr bool enable_borrowed_range<
+        boost::text::detail::stable_cps_result_t<CPIter>> = true;
+
+    template<typename T, typename R1, typename R2>
+    inline constexpr bool
+        enable_borrowed_range<boost::text::detail::cons_view_t<T, R1, R2>> =
+            true;
+}
+
+#endif
+
 #endif

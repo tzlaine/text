@@ -2169,4 +2169,14 @@ namespace boost { namespace text {
 
 }}
 
+#if defined(__cpp_lib_concepts)
+
+namespace std::ranges {
+    template<typename Iter, typename Sentinel>
+    inline constexpr bool enable_borrowed_range<
+        boost::text::collation_search_result<Iter, Sentinel>> = true;
+}
+
+#endif
+
 #endif

@@ -8,6 +8,7 @@
 
 #include <boost/text/transcode_algorithm.hpp>
 #include <boost/text/concepts.hpp>
+#include <boost/text/dangling.hpp>
 #include <boost/text/detail/unpack.hpp>
 
 #include <boost/stl_interfaces/view_interface.hpp>
@@ -387,7 +388,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     }
 
     /** Returns a `utf8_view` over the data in `r`, transcoding the data if
-        necessary. */
+        necessary.  `R` may be a null-terminated pointer, or a reference to
+        such a pointer, of intergral type `T`, as long as `sizeof(T) == 1`. */
     template<typename Range>
     constexpr auto as_utf8(Range && r) noexcept->decltype(
         dtl::as_utf8_dispatch<Range &&>::call((Range &&) r))
@@ -434,7 +436,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     }
 
     /** Returns a `utf16_view` over the data in `r`, transcoding the data if
-        necessary. */
+        necessary.  `R` may be a null-terminated pointer, or a reference to
+        such a pointer, of intergral type `T`, as long as `sizeof(T) == 2`. */
     template<typename Range>
     constexpr auto as_utf16(Range && r) noexcept->decltype(
         dtl::as_utf16_dispatch<Range &&>::call((Range &&) r))
@@ -481,13 +484,15 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     }
 
     /** Returns a `utf32_view` over the data in `r`, transcoding the data if
-        necessary. */
+        necessary.  `R` may be a null-terminated pointer, or a reference to
+        such a pointer, of intergral type `T`, as long as `sizeof(T) == 4`. */
     template<typename Range>
     constexpr auto as_utf32(Range && r) noexcept->decltype(
         dtl::as_utf32_dispatch<Range &&>::call((Range &&) r))
     {
         return dtl::as_utf32_dispatch<Range &&>::call((Range &&) r);
     }
+
 }}}
 
 #if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
@@ -506,14 +511,18 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     /** Returns a `utf8_view` over the data in `r`, transcoding the data if
-        necessary. */
+        necessary.  If `std::remove_reference_t<R>` is not a pointer, the
+        result is returned as a `borrowed_view_t`. */
     template<utf_range_like R>
     constexpr auto as_utf8(R && r) noexcept
     {
         if constexpr (std::is_pointer_v<std::remove_reference_t<R>>) {
             return text::as_utf8(r, null_sentinel{});
         } else {
-            return text::as_utf8(std::ranges::begin(r), std::ranges::end(r));
+            auto intermediate =
+                text::as_utf8(std::ranges::begin(r), std::ranges::end(r));
+            using result_type = borrowed_view_t<R, decltype(intermediate)>;
+            return result_type{intermediate};
         }
     }
 
@@ -529,14 +538,18 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     /** Returns a `utf16_view` over the data in `r`, transcoding the data if
-        necessary. */
+        necessary.  If `std::remove_reference_t<R>` is not a pointer, the
+        result is returned as a `borrowed_view_t`. */
     template<utf_range_like R>
     constexpr auto as_utf16(R && r) noexcept
     {
         if constexpr (std::is_pointer_v<std::remove_reference_t<R>>) {
             return text::as_utf16(r, null_sentinel{});
         } else {
-            return text::as_utf16(std::ranges::begin(r), std::ranges::end(r));
+            auto intermediate =
+                text::as_utf16(std::ranges::begin(r), std::ranges::end(r));
+            using result_type = borrowed_view_t<R, decltype(intermediate)>;
+            return result_type{intermediate};
         }
     }
 
@@ -552,17 +565,36 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     /** Returns a `utf32_view` over the data in `r`, transcoding the data if
-        necessary. */
+        necessary.  If `std::remove_reference_t<R>` is not a pointer, the
+        result is returned as a `borrowed_view_t`. */
     template<utf_range_like R>
     constexpr auto as_utf32(R && r) noexcept
     {
         if constexpr (std::is_pointer_v<std::remove_reference_t<R>>) {
             return text::as_utf32(r, null_sentinel{});
         } else {
-            return text::as_utf32(std::ranges::begin(r), std::ranges::end(r));
+            auto intermediate =
+                text::as_utf32(std::ranges::begin(r), std::ranges::end(r));
+            using result_type = borrowed_view_t<R, decltype(intermediate)>;
+            return result_type{intermediate};
         }
     }
+
 }}}
+
+namespace std::ranges {
+    template<boost::text::u8_iter I, std::sentinel_for<I> S>
+    inline constexpr bool enable_borrowed_range<boost::text::utf8_view<I, S>> =
+        true;
+
+    template<boost::text::u16_iter I, std::sentinel_for<I> S>
+    inline constexpr bool enable_borrowed_range<boost::text::utf16_view<I, S>> =
+        true;
+
+    template<boost::text::u32_iter I, std::sentinel_for<I> S>
+    inline constexpr bool enable_borrowed_range<boost::text::utf32_view<I, S>> =
+        true;
+}
 
 #endif
 

@@ -143,4 +143,15 @@ namespace boost { namespace text {
 
 }}
 
+#if defined(__cpp_lib_concepts)
+
+namespace std::ranges {
+    template<typename CPIter, typename Sentinel>
+    inline constexpr bool
+        enable_borrowed_range<boost::text::grapheme_view<CPIter, Sentinel>> =
+            true;
+}
+
+#endif
+
 #endif

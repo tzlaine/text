@@ -2758,4 +2758,49 @@ namespace boost { namespace text {
 
 }}
 
+#if defined(__cpp_lib_concepts)
+
+namespace std::ranges {
+    template<typename CPIter>
+    inline constexpr bool
+        enable_borrowed_range<boost::text::detail::level_run<CPIter>> = true;
+
+    template<typename CPIter>
+    inline constexpr bool
+        enable_borrowed_range<boost::text::detail::run_sequence_t<CPIter>> =
+            true;
+
+    template<typename CPIter>
+    inline constexpr bool
+        enable_borrowed_range<boost::text::detail::bracket_pair<CPIter>> = true;
+
+    template<typename CPIter>
+    inline constexpr bool
+        enable_borrowed_range<boost::text::detail::reordered_run<CPIter>> =
+            true;
+
+    template<typename CPIter>
+    inline constexpr bool
+        enable_borrowed_range<boost::text::bidirectional_cp_subrange<CPIter>> =
+            true;
+
+    template<typename CPIter>
+    inline constexpr bool enable_borrowed_range<
+        boost::text::bidirectional_grapheme_subrange<CPIter>> = true;
+
+    template<
+        typename CPIter,
+        typename Sentinel,
+        typename ResultType,
+        typename NextLineBreakFunc>
+    inline constexpr bool
+        enable_borrowed_range<boost::text::lazy_bidi_segment_range<
+            CPIter,
+            Sentinel,
+            ResultType,
+            NextLineBreakFunc>> = true;
+}
+
+#endif
+
 #endif

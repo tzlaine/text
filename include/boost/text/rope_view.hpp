@@ -257,4 +257,13 @@ namespace std {
 
 #endif
 
+#if defined(__cpp_lib_concepts)
+
+namespace std::ranges {
+    template<>
+    inline constexpr bool enable_borrowed_range<boost::text::rope_view> = true;
+}
+
+#endif
+
 #endif

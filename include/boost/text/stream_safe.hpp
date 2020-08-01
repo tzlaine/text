@@ -8,6 +8,7 @@
 
 #include <boost/text/algorithm.hpp>
 #include <boost/text/concepts.hpp>
+#include <boost/text/dangling.hpp>
 #include <boost/text/detail/normalization_data.hpp>
 
 #include <boost/stl_interfaces/view_interface.hpp>
@@ -462,7 +463,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
         \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<u32_range R>
-    auto stream_safe(R && r)
+    std::ranges::borrowed_iterator_t<R> stream_safe(R && r)
     {
         return boost::text::stream_safe(
             std::ranges::begin(r), std::ranges::end(r));
@@ -491,7 +492,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
         \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<u32_iter I, std::sentinel_for<I> S>
-    auto as_stream_safe(I first, S last)
+    stream_safe_view<stream_safe_iterator<I, S>, S> as_stream_safe(
+        I first, S last)
     {
         return detail::as_stream_safe_impl(first, last);
     }
@@ -500,7 +502,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
         \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<u32_iter I>
-    auto as_stream_safe(I first, I last)
+    stream_safe_view<stream_safe_iterator<I>> as_stream_safe(I first, I last)
     {
         return detail::as_stream_safe_impl(first, last);
     }
@@ -510,12 +512,24 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<u32_range R>
     auto as_stream_safe(R && r)
+        ->borrowed_view_t<
+            R,
+            decltype(boost::text::as_stream_safe(
+                std::ranges::begin(r), std::ranges::end(r)))>
     {
         return boost::text::as_stream_safe(
             std::ranges::begin(r), std::ranges::end(r));
     }
-
 }}}
+
+namespace std::ranges {
+    template<typename I, std::sentinel_for<I> S>
+    // clang-format off
+    requires boost::text::detail::is_stream_safe_iter<I>::value
+    inline constexpr bool
+        // clang-format on
+        enable_borrowed_range<boost::text::stream_safe_view<I, S>> = true;
+}
 
 #endif
 

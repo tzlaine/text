@@ -589,4 +589,15 @@ namespace boost { namespace text { namespace detail {
 
 }}}
 
+#if defined(__cpp_lib_concepts)
+
+namespace std::ranges {
+    template<int N>
+    inline constexpr bool
+        enable_borrowed_range<boost::text::detail::collation_trie_key<N>> =
+            true;
+}
+
+#endif
+
 #endif
