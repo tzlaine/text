@@ -7,9 +7,7 @@
 #define BOOST_TEXT_NORMALIZE_ALGORITHM_HPP
 
 #include <boost/text/algorithm.hpp>
-#if defined(__cpp_lib_concepts)
 #include <boost/text/concepts.hpp>
-#endif
 #include <boost/text/normalize_fwd.hpp>
 #include <boost/text/detail/algorithm.hpp>
 

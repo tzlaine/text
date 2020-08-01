@@ -7,9 +7,7 @@
 #define BOOST_TEXT_TRANSCODE_ITERATOR_HPP
 
 #include <boost/text/config.hpp>
-#if defined(__cpp_lib_concepts)
 #include <boost/text/concepts.hpp>
-#endif
 #include <boost/text/detail/algorithm.hpp>
 
 #include <boost/assert.hpp>

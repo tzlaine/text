@@ -7,9 +7,7 @@
 #define BOOST_TEXT_NORMALIZE_HPP
 
 #include <boost/text/algorithm.hpp>
-#if defined(__cpp_lib_concepts)
 #include <boost/text/concepts.hpp>
-#endif
 #include <boost/text/transcode_algorithm.hpp>
 #include <boost/text/transcode_iterator.hpp>
 #include <boost/text/transcode_view.hpp>

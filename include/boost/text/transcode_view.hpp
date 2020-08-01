@@ -7,9 +7,7 @@
 #define BOOST_TEXT_TRANSCODE_VIEW_HPP
 
 #include <boost/text/transcode_algorithm.hpp>
-#if defined(__cpp_lib_concepts)
 #include <boost/text/concepts.hpp>
-#endif
 #include <boost/text/detail/unpack.hpp>
 
 #include <boost/stl_interfaces/view_interface.hpp>

@@ -6,9 +6,7 @@
 #ifndef BOOST_TEXT_STREAM_SAFE_HPP
 #define BOOST_TEXT_STREAM_SAFE_HPP
 
-#if defined(__cpp_lib_concepts)
 #include <boost/text/concepts.hpp>
-#endif
 #include <boost/text/detail/normalization_data.hpp>
 
 #include <boost/stl_interfaces/view_interface.hpp>
