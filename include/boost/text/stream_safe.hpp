@@ -6,6 +6,7 @@
 #ifndef BOOST_TEXT_STREAM_SAFE_HPP
 #define BOOST_TEXT_STREAM_SAFE_HPP
 
+#include <boost/text/algorithm.hpp>
 #include <boost/text/concepts.hpp>
 #include <boost/text/detail/normalization_data.hpp>
 
@@ -15,11 +16,12 @@
 namespace boost { namespace text {
 
     namespace detail {
+        enum : std::size_t { stream_safe_max_nonstarters = 21 };
+
         template<typename CPIter, typename Sentinel>
         CPIter next_stream_safe_cp(
             CPIter first, Sentinel last, std::size_t & nonstarters)
         {
-            std::size_t const stream_safe_max_nonstarters = 21;
             for (; first != last; ++first) {
                 auto const cp = *first;
                 if (detail::ccc(cp) == 0)
@@ -121,15 +123,16 @@ namespace boost { namespace text {
 #endif
     struct stream_safe_iterator : stl_interfaces::iterator_interface<
                                       stream_safe_iterator<I, S>,
-                                      std::forward_iterator_tag,
+                                      std::bidirectional_iterator_tag,
                                       uint32_t,
                                       uint32_t>
     {
         using iterator = I;
         using sentinel = S;
 
-        stream_safe_iterator() noexcept : it_(), last_() {}
+        stream_safe_iterator() noexcept : first_(), it_(), last_() {}
         stream_safe_iterator(iterator first, sentinel last) noexcept :
+            first_(first),
             it_(first),
             last_(last),
             nonstarters_(it_ != last_ && detail::ccc(*it_) ? 1 : 0)
@@ -151,6 +154,23 @@ namespace boost { namespace text {
             return *this;
         }
 
+        stream_safe_iterator & operator--() noexcept
+        {
+            BOOST_ASSERT(it_ != first_);
+            if (0 < nonstarters_) {
+                --it_;
+            } else {
+                auto const it = boost::text::find_if_backward(
+                    first_, it_, [](auto cp) { return detail::ccc(cp) == 0; });
+                auto const from = it == it_ ? first_ : std::next(it);
+                std::size_t const nonstarters = std::distance(from, it_);
+                nonstarters_ = (std::min)(
+                    nonstarters, detail::stream_safe_max_nonstarters - 1);
+                it_ = std::next(it == it_ ? first_ : it, nonstarters_);
+            }
+            return *this;
+        }
+
         friend bool
         operator==(stream_safe_iterator lhs, stream_safe_iterator rhs) noexcept
         {
@@ -159,13 +179,14 @@ namespace boost { namespace text {
 
         using base_type = stl_interfaces::iterator_interface<
             stream_safe_iterator<I, S>,
-            std::forward_iterator_tag,
+            std::bidirectional_iterator_tag,
             uint32_t,
             uint32_t>;
         using base_type::operator++;
         using base_type::operator--;
 
     private:
+        iterator first_;
         iterator it_;
         sentinel last_;
         std::size_t nonstarters_ = 0;
