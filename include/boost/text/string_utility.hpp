@@ -26,7 +26,7 @@ namespace boost { namespace text {
         This function only participates in overload resolution if `CPRange`
         models the CPRange concept. */
     template<typename CPRange>
-    std::string to_string(CPRange & range);
+    std::string to_string(CPRange const & range);
 
 #else
 
@@ -39,7 +39,7 @@ namespace boost { namespace text {
     }
 
     template<typename CPRange>
-    auto to_string(CPRange & range)
+    auto to_string(CPRange const & range)
         -> detail::cp_rng_alg_ret_t<std::string, CPRange>
     {
         return boost::text::to_string(std::begin(range), std::end(range));

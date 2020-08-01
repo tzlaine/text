@@ -390,7 +390,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         typename WordPropFunc = word_prop_callable,
         typename CPWordBreakFunc = detail::undefined>
     detail::undefined prev_word_break(
-        CPRange & range,
+        CPRange && range,
         CPIter it,
         WordPropFunc word_prop = WordPropFunc{},
         CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept;
@@ -415,7 +415,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         typename WordPropFunc = word_prop_callable,
         typename CPWordBreakFunc = detail::undefined>
     detail::undefined prev_word_break(
-        GraphemeRange const & range,
+        GraphemeRange && range,
         GraphemeIter it,
         WordPropFunc word_prop = WordPropFunc{},
         CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept;
@@ -440,7 +440,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         typename WordPropFunc = word_prop_callable,
         typename CPWordBreakFunc = detail::undefined>
     detail::undefined next_word_break(
-        CPRange & range,
+        CPRange && range,
         CPIter it,
         WordPropFunc word_prop = WordPropFunc{},
         CPWordBreakFunc cp_break = CPWordBreakFunc{});
@@ -466,7 +466,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         typename WordPropFunc = word_prop_callable,
         typename CPWordBreakFunc = detail::undefined>
     detail::undefined next_word_break(
-        GraphemeRange const & range,
+        GraphemeRange && range,
         GraphemeIter it,
         WordPropFunc word_prop = WordPropFunc{},
         CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept;
@@ -505,7 +505,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         typename WordPropFunc = word_prop_callable,
         typename CPWordBreakFunc = detail::undefined>
     bool at_word_break(
-        CPRange & range,
+        CPRange && range,
         CPIter it,
         WordPropFunc word_prop = WordPropFunc{},
         CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept;
@@ -528,7 +528,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         typename WordPropFunc = word_prop_callable,
         typename CPWordBreakFunc = detail::undefined>
     bool at_word_break(
-        GraphemeRange const & range,
+        GraphemeRange && range,
         GraphemeIter it,
         WordPropFunc word_prop = WordPropFunc{},
         CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept;
@@ -1056,7 +1056,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         typename WordPropFunc = word_prop_callable,
         typename CPWordBreakFunc = detail::default_cp_break>
     auto prev_word_break(
-        CPRange & range,
+        CPRange && range,
         CPIter it,
         WordPropFunc word_prop = WordPropFunc{},
         CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept -> detail::
@@ -1072,7 +1072,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         typename WordPropFunc = word_prop_callable,
         typename CPWordBreakFunc = detail::default_cp_break>
     auto prev_word_break(
-        GraphemeRange const & range,
+        GraphemeRange && range,
         GraphemeIter it,
         WordPropFunc word_prop = WordPropFunc{},
         CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept
@@ -1098,7 +1098,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         typename WordPropFunc = word_prop_callable,
         typename CPWordBreakFunc = detail::default_cp_break>
     auto next_word_break(
-        CPRange & range,
+        CPRange && range,
         CPIter it,
         WordPropFunc word_prop = WordPropFunc{},
         CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept -> detail::
@@ -1114,7 +1114,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         typename WordPropFunc = word_prop_callable,
         typename CPWordBreakFunc = detail::default_cp_break>
     auto next_word_break(
-        GraphemeRange const & range,
+        GraphemeRange && range,
         GraphemeIter it,
         WordPropFunc word_prop = WordPropFunc{},
         CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept
@@ -1157,7 +1157,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         typename WordPropFunc = word_prop_callable,
         typename CPWordBreakFunc = detail::default_cp_break>
     auto at_word_break(
-        CPRange & range,
+        CPRange && range,
         CPIter it,
         WordPropFunc word_prop = WordPropFunc{},
         CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept
@@ -1179,7 +1179,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         typename WordPropFunc = word_prop_callable,
         typename CPWordBreakFunc = detail::default_cp_break>
     auto at_word_break(
-        GraphemeRange const & range,
+        GraphemeRange && range,
         GraphemeIter it,
         WordPropFunc word_prop = WordPropFunc{},
         CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept
@@ -1275,7 +1275,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         typename WordPropFunc = word_prop_callable,
         typename CPWordBreakFunc = detail::undefined>
     detail::undefined word(
-        CPRange & range,
+        CPRange && range,
         CPIter it,
         WordPropFunc word_prop = WordPropFunc{},
         CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept;
@@ -1298,7 +1298,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         typename WordPropFunc = word_prop_callable,
         typename CPWordBreakFunc = detail::undefined>
     detail::undefined word(
-        GraphemeRange const & range,
+        GraphemeRange && range,
         GraphemeIter it,
         WordPropFunc word_prop = WordPropFunc{},
         CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept;
@@ -1343,7 +1343,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         typename WordPropFunc = word_prop_callable,
         typename CPWordBreakFunc = detail::undefined>
     detail::undefined words(
-        CPRange & range,
+        CPRange && range,
         WordPropFunc word_prop = WordPropFunc{},
         CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept;
 
@@ -1364,7 +1364,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         typename WordPropFunc = word_prop_callable,
         typename CPWordBreakFunc = detail::undefined>
     detail::undefined words(
-        GraphemeRange const & range,
+        GraphemeRange && range,
         WordPropFunc word_prop = WordPropFunc{},
         CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept;
 
@@ -1407,7 +1407,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         typename WordPropFunc = word_prop_callable,
         typename CPWordBreakFunc = detail::undefined>
     detail::undefined reversed_words(
-        CPRange & range,
+        CPRange && range,
         WordPropFunc word_prop = WordPropFunc{},
         CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept;
 
@@ -1428,7 +1428,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         typename WordPropFunc = word_prop_callable,
         typename CPWordBreakFunc = detail::undefined>
     detail::undefined reversed_words(
-        GraphemeRange const & range,
+        GraphemeRange && range,
         WordPropFunc word_prop = WordPropFunc{},
         CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept;
 
@@ -1440,7 +1440,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         typename WordPropFunc = word_prop_callable,
         typename CPWordBreakFunc = detail::default_cp_break>
     auto word(
-        CPRange & range,
+        CPRange && range,
         CPIter it,
         WordPropFunc word_prop = WordPropFunc{},
         CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept
@@ -1463,7 +1463,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         typename WordPropFunc = word_prop_callable,
         typename CPWordBreakFunc = detail::default_cp_break>
     auto word(
-        GraphemeRange const & range,
+        GraphemeRange && range,
         GraphemeIter it,
         WordPropFunc word_prop = WordPropFunc{},
         CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept
@@ -1522,7 +1522,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         typename WordPropFunc = word_prop_callable,
         typename CPWordBreakFunc = detail::default_cp_break>
     auto words(
-        CPRange & range,
+        CPRange && range,
         WordPropFunc word_prop = WordPropFunc{},
         CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept
         -> detail::word_prop_func_ret_t<
@@ -1553,7 +1553,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         typename WordPropFunc = word_prop_callable,
         typename CPWordBreakFunc = detail::default_cp_break>
     auto words(
-        GraphemeRange const & range,
+        GraphemeRange && range,
         WordPropFunc word_prop = WordPropFunc{},
         CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept
         -> detail::graph_word_prop_func_ret_t<
@@ -1612,7 +1612,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         typename WordPropFunc = word_prop_callable,
         typename CPWordBreakFunc = detail::default_cp_break>
     auto reversed_words(
-        CPRange & range,
+        CPRange && range,
         WordPropFunc word_prop = WordPropFunc{},
         CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept
         -> detail::word_prop_func_ret_t<
@@ -1644,7 +1644,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         typename WordPropFunc = word_prop_callable,
         typename CPWordBreakFunc = detail::default_cp_break>
     auto reversed_words(
-        GraphemeRange const & range,
+        GraphemeRange && range,
         WordPropFunc word_prop = WordPropFunc{},
         CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept
         -> detail::graph_word_prop_func_ret_t<

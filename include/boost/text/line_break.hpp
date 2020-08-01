@@ -1384,7 +1384,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         models the CPRange concept. */
     template<typename CPRange, typename CPIter>
     detail::unspecified
-    prev_hard_line_break(CPRange & range, CPIter it) noexcept;
+    prev_hard_line_break(CPRange && range, CPIter it) noexcept;
 
     /** Returns a grapheme_iterator to the nearest hard line break at or
         before before `it`.  If `it == range.begin()`, that is returned.
@@ -1397,7 +1397,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         `GraphemeRange` models the GraphemeRange concept. */
     template<typename GraphemeRange, typename GraphemeIter>
     detail::unspecified
-    prev_hard_line_break(GraphemeRange const & range, GraphemeIter it) noexcept;
+    prev_hard_line_break(GraphemeRange && range, GraphemeIter it) noexcept;
 
     /** Finds the next hard line break after `it`.  This will be the first
         code point after the current line, or `range.end()` if no next line
@@ -1410,7 +1410,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         \pre `it` is at the beginning of a line. */
     template<typename CPRange, typename CPIter>
     detail::unspecified
-    next_hard_line_break(CPRange & range, CPIter it) noexcept;
+    next_hard_line_break(CPRange && range, CPIter it) noexcept;
 
     /** Returns a grapheme_iterator to the next hard line break after `it`.
         This will be the first grapheme after the current line, or
@@ -1423,7 +1423,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         \pre `it` is at the beginning of a line. */
     template<typename GraphemeRange, typename GraphemeIter>
     detail::unspecified
-    next_hard_line_break(GraphemeRange const & range, GraphemeIter it) noexcept;
+    next_hard_line_break(GraphemeRange && range, GraphemeIter it) noexcept;
 
     /** Finds the nearest line break opportunity at or before before `it`.  If
         `it == range.begin()`, that is returned.  Otherwise, the first code
@@ -1434,7 +1434,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         models the CPRange concept. */
     template<typename CPRange, typename CPIter>
     detail::unspecified
-    prev_allowed_line_break(CPRange & range, CPIter it) noexcept;
+    prev_allowed_line_break(CPRange && range, CPIter it) noexcept;
 
     /** Returns a grapheme_iterator to the nearest line break opportunity at
         or before before `it`.  If `it == range.begin()`, that is returned.
@@ -1445,7 +1445,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         `GraphemeRange` models the GraphemeRange concept. */
     template<typename GraphemeRange, typename GraphemeIter>
     detail::unspecified prev_allowed_line_break(
-        GraphemeRange const & range, GraphemeIter it) noexcept;
+        GraphemeRange && range, GraphemeIter it) noexcept;
 
     /** Finds the next line break opportunity after `it`.  This will be the
         first code point after the current line, or `range.end()` if no next
@@ -1457,7 +1457,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         \pre `it` is at the beginning of a line. */
     template<typename CPRange, typename CPIter>
     detail::unspecified
-    next_allowed_line_break(CPRange & range, CPIter it) noexcept;
+    next_allowed_line_break(CPRange && range, CPIter it) noexcept;
 
     /** Returns a grapheme_iterator to the next line break opportunity after
         `it`.  This will be the first grapheme after the current line, or
@@ -1469,7 +1469,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         \pre `it` is at the beginning of a line. */
     template<typename GraphemeRange, typename GraphemeIter>
     detail::unspecified next_allowed_line_break(
-        GraphemeRange const & range, GraphemeIter it) noexcept;
+        GraphemeRange && range, GraphemeIter it) noexcept;
 
     /** Returns true iff `it` is at the beginning of a line (considering only
         hard line breaks), or `it == std::end(range)`.  A hard line break
@@ -1479,7 +1479,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         This function only participates in overload resolution if `CPRange`
         models the CPRange concept. */
     template<typename CPRange, typename CPIter>
-    bool at_hard_line_break(CPRange & range, CPIter it) noexcept;
+    bool at_hard_line_break(CPRange && range, CPIter it) noexcept;
 
     /** Returns true iff `it` is at the beginning of a line (considering only
         hard line breaks), or `it == std::end(range)`.  A hard line break
@@ -1490,7 +1490,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         `GraphemeRange` models the GraphemeRange concept. */
     template<typename GraphemeRange, typename GraphemeIter>
     bool
-    at_hard_line_break(GraphemeRange const & range, GraphemeIter it) noexcept;
+    at_hard_line_break(GraphemeRange && range, GraphemeIter it) noexcept;
 
     /** Returns true iff `it` is at the beginning of a line, or `it ==
         std::end(range)`.
@@ -1498,7 +1498,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         This function only participates in overload resolution if `CPRange`
         models the CPRange concept. */
     template<typename CPRange, typename CPIter>
-    bool at_allowed_line_break(CPRange & range, CPIter it) noexcept;
+    bool at_allowed_line_break(CPRange && range, CPIter it) noexcept;
 
     /** Returns true iff `it` is at the beginning of a line, or `it ==
         std::end(range)`.
@@ -1507,7 +1507,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         `GraphemeRange` models the GraphemeRange concept. */
     template<typename GraphemeRange, typename GraphemeIter>
     bool at_allowed_line_break(
-        GraphemeRange const & range, GraphemeIter it) noexcept;
+        GraphemeRange && range, GraphemeIter it) noexcept;
 
 #else
 
@@ -1530,7 +1530,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     }
 
     template<typename CPRange, typename CPIter>
-    auto prev_hard_line_break(CPRange & range, CPIter it) noexcept
+    auto prev_hard_line_break(CPRange && range, CPIter it) noexcept
         -> detail::cp_rng_alg_ret_t<detail::iterator_t<CPRange>, CPRange>
     {
         return boost::text::prev_hard_line_break(
@@ -1539,7 +1539,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 
     template<typename GraphemeRange, typename GraphemeIter>
     auto
-    prev_hard_line_break(GraphemeRange const & range, GraphemeIter it) noexcept
+    prev_hard_line_break(GraphemeRange && range, GraphemeIter it) noexcept
         -> detail::graph_rng_alg_ret_t<
             detail::iterator_t<GraphemeRange const>,
             GraphemeRange>
@@ -1554,7 +1554,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     }
 
     template<typename CPRange, typename CPIter>
-    auto next_hard_line_break(CPRange & range, CPIter it) noexcept
+    auto next_hard_line_break(CPRange && range, CPIter it) noexcept
         -> detail::cp_rng_alg_ret_t<detail::iterator_t<CPRange>, CPRange>
     {
         return boost::text::next_hard_line_break(it, std::end(range));
@@ -1562,7 +1562,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 
     template<typename GraphemeRange, typename GraphemeIter>
     auto
-    next_hard_line_break(GraphemeRange const & range, GraphemeIter it) noexcept
+    next_hard_line_break(GraphemeRange && range, GraphemeIter it) noexcept
         -> detail::graph_rng_alg_ret_t<
             detail::iterator_t<GraphemeRange const>,
             GraphemeRange>
@@ -1575,7 +1575,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     }
 
     template<typename CPRange, typename CPIter>
-    auto prev_allowed_line_break(CPRange & range, CPIter it) noexcept
+    auto prev_allowed_line_break(CPRange && range, CPIter it) noexcept
         -> detail::cp_rng_alg_ret_t<
             line_break_result<detail::iterator_t<CPRange>>,
             CPRange>
@@ -1587,7 +1587,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 
     template<typename GraphemeRange, typename GraphemeIter>
     auto prev_allowed_line_break(
-        GraphemeRange const & range, GraphemeIter it) noexcept
+        GraphemeRange && range, GraphemeIter it) noexcept
         -> detail::graph_rng_alg_ret_t<
             line_break_result<detail::iterator_t<GraphemeRange const>>,
             GraphemeRange>
@@ -1602,7 +1602,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     }
 
     template<typename CPRange, typename CPIter>
-    auto next_allowed_line_break(CPRange & range, CPIter it) noexcept
+    auto next_allowed_line_break(CPRange && range, CPIter it) noexcept
         -> detail::cp_rng_alg_ret_t<
             line_break_result<detail::iterator_t<CPRange>>,
             CPRange>
@@ -1613,7 +1613,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 
     template<typename GraphemeRange, typename GraphemeIter>
     auto next_allowed_line_break(
-        GraphemeRange const & range, GraphemeIter it) noexcept
+        GraphemeRange && range, GraphemeIter it) noexcept
         -> detail::graph_rng_alg_ret_t<
             line_break_result<detail::iterator_t<GraphemeRange const>>,
             GraphemeRange>
@@ -1626,7 +1626,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     }
 
     template<typename CPRange, typename CPIter>
-    auto at_hard_line_break(CPRange & range, CPIter it) noexcept
+    auto at_hard_line_break(CPRange && range, CPIter it) noexcept
         -> detail::cp_rng_alg_ret_t<bool, CPRange>
     {
         if (it == std::end(range))
@@ -1637,7 +1637,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 
     template<typename GraphemeRange, typename GraphemeIter>
     auto
-    at_hard_line_break(GraphemeRange const & range, GraphemeIter it) noexcept
+    at_hard_line_break(GraphemeRange && range, GraphemeIter it) noexcept
         -> detail::graph_rng_alg_ret_t<bool, GraphemeRange>
     {
         if (it == std::end(range))
@@ -1649,7 +1649,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     }
 
     template<typename CPRange, typename CPIter>
-    auto at_allowed_line_break(CPRange & range, CPIter it) noexcept
+    auto at_allowed_line_break(CPRange && range, CPIter it) noexcept
         -> detail::cp_rng_alg_ret_t<bool, CPRange>
     {
         if (it == std::end(range))
@@ -1660,7 +1660,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 
     template<typename GraphemeRange, typename GraphemeIter>
     auto
-    at_allowed_line_break(GraphemeRange const & range, GraphemeIter it) noexcept
+    at_allowed_line_break(GraphemeRange && range, GraphemeIter it) noexcept
         -> detail::graph_rng_alg_ret_t<bool, GraphemeRange>
     {
         if (it == std::end(range))
@@ -1933,7 +1933,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         This function only participates in overload resolution if `CPRange`
         models the CPRange concept. */
     template<typename CPRange, typename CPIter>
-    detail::unspecified line(CPRange & range, CPIter it) noexcept;
+    detail::unspecified line(CPRange && range, CPIter it) noexcept;
 
     /** Returns grapheme range delimiting the bounds of the line (using hard
         line breaks) that `it` lies within, as a grapheme_view.
@@ -1942,7 +1942,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         `GraphemeRange` models the GraphemeRange concept. */
     template<typename GraphemeRange, typename GraphemeIter>
     detail::unspecified
-    line(GraphemeRange const & range, GraphemeIter it) noexcept;
+    line(GraphemeRange && range, GraphemeIter it) noexcept;
 
     /** Returns a lazy range of the code point ranges delimiting lines (using
         hard line breaks) in `[first, last)`. */
@@ -1955,7 +1955,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         This function only participates in overload resolution if `CPRange`
         models the CPRange concept. */
     template<typename CPRange>
-    detail::unspecified lines(CPRange & range) noexcept;
+    detail::unspecified lines(CPRange && range) noexcept;
 
     /** Returns a lazy range of the grapheme ranges delimiting lines (using
         hard line breaks) in `range`.
@@ -1963,7 +1963,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         This function only participates in overload resolution if
         `GraphemeRange` models the GraphemeRange concept. */
     template<typename GraphemeRange>
-    detail::unspecified lines(GraphemeRange const & range) noexcept;
+    detail::unspecified lines(GraphemeRange && range) noexcept;
 
     /** Returns a lazy range of the code point ranges delimiting lines (using
         hard line breaks) in `[first, last)`, in reverse. */
@@ -1976,7 +1976,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         This function only participates in overload resolution if `CPRange`
         models the CPRange concept. */
     template<typename CPRange>
-    detail::unspecified reversed_lines(CPRange & range) noexcept;
+    detail::unspecified reversed_lines(CPRange && range) noexcept;
 
     /** Returns a lazy range of the grapheme ranges delimiting lines (using
         hard line breaks) in `range`, in reverse.
@@ -1984,12 +1984,12 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         This function only participates in overload resolution if
         `GraphemeRange` models the GraphemeRange concept. */
     template<typename GraphemeRange>
-    detail::unspecified reversed_lines(GraphemeRange const & range) noexcept;
+    detail::unspecified reversed_lines(GraphemeRange && range) noexcept;
 
 #else
 
     template<typename CPRange, typename CPIter>
-    auto line(CPRange & range, CPIter it) noexcept -> detail::
+    auto line(CPRange && range, CPIter it) noexcept -> detail::
         cp_rng_alg_ret_t<utf32_view<detail::iterator_t<CPRange>>, CPRange>
     {
         auto first =
@@ -2001,7 +2001,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     }
 
     template<typename GraphemeRange, typename GraphemeIter>
-    auto line(GraphemeRange const & range, GraphemeIter it) noexcept
+    auto line(GraphemeRange && range, GraphemeIter it) noexcept
         -> detail::graph_rng_alg_ret_t<
             grapheme_view<decltype(range.begin().base())>,
             GraphemeRange>
@@ -2030,7 +2030,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     }
 
     template<typename CPRange>
-    auto lines(CPRange & range) noexcept -> detail::cp_rng_alg_ret_t<
+    auto lines(CPRange && range) noexcept -> detail::cp_rng_alg_ret_t<
         lazy_segment_range<
             detail::iterator_t<CPRange>,
             detail::sentinel_t<CPRange>,
@@ -2049,7 +2049,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     }
 
     template<typename GraphemeRange>
-    auto lines(GraphemeRange const & range) noexcept
+    auto lines(GraphemeRange && range) noexcept
         -> detail::graph_rng_alg_ret_t<
             lazy_segment_range<
                 decltype(range.begin().base()),
@@ -2082,7 +2082,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     }
 
     template<typename CPRange>
-    auto reversed_lines(CPRange & range) noexcept -> detail::cp_rng_alg_ret_t<
+    auto reversed_lines(CPRange && range) noexcept -> detail::cp_rng_alg_ret_t<
         lazy_segment_range<
             detail::iterator_t<CPRange>,
             detail::sentinel_t<CPRange>,
@@ -2099,7 +2099,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     }
 
     template<typename GraphemeRange>
-    auto reversed_lines(GraphemeRange const & range) noexcept
+    auto reversed_lines(GraphemeRange && range) noexcept
         -> detail::graph_rng_alg_ret_t<
             lazy_segment_range<
                 decltype(range.begin().base()),
@@ -2201,7 +2201,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         (CPIter, CPIter)`, where `CPIter` is `decltype(range.begin())`. */
     template<typename CPRange, typename Extent, typename CPExtentFunc>
     detail::unspecified lines(
-        CPRange & range,
+        CPRange && range,
         Extent max_extent,
         CPExtentFunc cp_extent,
         bool break_overlong_lines = true) noexcept;
@@ -2222,7 +2222,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         `decltype(range.begin().base())`. */
     template<typename GraphemeRange, typename Extent, typename CPExtentFunc>
     detail::unspecified lines(
-        GraphemeRange const & range,
+        GraphemeRange && range,
         Extent max_extent,
         CPExtentFunc cp_extent,
         bool break_overlong_lines = true) noexcept;
@@ -2267,7 +2267,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             line_break_cp_view<detail::iterator_t<CPRange>>>,
         CPRange>
     lines(
-        CPRange & range,
+        CPRange && range,
         Extent max_extent,
         CPExtentFunc cp_extent,
         bool break_overlong_lines = true) noexcept
@@ -2284,7 +2284,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 
     template<typename GraphemeRange, typename Extent, typename CPExtentFunc>
     auto lines(
-        GraphemeRange const & range,
+        GraphemeRange && range,
         Extent max_extent,
         CPExtentFunc cp_extent,
         bool break_overlong_lines = true) noexcept
@@ -2332,7 +2332,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         This function only participates in overload resolution if `CPRange`
         models the CPRange concept. */
     template<typename CPRange, typename CPIter>
-    detail::unspecified allowed_line(CPRange & range, CPIter it) noexcept;
+    detail::unspecified allowed_line(CPRange && range, CPIter it) noexcept;
 
     /** Returns a grapheme range delimiting the bounds of the line (using hard
         line breaks) that `it` lies within, as a line_break_grapheme_view.
@@ -2341,7 +2341,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         `GraphemeRange` models the GraphemeRange concept. */
     template<typename GraphemeRange, typename GraphemeIter>
     detail::unspecified
-    allowed_line(GraphemeRange const & range, GraphemeIter it) noexcept;
+    allowed_line(GraphemeRange && range, GraphemeIter it) noexcept;
 
     /** Returns a lazy range of the code point ranges delimiting allowed lines
         in `[first, last)`. */
@@ -2354,7 +2354,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         This function only participates in overload resolution if `CPRange`
         models the CPRange concept. */
     template<typename CPRange>
-    detail::unspecified allowed_lines(CPRange & range) noexcept;
+    detail::unspecified allowed_lines(CPRange && range) noexcept;
 
     /** Returns a lazy range of the grapheme ranges delimiting allowed lines
         in `range`.
@@ -2362,12 +2362,12 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         This function only participates in overload resolution if
         `GraphemeRange` models the GraphemeRange concept. */
     template<typename GraphemeRange>
-    detail::unspecified allowed_lines(GraphemeRange const & range) noexcept;
+    detail::unspecified allowed_lines(GraphemeRange && range) noexcept;
 
 #else
 
     template<typename CPRange, typename CPIter>
-    auto allowed_line(CPRange & range, CPIter it) noexcept
+    auto allowed_line(CPRange && range, CPIter it) noexcept
         -> detail::cp_rng_alg_ret_t<
             line_break_cp_view<detail::iterator_t<CPRange>>,
             CPRange>
@@ -2382,7 +2382,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     }
 
     template<typename GraphemeRange, typename GraphemeIter>
-    auto allowed_line(GraphemeRange const & range, GraphemeIter it) noexcept
+    auto allowed_line(GraphemeRange && range, GraphemeIter it) noexcept
         -> detail::graph_rng_alg_ret_t<
             line_break_grapheme_view<decltype(range.begin().base())>,
             GraphemeRange>
@@ -2412,7 +2412,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     }
 
     template<typename CPRange>
-    auto allowed_lines(CPRange & range) noexcept -> detail::cp_rng_alg_ret_t<
+    auto allowed_lines(CPRange && range) noexcept -> detail::cp_rng_alg_ret_t<
         lazy_segment_range<
             line_break_result<detail::iterator_t<CPRange>>,
             detail::sentinel_t<CPRange>,
@@ -2434,7 +2434,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     }
 
     template<typename GraphemeRange>
-    auto allowed_lines(GraphemeRange const & range) noexcept
+    auto allowed_lines(GraphemeRange && range) noexcept
         -> detail::graph_rng_alg_ret_t<
             lazy_segment_range<
                 line_break_result<decltype(range.begin().base())>,
@@ -2550,7 +2550,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         This function only participates in overload resolution if `CPRange`
         models the CPRange concept. */
     template<typename CPRange>
-    detail::unspecified reversed_allowed_lines(CPRange & range) noexcept;
+    detail::unspecified reversed_allowed_lines(CPRange && range) noexcept;
 
     /** Returns a lazy range of the grapheme ranges delimiting allowed lines
         in `range`, in reverse.
@@ -2559,7 +2559,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         `GraphemeRange` models the GraphemeRange concept. */
     template<typename GraphemeRange>
     detail::unspecified
-    reversed_allowed_lines(GraphemeRange const & range) noexcept;
+    reversed_allowed_lines(GraphemeRange && range) noexcept;
 
 #else
 
@@ -2588,7 +2588,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     }
 
     template<typename CPRange>
-    auto reversed_allowed_lines(CPRange & range) noexcept
+    auto reversed_allowed_lines(CPRange && range) noexcept
         -> detail::cp_rng_alg_ret_t<
             lazy_segment_range<
                 detail::iterator_t<CPRange>,
@@ -2619,7 +2619,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     }
 
     template<typename GraphemeRange>
-    auto reversed_allowed_lines(GraphemeRange const & range) noexcept
+    auto reversed_allowed_lines(GraphemeRange && range) noexcept
         -> detail::graph_rng_alg_ret_t<
             lazy_segment_range<
                 decltype(range.begin().base()),

@@ -59,7 +59,7 @@ namespace boost { namespace text {
         models the CPRange concept. */
     template<typename CPRange, typename CPIter>
     detail::unspecified
-    prev_paragraph_break(CPRange & range, CPIter it) noexcept;
+    prev_paragraph_break(CPRange && range, CPIter it) noexcept;
 
     /** Returns a grapheme_iterator to the nearest paragraph break at or
         before before `it`.  If `it == range.begin()`, that is returned.
@@ -71,7 +71,7 @@ namespace boost { namespace text {
         `GraphemeRange` models the GraphemeRange concept. */
     template<typename GraphemeRange, typename GraphemeIter>
     detail::unspecified
-    prev_paragraph_break(GraphemeRange const & range, GraphemeIter it) noexcept;
+    prev_paragraph_break(GraphemeRange && range, GraphemeIter it) noexcept;
 
     /** Finds the next paragraph break after `it`.  This will be the first
         code point after the current paragraph, or `range.end()` if no next
@@ -83,7 +83,7 @@ namespace boost { namespace text {
         \pre `it` is at the beginning of a paragraph. */
     template<typename CPRange, typename CPIter>
     detail::unspecified
-    next_paragraph_break(CPRange & range, CPIter it) noexcept;
+    next_paragraph_break(CPRange && range, CPIter it) noexcept;
 
     /** Returns a grapheme_iterator to the next paragraph break after `it`.
         This will be the first grapheme after the current paragraph, or
@@ -95,7 +95,7 @@ namespace boost { namespace text {
         \pre `it` is at the beginning of a paragraph. */
     template<typename GraphemeRange, typename GraphemeIter>
     detail::unspecified
-    next_paragraph_break(GraphemeRange const & range, GraphemeIter it) noexcept;
+    next_paragraph_break(GraphemeRange && range, GraphemeIter it) noexcept;
 
     /** Returns true iff `it` is at the beginning of a paragraph, or `it ==
         last`.
@@ -111,7 +111,7 @@ namespace boost { namespace text {
         This function only participates in overload resolution if `CPRange`
         models the CPRange concept. */
     template<typename CPRange, typename CPIter>
-    bool at_paragraph_break(CPRange & range, CPIter it) noexcept;
+    bool at_paragraph_break(CPRange && range, CPIter it) noexcept;
 
     /** Returns true iff `it` is at the beginning of a paragraph, or `it ==
         std::end(range)`.
@@ -120,7 +120,7 @@ namespace boost { namespace text {
         `GraphemeRange` models the GraphemeRange concept. */
     template<typename GraphemeRange, typename GraphemeIter>
     bool
-    at_paragraph_break(GraphemeRange const & range, GraphemeIter it) noexcept;
+    at_paragraph_break(GraphemeRange && range, GraphemeIter it) noexcept;
 
 #else
 
@@ -157,7 +157,7 @@ namespace boost { namespace text {
     }
 
     template<typename CPRange, typename CPIter>
-    auto prev_paragraph_break(CPRange & range, CPIter it) noexcept
+    auto prev_paragraph_break(CPRange && range, CPIter it) noexcept
         -> detail::cp_rng_alg_ret_t<detail::iterator_t<CPRange>, CPRange>
     {
         return boost::text::prev_paragraph_break(
@@ -166,7 +166,7 @@ namespace boost { namespace text {
 
     template<typename GraphemeRange, typename GraphemeIter>
     auto
-    prev_paragraph_break(GraphemeRange const & range, GraphemeIter it) noexcept
+    prev_paragraph_break(GraphemeRange && range, GraphemeIter it) noexcept
         -> detail::graph_rng_alg_ret_t<
             detail::iterator_t<GraphemeRange const>,
             GraphemeRange>
@@ -181,7 +181,7 @@ namespace boost { namespace text {
     }
 
     template<typename CPRange, typename CPIter>
-    auto next_paragraph_break(CPRange & range, CPIter it) noexcept
+    auto next_paragraph_break(CPRange && range, CPIter it) noexcept
         -> detail::cp_rng_alg_ret_t<detail::iterator_t<CPRange>, CPRange>
     {
         return boost::text::next_paragraph_break(it, std::end(range));
@@ -189,7 +189,7 @@ namespace boost { namespace text {
 
     template<typename GraphemeRange, typename GraphemeIter>
     auto
-    next_paragraph_break(GraphemeRange const & range, GraphemeIter it) noexcept
+    next_paragraph_break(GraphemeRange && range, GraphemeIter it) noexcept
         -> detail::graph_rng_alg_ret_t<
             detail::iterator_t<GraphemeRange const>,
             GraphemeRange>
@@ -211,7 +211,7 @@ namespace boost { namespace text {
     }
 
     template<typename CPRange, typename CPIter>
-    auto at_paragraph_break(CPRange & range, CPIter it) noexcept
+    auto at_paragraph_break(CPRange && range, CPIter it) noexcept
         -> detail::cp_rng_alg_ret_t<bool, CPRange>
     {
         if (it == std::end(range))
@@ -222,7 +222,7 @@ namespace boost { namespace text {
 
     template<typename GraphemeRange, typename GraphemeIter>
     auto
-    at_paragraph_break(GraphemeRange const & range, GraphemeIter it) noexcept
+    at_paragraph_break(GraphemeRange && range, GraphemeIter it) noexcept
         -> detail::graph_rng_alg_ret_t<bool, GraphemeRange>
     {
         if (it == std::end(range))
@@ -275,7 +275,7 @@ namespace boost { namespace text {
         This function only participates in overload resolution if `CPRange`
         models the CPRange concept. */
     template<typename CPRange, typename CPIter>
-    detail::unspecified paragraph(CPRange & range, CPIter it) noexcept;
+    detail::unspecified paragraph(CPRange && range, CPIter it) noexcept;
 
     /** Returns grapheme range delimiting the bounds of the paragraph that
         `it` lies within, as a grapheme_view.
@@ -284,7 +284,7 @@ namespace boost { namespace text {
         `GraphemeRange` models the GraphemeRange concept. */
     template<typename GraphemeRange, typename GraphemeIter>
     detail::unspecified
-    paragraph(GraphemeRange const & range, GraphemeIter it) noexcept;
+    paragraph(GraphemeRange && range, GraphemeIter it) noexcept;
 
     /** Returns a lazy range of the code point ranges delimiting paragraphs in
         `[first, last)`. */
@@ -297,7 +297,7 @@ namespace boost { namespace text {
         This function only participates in overload resolution if `CPRange`
         models the CPRange concept. */
     template<typename CPRange>
-    detail::unspecified paragraphs(CPRange & range) noexcept;
+    detail::unspecified paragraphs(CPRange && range) noexcept;
 
     /** Returns a lazy range of the grapheme ranges delimiting paragraphs in
         `range`.
@@ -305,7 +305,7 @@ namespace boost { namespace text {
         This function only participates in overload resolution if
         `GraphemeRange` models the GraphemeRange concept. */
     template<typename GraphemeRange>
-    detail::unspecified paragraphs(GraphemeRange const & range) noexcept;
+    detail::unspecified paragraphs(GraphemeRange && range) noexcept;
 
     /** Returns a lazy range of the code point ranges delimiting paragraphs in
         `[first, last)`, in reverse. */
@@ -318,7 +318,7 @@ namespace boost { namespace text {
         This function only participates in overload resolution if `CPRange`
         models the CPRange concept. */
     template<typename CPRange>
-    detail::unspecified reversed_paragraphs(CPRange & range) noexcept;
+    detail::unspecified reversed_paragraphs(CPRange && range) noexcept;
 
     /** Returns a lazy range of the grapheme ranges delimiting paragraphs in
         `range`, in reverse.
@@ -327,12 +327,12 @@ namespace boost { namespace text {
         `GraphemeRange` models the GraphemeRange concept. */
     template<typename GraphemeRange>
     detail::unspecified
-    reversed_paragraphs(GraphemeRange const & range) noexcept;
+    reversed_paragraphs(GraphemeRange && range) noexcept;
 
 #else
 
     template<typename CPRange, typename CPIter>
-    auto paragraph(CPRange & range, CPIter it) noexcept -> detail::
+    auto paragraph(CPRange && range, CPIter it) noexcept -> detail::
         cp_rng_alg_ret_t<utf32_view<detail::iterator_t<CPRange>>, CPRange>
     {
         auto first = boost::text::prev_paragraph_break(
@@ -343,7 +343,7 @@ namespace boost { namespace text {
     }
 
     template<typename GraphemeRange, typename GraphemeIter>
-    auto paragraph(GraphemeRange const & range, GraphemeIter it) noexcept
+    auto paragraph(GraphemeRange && range, GraphemeIter it) noexcept
         -> detail::graph_rng_alg_ret_t<
             grapheme_view<decltype(range.begin().base())>,
             GraphemeRange>
@@ -372,7 +372,7 @@ namespace boost { namespace text {
     }
 
     template<typename CPRange>
-    auto paragraphs(CPRange & range) noexcept -> detail::cp_rng_alg_ret_t<
+    auto paragraphs(CPRange && range) noexcept -> detail::cp_rng_alg_ret_t<
         lazy_segment_range<
             detail::iterator_t<CPRange>,
             detail::sentinel_t<CPRange>,
@@ -391,7 +391,7 @@ namespace boost { namespace text {
     }
 
     template<typename GraphemeRange>
-    auto paragraphs(GraphemeRange const & range) noexcept
+    auto paragraphs(GraphemeRange && range) noexcept
         -> detail::graph_rng_alg_ret_t<
             lazy_segment_range<
                 decltype(range.begin().base()),
@@ -424,7 +424,7 @@ namespace boost { namespace text {
     }
 
     template<typename CPRange>
-    auto reversed_paragraphs(CPRange & range) noexcept
+    auto reversed_paragraphs(CPRange && range) noexcept
         -> detail::cp_rng_alg_ret_t<
             lazy_segment_range<
                 detail::iterator_t<CPRange>,
@@ -442,7 +442,7 @@ namespace boost { namespace text {
     }
 
     template<typename GraphemeRange>
-    auto reversed_paragraphs(GraphemeRange const & range) noexcept
+    auto reversed_paragraphs(GraphemeRange && range) noexcept
         -> detail::graph_rng_alg_ret_t<
             lazy_segment_range<
                 decltype(range.begin().base()),

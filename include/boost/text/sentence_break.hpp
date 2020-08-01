@@ -273,7 +273,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         models the CPRange concept. */
     template<typename CPRange, typename CPIter>
     detail::unspecified
-    prev_sentence_break(CPRange & range, CPIter it) noexcept;
+    prev_sentence_break(CPRange && range, CPIter it) noexcept;
 
     /** Returns a grapheme_iterator to the nearest sentence break at or before
         before `it`.  If `it == range.begin()`, that is returned.  Otherwise,
@@ -284,7 +284,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         `GraphemeRange` models the GraphemeRange concept. */
     template<typename GraphemeRange, typename GraphemeIter>
     detail::unspecified
-    prev_sentence_break(GraphemeRange const & range, GraphemeIter it) noexcept;
+    prev_sentence_break(GraphemeRange && range, GraphemeIter it) noexcept;
 
     /** Finds the next sentence break after `it`.  This will be the first code
         point after the current sentence, or `range.end()` if no next sentence
@@ -296,7 +296,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         \pre `it` is at the beginning of a sentence. */
     template<typename CPRange, typename CPIter>
     detail::unspecified
-    next_sentence_break(CPRange & range, CPIter it) noexcept;
+    next_sentence_break(CPRange && range, CPIter it) noexcept;
 
     /** Returns a grapheme_iterator to the next sentence break after `it`.
         This will be the first grapheme after the current sentence, or
@@ -308,7 +308,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         \pre `it` is at the beginning of a sentence. */
     template<typename GraphemeRange, typename GraphemeIter>
     detail::unspecified
-    next_sentence_break(GraphemeRange const & range, GraphemeIter it) noexcept;
+    next_sentence_break(GraphemeRange && range, GraphemeIter it) noexcept;
 
     /** Returns true iff `it` is at the beginning of a sentence, or `it ==
         last`.
@@ -324,7 +324,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         This function only participates in overload resolution if `CPRange`
         models the CPRange concept. */
     template<typename CPRange, typename CPIter>
-    bool at_sentence_break(CPRange & range, CPIter it) noexcept;
+    bool at_sentence_break(CPRange && range, CPIter it) noexcept;
 
     /** Returns true iff `it` is at the beginning of a sentence, or `it ==
         std::end(range)`.
@@ -333,7 +333,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         `GraphemeRange` models the GraphemeRange concept. */
     template<typename GraphemeRange, typename GraphemeIter>
     bool
-    at_sentence_break(GraphemeRange const & range, GraphemeIter it) noexcept;
+    at_sentence_break(GraphemeRange && range, GraphemeIter it) noexcept;
 
 #else
 
@@ -737,7 +737,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
     }
 
     template<typename CPRange, typename CPIter>
-    auto prev_sentence_break(CPRange & range, CPIter it) noexcept
+    auto prev_sentence_break(CPRange && range, CPIter it) noexcept
         -> detail::cp_rng_alg_ret_t<detail::iterator_t<CPRange>, CPRange>
     {
         return boost::text::prev_sentence_break(
@@ -746,7 +746,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
 
     template<typename GraphemeRange, typename GraphemeIter>
     auto
-    prev_sentence_break(GraphemeRange const & range, GraphemeIter it) noexcept
+    prev_sentence_break(GraphemeRange && range, GraphemeIter it) noexcept
         -> detail::graph_rng_alg_ret_t<
             detail::iterator_t<GraphemeRange const>,
             GraphemeRange>
@@ -761,7 +761,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
     }
 
     template<typename CPRange, typename CPIter>
-    auto next_sentence_break(CPRange & range, CPIter it) noexcept
+    auto next_sentence_break(CPRange && range, CPIter it) noexcept
         -> detail::cp_rng_alg_ret_t<detail::iterator_t<CPRange>, CPRange>
     {
         return boost::text::next_sentence_break(it, std::end(range));
@@ -769,7 +769,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
 
     template<typename GraphemeRange, typename GraphemeIter>
     auto
-    next_sentence_break(GraphemeRange const & range, GraphemeIter it) noexcept
+    next_sentence_break(GraphemeRange && range, GraphemeIter it) noexcept
         -> detail::graph_rng_alg_ret_t<
             detail::iterator_t<GraphemeRange const>,
             GraphemeRange>
@@ -791,7 +791,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
     }
 
     template<typename CPRange, typename CPIter>
-    auto at_sentence_break(CPRange & range, CPIter it) noexcept
+    auto at_sentence_break(CPRange && range, CPIter it) noexcept
         -> detail::cp_rng_alg_ret_t<bool, CPRange>
     {
         if (it == std::end(range))
@@ -802,7 +802,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
 
     template<typename GraphemeRange, typename GraphemeIter>
     auto
-    at_sentence_break(GraphemeRange const & range, GraphemeIter it) noexcept
+    at_sentence_break(GraphemeRange && range, GraphemeIter it) noexcept
         -> detail::graph_rng_alg_ret_t<bool, GraphemeRange>
     {
         if (it == std::end(range))
@@ -854,7 +854,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         This function only participates in overload resolution if `CPRange`
         models the CPRange concept. */
     template<typename CPRange, typename CPIter>
-    detail::unspecified sentence(CPRange & range, CPIter it) noexcept;
+    detail::unspecified sentence(CPRange && range, CPIter it) noexcept;
 
     /** Returns grapheme range delimiting the bounds of the sentence that `it`
         lies within, as a grapheme_view.
@@ -863,7 +863,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         `GraphemeRange` models the GraphemeRange concept. */
     template<typename GraphemeRange, typename GraphemeIter>
     detail::unspecified
-    sentence(GraphemeRange const & range, GraphemeIter it) noexcept;
+    sentence(GraphemeRange && range, GraphemeIter it) noexcept;
 
     /** Returns a lazy range of the code point ranges delimiting sentences in
         `[first, last)`. */
@@ -876,7 +876,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         This function only participates in overload resolution if `CPRange`
         models the CPRange concept. */
     template<typename CPRange>
-    detail::unspecified sentences(CPRange & range) noexcept;
+    detail::unspecified sentences(CPRange && range) noexcept;
 
     /** Returns a lazy range of the grapheme ranges delimiting sentences in
         `range`.
@@ -884,7 +884,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         This function only participates in overload resolution if
         `GraphemeRange` models the GraphemeRange concept. */
     template<typename GraphemeRange>
-    detail::unspecified sentences(GraphemeRange const & range) noexcept;
+    detail::unspecified sentences(GraphemeRange && range) noexcept;
 
     /** Returns a lazy range of the code point ranges delimiting sentences in
         `[first, last)`, in reverse. */
@@ -897,7 +897,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         This function only participates in overload resolution if `CPRange`
         models the CPRange concept. */
     template<typename CPRange>
-    detail::unspecified reversed_sentences(CPRange & range) noexcept;
+    detail::unspecified reversed_sentences(CPRange && range) noexcept;
 
     /** Returns a lazy range of the grapheme ranges delimiting sentences in
         `range`, in reverse.
@@ -906,12 +906,12 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         `GraphemeRange` models the GraphemeRange concept. */
     template<typename GraphemeRange>
     detail::unspecified
-    reversed_sentences(GraphemeRange const & range) noexcept;
+    reversed_sentences(GraphemeRange && range) noexcept;
 
 #else
 
     template<typename CPRange, typename CPIter>
-    auto sentence(CPRange & range, CPIter it) noexcept -> detail::
+    auto sentence(CPRange && range, CPIter it) noexcept -> detail::
         cp_rng_alg_ret_t<utf32_view<detail::iterator_t<CPRange>>, CPRange>
     {
         auto first = boost::text::prev_sentence_break(
@@ -922,7 +922,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
     }
 
     template<typename GraphemeRange, typename GraphemeIter>
-    auto sentence(GraphemeRange const & range, GraphemeIter it) noexcept
+    auto sentence(GraphemeRange && range, GraphemeIter it) noexcept
         -> detail::graph_rng_alg_ret_t<
             grapheme_view<decltype(range.begin().base())>,
             GraphemeRange>
@@ -950,7 +950,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
     }
 
     template<typename CPRange>
-    auto sentences(CPRange & range) noexcept -> detail::cp_rng_alg_ret_t<
+    auto sentences(CPRange && range) noexcept -> detail::cp_rng_alg_ret_t<
         lazy_segment_range<
             detail::iterator_t<CPRange>,
             detail::sentinel_t<CPRange>,
@@ -969,7 +969,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
     }
 
     template<typename GraphemeRange>
-    auto sentences(GraphemeRange const & range) noexcept
+    auto sentences(GraphemeRange && range) noexcept
         -> detail::graph_rng_alg_ret_t<
             lazy_segment_range<
                 decltype(range.begin().base()),
@@ -1002,7 +1002,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
     }
 
     template<typename CPRange>
-    auto reversed_sentences(CPRange & range) noexcept
+    auto reversed_sentences(CPRange && range) noexcept
         -> detail::cp_rng_alg_ret_t<
             lazy_segment_range<
                 detail::iterator_t<CPRange>,
@@ -1020,7 +1020,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
     }
 
     template<typename GraphemeRange>
-    auto reversed_sentences(GraphemeRange const & range) noexcept
+    auto reversed_sentences(GraphemeRange && range) noexcept
         -> detail::graph_rng_alg_ret_t<
             lazy_segment_range<
                 decltype(range.begin().base()),

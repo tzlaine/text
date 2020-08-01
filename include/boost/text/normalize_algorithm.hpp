@@ -166,7 +166,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     replace_result<StringIter> normalize_insert(
         String & string,
         StringIter at,
-        CPRange const & r,
+        CPRange && r,
         insertion_normalization insertion_norm = insertion_not_normalized)
     {
         if (std::begin(r) == std::end(r))
@@ -288,7 +288,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     replace_result<StringIter> normalize_insert(
         String & string,
         StringIter at,
-        R const & r,
+        R && r,
         insertion_normalization insertion_norm = insertion_not_normalized)
     {
         if (std::ranges::begin(r) == std::ranges::end(r))

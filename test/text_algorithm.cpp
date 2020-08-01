@@ -28,13 +28,13 @@ TEST(text_algorithm, word_break)
     text cps("\x61\x5f\x61\x2e\x3a\x61");
 
     {
-        EXPECT_EQ(std::distance(cps.cbegin(), prev_word_break(cps, std::next(cps.begin(), 2))), 0);
-        EXPECT_EQ(std::distance(cps.cbegin(), next_word_break(cps, std::next(cps.begin(), 5))), 6);
+        EXPECT_EQ(std::distance(cps.begin(), prev_word_break(cps, std::next(cps.begin(), 2))), 0);
+        EXPECT_EQ(std::distance(cps.begin(), next_word_break(cps, std::next(cps.begin(), 5))), 6);
     }
     {
         auto const range = word(cps, std::next(cps.begin(), 1));
-        EXPECT_EQ(std::distance(cps.cbegin(), range.begin()), 0);
-        EXPECT_EQ(std::distance(cps.cbegin(), range.end()), 3);
+        EXPECT_EQ(std::distance(cps.begin(), range.begin()), 0);
+        EXPECT_EQ(std::distance(cps.begin(), range.end()), 3);
     }
 
     {
@@ -46,10 +46,10 @@ TEST(text_algorithm, word_break)
         int i = 0;
         for (auto word : all_words) {
             EXPECT_EQ(
-                std::distance(cps.cbegin(), word.begin()), word_bounds[i].first)
+                std::distance(cps.begin(), word.begin()), word_bounds[i].first)
                 << "i=" << i;
             EXPECT_EQ(
-                std::distance(cps.cbegin(), word.end()), word_bounds[i].second)
+                std::distance(cps.begin(), word.end()), word_bounds[i].second)
                 << "i=" << i;
             ++i;
         }
@@ -60,10 +60,10 @@ TEST(text_algorithm, word_break)
         for (auto word : all_words_reversed) {
             --i;
             EXPECT_EQ(
-                std::distance(cps.cbegin(), word.begin()), word_bounds[i].first)
+                std::distance(cps.begin(), word.begin()), word_bounds[i].first)
                 << "i=" << i;
             EXPECT_EQ(
-                std::distance(cps.cbegin(), word.end()), word_bounds[i].second)
+                std::distance(cps.begin(), word.end()), word_bounds[i].second)
                 << "i=" << i;
         }
         EXPECT_EQ(i, 0);
@@ -77,14 +77,14 @@ TEST(text_algorithm, sentence_break)
     text cps("\x65\x74\x63\x2e\xe5\xae\x83");
 
     {
-        EXPECT_EQ(std::distance(cps.cbegin(), prev_sentence_break(cps, std::next(cps.begin(), 2))), 0);
-        EXPECT_EQ(std::distance(cps.cbegin(), next_sentence_break(cps, std::next(cps.begin(), 0))), 4);
+        EXPECT_EQ(std::distance(cps.begin(), prev_sentence_break(cps, std::next(cps.begin(), 2))), 0);
+        EXPECT_EQ(std::distance(cps.begin(), next_sentence_break(cps, std::next(cps.begin(), 0))), 4);
     }
     {
         auto const range =
             sentence(cps, std::next(cps.begin(), 1));
-        EXPECT_EQ(std::distance(cps.cbegin(), range.begin()), 0);
-        EXPECT_EQ(std::distance(cps.cbegin(), range.end()), 4);
+        EXPECT_EQ(std::distance(cps.begin(), range.begin()), 0);
+        EXPECT_EQ(std::distance(cps.begin(), range.end()), 4);
     }
 
     {
@@ -96,11 +96,11 @@ TEST(text_algorithm, sentence_break)
         int i = 0;
         for (auto sentence : all_sentences) {
             EXPECT_EQ(
-                std::distance(cps.cbegin(), sentence.begin()),
+                std::distance(cps.begin(), sentence.begin()),
                 sentence_bounds[i].first)
                 << "i=" << i;
             EXPECT_EQ(
-                std::distance(cps.cbegin(), sentence.end()),
+                std::distance(cps.begin(), sentence.end()),
                 sentence_bounds[i].second)
                 << "i=" << i;
             ++i;
@@ -112,11 +112,11 @@ TEST(text_algorithm, sentence_break)
         for (auto sentence : all_sentences_reversed) {
             --i;
             EXPECT_EQ(
-                std::distance(cps.cbegin(), sentence.begin()),
+                std::distance(cps.begin(), sentence.begin()),
                 sentence_bounds[i].first)
                 << "i=" << i;
             EXPECT_EQ(
-                std::distance(cps.cbegin(), sentence.end()),
+                std::distance(cps.begin(), sentence.end()),
                 sentence_bounds[i].second)
                 << "i=" << i;
         }
@@ -135,33 +135,33 @@ TEST(break_apis, line_break)
     {
         auto const prev =
             prev_hard_line_break(cps, std::next(cps.begin(), 1));
-        EXPECT_EQ(std::distance(cps.cbegin(), prev), 0);
+        EXPECT_EQ(std::distance(cps.begin(), prev), 0);
 
         auto const next =
             next_hard_line_break(cps, std::next(cps.begin(), 0));
-        EXPECT_EQ(std::distance(cps.cbegin(), next), 3);
+        EXPECT_EQ(std::distance(cps.begin(), next), 3);
     }
     {
         auto const prev = prev_allowed_line_break(
             cps, std::next(cps.begin(), 1));
-        EXPECT_EQ(std::distance(cps.cbegin(), prev.iter), 0);
+        EXPECT_EQ(std::distance(cps.begin(), prev.iter), 0);
         EXPECT_FALSE(prev.hard_break);
 
         auto const next = next_allowed_line_break(
             cps, std::next(cps.begin(), 0));
-        EXPECT_EQ(std::distance(cps.cbegin(), next.iter), 2);
+        EXPECT_EQ(std::distance(cps.begin(), next.iter), 2);
         EXPECT_FALSE(next.hard_break);
     }
 
     {
         auto const range = line(cps, begin);
-        EXPECT_EQ(std::distance(cps.cbegin(), range.begin()), 0);
-        EXPECT_EQ(std::distance(cps.cbegin(), range.end()), 3);
+        EXPECT_EQ(std::distance(cps.begin(), range.begin()), 0);
+        EXPECT_EQ(std::distance(cps.begin(), range.end()), 3);
     }
     {
         auto const range = allowed_line(cps, begin);
-        EXPECT_EQ(std::distance(cps.cbegin(), range.begin()), 0);
-        EXPECT_EQ(std::distance(cps.cbegin(), range.end()), 2);
+        EXPECT_EQ(std::distance(cps.begin(), range.begin()), 0);
+        EXPECT_EQ(std::distance(cps.begin(), range.end()), 2);
         EXPECT_FALSE(range.hard_break());
     }
 
@@ -172,9 +172,9 @@ TEST(break_apis, line_break)
 
         int i = 0;
         for (auto line : all_lines) {
-            EXPECT_EQ(std::distance(cps.cbegin(), line.begin()), line_bounds[i].first)
+            EXPECT_EQ(std::distance(cps.begin(), line.begin()), line_bounds[i].first)
                 << "i=" << i;
-            EXPECT_EQ(std::distance(cps.cbegin(), line.end()), line_bounds[i].second)
+            EXPECT_EQ(std::distance(cps.begin(), line.end()), line_bounds[i].second)
                 << "i=" << i;
             ++i;
         }
@@ -184,9 +184,9 @@ TEST(break_apis, line_break)
         i = line_bounds.size();
         for (auto line : all_lines_reversed) {
             --i;
-            EXPECT_EQ(std::distance(cps.cbegin(), line.begin()), line_bounds[i].first)
+            EXPECT_EQ(std::distance(cps.begin(), line.begin()), line_bounds[i].first)
                 << "i=" << i;
-            EXPECT_EQ(std::distance(cps.cbegin(), line.end()), line_bounds[i].second)
+            EXPECT_EQ(std::distance(cps.begin(), line.end()), line_bounds[i].second)
                 << "i=" << i;
         }
         EXPECT_EQ(i, 0);
@@ -200,9 +200,9 @@ TEST(break_apis, line_break)
 
         int i = 0;
         for (auto line : all_lines) {
-            EXPECT_EQ(std::distance(cps.cbegin(), line.begin()), line_bounds[i].first)
+            EXPECT_EQ(std::distance(cps.begin(), line.begin()), line_bounds[i].first)
                 << "i=" << i;
-            EXPECT_EQ(std::distance(cps.cbegin(), line.end()), line_bounds[i].second)
+            EXPECT_EQ(std::distance(cps.begin(), line.end()), line_bounds[i].second)
                 << "i=" << i;
             EXPECT_EQ(line.hard_break(), false) << "i=" << i;
             ++i;
@@ -214,9 +214,9 @@ TEST(break_apis, line_break)
         i = line_bounds.size();
         for (auto line : all_lines_reversed) {
             --i;
-            EXPECT_EQ(std::distance(cps.cbegin(), line.begin()), line_bounds[i].first)
+            EXPECT_EQ(std::distance(cps.begin(), line.begin()), line_bounds[i].first)
                 << "i=" << i;
-            EXPECT_EQ(std::distance(cps.cbegin(), line.end()), line_bounds[i].second)
+            EXPECT_EQ(std::distance(cps.begin(), line.end()), line_bounds[i].second)
                 << "i=" << i;
             EXPECT_EQ(line.hard_break(), false);
         }
@@ -237,9 +237,9 @@ TEST(break_apis, line_break)
 
         int i = 0;
         for (auto line : _80_column_lines) {
-            EXPECT_EQ(std::distance(cps.cbegin(), line.begin()), line_bounds[i].first)
+            EXPECT_EQ(std::distance(cps.begin(), line.begin()), line_bounds[i].first)
                 << "i=" << i;
-            EXPECT_EQ(std::distance(cps.cbegin(), line.end()), line_bounds[i].second)
+            EXPECT_EQ(std::distance(cps.begin(), line.end()), line_bounds[i].second)
                 << "i=" << i;
             ++i;
         }
@@ -254,14 +254,14 @@ TEST(text_algorithm, paragraph_break)
     text cps("\x65\x74\x63\x2e\xe5\xae\x83");
 
     {
-        EXPECT_EQ(std::distance(cps.cbegin(), prev_paragraph_break(cps, std::next(cps.begin(), 2))), 0);
-        EXPECT_EQ(std::distance(cps.cbegin(), next_paragraph_break(cps, std::next(cps.begin(), 0))), 5);
+        EXPECT_EQ(std::distance(cps.begin(), prev_paragraph_break(cps, std::next(cps.begin(), 2))), 0);
+        EXPECT_EQ(std::distance(cps.begin(), next_paragraph_break(cps, std::next(cps.begin(), 0))), 5);
     }
     {
         auto const range =
             paragraph(cps, std::next(cps.begin(), 1));
-        EXPECT_EQ(std::distance(cps.cbegin(), range.begin()), 0);
-        EXPECT_EQ(std::distance(cps.cbegin(), range.end()), 5);
+        EXPECT_EQ(std::distance(cps.begin(), range.begin()), 0);
+        EXPECT_EQ(std::distance(cps.begin(), range.end()), 5);
     }
 
     {
@@ -272,11 +272,11 @@ TEST(text_algorithm, paragraph_break)
         int i = 0;
         for (auto paragraph : all_paragraphs) {
             EXPECT_EQ(
-                std::distance(cps.cbegin(), paragraph.begin()),
+                std::distance(cps.begin(), paragraph.begin()),
                 paragraph_bounds[i].first)
                 << "i=" << i;
             EXPECT_EQ(
-                std::distance(cps.cbegin(), paragraph.end()),
+                std::distance(cps.begin(), paragraph.end()),
                 paragraph_bounds[i].second)
                 << "i=" << i;
             ++i;
@@ -288,11 +288,11 @@ TEST(text_algorithm, paragraph_break)
         for (auto paragraph : all_paragraphs_reversed) {
             --i;
             EXPECT_EQ(
-                std::distance(cps.cbegin(), paragraph.begin()),
+                std::distance(cps.begin(), paragraph.begin()),
                 paragraph_bounds[i].first)
                 << "i=" << i;
             EXPECT_EQ(
-                std::distance(cps.cbegin(), paragraph.end()),
+                std::distance(cps.begin(), paragraph.end()),
                 paragraph_bounds[i].second)
                 << "i=" << i;
         }
@@ -467,9 +467,9 @@ void do_simple_search(
     {
         auto r = collation_search(
             str, make_simple_collation_searcher(substr, table, flags));
-        EXPECT_EQ(std::distance(str.cbegin(), r.begin()), expected_first)
+        EXPECT_EQ(std::distance(str.begin(), r.begin()), expected_first)
             << "simple, line " << line;
-        EXPECT_EQ(std::distance(str.cbegin(), r.end()), expected_last)
+        EXPECT_EQ(std::distance(str.begin(), r.end()), expected_last)
             << "simple, line " << line;
     }
 }
@@ -486,9 +486,9 @@ void do_boyer_moore_search(
     {
         auto r = collation_search(
             str, make_boyer_moore_collation_searcher(substr, table, flags));
-        EXPECT_EQ(std::distance(str.cbegin(), r.begin()), expected_first)
+        EXPECT_EQ(std::distance(str.begin(), r.begin()), expected_first)
             << "BM, line " << line;
-        EXPECT_EQ(std::distance(str.cbegin(), r.end()), expected_last)
+        EXPECT_EQ(std::distance(str.begin(), r.end()), expected_last)
             << "BM, line " << line;
     }
     {
@@ -499,9 +499,9 @@ void do_boyer_moore_search(
                 detail::coll_search_prev_grapheme_callable{},
                 table,
                 flags));
-        EXPECT_EQ(std::distance(str.cbegin(), r.begin()), expected_first)
+        EXPECT_EQ(std::distance(str.begin(), r.begin()), expected_first)
             << "BM, line " << line;
-        EXPECT_EQ(std::distance(str.cbegin(), r.end()), expected_last)
+        EXPECT_EQ(std::distance(str.begin(), r.end()), expected_last)
             << "BM, line " << line;
     }
 }
@@ -519,9 +519,9 @@ void do_boyer_moore_horspool_search(
         auto r = collation_search(
             str,
             make_boyer_moore_horspool_collation_searcher(substr, table, flags));
-        EXPECT_EQ(std::distance(str.cbegin(), r.begin()), expected_first)
+        EXPECT_EQ(std::distance(str.begin(), r.begin()), expected_first)
             << "BMH, line " << line;
-        EXPECT_EQ(std::distance(str.cbegin(), r.end()), expected_last)
+        EXPECT_EQ(std::distance(str.begin(), r.end()), expected_last)
             << "BMH, line " << line;
     }
     {
@@ -532,9 +532,9 @@ void do_boyer_moore_horspool_search(
                 detail::coll_search_prev_grapheme_callable{},
                 table,
                 flags));
-        EXPECT_EQ(std::distance(str.cbegin(), r.begin()), expected_first)
+        EXPECT_EQ(std::distance(str.begin(), r.begin()), expected_first)
             << "BMH, line " << line;
-        EXPECT_EQ(std::distance(str.cbegin(), r.end()), expected_last)
+        EXPECT_EQ(std::distance(str.begin(), r.end()), expected_last)
             << "BMH, line " << line;
     }
 }
@@ -1120,9 +1120,9 @@ void do_simple_word_search(
             str,
             make_simple_collation_searcher(
                 substr, prev_word_callable_t{}, table, flags));
-        EXPECT_EQ(std::distance(str.cbegin(), r.begin()), expected_first)
+        EXPECT_EQ(std::distance(str.begin(), r.begin()), expected_first)
             << "simple, line " << line;
-        EXPECT_EQ(std::distance(str.cbegin(), r.end()), expected_last)
+        EXPECT_EQ(std::distance(str.begin(), r.end()), expected_last)
             << "simple, line " << line;
     }
 }

@@ -102,7 +102,7 @@ namespace boost { namespace text {
         `searcher(first, last)` is well formed. */
     template<typename CPRange, typename Searcher>
     collation_search_result<CPIter>
-    collation_search(CPRange & r, Searcher const & searcher);
+    collation_search(CPRange && r, Searcher const & searcher);
 
     /** Returns the grapheme subrange within `r` in which `searcher` finds
         its pattern.  If the pattern is not found, the resulting range will
@@ -112,7 +112,7 @@ namespace boost { namespace text {
         `GraphemeRange` models the GraphemeRange concept. */
     template<typename GraphemeRange, typename Searcher>
     detail::unspecified
-    collation_search(GraphemeRange const & r, Searcher const & searcher);
+    collation_search(GraphemeRange && r, Searcher const & searcher);
 
 #else
 
@@ -191,7 +191,7 @@ namespace boost { namespace text {
     }
 
     template<typename CPRange, typename Searcher>
-    auto collation_search(CPRange & r, Searcher const & searcher)
+    auto collation_search(CPRange && r, Searcher const & searcher)
         -> detail::cp_rng_alg_ret_t<
             decltype(detail::make_search_result(
                 std::begin(r), std::begin(r), std::begin(r), std::end(r))),
@@ -203,7 +203,7 @@ namespace boost { namespace text {
     }
 
     template<typename GraphemeRange, typename Searcher>
-    auto collation_search(GraphemeRange const & r, Searcher const & searcher)
+    auto collation_search(GraphemeRange && r, Searcher const & searcher)
         -> detail::graph_rng_alg_ret_t<
             grapheme_view<decltype(r.begin().base())>,
             GraphemeRange>
@@ -984,7 +984,7 @@ namespace boost { namespace text {
         models the CPRange concept. */
     template<typename CPRange>
     detail::unspecified make_simple_collation_searcher(
-        CPRange & r,
+        CPRange && r,
         collation_table const & table,
         collation_flags flags = collation_flags::none);
 
@@ -995,7 +995,7 @@ namespace boost { namespace text {
         `GraphemeRange` models the GraphemeRange concept. */
     template<typename GraphemeRange>
     detail::unspecified make_simple_collation_searcher(
-        GraphemeRange const & r,
+        GraphemeRange && r,
         collation_table const & table,
         collation_flags flags = collation_flags::none);
 
@@ -1011,7 +1011,7 @@ namespace boost { namespace text {
         `decltype(r.begin())` and `Sentinel` is `decltype(r.end())`. */
     template<typename CPRange, typename BreakFunc>
     detail::unspecified make_simple_collation_searcher(
-        CPRange & r,
+        CPRange && r,
         BreakFunc break_fn,
         collation_table const & table,
         collation_flags flags = collation_flags::none);
@@ -1029,7 +1029,7 @@ namespace boost { namespace text {
         `decltype(r.end().base())`. */
     template<typename GraphemeRange, typename BreakFunc>
     detail::unspecified make_simple_collation_searcher(
-        GraphemeRange const & r,
+        GraphemeRange && r,
         BreakFunc break_fn,
         collation_table const & table,
         collation_flags flags = collation_flags::none);
@@ -1085,7 +1085,7 @@ namespace boost { namespace text {
 
     template<typename CPRange>
     auto make_simple_collation_searcher(
-        CPRange & r,
+        CPRange && r,
         collation_table const & table,
         collation_flags flags = collation_flags::none)
         -> detail::cp_rng_alg_ret_t<
@@ -1112,7 +1112,7 @@ namespace boost { namespace text {
 
     template<typename GraphemeRange>
     auto make_simple_collation_searcher(
-        GraphemeRange const & r,
+        GraphemeRange && r,
         collation_table const & table,
         collation_flags flags = collation_flags::none)
         -> detail::graph_rng_alg_ret_t<
@@ -1138,7 +1138,7 @@ namespace boost { namespace text {
 
     template<typename CPRange, typename BreakFunc>
     auto make_simple_collation_searcher(
-        CPRange & r,
+        CPRange && r,
         BreakFunc break_fn,
         collation_table const & table,
         collation_flags flags = collation_flags::none)
@@ -1163,7 +1163,7 @@ namespace boost { namespace text {
 
     template<typename GraphemeRange, typename BreakFunc>
     auto make_simple_collation_searcher(
-        GraphemeRange const & r,
+        GraphemeRange && r,
         BreakFunc break_fn,
         collation_table const & table,
         collation_flags flags = collation_flags::none)
@@ -1316,7 +1316,7 @@ namespace boost { namespace text {
         models the CPRange concept. */
     template<typename CPRange>
     detail::unspecified make_boyer_moore_horspool_collation_searcher(
-        CPRange & r,
+        CPRange && r,
         collation_table const & table,
         collation_flags flags = collation_flags::none);
 
@@ -1327,7 +1327,7 @@ namespace boost { namespace text {
         `GraphemeRange` models the GraphemeRange concept. */
     template<typename GraphemeRange>
     detail::unspecified make_boyer_moore_horspool_collation_searcher(
-        GraphemeRange const & r,
+        GraphemeRange && r,
         collation_table const & table,
         collation_flags flags = collation_flags::none);
 
@@ -1344,7 +1344,7 @@ namespace boost { namespace text {
         `decltype(r.begin())` and `Sentinel` is `decltype(r.end())`. */
     template<typename CPRange, typename BreakFunc>
     detail::unspecified make_boyer_moore_horspool_collation_searcher(
-        CPRange & r,
+        CPRange && r,
         BreakFunc break_fn,
         collation_table const & table,
         collation_flags flags = collation_flags::none);
@@ -1363,7 +1363,7 @@ namespace boost { namespace text {
         `decltype(r.end().base())`. */
     template<typename GraphemeRange, typename BreakFunc>
     detail::unspecified make_boyer_moore_horspool_collation_searcher(
-        GraphemeRange const & r,
+        GraphemeRange && r,
         BreakFunc break_fn,
         collation_table const & table,
         collation_flags flags = collation_flags::none);
@@ -1425,7 +1425,7 @@ namespace boost { namespace text {
 
     template<typename CPRange>
     auto make_boyer_moore_horspool_collation_searcher(
-        CPRange & r,
+        CPRange && r,
         collation_table const & table,
         collation_flags flags = collation_flags::none)
         -> detail::cp_rng_alg_ret_t<
@@ -1452,7 +1452,7 @@ namespace boost { namespace text {
 
     template<typename GraphemeRange>
     auto make_boyer_moore_horspool_collation_searcher(
-        GraphemeRange const & r,
+        GraphemeRange && r,
         collation_table const & table,
         collation_flags flags = collation_flags::none)
         -> detail::graph_rng_alg_ret_t<
@@ -1478,7 +1478,7 @@ namespace boost { namespace text {
 
     template<typename CPRange, typename BreakFunc>
     auto make_boyer_moore_horspool_collation_searcher(
-        CPRange & r,
+        CPRange && r,
         BreakFunc break_fn,
         collation_table const & table,
         collation_flags flags = collation_flags::none)
@@ -1506,7 +1506,7 @@ namespace boost { namespace text {
 
     template<typename GraphemeRange, typename BreakFunc>
     auto make_boyer_moore_horspool_collation_searcher(
-        GraphemeRange const & r,
+        GraphemeRange && r,
         BreakFunc break_fn,
         collation_table const & table,
         collation_flags flags = collation_flags::none)
@@ -1719,7 +1719,7 @@ namespace boost { namespace text {
         models the CPRange concept. */
     template<typename CPRange>
     detail::unspecified make_boyer_moore_collation_searcher(
-        CPRange & r,
+        CPRange && r,
         collation_table const & table,
         collation_flags flags = collation_flags::none);
 
@@ -1730,7 +1730,7 @@ namespace boost { namespace text {
         `GraphemeRange` models the GraphemeRange concept. */
     template<typename GraphemeRange>
     detail::unspecified make_boyer_moore_collation_searcher(
-        GraphemeRange const & r,
+        GraphemeRange && r,
         collation_table const & table,
         collation_flags flags = collation_flags::none);
 
@@ -1747,7 +1747,7 @@ namespace boost { namespace text {
         `decltype(r.begin())` and `Sentinel` is `decltype(r.end())`. */
     template<typename CPRange, typename BreakFunc>
     detail::unspecified make_boyer_moore_collation_searcher(
-        CPRange & r,
+        CPRange && r,
         BreakFunc break_fn,
         collation_table const & table,
         collation_flags flags = collation_flags::none);
@@ -1766,7 +1766,7 @@ namespace boost { namespace text {
         `decltype(r.end().base())`. */
     template<typename GraphemeRange, typename BreakFunc>
     detail::unspecified make_boyer_moore_collation_searcher(
-        GraphemeRange const & r,
+        GraphemeRange && r,
         BreakFunc break_fn,
         collation_table const & table,
         collation_flags flags = collation_flags::none);
@@ -1822,7 +1822,7 @@ namespace boost { namespace text {
 
     template<typename CPRange>
     auto make_boyer_moore_collation_searcher(
-        CPRange & r,
+        CPRange && r,
         collation_table const & table,
         collation_flags flags = collation_flags::none)
         -> detail::cp_rng_alg_ret_t<
@@ -1849,7 +1849,7 @@ namespace boost { namespace text {
 
     template<typename GraphemeRange>
     auto make_boyer_moore_collation_searcher(
-        GraphemeRange const & r,
+        GraphemeRange && r,
         collation_table const & table,
         collation_flags flags = collation_flags::none)
         -> detail::graph_rng_alg_ret_t<
@@ -1875,7 +1875,7 @@ namespace boost { namespace text {
 
     template<typename CPRange, typename BreakFunc>
     auto make_boyer_moore_collation_searcher(
-        CPRange & r,
+        CPRange && r,
         BreakFunc break_fn,
         collation_table const & table,
         collation_flags flags = collation_flags::none)
@@ -1900,7 +1900,7 @@ namespace boost { namespace text {
 
     template<typename GraphemeRange, typename BreakFunc>
     auto make_boyer_moore_collation_searcher(
-        GraphemeRange const & r,
+        GraphemeRange && r,
         BreakFunc break_fn,
         collation_table const & table,
         collation_flags flags = collation_flags::none)

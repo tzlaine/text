@@ -194,7 +194,7 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
         This function only participates in overload resolution if `CPRange`
         models the CPRange concept. */
     template<typename CPRange, typename CPIter>
-    detail::undefined prev_grapheme_break(CPRange & range, CPIter it) noexcept;
+    detail::undefined prev_grapheme_break(CPRange && range, CPIter it) noexcept;
 
     /** Finds the next grapheme break after `it`.  This will be the first code
         point after the current grapheme, or `range.end()` if no next grapheme
@@ -205,7 +205,7 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
 
         \pre `it` is at the beginning of a grapheme. */
     template<typename CPRange, typename CPIter>
-    detail::undefined next_grapheme_break(CPRange & range, CPIter it) noexcept;
+    detail::undefined next_grapheme_break(CPRange && range, CPIter it) noexcept;
 
     /** Returns true iff `it` is at the beginning of a grapheme, or `it ==
         last`.
@@ -221,7 +221,7 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
         This function only participates in overload resolution if `CPRange`
         models the CPRange concept. */
     template<typename CPRange, typename CPIter>
-    bool at_grapheme_break(CPRange & range, CPIter it) noexcept;
+    bool at_grapheme_break(CPRange && range, CPIter it) noexcept;
 
 #else
 
@@ -352,7 +352,7 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
     }
 
     template<typename CPRange, typename CPIter>
-    auto prev_grapheme_break(CPRange & range, CPIter it) noexcept
+    auto prev_grapheme_break(CPRange && range, CPIter it) noexcept
         -> detail::cp_rng_alg_ret_t<detail::iterator_t<CPRange>, CPRange>
     {
         return boost::text::prev_grapheme_break(
@@ -360,7 +360,7 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
     }
 
     template<typename CPRange, typename CPIter>
-    auto next_grapheme_break(CPRange & range, CPIter it) noexcept
+    auto next_grapheme_break(CPRange && range, CPIter it) noexcept
         -> detail::cp_rng_alg_ret_t<detail::iterator_t<CPRange>, CPRange>
     {
         return boost::text::next_grapheme_break(it, std::end(range));
@@ -376,7 +376,7 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
     }
 
     template<typename CPRange, typename CPIter>
-    auto at_grapheme_break(CPRange & range, CPIter it) noexcept
+    auto at_grapheme_break(CPRange && range, CPIter it) noexcept
         -> detail::cp_rng_alg_ret_t<bool, CPRange>
     {
         if (it == std::end(range))
@@ -418,7 +418,7 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
     /** Returns a lazy range of the code point ranges delimiting graphemes in
         `range`. */
     template<typename CPRange>
-    detail::undefined graphemes(CPRange & range) noexcept;
+    detail::undefined graphemes(CPRange && range) noexcept;
 
     /** Returns a lazy range of the code point ranges delimiting graphemes in
         `[first, last)`, in reverse. */
@@ -428,7 +428,7 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
     /** Returns a lazy range of the code point ranges delimiting graphemes in
         `range`, in reverse. */
     template<typename CPRange>
-    detail::undefined reversed_graphemes(CPRange & range) noexcept;
+    detail::undefined reversed_graphemes(CPRange && range) noexcept;
 
 #else
 
@@ -444,7 +444,7 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
     }
 
     template<typename CPRange>
-    auto graphemes(CPRange & range) noexcept -> lazy_segment_range<
+    auto graphemes(CPRange && range) noexcept -> lazy_segment_range<
         detail::iterator_t<CPRange>,
         detail::sentinel_t<CPRange>,
         detail::next_grapheme_callable<
@@ -475,7 +475,7 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
     }
 
     template<typename CPRange>
-    auto reversed_graphemes(CPRange & range) noexcept -> lazy_segment_range<
+    auto reversed_graphemes(CPRange && range) noexcept -> lazy_segment_range<
         detail::iterator_t<CPRange>,
         detail::sentinel_t<CPRange>,
         detail::prev_grapheme_callable<detail::iterator_t<CPRange>>,

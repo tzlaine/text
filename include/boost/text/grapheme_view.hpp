@@ -107,11 +107,12 @@ namespace boost { namespace text {
     namespace detail {
         template<
             typename Range,
-            bool Pointer = char_ptr<Range>::value || _16_ptr<Range>::value ||
-                           cp_ptr<Range>::value>
+            bool Pointer = char_ptr<std::remove_reference_t<Range>>::value ||
+                           _16_ptr<std::remove_reference_t<Range>>::value ||
+                           cp_ptr<std::remove_reference_t<Range>>::value>
         struct as_graphemes_dispatch
         {
-            static constexpr auto call(Range const & r_) noexcept
+            static constexpr auto call(Range && r_) noexcept
             {
                 auto r = as_utf32(r_);
                 return grapheme_view<decltype(r.begin()), decltype(r.end())>(
@@ -134,10 +135,10 @@ namespace boost { namespace text {
     /** Returns a `grapheme_view` over the data in `r`, transcoding the data
         if necessary. */
     template<typename Range>
-    constexpr auto as_graphemes(Range const & r) noexcept
-        -> decltype(detail::as_graphemes_dispatch<Range>::call(r))
+    constexpr auto as_graphemes(Range && r) noexcept
+        -> decltype(detail::as_graphemes_dispatch<Range &&>::call((Range &&) r))
     {
-        return detail::as_graphemes_dispatch<Range>::call(r);
+        return detail::as_graphemes_dispatch<Range &&>::call((Range &&) r);
     }
 
 }}

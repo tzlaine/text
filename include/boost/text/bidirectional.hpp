@@ -2487,7 +2487,7 @@ namespace boost { namespace text {
         models the CPRange concept. */
     template<typename CPRange>
     detail::unspecified bidirectional_subranges(
-        CPRange & range, int paragraph_embedding_level = -1);
+        CPRange && range, int paragraph_embedding_level = -1);
 
     /** Returns a lazy range of grapheme subranges in `range`; each subrange
         is one of three kinds: a forward-subrange; a reverse-subrange; or a
@@ -2515,7 +2515,7 @@ namespace boost { namespace text {
         `GraphemeRange` models the GraphemeRange concept. */
     template<typename GraphemeRange>
     detail::unspecified bidirectional_subranges(
-        GraphemeRange const & range, int paragraph_embedding_level = -1);
+        GraphemeRange && range, int paragraph_embedding_level = -1);
 
     /** Returns a lazy range of code point subranges in `[first, last)`; each
         subrange is one of three kinds: a forward-subrange; a
@@ -2589,7 +2589,7 @@ namespace boost { namespace text {
         template parameter to `lines()`. */
     template<typename CPRange, typename Extent, typename CPExtentFunc>
     detail::unspecified bidirectional_subranges(
-        CPRange & range,
+        CPRange && range,
         Extent max_extent,
         CPExtentFunc cp_extent,
         int paragraph_embedding_level = -1,
@@ -2627,7 +2627,7 @@ namespace boost { namespace text {
         template parameter to `lines()`. */
     template<typename GraphemeRange, typename Extent, typename CPExtentFunc>
     detail::unspecified bidirectional_subranges(
-        GraphemeRange const & range,
+        GraphemeRange && range,
         Extent max_extent,
         CPExtentFunc cp_extent,
         int paragraph_embedding_level = -1,
@@ -2648,7 +2648,7 @@ namespace boost { namespace text {
 
     template<typename CPRange>
     auto
-    bidirectional_subranges(CPRange & range, int paragraph_embedding_level = -1)
+    bidirectional_subranges(CPRange && range, int paragraph_embedding_level = -1)
         -> detail::cp_rng_alg_ret_t<
             lazy_bidi_segment_range<
                 detail::iterator_t<CPRange>,
@@ -2661,7 +2661,7 @@ namespace boost { namespace text {
 
     template<typename GraphemeRange>
     auto bidirectional_subranges(
-        GraphemeRange const & range, int paragraph_embedding_level = -1)
+        GraphemeRange && range, int paragraph_embedding_level = -1)
         -> detail::graph_rng_alg_ret_t<
             lazy_bidi_segment_range<
                 typename detail::iterator_t<GraphemeRange const>::iterator_type,
@@ -2703,7 +2703,7 @@ namespace boost { namespace text {
 
     template<typename CPRange, typename Extent, typename CPExtentFunc>
     auto bidirectional_subranges(
-        CPRange & range,
+        CPRange && range,
         Extent max_extent,
         CPExtentFunc cp_extent,
         int paragraph_embedding_level = -1,
@@ -2729,7 +2729,7 @@ namespace boost { namespace text {
 
     template<typename GraphemeRange, typename Extent, typename CPExtentFunc>
     auto bidirectional_subranges(
-        GraphemeRange const & range,
+        GraphemeRange && range,
         Extent max_extent,
         CPExtentFunc cp_extent,
         int paragraph_embedding_level = -1,

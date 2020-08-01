@@ -484,7 +484,7 @@ namespace boost { namespace text {
         changing the encoding from UTF-8 to UTF-32.  */
     template<typename InputIter, typename Sentinel, typename OutIter>
     transcode_result<InputIter, OutIter>
-    transcode_utf_8_to_32_take_n(Range const & r, std::ptrdiff_t n, OutIter out)
+    transcode_utf_8_to_32_take_n(Range && r, std::ptrdiff_t n, OutIter out)
     {
         return detail::transcode_utf_8_to_32_dispatch<true, Range, OutIter>::
             call(r, n, out)
@@ -506,7 +506,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         struct transcode_to_8_dispatch
         {
             static constexpr auto
-            call(Range const & r, std::ptrdiff_t n, OutIter out) noexcept
+            call(Range && r, std::ptrdiff_t n, OutIter out) noexcept
             {
                 auto const u = detail::unpack_iterator_and_sentinel(
                     std::begin(r), std::end(r));
@@ -546,7 +546,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         struct transcode_to_16_dispatch
         {
             static constexpr auto
-            call(Range const & r, std::ptrdiff_t n, OutIter out) noexcept
+            call(Range && r, std::ptrdiff_t n, OutIter out) noexcept
             {
                 auto const u = detail::unpack_iterator_and_sentinel(
                     std::begin(r), std::end(r));
@@ -586,7 +586,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         struct transcode_to_32_dispatch
         {
             static constexpr auto
-            call(Range const & r, std::ptrdiff_t n, OutIter out) noexcept
+            call(Range && r, std::ptrdiff_t n, OutIter out) noexcept
             {
                 auto const u = detail::unpack_iterator_and_sentinel(
                     std::begin(r), std::end(r));
@@ -630,7 +630,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     /** Copies the code points in the range `r` to `out`, changing the
         encoding from UTF-8.  */
     template<typename Range, typename OutIter>
-    OutIter transcode_to_utf8(Range const & r, OutIter out)
+    OutIter transcode_to_utf8(Range && r, OutIter out)
     {
         return dtl::transcode_to_8_dispatch<false, Range, OutIter>::call(
             r, -1, out).out;
@@ -648,7 +648,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     /** Copies the code points in the range `r` to `out`, changing the
         encoding from UTF-16.  */
     template<typename Range, typename OutIter>
-    OutIter transcode_to_utf16(Range const & r, OutIter out)
+    OutIter transcode_to_utf16(Range && r, OutIter out)
     {
         return dtl::transcode_to_16_dispatch<false, Range, OutIter>::call(
             r, -1, out).out;
@@ -666,7 +666,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     /** Copies the code points in the range `r` to `out`, changing the
         encoding from UTF-32.  */
     template<typename Range, typename OutIter>
-    OutIter transcode_to_utf32(Range const & r, OutIter out)
+    OutIter transcode_to_utf32(Range && r, OutIter out)
     {
         return dtl::transcode_to_32_dispatch<false, Range, OutIter>::call(
             r, -1, out).out;
@@ -698,7 +698,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<typename R, std::output_iterator<uint8_t> O>
         // clang-format off
         requires u16_range<R> || u32_range<R> || u16_ptr<R> || u32_ptr<R>
-    O transcode_to_utf8(R const & r, O out)
+    O transcode_to_utf8(R && r, O out)
     // clang-format on
     {
         if constexpr (u16_ptr<R>) {
@@ -737,7 +737,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<typename R, std::output_iterator<uint16_t> O>
         // clang-format off
         requires u8_range<R> || u32_range<R> || u8_ptr<R> || u32_ptr<R>
-    O transcode_to_utf16(R const & r, O out)
+    O transcode_to_utf16(R && r, O out)
     // clang-format on
     {
         if constexpr (u8_ptr<R>) {
@@ -776,7 +776,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<typename R, std::output_iterator<uint32_t> O>
         // clang-format off
         requires u8_range<R> || u16_range<R> || u8_ptr<R> || u16_ptr<R>
-    O transcode_to_utf32(R const & r, O out)
+    O transcode_to_utf32(R && r, O out)
     // clang-format on
     {
         if constexpr (u8_ptr<R>) {

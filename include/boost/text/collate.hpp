@@ -1020,7 +1020,7 @@ namespace boost { namespace text {
         \pre r is normalized FCC. */
     template<typename CPRange>
     text_sort_key collation_sort_key(
-        CPRange const & r,
+        CPRange && r,
         collation_table const & table,
         collation_flags flags = collation_flags::none);
 
@@ -1034,7 +1034,7 @@ namespace boost { namespace text {
         \pre r is normalized FCC. */
     template<typename GraphemeRange>
     text_sort_key collation_sort_key(
-        GraphemeRange const & r,
+        GraphemeRange && r,
         collation_table const & table,
         collation_flags flags = collation_flags::none);
 
@@ -1171,7 +1171,7 @@ namespace boost { namespace text {
 
     template<typename CPRange>
     auto collation_sort_key(
-        CPRange const & r,
+        CPRange && r,
         collation_table const & table,
         collation_flags flags = collation_flags::none)
         -> detail::cp_rng_alg_ret_t<text_sort_key, CPRange>
@@ -1189,7 +1189,7 @@ namespace boost { namespace text {
 
     template<typename GraphemeRange>
     auto collation_sort_key(
-        GraphemeRange const & r,
+        GraphemeRange && r,
         collation_table const & table,
         collation_flags flags = collation_flags::none)
         -> detail::graph_rng_alg_ret_t<text_sort_key, GraphemeRange>

@@ -218,7 +218,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
         \see https://unicode.org/notes/tn5 */
     template<nf Normalization, typename CPRange, typename OutIter>
-    OutIter normalize(CPRange const & r, OutIter out)
+    OutIter normalize(CPRange && r, OutIter out)
     {
         return v1::normalize<Normalization>(std::begin(r), std::end(r), out);
     }
@@ -245,7 +245,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     /** Returns true iff the given sequence of code points is in Unicode
         normalization form `Normalization`. */
     template<nf Normalization, typename CPRange>
-    bool normalized(CPRange const & r) noexcept
+    bool normalized(CPRange && r) noexcept
     {
         return v1::normalized<Normalization>(std::begin(r), std::end(r));
     }
@@ -278,7 +278,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
         \see https://unicode.org/notes/tn5 */
     template<nf Normalization, u32_range R, std::output_iterator<uint32_t> O>
-    O normalize(R const & r, O out)
+    O normalize(R && r, O out)
     {
         return boost::text::normalize<Normalization>(
             std::ranges::begin(r), std::ranges::end(r), out);
@@ -301,7 +301,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     /** Returns true iff the given sequence of code points is in Unicode
         normalization form `Normalization`. */
     template<nf Normalization, u32_range R>
-    bool normalized(R const & r) noexcept
+    bool normalized(R && r) noexcept
     {
         return boost::text::normalized<Normalization>(
             std::ranges::begin(r), std::ranges::end(r));

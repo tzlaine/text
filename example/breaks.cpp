@@ -57,7 +57,7 @@ std::cout << "\n";
 // Using GraphemeRange/GraphemeIterator overloads...
 boost::text::text cps("The quick (\"brown\") fox can’t jump 32.3 feet, right?");
 
-auto const first = cps.cbegin();
+auto const first = cps.begin();
 
 auto at_or_before_1 = boost::text::prev_word_break(cps, std::next(first, 1));
 assert(at_or_before_1 == std::next(first, 0));
