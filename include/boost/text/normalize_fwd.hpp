@@ -26,7 +26,8 @@ namespace boost { namespace text {
         indicate whether the inserted text is known to be normalized. */
     enum insertion_normalization {
         insertion_normalized,    // The inserted text is known to be in the
-                                 // correct normalization form.
+                                 // correct normalization form, and in
+                                 // stream-safe format.
         insertion_not_normalized // The inserted text is in an unknown
                                  // normalization form.
     };

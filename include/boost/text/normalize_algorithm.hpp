@@ -9,6 +9,7 @@
 #include <boost/text/algorithm.hpp>
 #include <boost/text/concepts.hpp>
 #include <boost/text/normalize_fwd.hpp>
+#include <boost/text/stream_safe.hpp>
 #include <boost/text/detail/algorithm.hpp>
 
 #include <boost/stl_interfaces/view_interface.hpp>
@@ -75,15 +76,18 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         indicating the changed portion of `string`.  Note that the replacement
         operation may mutate some code points just before or just after the
         inserted sequence.  The output is UTF-8 if `sizeof(*s.begin()) == 1`,
-        and UTF-16 otherwise.  The inserted string is not normalized if
-        `insertion_norm` is `insertion_normalized`.  The code points at either
-        end of the insertion may need to be normalized, regardless of whether
-        the inserted string does.
+        and UTF-16 otherwise.  The inserted string is normalized and put into
+        stream-safe format if `insertion_norm` is `insertion_not_normalized`.
+        The code points at either end of the insertion may need to be
+        normalized, regardless of whether the inserted string does.
 
         This function only participates in overload resolution if `CPIter`
         models the CPIter concept.
 
-        \pre `string` is in normalization form `Normalization`. */
+        \pre `string` is in normalization form `Normalization`.
+        \pre `string` is stream-safe format.
+
+        \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<
         nf Normalization,
         typename String,
@@ -107,14 +111,18 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         that the insertion operation may mutate some code points just before
         or just after the inserted sequence.  The output is UTF-8 if
         `sizeof(*s.begin()) == 1`, and UTF-16 otherwise.  The inserted string
-        is not normalized if `insertion_norm` is `insertion_normalized`.  The
-        code points at either end of the insertion may need to be normalized,
-        regardless of whether the inserted string does.
+        is normalized and put into stream-safe format if `insertion_norm` is
+        `insertion_not_normalized`.  The code points at either end of the
+        insertion may need to be normalized, regardless of whether the
+        inserted string does.
 
         This function only participates in overload resolution if `CPIter`
         models the CPIter concept.
 
-        \pre `string` is in normalization form `Normalization`. */
+        \pre `string` is in normalization form `Normalization`.
+        \pre `string` is stream-safe format.
+
+        \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<
         nf Normalization,
         typename String,
@@ -138,12 +146,15 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         indicating the changed portion of `string`.  Note that the insertion
         operation may mutate some code points just before or just after the
         inserted sequence.  The output is UTF-8 if `sizeof(*s.begin()) == 1`,
-        and UTF-16 otherwise.  The inserted string is not normalized if
-        `insertion_norm` is `insertion_normalized`.  The code points at either
-        end of the insertion may need to be normalized, regardless of whether
-        the inserted string does.
+        and UTF-16 otherwise.  The inserted string is normalized and put into
+        stream-safe format if `insertion_norm` is `insertion_not_normalized`.
+        The code points at either end of the insertion may need to be
+        normalized, regardless of whether the inserted string does.
 
-        \pre `string` is in normalization form `Normalization`. */
+        \pre `string` is in normalization form `Normalization`.
+        \pre `string` is stream-safe format.
+
+        \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<
         nf Normalization,
         typename String,
@@ -166,7 +177,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         that the insertion operation may mutate some code points just before
         or just after the erased sequence.
 
-        \pre `string` is in normalization form `Normalization`. */
+        \pre `string` is in normalization form `Normalization`.
+        \pre `string` is stream-safe format.
+
+        \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<
         nf Normalization,
         typename String,
@@ -188,12 +202,15 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         indicating the changed portion of `string`.  Note that the replacement
         operation may mutate some code points just before or just after the
         inserted sequence.  The output is UTF-8 if `sizeof(*s.begin()) == 1`,
-        and UTF-16 otherwise.  The inserted string is not normalized if
-        `insertion_norm` is `insertion_normalized`.  The code points at either
-        end of the insertion may need to be normalized, regardless of whether
-        the inserted string does.
+        and UTF-16 otherwise.  The inserted string is normalized and put into
+        stream-safe format if `insertion_norm` is `insertion_not_normalized`.
+        The code points at either end of the insertion may need to be
+        normalized, regardless of whether the inserted string does.
 
-        \pre `string` is in normalization form `Normalization`. */
+        \pre `string` is in normalization form `Normalization`.
+        \pre `string` is stream-safe format.
+
+        \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<
         nf Normalization,
         utf_string String,
@@ -216,11 +233,15 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         that the insertion operation may mutate some code points just before
         or just after the inserted sequence.  The output is UTF-8 if
         `sizeof(*s.begin()) == 1`, and UTF-16 otherwise.  The inserted string
-        is not normalized if `insertion_norm` is `insertion_normalized`.  The
-        code points at either end of the insertion may need to be normalized,
-        regardless of whether the inserted string does.
+        is normalized and put into stream-safe format if `insertion_norm` is
+        `insertion_not_normalized`.  The code points at either end of the
+        insertion may need to be normalized, regardless of whether the
+        inserted string does.
 
-        \pre `string` is in normalization form `Normalization`. */
+        \pre `string` is in normalization form `Normalization`.
+        \pre `string` is stream-safe format.
+
+        \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<
         nf Normalization,
         utf_string String,
@@ -243,12 +264,15 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         indicating the changed portion of `string`.  Note that the insertion
         operation may mutate some code points just before or just after the
         inserted sequence.  The output is UTF-8 if `sizeof(*s.begin()) == 1`,
-        and UTF-16 otherwise.  The inserted string is not normalized if
-        `insertion_norm` is `insertion_normalized`.  The code points at either
-        end of the insertion may need to be normalized, regardless of whether
-        the inserted string does.
+        and UTF-16 otherwise.  The inserted string is normalized and put into
+        stream-safe format if `insertion_norm` is `insertion_not_normalized`.
+        The code points at either end of the insertion may need to be
+        normalized, regardless of whether the inserted string does.
 
-        \pre `string` is in normalization form `Normalization`. */
+        \pre `string` is in normalization form `Normalization`.
+        \pre `string` is stream-safe format.
+
+        \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<
         nf Normalization,
         utf_string String,
@@ -276,7 +300,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         that the insertion operation may mutate some code points just before
         or just after the erased sequence.
 
-        \pre `string` is in normalization form `Normalization`. */
+        \pre `string` is in normalization form `Normalization`.
+        \pre `string` is stream-safe format.
+
+        \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<
         nf Normalization,
         utf_string String,
@@ -473,11 +500,11 @@ namespace boost { namespace text { namespace detail {
         }
     }
 
-        template<typename String>
-        using normalized_insert_buffer_t = std::conditional_t<
-            sizeof(*std::declval<String>().begin()) == 1,
-            container::small_vector<char, 1024>,
-            container::small_vector<uint16_t, 512>>;
+    template<typename String>
+    using normalized_insert_buffer_t = std::conditional_t<
+        sizeof(*std::declval<String>().begin()) == 1,
+        container::small_vector<char, 1024>,
+        container::small_vector<uint16_t, 512>>;
 
     template<
         typename Buffer,
@@ -608,9 +635,11 @@ namespace boost { namespace text { namespace detail {
                 string_suffix_range,
                 lo_cons_view.begin(),
                 string_suffix_range.end());
-            boost::text::normalize_append<Normalization>(cons_view, buffer);
+            boost::text::normalize_append<Normalization>(
+                boost::text::as_stream_safe(cons_view), buffer);
         } else {
-            boost::text::normalize_append<Normalization>(lo_cons_view, buffer);
+            boost::text::normalize_append<Normalization>(
+                boost::text::as_stream_safe(lo_cons_view), buffer);
         }
 
         auto const insertion_last_stable =
@@ -624,7 +653,9 @@ namespace boost { namespace text { namespace detail {
                     buffer, insertion_first_stable, insertion_last_stable);
             } else {
                 boost::text::normalize_append<Normalization>(
-                    insertion_first_stable, insertion_last_stable, buffer);
+                    boost::text::as_stream_safe(
+                        insertion_first_stable, insertion_last_stable),
+                    buffer);
             }
         }
 
@@ -635,8 +666,10 @@ namespace boost { namespace text { namespace detail {
             insertion_last_stable,
             string_suffix_range.end());
 
-        if (!all_at_once)
-            boost::text::normalize_append<Normalization>(hi_cons_view, buffer);
+        if (!all_at_once) {
+            boost::text::normalize_append<Normalization>(
+                boost::text::as_stream_safe(hi_cons_view), buffer);
+        }
 
         return detail::replace_erase_impl_suffix<StringIter>(
             string, buffer, string_prefix_range, string_suffix_range);
@@ -681,7 +714,8 @@ namespace boost { namespace text { namespace detail {
             string_suffix_range,
             string_prefix_range.begin(),
             string_suffix_range.end());
-        boost::text::normalize_append<Normalization>(cons_view, buffer);
+        boost::text::normalize_append<Normalization>(
+            boost::text::as_stream_safe(cons_view), buffer);
 
         return detail::replace_erase_impl_suffix<StringIter>(
             string, buffer, string_prefix_range, string_suffix_range);
