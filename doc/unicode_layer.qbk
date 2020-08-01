@@ -416,6 +416,34 @@ See the _unpacking_ section for more detail about how this is used within
 _Text_'s interfaces.
 
 
+[heading The Stream-Safe Format]
+
+Unicode text often contains sequences in which a noncombining code point
+(e.g. 'A') is followed by one or more combining code points (e.g. some number
+of umlauts).  It is valid to have an 'A' followed by 100 million umlauts.
+This is valid but not useful.  Unicode specifies something called the
+_str_safe_.  This format inserts extra code points between combiners to ensure
+that there are never more than 30 combiners in a row.  In practice, you should
+never need anywhere near that number.
+
+_Text_ provides an API for putting text in the _str_safe_:
+
+    std::vector<uint32_t> code_points = /* ... */;
+    auto it = boost::text::stream_safe(code_points);
+    code_points.erase(it.base(), code_points.end());
+    assert(boost::text::is_safe_stream(code_points));
+
+There is also a lazy-range API:
+
+    std::vector<uint32_t> code_points = /* ... */;
+    auto const stream_safe_view = boost::text::as_stream_safe(code_points);
+
+These operations do not implement the _str_safe_ algorithm _str_safe_
+described on the Unicode web site.  Instead, it takes the much simpler
+approach of allowing only at most 8 combiners after any noncombiner.  The rest
+are truncated.
+
+
 [heading Normalization]
 
 _Text_ provides algorithms for all four Unicode normalization forms: NFD,
@@ -440,6 +468,28 @@ the normalization operation), the most efficient version of the normalization
 API is `normalize_append(a, b)`, where `a` and `b` are iterators over an
 underlying sequence of UTF-8.  You can find these interfaces in
 _norm_str_header_ if that's your use case. ]
+
+
+[heading Container-Modifying Normalization API]
+
+If you need to insert text into a `std::string` or other STL-compatible
+container, you can use the erase/insert/replace API, found in
+_norm_algo_header_:
+
+* _norm_erase_
+* _norm_insert_
+* _norm_replace_
+
+There are iterator and range overloads of each.  Each one normalizes and
+places the inserted text in _str_safe_ (if any), then erases/inserts/replaces,
+and then normalizes the code points on either side of the affected
+subsequence.  This last step is necessay because insertions and erasures may
+create situations in which code points are next to each other which may
+combine.
+
+This API is like the `normalize_append()` overloads in that it may operate on
+UTF-8 or UTF-16 containers, and deduces the UTF from the size of the mutated
+container's `value_type`.
 
 [endsect]
 
@@ -561,11 +611,12 @@ as the _str_safe_ assumption; _Text_ makes this assumption.
 
 [heading Stream-Safe Format and Security]
 
-If you Give _Text_ algorithms a _cp_ sequence with _grs_ longer than 32 _cps_,
+If you give _Text_ algorithms a _cp_ sequence with _grs_ longer than 32 _cps_,
 you will get undefined behavior.  This poses a security problem.  To address
-this, there is a simple algorithm described at _str_safe_ that can put any
-_cp_ sequence into the _str_safe_.  You may want to implement this and use it
-with text from an unknown source.
+this, use the stream-safe API (e.g. `boost::text::as_stream_safe()`), or use
+the container-modifying free functions to normalize, render stream-safe, and
+erase/insert/replace in one call.
+
 
 [heading Words]
 

@@ -86,6 +86,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
         \pre `string` is in normalization form `Normalization`.
         \pre `string` is stream-safe format.
+        \pre `str_first` and `str_last` are at code point boundaries.
 
         \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<
@@ -121,6 +122,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
         \pre `string` is in normalization form `Normalization`.
         \pre `string` is stream-safe format.
+        \pre `at` is at a code point boundary.
 
         \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<
@@ -153,6 +155,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
         \pre `string` is in normalization form `Normalization`.
         \pre `string` is stream-safe format.
+        \pre `at` is at a code point boundary.
 
         \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<
@@ -179,6 +182,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
         \pre `string` is in normalization form `Normalization`.
         \pre `string` is stream-safe format.
+        \pre `str_first` and `str_last` are at code point boundaries.
 
         \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<
@@ -209,6 +213,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
         \pre `string` is in normalization form `Normalization`.
         \pre `string` is stream-safe format.
+        \pre `str_first` and `str_last` are at code point boundaries.
 
         \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<
@@ -240,6 +245,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
         \pre `string` is in normalization form `Normalization`.
         \pre `string` is stream-safe format.
+        \pre `at` is at a code point boundary.
 
         \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<
@@ -271,6 +277,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
         \pre `string` is in normalization form `Normalization`.
         \pre `string` is stream-safe format.
+        \pre `at` is at a code point boundary.
 
         \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<
@@ -302,6 +309,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
         \pre `string` is in normalization form `Normalization`.
         \pre `string` is stream-safe format.
+        \pre `str_first` and `str_last` are at code point boundaries.
 
         \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<

@@ -106,7 +106,12 @@
 [def _tc_to_16_      [funcref boost::text::v1::transcode_to_utf16  `transcode_to_utf16()`]]
 [def _tc_to_32_      [funcref boost::text::v1::transcode_to_utf32  `transcode_to_utf32()`]]
 
+[def _norm_erase_          [funcref boost::text::v1::normalize_erase  `normalize_erase()`]]
+[def _norm_insert_         [funcref boost::text::v1::normalize_insert  `normalize_insert()`]]
+[def _norm_replace_        [funcref boost::text::v1::normalize_replace  `normalize_replace()`]]
+
 [def _norm_str_header_     [link header.boost.text.normalize_string_hpp normalize_string.hpp]]
+[def _norm_algo_header_    [link header.boost.text.normalize_algorithm_hpp normalize_algorithm.hpp]]
 
 [def _line_brk_res_        [classref boost::text::line_break_result `line_break_result`]]
 [def _line_brk_cp_v_       [classref boost::text::line_break_cp_view `line_break_cp_view`]]
@@ -175,7 +180,6 @@
 
 [def _bm_searcher_         [classref boost::text::boyer_moore_collation_searcher `boyer_moore_collation_searcher`]]
 
-[def _thread_unsafe_m_     [macroref BOOST_TEXT_THREAD_UNSAFE]]
 [def _string_max_m_        [macroref BOOST_TEXT_STRING_INSERT_MAX]]
 
 [def _ce_                  `constexpr`]
