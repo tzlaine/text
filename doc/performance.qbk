@@ -74,9 +74,9 @@ _emdash_ was originally developed by Bob Steagall, and presented at C++Now in
 
 Here are the relative timings NFC normalization of UTF-8 strings (smaller is
 better).  The input was around half a megabyte of text from Wikipedia.
-"Algorithm with back-inserter" is using `normalize_to_nfc(as_utf32(input),
+"Algorithm with back-inserter" is using `normalize<nf::c>(as_utf32(input),
 utf_32_to_8_back_inserter(output))` -- this is the slowest code path, since it
-uses a back-inserter; "String append" uses `normalize_to_fcc_append_utf8()`,
+uses a back-inserter; "String append" uses `normalize_append<nf::fcc>()`,
 with pointers used for input and output; "ICU" is the UTF-8-specific
 normalization algorithm from ICU; and "ICU UTF-16" is the UTF-16 normalization
 algorithm from ICU.  "ICU UTF-16" normalizes in UTF-16, not UTF-8; it is shown
