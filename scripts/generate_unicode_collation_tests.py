@@ -68,7 +68,7 @@ std::array<std::pair<uint32_t, uint32_t>, {3}> const g_cp_ranges = {{{{
 {2}
 }}}};
 
-TEST(collation, relative_{4}_{5})
+TEST(collation, relative_{4}_{5}_fcc)
 {{
     std::vector<uint32_t> prev_un_norm;
     std::vector<uint32_t> prev_cps;
@@ -129,6 +129,81 @@ TEST(collation, relative_{4}_{5})
                 << "prev_key:         " << ce_dumper(prev_key) << "\\n"
                 << "curr un-norm cps: " << ce_dumper(curr_un_norm)
                 << "curr_cps (FCC):   " << ce_dumper(curr_cps)
+                << "curr_key:         " << ce_dumper(curr_key) << "\\n"
+            ;
+        }}
+
+        std::swap(curr_un_norm, prev_un_norm);
+        std::swap(curr_cps, prev_cps);
+        std::swap(curr_key, prev_key);
+
+        first = false;
+
+        prev_r = r;
+    }}
+}}
+
+TEST(collation, relative_{4}_{5}_nfd)
+{{
+    std::vector<uint32_t> prev_un_norm;
+    std::vector<uint32_t> prev_cps;
+    boost::text::text_sort_key prev_key;
+    std::vector<uint32_t> curr_un_norm;
+    std::vector<uint32_t> curr_cps;
+    boost::text::text_sort_key curr_key;
+
+    bool first = true;
+
+    std::pair<uint32_t, uint32_t> prev_r;
+
+    for (auto r : g_cp_ranges) {{
+        curr_un_norm.assign(
+            g_cps.begin() + r.first, g_cps.begin() + r.second);
+
+        curr_cps.clear();
+        boost::text::normalize<boost::text::nf::d>(
+            curr_un_norm, std::back_inserter(curr_cps));
+
+        curr_key = boost::text::collation_sort_key(
+            curr_cps.begin(),
+            curr_cps.end(),
+            table(),
+            boost::text::collation_strength::identical,
+            boost::text::case_first::off,
+            boost::text::case_level::off,
+            boost::text::variable_weighting::{4});
+
+        if (!first) {{
+            EXPECT_LE(compare(prev_key, curr_key), 0)
+                << "prev un-norm cps: " << ce_dumper(prev_un_norm)
+                << "prev_cps (NFD):   " << ce_dumper(prev_cps)
+                << "prev_key:         " << ce_dumper(prev_key) << "\\n"
+                << "curr un-norm cps: " << ce_dumper(curr_un_norm)
+                << "curr_cps (NFD):   " << ce_dumper(curr_cps)
+                << "curr_key:         " << ce_dumper(curr_key) << "\\n"
+            ;
+
+            std::string prev = boost::text::to_string(prev_cps);
+            std::string curr = boost::text::to_string(curr_cps);
+            auto const prev_32 = boost::text::as_utf32(prev);
+            auto const curr_32 = boost::text::as_utf32(curr);
+            EXPECT_LE(
+                boost::text::collate(
+                    prev_32.begin(),
+                    prev_32.end(),
+                    curr_32.begin(),
+                    curr_32.end(),
+                    table(),
+                    boost::text::collation_strength::identical,
+                    boost::text::case_first::off,
+                    boost::text::case_level::off,
+                    boost::text::variable_weighting::{4}),
+                0)
+                << "prev un-norm cps: " << ce_dumper(prev_un_norm)
+                << "prev_cps (NFD):   " << ce_dumper(prev_cps)
+                << "prev_key:         " << ce_dumper(prev_key) << "\\n"
+                << "curr un-norm cps: " << ce_dumper(curr_un_norm)
+                << "curr_cps (NFD):   " << ce_dumper(curr_cps)
                 << "curr_key:         " << ce_dumper(curr_key) << "\\n"
             ;
         }}
