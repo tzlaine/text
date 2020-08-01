@@ -16,7 +16,7 @@
 namespace boost { namespace text {
 
     namespace detail {
-        enum : std::size_t { stream_safe_max_nonstarters = 21 };
+        enum : std::size_t { stream_safe_max_nonstarters = 9 };
 
         template<typename CPIter, typename Sentinel>
         CPIter next_stream_safe_cp(
@@ -105,7 +105,7 @@ namespace boost { namespace text {
                     nonstarters = 0;
                 else
                     ++nonstarters;
-                if (30 <= nonstarters)
+                if (stream_safe_max_nonstarters <= nonstarters)
                     return false;
             }
             return true;
