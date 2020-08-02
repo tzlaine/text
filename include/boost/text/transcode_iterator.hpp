@@ -957,14 +957,21 @@ namespace boost { namespace text {
             if (it_ != last_)
                 read_into_buf();
         }
+#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
+        template<typename I2, typename S2>
+        // clang-format off
+        requires std::is_convertible_v<I2, I> && std::is_convertible_v<S2, S>
+#else
         template<
             typename I2,
             typename S2,
             typename Enable = std::enable_if_t<
                 std::is_convertible<I2, I>::value &&
                 std::is_convertible<S2, S>::value>>
+#endif
         constexpr utf_32_to_8_iterator(
             utf_32_to_8_iterator<I2, S2, ErrorHandler> const & other) noexcept :
+            // clang-format on
             first_(other.first_),
             it_(other.it_),
             last_(other.last_),
@@ -1253,15 +1260,24 @@ namespace boost { namespace text {
             :
             first_(first), it_(it), last_(last)
         {}
+#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
+        template<typename I2, typename S2>
+        // clang-format off
+        requires std::is_convertible_v<I2, I> && std::is_convertible_v<S2, S>
+#else
         template<
             typename I2,
             typename S2,
             typename Enable = std::enable_if_t<
                 std::is_convertible<I2, I>::value &&
                 std::is_convertible<S2, S>::value>>
+#endif
         constexpr utf_8_to_32_iterator(
             utf_8_to_32_iterator<I2, S2, ErrorHandler> const & other) noexcept :
-            first_(other.first_), it_(other.it_), last_(other.last_)
+            // clang-format on
+            first_(other.first_),
+            it_(other.it_),
+            last_(other.last_)
         {}
 
         BOOST_TEXT_CXX14_CONSTEXPR uint32_t operator*() const
@@ -1839,14 +1855,21 @@ namespace boost { namespace text {
             if (it_ != last_)
                 read_into_buf();
         }
+#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
+        template<typename I2, typename S2>
+        // clang-format off
+        requires std::is_convertible_v<I2, I> && std::is_convertible_v<S2, S>
+#else
         template<
             typename I2,
             typename S2,
             typename Enable = std::enable_if_t<
                 std::is_convertible<I2, I>::value &&
                 std::is_convertible<S2, S>::value>>
+#endif
         constexpr utf_32_to_16_iterator(
             utf_32_to_16_iterator<I2, S2, ErrorHandler> const & other) noexcept
+            // clang-format on
             :
             first_(other.first_),
             it_(other.it_),
@@ -2147,15 +2170,22 @@ namespace boost { namespace text {
             :
             first_(first), it_(it), last_(last)
         {}
+#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
+        template<typename I2, typename S2>
+        // clang-format off
+        requires std::is_convertible_v<I2, I> && std::is_convertible_v<S2, S>
+#else
         template<
             typename I2,
             typename S2,
             typename Enable = std::enable_if_t<
                 std::is_convertible<I2, I>::value &&
                 std::is_convertible<S2, S>::value>>
+#endif
         constexpr utf_16_to_32_iterator(
             utf_16_to_32_iterator<I2, S2, ErrorHandler> const & other) noexcept
             :
+        // clang-format off
             first_(other.first_), it_(other.it_), last_(other.last_)
         {}
 
@@ -2550,14 +2580,21 @@ namespace boost { namespace text {
             if (it_ != last_)
                 read_into_buf();
         }
+#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
+        template<typename I2, typename S2>
+        // clang-format off
+        requires std::is_convertible_v<I2, I> && std::is_convertible_v<S2, S>
+#else
         template<
             typename I2,
             typename S2,
             typename Enable = std::enable_if_t<
                 std::is_convertible<I2, I>::value &&
                 std::is_convertible<S2, S>::value>>
+#endif
         constexpr utf_16_to_8_iterator(
             utf_16_to_8_iterator<I2, S2> const & other) noexcept :
+            // clang-format on
             first_(other.first_),
             it_(other.it_),
             last_(other.last_),
@@ -2951,15 +2988,24 @@ namespace boost { namespace text {
             if (it_.it_ != it_.last_)
                 read_into_buf();
         }
+#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
+        template<typename I2, typename S2>
+        // clang-format off
+        requires std::is_convertible_v<I2, I> && std::is_convertible_v<S2, S>
+#else
         template<
             typename I2,
             typename S2,
             typename Enable = std::enable_if_t<
                 std::is_convertible<I2, I>::value &&
                 std::is_convertible<S2, S>::value>>
+#endif
         constexpr utf_8_to_16_iterator(
             utf_8_to_16_iterator<I2, S2, ErrorHandler> const & other) noexcept :
-            it_(other.it_), index_(other.index_), buf_(other.buf_)
+            // clang-format on
+            it_(other.it_),
+            index_(other.index_),
+            buf_(other.buf_)
         {}
 
         BOOST_TEXT_CXX14_CONSTEXPR uint16_t operator*() const
