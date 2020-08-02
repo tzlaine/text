@@ -429,7 +429,7 @@ namespace boost { namespace text {
                         collation_elements_ptr()),
                     trie_values(collation_elements_ptr())[i].end(
                         collation_elements_ptr()));
-                retval = retval.push_back(element);
+                retval.push_back(element);
 #if BOOST_TEXT_TAILORING_INSTRUMENTATION
                 if (trie_keys()[i].size_ == 1 &&
                     *trie_keys()[i].begin() == 0xe5b) {
