@@ -897,6 +897,114 @@ namespace boost { namespace text {
         }
     };
 
+#if defined(BOOST_TEXT_DOXYGEN)
+
+    /** Only participates in overload resolution when `T` is an integral type,
+        and `sizeof(T)` is 1, 2, or 4.*/
+    template<typename T>
+    constexpr bool operator==(T * p, null_sentinel);
+
+    /** Only participates in overload resolution when `T` is an integral type,
+        and `sizeof(T)` is 1, 2, or 4.*/
+    template<typename T>
+    constexpr bool operator!=(T * p, null_sentinel);
+
+    /** Only participates in overload resolution when `T` is an integral type,
+        and `sizeof(T)` is 1, 2, or 4.*/
+    template<typename T>
+    constexpr bool operator==(null_sentinel, T * p);
+
+    /** Only participates in overload resolution when `T` is an integral type,
+        and `sizeof(T)` is 1, 2, or 4.*/
+    template<typename T>
+    constexpr bool operator!=(null_sentinel, T * p);
+
+#else
+
+#if defined(__cpp_lib_concepts)
+
+    template<typename T>
+        // clang-format off
+        requires u8_code_unit<T> || u16_code_unit<T> || u32_code_unit<T>
+    constexpr auto operator==(T * p, null_sentinel)
+    // clang-format on
+    {
+        return *p == 0;
+    }
+#if 1 // TODO: This should not be necessary, one better support for op==
+      // rewriting is widely supported.
+    template<typename T>
+        // clang-format off
+        requires u8_code_unit<T> || u16_code_unit<T> || u32_code_unit<T>
+    constexpr auto operator!=(T * p, null_sentinel)
+    // clang-format on
+    {
+        return *p != 0;
+    }
+    template<typename T>
+        // clang-format off
+        requires u8_code_unit<T> || u16_code_unit<T> || u32_code_unit<T>
+    constexpr auto operator==(null_sentinel, T * p)
+    // clang-format on
+    {
+        return *p == 0;
+    }
+    template<typename T>
+        // clang-format off
+        requires u8_code_unit<T> || u16_code_unit<T> || u32_code_unit<T>
+    constexpr auto operator!=(null_sentinel, T * p)
+    // clang-format on
+    {
+        return *p != 0;
+    }
+#endif
+
+#else
+
+    namespace detail {
+        template<
+            typename Iter,
+            bool UTF8 = char_ptr<Iter>::value || _16_ptr<Iter>::value ||
+                        cp_ptr<Iter>::value>
+        struct null_sent_eq_dispatch
+        {};
+
+        template<typename Ptr>
+        struct null_sent_eq_dispatch<Ptr, true>
+        {
+            static constexpr bool call(Ptr p) noexcept { return *p == 0; }
+        };
+    }
+
+    template<typename T>
+    BOOST_TEXT_CXX14_CONSTEXPR auto operator==(T * p, null_sentinel)
+        ->decltype(detail::null_sent_eq_dispatch<T *>::call(p))
+    {
+        return detail::null_sent_eq_dispatch<T *>::call(p);
+    }
+    template<typename T>
+    BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(T * p, null_sentinel)
+        ->decltype(detail::null_sent_eq_dispatch<T *>::call(p))
+    {
+        return !detail::null_sent_eq_dispatch<T *>::call(p);
+    }
+    template<typename T>
+    BOOST_TEXT_CXX14_CONSTEXPR auto operator==(null_sentinel, T * p)
+        ->decltype(detail::null_sent_eq_dispatch<T *>::call(p))
+    {
+        return detail::null_sent_eq_dispatch<T *>::call(p);
+    }
+    template<typename T>
+    BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(null_sentinel, T * p)
+        ->decltype(detail::null_sent_eq_dispatch<T *>::call(p))
+    {
+        return !detail::null_sent_eq_dispatch<T *>::call(p);
+    }
+
+#endif
+
+#endif
+
 
     /** A UTF-8 to UTF-16 converting iterator. */
 #if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
@@ -3515,73 +3623,6 @@ namespace boost { namespace text { namespace detail {
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
-#ifdef BOOST_TEXT_DOXYGEN
-
-    /** Only participates in overload resolution when `T` is an integral type,
-        and `sizeof(T) is 1, 2, or 4.*/
-    template<typename T>
-    constexpr bool operator==(T * p, null_sentinel);
-
-    /** Only participates in overload resolution when `T` is an integral type,
-        and `sizeof(T) is 1, 2, or 4.*/
-    template<typename T>
-    constexpr bool operator!=(T * p, null_sentinel);
-
-    /** Only participates in overload resolution when `T` is an integral type,
-        and `sizeof(T) is 1, 2, or 4.*/
-    template<typename T>
-    constexpr bool operator==(null_sentinel, T * p);
-
-    /** Only participates in overload resolution when `T` is an integral type,
-        and `sizeof(T) is 1, 2, or 4.*/
-    template<typename T>
-    constexpr bool operator!=(null_sentinel, T * p);
-
-#else
-
-    namespace dtl {
-        template<
-            typename Iter,
-            bool UTF8 = detail::char_ptr<Iter>::value ||
-                        detail::_16_ptr<Iter>::value ||
-                        detail::cp_ptr<Iter>::value>
-        struct null_sent_eq_dispatch
-        {};
-
-        template<typename Ptr>
-        struct null_sent_eq_dispatch<Ptr, true>
-        {
-            static constexpr bool call(Ptr p) noexcept { return !*p; }
-        };
-    }
-
-    template<typename T>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator==(T * p, null_sentinel)
-        ->decltype(dtl::null_sent_eq_dispatch<T *>::call(p))
-    {
-        return dtl::null_sent_eq_dispatch<T *>::call(p);
-    }
-    template<typename T>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(T * p, null_sentinel)
-        ->decltype(dtl::null_sent_eq_dispatch<T *>::call(p))
-    {
-        return !dtl::null_sent_eq_dispatch<T *>::call(p);
-    }
-    template<typename T>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator==(null_sentinel, T * p)
-        ->decltype(dtl::null_sent_eq_dispatch<T *>::call(p))
-    {
-        return dtl::null_sent_eq_dispatch<T *>::call(p);
-    }
-    template<typename T>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(null_sentinel, T * p)
-        ->decltype(dtl::null_sent_eq_dispatch<T *>::call(p))
-    {
-        return !dtl::null_sent_eq_dispatch<T *>::call(p);
-    }
-
-#endif
-
     /** Returns a `utf_32_to_8_out_iterator<Iter>` constructed from the given
         iterator. */
     template<typename Iter>
@@ -3809,42 +3850,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 #if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
-
-    template<typename T>
-        // clang-format off
-        requires u8_code_unit<T> || u16_code_unit<T> || u32_code_unit<T>
-    constexpr auto operator==(T * p, null_sentinel)
-    // clang-format on
-    {
-        return !*p;
-    }
-#if 1 // TODO: This should not be necessary, one better support for op==
-      // rewriting is widely supported.
-    template<typename T>
-        // clang-format off
-        requires u8_code_unit<T> || u16_code_unit<T> || u32_code_unit<T>
-    constexpr auto operator!=(T * p, null_sentinel)
-    // clang-format on
-    {
-        return !*p;
-    }
-    template<typename T>
-        // clang-format off
-        requires u8_code_unit<T> || u16_code_unit<T> || u32_code_unit<T>
-    constexpr auto operator==(null_sentinel, T * p)
-    // clang-format on
-    {
-        return !*p;
-    }
-    template<typename T>
-        // clang-format off
-        requires u8_code_unit<T> || u16_code_unit<T> || u32_code_unit<T>
-    constexpr auto operator!=(null_sentinel, T * p)
-    // clang-format on
-    {
-        return !*p;
-    }
-#endif
 
     /** Returns a `utf_32_to_8_out_iterator<O>` constructed from the given
         iterator. */
