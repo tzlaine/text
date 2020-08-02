@@ -29,11 +29,7 @@ namespace boost { namespace text {
         may not itself be a sequence of code points.  For example, the
         underlying sequence may be a sequence of `char` which is interpreted
         as UTF-8. */
-#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
-    template<code_point_iterator Iter>
-#else
     template<typename Iter>
-#endif
     struct replace_result : stl_interfaces::view_interface<replace_result<Iter>>
     {
         using iterator = Iter;
