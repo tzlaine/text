@@ -149,9 +149,7 @@ namespace boost { namespace text {
         }
     }
 
-    /** A view over UTF-8 code units.  The set of operations available depends
-        on types `I` and `S`.  See [view.interface] in the C++20 or later
-        standard for details. */
+    /** A view over UTF-8 code units. */
 #if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
     template<u8_iter I, std::sentinel_for<I> S = I>
 #else
@@ -215,9 +213,7 @@ namespace boost { namespace text {
         sentinel_t last_;
     };
 
-    /** A view over UTF-16 code units.  The set of operations available
-        depends on types `I` and `S`.  See [view.interface] in the
-        C++20 or later standard for details. */
+    /** A view over UTF-16 code units. */
 #if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
     template<u16_iter I, std::sentinel_for<I> S = I>
 #else
@@ -281,9 +277,7 @@ namespace boost { namespace text {
         sentinel_t last_;
     };
 
-    /** A view over UTF-32 code units.  The set of operations available
-        depends on types `I` and `S`.  See [view.interface] in the
-        C++20 or later standard for details. */
+    /** A view over UTF-32 code units. */
 #if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
     template<u32_iter I, std::sentinel_for<I> S = I>
 #else
@@ -349,8 +343,8 @@ namespace boost { namespace text {
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
-    /** Returns a `utf8_view` over the data in `[first, last)`, transcoding
-        the data if necessary. */
+    /** Returns a `utf8_view` over the data in `[first, last)`.  The view will
+        transcode the data if necessary. */
     template<typename Iter, typename Sentinel>
     constexpr auto as_utf8(Iter first, Sentinel last) noexcept
     {
@@ -387,9 +381,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         };
     }
 
-    /** Returns a `utf8_view` over the data in `r`, transcoding the data if
-        necessary.  `R` may be a null-terminated pointer, or a reference to
-        such a pointer, of intergral type `T`, as long as `sizeof(T) == 1`. */
+    /** Returns a `utf8_view` over the data in `r`.  The view will transcode
+        the data if necessary.  `R` may be a null-terminated pointer, or a
+        reference to such a pointer, of intergral type `T`, as long as
+        `sizeof(T) == 1`. */
     template<typename Range>
     constexpr auto as_utf8(Range && r) noexcept->decltype(
         dtl::as_utf8_dispatch<Range &&>::call((Range &&) r))
@@ -397,8 +392,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         return dtl::as_utf8_dispatch<Range &&>::call((Range &&) r);
     }
 
-    /** Returns a `utf16_view` over the data in `[first, last)`, transcoding
-        the data if necessary. */
+    /** Returns a `utf16_view` over the data in `[first, last)`.  The view
+        will transcode the data if necessary. */
     template<typename Iter, typename Sentinel>
     constexpr auto as_utf16(Iter first, Sentinel last) noexcept
     {
@@ -435,9 +430,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         };
     }
 
-    /** Returns a `utf16_view` over the data in `r`, transcoding the data if
-        necessary.  `R` may be a null-terminated pointer, or a reference to
-        such a pointer, of intergral type `T`, as long as `sizeof(T) == 2`. */
+    /** Returns a `utf16_view` over the data in `r`.  The view will transcode
+        the data if necessary.  `R` may be a null-terminated pointer, or a
+        reference to such a pointer, of intergral type `T`, as long as
+        `sizeof(T) == 2`. */
     template<typename Range>
     constexpr auto as_utf16(Range && r) noexcept->decltype(
         dtl::as_utf16_dispatch<Range &&>::call((Range &&) r))
@@ -445,8 +441,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         return dtl::as_utf16_dispatch<Range &&>::call((Range &&) r);
     }
 
-    /** Returns a `utf32_view` over the data in `[first, last)`, transcoding
-        the data if necessary. */
+    /** Returns a `utf32_view` over the data in `[first, last)`.  The view
+        will transcode the data if necessary. */
     template<typename Iter, typename Sentinel>
     constexpr auto as_utf32(Iter first, Sentinel last) noexcept
     {
@@ -483,9 +479,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         };
     }
 
-    /** Returns a `utf32_view` over the data in `r`, transcoding the data if
-        necessary.  `R` may be a null-terminated pointer, or a reference to
-        such a pointer, of intergral type `T`, as long as `sizeof(T) == 4`. */
+    /** Returns a `utf32_view` over the data in `r`.  The view will transcode
+        the data if necessary.  `R` may be a null-terminated pointer, or a
+        reference to such a pointer, of intergral type `T`, as long as
+        `sizeof(T) == 4`. */
     template<typename Range>
     constexpr auto as_utf32(Range && r) noexcept->decltype(
         dtl::as_utf32_dispatch<Range &&>::call((Range &&) r))
@@ -499,8 +496,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
-    /** Returns a `utf8_view` over the data in `[first, last)`, transcoding
-        the data if necessary. */
+    /** Returns a `utf8_view` over the data in `[first, last)`.  The view will
+        transcode the data if necessary. */
     template<utf_iter I, std::sentinel_for<I> S>
     constexpr auto as_utf8(I first, S last) noexcept
     {
@@ -510,9 +507,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         return utf8_view<decltype(r.f_), decltype(r.l_)>(r.f_, r.l_);
     }
 
-    /** Returns a `utf8_view` over the data in `r`, transcoding the data if
-        necessary.  If `std::remove_reference_t<R>` is not a pointer, the
-        result is returned as a `borrowed_view_t`. */
+    /** Returns a `utf8_view` over the data in `r`.  The view will transcode
+        the data if necessary.  If `std::remove_reference_t<R>` is not a
+        pointer, the result is returned as a `borrowed_view_t`. */
     template<utf_range_like R>
     constexpr auto as_utf8(R && r) noexcept
     {
@@ -526,8 +523,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         }
     }
 
-    /** Returns a `utf16_view` over the data in `[first, last)`, transcoding
-        the data if necessary. */
+    /** Returns a `utf16_view` over the data in `[first, last)`.  The view
+        will transcode the data if necessary. */
     template<utf_iter I, std::sentinel_for<I> S>
     constexpr auto as_utf16(I first, S last) noexcept
     {
@@ -537,9 +534,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         return utf16_view<decltype(r.f_), decltype(r.l_)>(r.f_, r.l_);
     }
 
-    /** Returns a `utf16_view` over the data in `r`, transcoding the data if
-        necessary.  If `std::remove_reference_t<R>` is not a pointer, the
-        result is returned as a `borrowed_view_t`. */
+    /** Returns a `utf16_view` over the data in `r` the data if necessary.  If
+        `std::remove_reference_t<R>` is not a pointer, the result is returned
+        as a `borrowed_view_t`. */
     template<utf_range_like R>
     constexpr auto as_utf16(R && r) noexcept
     {
@@ -553,8 +550,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         }
     }
 
-    /** Returns a `utf32_view` over the data in `[first, last)`, transcoding
-        the data if necessary. */
+    /** Returns a `utf32_view` over the data in `[first, last)`.  The view
+        will transcode the data if necessary. */
     template<utf_iter I, std::sentinel_for<I> S>
     constexpr auto as_utf32(I first, S last) noexcept
     {
@@ -564,9 +561,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         return utf32_view<decltype(r.f_), decltype(r.l_)>(r.f_, r.l_);
     }
 
-    /** Returns a `utf32_view` over the data in `r`, transcoding the data if
-        necessary.  If `std::remove_reference_t<R>` is not a pointer, the
-        result is returned as a `borrowed_view_t`. */
+    /** Returns a `utf32_view` over the data in `r`.  The view will transcode
+        the data if necessary.  If `std::remove_reference_t<R>` is not a
+        pointer, the result is returned as a `borrowed_view_t`. */
     template<utf_range_like R>
     constexpr auto as_utf32(R && r) noexcept
     {
