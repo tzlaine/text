@@ -122,7 +122,7 @@ namespace boost { namespace text {
         \see Unicode 3.2/C10 */
     constexpr uint32_t replacement_character() noexcept { return 0xfffd; }
 
-    /** Returns true if c is a Unicode surrogate, or false otherwise.
+    /** Returns true iff `c` is a Unicode surrogate.
 
         This function is constexpr in C++14 and later. */
     inline BOOST_TEXT_CXX14_CONSTEXPR bool surrogate(uint32_t c) noexcept
@@ -130,7 +130,7 @@ namespace boost { namespace text {
         return high_surrogate_min <= c && c <= low_surrogate_max;
     }
 
-    /** Returns true if c is a Unicode high surrogate, or false otherwise.
+    /** Returns true iff `c` is a Unicode high surrogate.
 
         This function is constexpr in C++14 and later. */
     inline BOOST_TEXT_CXX14_CONSTEXPR bool high_surrogate(uint32_t c) noexcept
@@ -138,7 +138,7 @@ namespace boost { namespace text {
         return high_surrogate_min <= c && c <= high_surrogate_max;
     }
 
-    /** Returns true if c is a Unicode low surrogate, or false otherwise.
+    /** Returns true iff `c` is a Unicode low surrogate.
 
         This function is constexpr in C++14 and later. */
     inline BOOST_TEXT_CXX14_CONSTEXPR bool low_surrogate(uint32_t c) noexcept
@@ -146,8 +146,7 @@ namespace boost { namespace text {
         return low_surrogate_min <= c && c <= low_surrogate_max;
     }
 
-    /** Returns true if c is a Unicode reserved noncharacter, or false
-        otherwise.
+    /** Returns true iff `c` is a Unicode reserved noncharacter.
 
         This function is constexpr in C++14 and later.
 
@@ -161,7 +160,7 @@ namespace boost { namespace text {
                (0xfdd0 <= c && c <= 0xfdef);
     }
 
-    /** Returns true if c is a valid Unicode code point, or false otherwise.
+    /** Returns true iff `c` is a valid Unicode code point.
 
         This function is constexpr in C++14 and later.
 
@@ -171,24 +170,23 @@ namespace boost { namespace text {
         return c <= 0x10ffff && !surrogate(c) && !reserved_noncharacter(c);
     }
 
-    /** Returns true if c is a UTF-8 lead code unit (which must be followed by
-        1-3 following units), and false otherwise. */
+    /** Returns true iff `c` is a UTF-8 lead code unit (which must be followed
+        by 1-3 following units). */
     constexpr bool lead_code_unit(unsigned char c) noexcept
     {
         return uint8_t(c - 0xc2) <= 0x32;
     }
 
-    /** Returns true if c is a UTF-8 continuation code unit, and false
-        otherwise. */
+    /** Returns true iff `c` is a UTF-8 continuation code unit. */
     constexpr bool continuation(unsigned char c) noexcept
     {
         return (int8_t)c < -0x40;
     }
 
-    /** Given the first (and possibly only) code unit of a UTF-8 code point,
-        returns the number of bytes occupied by that code point (in the range
-        [1, 4]).  Returns a value < 0 if first is not a valid initial UTF-8
-        code unit.
+    /** Given the first (and possibly only) code unit of a UTF-8-encoded code
+        point, returns the number of bytes occupied by that code point (in the
+        range `[1, 4]`).  Returns a value < 0 if `first_unit` is not a valid
+        initial UTF-8 code unit.
 
         This function is constexpr in C++14 and later. */
     inline BOOST_TEXT_CXX14_CONSTEXPR int
@@ -201,10 +199,10 @@ namespace boost { namespace text {
                          : -1;
     }
 
-    /** Given the first (and possibly only) code unit of a UTF-16 code point,
-        returns the number of code units occupied by that code point (in the
-        range [1, 2]).  Returns a negative value if `first` is not a valid
-        initial UTF-16 code unit.
+    /** Given the first (and possibly only) code unit of a UTF-16-encoded code
+        point, returns the number of code units occupied by that code point
+        (in the range `[1, 2]`).  Returns a negative value if `first_unit` is
+        not a valid initial UTF-16 code unit.
 
         This function is constexpr in C++14 and later. */
     BOOST_TEXT_CXX14_CONSTEXPR int
@@ -613,8 +611,8 @@ namespace boost { namespace text {
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
-    /** Returns the first code unit in [first, last) that is not properly
-        UTF-8 encoded, or last if no such code unit is found.
+    /** Returns the first code unit in `[first, last)` that is not properly
+        UTF-8 encoded, or `last` if no such code unit is found.
 
         This function is constexpr in C++14 and later. */
     template<typename Iter>
@@ -635,8 +633,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         return last;
     }
 
-    /** Returns the first code unit in [first, last) that is not properly
-        UTF-16 encoded, or last if no such code unit is found.
+    /** Returns the first code unit in `[first, last)` that is not properly
+        UTF-16 encoded, or `last` if no such code unit is found.
 
         This function is constexpr in C++14 and later. */
     template<typename Iter>
@@ -657,8 +655,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         return last;
     }
 
-    /** Returns true if [first, last) is properly UTF-8 encoded, or false
-        otherwise.
+    /** Returns true iff `[first, last)` is properly UTF-8 encoded.
 
         This function is constexpr in C++14 and later. */
     template<typename Iter>
@@ -668,8 +665,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         return v1::find_invalid_encoding(first, last) == last;
     }
 
-    /** Returns true if [first, last) is properly UTF-16 encoded, or false
-        otherwise.
+    /** Returns true iff `[first, last)` is properly UTF-16 encoded.
 
         This function is constexpr in C++14 and later. */
     template<typename Iter>
@@ -679,8 +675,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         return v1::find_invalid_encoding(first, last) == last;
     }
 
-    /** Returns true if [first, last) is empty or the initial UTF-8 code units
-       in [first, last) form a valid Unicode code point, or false otherwise.
+    /** Returns true iff `[first, last)` is empty or the initial UTF-8 code units
+       in `[first, last)` form a valid Unicode code point.
 
         This function is constexpr in C++14 and later. */
     template<typename Iter>
@@ -697,9 +693,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         return !detail::end_of_invalid_utf8(first);
     }
 
-    /** Returns true if [first, last) is empty or the initial UTF-16 code
-        units in [first, last) form a valid Unicode code point, or false
-        otherwise.
+    /** Returns true iff `[first, last)` is empty or the initial UTF-16 code
+        units in `[first, last)` form a valid Unicode code point.
 
         This function is constexpr in C++14 and later. */
     template<typename Iter>
@@ -716,8 +711,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         return cp_units == 1 || boost::text::low_surrogate(*(first + 1));
     }
 
-    /** Returns true if [first, last) is empty or the final UTF-8 code units
-        in [first, last) form a valid Unicode code point, or false otherwise.
+    /** Returns true iff `[first, last)` is empty or the final UTF-8 code units
+        in `[first, last)` form a valid Unicode code point.
 
         This function is constexpr in C++14 and later. */
     template<typename Iter>
@@ -734,8 +729,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         return v1::starts_encoded(it, last);
     }
 
-    /** Returns true if [first, last) is empty or the final UTF-16 code units
-        in [first, last) form a valid Unicode code point, or false otherwise.
+    /** Returns true iff `[first, last)` is empty or the final UTF-16 code units
+        in `[first, last)` form a valid Unicode code point.
 
         This function is constexpr in C++14 and later. */
     template<typename Iter>
@@ -758,8 +753,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
-    /** Returns the first code unit in [first, last) that is not properly
-        UTF-8 encoded, or last if no such code unit is found. */
+    /** Returns the first code unit in `[first, last)` that is not properly
+        UTF-8 encoded, or `last` if no such code unit is found. */
     template<u8_iter I>
     // clang-format off
         requires std::random_access_iterator<I>
@@ -780,8 +775,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         return last;
     }
 
-    /** Returns the first code unit in [first, last) that is not properly
-        UTF-16 encoded, or last if no such code unit is found. */
+    /** Returns the first code unit in `[first, last)` that is not properly
+        UTF-16 encoded, or `last` if no such code unit is found. */
     template<u16_iter I>
     // clang-format off
         requires std::random_access_iterator<I>
@@ -802,7 +797,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         return last;
     }
 
-    /** Returns true if [first, last) is properly UTF-8 encoded, or false */
+    /** Returns true iff `[first, last)` is properly UTF-8 encoded. */
     template<u8_iter I>
     // clang-format off
         requires std::random_access_iterator<I>
@@ -812,7 +807,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         return boost::text::find_invalid_encoding(first, last) == last;
     }
 
-    /** Returns true if [first, last) is properly UTF-16 encoded, or false */
+    /** Returns true iff `[first, last)` is properly UTF-16 encoded */
     template<u16_iter I>
     // clang-format off
         requires std::random_access_iterator<I>
@@ -822,9 +817,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         return boost::text::find_invalid_encoding(first, last) == last;
     }
 
-    /** Returns true if [first, last) is empty or the initial UTF-8 code units
-       in [first, last) form a valid Unicode code point, or false
-       otherwise. */
+    /** Returns true iff `[first, last)` is empty or the initial UTF-8 code
+        units in `[first, last)` form a valid Unicode code point. */
     template<u8_iter I>
     // clang-format off
         requires std::random_access_iterator<I>
@@ -841,9 +835,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         return !detail::end_of_invalid_utf8(first);
     }
 
-    /** Returns true if [first, last) is empty or the initial UTF-16 code
-        units in [first, last) form a valid Unicode code point, or false
-        otherwise. */
+    /** Returns true iff `[first, last)` is empty or the initial UTF-16 code
+        units in `[first, last)` form a valid Unicode code point. */
     template<u16_iter I>
     // clang-format off
         requires std::random_access_iterator<I>
@@ -860,9 +853,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         return cp_units == 1 || boost::text::low_surrogate(*(first + 1));
     }
 
-    /** Returns true if [first, last) is empty or the final UTF-8 code units
-        in [first, last) form a valid Unicode code point, or false
-        otherwise. */
+    /** Returns true iff `[first, last)` is empty or the final UTF-8 code units
+        in `[first, last)` form a valid Unicode code point. */
     template<u8_iter I>
     // clang-format off
         requires std::random_access_iterator<I>
@@ -879,9 +871,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         return boost::text::starts_encoded(it, last);
     }
 
-    /** Returns true if [first, last) is empty or the final UTF-16 code units
-        in [first, last) form a valid Unicode code point, or false
-        otherwise. */
+    /** Returns true iff `[first, last)` is empty or the final UTF-16 code units
+        in `[first, last)` form a valid Unicode code point. */
     template<u16_iter I>
     // clang-format off
         requires std::random_access_iterator<I>
@@ -915,7 +906,7 @@ namespace boost { namespace text {
     };
 
     /** An error handler type that can be used with the converting iterators;
-        throws std::logic_error on errors. */
+        throws `std::logic_error` on errors. */
     struct throw_logic_error
     {
         uint32_t operator()(char const * msg) const
@@ -924,23 +915,6 @@ namespace boost { namespace text {
             return 0;
         }
     };
-
-
-    namespace detail {
-        template<
-            typename Iter,
-            bool UTF8 = char_ptr<Iter>::value || _16_ptr<Iter>::value ||
-                        cp_ptr<Iter>::value>
-        struct null_sent_eq_dispatch
-        {
-        };
-
-        template<typename Ptr>
-        struct null_sent_eq_dispatch<Ptr, true>
-        {
-            static constexpr bool call(Ptr p) noexcept { return !*p; }
-        };
-    }
 
 
     /** A sentinel type that compares equal to a pointer to a 1-, 2-, or
@@ -952,32 +926,6 @@ namespace boost { namespace text {
             return null_sentinel{};
         }
     };
-
-
-    template<typename T>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator==(T * p, null_sentinel)
-        -> decltype(detail::null_sent_eq_dispatch<T *>::call(p))
-    {
-        return detail::null_sent_eq_dispatch<T *>::call(p);
-    }
-    template<typename T>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(T * p, null_sentinel)
-        -> decltype(detail::null_sent_eq_dispatch<T *>::call(p))
-    {
-        return !detail::null_sent_eq_dispatch<T *>::call(p);
-    }
-    template<typename T>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator==(null_sentinel, T * p)
-        -> decltype(detail::null_sent_eq_dispatch<T *>::call(p))
-    {
-        return detail::null_sent_eq_dispatch<T *>::call(p);
-    }
-    template<typename T>
-    BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(null_sentinel, T * p)
-        -> decltype(detail::null_sent_eq_dispatch<T *>::call(p))
-    {
-        return !detail::null_sent_eq_dispatch<T *>::call(p);
-    }
 
 
     /** A UTF-8 to UTF-16 converting iterator. */
@@ -3611,7 +3559,74 @@ namespace boost { namespace text { namespace detail {
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
-    /** Returns a utf_32_to_8_out_iterator<Iter> constructed from the given
+#ifdef BOOST_TEXT_DOXYGEN
+
+    /** Only participates in overload resolution when `T` is an integral type,
+        and `sizeof(T) is 1, 2, or 4.*/
+    template<typename T>
+    constexpr bool operator==(T * p, null_sentinel);
+
+    /** Only participates in overload resolution when `T` is an integral type,
+        and `sizeof(T) is 1, 2, or 4.*/
+    template<typename T>
+    constexpr bool operator!=(T * p, null_sentinel);
+
+    /** Only participates in overload resolution when `T` is an integral type,
+        and `sizeof(T) is 1, 2, or 4.*/
+    template<typename T>
+    constexpr bool operator==(null_sentinel, T * p);
+
+    /** Only participates in overload resolution when `T` is an integral type,
+        and `sizeof(T) is 1, 2, or 4.*/
+    template<typename T>
+    constexpr bool operator!=(null_sentinel, T * p);
+
+#else
+
+    namespace dtl {
+        template<
+            typename Iter,
+            bool UTF8 = detail::char_ptr<Iter>::value ||
+                        detail::_16_ptr<Iter>::value ||
+                        detail::cp_ptr<Iter>::value>
+        struct null_sent_eq_dispatch
+        {};
+
+        template<typename Ptr>
+        struct null_sent_eq_dispatch<Ptr, true>
+        {
+            static constexpr bool call(Ptr p) noexcept { return !*p; }
+        };
+    }
+
+    template<typename T>
+    BOOST_TEXT_CXX14_CONSTEXPR auto operator==(T * p, null_sentinel)
+        ->decltype(dtl::null_sent_eq_dispatch<T *>::call(p))
+    {
+        return dtl::null_sent_eq_dispatch<T *>::call(p);
+    }
+    template<typename T>
+    BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(T * p, null_sentinel)
+        ->decltype(dtl::null_sent_eq_dispatch<T *>::call(p))
+    {
+        return !dtl::null_sent_eq_dispatch<T *>::call(p);
+    }
+    template<typename T>
+    BOOST_TEXT_CXX14_CONSTEXPR auto operator==(null_sentinel, T * p)
+        ->decltype(dtl::null_sent_eq_dispatch<T *>::call(p))
+    {
+        return dtl::null_sent_eq_dispatch<T *>::call(p);
+    }
+    template<typename T>
+    BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(null_sentinel, T * p)
+        ->decltype(dtl::null_sent_eq_dispatch<T *>::call(p))
+    {
+        return !dtl::null_sent_eq_dispatch<T *>::call(p);
+    }
+
+#endif
+
+    /** Returns a `utf_32_to_8_out_iterator<Iter>` constructed from the given
         iterator. */
     template<typename Iter>
     utf_32_to_8_out_iterator<Iter> utf_32_to_8_out(Iter it) noexcept
@@ -3619,7 +3634,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         return utf_32_to_8_out_iterator<Iter>(it);
     }
 
-    /** Returns a utf_8_to_32_out_iterator<Iter> constructed from the given
+    /** Returns a `utf_8_to_32_out_iterator<Iter>` constructed from the given
         iterator. */
     template<typename Iter>
     utf_8_to_32_out_iterator<Iter> utf_8_to_32_out(Iter it) noexcept
@@ -3627,7 +3642,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         return utf_8_to_32_out_iterator<Iter>(it);
     }
 
-    /** Returns a utf_32_to_16_out_iterator<Iter> constructed from the given
+    /** Returns a `utf_32_to_16_out_iterator<Iter>` constructed from the given
         iterator. */
     template<typename Iter>
     utf_32_to_16_out_iterator<Iter> utf_32_to_16_out(Iter it) noexcept
@@ -3635,7 +3650,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         return utf_32_to_16_out_iterator<Iter>(it);
     }
 
-    /** Returns a utf_16_to_32_out_iterator<Iter> constructed from the given
+    /** Returns a `utf_16_to_32_out_iterator<Iter>` constructed from the given
         iterator. */
     template<typename Iter>
     utf_16_to_32_out_iterator<Iter> utf_16_to_32_out(Iter it) noexcept
@@ -3643,7 +3658,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         return utf_16_to_32_out_iterator<Iter>(it);
     }
 
-    /** Returns a utf_16_to_8_out_iterator<Iter> constructed from the given
+    /** Returns a `utf_16_to_8_out_iterator<Iter>` constructed from the given
         iterator. */
     template<typename Iter>
     utf_16_to_8_out_iterator<Iter> utf_16_to_8_out(Iter it) noexcept
@@ -3651,7 +3666,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         return utf_16_to_8_out_iterator<Iter>(it);
     }
 
-    /** Returns a utf_8_to_16_out_iterator<Iter> constructed from the given
+    /** Returns a `utf_8_to_16_out_iterator<Iter>` constructed from the given
         iterator. */
     template<typename Iter>
     utf_8_to_16_out_iterator<Iter> utf_8_to_16_out(Iter it) noexcept
@@ -3839,7 +3854,43 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
-    /** Returns a utf_32_to_8_out_iterator<O> constructed from the given
+    template<typename T>
+        // clang-format off
+        requires u8_code_unit<T> || u16_code_unit<T> || u32_code_unit<T>
+    constexpr auto operator==(T * p, null_sentinel)
+    // clang-format on
+    {
+        return !*p;
+    }
+#if 1 // TODO: This should not be necessary, one better support for op==
+      // rewriting is widely supported.
+    template<typename T>
+        // clang-format off
+        requires u8_code_unit<T> || u16_code_unit<T> || u32_code_unit<T>
+    constexpr auto operator!=(T * p, null_sentinel)
+    // clang-format on
+    {
+        return !*p;
+    }
+    template<typename T>
+        // clang-format off
+        requires u8_code_unit<T> || u16_code_unit<T> || u32_code_unit<T>
+    constexpr auto operator==(null_sentinel, T * p)
+    // clang-format on
+    {
+        return !*p;
+    }
+    template<typename T>
+        // clang-format off
+        requires u8_code_unit<T> || u16_code_unit<T> || u32_code_unit<T>
+    constexpr auto operator!=(null_sentinel, T * p)
+    // clang-format on
+    {
+        return !*p;
+    }
+#endif
+
+    /** Returns a `utf_32_to_8_out_iterator<O>` constructed from the given
         iterator. */
     template<std::output_iterator<uint8_t> O>
     utf_32_to_8_out_iterator<O> utf_32_to_8_out(O it) noexcept
@@ -3847,7 +3898,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         return utf_32_to_8_out_iterator<O>(it);
     }
 
-    /** Returns a utf_8_to_32_out_iterator<O> constructed from the given
+    /** Returns a `utf_8_to_32_out_iterator<O>` constructed from the given
         iterator. */
     template<std::output_iterator<uint32_t> O>
     utf_8_to_32_out_iterator<O> utf_8_to_32_out(O it) noexcept
@@ -3855,7 +3906,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         return utf_8_to_32_out_iterator<O>(it);
     }
 
-    /** Returns a utf_32_to_16_out_iterator<O> constructed from the given
+    /** Returns a `utf_32_to_16_out_iterator<O>` constructed from the given
         iterator. */
     template<std::output_iterator<uint16_t> O>
     utf_32_to_16_out_iterator<O> utf_32_to_16_out(O it) noexcept
@@ -3863,7 +3914,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         return utf_32_to_16_out_iterator<O>(it);
     }
 
-    /** Returns a utf_16_to_32_out_iterator<O> constructed from the given
+    /** Returns a `utf_16_to_32_out_iterator<O>` constructed from the given
         iterator. */
     template<std::output_iterator<uint32_t> O>
     utf_16_to_32_out_iterator<O> utf_16_to_32_out(O it) noexcept
@@ -3871,7 +3922,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         return utf_16_to_32_out_iterator<O>(it);
     }
 
-    /** Returns a utf_16_to_8_out_iterator<O> constructed from the given
+    /** Returns a `utf_16_to_8_out_iterator<O>` constructed from the given
         iterator. */
     template<std::output_iterator<uint8_t> O>
     utf_16_to_8_out_iterator<O> utf_16_to_8_out(O it) noexcept
@@ -3879,7 +3930,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         return utf_16_to_8_out_iterator<O>(it);
     }
 
-    /** Returns a utf_8_to_16_out_iterator<O> constructed from the given
+    /** Returns a `utf_8_to_16_out_iterator<O>` constructed from the given
         iterator. */
     template<std::output_iterator<uint16_t> O>
     utf_8_to_16_out_iterator<O> utf_8_to_16_out(O it) noexcept
