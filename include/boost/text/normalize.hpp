@@ -261,7 +261,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         \see https://unicode.org/notes/tn5 */
     template<
         nf Normalization,
-        u32_iter I,
+        code_point_iterator I,
         std::sentinel_for<I> S,
         std::output_iterator<uint32_t> O>
     O normalize(I first, S last, O out)
@@ -277,7 +277,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         `out`.
 
         \see https://unicode.org/notes/tn5 */
-    template<nf Normalization, u32_range R, std::output_iterator<uint32_t> O>
+    template<
+        nf Normalization,
+        code_point_range R,
+        std::output_iterator<uint32_t> O>
     O normalize(R && r, O out)
     {
         return boost::text::normalize<Normalization>(
@@ -288,7 +291,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         normalization form `Normalization`.
 
         \see https://unicode.org/notes/tn5 */
-    template<nf Normalization, u32_iter I, std::sentinel_for<I> S>
+    template<nf Normalization, code_point_iterator I, std::sentinel_for<I> S>
     bool normalized(I first, S last) noexcept
     {
         BOOST_TEXT_STATIC_ASSERT_NORMALIZATION();
@@ -300,7 +303,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
     /** Returns true iff the given sequence of code points is in Unicode
         normalization form `Normalization`. */
-    template<nf Normalization, u32_range R>
+    template<nf Normalization, code_point_range R>
     bool normalized(R && r) noexcept
     {
         return boost::text::normalized<Normalization>(
