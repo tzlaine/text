@@ -192,12 +192,13 @@ namespace boost { namespace text {
 
         This function is constexpr in C++14 and later. */
     inline BOOST_TEXT_CXX14_CONSTEXPR int
-    code_point_bytes(unsigned char c) noexcept
+    utf8_code_units(unsigned char first_unit) noexcept
     {
-        return c <= 0x7f ? 1
-                         : text::lead_code_unit(c)
-                               ? int(0xe0 <= c) + int(0xf0 <= c) + 2
-                               : -1;
+        return first_unit <= 0x7f
+                   ? 1
+                   : text::lead_code_unit(first_unit)
+                         ? int(0xe0 <= first_unit) + int(0xf0 <= first_unit) + 2
+                         : -1;
     }
 
     /** Given the first (and possibly only) code unit of a UTF-16 code point,
@@ -207,11 +208,11 @@ namespace boost { namespace text {
 
         This function is constexpr in C++14 and later. */
     BOOST_TEXT_CXX14_CONSTEXPR int
-    code_point_units(uint16_t first) noexcept
+    utf16_code_units(uint16_t first_unit) noexcept
     {
-        if (boost::text::low_surrogate(first))
+        if (boost::text::low_surrogate(first_unit))
             return -1;
-        if (boost::text::high_surrogate(first))
+        if (boost::text::high_surrogate(first_unit))
             return 2;
         return 1;
     }
@@ -366,7 +367,7 @@ namespace boost { namespace text {
             }
 
             if (1 < backup) {
-                int const cp_bytes = boost::text::code_point_bytes(*retval);
+                int const cp_bytes = boost::text::utf8_code_units(*retval);
                 if (cp_bytes < backup)
                     retval = it - 1;
             }
@@ -405,7 +406,7 @@ namespace boost { namespace text {
             }
 
             if (1 < backup) {
-                int const cp_bytes = boost::text::code_point_bytes(*retval);
+                int const cp_bytes = boost::text::utf8_code_units(*retval);
                 if (cp_bytes < backup) {
                     if (it != first)
                         --it;
@@ -621,7 +622,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     find_invalid_encoding(Iter first, Iter last) noexcept
     {
         while (first != last) {
-            int const cp_bytes = boost::text::code_point_bytes(*first);
+            int const cp_bytes = boost::text::utf8_code_units(*first);
             if (cp_bytes == -1 || last - first < cp_bytes)
                 return first;
 
@@ -643,7 +644,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     find_invalid_encoding(Iter first, Iter last) noexcept
     {
         while (first != last) {
-            int const cp_units = boost::text::code_point_units(*first);
+            int const cp_units = boost::text::utf16_code_units(*first);
             if (cp_units == -1 || last - first < cp_units)
                 return first;
 
@@ -689,7 +690,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         if (first == last)
             return true;
 
-        int const cp_bytes = boost::text::code_point_bytes(*first);
+        int const cp_bytes = boost::text::utf8_code_units(*first);
         if (cp_bytes == -1 || last - first < cp_bytes)
             return false;
 
@@ -708,7 +709,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         if (first == last)
             return true;
 
-        int const cp_units = boost::text::code_point_units(*first);
+        int const cp_units = boost::text::utf16_code_units(*first);
         if (cp_units == -1 || last - first < cp_units)
             return false;
 
@@ -766,7 +767,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     // clang-format on
     {
         while (first != last) {
-            int const cp_bytes = boost::text::code_point_bytes(*first);
+            int const cp_bytes = boost::text::utf8_code_units(*first);
             if (cp_bytes == -1 || last - first < cp_bytes)
                 return first;
 
@@ -788,7 +789,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     // clang-format on
     {
         while (first != last) {
-            int const cp_units = boost::text::code_point_units(*first);
+            int const cp_units = boost::text::utf16_code_units(*first);
             if (cp_units == -1 || last - first < cp_units)
                 return first;
 
@@ -833,7 +834,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         if (first == last)
             return true;
 
-        int const cp_bytes = boost::text::code_point_bytes(*first);
+        int const cp_bytes = boost::text::utf8_code_units(*first);
         if (cp_bytes == -1 || last - first < cp_bytes)
             return false;
 
@@ -852,7 +853,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         if (first == last)
             return true;
 
-        int const cp_units = boost::text::code_point_units(*first);
+        int const cp_units = boost::text::utf16_code_units(*first);
         if (cp_units == -1 || last - first < cp_units)
             return false;
 

@@ -263,7 +263,7 @@ namespace boost { namespace text { namespace detail {
         };
 
         auto is_space = [&](char initial_char) {
-            auto const code_units = boost::text::code_point_bytes(initial_char);
+            auto const code_units = boost::text::utf8_code_units(initial_char);
             if (code_units < 0 || last - first < code_units - 1)
                 return 0;
             auto const r = as_utf32(first - 1, first - 1 + code_units);
@@ -346,7 +346,7 @@ namespace boost { namespace text { namespace detail {
 
         auto lex_utf8 = [&](char initial_char) {
             // UTF-8 encoded code point.
-            auto const code_units = boost::text::code_point_bytes(initial_char);
+            auto const code_units = boost::text::utf8_code_units(initial_char);
             if (code_units < 0)
                 report_error("Invalid initial UTF-8 code unit", initial_column);
             *buf = initial_char;
