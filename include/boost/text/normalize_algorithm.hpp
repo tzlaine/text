@@ -180,9 +180,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     }
 
     /** Erases the subsequence `[str_first, str_last)` within `string`,
-        returning a view indicating the changed portion of `string`.  Note
-        that the insertion operation may mutate some code points just before
-        or just after the erased sequence.
+        maintaining stream-safe format.  Returns a view indicating the changed
+        portion of `string`.  Note that the insertion operation may mutate
+        some code points just before or just after the erased sequence.
 
         \pre `string` is in normalization form `Normalization`.
         \pre `string` is stream-safe format.
@@ -307,9 +307,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     /** Erases the subsequence `[str_first, str_last)` within `string`,
-        returning a view indicating the changed portion of `string`.  Note
-        that the insertion operation may mutate some code points just before
-        or just after the erased sequence.
+        maintaining stream-safe format.  Returns a view indicating the changed
+        portion of `string`.  Note that the insertion operation may mutate
+        some code points just before or just after the erased sequence.
 
         \pre `string` is in normalization form `Normalization`.
         \pre `string` is stream-safe format.
