@@ -12,7 +12,7 @@
 #if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
 
 namespace boost::text {
-    template<std::ranges::range R, typename V>
+    template<std::ranges::range R, std::ranges::view V>
     using borrowed_view_t = std::
         conditional_t<std::ranges::borrowed_range<R>, V, std::ranges::dangling>;
 }
