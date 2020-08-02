@@ -193,7 +193,6 @@ namespace boost { namespace text {
         std::size_t nonstarters_ = 0;
     };
 
-    /** This function is constexpr in C++14 and later. */
     template<typename I, typename S>
     BOOST_TEXT_CXX14_CONSTEXPR auto
     operator==(stream_safe_iterator<I, S> const & lhs, S rhs)
@@ -201,14 +200,12 @@ namespace boost { namespace text {
     {
         return lhs.base() == rhs.base();
     }
-    /** This function is constexpr in C++14 and later. */
     template<typename I, typename S>
     auto operator==(S lhs, stream_safe_iterator<I, S> const & rhs)
         -> decltype(rhs.base() == lhs)
     {
         return rhs.base() == lhs;
     }
-    /** This function is constexpr in C++14 and later. */
     template<typename I, typename S>
     BOOST_TEXT_CXX14_CONSTEXPR auto
     operator!=(stream_safe_iterator<I, S> const & lhs, S rhs)
@@ -216,7 +213,6 @@ namespace boost { namespace text {
     {
         return lhs.base() != rhs.base();
     }
-    /** This function is constexpr in C++14 and later. */
     template<typename I, typename S>
     auto operator!=(S lhs, stream_safe_iterator<I, S> const & rhs)
         -> decltype(rhs.base() != lhs)

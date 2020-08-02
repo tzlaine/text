@@ -122,33 +122,25 @@ namespace boost { namespace text {
         \see Unicode 3.2/C10 */
     constexpr uint32_t replacement_character() noexcept { return 0xfffd; }
 
-    /** Returns true iff `c` is a Unicode surrogate.
-
-        This function is constexpr in C++14 and later. */
+    /** Returns true iff `c` is a Unicode surrogate. */
     inline BOOST_TEXT_CXX14_CONSTEXPR bool surrogate(uint32_t c) noexcept
     {
         return high_surrogate_min <= c && c <= low_surrogate_max;
     }
 
-    /** Returns true iff `c` is a Unicode high surrogate.
-
-        This function is constexpr in C++14 and later. */
+    /** Returns true iff `c` is a Unicode high surrogate. */
     inline BOOST_TEXT_CXX14_CONSTEXPR bool high_surrogate(uint32_t c) noexcept
     {
         return high_surrogate_min <= c && c <= high_surrogate_max;
     }
 
-    /** Returns true iff `c` is a Unicode low surrogate.
-
-        This function is constexpr in C++14 and later. */
+    /** Returns true iff `c` is a Unicode low surrogate. */
     inline BOOST_TEXT_CXX14_CONSTEXPR bool low_surrogate(uint32_t c) noexcept
     {
         return low_surrogate_min <= c && c <= low_surrogate_max;
     }
 
     /** Returns true iff `c` is a Unicode reserved noncharacter.
-
-        This function is constexpr in C++14 and later.
 
         \see Unicode 3.4/D14 */
     inline BOOST_TEXT_CXX14_CONSTEXPR bool
@@ -161,8 +153,6 @@ namespace boost { namespace text {
     }
 
     /** Returns true iff `c` is a valid Unicode code point.
-
-        This function is constexpr in C++14 and later.
 
         \see Unicode 3.9/D90 */
     inline BOOST_TEXT_CXX14_CONSTEXPR bool valid_code_point(uint32_t c) noexcept
@@ -186,9 +176,7 @@ namespace boost { namespace text {
     /** Given the first (and possibly only) code unit of a UTF-8-encoded code
         point, returns the number of bytes occupied by that code point (in the
         range `[1, 4]`).  Returns a value < 0 if `first_unit` is not a valid
-        initial UTF-8 code unit.
-
-        This function is constexpr in C++14 and later. */
+        initial UTF-8 code unit. */
     inline BOOST_TEXT_CXX14_CONSTEXPR int
     utf8_code_units(unsigned char first_unit) noexcept
     {
@@ -202,9 +190,7 @@ namespace boost { namespace text {
     /** Given the first (and possibly only) code unit of a UTF-16-encoded code
         point, returns the number of code units occupied by that code point
         (in the range `[1, 2]`).  Returns a negative value if `first_unit` is
-        not a valid initial UTF-16 code unit.
-
-        This function is constexpr in C++14 and later. */
+        not a valid initial UTF-16 code unit. */
     BOOST_TEXT_CXX14_CONSTEXPR int
     utf16_code_units(uint16_t first_unit) noexcept
     {
@@ -612,9 +598,7 @@ namespace boost { namespace text {
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
     /** Returns the first code unit in `[first, last)` that is not properly
-        UTF-8 encoded, or `last` if no such code unit is found.
-
-        This function is constexpr in C++14 and later. */
+        UTF-8 encoded, or `last` if no such code unit is found. */
     template<typename Iter>
     BOOST_TEXT_CXX14_CONSTEXPR detail::enable_utf8_cp_t<Iter>
     find_invalid_encoding(Iter first, Iter last) noexcept
@@ -634,9 +618,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     }
 
     /** Returns the first code unit in `[first, last)` that is not properly
-        UTF-16 encoded, or `last` if no such code unit is found.
-
-        This function is constexpr in C++14 and later. */
+        UTF-16 encoded, or `last` if no such code unit is found. */
     template<typename Iter>
     BOOST_TEXT_CXX14_CONSTEXPR detail::enable_utf16_cp_t<Iter>
     find_invalid_encoding(Iter first, Iter last) noexcept
@@ -655,9 +637,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         return last;
     }
 
-    /** Returns true iff `[first, last)` is properly UTF-8 encoded.
-
-        This function is constexpr in C++14 and later. */
+    /** Returns true iff `[first, last)` is properly UTF-8 encoded. */
     template<typename Iter>
     BOOST_TEXT_CXX14_CONSTEXPR detail::enable_utf8_cp_t<Iter, bool> encoded(
         Iter first, Iter last) noexcept
@@ -665,9 +645,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         return v1::find_invalid_encoding(first, last) == last;
     }
 
-    /** Returns true iff `[first, last)` is properly UTF-16 encoded.
-
-        This function is constexpr in C++14 and later. */
+    /** Returns true iff `[first, last)` is properly UTF-16 encoded. */
     template<typename Iter>
     BOOST_TEXT_CXX14_CONSTEXPR detail::enable_utf16_cp_t<Iter, bool> encoded(
         Iter first, Iter last) noexcept
@@ -676,9 +654,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     }
 
     /** Returns true iff `[first, last)` is empty or the initial UTF-8 code units
-       in `[first, last)` form a valid Unicode code point.
-
-        This function is constexpr in C++14 and later. */
+       in `[first, last)` form a valid Unicode code point. */
     template<typename Iter>
     BOOST_TEXT_CXX14_CONSTEXPR detail::enable_utf8_cp_t<Iter, bool>
     starts_encoded(Iter first, Iter last) noexcept
@@ -694,9 +670,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     }
 
     /** Returns true iff `[first, last)` is empty or the initial UTF-16 code
-        units in `[first, last)` form a valid Unicode code point.
-
-        This function is constexpr in C++14 and later. */
+        units in `[first, last)` form a valid Unicode code point. */
     template<typename Iter>
     BOOST_TEXT_CXX14_CONSTEXPR detail::enable_utf16_cp_t<Iter, bool>
     starts_encoded(Iter first, Iter last) noexcept
@@ -712,9 +686,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     }
 
     /** Returns true iff `[first, last)` is empty or the final UTF-8 code units
-        in `[first, last)` form a valid Unicode code point.
-
-        This function is constexpr in C++14 and later. */
+        in `[first, last)` form a valid Unicode code point. */
     template<typename Iter>
     BOOST_TEXT_CXX14_CONSTEXPR detail::enable_utf8_cp_t<Iter, bool>
     ends_encoded(Iter first, Iter last) noexcept
@@ -730,9 +702,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     }
 
     /** Returns true iff `[first, last)` is empty or the final UTF-16 code units
-        in `[first, last)` form a valid Unicode code point.
-
-        This function is constexpr in C++14 and later. */
+        in `[first, last)` form a valid Unicode code point. */
     template<typename Iter>
     BOOST_TEXT_CXX14_CONSTEXPR detail::enable_utf16_cp_t<Iter, bool>
     ends_encoded(Iter first, Iter last) noexcept
@@ -1002,17 +972,14 @@ namespace boost { namespace text {
             buf_(other.buf_)
         {}
 
-        /** This function is constexpr in C++14 and later. */
         BOOST_TEXT_CXX14_CONSTEXPR char operator*() const
             noexcept(!throw_on_error)
         {
             return buf_[index_];
         }
 
-        /** This function is constexpr in C++14 and later. */
         BOOST_TEXT_CXX14_CONSTEXPR I base() const noexcept { return it_; }
 
-        /** This function is constexpr in C++14 and later. */
         BOOST_TEXT_CXX14_CONSTEXPR utf_32_to_8_iterator &
         operator++() noexcept(!throw_on_error)
         {
@@ -1027,7 +994,6 @@ namespace boost { namespace text {
             return *this;
         }
 
-        /** This function is constexpr in C++14 and later. */
         BOOST_TEXT_CXX14_CONSTEXPR utf_32_to_8_iterator &
         operator--() noexcept(!throw_on_error)
         {
@@ -1102,7 +1068,6 @@ namespace boost { namespace text {
 #endif
     };
 
-    /** This function is constexpr in C++14 and later. */
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
         utf_32_to_8_iterator<Iter, Sentinel, ErrorHandler> const & lhs,
@@ -1111,7 +1076,6 @@ namespace boost { namespace text {
         return lhs.base() == rhs;
     }
 
-    /** This function is constexpr in C++14 and later. */
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
         Sentinel lhs,
@@ -1121,7 +1085,6 @@ namespace boost { namespace text {
         return rhs.base() == lhs;
     }
 
-    /** This function is constexpr in C++14 and later. */
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
         utf_32_to_8_iterator<Iter, Sentinel, ErrorHandler> const & lhs,
@@ -1130,7 +1093,6 @@ namespace boost { namespace text {
         return lhs.base() != rhs;
     }
 
-    /** This function is constexpr in C++14 and later. */
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
         Sentinel lhs,
@@ -1140,7 +1102,6 @@ namespace boost { namespace text {
         return rhs.base() != lhs;
     }
 
-    /** This function is constexpr in C++14 and later. */
     template<
         typename Iter1,
         typename Sentinel1,
@@ -1155,7 +1116,6 @@ namespace boost { namespace text {
         return lhs.base() == rhs.base() && rhs.index_ == lhs.index_;
     }
 
-    /** This function is constexpr in C++14 and later. */
     template<
         typename Iter1,
         typename Sentinel1,
@@ -1304,7 +1264,6 @@ namespace boost { namespace text {
             first_(other.first_), it_(other.it_), last_(other.last_)
         {}
 
-        /** This function is constexpr in C++14 and later. */
         BOOST_TEXT_CXX14_CONSTEXPR uint32_t operator*() const
             noexcept(!throw_on_error)
         {
@@ -1315,10 +1274,8 @@ namespace boost { namespace text {
             return get_value().value_;
         }
 
-        /** This function is constexpr in C++14 and later. */
         BOOST_TEXT_CXX14_CONSTEXPR I base() const noexcept { return it_; }
 
-        /** This function is constexpr in C++14 and later. */
         BOOST_TEXT_CXX14_CONSTEXPR utf_8_to_32_iterator &
         operator++() noexcept(!throw_on_error)
         {
@@ -1327,7 +1284,6 @@ namespace boost { namespace text {
             return *this;
         }
 
-        /** This function is constexpr in C++14 and later. */
         BOOST_TEXT_CXX14_CONSTEXPR utf_8_to_32_iterator &
         operator--() noexcept(!throw_on_error)
         {
@@ -1612,7 +1568,6 @@ namespace boost { namespace text {
 #endif
     };
 
-    /** This function is constexpr in C++14 and later. */
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
         utf_8_to_32_iterator<Iter, Sentinel, ErrorHandler> const & lhs,
@@ -1621,7 +1576,6 @@ namespace boost { namespace text {
         return lhs.base() == rhs;
     }
 
-    /** This function is constexpr in C++14 and later. */
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
         Sentinel lhs,
@@ -1631,7 +1585,6 @@ namespace boost { namespace text {
         return rhs.base() == lhs;
     }
 
-    /** This function is constexpr in C++14 and later. */
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
         utf_8_to_32_iterator<Iter, Sentinel, ErrorHandler> const & lhs,
@@ -1640,7 +1593,6 @@ namespace boost { namespace text {
         return lhs.base() != rhs;
     }
 
-    /** This function is constexpr in C++14 and later. */
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
         Sentinel lhs,
@@ -1650,7 +1602,6 @@ namespace boost { namespace text {
         return rhs.base() != lhs;
     }
 
-    /** This function is constexpr in C++14 and later. */
     template<
         typename Iter1,
         typename Sentinel1,
@@ -1665,7 +1616,6 @@ namespace boost { namespace text {
         return lhs.base() == rhs.base();
     }
 
-    /** This function is constexpr in C++14 and later. */
     template<
         typename Iter1,
         typename Sentinel1,
@@ -1905,17 +1855,14 @@ namespace boost { namespace text {
             buf_(other.buf_)
         {}
 
-        /** This function is constexpr in C++14 and later. */
         BOOST_TEXT_CXX14_CONSTEXPR uint16_t operator*() const
             noexcept(!throw_on_error)
         {
             return buf_[index_];
         }
 
-        /** This function is constexpr in C++14 and later. */
         BOOST_TEXT_CXX14_CONSTEXPR I base() const noexcept { return it_; }
 
-        /** This function is constexpr in C++14 and later. */
         BOOST_TEXT_CXX14_CONSTEXPR utf_32_to_16_iterator &
         operator++() noexcept(!throw_on_error)
         {
@@ -1930,7 +1877,6 @@ namespace boost { namespace text {
             return *this;
         }
 
-        /** This function is constexpr in C++14 and later. */
         BOOST_TEXT_CXX14_CONSTEXPR utf_32_to_16_iterator &
         operator--() noexcept(!throw_on_error)
         {
@@ -1997,7 +1943,6 @@ namespace boost { namespace text {
 #endif
     };
 
-    /** This function is constexpr in C++14 and later. */
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
         utf_32_to_16_iterator<Iter, Sentinel, ErrorHandler> const & lhs,
@@ -2006,7 +1951,6 @@ namespace boost { namespace text {
         return lhs.base() == rhs;
     }
 
-    /** This function is constexpr in C++14 and later. */
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
         Sentinel lhs,
@@ -2016,7 +1960,6 @@ namespace boost { namespace text {
         return rhs.base() == lhs;
     }
 
-    /** This function is constexpr in C++14 and later. */
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
         utf_32_to_16_iterator<Iter, Sentinel, ErrorHandler> const & lhs,
@@ -2025,7 +1968,6 @@ namespace boost { namespace text {
         return lhs.base() != rhs;
     }
 
-    /** This function is constexpr in C++14 and later. */
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
         Sentinel lhs,
@@ -2035,7 +1977,6 @@ namespace boost { namespace text {
         return rhs.base() != lhs;
     }
 
-    /** This function is constexpr in C++14 and later. */
     template<
         typename Iter1,
         typename Sentinel1,
@@ -2050,7 +1991,6 @@ namespace boost { namespace text {
         return lhs.base() == rhs.base() && rhs.index_ == lhs.index_;
     }
 
-    /** This function is constexpr in C++14 and later. */
     template<
         typename Iter1,
         typename Sentinel1,
@@ -2219,7 +2159,6 @@ namespace boost { namespace text {
             first_(other.first_), it_(other.it_), last_(other.last_)
         {}
 
-        /** This function is constexpr in C++14 and later. */
         BOOST_TEXT_CXX14_CONSTEXPR uint32_t operator*() const
             noexcept(!throw_on_error)
         {
@@ -2227,10 +2166,8 @@ namespace boost { namespace text {
             return get_value(*it_).value_;
         }
 
-        /** This function is constexpr in C++14 and later. */
         BOOST_TEXT_CXX14_CONSTEXPR I base() const noexcept { return it_; }
 
-        /** This function is constexpr in C++14 and later. */
         BOOST_TEXT_CXX14_CONSTEXPR utf_16_to_32_iterator &
         operator++() noexcept(!throw_on_error)
         {
@@ -2239,7 +2176,6 @@ namespace boost { namespace text {
             return *this;
         }
 
-        /** This function is constexpr in C++14 and later. */
         BOOST_TEXT_CXX14_CONSTEXPR utf_16_to_32_iterator &
         operator--() noexcept(!throw_on_error)
         {
@@ -2350,7 +2286,6 @@ namespace boost { namespace text {
 #endif
     };
 
-    /** This function is constexpr in C++14 and later. */
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
         utf_16_to_32_iterator<Iter, Sentinel, ErrorHandler> const & lhs,
@@ -2359,7 +2294,6 @@ namespace boost { namespace text {
         return lhs.base() == rhs;
     }
 
-    /** This function is constexpr in C++14 and later. */
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
         Sentinel lhs,
@@ -2369,7 +2303,6 @@ namespace boost { namespace text {
         return rhs.base() == lhs;
     }
 
-    /** This function is constexpr in C++14 and later. */
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
         utf_16_to_32_iterator<Iter, Sentinel, ErrorHandler> const & lhs,
@@ -2378,7 +2311,6 @@ namespace boost { namespace text {
         return lhs.base() != rhs;
     }
 
-    /** This function is constexpr in C++14 and later. */
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
         Sentinel lhs,
@@ -2388,7 +2320,6 @@ namespace boost { namespace text {
         return rhs.base() != lhs;
     }
 
-    /** This function is constexpr in C++14 and later. */
     template<
         typename Iter1,
         typename Sentinel1,
@@ -2403,7 +2334,6 @@ namespace boost { namespace text {
         return lhs.base() == rhs.base();
     }
 
-    /** This function is constexpr in C++14 and later. */
     template<
         typename Iter1,
         typename Sentinel1,
@@ -2635,17 +2565,14 @@ namespace boost { namespace text {
             buf_(other.buf_)
         {}
 
-        /** This function is constexpr in C++14 and later. */
         BOOST_TEXT_CXX14_CONSTEXPR char operator*() const
             noexcept(!throw_on_error)
         {
             return buf_[index_];
         }
 
-        /** This function is constexpr in C++14 and later. */
         BOOST_TEXT_CXX14_CONSTEXPR I base() const noexcept { return it_; }
 
-        /** This function is constexpr in C++14 and later. */
         BOOST_TEXT_CXX14_CONSTEXPR utf_16_to_8_iterator &
         operator++() noexcept(!throw_on_error)
         {
@@ -2660,7 +2587,6 @@ namespace boost { namespace text {
             return *this;
         }
 
-        /** This function is constexpr in C++14 and later. */
         BOOST_TEXT_CXX14_CONSTEXPR utf_16_to_8_iterator &
         operator--() noexcept(!throw_on_error)
         {
@@ -2790,7 +2716,6 @@ namespace boost { namespace text {
 #endif
     };
 
-    /** This function is constexpr in C++14 and later. */
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
         utf_16_to_8_iterator<Iter, Sentinel, ErrorHandler> const & lhs,
@@ -2799,7 +2724,6 @@ namespace boost { namespace text {
         return lhs.base() == rhs;
     }
 
-    /** This function is constexpr in C++14 and later. */
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
         Sentinel lhs,
@@ -2809,7 +2733,6 @@ namespace boost { namespace text {
         return rhs.base() == lhs;
     }
 
-    /** This function is constexpr in C++14 and later. */
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
         utf_16_to_8_iterator<Iter, Sentinel, ErrorHandler> const & lhs,
@@ -2818,7 +2741,6 @@ namespace boost { namespace text {
         return lhs.base() != rhs;
     }
 
-    /** This function is constexpr in C++14 and later. */
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
         Sentinel lhs,
@@ -2828,7 +2750,6 @@ namespace boost { namespace text {
         return rhs.base() != lhs;
     }
 
-    /** This function is constexpr in C++14 and later. */
     template<
         typename Iter1,
         typename Sentinel1,
@@ -2843,7 +2764,6 @@ namespace boost { namespace text {
         return lhs.base() == rhs.base() && rhs.index_ == lhs.index_;
     }
 
-    /** This function is constexpr in C++14 and later. */
     template<
         typename Iter1,
         typename Sentinel1,
@@ -3042,20 +2962,17 @@ namespace boost { namespace text {
             it_(other.it_), index_(other.index_), buf_(other.buf_)
         {}
 
-        /** This function is constexpr in C++14 and later. */
         BOOST_TEXT_CXX14_CONSTEXPR uint16_t operator*() const
             noexcept(!throw_on_error)
         {
             return buf_[index_];
         }
 
-        /** This function is constexpr in C++14 and later. */
         BOOST_TEXT_CXX14_CONSTEXPR I base() const noexcept
         {
             return it_.base();
         }
 
-        /** This function is constexpr in C++14 and later. */
         BOOST_TEXT_CXX14_CONSTEXPR utf_8_to_16_iterator &
         operator++() noexcept(!throw_on_error)
         {
@@ -3070,7 +2987,6 @@ namespace boost { namespace text {
             return *this;
         }
 
-        /** This function is constexpr in C++14 and later. */
         BOOST_TEXT_CXX14_CONSTEXPR utf_8_to_16_iterator &
         operator--() noexcept(!throw_on_error)
         {
@@ -3135,7 +3051,6 @@ namespace boost { namespace text {
 #endif
     };
 
-    /** This function is constexpr in C++14 and later. */
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
         utf_8_to_16_iterator<Iter, Sentinel, ErrorHandler> const & lhs,
@@ -3144,7 +3059,6 @@ namespace boost { namespace text {
         return lhs.base() == rhs;
     }
 
-    /** This function is constexpr in C++14 and later. */
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
         Sentinel lhs,
@@ -3154,7 +3068,6 @@ namespace boost { namespace text {
         return rhs.base() == lhs;
     }
 
-    /** This function is constexpr in C++14 and later. */
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
         utf_8_to_16_iterator<Iter, Sentinel, ErrorHandler> const & lhs,
@@ -3163,7 +3076,6 @@ namespace boost { namespace text {
         return lhs.base() != rhs;
     }
 
-    /** This function is constexpr in C++14 and later. */
     template<typename Iter, typename Sentinel, typename ErrorHandler>
     BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
         Sentinel lhs,
@@ -3173,7 +3085,6 @@ namespace boost { namespace text {
         return rhs.base() != lhs;
     }
 
-    /** This function is constexpr in C++14 and later. */
     template<
         typename Iter1,
         typename Sentinel1,
@@ -3188,7 +3099,6 @@ namespace boost { namespace text {
         return lhs.base() == rhs.base() && rhs.index_ == lhs.index_;
     }
 
-    /** This function is constexpr in C++14 and later. */
     template<
         typename Iter1,
         typename Sentinel1,

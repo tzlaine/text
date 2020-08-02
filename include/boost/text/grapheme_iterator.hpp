@@ -168,7 +168,6 @@ namespace boost { namespace text {
         friend struct grapheme_iterator;
     };
 
-    /** This function is constexpr in C++14 and later. */
     template<
         typename Iter1,
         typename Sentinel1,
@@ -185,7 +184,6 @@ namespace boost { namespace text {
         return lhs.base() == rhs.base();
     }
 
-    /** This function is constexpr in C++14 and later. */
     template<
         typename Iter1,
         typename Sentinel1,
@@ -202,7 +200,6 @@ namespace boost { namespace text {
         return !(lhs == rhs);
     }
 
-    /** This function is constexpr in C++14 and later. */
     template<typename CPIter, typename Sentinel>
     BOOST_TEXT_CXX14_CONSTEXPR auto
     operator==(grapheme_iterator<CPIter, Sentinel> it, Sentinel s) noexcept
@@ -211,7 +208,6 @@ namespace boost { namespace text {
         return it.base() == s;
     }
 
-    /** This function is constexpr in C++14 and later. */
     template<typename CPIter, typename Sentinel>
     BOOST_TEXT_CXX14_CONSTEXPR auto
     operator==(Sentinel s, grapheme_iterator<CPIter, Sentinel> it) noexcept
@@ -220,7 +216,6 @@ namespace boost { namespace text {
         return it.base() == s;
     }
 
-    /** This function is constexpr in C++14 and later. */
     template<typename CPIter, typename Sentinel>
     BOOST_TEXT_CXX14_CONSTEXPR auto
     operator!=(grapheme_iterator<CPIter, Sentinel> it, Sentinel s) noexcept
@@ -229,7 +224,6 @@ namespace boost { namespace text {
         return it.base() != s;
     }
 
-    /** This function is constexpr in C++14 and later. */
     template<typename CPIter, typename Sentinel>
     BOOST_TEXT_CXX14_CONSTEXPR auto
     operator!=(Sentinel s, grapheme_iterator<CPIter, Sentinel> it) noexcept
