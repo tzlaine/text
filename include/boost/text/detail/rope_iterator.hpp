@@ -132,6 +132,7 @@ namespace boost { namespace text { namespace detail {
             }
             return '\0'; // This should never execute.
         }
+
         const_rope_view_iterator & operator+=(std::ptrdiff_t n) noexcept
         {
             switch (which_) {
@@ -141,54 +142,10 @@ namespace boost { namespace text { namespace detail {
             return *this;
         }
 
-        friend bool operator==(
-            const_rope_view_iterator lhs, const_rope_view_iterator rhs) noexcept
-        {
-            if (lhs.which_ != rhs.which_)
-                return false;
-            switch (lhs.which_) {
-            case which::r: return lhs.r_ == rhs.r_;
-            case which::tv: return lhs.tv_ == rhs.tv_;
-            }
-            return false; // This should never execute.
-        }
-        friend bool operator!=(
-            const_rope_view_iterator lhs, const_rope_view_iterator rhs) noexcept
-        {
-            return !(lhs == rhs);
-        }
-        friend bool operator<(
-            const_rope_view_iterator lhs, const_rope_view_iterator rhs) noexcept
-        {
-            if (lhs.which_ != rhs.which_)
-                return false;
-            switch (lhs.which_) {
-            case which::r: return lhs.r_ < rhs.r_;
-            case which::tv: return lhs.tv_ < rhs.tv_;
-            }
-            return false; // This should never execute.
-        }
-        friend bool operator<=(
-            const_rope_view_iterator lhs, const_rope_view_iterator rhs) noexcept
-        {
-            return lhs < rhs || lhs == rhs;
-        }
-        friend bool operator>(
-            const_rope_view_iterator lhs, const_rope_view_iterator rhs) noexcept
-        {
-            return rhs < lhs;
-        }
-        friend bool operator>=(
-            const_rope_view_iterator lhs, const_rope_view_iterator rhs) noexcept
-        {
-            return lhs > rhs || lhs == rhs;
-        }
-
         friend std::ptrdiff_t operator-(
             const_rope_view_iterator lhs, const_rope_view_iterator rhs) noexcept
         {
-            if (lhs.which_ != rhs.which_)
-                return false;
+            BOOST_ASSERT(lhs.which_ == rhs.which_);
             switch (lhs.which_) {
             case which::r: return lhs.r_ - rhs.r_;
             case which::tv: return lhs.tv_ - rhs.tv_;
