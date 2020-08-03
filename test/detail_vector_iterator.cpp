@@ -291,11 +291,11 @@ TEST(both_vector_iterators, test_larger_sequences)
 
         repeated.insert(repeated.begin() + 5, 12345);
 
-        for (int i = 0; i < r.size(); ++i) {
+        for (std::size_t i = 0; i < r.size(); ++i) {
             EXPECT_EQ(r[i], repeated[i]);
         }
 
-        for (int i = 0; i < r.size(); ++i) {
+        for (std::size_t i = 0; i < r.size(); ++i) {
             EXPECT_EQ(*(r.begin() + i), *(repeated.begin() + i));
         }
 

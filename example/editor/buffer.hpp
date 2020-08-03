@@ -78,7 +78,7 @@ inline int cursor_line(snapshot_t const & snapshot)
 
 inline bool cursor_at_last_line(snapshot_t const & snapshot)
 {
-    return cursor_line(snapshot) == snapshot.lines_.size();
+    return cursor_line(snapshot) == (std::ptrdiff_t)snapshot.lines_.size();
 }
 
 struct cursor_iterators_t
@@ -93,7 +93,7 @@ iterator_at_start_of_line(snapshot_t const & snapshot, std::ptrdiff_t line_index
 {
     assert(snapshot.first_row_ <= line_index);
 
-    if (line_index == snapshot.lines_.size())
+    if (line_index == (std::ptrdiff_t)snapshot.lines_.size())
         return snapshot.content_.end();
 
     std::ptrdiff_t offset = snapshot.first_char_index_;
@@ -114,7 +114,7 @@ iterator_at_start_of_line(snapshot_t const & snapshot, std::ptrdiff_t line_index
 inline cursor_iterators_t cursor_iterators(snapshot_t const & snapshot)
 {
     auto const line_index = cursor_line(snapshot);
-    if (line_index == snapshot.lines_.size()) {
+    if (line_index == (std::ptrdiff_t)snapshot.lines_.size()) {
         return {snapshot.content_.end(),
                 snapshot.content_.end(),
                 snapshot.content_.end()};

@@ -30,9 +30,8 @@ namespace boost { namespace text {
         using reverse_iterator = stl_interfaces::reverse_iterator<iterator>;
         using const_reverse_iterator =
             stl_interfaces::reverse_iterator<const_iterator>;
+        using size_type = std::size_t;
         using value_type = T;
-
-        using size_type = std::ptrdiff_t;
 
         /** Default ctor.
 

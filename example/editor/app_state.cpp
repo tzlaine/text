@@ -301,7 +301,7 @@ namespace {
     {
         auto & s = state.buffer_.snapshot_;
         auto const page = nonstatus_height(screen_size);
-        if (s.lines_.size() <= page)
+        if ((std::ptrdiff_t)s.lines_.size() <= page)
             return std::move(state);
         for (ptrdiff_t i = 0; i < page; ++i) {
             if (!s.first_row_)
@@ -319,7 +319,8 @@ namespace {
         // TODO: Crashes at eof.
         auto & s = state.buffer_.snapshot_;
         auto const page = nonstatus_height(screen_size);
-        if (s.lines_.size() <= page || s.lines_.size() < s.first_row_ + page)
+        std::ptrdiff_t const lines_size = s.lines_.size();
+        if (lines_size <= page || lines_size < s.first_row_ + page)
             return std::move(state);
         for (ptrdiff_t i = 0; i < page; ++i) {
             down_one_row(s);
@@ -338,7 +339,7 @@ namespace {
         screen_pos_t screen_size)
     {
         auto & s = state.buffer_.snapshot_;
-        assert(line_index < s.lines_.size());
+        assert(line_index < (std::ptrdiff_t)s.lines_.size());
 
         auto const lines_it = s.lines_.begin() + line_index;
         auto lines_last =
@@ -416,7 +417,7 @@ namespace {
         // line before we re-break lines below.  This gets rid of special
         // cases like when we're erasing at a spot one past the end of the
         // current line (i.e. the first grapheme of the next line.)
-        if (!line.hard_break_ && line_index + 1 < s.lines_.size()) {
+        if (!line.hard_break_ && line_index + 1 < (std::ptrdiff_t)s.lines_.size()) {
             auto const next_line = s.lines_[line_index + 1];
             line.code_units_ += next_line.code_units_;
             line.graphemes_ += next_line.graphemes_;
@@ -525,7 +526,7 @@ namespace {
                 // a new line.
                 snapshot.content_.insert(cursor_its.cursor_, grapheme);
                 line_t line;
-                if (line_index < snapshot.lines_.size())
+                if (line_index < (std::ptrdiff_t)snapshot.lines_.size())
                     line = snapshot.lines_[line_index];
 
                 line_t const new_line{line.code_units_ - code_unit_offset,

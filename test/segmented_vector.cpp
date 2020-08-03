@@ -23,7 +23,7 @@ TEST(segmented_vector, test_empty)
     EXPECT_EQ(t.rbegin(), t.rend());
 
     EXPECT_TRUE(t.empty());
-    EXPECT_EQ(t.size(), 0);
+    EXPECT_EQ(t.size(), 0u);
     EXPECT_EQ(t.begin(), t.end());
 
     t.swap(t);
@@ -41,10 +41,10 @@ TEST(segmented_vector, test_non_empty_const_interface)
     EXPECT_EQ(t_a.rbegin() + t_a.size(), t_a.rend());
 
     EXPECT_FALSE(t_a.empty());
-    EXPECT_EQ(t_a.size(), 1);
+    EXPECT_EQ(t_a.size(), 1u);
 
     EXPECT_FALSE(t_ab.empty());
-    EXPECT_EQ(t_ab.size(), 2);
+    EXPECT_EQ(t_ab.size(), 2u);
 
     EXPECT_EQ(t_ab[1], 2);
 
@@ -179,8 +179,8 @@ TEST(segmented_vector, test_erase)
          68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84,
          85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99});
 
-    for (int j = 0; j <= ct.size(); ++j) {
-        for (int i = 0; i <= j; ++i) {
+    for (std::size_t j = 0; j <= ct.size(); ++j) {
+        for (std::size_t i = 0; i <= j; ++i) {
             text::segmented_vector<int> t = ct;
 
             text::segmented_vector<int> expected(ct.begin(), ct.begin() + i);
@@ -212,8 +212,8 @@ TEST(segmented_vector, test_replace)
          85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99});
 
     // Small replacement.
-    for (int j = 0; j <= ct.size(); ++j) {
-        for (int i = 0; i <= j; ++i) {
+    for (std::size_t j = 0; j <= ct.size(); ++j) {
+        for (std::size_t i = 0; i <= j; ++i) {
             text::segmented_vector<int> t = ct;
 
             text::segmented_vector<int> expected(ct.begin(), ct.begin() + i);
@@ -226,8 +226,8 @@ TEST(segmented_vector, test_replace)
     }
 
     // Large replacement.
-    for (int j = 0; j <= ct.size(); ++j) {
-        for (int i = 0; i <= j; ++i) {
+    for (std::size_t j = 0; j <= ct.size(); ++j) {
+        for (std::size_t i = 0; i <= j; ++i) {
             text::segmented_vector<int> t = ct;
 
             text::segmented_vector<int> expected(ct.begin(), ct.begin() + i);
