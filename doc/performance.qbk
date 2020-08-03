@@ -20,7 +20,7 @@ from Wikipedia.  "Iterators" is using `std::copy` from _8_to_16_iter_ to a
 pointer; "Algorithm std::back_inserter" is using _tc_to_16_ in the SIMD code
 path, and outputting to a `std::back_insert_iterator`; "Algorithm using SIMD"
 is using _tc_to_16_ from pointer to pointer in the SIMD-using code path;
-"Algorithm using SIMD" is using _tc_to_16_ from pointer to pointer in the
+"Algorithm no SIMD" is using _tc_to_16_ from pointer to pointer in the
 non-SIMD code path; and "ICU" is is using `UnicodeString::fromUTF8()`.
 
 [$../../doc/utf_8_to_16_perf.svg]
@@ -72,15 +72,15 @@ _emdash_ was originally developed by Bob Steagall, and presented at C++Now in
 
 [heading NFC]
 
-Here are the relative timings NFC normalization of UTF-8 strings (smaller is
-better).  The input was around half a megabyte of text from Wikipedia.
+Here are the relative timings for NFC normalization of UTF-8 strings (smaller
+is better).  The input was around half a megabyte of text from Wikipedia.
 "Algorithm with back-inserter" is using `normalize<nf::c>(as_utf32(input),
 utf_32_to_8_back_inserter(output))` -- this is the slowest code path, since it
-uses a back-inserter; "String append" uses `normalize_append<nf::fcc>()`,
-with pointers used for input and output; "ICU" is the UTF-8-specific
-normalization algorithm from ICU; and "ICU UTF-16" is the UTF-16 normalization
-algorithm from ICU.  "ICU UTF-16" normalizes in UTF-16, not UTF-8; it is shown
-here because it is the fastest code path for ICU.
+uses a back-inserter; "String append" uses `normalize_append<nf::fcc>()`, with
+pointers used for input and output; "ICU" is the UTF-8-specific normalization
+algorithm from ICU; and "ICU UTF-16" is the UTF-16 normalization algorithm
+from ICU.  "ICU UTF-16" normalizes in UTF-16, not UTF-8; it is shown here
+because it is the fastest code path for ICU.
 
 These charts represent four scenarios: half normalize European languages
 (English and Portuguese); half normalize non-European languages (Chinese,

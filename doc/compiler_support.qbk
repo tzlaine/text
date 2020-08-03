@@ -23,4 +23,14 @@ compiler switch for this is `/source-charset:utf-8`.  Your life will be that
 much sweeter if you use the more thorough-going flag `/utf8` instead.  This
 latter flag changes the execution encoding as well.]
 
+[heading C++20 Support]
+
+The C++20 interfaces provided by _Text_ are only available when compiling in
+C++20 mode.  At the time of this writing, only GCC 10 is known to work in
+C++20 mode.
+
+[note At the time of this writing, the C++20 interfaces include functions in
+the `v2` namespace and all the types associated with transcoding and
+normalization.  Eventually, all the interfaces will be concept-constrained. ]
+
 [endsect]

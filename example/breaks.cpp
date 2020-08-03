@@ -122,8 +122,8 @@ for (auto range : boost::text::words(cps)) {
 }
 std::cout << "\n";
 
-// Break up words into chunks as if they were identifiers in a popular
-// programming language.
+// Break up words into chunks as if they were parts of identifiers in a
+// popular programming language.
 auto const identifier_break = [](uint32_t prev_prev,
                                  uint32_t prev,
                                  uint32_t curr,

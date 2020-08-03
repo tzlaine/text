@@ -84,8 +84,9 @@ int const collation =
 // considered after the primary weights of the characters.
 assert(0 < collation);
 
-// This is a more common case -- generate keys for your two sequences, keep them
-// somewhere, and compare them later.
+// If you know the strings are very long-lived, it may make more sense to
+// generate keys for your two sequences, keep them somewhere, and compare them
+// later.
 boost::text::text_sort_key aarhus_new_key =
     boost::text::collation_sort_key(aarhus_new, default_table);
 boost::text::text_sort_key aarhus_old_key =

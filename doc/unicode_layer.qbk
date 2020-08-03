@@ -9,37 +9,37 @@
 
 ['[*-- Everyone]]
 
-Unicode is hard to implement; the algorithms are crazy.  Even as just a user
-of Unicode, it can be difficult to understand how one is supposed to use
-Unicode correctly.  The text layer types do much of what is described in this
-section, but nicely out of view.  Unless you need to use many different
-normalization and/or encoding forms, feel free to skip those portions of this
-section.
+Unicode is hard to implement; the algorithms are crazy.  Even as a user of
+Unicode, it can be difficult to understand how one is supposed to use Unicode
+correctly.  The _t_ layer types do much of what is described in this section,
+but nicely out of view.  Unless you need to use many different normalization
+and/or encoding forms, feel free to skip those portions of this section.
 
 A primary design goal of the Unicode layer of _Text_ is usability.  To that
-end, the data model is a simple as possible.
+end, the data model is as simple as possible.
 
 [heading A Quick Unicode Primer]
 
 There are multiple encoding types defined in Unicode: UTF-8, UTF-16, and
 UTF-32.  A /_cu_/ is the lowest-level datum-type in your Unicode
 data. Examples are a `char` in UTF-8 and a `uint32_t` in UTF-32.  A /_cp_/ is
-a 32-bit unsigned value that represents a single Unicode value. Examples are
+a 32-bit integral value that represents a single Unicode value. Examples are
 U+0041 "A" "LATIN CAPITAL LETTER A" and U+0308 "¨" "COMBINING DIAERESIS".
 
 There are four different Unicode normalization forms.  Normalization is
 necessary because Unicode requires that certain combinations of _cps_ be
-considered identical.  For instance, the two _cps_ U+0041 U+0308 appear like
-this: "Ä", and the _cp_ U+00C4 appears like this: "Ä".  Since these two
-sequences are not visually distinct, all the algorithms must treat them as the
-same thing.  Therefore, that `u8"\U00000041\U00000308" == u8"\U000000C4"` must
-evaluate to `true` for the purposes of Unicode.  Normalizations exist to put
-strings of _cps_ into canonical forms.
+considered identical.  For instance, the two _cps_ mentioned above, U+0041
+U+0308, appear like this: "Ä", and the _cp_ U+00C4 appears like this: "Ä".
+Since these two sequences are not visually distinct, all the algorithms must
+treat them as the same thing.  Therefore, `u8"\U00000041\U00000308" ==
+u8"\U000000C4"` must evaluate to `true` for the purposes of Unicode.
+Normalizations exist to put strings of _cps_ into canonical forms that can be
+bitwise compared.
 
 An /extended grapheme cluster/, or just /_gr_/, is a sequence of _cps_ that
-appears to the end-user to be a single character.  For example, the _cps_ from
-before (U+0041 U+0308) form a _gr_, since they appear when rendered to be the
-single character "Ä".
+appears to the end-user to be a single character.  For example, the _cps_
+(U+0041 U+0308) form a _gr_, since they appear when rendered to be the single
+character "Ä".
 
 
 [heading Unicode Versions]
@@ -76,7 +76,7 @@ accumulated in side buffers at various times during their operation.
 Therefore, many of the algorithms in this section may allocate memory.
 However, _Text_ makes extensive use of `boost::container::small_vector<>`s for
 these side buffers.  The end result is that though these algorithms /may/
-allocate memory, in practice they seldom if ever do.
+allocate memory, in practice they seldom do, if ever.
 
 [heading What About Code Point Properties?]
 
@@ -90,7 +90,7 @@ a highly context-sensitive way; each algorithm has its own set of properties
 it associates with _cps_.  For instance, the word breaking algorithm is
 concerned with single quotes and double quotes, and so has a property for
 each, but other punctuation is spread out among its other properties.  It has
-no property that maps to something like "punctuation".
+no property that maps to something like "punctuation" in a general sense.
 
 So if you want to know if a _cp_ is whitespace or not, you might have to
 look it up on a Unicode reference website (and implement a function for
@@ -104,8 +104,8 @@ algorithms fits your needs and use that algorithm's `*_prop()` function
 [heading Transcoding Iterators]
 
 _Text_ provides conversions among the UTF-8, UTF-16, and UTF-32 encodings, via
-converting iterators.  The conversion among UTF formats is referred to as
-transcoding.  The converting iterators are:
+converting iterators.  The conversion among UTF encoding formats is referred
+to as transcoding.  The converting iterators are:
 
 * _8_to_16_iter_
 * _8_to_32_iter_
@@ -156,35 +156,24 @@ _u32v_:
 
 [to_utf32_terse]
 
-[note A make-function is provided for each to-encoding; `utf16_iterator(a, b,
-c)` returns: a _8_to_16_iter_ if `a`, `b`, and `c` are iterators to UTF-8
-_cus_; a _32_to_16_iter_ if `a`, `b`, and `c` are iterators to UTF-32 _cus_
-(i.e. _cps_); and `b` otherwise.  See the section on _unpacking_ for
-details. ]
-
 All the transcoding iterators are bidirectional.  When each one is
 dereferenced, it may read multiple values from the underlying input range.
-For instance, a `utf_8_to_32_iterator i` has to read 1-4 _cus_ to produce a
-_cp_ when performing the operation `*i`.  Therefore, each of these iterators
+For instance, a `utf_8_to_32_iterator it` has to read 1-4 _cus_ to produce a
+_cp_ when performing the operation `*it`.  Therefore, each of these iterators
 requires the endpoints of the underlying range, to ensure that reads outside
 the underlying range generate replacement characters instead of undefined
 behavior.
 
 All the transcoding iterators still exhibit undefined behavior when
-incrementing past the end of the underlying range, or decrementing before the
-beginning of the underlying range.  The generation of replacment characters
-only happens in cases where the number of _cus_ is variable and there is an
-incomplete sequence of _cus_ right at the beginning or end.
+incrementing past the end of, or decrementing before the beginning of, the
+underlying range.  The generation of replacment characters only happens in
+cases where the number of _cus_ is variable and there is an incomplete
+sequence of _cus_ right at the beginning or end.
 
 For instance, if you have a sequence of UTF-8 that consists of a single broken
 _cp_ sequence:
 
-    // That the full UTF-8 encoding for U+8D00 is 0xe8, 0xb4, 0x80.
-    unsigned char const broken_utf8_for_0x8d00[] = { 0xe8, 0xb4 /* Incomplete! */};
-    auto const it = boost::text::utf32_iterator(
-        std::begin(broken_utf8_for_0x8d00),
-        std::end(broken_utf8_for_0x8d00),
-        std::end(broken_utf8_for_0x8d00));
+[to_utf32_ub]
 
 then `*it` will produce a replacement character, and the behavior of
 `std::next(it)` is defined.  However, the behaviors of `std::prev(it)` and
@@ -216,16 +205,19 @@ their associated functions):
   `utf_N_to_M_out`.
 
 * `utf_N_to_M_insert_iterator` - This is analogous to `std::insert_iterator`,
-  but also does the `N` to `M` transcoding.  You can create one using
-  `from_utfN_inserter`.
+  but also does UTF-`N` to UTF-`M` transcoding.  You can create one using
+  `from_utfN_inserter`; `M` is deduced from the size of the `value_type` of
+  the container.
 
 * `utf_N_to_M_front_insert_iterator` - This is analogous to
-  `std::front_insert_iterator`, but also does the `N` to `M` transcoding.  You
-  can create one using `from_utfN_front_inserter`.
+  `std::front_insert_iterator`, but also does UTF-`N` to UTF-`M` transcoding.
+  You can create one using `from_utfN_front_inserter`; `M` is deduced from the
+  size of the `value_type` of the container.
 
 * `utf_N_to_M_back_insert_iterator` - This is analogous to
-  `std::back_insert_iterator`, but also does the `N` to `M` transcoding.  You
-  can create one using `from_utfN_back_inserter`.
+  `std::back_insert_iterator`, but also does UTF-`N` to UTF-`M` transcoding.
+  You can create one using `from_utfN_back_inserter`; `M` is deduced from the
+  size of the `value_type` of the container.
 
 
 [heading Transcoding Iterator Performance]
@@ -239,7 +231,7 @@ substantially slower than using the transcoding algorithms.
 [heading Transcoding Views]
 
 Using transcoding iterators directly is a bit verbose and tedious.  Also, when
-you use two transcoding iterators as a range/view, it may be the size of 6
+you use two transcoding iterators as an iterator pair, it may be the size of 6
 underlying itertors!
 
 So, both for convenience and for size optimization, _Text_ provides view
@@ -267,8 +259,8 @@ range:
     auto const utf32_range_from_utf8_iter_and_sentinel =
         boost::text::as_utf32(str.c_str(), boost::text::null_sentinel{});
 
-To support null-terminated strings, you can just pass a pointer to
-`as_utfN()`:
+These functions also support null-terminated strings; you can just pass a
+pointer to `as_utfN()`:
 
     auto const range_1 = boost::text::as_utf32("text");         // char const *
     auto const range_2 = boost::text::as_utf32(u8"more text");  // char8_t const *, in C++20 and later
@@ -327,7 +319,8 @@ given, so that only the bottom-most underlying pointer or iterator is stored:
     >(to_16_first, to_16_last, to_16_last);
 
     auto range = boost::text::as_utf8(to_32_first, to_32_last);
-    static_assert(std::is_same<decltype(range), boost::text::utf8_view<std::string::iterator>>::value, "");
+    static_assert(std::is_same<decltype(range),
+                               boost::text::utf8_view<std::string::iterator>>::value, "");
 
 Each of these views stores only the unpacked iterator and sentinel, so each
 view is the size of two pointers, and possibly smaller if a sentinel is used.
@@ -364,8 +357,7 @@ to handle errors in any other way.
 These are fully generic algorithms, and there are overloads that take
 iterator-sentinel pairs as well as ones that take ranges.  Also, the transcode
 algorithms unpack the iterators that they are given, which can be a large
-optimization.  See the description of unpacking in the section on transcode
-views for details.
+optimization.  See the _unpacking_ section for details.
 
 [important Though these algorithms are generic, some of the optimizations in
 them require pointers on both the input and output iterators for maximum
@@ -426,7 +418,7 @@ _str_safe_.  This format inserts extra code points between combiners to ensure
 that there are never more than 30 combiners in a row.  In practice, you should
 never need anywhere near that number.
 
-_Text_ provides an API for putting text in the _str_safe_:
+_Text_ provides an API for putting text in a _str_safe_:
 
     std::vector<uint32_t> code_points = /* ... */;
     auto it = boost::text::stream_safe(code_points);
@@ -438,10 +430,23 @@ There is also a lazy-range API:
     std::vector<uint32_t> code_points = /* ... */;
     auto const stream_safe_view = boost::text::as_stream_safe(code_points);
 
-These operations do not implement the _str_safe_ algorithm _str_safe_
-described on the Unicode web site.  Instead, it takes the much simpler
-approach of allowing only at most 8 combiners after any noncombiner.  The rest
-are truncated.
+These operations do not implement the _str_safe_ algorithm described on the
+Unicode web site.  Instead, it takes the much simpler approach of allowing
+only at most 8 combiners after any noncombiner.  The rest are truncated.
+
+[important Long sequences of combining characters create a problem for
+algorithms like normalization or _gr_ breaking; the _gr_ breaking algorithm
+may be required to look ahead a very long way in order to determine how to
+handle the current _gr_.  To address this, Unicode allows a conforming
+implementation to assume that a sequence of _cps_ contains _grs_ of at most 32
+_cps_.  This is known as the _str_safe_ assumption; _Text_ makes this
+assumption.
+
+If you give _Text_ algorithms a _cp_ sequence with _grs_ longer than 32 _cps_,
+you will get undefined behavior.  This poses a security problem.  To address
+this, use the stream-safe API (e.g. `boost::text::as_stream_safe()`), or use
+the container-modifying free functions to normalize, render stream-safe, and
+erase/insert/replace in one call. ]
 
 
 [heading Normalization]
@@ -463,11 +468,21 @@ check if a _cp_ sequence is in a certain normalization form.
 There are _s_-specific in-place normalization functions as well, in
 _norm_str_header_.
 
+There is also an API for normalizing a _cp_ sequence and appending the result
+to a container:
+
+[normalize_1]
+
+This is much more performant than the `normalize()` function, because the
+output iterator used by `normalize()` slows things down quite a bit _emdash_
+`normalize()` can be factors slower than `normalize_append()`.
+`normalize_append()` will only append to UTF-8 and UTF-16 containers
+(UTF-32-encoded containers are very uncommon, and so are not supported).
+
 [\note When you're working entirely within a UTF-8 encoding (on both sides of
 the normalization operation), the most efficient version of the normalization
-API is `normalize_append(a, b)`, where `a` and `b` are iterators over an
-underlying sequence of UTF-8.  You can find these interfaces in
-_norm_str_header_ if that's your use case. ]
+API is `normalize_append(a, b, str)`, where `a` and `b` are iterators over an
+underlying sequence of UTF-8. ]
 
 
 [heading Container-Modifying Normalization API]
@@ -480,12 +495,17 @@ _norm_algo_header_:
 * _norm_insert_
 * _norm_replace_
 
-There are iterator and range overloads of each.  Each one normalizes and
-places the inserted text in _str_safe_ (if any), then erases/inserts/replaces,
-and then normalizes the code points on either side of the affected
-subsequence.  This last step is necessay because insertions and erasures may
-create situations in which code points are next to each other which may
-combine.
+There are iterator and range overloads of each.  Each one:
+
+* normalizes the inserted text (if text is being inserted);
+* places the inserted text in _str_safe_ (if text is being inserted);
+* performs the erase/insert/replace operation on the string;
+* ensures that the result is in _str_safe_ (if text is being erased); and
+* normalizes the code points on either side of the affected subsequence within the string.
+
+This last step is necessary because insertions and erasures may create
+situations in which code points which may combine are now next to each other,
+when they were not before.
 
 This API is like the `normalize_append()` overloads in that it may operate on
 UTF-8 or UTF-16 containers, and deduces the UTF from the size of the mutated
@@ -504,7 +524,7 @@ an official Unicode text segmentation algorithm.
 [heading Conventions]
 
 All the kinds of text breaking have a common pattern.  Each kind of break `X`
-(word, sentence, etc.)  provides at least these functions:
+(where `X` is word, sentence, etc.) provides at least these functions:
 
     template <typename CPIter, typename Sentinel>
     CPIter prev_X_break(CPIter first, CPIter it, Sentinel last) noexcept;
@@ -588,34 +608,14 @@ below indicates whether a certain kind of break is tailorable, and if so, how.
 [grapheme_breaks]
 
 _Text_ does not support tailoring of _gr_ breaking, because _grs_ are the
-fundamental unit of work for the text layer of the library.  Everyone must
-have the same notion of what a _gr_ is for that to work.
+fundamental unit of work for the _t_ layer of the library.  All code must have
+the same notion of what a _gr_ is for that to work.
 
 [heading Alternate Grapheme API]
 
 In addition to the interface that is used for all the kinds of text
 segmentation, there is an API just for producing grapheme views, similar to
 the one for producing UTF views.  See _as_grs_ for details.
-
-
-[heading Stream-Safe Format]
-
-Consider this sequence of _cps_: the letter `'a'` followed by 10,000
-/umlauts/.  There is no technical reason why you cannot create this sequence
-of _cps_, though it is not useful to do so.  This creates a problem for
-algorithms like normalization or _gr_ breaking, because they may be required
-to look ahead a very long way in order to determine how to handle the current
-_gr_.  To address this, Unicode allows a conforming implementation to assume
-that a sequence of _cps_ contains _grs_ of at most 32 _cps_.  This is known
-as the _str_safe_ assumption; _Text_ makes this assumption.
-
-[heading Stream-Safe Format and Security]
-
-If you give _Text_ algorithms a _cp_ sequence with _grs_ longer than 32 _cps_,
-you will get undefined behavior.  This poses a security problem.  To address
-this, use the stream-safe API (e.g. `boost::text::as_stream_safe()`), or use
-the container-modifying free functions to normalize, render stream-safe, and
-erase/insert/replace in one call.
 
 
 [heading Words]
@@ -676,8 +676,8 @@ Chinese are even more complex. Where Hangul text is written without spaces,
 the same applies. However, in the absence of a more sophisticated mechanism,
 the rules specified in this annex supply a well-defined default.]
 
-French and Italian words are not broken after an apostrophe; the default
-algorithm finds `"l’objectif"` to be a single word.
+French and Italian words are not meant to be broken after an apostrophe, but
+the default algorithm finds `"l’objectif"` to be a single word.
 
 Breaking on dashes is the default.  For example, the default algorithm finds
 `"out-of-the-box"` to be seven words.
@@ -694,9 +694,9 @@ letter, digit, punctuation, etc.  All the work break functions accept an
 optional word-property lookup function to replace the default one.
 
 For example, here I've made a custom word property lookup function that treats
-a regular dash `'-'` as a `MidLetter`, meaning a _cp_ that is part of a word
-as long as it can reach at least one letter on either side, before reaching a
-word break first:
+a regular dash `'-'` as a `MidLetter`.  `MidLetter` is a property that
+repesents _cps_ that are part of a word as long as it can reach at least one
+letter on either side, before reaching a word break first:
 
 [word_breaks_2]
 
@@ -752,9 +752,9 @@ function is this:
                       uint32_t next,
                       uint32_t next_next);
 
-Returning `true` indicates that `[prev, curr]` straddles a word break; `prev`
-is the last _cp_ of one word, and `curr` is the first _cp_ of the next.  If
-provided, this custom break function is evaluated before any of the Unicode
+Returning `true` indicates that `[prev, curr]` straddles a word break _emdash_
+`prev` is the last _cp_ of one word, and `curr` is the first _cp_ of the next.
+If provided, this custom break function is evaluated before any of the Unicode
 word break rules.
 
 [word_breaks_3]
@@ -784,15 +784,16 @@ as after a newline (e.g. `"\n"` or `"\r\n"`).  These are known as /hard/ line
 breaks.
 
 The line breaking algorithm produces many more line breaks, but all non-hard
-line breaks are places where it is possible to break the line _emdash_ though
-it is not necessary to do so.  These are known as /allowed/ line breaks.
-Higher-level program logic must determine which of these allowed breaks is to
-be used, for example to fit in available horizontal space.
+line breaks are places where it is *possible* to break the line _emdash_
+though it is not necessary to do so.  These are known as /allowed/ line
+breaks.  Higher-level program logic must determine which of these allowed
+breaks is to be used, for example to fit in available horizontal space.
 
 [note _Text_ only generates hard line breaks where they are indicated in the
 Unicode line breaking rules *and* there could be an allowed line break.  Line
 breaks always occur at the beginning and end of any sequence, but _Text_ does
-not report those as hard breaks.]
+not report those as hard breaks _emdash_ the fact that they are hard breaks is
+implicit. ]
 
 The `next_*_break()` and `prev_*_break()` functions for line breaking come in
 two flavors.  There are `hard_line` versions and `allowed_line` versions.  For
@@ -933,13 +934,14 @@ L1 strength means "Ignore accents, case, and punctuation", and L2 strength
 means "Ignore case and punctuation".
 
 There are also parameters you can provide to the collation algorithm that
-create variations such as "Ignore accents, but do consider case".
+create variations such as "Ignore accents, but do consider case".  See the
+_coll_flags_ for details.
 
 [heading Tailoring]
 
 Since there exists no unique mapping of _cps_ to collation weights that works
-for every language and context, there needs to be a means available to users
-of the Unicode collation algorithm of tailoring collation to a particular
+for every language and context, there needs to be a means available for users
+of the Unicode collation algorithm of tailor collation to a particular
 language or use case.  _Text_ supports the _ldml_ format for specifying
 collation tailoring; see that website for details.  An example of this super
 simple and convenient format is:
@@ -988,10 +990,10 @@ _GrRngs_.
 I've made every effort to hide the messy details of collation configuration
 from you, because they are super confusing.  Instead, _Text_ uses a set of
 _coll_flags_ that have more recognizable semantics.  The flags map directly
-onto the low-level configuration settings.  If you have C++14 _ce_ support,
-combinations of the flags that map to incompatible low-level settings will not
-compile.  The low-level configuration is still available for those already
-familiar with Unicode collation.
+onto the low-level configuration settings.  Combinations of the flags that map
+to incompatible low-level settings will not compile.  The low-level
+configuration is still available for those already familiar with Unicode
+collation.
 
 When generating a sort key, the default configuration is to use tertiary
 strength (consider everything but punctuation), with no other options enabled.
@@ -1011,10 +1013,10 @@ default algorithm that is defined in _tn5_ that allows one to use an alternate
 normalization form called FCC.
 
 FCC is very similar to NFC, except that it is less compact in a few
-cases. _Text_'s collation implementation relies on the inputs being in the FCC
-normalization form, so the collation functions require inputs to be normalized
-FCC.  This happens automatically within the text layer types (_t_, _r_,
-etc.).]
+cases. _Text_'s collation implementation relies on the inputs being in one of
+the FCC or the NFD normalization forms, so the collation functions require
+inputs to be normalized FCC or NFD.  This happens automatically within the
+text layer types (_t_, _r_, etc.), which use FCC. ]
 
 [heading Associative Container Woes]
 
@@ -1137,7 +1139,8 @@ As with everything else associated with Unicode, it's complicated:
 
 * When using sequences of _cps_ with associative containers, consider using
   binary comparison if you *don't* care about the sort order being
-  collation-correct.
+  collation-correct _emdash_ that is, when the user will not see the sort
+  order.
 
 * If you do binary comparisons of UTF-8 encoded types, consider comparing the
   bytes of the underlying `char`s directly, though it's not a large effect.
@@ -1195,8 +1198,8 @@ for collation comparison, which is inherently stateful.
 
 _Text_ includes a collation-aware search API.  The benefit of using the
 general-purpose collation mechanism for search is that we get all the
-collation matching functionality included _emdash_ tailoring plus the
-collation configury (consider case or not, accents or not, etc.).
+collation matching functionality included: tailoring plus the collation
+configury (consider case or not, accents or not, etc.).
 
 Our examples will all use this string to search within:
 
@@ -1209,7 +1212,7 @@ non-searcher overloads of `std::search()`):
 [collation_search_covenience]
 
 That convenience function is equivalent to the code below.  Here, we're
-creating a searcher and passing it to `collation_search()`.  The reset of the
+creating a searcher and passing it to `collation_search()`.  The rest of the
 collation search API uses this interface.
 
 [collation_search_simple]

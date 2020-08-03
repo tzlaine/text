@@ -5,46 +5,6 @@
  /]
 [section Examples]
 
-[heading Hello, World!]
-
-Ok, here is the obligatory "Hello, world!" example:
-
-[hello_world]
-
-Pretty simple, we've just made a non-owning _sv_, and an owning-and-allocating
-_s_.  They each say "Hello, World!".  The second one is what the Internet
-assures me is idiomatic Russian meaning the same thing.
-
-[heading Using _Text_ Types in Interfaces]
-
-There are particular parameter passing conventions that some of the _Text_
-types are designed for.  For instance, _sv_, like `std::string_view`, is
-designed to bind to any `char const *`, _sv_, or _s_ argument, without making
-a copy.  _sv_ is therefore a replacement for the multiple overloads it would
-take to handle all those types.  If _sv_ was not implicitly convertible from
-`char const *` and _s_, this is the sort of code you would have to write:
-
-[params_to_take_string_and_string_view_without]
-
-And here is what you can write with _sv_'s implicit conversions:
-
-[params_to_take_string_and_string_view_with]
-
-If you want to write a function parameter that handles any of _Text_'s types,
-_urv_ is available:
-
-[params_to_take_anything]
-
-And, sure enough, you can call it with any of the _Text_ types, and even `char
-const *`:
-
-[print_any_string_type_usage]
-
-[note _urv_ is less efficient than _sv_ for binding to _ss_ and _svs_ (though
-only a little).  If you know you need that extra efficiency, and you know you
-*don't* need to support _urs_ or _rsvs_ as arguments to your function, stick to
-_sv_.]
-
 [heading Ropes in Practice]
 
 A key use of ropes is in text editors.  Every text editor you've ever used

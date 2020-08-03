@@ -24,7 +24,7 @@
 
 [/ Imports ]
 
-[import ../example/utf8.cpp]
+[import ../example/transcoding.cpp]
 [import ../example/normalize.cpp]
 [import ../example/breaks.cpp]
 [import ../example/case_mapping.cpp]
@@ -112,6 +112,9 @@
 
 [def _norm_str_header_     [link header.boost.text.normalize_string_hpp normalize_string.hpp]]
 [def _norm_algo_header_    [link header.boost.text.normalize_algorithm_hpp normalize_algorithm.hpp]]
+[def _table_ser_           [link header.boost.text.table_serialization_hpp table_serialization.hpp]]
+[def _save_load_table_     [link header.boost.text.save_load_table_hpp save_load_table.hpp]]
+[def _concepts_            [link header.boost.text.concepts_hpp concepts.hpp]]
 
 [def _line_brk_res_        [classref boost::text::line_break_result `line_break_result`]]
 [def _line_brk_cp_v_       [classref boost::text::line_break_cp_view `line_break_cp_view`]]
@@ -132,9 +135,6 @@
 [def _collate_             [funcref boost::text::collate `collate()`]]
 [def _sort_key_            [classref boost::text::text_sort_key `text_sort_key`]]
 [def _sort_keys_           [classref boost::text::text_sort_key `text_sort_keys`]]
-
-[def _table_ser_           [link header.boost.text.table_serialization_hpp table_serialization.hpp]]
-[def _save_load_table_     [link header.boost.text.save_load_table_hpp save_load_table.hpp]]
 
 [def _bidi_cp_subrng_      [classref boost::text::bidirectional_cp_subrange `bidirectional_cp_subrange`]]
 [def _bidi_gr_subrng_      [classref boost::text::bidirectional_grapheme_subrange `bidirectional_grapheme_subrange`]]

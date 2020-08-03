@@ -5,6 +5,9 @@
  /]
 [section:concepts Concepts]
 
+All of the concepts below apply to the pre-C++20 interfaces.  Interfaces that
+are meant for use in C++20 use the concepts found in _concepts_.
+
 [heading CharIter]
 
 A _CharIter_ is a bidirectional iterator over a sequence of `char`.
