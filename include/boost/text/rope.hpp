@@ -6,8 +6,7 @@
 #ifndef BOOST_TEXT_ROPE_HPP
 #define BOOST_TEXT_ROPE_HPP
 
-#include <boost/text/grapheme.hpp>
-#include <boost/text/grapheme_iterator.hpp>
+#include <boost/text/estimated_width.hpp>
 #include <boost/text/unencoded_rope.hpp>
 #include <boost/text/transcode_iterator.hpp>
 
@@ -375,7 +374,8 @@ namespace boost { namespace text {
         friend std::ostream & operator<<(std::ostream & os, rope const & r)
         {
             if (os.good()) {
-                auto const size = r.distance();
+                auto const size = boost::text::estimated_width_of_graphemes(
+                    r.begin().base(), r.end().base());
                 detail::pad_width_before(os, size);
                 os << r.rope_;
                 if (os.good())

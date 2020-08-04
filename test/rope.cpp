@@ -1255,3 +1255,22 @@ TEST(rope, test_reverse_iterators)
         EXPECT_EQ(sv_it, sv.rbegin());
     }
 }
+
+TEST(rope, estimated_width)
+{
+    EXPECT_EQ(text::detail::width_implied_by_cp(0x0), 1);
+
+    EXPECT_EQ(text::detail::width_implied_by_cp(0x1100 - 1), 1);
+    EXPECT_EQ(text::detail::width_implied_by_cp(0x1100), 2);
+    EXPECT_EQ(text::detail::width_implied_by_cp(0x1100 + 1), 2);
+    EXPECT_EQ(text::detail::width_implied_by_cp(0x115f - 1), 2);
+    EXPECT_EQ(text::detail::width_implied_by_cp(0x115f), 2);
+    EXPECT_EQ(text::detail::width_implied_by_cp(0x115f + 1), 1);
+
+    EXPECT_EQ(text::detail::width_implied_by_cp(0x3040 - 1), 1);
+    EXPECT_EQ(text::detail::width_implied_by_cp(0x3040), 2);
+    EXPECT_EQ(text::detail::width_implied_by_cp(0x3040 + 1), 2);
+    EXPECT_EQ(text::detail::width_implied_by_cp(0xa4cf - 1), 2);
+    EXPECT_EQ(text::detail::width_implied_by_cp(0xa4cf), 2);
+    EXPECT_EQ(text::detail::width_implied_by_cp(0xa4cf + 1), 1);
+}

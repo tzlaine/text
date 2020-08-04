@@ -8,6 +8,7 @@
 #include <boost/text/line_break.hpp>
 #include <boost/text/text.hpp>
 #include <boost/text/string_utility.hpp>
+#include <boost/text/estimated_width.hpp>
 
 #include <iostream>
 
@@ -223,13 +224,13 @@ for (auto line : boost::text::lines(
          cps,
          60,
          [](boost::text::text::const_iterator::iterator_type first,
-            boost::text::text::const_iterator::iterator_type last) {
-             // The width of this chunk of text.  For out purposes here, each
-             // grapheme in the chunk has a fixed width of 1.
-             boost::text::grapheme_view<
-                 boost::text::text::const_iterator::iterator_type>
-                 range(first, last);
-             return std::distance(range.begin(), range.end());
+            boost::text::text::const_iterator::iterator_type last)
+             -> std::ptrdiff_t {
+             // estimated_width_of_graphemes() uses the same table-based width
+             // determination that std::format() uses.  You can use anything
+             // here, even the width of individual code points in a particular
+             // font.
+             return boost::text::estimated_width_of_graphemes(first, last);
          })) {
     std::cout << boost::text::text_view(line);
     if (!line.hard_break())

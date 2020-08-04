@@ -6,8 +6,7 @@
 #ifndef BOOST_TEXT_TEXT_HPP
 #define BOOST_TEXT_TEXT_HPP
 
-#include <boost/text/grapheme.hpp>
-#include <boost/text/grapheme_iterator.hpp>
+#include <boost/text/estimated_width.hpp>
 #include <boost/text/normalize_fwd.hpp>
 #include <boost/text/string_view.hpp>
 #include <boost/text/transcode_iterator.hpp>
@@ -481,7 +480,8 @@ namespace boost { namespace text {
         friend std::ostream & operator<<(std::ostream & os, text const & t)
         {
             if (os.good()) {
-                auto const size = t.distance();
+                auto const size = boost::text::estimated_width_of_graphemes(
+                    t.begin().base(), t.end().base());
                 detail::pad_width_before(os, size);
                 os << t.str_;
                 if (os.good())

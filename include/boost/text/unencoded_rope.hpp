@@ -7,7 +7,9 @@
 #define BOOST_TEXT_UNENCODED_ROPE_HPP
 
 #include <boost/text/algorithm.hpp>
+#include <boost/text/estimated_width.hpp>
 #include <boost/text/segmented_vector.hpp>
+#include <boost/text/transcode_view.hpp>
 #include <boost/text/detail/iterator.hpp>
 #include <boost/text/detail/rope.hpp>
 
@@ -360,7 +362,8 @@ namespace boost { namespace text {
         friend std::ostream & operator<<(std::ostream & os, unencoded_rope r)
         {
             if (os.good()) {
-                auto const size = r.size();
+                auto const size = boost::text::estimated_width_of_graphemes(
+                    boost::text::as_utf32(r));
                 detail::pad_width_before(os, size);
                 if (os.good())
                     r.foreach_segment(detail::segment_inserter{os});
