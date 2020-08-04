@@ -39,7 +39,7 @@ namespace boost { namespace text {
         unencoded_rope(unencoded_rope &&) noexcept = default;
 
         /** Constructs an unencoded_rope from a null-terminated string. */
-        unencoded_rope(char const * c_str);
+        unencoded_rope(char const * c_str) { insert(begin(), c_str); }
 
         /** Constructs an unencoded_rope from an unencoded_rope_view. */
         explicit unencoded_rope(unencoded_rope_view rv);
@@ -120,7 +120,12 @@ namespace boost { namespace text {
         }
 
         /** Assignment from a null-terminated string. */
-        unencoded_rope & operator=(char const * c_str);
+        unencoded_rope & operator=(char const * c_str)
+        {
+            unencoded_rope temp(c_str);
+            swap(temp);
+            return *this;
+        }
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -232,15 +237,26 @@ namespace boost { namespace text {
 
         template<typename CharRange>
         auto insert(size_type at, CharRange const & r)
-            -> detail::rng_alg_ret_t<unencoded_rope &, CharRange, string_view>;
+            -> detail::rng_alg_ret_t<unencoded_rope &, CharRange, string_view>
+        {
+            insert(begin() + at, std::begin(r), std::end(r));
+            return *this;
+        }
 
         template<typename CharRange>
         auto insert(const_iterator at, CharRange const & r)
-            -> detail::rng_alg_ret_t<const_iterator, CharRange, string_view>;
+            -> detail::rng_alg_ret_t<const_iterator, CharRange, string_view>
+        {
+            return insert(at, std::begin(r), std::end(r));
+        }
 
         template<typename CharIter, typename Sentinel>
         auto insert(size_type at, CharIter first, Sentinel last)
-            -> detail::char_iter_ret_t<unencoded_rope &, CharIter>;
+            -> detail::char_iter_ret_t<unencoded_rope &, CharIter>
+        {
+            insert(begin() + at, first, last);
+            return *this;
+        }
 
 #endif
 
@@ -312,7 +328,11 @@ namespace boost { namespace text {
         unencoded_rope & operator+=(unencoded_rope_view rv);
 
         /** Appends t to *this, by moving its contents into *this. */
-        unencoded_rope & operator+=(std::string && s);
+        unencoded_rope & operator+=(std::string && s)
+        {
+            insert(end(), std::move(s));
+            return *this;
+        }
 
 
 #ifdef BOOST_TEXT_DOXYGEN
@@ -371,16 +391,10 @@ namespace boost { namespace text {
 
 #include <boost/text/detail/rope_iterator.hpp>
 #include <boost/text/unencoded_rope_view.hpp>
-#include <boost/text/detail/make_string.hpp>
 
 #ifndef BOOST_TEXT_DOXYGEN
 
 namespace boost { namespace text {
-
-    inline unencoded_rope::unencoded_rope(char const * c_str)
-    {
-        insert(begin(), c_str);
-    }
 
     inline unencoded_rope::unencoded_rope(unencoded_rope_view rv)
     {
@@ -393,13 +407,6 @@ namespace boost { namespace text {
         if (self_reference(rv))
             extra_ref = *this;
         unencoded_rope temp(rv);
-        swap(temp);
-        return *this;
-    }
-
-    inline unencoded_rope & unencoded_rope::operator=(char const * c_str)
-    {
-        unencoded_rope temp(c_str);
         swap(temp);
         return *this;
     }
@@ -418,29 +425,6 @@ namespace boost { namespace text {
         if (self_reference(rv))
             extra_ref = *this;
         return insert(at, std::string(rv.begin(), rv.end()));
-    }
-
-    template<typename CharRange>
-    auto unencoded_rope::insert(size_type at, CharRange const & r)
-        -> detail::rng_alg_ret_t<unencoded_rope &, CharRange, string_view>
-    {
-        insert(begin() + at, std::begin(r), std::end(r));
-        return *this;
-    }
-
-    template<typename CharRange>
-    auto unencoded_rope::insert(const_iterator at, CharRange const & r)
-        -> detail::rng_alg_ret_t<const_iterator, CharRange, string_view>
-    {
-        return insert(at, std::begin(r), std::end(r));
-    }
-
-    template<typename CharIter, typename Sentinel>
-    auto unencoded_rope::insert(size_type at, CharIter first, Sentinel last)
-        -> detail::char_iter_ret_t<unencoded_rope &, CharIter>
-    {
-        insert(begin() + at, first, last);
-        return *this;
     }
 
     inline unencoded_rope & unencoded_rope::erase(unencoded_rope_view rv)
@@ -522,12 +506,6 @@ namespace boost { namespace text {
         if (self_reference(rv))
             extra_ref = *this;
         insert(end(), rv);
-        return *this;
-    }
-
-    inline unencoded_rope & unencoded_rope::operator+=(std::string && s)
-    {
-        insert(end(), std::move(s));
         return *this;
     }
 
@@ -680,65 +658,6 @@ namespace boost { namespace text {
         which_(which::r)
     {}
 
-    inline unencoded_rope_view::unencoded_rope_view(std::string const & s) noexcept :
-        ref_(string_view(s.data(), s.size())),
-        which_(which::tv)
-    {}
-
-    inline unencoded_rope_view::unencoded_rope_view(
-        std::string const & s, size_type lo, size_type hi) :
-        ref_(detail::substring(s, lo, hi)), which_(which::tv)
-    {}
-
-    template<typename ContigCharRange>
-    unencoded_rope_view::unencoded_rope_view(
-        ContigCharRange const & r,
-        detail::contig_rng_alg_ret_t<int *, ContigCharRange>) :
-        ref_(rope_ref())
-    {
-        if (std::begin(r) == std::end(r)) {
-            *this = unencoded_rope_view();
-        } else {
-            *this = unencoded_rope_view(
-                string_view(&*std::begin(r), std::end(r) - std::begin(r)));
-        }
-    }
-
-    template<typename ContigGraphemeRange>
-    unencoded_rope_view::unencoded_rope_view(
-        ContigGraphemeRange const & r,
-        detail::contig_graph_rng_alg_ret_t<int *, ContigGraphemeRange>) :
-        ref_(rope_ref())
-    {
-        if (std::begin(r) == std::end(r)) {
-            *this = unencoded_rope_view();
-        } else {
-            *this = unencoded_rope_view(string_view(
-                &*std::begin(r).base().base(),
-                std::end(r).base().base() - std::begin(r).base().base()));
-        }
-    }
-
-    inline unencoded_rope_view::const_iterator
-    unencoded_rope_view::begin() const noexcept
-    {
-        switch (which_) {
-        case which::r: return const_iterator(ref_.r_.r_->begin() + ref_.r_.lo_);
-        case which::tv: return const_iterator(ref_.tv_.begin());
-        }
-        return const_iterator(); // This should never execute.
-    }
-
-    inline unencoded_rope_view::const_iterator unencoded_rope_view::end() const
-        noexcept
-    {
-        switch (which_) {
-        case which::r: return const_iterator(ref_.r_.r_->begin() + ref_.r_.hi_);
-        case which::tv: return const_iterator(ref_.tv_.end());
-        }
-        return const_iterator(); // This should never execute.
-    }
-
     inline unencoded_rope_view::const_iterator
     unencoded_rope_view::cbegin() const noexcept
     {
@@ -789,37 +708,6 @@ namespace boost { namespace text {
         return begin()[i];
     }
 
-    inline unencoded_rope_view unencoded_rope_view::
-    operator()(std::ptrdiff_t lo, std::ptrdiff_t hi) const
-    {
-        if (lo < 0)
-            lo += size();
-        if (hi < 0)
-            hi += size();
-        BOOST_ASSERT(0 <= lo && lo <= (std::ptrdiff_t)size());
-        BOOST_ASSERT(0 <= hi && hi <= (std::ptrdiff_t)size());
-        BOOST_ASSERT(lo <= hi);
-        switch (which_) {
-        case which::r:
-            return unencoded_rope_view(
-                ref_.r_.r_, ref_.r_.lo_ + lo, ref_.r_.lo_ + hi);
-        case which::tv:
-            return unencoded_rope_view(detail::substring(ref_.tv_, lo, hi));
-        }
-        return *this; // This should never execute.
-    }
-
-    inline unencoded_rope_view & unencoded_rope_view::
-    operator=(unencoded_rope_view const & other) noexcept
-    {
-        which_ = other.which_;
-        switch (which_) {
-        case which::r: ref_.r_ = other.ref_.r_; break;
-        case which::tv: ref_.tv_ = other.ref_.tv_; break;
-        }
-        return *this;
-    }
-
     inline int unencoded_rope_view::compare(unencoded_rope_view rhs) const
         noexcept
     {
@@ -843,23 +731,6 @@ namespace boost { namespace text {
         } else {
             return 1;
         }
-    }
-
-
-    /** Stream inserter; performs formatted output. */
-    inline std::ostream & operator<<(std::ostream & os, unencoded_rope_view rv)
-    {
-        if (os.good()) {
-            auto const size = rv.size();
-            detail::pad_width_before(os, size);
-            if (os.good()) {
-                std::ostream_iterator<char> out(os);
-                std::copy(rv.begin(), rv.end(), out);
-            }
-            if (os.good())
-                detail::pad_width_after(os, size);
-        }
-        return os;
     }
 
     namespace detail {

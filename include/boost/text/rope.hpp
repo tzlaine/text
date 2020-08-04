@@ -495,6 +495,7 @@ namespace boost { namespace text {
 #include <boost/text/normalize_string.hpp>
 #include <boost/text/normalize_algorithm.hpp>
 #include <boost/text/detail/rope_iterator.hpp>
+#include <boost/text/detail/make_string.hpp>
 
 #ifndef BOOST_TEXT_DOXYGEN
 

@@ -590,6 +590,7 @@ namespace boost { namespace text {
 #include <boost/text/text_view.hpp>
 #include <boost/text/rope.hpp>
 #include <boost/text/normalize_algorithm.hpp>
+#include <boost/text/detail/make_string.hpp>
 
 namespace boost { namespace text {
 

@@ -8,7 +8,7 @@
 
 #include <boost/text/segmented_vector.hpp>
 
-#include <boost/text/detail/iterator.hpp>
+#include <boost/text/detail/rope_iterator.hpp>
 #include <boost/text/detail/rope.hpp>
 
 
@@ -63,7 +63,9 @@ namespace boost { namespace text {
 
         /** Constructs an unencoded_rope_view covering the entire given
             string. */
-        unencoded_rope_view(std::string const & s) noexcept;
+        unencoded_rope_view(std::string const & s) noexcept :
+            ref_(string_view(s.data(), s.size())), which_(which::tv)
+        {}
 
         /** Forbid construction from a temporary string. */
         unencoded_rope_view(std::string && r) noexcept = delete;
@@ -86,7 +88,9 @@ namespace boost { namespace text {
             \pre lo <= hi
             \post size() == s.size() && begin() == s.begin() + lo && end() ==
             s.begin() + hi */
-        unencoded_rope_view(std::string const & s, size_type lo, size_type hi);
+        unencoded_rope_view(std::string const & s, size_type lo, size_type hi) :
+            ref_(detail::substring(s, lo, hi)), which_(which::tv)
+        {}
 
         /** Constructs an unencoded_rope_view from a null-terminated C string.
 
@@ -125,17 +129,53 @@ namespace boost { namespace text {
         template<typename ContigCharRange>
         explicit unencoded_rope_view(
             ContigCharRange const & r,
-            detail::contig_rng_alg_ret_t<int *, ContigCharRange> = 0);
+            detail::contig_rng_alg_ret_t<int *, ContigCharRange> = 0) :
+            ref_(rope_ref())
+        {
+            if (std::begin(r) == std::end(r)) {
+                *this = unencoded_rope_view();
+            } else {
+                *this = unencoded_rope_view(
+                    string_view(&*std::begin(r), std::end(r) - std::begin(r)));
+            }
+        }
 
         template<typename ContigGraphemeRange>
         explicit unencoded_rope_view(
             ContigGraphemeRange const & r,
-            detail::contig_graph_rng_alg_ret_t<int *, ContigGraphemeRange> = 0);
+            detail::contig_graph_rng_alg_ret_t<int *, ContigGraphemeRange> =
+                0) :
+            ref_(rope_ref())
+        {
+            if (std::begin(r) == std::end(r)) {
+                *this = unencoded_rope_view();
+            } else {
+                *this = unencoded_rope_view(string_view(
+                    &*std::begin(r).base().base(),
+                    std::end(r).base().base() - std::begin(r).base().base()));
+            }
+        }
 
 #endif
 
-        const_iterator begin() const noexcept;
-        const_iterator end() const noexcept;
+        const_iterator begin() const noexcept
+        {
+            switch (which_) {
+            case which::r:
+                return const_iterator(ref_.r_.r_->begin() + ref_.r_.lo_);
+            case which::tv: return const_iterator(ref_.tv_.begin());
+            }
+            return const_iterator(); // This should never execute.
+        }
+        const_iterator end() const noexcept
+        {
+            switch (which_) {
+            case which::r:
+                return const_iterator(ref_.r_.r_->begin() + ref_.r_.hi_);
+            case which::tv: return const_iterator(ref_.tv_.end());
+            }
+            return const_iterator(); // This should never execute.
+        }
 
         const_iterator cbegin() const noexcept;
         const_iterator cend() const noexcept;
@@ -166,7 +206,25 @@ namespace boost { namespace text {
             \pre 0 <= lo && lo <= size()
             \pre 0 <= hi && lhi <= size()
             \pre lo <= hi */
-        unencoded_rope_view operator()(std::ptrdiff_t lo, std::ptrdiff_t hi) const;
+        unencoded_rope_view
+        operator()(std::ptrdiff_t lo, std::ptrdiff_t hi) const
+        {
+            if (lo < 0)
+                lo += size();
+            if (hi < 0)
+                hi += size();
+            BOOST_ASSERT(0 <= lo && lo <= (std::ptrdiff_t)size());
+            BOOST_ASSERT(0 <= hi && hi <= (std::ptrdiff_t)size());
+            BOOST_ASSERT(lo <= hi);
+            switch (which_) {
+            case which::r:
+                return unencoded_rope_view(
+                    ref_.r_.r_, ref_.r_.lo_ + lo, ref_.r_.lo_ + hi);
+            case which::tv:
+                return unencoded_rope_view(detail::substring(ref_.tv_, lo, hi));
+            }
+            return *this; // This should never execute.
+        }
 
         /** Returns a substring of *this, taken from the first cut chars when
             cut => 0, or the last -cut chars when cut < 0.
@@ -193,7 +251,16 @@ namespace boost { namespace text {
             0 if *this is lexicographically greater than rhs. */
         int compare(unencoded_rope_view rhs) const noexcept;
 
-        unencoded_rope_view & operator=(unencoded_rope_view const & r) noexcept;
+        unencoded_rope_view &
+        operator=(unencoded_rope_view const & other) noexcept
+        {
+            which_ = other.which_;
+            switch (which_) {
+            case which::r: ref_.r_ = other.ref_.r_; break;
+            case which::tv: ref_.tv_ = other.ref_.tv_; break;
+            }
+            return *this;
+        }
 
         /** Assignment from an unencoded_rope. */
         unencoded_rope_view & operator=(unencoded_rope const & r) noexcept
@@ -268,6 +335,23 @@ namespace boost { namespace text {
         }
 
 #endif
+
+        /** Stream inserter; performs formatted output. */
+        friend std::ostream &
+        operator<<(std::ostream & os, unencoded_rope_view rv)
+        {
+            if (os.good()) {
+                auto const size = rv.size();
+                detail::pad_width_before(os, size);
+                if (os.good()) {
+                    std::ostream_iterator<char> out(os);
+                    std::copy(rv.begin(), rv.end(), out);
+                }
+                if (os.good())
+                    detail::pad_width_after(os, size);
+            }
+            return os;
+        }
 
 #ifndef BOOST_TEXT_DOXYGEN
 
