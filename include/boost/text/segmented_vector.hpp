@@ -6,6 +6,7 @@
 #ifndef BOOST_TEXT_SEGMENTED_VECTOR_HPP
 #define BOOST_TEXT_SEGMENTED_VECTOR_HPP
 
+#include <boost/text/segmented_vector_fwd.hpp>
 #include <boost/text/detail/btree.hpp>
 #include <boost/text/detail/iterator.hpp>
 #include <boost/text/detail/vector_iterator.hpp>
@@ -18,7 +19,7 @@
 namespace boost { namespace text {
 
     namespace detail {
-        constexpr int vec_insert_max = 512;
+        constexpr int seg_insert_max = 512;
     }
 
     /** A sequence container of `T` with discontiguous storage.  Insertion and
@@ -26,10 +27,10 @@ namespace boost { namespace text {
         of the entire container are extremely cheap.  The elements are
         immutable.  In order to "mutate" one, use the single-element overload
         of `replace()`. */
-    template<typename T>
+    template<typename T, typename Segment>
     struct segmented_vector
         : boost::stl_interfaces::sequence_container_interface<
-              segmented_vector<T>,
+              segmented_vector<T, Segment>,
               boost::stl_interfaces::element_layout::discontiguous>
     {
         using value_type = T;
@@ -39,15 +40,17 @@ namespace boost { namespace text {
         using const_reference = reference;
         using size_type = std::size_t;
         using difference_type = std::ptrdiff_t;
-        using iterator = detail::const_vector_iterator<T>;
+        using iterator = detail::const_vector_iterator<T, Segment>;
         using const_iterator = iterator;
         using reverse_iterator = stl_interfaces::reverse_iterator<iterator>;
         using const_reverse_iterator = reverse_iterator;
+        using segment_type = Segment;
 
         /** Default ctor.
 
             \post `size() == 0 && begin() == end()` */
-        segmented_vector() noexcept : ptr_() {}
+        segmented_vector() noexcept : ptr_()
+        {}
 
         explicit segmented_vector(size_type n) : ptr_() { resize(n); }
         explicit segmented_vector(size_type n, T const & x) : ptr_()
@@ -80,9 +83,7 @@ namespace boost { namespace text {
                 erase(begin() + sz, end());
             } else {
                 ptr_ = detail::btree_insert(
-                    ptr_,
-                    size(),
-                    detail::make_node(std::vector<T>(size() - sz)));
+                    ptr_, size(), detail::make_node(segment_type(size() - sz)));
             }
         }
         void resize(size_type sz, T const & x) noexcept
@@ -93,23 +94,23 @@ namespace boost { namespace text {
                 ptr_ = detail::btree_insert(
                     ptr_,
                     size(),
-                    detail::make_node(std::vector<T>(size() - sz, x)));
+                    detail::make_node(segment_type(size() - sz, x)));
             }
         }
 
         template<typename Iter, typename Sentinel>
         void assign(Iter first, Sentinel last)
         {
-            std::vector<T> vec;
+            std::vector<T> seg;
             for (; first != last; ++first) {
                 seg.push_back(*first);
             }
-            replace(begin(), end(), std::move(vec));
+            replace(begin(), end(), std::move(seg));
         }
         template<typename Iter>
         void assign(size_type n, T const & x)
         {
-            replace(begin(), end(), std::vector<T>(n, x));
+            replace(begin(), end(), segment_type(n, x));
         }
 
         template<typename... Args>
@@ -129,17 +130,17 @@ namespace boost { namespace text {
 
             int const offset = at - begin();
 
-            if (vec_insertion insertion =
+            if (seg_insertion insertion =
                     mutable_insertion_leaf(at, 1, would_allocate)) {
                 detail::bump_along_path_to_leaf(ptr_, at - begin(), 1);
-                insertion.vec_->insert(
-                    insertion.vec_->begin() + insertion.found_.offset_,
+                insertion.seg_->insert(
+                    insertion.seg_->begin() + insertion.found_.offset_,
                     T((Args &&) args...));
             } else {
                 ptr_ = detail::btree_insert(
                     ptr_,
                     offset,
-                    detail::make_node(std::vector<T>(1, T((Args &&) args...))));
+                    detail::make_node(segment_type(1, T((Args &&) args...))));
             }
 
             return begin() + offset;
@@ -154,17 +155,17 @@ namespace boost { namespace text {
 
             int const offset = at - begin();
 
-            std::vector<T> vec;
+            segment_type seg;
             for (; first != last; ++first) {
-                vec.push_back(*first);
+                seg.push_back(*first);
             }
 
             ptr_ = detail::btree_insert(
-                ptr_, offset, detail::make_node(std::move(vec)));
+                ptr_, offset, detail::make_node(std::move(seg)));
 
             return begin() + offset;
         }
-        const_iterator insert(const_iterator at, std::vector<T> v)
+        const_iterator insert(const_iterator at, segment_type v)
         {
             BOOST_ASSERT(begin() <= at && at <= end());
 
@@ -173,12 +174,12 @@ namespace boost { namespace text {
 
             int const offset = at - begin();
 
-            if (vec_insertion insertion =
+            if (seg_insertion insertion =
                     mutable_insertion_leaf(at, v.size(), would_not_allocate)) {
                 auto const v_size = v.size();
                 detail::bump_along_path_to_leaf(ptr_, at - begin(), v_size);
-                insertion.vec_->insert(
-                    insertion.vec_->begin() + insertion.found_.offset_,
+                insertion.seg_->insert(
+                    insertion.seg_->begin() + insertion.found_.offset_,
                     v.begin(),
                     v.end());
             } else {
@@ -201,12 +202,12 @@ namespace boost { namespace text {
             auto const lo = first - begin();
             auto const hi = last - begin();
             auto const size = hi - lo;
-            if (vec_insertion insertion =
+            if (seg_insertion insertion =
                     mutable_insertion_leaf(first, -size, would_not_allocate)) {
                 detail::bump_along_path_to_leaf(ptr_, lo, -size);
-                insertion.vec_->erase(
-                    insertion.vec_->begin() + insertion.found_.offset_,
-                    insertion.vec_->begin() + insertion.found_.offset_ + size);
+                insertion.seg_->erase(
+                    insertion.seg_->begin() + insertion.found_.offset_,
+                    insertion.seg_->begin() + insertion.found_.offset_ + size);
             } else {
                 ptr_ = btree_erase(ptr_, lo, hi);
             }
@@ -217,7 +218,7 @@ namespace boost { namespace text {
         void swap(segmented_vector & other) { ptr_.swap(other.ptr_); }
 
         using base_type = boost::stl_interfaces::sequence_container_interface<
-            segmented_vector<T>,
+            segmented_vector<T, Segment>,
             boost::stl_interfaces::element_layout::discontiguous>;
         using base_type::begin;
         using base_type::end;
@@ -245,16 +246,16 @@ namespace boost { namespace text {
         {
             BOOST_ASSERT(begin() <= at && at <= end());
 
-            if (vec_insertion insertion =
+            if (seg_insertion insertion =
                     mutable_insertion_leaf(at, 0, would_allocate)) {
-                (*insertion.vec_)[insertion.found_.offset_] = std::move(t);
+                (*insertion.seg_)[insertion.found_.offset_] = std::move(t);
             } else {
                 auto const offset = at - begin();
                 ptr_ = detail::btree_erase(ptr_, offset, offset + 1);
                 ptr_ = detail::btree_insert(
                     ptr_,
                     offset,
-                    detail::make_node(std::vector<T>(1, std::move(t))));
+                    detail::make_node(segment_type(1, std::move(t))));
             }
 
             return *this;
@@ -265,7 +266,7 @@ namespace boost { namespace text {
 
             \pre `begin() <= old_substr.begin() && old_substr.end() <= end()` */
         segmented_vector &
-        replace(const_iterator first, const_iterator last, std::vector<T> v)
+        replace(const_iterator first, const_iterator last, segment_type v)
         {
             auto const it = erase(first, last);
             insert(it, std::move(v));
@@ -288,28 +289,66 @@ namespace boost { namespace text {
             return *this;
         }
 
+        /** Visits each segment s of *this and calls f(s).  Each segment is a
+            string_view.  Depending of the operation performed on each
+            segment, this may be more efficient than iterating over [begin(),
+            end()).
+
+            \pre Fn is an invocable accepting an iterator and a sentinel. */
+        template<typename Fn>
+        void foreach_segment(Fn && f) const
+        {
+            detail::foreach_leaf(
+                ptr_, [&](detail::leaf_node_t<T, Segment> const * leaf) {
+                    switch (leaf->which_) {
+                    case detail::leaf_node_t<T, Segment>::which::seg:
+                        f(leaf->as_seg().begin(), leaf->as_seg().end());
+                        break;
+                    case detail::leaf_node_t<T, Segment>::which::ref: {
+                        auto const & ref = leaf->as_reference();
+                        auto const leaf_begin =
+                            ref.seg_.as_leaf()->as_seg().begin();
+                        f(leaf_begin + ref.lo_, leaf_begin + ref.hi_);
+                        break;
+                    }
+                    default: BOOST_ASSERT(!"unhandled rope node case"); break;
+                    }
+                    return true;
+                });
+        }
+
+#ifdef BOOST_TEXT_TESTING
+        friend void dump_tree(std::ostream & os, segmented_vector const & s)
+        {
+            if (s.empty())
+                os << "[EMPTY]\n";
+            else
+                detail::dump_tree(os, s.ptr_);
+        }
+#endif
+
 #ifndef BOOST_TEXT_DOXYGEN
 
     private:
         enum allocation_note_t { would_allocate, would_not_allocate };
 
-        struct vec_insertion
+        struct seg_insertion
         {
-            explicit operator bool() const { return vec_ != nullptr; }
+            explicit operator bool() const { return seg_ != nullptr; }
 
-            std::vector<T> * vec_;
-            detail::found_leaf<T> found_;
+            segment_type * seg_;
+            detail::found_leaf<T, Segment> found_;
         };
 
-        vec_insertion mutable_insertion_leaf(
+        seg_insertion mutable_insertion_leaf(
             const_iterator at,
             size_type delta,
             allocation_note_t allocation_note)
         {
             if (!ptr_)
-                return vec_insertion{nullptr};
+                return seg_insertion{nullptr};
 
-            detail::found_leaf<T> found;
+            detail::found_leaf<T, Segment> found;
             if (0 < delta && at == end()) {
                 detail::find_leaf(ptr_, at - begin() - 1, found);
                 ++found.offset_;
@@ -319,33 +358,33 @@ namespace boost { namespace text {
 
             for (auto node : found.path_) {
                 if (1 < node->refs_)
-                    return vec_insertion{nullptr};
+                    return seg_insertion{nullptr};
             }
 
             if (1 < found.leaf_->get()->refs_)
-                return vec_insertion{nullptr};
+                return seg_insertion{nullptr};
 
             if (found.leaf_->as_leaf()->which_ ==
-                detail::leaf_node_t<T>::which::vec) {
-                std::vector<T> & v = const_cast<std::vector<T> &>(
-                    found.leaf_->as_leaf()->as_vec());
+                detail::leaf_node_t<T, Segment>::which::seg) {
+                segment_type & v = const_cast<segment_type &>(
+                    found.leaf_->as_leaf()->as_seg());
                 auto const inserted_size = v.size() + delta;
                 if (delta < 0 && v.size() < found.offset_ + -delta) {
-                    return vec_insertion{nullptr};
+                    return seg_insertion{nullptr};
                 }
                 if ((0 < inserted_size && inserted_size <= v.capacity()) ||
                     (allocation_note == would_allocate &&
-                     inserted_size <= detail::vec_insert_max)) {
-                    return vec_insertion{&v, found};
+                     inserted_size <= detail::seg_insert_max)) {
+                    return seg_insertion{&v, found};
                 }
             }
 
-            return vec_insertion{nullptr};
+            return seg_insertion{nullptr};
         }
 
-        detail::node_ptr<T> ptr_;
+        detail::node_ptr<T, Segment> ptr_;
 
-        friend struct detail::const_vector_iterator<T>;
+        friend struct detail::const_vector_iterator<T, Segment>;
 
 #endif
     };

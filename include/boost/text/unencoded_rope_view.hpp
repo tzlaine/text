@@ -6,6 +6,8 @@
 #ifndef BOOST_TEXT_UNENCODED_ROPE_VIEW_HPP
 #define BOOST_TEXT_UNENCODED_ROPE_VIEW_HPP
 
+#include <boost/text/segmented_vector.hpp>
+
 #include <boost/text/detail/iterator.hpp>
 #include <boost/text/detail/rope.hpp>
 
@@ -16,8 +18,6 @@ namespace boost { namespace text {
 
     namespace detail {
         struct const_rope_view_iterator;
-        using const_reverse_rope_view_iterator =
-            stl_interfaces::reverse_iterator<const_rope_view_iterator>;
     }
 
     /** A reference to a substring of an unencoded_rope, string, or
@@ -27,9 +27,9 @@ namespace boost { namespace text {
         using value_type = char;
         using size_type = std::size_t;
         using iterator = detail::const_rope_view_iterator;
-        using const_iterator = detail::const_rope_view_iterator;
-        using reverse_iterator = detail::const_reverse_rope_view_iterator;
-        using const_reverse_iterator = detail::const_reverse_rope_view_iterator;
+        using const_iterator = iterator;
+        using reverse_iterator = stl_interfaces::reverse_iterator<iterator>;
+        using const_reverse_iterator = reverse_iterator;
 
         /** Default ctor.
 
@@ -188,17 +188,6 @@ namespace boost { namespace text {
         /** Returns the maximum size a string_view can have. */
         size_type max_size() const noexcept { return PTRDIFF_MAX; }
 
-        /** Visits each segment s of the underlying unencoded_rope and calls
-            f(s).  Each segment is a value whose type models a CharIter
-            iterator-range.  Depending of the operation performed on each
-            segment, this may be more efficient than iterating over [begin(),
-            end()).
-
-            \pre Fn is an Invocable accepting a single argument whose begin
-            and end model CharIter. */
-        template<typename Fn>
-        void foreach_segment(Fn && f) const;
-
         /** Lexicographical compare.  Returns a value < 0 when *this is
             lexicographically less than rhs, 0 if *this == rhs, and a value >
             0 if *this is lexicographically greater than rhs. */
@@ -289,15 +278,13 @@ namespace boost { namespace text {
         {
             rope_ref() : r_(nullptr), lo_(0), hi_(0) {}
             rope_ref(
-                unencoded_rope const * r,
+                segmented_vector<char, std::string> const * r,
                 std::ptrdiff_t lo,
                 std::ptrdiff_t hi) :
-                r_(r),
-                lo_(lo),
-                hi_(hi)
+                r_(r), lo_(lo), hi_(hi)
             {}
 
-            unencoded_rope const * r_;
+            segmented_vector<char, std::string> const * r_;
             size_type lo_;
             size_type hi_;
         };
@@ -312,7 +299,9 @@ namespace boost { namespace text {
         };
 
         unencoded_rope_view(
-            unencoded_rope const * r, std::size_t lo, std::size_t hi) :
+            segmented_vector<char, std::string> const * r,
+            std::size_t lo,
+            std::size_t hi) :
             ref_(rope_ref(r, lo, hi)), which_(which::r)
         {}
 
@@ -320,6 +309,7 @@ namespace boost { namespace text {
         which which_;
 
         friend struct unencoded_rope;
+        friend struct rope_view;
 #endif
     };
 

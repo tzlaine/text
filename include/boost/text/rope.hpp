@@ -31,10 +31,6 @@
 
 namespace boost { namespace text {
 
-    namespace detail {
-        struct const_rope_iterator;
-    }
-
     struct text;
     struct rope_view;
 
@@ -46,7 +42,7 @@ namespace boost { namespace text {
         using value_type = grapheme;
         using size_type = std::size_t;
         using iterator = grapheme_iterator<
-            utf_8_to_32_iterator<detail::const_rope_iterator>>;
+            utf_8_to_32_iterator<unencoded_rope::const_iterator>>;
         using const_iterator = iterator;
         using reverse_iterator = stl_interfaces::reverse_iterator<iterator>;
         using const_reverse_iterator = reverse_iterator;
@@ -392,12 +388,12 @@ namespace boost { namespace text {
 
     private:
         static const_iterator make_iter(
-            detail::const_rope_iterator first,
-            detail::const_rope_iterator it,
-            detail::const_rope_iterator last) noexcept;
+            unencoded_rope::const_iterator first,
+            unencoded_rope::const_iterator it,
+            unencoded_rope::const_iterator last) noexcept;
 
         using mutable_utf32_iter =
-            utf_8_to_32_iterator<detail::const_rope_iterator>;
+            utf_8_to_32_iterator<unencoded_rope::const_iterator>;
 
         mutable_utf32_iter prev_stable_cp(mutable_utf32_iter last) noexcept;
         mutable_utf32_iter next_stable_cp(mutable_utf32_iter first) noexcept;
@@ -846,15 +842,15 @@ namespace boost { namespace text {
     }
 
     inline rope::const_iterator rope::make_iter(
-        detail::const_rope_iterator first,
-        detail::const_rope_iterator it,
-        detail::const_rope_iterator last) noexcept
+        unencoded_rope::const_iterator first,
+        unencoded_rope::const_iterator it,
+        unencoded_rope::const_iterator last) noexcept
     {
         return const_iterator{
-            utf_8_to_32_iterator<detail::const_rope_iterator>{
+            utf_8_to_32_iterator<unencoded_rope::const_iterator>{
                 first, first, last},
-            utf_8_to_32_iterator<detail::const_rope_iterator>{first, it, last},
-            utf_8_to_32_iterator<detail::const_rope_iterator>{
+            utf_8_to_32_iterator<unencoded_rope::const_iterator>{first, it, last},
+            utf_8_to_32_iterator<unencoded_rope::const_iterator>{
                 first, last, last}};
     }
 

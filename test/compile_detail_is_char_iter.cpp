@@ -6,6 +6,7 @@
 #include <boost/text/algorithm.hpp>
 #include <boost/text/string_view.hpp>
 #include <boost/text/unencoded_rope.hpp>
+#include <boost/text/rope_view.hpp>
 #include <boost/text/detail/algorithm.hpp>
 
 #include <array>
@@ -42,11 +43,6 @@ static_assert(std::is_same<int *, text::detail::char_iter_ret_t<int *, text::une
 static_assert(std::is_same<int *, text::detail::char_iter_ret_t<int *, text::unencoded_rope_view::const_iterator>>::value, "");
 static_assert(std::is_same<int *, text::detail::char_iter_ret_t<int *, text::unencoded_rope_view::reverse_iterator>>::value, "");
 static_assert(std::is_same<int *, text::detail::char_iter_ret_t<int *, text::unencoded_rope_view::const_reverse_iterator>>::value, "");
-
-static_assert(std::is_same<int *, text::detail::char_iter_ret_t<int *, text::detail::const_rope_view_iterator>>::value, "");
-static_assert(std::is_same<int *, text::detail::char_iter_ret_t<int *, text::detail::const_rope_view_iterator>>::value, "");
-static_assert(std::is_same<int *, text::detail::char_iter_ret_t<int *, text::detail::const_reverse_rope_view_iterator>>::value, "");
-static_assert(std::is_same<int *, text::detail::char_iter_ret_t<int *, text::detail::const_reverse_rope_view_iterator>>::value, "");
 
 static_assert(text::detail::is_char_iter<text::unencoded_rope::iterator>{}, "");
 static_assert(text::detail::is_char_iter<text::unencoded_rope::const_iterator>{}, "");

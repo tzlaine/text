@@ -6,7 +6,9 @@
 #ifndef BOOST_TEXT_DETAIL_ROPE_ITERATOR_HPP
 #define BOOST_TEXT_DETAIL_ROPE_ITERATOR_HPP
 
-#include <boost/text/detail/iterator.hpp>
+#include <boost/text/segmented_vector.hpp>
+
+#include <string>
 
 
 namespace boost { namespace text {
@@ -18,104 +20,21 @@ namespace boost { namespace text {
 
 namespace boost { namespace text { namespace detail {
 
-    struct const_rope_iterator : stl_interfaces::iterator_interface<
-                                     const_rope_iterator,
-                                     std::random_access_iterator_tag,
-                                     char,
-                                     char>
-    {
-        const_rope_iterator() noexcept :
-            rope_(nullptr),
-            n_(-1),
-            leaf_(nullptr),
-            leaf_start_(-1)
-        {}
-
-        const_rope_iterator(
-            unencoded_rope const & r, std::ptrdiff_t n) noexcept :
-            rope_(&r),
-            n_(n),
-            leaf_(nullptr),
-            leaf_start_(0)
-        {}
-
-        char operator*() const noexcept
-        {
-            if (leaf_) {
-                return deref();
-            } else {
-                found_char found;
-                find_char(rope_->ptr_, n_, found);
-                leaf_ = found.leaf_.leaf_->as_leaf();
-                leaf_start_ = n_ - found.leaf_.offset_;
-                return found.c_;
-            }
-        }
-
-        const_rope_iterator & operator+=(std::ptrdiff_t n) noexcept
-        {
-            n_ += n;
-            leaf_ = nullptr;
-            return *this;
-        }
-
-        friend std::ptrdiff_t
-        operator-(const_rope_iterator lhs, const_rope_iterator rhs) noexcept
-        {
-            BOOST_ASSERT(lhs.rope_ == rhs.rope_);
-            return lhs.n_ - rhs.n_;
-        }
-
-    private:
-        const_rope_iterator(
-            unencoded_rope const * r, std::ptrdiff_t n) noexcept :
-            rope_(r),
-            n_(n),
-            leaf_(nullptr),
-            leaf_start_(0)
-        {}
-
-        char deref() const
-        {
-            switch (leaf_->which_) {
-            case which::t: {
-                std::string const * t =
-                    static_cast<std::string *>(leaf_->buf_ptr_);
-                return *(t->begin() + (n_ - leaf_start_));
-            }
-            case which::ref: {
-                detail::reference<rope_tag> const * ref =
-                    static_cast<detail::reference<rope_tag> *>(leaf_->buf_ptr_);
-                return *(ref->ref_.begin() + (n_ - leaf_start_));
-            }
-            default: BOOST_ASSERT(!"unhandled rope node case"); break;
-            }
-            return '\0'; // This should never execute.
-        }
-
-        unencoded_rope const * rope_;
-        std::ptrdiff_t n_;
-        mutable leaf_node_t<rope_tag> const * leaf_;
-        mutable std::ptrdiff_t leaf_start_;
-
-        friend struct ::boost::text::unencoded_rope_view;
-        friend struct ::boost::text::rope_view;
-    };
-
     struct const_rope_view_iterator : stl_interfaces::iterator_interface<
                                           const_rope_view_iterator,
                                           std::random_access_iterator_tag,
                                           char,
                                           char>
     {
+        using const_rope_iterator =
+            segmented_vector<char, std::string>::const_iterator;
+
         const_rope_view_iterator() noexcept : which_(which::r) {}
         explicit const_rope_view_iterator(const_rope_iterator it) noexcept :
-            r_(it),
-            which_(which::r)
+            r_(it), which_(which::r)
         {}
         explicit const_rope_view_iterator(char const * it) noexcept :
-            tv_(it),
-            which_(which::tv)
+            tv_(it), which_(which::tv)
         {}
 
         const_rope_iterator as_rope_iter() const

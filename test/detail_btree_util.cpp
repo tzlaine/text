@@ -13,8 +13,8 @@ using namespace boost::text::detail;
 TEST(detail_btree_util, test_node_ptr)
 {
     {
-        node_ptr<int> p0(new_interior_node<int>());
-        node_ptr<int> p1 = p0;
+        node_ptr<int, std::vector<int>> p0(new_interior_node<int, std::vector<int>>());
+        node_ptr<int, std::vector<int>> p1 = p0;
 
         EXPECT_EQ(p0->refs_, 2);
         EXPECT_EQ(p1->refs_, 2);
@@ -34,8 +34,8 @@ TEST(detail_btree_util, test_node_ptr)
     }
 
     {
-        node_ptr<int> p0(new leaf_node_t<int>);
-        node_ptr<int> p1 = p0;
+        node_ptr<int, std::vector<int>> p0(new leaf_node_t<int, std::vector<int>>);
+        node_ptr<int, std::vector<int>> p1 = p0;
 
         EXPECT_EQ(p0->refs_, 2);
         EXPECT_EQ(p1->refs_, 2);
@@ -52,40 +52,40 @@ TEST(detail_btree_util, test_make_node)
 {
     {
         std::vector<int> v(9, 3);
-        node_ptr<int> p = make_node(v);
+        node_ptr<int, std::vector<int>> p = make_node(v);
 
         EXPECT_EQ(size(p.get()), v.size());
-        EXPECT_EQ(p.as_leaf()->as_vec(), v);
+        EXPECT_EQ(p.as_leaf()->as_seg(), v);
     }
 
     {
         std::vector<int> v(9, 3);
-        node_ptr<int> p = make_node(std::move(v));
+        node_ptr<int, std::vector<int>> p = make_node(std::move(v));
 
         EXPECT_EQ(size(p.get()), 9u);
         EXPECT_EQ(v.size(), 0u);
-        EXPECT_EQ(p.as_leaf()->as_vec(), std::vector<int>(9, 3));
+        EXPECT_EQ(p.as_leaf()->as_seg(), std::vector<int>(9, 3));
     }
 
     {
         std::vector<int> v(9, 3);
-        node_ptr<int> p_text = make_node(v);
+        node_ptr<int, std::vector<int>> p_text = make_node(v);
 
         EXPECT_EQ(size(p_text.get()), v.size());
-        EXPECT_EQ(p_text.as_leaf()->as_vec(), v);
+        EXPECT_EQ(p_text.as_leaf()->as_seg(), v);
 
         {
-            node_ptr<int> p_ref0 = make_ref(p_text.as_leaf(), 1, 8);
+            node_ptr<int, std::vector<int>> p_ref0 = make_ref(p_text.as_leaf(), 1, 8);
 
             EXPECT_EQ(size(p_ref0.get()), 7u);
             EXPECT_EQ(p_ref0.as_leaf()->as_reference().lo_, 1u);
             EXPECT_EQ(p_ref0.as_leaf()->as_reference().hi_, 8u);
 
             EXPECT_EQ(p_text->refs_, 2);
-            EXPECT_EQ(p_ref0.as_leaf()->as_reference().vec_->refs_, 2);
+            EXPECT_EQ(p_ref0.as_leaf()->as_reference().seg_->refs_, 2);
             EXPECT_EQ(p_ref0->refs_, 1);
 
-            node_ptr<int> p_ref1 =
+            node_ptr<int, std::vector<int>> p_ref1 =
                 make_ref(p_ref0.as_leaf()->as_reference(), 1, 6);
 
             EXPECT_EQ(size(p_ref1.get()), 5u);
@@ -93,7 +93,7 @@ TEST(detail_btree_util, test_make_node)
             EXPECT_EQ(p_ref1.as_leaf()->as_reference().hi_, 7u);
 
             EXPECT_EQ(p_text->refs_, 3);
-            EXPECT_EQ(p_ref1.as_leaf()->as_reference().vec_->refs_, 3);
+            EXPECT_EQ(p_ref1.as_leaf()->as_reference().seg_->refs_, 3);
             EXPECT_EQ(p_ref0->refs_, 1);
             EXPECT_EQ(p_ref1->refs_, 1);
         }
@@ -102,13 +102,13 @@ TEST(detail_btree_util, test_make_node)
     }
 }
 
-node_ptr<int> make_tree()
+node_ptr<int, std::vector<int>> make_tree()
 {
-    interior_node_t<int> * int_root = nullptr;
-    node_ptr<int> root(int_root = new_interior_node<int>());
+    interior_node_t<int, std::vector<int>> * int_root = nullptr;
+    node_ptr<int, std::vector<int>> root(int_root = new_interior_node<int, std::vector<int>>());
 
-    interior_node_t<int> * int_left = nullptr;
-    node_ptr<int> left(int_left = new_interior_node<int>());
+    interior_node_t<int, std::vector<int>> * int_left = nullptr;
+    node_ptr<int, std::vector<int>> left(int_left = new_interior_node<int, std::vector<int>>());
     int_left->children_.push_back(make_node(std::vector<int>(9, 0)));
     int_left->keys_.push_back(size(int_left->children_[0].get()));
     int_left->children_.push_back(make_node(std::vector<int>(10, 1)));
@@ -118,8 +118,8 @@ node_ptr<int> make_tree()
     int_root->children_.push_back(left);
     int_root->keys_.push_back(size(left.get()));
 
-    interior_node_t<int> * int_right = nullptr;
-    node_ptr<int> right(int_right = new_interior_node<int>());
+    interior_node_t<int, std::vector<int>> * int_right = nullptr;
+    node_ptr<int, std::vector<int>> right(int_right = new_interior_node<int, std::vector<int>>());
     int_right->children_.push_back(make_node(std::vector<int>(10, 2)));
     int_right->keys_.push_back(size(int_right->children_[0].get()));
     int_right->children_.push_back(make_node(std::vector<int>(11, 3)));
@@ -137,7 +137,7 @@ TEST(detail_btree_util, test_find)
     // find_child
 
     {
-        interior_node_t<int> parent;
+        interior_node_t<int, std::vector<int>> parent;
         parent.children_.push_back(make_node(std::vector<int>({0, 1, 2, 3})));
         parent.children_.push_back(make_node(std::vector<int>(1, 4)));
         parent.children_.push_back(make_node(std::vector<int>({5, 6, 7, 8})));
@@ -163,8 +163,8 @@ TEST(detail_btree_util, test_find)
     // find_leaf
 
     {
-        node_ptr<int> root = make_node(std::vector<int>({0, 1, 2, 3}));
-        found_leaf<int> found;
+        node_ptr<int, std::vector<int>> root = make_node(std::vector<int>({0, 1, 2, 3}));
+        found_leaf<int, std::vector<int>> found;
 
         find_leaf(root, 0, found);
         EXPECT_EQ(found.leaf_, &root);
@@ -184,11 +184,11 @@ TEST(detail_btree_util, test_find)
 
 
     {
-        interior_node_t<int> * int_root = nullptr;
-        node_ptr<int> root(int_root = new_interior_node<int>());
+        interior_node_t<int, std::vector<int>> * int_root = nullptr;
+        node_ptr<int, std::vector<int>> root(int_root = new_interior_node<int, std::vector<int>>());
 
-        interior_node_t<int> * int_left = nullptr;
-        node_ptr<int> left(int_left = new_interior_node<int>());
+        interior_node_t<int, std::vector<int>> * int_left = nullptr;
+        node_ptr<int, std::vector<int>> left(int_left = new_interior_node<int, std::vector<int>>());
         int_left->children_.push_back(make_node(std::vector<int>(9, 0)));
         int_left->keys_.push_back(size(int_left->children_[0].get()));
         int_left->children_.push_back(make_node(std::vector<int>(10, 1)));
@@ -198,8 +198,8 @@ TEST(detail_btree_util, test_find)
         int_root->children_.push_back(left);
         int_root->keys_.push_back(size(left.get()));
 
-        interior_node_t<int> * int_right = nullptr;
-        node_ptr<int> right(int_right = new_interior_node<int>());
+        interior_node_t<int, std::vector<int>> * int_right = nullptr;
+        node_ptr<int, std::vector<int>> right(int_right = new_interior_node<int, std::vector<int>>());
         int_right->children_.push_back(make_node(std::vector<int>(10, 2)));
         int_right->keys_.push_back(size(int_right->children_[0].get()));
         int_right->children_.push_back(make_node(std::vector<int>(11, 3)));
@@ -210,9 +210,9 @@ TEST(detail_btree_util, test_find)
         int_root->keys_.push_back(int_root->keys_[0] + size(right.get()));
 
         {
-            found_leaf<int> found;
+            found_leaf<int, std::vector<int>> found;
             find_leaf(root, 0, found);
-            EXPECT_EQ(found.leaf_->as_leaf()->as_vec(), std::vector<int>(9, 0));
+            EXPECT_EQ(found.leaf_->as_leaf()->as_seg(), std::vector<int>(9, 0));
             EXPECT_EQ(found.offset_, 0u);
             EXPECT_EQ(found.path_.size(), 2u);
             EXPECT_EQ(found.path_[0], int_root);
@@ -220,9 +220,9 @@ TEST(detail_btree_util, test_find)
         }
 
         {
-            found_leaf<int> found;
+            found_leaf<int, std::vector<int>> found;
             find_leaf(root, 8, found);
-            EXPECT_EQ(found.leaf_->as_leaf()->as_vec(), std::vector<int>(9, 0));
+            EXPECT_EQ(found.leaf_->as_leaf()->as_seg(), std::vector<int>(9, 0));
             EXPECT_EQ(found.offset_, 8u);
             EXPECT_EQ(found.path_.size(), 2u);
             EXPECT_EQ(found.path_[0], int_root);
@@ -230,10 +230,10 @@ TEST(detail_btree_util, test_find)
         }
 
         {
-            found_leaf<int> found;
+            found_leaf<int, std::vector<int>> found;
             find_leaf(root, 9, found);
             EXPECT_EQ(
-                found.leaf_->as_leaf()->as_vec(), std::vector<int>(10, 1));
+                found.leaf_->as_leaf()->as_seg(), std::vector<int>(10, 1));
             EXPECT_EQ(found.offset_, 0u);
             EXPECT_EQ(found.path_.size(), 2u);
             EXPECT_EQ(found.path_[0], int_root);
@@ -241,10 +241,10 @@ TEST(detail_btree_util, test_find)
         }
 
         {
-            found_leaf<int> found;
+            found_leaf<int, std::vector<int>> found;
             find_leaf(root, 10, found);
             EXPECT_EQ(
-                found.leaf_->as_leaf()->as_vec(), std::vector<int>(10, 1));
+                found.leaf_->as_leaf()->as_seg(), std::vector<int>(10, 1));
             EXPECT_EQ(found.offset_, 1u);
             EXPECT_EQ(found.path_.size(), 2u);
             EXPECT_EQ(found.path_[0], int_root);
@@ -252,10 +252,10 @@ TEST(detail_btree_util, test_find)
         }
 
         {
-            found_leaf<int> found;
+            found_leaf<int, std::vector<int>> found;
             find_leaf(root, 13, found);
             EXPECT_EQ(
-                found.leaf_->as_leaf()->as_vec(), std::vector<int>(10, 1));
+                found.leaf_->as_leaf()->as_seg(), std::vector<int>(10, 1));
             EXPECT_EQ(found.offset_, 4u);
             EXPECT_EQ(found.path_.size(), 2u);
             EXPECT_EQ(found.path_[0], int_root);
@@ -263,10 +263,10 @@ TEST(detail_btree_util, test_find)
         }
 
         {
-            found_leaf<int> found;
+            found_leaf<int, std::vector<int>> found;
             find_leaf(root, 18, found);
             EXPECT_EQ(
-                found.leaf_->as_leaf()->as_vec(), std::vector<int>(10, 1));
+                found.leaf_->as_leaf()->as_seg(), std::vector<int>(10, 1));
             EXPECT_EQ(found.offset_, 9u);
             EXPECT_EQ(found.path_.size(), 2u);
             EXPECT_EQ(found.path_[0], int_root);
@@ -274,10 +274,10 @@ TEST(detail_btree_util, test_find)
         }
 
         {
-            found_leaf<int> found;
+            found_leaf<int, std::vector<int>> found;
             find_leaf(root, 19, found);
             EXPECT_EQ(
-                found.leaf_->as_leaf()->as_vec(), std::vector<int>(10, 2));
+                found.leaf_->as_leaf()->as_seg(), std::vector<int>(10, 2));
             EXPECT_EQ(found.offset_, 0u);
             EXPECT_EQ(found.path_.size(), 2u);
             EXPECT_EQ(found.path_[0], int_root);
@@ -285,10 +285,10 @@ TEST(detail_btree_util, test_find)
         }
 
         {
-            found_leaf<int> found;
+            found_leaf<int, std::vector<int>> found;
             find_leaf(root, 28, found);
             EXPECT_EQ(
-                found.leaf_->as_leaf()->as_vec(), std::vector<int>(10, 2));
+                found.leaf_->as_leaf()->as_seg(), std::vector<int>(10, 2));
             EXPECT_EQ(found.offset_, 9u);
             EXPECT_EQ(found.path_.size(), 2u);
             EXPECT_EQ(found.path_[0], int_root);
@@ -296,10 +296,10 @@ TEST(detail_btree_util, test_find)
         }
 
         {
-            found_leaf<int> found;
+            found_leaf<int, std::vector<int>> found;
             find_leaf(root, 29, found);
             EXPECT_EQ(
-                found.leaf_->as_leaf()->as_vec(), std::vector<int>(11, 3));
+                found.leaf_->as_leaf()->as_seg(), std::vector<int>(11, 3));
             EXPECT_EQ(found.offset_, 0u);
             EXPECT_EQ(found.path_.size(), 2u);
             EXPECT_EQ(found.path_[0], int_root);
@@ -307,10 +307,10 @@ TEST(detail_btree_util, test_find)
         }
 
         {
-            found_leaf<int> found;
+            found_leaf<int, std::vector<int>> found;
             find_leaf(root, 40, found);
             EXPECT_EQ(
-                found.leaf_->as_leaf()->as_vec(), std::vector<int>(11, 3));
+                found.leaf_->as_leaf()->as_seg(), std::vector<int>(11, 3));
             EXPECT_EQ(found.offset_, 11u);
             EXPECT_EQ(found.path_.size(), 2u);
             EXPECT_EQ(found.path_[0], int_root);
@@ -321,8 +321,8 @@ TEST(detail_btree_util, test_find)
     // find_element
 
     {
-        node_ptr<int> root = make_tree();
-        found_element<int> found;
+        node_ptr<int, std::vector<int>> root = make_tree();
+        found_element<int, std::vector<int>> found;
 
         find_element(root, 0, found);
         EXPECT_EQ(*found.element_, 0);
@@ -345,7 +345,7 @@ TEST(detail_btree_util, test_find)
     }
 }
 
-void fill_interior_node(interior_node_t<int> & parent)
+void fill_interior_node(interior_node_t<int, std::vector<int>> & parent)
 {
     parent.children_.push_back(make_node(std::vector<int>({0, 1, 2, 3})));
     parent.children_.push_back(make_node(std::vector<int>(1, 4)));
@@ -358,11 +358,11 @@ void fill_interior_node(interior_node_t<int> & parent)
 TEST(detail_btree_util_, test_insert_erase_child)
 {
     {
-        interior_node_t<int> parent;
+        interior_node_t<int, std::vector<int>> parent;
         fill_interior_node(parent);
         insert_child(&parent, 0, make_node(std::vector<int>(1, 10)));
         EXPECT_EQ(
-            parent.children_[0].as_leaf()->as_vec(), std::vector<int>(1, 10));
+            parent.children_[0].as_leaf()->as_seg(), std::vector<int>(1, 10));
         EXPECT_EQ(parent.keys_[0], 1u);
         EXPECT_EQ(parent.keys_[1], 5u);
         EXPECT_EQ(parent.keys_[2], 6u);
@@ -370,11 +370,11 @@ TEST(detail_btree_util_, test_insert_erase_child)
     }
 
     {
-        interior_node_t<int> parent;
+        interior_node_t<int, std::vector<int>> parent;
         fill_interior_node(parent);
         insert_child(&parent, 2, make_node(std::vector<int>(1, 10)));
         EXPECT_EQ(
-            parent.children_[2].as_leaf()->as_vec(), std::vector<int>(1, 10));
+            parent.children_[2].as_leaf()->as_seg(), std::vector<int>(1, 10));
         EXPECT_EQ(parent.keys_[0], 4u);
         EXPECT_EQ(parent.keys_[1], 5u);
         EXPECT_EQ(parent.keys_[2], 6u);
@@ -383,11 +383,11 @@ TEST(detail_btree_util_, test_insert_erase_child)
 
 
     {
-        interior_node_t<int> parent;
+        interior_node_t<int, std::vector<int>> parent;
         fill_interior_node(parent);
         insert_child(&parent, 3, make_node(std::vector<int>(1, 10)));
         EXPECT_EQ(
-            parent.children_[3].as_leaf()->as_vec(), std::vector<int>(1, 10));
+            parent.children_[3].as_leaf()->as_seg(), std::vector<int>(1, 10));
         EXPECT_EQ(parent.keys_[0], 4u);
         EXPECT_EQ(parent.keys_[1], 5u);
         EXPECT_EQ(parent.keys_[2], 9u);
@@ -395,41 +395,41 @@ TEST(detail_btree_util_, test_insert_erase_child)
     }
 
     {
-        interior_node_t<int> parent;
+        interior_node_t<int, std::vector<int>> parent;
         fill_interior_node(parent);
         erase_child(&parent, 0, dont_adjust_keys);
         EXPECT_EQ(
-            parent.children_[0].as_leaf()->as_vec(), std::vector<int>(1, 4));
+            parent.children_[0].as_leaf()->as_seg(), std::vector<int>(1, 4));
         EXPECT_EQ(
-            parent.children_[1].as_leaf()->as_vec(),
+            parent.children_[1].as_leaf()->as_seg(),
             std::vector<int>({5, 6, 7, 8}));
         EXPECT_EQ(parent.keys_[0], 5u);
         EXPECT_EQ(parent.keys_[1], 9u);
     }
 
     {
-        interior_node_t<int> parent;
+        interior_node_t<int, std::vector<int>> parent;
         fill_interior_node(parent);
         erase_child(&parent, 1);
         EXPECT_EQ(
-            parent.children_[0].as_leaf()->as_vec(),
+            parent.children_[0].as_leaf()->as_seg(),
             std::vector<int>({0, 1, 2, 3}));
         EXPECT_EQ(
-            parent.children_[1].as_leaf()->as_vec(),
+            parent.children_[1].as_leaf()->as_seg(),
             std::vector<int>({5, 6, 7, 8}));
         EXPECT_EQ(parent.keys_[0], 4u);
         EXPECT_EQ(parent.keys_[1], 8u);
     }
 
     {
-        interior_node_t<int> parent;
+        interior_node_t<int, std::vector<int>> parent;
         fill_interior_node(parent);
         erase_child(&parent, 2);
         EXPECT_EQ(
-            parent.children_[0].as_leaf()->as_vec(),
+            parent.children_[0].as_leaf()->as_seg(),
             std::vector<int>({0, 1, 2, 3}));
         EXPECT_EQ(
-            parent.children_[1].as_leaf()->as_vec(), std::vector<int>(1, 4));
+            parent.children_[1].as_leaf()->as_seg(), std::vector<int>(1, 4));
         EXPECT_EQ(parent.keys_[0], 4u);
         EXPECT_EQ(parent.keys_[1], 5u);
     }
@@ -441,36 +441,36 @@ TEST(detail_btree_util_0, test_slice_leaf)
 
     {
         std::vector<int> v(9, 3);
-        node_ptr<int> p0 = make_node(v);
-        node_ptr<int> p1 = slice_leaf(p0, 0, v.size());
-        EXPECT_EQ(p0.as_leaf()->as_vec(), std::vector<int>(9, 3));
+        node_ptr<int, std::vector<int>> p0 = make_node(v);
+        node_ptr<int, std::vector<int>> p1 = slice_leaf(p0, 0, v.size());
+        EXPECT_EQ(p0.as_leaf()->as_seg(), std::vector<int>(9, 3));
         EXPECT_EQ(p1.as_leaf()->as_reference().lo_, 0u);
         EXPECT_EQ(p1.as_leaf()->as_reference().hi_, 9u);
     }
 
     {
         std::vector<int> v(9, 3);
-        node_ptr<int> p0 = make_node(v);
-        node_ptr<int> p1 = slice_leaf(p0, 0, v.size());
-        EXPECT_EQ(p0.as_leaf()->as_vec(), std::vector<int>(9, 3));
+        node_ptr<int, std::vector<int>> p0 = make_node(v);
+        node_ptr<int, std::vector<int>> p1 = slice_leaf(p0, 0, v.size());
+        EXPECT_EQ(p0.as_leaf()->as_seg(), std::vector<int>(9, 3));
         EXPECT_EQ(p1.as_leaf()->as_reference().lo_, 0u);
         EXPECT_EQ(p1.as_leaf()->as_reference().hi_, 9u);
     }
 
     {
         std::vector<int> v(9, 3);
-        node_ptr<int> p0 = make_node(v);
-        node_ptr<int> p1 = slice_leaf(p0, 1, v.size() - 1);
+        node_ptr<int, std::vector<int>> p0 = make_node(v);
+        node_ptr<int, std::vector<int>> p1 = slice_leaf(p0, 1, v.size() - 1);
         EXPECT_EQ(p1.as_leaf()->as_reference().lo_, 1u);
         EXPECT_EQ(p1.as_leaf()->as_reference().hi_, 8u);
     }
 
     {
         std::vector<int> v(9, 3);
-        node_ptr<int> p0 = make_node(v);
-        node_ptr<int> p1 = p0;
-        node_ptr<int> p2 = slice_leaf(p0, 1, v.size() - 1);
-        EXPECT_EQ(p0.as_leaf()->as_vec(), std::vector<int>(9, 3));
+        node_ptr<int, std::vector<int>> p0 = make_node(v);
+        node_ptr<int, std::vector<int>> p1 = p0;
+        node_ptr<int, std::vector<int>> p2 = slice_leaf(p0, 1, v.size() - 1);
+        EXPECT_EQ(p0.as_leaf()->as_seg(), std::vector<int>(9, 3));
         EXPECT_EQ(p2.as_leaf()->as_reference().lo_, 1u);
         EXPECT_EQ(p2.as_leaf()->as_reference().hi_, 8u);
     }
@@ -479,10 +479,10 @@ TEST(detail_btree_util_0, test_slice_leaf)
 
     {
         std::vector<int> v(9, 3);
-        node_ptr<int> pt = make_node(v);
+        node_ptr<int, std::vector<int>> pt = make_node(v);
 
-        node_ptr<int> p0 = slice_leaf(pt, 0, v.size());
-        node_ptr<int> p1 = slice_leaf(p0, 0, v.size());
+        node_ptr<int, std::vector<int>> p0 = slice_leaf(pt, 0, v.size());
+        node_ptr<int, std::vector<int>> p1 = slice_leaf(p0, 0, v.size());
         EXPECT_EQ(p0.as_leaf()->as_reference().lo_, 0u);
         EXPECT_EQ(p0.as_leaf()->as_reference().hi_, 9u);
         EXPECT_EQ(p1.as_leaf()->as_reference().lo_, 0u);
@@ -491,21 +491,21 @@ TEST(detail_btree_util_0, test_slice_leaf)
 
     {
         std::vector<int> v(9, 3);
-        node_ptr<int> pt = make_node(v);
+        node_ptr<int, std::vector<int>> pt = make_node(v);
 
-        node_ptr<int> p0 = slice_leaf(pt, 0, v.size());
-        node_ptr<int> p1 = slice_leaf(p0, 1, v.size() - 1);
+        node_ptr<int, std::vector<int>> p0 = slice_leaf(pt, 0, v.size());
+        node_ptr<int, std::vector<int>> p1 = slice_leaf(p0, 1, v.size() - 1);
         EXPECT_EQ(p1.as_leaf()->as_reference().lo_, 1u);
         EXPECT_EQ(p1.as_leaf()->as_reference().hi_, 8u);
     }
 
     {
         std::vector<int> v(9, 3);
-        node_ptr<int> pt = make_node(v);
+        node_ptr<int, std::vector<int>> pt = make_node(v);
 
-        node_ptr<int> p0 = slice_leaf(pt, 0, v.size());
-        node_ptr<int> p1 = p0;
-        node_ptr<int> p2 = slice_leaf(p0, 1, v.size() - 1);
+        node_ptr<int, std::vector<int>> p0 = slice_leaf(pt, 0, v.size());
+        node_ptr<int, std::vector<int>> p1 = p0;
+        node_ptr<int, std::vector<int>> p2 = slice_leaf(p0, 1, v.size() - 1);
         EXPECT_EQ(p0.as_leaf()->as_reference().lo_, 0u);
         EXPECT_EQ(p0.as_leaf()->as_reference().hi_, 9u);
         EXPECT_EQ(p2.as_leaf()->as_reference().lo_, 1u);
@@ -519,18 +519,18 @@ TEST(detail_btree_util_, test_erase_leaf)
 
     {
         std::vector<int> v(9, 3);
-        node_ptr<int> p0 = make_node(v);
-        leaf_slices<int> slices = erase_leaf(p0, 0, 9);
-        EXPECT_EQ(p0.as_leaf()->as_vec(), std::vector<int>(9, 3));
+        node_ptr<int, std::vector<int>> p0 = make_node(v);
+        leaf_slices<int, std::vector<int>> slices = erase_leaf(p0, 0, 9);
+        EXPECT_EQ(p0.as_leaf()->as_seg(), std::vector<int>(9, 3));
         EXPECT_EQ(slices.slice.get(), nullptr);
         EXPECT_EQ(slices.other_slice.get(), nullptr);
     }
 
     {
         std::vector<int> v(9, 3);
-        node_ptr<int> p0 = make_node(v);
-        leaf_slices<int> slices = erase_leaf(p0, 1, 9);
-        EXPECT_EQ(p0.as_leaf()->as_vec(), std::vector<int>(9, 3));
+        node_ptr<int, std::vector<int>> p0 = make_node(v);
+        leaf_slices<int, std::vector<int>> slices = erase_leaf(p0, 1, 9);
+        EXPECT_EQ(p0.as_leaf()->as_seg(), std::vector<int>(9, 3));
         EXPECT_EQ(slices.slice.as_leaf()->as_reference().lo_, 0u);
         EXPECT_EQ(slices.slice.as_leaf()->as_reference().hi_, 1u);
         EXPECT_EQ(slices.other_slice.get(), nullptr);
@@ -538,10 +538,10 @@ TEST(detail_btree_util_, test_erase_leaf)
 
     {
         std::vector<int> v(9, 3);
-        node_ptr<int> p0 = make_node(v);
-        node_ptr<int> p1 = p0;
-        leaf_slices<int> slices = erase_leaf(p0, 1, 9);
-        EXPECT_EQ(p0.as_leaf()->as_vec(), std::vector<int>(9, 3));
+        node_ptr<int, std::vector<int>> p0 = make_node(v);
+        node_ptr<int, std::vector<int>> p1 = p0;
+        leaf_slices<int, std::vector<int>> slices = erase_leaf(p0, 1, 9);
+        EXPECT_EQ(p0.as_leaf()->as_seg(), std::vector<int>(9, 3));
         EXPECT_EQ(slices.slice.as_leaf()->as_reference().lo_, 0u);
         EXPECT_EQ(slices.slice.as_leaf()->as_reference().hi_, 1u);
         EXPECT_EQ(slices.other_slice.get(), nullptr);
@@ -549,10 +549,10 @@ TEST(detail_btree_util_, test_erase_leaf)
 
     {
         std::vector<int> v(9, 3);
-        node_ptr<int> p0 = make_node(v);
-        node_ptr<int> p1 = p0;
-        leaf_slices<int> slices = erase_leaf(p0, 0, 8);
-        EXPECT_EQ(p0.as_leaf()->as_vec(), std::vector<int>(9, 3));
+        node_ptr<int, std::vector<int>> p0 = make_node(v);
+        node_ptr<int, std::vector<int>> p1 = p0;
+        leaf_slices<int, std::vector<int>> slices = erase_leaf(p0, 0, 8);
+        EXPECT_EQ(p0.as_leaf()->as_seg(), std::vector<int>(9, 3));
         EXPECT_EQ(slices.slice.as_leaf()->as_reference().lo_, 8u);
         EXPECT_EQ(slices.slice.as_leaf()->as_reference().hi_, 9u);
         EXPECT_EQ(slices.other_slice.get(), nullptr);
@@ -560,10 +560,10 @@ TEST(detail_btree_util_, test_erase_leaf)
 
     {
         std::vector<int> v(9, 3);
-        node_ptr<int> p0 = make_node(v);
-        node_ptr<int> p1 = p0;
-        leaf_slices<int> slices = erase_leaf(p0, 1, 8);
-        EXPECT_EQ(p0.as_leaf()->as_vec(), std::vector<int>(9, 3));
+        node_ptr<int, std::vector<int>> p0 = make_node(v);
+        node_ptr<int, std::vector<int>> p1 = p0;
+        leaf_slices<int, std::vector<int>> slices = erase_leaf(p0, 1, 8);
+        EXPECT_EQ(p0.as_leaf()->as_seg(), std::vector<int>(9, 3));
         EXPECT_EQ(slices.slice.as_leaf()->as_reference().lo_, 0u);
         EXPECT_EQ(slices.slice.as_leaf()->as_reference().hi_, 1u);
         EXPECT_EQ(slices.other_slice.as_leaf()->as_reference().lo_, 8u);

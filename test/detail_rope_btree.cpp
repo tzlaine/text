@@ -14,15 +14,15 @@ using boost::text::string_view;
 using namespace boost::text::detail;
 
 
-inline node_ptr<rope_tag>
+inline node_ptr<char, std::string>
 make_interior_with_leaves(char const * leaf_name, int leaves)
 {
-    interior_node_t<rope_tag> * int_node = nullptr;
-    node_ptr<rope_tag> node(int_node = new_interior_node<rope_tag>());
-    int_node->children_.push_back(make_node(leaf_name));
+    interior_node_t<char, std::string> * int_node = nullptr;
+    node_ptr<char, std::string> node(int_node = new_interior_node<char, std::string>());
+    int_node->children_.push_back(make_node<std::string>(leaf_name));
     int_node->keys_.push_back(size(int_node->children_[0].get()));
     for (int i = 1; i < leaves; ++i) {
-        int_node->children_.push_back(make_node(leaf_name));
+        int_node->children_.push_back(make_node<std::string>(leaf_name));
         int_node->keys_.push_back(
             int_node->keys_.back() + size(int_node->children_[i].get()));
     }
@@ -30,25 +30,25 @@ make_interior_with_leaves(char const * leaf_name, int leaves)
 }
 
 template<int SizeLeft, int SizeCenter, int SizeRight>
-node_ptr<rope_tag> make_tree_left_center_right()
+node_ptr<char, std::string> make_tree_left_center_right()
 {
-    interior_node_t<rope_tag> * int_root = nullptr;
-    node_ptr<rope_tag> root(int_root = new_interior_node<rope_tag>());
+    interior_node_t<char, std::string> * int_root = nullptr;
+    node_ptr<char, std::string> root(int_root = new_interior_node<char, std::string>());
 
-    node_ptr<rope_tag> left = make_interior_with_leaves("left", SizeLeft);
+    node_ptr<char, std::string> left = make_interior_with_leaves("left", SizeLeft);
 
     int_root->children_.push_back(left);
     int_root->keys_.push_back(size(left.get()));
 
     if (SizeCenter != -1) {
-        node_ptr<rope_tag> center =
+        node_ptr<char, std::string> center =
             make_interior_with_leaves("center", SizeCenter);
 
         int_root->children_.push_back(center);
         int_root->keys_.push_back(int_root->keys_.back() + size(center.get()));
     }
 
-    node_ptr<rope_tag> right = make_interior_with_leaves("right", SizeRight);
+    node_ptr<char, std::string> right = make_interior_with_leaves("right", SizeRight);
 
     int_root->children_.push_back(right);
     int_root->keys_.push_back(int_root->keys_.back() + size(right.get()));
@@ -57,17 +57,17 @@ node_ptr<rope_tag> make_tree_left_center_right()
 }
 
 template<int SizeLeft, int SizeRight>
-node_ptr<rope_tag> make_tree_left_right()
+node_ptr<char, std::string> make_tree_left_right()
 {
     return make_tree_left_center_right<SizeLeft, -1, SizeRight>();
 }
 
-inline node_ptr<rope_tag> make_tree_left_max()
+inline node_ptr<char, std::string> make_tree_left_max()
 {
     return make_tree_left_right<max_children, max_children - 1>();
 }
 
-inline node_ptr<rope_tag> make_tree_left_min()
+inline node_ptr<char, std::string> make_tree_left_min()
 {
     return make_tree_left_right<min_children, max_children - 1>();
 }
@@ -75,8 +75,8 @@ inline node_ptr<rope_tag> make_tree_left_min()
 
 TEST(rope_btree, test_btree_split_child)
 {
-    node_ptr<rope_tag> root = make_tree_left_max();
-    node_ptr<rope_tag> root_2 = btree_split_child(root, 0);
+    node_ptr<char, std::string> root = make_tree_left_max();
+    node_ptr<char, std::string> root_2 = btree_split_child(root, 0);
 
     EXPECT_EQ(root->refs_, 1);
     EXPECT_EQ(root_2->refs_, 1);
@@ -103,9 +103,9 @@ TEST(rope_btree, test_btree_split_child)
 
 TEST(rope_btree, test_btree_split_child_extra_ref)
 {
-    node_ptr<rope_tag> root = make_tree_left_max();
-    node_ptr<rope_tag> extra_ref = root;
-    node_ptr<rope_tag> root_2 = btree_split_child(root, 0);
+    node_ptr<char, std::string> root = make_tree_left_max();
+    node_ptr<char, std::string> extra_ref = root;
+    node_ptr<char, std::string> root_2 = btree_split_child(root, 0);
 
     EXPECT_EQ(extra_ref->refs_, 2);
     EXPECT_EQ(root_2->refs_, 1);
@@ -133,15 +133,15 @@ TEST(rope_btree, test_btree_split_child_extra_ref)
 TEST(rope_btree, test_btree_split_leaf)
 {
     {
-        node_ptr<rope_tag> root = make_tree_left_min();
-        node_ptr<rope_tag> left = children(root)[0];
+        node_ptr<char, std::string> root = make_tree_left_min();
+        node_ptr<char, std::string> left = children(root)[0];
         btree_split_leaf(left, 1, 4);
         EXPECT_EQ(size(children(left)[1].get()), 4u);
     }
 
     {
-        node_ptr<rope_tag> root = make_tree_left_min();
-        node_ptr<rope_tag> left = children(root)[0];
+        node_ptr<char, std::string> root = make_tree_left_min();
+        node_ptr<char, std::string> left = children(root)[0];
         left = btree_split_leaf(left, 1, 5);
 
         EXPECT_EQ(num_children(left), min_children + 1);
@@ -156,11 +156,11 @@ TEST(rope_btree, test_btree_split_leaf)
     }
 
     {
-        node_ptr<rope_tag> root = make_tree_left_min();
-        node_ptr<rope_tag> left = children(root)[0];
+        node_ptr<char, std::string> root = make_tree_left_min();
+        node_ptr<char, std::string> left = children(root)[0];
 
         // Take an extra reference to the child begin split.
-        node_ptr<rope_tag> left_1 = children(left)[1];
+        node_ptr<char, std::string> left_1 = children(left)[1];
 
         left = btree_split_leaf(left, 1, 5);
 
@@ -181,9 +181,9 @@ TEST(rope_btree, test_btree_split_leaf)
 TEST(rope_btree, test_btree_split_leaf_extra_ref)
 {
     {
-        node_ptr<rope_tag> root = make_tree_left_min();
-        node_ptr<rope_tag> left = children(root)[0];
-        node_ptr<rope_tag> extra_ref = left;
+        node_ptr<char, std::string> root = make_tree_left_min();
+        node_ptr<char, std::string> left = children(root)[0];
+        node_ptr<char, std::string> extra_ref = left;
         left = btree_split_leaf(left, 1, 4);
         EXPECT_EQ(left->refs_, 3);
         EXPECT_EQ(extra_ref->refs_, 3);
@@ -191,9 +191,9 @@ TEST(rope_btree, test_btree_split_leaf_extra_ref)
     }
 
     {
-        node_ptr<rope_tag> root = make_tree_left_min();
-        node_ptr<rope_tag> left = children(root)[0];
-        node_ptr<rope_tag> extra_ref = left;
+        node_ptr<char, std::string> root = make_tree_left_min();
+        node_ptr<char, std::string> left = children(root)[0];
+        node_ptr<char, std::string> extra_ref = left;
         left = btree_split_leaf(left, 1, 5);
 
         EXPECT_EQ(left->refs_, 1);
@@ -211,12 +211,12 @@ TEST(rope_btree, test_btree_split_leaf_extra_ref)
     }
 
     {
-        node_ptr<rope_tag> root = make_tree_left_min();
-        node_ptr<rope_tag> left = children(root)[0];
-        node_ptr<rope_tag> extra_ref = left;
+        node_ptr<char, std::string> root = make_tree_left_min();
+        node_ptr<char, std::string> left = children(root)[0];
+        node_ptr<char, std::string> extra_ref = left;
 
         // Take an extra reference to the child begin split.
-        node_ptr<rope_tag> left_1 = children(left)[1];
+        node_ptr<char, std::string> left_1 = children(left)[1];
 
         left = btree_split_leaf(left, 1, 5);
 
@@ -241,16 +241,16 @@ TEST(rope_btree, test_btree_insert_nonfull)
 {
     // Insert into half-full interior child, then between existing leaves.
     {
-        node_ptr<rope_tag> root = make_tree_left_min();
+        node_ptr<char, std::string> root = make_tree_left_min();
 
-        node_ptr<rope_tag> left = children(root)[0];
-        node_ptr<rope_tag> right = children(root)[1];
+        node_ptr<char, std::string> left = children(root)[0];
+        node_ptr<char, std::string> right = children(root)[1];
 
         EXPECT_EQ(num_children(left), min_children);
         EXPECT_EQ(num_children(right), max_children - 1);
 
-        node_ptr<rope_tag> new_root =
-            btree_insert_nonfull(root, 4, make_node("new node"));
+        node_ptr<char, std::string> new_root =
+            btree_insert_nonfull(root, 4, make_node<std::string>("new node"));
 
         left = children(new_root)[0];
         right = children(new_root)[1];
@@ -271,17 +271,17 @@ TEST(rope_btree, test_btree_insert_nonfull)
     // Insert into half-full interior child, then into the middle of an
     // existing leaf.
     {
-        node_ptr<rope_tag> root = make_tree_left_min();
-        node_ptr<rope_tag> new_node = make_node("new node");
+        node_ptr<char, std::string> root = make_tree_left_min();
+        node_ptr<char, std::string> new_node = make_node<std::string>("new node");
 
-        node_ptr<rope_tag> left = children(root)[0];
-        node_ptr<rope_tag> right = children(root)[1];
+        node_ptr<char, std::string> left = children(root)[0];
+        node_ptr<char, std::string> right = children(root)[1];
 
         EXPECT_EQ(num_children(left), min_children);
         EXPECT_EQ(num_children(right), max_children - 1);
 
-        node_ptr<rope_tag> new_root =
-            btree_insert_nonfull(root, 5, make_node("new node"));
+        node_ptr<char, std::string> new_root =
+            btree_insert_nonfull(root, 5, make_node<std::string>("new node"));
 
         left = children(new_root)[0];
         right = children(new_root)[1];
@@ -302,16 +302,16 @@ TEST(rope_btree, test_btree_insert_nonfull)
 
     // Insert into full interior child, then between existing leaves.
     {
-        node_ptr<rope_tag> root = make_tree_left_max();
+        node_ptr<char, std::string> root = make_tree_left_max();
 
-        node_ptr<rope_tag> left = children(root)[0];
-        node_ptr<rope_tag> right = children(root)[1];
+        node_ptr<char, std::string> left = children(root)[0];
+        node_ptr<char, std::string> right = children(root)[1];
 
         EXPECT_EQ(num_children(left), max_children);
         EXPECT_EQ(num_children(right), max_children - 1);
 
-        node_ptr<rope_tag> new_root =
-            btree_insert_nonfull(root, 4, make_node("new node"));
+        node_ptr<char, std::string> new_root =
+            btree_insert_nonfull(root, 4, make_node<std::string>("new node"));
 
         left = children(new_root)[0];
         right = children(new_root)[1];
@@ -331,18 +331,18 @@ TEST(rope_btree, test_btree_insert_nonfull)
 
     // Insert into almost-full interior child, then between existing leaves.
     {
-        node_ptr<rope_tag> root = make_tree_left_max();
+        node_ptr<char, std::string> root = make_tree_left_max();
 
-        node_ptr<rope_tag> right = children(root)[1];
+        node_ptr<char, std::string> right = children(root)[1];
 
         EXPECT_EQ(num_children(right), max_children - 1);
 
-        node_ptr<rope_tag> new_root = btree_insert_nonfull(
-            root, size(root.get()) - 5, make_node("new node"));
+        node_ptr<char, std::string> new_root = btree_insert_nonfull(
+            root, size(root.get()) - 5, make_node<std::string>("new node"));
 
         EXPECT_EQ(num_children(new_root), 3u);
 
-        node_ptr<rope_tag> new_right = children(new_root)[2];
+        node_ptr<char, std::string> new_right = children(new_root)[2];
         EXPECT_EQ(num_children(new_right), min_children);
 
         EXPECT_EQ(size(children(new_right)[min_children - 2].get()), 8u);
@@ -356,18 +356,18 @@ TEST(rope_btree, test_btree_insert_nonfull)
     // Insert into almost-full interior child, then into the middle of an
     // existing leaf.
     {
-        node_ptr<rope_tag> root = make_tree_left_max();
+        node_ptr<char, std::string> root = make_tree_left_max();
 
-        node_ptr<rope_tag> right = children(root)[1];
+        node_ptr<char, std::string> right = children(root)[1];
 
         EXPECT_EQ(num_children(right), max_children - 1);
 
-        node_ptr<rope_tag> new_root = btree_insert_nonfull(
-            root, size(root.get()) - 2, make_node("new node"));
+        node_ptr<char, std::string> new_root = btree_insert_nonfull(
+            root, size(root.get()) - 2, make_node<std::string>("new node"));
 
         EXPECT_EQ(num_children(new_root), 3u);
 
-        node_ptr<rope_tag> new_right = children(new_root)[2];
+        node_ptr<char, std::string> new_right = children(new_root)[2];
         EXPECT_EQ(num_children(new_right), min_children + 1);
 
         EXPECT_EQ(size(children(new_right)[min_children - 2].get()), 3u);
@@ -384,18 +384,18 @@ TEST(rope_btree, test_btree_insert_nonfull)
 
     // Insert into almost-full interior child, then after the last leaf.
     {
-        node_ptr<rope_tag> root = make_tree_left_max();
+        node_ptr<char, std::string> root = make_tree_left_max();
 
-        node_ptr<rope_tag> right = children(root)[1];
+        node_ptr<char, std::string> right = children(root)[1];
 
         EXPECT_EQ(num_children(right), max_children - 1);
 
-        node_ptr<rope_tag> new_root =
-            btree_insert_nonfull(root, size(root.get()), make_node("new node"));
+        node_ptr<char, std::string> new_root =
+            btree_insert_nonfull(root, size(root.get()), make_node<std::string>("new node"));
 
         EXPECT_EQ(num_children(new_root), 3u);
 
-        node_ptr<rope_tag> new_right = children(new_root)[2];
+        node_ptr<char, std::string> new_right = children(new_root)[2];
         EXPECT_EQ(num_children(new_right), min_children);
 
         EXPECT_EQ(size(children(new_right)[min_children - 1].get()), 8u);
@@ -407,14 +407,14 @@ TEST(rope_btree, test_btree_insert_nonfull)
 
     // No nodes copied.
     {
-        node_ptr<rope_tag> root = make_tree_left_min();
+        node_ptr<char, std::string> root = make_tree_left_min();
 
-        node_ptr<rope_tag> left = children(root)[0];
+        node_ptr<char, std::string> left = children(root)[0];
 
         EXPECT_EQ(num_children(left), min_children);
 
-        node_ptr<rope_tag> new_root =
-            btree_insert_nonfull(root, 4, make_node("new node"));
+        node_ptr<char, std::string> new_root =
+            btree_insert_nonfull(root, 4, make_node<std::string>("new node"));
 
         left = children(new_root)[0];
 
@@ -425,15 +425,15 @@ TEST(rope_btree, test_btree_insert_nonfull)
 
     // Root copied.
     {
-        node_ptr<rope_tag> root = make_tree_left_min();
-        node_ptr<rope_tag> root_2 = root;
+        node_ptr<char, std::string> root = make_tree_left_min();
+        node_ptr<char, std::string> root_2 = root;
 
-        node_ptr<rope_tag> left = children(root)[0];
+        node_ptr<char, std::string> left = children(root)[0];
 
         EXPECT_EQ(num_children(left), min_children);
 
-        node_ptr<rope_tag> new_root =
-            btree_insert_nonfull(root, 4, make_node("new node"));
+        node_ptr<char, std::string> new_root =
+            btree_insert_nonfull(root, 4, make_node<std::string>("new node"));
 
         left = children(new_root)[0];
 
@@ -445,16 +445,16 @@ TEST(rope_btree, test_btree_insert_nonfull)
 
     // Interior node copied.
     {
-        node_ptr<rope_tag> root = make_tree_left_min();
+        node_ptr<char, std::string> root = make_tree_left_min();
 
-        node_ptr<rope_tag> left = children(root)[0];
+        node_ptr<char, std::string> left = children(root)[0];
 
         EXPECT_EQ(num_children(left), min_children);
 
-        node_ptr<rope_tag> new_root =
-            btree_insert_nonfull(root, 4, make_node("new node"));
+        node_ptr<char, std::string> new_root =
+            btree_insert_nonfull(root, 4, make_node<std::string>("new node"));
 
-        node_ptr<rope_tag> new_left = children(new_root)[0];
+        node_ptr<char, std::string> new_left = children(new_root)[0];
 
         EXPECT_EQ(num_children(new_root), 2u);
         EXPECT_EQ(num_children(left), min_children);
@@ -466,24 +466,24 @@ TEST(rope_btree, test_btree_insert_nonfull_extra_ref)
 {
     // Insert into half-full interior child, then between existing leaves.
     {
-        node_ptr<rope_tag> root = make_tree_left_min();
-        node_ptr<rope_tag> extra_ref = root;
+        node_ptr<char, std::string> root = make_tree_left_min();
+        node_ptr<char, std::string> extra_ref = root;
 
         {
-            node_ptr<rope_tag> left = children(root)[0];
-            node_ptr<rope_tag> right = children(root)[1];
+            node_ptr<char, std::string> left = children(root)[0];
+            node_ptr<char, std::string> right = children(root)[1];
 
             EXPECT_EQ(num_children(left), min_children);
             EXPECT_EQ(num_children(right), max_children - 1);
         }
 
-        node_ptr<rope_tag> new_root =
-            btree_insert_nonfull(root, 4, make_node("new node"));
+        node_ptr<char, std::string> new_root =
+            btree_insert_nonfull(root, 4, make_node<std::string>("new node"));
 
         EXPECT_EQ(new_root->refs_, 1);
         EXPECT_EQ(extra_ref->refs_, 2);
 
-        node_ptr<rope_tag> left = children(new_root)[0];
+        node_ptr<char, std::string> left = children(new_root)[0];
 
         EXPECT_EQ(num_children(new_root), 2u);
         EXPECT_EQ(num_children(left), min_children + 1);
@@ -501,25 +501,25 @@ TEST(rope_btree, test_btree_insert_nonfull_extra_ref)
     // Insert into half-full interior child, then into the middle of an
     // existing leaf.
     {
-        node_ptr<rope_tag> root = make_tree_left_min();
-        node_ptr<rope_tag> new_node = make_node("new node");
-        node_ptr<rope_tag> extra_ref = root;
+        node_ptr<char, std::string> root = make_tree_left_min();
+        node_ptr<char, std::string> new_node = make_node<std::string>("new node");
+        node_ptr<char, std::string> extra_ref = root;
 
         {
-            node_ptr<rope_tag> left = children(root)[0];
-            node_ptr<rope_tag> right = children(root)[1];
+            node_ptr<char, std::string> left = children(root)[0];
+            node_ptr<char, std::string> right = children(root)[1];
 
             EXPECT_EQ(num_children(left), min_children);
             EXPECT_EQ(num_children(right), max_children - 1);
         }
 
-        node_ptr<rope_tag> new_root =
-            btree_insert_nonfull(root, 5, make_node("new node"));
+        node_ptr<char, std::string> new_root =
+            btree_insert_nonfull(root, 5, make_node<std::string>("new node"));
 
         EXPECT_EQ(new_root->refs_, 1);
         EXPECT_EQ(extra_ref->refs_, 2);
 
-        node_ptr<rope_tag> left = children(new_root)[0];
+        node_ptr<char, std::string> left = children(new_root)[0];
 
         EXPECT_EQ(num_children(new_root), 2u);
         EXPECT_EQ(num_children(left), min_children + 2);
@@ -537,24 +537,24 @@ TEST(rope_btree, test_btree_insert_nonfull_extra_ref)
 
     // Insert into full interior child, then between existing leaves.
     {
-        node_ptr<rope_tag> root = make_tree_left_max();
-        node_ptr<rope_tag> extra_ref = root;
+        node_ptr<char, std::string> root = make_tree_left_max();
+        node_ptr<char, std::string> extra_ref = root;
 
         {
-            node_ptr<rope_tag> left = children(root)[0];
-            node_ptr<rope_tag> right = children(root)[1];
+            node_ptr<char, std::string> left = children(root)[0];
+            node_ptr<char, std::string> right = children(root)[1];
 
             EXPECT_EQ(num_children(left), max_children);
             EXPECT_EQ(num_children(right), max_children - 1);
         }
 
-        node_ptr<rope_tag> new_root =
-            btree_insert_nonfull(root, 4, make_node("new node"));
+        node_ptr<char, std::string> new_root =
+            btree_insert_nonfull(root, 4, make_node<std::string>("new node"));
 
         EXPECT_EQ(new_root->refs_, 1);
         EXPECT_EQ(extra_ref->refs_, 2);
 
-        node_ptr<rope_tag> left = children(new_root)[0];
+        node_ptr<char, std::string> left = children(new_root)[0];
 
         EXPECT_EQ(num_children(new_root), 3u);
         EXPECT_EQ(num_children(left), min_children + 1);
@@ -571,24 +571,24 @@ TEST(rope_btree, test_btree_insert_nonfull_extra_ref)
 
     // Insert into almost-full interior child, then between existing leaves.
     {
-        node_ptr<rope_tag> root = make_tree_left_max();
-        node_ptr<rope_tag> extra_ref = root;
+        node_ptr<char, std::string> root = make_tree_left_max();
+        node_ptr<char, std::string> extra_ref = root;
 
         {
-            node_ptr<rope_tag> right = children(root)[1];
+            node_ptr<char, std::string> right = children(root)[1];
 
             EXPECT_EQ(num_children(right), max_children - 1);
         }
 
-        node_ptr<rope_tag> new_root = btree_insert_nonfull(
-            root, size(root.get()) - 5, make_node("new node"));
+        node_ptr<char, std::string> new_root = btree_insert_nonfull(
+            root, size(root.get()) - 5, make_node<std::string>("new node"));
 
         EXPECT_EQ(new_root->refs_, 1);
         EXPECT_EQ(extra_ref->refs_, 2);
 
         EXPECT_EQ(num_children(new_root), 3u);
 
-        node_ptr<rope_tag> new_right = children(new_root)[2];
+        node_ptr<char, std::string> new_right = children(new_root)[2];
         EXPECT_EQ(num_children(new_right), min_children);
 
         EXPECT_EQ(size(children(new_right)[min_children - 2].get()), 8u);
@@ -602,24 +602,24 @@ TEST(rope_btree, test_btree_insert_nonfull_extra_ref)
     // Insert into almost-full interior child, then into the middle of an
     // existing leaf.
     {
-        node_ptr<rope_tag> root = make_tree_left_max();
-        node_ptr<rope_tag> extra_ref = root;
+        node_ptr<char, std::string> root = make_tree_left_max();
+        node_ptr<char, std::string> extra_ref = root;
 
         {
-            node_ptr<rope_tag> right = children(root)[1];
+            node_ptr<char, std::string> right = children(root)[1];
 
             EXPECT_EQ(num_children(right), max_children - 1);
         }
 
-        node_ptr<rope_tag> new_root = btree_insert_nonfull(
-            root, size(root.get()) - 2, make_node("new node"));
+        node_ptr<char, std::string> new_root = btree_insert_nonfull(
+            root, size(root.get()) - 2, make_node<std::string>("new node"));
 
         EXPECT_EQ(new_root->refs_, 1);
         EXPECT_EQ(extra_ref->refs_, 2);
 
         EXPECT_EQ(num_children(new_root), 3u);
 
-        node_ptr<rope_tag> new_right = children(new_root)[2];
+        node_ptr<char, std::string> new_right = children(new_root)[2];
         EXPECT_EQ(num_children(new_right), min_children + 1);
 
         EXPECT_EQ(size(children(new_right)[min_children - 2].get()), 3u);
@@ -636,24 +636,24 @@ TEST(rope_btree, test_btree_insert_nonfull_extra_ref)
 
     // Insert into almost-full interior child, then after the last leaf.
     {
-        node_ptr<rope_tag> root = make_tree_left_max();
-        node_ptr<rope_tag> extra_ref = root;
+        node_ptr<char, std::string> root = make_tree_left_max();
+        node_ptr<char, std::string> extra_ref = root;
 
         {
-            node_ptr<rope_tag> right = children(root)[1];
+            node_ptr<char, std::string> right = children(root)[1];
 
             EXPECT_EQ(num_children(right), max_children - 1);
         }
 
-        node_ptr<rope_tag> new_root =
-            btree_insert_nonfull(root, size(root.get()), make_node("new node"));
+        node_ptr<char, std::string> new_root =
+            btree_insert_nonfull(root, size(root.get()), make_node<std::string>("new node"));
 
         EXPECT_EQ(new_root->refs_, 1);
         EXPECT_EQ(extra_ref->refs_, 2);
 
         EXPECT_EQ(num_children(new_root), 3u);
 
-        node_ptr<rope_tag> new_right = children(new_root)[2];
+        node_ptr<char, std::string> new_right = children(new_root)[2];
         EXPECT_EQ(num_children(new_right), min_children);
 
         EXPECT_EQ(size(children(new_right)[min_children - 1].get()), 8u);
@@ -662,22 +662,22 @@ TEST(rope_btree, test_btree_insert_nonfull_extra_ref)
     }
 }
 
-int height_at(node_ptr<rope_tag> const & node, std::size_t at)
+int height_at(node_ptr<char, std::string> const & node, std::size_t at)
 {
-    found_leaf<rope_tag> found;
+    found_leaf<char, std::string> found;
     find_leaf(node, at, found);
     return (int)found.path_.size();
 }
 
-void check_leaf_heights(node_ptr<rope_tag> const & node)
+void check_leaf_heights(node_ptr<char, std::string> const & node)
 {
-    found_leaf<rope_tag> found;
+    found_leaf<char, std::string> found;
     find_leaf(node, 0, found);
     int const first_leaf_height = (int)found.path_.size();
     std::size_t offset = 0;
     while (offset != size(node.get())) {
         EXPECT_EQ(height_at(node, offset), first_leaf_height);
-        found_leaf<rope_tag> found_next;
+        found_leaf<char, std::string> found_next;
         find_leaf(node, offset, found_next);
         offset += found_next.leaf_->as_leaf()->size();
     }
@@ -686,8 +686,8 @@ void check_leaf_heights(node_ptr<rope_tag> const & node)
 TEST(rope_btree, test_btree_insert)
 {
     {
-        node_ptr<rope_tag> root = make_node("root");
-        root = btree_insert(root, 0, make_node("new"));
+        node_ptr<char, std::string> root = make_node<std::string>("root");
+        root = btree_insert(root, 0, make_node<std::string>("new"));
 
         EXPECT_FALSE(root->leaf_);
         EXPECT_EQ(num_children(root), 2u);
@@ -696,8 +696,8 @@ TEST(rope_btree, test_btree_insert)
     }
 
     {
-        node_ptr<rope_tag> root = make_node("root");
-        root = btree_insert(root, 4, make_node("new"));
+        node_ptr<char, std::string> root = make_node<std::string>("root");
+        root = btree_insert(root, 4, make_node<std::string>("new"));
 
         EXPECT_FALSE(root->leaf_);
         EXPECT_EQ(num_children(root), 2u);
@@ -706,8 +706,8 @@ TEST(rope_btree, test_btree_insert)
     }
 
     {
-        node_ptr<rope_tag> root = make_node("root");
-        root = btree_insert(root, 2, make_node("new"));
+        node_ptr<char, std::string> root = make_node<std::string>("root");
+        root = btree_insert(root, 2, make_node<std::string>("new"));
 
         EXPECT_FALSE(root->leaf_);
         EXPECT_EQ(num_children(root), 3u);
@@ -716,9 +716,9 @@ TEST(rope_btree, test_btree_insert)
     }
 
     {
-        node_ptr<rope_tag> root =
+        node_ptr<char, std::string> root =
             make_interior_with_leaves("child", max_children - 1);
-        root = btree_insert(root, 2, make_node("new 1"));
+        root = btree_insert(root, 2, make_node<std::string>("new 1"));
 
         EXPECT_EQ(num_children(root), 2u);
 
@@ -726,9 +726,9 @@ TEST(rope_btree, test_btree_insert)
     }
 
     {
-        node_ptr<rope_tag> root =
+        node_ptr<char, std::string> root =
             make_interior_with_leaves("child", max_children);
-        root = btree_insert(root, 2, make_node("new 1"));
+        root = btree_insert(root, 2, make_node<std::string>("new 1"));
 
         EXPECT_EQ(num_children(root), 2u);
 
@@ -737,11 +737,11 @@ TEST(rope_btree, test_btree_insert)
 
     // Check that many inserts maintains balance.
     {
-        node_ptr<rope_tag> root = make_node("node");
+        node_ptr<char, std::string> root = make_node<std::string>("node");
 
         int const N = 100000;
         for (int i = 0; i < N; ++i) {
-            root = btree_insert(root, 2, make_node("new node"));
+            root = btree_insert(root, 2, make_node<std::string>("new node"));
         }
 
         check_leaf_heights(root);
@@ -754,10 +754,10 @@ TEST(rope_btree, test_btree_insert)
 TEST(rope_btree, test_btree_insert_extra_ref)
 {
     {
-        node_ptr<rope_tag> root = make_node("root");
-        node_ptr<rope_tag> extra_ref = root;
-        node_ptr<rope_tag> extra_ref_2 = root;
-        root = btree_insert(root, 0, make_node("new"));
+        node_ptr<char, std::string> root = make_node<std::string>("root");
+        node_ptr<char, std::string> extra_ref = root;
+        node_ptr<char, std::string> extra_ref_2 = root;
+        root = btree_insert(root, 0, make_node<std::string>("new"));
 
         EXPECT_EQ(root->refs_, 1);
         EXPECT_EQ(extra_ref->refs_, 3);
@@ -769,10 +769,10 @@ TEST(rope_btree, test_btree_insert_extra_ref)
     }
 
     {
-        node_ptr<rope_tag> root = make_node("root");
-        node_ptr<rope_tag> extra_ref = root;
-        node_ptr<rope_tag> extra_ref_2 = root;
-        root = btree_insert(root, 4, make_node("new"));
+        node_ptr<char, std::string> root = make_node<std::string>("root");
+        node_ptr<char, std::string> extra_ref = root;
+        node_ptr<char, std::string> extra_ref_2 = root;
+        root = btree_insert(root, 4, make_node<std::string>("new"));
 
         EXPECT_EQ(root->refs_, 1);
         EXPECT_EQ(extra_ref->refs_, 3);
@@ -784,10 +784,10 @@ TEST(rope_btree, test_btree_insert_extra_ref)
     }
 
     {
-        node_ptr<rope_tag> root = make_node("root");
-        node_ptr<rope_tag> extra_ref = root;
-        node_ptr<rope_tag> extra_ref_2 = root;
-        root = btree_insert(root, 2, make_node("new"));
+        node_ptr<char, std::string> root = make_node<std::string>("root");
+        node_ptr<char, std::string> extra_ref = root;
+        node_ptr<char, std::string> extra_ref_2 = root;
+        root = btree_insert(root, 2, make_node<std::string>("new"));
 
         EXPECT_EQ(root->refs_, 1);
         EXPECT_EQ(extra_ref->refs_, 4);
@@ -799,11 +799,11 @@ TEST(rope_btree, test_btree_insert_extra_ref)
     }
 
     {
-        node_ptr<rope_tag> root =
+        node_ptr<char, std::string> root =
             make_interior_with_leaves("child", max_children - 1);
-        node_ptr<rope_tag> extra_ref = root;
-        node_ptr<rope_tag> extra_ref_2 = root;
-        root = btree_insert(root, 2, make_node("new 1"));
+        node_ptr<char, std::string> extra_ref = root;
+        node_ptr<char, std::string> extra_ref_2 = root;
+        root = btree_insert(root, 2, make_node<std::string>("new 1"));
 
         EXPECT_EQ(root->refs_, 1);
         EXPECT_EQ(extra_ref->refs_, 2);
@@ -814,11 +814,11 @@ TEST(rope_btree, test_btree_insert_extra_ref)
     }
 
     {
-        node_ptr<rope_tag> root =
+        node_ptr<char, std::string> root =
             make_interior_with_leaves("child", max_children);
-        node_ptr<rope_tag> extra_ref = root;
-        node_ptr<rope_tag> extra_ref_2 = root;
-        root = btree_insert(root, 2, make_node("new 1"));
+        node_ptr<char, std::string> extra_ref = root;
+        node_ptr<char, std::string> extra_ref_2 = root;
+        root = btree_insert(root, 2, make_node<std::string>("new 1"));
 
         EXPECT_EQ(root->refs_, 1);
         EXPECT_EQ(extra_ref->refs_, 2);
@@ -830,13 +830,13 @@ TEST(rope_btree, test_btree_insert_extra_ref)
 
     // Check that many inserts maintains balance.
     {
-        node_ptr<rope_tag> root = make_node("node");
-        node_ptr<rope_tag> extra_ref = root;
-        node_ptr<rope_tag> extra_ref_2 = root;
+        node_ptr<char, std::string> root = make_node<std::string>("node");
+        node_ptr<char, std::string> extra_ref = root;
+        node_ptr<char, std::string> extra_ref_2 = root;
 
         int const N = 100000;
         for (int i = 0; i < N; ++i) {
-            root = btree_insert(root, 2, make_node("new node"));
+            root = btree_insert(root, 2, make_node<std::string>("new node"));
         }
 
         EXPECT_EQ(root->refs_, 1);
@@ -852,7 +852,7 @@ TEST(rope_btree, test_btree_insert_extra_ref)
 TEST(rope_btree, test_btree_erase_entire_node_leaf_children)
 {
     {
-        node_ptr<rope_tag> root = make_interior_with_leaves("leaf", 3);
+        node_ptr<char, std::string> root = make_interior_with_leaves("leaf", 3);
 
         EXPECT_EQ(num_children(root), 3u);
 
@@ -865,7 +865,7 @@ TEST(rope_btree, test_btree_erase_entire_node_leaf_children)
     }
 
     {
-        node_ptr<rope_tag> root = make_interior_with_leaves("leaf", 3);
+        node_ptr<char, std::string> root = make_interior_with_leaves("leaf", 3);
 
         EXPECT_EQ(num_children(root), 3u);
 
@@ -878,7 +878,7 @@ TEST(rope_btree, test_btree_erase_entire_node_leaf_children)
     }
 
     {
-        node_ptr<rope_tag> root = make_interior_with_leaves("leaf", 3);
+        node_ptr<char, std::string> root = make_interior_with_leaves("leaf", 3);
 
         EXPECT_EQ(num_children(root), 3u);
 
@@ -891,7 +891,7 @@ TEST(rope_btree, test_btree_erase_entire_node_leaf_children)
     }
 
     {
-        node_ptr<rope_tag> root = make_interior_with_leaves("leaf", 3);
+        node_ptr<char, std::string> root = make_interior_with_leaves("leaf", 3);
 
         EXPECT_EQ(num_children(root), 3u);
 
@@ -905,13 +905,13 @@ TEST(rope_btree, test_btree_erase_entire_node_leaf_children)
 
 
     {
-        node_ptr<rope_tag> root;
+        node_ptr<char, std::string> root;
         {
-            interior_node_t<rope_tag> * int_root = nullptr;
-            root = node_ptr<rope_tag>(int_root = new_interior_node<rope_tag>());
-            int_root->children_.push_back(make_node("left"));
+            interior_node_t<char, std::string> * int_root = nullptr;
+            root = node_ptr<char, std::string>(int_root = new_interior_node<char, std::string>());
+            int_root->children_.push_back(make_node<std::string>("left"));
             int_root->keys_.push_back(size(int_root->children_[0].get()));
-            int_root->children_.push_back(make_node("right"));
+            int_root->children_.push_back(make_node<std::string>("right"));
             int_root->keys_.push_back(
                 int_root->keys_.back() + size(int_root->children_[1].get()));
         }
@@ -925,13 +925,13 @@ TEST(rope_btree, test_btree_erase_entire_node_leaf_children)
     }
 
     {
-        node_ptr<rope_tag> root;
+        node_ptr<char, std::string> root;
         {
-            interior_node_t<rope_tag> * int_root = nullptr;
-            root = node_ptr<rope_tag>(int_root = new_interior_node<rope_tag>());
-            int_root->children_.push_back(make_node("left"));
+            interior_node_t<char, std::string> * int_root = nullptr;
+            root = node_ptr<char, std::string>(int_root = new_interior_node<char, std::string>());
+            int_root->children_.push_back(make_node<std::string>("left"));
             int_root->keys_.push_back(size(int_root->children_[0].get()));
-            int_root->children_.push_back(make_node("right"));
+            int_root->children_.push_back(make_node<std::string>("right"));
             int_root->keys_.push_back(
                 int_root->keys_.back() + size(int_root->children_[1].get()));
         }
@@ -945,13 +945,13 @@ TEST(rope_btree, test_btree_erase_entire_node_leaf_children)
     }
 
     {
-        node_ptr<rope_tag> root;
+        node_ptr<char, std::string> root;
         {
-            interior_node_t<rope_tag> * int_root = nullptr;
-            root = node_ptr<rope_tag>(int_root = new_interior_node<rope_tag>());
-            int_root->children_.push_back(make_node("left"));
+            interior_node_t<char, std::string> * int_root = nullptr;
+            root = node_ptr<char, std::string>(int_root = new_interior_node<char, std::string>());
+            int_root->children_.push_back(make_node<std::string>("left"));
             int_root->keys_.push_back(size(int_root->children_[0].get()));
-            int_root->children_.push_back(make_node("right"));
+            int_root->children_.push_back(make_node<std::string>("right"));
             int_root->keys_.push_back(
                 int_root->keys_.back() + size(int_root->children_[1].get()));
         }
@@ -968,9 +968,9 @@ TEST(rope_btree, test_btree_erase_entire_node_leaf_children)
 TEST(rope_btree, test_btree_erase_entire_node_leaf_children_extra_ref)
 {
     {
-        node_ptr<rope_tag> root = make_interior_with_leaves("leaf", 3);
-        node_ptr<rope_tag> extra_ref = root;
-        node_ptr<rope_tag> extra_ref_2 = root;
+        node_ptr<char, std::string> root = make_interior_with_leaves("leaf", 3);
+        node_ptr<char, std::string> extra_ref = root;
+        node_ptr<char, std::string> extra_ref_2 = root;
 
         EXPECT_EQ(num_children(root), 3u);
 
@@ -986,9 +986,9 @@ TEST(rope_btree, test_btree_erase_entire_node_leaf_children_extra_ref)
     }
 
     {
-        node_ptr<rope_tag> root = make_interior_with_leaves("leaf", 3);
-        node_ptr<rope_tag> extra_ref = root;
-        node_ptr<rope_tag> extra_ref_2 = root;
+        node_ptr<char, std::string> root = make_interior_with_leaves("leaf", 3);
+        node_ptr<char, std::string> extra_ref = root;
+        node_ptr<char, std::string> extra_ref_2 = root;
 
         EXPECT_EQ(num_children(root), 3u);
 
@@ -1004,9 +1004,9 @@ TEST(rope_btree, test_btree_erase_entire_node_leaf_children_extra_ref)
     }
 
     {
-        node_ptr<rope_tag> root = make_interior_with_leaves("leaf", 3);
-        node_ptr<rope_tag> extra_ref = root;
-        node_ptr<rope_tag> extra_ref_2 = root;
+        node_ptr<char, std::string> root = make_interior_with_leaves("leaf", 3);
+        node_ptr<char, std::string> extra_ref = root;
+        node_ptr<char, std::string> extra_ref_2 = root;
 
         EXPECT_EQ(num_children(root), 3u);
 
@@ -1022,9 +1022,9 @@ TEST(rope_btree, test_btree_erase_entire_node_leaf_children_extra_ref)
     }
 
     {
-        node_ptr<rope_tag> root = make_interior_with_leaves("leaf", 3);
-        node_ptr<rope_tag> extra_ref = root;
-        node_ptr<rope_tag> extra_ref_2 = root;
+        node_ptr<char, std::string> root = make_interior_with_leaves("leaf", 3);
+        node_ptr<char, std::string> extra_ref = root;
+        node_ptr<char, std::string> extra_ref_2 = root;
 
         EXPECT_EQ(num_children(root), 3u);
 
@@ -1041,17 +1041,17 @@ TEST(rope_btree, test_btree_erase_entire_node_leaf_children_extra_ref)
 
 
     {
-        node_ptr<rope_tag> root;
+        node_ptr<char, std::string> root;
         {
-            interior_node_t<rope_tag> * int_root = nullptr;
-            root = node_ptr<rope_tag>(int_root = new_interior_node<rope_tag>());
-            int_root->children_.push_back(make_node("left"));
+            interior_node_t<char, std::string> * int_root = nullptr;
+            root = node_ptr<char, std::string>(int_root = new_interior_node<char, std::string>());
+            int_root->children_.push_back(make_node<std::string>("left"));
             int_root->keys_.push_back(size(int_root->children_[0].get()));
-            int_root->children_.push_back(make_node("right"));
+            int_root->children_.push_back(make_node<std::string>("right"));
             int_root->keys_.push_back(
                 int_root->keys_.back() + size(int_root->children_[1].get()));
         }
-        node_ptr<rope_tag> extra_ref = root;
+        node_ptr<char, std::string> extra_ref = root;
 
         EXPECT_EQ(num_children(root), 2u);
 
@@ -1064,17 +1064,17 @@ TEST(rope_btree, test_btree_erase_entire_node_leaf_children_extra_ref)
     }
 
     {
-        node_ptr<rope_tag> root;
+        node_ptr<char, std::string> root;
         {
-            interior_node_t<rope_tag> * int_root = nullptr;
-            root = node_ptr<rope_tag>(int_root = new_interior_node<rope_tag>());
-            int_root->children_.push_back(make_node("left"));
+            interior_node_t<char, std::string> * int_root = nullptr;
+            root = node_ptr<char, std::string>(int_root = new_interior_node<char, std::string>());
+            int_root->children_.push_back(make_node<std::string>("left"));
             int_root->keys_.push_back(size(int_root->children_[0].get()));
-            int_root->children_.push_back(make_node("right"));
+            int_root->children_.push_back(make_node<std::string>("right"));
             int_root->keys_.push_back(
                 int_root->keys_.back() + size(int_root->children_[1].get()));
         }
-        node_ptr<rope_tag> extra_ref = root;
+        node_ptr<char, std::string> extra_ref = root;
 
         EXPECT_EQ(num_children(root), 2u);
 
@@ -1087,17 +1087,17 @@ TEST(rope_btree, test_btree_erase_entire_node_leaf_children_extra_ref)
     }
 
     {
-        node_ptr<rope_tag> root;
+        node_ptr<char, std::string> root;
         {
-            interior_node_t<rope_tag> * int_root = nullptr;
-            root = node_ptr<rope_tag>(int_root = new_interior_node<rope_tag>());
-            int_root->children_.push_back(make_node("left"));
+            interior_node_t<char, std::string> * int_root = nullptr;
+            root = node_ptr<char, std::string>(int_root = new_interior_node<char, std::string>());
+            int_root->children_.push_back(make_node<std::string>("left"));
             int_root->keys_.push_back(size(int_root->children_[0].get()));
-            int_root->children_.push_back(make_node("right"));
+            int_root->children_.push_back(make_node<std::string>("right"));
             int_root->keys_.push_back(
                 int_root->keys_.back() + size(int_root->children_[1].get()));
         }
-        node_ptr<rope_tag> extra_ref = root;
+        node_ptr<char, std::string> extra_ref = root;
 
         EXPECT_EQ(num_children(root), 2u);
 
@@ -1117,10 +1117,10 @@ TEST(rope_btree, test_btree_erase_entire_node_interior_children)
 {
     // Last interior node has more than min children.
     {
-        node_ptr<rope_tag> root = make_tree_left_min();
+        node_ptr<char, std::string> root = make_tree_left_min();
 
-        node_ptr<rope_tag> left = children(root)[0];
-        node_ptr<rope_tag> right = children(root)[1];
+        node_ptr<char, std::string> left = children(root)[0];
+        node_ptr<char, std::string> right = children(root)[1];
 
         EXPECT_EQ(num_children(left), min_children);
         EXPECT_EQ(num_children(right), max_children - 1);
@@ -1140,10 +1140,10 @@ TEST(rope_btree, test_btree_erase_entire_node_interior_children)
     }
 
     {
-        node_ptr<rope_tag> root = make_tree_left_min();
+        node_ptr<char, std::string> root = make_tree_left_min();
 
-        node_ptr<rope_tag> left = children(root)[0];
-        node_ptr<rope_tag> right = children(root)[1];
+        node_ptr<char, std::string> left = children(root)[0];
+        node_ptr<char, std::string> right = children(root)[1];
 
         EXPECT_EQ(num_children(left), min_children);
         EXPECT_EQ(num_children(right), max_children - 1);
@@ -1167,13 +1167,13 @@ TEST(rope_btree, test_btree_erase_entire_node_interior_children)
 
     // Last interior node min children, left has min children.
     {
-        node_ptr<rope_tag> root =
+        node_ptr<char, std::string> root =
             make_tree_left_right<min_children, max_children>();
 
         auto const root_initial_size = size(root.get());
 
-        node_ptr<rope_tag> left = children(root)[0];
-        node_ptr<rope_tag> right = children(root)[1];
+        node_ptr<char, std::string> left = children(root)[0];
+        node_ptr<char, std::string> right = children(root)[1];
 
         EXPECT_EQ(num_children(left), min_children);
         EXPECT_EQ(num_children(right), max_children);
@@ -1194,13 +1194,13 @@ TEST(rope_btree, test_btree_erase_entire_node_interior_children)
     }
 
     {
-        node_ptr<rope_tag> root =
+        node_ptr<char, std::string> root =
             make_tree_left_right<min_children, max_children>();
 
         auto const root_initial_size = size(root.get());
 
-        node_ptr<rope_tag> left = children(root)[0];
-        node_ptr<rope_tag> right = children(root)[1];
+        node_ptr<char, std::string> left = children(root)[0];
+        node_ptr<char, std::string> right = children(root)[1];
 
         EXPECT_EQ(num_children(left), min_children);
         EXPECT_EQ(num_children(right), max_children);
@@ -1224,13 +1224,13 @@ TEST(rope_btree, test_btree_erase_entire_node_interior_children)
 
     // Last interior node min children, right has min children.
     {
-        node_ptr<rope_tag> root =
+        node_ptr<char, std::string> root =
             make_tree_left_right<max_children, min_children>();
 
         auto const root_initial_size = size(root.get());
 
-        node_ptr<rope_tag> left = children(root)[0];
-        node_ptr<rope_tag> right = children(root)[1];
+        node_ptr<char, std::string> left = children(root)[0];
+        node_ptr<char, std::string> right = children(root)[1];
 
         EXPECT_EQ(num_children(left), max_children);
         EXPECT_EQ(num_children(right), min_children);
@@ -1252,13 +1252,13 @@ TEST(rope_btree, test_btree_erase_entire_node_interior_children)
     }
 
     {
-        node_ptr<rope_tag> root =
+        node_ptr<char, std::string> root =
             make_tree_left_right<max_children, min_children>();
 
         auto const root_initial_size = size(root.get());
 
-        node_ptr<rope_tag> left = children(root)[0];
-        node_ptr<rope_tag> right = children(root)[1];
+        node_ptr<char, std::string> left = children(root)[0];
+        node_ptr<char, std::string> right = children(root)[1];
 
         EXPECT_EQ(num_children(left), max_children);
         EXPECT_EQ(num_children(right), min_children);
@@ -1282,11 +1282,11 @@ TEST(rope_btree, test_btree_erase_entire_node_interior_children)
 
     // Last interior node min children, both sides have min children.
     {
-        node_ptr<rope_tag> root =
+        node_ptr<char, std::string> root =
             make_tree_left_right<min_children, min_children>();
 
-        node_ptr<rope_tag> left = children(root)[0];
-        node_ptr<rope_tag> right = children(root)[1];
+        node_ptr<char, std::string> left = children(root)[0];
+        node_ptr<char, std::string> right = children(root)[1];
 
         EXPECT_EQ(num_children(left), min_children);
         EXPECT_EQ(num_children(right), min_children);
@@ -1309,11 +1309,11 @@ TEST(rope_btree, test_btree_erase_entire_node_interior_children)
     }
 
     {
-        node_ptr<rope_tag> root =
+        node_ptr<char, std::string> root =
             make_tree_left_right<min_children, min_children>();
 
-        node_ptr<rope_tag> left = children(root)[0];
-        node_ptr<rope_tag> right = children(root)[1];
+        node_ptr<char, std::string> left = children(root)[0];
+        node_ptr<char, std::string> right = children(root)[1];
 
         EXPECT_EQ(num_children(left), min_children);
         EXPECT_EQ(num_children(right), min_children);
@@ -1337,7 +1337,7 @@ TEST(rope_btree, test_btree_erase_entire_node_interior_children)
 
     // Last interior node min children, all three children have min children.
     {
-        node_ptr<rope_tag> root = make_tree_left_center_right<
+        node_ptr<char, std::string> root = make_tree_left_center_right<
             min_children,
             min_children,
             min_children>();
@@ -1345,9 +1345,9 @@ TEST(rope_btree, test_btree_erase_entire_node_interior_children)
         auto const root_initial_size = size(root.get());
 
         {
-            node_ptr<rope_tag> left = children(root)[0];
-            node_ptr<rope_tag> center = children(root)[1];
-            node_ptr<rope_tag> right = children(root)[2];
+            node_ptr<char, std::string> left = children(root)[0];
+            node_ptr<char, std::string> center = children(root)[1];
+            node_ptr<char, std::string> right = children(root)[2];
 
             EXPECT_EQ(num_children(left), min_children);
             EXPECT_EQ(num_children(center), min_children);
@@ -1358,8 +1358,8 @@ TEST(rope_btree, test_btree_erase_entire_node_interior_children)
 
         EXPECT_EQ(num_children(root), 2u);
 
-        node_ptr<rope_tag> left = children(root)[0];
-        node_ptr<rope_tag> right = children(root)[1];
+        node_ptr<char, std::string> left = children(root)[0];
+        node_ptr<char, std::string> right = children(root)[1];
 
         EXPECT_EQ(num_children(left), max_children - 1);
         EXPECT_EQ(num_children(right), min_children);
@@ -1370,7 +1370,7 @@ TEST(rope_btree, test_btree_erase_entire_node_interior_children)
     }
 
     {
-        node_ptr<rope_tag> root = make_tree_left_center_right<
+        node_ptr<char, std::string> root = make_tree_left_center_right<
             min_children,
             min_children,
             min_children>();
@@ -1378,9 +1378,9 @@ TEST(rope_btree, test_btree_erase_entire_node_interior_children)
         auto const root_initial_size = size(root.get());
 
         {
-            node_ptr<rope_tag> left = children(root)[0];
-            node_ptr<rope_tag> center = children(root)[1];
-            node_ptr<rope_tag> right = children(root)[2];
+            node_ptr<char, std::string> left = children(root)[0];
+            node_ptr<char, std::string> center = children(root)[1];
+            node_ptr<char, std::string> right = children(root)[2];
 
             EXPECT_EQ(num_children(left), min_children);
             EXPECT_EQ(num_children(center), min_children);
@@ -1392,8 +1392,8 @@ TEST(rope_btree, test_btree_erase_entire_node_interior_children)
 
         EXPECT_EQ(num_children(root), 2u);
 
-        node_ptr<rope_tag> left = children(root)[0];
-        node_ptr<rope_tag> right = children(root)[1];
+        node_ptr<char, std::string> left = children(root)[0];
+        node_ptr<char, std::string> right = children(root)[1];
 
         EXPECT_EQ(num_children(left), max_children - 1);
         EXPECT_EQ(num_children(right), min_children);
@@ -1404,7 +1404,7 @@ TEST(rope_btree, test_btree_erase_entire_node_interior_children)
     }
 
     {
-        node_ptr<rope_tag> root = make_tree_left_center_right<
+        node_ptr<char, std::string> root = make_tree_left_center_right<
             min_children,
             min_children,
             min_children>();
@@ -1412,9 +1412,9 @@ TEST(rope_btree, test_btree_erase_entire_node_interior_children)
         auto const root_initial_size = size(root.get());
 
         {
-            node_ptr<rope_tag> left = children(root)[0];
-            node_ptr<rope_tag> center = children(root)[1];
-            node_ptr<rope_tag> right = children(root)[2];
+            node_ptr<char, std::string> left = children(root)[0];
+            node_ptr<char, std::string> center = children(root)[1];
+            node_ptr<char, std::string> right = children(root)[2];
 
             EXPECT_EQ(num_children(left), min_children);
             EXPECT_EQ(num_children(center), min_children);
@@ -1426,8 +1426,8 @@ TEST(rope_btree, test_btree_erase_entire_node_interior_children)
 
         EXPECT_EQ(num_children(root), 2u);
 
-        node_ptr<rope_tag> left = children(root)[0];
-        node_ptr<rope_tag> right = children(root)[1];
+        node_ptr<char, std::string> left = children(root)[0];
+        node_ptr<char, std::string> right = children(root)[1];
 
         EXPECT_EQ(num_children(left), min_children);
         EXPECT_EQ(num_children(right), max_children - 1);
@@ -1443,7 +1443,7 @@ TEST(rope_btree, test_btree_erase)
 {
     // Erasure from a leaf node
     {
-        node_ptr<rope_tag> root = make_node("sliceable");
+        node_ptr<char, std::string> root = make_node<std::string>("sliceable");
 
         root = btree_erase(root, 0, 9);
 
@@ -1451,7 +1451,7 @@ TEST(rope_btree, test_btree_erase)
     }
 
     {
-        node_ptr<rope_tag> root = make_node("sliceable");
+        node_ptr<char, std::string> root = make_node<std::string>("sliceable");
 
         root = btree_erase(root, 0, 8);
 
@@ -1460,7 +1460,7 @@ TEST(rope_btree, test_btree_erase)
     }
 
     {
-        node_ptr<rope_tag> root = make_node("sliceable");
+        node_ptr<char, std::string> root = make_node<std::string>("sliceable");
 
         root = btree_erase(root, 1, 8);
 
@@ -1471,11 +1471,11 @@ TEST(rope_btree, test_btree_erase)
     // Erasure from non-leaf nodes, entire segments only
 
     {
-        node_ptr<rope_tag> root =
+        node_ptr<char, std::string> root =
             make_tree_left_right<max_children, max_children>();
 
-        node_ptr<rope_tag> left = children(root)[0];
-        node_ptr<rope_tag> right = children(root)[1];
+        node_ptr<char, std::string> left = children(root)[0];
+        node_ptr<char, std::string> right = children(root)[1];
 
         EXPECT_EQ(num_children(left), max_children);
         EXPECT_EQ(num_children(right), max_children);
@@ -1496,11 +1496,11 @@ TEST(rope_btree, test_btree_erase)
     }
 
     {
-        node_ptr<rope_tag> root =
+        node_ptr<char, std::string> root =
             make_tree_left_right<max_children, max_children>();
 
-        node_ptr<rope_tag> left = children(root)[0];
-        node_ptr<rope_tag> right = children(root)[1];
+        node_ptr<char, std::string> left = children(root)[0];
+        node_ptr<char, std::string> right = children(root)[1];
 
         EXPECT_EQ(num_children(left), max_children);
         EXPECT_EQ(num_children(right), max_children);
@@ -1518,36 +1518,5 @@ TEST(rope_btree, test_btree_erase)
         EXPECT_EQ(keys(root)[1], max_children * 4 + (max_children - 1) * 5);
         EXPECT_EQ(keys(left).back(), max_children * 4);
         EXPECT_EQ(keys(right).back(), (max_children - 1) * 5);
-    }
-
-
-    // Erasure from non-leaf nodes, including partial segments
-
-    node_ptr<rope_tag> const tree =
-        make_tree_left_right<max_children, max_children>();
-    unencoded_rope const tree_rope(tree);
-    auto const tree_size = size(tree.get());
-    std::string const tree_string(tree_rope.begin(), tree_rope.end());
-
-    std::cout << "Initial size of tree used in the erase tests: " << tree_size
-              << "\n";
-
-    for (std::size_t i = 0; i < tree_size; ++i) {
-        for (std::size_t j = i + 1; j < tree_size; ++j) {
-            node_ptr<rope_tag> root =
-                make_tree_left_right<max_children, max_children>();
-            std::string str(tree_string);
-
-            root = btree_erase(root, i, j);
-            str.erase(str.begin() + i, str.begin() + j);
-
-            unencoded_rope const r(root);
-
-            EXPECT_EQ(size(root.get()), str.size())
-                << "i=" << i << " j=" << j;
-            EXPECT_TRUE(std::equal(str.begin(), str.end(), r.begin()))
-                << "i=" << i << " j=" << j;
-            check_leaf_heights(root);
-        }
     }
 }

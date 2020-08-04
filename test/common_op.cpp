@@ -1102,55 +1102,31 @@ TEST(common_operations, begin_end_variants)
     EXPECT_EQ(ur.end(), ur.cend());
     EXPECT_EQ(ur.rbegin(), ur.crbegin());
     EXPECT_EQ(ur.rend(), ur.crend());
-    EXPECT_EQ(begin(ur), cbegin(ur));
-    EXPECT_EQ(end(ur), cend(ur));
-    EXPECT_EQ(rbegin(ur), crbegin(ur));
-    EXPECT_EQ(rend(ur), crend(ur));
 
     EXPECT_EQ(urv.begin(), urv.cbegin());
     EXPECT_EQ(urv.end(), urv.cend());
     EXPECT_EQ(urv.rbegin(), urv.crbegin());
     EXPECT_EQ(urv.rend(), urv.crend());
-    EXPECT_EQ(begin(urv), cbegin(urv));
-    EXPECT_EQ(end(urv), cend(urv));
-    EXPECT_EQ(rbegin(urv), crbegin(urv));
-    EXPECT_EQ(rend(urv), crend(urv));
 
     EXPECT_EQ(t.begin(), t.cbegin());
     EXPECT_EQ(t.end(), t.cend());
     EXPECT_EQ(t.rbegin(), t.crbegin());
     EXPECT_EQ(t.rend(), t.crend());
-    EXPECT_EQ(begin(t), cbegin(t));
-    EXPECT_EQ(end(t), cend(t));
-    EXPECT_EQ(rbegin(t), crbegin(t));
-    EXPECT_EQ(rend(t), crend(t));
 
     EXPECT_EQ(tv.begin(), tv.cbegin());
     EXPECT_EQ(tv.end(), tv.cend());
     EXPECT_EQ(tv.rbegin(), tv.crbegin());
     EXPECT_EQ(tv.rend(), tv.crend());
-    EXPECT_EQ(begin(tv), cbegin(tv));
-    EXPECT_EQ(end(tv), cend(tv));
-    EXPECT_EQ(rbegin(tv), crbegin(tv));
-    EXPECT_EQ(rend(tv), crend(tv));
 
     EXPECT_EQ(r.begin(), r.cbegin());
     EXPECT_EQ(r.end(), r.cend());
     EXPECT_EQ(r.rbegin(), r.crbegin());
     EXPECT_EQ(r.rend(), r.crend());
-    EXPECT_EQ(begin(r), cbegin(r));
-    EXPECT_EQ(end(r), cend(r));
-    EXPECT_EQ(rbegin(r), crbegin(r));
-    EXPECT_EQ(rend(r), crend(r));
 
     EXPECT_EQ(rv.begin(), rv.cbegin());
     EXPECT_EQ(rv.end(), rv.cend());
     EXPECT_EQ(rv.rbegin(), rv.crbegin());
     EXPECT_EQ(rv.rend(), rv.crend());
-    EXPECT_EQ(begin(rv), cbegin(rv));
-    EXPECT_EQ(end(rv), cend(rv));
-    EXPECT_EQ(rbegin(rv), crbegin(rv));
-    EXPECT_EQ(rend(rv), crend(rv));
 }
 
 // operator+=(U const &)

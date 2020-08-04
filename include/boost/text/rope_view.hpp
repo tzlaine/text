@@ -16,11 +16,6 @@
 
 namespace boost { namespace text {
 
-    namespace detail {
-        struct const_rope_iterator;
-        struct const_rope_view_iterator;
-    }
-
     struct text;
     struct text_view;
     struct rope;
@@ -29,18 +24,18 @@ namespace boost { namespace text {
     struct rope_view
     {
         using value_type =
-            utf32_view<utf_8_to_32_iterator<detail::const_rope_view_iterator>>;
+            utf32_view<utf_8_to_32_iterator<unencoded_rope_view::const_iterator>>;
         using size_type = std::size_t;
         using iterator = grapheme_iterator<
-            utf_8_to_32_iterator<detail::const_rope_view_iterator>>;
+            utf_8_to_32_iterator<unencoded_rope_view::const_iterator>>;
         using const_iterator = iterator;
         using reverse_iterator = stl_interfaces::reverse_iterator<iterator>;
         using const_reverse_iterator = reverse_iterator;
 
         using rope_iterator = grapheme_iterator<
-            utf_8_to_32_iterator<detail::const_rope_iterator>>;
+            utf_8_to_32_iterator<unencoded_rope::const_iterator>>;
         using const_rope_iterator = grapheme_iterator<
-            utf_8_to_32_iterator<detail::const_rope_iterator>>;
+            utf_8_to_32_iterator<unencoded_rope::const_iterator>>;
 
         /** Default ctor. */
         rope_view() noexcept {}
@@ -97,17 +92,6 @@ namespace boost { namespace text {
         /** Returns the maximum size in bytes a rope_view can have. */
         size_type max_bytes() const noexcept { return PTRDIFF_MAX; }
 
-        /** Visits each segment s of the underlying unencoded_rope and calls
-            f(s).  Each segment is a value whose type models a CharIter
-            iterator-range.  Depending of the operation performed on each
-            segment, this may be more efficient than iterating over [begin(),
-            end()).
-
-            \pre Fn is an Invocable accepting a single argument whose begin
-            and end model CharIter. */
-        template<typename Fn>
-        void foreach_segment(Fn && f) const;
-
         /** Swaps *this with rhs. */
         void swap(rope_view & rhs) noexcept;
 
@@ -117,8 +101,11 @@ namespace boost { namespace text {
             if (os.good()) {
                 auto const size = rv.distance();
                 detail::pad_width_before(os, size);
-                if (os.good())
-                    rv.foreach_segment(detail::segment_inserter{os});
+                if (os.good()) {
+                    std::ostream_iterator<char> out(os);
+                    std::copy(
+                        rv.begin().base().base(), rv.end().base().base(), out);
+                }
                 if (os.good())
                     detail::pad_width_after(os, size);
             }
@@ -129,9 +116,9 @@ namespace boost { namespace text {
 
     private:
         static iterator make_iter(
-            detail::const_rope_view_iterator first,
-            detail::const_rope_view_iterator it,
-            detail::const_rope_view_iterator last) noexcept;
+            unencoded_rope_view::const_iterator first,
+            unencoded_rope_view::const_iterator it,
+            unencoded_rope_view::const_iterator last) noexcept;
 
         unencoded_rope_view view_;
 
@@ -200,9 +187,9 @@ namespace boost { namespace text {
         const_rope_iterator first, const_rope_iterator last) noexcept
     {
         auto const lo =
-            first.base().base() - first.base().base().rope_->begin();
-        auto const hi = last.base().base() - last.base().base().rope_->begin();
-        view_ = unencoded_rope_view(*first.base().base().rope_, lo, hi);
+            first.base().base() - first.base().base().vec_->begin();
+        auto const hi = last.base().base() - last.base().base().vec_->begin();
+        view_ = unencoded_rope_view(first.base().base().vec_, lo, hi);
     }
 
     inline rope_view::const_iterator rope_view::begin() const noexcept
@@ -219,22 +206,16 @@ namespace boost { namespace text {
         return view_.size();
     }
 
-    template<typename Fn>
-    void rope_view::foreach_segment(Fn && f) const
-    {
-        view_.foreach_segment(static_cast<Fn &&>(f));
-    }
-
     inline rope_view::iterator rope_view::make_iter(
-        detail::const_rope_view_iterator first,
-        detail::const_rope_view_iterator it,
-        detail::const_rope_view_iterator last) noexcept
+        unencoded_rope_view::const_iterator first,
+        unencoded_rope_view::const_iterator it,
+        unencoded_rope_view::const_iterator last) noexcept
     {
-        return iterator{utf_8_to_32_iterator<detail::const_rope_view_iterator>{
+        return iterator{utf_8_to_32_iterator<unencoded_rope_view::const_iterator>{
                             first, first, last},
-                        utf_8_to_32_iterator<detail::const_rope_view_iterator>{
+                        utf_8_to_32_iterator<unencoded_rope_view::const_iterator>{
                             first, it, last},
-                        utf_8_to_32_iterator<detail::const_rope_view_iterator>{
+                        utf_8_to_32_iterator<unencoded_rope_view::const_iterator>{
                             first, last, last}};
     }
 
