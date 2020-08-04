@@ -642,96 +642,10 @@ namespace boost { namespace text {
     {}
 
     inline unencoded_rope_view::unencoded_rope_view(
-        unencoded_rope_view const & other) noexcept :
-        ref_(string_view()),
-        which_(other.which_)
-    {
-        switch (which_) {
-        case which::r: ref_.r_ = other.ref_.r_; break;
-        case which::tv: ref_.tv_ = other.ref_.tv_; break;
-        }
-    }
-
-    inline unencoded_rope_view::unencoded_rope_view(
         unencoded_rope const & r, size_type lo, size_type hi) :
         ref_(rope_ref(&r, lo, hi)),
         which_(which::r)
     {}
-
-    inline unencoded_rope_view::const_iterator
-    unencoded_rope_view::cbegin() const noexcept
-    {
-        return begin();
-    }
-    inline unencoded_rope_view::const_iterator unencoded_rope_view::cend() const
-        noexcept
-    {
-        return end();
-    }
-
-    inline unencoded_rope_view::const_reverse_iterator
-    unencoded_rope_view::rbegin() const noexcept
-    {
-        return const_reverse_iterator(end());
-    }
-    inline unencoded_rope_view::const_reverse_iterator
-    unencoded_rope_view::rend() const noexcept
-    {
-        return const_reverse_iterator(begin());
-    }
-
-    inline unencoded_rope_view::const_reverse_iterator
-    unencoded_rope_view::crbegin() const noexcept
-    {
-        return rbegin();
-    }
-    inline unencoded_rope_view::const_reverse_iterator
-    unencoded_rope_view::crend() const noexcept
-    {
-        return rend();
-    }
-
-    inline bool unencoded_rope_view::empty() const noexcept
-    {
-        return begin() == end();
-    }
-
-    inline unencoded_rope_view::size_type unencoded_rope_view::size() const
-        noexcept
-    {
-        return end() - begin();
-    }
-
-    inline char unencoded_rope_view::operator[](size_type i) const noexcept
-    {
-        BOOST_ASSERT(i < size());
-        return begin()[i];
-    }
-
-    inline int unencoded_rope_view::compare(unencoded_rope_view rhs) const
-        noexcept
-    {
-        if (which_ == which::tv && rhs.which_ == which::tv)
-            return ref_.tv_.compare(rhs.ref_.tv_);
-
-        if (empty())
-            return rhs.empty() ? 0 : -1;
-
-        auto const iters =
-            algorithm::mismatch(begin(), end(), rhs.begin(), rhs.end());
-        if (iters.first == end()) {
-            if (iters.second == rhs.end())
-                return 0;
-            else
-                return -1;
-        } else if (iters.second == rhs.end()) {
-            return 1;
-        } else if (*iters.first < *iters.second) {
-            return -1;
-        } else {
-            return 1;
-        }
-    }
 
     namespace detail {
 

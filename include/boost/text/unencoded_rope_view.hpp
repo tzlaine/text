@@ -11,6 +11,8 @@
 #include <boost/text/detail/rope_iterator.hpp>
 #include <boost/text/detail/rope.hpp>
 
+#include <boost/stl_interfaces/view_interface.hpp>
+
 
 namespace boost { namespace text {
 
@@ -23,6 +25,7 @@ namespace boost { namespace text {
     /** A reference to a substring of an unencoded_rope, string, or
         string_view. */
     struct unencoded_rope_view
+        : stl_interfaces::view_interface<unencoded_rope_view>
     {
         using value_type = char;
         using size_type = std::size_t;
@@ -40,10 +43,17 @@ namespace boost { namespace text {
             unencoded_rope. */
         unencoded_rope_view(unencoded_rope const & r) noexcept;
 
-        unencoded_rope_view(unencoded_rope_view const & r) noexcept;
+        unencoded_rope_view(unencoded_rope_view const & other) noexcept :
+            ref_(string_view()), which_(other.which_)
+        {
+            switch (which_) {
+            case which::r: ref_.r_ = other.ref_.r_; break;
+            case which::tv: ref_.tv_ = other.ref_.tv_; break;
+            }
+        }
 
         /** Forbid construction from a temporary unencoded_rope. */
-        unencoded_rope_view(unencoded_rope && r) noexcept = delete;
+        unencoded_rope_view(unencoded_rope &&) noexcept = delete;
 
         /** Constructs a substring of r, taken from the range of chars at
             offsets [lo, hi).  If either of lo or hi is a negative value x, x
@@ -177,23 +187,20 @@ namespace boost { namespace text {
             return const_iterator(); // This should never execute.
         }
 
-        const_iterator cbegin() const noexcept;
-        const_iterator cend() const noexcept;
+        const_iterator cbegin() const noexcept { return begin(); }
+        const_iterator cend() const noexcept { return end(); }
 
-        const_reverse_iterator rbegin() const noexcept;
-        const_reverse_iterator rend() const noexcept;
+        const_reverse_iterator rbegin() const noexcept
+        {
+            return const_reverse_iterator{end()};
+        }
+        const_reverse_iterator rend() const noexcept
+        {
+            return const_reverse_iterator{begin()};
+        }
 
-        const_reverse_iterator crbegin() const noexcept;
-        const_reverse_iterator crend() const noexcept;
-
-        bool empty() const noexcept;
-        size_type size() const noexcept;
-
-        /** Returns the char (not a reference) of *this at index i, or the
-            char at index -i when i < 0.
-
-            \pre 0 <= i && i <= size() || 0 <= -i && -i <= size()  */
-        char operator[](size_type i) const noexcept;
+        const_reverse_iterator crbegin() const noexcept { return rbegin(); }
+        const_reverse_iterator crend() const noexcept { return rend(); }
 
         /** Returns a substring of *this, taken from the range of chars at
             offsets [lo, hi).  If either of lo or hi is a negative value x, x
@@ -210,7 +217,7 @@ namespace boost { namespace text {
         operator()(std::ptrdiff_t lo, std::ptrdiff_t hi) const
         {
             if (lo < 0)
-                lo += size();
+                lo += this->size();
             if (hi < 0)
                 hi += size();
             BOOST_ASSERT(0 <= lo && lo <= (std::ptrdiff_t)size());
@@ -232,8 +239,8 @@ namespace boost { namespace text {
             \pre 0 <= cut && cut <= size() || 0 <= -cut && -cut <= size() */
         unencoded_rope_view operator()(std::ptrdiff_t cut) const
         {
-            size_type lo = 0;
-            size_type hi = cut;
+            std::ptrdiff_t lo = 0;
+            std::ptrdiff_t hi = cut;
             if (cut < 0) {
                 lo = cut + size();
                 hi = size();
@@ -249,7 +256,29 @@ namespace boost { namespace text {
         /** Lexicographical compare.  Returns a value < 0 when *this is
             lexicographically less than rhs, 0 if *this == rhs, and a value >
             0 if *this is lexicographically greater than rhs. */
-        int compare(unencoded_rope_view rhs) const noexcept;
+        int compare(unencoded_rope_view rhs) const noexcept
+        {
+            if (which_ == which::tv && rhs.which_ == which::tv)
+                return ref_.tv_.compare(rhs.ref_.tv_);
+
+            if (empty())
+                return rhs.empty() ? 0 : -1;
+
+            auto const iters =
+                algorithm::mismatch(begin(), end(), rhs.begin(), rhs.end());
+            if (iters.first == end()) {
+                if (iters.second == rhs.end())
+                    return 0;
+                else
+                    return -1;
+            } else if (iters.second == rhs.end()) {
+                return 1;
+            } else if (*iters.first < *iters.second) {
+                return -1;
+            } else {
+                return 1;
+            }
+        }
 
         unencoded_rope_view &
         operator=(unencoded_rope_view const & other) noexcept
