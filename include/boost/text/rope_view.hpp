@@ -8,6 +8,7 @@
 
 #include <boost/text/grapheme_iterator.hpp>
 #include <boost/text/unencoded_rope_view.hpp>
+#include <boost/text/text_fwd.hpp>
 #include <boost/text/transcode_iterator.hpp>
 #include <boost/text/detail/rope_iterator.hpp>
 
@@ -16,8 +17,6 @@
 
 namespace boost { namespace text {
 
-    struct text;
-    struct text_view;
     struct rope;
 
     /** A reference to a substring of a rope, text, or text_view. */

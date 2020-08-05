@@ -22,6 +22,9 @@
 
 namespace boost { namespace text {
 
+    /** The Unicode Transformation Formats. */
+    enum class format { utf8, utf16, utf32 };
+
     namespace {
         constexpr uint16_t high_surrogate_base = 0xd7c0;
         constexpr uint16_t low_surrogate_base = 0xdc00;
@@ -32,6 +35,22 @@ namespace boost { namespace text {
     }
 
     namespace detail {
+        template<typename T>
+        constexpr format format_of()
+        {
+            constexpr uint32_t size = sizeof(T);
+            static_assert(std::is_integral<T>::value, "");
+            static_assert(size == 1 || size == 2 || size == 4, "");
+            constexpr format formats[] = {
+                format::utf8,
+                format::utf8,
+                format::utf16,
+                format::utf32,
+                format::utf32,
+                format::utf32};
+            return formats[size];
+        }
+
         constexpr bool
         in(unsigned char lo, unsigned char c, unsigned char hi) noexcept
         {
@@ -182,7 +201,7 @@ namespace boost { namespace text {
     {
         return first_unit <= 0x7f
                    ? 1
-                   : text::lead_code_unit(first_unit)
+                   : boost::text::lead_code_unit(first_unit)
                          ? int(0xe0 <= first_unit) + int(0xf0 <= first_unit) + 2
                          : -1;
     }
@@ -3904,7 +3923,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<std::bidirectional_iterator I, std::sentinel_for<I> S>
     auto utf8_iterator(I first, I it, S last) noexcept
     {
-        return text::v1::utf8_iterator(first, it, last);
+        return v1::utf8_iterator(first, it, last);
     }
 
     /** Returns an iterator equivalent to `it` that transcodes `[first, last)`
@@ -3912,7 +3931,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<std::bidirectional_iterator I, std::sentinel_for<I> S>
     auto utf16_iterator(I first, I it, S last) noexcept
     {
-        return text::v1::utf16_iterator(first, it, last);
+        return v1::utf16_iterator(first, it, last);
     }
 
     /** Returns an iterator equivalent to `it` that transcodes `[first, last)`
@@ -3920,7 +3939,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<std::bidirectional_iterator I, std::sentinel_for<I> S>
     auto utf32_iterator(I first, I it, S last) noexcept
     {
-        return text::v1::utf32_iterator(first, it, last);
+        return v1::utf32_iterator(first, it, last);
     }
 
     /** Returns a inserting iterator that transcodes from UTF-8 to UTF-8,

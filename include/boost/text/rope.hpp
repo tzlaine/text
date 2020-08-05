@@ -8,6 +8,7 @@
 
 #include <boost/text/estimated_width.hpp>
 #include <boost/text/unencoded_rope.hpp>
+#include <boost/text/text_fwd.hpp>
 #include <boost/text/transcode_iterator.hpp>
 
 #include <iterator>
@@ -30,7 +31,6 @@
 
 namespace boost { namespace text {
 
-    struct text;
     struct rope_view;
 
     /** A mutable sequence of graphemes with copy-on-write semantics.  A rope
@@ -1177,8 +1177,9 @@ namespace boost { namespace text {
     inline rope operator+(rope r, text const & t) { return r += t; }
 
 
-    inline replace_result<text::iterator>
-    text::insert(iterator at, rope_view rv)
+    template<nf Normalization, typename String>
+    replace_result<typename basic_text<Normalization, String>::iterator>
+    basic_text<Normalization, String>::insert(iterator at, rope_view rv)
     {
         return insert_impl(
             at,
@@ -1187,8 +1188,10 @@ namespace boost { namespace text {
             insertion_normalized);
     }
 
-    inline replace_result<text::iterator>
-    text::replace(text_view old_substr, rope_view new_substr)
+    template<nf Normalization, typename String>
+    replace_result<typename basic_text<Normalization, String>::iterator>
+    basic_text<Normalization, String>::replace(
+        text_view old_substr, rope_view new_substr)
     {
         return replace_impl(
             old_substr,

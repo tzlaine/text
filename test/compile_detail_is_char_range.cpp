@@ -34,8 +34,8 @@ struct inline_t
 
 using namespace boost;
 
-static_assert(text::detail::is_char_range<text::string_view>::value, "");
-static_assert(text::detail::is_char_range<text::string_view const>::value, "");
+static_assert(text::detail::is_char_range<text::basic_string_view<char>>::value, "");
+static_assert(text::detail::is_char_range<text::basic_string_view<char> const>::value, "");
 static_assert(text::detail::is_char_range<std::string>::value, "");
 static_assert(text::detail::is_char_range<std::string const>::value, "");
 static_assert(text::detail::is_char_range<text::unencoded_rope>::value, "");
@@ -95,6 +95,6 @@ static_assert(text::detail::is_contig_grapheme_char_range<text::text_view>::valu
 static_assert(!text::detail::is_contig_grapheme_char_range<text::rope>::value, "");
 static_assert(!text::detail::is_contig_grapheme_char_range<text::rope_view>::value, "");
 
-static_assert(!text::detail::is_char16_range<text::string_view>::value, "");
+static_assert(!text::detail::is_char16_range<text::basic_string_view<char>>::value, "");
 static_assert(!text::detail::is_char16_range<std::string>::value, "");
 static_assert(text::detail::is_char16_range<std::array<uint16_t, 1>>::value, "");

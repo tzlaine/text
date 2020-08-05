@@ -72,7 +72,7 @@ boost::text::collation_table default_table =
     boost::text::default_collation_table();
 
 // The Danish town of Arrhus changed the town's name in 2010.  Go figure.
-boost::text::text const aarhus_old = u8"Århus";
+boost::text::text const aarhus_old = (char const *)u8"Århus";
 boost::text::text const aarhus_new = "Aarhus";
 
 // This is fine for one-off comparisons.  Beware though that creating sort
@@ -102,7 +102,7 @@ assert(boost::text::compare(aarhus_old_key, aarhus_new_key) > 0);
 boost::text::collation_table da_table = boost::text::tailored_collation_table(
     boost::text::data::da::standard_collation_tailoring());
 
-boost::text::text const aarhus_old = u8"Århus";
+boost::text::text const aarhus_old = (char const *)u8"Århus";
 std::array<uint32_t, 6> const aarhus_new = {{'A', 'a', 'r', 'h', 'u', 's'}};
 
 boost::text::text_sort_key aarhus_new_key =
@@ -197,8 +197,8 @@ assert(result == 0);
 boost::text::collation_table da_table = boost::text::tailored_collation_table(
     boost::text::data::da::standard_collation_tailoring());
 
-boost::text::text const aarhus_old = u8"Århus";
-boost::text::text const aarhus_new = u8"Aarhus";
+boost::text::text const aarhus_old = (char const *)u8"Århus";
+boost::text::text const aarhus_new = (char const *)u8"Aarhus";
 
 boost::container::flat_multiset<boost::text::text> set1; // So far so good, ...
 // set1.insert(aarhus_old);                              // Nope! There's no operator<.
@@ -261,8 +261,8 @@ std::cout << "\n";
 boost::text::collation_table da_table = boost::text::tailored_collation_table(
     boost::text::data::da::standard_collation_tailoring());
 
-boost::text::text const aarhus_old = u8"Århus";
-boost::text::text const aarhus_new = u8"Aarhus";
+boost::text::text const aarhus_old = (char const *)u8"Århus";
+boost::text::text const aarhus_new = (char const *)u8"Aarhus";
 
 // This works.
 std::unordered_multiset<boost::text::text> set;
@@ -299,8 +299,8 @@ assert(text_view_set.size() == 2);
 boost::text::collation_table da_table = boost::text::tailored_collation_table(
     boost::text::data::da::standard_collation_tailoring());
 
-boost::text::text const aarhus_old = u8"Århus";
-boost::text::text const aarhus_new = u8"Aarhus";
+boost::text::text const aarhus_old = (char const *)u8"Århus";
+boost::text::text const aarhus_new = (char const *)u8"Aarhus";
 
 std::vector<boost::text::text> text_vec = {aarhus_new, aarhus_old};
 // std::sort(text_vec.begin(), text_vec.end()); // Error!  No operator<.

@@ -6,6 +6,7 @@
 #ifndef BOOST_TEXT_TEXT_VIEW_HPP
 #define BOOST_TEXT_TEXT_VIEW_HPP
 
+#include <boost/text/text_fwd.hpp>
 #include <boost/text/grapheme_iterator.hpp>
 #include <boost/text/grapheme_view.hpp>
 #include <boost/text/transcode_iterator.hpp>
@@ -20,41 +21,73 @@
 
 namespace boost { namespace text {
 
-    struct text;
-
     /** A reference to a constant sequence of graphemes. The underlying
         storage is a string that is UTF-8-encoded and FCC-normalized. */
-    struct text_view
+    template<nf Normalization, typename Char>
+#if defined(__cpp_lib_concepts)
+    // clang-format off
+        requires u8_code_unit<Char> // TODO: Support for UTF-16
+#endif
+    struct basic_text_view
+    // clang-format on
     {
-        using value_type = utf32_view<utf_8_to_32_iterator<char const *>>;
+        /** The normalization form used in this basic_text_view. */
+        static constexpr nf normalization = Normalization;
+
+        /** The type of code unit used in the underlying storage. */
+        using char_type = Char;
+
+        /** The UTF format used in the underlying storage. */
+        static constexpr format utf_format = detail::format_of<char_type>();
+
+        BOOST_TEXT_STATIC_ASSERT_NORMALIZATION();
+        // TODO: This should change once testing covers UTF-16.
+        static_assert(
+            utf_format == format::utf8 /* || utf_format == format::utf16*/, "");
+
+        using value_type = utf32_view<utf_8_to_32_iterator<char_type const *>>;
         using size_type = std::size_t;
-        using iterator = grapheme_iterator<utf_8_to_32_iterator<char const *>>;
+        using iterator =
+            grapheme_iterator<utf_8_to_32_iterator<char_type const *>>;
         using const_iterator = iterator;
         using reverse_iterator =
             stl_interfaces::reverse_iterator<const_iterator>;
         using const_reverse_iterator = reverse_iterator;
 
-        using text_iterator = grapheme_iterator<utf_8_to_32_iterator<char *>>;
+        using text_iterator =
+            grapheme_iterator<utf_8_to_32_iterator<char_type *>>;
         using const_text_iterator = const_iterator;
 
         /** Default ctor. */
-        text_view() noexcept : first_(), last_() {}
+        basic_text_view() noexcept : first_(), last_() {}
 
-        /** Constructs a text_view from a text. */
-        text_view(text const & t) noexcept;
+        /** Constructs a basic_text_view from a text. */
+#if defined(__cpp_lib_concepts)
+        template<typename String>
+        // clang-format off
+            requires std::is_same_v<std::ranges::range_value_t<String>, Char>
+#else
+        template<
+            typename String,
+            typename Enable = std::enable_if_t<
+                std::is_same<detail::range_value_t<String>, Char>::value>>
+#endif
+        basic_text_view(basic_text<Normalization, String> const & t) noexcept;
+        // clang-format on
 
         /** Disallow construction from a temporary text. */
-        text_view(text && t) noexcept = delete;
+        template<nf Normalization2, typename String>
+        basic_text_view(basic_text<Normalization2, String> && t) noexcept =
+            delete;
 
-        /** Constructs a text_view from a grapheme_view. */
+        /** Constructs a basic_text_view from a grapheme_view. */
         template<typename CPIter>
-        text_view(grapheme_view<CPIter> range) noexcept;
+        basic_text_view(grapheme_view<CPIter> range) noexcept;
 
-        /** Constructs a text_view from a pair of const_text_iterators. */
-        text_view(
+        /** Constructs a basic_text_view from a pair of const_text_iterators. */
+        basic_text_view(
             const_text_iterator first, const_text_iterator last) noexcept :
-            first_(first),
-            last_(last)
+            first_(first), last_(last)
         {}
 
         const_iterator begin() const noexcept { return first_; }
@@ -86,20 +119,23 @@ namespace boost { namespace text {
 
         /** Returns the number of graphemes in *this.  This operation is
             O(n). */
-        size_type distance() const noexcept { return std::distance(begin(), end()); }
+        size_type distance() const noexcept
+        {
+            return std::distance(begin(), end());
+        }
 
-        /** Returns the maximum size in bytes a text_view can have. */
+        /** Returns the maximum size in bytes a basic_text_view can have. */
         size_type max_bytes() const noexcept { return PTRDIFF_MAX; }
 
         /** Swaps *this with rhs. */
-        void swap(text_view & rhs) noexcept
+        void swap(basic_text_view & rhs) noexcept
         {
             std::swap(first_, rhs.first_);
             std::swap(last_, rhs.last_);
         }
 
         /** Stream inserter; performs formatted output, in UTF-8 encoding. */
-        friend std::ostream & operator<<(std::ostream & os, text_view tv)
+        friend std::ostream & operator<<(std::ostream & os, basic_text_view tv)
         {
             if (os.good()) {
                 auto const size = tv.distance();
@@ -115,12 +151,13 @@ namespace boost { namespace text {
 #ifndef BOOST_TEXT_DOXYGEN
 
     private:
-        static iterator make_iter(char * first, char * it, char * last) noexcept
+        static iterator
+        make_iter(char_type * first, char_type * it, char_type * last) noexcept
         {
             return iterator{
-                utf_8_to_32_iterator<char const *>{first, first, last},
-                utf_8_to_32_iterator<char const *>{first, it, last},
-                utf_8_to_32_iterator<char const *>{first, last, last}};
+                utf_8_to_32_iterator<char_type const *>{first, first, last},
+                utf_8_to_32_iterator<char_type const *>{first, it, last},
+                utf_8_to_32_iterator<char_type const *>{first, last, last}};
         }
 
         iterator first_;
@@ -129,51 +166,26 @@ namespace boost { namespace text {
 #endif
     };
 
-    inline bool operator==(text_view lhs, text_view rhs) noexcept
+    template<nf Normalization, typename Char>
+    bool operator==(
+        basic_text_view<Normalization, Char> lhs,
+        basic_text_view<Normalization, Char> rhs) noexcept
     {
         return lhs.begin() == rhs.begin() && lhs.end() == rhs.end();
     }
 
-    inline bool operator!=(text_view lhs, text_view rhs) noexcept
+    template<nf Normalization, typename Char>
+    bool operator!=(
+        basic_text_view<Normalization, Char> lhs,
+        basic_text_view<Normalization, Char> rhs) noexcept
     {
         return !(lhs == rhs);
     }
 
-    inline text_view::iterator begin(text_view tv) noexcept
-    {
-        return tv.begin();
-    }
-    inline text_view::iterator end(text_view tv) noexcept { return tv.end(); }
-
-    inline text_view::iterator cbegin(text_view tv) noexcept
-    {
-        return tv.begin();
-    }
-    inline text_view::iterator cend(text_view tv) noexcept { return tv.end(); }
-
-    inline text_view::reverse_iterator rbegin(text_view tv) noexcept
-    {
-        return tv.rbegin();
-    }
-    inline text_view::reverse_iterator rend(text_view tv) noexcept
-    {
-        return tv.rend();
-    }
-
-    inline text_view::reverse_iterator crbegin(text_view tv) noexcept
-    {
-        return tv.rbegin();
-    }
-    inline text_view::reverse_iterator crend(text_view tv) noexcept
-    {
-        return tv.rend();
-    }
-
-    inline int operator+(text_view const & t, char const * c_str) = delete;
-
-#if defined(__cpp_char8_t)
-    inline int operator+(text_view const & t, char8_t const * c_str) = delete;
-#endif
+    template<nf Normalization, typename Char>
+    int operator+(
+        basic_text_view<Normalization, Char> const & t,
+        Char const * c_str) = delete;
 
 }}
 
@@ -181,15 +193,25 @@ namespace boost { namespace text {
 
 namespace boost { namespace text {
 
-    inline text_view::text_view(text const & t) noexcept :
-        first_(t.begin()),
-        last_(t.end())
+    template<nf Normalization, typename Char>
+#if defined(__cpp_lib_concepts)
+    template<typename String>
+    // clang-format off
+        requires std::is_same_v<std::ranges::range_value_t<String>, Char>
+#else
+    template<typename String, typename Enable>
+#endif
+    basic_text_view<Normalization, Char>::basic_text_view(
+        // clang-format on
+        basic_text<Normalization, String> const & t) noexcept :
+        first_(t.begin()), last_(t.end())
     {}
 
+    template<nf Normalization, typename Char>
     template<typename CPIter>
-    text_view::text_view(grapheme_view<CPIter> range) noexcept :
-        first_(range.begin()),
-        last_(range.end())
+    basic_text_view<Normalization, Char>::basic_text_view(
+        grapheme_view<CPIter> range) noexcept :
+        first_(range.begin()), last_(range.end())
     {}
 
 }}
@@ -197,10 +219,10 @@ namespace boost { namespace text {
 #ifndef BOOST_TEXT_DOXYGEN
 
 namespace std {
-    template<>
-    struct hash<boost::text::text_view>
+    template<boost::text::nf Normalization, typename Char>
+    struct hash<boost::text::basic_text_view<Normalization, Char>>
     {
-        using argument_type = boost::text::text_view;
+        using argument_type = boost::text::basic_text_view<Normalization, Char>;
         using result_type = std::size_t;
         result_type operator()(argument_type const & tv) const noexcept
         {
@@ -214,8 +236,9 @@ namespace std {
 #if defined(__cpp_lib_concepts)
 
 namespace std::ranges {
-    template<>
-    inline constexpr bool enable_borrowed_range<boost::text::text_view> = true;
+    template<boost::text::nf Normalization, typename Char>
+    inline constexpr bool enable_borrowed_range<
+        boost::text::basic_text_view<Normalization, Char>> = true;
 }
 
 #endif

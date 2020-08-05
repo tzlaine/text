@@ -514,10 +514,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     constexpr auto as_utf8(R && r) noexcept
     {
         if constexpr (std::is_pointer_v<std::remove_reference_t<R>>) {
-            return text::as_utf8(r, null_sentinel{});
+            return boost::text::as_utf8(r, null_sentinel{});
         } else {
-            auto intermediate =
-                text::as_utf8(std::ranges::begin(r), std::ranges::end(r));
+            auto intermediate = boost::text::as_utf8(
+                std::ranges::begin(r), std::ranges::end(r));
             using result_type = borrowed_view_t<R, decltype(intermediate)>;
             return result_type{intermediate};
         }
@@ -541,10 +541,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     constexpr auto as_utf16(R && r) noexcept
     {
         if constexpr (std::is_pointer_v<std::remove_reference_t<R>>) {
-            return text::as_utf16(r, null_sentinel{});
+            return boost::text::as_utf16(r, null_sentinel{});
         } else {
-            auto intermediate =
-                text::as_utf16(std::ranges::begin(r), std::ranges::end(r));
+            auto intermediate = boost::text::as_utf16(
+                std::ranges::begin(r), std::ranges::end(r));
             using result_type = borrowed_view_t<R, decltype(intermediate)>;
             return result_type{intermediate};
         }
@@ -568,15 +568,14 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     constexpr auto as_utf32(R && r) noexcept
     {
         if constexpr (std::is_pointer_v<std::remove_reference_t<R>>) {
-            return text::as_utf32(r, null_sentinel{});
+            return boost::text::as_utf32(r, null_sentinel{});
         } else {
-            auto intermediate =
-                text::as_utf32(std::ranges::begin(r), std::ranges::end(r));
+            auto intermediate = boost::text::as_utf32(
+                std::ranges::begin(r), std::ranges::end(r));
             using result_type = borrowed_view_t<R, decltype(intermediate)>;
             return result_type{intermediate};
         }
     }
-
 }}}
 
 namespace std::ranges {

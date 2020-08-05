@@ -28,11 +28,29 @@ namespace boost { namespace text { namespace detail {
     using remove_cv_ref_t =
         typename std::remove_cv<typename std::remove_reference<T>::type>::type;
 
-    template<typename Range>
-    using iterator_t = decltype(std::begin(std::declval<Range>()));
+#if defined(__cpp_lib_concepts)
 
+    template<typename T>
+    using iterator_t = std::ranges::iterator_t<T>;
+    template<typename T>
+    using sentinel_t = std::ranges::sentinel_t<T>;
+    template<typename T>
+    using iter_value_t = std::iter_value_t<T>;
+    template<typename T>
+    using range_value_t = std::ranges::range_value_t<T>;
+
+#else
+
+    template<typename T>
+    using iterator_t = decltype(std::begin(std::declval<T &>()));
     template<typename Range>
     using sentinel_t = decltype(std::end(std::declval<Range>()));
+    template<typename T>
+    using iter_value_t = typename std::iterator_traits<T>::value_type;
+    template<typename T>
+    using range_value_t = iter_value_t<iterator_t<T>>;
+
+#endif
 
     template<typename...>
     struct void_

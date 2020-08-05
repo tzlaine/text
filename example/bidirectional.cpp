@@ -36,6 +36,7 @@ int main ()
 boost::text::text const RTL_order_arabic = "مرحبا ، عالم ثنائي الاتجاه";
 
 boost::text::text const memory_order_text =
+    (char const *)
     u8"When I type \"Hello, bidirectional world\" into Google translate "
     u8"English->Arabic, it produces \"هاجتالا يئانث ملاع ، ابحرم\".  I have no "
     u8"idea if it's correct.\n";
@@ -61,6 +62,7 @@ std::cout << bidirectional_text;
 {
 //[ bidi_with_line_breaks
 boost::text::text const memory_order_text =
+    (char const *)
     u8"When I type \"Hello, bidirectional world\" into Google translate "
     u8"English->Arabic, it produces \"هاجتالا يئانث ملاع ، ابحرم\".  I have no "
     u8"idea if it's correct.\n";

@@ -19,13 +19,13 @@ using namespace boost;
 static_assert(text::detail::is_char_iter<char *>{}, "");
 static_assert(text::detail::is_char_iter<char const *>{}, "");
 
-static_assert(text::detail::is_char_iter<text::string_view::iterator>{}, "");
+static_assert(text::detail::is_char_iter<text::basic_string_view<char>::iterator>{}, "");
 static_assert(
-    text::detail::is_char_iter<text::string_view::const_iterator>{}, "");
+    text::detail::is_char_iter<text::basic_string_view<char>::const_iterator>{}, "");
 static_assert(
-    text::detail::is_char_iter<text::string_view::reverse_iterator>{}, "");
+    text::detail::is_char_iter<text::basic_string_view<char>::reverse_iterator>{}, "");
 static_assert(
-    text::detail::is_char_iter<text::string_view::const_reverse_iterator>{}, "");
+    text::detail::is_char_iter<text::basic_string_view<char>::const_reverse_iterator>{}, "");
 
 static_assert(text::detail::is_char_iter<std::string::iterator>{}, "");
 static_assert(text::detail::is_char_iter<std::string::const_iterator>{}, "");
