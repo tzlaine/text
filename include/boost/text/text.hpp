@@ -499,12 +499,31 @@ namespace boost { namespace text {
                 auto const size = boost::text::estimated_width_of_graphemes(
                     t.begin().base(), t.end().base());
                 detail::pad_width_before(os, size);
-                os << t.str_;
+                if (os.good())
+                    os << boost::text::as_utf8(t.str_);
                 if (os.good())
                     detail::pad_width_after(os, size);
             }
             return os;
         }
+#if defined(BOOST_TEXT_DOXYGEN) || defined(_MSC_VER)
+        /** Stream inserter; performs formatted output, in UTF-16 encoding.
+            Defined on Windows only. */
+        friend std::wostream &
+        operator<<(std::wostream & os, basic_text const & t)
+        {
+            if (os.good()) {
+                auto const size = boost::text::estimated_width_of_graphemes(
+                    t.begin().base(), t.end().base());
+                detail::pad_width_before(os, size);
+                if (os.good())
+                    os << boost::text::as_utf16(t.str_);
+                if (os.good())
+                    detail::pad_width_after(os, size);
+            }
+            return os;
+        }
+#endif
 
 #ifndef BOOST_TEXT_DOXYGEN
 
