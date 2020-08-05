@@ -8,6 +8,7 @@
 
 #include <boost/text/normalize_fwd.hpp>
 #include <boost/text/concepts.hpp>
+#include <boost/text/transcode_iterator.hpp>
 
 
 namespace boost { namespace text {
@@ -15,7 +16,7 @@ namespace boost { namespace text {
     template<nf Normalization, typename T>
 #if defined(__cpp_lib_concepts)
     // clang-format off
-        requires u8_code_unit<T> // TODO: Support for UTF-16
+        requires u8_code_unit<T> || u16_code_unit<T>
 #endif
     struct basic_text_view;
     // clang-format on
@@ -23,7 +24,8 @@ namespace boost { namespace text {
     template<nf Normalization, typename String>
 #if defined(__cpp_lib_concepts)
     // clang-format off
-        requires u8_code_unit<std::ranges::range_value_t<String>> // TODO: Support for UTF-16
+        requires u8_code_unit<std::ranges::range_value_t<String>> ||
+                 u16_code_unit<std::ranges::range_value_t<String>>
 #endif
     struct basic_text;
     // clang-format on
@@ -37,6 +39,28 @@ namespace boost { namespace text {
         situations. */
     using text_view = basic_text_view<nf::fcc, char>;
     // TODO: Change this to NFD.
+
+    namespace detail {
+        template<typename T, typename U, typename R>
+        using enable_if_different =
+            std::enable_if_t<!std::is_same<T, U>::value, R>;
+
+        template<typename T, int Size = sizeof(T)>
+        struct text_transcode_iterator;
+        template<typename T>
+        struct text_transcode_iterator<T, 1>
+        {
+            using type = utf_8_to_32_iterator<T *>;
+        };
+        template<typename T>
+        struct text_transcode_iterator<T, 2>
+        {
+            using type = utf_16_to_32_iterator<T *>;
+        };
+        template<typename T>
+        using text_transcode_iterator_t =
+            typename text_transcode_iterator<T>::type;
+    }
 
 }}
 

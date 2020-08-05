@@ -23,7 +23,7 @@
 namespace boost { namespace text {
 
     /** The Unicode Transformation Formats. */
-    enum class format { utf8, utf16, utf32 };
+    enum class format { utf8 = 1, utf16 = 2, utf32 = 4 };
 
     namespace {
         constexpr uint16_t high_surrogate_base = 0xd7c0;
@@ -45,7 +45,6 @@ namespace boost { namespace text {
                 format::utf8,
                 format::utf8,
                 format::utf16,
-                format::utf32,
                 format::utf32,
                 format::utf32};
             return formats[size];

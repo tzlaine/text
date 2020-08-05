@@ -7,6 +7,7 @@
 #define BOOST_TEXT_TEXT_VIEW_HPP
 
 #include <boost/text/text_fwd.hpp>
+#include <boost/text/estimated_width.hpp>
 #include <boost/text/grapheme_iterator.hpp>
 #include <boost/text/grapheme_view.hpp>
 #include <boost/text/transcode_iterator.hpp>
@@ -26,7 +27,7 @@ namespace boost { namespace text {
     template<nf Normalization, typename Char>
 #if defined(__cpp_lib_concepts)
     // clang-format off
-        requires u8_code_unit<Char> // TODO: Support for UTF-16
+        requires u8_code_unit<Char> || u16_code_unit<Char>
 #endif
     struct basic_text_view
     // clang-format on
@@ -41,21 +42,21 @@ namespace boost { namespace text {
         static constexpr format utf_format = detail::format_of<char_type>();
 
         BOOST_TEXT_STATIC_ASSERT_NORMALIZATION();
-        // TODO: This should change once testing covers UTF-16.
         static_assert(
-            utf_format == format::utf8 /* || utf_format == format::utf16*/, "");
+            utf_format == format::utf8 || utf_format == format::utf16, "");
 
-        using value_type = utf32_view<utf_8_to_32_iterator<char_type const *>>;
+        using value_type =
+            utf32_view<detail::text_transcode_iterator_t<char_type const>>;
         using size_type = std::size_t;
-        using iterator =
-            grapheme_iterator<utf_8_to_32_iterator<char_type const *>>;
+        using iterator = grapheme_iterator<
+            detail::text_transcode_iterator_t<char_type const>>;
         using const_iterator = iterator;
         using reverse_iterator =
             stl_interfaces::reverse_iterator<const_iterator>;
         using const_reverse_iterator = reverse_iterator;
 
         using text_iterator =
-            grapheme_iterator<utf_8_to_32_iterator<char_type *>>;
+            grapheme_iterator<detail::text_transcode_iterator_t<char_type>>;
         using const_text_iterator = const_iterator;
 
         /** Default ctor. */
@@ -138,7 +139,8 @@ namespace boost { namespace text {
         friend std::ostream & operator<<(std::ostream & os, basic_text_view tv)
         {
             if (os.good()) {
-                auto const size = tv.distance();
+                auto const size = boost::text::estimated_width_of_graphemes(
+                    tv.begin().base(), tv.end().base());
                 detail::pad_width_before(os, size);
                 if (os.good())
                     os.write(tv.begin().base().base(), tv.storage_bytes());
@@ -173,9 +175,12 @@ namespace boost { namespace text {
         make_iter(char_type * first, char_type * it, char_type * last) noexcept
         {
             return iterator{
-                utf_8_to_32_iterator<char_type const *>{first, first, last},
-                utf_8_to_32_iterator<char_type const *>{first, it, last},
-                utf_8_to_32_iterator<char_type const *>{first, last, last}};
+                detail::text_transcode_iterator_t<char_type const>{
+                    first, first, last},
+                detail::text_transcode_iterator_t<char_type const>{
+                    first, it, last},
+                detail::text_transcode_iterator_t<char_type const>{
+                    first, last, last}};
         }
 
         iterator first_;

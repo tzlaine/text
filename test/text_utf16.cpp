@@ -16,9 +16,18 @@
 
 using namespace boost;
 
-TEST(text_tests, test_empty)
+using string16 = std::basic_string<char16_t>;
+using string_view16 = text::basic_string_view<char16_t>;
+using text16 = boost::text::basic_text<boost::text::nf::fcc, string16>;
+
+text16 operator"" _t(char16_t const * str, std::size_t len)
 {
-    text::text t;
+    return text16(str, str + len);
+}
+
+TEST(text_utf16, test_empty)
+{
+    text16 t;
 
     EXPECT_EQ(t.begin(), t.end());
     EXPECT_EQ(t.cbegin(), t.cend());
@@ -57,18 +66,12 @@ TEST(text_tests, test_empty)
     t.shrink_to_fit();
 
     std::cout << "t=\"" << t << "\"\n";
-
-    {
-        using namespace text::literals;
-        text::text t2 = ""_t;
-        EXPECT_TRUE(t == t2);
-    }
 }
 
-TEST(text_tests, test_non_empty_const_interface)
+TEST(text_utf16, test_non_empty_const_interface)
 {
-    text::text t_a("a");
-    text::text t_ab("ab");
+    text16 t_a(u"a");
+    text16 t_ab(u"ab");
 
     EXPECT_EQ((std::next(t_a.begin(), t_a.distance())), t_a.end());
     EXPECT_EQ((std::next(t_a.cbegin(), t_a.distance())), t_a.cend());
@@ -99,8 +102,8 @@ TEST(text_tests, test_non_empty_const_interface)
     EXPECT_FALSE(t_a == t_ab);
     EXPECT_TRUE(t_a != t_ab);
 
-    text::text const old_t_a(t_a);
-    text::text const old_t_ab(t_ab);
+    text16 const old_t_a(t_a);
+    text16 const old_t_ab(t_ab);
     t_a.swap(t_ab);
     EXPECT_EQ(t_a, old_t_ab);
     EXPECT_EQ(t_ab, old_t_a);
@@ -115,155 +118,145 @@ TEST(text_tests, test_non_empty_const_interface)
     EXPECT_EQ(t_a.rend(), rend(t_a));
     EXPECT_EQ(t_a.crbegin(), crbegin(t_a));
     EXPECT_EQ(t_a.crend(), crend(t_a));
-
-    {
-        using namespace text::literals;
-        EXPECT_EQ(t_a, "a"_t);
-        EXPECT_EQ(t_ab, "ab"_t);
-    }
 }
 
-TEST(text_tests, test_ctors)
+TEST(text_utf16, test_ctors)
 {
-    using namespace text::literals;
+    text16 t;
+    EXPECT_EQ(t, u""_t);
+    EXPECT_EQ(u""_t, t);
 
-    text::text t;
-    EXPECT_EQ(t, ""_t);
-    EXPECT_EQ(""_t, t);
+    text16 t2(u"A nonempty string");
+    EXPECT_EQ(t2, u"A nonempty string"_t);
+    EXPECT_EQ(u"A nonempty string"_t, t2);
 
-    text::text t2("A nonempty string");
-    EXPECT_EQ(t2, "A nonempty string"_t);
-    EXPECT_EQ("A nonempty string"_t, t2);
+    text16 t3(t2);
+    EXPECT_EQ(t3, u"A nonempty string"_t);
+    EXPECT_EQ(u"A nonempty string"_t, t3);
 
-    text::text t3(t2);
-    EXPECT_EQ(t3, "A nonempty string"_t);
-    EXPECT_EQ("A nonempty string"_t, t3);
+    text16 t4(std::move(t2));
+    EXPECT_EQ(t4, u"A nonempty string"_t);
+    EXPECT_EQ(u"A nonempty string"_t, t4);
+    EXPECT_EQ(t2, u""_t);
+    EXPECT_EQ(u""_t, t2);
 
-    text::text t4(std::move(t2));
-    EXPECT_EQ(t4, "A nonempty string"_t);
-    EXPECT_EQ("A nonempty string"_t, t4);
-    EXPECT_EQ(t2, ""_t);
-    EXPECT_EQ(""_t, t2);
+    string16 const s(u"An old-school string");
+    text16 t5(s);
+    EXPECT_EQ(t5, u"An old-school string"_t);
+    EXPECT_EQ(u"An old-school string"_t, t5);
 
-    std::string const s("An old-school string");
-    text::text t5(s);
-    EXPECT_EQ(t5, "An old-school string"_t);
-    EXPECT_EQ("An old-school string"_t, t5);
+    text16 const t5_5(u"a view ");
+    text16::text_view const tv(t5_5);
+    text16 t6(tv);
+    EXPECT_EQ(t6, u"a view "_t);
+    EXPECT_EQ(u"a view "_t, t6);
 
-    text::text const t5_5("a view ");
-    text::text_view const tv(t5_5);
-    text::text t6(tv);
-    EXPECT_EQ(t6, "a view "_t);
-    EXPECT_EQ("a view "_t, t6);
-
-    std::list<char> const char_list = {'a', ' ', 'l', 'i', 's', 't'};
-    text::text t8(char_list.begin(), char_list.end());
-    EXPECT_EQ(t8, "a list"_t);
-    EXPECT_EQ("a list"_t, t8);
+    std::list<char16_t> const char_list = {'a', ' ', 'l', 'i', 's', 't'};
+    text16 t8(char_list.begin(), char_list.end());
+    EXPECT_EQ(t8, u"a list"_t);
+    EXPECT_EQ(u"a list"_t, t8);
 }
 
-TEST(text_tests, test_insert)
+TEST(text_utf16, test_insert)
 {
-    using namespace text::literals;
-
-    text::text const ct0("a view ");
-    text::text_view const tv(ct0);
+    text16 const ct0(u"a view ");
+    text16::text_view const tv(ct0);
 
     {
-        text::text const ct("string");
+        text16 const ct(u"string");
 
-        text::text t0 = ct;
+        text16 t0 = ct;
         t0.insert(std::next(t0.begin(), 0), tv);
-        EXPECT_EQ(t0, "a view string"_t);
+        EXPECT_EQ(t0, u"a view string"_t);
 
-        text::text t1 = ct;
+        text16 t1 = ct;
         t1.insert(std::next(t1.begin(), 1), tv);
-        EXPECT_EQ(t1, "sa view tring"_t);
+        EXPECT_EQ(t1, u"sa view tring"_t);
 
-        text::text t2 = ct;
+        text16 t2 = ct;
         t2.insert(std::next(t2.begin(), 2), tv);
-        EXPECT_EQ(t2, "sta view ring"_t);
+        EXPECT_EQ(t2, u"sta view ring"_t);
 
-        text::text t3 = ct;
+        text16 t3 = ct;
         t3.insert(std::next(t3.begin(), 3), tv);
-        EXPECT_EQ(t3, "stra view ing"_t);
+        EXPECT_EQ(t3, u"stra view ing"_t);
 
-        text::text t4 = ct;
+        text16 t4 = ct;
         t4.insert(std::next(t4.begin(), 4), tv);
-        EXPECT_EQ(t4, "stria view ng"_t);
+        EXPECT_EQ(t4, u"stria view ng"_t);
 
-        text::text t5 = ct;
+        text16 t5 = ct;
         t5.insert(std::next(t5.begin(), 5), tv);
-        EXPECT_EQ(t5, "strina view g"_t);
+        EXPECT_EQ(t5, u"strina view g"_t);
 
-        text::text t6 = ct;
+        text16 t6 = ct;
         t6.insert(std::next(t6.begin(), 6), tv);
-        EXPECT_EQ(t6, "stringa view "_t);
+        EXPECT_EQ(t6, u"stringa view "_t);
     }
 
     // Unicode 9, 3.9/D90
     uint32_t const utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
 
     {
-        text::text const ct("string");
-        auto const first = text::utf_32_to_8_iterator<uint32_t const *>(
+        text16 const ct(u"string");
+        auto const first = text::utf_32_to_16_iterator<uint32_t const *>(
             utf32, utf32, utf32 + 4);
-        auto const last = text::utf_32_to_8_iterator<uint32_t const *>(
+        auto const last = text::utf_32_to_16_iterator<uint32_t const *>(
             utf32, utf32 + 4, utf32 + 4);
 
-        text::text t0 = ct;
+        text16 t0 = ct;
         t0.insert(std::next(t0.begin(), 0), first, last);
-        EXPECT_EQ(t0, "\x4d\xd0\xb0\xe4\xba\x8c\xf0\x90\x8c\x82string"_t);
+        EXPECT_EQ(t0, u"\u004d\u0430\u4e8c\U00010302string"_t);
 
-        text::text t1 = ct;
+        text16 t1 = ct;
         t1.insert(std::next(t1.begin(), 1), first, last);
-        EXPECT_EQ(t1, "s\x4d\xd0\xb0\xe4\xba\x8c\xf0\x90\x8c\x82tring"_t);
+        EXPECT_EQ(t1, u"s\u004d\u0430\u4e8c\U00010302tring"_t);
 
-        text::text t2 = ct;
+        text16 t2 = ct;
         t2.insert(std::next(t2.begin(), 2), first, last);
-        EXPECT_EQ(t2, "st\x4d\xd0\xb0\xe4\xba\x8c\xf0\x90\x8c\x82ring"_t);
+        EXPECT_EQ(t2, u"st\u004d\u0430\u4e8c\U00010302ring"_t);
 
-        text::text t3 = ct;
+        text16 t3 = ct;
         t3.insert(std::next(t3.begin(), 3), first, last);
-        EXPECT_EQ(t3, "str\x4d\xd0\xb0\xe4\xba\x8c\xf0\x90\x8c\x82ing"_t);
+        EXPECT_EQ(t3, u"str\u004d\u0430\u4e8c\U00010302ing"_t);
 
-        text::text t4 = ct;
+        text16 t4 = ct;
         t4.insert(std::next(t4.begin(), 4), first, last);
-        EXPECT_EQ(t4, "stri\x4d\xd0\xb0\xe4\xba\x8c\xf0\x90\x8c\x82ng"_t);
+        EXPECT_EQ(t4, u"stri\u004d\u0430\u4e8c\U00010302ng"_t);
 
-        text::text t5 = ct;
+        text16 t5 = ct;
         t5.insert(std::next(t5.begin(), 5), first, last);
-        EXPECT_EQ(t5, "strin\x4d\xd0\xb0\xe4\xba\x8c\xf0\x90\x8c\x82g"_t);
+        EXPECT_EQ(t5, u"strin\u004d\u0430\u4e8c\U00010302g"_t);
 
-        text::text t6 = ct;
+        text16 t6 = ct;
         t6.insert(std::next(t6.begin(), 6), first, last);
-        EXPECT_EQ(t6, "string\x4d\xd0\xb0\xe4\xba\x8c\xf0\x90\x8c\x82"_t);
+        EXPECT_EQ(t6, u"string\u004d\u0430\u4e8c\U00010302"_t);
     }
 
     {
         {
-            text::text t("e");
-            auto const result = t.insert(t.begin(), "f");
+            text16 t(u"e");
+            auto const result = t.insert(t.begin(), u"f");
             EXPECT_EQ(t.distance(), 2u);
             EXPECT_EQ(result.begin(), t.begin());
         }
         {
-            text::text t("e");
-            auto const result = t.insert(t.end(), "f");
+            text16 t(u"e");
+            auto const result = t.insert(t.end(), u"f");
             EXPECT_EQ(t.distance(), 2u);
             EXPECT_EQ(result.begin(), std::next(t.begin()));
         }
 
-        char const * combining_diaeresis = (char const *)u8"\u0308";
+        char16_t const * combining_diaeresis = u"\u0308";
 
         {
-            text::text t("e");
+            text16 t(u"e");
             auto const result = t.insert(t.begin(), combining_diaeresis);
             EXPECT_EQ(t.distance(), 2u);
             EXPECT_EQ(result.begin(), t.begin());
         }
         {
-            text::text t("e");
+            text16 t(u"e");
 
             auto result = t.insert(t.end(), combining_diaeresis);
             EXPECT_EQ(t.distance(), 1u);
@@ -274,7 +267,7 @@ TEST(text_tests, test_insert)
             EXPECT_EQ(result.begin(), t.begin());
         }
         {
-            text::text t("et");
+            text16 t(u"et");
 
             auto result = t.insert(std::next(t.begin()), combining_diaeresis);
             EXPECT_EQ(t.distance(), 2u);
@@ -288,64 +281,67 @@ TEST(text_tests, test_insert)
 
     {
         {
-            text::text t;
+            text16 t;
             t.insert(t.begin(), 'g'); // text::grapheme
-            EXPECT_EQ(t, text::text("g"));
+            EXPECT_EQ(t, text16(u"g"));
         }
         {
-            text::text t;
+            text16 t;
             t.insert(t.begin(), text::grapheme());
-            EXPECT_EQ(t, text::text(""));
+            EXPECT_EQ(t, text16(u""));
         }
 
         {
-            text::text t_0("g");
-            text::text t;
+            text16 t_0(u"g");
+            text16 t;
             t.insert(t.end(), *t_0.begin()); // text::grapheme_ref
-            EXPECT_EQ(t, text::text("g"));
+            EXPECT_EQ(t, text16(u"g"));
         }
         {
-            text::text const t_0("g");
-            text::text t;
+            text16 const t_0(u"g");
+            text16 t;
             t.insert(t.end(), *t_0.begin());
-            EXPECT_EQ(t, text::text("g"));
+            EXPECT_EQ(t, text16(u"g"));
         }
+#if 0 // TODO: Waiting on rope support.
         {
-            text::rope r("g");
-            text::text t;
+            text::rope r(u"g");
+            text16 t;
             t.insert(t.end(), *r.begin()); // text::grapheme_ref
-            EXPECT_EQ(t, text::text("g"));
+            EXPECT_EQ(t, text16(u"g"));
         }
         {
-            text::rope const r("g");
-            text::text t;
+            text::rope const r(u"g");
+            text16 t;
             t.insert(t.end(), *r.begin());
-            EXPECT_EQ(t, text::text("g"));
+            EXPECT_EQ(t, text16(u"g"));
         }
+#endif
         {
-            text::text t;
+            text16 t;
             t.insert(
                 t.begin(),
                 text::grapheme_ref<text::rope::iterator::iterator_type>());
-            EXPECT_EQ(t, text::text(""));
+            EXPECT_EQ(t, text16(u""));
         }
     }
 }
 
-TEST(text_tests, test_erase)
+#if 0 // TODO: Waiting on rope_view support.
+TEST(text_utf16, test_erase)
 {
-    text::text const ct("string");
+    text16 const ct(u"string");
 
     for (std::size_t j = 0, end = ct.distance(); j <= end; ++j) {
         for (std::size_t i = 0; i <= j; ++i) {
-            text::text t = ct;
-            text::text_view const before(t.begin(), std::next(t.begin(), i));
-            text::text_view const substr(
+            text16 t = ct;
+            text16::text_view const before(t.begin(), std::next(t.begin(), i));
+            text16::text_view const substr(
                 std::next(t.begin(), i), std::next(t.begin(), j));
-            text::text const substr_copy(substr);
-            text::text_view const after(std::next(ct.begin(), j), ct.end());
+            text16 const substr_copy(substr);
+            text16::text_view const after(std::next(ct.begin(), j), ct.end());
 
-            text::text expected(before);
+            text16 expected(before);
             expected += after;
 
             t.erase(substr);
@@ -354,58 +350,58 @@ TEST(text_tests, test_erase)
         }
     }
 }
+#endif
 
-TEST(text_tests, test_replace)
+TEST(text_utf16, test_replace)
 {
-    using namespace text::literals;
-
-    text::text const ct0("REP");
-    text::text_view const replacement(ct0);
+    text16 const ct0(u"REP");
+    text16::text_view const replacement(ct0);
 
     {
-        text::text t("string");
+        text16 t(u"string");
         t.replace(t, replacement);
-        EXPECT_EQ(t, "REP"_t);
+        EXPECT_EQ(t, u"REP"_t);
     }
 
     {
-        text::text t("string");
+        text16 t(u"string");
         t.replace(t, replacement);
-        EXPECT_EQ(t, "REP"_t);
+        EXPECT_EQ(t, u"REP"_t);
     }
 
     {
-        text::text t("string");
-        text::text_view const old_substr(
+        text16 t(u"string");
+        text16::text_view const old_substr(
             std::next(t.begin(), 0), std::next(t.begin(), 3));
-        text::text_view const new_substr(
+        text16::text_view const new_substr(
             std::next(t.begin(), 2), std::next(t.begin(), 6));
         t.replace(old_substr, new_substr);
-        EXPECT_EQ(t, "ringing"_t);
+        EXPECT_EQ(t, u"ringing"_t);
     }
 
     {
-        text::text t("string");
-        text::text_view const old_substr(
+        text16 t(u"string");
+        text16::text_view const old_substr(
             std::next(t.begin(), 3), std::next(t.begin(), 6));
-        text::text_view const new_substr(
+        text16::text_view const new_substr(
             std::next(t.begin(), 0), std::next(t.begin(), 3));
         t.replace(old_substr, new_substr);
-        EXPECT_EQ(t, "strstr"_t);
+        EXPECT_EQ(t, u"strstr"_t);
     }
 
-    text::text const ct("string");
+    text16 const ct(u"string");
 
+#if 0 // TODO: Waiting on rope_view support.
     for (std::size_t j = 0, end = ct.distance(); j <= end; ++j) {
         for (std::size_t i = 0; i <= j; ++i) {
-            text::text t = ct;
-            text::text_view const before(t.begin(), std::next(t.begin(), i));
-            text::text_view const substr(
+            text16 t = ct;
+            text16::text_view const before(t.begin(), std::next(t.begin(), i));
+            text16::text_view const substr(
                 std::next(t.begin(), i), std::next(t.begin(), j));
-            text::text const substr_copy(substr);
-            text::text_view const after(std::next(ct.begin(), j), ct.end());
+            text16 const substr_copy(substr);
+            text16::text_view const after(std::next(ct.begin(), j), ct.end());
 
-            text::text expected(before);
+            text16 expected(before);
             expected += replacement;
             expected += after;
 
@@ -414,20 +410,22 @@ TEST(text_tests, test_replace)
                                    << substr_copy << "'";
         }
     }
+#endif
 
-    text::string_view const really_long_replacement(
-        "REPREPREPREPREPREPREPREPREPREP");
+    string_view16 const really_long_replacement(
+        u"REPREPREPREPREPREPREPREPREPREP");
 
+#if 0 // TODO: Waiting on rope_view support.
     for (std::size_t j = 0, end = ct.distance(); j <= end; ++j) {
         for (std::size_t i = 0; i <= j; ++i) {
-            text::text t = ct;
-            text::text_view const before(t.begin(), std::next(t.begin(), i));
-            text::text_view const substr(
+            text16 t = ct;
+            text16::text_view const before(t.begin(), std::next(t.begin(), i));
+            text16::text_view const substr(
                 std::next(t.begin(), i), std::next(t.begin(), j));
-            text::text const substr_copy(substr);
-            text::text_view const after(std::next(ct.begin(), j), ct.end());
+            text16 const substr_copy(substr);
+            text16::text_view const after(std::next(ct.begin(), j), ct.end());
 
-            text::text expected(before);
+            text16 expected(before);
             expected += really_long_replacement;
             expected += after;
 
@@ -436,57 +434,56 @@ TEST(text_tests, test_replace)
                                    << substr_copy << "'";
         }
     }
+#endif
 }
 
-TEST(text_tests, test_replace_iter)
+TEST(text_utf16, test_replace_iter)
 {
-    using namespace text::literals;
-
     // Unicode 9, 3.9/D90
     uint32_t const utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
     auto const first =
-        text::utf_32_to_8_iterator<uint32_t const *>(utf32, utf32, utf32 + 4);
-    auto const final_cp = text::utf_32_to_8_iterator<uint32_t const *>(
+        text::utf_32_to_16_iterator<uint32_t const *>(utf32, utf32, utf32 + 4);
+    auto const final_cp = text::utf_32_to_16_iterator<uint32_t const *>(
         utf32, utf32 + 3, utf32 + 4);
-    auto const last = text::utf_32_to_8_iterator<uint32_t const *>(
+    auto const last = text::utf_32_to_16_iterator<uint32_t const *>(
         utf32, utf32 + 4, utf32 + 4);
 
-    text::text const ct_string("string");
-    text::text const ct_text("text");
+    text16 const ct_string(u"string");
+    text16 const ct_text(u"text");
 
     {
-        text::text t = ct_string;
-        t.replace(t, final_cp, last);
-        EXPECT_EQ(t, "\xf0\x90\x8c\x82"_t);
+        text16 t = ct_string;
+        t.replace(t, first, final_cp);
+        EXPECT_EQ(t, u"\u004d\u0430\u4e8c"_t);
     }
 
     {
-        text::text t = ct_text;
+        text16 t = ct_text;
         t.replace(t, final_cp, last);
-        EXPECT_EQ(t, "\xf0\x90\x8c\x82"_t);
+        EXPECT_EQ(t, u"\U00010302"_t);
     }
 
     {
-        text::text t = ct_string;
+        text16 t = ct_string;
         t.replace(t, first, last);
-        EXPECT_EQ(t, "\x4d\xd0\xb0\xe4\xba\x8c\xf0\x90\x8c\x82"_t);
+        EXPECT_EQ(t, u"\u004d\u0430\u4e8c\U00010302"_t);
     }
 
+#if 0 // TODO: Waiting on rope_view support.
     for (std::size_t j = 0, end = ct_string.distance(); j <= end; ++j) {
         for (std::size_t i = 0; i <= j; ++i) {
             {
-                text::text t = ct_string;
-                text::text_view const before(
-                    t.begin(), std::next(t.begin(), i));
-                text::text_view const substr(
+                text16 t = ct_string;
+                text16::text_view const before(t.begin(), std::next(t.begin(), i));
+                text16::text_view const substr(
                     std::next(t.begin(), i), std::next(t.begin(), j));
-                text::text const substr_copy(substr);
-                text::text_view const after(std::next(t.begin(), j), t.end());
+                text16 const substr_copy(substr);
+                text16::text_view const after(std::next(t.begin(), j), t.end());
 
-                text::text expected(before);
+                text16 expected(before);
                 expected.insert(expected.end(), final_cp, last);
                 expected +=
-                    text::as_utf8(after.begin().base(), after.end().base());
+                    text::as_utf16(after.begin().base(), after.end().base());
 
                 t.replace(substr, final_cp, last);
                 EXPECT_EQ(t, expected) << "i=" << i << " j=" << j
@@ -494,15 +491,14 @@ TEST(text_tests, test_replace_iter)
             }
 
             {
-                text::text t = ct_string;
-                text::text_view const before(
-                    t.begin(), std::next(t.begin(), i));
-                text::text_view const substr(
+                text16 t = ct_string;
+                text16::text_view const before(t.begin(), std::next(t.begin(), i));
+                text16::text_view const substr(
                     std::next(t.begin(), i), std::next(t.begin(), j));
-                text::text const substr_copy(substr);
-                text::text_view const after(std::next(t.begin(), j), t.end());
+                text16 const substr_copy(substr);
+                text16::text_view const after(std::next(t.begin(), j), t.end());
 
-                text::text expected(before);
+                text16 expected(before);
                 expected.insert(expected.end(), first, last);
                 expected += after;
 
@@ -512,9 +508,10 @@ TEST(text_tests, test_replace_iter)
             }
         }
     }
+#endif
 }
 
-TEST(text_tests, test_replace_iter_large_insertions)
+TEST(text_utf16, test_replace_iter_large_insertions)
 {
     // Unicode 9, 3.9/D90
     uint32_t const utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
@@ -524,304 +521,303 @@ TEST(text_tests, test_replace_iter_large_insertions)
         utf32_repeated.insert(utf32_repeated.end(), utf32, utf32 + 4);
     }
     auto const first =
-        text::utf_32_to_8_iterator<std::vector<uint32_t>::iterator>(
+        text::utf_32_to_16_iterator<std::vector<uint32_t>::iterator>(
             utf32_repeated.begin(),
             utf32_repeated.begin(),
             utf32_repeated.end());
     auto const last =
-        text::utf_32_to_8_iterator<std::vector<uint32_t>::iterator>(
+        text::utf_32_to_16_iterator<std::vector<uint32_t>::iterator>(
             utf32_repeated.begin(), utf32_repeated.end(), utf32_repeated.end());
 
     {
-        text::text t("string");
+        text16 t(u"string");
         t.replace(t, first, last);
-        text::text const expected(first, last);
+        text16 const expected(first, last);
         EXPECT_EQ(t, expected);
     }
 
     {
-        text::text t;
+        text16 t;
         t.replace(t, first, last);
-        text::text const expected(first, last);
+        text16 const expected(first, last);
         EXPECT_EQ(t, expected);
     }
 }
 
-TEST(text_tests, normalization)
+TEST(text_utf16, normalization)
 {
-    using namespace text::literals;
-
     uint32_t const circumflex_utf32[] = {0x302};       // ◌̂
     uint32_t const a_with_circumflex_utf32[] = {0xe2}; // â
 
-    std::string const s_circumflex =
-        text::to_string(circumflex_utf32, circumflex_utf32 + 1);
-    std::string const s_a_with_circumflex =
-        text::to_string(a_with_circumflex_utf32, a_with_circumflex_utf32 + 1);
+    auto const r1 = text::as_utf16(circumflex_utf32, circumflex_utf32 + 1);
+    string16 const s_circumflex(r1.begin(), r1.end());
+    auto const r2 =
+        text::as_utf16(a_with_circumflex_utf32, a_with_circumflex_utf32 + 1);
+    string16 const s_a_with_circumflex(r2.begin(), r2.end());
 
-    text::text const t_circumflex(s_circumflex);
-    text::text const t_a_with_circumflex(s_a_with_circumflex);
-    text::text const t_a_with_circumflex_2("a\xcc\x82" /*a◌̂*/);
+    text16 const t_circumflex(s_circumflex);
+    text16 const t_a_with_circumflex(s_a_with_circumflex);
+    text16 const t_a_with_circumflex_2(u"a\u0302" /*a◌̂*/);
 
     EXPECT_EQ(t_circumflex.distance(), 1u);
     EXPECT_EQ(t_a_with_circumflex.distance(), 1u);
     EXPECT_EQ(t_a_with_circumflex_2.distance(), 1u);
 
-    EXPECT_EQ(t_circumflex, "\xcc\x82"_t /*◌̂*/);
-    EXPECT_EQ(t_a_with_circumflex, "\xc3\xa2"_t /*â*/);
-    EXPECT_EQ(t_a_with_circumflex_2, "\xc3\xa2"_t /*â*/);
+    EXPECT_EQ(t_circumflex, u"\u0302"_t /*◌̂*/);
+    EXPECT_EQ(t_a_with_circumflex, u"\u00e2"_t /*â*/);
+    EXPECT_EQ(t_a_with_circumflex_2, u"\u00e2"_t /*â*/);
 
     // insert()
 
     {
-        text::text t = "aa";
-        t.insert(std::next(t.begin(), 0), "\xcc\x82" /*◌̂*/);
+        text16 t = u"aa";
+        t.insert(std::next(t.begin(), 0), u"\u0302" /*◌̂*/);
         EXPECT_EQ(
             t,
-            text::text("\xcc\x82"
-                       "aa") /*◌̂aa*/);
+            text16(u"\u0302"
+                   u"aa") /*◌̂aa*/);
         EXPECT_EQ(t.distance(), 3u);
     }
     {
-        text::text t = "aa";
-        t.insert(std::next(t.begin(), 1), "\xcc\x82" /*◌̂*/);
+        text16 t = u"aa";
+        t.insert(std::next(t.begin(), 1), u"\u0302" /*◌̂*/);
         EXPECT_EQ(
             t,
-            text::text("\xc3\xa2"
-                       "a") /*âa*/);
+            text16(u"\u00e2"
+                   u"a") /*âa*/);
         EXPECT_EQ(t.distance(), 2u);
     }
     {
-        text::text t = "aa";
-        t.insert(std::next(t.begin(), 2), "\xcc\x82" /*◌̂*/);
-        EXPECT_EQ(t, text::text("a\xc3\xa2") /*aâ*/);
+        text16 t = u"aa";
+        t.insert(std::next(t.begin(), 2), u"\u0302" /*◌̂*/);
+        EXPECT_EQ(t, text16(u"a\u00e2") /*aâ*/);
         EXPECT_EQ(t.distance(), 2u);
     }
 
     {
-        text::text t =
-            "\xc3\xa2"
-            "a";
-        t.insert(std::next(t.begin(), 0), "\xcc\x82" /*◌̂*/);
+        text16 t =
+            u"\u00e2"
+            u"a";
+        t.insert(std::next(t.begin(), 0), u"\u0302" /*◌̂*/);
         EXPECT_EQ(
             t,
-            text::text("\xcc\x82\xc3\xa2"
-                       "a") /*◌̂âa*/);
+            text16(u"\u0302\u00e2"
+                   u"a") /*◌̂âa*/);
         EXPECT_EQ(t.distance(), 3u);
     }
     {
-        text::text t =
-            "\xc3\xa2"
-            "a";
-        t.insert(std::next(t.begin(), 1), "\xcc\x82" /*◌̂*/);
+        text16 t =
+            u"\u00e2"
+            u"a";
+        t.insert(std::next(t.begin(), 1), u"\u0302" /*◌̂*/);
         EXPECT_EQ(
             t,
-            text::text("\xc3\xa2\xcc\x82"
-                       "a") /*â◌̂a*/);
+            text16(u"\u00e2\u0302"
+                   u"a") /*â◌̂a*/);
         EXPECT_EQ(t.distance(), 2u); // not 3 because â◌̂ is a single grapheme
     }
     {
-        text::text t =
-            "\xc3\xa2"
-            "a";
-        t.insert(std::next(t.begin(), 2), "\xcc\x82" /*◌̂*/);
-        EXPECT_EQ(t, text::text("\xc3\xa2\xc3\xa2") /*ââ*/);
+        text16 t =
+            u"\u00e2"
+            u"a";
+        t.insert(std::next(t.begin(), 2), u"\u0302" /*◌̂*/);
+        EXPECT_EQ(t, text16(u"\u00e2\u00e2") /*ââ*/);
         EXPECT_EQ(t.distance(), 2u);
     }
 
     {
-        text::text t = "aa";
+        text16 t = u"aa";
         t.insert(
             std::next(t.begin(), 0), s_circumflex.begin(), s_circumflex.end());
         EXPECT_EQ(
             t,
-            text::text("\xcc\x82"
-                       "aa") /*◌̂aa*/);
+            text16(u"\u0302"
+                   u"aa") /*◌̂aa*/);
         EXPECT_EQ(t.distance(), 3u);
     }
     {
-        text::text t = "aa";
+        text16 t = u"aa";
         t.insert(
             std::next(t.begin(), 1), s_circumflex.begin(), s_circumflex.end());
         EXPECT_EQ(
             t,
-            text::text("\xc3\xa2"
-                       "a") /*âa*/);
+            text16(u"\u00e2"
+                   u"a") /*âa*/);
         EXPECT_EQ(t.distance(), 2u);
     }
     {
-        text::text t = "aa";
+        text16 t = u"aa";
         t.insert(
             std::next(t.begin(), 2), s_circumflex.begin(), s_circumflex.end());
-        EXPECT_EQ(t, text::text("a\xc3\xa2") /*aâ*/);
+        EXPECT_EQ(t, text16(u"a\u00e2") /*aâ*/);
         EXPECT_EQ(t.distance(), 2u);
     }
 
     {
-        text::text t =
-            "\xc3\xa2"
-            "a";
+        text16 t =
+            u"\u00e2"
+            u"a";
         t.insert(
             std::next(t.begin(), 0), s_circumflex.begin(), s_circumflex.end());
         EXPECT_EQ(
             t,
-            text::text("\xcc\x82\xc3\xa2"
-                       "a") /*◌̂âa*/);
+            text16(u"\u0302\u00e2"
+                   u"a") /*◌̂âa*/);
         EXPECT_EQ(t.distance(), 3u);
     }
     {
-        text::text t =
-            "\xc3\xa2"
-            "a";
+        text16 t =
+            u"\u00e2"
+            u"a";
         t.insert(
             std::next(t.begin(), 1), s_circumflex.begin(), s_circumflex.end());
         EXPECT_EQ(
             t,
-            text::text("\xc3\xa2\xcc\x82"
-                       "a") /*â◌̂a*/);
+            text16(u"\u00e2\u0302"
+                   u"a") /*â◌̂a*/);
         EXPECT_EQ(t.distance(), 2u); // not 3 because â◌̂ is a single grapheme
     }
     {
-        text::text t =
-            "\xc3\xa2"
-            "a";
+        text16 t =
+            u"\u00e2"
+            u"a";
         t.insert(
             std::next(t.begin(), 2), s_circumflex.begin(), s_circumflex.end());
-        EXPECT_EQ(t, text::text("\xc3\xa2\xc3\xa2") /*ââ*/);
+        EXPECT_EQ(t, text16(u"\u00e2\u00e2") /*ââ*/);
         EXPECT_EQ(t.distance(), 2u);
     }
 
     // replace()
 
-    auto first = [](text::text & t) {
-        return text::text_view(t.begin(), std::next(t.begin(), 1));
+    auto first = [](text16 & t) {
+        return text16::text_view(t.begin(), std::next(t.begin(), 1));
     };
-    auto second = [](text::text & t) {
-        return text::text_view(
+    auto second = [](text16 & t) {
+        return text16::text_view(
             std::next(t.begin(), 1), std::next(t.begin(), 2));
     };
-    auto third = [](text::text & t) {
-        return text::text_view(std::next(t.begin(), 2), t.end());
+    auto third = [](text16 & t) {
+        return text16::text_view(std::next(t.begin(), 2), t.end());
     };
 
     {
-        text::text t = "aaa";
-        t.replace(first(t), "\xcc\x82" /*◌̂*/);
+        text16 t = u"aaa";
+        t.replace(first(t), u"\u0302" /*◌̂*/);
         EXPECT_EQ(
             t,
-            text::text("\xcc\x82"
-                       "aa") /*◌̂aa*/);
+            text16(u"\u0302"
+                   u"aa") /*◌̂aa*/);
         EXPECT_EQ(t.distance(), 3u);
     }
     {
-        text::text t = "aaa";
-        t.replace(second(t), "\xcc\x82" /*◌̂*/);
+        text16 t = u"aaa";
+        t.replace(second(t), u"\u0302" /*◌̂*/);
         EXPECT_EQ(
             t,
-            text::text("\xc3\xa2"
-                       "a") /*âa*/);
+            text16(u"\u00e2"
+                   u"a") /*âa*/);
         EXPECT_EQ(t.distance(), 2u);
     }
     {
-        text::text t = "aaa";
-        t.replace(third(t), "\xcc\x82" /*◌̂*/);
-        EXPECT_EQ(t, text::text("a\xc3\xa2") /*aâ*/);
+        text16 t = u"aaa";
+        t.replace(third(t), u"\u0302" /*◌̂*/);
+        EXPECT_EQ(t, text16(u"a\u00e2") /*aâ*/);
         EXPECT_EQ(t.distance(), 2u);
     }
 
     {
-        text::text t =
-            "\xc3\xa2"
-            "aa";
-        t.replace(first(t), "\xcc\x82" /*◌̂*/);
+        text16 t =
+            u"\u00e2"
+            u"aa";
+        t.replace(first(t), u"\u0302" /*◌̂*/);
         EXPECT_EQ(
             t,
-            text::text("\xcc\x82"
-                       "aa") /*◌̂aa*/);
+            text16(u"\u0302"
+                   u"aa") /*◌̂aa*/);
         EXPECT_EQ(t.distance(), 3u);
     }
     {
-        text::text t =
-            "\xc3\xa2"
-            "aa";
-        t.replace(second(t), "\xcc\x82" /*◌̂*/);
+        text16 t =
+            u"\u00e2"
+            u"aa";
+        t.replace(second(t), u"\u0302" /*◌̂*/);
         EXPECT_EQ(
             t,
-            text::text("\xc3\xa2\xcc\x82"
-                       "a") /*â◌̂a*/);
+            text16(u"\u00e2\u0302"
+                   u"a") /*â◌̂a*/);
         EXPECT_EQ(t.distance(), 2u); // not 3 because â◌̂ is a single grapheme
     }
     {
-        text::text t =
-            "\xc3\xa2"
-            "aa";
-        t.replace(third(t), "\xcc\x82" /*◌̂*/);
-        EXPECT_EQ(t, text::text("\xc3\xa2\xc3\xa2") /*ââ*/);
+        text16 t =
+            u"\u00e2"
+            u"aa";
+        t.replace(third(t), u"\u0302" /*◌̂*/);
+        EXPECT_EQ(t, text16(u"\u00e2\u00e2") /*ââ*/);
         EXPECT_EQ(t.distance(), 2u);
     }
 
     {
-        text::text t = "aaa";
+        text16 t = u"aaa";
         t.replace(first(t), s_circumflex.begin(), s_circumflex.end());
         EXPECT_EQ(
             t,
-            text::text("\xcc\x82"
-                       "aa") /*◌̂aa*/);
+            text16(u"\u0302"
+                   u"aa") /*◌̂aa*/);
         EXPECT_EQ(t.distance(), 3u);
     }
     {
-        text::text t = "aaa";
+        text16 t = u"aaa";
         t.replace(second(t), s_circumflex.begin(), s_circumflex.end());
         EXPECT_EQ(
             t,
-            text::text("\xc3\xa2"
-                       "a") /*âa*/);
+            text16(u"\u00e2"
+                   u"a") /*âa*/);
         EXPECT_EQ(t.distance(), 2u);
     }
     {
-        text::text t = "aaa";
+        text16 t = u"aaa";
         t.replace(third(t), s_circumflex.begin(), s_circumflex.end());
-        EXPECT_EQ(t, text::text("a\xc3\xa2") /*aâ*/);
+        EXPECT_EQ(t, text16(u"a\u00e2") /*aâ*/);
         EXPECT_EQ(t.distance(), 2u);
     }
 
     {
-        text::text t =
-            "\xc3\xa2"
-            "aa";
+        text16 t =
+            u"\u00e2"
+            u"aa";
         t.replace(first(t), s_circumflex.begin(), s_circumflex.end());
         EXPECT_EQ(
             t,
-            text::text("\xcc\x82"
-                       "aa") /*◌̂aa*/);
+            text16(u"\u0302"
+                   u"aa") /*◌̂aa*/);
         EXPECT_EQ(t.distance(), 3u);
     }
     {
-        text::text t =
-            "\xc3\xa2"
-            "aa";
+        text16 t =
+            u"\u00e2"
+            u"aa";
         t.replace(second(t), s_circumflex.begin(), s_circumflex.end());
         EXPECT_EQ(
             t,
-            text::text("\xc3\xa2\xcc\x82"
-                       "a") /*â◌̂a*/);
+            text16(u"\u00e2\u0302"
+                   u"a") /*â◌̂a*/);
         EXPECT_EQ(t.distance(), 2u); // not 3 because â◌̂ is a single grapheme
     }
     {
-        text::text t =
-            "\xc3\xa2"
-            "aa";
+        text16 t =
+            u"\u00e2"
+            u"aa";
         t.replace(third(t), s_circumflex.begin(), s_circumflex.end());
-        EXPECT_EQ(t, text::text("\xc3\xa2\xc3\xa2") /*ââ*/);
+        EXPECT_EQ(t, text16(u"\u00e2\u00e2") /*ââ*/);
         EXPECT_EQ(t.distance(), 2u);
     }
 }
 
-TEST(text, test_sentinel_api)
+TEST(text_utf16, test_sentinel_api)
 {
     {
-        char const * chars = "chars";
-        text::text s(chars, text::null_sentinel{});
-        EXPECT_EQ(s, text::text(chars));
+        char16_t const * chars = u"chars";
+        text16 s(chars, text::null_sentinel{});
+        EXPECT_EQ(s, text16(chars));
     }
 }

@@ -542,6 +542,54 @@ namespace boost { namespace text { namespace detail {
 
 
 
+    template<int Size, typename T>
+    using is_cu_iter =
+        std::conditional_t<Size == 1, is_char_iter<T>, is_16_iter<T>>;
+
+    template<
+        int Size,
+        typename T,
+        typename U,
+        bool UIsCUIter = is_cu_iter<Size, U>::value>
+    struct cu_iter_ret
+    {
+    };
+
+    template<int Size, typename T, typename U>
+    struct cu_iter_ret<Size, T, U, true>
+    {
+        using type = T;
+    };
+
+    template<int Size, typename T, typename U>
+    using cu_iter_ret_t = typename cu_iter_ret<Size, T, U>::type;
+
+    template<int Size, typename T>
+    using is_cu_range =
+        std::conditional_t<Size == 1, is_char_range<T>, is_char16_range<T>>;
+
+    template<
+        int Size,
+        typename T,
+        typename U,
+        typename Exclude,
+        bool UIsCURange =
+            is_cu_range<Size, U>::value && !std::is_same<U, Exclude>::value>
+    struct cu_rng_alg_ret
+    {
+    };
+
+    template<int Size, typename T, typename U, typename Exclude>
+    struct cu_rng_alg_ret<Size, T, U, Exclude, true>
+    {
+        using type = T;
+    };
+
+    template<int Size, typename T, typename U, typename Exclude = void>
+    using cu_rng_alg_ret_t = typename cu_rng_alg_ret<Size, T, U, Exclude>::type;
+
+
+
     inline std::size_t
     hash_combine_(std::size_t seed, std::size_t value) noexcept
     {

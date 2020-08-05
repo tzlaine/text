@@ -418,8 +418,8 @@ namespace boost { namespace text {
 
         const_iterator
         insert_impl(iterator at, std::string str, bool str_normalized);
-        const_iterator
-        replace_impl(rope_view old_substr, std::string str, bool str_normalized);
+        const_iterator replace_impl(
+            rope_view old_substr, std::string str, bool str_normalized);
 
         template<typename CPIter>
         struct insert_grapheme_ref_impl;
@@ -674,10 +674,13 @@ namespace boost { namespace text {
         // TODO: It would be better if we shared nodes with copied nodes from
         // rv.  Same for unencoded_rope probably.
         return insert_impl(
-            at, std::string(rv.begin().base().base(), rv.end().base().base()), true);
+            at,
+            std::string(rv.begin().base().base(), rv.end().base().base()),
+            true);
     }
 
-    inline rope::const_iterator rope::insert(const_iterator at, std::string && s)
+    inline rope::const_iterator
+    rope::insert(const_iterator at, std::string && s)
     {
         return insert_impl(at, std::move(s), false);
     }
@@ -692,14 +695,17 @@ namespace boost { namespace text {
         -> detail::rng_alg_ret_t<rope::const_iterator, CharRange>
     {
         return insert_impl(
-            at, std::string(detail::make_string(r.begin(), r.end())), false);
+            at,
+            std::string(detail::make_string<std::string>(r.begin(), r.end())),
+            false);
     }
 
     template<typename CharIter, typename Sentinel>
     auto rope::insert(const_iterator at, CharIter first, Sentinel last)
         -> detail::char_iter_ret_t<rope::const_iterator, CharIter>
     {
-        return insert_impl(at, detail::make_string(first, last), false);
+        return insert_impl(
+            at, detail::make_string<std::string>(first, last), false);
     }
 
     inline rope::const_iterator
@@ -806,7 +812,8 @@ namespace boost { namespace text {
     auto rope::replace(rope_view old_substr, CharIter first, Sentinel last)
         -> detail::char_iter_ret_t<rope &, CharIter>
     {
-        replace_impl(old_substr, detail::make_string(first, last), false);
+        replace_impl(
+            old_substr, detail::make_string<std::string>(first, last), false);
         return *this;
     }
 
@@ -868,7 +875,8 @@ namespace boost { namespace text {
         return const_iterator{
             utf_8_to_32_iterator<unencoded_rope::const_iterator>{
                 first, first, last},
-            utf_8_to_32_iterator<unencoded_rope::const_iterator>{first, it, last},
+            utf_8_to_32_iterator<unencoded_rope::const_iterator>{
+                first, it, last},
             utf_8_to_32_iterator<unencoded_rope::const_iterator>{
                 first, last, last}};
     }
@@ -904,8 +912,8 @@ namespace boost { namespace text {
         return replace_impl(rope_view(at, at), std::move(str), str_normalized);
     }
 
-    inline rope::const_iterator
-    rope::replace_impl(rope_view old_substr, std::string str, bool str_normalized)
+    inline rope::const_iterator rope::replace_impl(
+        rope_view old_substr, std::string str, bool str_normalized)
     {
         rope_view const this_rv(*this);
 
@@ -996,9 +1004,8 @@ namespace boost { namespace text {
 
         auto insertion_cp_it = mutable_utf32_iter(
             rope_.begin(), rope_.begin() + new_lo, rope_.end());
-        auto const first_cp_of_grapheme_it =
-            boost::text::prev_grapheme_break(
-                begin().base(), insertion_cp_it, end().base());
+        auto const first_cp_of_grapheme_it = boost::text::prev_grapheme_break(
+            begin().base(), insertion_cp_it, end().base());
 
         return make_iter(
             rope_.begin(), first_cp_of_grapheme_it.base(), rope_.end());

@@ -98,7 +98,8 @@ namespace boost { namespace text {
         friend std::ostream & operator<<(std::ostream & os, rope_view rv)
         {
             if (os.good()) {
-                auto const size = rv.distance();
+                auto const size = boost::text::estimated_width_of_graphemes(
+                    rv.begin().base(), rv.end().base());
                 detail::pad_width_before(os, size);
                 if (os.good()) {
                     std::ostream_iterator<char> out(os);
