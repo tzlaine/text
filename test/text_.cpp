@@ -62,9 +62,6 @@ TEST(text_tests, test_empty)
         using namespace text::literals;
         text::text t2 = ""_t;
         EXPECT_TRUE(t == t2);
-
-        // TODO text::text t3 = u8""_t;
-        // TODO EXPECT_TRUE(t == t3);
     }
 }
 
@@ -819,9 +816,6 @@ TEST(text_tests, normalization)
     }
 }
 
-#if 0 // TODO: Disabled for now, since std::string does not support sentinels.
-      // Re-enable this once the new insert() and replace() free functions are
-      // available.
 TEST(text, test_sentinel_api)
 {
     {
@@ -829,20 +823,4 @@ TEST(text, test_sentinel_api)
         text::text s(chars, text::null_sentinel{});
         EXPECT_EQ(s, text::text(chars));
     }
-    {
-        char const * chars = "chars";
-        text::text s;
-        s.insert(s.end(), chars, text::null_sentinel{});
-        EXPECT_EQ(s, text::text(chars));
-    }
-    {
-        char const * chars = "chars";
-        text::text s;
-        s.replace(
-            text::text_view(s.begin(), s.begin()),
-            chars,
-            text::null_sentinel{});
-        EXPECT_EQ(s, text::text(chars));
-    }
 }
-#endif

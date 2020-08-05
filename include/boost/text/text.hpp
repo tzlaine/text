@@ -312,9 +312,9 @@ namespace boost { namespace text {
 
             This function only participates in overload resolution if
             `CharIter` models the CharIter concept. */
-        template<typename CharIter, typename Sentinel>
+        template<typename CharIter Sentinel>
         replace_result<iterator>
-        insert(iterator at, CharIter first, Sentinel last);
+        insert(iterator at, CharIter first, CharIter last);
 
 #else
 
@@ -322,8 +322,8 @@ namespace boost { namespace text {
         auto insert(iterator at, CharRange const & r)
             -> detail::rng_alg_ret_t<replace_result<iterator>, CharRange>;
 
-        template<typename CharIter, typename Sentinel>
-        auto insert(iterator at, CharIter first, Sentinel last)
+        template<typename CharIter>
+        auto insert(iterator at, CharIter first, CharIter last)
             -> detail::char_iter_ret_t<replace_result<iterator>, CharIter>;
 
 #endif
@@ -420,9 +420,9 @@ namespace boost { namespace text {
             \pre !std::less(old_substr.begin().base().base(),
             begin().base().base()) && !std::less(end().base().base(),
             old_substr.end().base().base()) */
-        template<typename CharIter, typename Sentinel>
+        template<typename CharIter>
         replace_result<iterator>
-        replace(text_view old_substr, CharIter first, Sentinel last);
+        replace(text_view old_substr, CharIter first, CharIter last);
 
 #else
 
@@ -430,8 +430,8 @@ namespace boost { namespace text {
         auto replace(text_view old_substr, CharRange const & r)
             -> detail::rng_alg_ret_t<replace_result<iterator>, CharRange>;
 
-        template<typename CharIter, typename Sentinel>
-        auto replace(text_view old_substr, CharIter first, Sentinel last)
+        template<typename CharIter>
+        auto replace(text_view old_substr, CharIter first, CharIter last)
             -> detail::char_iter_ret_t<replace_result<iterator>, CharIter>;
 
 #endif
@@ -541,11 +541,11 @@ namespace boost { namespace text {
         replace_result<iterator> mutation_result(
             replace_result<typename string::iterator> str_replacement);
 
-        template<typename CharIter>
+        template<typename CharIter, typename Sentinel>
         replace_result<iterator> insert_impl(
             iterator at,
             CharIter first,
-            CharIter last,
+            Sentinel last,
             insertion_normalization insertion_norm);
 
         template<typename CharIter>
@@ -712,9 +712,9 @@ namespace boost { namespace text {
     }
 
     template<nf Normalization, typename String>
-    template<typename CharIter, typename Sentinel>
+    template<typename CharIter>
     auto basic_text<Normalization, String>::insert(
-        iterator at, CharIter first, Sentinel last)
+        iterator at, CharIter first, CharIter last)
         -> detail::char_iter_ret_t<replace_result<iterator>, CharIter>
     {
         return insert_impl(at, first, last, insertion_not_normalized);
@@ -858,9 +858,9 @@ namespace boost { namespace text {
     }
 
     template<nf Normalization, typename String>
-    template<typename CharIter, typename Sentinel>
+    template<typename CharIter>
     auto basic_text<Normalization, String>::replace(
-        text_view old_substr, CharIter first, Sentinel last)
+        text_view old_substr, CharIter first, CharIter last)
         -> detail::char_iter_ret_t<replace_result<iterator>, CharIter>
     {
         return replace_impl(old_substr, first, last, insertion_not_normalized);
@@ -933,12 +933,12 @@ namespace boost { namespace text {
     }
 
     template<nf Normalization, typename String>
-    template<typename CharIter>
+    template<typename CharIter, typename Sentinel>
     replace_result<typename basic_text<Normalization, String>::iterator>
     basic_text<Normalization, String>::insert_impl(
         iterator at,
         CharIter first,
-        CharIter last,
+        Sentinel last,
         insertion_normalization insertion_norm)
     {
         auto const str_at = str_.begin() + (at.base().base() - str_.data());
