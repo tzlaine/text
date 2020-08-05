@@ -27,7 +27,7 @@
 #define BOOST_TEXT_CHECK_TEXT_NORMALIZATION()                                  \
     do {                                                                       \
         string str2(str_);                                                     \
-        boost::text::normalize<nf::fcc>(str2);                                 \
+        boost::text::normalize<normalization>(str2);                           \
         BOOST_ASSERT(str_ == str2);                                            \
     } while (false)
 #else
@@ -106,13 +106,13 @@ namespace boost { namespace text {
         /** Constructs a basic_text from a null-terminated string. */
         basic_text(char_type const * c_str) : str_(c_str)
         {
-            boost::text::normalize<nf::fcc>(str_);
+            boost::text::normalize<normalization>(str_);
         }
 
         /** Constructs a basic_text from a string. */
         explicit basic_text(string s) : str_(std::move(s))
         {
-            boost::text::normalize<nf::fcc>(str_);
+            boost::text::normalize<normalization>(str_);
         }
 
         /** Constructs a basic_text from a text_view. */
@@ -121,7 +121,7 @@ namespace boost { namespace text {
         /** Constructs a basic_text from a string_view. */
         explicit basic_text(string_view sv) : str_(sv.begin(), sv.end())
         {
-            boost::text::normalize<nf::fcc>(str_);
+            boost::text::normalize<normalization>(str_);
         }
 
 #ifdef BOOST_TEXT_DOXYGEN
@@ -161,7 +161,7 @@ namespace boost { namespace text {
 #endif
             str_(detail::make_string<string>(r.begin(), r.end()))
         {
-            boost::text::normalize<nf::fcc>(str_);
+            boost::text::normalize<normalization>(str_);
         }
 
 #if defined(__cpp_lib_concepts)
@@ -176,7 +176,7 @@ namespace boost { namespace text {
 #endif
             str_(detail::make_string<string>(first, last))
         {
-            boost::text::normalize<nf::fcc>(str_);
+            boost::text::normalize<normalization>(str_);
         }
 
 #if defined(__cpp_lib_concepts)
@@ -197,7 +197,7 @@ namespace boost { namespace text {
         basic_text & operator=(char_type const * c_str)
         {
             str_ = c_str;
-            boost::text::normalize<nf::fcc>(str_);
+            boost::text::normalize<normalization>(str_);
             return *this;
         }
 
@@ -205,7 +205,7 @@ namespace boost { namespace text {
         basic_text & operator=(string s)
         {
             str_ = std::move(s);
-            boost::text::normalize<nf::fcc>(str_);
+            boost::text::normalize<normalization>(str_);
             return *this;
         }
 
@@ -216,7 +216,7 @@ namespace boost { namespace text {
         basic_text & operator=(string_view sv)
         {
             str_.assign(sv.begin(), sv.end());
-            boost::text::normalize<nf::fcc>(str_);
+            boost::text::normalize<normalization>(str_);
             return *this;
         }
 
@@ -251,7 +251,7 @@ namespace boost { namespace text {
 #endif
         {
             str_.assign(r.begin(), r.end());
-            boost::text::normalize<nf::fcc>(str_);
+            boost::text::normalize<normalization>(str_);
             return *this;
         }
 
@@ -447,7 +447,7 @@ namespace boost { namespace text {
         {
             auto const lo = first.base().base() - str_.data();
             auto const hi = last.base().base() - str_.data();
-            auto const retval = boost::text::normalize_erase<nf::fcc>(
+            auto const retval = boost::text::normalize_erase<normalization>(
                 str_, str_.begin() + lo, str_.begin() + hi);
             return mutation_result(retval);
         }
@@ -584,8 +584,8 @@ namespace boost { namespace text {
             \pre !std::less(old_substr.begin().base().base(),
             begin().base().base()) && !std::less(end().base().base(),
             old_substr.end().base().base()) */
-        replace_result<iterator> replace(
-            text_view old_substr, const_iterator first, const_iterator last)
+        replace_result<iterator>
+        replace(text_view old_substr, const_iterator first, const_iterator last)
         {
             return replace(old_substr, text_view(first, last));
         }
@@ -815,7 +815,7 @@ namespace boost { namespace text {
     {
         auto const lo = tv.begin().base().base() - str_.data();
         auto const hi = tv.end().base().base() - str_.data();
-        auto const retval = boost::text::normalize_erase<nf::fcc>(
+        auto const retval = boost::text::normalize_erase<normalization>(
             str_, str_.begin() + lo, str_.begin() + hi);
         return mutation_result(retval);
     }
@@ -876,7 +876,7 @@ namespace boost { namespace text {
         insertion_normalization insertion_norm)
     {
         auto const str_at = str_.begin() + (at.base().base() - str_.data());
-        auto retval = boost::text::normalize_insert<nf::fcc>(
+        auto retval = boost::text::normalize_insert<normalization>(
             str_, str_at, boost::text::as_utf32(first, last), insertion_norm);
         return mutation_result(retval);
     }
@@ -895,7 +895,7 @@ namespace boost { namespace text {
         auto const str_last =
             str_.begin() + (old_substr.end().base().base() - str_.data());
         auto const insertion = boost::text::as_utf32(first, last);
-        auto retval = boost::text::normalize_replace<nf::fcc>(
+        auto retval = boost::text::normalize_replace<normalization>(
             str_,
             str_first,
             str_last,
