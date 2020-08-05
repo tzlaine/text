@@ -10,7 +10,7 @@
 #include <boost/text/estimated_width.hpp>
 #include <boost/text/grapheme_iterator.hpp>
 #include <boost/text/grapheme_view.hpp>
-#include <boost/text/transcode_iterator.hpp>
+#include <boost/text/utf.hpp>
 #include <boost/text/detail/utility.hpp>
 
 #include <boost/assert.hpp>
@@ -26,7 +26,7 @@ namespace boost { namespace text {
         storage is a string that is UTF-8-encoded and FCC-normalized. */
     template<nf Normalization, typename Char>
 #if defined(__cpp_lib_concepts)
-    // clang-format off
+        // clang-format off
         requires u8_code_unit<Char> || u16_code_unit<Char>
 #endif
     struct basic_text_view
@@ -82,7 +82,11 @@ namespace boost { namespace text {
             delete;
 
         /** Constructs a basic_text_view from a grapheme_view. */
+#if defined(__cpp_lib_concepts)
+        template<code_point_iterator CPIter>
+#else
         template<typename CPIter>
+#endif
         basic_text_view(grapheme_view<CPIter> range) noexcept;
 
         /** Constructs a basic_text_view from a pair of const_text_iterators. */
@@ -190,17 +194,27 @@ namespace boost { namespace text {
     };
 
     template<nf Normalization, typename Char>
+#if defined(__cpp_lib_concepts)
+        // clang-format off
+        requires u8_code_unit<Char> || u16_code_unit<Char>
+#endif
     bool operator==(
         basic_text_view<Normalization, Char> lhs,
         basic_text_view<Normalization, Char> rhs) noexcept
+    // clang-format on
     {
         return lhs.begin() == rhs.begin() && lhs.end() == rhs.end();
     }
 
     template<nf Normalization, typename Char>
+#if defined(__cpp_lib_concepts)
+        // clang-format off
+        requires u8_code_unit<Char> || u16_code_unit<Char>
+#endif
     bool operator!=(
         basic_text_view<Normalization, Char> lhs,
         basic_text_view<Normalization, Char> rhs) noexcept
+    // clang-format on
     {
         return !(lhs == rhs);
     }
@@ -231,7 +245,11 @@ namespace boost { namespace text {
     {}
 
     template<nf Normalization, typename Char>
+#if defined(__cpp_lib_concepts)
+    template<code_point_iterator CPIter>
+#else
     template<typename CPIter>
+#endif
     basic_text_view<Normalization, Char>::basic_text_view(
         grapheme_view<CPIter> range) noexcept :
         first_(range.begin()), last_(range.end())

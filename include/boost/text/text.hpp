@@ -10,7 +10,8 @@
 #include <boost/text/normalize_algorithm.hpp>
 #include <boost/text/string_view.hpp>
 #include <boost/text/text_fwd.hpp>
-#include <boost/text/transcode_iterator.hpp>
+#include <boost/text/utf.hpp>
+#include <boost/text/detail/make_string.hpp>
 #include <boost/text/detail/utility.hpp>
 
 #include <boost/algorithm/cxx14/equal.hpp>
@@ -139,23 +140,49 @@ namespace boost { namespace text {
 
 #else
 
-        template<typename CURange>
+#if defined(__cpp_lib_concepts)
+        template<range<basic_text<Normalization, String>::utf_format> R>
+        explicit basic_text(R const & r) :
+#else
+        template<typename R>
         explicit basic_text(
-            CURange const & r,
-            detail::cu_rng_alg_ret_t<(int)utf_format, int *, CURange> = 0);
+            R const & r,
+            detail::cu_rng_alg_ret_t<(int)utf_format, int *, R> = 0) :
+#endif
+            str_(detail::make_string<string>(r.begin(), r.end()))
+        {
+            boost::text::normalize<nf::fcc>(str_);
+        }
 
-        template<typename CUIter, typename Sentinel>
+#if defined(__cpp_lib_concepts)
+        template<boost::text::iterator<utf_format> I, std::sentinel_for<I> S>
+        basic_text(I first, S last) :
+#else
+        template<typename I, typename S>
         basic_text(
-            CUIter first,
-            Sentinel last,
-            detail::cu_iter_ret_t<(int)utf_format, void *, CUIter> = 0);
+            I first,
+            S last,
+            detail::cu_iter_ret_t<(int)utf_format, void *, I> = 0) :
+#endif
+            str_(detail::make_string<string>(first, last))
+        {
+            boost::text::normalize<nf::fcc>(str_);
+        }
 
-        template<typename GraphemeRange>
+#if defined(__cpp_lib_concepts)
+        template<grapheme_range R>
+        explicit basic_text(R const & r) :
+#else
+        template<typename R>
         explicit basic_text(
-            GraphemeRange const & r,
-            detail::graph_rng_alg_ret_t<int *, GraphemeRange> = 0);
+            R const & r, detail::graph_rng_alg_ret_t<int *, R> = 0) :
+#endif
+            str_(detail::make_string<string>(
+                r.begin().base().base(), r.end().base().base()))
+        {}
 
 #endif
+
         /** Assignment from a null-terminated string. */
         basic_text & operator=(char_type const * c_str)
         {
@@ -193,13 +220,34 @@ namespace boost { namespace text {
 
 #else
 
-        template<typename CURange>
-        auto operator=(CURange const & r)
-            -> detail::cu_rng_alg_ret_t<(int)utf_format, basic_text &, CURange>;
 
-        template<typename GraphemeRange>
-        auto operator=(GraphemeRange const & r)
-            -> detail::graph_rng_alg_ret_t<basic_text &, GraphemeRange>;
+#if defined(__cpp_lib_concepts)
+        template<range<utf_format> R>
+        basic_text & operator=(R const & r)
+#else
+        template<typename R>
+        auto operator=(R const & r)
+            -> detail::cu_rng_alg_ret_t<(int)utf_format, basic_text &, R>
+#endif
+        {
+            str_.assign(r.begin(), r.end());
+            boost::text::normalize<nf::fcc>(str_);
+            return *this;
+        }
+
+#if defined(__cpp_lib_concepts)
+        template<grapheme_range R>
+        basic_text & operator=(R const & r)
+#else
+        template<typename R>
+        auto operator=(R const & r)
+            -> detail::graph_rng_alg_ret_t<basic_text &, R>
+#endif
+        {
+            str_.assign(r.begin().base().base(), r.begin().base().base());
+            BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
+            return *this;
+        }
 
 #endif
 
@@ -313,15 +361,30 @@ namespace boost { namespace text {
 
 #else
 
-        template<typename CURange>
-        auto insert(iterator at, CURange const & r) -> detail::cu_rng_alg_ret_t<
-            (int)utf_format,
-            replace_result<iterator>,
-            CURange>;
+#if defined(__cpp_lib_concepts)
+        template<range<utf_format> R>
+        replace_result<iterator> insert(iterator at, R const & r)
+#else
+        template<typename R>
+        auto insert(iterator at, R const & r) -> detail::
+            cu_rng_alg_ret_t<(int)utf_format, replace_result<iterator>, R>
+#endif
+        {
+            return insert(at, std::begin(r), std::end(r));
+        }
 
-        template<typename CUIter>
-        auto insert(iterator at, CUIter first, CUIter last) -> detail::
-            cu_iter_ret_t<(int)utf_format, replace_result<iterator>, CUIter>;
+
+#if defined(__cpp_lib_concepts)
+        template<boost::text::iterator<utf_format> I>
+        replace_result<iterator> insert(iterator at, I first, I last)
+#else
+        template<typename I>
+        auto insert(iterator at, I first, I last) -> detail::
+            cu_iter_ret_t<(int)utf_format, replace_result<iterator>, I>
+#endif
+        {
+            return insert_impl(at, first, last, insertion_not_normalized);
+        }
 
 #endif
 
@@ -423,17 +486,32 @@ namespace boost { namespace text {
 
 #else
 
-        template<typename CURange>
-        auto replace(text_view old_substr, CURange const & r)
-            -> detail::cu_rng_alg_ret_t<
-                (int)utf_format,
-                replace_result<iterator>,
-                CURange>;
+#if defined(__cpp_lib_concepts)
+        template<range<utf_format> R>
+        replace_result<iterator>
+        replace(text_view const & old_substr, R const & r)
+#else
+        template<typename R>
+        auto replace(text_view old_substr, R const & r) -> detail::
+            cu_rng_alg_ret_t<(int)utf_format, replace_result<iterator>, R>
+#endif
+        {
+            return replace(old_substr, std::begin(r), std::end(r));
+        }
 
-        template<typename CUIter>
-        auto
-        replace(text_view old_substr, CUIter first, CUIter last) -> detail::
-            cu_iter_ret_t<(int)utf_format, replace_result<iterator>, CUIter>;
+#if defined(__cpp_lib_concepts)
+        template<boost::text::iterator<utf_format> I>
+        replace_result<iterator>
+        replace(text_view const & old_substr, I first, I last)
+#else
+        template<typename I>
+        auto replace(text_view old_substr, I first, I last) -> detail::
+            cu_iter_ret_t<(int)utf_format, replace_result<iterator>, I>
+#endif
+        {
+            return replace_impl(
+                old_substr, first, last, insertion_not_normalized);
+        }
 
 #endif
 
@@ -486,9 +564,18 @@ namespace boost { namespace text {
 
 #else
 
-        template<typename CURange>
-        auto operator+=(CURange const & r)
-            -> detail::cu_rng_alg_ret_t<(int)utf_format, basic_text &, CURange>;
+#if defined(__cpp_lib_concepts)
+        template<range<utf_format> R>
+        basic_text & operator+=(R const & r)
+#else
+        template<typename R>
+        auto operator+=(R const & r)
+            -> detail::cu_rng_alg_ret_t<(int)utf_format, basic_text &, R>
+#endif
+        {
+            insert(this->end(), std::begin(r), std::end(r));
+            return *this;
+        }
 
 #endif
 
@@ -595,7 +682,6 @@ namespace boost { namespace text {
 
 #include <boost/text/text_view.hpp>
 #include <boost/text/rope.hpp>
-#include <boost/text/detail/make_string.hpp>
 
 namespace boost { namespace text {
 
@@ -642,36 +728,6 @@ namespace boost { namespace text {
     }
 
     template<nf Normalization, typename String>
-    template<typename CURange>
-    basic_text<Normalization, String>::basic_text(
-        CURange const & r,
-        detail::cu_rng_alg_ret_t<(int)utf_format, int *, CURange>) :
-        str_(detail::make_string<string>(r.begin(), r.end()))
-    {
-        boost::text::normalize<nf::fcc>(str_);
-    }
-
-    template<nf Normalization, typename String>
-    template<typename CUIter, typename Sentinel>
-    basic_text<Normalization, String>::basic_text(
-        CUIter first,
-        Sentinel last,
-        detail::cu_iter_ret_t<(int)utf_format, void *, CUIter>) :
-        str_(detail::make_string<string>(first, last))
-    {
-        boost::text::normalize<nf::fcc>(str_);
-    }
-
-    template<nf Normalization, typename String>
-    template<typename GraphemeRange>
-    basic_text<Normalization, String>::basic_text(
-        GraphemeRange const & r,
-        detail::graph_rng_alg_ret_t<int *, GraphemeRange>) :
-        str_(detail::make_string<string>(
-            r.begin().base().base(), r.end().base().base()))
-    {}
-
-    template<nf Normalization, typename String>
     basic_text<Normalization, String> &
     basic_text<Normalization, String>::operator=(string s)
     {
@@ -696,50 +752,6 @@ namespace boost { namespace text {
         str_.assign(sv.begin(), sv.end());
         boost::text::normalize<nf::fcc>(str_);
         return *this;
-    }
-
-    template<nf Normalization, typename String>
-    template<typename CURange>
-    auto basic_text<Normalization, String>::operator=(CURange const & r)
-        -> detail::cu_rng_alg_ret_t<
-            (int)utf_format,
-            basic_text<Normalization, String> &,
-            CURange>
-    {
-        str_.assign(r.begin(), r.end());
-        boost::text::normalize<nf::fcc>(str_);
-        return *this;
-    }
-
-    template<nf Normalization, typename String>
-    template<typename GraphemeRange>
-    auto basic_text<Normalization, String>::operator=(GraphemeRange const & r)
-        -> detail::graph_rng_alg_ret_t<
-            basic_text<Normalization, String> &,
-            GraphemeRange>
-    {
-        str_.assign(r.begin().base().base(), r.begin().base().base());
-        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
-        return *this;
-    }
-
-    template<nf Normalization, typename String>
-    template<typename CURange>
-    auto
-    basic_text<Normalization, String>::insert(iterator at, CURange const & r)
-        -> detail::
-            cu_rng_alg_ret_t<(int)utf_format, replace_result<iterator>, CURange>
-    {
-        return insert(at, std::begin(r), std::end(r));
-    }
-
-    template<nf Normalization, typename String>
-    template<typename CUIter>
-    auto basic_text<Normalization, String>::insert(
-        iterator at, CUIter first, CUIter last) -> detail::
-        cu_iter_ret_t<(int)utf_format, replace_result<iterator>, CUIter>
-    {
-        return insert_impl(at, first, last, insertion_not_normalized);
     }
 
     template<nf Normalization, typename String>
@@ -871,24 +883,6 @@ namespace boost { namespace text {
     }
 
     template<nf Normalization, typename String>
-    template<typename CURange>
-    auto basic_text<Normalization, String>::replace(
-        text_view old_substr, CURange const & r) -> detail::
-        cu_rng_alg_ret_t<(int)utf_format, replace_result<iterator>, CURange>
-    {
-        return replace(old_substr, std::begin(r), std::end(r));
-    }
-
-    template<nf Normalization, typename String>
-    template<typename CUIter>
-    auto basic_text<Normalization, String>::replace(
-        text_view old_substr, CUIter first, CUIter last) -> detail::
-        cu_iter_ret_t<(int)utf_format, replace_result<iterator>, CUIter>
-    {
-        return replace_impl(old_substr, first, last, insertion_not_normalized);
-    }
-
-    template<nf Normalization, typename String>
     replace_result<typename basic_text<Normalization, String>::iterator>
     basic_text<Normalization, String>::replace(
         text_view old_substr, const_iterator first, const_iterator last)
@@ -908,18 +902,6 @@ namespace boost { namespace text {
     basic_text<Normalization, String>::operator+=(string_view sv)
     {
         insert(end(), sv);
-        return *this;
-    }
-
-    template<nf Normalization, typename String>
-    template<typename CURange>
-    auto basic_text<Normalization, String>::operator+=(CURange const & r)
-        -> detail::cu_rng_alg_ret_t<
-            (int)utf_format,
-            basic_text<Normalization, String> &,
-            CURange>
-    {
-        insert(this->end(), std::begin(r), std::end(r));
         return *this;
     }
 
@@ -1176,23 +1158,39 @@ namespace boost { namespace text {
 
 #else
 
-    template<nf Normalization, typename String, typename CURange>
-    auto operator+(basic_text<Normalization, String> t, CURange const & r)
+    template<nf Normalization, typename String, typename R>
+#if defined(__cpp_lib_concepts)
+    basic_text<Normalization, String>
+    operator+(basic_text<Normalization, String> t, R const & r)
+        // clang-format off
+        requires range<R, basic_text<Normalization, String>::utf_format>
+    // clang-format on
+#else
+    auto operator+(basic_text<Normalization, String> t, R const & r)
         -> detail::cu_rng_alg_ret_t<
             (int)basic_text<Normalization, String>::utf_format,
             basic_text<Normalization, String>,
-            CURange>
+            R>
+#endif
     {
         return t += r;
     }
 
-    template<nf Normalization, typename String, typename CURange>
+    template<nf Normalization, typename String, typename R>
+#if defined(__cpp_lib_concepts)
+    basic_text<Normalization, String>
+    operator+(R const & r, basic_text<Normalization, String> const & t)
+        // clang-format off
+        requires range<R, basic_text<Normalization, String>::utf_format>
+    // clang-format on
+#else
     auto
-    operator+(CURange const & r, basic_text<Normalization, String> const & t)
+    operator+(R const & r, basic_text<Normalization, String> const & t)
         -> detail::cu_rng_alg_ret_t<
             (int)basic_text<Normalization, String>::utf_format,
             basic_text<Normalization, String>,
-            CURange>
+            R>
+#endif
     {
         return basic_text<Normalization, String>(r) + t;
     }

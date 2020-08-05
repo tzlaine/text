@@ -7,6 +7,7 @@
 #define BOOST_TEXT_CONCEPTS_HPP
 
 #include <boost/text/config.hpp>
+#include <boost/text/utf.hpp>
 
 #if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
 
@@ -15,64 +16,65 @@
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
-    namespace dtl {
-        template<typename T, int Bytes>
-        concept cu_x = std::is_integral<T>::value && sizeof(T) == Bytes;
-    }
+    // TODO: u8 -> utf8
+    // TODO: ptr -> pointer
+    // TODO: iter -> iterator
+    // TODO: contig -> contiguous
+
+    template<typename T, format F>
+    concept code_unit = std::is_integral<T>::value && sizeof(T) == (int)F;
 
     template<typename T>
-    concept u8_code_unit = dtl::cu_x<T, 1>;
+    concept u8_code_unit = code_unit<T, format::utf8>;
 
     template<typename T>
-    concept u16_code_unit = dtl::cu_x<T, 2>;
+    concept u16_code_unit = code_unit<T, format::utf16>;
 
     template<typename T>
-    concept u32_code_unit = dtl::cu_x<T, 4>;
+    concept u32_code_unit = code_unit<T, format::utf32>;
 
-    namespace dtl {
-        template<typename T, int Bytes>
-        concept u_x_iter =
-            std::bidirectional_iterator<T> && cu_x<std::iter_value_t<T>, Bytes>;
+    template<typename T, format F>
+    concept iterator =
+        std::bidirectional_iterator<T> && code_unit<std::iter_value_t<T>, F>;
 
-        template<typename T, int Bytes>
-        concept u_x_ptr =
-            std::is_pointer_v<T> && cu_x<std::iter_value_t<T>, Bytes>;
+    template<typename T, format F>
+    concept pointer =
+        std::is_pointer_v<T> && code_unit<std::iter_value_t<T>, F>;
 
-        template<typename T, int Bytes>
-        concept u_x_range = std::ranges::bidirectional_range<T> &&
-            cu_x<std::ranges::range_value_t<T>, Bytes>;
+    template<typename T, format F>
+    concept range = std::ranges::bidirectional_range<T> &&
+        code_unit<std::ranges::range_value_t<T>, F>;
 
-        template<typename T, int Bytes>
-        concept contig_u_x_range = std::ranges::contiguous_range<T> &&
-            cu_x<std::ranges::range_value_t<T>, Bytes>;
-    }
+    template<typename T, format F>
+    concept contiguous_range = std::ranges::contiguous_range<T> &&
+        code_unit<std::ranges::range_value_t<T>, F>;
 
     template<typename T>
-    concept u8_iter = dtl::u_x_iter<T, 1>;
+    concept u8_iter = iterator<T, format::utf8>;
     template<typename T>
-    concept u8_ptr = dtl::u_x_ptr<T, 1>;
+    concept u8_ptr = pointer<T, format::utf8>;
     template<typename T>
-    concept u8_range = dtl::u_x_range<T, 1>;
+    concept u8_range = range<T, format::utf8>;
     template<typename T>
-    concept contig_u8_range = dtl::contig_u_x_range<T, 1>;
+    concept contig_u8_range = contiguous_range<T, format::utf8>;
 
     template<typename T>
-    concept u16_iter = dtl::u_x_iter<T, 2>;
+    concept u16_iter = iterator<T, format::utf16>;
     template<typename T>
-    concept u16_ptr = dtl::u_x_ptr<T, 2>;
+    concept u16_ptr = pointer<T, format::utf16>;
     template<typename T>
-    concept u16_range = dtl::u_x_range<T, 2>;
+    concept u16_range = range<T, format::utf16>;
     template<typename T>
-    concept contig_u16_range = dtl::contig_u_x_range<T, 2>;
+    concept contig_u16_range = contiguous_range<T, format::utf16>;
 
     template<typename T>
-    concept u32_iter = dtl::u_x_iter<T, 4>;
+    concept u32_iter = iterator<T, format::utf32>;
     template<typename T>
-    concept u32_ptr = dtl::u_x_ptr<T, 4>;
+    concept u32_ptr = pointer<T, format::utf32>;
     template<typename T>
-    concept u32_range = dtl::u_x_range<T, 4>;
+    concept u32_range = range<T, format::utf32>;
     template<typename T>
-    concept contig_u32_range = dtl::contig_u_x_range<T, 4>;
+    concept contig_u32_range = contiguous_range<T, format::utf32>;
 
     template<typename T>
     concept code_point = u32_code_unit<T>;

@@ -8,6 +8,7 @@
 
 #include <boost/text/config.hpp>
 #include <boost/text/concepts.hpp>
+#include <boost/text/utf.hpp>
 #include <boost/text/detail/algorithm.hpp>
 
 #include <boost/assert.hpp>
@@ -22,9 +23,6 @@
 
 namespace boost { namespace text {
 
-    /** The Unicode Transformation Formats. */
-    enum class format { utf8 = 1, utf16 = 2, utf32 = 4 };
-
     namespace {
         constexpr uint16_t high_surrogate_base = 0xd7c0;
         constexpr uint16_t low_surrogate_base = 0xdc00;
@@ -35,21 +33,6 @@ namespace boost { namespace text {
     }
 
     namespace detail {
-        template<typename T>
-        constexpr format format_of()
-        {
-            constexpr uint32_t size = sizeof(T);
-            static_assert(std::is_integral<T>::value, "");
-            static_assert(size == 1 || size == 2 || size == 4, "");
-            constexpr format formats[] = {
-                format::utf8,
-                format::utf8,
-                format::utf16,
-                format::utf32,
-                format::utf32};
-            return formats[size];
-        }
-
         constexpr bool
         in(unsigned char lo, unsigned char c, unsigned char hi) noexcept
         {
