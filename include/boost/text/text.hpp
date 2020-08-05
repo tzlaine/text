@@ -94,10 +94,14 @@ namespace boost { namespace text {
         basic_text() {}
 
         /** Constructs a basic_text from a pair of iterators. */
-        basic_text(iterator first, iterator last);
+        basic_text(iterator first, iterator last) :
+            basic_text(text_view(first, last))
+        {}
 
         /** Constructs a basic_text from a pair of iterators. */
-        basic_text(const_iterator first, const_iterator last);
+        basic_text(const_iterator first, const_iterator last) :
+            basic_text(text_view(first, last))
+        {}
 
         /** Constructs a basic_text from a null-terminated string. */
         basic_text(char_type const * c_str) : str_(c_str)
@@ -106,13 +110,19 @@ namespace boost { namespace text {
         }
 
         /** Constructs a basic_text from a string. */
-        explicit basic_text(string s);
+        explicit basic_text(string s) : str_(std::move(s))
+        {
+            boost::text::normalize<nf::fcc>(str_);
+        }
 
         /** Constructs a basic_text from a text_view. */
         explicit basic_text(text_view tv);
 
         /** Constructs a basic_text from a string_view. */
-        explicit basic_text(string_view sv);
+        explicit basic_text(string_view sv) : str_(sv.begin(), sv.end())
+        {
+            boost::text::normalize<nf::fcc>(str_);
+        }
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -192,13 +202,23 @@ namespace boost { namespace text {
         }
 
         /** Assignment from a string. */
-        basic_text & operator=(string s);
+        basic_text & operator=(string s)
+        {
+            str_ = std::move(s);
+            boost::text::normalize<nf::fcc>(str_);
+            return *this;
+        }
 
         /** Assignment from a text_view. */
         basic_text & operator=(text_view tv);
 
         /** Assignment from a string_view. */
-        basic_text & operator=(string_view sv);
+        basic_text & operator=(string_view sv)
+        {
+            str_.assign(sv.begin(), sv.end());
+            boost::text::normalize<nf::fcc>(str_);
+            return *this;
+        }
 
 
 #ifdef BOOST_TEXT_DOXYGEN
@@ -324,11 +344,18 @@ namespace boost { namespace text {
 
         /** Inserts the sequence of char from c_str into *this starting at
             position at. */
-        replace_result<iterator> insert(iterator at, char_type const * c_str);
+        replace_result<iterator> insert(iterator at, char_type const * c_str)
+        {
+            return insert(at, string_view(c_str));
+        }
 
         /** Inserts the sequence of char from t into *this starting at
             position at. */
-        replace_result<iterator> insert(iterator at, basic_text const & t);
+        replace_result<iterator> insert(iterator at, basic_text const & t)
+        {
+            return insert_impl(
+                at, t.str_.begin(), t.str_.end(), insertion_normalized);
+        }
 
         /** Inserts the sequence of char from tv into *this starting at
             position at. */
@@ -336,7 +363,11 @@ namespace boost { namespace text {
 
         /** Inserts the sequence of char from sv into *this starting at
             position at. */
-        replace_result<iterator> insert(iterator at, string_view sv);
+        replace_result<iterator> insert(iterator at, string_view sv)
+        {
+            return insert_impl(
+                at, sv.begin(), sv.end(), insertion_not_normalized);
+        }
 
         /** Inserts the sequence of char from rv into *this starting at
             position at. */
@@ -391,7 +422,10 @@ namespace boost { namespace text {
         /** Inserts the sequence [first, last) into *this starting at position
             at. */
         replace_result<iterator>
-        insert(iterator at, const_iterator first, const_iterator last);
+        insert(iterator at, const_iterator first, const_iterator last)
+        {
+            return insert(at, text_view(first, last));
+        }
 
         /** Inserts the grapheme g into *this at position at. */
         replace_result<iterator> insert(iterator at, grapheme const & g);
@@ -409,7 +443,14 @@ namespace boost { namespace text {
         /** Erases the portion of *this delimited by [first, last).
 
             \pre first <= last */
-        replace_result<iterator> erase(iterator first, iterator last) noexcept;
+        replace_result<iterator> erase(iterator first, iterator last) noexcept
+        {
+            auto const lo = first.base().base() - str_.data();
+            auto const hi = last.base().base() - str_.data();
+            auto const retval = boost::text::normalize_erase<nf::fcc>(
+                str_, str_.begin() + lo, str_.begin() + hi);
+            return mutation_result(retval);
+        }
 
         /** Replaces the portion of *this delimited by old_substr with the
             sequence of char from new_substr.
@@ -418,7 +459,15 @@ namespace boost { namespace text {
             begin().base().base()) && !std::less(end().base().base(),
             old_substr.end().base().base()) */
         replace_result<iterator>
-        replace(text_view old_substr, char_type const * new_substr);
+        replace(text_view old_substr, char_type const * new_substr)
+        {
+            auto const insertion = string_view(new_substr);
+            return replace_impl(
+                old_substr,
+                insertion.begin(),
+                insertion.end(),
+                insertion_not_normalized);
+        }
 
         /** Replaces the portion of *this delimited by old_substr with the
             sequence of char from new_substr.
@@ -427,7 +476,14 @@ namespace boost { namespace text {
             begin().base().base()) && !std::less(end().base().base(),
             old_substr.end().base().base()) */
         replace_result<iterator>
-        replace(text_view old_substr, basic_text const & new_substr);
+        replace(text_view old_substr, basic_text const & new_substr)
+        {
+            return replace_impl(
+                old_substr,
+                new_substr.begin().base().base(),
+                new_substr.end().base().base(),
+                insertion_normalized);
+        }
 
         /** Replaces the portion of *this delimited by old_substr with the
             sequence of char from new_substr.
@@ -445,7 +501,14 @@ namespace boost { namespace text {
             begin().base().base()) && !std::less(end().base().base(),
             old_substr.end().base().base()) */
         replace_result<iterator>
-        replace(text_view old_substr, string_view new_substr);
+        replace(text_view old_substr, string_view new_substr)
+        {
+            return replace_impl(
+                old_substr,
+                new_substr.begin(),
+                new_substr.end(),
+                insertion_not_normalized);
+        }
 
         /** Replaces the portion of *this delimited by old_substr with the
             sequence of char from new_substr.
@@ -522,7 +585,10 @@ namespace boost { namespace text {
             begin().base().base()) && !std::less(end().base().base(),
             old_substr.end().base().base()) */
         replace_result<iterator> replace(
-            text_view old_substr, const_iterator first, const_iterator last);
+            text_view old_substr, const_iterator first, const_iterator last)
+        {
+            return replace(old_substr, text_view(first, last));
+        }
 
         /** Reserves storage enough for a string of at least new_size
             bytes.
@@ -548,10 +614,17 @@ namespace boost { namespace text {
         void replace(string && s) noexcept { str_ = std::move(s); }
 
         /** Appends c_str to *this. */
-        basic_text & operator+=(char_type const * c_str);
+        basic_text & operator+=(char_type const * c_str)
+        {
+            return operator+=(string_view(c_str));
+        }
 
         /** Appends tv to *this. */
-        basic_text & operator+=(string_view sv);
+        basic_text & operator+=(string_view sv)
+        {
+            insert(end(), sv);
+            return *this;
+        }
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -696,44 +769,10 @@ namespace boost { namespace text {
 #ifndef BOOST_TEXT_DOXYGEN
 
     template<nf Normalization, typename String>
-    basic_text<Normalization, String>::basic_text(
-        iterator first, iterator last) :
-        basic_text(text_view(first, last))
-    {}
-
-    template<nf Normalization, typename String>
-    basic_text<Normalization, String>::basic_text(
-        const_iterator first, const_iterator last) :
-        basic_text(text_view(first, last))
-    {}
-
-    template<nf Normalization, typename String>
-    basic_text<Normalization, String>::basic_text(string s) : str_(std::move(s))
-    {
-        boost::text::normalize<nf::fcc>(str_);
-    }
-
-    template<nf Normalization, typename String>
     basic_text<Normalization, String>::basic_text(text_view tv) :
         str_(tv.begin().base().base(), tv.end().base().base())
     {
         BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
-    }
-
-    template<nf Normalization, typename String>
-    basic_text<Normalization, String>::basic_text(string_view sv) :
-        str_(sv.begin(), sv.end())
-    {
-        boost::text::normalize<nf::fcc>(str_);
-    }
-
-    template<nf Normalization, typename String>
-    basic_text<Normalization, String> &
-    basic_text<Normalization, String>::operator=(string s)
-    {
-        str_ = std::move(s);
-        boost::text::normalize<nf::fcc>(str_);
-        return *this;
     }
 
     template<nf Normalization, typename String>
@@ -746,63 +785,12 @@ namespace boost { namespace text {
     }
 
     template<nf Normalization, typename String>
-    basic_text<Normalization, String> &
-    basic_text<Normalization, String>::operator=(string_view sv)
-    {
-        str_.assign(sv.begin(), sv.end());
-        boost::text::normalize<nf::fcc>(str_);
-        return *this;
-    }
-
-    template<nf Normalization, typename String>
-    replace_result<typename basic_text<Normalization, String>::iterator>
-    basic_text<Normalization, String>::insert(
-        iterator at, char_type const * c_str)
-    {
-        return insert(at, string_view(c_str));
-    }
-
-    template<nf Normalization, typename String>
-    replace_result<typename basic_text<Normalization, String>::iterator>
-    basic_text<Normalization, String>::insert(iterator at, basic_text const & t)
-    {
-        return insert_impl(
-            at, t.str_.begin(), t.str_.end(), insertion_normalized);
-    }
-
-    template<nf Normalization, typename String>
     replace_result<typename basic_text<Normalization, String>::iterator>
     basic_text<Normalization, String>::insert(iterator at, text_view tv)
     {
         auto const first = tv.begin().base().base();
         auto const last = tv.end().base().base();
         return insert_impl(at, first, last, insertion_normalized);
-    }
-
-    template<nf Normalization, typename String>
-    replace_result<typename basic_text<Normalization, String>::iterator>
-    basic_text<Normalization, String>::insert(iterator at, string_view sv)
-    {
-        return insert_impl(at, sv.begin(), sv.end(), insertion_not_normalized);
-    }
-
-    template<nf Normalization, typename String>
-    replace_result<typename basic_text<Normalization, String>::iterator>
-    basic_text<Normalization, String>::erase(text_view tv) noexcept
-    {
-        auto const lo = tv.begin().base().base() - str_.data();
-        auto const hi = tv.end().base().base() - str_.data();
-        auto const retval = boost::text::normalize_erase<nf::fcc>(
-            str_, str_.begin() + lo, str_.begin() + hi);
-        return mutation_result(retval);
-    }
-
-    template<nf Normalization, typename String>
-    replace_result<typename basic_text<Normalization, String>::iterator>
-    basic_text<Normalization, String>::insert(
-        iterator at, const_iterator first, const_iterator last)
-    {
-        return insert(at, text_view(first, last));
     }
 
     template<nf Normalization, typename String>
@@ -823,39 +811,13 @@ namespace boost { namespace text {
 
     template<nf Normalization, typename String>
     replace_result<typename basic_text<Normalization, String>::iterator>
-    basic_text<Normalization, String>::erase(
-        iterator first, iterator last) noexcept
+    basic_text<Normalization, String>::erase(text_view tv) noexcept
     {
-        auto const lo = first.base().base() - str_.data();
-        auto const hi = last.base().base() - str_.data();
+        auto const lo = tv.begin().base().base() - str_.data();
+        auto const hi = tv.end().base().base() - str_.data();
         auto const retval = boost::text::normalize_erase<nf::fcc>(
             str_, str_.begin() + lo, str_.begin() + hi);
         return mutation_result(retval);
-    }
-
-    template<nf Normalization, typename String>
-    replace_result<typename basic_text<Normalization, String>::iterator>
-    basic_text<Normalization, String>::replace(
-        text_view old_substr, char_type const * new_substr)
-    {
-        auto const insertion = string_view(new_substr);
-        return replace_impl(
-            old_substr,
-            insertion.begin(),
-            insertion.end(),
-            insertion_not_normalized);
-    }
-
-    template<nf Normalization, typename String>
-    replace_result<typename basic_text<Normalization, String>::iterator>
-    basic_text<Normalization, String>::replace(
-        text_view old_substr, basic_text const & new_substr)
-    {
-        return replace_impl(
-            old_substr,
-            new_substr.begin().base().base(),
-            new_substr.end().base().base(),
-            insertion_normalized);
     }
 
     template<nf Normalization, typename String>
@@ -868,41 +830,6 @@ namespace boost { namespace text {
             new_substr.begin().base().base(),
             new_substr.end().base().base(),
             insertion_normalized);
-    }
-
-    template<nf Normalization, typename String>
-    replace_result<typename basic_text<Normalization, String>::iterator>
-    basic_text<Normalization, String>::replace(
-        text_view old_substr, string_view new_substr)
-    {
-        return replace_impl(
-            old_substr,
-            new_substr.begin(),
-            new_substr.end(),
-            insertion_not_normalized);
-    }
-
-    template<nf Normalization, typename String>
-    replace_result<typename basic_text<Normalization, String>::iterator>
-    basic_text<Normalization, String>::replace(
-        text_view old_substr, const_iterator first, const_iterator last)
-    {
-        return replace(old_substr, text_view(first, last));
-    }
-
-    template<nf Normalization, typename String>
-    basic_text<Normalization, String> &
-    basic_text<Normalization, String>::operator+=(char_type const * c_str)
-    {
-        return operator+=(string_view(c_str));
-    }
-
-    template<nf Normalization, typename String>
-    basic_text<Normalization, String> &
-    basic_text<Normalization, String>::operator+=(string_view sv)
-    {
-        insert(end(), sv);
-        return *this;
     }
 
     template<nf Normalization, typename String>
