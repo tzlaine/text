@@ -184,6 +184,8 @@ namespace boost { namespace text {
             return !(lhs == rhs);
         }
 
+        /** Stream inserter; performs unformatted output, in UTF-8
+            encoding. */
         friend std::ostream & operator<<(std::ostream & os, utf8_view v)
         {
             auto out = std::ostreambuf_iterator<char>(os);
@@ -192,7 +194,9 @@ namespace boost { namespace text {
             }
             return os;
         }
-#if defined(_MSC_VER)
+#if defined(BOOST_TEXT_DOXYGEN) || defined(_MSC_VER)
+        /** Stream inserter; performs unformatted output, in UTF-16 encoding.
+            Defined on Windows only. */
         friend std::wostream & operator<<(std::wostream & os, utf8_view v)
         {
             boost::text::transcode_utf_8_to_16(
@@ -248,13 +252,17 @@ namespace boost { namespace text {
             return !(lhs == rhs);
         }
 
+        /** Stream inserter; performs unformatted output, in UTF-8
+            encoding. */
         friend std::ostream & operator<<(std::ostream & os, utf16_view v)
         {
             boost::text::transcode_to_utf8(
                 v.begin(), v.end(), std::ostreambuf_iterator<char>(os));
             return os;
         }
-#if defined(_MSC_VER)
+#if defined(BOOST_TEXT_DOXYGEN) || defined(_MSC_VER)
+        /** Stream inserter; performs unformatted output, in UTF-16 encoding.
+            Defined on Windows only. */
         friend std::wostream & operator<<(std::wostream & os, utf16_view v)
         {
             auto out = std::ostreambuf_iterator<wchar_t>(os);
@@ -312,13 +320,17 @@ namespace boost { namespace text {
             return !(lhs == rhs);
         }
 
+        /** Stream inserter; performs unformatted output, in UTF-8
+            encoding. */
         friend std::ostream & operator<<(std::ostream & os, utf32_view v)
         {
             boost::text::transcode_to_utf8(
                 v.begin(), v.end(), std::ostreambuf_iterator<char>(os));
             return os;
         }
-#if defined(_MSC_VER)
+#if defined(BOOST_TEXT_DOXYGEN) || defined(_MSC_VER)
+        /** Stream inserter; performs unformatted output, in UTF-16 encoding.
+            Defined on Windows only. */
         friend std::wostream & operator<<(std::wostream & os, utf32_view v)
         {
             boost::text::transcode_to_utf16(

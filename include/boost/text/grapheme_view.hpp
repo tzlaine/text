@@ -71,6 +71,8 @@ namespace boost { namespace text {
             return !(lhs == rhs);
         }
 
+        /** Stream inserter; performs unformatted output, in UTF-8
+            encoding. */
         friend std::ostream & operator<<(std::ostream & os, grapheme_view v)
         {
             boost::text::transcode_to_utf8(
@@ -79,7 +81,9 @@ namespace boost { namespace text {
                 std::ostreambuf_iterator<char>(os));
             return os;
         }
-#if defined(_MSC_VER)
+#if defined(BOOST_TEXT_DOXYGEN) || defined(_MSC_VER)
+        /** Stream inserter; performs unformatted output, in UTF-16 encoding.
+            Defined on Windows only. */
         friend std::wostream & operator<<(std::wostream & os, grapheme_view v)
         {
             boost::text::transcode_to_utf16(
