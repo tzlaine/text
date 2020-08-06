@@ -964,10 +964,11 @@ namespace boost { namespace text {
     template<nf Normalization, typename String>
     replace_result<typename basic_text<Normalization, String>::iterator>
     basic_text<Normalization, String>::replace(
-        text_view old_substr, rope_view new_substr)
+        iterator first, iterator last, rope_view new_substr)
     {
         return replace_impl(
-            old_substr,
+            first,
+            last,
             new_substr.begin().base().base(),
             new_substr.end().base().base(),
             insertion_normalized);

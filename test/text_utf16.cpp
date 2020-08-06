@@ -359,33 +359,29 @@ TEST(text_utf16, test_replace)
 
     {
         text16 t(u"string");
-        t.replace(t, replacement);
+        t.replace(t.begin(), t.end(), replacement);
         EXPECT_EQ(t, u"REP"_t);
     }
 
     {
         text16 t(u"string");
-        t.replace(t, replacement);
+        t.replace(t.begin(), t.end(), replacement);
         EXPECT_EQ(t, u"REP"_t);
     }
 
     {
         text16 t(u"string");
-        text16::text_view const old_substr(
-            std::next(t.begin(), 0), std::next(t.begin(), 3));
         text16::text_view const new_substr(
             std::next(t.begin(), 2), std::next(t.begin(), 6));
-        t.replace(old_substr, new_substr);
+        t.replace(std::next(t.begin(), 0), std::next(t.begin(), 3), new_substr);
         EXPECT_EQ(t, u"ringing"_t);
     }
 
     {
         text16 t(u"string");
-        text16::text_view const old_substr(
-            std::next(t.begin(), 3), std::next(t.begin(), 6));
         text16::text_view const new_substr(
             std::next(t.begin(), 0), std::next(t.begin(), 3));
-        t.replace(old_substr, new_substr);
+        t.replace(std::next(t.begin(), 3), std::next(t.begin(), 6), new_substr);
         EXPECT_EQ(t, u"strstr"_t);
     }
 
@@ -453,19 +449,19 @@ TEST(text_utf16, test_replace_iter)
 
     {
         text16 t = ct_string;
-        t.replace(t, first, final_cp);
+        t.replace(t.begin(), t.end(), first, final_cp);
         EXPECT_EQ(t, u"\u004d\u0430\u4e8c"_t);
     }
 
     {
         text16 t = ct_text;
-        t.replace(t, final_cp, last);
+        t.replace(t.begin(), t.end(), final_cp, last);
         EXPECT_EQ(t, u"\U00010302"_t);
     }
 
     {
         text16 t = ct_string;
-        t.replace(t, first, last);
+        t.replace(t.begin(), t.end(), first, last);
         EXPECT_EQ(t, u"\u004d\u0430\u4e8c\U00010302"_t);
     }
 
@@ -531,14 +527,14 @@ TEST(text_utf16, test_replace_iter_large_insertions)
 
     {
         text16 t(u"string");
-        t.replace(t, first, last);
+        t.replace(t.begin(), t.end(), first, last);
         text16 const expected(first, last);
         EXPECT_EQ(t, expected);
     }
 
     {
         text16 t;
-        t.replace(t, first, last);
+        t.replace(t.begin(), t.end(), first, last);
         text16 const expected(first, last);
         EXPECT_EQ(t, expected);
     }
@@ -689,20 +685,9 @@ TEST(text_utf16, normalization)
 
     // replace()
 
-    auto first = [](text16 & t) {
-        return text16::text_view(t.begin(), std::next(t.begin(), 1));
-    };
-    auto second = [](text16 & t) {
-        return text16::text_view(
-            std::next(t.begin(), 1), std::next(t.begin(), 2));
-    };
-    auto third = [](text16 & t) {
-        return text16::text_view(std::next(t.begin(), 2), t.end());
-    };
-
     {
         text16 t = u"aaa";
-        t.replace(first(t), u"\u0302" /*◌̂*/);
+        t.replace(t.begin(), std::next(t.begin(), 1), u"\u0302" /*◌̂*/);
         EXPECT_EQ(
             t,
             text16(u"\u0302"
@@ -711,7 +696,8 @@ TEST(text_utf16, normalization)
     }
     {
         text16 t = u"aaa";
-        t.replace(second(t), u"\u0302" /*◌̂*/);
+        t.replace(
+            std::next(t.begin(), 1), std::next(t.begin(), 2), u"\u0302" /*◌̂*/);
         EXPECT_EQ(
             t,
             text16(u"\u00e2"
@@ -720,7 +706,7 @@ TEST(text_utf16, normalization)
     }
     {
         text16 t = u"aaa";
-        t.replace(third(t), u"\u0302" /*◌̂*/);
+        t.replace(std::next(t.begin(), 2), t.end(), u"\u0302" /*◌̂*/);
         EXPECT_EQ(t, text16(u"a\u00e2") /*aâ*/);
         EXPECT_EQ(t.distance(), 2u);
     }
@@ -729,7 +715,7 @@ TEST(text_utf16, normalization)
         text16 t =
             u"\u00e2"
             u"aa";
-        t.replace(first(t), u"\u0302" /*◌̂*/);
+        t.replace(t.begin(), std::next(t.begin(), 1), u"\u0302" /*◌̂*/);
         EXPECT_EQ(
             t,
             text16(u"\u0302"
@@ -740,7 +726,8 @@ TEST(text_utf16, normalization)
         text16 t =
             u"\u00e2"
             u"aa";
-        t.replace(second(t), u"\u0302" /*◌̂*/);
+        t.replace(
+            std::next(t.begin(), 1), std::next(t.begin(), 2), u"\u0302" /*◌̂*/);
         EXPECT_EQ(
             t,
             text16(u"\u00e2\u0302"
@@ -751,14 +738,18 @@ TEST(text_utf16, normalization)
         text16 t =
             u"\u00e2"
             u"aa";
-        t.replace(third(t), u"\u0302" /*◌̂*/);
+        t.replace(std::next(t.begin(), 2), t.end(), u"\u0302" /*◌̂*/);
         EXPECT_EQ(t, text16(u"\u00e2\u00e2") /*ââ*/);
         EXPECT_EQ(t.distance(), 2u);
     }
 
     {
         text16 t = u"aaa";
-        t.replace(first(t), s_circumflex.begin(), s_circumflex.end());
+        t.replace(
+            t.begin(),
+            std::next(t.begin(), 1),
+            s_circumflex.begin(),
+            s_circumflex.end());
         EXPECT_EQ(
             t,
             text16(u"\u0302"
@@ -767,7 +758,11 @@ TEST(text_utf16, normalization)
     }
     {
         text16 t = u"aaa";
-        t.replace(second(t), s_circumflex.begin(), s_circumflex.end());
+        t.replace(
+            std::next(t.begin(), 1),
+            std::next(t.begin(), 2),
+            s_circumflex.begin(),
+            s_circumflex.end());
         EXPECT_EQ(
             t,
             text16(u"\u00e2"
@@ -776,7 +771,11 @@ TEST(text_utf16, normalization)
     }
     {
         text16 t = u"aaa";
-        t.replace(third(t), s_circumflex.begin(), s_circumflex.end());
+        t.replace(
+            std::next(t.begin(), 2),
+            t.end(),
+            s_circumflex.begin(),
+            s_circumflex.end());
         EXPECT_EQ(t, text16(u"a\u00e2") /*aâ*/);
         EXPECT_EQ(t.distance(), 2u);
     }
@@ -785,7 +784,11 @@ TEST(text_utf16, normalization)
         text16 t =
             u"\u00e2"
             u"aa";
-        t.replace(first(t), s_circumflex.begin(), s_circumflex.end());
+        t.replace(
+            t.begin(),
+            std::next(t.begin(), 1),
+            s_circumflex.begin(),
+            s_circumflex.end());
         EXPECT_EQ(
             t,
             text16(u"\u0302"
@@ -796,7 +799,11 @@ TEST(text_utf16, normalization)
         text16 t =
             u"\u00e2"
             u"aa";
-        t.replace(second(t), s_circumflex.begin(), s_circumflex.end());
+        t.replace(
+            std::next(t.begin(), 1),
+            std::next(t.begin(), 2),
+            s_circumflex.begin(),
+            s_circumflex.end());
         EXPECT_EQ(
             t,
             text16(u"\u00e2\u0302"
@@ -807,7 +814,11 @@ TEST(text_utf16, normalization)
         text16 t =
             u"\u00e2"
             u"aa";
-        t.replace(third(t), s_circumflex.begin(), s_circumflex.end());
+        t.replace(
+            std::next(t.begin(), 2),
+            t.end(),
+            s_circumflex.begin(),
+            s_circumflex.end());
         EXPECT_EQ(t, text16(u"\u00e2\u00e2") /*ââ*/);
         EXPECT_EQ(t.distance(), 2u);
     }

@@ -1479,7 +1479,7 @@ TEST(common_operations, erase)
         text::text t_;
 
         t_ = t;
-        t_.erase(text::text_view(t_.begin(), t_.end()));
+        t_.erase(t_.begin(), t_.end());
         EXPECT_EQ(t_, text::text(""));
         t_ = t;
         t_.erase(t_.begin(), t_.end());
@@ -1543,41 +1543,38 @@ TEST(common_operations, replace)
     {
         text::text t_;
 
-        auto end = [&t_]() { return text::text_view(t_.end(), t_.end()); };
-        auto all = [&t_]() { return text::text_view(t_.begin(), t_.end()); };
-
         t_ = t;
-        t_.replace(end(), "literal");
+        t_.replace(t_.end(), t_.end(), "literal");
         EXPECT_EQ(t_, text::text("tliteral"));
         t_ = t;
-        t_.replace(all(), c_str);
+        t_.replace(t_.begin(), t_.end(), c_str);
         EXPECT_EQ(t_, text::text("c_str"));
         t_ = t;
-        t_.replace(end(), str);
+        t_.replace(t_.end(), t_.end(), str);
         EXPECT_EQ(t_, text::text("tstr"));
         t_ = t;
-        t_.replace(end(), sv);
+        t_.replace(t_.end(), t_.end(), sv);
         EXPECT_EQ(t_, text::text("tsv"));
         t_ = t;
-        t_.replace(all(), s);
+        t_.replace(t_.begin(), t_.end(), s);
         EXPECT_EQ(t_, text::text("s"));
         t_ = t;
-        t_.replace(end(), ur);
+        t_.replace(t_.end(), t_.end(), ur);
         EXPECT_EQ(t_, text::text("tur"));
         t_ = t;
-        t_.replace(all(), urv);
+        t_.replace(t_.begin(), t_.end(), urv);
         EXPECT_EQ(t_, text::text("ur"));
         t_ = t;
-        t_.replace(end(), t);
+        t_.replace(t_.end(), t_.end(), t);
         EXPECT_EQ(t_, text::text("tt"));
         t_ = t;
-        t_.replace(all(), tv);
+        t_.replace(t_.begin(), t_.end(), tv);
         EXPECT_EQ(t_, text::text("t"));
         t_ = t;
-        t_.replace(end(), r);
+        t_.replace(t_.end(), t_.end(), r);
         EXPECT_EQ(t_, text::rope("tr"));
         t_ = t;
-        t_.replace(all(), rv);
+        t_.replace(t_.begin(), t_.end(), rv);
         EXPECT_EQ(t_, text::rope("r"));
     }
 

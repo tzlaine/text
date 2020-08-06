@@ -340,15 +340,15 @@ TEST(text_tests, test_erase)
         for (std::size_t i = 0; i <= j; ++i) {
             text::text t = ct;
             text::text_view const before(t.begin(), std::next(t.begin(), i));
-            text::text_view const substr(
-                std::next(t.begin(), i), std::next(t.begin(), j));
-            text::text const substr_copy(substr);
+            auto const substr_first = std::next(t.begin(), i);
+            auto const substr_last = std::next(t.begin(), j);
+            text::text const substr_copy(substr_first, substr_last);
             text::text_view const after(std::next(ct.begin(), j), ct.end());
 
             text::text expected(before);
             expected += after;
 
-            t.erase(substr);
+            t.erase(substr_first, substr_last);
             EXPECT_EQ(t, expected) << "i=" << i << " j=" << j << " erasing '"
                                    << substr_copy << "'";
         }
@@ -364,33 +364,29 @@ TEST(text_tests, test_replace)
 
     {
         text::text t("string");
-        t.replace(t, replacement);
+        t.replace(t.begin(), t.end(), replacement);
         EXPECT_EQ(t, "REP"_t);
     }
 
     {
         text::text t("string");
-        t.replace(t, replacement);
+        t.replace(t.begin(), t.end(), replacement);
         EXPECT_EQ(t, "REP"_t);
     }
 
     {
         text::text t("string");
-        text::text_view const old_substr(
-            std::next(t.begin(), 0), std::next(t.begin(), 3));
         text::text_view const new_substr(
             std::next(t.begin(), 2), std::next(t.begin(), 6));
-        t.replace(old_substr, new_substr);
+        t.replace(std::next(t.begin(), 0), std::next(t.begin(), 3), new_substr);
         EXPECT_EQ(t, "ringing"_t);
     }
 
     {
         text::text t("string");
-        text::text_view const old_substr(
-            std::next(t.begin(), 3), std::next(t.begin(), 6));
         text::text_view const new_substr(
             std::next(t.begin(), 0), std::next(t.begin(), 3));
-        t.replace(old_substr, new_substr);
+        t.replace(std::next(t.begin(), 3), std::next(t.begin(), 6), new_substr);
         EXPECT_EQ(t, "strstr"_t);
     }
 
@@ -400,16 +396,16 @@ TEST(text_tests, test_replace)
         for (std::size_t i = 0; i <= j; ++i) {
             text::text t = ct;
             text::text_view const before(t.begin(), std::next(t.begin(), i));
-            text::text_view const substr(
-                std::next(t.begin(), i), std::next(t.begin(), j));
-            text::text const substr_copy(substr);
+            auto const substr_first = std::next(t.begin(), i);
+            auto const substr_last = std::next(t.begin(), j);
+            text::text const substr_copy(substr_first, substr_last);
             text::text_view const after(std::next(ct.begin(), j), ct.end());
 
             text::text expected(before);
             expected += replacement;
             expected += after;
 
-            t.replace(substr, replacement);
+            t.replace(substr_first, substr_last, replacement);
             EXPECT_EQ(t, expected) << "i=" << i << " j=" << j << " erasing '"
                                    << substr_copy << "'";
         }
@@ -422,16 +418,16 @@ TEST(text_tests, test_replace)
         for (std::size_t i = 0; i <= j; ++i) {
             text::text t = ct;
             text::text_view const before(t.begin(), std::next(t.begin(), i));
-            text::text_view const substr(
-                std::next(t.begin(), i), std::next(t.begin(), j));
-            text::text const substr_copy(substr);
+            auto const substr_first = std::next(t.begin(), i);
+            auto const substr_last = std::next(t.begin(), j);
+            text::text const substr_copy(substr_first, substr_last);
             text::text_view const after(std::next(ct.begin(), j), ct.end());
 
             text::text expected(before);
             expected += really_long_replacement;
             expected += after;
 
-            t.replace(substr, really_long_replacement);
+            t.replace(substr_first, substr_last, really_long_replacement);
             EXPECT_EQ(t, expected) << "i=" << i << " j=" << j << " erasing '"
                                    << substr_copy << "'";
         }
@@ -456,19 +452,19 @@ TEST(text_tests, test_replace_iter)
 
     {
         text::text t = ct_string;
-        t.replace(t, final_cp, last);
+        t.replace(t.begin(), t.end(), final_cp, last);
         EXPECT_EQ(t, "\xf0\x90\x8c\x82"_t);
     }
 
     {
         text::text t = ct_text;
-        t.replace(t, final_cp, last);
+        t.replace(t.begin(), t.end(), final_cp, last);
         EXPECT_EQ(t, "\xf0\x90\x8c\x82"_t);
     }
 
     {
         text::text t = ct_string;
-        t.replace(t, first, last);
+        t.replace(t.begin(), t.end(), first, last);
         EXPECT_EQ(t, "\x4d\xd0\xb0\xe4\xba\x8c\xf0\x90\x8c\x82"_t);
     }
 
@@ -478,9 +474,9 @@ TEST(text_tests, test_replace_iter)
                 text::text t = ct_string;
                 text::text_view const before(
                     t.begin(), std::next(t.begin(), i));
-                text::text_view const substr(
-                    std::next(t.begin(), i), std::next(t.begin(), j));
-                text::text const substr_copy(substr);
+                auto const substr_first = std::next(t.begin(), i);
+                auto const substr_last = std::next(t.begin(), j);
+                text::text const substr_copy(substr_first, substr_last);
                 text::text_view const after(std::next(t.begin(), j), t.end());
 
                 text::text expected(before);
@@ -488,7 +484,7 @@ TEST(text_tests, test_replace_iter)
                 expected +=
                     text::as_utf8(after.begin().base(), after.end().base());
 
-                t.replace(substr, final_cp, last);
+                t.replace(substr_first, substr_last, final_cp, last);
                 EXPECT_EQ(t, expected) << "i=" << i << " j=" << j
                                        << " erasing '" << substr_copy << "'";
             }
@@ -497,16 +493,16 @@ TEST(text_tests, test_replace_iter)
                 text::text t = ct_string;
                 text::text_view const before(
                     t.begin(), std::next(t.begin(), i));
-                text::text_view const substr(
-                    std::next(t.begin(), i), std::next(t.begin(), j));
-                text::text const substr_copy(substr);
+                auto const substr_first = std::next(t.begin(), i);
+                auto const substr_last = std::next(t.begin(), j);
+                text::text const substr_copy(substr_first, substr_last);
                 text::text_view const after(std::next(t.begin(), j), t.end());
 
                 text::text expected(before);
                 expected.insert(expected.end(), first, last);
                 expected += after;
 
-                t.replace(substr, first, last);
+                t.replace(substr_first, substr_last, first, last);
                 EXPECT_EQ(t, expected) << "i=" << i << " j=" << j
                                        << " erasing '" << substr_copy << "'";
             }
@@ -534,14 +530,14 @@ TEST(text_tests, test_replace_iter_large_insertions)
 
     {
         text::text t("string");
-        t.replace(t, first, last);
+        t.replace(t.begin(), t.end(), first, last);
         text::text const expected(first, last);
         EXPECT_EQ(t, expected);
     }
 
     {
         text::text t;
-        t.replace(t, first, last);
+        t.replace(t.begin(), t.end(), first, last);
         text::text const expected(first, last);
         EXPECT_EQ(t, expected);
     }
@@ -693,20 +689,9 @@ TEST(text_tests, normalization)
 
     // replace()
 
-    auto first = [](text::text & t) {
-        return text::text_view(t.begin(), std::next(t.begin(), 1));
-    };
-    auto second = [](text::text & t) {
-        return text::text_view(
-            std::next(t.begin(), 1), std::next(t.begin(), 2));
-    };
-    auto third = [](text::text & t) {
-        return text::text_view(std::next(t.begin(), 2), t.end());
-    };
-
     {
         text::text t = "aaa";
-        t.replace(first(t), "\xcc\x82" /*◌̂*/);
+        t.replace(t.begin(), std::next(t.begin(), 1), "\xcc\x82" /*◌̂*/);
         EXPECT_EQ(
             t,
             text::text("\xcc\x82"
@@ -715,7 +700,8 @@ TEST(text_tests, normalization)
     }
     {
         text::text t = "aaa";
-        t.replace(second(t), "\xcc\x82" /*◌̂*/);
+        t.replace(
+            std::next(t.begin(), 1), std::next(t.begin(), 2), "\xcc\x82" /*◌̂*/);
         EXPECT_EQ(
             t,
             text::text("\xc3\xa2"
@@ -724,7 +710,7 @@ TEST(text_tests, normalization)
     }
     {
         text::text t = "aaa";
-        t.replace(third(t), "\xcc\x82" /*◌̂*/);
+        t.replace(std::next(t.begin(), 2), t.end(), "\xcc\x82" /*◌̂*/);
         EXPECT_EQ(t, text::text("a\xc3\xa2") /*aâ*/);
         EXPECT_EQ(t.distance(), 2u);
     }
@@ -733,7 +719,7 @@ TEST(text_tests, normalization)
         text::text t =
             "\xc3\xa2"
             "aa";
-        t.replace(first(t), "\xcc\x82" /*◌̂*/);
+        t.replace(t.begin(), std::next(t.begin(), 1), "\xcc\x82" /*◌̂*/);
         EXPECT_EQ(
             t,
             text::text("\xcc\x82"
@@ -744,7 +730,8 @@ TEST(text_tests, normalization)
         text::text t =
             "\xc3\xa2"
             "aa";
-        t.replace(second(t), "\xcc\x82" /*◌̂*/);
+        t.replace(
+            std::next(t.begin(), 1), std::next(t.begin(), 2), "\xcc\x82" /*◌̂*/);
         EXPECT_EQ(
             t,
             text::text("\xc3\xa2\xcc\x82"
@@ -755,14 +742,18 @@ TEST(text_tests, normalization)
         text::text t =
             "\xc3\xa2"
             "aa";
-        t.replace(third(t), "\xcc\x82" /*◌̂*/);
+        t.replace(std::next(t.begin(), 2), t.end(), "\xcc\x82" /*◌̂*/);
         EXPECT_EQ(t, text::text("\xc3\xa2\xc3\xa2") /*ââ*/);
         EXPECT_EQ(t.distance(), 2u);
     }
 
     {
         text::text t = "aaa";
-        t.replace(first(t), s_circumflex.begin(), s_circumflex.end());
+        t.replace(
+            t.begin(),
+            std::next(t.begin(), 1),
+            s_circumflex.begin(),
+            s_circumflex.end());
         EXPECT_EQ(
             t,
             text::text("\xcc\x82"
@@ -771,7 +762,11 @@ TEST(text_tests, normalization)
     }
     {
         text::text t = "aaa";
-        t.replace(second(t), s_circumflex.begin(), s_circumflex.end());
+        t.replace(
+            std::next(t.begin(), 1),
+            std::next(t.begin(), 2),
+            s_circumflex.begin(),
+            s_circumflex.end());
         EXPECT_EQ(
             t,
             text::text("\xc3\xa2"
@@ -780,7 +775,11 @@ TEST(text_tests, normalization)
     }
     {
         text::text t = "aaa";
-        t.replace(third(t), s_circumflex.begin(), s_circumflex.end());
+        t.replace(
+            std::next(t.begin(), 2),
+            t.end(),
+            s_circumflex.begin(),
+            s_circumflex.end());
         EXPECT_EQ(t, text::text("a\xc3\xa2") /*aâ*/);
         EXPECT_EQ(t.distance(), 2u);
     }
@@ -789,7 +788,11 @@ TEST(text_tests, normalization)
         text::text t =
             "\xc3\xa2"
             "aa";
-        t.replace(first(t), s_circumflex.begin(), s_circumflex.end());
+        t.replace(
+            t.begin(),
+            std::next(t.begin(), 1),
+            s_circumflex.begin(),
+            s_circumflex.end());
         EXPECT_EQ(
             t,
             text::text("\xcc\x82"
@@ -800,7 +803,11 @@ TEST(text_tests, normalization)
         text::text t =
             "\xc3\xa2"
             "aa";
-        t.replace(second(t), s_circumflex.begin(), s_circumflex.end());
+        t.replace(
+            std::next(t.begin(), 1),
+            std::next(t.begin(), 2),
+            s_circumflex.begin(),
+            s_circumflex.end());
         EXPECT_EQ(
             t,
             text::text("\xc3\xa2\xcc\x82"
@@ -811,7 +818,11 @@ TEST(text_tests, normalization)
         text::text t =
             "\xc3\xa2"
             "aa";
-        t.replace(third(t), s_circumflex.begin(), s_circumflex.end());
+        t.replace(
+            std::next(t.begin(), 2),
+            t.end(),
+            s_circumflex.begin(),
+            s_circumflex.end());
         EXPECT_EQ(t, text::text("\xc3\xa2\xc3\xa2") /*ââ*/);
         EXPECT_EQ(t.distance(), 2u);
     }

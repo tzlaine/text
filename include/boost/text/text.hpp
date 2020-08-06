@@ -204,7 +204,7 @@ namespace boost { namespace text {
         /** Assignment from a text_view. */
         basic_text & operator=(text_view tv);
 
-         /** Assignment from a rope_view. */
+        /** Assignment from a rope_view. */
         basic_text & operator=(rope_view rv);
 
 
@@ -255,15 +255,15 @@ namespace boost { namespace text {
         /** Returns true if size() == 0, false otherwise. */
         bool empty() const noexcept { return str_.empty(); }
 
-        /** Returns the number of bytes controlled by *this, not including the
+        /** Returns the number of bytes controlled by `*this`, not including the
             null terminator. */
         size_type storage_bytes() const noexcept { return str_.size(); }
 
         /** Returns the number of bytes of storage currently in use by
-         *this. */
+            `*this`. */
         size_type capacity_bytes() const noexcept { return str_.capacity(); }
 
-        /** Returns the number of graphemes in *this.  This operation is
+        /** Returns the number of graphemes in `*this`.  This operation is
             O(n). */
         size_type distance() const noexcept
         {
@@ -279,7 +279,7 @@ namespace boost { namespace text {
             empty string */
         void clear() noexcept { str_.clear(); }
 
-        /** Inserts the sequence [first, last) into *this starting at position
+        /** Inserts the sequence [first, last) into `*this` starting at position
             at. */
         replace_result<iterator>
         insert(iterator at, const_iterator first, const_iterator last)
@@ -287,7 +287,7 @@ namespace boost { namespace text {
             return insert(at, text_view(first, last));
         }
 
-        /** Inserts the sequence of char from t into *this starting at
+        /** Inserts the sequence of char from t into `*this` starting at
             position at. */
         replace_result<iterator> insert(iterator at, basic_text const & t)
         {
@@ -295,31 +295,31 @@ namespace boost { namespace text {
                 at, t.str_.begin(), t.str_.end(), insertion_normalized);
         }
 
-        /** Inserts the sequence of char from c_str into *this starting at
+        /** Inserts the sequence of char from c_str into `*this` starting at
             position at. */
         replace_result<iterator> insert(iterator at, char_type const * c_str)
         {
             return insert(at, string_view(c_str));
         }
 
-        /** Inserts the sequence of char from tv into *this starting at
+        /** Inserts the sequence of char from tv into `*this` starting at
             position at. */
         replace_result<iterator> insert(iterator at, text_view tv);
 
-        /** Inserts the sequence of char from rv into *this starting at
+        /** Inserts the sequence of char from rv into `*this` starting at
             position at. */
         replace_result<iterator> insert(iterator at, rope_view rv);
 
 #ifdef BOOST_TEXT_DOXYGEN
 
-        /** Inserts the char range r into *this starting at position at.
+        /** Inserts the char range r into `*this` starting at position at.
 
             This function only participates in overload resolution if
             `CURange` models the CURange concept. */
         template<typename CURange>
         replace_result<iterator> insert(iterator at, CURange const & r);
 
-        /** Inserts the char sequence [first, last) into *this starting at
+        /** Inserts the char sequence [first, last) into `*this` starting at
             position at.
 
             This function only participates in overload resolution if
@@ -359,24 +359,17 @@ namespace boost { namespace text {
 
 #endif
 
-        /** Inserts the grapheme g into *this at position at. */
+        /** Inserts the grapheme g into `*this` at position at. */
         replace_result<iterator> insert(iterator at, grapheme const & g);
 
-        /** Inserts the grapheme g into *this at position at. */
+        /** Inserts the grapheme g into `*this` at position at. */
         template<typename CPIter>
         replace_result<iterator> insert(iterator at, grapheme_ref<CPIter> g);
 
-        /** Erases the portion of *this delimited by tv.
-
-            \pre !std::less(tv.begin().base().base(), begin().base().base()) &&
-            !std::less(end().base().base(), tv.end().base().base()) */
-        replace_result<iterator> erase(text_view tv) noexcept;
-
-        /** Erases the portion of *this delimited by [first, last).
+        /** Erases the portion of `*this` delimited by `[first, last)`.
 
             \pre first <= last */
-        replace_result<iterator>
-        erase(iterator first, iterator last) noexcept
+        replace_result<iterator> erase(iterator first, iterator last) noexcept
         {
             auto const lo = first.base().base() - str_.data();
             auto const hi = last.base().base() - str_.data();
@@ -385,143 +378,143 @@ namespace boost { namespace text {
             return mutation_result(retval);
         }
 
-        /** Replaces the portion of *this delimited by old_substr with the
-            sequence of char from new_substr.
+        /** Replaces the portion of `*this` delimited by `[first1, last1)`
+            with the sequence `[first2, last2)`.
 
-            \pre !std::less(old_substr.begin().base().base(),
-            begin().base().base()) && !std::less(end().base().base(),
-            old_substr.end().base().base()) */
+            \pre !std::less(first1.base().base(), begin().base().base()) &&
+            !std::less(end().base().base(), last1.base().base()) */
+        replace_result<iterator> replace(
+            iterator first1,
+            iterator last1,
+            const_iterator first2,
+            const_iterator last2)
+        {
+            return replace_impl(
+                first1, last1, first2.base().base(), last2.base().base());
+        }
+
+        /** Replaces the portion of `*this` delimited by `[first, last)` with
+            the sequence of char from `new_substr`.
+
+            \pre !std::less(first.base().base(), begin().base().base()) &&
+            !std::less(end().base().base(), last.base().base()) */
         replace_result<iterator>
-        replace(text_view old_substr, char_type const * new_substr)
+        replace(iterator first, iterator last, char_type const * new_substr)
         {
             auto const insertion = string_view(new_substr);
             return replace_impl(
-                old_substr,
+                first,
+                last,
                 insertion.begin(),
                 insertion.end(),
                 insertion_not_normalized);
         }
 
-        /** Replaces the portion of *this delimited by old_substr with the
-            sequence of char from new_substr.
+        /** Replaces the portion of `*this` delimited by `[first, last)` with the
+            sequence of char from `new_substr`.
 
-            \pre !std::less(old_substr.begin().base().base(),
-            begin().base().base()) && !std::less(end().base().base(),
-            old_substr.end().base().base()) */
+            \pre !std::less(first.base().base(), begin().base().base()) &&
+            !std::less(end().base().base(), last.base().base()) */
         replace_result<iterator>
-        replace(text_view old_substr, basic_text const & new_substr)
+        replace(iterator first, iterator last, basic_text const & new_substr)
         {
             return replace_impl(
-                old_substr,
+                first,
+                last,
                 new_substr.begin().base().base(),
                 new_substr.end().base().base(),
                 insertion_normalized);
         }
 
-        /** Replaces the portion of *this delimited by old_substr with the
-            sequence of char from new_substr.
+        /** Replaces the portion of `*this` delimited by `[first, last)` with the
+            sequence of char from `new_substr`.
 
-            \pre !std::less(old_substr.begin().base().base(),
-            begin().base().base()) && !std::less(end().base().base(),
-            old_substr.end().base().base()) */
+            \pre !std::less(first.base().base(), begin().base().base()) &&
+            !std::less(end().base().base(), last.base().base()) */
         replace_result<iterator>
-        replace(text_view old_substr, text_view new_substr);
+        replace(iterator first, iterator last, text_view new_substr);
 
-        /** Replaves the  portion of *this delimited by old_substr with the
-            sequence of char from new_substr.
+        /** Replaves the  portion of `*this` delimited by `[first, last)` with the
+            sequence of char from `new_substr`.
 
-            \pre !std::less(old_substr.begin().base().base(),
-            begin().base().base()) && !std::less(end().base().base(),
-            old_substr.end().base().base()) */
+            \pre !std::less(first.base().base(), begin().base().base()) &&
+            !std::less(end().base().base(), last.base().base()) */
         replace_result<iterator>
-        replace(text_view old_substr, string_view new_substr)
+        replace(iterator first, iterator last, string_view new_substr)
         {
             return replace_impl(
-                old_substr,
+                first,
+                last,
                 new_substr.begin(),
                 new_substr.end(),
                 insertion_not_normalized);
         }
 
-        /** Replaces the portion of *this delimited by old_substr with the
-            sequence of char from new_substr.
+        /** Replaces the portion of `*this` delimited by `[first, last)` with the
+            sequence of char from `new_substr`.
 
-            \pre !std::less(old_substr.begin().base().base(),
-            begin().base().base()) && !std::less(end().base().base(),
-            old_substr.end().base().base()) */
+            \pre !std::less(first.base().base(), begin().base().base()) &&
+            !std::less(end().base().base(), last.base().base()) */
         replace_result<iterator>
-        replace(text_view old_substr, rope_view new_substr);
+        replace(iterator first, iterator last, rope_view new_substr);
 
 #ifdef BOOST_TEXT_DOXYGEN
 
-        /** Replaces the portion of *this delimited by old_substr with the
+        /** Replaces the portion of `*this` delimited by `[first, last)` with the
             char range r.
 
             This function only participates in overload resolution if
             `CURange` models the CURange concept.
 
-            \pre !std::less(old_substr.begin().base().base(),
-            begin().base().base()) && !std::less(end().base().base(),
-            old_substr.end().base().base()) */
+            \pre !std::less(first.base().base(), begin().base().base()) &&
+            !std::less(end().base().base(), last.base().base()) */
         template<typename CURange>
         replace_result<iterator>
-        replace(text_view old_substr, CURange const & r);
+        replace(iterator first, iterator last, CURange const & r);
 
-        /** Replaces the portion of *this delimited by old_substr with the
-            char sequence [first, last).
+        /** Replaces the portion of `*this` delimited by `[first1, last1)` with
+            the char sequence `[first2, last2)`.
 
             This function only participates in overload resolution if
             `CUIter` models the CUIter concept.
 
-            \pre !std::less(old_substr.begin().base().base(),
-            begin().base().base()) && !std::less(end().base().base(),
-            old_substr.end().base().base()) */
+            \pre !std::less(first.base().base(), begin().base().base()) &&
+            !std::less(end().base().base(), last.base().base()) */
         template<typename CUIter>
         replace_result<iterator>
-        replace(text_view old_substr, CUIter first, CUIter last);
+        replace(iterator first1, iterator last1, CUIter first2, CUIter last2);
 
 #else
 
 #if defined(__cpp_lib_concepts)
         template<range<utf_format> R>
         replace_result<iterator>
-        replace(text_view const & old_substr, R const & r)
+        replace(iterator first, iterator last, R const & r)
 #else
         template<typename R>
-        auto replace(text_view old_substr, R const & r) -> detail::
+        auto replace(iterator first, iterator last, R const & r) -> detail::
             cu_rng_alg_ret_t<(int)utf_format, replace_result<iterator>, R>
 #endif
         {
-            return replace(old_substr, std::begin(r), std::end(r));
+            return replace(first, last, std::begin(r), std::end(r));
         }
 
 #if defined(__cpp_lib_concepts)
         template<boost::text::iterator<utf_format> I>
         replace_result<iterator>
-        replace(text_view const & old_substr, I first, I last)
+        replace(iterator first1, iterator last1, I first2, I last2)
 #else
         template<typename I>
-        auto replace(text_view old_substr, I first, I last) -> detail::
-            cu_iter_ret_t<(int)utf_format, replace_result<iterator>, I>
+        auto replace(iterator first1, iterator last1, I first2, I last2)
+            -> detail::
+                cu_iter_ret_t<(int)utf_format, replace_result<iterator>, I>
 #endif
         {
             return replace_impl(
-                old_substr, first, last, insertion_not_normalized);
+                first1, last1, first2, last2, insertion_not_normalized);
         }
 
 #endif
-
-        /** Replaces the portion of *this delimited by old_substr with the
-            sequence [first, last).
-
-            \pre !std::less(old_substr.begin().base().base(),
-            begin().base().base()) && !std::less(end().base().base(),
-            old_substr.end().base().base()) */
-        replace_result<iterator>
-        replace(text_view old_substr, const_iterator first, const_iterator last)
-        {
-            return replace(old_substr, text_view(first, last));
-        }
 
         /** Reserves storage enough for a string of at least new_size
             bytes.
@@ -529,30 +522,30 @@ namespace boost { namespace text {
             \post capacity() >= new_size + 1 */
         void reserve(size_type new_size) { str_.reserve(new_size); }
 
-        /** Reduces storage used by *this to just the amount necessary to
+        /** Reduces storage used by `*this` to just the amount necessary to
             contain size() chars.
 
             \post capacity() == 0 || capacity() == size() + 1 */
         void shrink_to_fit() { str_.shrink_to_fit(); }
 
-        /** Swaps *this with rhs. */
+        /** Swaps `*this` with rhs. */
         void swap(basic_text & rhs) noexcept { str_.swap(rhs.str_); }
 
-        /** Removes and returns the underlying string from *this. */
+        /** Removes and returns the underlying string from `*this`. */
         string extract() && noexcept { return std::move(str_); }
 
-        /** Replaces the underlying string in *this.
+        /** Replaces the underlying string in `*this`.
 
             \pre s is normalized FCC. */
         void replace(string && s) noexcept { str_ = std::move(s); }
 
-        /** Appends c_str to *this. */
+        /** Appends c_str to `*this`. */
         basic_text & operator+=(char_type const * c_str)
         {
             return operator+=(string_view(c_str));
         }
 
-        /** Appends tv to *this. */
+        /** Appends tv to `*this`. */
         basic_text & operator+=(string_view sv)
         {
             insert(end(), sv);
@@ -561,7 +554,7 @@ namespace boost { namespace text {
 
 #ifdef BOOST_TEXT_DOXYGEN
 
-        /** Appends the char range r to *this.
+        /** Appends the char range r to `*this`.
 
             This function only participates in overload resolution if
             `CURange` models the CURange concept. */
@@ -695,11 +688,11 @@ namespace boost { namespace text {
                     end().base().base())};
         }
 
-        template<typename CUIter, typename Sentinel>
+        template<typename CUIter>
         replace_result<iterator> insert_impl(
             iterator at,
             CUIter first,
-            Sentinel last,
+            CUIter last,
             insertion_normalization insertion_norm)
         {
             auto const str_at = str_.begin() + (at.base().base() - str_.data());
@@ -713,10 +706,26 @@ namespace boost { namespace text {
 
         template<typename CUIter>
         replace_result<iterator> replace_impl(
-            text_view old_substr,
-            CUIter first,
-            CUIter last,
-            insertion_normalization insertion_norm);
+            iterator first,
+            iterator last,
+            CUIter f,
+            CUIter l,
+            insertion_normalization insertion_norm)
+        {
+            auto const str_first =
+                str_.begin() + (first.base().base() - str_.data());
+            auto const str_last =
+                str_.begin() + (last.base().base() - str_.data());
+            auto const insertion = boost::text::as_utf32(f, l);
+            auto const retval = boost::text::normalize_replace<normalization>(
+                str_,
+                str_first,
+                str_last,
+                insertion.begin(),
+                insertion.end(),
+                insertion_norm);
+            return mutation_result(retval);
+        }
 
         string str_;
 
@@ -799,49 +808,15 @@ namespace boost { namespace text {
 
     template<nf Normalization, typename String>
     replace_result<typename basic_text<Normalization, String>::iterator>
-    basic_text<Normalization, String>::erase(text_view tv) noexcept
-    {
-        auto const lo = tv.begin().base().base() - str_.data();
-        auto const hi = tv.end().base().base() - str_.data();
-        auto const retval = boost::text::normalize_erase<normalization>(
-            str_, str_.begin() + lo, str_.begin() + hi);
-        return mutation_result(retval);
-    }
-
-    template<nf Normalization, typename String>
-    replace_result<typename basic_text<Normalization, String>::iterator>
     basic_text<Normalization, String>::replace(
-        text_view old_substr, text_view new_substr)
+        iterator first, iterator last, text_view new_substr)
     {
         return replace_impl(
-            old_substr,
+            first,
+            last,
             new_substr.begin().base().base(),
             new_substr.end().base().base(),
             insertion_normalized);
-    }
-
-    template<nf Normalization, typename String>
-    template<typename CUIter>
-    replace_result<typename basic_text<Normalization, String>::iterator>
-    basic_text<Normalization, String>::replace_impl(
-        text_view old_substr,
-        CUIter first,
-        CUIter last,
-        insertion_normalization insertion_norm)
-    {
-        auto const str_first =
-            str_.begin() + (old_substr.begin().base().base() - str_.data());
-        auto const str_last =
-            str_.begin() + (old_substr.end().base().base() - str_.data());
-        auto const insertion = boost::text::as_utf32(first, last);
-        auto const retval = boost::text::normalize_replace<normalization>(
-            str_,
-            str_first,
-            str_last,
-            insertion.begin(),
-            insertion.end(),
-            insertion_norm);
-        return mutation_result(retval);
     }
 
 #endif // Doxygen
@@ -995,8 +970,7 @@ namespace boost { namespace text {
         requires range<R, basic_text<Normalization, String>::utf_format>
     // clang-format on
 #else
-    auto
-    operator+(R const & r, basic_text<Normalization, String> const & t)
+    auto operator+(R const & r, basic_text<Normalization, String> const & t)
         -> detail::cu_rng_alg_ret_t<
             (int)basic_text<Normalization, String>::utf_format,
             basic_text<Normalization, String>,
