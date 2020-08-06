@@ -952,17 +952,6 @@ namespace boost { namespace text {
 
     template<nf Normalization, typename String>
     replace_result<typename basic_text<Normalization, String>::iterator>
-    basic_text<Normalization, String>::insert(iterator at, rope_view rv)
-    {
-        return insert_impl(
-            at,
-            rv.begin().base().base(),
-            rv.end().base().base(),
-            insertion_normalized);
-    }
-
-    template<nf Normalization, typename String>
-    replace_result<typename basic_text<Normalization, String>::iterator>
     basic_text<Normalization, String>::replace(
         iterator first, iterator last, rope_view new_substr)
     {

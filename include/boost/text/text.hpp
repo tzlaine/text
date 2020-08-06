@@ -279,93 +279,6 @@ namespace boost { namespace text {
             empty string */
         void clear() noexcept { str_.clear(); }
 
-        /** Inserts the sequence [first, last) into `*this` starting at position
-            at. */
-        replace_result<iterator>
-        insert(iterator at, const_iterator first, const_iterator last)
-        {
-            return insert(at, text_view(first, last));
-        }
-
-        /** Inserts the sequence of char from t into `*this` starting at
-            position at. */
-        replace_result<iterator> insert(iterator at, basic_text const & t)
-        {
-            return insert_impl(
-                at, t.str_.begin(), t.str_.end(), insertion_normalized);
-        }
-
-        /** Inserts the sequence of char from c_str into `*this` starting at
-            position at. */
-        replace_result<iterator> insert(iterator at, char_type const * c_str)
-        {
-            return insert(at, string_view(c_str));
-        }
-
-        /** Inserts the sequence of char from tv into `*this` starting at
-            position at. */
-        replace_result<iterator> insert(iterator at, text_view tv);
-
-        /** Inserts the sequence of char from rv into `*this` starting at
-            position at. */
-        replace_result<iterator> insert(iterator at, rope_view rv);
-
-#ifdef BOOST_TEXT_DOXYGEN
-
-        /** Inserts the char range r into `*this` starting at position at.
-
-            This function only participates in overload resolution if
-            `CURange` models the CURange concept. */
-        template<typename CURange>
-        replace_result<iterator> insert(iterator at, CURange const & r);
-
-        /** Inserts the char sequence [first, last) into `*this` starting at
-            position at.
-
-            This function only participates in overload resolution if
-            `CUIter` models the CUIter concept. */
-        template<typename CUIter Sentinel>
-        replace_result<iterator> insert(iterator at, CUIter first, CUIter last);
-
-        // TODO: GraphemeRange
-        // TODO: grapheme iterators.
-
-#else
-
-#if defined(__cpp_lib_concepts)
-        template<range<utf_format> R>
-        replace_result<iterator> insert(iterator at, R const & r)
-#else
-        template<typename R>
-        auto insert(iterator at, R const & r) -> detail::
-            cu_rng_alg_ret_t<(int)utf_format, replace_result<iterator>, R>
-#endif
-        {
-            return insert(at, std::begin(r), std::end(r));
-        }
-
-
-#if defined(__cpp_lib_concepts)
-        template<boost::text::iterator<utf_format> I>
-        replace_result<iterator> insert(iterator at, I first, I last)
-#else
-        template<typename I>
-        auto insert(iterator at, I first, I last) -> detail::
-            cu_iter_ret_t<(int)utf_format, replace_result<iterator>, I>
-#endif
-        {
-            return insert_impl(at, first, last, insertion_not_normalized);
-        }
-
-#endif
-
-        /** Inserts the grapheme g into `*this` at position at. */
-        replace_result<iterator> insert(iterator at, grapheme const & g);
-
-        /** Inserts the grapheme g into `*this` at position at. */
-        template<typename CPIter>
-        replace_result<iterator> insert(iterator at, grapheme_ref<CPIter> g);
-
         /** Erases the portion of `*this` delimited by `[first, last)`.
 
             \pre first <= last */
@@ -484,6 +397,9 @@ namespace boost { namespace text {
         replace_result<iterator>
         replace(iterator first1, iterator last1, CUIter first2, CUIter last2);
 
+        // TODO: GraphemeRange
+        // TODO: grapheme iterators.
+
 #else
 
 #if defined(__cpp_lib_concepts)
@@ -515,6 +431,46 @@ namespace boost { namespace text {
         }
 
 #endif
+
+        /** Inserts the sequence [first, last) into `*this` starting at position
+            at. */
+        replace_result<iterator>
+        insert(iterator at, const_iterator first, const_iterator last)
+        {
+            return insert(at, text_view(first, last));
+        }
+
+        /** Inserts the sequence of char_type from `c_str` into `*this`
+            starting at position `at`. */
+        replace_result<iterator> insert(iterator at, char_type const * c_str)
+        {
+            return insert(at, string_view(c_str));
+        }
+
+        /** Inserts the sequence of char_type from `x` into `*this` starting
+            at position `at`. */
+        template<typename T>
+        auto insert(iterator at, T const & x) -> decltype(replace(at, at, x))
+        {
+            return replace(at, at, x);
+        }
+
+        /** Inserts the sequence `[first, last)` into `*this` starting at
+            position `at`. */
+        template<typename I>
+        auto insert(iterator at, I first, I last)
+            -> decltype(replace(at, at, first, last))
+        {
+            return replace(at, at, first, last);
+        }
+
+        // TODO: Change these to replace() overloads.
+        /** Inserts the grapheme g into `*this` at position at. */
+        replace_result<iterator> insert(iterator at, grapheme const & g);
+
+        /** Inserts the grapheme g into `*this` at position at. */
+        template<typename CPIter>
+        replace_result<iterator> insert(iterator at, grapheme_ref<CPIter> g);
 
         /** Reserves storage enough for a string of at least new_size
             bytes.
@@ -750,15 +706,6 @@ namespace boost { namespace text {
     {
         str_.assign(rv.begin().base().base(), rv.end().base().base());
         return *this;
-    }
-
-    template<nf Normalization, typename String>
-    replace_result<typename basic_text<Normalization, String>::iterator>
-    basic_text<Normalization, String>::insert(iterator at, text_view tv)
-    {
-        auto const first = tv.begin().base().base();
-        auto const last = tv.end().base().base();
-        return insert_impl(at, first, last, insertion_normalized);
     }
 
     template<nf Normalization, typename String>
