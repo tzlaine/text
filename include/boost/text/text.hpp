@@ -93,10 +93,8 @@ namespace boost { namespace text {
         /** Default ctor. */
         basic_text() {}
 
-        /** Constructs a basic_text from a pair of iterators. */
-        basic_text(iterator first, iterator last) :
-            basic_text(text_view(first, last))
-        {}
+        basic_text(basic_text const &) = default;
+        basic_text(basic_text &&) = default;
 
         /** Constructs a basic_text from a pair of iterators. */
         basic_text(const_iterator first, const_iterator last) :
@@ -109,20 +107,11 @@ namespace boost { namespace text {
             boost::text::normalize<normalization>(str_);
         }
 
-        /** Constructs a basic_text from a string. */
-        explicit basic_text(string s) : str_(std::move(s))
-        {
-            boost::text::normalize<normalization>(str_);
-        }
-
         /** Constructs a basic_text from a text_view. */
         explicit basic_text(text_view tv);
 
-        /** Constructs a basic_text from a string_view. */
-        explicit basic_text(string_view sv) : str_(sv.begin(), sv.end())
-        {
-            boost::text::normalize<normalization>(str_);
-        }
+        /** Constructs a basic_text from a rope_view. */
+        explicit basic_text(rope_view rv);
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -148,6 +137,7 @@ namespace boost { namespace text {
         template<typename GraphemeRange>
         explicit basic_text(GraphemeRange const & r);
 
+        // TODO: grapheme iterators
 #else
 
 #if defined(__cpp_lib_concepts)
@@ -193,24 +183,14 @@ namespace boost { namespace text {
 
 #endif
 
+        basic_text & operator=(basic_text const &) = default;
+        basic_text & operator=(basic_text &&) = default;
+
         /** Assignment from a null-terminated string. */
         basic_text & operator=(char_type const * c_str)
         {
-            str_ = c_str;
-            boost::text::normalize<normalization>(str_);
-            return *this;
+            return *this = string_view(c_str);
         }
-
-        /** Assignment from a string. */
-        basic_text & operator=(string s)
-        {
-            str_ = std::move(s);
-            boost::text::normalize<normalization>(str_);
-            return *this;
-        }
-
-        /** Assignment from a text_view. */
-        basic_text & operator=(text_view tv);
 
         /** Assignment from a string_view. */
         basic_text & operator=(string_view sv)
@@ -220,56 +200,12 @@ namespace boost { namespace text {
             return *this;
         }
 
+        /** Assignment from a text_view. */
+        basic_text & operator=(text_view tv);
 
-#ifdef BOOST_TEXT_DOXYGEN
+         /** Assignment from a rope_view. */
+        basic_text & operator=(rope_view rv);
 
-        /** Assignment from a range of char.
-
-            This function only participates in overload resolution if
-            `CURange` models the CURange concept. */
-        template<typename CURange>
-        basic_text & operator=(CURange const & r);
-
-        /** Assignment from a range of graphemes over an underlying range of
-            char.
-
-            This function only participates in overload resolution if
-            `GraphemeRange` models the GraphemeRange concept. */
-        template<typename GraphemeRange>
-        basic_text & operator=(GraphemeRange const & r);
-
-#else
-
-
-#if defined(__cpp_lib_concepts)
-        template<range<utf_format> R>
-        basic_text & operator=(R const & r)
-#else
-        template<typename R>
-        auto operator=(R const & r)
-            -> detail::cu_rng_alg_ret_t<(int)utf_format, basic_text &, R>
-#endif
-        {
-            str_.assign(r.begin(), r.end());
-            boost::text::normalize<normalization>(str_);
-            return *this;
-        }
-
-#if defined(__cpp_lib_concepts)
-        template<grapheme_range R>
-        basic_text & operator=(R const & r)
-#else
-        template<typename R>
-        auto operator=(R const & r)
-            -> detail::graph_rng_alg_ret_t<basic_text &, R>
-#endif
-        {
-            str_.assign(r.begin().base().base(), r.begin().base().base());
-            BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
-            return *this;
-        }
-
-#endif
 
         iterator begin() noexcept
         {
@@ -811,16 +747,26 @@ namespace boost { namespace text {
     template<nf Normalization, typename String>
     basic_text<Normalization, String>::basic_text(text_view tv) :
         str_(tv.begin().base().base(), tv.end().base().base())
-    {
-        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
-    }
+    {}
+
+    template<nf Normalization, typename String>
+    basic_text<Normalization, String>::basic_text(rope_view rv) :
+        str_(rv.begin().base().base(), rv.end().base().base())
+    {}
 
     template<nf Normalization, typename String>
     basic_text<Normalization, String> &
     basic_text<Normalization, String>::operator=(text_view tv)
     {
         str_.assign(tv.begin().base().base(), tv.end().base().base());
-        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
+        return *this;
+    }
+
+    template<nf Normalization, typename String>
+    basic_text<Normalization, String> &
+    basic_text<Normalization, String>::operator=(rope_view rv)
+    {
+        str_.assign(rv.begin().base().base(), rv.end().base().base());
         return *this;
     }
 

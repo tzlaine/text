@@ -596,18 +596,18 @@ TEST(common_operations, assignment_operators)
         t_sv = sv;
         text::text t_s;
         t_s = s;
-        text::text t_ur;
-        t_ur = ur;
-        text::text t_urv;
-        t_urv = urv;
+        // OK text::text t_ur;
+        // OK text::text t_urv;
         text::text t_t;
         t_t = t;
         text::text t_tv;
         t_tv = tv;
+#if 0 // TODO: Waiting on operator=(rope_view) support in text.
         text::text t_r;
         t_r = r;
         text::text t_rv;
         t_rv = rv;
+#endif
     }
 
     // text::rope
