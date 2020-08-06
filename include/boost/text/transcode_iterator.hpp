@@ -726,7 +726,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
     /** Returns the first code unit in `[first, last)` that is not properly
         UTF-8 encoded, or `last` if no such code unit is found. */
-    template<u8_iter I>
+    template<utf8_iter I>
     // clang-format off
         requires std::random_access_iterator<I>
     constexpr I find_invalid_encoding(I first, I last) noexcept
@@ -748,7 +748,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
     /** Returns the first code unit in `[first, last)` that is not properly
         UTF-16 encoded, or `last` if no such code unit is found. */
-    template<u16_iter I>
+    template<utf16_iter I>
     // clang-format off
         requires std::random_access_iterator<I>
     constexpr I find_invalid_encoding(I first, I last) noexcept
@@ -769,7 +769,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     /** Returns true iff `[first, last)` is properly UTF-8 encoded. */
-    template<u8_iter I>
+    template<utf8_iter I>
     // clang-format off
         requires std::random_access_iterator<I>
     constexpr bool encoded(I first, I last) noexcept
@@ -779,7 +779,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     /** Returns true iff `[first, last)` is properly UTF-16 encoded */
-    template<u16_iter I>
+    template<utf16_iter I>
     // clang-format off
         requires std::random_access_iterator<I>
     constexpr bool encoded(I first, I last) noexcept
@@ -790,7 +790,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
     /** Returns true iff `[first, last)` is empty or the initial UTF-8 code
         units in `[first, last)` form a valid Unicode code point. */
-    template<u8_iter I>
+    template<utf8_iter I>
     // clang-format off
         requires std::random_access_iterator<I>
     constexpr bool starts_encoded(I first, I last) noexcept
@@ -808,7 +808,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
     /** Returns true iff `[first, last)` is empty or the initial UTF-16 code
         units in `[first, last)` form a valid Unicode code point. */
-    template<u16_iter I>
+    template<utf16_iter I>
     // clang-format off
         requires std::random_access_iterator<I>
     constexpr bool starts_encoded(I first, I last) noexcept
@@ -826,7 +826,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
     /** Returns true iff `[first, last)` is empty or the final UTF-8 code units
         in `[first, last)` form a valid Unicode code point. */
-    template<u8_iter I>
+    template<utf8_iter I>
     // clang-format off
         requires std::random_access_iterator<I>
     constexpr bool ends_encoded(I first, I last) noexcept
@@ -844,7 +844,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
     /** Returns true iff `[first, last)` is empty or the final UTF-16 code units
         in `[first, last)` form a valid Unicode code point. */
-    template<u16_iter I>
+    template<utf16_iter I>
     // clang-format off
         requires std::random_access_iterator<I>
     constexpr bool ends_encoded(I first, I last) noexcept
@@ -926,7 +926,7 @@ namespace boost { namespace text {
 
     template<typename T>
         // clang-format off
-        requires u8_code_unit<T> || u16_code_unit<T> || u32_code_unit<T>
+        requires utf8_code_unit<T> || utf16_code_unit<T> || utf32_code_unit<T>
     constexpr auto operator==(T * p, null_sentinel)
     // clang-format on
     {
@@ -936,7 +936,7 @@ namespace boost { namespace text {
       // rewriting is widely supported.
     template<typename T>
         // clang-format off
-        requires u8_code_unit<T> || u16_code_unit<T> || u32_code_unit<T>
+        requires utf8_code_unit<T> || utf16_code_unit<T> || utf32_code_unit<T>
     constexpr auto operator!=(T * p, null_sentinel)
     // clang-format on
     {
@@ -944,7 +944,7 @@ namespace boost { namespace text {
     }
     template<typename T>
         // clang-format off
-        requires u8_code_unit<T> || u16_code_unit<T> || u32_code_unit<T>
+        requires utf8_code_unit<T> || utf16_code_unit<T> || utf32_code_unit<T>
     constexpr auto operator==(null_sentinel, T * p)
     // clang-format on
     {
@@ -952,7 +952,7 @@ namespace boost { namespace text {
     }
     template<typename T>
         // clang-format off
-        requires u8_code_unit<T> || u16_code_unit<T> || u32_code_unit<T>
+        requires utf8_code_unit<T> || utf16_code_unit<T> || utf32_code_unit<T>
     constexpr auto operator!=(null_sentinel, T * p)
     // clang-format on
     {
@@ -1010,7 +1010,7 @@ namespace boost { namespace text {
     /** A UTF-8 to UTF-16 converting iterator. */
 #if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
     template<
-        u8_iter I,
+        utf8_iter I,
         std::sentinel_for<I> S = I,
         transcoding_error_handler ErrorHandler = use_replacement_character>
 #else
@@ -1025,7 +1025,7 @@ namespace boost { namespace text {
     /** A UTF-32 to UTF-8 converting iterator. */
 #if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
     template<
-        u32_iter I,
+        utf32_iter I,
         std::sentinel_for<I> S = I,
         transcoding_error_handler ErrorHandler = use_replacement_character>
 #else
@@ -1173,7 +1173,7 @@ namespace boost { namespace text {
 
 #if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
         template<
-            u32_iter I2,
+            utf32_iter I2,
             std::sentinel_for<I2> S2,
             transcoding_error_handler ErrorHandler2>
 #else
@@ -1349,7 +1349,7 @@ namespace boost { namespace text {
     /** A UTF-8 to UTF-32 converting iterator. */
 #if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
     template<
-        u8_iter I,
+        utf8_iter I,
         std::sentinel_for<I> S = I,
         transcoding_error_handler ErrorHandler = use_replacement_character>
 #else
@@ -1672,7 +1672,7 @@ namespace boost { namespace text {
 
 #if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
         template<
-            u8_iter I2,
+            utf8_iter I2,
             std::sentinel_for<I2> S2,
             transcoding_error_handler ErrorHandler2>
 #else
@@ -1682,7 +1682,7 @@ namespace boost { namespace text {
 
 #if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
         template<
-            u8_iter I2,
+            utf8_iter I2,
             std::sentinel_for<I2> S2,
             transcoding_error_handler ErrorHandler2>
 #else
@@ -1921,7 +1921,7 @@ namespace boost { namespace text {
     /** A UTF-32 to UTF-16 converting iterator. */
 #if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
     template<
-        u32_iter I,
+        utf32_iter I,
         std::sentinel_for<I> S = I,
         transcoding_error_handler ErrorHandler = use_replacement_character>
 #else
@@ -2065,7 +2065,7 @@ namespace boost { namespace text {
 
 #if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
         template<
-            u32_iter I2,
+            utf32_iter I2,
             std::sentinel_for<I2> S2,
             transcoding_error_handler ErrorHandler2>
 #else
@@ -2241,7 +2241,7 @@ namespace boost { namespace text {
     /** A UTF-16 to UTF-32 converting iterator. */
 #if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
     template<
-        u16_iter I,
+        utf16_iter I,
         std::sentinel_for<I> S = I,
         transcoding_error_handler ErrorHandler = use_replacement_character>
 #else
@@ -2404,7 +2404,7 @@ namespace boost { namespace text {
 
 #if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
         template<
-            u32_iter I2,
+            utf32_iter I2,
             std::sentinel_for<I2> S2,
             transcoding_error_handler ErrorHandler2>
 #else
@@ -2414,7 +2414,7 @@ namespace boost { namespace text {
 
 #if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
         template<
-            u16_iter I2,
+            utf16_iter I2,
             std::sentinel_for<I2> S2,
             transcoding_error_handler ErrorHandler2>
 #else
@@ -2648,7 +2648,7 @@ namespace boost { namespace text {
     /** A UTF-16 to UTF-8 converting iterator. */
 #if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
     template<
-        u16_iter I,
+        utf16_iter I,
         std::sentinel_for<I> S = I,
         transcoding_error_handler ErrorHandler = use_replacement_character>
 #else
@@ -2852,7 +2852,7 @@ namespace boost { namespace text {
 
 #if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
         template<
-            u16_iter I2,
+            utf16_iter I2,
             std::sentinel_for<I2> S2,
             transcoding_error_handler ErrorHandler2>
 #else
@@ -3077,7 +3077,7 @@ namespace boost { namespace text {
 
 #if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
     template<
-        u8_iter I,
+        utf8_iter I,
         std::sentinel_for<I> S,
         transcoding_error_handler ErrorHandler>
 #else
@@ -3196,7 +3196,7 @@ namespace boost { namespace text {
 
 #if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
         template<
-            u8_iter I2,
+            utf8_iter I2,
             std::sentinel_for<I2> S2,
             transcoding_error_handler ErrorHandler2>
 #else

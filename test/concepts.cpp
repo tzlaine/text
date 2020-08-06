@@ -19,125 +19,125 @@ using namespace boost::text::v2;
 
 // uN_cone_unit
 
-static_assert(u8_code_unit<char>);
-static_assert(u8_code_unit<signed char>);
-static_assert(u8_code_unit<unsigned char>);
-static_assert(u8_code_unit<char8_t>);
-static_assert(u8_code_unit<int8_t>);
+static_assert(utf8_code_unit<char>);
+static_assert(utf8_code_unit<signed char>);
+static_assert(utf8_code_unit<unsigned char>);
+static_assert(utf8_code_unit<char8_t>);
+static_assert(utf8_code_unit<int8_t>);
 
-static_assert(!u8_code_unit<wchar_t>);
-static_assert(!u8_code_unit<char16_t>);
-static_assert(!u8_code_unit<char32_t>);
-static_assert(!u8_code_unit<std::byte>);
+static_assert(!utf8_code_unit<wchar_t>);
+static_assert(!utf8_code_unit<char16_t>);
+static_assert(!utf8_code_unit<char32_t>);
+static_assert(!utf8_code_unit<std::byte>);
 
-static_assert(u16_code_unit<char16_t>);
-static_assert(u16_code_unit<int16_t>);
+static_assert(utf16_code_unit<char16_t>);
+static_assert(utf16_code_unit<int16_t>);
 
 #if !defined(_MSC_VER)
-static_assert(!u16_code_unit<wchar_t>);
+static_assert(!utf16_code_unit<wchar_t>);
 #endif
-static_assert(!u16_code_unit<char8_t>);
-static_assert(!u16_code_unit<char32_t>);
+static_assert(!utf16_code_unit<char8_t>);
+static_assert(!utf16_code_unit<char32_t>);
 
-static_assert(u32_code_unit<char32_t>);
-static_assert(u32_code_unit<int32_t>);
+static_assert(utf32_code_unit<char32_t>);
+static_assert(utf32_code_unit<int32_t>);
 #if defined(_MSC_VER)
-static_assert(u32_code_unit<wchar_t>);
+static_assert(utf32_code_unit<wchar_t>);
 #endif
 
-static_assert(!u32_code_unit<char8_t>);
-static_assert(!u32_code_unit<char16_t>);
+static_assert(!utf32_code_unit<char8_t>);
+static_assert(!utf32_code_unit<char16_t>);
 
 
 // uN_iter
 
-static_assert(u8_iter<char *>);
-static_assert(u8_iter<char const *>);
-static_assert(u8_iter<char8_t *>);
-static_assert(u8_iter<char8_t const *>);
+static_assert(utf8_iter<char *>);
+static_assert(utf8_iter<char const *>);
+static_assert(utf8_iter<char8_t *>);
+static_assert(utf8_iter<char8_t const *>);
 
-static_assert(u8_iter<std::string::iterator>);
-static_assert(u8_iter<std::string::const_iterator>);
-static_assert(u8_iter<std::vector<char>::iterator>);
+static_assert(utf8_iter<std::string::iterator>);
+static_assert(utf8_iter<std::string::const_iterator>);
+static_assert(utf8_iter<std::vector<char>::iterator>);
 
-static_assert(!u8_iter<wchar_t *>);
-static_assert(!u8_iter<int32_t *>);
-static_assert(!u8_iter<std::vector<uint16_t>::iterator>);
+static_assert(!utf8_iter<wchar_t *>);
+static_assert(!utf8_iter<int32_t *>);
+static_assert(!utf8_iter<std::vector<uint16_t>::iterator>);
 
-static_assert(u16_iter<uint16_t *>);
-static_assert(u16_iter<uint16_t const *>);
-static_assert(u16_iter<char16_t *>);
-static_assert(u16_iter<char16_t const *>);
+static_assert(utf16_iter<uint16_t *>);
+static_assert(utf16_iter<uint16_t const *>);
+static_assert(utf16_iter<char16_t *>);
+static_assert(utf16_iter<char16_t const *>);
 
-static_assert(u16_iter<std::u16string::iterator>);
-static_assert(u16_iter<std::u16string::const_iterator>);
-static_assert(u16_iter<std::vector<char16_t>::iterator>);
+static_assert(utf16_iter<std::u16string::iterator>);
+static_assert(utf16_iter<std::u16string::const_iterator>);
+static_assert(utf16_iter<std::vector<char16_t>::iterator>);
 
-static_assert(!u16_iter<char *>);
-static_assert(!u16_iter<int32_t *>);
-static_assert(!u16_iter<std::vector<uint32_t>::iterator>);
+static_assert(!utf16_iter<char *>);
+static_assert(!utf16_iter<int32_t *>);
+static_assert(!utf16_iter<std::vector<uint32_t>::iterator>);
 
-static_assert(u32_iter<uint32_t *>);
-static_assert(u32_iter<uint32_t const *>);
-static_assert(u32_iter<char32_t *>);
-static_assert(u32_iter<char32_t const *>);
+static_assert(utf32_iter<uint32_t *>);
+static_assert(utf32_iter<uint32_t const *>);
+static_assert(utf32_iter<char32_t *>);
+static_assert(utf32_iter<char32_t const *>);
 
-static_assert(u32_iter<std::u32string::iterator>);
-static_assert(u32_iter<std::u32string::const_iterator>);
-static_assert(u32_iter<std::vector<char32_t>::iterator>);
+static_assert(utf32_iter<std::u32string::iterator>);
+static_assert(utf32_iter<std::u32string::const_iterator>);
+static_assert(utf32_iter<std::vector<char32_t>::iterator>);
 
-static_assert(!u32_iter<char *>);
-static_assert(!u32_iter<int16_t *>);
-static_assert(!u32_iter<std::vector<uint16_t>::iterator>);
+static_assert(!utf32_iter<char *>);
+static_assert(!utf32_iter<int16_t *>);
+static_assert(!utf32_iter<std::vector<uint16_t>::iterator>);
 
 
-// uN_ptr
+// uN_pointer
 
-static_assert(u8_ptr<char *>);
+static_assert(utf8_pointer<char *>);
 static_assert(
-    !u8_ptr<std::string::iterator> || std::is_pointer_v<std::string::iterator>);
+    !utf8_pointer<std::string::iterator> || std::is_pointer_v<std::string::iterator>);
 
-static_assert(u16_ptr<char16_t *>);
+static_assert(utf16_pointer<char16_t *>);
 static_assert(
-    !u16_ptr<std::u16string::iterator> ||
+    !utf16_pointer<std::u16string::iterator> ||
     std::is_pointer_v<std::u16string::iterator>);
 
-static_assert(u32_ptr<char32_t *>);
+static_assert(utf32_pointer<char32_t *>);
 static_assert(
-    !u32_ptr<std::u32string::iterator> ||
+    !utf32_pointer<std::u32string::iterator> ||
     std::is_pointer_v<std::u32string::iterator>);
 
 
 // uN_range
 
-static_assert(u8_range<std::string>);
-static_assert(u8_range<std::u8string>);
-static_assert(u8_range<std::vector<char>>);
-static_assert(u8_range<std::list<char>>);
-static_assert(u8_range<std::deque<char>>);
-static_assert(u16_range<std::u16string>);
+static_assert(utf8_range<std::string>);
+static_assert(utf8_range<std::u8string>);
+static_assert(utf8_range<std::vector<char>>);
+static_assert(utf8_range<std::list<char>>);
+static_assert(utf8_range<std::deque<char>>);
+static_assert(utf16_range<std::u16string>);
 #if defined(_MSC_VER)
-static_assert(u16_range<std::wstring>);
+static_assert(utf16_range<std::wstring>);
 #else
-static_assert(u32_range<std::wstring>);
+static_assert(utf32_range<std::wstring>);
 #endif
-static_assert(u32_range<std::u32string>);
+static_assert(utf32_range<std::u32string>);
 
 
-// contig_uN_range
+// contiguous_uN_range
 
-static_assert(contig_u8_range<std::string>);
-static_assert(contig_u8_range<std::u8string>);
-static_assert(contig_u8_range<std::vector<char>>);
-static_assert(!contig_u8_range<std::list<char>>);
-static_assert(!contig_u8_range<std::deque<char>>);
-static_assert(contig_u16_range<std::u16string>);
+static_assert(contiguous_utf8_range<std::string>);
+static_assert(contiguous_utf8_range<std::u8string>);
+static_assert(contiguous_utf8_range<std::vector<char>>);
+static_assert(!contiguous_utf8_range<std::list<char>>);
+static_assert(!contiguous_utf8_range<std::deque<char>>);
+static_assert(contiguous_utf16_range<std::u16string>);
 #if defined(_MSC_VER)
-static_assert(contig_u16_range<std::wstring>);
+static_assert(contiguous_utf16_range<std::wstring>);
 #else
-static_assert(contig_u32_range<std::wstring>);
+static_assert(contiguous_utf32_range<std::wstring>);
 #endif
-static_assert(contig_u32_range<std::u32string>);
+static_assert(contiguous_utf32_range<std::u32string>);
 
 
 // grapheme_iter

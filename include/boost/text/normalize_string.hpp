@@ -220,7 +220,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         otherwise. */
     template<
         nf Normalization,
-        code_point_iterator I,
+        code_point_iter I,
         std::sentinel_for<I> S,
         utf_string String>
     inline void normalize_append(I first, S last, String & s)

@@ -30,7 +30,7 @@ namespace boost { namespace text {
     template<nf Normalization, typename Char>
 #if defined(__cpp_lib_concepts)
         // clang-format off
-        requires u8_code_unit<Char> || u16_code_unit<Char>
+        requires utf8_code_unit<Char> || utf16_code_unit<Char>
 #endif
     struct basic_text_view
     // clang-format on
@@ -86,7 +86,7 @@ namespace boost { namespace text {
 
         /** Constructs a basic_text_view from a grapheme_view. */
 #if defined(__cpp_lib_concepts)
-        template<code_point_iterator CPIter>
+        template<code_point_iter CPIter>
 #else
         template<typename CPIter>
 #endif
@@ -199,7 +199,7 @@ namespace boost { namespace text {
     template<nf Normalization, typename Char>
 #if defined(__cpp_lib_concepts)
         // clang-format off
-        requires u8_code_unit<Char> || u16_code_unit<Char>
+        requires utf8_code_unit<Char> || utf16_code_unit<Char>
 #endif
     bool operator==(
         basic_text_view<Normalization, Char> lhs,
@@ -212,7 +212,7 @@ namespace boost { namespace text {
     template<nf Normalization, typename Char>
 #if defined(__cpp_lib_concepts)
         // clang-format off
-        requires u8_code_unit<Char> || u16_code_unit<Char>
+        requires utf8_code_unit<Char> || utf16_code_unit<Char>
 #endif
     bool operator!=(
         basic_text_view<Normalization, Char> lhs,
@@ -249,7 +249,7 @@ namespace boost { namespace text {
 
     template<nf Normalization, typename Char>
 #if defined(__cpp_lib_concepts)
-    template<code_point_iterator CPIter>
+    template<code_point_iter CPIter>
 #else
     template<typename CPIter>
 #endif

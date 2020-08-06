@@ -219,7 +219,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<
         nf Normalization,
         utf_string String,
-        code_point_iterator I,
+        code_point_iter I,
         typename StringIter = std::ranges::iterator_t<String>>
     replace_result<StringIter> normalize_replace(
         String & string,
@@ -251,7 +251,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     template<
         nf Normalization,
         utf_string String,
-        code_point_iterator I,
+        code_point_iter I,
         typename StringIter = std::ranges::iterator_t<String>>
     replace_result<StringIter> normalize_insert(
         String & string,

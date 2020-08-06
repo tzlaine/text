@@ -49,8 +49,8 @@ namespace boost { namespace text {
     template<nf Normalization, typename String>
 #if defined(__cpp_lib_concepts)
         // clang-format off
-        requires u8_code_unit<std::ranges::range_value_t<String>> ||
-                 u16_code_unit<std::ranges::range_value_t<String>>
+        requires utf8_code_unit<std::ranges::range_value_t<String>> ||
+                 utf16_code_unit<std::ranges::range_value_t<String>>
 #endif
     struct basic_text
     // clang-format on

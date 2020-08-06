@@ -118,7 +118,7 @@ namespace boost { namespace text {
 
         \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
 #if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
-    template<code_point_iterator I, std::sentinel_for<I> S = I>
+    template<code_point_iter I, std::sentinel_for<I> S = I>
 #else
     template<typename I, typename S = I>
 #endif
@@ -425,7 +425,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
         \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<
-        code_point_iterator I,
+        code_point_iter I,
         std::sentinel_for<I> S,
         std::output_iterator<uint32_t> O>
     O stream_safe_copy(I first, S last, O out)
@@ -448,7 +448,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         range.
 
         \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
-    template<code_point_iterator I, std::sentinel_for<I> S>
+    template<code_point_iter I, std::sentinel_for<I> S>
     auto stream_safe(I first, S last)
     {
         return detail::stream_safe_impl(first, last);
@@ -468,7 +468,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     /** Returns true iff `[first, last)` is in stream-safe format.
 
         \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
-    template<code_point_iterator I, std::sentinel_for<I> S>
+    template<code_point_iter I, std::sentinel_for<I> S>
     bool is_stream_safe(I first, S last)
     {
         return detail::is_stream_safe_impl(first, last);
@@ -487,7 +487,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     /** Returns a `stream_safe_view` of the range `[first, last)`.
 
         \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
-    template<code_point_iterator I, std::sentinel_for<I> S>
+    template<code_point_iter I, std::sentinel_for<I> S>
     stream_safe_view<stream_safe_iterator<I, S>, S> as_stream_safe(
         I first, S last)
     {
@@ -497,7 +497,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     /** Returns a `stream_safe_view` of the range `[first, last)`.
 
         \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
-    template<code_point_iterator I>
+    template<code_point_iter I>
     stream_safe_view<stream_safe_iterator<I>> as_stream_safe(I first, I last)
     {
         return detail::as_stream_safe_impl(first, last);

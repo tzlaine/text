@@ -151,7 +151,7 @@ namespace boost { namespace text {
 
     /** A view over UTF-8 code units. */
 #if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
-    template<u8_iter I, std::sentinel_for<I> S = I>
+    template<utf8_iter I, std::sentinel_for<I> S = I>
 #else
     template<typename I, typename S = I>
 #endif
@@ -219,7 +219,7 @@ namespace boost { namespace text {
 
     /** A view over UTF-16 code units. */
 #if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
-    template<u16_iter I, std::sentinel_for<I> S = I>
+    template<utf16_iter I, std::sentinel_for<I> S = I>
 #else
     template<typename I, typename S = I>
 #endif
@@ -287,7 +287,7 @@ namespace boost { namespace text {
 
     /** A view over UTF-32 code units. */
 #if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
-    template<u32_iter I, std::sentinel_for<I> S = I>
+    template<utf32_iter I, std::sentinel_for<I> S = I>
 #else
     template<typename I, typename S = I>
 #endif
@@ -591,15 +591,15 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 }}}
 
 namespace std::ranges {
-    template<boost::text::u8_iter I, std::sentinel_for<I> S>
+    template<boost::text::utf8_iter I, std::sentinel_for<I> S>
     inline constexpr bool enable_borrowed_range<boost::text::utf8_view<I, S>> =
         true;
 
-    template<boost::text::u16_iter I, std::sentinel_for<I> S>
+    template<boost::text::utf16_iter I, std::sentinel_for<I> S>
     inline constexpr bool enable_borrowed_range<boost::text::utf16_view<I, S>> =
         true;
 
-    template<boost::text::u32_iter I, std::sentinel_for<I> S>
+    template<boost::text::utf32_iter I, std::sentinel_for<I> S>
     inline constexpr bool enable_borrowed_range<boost::text::utf32_view<I, S>> =
         true;
 }

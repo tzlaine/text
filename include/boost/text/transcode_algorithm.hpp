@@ -685,7 +685,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         std::sentinel_for<I> S,
         std::output_iterator<uint8_t> O>
         // clang-format off
-        requires u16_iter<I> || u32_iter<I>
+        requires utf16_iter<I> || utf32_iter<I>
     O transcode_to_utf8(I first, S last, O out)
     // clang-format on
     {
@@ -697,15 +697,16 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         encoding from UTF-8.  */
     template<typename R, std::output_iterator<uint8_t> O>
         // clang-format off
-        requires u16_range<R> || u32_range<R> || u16_ptr<R> || u32_ptr<R>
+        requires utf16_range<R> || utf32_range<R> ||
+                 utf16_pointer<R> || utf32_pointer<R>
     O transcode_to_utf8(R && r, O out)
     // clang-format on
     {
-        if constexpr (u16_ptr<R>) {
+        if constexpr (utf16_pointer<R>) {
             return detail::transcode_to_8<false>(
                        detail::utf16_tag{}, r, null_sentinel{}, -1, out)
                 .out;
-        } else if constexpr (u32_ptr<R>) {
+        } else if constexpr (utf32_pointer<R>) {
             return detail::transcode_to_8<false>(
                        detail::utf32_tag{}, r, null_sentinel{}, -1, out)
                 .out;
@@ -724,7 +725,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         std::sentinel_for<I> S,
         std::output_iterator<uint16_t> O>
         // clang-format off
-        requires u8_iter<I> || u32_iter<I>
+        requires utf8_iter<I> || utf32_iter<I>
     O transcode_to_utf16(I first, S last, O out)
     // clang-format on
     {
@@ -736,15 +737,16 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         encoding from UTF-16.  */
     template<typename R, std::output_iterator<uint16_t> O>
         // clang-format off
-        requires u8_range<R> || u32_range<R> || u8_ptr<R> || u32_ptr<R>
+        requires utf8_range<R> || utf32_range<R> ||
+                 utf8_pointer<R> || utf32_pointer<R>
     O transcode_to_utf16(R && r, O out)
     // clang-format on
     {
-        if constexpr (u8_ptr<R>) {
+        if constexpr (utf8_pointer<R>) {
             return detail::transcode_to_16<false>(
                        detail::utf8_tag{}, r, null_sentinel{}, -1, out)
                 .out;
-        } else if constexpr (u32_ptr<R>) {
+        } else if constexpr (utf32_pointer<R>) {
             return detail::transcode_to_16<false>(
                        detail::utf32_tag{}, r, null_sentinel{}, -1, out)
                 .out;
@@ -763,7 +765,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         std::sentinel_for<I> S,
         std::output_iterator<uint32_t const &> O>
         // clang-format off
-        requires u8_iter<I> || u16_iter<I>
+        requires utf8_iter<I> || utf16_iter<I>
     O transcode_to_utf32(I first, S last, O out)
     // clang-format on
     {
@@ -775,15 +777,16 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         encoding from UTF-32.  */
     template<typename R, std::output_iterator<uint32_t> O>
         // clang-format off
-        requires u8_range<R> || u16_range<R> || u8_ptr<R> || u16_ptr<R>
+        requires utf8_range<R> || utf16_range<R> ||
+                 utf8_pointer<R> || utf16_pointer<R>
     O transcode_to_utf32(R && r, O out)
     // clang-format on
     {
-        if constexpr (u8_ptr<R>) {
+        if constexpr (utf8_pointer<R>) {
             return detail::transcode_to_32<false>(
                        detail::utf8_tag{}, r, null_sentinel{}, -1, out)
                 .out;
-        } else if constexpr (u16_ptr<R>) {
+        } else if constexpr (utf16_pointer<R>) {
             return detail::transcode_to_32<false>(
                        detail::utf16_tag{}, r, null_sentinel{}, -1, out)
                 .out;

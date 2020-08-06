@@ -261,7 +261,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         \see https://unicode.org/notes/tn5 */
     template<
         nf Normalization,
-        code_point_iterator I,
+        code_point_iter I,
         std::sentinel_for<I> S,
         std::output_iterator<uint32_t> O>
     O normalize(I first, S last, O out)
@@ -291,7 +291,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         normalization form `Normalization`.
 
         \see https://unicode.org/notes/tn5 */
-    template<nf Normalization, code_point_iterator I, std::sentinel_for<I> S>
+    template<nf Normalization, code_point_iter I, std::sentinel_for<I> S>
     bool normalized(I first, S last) noexcept
     {
         BOOST_TEXT_STATIC_ASSERT_NORMALIZATION();

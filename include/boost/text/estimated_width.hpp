@@ -93,7 +93,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         using the same technique that used by `std::format()`.
 
         \see [format.string.std] for a full description */
-    template<code_point_iterator I, std::sentinel_for<I> S>
+    template<code_point_iter I, std::sentinel_for<I> S>
     std::size_t estimated_width_of_graphemes(I first, S last)
     {
         return detail::estimated_width_of_graphemes_impl(first, last);
