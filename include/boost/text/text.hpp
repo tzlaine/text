@@ -725,14 +725,59 @@ namespace boost { namespace text {
         using mutable_utf32_iter = detail::text_transcode_iterator_t<char_type>;
 
         replace_result<iterator> mutation_result(
-            replace_result<typename string::iterator> str_replacement);
+            replace_result<typename string::iterator> str_replacement)
+        {
+            auto const str_first = const_cast<char_type *>(str_.data());
+            auto const str_lo =
+                str_first + (str_replacement.begin() - str_.begin());
+            auto const str_hi =
+                str_first + (str_replacement.end() - str_.begin());
+            auto const str_last = str_first + str_.size();
+
+            // The insertion that just happened might be merged into the CP or
+            // grapheme ending at the offset of the inserted char(s); if so,
+            // back up and return an iterator to that.
+            auto lo_cp_it = mutable_utf32_iter(str_first, str_lo, str_last);
+            auto const lo_grapheme_it = boost::text::prev_grapheme_break(
+                begin().base(), lo_cp_it, end().base());
+
+            // The insertion that just happened might be merged into the CP or
+            // grapheme starting at the offset of the inserted char(s); if so,
+            // move up and return an iterator to that.
+            auto hi_cp_it = mutable_utf32_iter(str_first, str_hi, str_last);
+            auto hi_grapheme_it = hi_cp_it;
+            if (!boost::text::at_grapheme_break(
+                    begin().base(), hi_cp_it, end().base())) {
+                hi_grapheme_it =
+                    boost::text::next_grapheme_break(hi_cp_it, end().base());
+            }
+
+            return {
+                make_iter(
+                    begin().base().base(),
+                    lo_grapheme_it.base(),
+                    end().base().base()),
+                make_iter(
+                    begin().base().base(),
+                    hi_grapheme_it.base(),
+                    end().base().base())};
+        }
 
         template<typename CUIter, typename Sentinel>
         replace_result<iterator> insert_impl(
             iterator at,
             CUIter first,
             Sentinel last,
-            insertion_normalization insertion_norm);
+            insertion_normalization insertion_norm)
+        {
+            auto const str_at = str_.begin() + (at.base().base() - str_.data());
+            auto const retval = boost::text::normalize_insert<normalization>(
+                str_,
+                str_at,
+                boost::text::as_utf32(first, last),
+                insertion_norm);
+            return mutation_result(retval);
+        }
 
         template<typename CUIter>
         replace_result<iterator> replace_impl(
@@ -830,61 +875,6 @@ namespace boost { namespace text {
             new_substr.begin().base().base(),
             new_substr.end().base().base(),
             insertion_normalized);
-    }
-
-    template<nf Normalization, typename String>
-    replace_result<typename basic_text<Normalization, String>::iterator>
-    basic_text<Normalization, String>::mutation_result(
-        replace_result<typename string::iterator> str_replacement)
-    {
-        auto const str_first = const_cast<char_type *>(str_.data());
-        auto const str_lo =
-            str_first + (str_replacement.begin() - str_.begin());
-        auto const str_hi = str_first + (str_replacement.end() - str_.begin());
-        auto const str_last = str_first + str_.size();
-
-        // The insertion that just happened might be merged into the CP or
-        // grapheme ending at the offset of the inserted char(s); if so, back
-        // up and return an iterator to that.
-        auto lo_cp_it = mutable_utf32_iter(str_first, str_lo, str_last);
-        auto const lo_grapheme_it = boost::text::prev_grapheme_break(
-            begin().base(), lo_cp_it, end().base());
-
-        // The insertion that just happened might be merged into the CP or
-        // grapheme starting at the offset of the inserted char(s); if so,
-        // move up and return an iterator to that.
-        auto hi_cp_it = mutable_utf32_iter(str_first, str_hi, str_last);
-        auto hi_grapheme_it = hi_cp_it;
-        if (!boost::text::at_grapheme_break(
-                begin().base(), hi_cp_it, end().base())) {
-            hi_grapheme_it =
-                boost::text::next_grapheme_break(hi_cp_it, end().base());
-        }
-
-        return {
-            make_iter(
-                begin().base().base(),
-                lo_grapheme_it.base(),
-                end().base().base()),
-            make_iter(
-                begin().base().base(),
-                hi_grapheme_it.base(),
-                end().base().base())};
-    }
-
-    template<nf Normalization, typename String>
-    template<typename CUIter, typename Sentinel>
-    replace_result<typename basic_text<Normalization, String>::iterator>
-    basic_text<Normalization, String>::insert_impl(
-        iterator at,
-        CUIter first,
-        Sentinel last,
-        insertion_normalization insertion_norm)
-    {
-        auto const str_at = str_.begin() + (at.base().base() - str_.data());
-        auto const retval = boost::text::normalize_insert<normalization>(
-            str_, str_at, boost::text::as_utf32(first, last), insertion_norm);
-        return mutation_result(retval);
     }
 
     template<nf Normalization, typename String>
