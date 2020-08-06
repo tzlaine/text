@@ -137,7 +137,8 @@ namespace boost { namespace text {
         template<typename GraphemeRange>
         explicit basic_text(GraphemeRange const & r);
 
-        // TODO: grapheme iterators
+        // TODO: grapheme iterators.
+
 #else
 
 #if defined(__cpp_lib_concepts)
@@ -278,11 +279,12 @@ namespace boost { namespace text {
             empty string */
         void clear() noexcept { str_.clear(); }
 
-        /** Inserts the sequence of char from c_str into *this starting at
-            position at. */
-        replace_result<iterator> insert(iterator at, char_type const * c_str)
+        /** Inserts the sequence [first, last) into *this starting at position
+            at. */
+        replace_result<iterator>
+        insert(iterator at, const_iterator first, const_iterator last)
         {
-            return insert(at, string_view(c_str));
+            return insert(at, text_view(first, last));
         }
 
         /** Inserts the sequence of char from t into *this starting at
@@ -293,17 +295,16 @@ namespace boost { namespace text {
                 at, t.str_.begin(), t.str_.end(), insertion_normalized);
         }
 
+        /** Inserts the sequence of char from c_str into *this starting at
+            position at. */
+        replace_result<iterator> insert(iterator at, char_type const * c_str)
+        {
+            return insert(at, string_view(c_str));
+        }
+
         /** Inserts the sequence of char from tv into *this starting at
             position at. */
         replace_result<iterator> insert(iterator at, text_view tv);
-
-        /** Inserts the sequence of char from sv into *this starting at
-            position at. */
-        replace_result<iterator> insert(iterator at, string_view sv)
-        {
-            return insert_impl(
-                at, sv.begin(), sv.end(), insertion_not_normalized);
-        }
 
         /** Inserts the sequence of char from rv into *this starting at
             position at. */
@@ -325,6 +326,9 @@ namespace boost { namespace text {
             `CUIter` models the CUIter concept. */
         template<typename CUIter Sentinel>
         replace_result<iterator> insert(iterator at, CUIter first, CUIter last);
+
+        // TODO: GraphemeRange
+        // TODO: grapheme iterators.
 
 #else
 
@@ -354,14 +358,6 @@ namespace boost { namespace text {
         }
 
 #endif
-
-        /** Inserts the sequence [first, last) into *this starting at position
-            at. */
-        replace_result<iterator>
-        insert(iterator at, const_iterator first, const_iterator last)
-        {
-            return insert(at, text_view(first, last));
-        }
 
         /** Inserts the grapheme g into *this at position at. */
         replace_result<iterator> insert(iterator at, grapheme const & g);
@@ -731,6 +727,7 @@ namespace boost { namespace text {
 
 #include <boost/text/text_view.hpp>
 #include <boost/text/rope.hpp>
+#include <boost/text/rope_view.hpp>
 
 namespace boost { namespace text {
 
