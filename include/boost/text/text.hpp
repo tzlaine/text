@@ -545,38 +545,14 @@ namespace boost { namespace text {
             return operator+=(string_view(c_str));
         }
 
-        /** Appends tv to `*this`. */
-        basic_text & operator+=(string_view sv)
+        /** Appends `r` to `*this`.  `R` may be any type for which
+            `insert(end(), r)` is well-formed. */
+        template<typename T>
+        auto operator+=(T const & x) -> decltype(insert(end(), x), *this)
         {
-            insert(end(), sv);
+            insert(end(), x);
             return *this;
         }
-
-#ifdef BOOST_TEXT_DOXYGEN
-
-        /** Appends the char range r to `*this`.
-
-            This function only participates in overload resolution if
-            `CURange` models the CURange concept. */
-        template<typename CURange>
-        basic_text & operator+=(CURange const & r);
-
-#else
-
-#if defined(__cpp_lib_concepts)
-        template<range<utf_format> R>
-        basic_text & operator+=(R const & r)
-#else
-        template<typename R>
-        auto operator+=(R const & r)
-            -> detail::cu_rng_alg_ret_t<(int)utf_format, basic_text &, R>
-#endif
-        {
-            insert(this->end(), std::begin(r), std::end(r));
-            return *this;
-        }
-
-#endif
 
         /** Stream inserter; performs formatted output, in UTF-8 encoding. */
         friend std::ostream &
@@ -875,19 +851,65 @@ namespace boost { namespace text {
         return !(lhs == rhs);
     }
 
-    /** Creates a new basic_text object that is the concatenation of t and t2.
-     */
-    template<nf Normalization, typename String>
-    basic_text<Normalization, String> operator+(
-        basic_text<Normalization, String> t,
-        basic_text<Normalization, String> const & t2)
+#if defined(__cpp_lib_concepts)
+
+    /** Creates a new `basic_text` object that is the concatenation of `t` and
+        some object `x` for which `t.insert(t.end(), x)` is well-formed. */
+    template<nf Normalization, typename String, typename T>
+    basic_text<Normalization, String>
+    operator+(basic_text<Normalization, String> t, T const & x)
+        // clang-format off
+        requires requires { t.insert(t.end(), x); }
+    // clang-format on
     {
-        t.insert(t.end(), t2);
+        t.insert(t.end(), x);
         return t;
     }
 
+    /** Creates a new `basic_text` object that is the concatenation of `x` and
+        `t`, where `x` is an object for which `t.insert(t.begin(), x)` is
+        well-formed. */
+    template<nf Normalization, typename String, typename T>
+    auto operator+(T const & x, basic_text<Normalization, String> t)
+        // clang-format off
+        requires requires { t.insert(t.begin(), x); } &&
+            (!std::is_same_v<T, basic_text<Normalization, String>>)
+    // clang-format on
+    {
+        t.insert(t.begin(), x);
+        return t;
+    }
+
+#else
+
+    /** Creates a new `basic_text` object that is the concatenation of `t` and
+        some object `x` for which `t.insert(t.end(), x) well-formed. */
+    template<nf Normalization, typename String, typename T>
+    auto operator+(basic_text<Normalization, String> t, T const & x)
+        -> decltype(t.insert(t.end(), x), basic_text<Normalization, String>{})
+    {
+        t.insert(t.end(), x);
+        return t;
+    }
+
+    /** Creates a new `basic_text` object that is the concatenation of `x` and
+        `t`, where `x` is an object for which `t.insert(t.begin(), x)` is
+        well-formed. */
+    template<nf Normalization, typename String, typename T>
+    auto operator+(T const & x, basic_text<Normalization, String> t)
+        -> std::enable_if_t<
+            !std::is_same<T, basic_text<Normalization, String>>::value,
+            decltype(
+                t.insert(t.begin(), x), basic_text<Normalization, String>{})>
+    {
+        t.insert(t.begin(), x);
+        return t;
+    }
+
+#endif
+
     /** Creates a new basic_text object that is the concatenation of t and
-     * c_str. */
+        c_str. */
     template<nf Normalization, typename String>
     basic_text<Normalization, String>
     operator+(basic_text<Normalization, String> t, char const * c_str)
@@ -902,85 +924,6 @@ namespace boost { namespace text {
     {
         return basic_text<Normalization, String>(c_str) + t;
     }
-
-    /** Creates a new basic_text object that is the concatenation of t and tv.
-     */
-    template<nf Normalization, typename String>
-    basic_text<Normalization, String> operator+(
-        basic_text<Normalization, String> t,
-        typename basic_text<Normalization, String>::text_view tv)
-    {
-        t.insert(t.end(), tv);
-        return t;
-    }
-
-    /** Creates a new basic_text object that is the concatenation of tv and t.
-     */
-    template<nf Normalization, typename String>
-    basic_text<Normalization, String> operator+(
-        typename basic_text<Normalization, String>::text_view tv,
-        basic_text<Normalization, String> const & t)
-    {
-        return basic_text<Normalization, String>(tv) + t;
-    }
-
-#ifdef BOOST_TEXT_DOXYGEN
-
-    /** Creates a new basic_text object that is the concatenation of t and r.
-
-        This function only participates in overload resolution if `CURange`
-        models the CURange concept. */
-    template<nf Normalization, typename String, typename CURange>
-    basic_text<Normalization, String>
-    operator+(basic_text<Normalization, String> t, CURange const & r);
-
-    /** Creates a new basic_text object that is the concatenation of r and t.
-
-        This function only participates in overload resolution if `CURange`
-        models the CURange concept. */
-    template<nf Normalization, typename String, typename CURange>
-    basic_text<Normalization, String>
-    operator+(CURange const & r, basic_text<Normalization, String> const & t);
-
-#else
-
-    template<nf Normalization, typename String, typename R>
-#if defined(__cpp_lib_concepts)
-    basic_text<Normalization, String>
-    operator+(basic_text<Normalization, String> t, R const & r)
-        // clang-format off
-        requires range<R, basic_text<Normalization, String>::utf_format>
-    // clang-format on
-#else
-    auto operator+(basic_text<Normalization, String> t, R const & r)
-        -> detail::cu_rng_alg_ret_t<
-            (int)basic_text<Normalization, String>::utf_format,
-            basic_text<Normalization, String>,
-            R>
-#endif
-    {
-        return t += r;
-    }
-
-    template<nf Normalization, typename String, typename R>
-#if defined(__cpp_lib_concepts)
-    basic_text<Normalization, String>
-    operator+(R const & r, basic_text<Normalization, String> const & t)
-        // clang-format off
-        requires range<R, basic_text<Normalization, String>::utf_format>
-    // clang-format on
-#else
-    auto operator+(R const & r, basic_text<Normalization, String> const & t)
-        -> detail::cu_rng_alg_ret_t<
-            (int)basic_text<Normalization, String>::utf_format,
-            basic_text<Normalization, String>,
-            R>
-#endif
-    {
-        return basic_text<Normalization, String>(r) + t;
-    }
-
-#endif
 
 }}
 
