@@ -36,12 +36,6 @@ TEST(rope, test_empty)
     t.swap(t);
     EXPECT_TRUE(t == t);
 
-    EXPECT_EQ(t.begin(), begin(t));
-    EXPECT_EQ(t.end(), end(t));
-
-    EXPECT_EQ(t.rbegin(), rbegin(t));
-    EXPECT_EQ(t.rend(), rend(t));
-
     t.clear();
 
     std::cout << "r=\"" << t << "\"\n";
@@ -94,12 +88,6 @@ TEST(rope, test_non_empty_const_interface)
     EXPECT_EQ(t_a, old_t_ab);
     EXPECT_EQ(t_ab, old_t_a);
     t_a.swap(t_ab);
-
-    EXPECT_EQ(t_a.begin(), begin(t_a));
-    EXPECT_EQ(t_a.end(), end(t_a));
-
-    EXPECT_EQ(t_a.rbegin(), rbegin(t_a));
-    EXPECT_EQ(t_a.rend(), rend(t_a));
 
     {
         EXPECT_EQ(t_a, "a"_t);
@@ -426,17 +414,6 @@ TEST(rope, test_insert)
     }
 
     {
-        char const * str = "";
-        text::string_view const sv(str, 1); // explicitly null-terminated
-
-        {
-            text::rope t("text");
-            t.insert(std::next(t.begin(), 2), sv);
-            EXPECT_EQ(t, "text"_t); // no null in the middle
-        }
-    }
-
-    {
         {
             text::rope r("e");
             auto const it = r.insert(r.begin(), "f");
@@ -601,15 +578,6 @@ TEST(rope, test_replace)
 {
     text::rope const ct0("REP");
     text::rope_view const replacement(ct0);
-    // Explicitly null-terminated.
-    char const * rep = "REP";
-    text::string_view const replacement_with_null(rep, 4);
-
-    {
-        text::rope t("string");
-        t.replace(t, replacement_with_null);
-        EXPECT_EQ(t, "REP"_t);
-    }
 
     {
         text::rope t("string");
@@ -1084,21 +1052,6 @@ TEST(rope, test_sentinel_api)
     {
         char const * chars = "chars";
         text::rope s(chars, text::null_sentinel{});
-        EXPECT_EQ(s, text::text(chars));
-    }
-    {
-        char const * chars = "chars";
-        text::rope s;
-        s.insert(s.end(), chars, text::null_sentinel{});
-        EXPECT_EQ(s, text::text(chars));
-    }
-    {
-        char const * chars = "chars";
-        text::rope s;
-        s.replace(
-            text::rope_view(s.begin(), s.begin()),
-            chars,
-            text::null_sentinel{});
         EXPECT_EQ(s, text::text(chars));
     }
 }

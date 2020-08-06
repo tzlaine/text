@@ -443,7 +443,8 @@ namespace boost { namespace text {
         /** Erases the portion of *this delimited by [first, last).
 
             \pre first <= last */
-        replace_result<iterator> erase(iterator first, iterator last) noexcept
+        replace_result<iterator>
+        erase(iterator first, iterator last) noexcept
         {
             auto const lo = first.base().base() - str_.data();
             auto const hi = last.base().base() - str_.data();
@@ -740,13 +741,7 @@ namespace boost { namespace text {
             CUIter last,
             insertion_normalization insertion_norm);
 
-        template<typename CPIter>
-        struct insert_grapheme_ref_impl;
-
         string str_;
-
-        template<typename CPIter>
-        friend struct insert_grapheme_ref_impl;
 
 #endif // Doxygen
     };
@@ -806,7 +801,12 @@ namespace boost { namespace text {
     basic_text<Normalization, String>::insert(
         iterator at, grapheme_ref<CPIter> g)
     {
-        return insert_grapheme_ref_impl<CPIter>::call(*this, at, g);
+        if (g.empty())
+            return replace_result<iterator>{at, at};
+        std::array<char_type, 128> buf;
+        auto out =
+            boost::text::transcode_to_utf8(g.begin(), g.end(), buf.data());
+        return insert_impl(at, buf.data(), out, insertion_not_normalized);
     }
 
     template<nf Normalization, typename String>
@@ -862,8 +862,14 @@ namespace boost { namespace text {
         }
 
         return {
-            iterator(begin().base(), lo_grapheme_it, end().base()),
-            iterator(begin().base(), hi_grapheme_it, end().base())};
+            make_iter(
+                begin().base().base(),
+                lo_grapheme_it.base(),
+                end().base().base()),
+            make_iter(
+                begin().base().base(),
+                hi_grapheme_it.base(),
+                end().base().base())};
     }
 
     template<nf Normalization, typename String>
@@ -876,7 +882,7 @@ namespace boost { namespace text {
         insertion_normalization insertion_norm)
     {
         auto const str_at = str_.begin() + (at.base().base() - str_.data());
-        auto retval = boost::text::normalize_insert<normalization>(
+        auto const retval = boost::text::normalize_insert<normalization>(
             str_, str_at, boost::text::as_utf32(first, last), insertion_norm);
         return mutation_result(retval);
     }
@@ -895,7 +901,7 @@ namespace boost { namespace text {
         auto const str_last =
             str_.begin() + (old_substr.end().base().base() - str_.data());
         auto const insertion = boost::text::as_utf32(first, last);
-        auto retval = boost::text::normalize_replace<normalization>(
+        auto const retval = boost::text::normalize_replace<normalization>(
             str_,
             str_first,
             str_last,
@@ -904,61 +910,6 @@ namespace boost { namespace text {
             insertion_norm);
         return mutation_result(retval);
     }
-
-    template<nf Normalization, typename String>
-    template<typename CPIter>
-    struct basic_text<Normalization, String>::insert_grapheme_ref_impl
-    {
-        static auto call(basic_text & t, iterator at, grapheme_ref<CPIter> g)
-        {
-            if (g.empty())
-                return replace_result<iterator>{at, at};
-
-            std::array<char_type, 1024> buf;
-            auto out =
-                boost::text::transcode_to_utf8(g.begin(), g.end(), buf.data());
-            return t.insert_impl(at, buf.data(), out, insertion_normalized);
-        }
-    };
-
-    template<nf Normalization, typename String>
-    template<typename Sentinel, typename ErrorHandler>
-    struct basic_text<Normalization, String>::insert_grapheme_ref_impl<
-        utf_8_to_32_iterator<
-            typename basic_text<Normalization, String>::char_type const *,
-            Sentinel,
-            ErrorHandler>>
-    {
-        static auto call(
-            basic_text & t,
-            basic_text<Normalization, String>::iterator at,
-            grapheme_ref<
-                utf_8_to_32_iterator<char_type const *, Sentinel, ErrorHandler>>
-                g)
-        {
-            return t.insert_impl(
-                at, g.begin().base(), g.end().base(), insertion_normalized);
-        }
-    };
-
-    template<nf Normalization, typename String>
-    template<typename Sentinel, typename ErrorHandler>
-    struct basic_text<Normalization, String>::insert_grapheme_ref_impl<
-        utf_8_to_32_iterator<
-            typename basic_text<Normalization, String>::char_type *,
-            Sentinel,
-            ErrorHandler>>
-    {
-        static auto call(
-            basic_text & t,
-            basic_text<Normalization, String>::iterator at,
-            grapheme_ref<
-                utf_8_to_32_iterator<char_type *, Sentinel, ErrorHandler>> g)
-        {
-            return t.insert_impl(
-                at, g.begin().base(), g.end().base(), insertion_normalized);
-        }
-    };
 
 #endif // Doxygen
 

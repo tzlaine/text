@@ -152,36 +152,6 @@ namespace boost { namespace text {
         return !(lhs == rhs);
     }
 
-    inline rope_view::iterator begin(rope_view tv) noexcept
-    {
-        return tv.begin();
-    }
-    inline rope_view::iterator end(rope_view tv) noexcept { return tv.end(); }
-
-    inline rope_view::iterator cbegin(rope_view tv) noexcept
-    {
-        return tv.begin();
-    }
-    inline rope_view::iterator cend(rope_view tv) noexcept { return tv.end(); }
-
-    inline rope_view::reverse_iterator rbegin(rope_view tv) noexcept
-    {
-        return tv.rbegin();
-    }
-    inline rope_view::reverse_iterator rend(rope_view tv) noexcept
-    {
-        return tv.rend();
-    }
-
-    inline rope_view::reverse_iterator crbegin(rope_view tv) noexcept
-    {
-        return tv.rbegin();
-    }
-    inline rope_view::reverse_iterator crend(rope_view tv) noexcept
-    {
-        return tv.rend();
-    }
-
 }}
 
 #include <boost/text/text.hpp>

@@ -51,6 +51,7 @@ namespace boost { namespace text {
 
     namespace detail {
         template<
+            bool ForRope,
             nf Normalization,
             typename String,
             typename StringIter,
@@ -63,7 +64,11 @@ namespace boost { namespace text {
             Iter last,
             insertion_normalization insertion_norm);
 
-        template<nf Normalization, typename String, typename StringIter>
+        template<
+            bool ForRope,
+            nf Normalization,
+            typename String,
+            typename StringIter>
         replace_result<StringIter>
         erase_impl(String & string, StringIter first, StringIter last);
     }
@@ -103,7 +108,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         insertion_normalization insertion_norm = insertion_not_normalized)
         ->detail::cp_iter_ret_t<replace_result<StringIter>, CPIter>
     {
-        return detail::replace_impl<Normalization>(
+        return detail::replace_impl<false, Normalization>(
             string, str_first, str_last, first, last, insertion_norm);
     }
 
@@ -140,7 +145,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     {
         if (first == last)
             return {at, at};
-        return detail::replace_impl<Normalization>(
+        return detail::replace_impl<false, Normalization>(
             string, at, at, first, last, insertion_norm);
     }
 
@@ -171,7 +176,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     {
         if (std::begin(r) == std::end(r))
             return {at, at};
-        return detail::replace_impl<Normalization>(
+        return detail::replace_impl<false, Normalization>(
             string, at, at, std::begin(r), std::end(r), insertion_norm);
     }
 
@@ -192,7 +197,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     replace_result<StringIter> normalize_erase(
         String & string, StringIter str_first, StringIter str_last)
     {
-        return detail::erase_impl<Normalization>(string, str_first, str_last);
+        return detail::erase_impl<false, Normalization>(
+            string, str_first, str_last);
     }
 
 }}}
@@ -229,7 +235,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         I last,
         insertion_normalization insertion_norm = insertion_not_normalized)
     {
-        return detail::replace_impl<Normalization>(
+        return detail::replace_impl<false, Normalization>(
             string, str_first, str_last, first, last, insertion_norm);
     }
 
@@ -262,7 +268,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     {
         if (first == last)
             return {at, at};
-        return detail::replace_impl<Normalization>(
+        return detail::replace_impl<false, Normalization>(
             string, at, at, first, last, insertion_norm);
     }
 
@@ -293,7 +299,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     {
         if (std::ranges::begin(r) == std::ranges::end(r))
             return {at, at};
-        return detail::replace_impl<Normalization>(
+        return detail::replace_impl<false, Normalization>(
             string,
             at,
             at,
@@ -319,7 +325,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     replace_result<StringIter> normalize_erase(
         String & string, StringIter str_first, StringIter str_last)
     {
-        return detail::erase_impl<Normalization>(string, str_first, str_last);
+        return detail::erase_impl<false, Normalization>(
+            string, str_first, str_last);
     }
 
 }}}
@@ -474,39 +481,69 @@ namespace boost { namespace text { namespace detail {
             iterator(last, r1.end(), r2.begin(), 0));
     }
 
-    template<typename String, typename CPIter, typename Buffer>
-    replace_result<typename String::iterator> string_buffer_replace(
-        String & string, CPIter first_, CPIter last_, Buffer const & buffer)
+    template<bool ForRope>
+    struct string_buffer_replace_impl
     {
-        auto const unpacked =
-            boost::text::detail::unpack_iterator_and_sentinel(first_, last_);
-        BOOST_ASSERT((std::is_same<
-                      decltype(unpacked.tag_),
-                      decltype(detail::unpack_iterator_and_sentinel(
-                                   string.begin(), string.end())
-                                   .tag_)>::value));
-        auto const first = unpacked.f_;
-        auto const last = unpacked.l_;
-        auto const replaceable_size = std::distance(first, last);
-        if ((std::ptrdiff_t)buffer.size() <= replaceable_size) {
-            auto const it = std::copy(buffer.begin(), buffer.end(), first);
-            string.erase(it, last);
-            return {first, it};
-        } else {
-            auto const copy_last = buffer.begin() + replaceable_size;
-            std::copy(buffer.begin(), copy_last, first);
-            // This dance is here because somehow libstdc++ in the Travis
-            // build environment thinks it's being built as C++98 code, in
-            // which std::string::insert() returns void.  This works around
-            // that.
-            auto const insertion_offset = last - string.begin();
-            string.insert(last, copy_last, buffer.end());
-            auto const it = string.begin() + insertion_offset;
-            return {
-                std::prev(it, replaceable_size),
-                std::next(it, buffer.end() - copy_last)};
+        template<typename String, typename CPIter, typename Buffer>
+        static replace_result<typename String::iterator> call(
+            String & string, CPIter first_, CPIter last_, Buffer const & buffer)
+        {
+            auto const unpacked =
+                boost::text::detail::unpack_iterator_and_sentinel(
+                    first_, last_);
+            BOOST_ASSERT((std::is_same<
+                          decltype(unpacked.tag_),
+                          decltype(detail::unpack_iterator_and_sentinel(
+                                       string.begin(), string.end())
+                                       .tag_)>::value));
+            auto const first = unpacked.f_;
+            auto const last = unpacked.l_;
+            auto const replaceable_size = std::distance(first, last);
+            if ((std::ptrdiff_t)buffer.size() <= replaceable_size) {
+                auto const it = std::copy(buffer.begin(), buffer.end(), first);
+                string.erase(it, last);
+                return {first, it};
+            } else {
+                auto const copy_last = buffer.begin() + replaceable_size;
+                std::copy(buffer.begin(), copy_last, first);
+                // This dance is here because somehow libstdc++ in the Travis
+                // build environment thinks it's being built as C++98 code, in
+                // which std::string::insert() returns void.  This works around
+                // that.
+                auto const insertion_offset = last - string.begin();
+                string.insert(last, copy_last, buffer.end());
+                auto const it = string.begin() + insertion_offset;
+                return {
+                    std::prev(it, replaceable_size),
+                    std::next(it, buffer.end() - copy_last)};
+            }
         }
-    }
+    };
+
+    template<>
+    struct string_buffer_replace_impl<true>
+    {
+        template<typename String, typename CPIter, typename Buffer>
+        static replace_result<typename String::iterator> call(
+            String & string, CPIter first_, CPIter last_, Buffer const & buffer)
+        {
+            auto const unpacked =
+                boost::text::detail::unpack_iterator_and_sentinel(
+                    first_, last_);
+            BOOST_ASSERT((std::is_same<
+                          decltype(unpacked.tag_),
+                          decltype(detail::unpack_iterator_and_sentinel(
+                                       string.begin(), string.end())
+                                       .tag_)>::value));
+            auto const first = unpacked.f_;
+            auto const last = unpacked.l_;
+            auto const first_offset = first - string.begin();
+            string.replace(first, last, buffer.begin(), buffer.end());
+            return {
+                std::next(string.begin(), first_offset),
+                std::next(string.begin(), first_offset + buffer.size())};
+        }
+    };
 
     template<typename String>
     using normalized_insert_buffer_t = std::conditional_t<
@@ -539,6 +576,7 @@ namespace boost { namespace text { namespace detail {
     };
 
     template<
+        bool ForRope,
         typename StringIter,
         typename Buffer,
         typename String,
@@ -570,7 +608,8 @@ namespace boost { namespace text { namespace detail {
                 .base() -
             buffer.end();
 
-        auto const replaced_range = detail::string_buffer_replace(
+        detail::string_buffer_replace_impl<ForRope> string_buffer_replace;
+        auto const replaced_range = string_buffer_replace.call(
             string,
             string_prefix_range.begin(),
             string_suffix_range.end(),
@@ -582,6 +621,7 @@ namespace boost { namespace text { namespace detail {
     }
 
     template<
+        bool ForRope,
         nf Normalization,
         typename String,
         typename StringIter,
@@ -679,11 +719,15 @@ namespace boost { namespace text { namespace detail {
                 boost::text::as_stream_safe(hi_cons_view), buffer);
         }
 
-        return detail::replace_erase_impl_suffix<StringIter>(
+        return detail::replace_erase_impl_suffix<ForRope, StringIter>(
             string, buffer, string_prefix_range, string_suffix_range);
     }
 
-    template<nf Normalization, typename String, typename StringIter>
+    template<
+        bool ForRope,
+        nf Normalization,
+        typename String,
+        typename StringIter>
     replace_result<StringIter>
     erase_impl(String & string, StringIter first, StringIter last)
     {
@@ -725,7 +769,7 @@ namespace boost { namespace text { namespace detail {
         boost::text::normalize_append<Normalization>(
             boost::text::as_stream_safe(cons_view), buffer);
 
-        return detail::replace_erase_impl_suffix<StringIter>(
+        return detail::replace_erase_impl_suffix<ForRope, StringIter>(
             string, buffer, string_prefix_range, string_suffix_range);
     }
 
