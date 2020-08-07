@@ -372,6 +372,13 @@ namespace boost { namespace text {
         template<typename Iter, typename Sentinel>
         const_iterator insert(const_iterator at, Iter first, Sentinel last);
 
+        /** Appends `x` to `*this`.
+
+            This function only participates in overload resolution if
+            `insert(end(), std::forward<T>(x))` is well-formed. */
+        template<typename T>
+        unencoded_rope & operator+=(T && x);
+
 #else
 
         template<typename R>
@@ -392,38 +399,11 @@ namespace boost { namespace text {
             return begin() + at_offset;
         }
 
-#endif
-
-        /** Appends c_str to *this. */
-        unencoded_rope & operator+=(char const * c_str);
-
-        /** Appends rv to *this. */
-        unencoded_rope & operator+=(unencoded_rope_view rv);
-
-        /** Appends t to *this, by moving its contents into *this. */
-        unencoded_rope & operator+=(std::string && s)
+        template<typename T>
+        auto operator+=(T && x)
+            -> decltype(insert(end(), std::forward<T>(x)), *this)
         {
-            seg_vec_.insert(end(), std::move(s));
-            return *this;
-        }
-
-
-#ifdef BOOST_TEXT_DOXYGEN
-
-        /** Append r to *this.
-
-            This function only participates in overload resolution if
-            `CharRange` models the CharRange concept. */
-        template<typename CharRange>
-        unencoded_rope & operator+=(CharRange const & r);
-
-#else
-
-        template<typename CharRange>
-        auto operator+=(CharRange const & r)
-            -> detail::rng_alg_ret_t<unencoded_rope &, CharRange, std::string>
-        {
-            seg_vec_.insert(end(), std::begin(r), std::end(r));
+            insert(end(), std::forward<T>(x));
             return *this;
         }
 
@@ -550,113 +530,67 @@ namespace boost { namespace text {
             last);
     }
 
-    inline unencoded_rope & unencoded_rope::operator+=(char const * c_str)
-    {
-        insert(end(), unencoded_rope_view(c_str));
-        return *this;
-    }
-
-    inline unencoded_rope & unencoded_rope::operator+=(unencoded_rope_view rv)
-    {
-        insert(end(), std::string(rv.begin(), rv.end()));
-        return *this;
-    }
-
 }}
 
 #endif
 
 namespace boost { namespace text {
 
-    /** Creates a new unencoded_rope object that is the concatenation of r
-        and c_str. */
-    inline unencoded_rope operator+(unencoded_rope r, char const * c_str)
+#if defined(__cpp_lib_concepts)
+
+    /** Creates a new `unencoded_rope` object that is the concatenation of `t`
+        and some object `x` for which `ur.insert(ur.end(), x)` is
+        well-formed. */
+    template<typename T>
+    unencoded_rope operator+(unencoded_rope ur, T const & x)
+        // clang-format off
+        requires requires { ur.insert(ur.end(), x); }
+    // clang-format on
     {
-        return r += string_view(c_str);
+        ur.insert(ur.end(), x);
+        return ur;
     }
 
-    /** Creates a new unencoded_rope object that is the concatenation of c_str
-        and r. */
-    inline unencoded_rope operator+(char const * c_str, unencoded_rope r)
+    /** Creates a new `unencoded_rope` object that is the concatenation of `x`
+        and `t`, where `x` is an object for which `ur.insert(ur.begin(), x)`
+        is well-formed. */
+    template<typename T>
+    auto operator+(T const & x, unencoded_rope ur)
+        // clang-format off
+        requires requires { ur.insert(ur.begin(), x); } &&
+            (!std::is_same_v<T, unencoded_rope>)
+    // clang-format on
     {
-        r.insert(r.begin(), c_str);
-        return r;
+        ur.insert(ur.begin(), x);
+        return ur;
     }
-
-    /** Creates a new unencoded_rope object that is the concatenation of r
-        and r2. */
-    inline unencoded_rope operator+(unencoded_rope r, unencoded_rope r2)
-    {
-        return r += r2;
-    }
-
-    /** Creates a new unencoded_rope object that is the concatenation of r
-       and rv. */
-    inline unencoded_rope operator+(unencoded_rope r, unencoded_rope_view rv)
-    {
-        return r += rv;
-    }
-
-    /** Creates a new unencoded_rope object that is the concatenation of rv
-       and r. */
-    inline unencoded_rope operator+(unencoded_rope_view rv, unencoded_rope r)
-    {
-        r.insert(r.begin(), rv);
-        return r;
-    }
-
-    /** Creates a new unencoded_rope object that is the concatenation of r
-        and t, by moving the contents of t into the result. */
-    inline unencoded_rope operator+(unencoded_rope r, std::string && s)
-    {
-        return r += std::move(s);
-    }
-
-    /** Creates a new unencoded_rope object that is the concatenation of t
-        and r, by moving the contents of t into the result. */
-    inline unencoded_rope operator+(std::string && s, unencoded_rope r)
-    {
-        r.insert(r.begin(), std::move(s));
-        return r;
-    }
-
-#ifdef BOOST_TEXT_DOXYGEN
-
-    /** Creates a new unencoded_rope object that is the concatenation of ur
-        and r.
-
-        This function only participates in overload resolution if
-        `CharRange` models the CharRange concept. */
-    template<typename CharRange>
-    unencoded_rope & operator+(unencoded_rope ur, CharRange const & r);
-
-    /** Creates a new unencoded_rope object that is the concatenation of r
-        and ur.
-
-        This function only participates in overload resolution if
-        `CharRange` models the CharRange concept. */
-    template<typename CharRange>
-    unencoded_rope & operator+(CharRange const & r, unencoded_rope const & ur);
 
 #else
 
-    template<typename CharRange>
-    auto operator+(unencoded_rope ur, CharRange const & r)
-        -> detail::rng_alg_ret_t<unencoded_rope, CharRange, std::string>
+    /** Creates a new `unencoded_rope` object that is the concatenation of `t`
+        and some object `x` for which `ur.insert(ur.end(), x)` is
+        well-formed. */
+    template<typename T>
+    auto operator+(unencoded_rope ur, T const & x)
+        -> decltype(ur.insert(ur.end(), x), unencoded_rope{})
     {
-        return ur += r;
+        ur.insert(ur.end(), x);
+        return ur;
     }
 
-    template<typename CharRange>
-    auto operator+(CharRange const & r, unencoded_rope ur)
-        -> detail::rng_alg_ret_t<unencoded_rope, CharRange, std::string>
+    /** Creates a new `unencoded_rope` object that is the concatenation of `x`
+        and `t`, where `x` is an object for which `ur.insert(ur.begin(), x)`
+        is well-formed. */
+    template<typename T>
+    auto operator+(T const & x, unencoded_rope ur) -> std::enable_if_t<
+        !std::is_same<T, unencoded_rope>::value,
+        decltype(ur.insert(ur.begin(), x), unencoded_rope{})>
     {
-        ur.insert(ur.begin(), std::begin(r), std::end(r));
+        ur.insert(ur.begin(), x);
         return ur;
     }
 
 #endif
-
 
     inline unencoded_rope_view::unencoded_rope_view(
         unencoded_rope const & r) noexcept :

@@ -921,7 +921,7 @@ namespace boost { namespace text {
 #else
 
     /** Creates a new `basic_text` object that is the concatenation of `t` and
-        some object `x` for which `t.insert(t.end(), x) well-formed. */
+        some object `x` for which `t.insert(t.end(), x)` is well-formed. */
     template<nf Normalization, typename String, typename T>
     auto operator+(basic_text<Normalization, String> t, T const & x)
         -> decltype(t.insert(t.end(), x), basic_text<Normalization, String>{})
