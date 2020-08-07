@@ -31,8 +31,23 @@ namespace boost { namespace text {
 
     /** A mutable sequence of char with copy-on-write semantics.  An
         unencoded_rope is non-contiguous and is not null-terminated. */
-    struct unencoded_rope : segmented_vector<char, std::string>
+    struct unencoded_rope
+        : boost::stl_interfaces::sequence_container_interface<
+              unencoded_rope,
+              boost::stl_interfaces::element_layout::discontiguous>
     {
+        using value_type = char;
+        using pointer = char *;
+        using const_pointer = char const *;
+        using reference = value_type const &;
+        using const_reference = reference;
+        using size_type = std::size_t;
+        using difference_type = std::ptrdiff_t;
+        using iterator = detail::const_vector_iterator<char, std::string>;
+        using const_iterator = iterator;
+        using reverse_iterator = stl_interfaces::reverse_iterator<iterator>;
+        using const_reverse_iterator = reverse_iterator;
+
         /** Default ctor.
 
             \post size() == 0 && begin() == end() */
@@ -42,7 +57,10 @@ namespace boost { namespace text {
         unencoded_rope(unencoded_rope &&) noexcept = default;
 
         /** Constructs an unencoded_rope from a null-terminated string. */
-        unencoded_rope(char const * c_str) { insert(begin(), c_str); }
+        unencoded_rope(char const * c_str)
+        {
+            seg_vec_.insert(begin(), std::string(c_str));
+        }
 
         /** Constructs an unencoded_rope from an unencoded_rope_view. */
         explicit unencoded_rope(unencoded_rope_view rv);
@@ -50,7 +68,7 @@ namespace boost { namespace text {
         /** Move-constructs an unencoded_rope from a string. */
         explicit unencoded_rope(std::string && s)
         {
-            insert(begin(), std::move(s));
+            seg_vec_.insert(begin(), std::move(s));
         }
 
 #ifdef BOOST_TEXT_DOXYGEN
@@ -169,6 +187,28 @@ namespace boost { namespace text {
 
 #endif
 
+        const_iterator begin() noexcept { return seg_vec_.begin(); }
+        const_iterator end() noexcept { return seg_vec_.end(); }
+
+        size_type max_size() const noexcept { return seg_vec_.max_size(); }
+
+        template<typename... Args>
+        const_reference emplace_front(Args &&... args)
+        {
+            return *emplace(begin(), (Args &&) args...);
+        }
+        template<typename... Args>
+        const_reference emplace_back(Args &&... args)
+        {
+            return *emplace(end(), (Args &&) args...);
+        }
+        template<typename... Args>
+        const_iterator emplace(const_iterator at, Args &&... args)
+        {
+            char input[1] = {char{(Args &&) args...}};
+            return insert(at, input, input + 1);
+        }
+
         /** Returns a substring of *this as an unencoded_rope_view, taken from
             the range of chars at offsets [lo, hi).  If either of lo or hi is a
             negative value x, x is taken to be an offset from the end, and so x
@@ -182,86 +222,12 @@ namespace boost { namespace text {
             \pre lo <= hi */
         unencoded_rope_view operator()(std::ptrdiff_t lo, std::ptrdiff_t hi) const;
 
-        /** Inserts the null-terminated string into *this starting at offset
-            at. */
-        unencoded_rope & insert(size_type at, char const * c_str)
-        {
-            insert(begin() + at, c_str);
-            return *this;
-        }
-
-        /** Inserts the null-terminated string into *this starting at position
-            at. */
-        const_iterator insert(const_iterator at, char const * c_str)
-        {
-            return insert(at, std::string(c_str));
-        }
-
-        /** Inserts the sequence of char from rv into *this starting at offset
-            at. */
-        unencoded_rope & insert(size_type at, unencoded_rope_view rv);
-
-        /** Inserts the sequence of char from rv into *this starting at
-            position at. */
-        const_iterator insert(const_iterator at, unencoded_rope_view rv);
-
-#ifdef BOOST_TEXT_DOXYGEN
-
-        /** Inserts the char sequence r into *this starting at offset at.
-
-            This function only participates in overload resolution if
-            `CharRange` models the CharRange concept. */
-        template<typename CharRange>
-        auto insert(size_type at, CharRange const & r);
-
-        /** Inserts the char sequence r into *this starting at position at.
-
-            This function only participates in overload resolution if
-            `CharRange` models the CharRange concept. */
-        template<typename CharRange>
-        auto insert(const_iterator at, CharRange const & r);
-
-        /** Inserts the char sequence [first, last) into *this starting at
-            offset at.
-
-            This function only participates in overload resolution if
-            `CharIter` models the CharIter concept. */
-        template<typename CharIter, typename Sentinel>
-        unencoded_rope & insert(size_type at, CharIter first, Sentinel last);
-
-#else
-
-        template<typename CharRange>
-        auto insert(size_type at, CharRange const & r)
-            -> detail::rng_alg_ret_t<unencoded_rope &, CharRange, string_view>
-        {
-            insert(begin() + at, std::begin(r), std::end(r));
-            return *this;
-        }
-
-        template<typename CharRange>
-        auto insert(const_iterator at, CharRange const & r)
-            -> detail::rng_alg_ret_t<const_iterator, CharRange, string_view>
-        {
-            return insert(at, std::begin(r), std::end(r));
-        }
-
-        template<typename CharIter, typename Sentinel>
-        auto insert(size_type at, CharIter first, Sentinel last)
-            -> detail::char_iter_ret_t<unencoded_rope &, CharIter>
-        {
-            insert(begin() + at, first, last);
-            return *this;
-        }
-
-#endif
-
         /** Erases the portion of *this delimited by rv.
 
             \pre rv.begin() <= rv.begin() && rv.end() <= end() */
         unencoded_rope & erase(const_iterator first, const_iterator last)
         {
-            segmented_vector::erase(first, last);
+            seg_vec_.erase(first, last);
             return *this;
         }
 
@@ -277,7 +243,7 @@ namespace boost { namespace text {
         unencoded_rope &
         replace(const_iterator first, const_iterator last, char const * c_str)
         {
-            segmented_vector::replace(first, last, std::string(c_str));
+            seg_vec_.replace(first, last, std::string(c_str));
             return *this;
         }
 
@@ -295,7 +261,7 @@ namespace boost { namespace text {
         unencoded_rope &
         replace(const_iterator first, const_iterator last, std::string && s)
         {
-            segmented_vector::replace(first, last, std::move(s));
+            seg_vec_.replace(first, last, std::move(s));
             return *this;
         }
 
@@ -353,7 +319,7 @@ namespace boost { namespace text {
         auto replace(const_iterator first, const_iterator last, CharRange const & r)
             -> detail::rng_alg_ret_t<unencoded_rope &, CharRange, string_view>
         {
-            segmented_vector::replace(first, last, r.begin(), r.end());
+            seg_vec_.replace(first, last, r.begin(), r.end());
             return *this;
         }
 
@@ -365,7 +331,7 @@ namespace boost { namespace text {
             Sentinel last2)
             -> detail::char_iter_ret_t<unencoded_rope &, CharIter>
         {
-            segmented_vector::replace(first1, last1, first2, last2);
+            seg_vec_.replace(first1, last1, first2, last2);
             return *this;
         }
 
@@ -386,6 +352,48 @@ namespace boost { namespace text {
 
 #endif
 
+#ifdef BOOST_TEXT_DOXYGEN
+
+        /** Inserts `r` into `*this` at position `at`.
+
+            This function only participates in overload resolution if
+            `replace(at, at, std::forward<Range>(r))` is well-formed.
+
+            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
+        template<typename Range>
+        const_iterator insert(const_iterator at, Range && r);
+
+        /** Inserts `[first, last)` into `*this` at position `at`.
+
+            This function only participates in overload resolution if
+            `replace(at, at, first, last)` is well-formed.
+
+            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
+        template<typename Iter, typename Sentinel>
+        const_iterator insert(const_iterator at, Iter first, Sentinel last);
+
+#else
+
+        template<typename R>
+        auto insert(const_iterator at, R && r)
+            -> decltype(replace(at, at, std::forward<R>(r)), const_iterator{})
+        {
+            auto const at_offset = at - begin();
+            replace(at, at, std::forward<R>(r));
+            return begin() + at_offset;
+        }
+
+        template<typename I, typename S>
+        auto insert(const_iterator at, I first, S last)
+            -> decltype(replace(at, at, first, last), const_iterator{})
+        {
+            auto const at_offset = at - begin();
+            replace(at, at, first, last);
+            return begin() + at_offset;
+        }
+
+#endif
+
         /** Appends c_str to *this. */
         unencoded_rope & operator+=(char const * c_str);
 
@@ -395,7 +403,7 @@ namespace boost { namespace text {
         /** Appends t to *this, by moving its contents into *this. */
         unencoded_rope & operator+=(std::string && s)
         {
-            insert(end(), std::move(s));
+            seg_vec_.insert(end(), std::move(s));
             return *this;
         }
 
@@ -415,11 +423,31 @@ namespace boost { namespace text {
         auto operator+=(CharRange const & r)
             -> detail::rng_alg_ret_t<unencoded_rope &, CharRange, std::string>
         {
-            insert(end(), std::begin(r), std::end(r));
+            seg_vec_.insert(end(), std::begin(r), std::end(r));
             return *this;
         }
 
 #endif
+
+        void swap(unencoded_rope & other) { seg_vec_.swap(other.seg_vec_); }
+
+        using base_type = boost::stl_interfaces::sequence_container_interface<
+            unencoded_rope,
+            boost::stl_interfaces::element_layout::discontiguous>;
+        using base_type::begin;
+        using base_type::end;
+        using base_type::insert;
+        using base_type::erase;
+
+        /** Returns true if `*this` and `other` contain the same root node
+            pointer.  This is useful when you want to check for equality
+            between two `unencoded_rope`s that are likely to have originated
+            from the same initial `segmented_vector`, and may have since been
+            mutated. */
+        bool equal_root(unencoded_rope other) const noexcept
+        {
+            return seg_vec_.equal_root(other.seg_vec_);
+        }
 
         /** Stream inserter; performs formatted output. */
         friend std::ostream & operator<<(std::ostream & os, unencoded_rope r)
@@ -429,23 +457,16 @@ namespace boost { namespace text {
                     boost::text::as_utf32(r));
                 detail::pad_width_before(os, size);
                 if (os.good())
-                    r.foreach_segment(detail::segment_inserter{os});
+                    r.seg_vec_.foreach_segment(detail::segment_inserter{os});
                 if (os.good())
                     detail::pad_width_after(os, size);
             }
             return os;
         }
 
-        using base_type = segmented_vector<char, std::string>;
-        using base_type::insert;
-        using base_type::erase;
-        using base_type::replace;
-
 #ifndef BOOST_TEXT_DOXYGEN
 
     private:
-        enum allocation_note_t { would_allocate, would_not_allocate };
-
         template<typename R>
         unencoded_rope &
         replace_shim(unencoded_rope_view const & old_substr, R && r);
@@ -454,7 +475,7 @@ namespace boost { namespace text {
         unencoded_rope &
         replace_shim(unencoded_rope_view const & old_substr, I first, S last);
 
-        bool self_reference(unencoded_rope_view rv) const;
+        segmented_vector<char, std::string> seg_vec_;
 
         friend struct unencoded_rope_view;
 
@@ -481,32 +502,29 @@ namespace boost { namespace text {
         return *this;
     }
 
-    inline unencoded_rope &
-    unencoded_rope::insert(size_type at, unencoded_rope_view rv)
+    inline unencoded_rope_view unencoded_rope::
+    operator()(std::ptrdiff_t lo, std::ptrdiff_t hi) const
     {
-        insert(begin() + at, rv);
-        return *this;
-    }
-
-    inline unencoded_rope::const_iterator
-    unencoded_rope::insert(const_iterator at, unencoded_rope_view rv)
-    {
-        return insert(at, std::string(rv.begin(), rv.end()));
+        if (lo < 0)
+            lo += size();
+        if (hi < 0)
+            hi += size();
+        BOOST_ASSERT(0 <= lo && lo <= (std::ptrdiff_t)size());
+        BOOST_ASSERT(0 <= hi && hi <= (std::ptrdiff_t)size());
+        BOOST_ASSERT(lo <= hi);
+        return unencoded_rope_view(*this, lo, hi);
     }
 
     inline unencoded_rope & unencoded_rope::erase(unencoded_rope_view rv)
     {
-        BOOST_ASSERT(self_reference(rv));
-        segmented_vector::erase(
-            rv.begin().as_rope_iter(), rv.end().as_rope_iter());
+        seg_vec_.erase(rv.begin().as_rope_iter(), rv.end().as_rope_iter());
         return *this;
     }
 
     inline unencoded_rope & unencoded_rope::replace(
         const_iterator first, const_iterator last, unencoded_rope_view rv)
     {
-        segmented_vector::replace(
-            first, last, std::string(rv.begin(), rv.end()));
+        seg_vec_.replace(first, last, std::string(rv.begin(), rv.end()));
         return *this;
     }
 
@@ -514,7 +532,6 @@ namespace boost { namespace text {
     unencoded_rope &
     unencoded_rope::replace_shim(unencoded_rope_view const & old_substr, R && r)
     {
-        BOOST_ASSERT(self_reference(old_substr));
         replace(
             old_substr.begin().as_rope_iter(),
             old_substr.end().as_rope_iter(),
@@ -526,7 +543,6 @@ namespace boost { namespace text {
     unencoded_rope & unencoded_rope::replace_shim(
         unencoded_rope_view const & old_substr, I first, S last)
     {
-        BOOST_ASSERT(self_reference(old_substr));
         return replace(
             old_substr.begin().as_rope_iter(),
             old_substr.end().as_rope_iter(),
@@ -546,26 +562,6 @@ namespace boost { namespace text {
         return *this;
     }
 
-    inline unencoded_rope_view unencoded_rope::
-    operator()(std::ptrdiff_t lo, std::ptrdiff_t hi) const
-    {
-        if (lo < 0)
-            lo += size();
-        if (hi < 0)
-            hi += size();
-        BOOST_ASSERT(0 <= lo && lo <= (std::ptrdiff_t)size());
-        BOOST_ASSERT(0 <= hi && hi <= (std::ptrdiff_t)size());
-        BOOST_ASSERT(lo <= hi);
-        return unencoded_rope_view(*this, lo, hi);
-    }
-
-
-    inline bool unencoded_rope::self_reference(unencoded_rope_view rv) const
-    {
-        return rv.which_ == unencoded_rope_view::which::r &&
-               rv.ref_.r_.r_ == this;
-    }
-
 }}
 
 #endif
@@ -583,7 +579,8 @@ namespace boost { namespace text {
         and r. */
     inline unencoded_rope operator+(char const * c_str, unencoded_rope r)
     {
-        return r.insert(0, c_str);
+        r.insert(r.begin(), c_str);
+        return r;
     }
 
     /** Creates a new unencoded_rope object that is the concatenation of r
@@ -604,7 +601,8 @@ namespace boost { namespace text {
        and r. */
     inline unencoded_rope operator+(unencoded_rope_view rv, unencoded_rope r)
     {
-        return r.insert(0, rv);
+        r.insert(r.begin(), rv);
+        return r;
     }
 
     /** Creates a new unencoded_rope object that is the concatenation of r
@@ -618,7 +616,8 @@ namespace boost { namespace text {
         and r, by moving the contents of t into the result. */
     inline unencoded_rope operator+(std::string && s, unencoded_rope r)
     {
-        return r.insert(0, std::move(s));
+        r.insert(r.begin(), std::move(s));
+        return r;
     }
 
 #ifdef BOOST_TEXT_DOXYGEN
@@ -652,7 +651,8 @@ namespace boost { namespace text {
     auto operator+(CharRange const & r, unencoded_rope ur)
         -> detail::rng_alg_ret_t<unencoded_rope, CharRange, std::string>
     {
-        return ur.insert(0, std::begin(r), std::end(r));
+        ur.insert(ur.begin(), std::begin(r), std::end(r));
+        return ur;
     }
 
 #endif
@@ -660,14 +660,12 @@ namespace boost { namespace text {
 
     inline unencoded_rope_view::unencoded_rope_view(
         unencoded_rope const & r) noexcept :
-        ref_(rope_ref(&r, 0, r.size())),
-        which_(which::r)
+        ref_(rope_ref(&r.seg_vec_, 0, r.size())), which_(which::r)
     {}
 
     inline unencoded_rope_view::unencoded_rope_view(
         unencoded_rope const & r, size_type lo, size_type hi) :
-        ref_(rope_ref(&r, lo, hi)),
-        which_(which::r)
+        ref_(rope_ref(&r.seg_vec_, lo, hi)), which_(which::r)
     {}
 
     namespace detail {

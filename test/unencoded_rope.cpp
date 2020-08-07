@@ -415,43 +415,43 @@ TEST(unencoded_rope, test_insert)
         text::unencoded_rope const ct("string");
 
         text::unencoded_rope t0 = ct;
-        t0.insert(0, tv);
+        t0.insert(t0.begin() + 0, tv);
         EXPECT_EQ(t0, "a view string");
 
         text::unencoded_rope t1 = ct;
-        t1.insert(1, tv);
+        t1.insert(t1.begin() + 1, tv);
         EXPECT_EQ(t1, "sa view tring");
 
         text::unencoded_rope t2 = ct;
-        t2.insert(2, tv);
+        t2.insert(t2.begin() + 2, tv);
         EXPECT_EQ(t2, "sta view ring");
 
         text::unencoded_rope t3 = ct;
-        t3.insert(3, tv);
+        t3.insert(t3.begin() + 3, tv);
         EXPECT_EQ(t3, "stra view ing");
 
         text::unencoded_rope t4 = ct;
-        t4.insert(4, tv);
+        t4.insert(t4.begin() + 4, tv);
         EXPECT_EQ(t4, "stria view ng");
 
         text::unencoded_rope t5 = ct;
-        t5.insert(5, tv);
+        t5.insert(t5.begin() + 5, tv);
         EXPECT_EQ(t5, "strina view g");
 
         text::unencoded_rope t6 = ct;
-        t6.insert(6, tv);
+        t6.insert(t6.begin() + 6, tv);
         EXPECT_EQ(t6, "stringa view ");
 
         text::unencoded_rope t7 = ct;
-        t7.insert(6, t7(0, 3));
+        t7.insert(t7.begin() + 6, t7(0, 3));
         EXPECT_EQ(t7, "stringstr");
 
         text::unencoded_rope t8 = ct;
-        t8.insert(2, t8(0, 3));
+        t8.insert(t8.begin() + 2, t8(0, 3));
         EXPECT_EQ(t8, "ststrring");
 
         text::unencoded_rope t9 = ct;
-        t9.insert(6, t9(3, 6));
+        t9.insert(t9.begin() + 6, t9(3, 6));
         EXPECT_EQ(t9, "stringing");
     }
 
@@ -466,31 +466,31 @@ TEST(unencoded_rope, test_insert)
             utf32, utf32 + 4, utf32 + 4);
 
         text::unencoded_rope t0 = ct;
-        t0.insert(0, first, last);
+        t0.insert(t0.begin() + 0, first, last);
         EXPECT_EQ(t0, "\x4d\xd0\xb0\xe4\xba\x8c\xf0\x90\x8c\x82string");
 
         text::unencoded_rope t1 = ct;
-        t1.insert(1, first, last);
+        t1.insert(t1.begin() + 1, first, last);
         EXPECT_EQ(t1, "s\x4d\xd0\xb0\xe4\xba\x8c\xf0\x90\x8c\x82tring");
 
         text::unencoded_rope t2 = ct;
-        t2.insert(2, first, last);
+        t2.insert(t2.begin() + 2, first, last);
         EXPECT_EQ(t2, "st\x4d\xd0\xb0\xe4\xba\x8c\xf0\x90\x8c\x82ring");
 
         text::unencoded_rope t3 = ct;
-        t3.insert(3, first, last);
+        t3.insert(t3.begin() + 3, first, last);
         EXPECT_EQ(t3, "str\x4d\xd0\xb0\xe4\xba\x8c\xf0\x90\x8c\x82ing");
 
         text::unencoded_rope t4 = ct;
-        t4.insert(4, first, last);
+        t4.insert(t4.begin() + 4, first, last);
         EXPECT_EQ(t4, "stri\x4d\xd0\xb0\xe4\xba\x8c\xf0\x90\x8c\x82ng");
 
         text::unencoded_rope t5 = ct;
-        t5.insert(5, first, last);
+        t5.insert(t5.begin() + 5, first, last);
         EXPECT_EQ(t5, "strin\x4d\xd0\xb0\xe4\xba\x8c\xf0\x90\x8c\x82g");
 
         text::unencoded_rope t6 = ct;
-        t6.insert(6, first, last);
+        t6.insert(t6.begin() + 6, first, last);
         EXPECT_EQ(t6, "string\x4d\xd0\xb0\xe4\xba\x8c\xf0\x90\x8c\x82");
     }
 }
@@ -503,11 +503,12 @@ TEST(unencoded_rope, test_insert_unencoded_rope_view)
         std::size_t const at = i % 2 ? 0 : rv_rope.size();
         switch (i % 3) {
         case 0:
-            rv_rope.insert(at, std::string("text"));
+            rv_rope.insert(rv_rope.begin() + at, std::string("text"));
             rv_rope_as_string.insert(at, "text");
             break;
         case 1:
-            rv_rope.insert(at, text::string_view("text_view"));
+            rv_rope.insert(
+                rv_rope.begin() + at, text::string_view("text_view"));
             rv_rope_as_string.insert(at, "text_view");
             break;
         }
@@ -524,7 +525,7 @@ TEST(unencoded_rope, test_insert_unencoded_rope_view)
             auto const r_as_string_at = r_as_string.size() / 2;
             r_as_string.insert(
                 r_as_string.begin() + r_as_string_at, rv.begin(), rv.end());
-            r.insert(r_at, rv);
+            r.insert(r.begin() + r_at, rv);
 
             local_string.assign(r.begin(), r.end());
             EXPECT_EQ(local_string, r_as_string)
@@ -688,7 +689,7 @@ TEST(unencoded_rope, test_replace_iter)
                 text::unencoded_rope_view const after = t(j, t.size());
 
                 text::unencoded_rope expected(before);
-                expected.insert(expected.size(), final_cp, last);
+                expected.insert(expected.end(), final_cp, last);
                 expected += after;
 
                 t.replace(substr, final_cp, last);
@@ -703,7 +704,7 @@ TEST(unencoded_rope, test_replace_iter)
                 text::unencoded_rope_view const after = t(j, t.size());
 
                 text::unencoded_rope expected(before);
-                expected.insert(expected.size(), first, last);
+                expected.insert(expected.end(), first, last);
                 expected += after;
 
                 t.replace(substr, first, last);
@@ -781,7 +782,7 @@ TEST(unencoded_rope, test_sentinel_api)
     {
         char const * chars = "chars";
         text::unencoded_rope s;
-        s.insert(0, chars, text::null_sentinel{});
+        s.insert(s.begin(), chars, text::null_sentinel{});
         EXPECT_EQ(s, chars);
     }
     {

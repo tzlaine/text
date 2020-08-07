@@ -59,7 +59,7 @@ namespace {
         while (size) {
             auto const this_chunk_size = chunk_size <= size ? chunk_size : size;
             retval.insert(
-                retval.size(),
+                retval.end(),
                 std::string(
                     ".........................................................."
                     ".........................................................."

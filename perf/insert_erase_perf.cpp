@@ -39,8 +39,8 @@ void BM_unencoded_rope_erase_insert_front(benchmark::State & state)
     auto & unencoded_rope = unencoded_ropes[state.range(0)];
     auto const i = 0;
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(
-            unencoded_rope.erase(unencoded_rope(i, i + 1)).insert(i, "."));
+        benchmark::DoNotOptimize(unencoded_rope.erase(unencoded_rope(i, i + 1))
+                                     .insert(unencoded_rope.begin() + i, "."));
     }
 }
 
@@ -50,8 +50,8 @@ void BM_unencoded_rope_erase_insert_back(benchmark::State & state)
     auto const i = unencoded_rope.size() - 1;
     assert(0 <= i);
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(
-            unencoded_rope.erase(unencoded_rope(i, i + 1)).insert(i, "."));
+        benchmark::DoNotOptimize(unencoded_rope.erase(unencoded_rope(i, i + 1))
+                                     .insert(unencoded_rope.begin() + i, "."));
         assert(i == unencoded_rope.size() - 1);
     }
 }
