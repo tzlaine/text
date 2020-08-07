@@ -434,6 +434,17 @@ namespace boost { namespace text {
 
 #endif
 
+        /** Replaces the portion of `*this` delimited by `[first, last)` with
+            `g`. */
+        replace_result<iterator>
+        replace(iterator first, iterator last, grapheme const & g);
+
+        /** Replaces the portion of `*this` delimited by `[first, last)` with
+            `g`. */
+        template<typename CPIter>
+        replace_result<iterator>
+        replace(iterator first, iterator last, grapheme_ref<CPIter> g);
+
         /** Inserts the sequence [first, last) into `*this` starting at position
             at. */
         replace_result<iterator>
@@ -465,14 +476,6 @@ namespace boost { namespace text {
         {
             return replace(at, at, first, last);
         }
-
-        // TODO: Change these to replace() overloads.
-        /** Inserts the grapheme g into `*this` at position at. */
-        replace_result<iterator> insert(iterator at, grapheme const & g);
-
-        /** Inserts the grapheme g into `*this` at position at. */
-        template<typename CPIter>
-        replace_result<iterator> insert(iterator at, grapheme_ref<CPIter> g);
 
         /** Reserves storage enough for a string of at least new_size
             bytes.
@@ -623,22 +626,6 @@ namespace boost { namespace text {
         }
 
         template<typename CUIter>
-        replace_result<iterator> insert_impl(
-            iterator at,
-            CUIter first,
-            CUIter last,
-            insertion_normalization insertion_norm)
-        {
-            auto const str_at = str_.begin() + (at.base().base() - str_.data());
-            auto const retval = boost::text::normalize_insert<normalization>(
-                str_,
-                str_at,
-                boost::text::as_utf32(first, last),
-                insertion_norm);
-            return mutation_result(retval);
-        }
-
-        template<typename CUIter>
         replace_result<iterator> replace_impl(
             iterator first,
             iterator last,
@@ -712,23 +699,25 @@ namespace boost { namespace text {
 
     template<nf Normalization, typename String>
     replace_result<typename basic_text<Normalization, String>::iterator>
-    basic_text<Normalization, String>::insert(iterator at, grapheme const & g)
+    basic_text<Normalization, String>::replace(
+        iterator first, iterator last, grapheme const & g)
     {
-        return insert(at, grapheme_ref<grapheme::const_iterator>(g));
+        return replace(first, last, grapheme_ref<grapheme::const_iterator>(g));
     }
 
     template<nf Normalization, typename String>
     template<typename CPIter>
     replace_result<typename basic_text<Normalization, String>::iterator>
-    basic_text<Normalization, String>::insert(
-        iterator at, grapheme_ref<CPIter> g)
+    basic_text<Normalization, String>::replace(
+        iterator first, iterator last, grapheme_ref<CPIter> g)
     {
-        if (g.empty())
-            return replace_result<iterator>{at, at};
+        if (g.empty() && first == last)
+            return replace_result<iterator>{first, first};
         std::array<char_type, 128> buf;
         auto out =
             boost::text::transcode_to_utf8(g.begin(), g.end(), buf.data());
-        return insert_impl(at, buf.data(), out, insertion_not_normalized);
+        return replace_impl(
+            first, last, buf.data(), out, insertion_not_normalized);
     }
 
     template<nf Normalization, typename String>
