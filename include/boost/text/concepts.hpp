@@ -93,19 +93,6 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     concept grapheme_range = std::ranges::bidirectional_range<T> &&
         grapheme_iter<std::ranges::iterator_t<T>>;
 
-    template<typename T>
-    concept grapheme_char_iter =
-        // clang-format off
-        grapheme_iter<T> &&
-        requires(T t) {
-        { t.base().base() } -> utf8_iter;
-        // clang-format on
-    };
-
-    template<typename T>
-    concept grapheme_char_range = std::ranges::bidirectional_range<T> &&
-        grapheme_char_iter<std::ranges::iterator_t<T>>;
-
     namespace dtl {
         template<typename T>
         using grapheme_bottom_iter_t =
