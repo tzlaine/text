@@ -87,14 +87,6 @@ namespace boost { namespace text {
         template<typename CharIter, typename Sentinel>
         unencoded_rope(CharIter first, Sentinel last);
 
-        /** Constructs a unencoded_rope from a range of graphemes over an
-            underlying range of char.
-
-            This function only participates in overload resolution if
-            `GraphemeRange` models the GraphemeRange concept. */
-        template<typename GraphemeRange>
-        explicit unencoded_rope(GraphemeRange const & r);
-
 #else
 
         template<typename CharRange>
@@ -111,17 +103,6 @@ namespace boost { namespace text {
             detail::char_iter_ret_t<void *, CharIter> = 0)
         {
             insert(begin(), first, last);
-        }
-
-        template<typename GraphemeRange>
-        explicit unencoded_rope(
-            GraphemeRange const & r,
-            detail::graph_rng_alg_ret_t<int *, GraphemeRange> = 0)
-        {
-            insert(
-                begin(),
-                std::begin(r).base().base(),
-                std::end(r).base().base());
         }
 
 #endif
@@ -157,28 +138,11 @@ namespace boost { namespace text {
         template<typename CharRange>
         unencoded_rope & operator=(CharRange const & r);
 
-        /** Assignment from a range of graphemes over an underlying range of
-            char.
-
-            This function only participates in overload resolution if
-            `GraphemeRange` models the GraphemeRange concept. */
-        template<typename GraphemeRange>
-        unencoded_rope & operator=(GraphemeRange const & r);
-
 #else
 
         template<typename CharRange>
         auto operator=(CharRange const & r)
             -> detail::rng_alg_ret_t<unencoded_rope &, CharRange>
-        {
-            unencoded_rope temp(r);
-            swap(temp);
-            return *this;
-        }
-
-        template<typename GraphemeRange>
-        auto operator=(GraphemeRange const & r)
-            -> detail::graph_rng_alg_ret_t<unencoded_rope &, GraphemeRange>
         {
             unencoded_rope temp(r);
             swap(temp);
@@ -433,8 +397,7 @@ namespace boost { namespace text {
         friend std::ostream & operator<<(std::ostream & os, unencoded_rope r)
         {
             if (os.good()) {
-                auto const size = boost::text::estimated_width_of_graphemes(
-                    boost::text::as_utf32(r));
+                auto const size = r.size();
                 detail::pad_width_before(os, size);
                 if (os.good())
                     r.seg_vec_.foreach_segment(detail::segment_inserter{os});
