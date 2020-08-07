@@ -645,6 +645,22 @@ TEST(unencoded_rope, test_replace_iter)
     text::unencoded_rope const ct_string("string");
     text::unencoded_rope const ct_text("text");
 
+    // These test replacement via pointer or array, not iterator.
+    {
+        {
+            text::unencoded_rope t = ct_string;
+            t.replace(t, "\xf0\x90\x8c\x82");
+            EXPECT_EQ(t, "\xf0\x90\x8c\x82");
+        }
+
+        {
+            text::unencoded_rope t = ct_string;
+            char const * str = "\xf0\x90\x8c\x82";
+            t.replace(t, str);
+            EXPECT_EQ(t, "\xf0\x90\x8c\x82");
+        }
+    }
+
     {
         text::unencoded_rope t = ct_string;
         t.replace(t, final_cp, last);

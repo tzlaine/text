@@ -559,14 +559,6 @@ namespace boost { namespace text {
             return insert(at, text_view(first, last));
         }
 
-        /** Inserts the sequence of char_type from `c_str` into `*this`
-            starting at position `at`. */
-        replace_result<iterator>
-        insert(const_iterator at, char_type const * c_str)
-        {
-            return insert(at, string_view(c_str));
-        }
-
         /** Inserts the sequence of char_type from `x` into `*this` starting
             at position `at`. */
         template<typename T>
@@ -606,12 +598,6 @@ namespace boost { namespace text {
 
             \pre s is normalized FCC. */
         void replace(string && s) noexcept { str_ = std::move(s); }
-
-        /** Appends `c_str` to `*this`. */
-        basic_text & operator+=(char_type const * c_str)
-        {
-            return operator+=(string_view(c_str));
-        }
 
         /** Appends `r` to `*this`.  `R` may be any type for which
             `insert(end(), r)` is well-formed. */
@@ -959,24 +945,6 @@ namespace boost { namespace text {
     }
 
 #endif
-
-    /** Creates a new `basic_text` object that is the concatenation of `t` and
-        `c_str`. */
-    template<nf Normalization, typename String>
-    basic_text<Normalization, String>
-    operator+(basic_text<Normalization, String> t, char const * c_str)
-    {
-        return t += c_str;
-    }
-
-    /** Creates a new `basic_text` object that is the concatenation of `c_str`
-         and `t`. */
-    template<nf Normalization, typename String>
-    basic_text<Normalization, String>
-    operator+(char const * c_str, basic_text<Normalization, String> const & t)
-    {
-        return basic_text<Normalization, String>(c_str) + t;
-    }
 
 }}
 

@@ -314,13 +314,6 @@ namespace boost { namespace text {
         replace(const_iterator first, const_iterator last, CharIter first, Sentinel last);
 
         /** Replaces the portion of `*this` delimited by `old_substr` with
-            `c_str`.
-
-            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
-        unencoded_rope &
-        replace(unencoded_rope_view old_substr, char const * c_str);
-
-        /** Replaces the portion of `*this` delimited by `old_substr` with
             `r`.
 
             This function only participates in overload resolution if
@@ -366,9 +359,6 @@ namespace boost { namespace text {
             segmented_vector::replace(first1, last1, first2, last2);
             return *this;
         }
-
-        unencoded_rope &
-        replace(unencoded_rope_view const & old_substr, char const * c_str);
 
         template<typename R>
         auto replace(unencoded_rope_view const & old_substr, R && r)
@@ -514,16 +504,6 @@ namespace boost { namespace text {
         segmented_vector::replace(
             first, last, std::string(rv.begin(), rv.end()));
         return *this;
-    }
-
-    inline unencoded_rope & unencoded_rope::replace(
-        unencoded_rope_view const & old_substr, char const * c_str)
-    {
-        BOOST_ASSERT(self_reference(old_substr));
-        return replace(
-            old_substr.begin().as_rope_iter(),
-            old_substr.end().as_rope_iter(),
-            c_str);
     }
 
     template<typename R>
