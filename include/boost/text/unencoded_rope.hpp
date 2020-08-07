@@ -259,6 +259,15 @@ namespace boost { namespace text {
         /** Erases the portion of *this delimited by rv.
 
             \pre rv.begin() <= rv.begin() && rv.end() <= end() */
+        unencoded_rope & erase(const_iterator first, const_iterator last)
+        {
+            segmented_vector::erase(first, last);
+            return *this;
+        }
+
+        /** Erases the portion of *this delimited by rv.
+
+            \pre rv.begin() <= rv.begin() && rv.end() <= end() */
         unencoded_rope & erase(unencoded_rope_view rv);
 
         /** Replaces the portion of *this delimited by old_substr with the
@@ -467,9 +476,6 @@ namespace boost { namespace text {
 
     inline unencoded_rope & unencoded_rope::operator=(unencoded_rope_view rv)
     {
-        unencoded_rope extra_ref;
-        if (self_reference(rv))
-            extra_ref = *this;
         unencoded_rope temp(rv);
         swap(temp);
         return *this;
@@ -485,16 +491,14 @@ namespace boost { namespace text {
     inline unencoded_rope::const_iterator
     unencoded_rope::insert(const_iterator at, unencoded_rope_view rv)
     {
-        unencoded_rope extra_ref;
-        if (self_reference(rv))
-            extra_ref = *this;
         return insert(at, std::string(rv.begin(), rv.end()));
     }
 
     inline unencoded_rope & unencoded_rope::erase(unencoded_rope_view rv)
     {
         BOOST_ASSERT(self_reference(rv));
-        erase(rv.begin().as_rope_iter(), rv.end().as_rope_iter());
+        segmented_vector::erase(
+            rv.begin().as_rope_iter(), rv.end().as_rope_iter());
         return *this;
     }
 
@@ -538,10 +542,7 @@ namespace boost { namespace text {
 
     inline unencoded_rope & unencoded_rope::operator+=(unencoded_rope_view rv)
     {
-        unencoded_rope extra_ref;
-        if (self_reference(rv))
-            extra_ref = *this;
-        insert(end(), rv);
+        insert(end(), std::string(rv.begin(), rv.end()));
         return *this;
     }
 

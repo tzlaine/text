@@ -9,6 +9,7 @@
 #include <boost/text/segmented_vector_fwd.hpp>
 #include <boost/text/detail/btree.hpp>
 #include <boost/text/detail/iterator.hpp>
+#include <boost/text/detail/make_container.hpp>
 #include <boost/text/detail/vector_iterator.hpp>
 
 #include <boost/stl_interfaces/sequence_container_interface.hpp>
@@ -101,10 +102,7 @@ namespace boost { namespace text {
         template<typename Iter, typename Sentinel>
         void assign(Iter first, Sentinel last)
         {
-            std::vector<T> seg;
-            for (; first != last; ++first) {
-                seg.push_back(*first);
-            }
+            auto seg = detail::make_container<segment_type>(first, last);
             replace(begin(), end(), std::move(seg));
         }
         template<typename Iter>
@@ -284,8 +282,10 @@ namespace boost { namespace text {
             Iter new_first,
             Sentinel new_last)
         {
+            auto seg =
+                detail::make_container<segment_type>(new_first, new_last);
             auto const it = erase(old_first, old_last);
-            insert(it, new_first, new_last);
+            insert(it, std::move(seg));
             return *this;
         }
 
