@@ -180,7 +180,9 @@ namespace boost { namespace text {
 #endif
             str_(detail::make_string<string>(
                 r.begin().base().base(), r.end().base().base()))
-        {}
+        {
+            boost::text::normalize<normalization>(str_);
+        }
 
 #endif
 
