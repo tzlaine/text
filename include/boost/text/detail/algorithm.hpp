@@ -56,6 +56,7 @@ namespace boost { namespace text { namespace detail {
     struct void_
     {
         using type = void;
+        static constexpr bool value = true;
     };
 
     template<typename... T>
@@ -475,24 +476,22 @@ namespace boost { namespace text { namespace detail {
 
 
     template<typename T>
-    using is_grapheme_char_range = std::integral_constant<
+    using is_grapheme_range = std::integral_constant<
         bool,
         is_cp_iter<remove_cv_ref_t<decltype(
             std::declval<const T>().begin().base())>>::value &&
             is_cp_iter<remove_cv_ref_t<decltype(
                 std::declval<const T>().end().base())>>::value &&
-            is_char_iter<remove_cv_ref_t<decltype(
-                std::declval<const T>().begin().base().base())>>::value &&
-            is_char_iter<remove_cv_ref_t<decltype(
-                std::declval<const T>().end().base().base())>>::value>;
+            void_<
+                decltype(std::declval<const T>().begin().base().base()),
+                decltype(std::declval<const T>().end().base().base())>::value>;
 
     template<
         typename T,
         typename R1,
-        bool R1IsGraphemeCharRange = is_grapheme_char_range<R1>::value>
+        bool R1IsGraphemeRange = is_grapheme_range<R1>::value>
     struct graph_rng_alg_ret
-    {
-    };
+    {};
 
     template<typename T, typename R1>
     struct graph_rng_alg_ret<T, R1, true>
@@ -506,7 +505,7 @@ namespace boost { namespace text { namespace detail {
 
 
     template<typename T>
-    using is_contig_grapheme_char_range = std::integral_constant<
+    using is_contig_grapheme_range = std::integral_constant<
         bool,
         (std::is_same<
              decltype(std::declval<const T>().begin().base().base()),
@@ -524,8 +523,7 @@ namespace boost { namespace text { namespace detail {
     template<
         typename T,
         typename R1,
-        bool R1IsContigGraphemeCharRange =
-            is_contig_grapheme_char_range<R1>::value>
+        bool R1IsContigGraphemeRange = is_contig_grapheme_range<R1>::value>
     struct contig_graph_rng_alg_ret
     {
     };

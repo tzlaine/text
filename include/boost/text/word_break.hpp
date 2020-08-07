@@ -290,7 +290,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             typename T,
             typename F,
             typename R,
-            bool RIsCPRange = is_grapheme_char_range<R>::value,
+            bool RIsGrRange = is_grapheme_range<R>::value,
             bool FIsWordPropFunc = std::
                 is_same<detected_t<word_prop_func_, F>, word_property>::value>
         struct graph_word_prop_func_ret
