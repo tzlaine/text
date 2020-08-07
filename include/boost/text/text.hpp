@@ -96,41 +96,40 @@ namespace boost { namespace text {
         basic_text(basic_text const &) = default;
         basic_text(basic_text &&) = default;
 
-        /** Constructs a basic_text from a pair of iterators. */
+        /** Constructs a `basic_text` from a pair of iterators. */
         basic_text(const_iterator first, const_iterator last) :
             basic_text(text_view(first, last))
         {}
 
-        /** Constructs a basic_text from a null-terminated string. */
+        /** Constructs a `basic_text` from a null-terminated string. */
         basic_text(char_type const * c_str) : str_(c_str)
         {
             boost::text::normalize<normalization>(str_);
         }
 
-        /** Constructs a basic_text from a text_view. */
+        /** Constructs a `basic_text` from a `text_view`. */
         explicit basic_text(text_view tv);
 
-        /** Constructs a basic_text from a rope_view. */
+        /** Constructs a `basic_text` from a `rope_view`. */
         explicit basic_text(rope_view rv);
 
 #ifdef BOOST_TEXT_DOXYGEN
 
-        /** Constructs a basic_text from a range of char.
+        /** Constructs a `basic_text` from a range of `char_type`.
 
             This function only participates in overload resolution if
             `CURange` models the CURange concept. */
         template<typename CURange>
         explicit basic_text(CURange const & r);
 
-        /** Constructs a basic_text from a sequence of char.
+        /** Constructs a `basic_text` from a sequence of `char_type`.
 
             This function only participates in overload resolution if
             `CUIter` models the CUIter concept. */
         template<typename CUIter, typename Sentinel>
         basic_text(CUIter first, Iter CUlast);
 
-        /** Constructs a basic_text from a range of graphemes over an underlying
-            range of char.
+        /** Constructs a `basic_text` from a range of graphemes.
 
             This function only participates in overload resolution if
             `GraphemeRange` models the GraphemeRange concept. */
@@ -195,7 +194,7 @@ namespace boost { namespace text {
             return *this = string_view(c_str);
         }
 
-        /** Assignment from a string_view. */
+        /** Assignment from a `string_view`. */
         basic_text & operator=(string_view sv)
         {
             str_.assign(sv.begin(), sv.end());
@@ -203,10 +202,10 @@ namespace boost { namespace text {
             return *this;
         }
 
-        /** Assignment from a text_view. */
+        /** Assignment from a `text_view`. */
         basic_text & operator=(text_view tv);
 
-        /** Assignment from a rope_view. */
+        /** Assignment from a `rope_view`. */
         basic_text & operator=(rope_view rv);
 
 
@@ -254,7 +253,7 @@ namespace boost { namespace text {
         const_reverse_iterator crbegin() const noexcept { return rbegin(); }
         const_reverse_iterator crend() const noexcept { return rend(); }
 
-        /** Returns true if size() == 0, false otherwise. */
+        /** Returns true iff `size() == 0`. */
         bool empty() const noexcept { return str_.empty(); }
 
         /** Returns the number of bytes controlled by `*this`, not including the
@@ -272,7 +271,7 @@ namespace boost { namespace text {
             return std::distance(begin(), end());
         }
 
-        /** Returns the maximum size in bytes a basic_text can have. */
+        /** Returns the maximum size in bytes a `basic_text` can have. */
         size_type max_bytes() const noexcept { return PTRDIFF_MAX; }
 
         /** Clear.
@@ -309,7 +308,7 @@ namespace boost { namespace text {
         }
 
         /** Replaces the portion of `*this` delimited by `[first, last)` with
-            the sequence of char from `new_substr`.
+            `new_substr`.
 
             \pre !std::less(first.base().base(), begin().base().base()) &&
             !std::less(end().base().base(), last.base().base()) */
@@ -325,8 +324,8 @@ namespace boost { namespace text {
                 insertion_not_normalized);
         }
 
-        /** Replaces the portion of `*this` delimited by `[first, last)` with the
-            sequence of char from `new_substr`.
+        /** Replaces the portion of `*this` delimited by `[first, last)` with
+            `new_substr`.
 
             \pre !std::less(first.base().base(), begin().base().base()) &&
             !std::less(end().base().base(), last.base().base()) */
@@ -341,16 +340,16 @@ namespace boost { namespace text {
                 insertion_normalized);
         }
 
-        /** Replaces the portion of `*this` delimited by `[first, last)` with the
-            sequence of char from `new_substr`.
+        /** Replaces the portion of `*this` delimited by `[first, last)` with
+            `new_substr`.
 
             \pre !std::less(first.base().base(), begin().base().base()) &&
             !std::less(end().base().base(), last.base().base()) */
         replace_result<iterator>
         replace(iterator first, iterator last, text_view new_substr);
 
-        /** Replaves the  portion of `*this` delimited by `[first, last)` with the
-            sequence of char from `new_substr`.
+        /** Replaves the portion of `*this` delimited by `[first, last)` with
+            `new_substr`.
 
             \pre !std::less(first.base().base(), begin().base().base()) &&
             !std::less(end().base().base(), last.base().base()) */
@@ -365,8 +364,8 @@ namespace boost { namespace text {
                 insertion_not_normalized);
         }
 
-        /** Replaces the portion of `*this` delimited by `[first, last)` with the
-            sequence of char from `new_substr`.
+        /** Replaces the portion of `*this` delimited by `[first, last)` with
+            `new_substr`.
 
             \pre !std::less(first.base().base(), begin().base().base()) &&
             !std::less(end().base().base(), last.base().base()) */
@@ -375,8 +374,8 @@ namespace boost { namespace text {
 
 #ifdef BOOST_TEXT_DOXYGEN
 
-        /** Replaces the portion of `*this` delimited by `[first, last)` with the
-            char range r.
+        /** Replaces the portion of `*this` delimited by `[first, last)` with
+            `r`.
 
             This function only participates in overload resolution if
             `CURange` models the CURange concept.
@@ -387,8 +386,8 @@ namespace boost { namespace text {
         replace_result<iterator>
         replace(iterator first, iterator last, CURange const & r);
 
-        /** Replaces the portion of `*this` delimited by `[first1, last1)` with
-            the char sequence `[first2, last2)`.
+        /** Replaces the portion of `*this` delimited by `[first1, last1)`
+            with `[first2, last2)`.
 
             This function only participates in overload resolution if
             `CUIter` models the CUIter concept.
@@ -446,7 +445,7 @@ namespace boost { namespace text {
         replace(iterator first, iterator last, grapheme_ref<CPIter> g);
 
         /** Inserts the sequence [first, last) into `*this` starting at position
-            at. */
+            `at`. */
         replace_result<iterator>
         insert(iterator at, const_iterator first, const_iterator last)
         {
@@ -477,14 +476,13 @@ namespace boost { namespace text {
             return replace(at, at, first, last);
         }
 
-        /** Reserves storage enough for a string of at least new_size
-            bytes.
+        /** Reserves storage enough for a string of at least `new_size` bytes.
 
             \post capacity() >= new_size + 1 */
         void reserve(size_type new_size) { str_.reserve(new_size); }
 
         /** Reduces storage used by `*this` to just the amount necessary to
-            contain size() chars.
+            contain `size()` chars.
 
             \post capacity() == 0 || capacity() == size() + 1 */
         void shrink_to_fit() { str_.shrink_to_fit(); }
@@ -500,7 +498,7 @@ namespace boost { namespace text {
             \pre s is normalized FCC. */
         void replace(string && s) noexcept { str_ = std::move(s); }
 
-        /** Appends c_str to `*this`. */
+        /** Appends `c_str` to `*this`. */
         basic_text & operator+=(char_type const * c_str)
         {
             return operator+=(string_view(c_str));
@@ -846,8 +844,8 @@ namespace boost { namespace text {
 
 #endif
 
-    /** Creates a new basic_text object that is the concatenation of t and
-        c_str. */
+    /** Creates a new `basic_text` object that is the concatenation of `t` and
+        `c_str`. */
     template<nf Normalization, typename String>
     basic_text<Normalization, String>
     operator+(basic_text<Normalization, String> t, char const * c_str)
@@ -855,7 +853,8 @@ namespace boost { namespace text {
         return t += c_str;
     }
 
-    /** Creates a new text object that is the concatenation of c_str and t. */
+    /** Creates a new `basic_text` object that is the concatenation of `c_str`
+         and `t`. */
     template<nf Normalization, typename String>
     basic_text<Normalization, String>
     operator+(char const * c_str, basic_text<Normalization, String> const & t)

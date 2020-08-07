@@ -35,7 +35,7 @@ namespace boost { namespace text {
     struct basic_text_view
     // clang-format on
     {
-        /** The normalization form used in this basic_text_view. */
+        /** The normalization form used in this `basic_text_view`. */
         static constexpr nf normalization = Normalization;
 
         /** The type of code unit used in the underlying storage. */
@@ -65,7 +65,7 @@ namespace boost { namespace text {
         /** Default ctor. */
         basic_text_view() noexcept : first_(), last_() {}
 
-        /** Constructs a basic_text_view from a text. */
+        /** Constructs a `basic_text_view` from a `text`. */
 #if defined(__cpp_lib_concepts)
         template<typename String>
         // clang-format off
@@ -79,12 +79,12 @@ namespace boost { namespace text {
         basic_text_view(basic_text<Normalization, String> const & t) noexcept;
         // clang-format on
 
-        /** Disallow construction from a temporary text. */
+        /** Disallow construction from a temporary `text`. */
         template<nf Normalization2, typename String>
         basic_text_view(basic_text<Normalization2, String> && t) noexcept =
             delete;
 
-        /** Constructs a basic_text_view from a grapheme_view. */
+        /** Constructs a `basic_text_view` from a `grapheme_view`. */
 #if defined(__cpp_lib_concepts)
         template<code_point_iter CPIter>
 #else
@@ -92,7 +92,8 @@ namespace boost { namespace text {
 #endif
         basic_text_view(grapheme_view<CPIter> range) noexcept;
 
-        /** Constructs a basic_text_view from a pair of const_text_iterators. */
+        /** Constructs a `basic_text_view` from a pair of
+            `const_text_iterators`. */
         basic_text_view(
             const_text_iterator first, const_text_iterator last) noexcept :
             first_(first), last_(last)
@@ -118,22 +119,19 @@ namespace boost { namespace text {
 
         bool empty() const noexcept { return first_ == last_; }
 
-        /** Returns the number of bytes controlled by *this, not including the
-            null terminator. */
+        /** Returns the number of bytes referred to by `*this`, not including
+            the null terminator. */
         size_type storage_bytes() const noexcept
         {
             return last_.base().base() - first_.base().base();
         }
 
-        /** Returns the number of graphemes in *this.  This operation is
+        /** Returns the number of graphemes in `*this`.  This operation is
             O(n). */
         size_type distance() const noexcept
         {
             return std::distance(begin(), end());
         }
-
-        /** Returns the maximum size in bytes a basic_text_view can have. */
-        size_type max_bytes() const noexcept { return PTRDIFF_MAX; }
 
         /** Swaps *this with rhs. */
         void swap(basic_text_view & rhs) noexcept
