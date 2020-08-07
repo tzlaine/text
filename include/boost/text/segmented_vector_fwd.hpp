@@ -10,8 +10,14 @@
 
 
 namespace boost { namespace text {
+
     template<typename T, typename Segment = std::vector<T>>
+#if defined(__cpp_lib_concepts)
+    // clang-format off
+        requires std::is_same_v<T, std::ranges::range_value_t<Segment>>
+#endif
     struct segmented_vector;
+    // clang-format on
 
 }}
 

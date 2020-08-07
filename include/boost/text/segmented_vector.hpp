@@ -29,7 +29,12 @@ namespace boost { namespace text {
         immutable.  In order to "mutate" one, use the single-element overload
         of `replace()`. */
     template<typename T, typename Segment>
+#if defined(__cpp_lib_concepts)
+    // clang-format off
+        requires std::is_same_v<T, std::ranges::range_value_t<Segment>>
+#endif
     struct segmented_vector
+        // clang-format on
         : boost::stl_interfaces::sequence_container_interface<
               segmented_vector<T, Segment>,
               boost::stl_interfaces::element_layout::discontiguous>
