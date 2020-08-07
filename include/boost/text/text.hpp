@@ -304,7 +304,8 @@ namespace boost { namespace text {
         /** Erases the portion of `*this` delimited by `[first, last)`.
 
             \pre first <= last */
-        replace_result<iterator> erase(iterator first, iterator last) noexcept
+        replace_result<iterator>
+        erase(const_iterator first, const_iterator last) noexcept
         {
             auto const lo = first.base().base() - str_.data();
             auto const hi = last.base().base() - str_.data();
@@ -319,8 +320,8 @@ namespace boost { namespace text {
             \pre !std::less(first1.base().base(), begin().base().base()) &&
             !std::less(end().base().base(), last1.base().base()) */
         replace_result<iterator> replace(
-            iterator first1,
-            iterator last1,
+            const_iterator first1,
+            const_iterator last1,
             const_iterator first2,
             const_iterator last2)
         {
@@ -337,8 +338,10 @@ namespace boost { namespace text {
 
             \pre !std::less(first.base().base(), begin().base().base()) &&
             !std::less(end().base().base(), last.base().base()) */
-        replace_result<iterator>
-        replace(iterator first, iterator last, char_type const * new_substr)
+        replace_result<iterator> replace(
+            const_iterator first,
+            const_iterator last,
+            char_type const * new_substr)
         {
             auto const insertion = string_view(new_substr);
             return replace_impl(
@@ -354,8 +357,10 @@ namespace boost { namespace text {
 
             \pre !std::less(first.base().base(), begin().base().base()) &&
             !std::less(end().base().base(), last.base().base()) */
-        replace_result<iterator>
-        replace(iterator first, iterator last, basic_text const & new_substr)
+        replace_result<iterator> replace(
+            const_iterator first,
+            const_iterator last,
+            basic_text const & new_substr)
         {
             return replace_impl(
                 first,
@@ -370,16 +375,16 @@ namespace boost { namespace text {
 
             \pre !std::less(first.base().base(), begin().base().base()) &&
             !std::less(end().base().base(), last.base().base()) */
-        replace_result<iterator>
-        replace(iterator first, iterator last, text_view new_substr);
+        replace_result<iterator> replace(
+            const_iterator first, const_iterator last, text_view new_substr);
 
         /** Replaves the portion of `*this` delimited by `[first, last)` with
             `new_substr`.
 
             \pre !std::less(first.base().base(), begin().base().base()) &&
             !std::less(end().base().base(), last.base().base()) */
-        replace_result<iterator>
-        replace(iterator first, iterator last, string_view new_substr)
+        replace_result<iterator> replace(
+            const_iterator first, const_iterator last, string_view new_substr)
         {
             return replace_impl(
                 first,
@@ -394,8 +399,8 @@ namespace boost { namespace text {
 
             \pre !std::less(first.base().base(), begin().base().base()) &&
             !std::less(end().base().base(), last.base().base()) */
-        replace_result<iterator>
-        replace(iterator first, iterator last, rope_view new_substr);
+        replace_result<iterator> replace(
+            const_iterator first, const_iterator last, rope_view new_substr);
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -409,7 +414,7 @@ namespace boost { namespace text {
             !std::less(end().base().base(), last.base().base()) */
         template<typename CURange>
         replace_result<iterator>
-        replace(iterator first, iterator last, CURange const & r);
+        replace(const_iterator first, const_iterator last, CURange const & r);
 
         /** Replaces the portion of `*this` delimited by `[first1, last1)`
             with `[first2, last2)`.
@@ -420,8 +425,11 @@ namespace boost { namespace text {
             \pre !std::less(first.base().base(), begin().base().base()) &&
             !std::less(end().base().base(), last.base().base()) */
         template<typename CUIter>
-        replace_result<iterator>
-        replace(iterator first1, iterator last1, CUIter first2, CUIter last2);
+        replace_result<iterator> replace(
+            const_iterator first1,
+            const_iterator last1,
+            CUIter first2,
+            CUIter last2);
 
         /** Replaces the portion of `*this` delimited by `[first, last)` with
             `r`.
@@ -432,8 +440,10 @@ namespace boost { namespace text {
             \pre !std::less(first.base().base(), begin().base().base()) &&
             !std::less(end().base().base(), last.base().base()) */
         template<typename GraphemeCURange>
-        replace_result<iterator>
-        replace(iterator first, iterator last, GraphemeCURange const & r);
+        replace_result<iterator> replace(
+            const_iterator first,
+            const_iterator last,
+            GraphemeCURange const & r);
 
         /** Replaces the portion of `*this` delimited by `[first1, last1)`
             with `[first2, last2)`.
@@ -445,8 +455,8 @@ namespace boost { namespace text {
             !std::less(end().base().base(), last.base().base()) */
         template<typename GraphemeCUIter>
         replace_result<iterator> replace(
-            iterator first1,
-            iterator last1,
+            const_iterator first1,
+            const_iterator last1,
             GraphemeCUIter first2,
             GraphemeCUIter last2);
 
@@ -455,15 +465,16 @@ namespace boost { namespace text {
 #if defined(__cpp_lib_concepts)
         template<code_unit_range<utf_format> R>
         replace_result<iterator>
-        replace(iterator first, iterator last, R const & r)
+        replace(const_iterator first, const_iterator last, R const & r)
         {
             return replace(
                 first, last, std::ranges::begin(r), std::ranges::end(r));
         }
 #else
         template<typename R>
-        auto replace(iterator first, iterator last, R const & r) -> detail::
-            cu_rng_alg_ret_t<(int)utf_format, replace_result<iterator>, R>
+        auto replace(const_iterator first, const_iterator last, R const & r)
+            -> detail::
+                cu_rng_alg_ret_t<(int)utf_format, replace_result<iterator>, R>
         {
             return replace(first, last, std::begin(r), std::end(r));
         }
@@ -472,10 +483,11 @@ namespace boost { namespace text {
 #if defined(__cpp_lib_concepts)
         template<code_unit_iterator<utf_format> I>
         replace_result<iterator>
-        replace(iterator first1, iterator last1, I first2, I last2)
+        replace(const_iterator first1, const_iterator last1, I first2, I last2)
 #else
         template<typename I>
-        auto replace(iterator first1, iterator last1, I first2, I last2)
+        auto
+        replace(const_iterator first1, const_iterator last1, I first2, I last2)
             -> detail::
                 cu_iter_ret_t<(int)utf_format, replace_result<iterator>, I>
 #endif
@@ -487,7 +499,7 @@ namespace boost { namespace text {
 #if defined(__cpp_lib_concepts)
         template<grapheme_range_code_unit<utf_format> R>
         replace_result<iterator>
-        replace(iterator first, iterator last, R const & r)
+        replace(const_iterator first, const_iterator last, R const & r)
         {
             return replace(
                 first,
@@ -497,7 +509,7 @@ namespace boost { namespace text {
         }
 #else
         template<typename R>
-        auto replace(iterator first, iterator last, R const & r)
+        auto replace(const_iterator first, const_iterator last, R const & r)
             -> detail::graph_rng_alg_ret_t<replace_result<iterator>, R>
         {
             return replace(first, last, std::begin(r), std::end(r));
@@ -507,10 +519,11 @@ namespace boost { namespace text {
 #if defined(__cpp_lib_concepts)
         template<grapheme_iter_code_unit<utf_format> I>
         replace_result<iterator>
-        replace(iterator first1, iterator last1, I first2, I last2)
+        replace(const_iterator first1, const_iterator last1, I first2, I last2)
 #else
         template<typename I>
-        auto replace(iterator first1, iterator last1, I first2, I last2)
+        auto
+        replace(const_iterator first1, const_iterator last1, I first2, I last2)
             -> detail::graph_iter_alg_cu_ret_t<
                 (int)utf_format,
                 replace_result<iterator>,
@@ -530,25 +543,26 @@ namespace boost { namespace text {
         /** Replaces the portion of `*this` delimited by `[first, last)` with
             `g`. */
         replace_result<iterator>
-        replace(iterator first, iterator last, grapheme const & g);
+        replace(const_iterator first, const_iterator last, grapheme const & g);
 
         /** Replaces the portion of `*this` delimited by `[first, last)` with
             `g`. */
         template<typename CPIter>
-        replace_result<iterator>
-        replace(iterator first, iterator last, grapheme_ref<CPIter> g);
+        replace_result<iterator> replace(
+            const_iterator first, const_iterator last, grapheme_ref<CPIter> g);
 
         /** Inserts the sequence [first, last) into `*this` starting at position
             `at`. */
         replace_result<iterator>
-        insert(iterator at, const_iterator first, const_iterator last)
+        insert(const_iterator at, const_iterator first, const_iterator last)
         {
             return insert(at, text_view(first, last));
         }
 
         /** Inserts the sequence of char_type from `c_str` into `*this`
             starting at position `at`. */
-        replace_result<iterator> insert(iterator at, char_type const * c_str)
+        replace_result<iterator>
+        insert(const_iterator at, char_type const * c_str)
         {
             return insert(at, string_view(c_str));
         }
@@ -556,7 +570,8 @@ namespace boost { namespace text {
         /** Inserts the sequence of char_type from `x` into `*this` starting
             at position `at`. */
         template<typename T>
-        auto insert(iterator at, T const & x) -> decltype(replace(at, at, x))
+        auto insert(const_iterator at, T const & x)
+            -> decltype(replace(at, at, x))
         {
             return replace(at, at, x);
         }
@@ -564,7 +579,7 @@ namespace boost { namespace text {
         /** Inserts the sequence `[first, last)` into `*this` starting at
             position `at`. */
         template<typename I>
-        auto insert(iterator at, I first, I last)
+        auto insert(const_iterator at, I first, I last)
             -> decltype(replace(at, at, first, last))
         {
             return replace(at, at, first, last);
@@ -678,8 +693,9 @@ namespace boost { namespace text {
 
         using mutable_utf32_iter = detail::text_transcode_iterator_t<char_type>;
 
-        replace_result<iterator> mutation_result(
-            replace_result<typename string::iterator> str_replacement)
+        template<typename Iter>
+        replace_result<iterator>
+        mutation_result(replace_result<Iter> str_replacement)
         {
             auto const str_first = const_cast<char_type *>(str_.data());
             auto const str_lo =
@@ -719,8 +735,8 @@ namespace boost { namespace text {
 
         template<typename CUIter>
         replace_result<iterator> replace_impl(
-            iterator first,
-            iterator last,
+            const_iterator first,
+            const_iterator last,
             CUIter f,
             CUIter l,
             insertion_normalization insertion_norm)
@@ -792,7 +808,7 @@ namespace boost { namespace text {
     template<nf Normalization, typename String>
     replace_result<typename basic_text<Normalization, String>::iterator>
     basic_text<Normalization, String>::replace(
-        iterator first, iterator last, grapheme const & g)
+        const_iterator first, const_iterator last, grapheme const & g)
     {
         return replace(first, last, grapheme_ref<grapheme::const_iterator>(g));
     }
@@ -801,10 +817,16 @@ namespace boost { namespace text {
     template<typename CPIter>
     replace_result<typename basic_text<Normalization, String>::iterator>
     basic_text<Normalization, String>::replace(
-        iterator first, iterator last, grapheme_ref<CPIter> g)
+        const_iterator first, const_iterator last, grapheme_ref<CPIter> g)
     {
-        if (g.empty() && first == last)
-            return replace_result<iterator>{first, first};
+        if (g.empty() && first == last) {
+            auto const first_ptr = const_cast<char_type *>(str_.data());
+            auto const it = make_iter(
+                first_ptr,
+                const_cast<char_type *>(first.base().base()),
+                first_ptr + str_.size());
+            return replace_result<iterator>{it, it};
+        }
         std::array<char_type, 128> buf;
         auto out =
             boost::text::transcode_to_utf8(g.begin(), g.end(), buf.data());
@@ -815,7 +837,7 @@ namespace boost { namespace text {
     template<nf Normalization, typename String>
     replace_result<typename basic_text<Normalization, String>::iterator>
     basic_text<Normalization, String>::replace(
-        iterator first, iterator last, text_view new_substr)
+        const_iterator first, const_iterator last, text_view new_substr)
     {
         return replace_impl(
             first,

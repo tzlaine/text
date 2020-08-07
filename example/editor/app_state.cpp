@@ -478,9 +478,9 @@ namespace {
     {
         boost::text::text t;
         t.insert(t.end(), prev_grapheme);
-        auto it = t.insert(t.end(), next_grapheme);
+        auto const r = t.insert(t.end(), next_grapheme);
         auto const initial_distance = t.distance();
-        t.insert(it, insertion);
+        t.insert(r.begin(), insertion);
         auto const distance = t.distance();
         if (distance == initial_distance + 1) {
             return {{}, {boost::text::storage_bytes(insertion), 1}};
