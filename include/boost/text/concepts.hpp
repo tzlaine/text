@@ -29,47 +29,49 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     concept utf32_code_unit = code_unit<T, format::utf32>;
 
     template<typename T, format F>
-    concept iterator =
+    concept code_unit_iterator =
         std::bidirectional_iterator<T> && code_unit<std::iter_value_t<T>, F>;
 
     template<typename T, format F>
-    concept pointer =
+    concept code_unit_pointer =
         std::is_pointer_v<T> && code_unit<std::iter_value_t<T>, F>;
 
     template<typename T, format F>
-    concept range = std::ranges::bidirectional_range<T> &&
+    concept code_unit_range = std::ranges::bidirectional_range<T> &&
         code_unit<std::ranges::range_value_t<T>, F>;
 
     template<typename T, format F>
-    concept contiguous_range = std::ranges::contiguous_range<T> &&
+    concept contiguous_code_unit_range = std::ranges::contiguous_range<T> &&
         code_unit<std::ranges::range_value_t<T>, F>;
 
     template<typename T>
-    concept utf8_iter = iterator<T, format::utf8>;
+    concept utf8_iter = code_unit_iterator<T, format::utf8>;
     template<typename T>
-    concept utf8_pointer = pointer<T, format::utf8>;
+    concept utf8_pointer = code_unit_pointer<T, format::utf8>;
     template<typename T>
-    concept utf8_range = range<T, format::utf8>;
+    concept utf8_range = code_unit_range<T, format::utf8>;
     template<typename T>
-    concept contiguous_utf8_range = contiguous_range<T, format::utf8>;
+    concept contiguous_utf8_range = contiguous_code_unit_range<T, format::utf8>;
 
     template<typename T>
-    concept utf16_iter = iterator<T, format::utf16>;
+    concept utf16_iter = code_unit_iterator<T, format::utf16>;
     template<typename T>
-    concept utf16_pointer = pointer<T, format::utf16>;
+    concept utf16_pointer = code_unit_pointer<T, format::utf16>;
     template<typename T>
-    concept utf16_range = range<T, format::utf16>;
+    concept utf16_range = code_unit_range<T, format::utf16>;
     template<typename T>
-    concept contiguous_utf16_range = contiguous_range<T, format::utf16>;
+    concept contiguous_utf16_range =
+        contiguous_code_unit_range<T, format::utf16>;
 
     template<typename T>
-    concept utf32_iter = iterator<T, format::utf32>;
+    concept utf32_iter = code_unit_iterator<T, format::utf32>;
     template<typename T>
-    concept utf32_pointer = pointer<T, format::utf32>;
+    concept utf32_pointer = code_unit_pointer<T, format::utf32>;
     template<typename T>
-    concept utf32_range = range<T, format::utf32>;
+    concept utf32_range = code_unit_range<T, format::utf32>;
     template<typename T>
-    concept contiguous_utf32_range = contiguous_range<T, format::utf32>;
+    concept contiguous_utf32_range =
+        contiguous_code_unit_range<T, format::utf32>;
 
     template<typename T>
     concept code_point = utf32_code_unit<T>;
@@ -93,15 +95,18 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     concept grapheme_range = std::ranges::bidirectional_range<T> &&
         grapheme_iter<std::ranges::iterator_t<T>>;
 
-    namespace dtl {
-        template<typename T>
-        using grapheme_bottom_iter_t =
-            decltype(std::declval<T>().begin().base().base());
-    }
+    template<typename T, format F>
+    concept grapheme_iter_code_unit =
+        // clang-format off
+        grapheme_iter<T> &&
+        requires(T t) {
+        { t.base().base() } -> code_unit_iterator<F>;
+        // clang-format on
+    };
 
-    template<typename T>
-    concept contiguous_grapheme_char_range = grapheme_char_range<T> &&
-        std::contiguous_iterator<dtl::grapheme_bottom_iter_t<T>>;
+    template<typename T, format F>
+    concept grapheme_range_code_unit = grapheme_range<T> &&
+        grapheme_iter_code_unit<std::ranges::iterator_t<T>, F>;
 
 
     namespace dtl {

@@ -37,6 +37,8 @@ namespace boost { namespace text { namespace detail {
     template<typename T>
     using iter_value_t = std::iter_value_t<T>;
     template<typename T>
+    using iter_reference_t = std::iter_reference_t<T>;
+    template<typename T>
     using range_value_t = std::ranges::range_value_t<T>;
 
 #else
@@ -47,6 +49,8 @@ namespace boost { namespace text { namespace detail {
     using sentinel_t = decltype(std::end(std::declval<Range>()));
     template<typename T>
     using iter_value_t = typename std::iterator_traits<T>::value_type;
+    template<typename T>
+    using iter_reference_t = decltype(*std::declval<T &>());
     template<typename T>
     using range_value_t = iter_value_t<iterator_t<T>>;
 
@@ -467,12 +471,85 @@ namespace boost { namespace text { namespace detail {
     using cp_iter_sntl_ret_t =
         typename cp_iter_sntl_ret<T, CPIter, Sentinel>::type;
 
-
-
     template<typename T, typename R>
     using cp_rng_alg_ret_t =
         cp_iter_sntl_ret_t<T, iterator_t<R>, sentinel_t<R>>;
 
+
+    template<int Size, typename T>
+    using is_cu_iter =
+        std::conditional_t<Size == 1, is_char_iter<T>, is_16_iter<T>>;
+
+    template<
+        int Size,
+        typename T,
+        typename U,
+        bool UIsCUIter = is_cu_iter<Size, U>::value>
+    struct cu_iter_ret
+    {
+    };
+
+    template<int Size, typename T, typename U>
+    struct cu_iter_ret<Size, T, U, true>
+    {
+        using type = T;
+    };
+
+    template<int Size, typename T, typename U>
+    using cu_iter_ret_t = typename cu_iter_ret<Size, T, U>::type;
+
+    template<int Size, typename T>
+    using is_cu_range =
+        std::conditional_t<Size == 1, is_char_range<T>, is_char16_range<T>>;
+
+    template<
+        int Size,
+        typename T,
+        typename U,
+        typename Exclude,
+        bool UIsCURange =
+            is_cu_range<Size, U>::value && !std::is_same<U, Exclude>::value>
+    struct cu_rng_alg_ret
+    {
+    };
+
+    template<int Size, typename T, typename U, typename Exclude>
+    struct cu_rng_alg_ret<Size, T, U, Exclude, true>
+    {
+        using type = T;
+    };
+
+    template<int Size, typename T, typename U, typename Exclude = void>
+    using cu_rng_alg_ret_t = typename cu_rng_alg_ret<Size, T, U, Exclude>::type;
+
+
+    template<int Size, typename T>
+    using is_grapheme_cu_iter = std::integral_constant<
+        bool,
+        is_cp_iter<
+            remove_cv_ref_t<decltype(std::declval<const T>().base())>>::value &&
+            is_cu_iter<
+                Size,
+                remove_cv_ref_t<decltype(
+                    std::declval<const T>().base().base())>>::value>;
+
+    template<
+        int Size,
+        typename T,
+        typename R1,
+        bool R1IsGraphemeIter = is_grapheme_cu_iter<Size, R1>::value>
+    struct graph_iter_cu_alg_ret
+    {};
+
+    template<int Size, typename T, typename R1>
+    struct graph_iter_cu_alg_ret<Size, T, R1, true>
+    {
+        using type = T;
+    };
+
+    template<int Size, typename T, typename R1>
+    using graph_iter_alg_cu_ret_t =
+        typename graph_iter_cu_alg_ret<Size, T, R1>::type;
 
 
     template<typename T>
@@ -537,54 +614,6 @@ namespace boost { namespace text { namespace detail {
     template<typename T, typename R1>
     using contig_graph_rng_alg_ret_t =
         typename contig_graph_rng_alg_ret<T, R1>::type;
-
-
-
-    template<int Size, typename T>
-    using is_cu_iter =
-        std::conditional_t<Size == 1, is_char_iter<T>, is_16_iter<T>>;
-
-    template<
-        int Size,
-        typename T,
-        typename U,
-        bool UIsCUIter = is_cu_iter<Size, U>::value>
-    struct cu_iter_ret
-    {
-    };
-
-    template<int Size, typename T, typename U>
-    struct cu_iter_ret<Size, T, U, true>
-    {
-        using type = T;
-    };
-
-    template<int Size, typename T, typename U>
-    using cu_iter_ret_t = typename cu_iter_ret<Size, T, U>::type;
-
-    template<int Size, typename T>
-    using is_cu_range =
-        std::conditional_t<Size == 1, is_char_range<T>, is_char16_range<T>>;
-
-    template<
-        int Size,
-        typename T,
-        typename U,
-        typename Exclude,
-        bool UIsCURange =
-            is_cu_range<Size, U>::value && !std::is_same<U, Exclude>::value>
-    struct cu_rng_alg_ret
-    {
-    };
-
-    template<int Size, typename T, typename U, typename Exclude>
-    struct cu_rng_alg_ret<Size, T, U, Exclude, true>
-    {
-        using type = T;
-    };
-
-    template<int Size, typename T, typename U, typename Exclude = void>
-    using cu_rng_alg_ret_t = typename cu_rng_alg_ret<Size, T, U, Exclude>::type;
 
 
 

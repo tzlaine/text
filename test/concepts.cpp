@@ -164,21 +164,55 @@ static_assert(grapheme_range<decltype(graphemes_1)>);
 static_assert(grapheme_range<decltype(graphemes_2)>);
 
 
-// grapheme_char_iter
+// grapheme_iter
 
-static_assert(!grapheme_char_iter<decltype(graphemes_0.begin())>);
-static_assert(!grapheme_char_iter<decltype(graphemes_0.end())>);
-static_assert(!grapheme_char_iter<decltype(graphemes_1.begin())>);
-static_assert(!grapheme_char_iter<decltype(graphemes_1.end())>);
-static_assert(grapheme_char_iter<decltype(graphemes_2.begin())>);
-static_assert(grapheme_char_iter<decltype(graphemes_2.end())>);
+static_assert(grapheme_iter<decltype(graphemes_0.begin())>);
+static_assert(grapheme_iter<decltype(graphemes_0.end())>);
+static_assert(grapheme_iter<decltype(graphemes_1.begin())>);
+static_assert(!grapheme_iter<decltype(graphemes_1.end())>);
+static_assert(grapheme_iter<decltype(graphemes_2.begin())>);
+static_assert(grapheme_iter<decltype(graphemes_2.end())>);
 
 
-// grapheme_char_range
+// grapheme_range
 
-static_assert(!grapheme_char_range<decltype(graphemes_0)>);
-static_assert(!grapheme_char_range<decltype(graphemes_1)>);
-static_assert(grapheme_char_range<decltype(graphemes_2)>);
+static_assert(grapheme_range<decltype(graphemes_0)>);
+static_assert(grapheme_range<decltype(graphemes_1)>);
+static_assert(grapheme_range<decltype(graphemes_2)>);
+
+
+// grapheme_iter_code_unit
+
+static_assert(!grapheme_iter_code_unit<
+              decltype(graphemes_0.begin()),
+              boost::text::format::utf8>);
+static_assert(!grapheme_iter_code_unit<
+              decltype(graphemes_0.end()),
+              boost::text::format::utf8>);
+static_assert(!grapheme_iter_code_unit<
+              decltype(graphemes_1.begin()),
+              boost::text::format::utf8>);
+static_assert(!grapheme_iter_code_unit<
+              decltype(graphemes_1.end()),
+              boost::text::format::utf8>);
+static_assert(grapheme_iter_code_unit<
+              decltype(graphemes_2.begin()),
+              boost::text::format::utf8>);
+static_assert(grapheme_iter_code_unit<
+              decltype(graphemes_2.end()),
+              boost::text::format::utf8>);
+
+
+// grapheme_range_code_unit
+
+static_assert(!grapheme_range_code_unit<
+              decltype(graphemes_0),
+              boost::text::format::utf8>);
+static_assert(!grapheme_range_code_unit<
+              decltype(graphemes_1),
+              boost::text::format::utf8>);
+static_assert(
+    grapheme_range_code_unit<decltype(graphemes_2), boost::text::format::utf8>);
 
 
 // utf8_string

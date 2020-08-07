@@ -434,6 +434,64 @@ TEST(text_tests, test_replace)
     }
 }
 
+TEST(text_tests, test_replace_grapheme_range)
+{
+    using namespace text::literals;
+
+    text::text const ct0("REP");
+    auto const replacement =
+        text::as_graphemes(ct0.begin().base(), ct0.end().base());
+
+    {
+        text::text t("string");
+        t.replace(t.begin(), t.end(), replacement);
+        EXPECT_EQ(t, "REP"_t);
+    }
+
+    {
+        text::text t("string");
+        t.replace(t.begin(), t.end(), replacement);
+        EXPECT_EQ(t, "REP"_t);
+    }
+
+    {
+        text::text t("string");
+        auto const new_substr = text::as_graphemes(
+            std::next(t.begin(), 2).base(), std::next(t.begin(), 6).base());
+        t.replace(std::next(t.begin(), 0), std::next(t.begin(), 3), new_substr);
+        EXPECT_EQ(t, "ringing"_t);
+    }
+
+    {
+        text::text t("string");
+        auto const new_substr = text::as_graphemes(
+            std::next(t.begin(), 0).base(), std::next(t.begin(), 3).base());
+        t.replace(std::next(t.begin(), 3), std::next(t.begin(), 6), new_substr);
+        EXPECT_EQ(t, "strstr"_t);
+    }
+
+    text::text const ct("string");
+
+    for (std::size_t j = 0, end = ct.distance(); j <= end; ++j) {
+        for (std::size_t i = 0; i <= j; ++i) {
+            text::text t = ct;
+            text::text_view const before(t.begin(), std::next(t.begin(), i));
+            auto const substr_first = std::next(t.begin(), i);
+            auto const substr_last = std::next(t.begin(), j);
+            text::text const substr_copy(substr_first, substr_last);
+            text::text_view const after(std::next(ct.begin(), j), ct.end());
+
+            text::text expected(before);
+            expected += replacement;
+            expected += after;
+
+            t.replace(substr_first, substr_last, replacement);
+            EXPECT_EQ(t, expected) << "i=" << i << " j=" << j << " erasing '"
+                                   << substr_copy << "'";
+        }
+    }
+}
+
 TEST(text_tests, test_replace_iter)
 {
     using namespace text::literals;
@@ -446,6 +504,90 @@ TEST(text_tests, test_replace_iter)
         utf32, utf32 + 3, utf32 + 4);
     auto const last = text::utf_32_to_8_iterator<uint32_t const *>(
         utf32, utf32 + 4, utf32 + 4);
+
+    text::text const ct_string("string");
+    text::text const ct_text("text");
+
+    {
+        text::text t = ct_string;
+        t.replace(t.begin(), t.end(), final_cp, last);
+        EXPECT_EQ(t, "\xf0\x90\x8c\x82"_t);
+    }
+
+    {
+        text::text t = ct_text;
+        t.replace(t.begin(), t.end(), final_cp, last);
+        EXPECT_EQ(t, "\xf0\x90\x8c\x82"_t);
+    }
+
+    {
+        text::text t = ct_string;
+        t.replace(t.begin(), t.end(), first, last);
+        EXPECT_EQ(t, "\x4d\xd0\xb0\xe4\xba\x8c\xf0\x90\x8c\x82"_t);
+    }
+
+    for (std::size_t j = 0, end = ct_string.distance(); j <= end; ++j) {
+        for (std::size_t i = 0; i <= j; ++i) {
+            {
+                text::text t = ct_string;
+                text::text_view const before(
+                    t.begin(), std::next(t.begin(), i));
+                auto const substr_first = std::next(t.begin(), i);
+                auto const substr_last = std::next(t.begin(), j);
+                text::text const substr_copy(substr_first, substr_last);
+                text::text_view const after(std::next(t.begin(), j), t.end());
+
+                text::text expected(before);
+                expected.insert(expected.end(), final_cp, last);
+                expected +=
+                    text::as_utf8(after.begin().base(), after.end().base());
+
+                t.replace(substr_first, substr_last, final_cp, last);
+                EXPECT_EQ(t, expected) << "i=" << i << " j=" << j
+                                       << " erasing '" << substr_copy << "'";
+            }
+
+            {
+                text::text t = ct_string;
+                text::text_view const before(
+                    t.begin(), std::next(t.begin(), i));
+                auto const substr_first = std::next(t.begin(), i);
+                auto const substr_last = std::next(t.begin(), j);
+                text::text const substr_copy(substr_first, substr_last);
+                text::text_view const after(std::next(t.begin(), j), t.end());
+
+                text::text expected(before);
+                expected.insert(expected.end(), first, last);
+                expected += after;
+
+                t.replace(substr_first, substr_last, first, last);
+                EXPECT_EQ(t, expected) << "i=" << i << " j=" << j
+                                       << " erasing '" << substr_copy << "'";
+            }
+        }
+    }
+}
+
+TEST(text_tests, test_replace_grapheme_iter)
+{
+    using namespace text::literals;
+
+    // Unicode 9, 3.9/D90
+    char const utf8[] = {
+        0x4d,
+        char(0xd0),
+        char(0xb0),
+        char(0xe4),
+        char(0xba),
+        char(0x8c),
+        char(0xf0),
+        char(0x90),
+        char(0x8c),
+        char(0x82)};
+    auto const graphemes = text::as_graphemes(utf8);
+    auto const first = graphemes.begin();
+    auto const final_cp = std::prev(graphemes.end());
+    auto const last = graphemes.end();
 
     text::text const ct_string("string");
     text::text const ct_text("text");

@@ -132,16 +132,21 @@ namespace boost { namespace text {
         /** Constructs a `basic_text` from a range of graphemes.
 
             This function only participates in overload resolution if
-            `GraphemeRange` models the GraphemeRange concept. */
-        template<typename GraphemeRange>
-        explicit basic_text(GraphemeRange const & r);
+            `GraphemeCURange` models the GraphemeCURange concept. */
+        template<typename GraphemeCURange>
+        explicit basic_text(GraphemeCURange const & r);
 
-        // TODO: grapheme iterators.
+        /** Constructs a `basic_text` from a sequence of graphemes.
+
+            This function only participates in overload resolution if
+            `GraphemeCUIter` models the GraphemeCUIter concept. */
+        template<typename GraphemeCUIter>
+        explicit basic_text(GraphemeCUIter first, GraphemeCUIter last);
 
 #else
 
 #if defined(__cpp_lib_concepts)
-        template<range<basic_text<Normalization, String>::utf_format> R>
+        template<code_unit_range<utf_format> R>
         explicit basic_text(R const & r) :
 #else
         template<typename R>
@@ -155,7 +160,7 @@ namespace boost { namespace text {
         }
 
 #if defined(__cpp_lib_concepts)
-        template<boost::text::iterator<utf_format> I, std::sentinel_for<I> S>
+        template<code_unit_iterator<utf_format> I, std::sentinel_for<I> S>
         basic_text(I first, S last) :
 #else
         template<typename I, typename S>
@@ -170,7 +175,7 @@ namespace boost { namespace text {
         }
 
 #if defined(__cpp_lib_concepts)
-        template<grapheme_range R>
+        template<grapheme_range_code_unit<utf_format> R>
         explicit basic_text(R const & r) :
 #else
         template<typename R>
@@ -179,6 +184,22 @@ namespace boost { namespace text {
 #endif
             str_(detail::make_string<string>(
                 r.begin().base().base(), r.end().base().base()))
+        {
+            boost::text::normalize<normalization>(str_);
+        }
+
+#if defined(__cpp_lib_concepts)
+        template<grapheme_iter_code_unit<utf_format> I>
+        explicit basic_text(I first, I last) :
+#else
+        template<typename I>
+        explicit basic_text(
+            I first,
+            I last,
+            detail::graph_iter_alg_cu_ret_t<(int)utf_format, int *, I> = 0) :
+#endif
+            str_(detail::make_string<string>(
+                first.base().base(), last.base().base()))
         {
             boost::text::normalize<normalization>(str_);
         }
@@ -304,7 +325,11 @@ namespace boost { namespace text {
             const_iterator last2)
         {
             return replace_impl(
-                first1, last1, first2.base().base(), last2.base().base());
+                first1,
+                last1,
+                first2.base().base(),
+                last2.base().base(),
+                insertion_normalized);
         }
 
         /** Replaces the portion of `*this` delimited by `[first, last)` with
@@ -398,26 +423,54 @@ namespace boost { namespace text {
         replace_result<iterator>
         replace(iterator first1, iterator last1, CUIter first2, CUIter last2);
 
-        // TODO: GraphemeRange
-        // TODO: grapheme iterators.
+        /** Replaces the portion of `*this` delimited by `[first, last)` with
+            `r`.
+
+            This function only participates in overload resolution if
+            `GraphemeCURange` models the GraphemeCURange concept.
+
+            \pre !std::less(first.base().base(), begin().base().base()) &&
+            !std::less(end().base().base(), last.base().base()) */
+        template<typename GraphemeCURange>
+        replace_result<iterator>
+        replace(iterator first, iterator last, GraphemeCURange const & r);
+
+        /** Replaces the portion of `*this` delimited by `[first1, last1)`
+            with `[first2, last2)`.
+
+            This function only participates in overload resolution if
+            `GraphemeCUIter` models the GraphemeCUIter concept.
+
+            \pre !std::less(first.base().base(), begin().base().base()) &&
+            !std::less(end().base().base(), last.base().base()) */
+        template<typename GraphemeCUIter>
+        replace_result<iterator> replace(
+            iterator first1,
+            iterator last1,
+            GraphemeCUIter first2,
+            GraphemeCUIter last2);
 
 #else
 
 #if defined(__cpp_lib_concepts)
-        template<range<utf_format> R>
+        template<code_unit_range<utf_format> R>
         replace_result<iterator>
         replace(iterator first, iterator last, R const & r)
+        {
+            return replace(
+                first, last, std::ranges::begin(r), std::ranges::end(r));
+        }
 #else
         template<typename R>
         auto replace(iterator first, iterator last, R const & r) -> detail::
             cu_rng_alg_ret_t<(int)utf_format, replace_result<iterator>, R>
-#endif
         {
             return replace(first, last, std::begin(r), std::end(r));
         }
+#endif
 
 #if defined(__cpp_lib_concepts)
-        template<boost::text::iterator<utf_format> I>
+        template<code_unit_iterator<utf_format> I>
         replace_result<iterator>
         replace(iterator first1, iterator last1, I first2, I last2)
 #else
@@ -429,6 +482,47 @@ namespace boost { namespace text {
         {
             return replace_impl(
                 first1, last1, first2, last2, insertion_not_normalized);
+        }
+
+#if defined(__cpp_lib_concepts)
+        template<grapheme_range_code_unit<utf_format> R>
+        replace_result<iterator>
+        replace(iterator first, iterator last, R const & r)
+        {
+            return replace(
+                first,
+                last,
+                std::ranges::begin(r).base().base(),
+                std::ranges::end(r).base().base());
+        }
+#else
+        template<typename R>
+        auto replace(iterator first, iterator last, R const & r)
+            -> detail::graph_rng_alg_ret_t<replace_result<iterator>, R>
+        {
+            return replace(first, last, std::begin(r), std::end(r));
+        }
+#endif
+
+#if defined(__cpp_lib_concepts)
+        template<grapheme_iter_code_unit<utf_format> I>
+        replace_result<iterator>
+        replace(iterator first1, iterator last1, I first2, I last2)
+#else
+        template<typename I>
+        auto replace(iterator first1, iterator last1, I first2, I last2)
+            -> detail::graph_iter_alg_cu_ret_t<
+                (int)utf_format,
+                replace_result<iterator>,
+                I>
+#endif
+        {
+            return replace_impl(
+                first1,
+                last1,
+                first2.base().base(),
+                last2.base().base(),
+                insertion_not_normalized);
         }
 
 #endif
