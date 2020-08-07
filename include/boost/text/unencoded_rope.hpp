@@ -12,6 +12,7 @@
 #include <boost/text/transcode_view.hpp>
 #include <boost/text/detail/iterator.hpp>
 #include <boost/text/detail/rope.hpp>
+#include <boost/text/detail/rope_iterator.hpp>
 
 #include <boost/algorithm/cxx14/equal.hpp>
 
@@ -181,13 +182,6 @@ namespace boost { namespace text {
             \pre lo <= hi */
         unencoded_rope_view operator()(std::ptrdiff_t lo, std::ptrdiff_t hi) const;
 
-        /** Returns a substring of *this as an unencoded_rope_view, taken from
-            the first cut chars when cut => 0, or the last -cut chars when cut <
-            0.
-
-            \pre 0 <= cut && cut <= size() || 0 <= -cut && -cut <= size() */
-        unencoded_rope_view operator()(std::ptrdiff_t cut) const;
-
         /** Inserts the null-terminated string into *this starting at offset
             at. */
         unencoded_rope & insert(size_type at, char const * c_str)
@@ -272,20 +266,29 @@ namespace boost { namespace text {
 
             \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
         unencoded_rope &
-        replace(unencoded_rope_view old_substr, char const * c_str);
+        replace(const_iterator first, const_iterator last, char const * c_str)
+        {
+            segmented_vector::replace(first, last, std::string(c_str));
+            return *this;
+        }
 
         /** Replaces the portion of *this delimited by old_substr with the
             sequence of char from rv.
 
             \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
-        unencoded_rope &
-        replace(unencoded_rope_view old_substr, unencoded_rope_view rv);
+        unencoded_rope & replace(
+            const_iterator first, const_iterator last, unencoded_rope_view rv);
 
         /** Replaces the portion of *this delimited by old_substr with the
             sequence of char from t by moving the contents of t.
 
             \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
-        unencoded_rope & replace(unencoded_rope_view old_substr, std::string && s);
+        unencoded_rope &
+        replace(const_iterator first, const_iterator last, std::string && s)
+        {
+            segmented_vector::replace(first, last, std::move(s));
+            return *this;
+        }
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -297,7 +300,7 @@ namespace boost { namespace text {
 
             \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
         template<typename CharRange>
-        auto replace(unencoded_rope_view old_substr, CharRange const & r);
+        auto replace(const_iterator first, const_iterator last, CharRange const & r);
 
         /** Replaces the portion of *this delimited by old_substr with the
             char sequence [first, last).
@@ -308,18 +311,79 @@ namespace boost { namespace text {
             \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
         template<typename CharIter, typename Sentinel>
         unencoded_rope &
-        replace(unencoded_rope_view old_substr, CharIter first, Sentinel last);
+        replace(const_iterator first, const_iterator last, CharIter first, Sentinel last);
+
+        /** Replaces the portion of `*this` delimited by `old_substr` with
+            `c_str`.
+
+            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
+        unencoded_rope &
+        replace(unencoded_rope_view old_substr, char const * c_str);
+
+        /** Replaces the portion of `*this` delimited by `old_substr` with
+            `r`.
+
+            This function only participates in overload resolution if
+            `replace(old_substr.begin().as_rope_iter(),
+            old_substr.end().as_rope_iter(), std::forward<Range>(r))` is
+            well-formed.
+
+            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
+        template<typename Range>
+        unencoded_rope &
+        replace(unencoded_rope_view old_substr, Range && r);
+
+        /** Replaces the portion of `*this` delimited by `old_substr` with
+            `[first, last)`.
+
+            This function only participates in overload resolution if
+            `replace(old_substr.begin().as_rope_iter(),
+            old_substr.end().as_rope_iter(), first, last)` is well-formed.
+
+            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
+        template<typename Iter, typename Sentinel>
+        unencoded_rope &
+        replace(unencoded_rope_view old_substr, Iter first, Sentinel last);
 
 #else
 
         template<typename CharRange>
-        auto replace(unencoded_rope_view old_substr, CharRange const & r)
-            -> detail::rng_alg_ret_t<unencoded_rope &, CharRange, string_view>;
+        auto replace(const_iterator first, const_iterator last, CharRange const & r)
+            -> detail::rng_alg_ret_t<unencoded_rope &, CharRange, string_view>
+        {
+            segmented_vector::replace(first, last, r.begin(), r.end());
+            return *this;
+        }
 
         template<typename CharIter, typename Sentinel>
-        auto
-        replace(unencoded_rope_view old_substr, CharIter first, Sentinel last)
-            -> detail::char_iter_ret_t<unencoded_rope &, CharIter>;
+        auto replace(
+            const_iterator first1,
+            const_iterator last1,
+            CharIter first2,
+            Sentinel last2)
+            -> detail::char_iter_ret_t<unencoded_rope &, CharIter>
+        {
+            segmented_vector::replace(first1, last1, first2, last2);
+            return *this;
+        }
+
+        unencoded_rope &
+        replace(unencoded_rope_view const & old_substr, char const * c_str);
+
+        template<typename R>
+        auto replace(unencoded_rope_view const & old_substr, R && r)
+            -> decltype(replace(const_iterator{}, const_iterator{}, r))
+        {
+            return replace_shim<R>(old_substr, (R &&) r);
+        }
+
+        template<typename I, typename S>
+        auto replace(unencoded_rope_view const & old_substr, I first, S last)
+            -> decltype(
+                replace(const_iterator{}, const_iterator{}, first, last))
+        {
+            return replace_shim<I, S>(old_substr, first, last);
+        }
 
 #endif
 
@@ -383,6 +447,14 @@ namespace boost { namespace text {
     private:
         enum allocation_note_t { would_allocate, would_not_allocate };
 
+        template<typename R>
+        unencoded_rope &
+        replace_shim(unencoded_rope_view const & old_substr, R && r);
+
+        template<typename I, typename S>
+        unencoded_rope &
+        replace_shim(unencoded_rope_view const & old_substr, I first, S last);
+
         bool self_reference(unencoded_rope_view rv) const;
 
         friend struct unencoded_rope_view;
@@ -392,7 +464,6 @@ namespace boost { namespace text {
 
 }}
 
-#include <boost/text/detail/rope_iterator.hpp>
 #include <boost/text/unencoded_rope_view.hpp>
 
 #ifndef BOOST_TEXT_DOXYGEN
@@ -437,64 +508,46 @@ namespace boost { namespace text {
         return *this;
     }
 
-    inline unencoded_rope &
-    unencoded_rope::replace(unencoded_rope_view old_substr, char const * c_str)
+    inline unencoded_rope & unencoded_rope::replace(
+        const_iterator first, const_iterator last, unencoded_rope_view rv)
     {
-        BOOST_ASSERT(self_reference(old_substr));
-        replace(
-            old_substr.begin().as_rope_iter(),
-            old_substr.end().as_rope_iter(),
-            std::string(c_str));
+        segmented_vector::replace(
+            first, last, std::string(rv.begin(), rv.end()));
         return *this;
     }
 
     inline unencoded_rope & unencoded_rope::replace(
-        unencoded_rope_view old_substr, unencoded_rope_view rv)
+        unencoded_rope_view const & old_substr, char const * c_str)
+    {
+        BOOST_ASSERT(self_reference(old_substr));
+        return replace(
+            old_substr.begin().as_rope_iter(),
+            old_substr.end().as_rope_iter(),
+            c_str);
+    }
+
+    template<typename R>
+    unencoded_rope &
+    unencoded_rope::replace_shim(unencoded_rope_view const & old_substr, R && r)
     {
         BOOST_ASSERT(self_reference(old_substr));
         replace(
             old_substr.begin().as_rope_iter(),
             old_substr.end().as_rope_iter(),
-            std::string(rv.begin(), rv.end()));
+            (R &&) r);
         return *this;
     }
 
-    inline unencoded_rope &
-    unencoded_rope::replace(unencoded_rope_view old_substr, std::string && s)
+    template<typename I, typename S>
+    unencoded_rope & unencoded_rope::replace_shim(
+        unencoded_rope_view const & old_substr, I first, S last)
     {
         BOOST_ASSERT(self_reference(old_substr));
-        replace(
-            old_substr.begin().as_rope_iter(),
-            old_substr.end().as_rope_iter(),
-            std::move(s));
-        return *this;
-    }
-
-    template<typename CharRange>
-    auto
-    unencoded_rope::replace(unencoded_rope_view old_substr, CharRange const & r)
-        -> detail::rng_alg_ret_t<unencoded_rope &, CharRange, string_view>
-    {
-        replace(
-            old_substr.begin().as_rope_iter(),
-            old_substr.end().as_rope_iter(),
-            r.begin(),
-            r.end());
-        return *this;
-    }
-
-    template<typename CharIter, typename Sentinel>
-    auto unencoded_rope::replace(
-        unencoded_rope_view old_substr, CharIter first, Sentinel last)
-        -> detail::char_iter_ret_t<unencoded_rope &, CharIter>
-    {
-        BOOST_ASSERT(self_reference(old_substr));
-        replace(
+        return replace(
             old_substr.begin().as_rope_iter(),
             old_substr.end().as_rope_iter(),
             first,
             last);
-        return *this;
     }
 
     inline unencoded_rope & unencoded_rope::operator+=(char const * c_str)
@@ -522,20 +575,6 @@ namespace boost { namespace text {
         BOOST_ASSERT(0 <= lo && lo <= (std::ptrdiff_t)size());
         BOOST_ASSERT(0 <= hi && hi <= (std::ptrdiff_t)size());
         BOOST_ASSERT(lo <= hi);
-        return unencoded_rope_view(*this, lo, hi);
-    }
-
-    inline unencoded_rope_view
-    unencoded_rope::operator()(std::ptrdiff_t cut) const
-    {
-        size_type lo = 0;
-        size_type hi = cut;
-        if (cut < 0) {
-            lo = cut + size();
-            hi = size();
-        }
-        BOOST_ASSERT(0 <= lo && lo <= size());
-        BOOST_ASSERT(0 <= hi && hi <= size());
         return unencoded_rope_view(*this, lo, hi);
     }
 

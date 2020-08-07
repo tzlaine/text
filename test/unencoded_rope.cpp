@@ -62,8 +62,7 @@ TEST(unencoded_rope, test_non_empty_const_interface)
     EXPECT_EQ(tv_a, t_a);
 
     EXPECT_EQ(t_a, t_a(0, 1));
-    EXPECT_EQ(t_a, t_a(1));
-    EXPECT_EQ(t_a, t_a(-1));
+    EXPECT_EQ(t_a, t_a(-1, t_a.size()));
 
     EXPECT_EQ("", t_a(1, 1));
     EXPECT_EQ("", t_a(-1, -1));
@@ -75,8 +74,7 @@ TEST(unencoded_rope, test_non_empty_const_interface)
     EXPECT_EQ(tv_ab, t_ab);
 
     EXPECT_EQ(t_ab, t_ab(0, 2));
-    EXPECT_EQ(t_ab, t_ab(2));
-    EXPECT_EQ(t_ab, t_ab(-2));
+    EXPECT_EQ(t_ab, t_ab(-2, t_ab.size()));
 
     EXPECT_EQ(t_ab[1], 'b');
 
@@ -90,19 +88,19 @@ TEST(unencoded_rope, test_non_empty_const_interface)
     EXPECT_FALSE(t_a > t_ab);
     EXPECT_FALSE(t_a >= t_ab);
 
-    EXPECT_FALSE(t_a == t_ab(2));
-    EXPECT_TRUE(t_a != t_ab(2));
-    EXPECT_TRUE(t_a < t_ab(2));
-    EXPECT_TRUE(t_a <= t_ab(2));
-    EXPECT_FALSE(t_a > t_ab(2));
-    EXPECT_FALSE(t_a >= t_ab(2));
+    EXPECT_FALSE(t_a == t_ab(0, 2));
+    EXPECT_TRUE(t_a != t_ab(0, 2));
+    EXPECT_TRUE(t_a < t_ab(0, 2));
+    EXPECT_TRUE(t_a <= t_ab(0, 2));
+    EXPECT_FALSE(t_a > t_ab(0, 2));
+    EXPECT_FALSE(t_a >= t_ab(0, 2));
 
-    EXPECT_FALSE(t_a(1) == t_ab);
-    EXPECT_TRUE(t_a(1) != t_ab);
-    EXPECT_TRUE(t_a(1) < t_ab);
-    EXPECT_TRUE(t_a(1) <= t_ab);
-    EXPECT_FALSE(t_a(1) > t_ab);
-    EXPECT_FALSE(t_a(1) >= t_ab);
+    EXPECT_FALSE(t_a(0, 1) == t_ab);
+    EXPECT_TRUE(t_a(0, 1) != t_ab);
+    EXPECT_TRUE(t_a(0, 1) < t_ab);
+    EXPECT_TRUE(t_a(0, 1) <= t_ab);
+    EXPECT_FALSE(t_a(0, 1) > t_ab);
+    EXPECT_FALSE(t_a(0, 1) >= t_ab);
 
     EXPECT_FALSE(t_a == "ab");
     EXPECT_TRUE(t_a != "ab");
@@ -397,13 +395,13 @@ TEST(unencoded_rope, test_substr)
 
     for (std::size_t i = 0; i < r.size(); ++i) {
         {
-            text::unencoded_rope const substr(r(i));
-            text::unencoded_rope_view const rv = r(i);
+            text::unencoded_rope const substr(r(0, i));
+            text::unencoded_rope_view const rv = r(0, i);
             EXPECT_EQ(substr, rv);
         }
         {
-            text::unencoded_rope const substr(r(-i - 1));
-            text::unencoded_rope_view const rv = r(-i - 1);
+            text::unencoded_rope const substr(r(-i - 1, r.size()));
+            text::unencoded_rope_view const rv = r(-i - 1, r.size());
             EXPECT_EQ(substr, rv);
         }
     }
