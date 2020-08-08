@@ -42,10 +42,6 @@ namespace boost { namespace text {
     struct replace_result;
     struct rope_view;
 
-    /** A mutable sequence of graphemes over an underlying container of
-        contiguous null-terminated code units.  The underlying storage is a
-        `String`, and is kept in normalization form `Normalization`.  The
-        `String` is responsible for maintaining null-termination. */
     template<nf Normalization, typename Char, typename String>
 #if defined(__cpp_lib_concepts)
         // clang-format off

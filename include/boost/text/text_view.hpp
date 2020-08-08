@@ -22,11 +22,6 @@
 
 namespace boost { namespace text {
 
-    /** A reference to a constant sequence of graphemes over an underlying
-        container of contiguous null-terminated code units.  The underlying
-        storage is a `String`, and is kept in normalization form
-        `Normalization`.  The `String` is responsible for maintaining
-        null-termination. */
     template<nf Normalization, typename Char>
 #if defined(__cpp_lib_concepts)
         // clang-format off
