@@ -105,20 +105,20 @@ TEST(unencoded_rope_view, test_substr)
     EXPECT_EQ(rtv_empty(0, 0), rtv_empty);
 
     EXPECT_EQ(rtv_a(0, 1), rtv_a);
-    EXPECT_EQ(rtv_a(0), "");
-    EXPECT_EQ(rtv_a(1), rtv_a);
-    EXPECT_EQ(rtv_a(-1), rtv_a);
+    EXPECT_EQ(rtv_a(0, 0), "");
+    EXPECT_EQ(rtv_a(0, 1), rtv_a);
+    EXPECT_EQ(rtv_a(-1, rtv_a.size()), rtv_a);
     EXPECT_EQ(rtv_a(0, -1), rtv_empty);
     EXPECT_EQ(rtv_a(-1, -1), rtv_empty);
 
     EXPECT_EQ(rtv_abc(0, 7), rtv_abc);
-    EXPECT_EQ(rtv_abc(0), "");
-    EXPECT_EQ(rtv_abc(1), "a");
-    EXPECT_EQ(rtv_abc(2), "ab");
-    EXPECT_EQ(rtv_abc(3), "abc");
-    EXPECT_EQ(rtv_abc(-1), "g");
-    EXPECT_EQ(rtv_abc(-2), "fg");
-    EXPECT_EQ(rtv_abc(-3), "efg");
+    EXPECT_EQ(rtv_abc(0, 0), "");
+    EXPECT_EQ(rtv_abc(0, 1), "a");
+    EXPECT_EQ(rtv_abc(0, 2), "ab");
+    EXPECT_EQ(rtv_abc(0, 3), "abc");
+    EXPECT_EQ(rtv_abc(-1, rtv_abc.size()), "g");
+    EXPECT_EQ(rtv_abc(-2, rtv_abc.size()), "fg");
+    EXPECT_EQ(rtv_abc(-3, rtv_abc.size()), "efg");
     EXPECT_EQ(rtv_abc(0, -1), "abcdef");
 
     EXPECT_EQ(rtv_a(0, 1), "a");

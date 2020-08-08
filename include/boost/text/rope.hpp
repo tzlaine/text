@@ -135,28 +135,6 @@ namespace boost { namespace text {
         /** Move-assignment from a text. */
         rope & operator=(text t);
 
-#ifdef BOOST_TEXT_DOXYGEN
-
-        /** Assignment from a range of char.
-
-            This function only participates in overload resolution if
-            `CharRange` models the CharRange concept. */
-        template<typename CharRange>
-        rope & operator=(CharRange const & r);
-
-#else
-
-        template<typename CharRange>
-        auto operator=(CharRange const & r)
-            -> detail::rng_alg_ret_t<rope &, CharRange>
-        {
-            rope temp(r);
-            swap(temp);
-            return *this;
-        }
-
-#endif
-
         const_iterator begin() const noexcept
         {
             return make_iter(rope_.begin(), rope_.begin(), rope_.end());
@@ -420,50 +398,13 @@ namespace boost { namespace text {
             \pre ur is normalized FCC. */
         void replace(unencoded_rope && ur) noexcept { rope_ = std::move(ur); }
 
-        /** Appends c_str to *this. */
-        rope & operator+=(char const * c_str)
+        /** TODO */
+        template<typename T>
+        auto operator+=(T && x) -> decltype(*this = std::forward<T>(x))
         {
-            return *this += string_view(c_str);
-        }
-
-#if defined(__cpp_char8_t)
-        /** Appends c_str to *this. */
-        rope & operator+=(char8_t const * c_str)
-        {
-            return *this += string_view((char const *)c_str);
-        }
-#endif
-
-        /** Appends rv to *this. */
-        rope & operator+=(rope_view rv);
-
-        /** Appends tv to *this. */
-        rope & operator+=(string_view sv)
-        {
-            insert(end(), sv);
+            insert(end(), std::forward<T>(x));
             return *this;
         }
-
-#ifdef BOOST_TEXT_DOXYGEN
-
-        /** Appends the char range r to *this.
-
-            This function only participates in overload resolution if
-            `CharRange` models the CharRange concept. */
-        template<typename CharRange>
-        rope & operator+=(CharRange const & r);
-
-#else
-
-        template<typename CharRange>
-        auto operator+=(CharRange const & r)
-            -> detail::rng_alg_ret_t<rope &, CharRange>
-        {
-            insert(end(), r);
-            return *this;
-        }
-
-#endif
 
         /** Stream inserter; performs formatted output, in UTF-8 encoding. */
         friend std::ostream & operator<<(std::ostream & os, rope const & r)
@@ -733,12 +674,6 @@ namespace boost { namespace text {
             insertion_normalized);
     }
 
-    inline rope & rope::operator+=(rope_view rv)
-    {
-        insert(end(), rv);
-        return *this;
-    }
-
     template<typename CUIter>
     replace_result<rope::const_iterator> rope::replace_impl(
         rope_view old_substr,
@@ -845,109 +780,57 @@ namespace boost { namespace text {
         return !(lhs == rhs);
     }
 
-    /** Creates a new rope object that is the concatenation of r and c_str. */
-    inline rope operator+(rope t, char const * c_str) { return t += c_str; }
+#if defined(__cpp_lib_concepts)
 
-    /** Creates a new rope object that is the concatenation of c_str and r. */
-    inline rope operator+(char const * c_str, rope const & r)
+    /** Creates a new `rope` object that is the concatenation of `t` and some
+        object `x` for which `r = x` is well-formed. */
+    template<typename T>
+    rope operator+(rope r, T const & x)
+        // clang-format off
+        requires requires { r = x; }
+    // clang-format on
     {
-        return rope(c_str) += r;
+        r.insert(r.end(), x);
+        return r;
     }
 
-#if defined(__cpp_char8_t)
-    /** Creates a new rope object that is the concatenation of r and c_str. */
-    inline rope operator+(rope t, char8_t const * c_str)
+    /** Creates a new `rope` object that is the concatenation
+        of `x` and `t`, where `x` is an object for which `r = x` is
+        well-formed. */
+    template<typename T>
+    rope operator+(T const & x, rope r)
+        // clang-format off
+        requires requires { r = x; } &&
+            (!std::is_same_v<T, rope>)
+    // clang-format on
     {
-        return t += (char const *)c_str;
+        r.insert(r.begin(), x);
+        return r;
     }
-
-    /** Creates a new rope object that is the concatenation of c_str and r. */
-    inline rope operator+(char8_t const * c_str, rope const & r)
-    {
-        return rope((char const *)c_str) += r;
-    }
-#endif
-
-    /** Creates a new rope object that is the concatenation of r and r2. */
-    inline rope operator+(rope r, rope const & r2) { return r += r2; }
-
-    /** Creates a new rope object that is the concatenation of r and rv. */
-    inline rope operator+(rope r, rope_view rv) { return r += rv; }
-
-    /** Creates a new rope object that is the concatenation of rv and r. */
-    inline rope operator+(rope_view rv, rope const & r)
-    {
-        return rope(rv) += r;
-    }
-
-#ifdef BOOST_TEXT_DOXYGEN
-
-    /** Creates a new rope object that is the concatenation of r and r2.
-
-        This function only participates in overload resolution if `CharRange`
-        models the CharRange concept. */
-    template<typename CharRange>
-    rope operator+(rope r, CharRange const & r2);
-
-    /** Creates a new rope object that is the concatenation of r and r2.
-
-        This function only participates in overload resolution if `CharRange`
-        models the CharRange concept. */
-    template<typename CharRange>
-    rope operator+(CharRange const & r, rope const & r2);
 
 #else
 
-    template<typename CharRange>
-    auto operator+(rope r, CharRange const & r2)
-        -> detail::rng_alg_ret_t<rope, CharRange>
+    /** Creates a new `rope` object that is the concatenation
+        of `t` and some object `x` for which `r = x` is well-formed. */
+    template<typename T>
+    auto operator+(rope r, T const & x) -> decltype(r = x, rope{})
     {
-        return r += r2;
+        r.insert(r.end(), x);
+        return r;
     }
 
-    template<typename CharRange>
-    auto operator+(CharRange const & r, rope const & r2)
-        -> detail::rng_alg_ret_t<rope, CharRange>
+    /** Creates a new `rope` object that is the concatenation
+        of `x` and `t`, where `x` is an object for which `r = x` is
+        well-formed. */
+    template<typename T>
+    auto operator+(T const & x, rope r) -> std::
+        enable_if_t<!std::is_same<T, rope>::value, decltype(r = x, rope{})>
     {
-        return rope(r) += r2;
+        r.insert(r.begin(), x);
+        return r;
     }
 
 #endif
-
-    /** Creates a new rope object that is the concatenation of t and rv. */
-    inline text & operator+=(text & t, rope_view rv)
-    {
-        t.insert(t.end(), rv.begin().base().base(), rv.end().base().base());
-        return t;
-    }
-
-    /** Creates a new rope object that is the concatenation of t and rv. */
-    inline rope operator+(text t, rope_view rv)
-    {
-        return rope(std::move(t)) += rv;
-    }
-
-    /** Creates a new rope object that is the concatenation of r and t. */
-    inline rope operator+(rope_view rv, text const & t)
-    {
-        return rope(rv) += t;
-    }
-
-    /** Creates a new rope object that is the concatenation of t and r. */
-    inline text & operator+=(text & t, rope const & r)
-    {
-        t.insert(t.end(), r.begin().base().base(), r.end().base().base());
-        return t;
-    }
-
-    /** Creates a new rope object that is the concatenation of t and r. */
-    inline rope operator+(text t, rope const & r)
-    {
-        return rope(std::move(t)) += r;
-    }
-
-    /** Creates a new rope object that is the concatenation of r and t. */
-    inline rope operator+(rope r, text const & t) { return r += t; }
 
 
     template<nf Normalization, typename String>

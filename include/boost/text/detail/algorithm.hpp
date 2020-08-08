@@ -6,6 +6,7 @@
 #ifndef BOOST_TEXT_DETAIL_ALGORITHM_HPP
 #define BOOST_TEXT_DETAIL_ALGORITHM_HPP
 
+#include <boost/text/unencoded_rope_fwd.hpp>
 #include <boost/text/detail/iterator.hpp>
 
 #include <boost/assert.hpp>
@@ -14,13 +15,6 @@
 #include <type_traits>
 #include <utility>
 
-
-namespace boost { namespace text {
-
-    struct unencoded_rope;
-    struct unencoded_rope_view;
-
-}}
 
 namespace boost { namespace text { namespace detail {
 

@@ -10,6 +10,7 @@
 #include <boost/text/estimated_width.hpp>
 #include <boost/text/segmented_vector.hpp>
 #include <boost/text/transcode_view.hpp>
+#include <boost/text/unencoded_rope_fwd.hpp>
 #include <boost/text/detail/iterator.hpp>
 #include <boost/text/detail/rope.hpp>
 #include <boost/text/detail/rope_iterator.hpp>
@@ -27,129 +28,100 @@
 
 namespace boost { namespace text {
 
-    struct unencoded_rope_view;
-
-    /** A mutable sequence of char with copy-on-write semantics.  An
-        unencoded_rope is non-contiguous and is not null-terminated. */
-    struct unencoded_rope
+    /** A mutable sequence of `Char` with copy-on-write semantics.  An
+        `basic_unencoded_rope` is non-contiguous and is not null-terminated. */
+    template<typename Char, typename String>
+#if defined(__cpp_lib_concepts)
+    // clang-format off
+        requires std::is_same_v<Char, std::ranges::range_value_t<String>>
+#endif
+    struct basic_unencoded_rope
+        // clang-format on
         : boost::stl_interfaces::sequence_container_interface<
-              unencoded_rope,
+              basic_unencoded_rope<Char, String>,
               boost::stl_interfaces::element_layout::discontiguous>
     {
-        using value_type = char;
-        using pointer = char *;
-        using const_pointer = char const *;
+        using value_type = Char;
+        using pointer = value_type *;
+        using const_pointer = value_type const *;
         using reference = value_type const &;
         using const_reference = reference;
         using size_type = std::size_t;
         using difference_type = std::ptrdiff_t;
-        using iterator = detail::const_vector_iterator<char, std::string>;
+        using iterator = detail::const_vector_iterator<value_type, String>;
         using const_iterator = iterator;
         using reverse_iterator = stl_interfaces::reverse_iterator<iterator>;
         using const_reverse_iterator = reverse_iterator;
 
+        using string = String;
+        using string_view = basic_string_view<Char>;
+
+        /** The specialization of `unencoded_rope_view` with the same
+            `value_type` and `string`. */
+        using unencoded_rope_view =
+            basic_unencoded_rope_view<value_type, string>;
+
         /** Default ctor.
 
             \post size() == 0 && begin() == end() */
-        unencoded_rope() noexcept {}
+        basic_unencoded_rope() noexcept {}
 
-        unencoded_rope(unencoded_rope const &) = default;
-        unencoded_rope(unencoded_rope &&) noexcept = default;
+        basic_unencoded_rope(basic_unencoded_rope const &) = default;
+        basic_unencoded_rope(basic_unencoded_rope &&) noexcept = default;
 
-        /** Constructs an unencoded_rope from a null-terminated string. */
-        unencoded_rope(char const * c_str)
+        /** Constructs an basic_unencoded_rope from a null-terminated string. */
+        basic_unencoded_rope(value_type const * c_str)
         {
-            seg_vec_.insert(begin(), std::string(c_str));
+            seg_vec_.insert(begin(), string(c_str));
         }
 
-        /** Constructs an unencoded_rope from an unencoded_rope_view. */
-        explicit unencoded_rope(unencoded_rope_view rv);
+        /** Constructs an basic_unencoded_rope from an
+         * basic_unencoded_rope_view. */
+        explicit basic_unencoded_rope(unencoded_rope_view rv);
 
-        /** Move-constructs an unencoded_rope from a string. */
-        explicit unencoded_rope(std::string && s)
+        /** Move-constructs an basic_unencoded_rope from a string. */
+        explicit basic_unencoded_rope(string && s)
         {
             seg_vec_.insert(begin(), std::move(s));
         }
 
-#ifdef BOOST_TEXT_DOXYGEN
-
-        /** Constructs a unencoded_rope from a range of char.
-
-            This function only participates in overload resolution if
-            `CharRange` models the CharRange concept. */
-        template<typename CharRange>
-        explicit unencoded_rope(CharRange const & r);
-
-        /** Constructs an unencoded_rope from a sequence of char.
-
-            This function only participates in overload resolution if
-            `CharIter` models the CharIter concept. */
-        template<typename CharIter, typename Sentinel>
-        unencoded_rope(CharIter first, Sentinel last);
-
-#else
-
-        template<typename CharRange>
-        explicit unencoded_rope(
-            CharRange const & r, detail::rng_alg_ret_t<int *, CharRange> = 0)
+        /** Constructs a basic_unencoded_rope from a range of value_type. */
+        template<typename Range>
+        explicit basic_unencoded_rope(Range const & r)
         {
             insert(begin(), r);
         }
 
-        template<typename CharIter, typename Sentinel>
-        unencoded_rope(
-            CharIter first,
-            Sentinel last,
-            detail::char_iter_ret_t<void *, CharIter> = 0)
+        /** Constructs an basic_unencoded_rope from a sequence of value_type. */
+        template<typename Iter, typename Sentinel>
+        basic_unencoded_rope(Iter first, Sentinel last)
         {
             insert(begin(), first, last);
         }
 
-#endif
+        basic_unencoded_rope &
+        operator=(basic_unencoded_rope const &) = default;
+        basic_unencoded_rope &
+        operator=(basic_unencoded_rope &&) noexcept = default;
 
-        unencoded_rope & operator=(unencoded_rope const &) = default;
-        unencoded_rope & operator=(unencoded_rope &&) noexcept = default;
-
-        /** Assignment from an unencoded_rope_view. */
-        unencoded_rope & operator=(unencoded_rope_view rv);
+        /** Assignment from an basic_unencoded_rope_view. */
+        basic_unencoded_rope & operator=(unencoded_rope_view rv);
 
         /** Move-assignment from a string. */
-        unencoded_rope & operator=(std::string && s)
+        basic_unencoded_rope & operator=(string s)
         {
-            unencoded_rope temp(std::move(s));
+            basic_unencoded_rope temp(std::move(s));
             swap(temp);
             return *this;
         }
 
         /** Assignment from a null-terminated string. */
-        unencoded_rope & operator=(char const * c_str)
+        basic_unencoded_rope & operator=(value_type const * c_str)
         {
-            unencoded_rope temp(c_str);
+            basic_unencoded_rope temp(c_str);
             swap(temp);
             return *this;
         }
-
-#ifdef BOOST_TEXT_DOXYGEN
-
-        /** Assignment from a range of char.
-
-            This function only participates in overload resolution if
-            `CharRange` models the CharRange concept. */
-        template<typename CharRange>
-        unencoded_rope & operator=(CharRange const & r);
-
-#else
-
-        template<typename CharRange>
-        auto operator=(CharRange const & r)
-            -> detail::rng_alg_ret_t<unencoded_rope &, CharRange>
-        {
-            unencoded_rope temp(r);
-            swap(temp);
-            return *this;
-        }
-
-#endif
 
         const_iterator begin() noexcept { return seg_vec_.begin(); }
         const_iterator end() noexcept { return seg_vec_.end(); }
@@ -169,14 +141,14 @@ namespace boost { namespace text {
         template<typename... Args>
         const_iterator emplace(const_iterator at, Args &&... args)
         {
-            char input[1] = {char{(Args &&) args...}};
+            value_type input[1] = {value_type{(Args &&) args...}};
             return insert(at, input, input + 1);
         }
 
         /** Returns a substring of *this as an unencoded_rope_view, taken from
-            the range of chars at offsets [lo, hi).  If either of lo or hi is a
-            negative value x, x is taken to be an offset from the end, and so x
-            + size() is used instead.
+            the range of value_types at offsets [lo, hi).  If either of lo or
+            hi is a negative value x, x is taken to be an offset from the end,
+            and so x + size() is used instead.
 
             These preconditions apply to the values used after size() is added
             to any negative arguments.
@@ -184,12 +156,26 @@ namespace boost { namespace text {
             \pre 0 <= lo && lo <= size()
             \pre 0 <= hi && lhi <= size()
             \pre lo <= hi */
-        unencoded_rope_view operator()(std::ptrdiff_t lo, std::ptrdiff_t hi) const;
+        unencoded_rope_view
+        operator()(std::ptrdiff_t lo, std::ptrdiff_t hi) const;
+
+        /** Lexicographical compare.  Returns a value < 0 when *this is
+            lexicographically less than rhs, 0 if *this == rhs, and a value >
+            0 if *this is lexicographically greater than rhs. */
+        int compare(basic_unencoded_rope rhs) const noexcept
+        {
+            if (this->empty())
+                return rhs.empty() ? 0 : -1;
+            return boost::text::lexicographical_compare_three_way(
+                begin(), end(), rhs.begin(), rhs.end());
+        }
+
+        operator unencoded_rope_view() const noexcept;
 
         /** Erases the portion of *this delimited by rv.
 
             \pre rv.begin() <= rv.begin() && rv.end() <= end() */
-        unencoded_rope & erase(const_iterator first, const_iterator last)
+        basic_unencoded_rope & erase(const_iterator first, const_iterator last)
         {
             seg_vec_.erase(first, last);
             return *this;
@@ -198,59 +184,65 @@ namespace boost { namespace text {
         /** Erases the portion of *this delimited by rv.
 
             \pre rv.begin() <= rv.begin() && rv.end() <= end() */
-        unencoded_rope & erase(unencoded_rope_view rv);
+        basic_unencoded_rope & erase(unencoded_rope_view rv);
 
         /** Replaces the portion of *this delimited by old_substr with the
-            sequence of char from c_str.
+            sequence of value_type from c_str.
 
             \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
-        unencoded_rope &
-        replace(const_iterator first, const_iterator last, char const * c_str)
+        basic_unencoded_rope & replace(
+            const_iterator first, const_iterator last, value_type const * c_str)
         {
-            seg_vec_.replace(first, last, std::string(c_str));
+            seg_vec_.replace(first, last, string(c_str));
             return *this;
         }
 
         /** Replaces the portion of *this delimited by old_substr with the
-            sequence of char from rv.
+            sequence of value_type from rv.
 
             \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
-        unencoded_rope & replace(
+        basic_unencoded_rope & replace(
             const_iterator first, const_iterator last, unencoded_rope_view rv);
 
         /** Replaces the portion of *this delimited by old_substr with the
-            sequence of char from t by moving the contents of t.
+            sequence of value_type from t by moving the contents of t.
 
             \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
-        unencoded_rope &
-        replace(const_iterator first, const_iterator last, std::string && s)
+        basic_unencoded_rope &
+        replace(const_iterator first, const_iterator last, string && s)
         {
             seg_vec_.replace(first, last, std::move(s));
             return *this;
         }
 
+        /** Replaces the portion of *this delimited by old_substr with the
+            value_type sequence r.
+
+            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
+        template<typename Range>
+        basic_unencoded_rope &
+        replace(const_iterator first, const_iterator last, Range const & r)
+        {
+            seg_vec_.replace(first, last, r.begin(), r.end());
+            return *this;
+        }
+
+        /** Replaces the portion of *this delimited by old_substr with the
+            value_type sequence [first, last).
+
+            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
+        template<typename Iter, typename Sentinel>
+        basic_unencoded_rope & replace(
+            const_iterator first1,
+            const_iterator last1,
+            Iter first2,
+            Sentinel last2)
+        {
+            seg_vec_.replace(first1, last1, first2, last2);
+            return *this;
+        }
+
 #ifdef BOOST_TEXT_DOXYGEN
-
-        /** Replaces the portion of *this delimited by old_substr with the
-            char sequence r.
-
-            This function only participates in overload resolution if
-            `CharRange` models the CharRange concept.
-
-            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
-        template<typename CharRange>
-        auto replace(const_iterator first, const_iterator last, CharRange const & r);
-
-        /** Replaces the portion of *this delimited by old_substr with the
-            char sequence [first, last).
-
-            This function only participates in overload resolution if
-            `CharIter` models the CharIter concept.
-
-            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
-        template<typename CharIter, typename Sentinel>
-        unencoded_rope &
-        replace(const_iterator first, const_iterator last, CharIter first, Sentinel last);
 
         /** Replaces the portion of `*this` delimited by `old_substr` with
             `r`.
@@ -262,7 +254,7 @@ namespace boost { namespace text {
 
             \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
         template<typename Range>
-        unencoded_rope &
+        basic_unencoded_rope &
         replace(unencoded_rope_view old_substr, Range && r);
 
         /** Replaces the portion of `*this` delimited by `old_substr` with
@@ -274,30 +266,10 @@ namespace boost { namespace text {
 
             \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
         template<typename Iter, typename Sentinel>
-        unencoded_rope &
+        basic_unencoded_rope &
         replace(unencoded_rope_view old_substr, Iter first, Sentinel last);
 
 #else
-
-        template<typename CharRange>
-        auto replace(const_iterator first, const_iterator last, CharRange const & r)
-            -> detail::rng_alg_ret_t<unencoded_rope &, CharRange, string_view>
-        {
-            seg_vec_.replace(first, last, r.begin(), r.end());
-            return *this;
-        }
-
-        template<typename CharIter, typename Sentinel>
-        auto replace(
-            const_iterator first1,
-            const_iterator last1,
-            CharIter first2,
-            Sentinel last2)
-            -> detail::char_iter_ret_t<unencoded_rope &, CharIter>
-        {
-            seg_vec_.replace(first1, last1, first2, last2);
-            return *this;
-        }
 
         template<typename R>
         auto replace(unencoded_rope_view const & old_substr, R && r)
@@ -339,9 +311,9 @@ namespace boost { namespace text {
         /** Appends `x` to `*this`.
 
             This function only participates in overload resolution if
-            `insert(end(), std::forward<T>(x))` is well-formed. */
+            `*this = std::forward<T>(x)` is well-formed. */
         template<typename T>
-        unencoded_rope & operator+=(T && x);
+        basic_unencoded_rope & operator+=(T && x);
 
 #else
 
@@ -364,8 +336,7 @@ namespace boost { namespace text {
         }
 
         template<typename T>
-        auto operator+=(T && x)
-            -> decltype(insert(end(), std::forward<T>(x)), *this)
+        auto operator+=(T && x) -> decltype(*this = std::forward<T>(x))
         {
             insert(end(), std::forward<T>(x));
             return *this;
@@ -373,10 +344,13 @@ namespace boost { namespace text {
 
 #endif
 
-        void swap(unencoded_rope & other) { seg_vec_.swap(other.seg_vec_); }
+        void swap(basic_unencoded_rope & other)
+        {
+            seg_vec_.swap(other.seg_vec_);
+        }
 
         using base_type = boost::stl_interfaces::sequence_container_interface<
-            unencoded_rope,
+            basic_unencoded_rope<Char, String>,
             boost::stl_interfaces::element_layout::discontiguous>;
         using base_type::begin;
         using base_type::end;
@@ -385,16 +359,17 @@ namespace boost { namespace text {
 
         /** Returns true if `*this` and `other` contain the same root node
             pointer.  This is useful when you want to check for equality
-            between two `unencoded_rope`s that are likely to have originated
-            from the same initial `segmented_vector`, and may have since been
-            mutated. */
-        bool equal_root(unencoded_rope other) const noexcept
+            between two `basic_unencoded_rope`s that are likely to have
+           originated from the same initial `segmented_vector`, and may have
+           since been mutated. */
+        bool equal_root(basic_unencoded_rope other) const noexcept
         {
             return seg_vec_.equal_root(other.seg_vec_);
         }
 
         /** Stream inserter; performs formatted output. */
-        friend std::ostream & operator<<(std::ostream & os, unencoded_rope r)
+        friend std::ostream &
+        operator<<(std::ostream & os, basic_unencoded_rope r)
         {
             if (os.good()) {
                 auto const size = r.size();
@@ -407,23 +382,486 @@ namespace boost { namespace text {
             return os;
         }
 
+        friend bool
+        operator==(value_type const * lhs, basic_unencoded_rope rhs) noexcept
+        {
+            return boost::text::lexicographical_compare_three_way(
+                       lhs, null_sentinel{}, rhs.begin(), rhs.end()) == 0;
+        }
+
+        friend bool
+        operator==(basic_unencoded_rope lhs, value_type const * rhs) noexcept
+        {
+            return boost::text::lexicographical_compare_three_way(
+                       lhs.begin(), lhs.end(), rhs, null_sentinel{}) == 0;
+        }
+
+        friend bool
+        operator!=(value_type const * lhs, basic_unencoded_rope rhs) noexcept
+        {
+            return boost::text::lexicographical_compare_three_way(
+                       lhs, null_sentinel{}, rhs.begin(), rhs.end()) != 0;
+        }
+
+        friend bool
+        operator!=(basic_unencoded_rope lhs, value_type const * rhs) noexcept
+        {
+            return boost::text::lexicographical_compare_three_way(
+                       lhs.begin(), lhs.end(), rhs, null_sentinel{}) != 0;
+        }
+
+        friend bool
+        operator<(value_type const * lhs, basic_unencoded_rope rhs) noexcept
+        {
+            return boost::text::lexicographical_compare_three_way(
+                       lhs, null_sentinel{}, rhs.begin(), rhs.end()) < 0;
+        }
+
+        friend bool
+        operator<(basic_unencoded_rope lhs, value_type const * rhs) noexcept
+        {
+            return boost::text::lexicographical_compare_three_way(
+                       lhs.begin(), lhs.end(), rhs, null_sentinel{}) < 0;
+        }
+
+        friend bool
+        operator<=(value_type const * lhs, basic_unencoded_rope rhs) noexcept
+        {
+            return boost::text::lexicographical_compare_three_way(
+                       lhs, null_sentinel{}, rhs.begin(), rhs.end()) <= 0;
+        }
+
+        friend bool
+        operator<=(basic_unencoded_rope lhs, value_type const * rhs) noexcept
+        {
+            return boost::text::lexicographical_compare_three_way(
+                       lhs.begin(), lhs.end(), rhs, null_sentinel{}) <= 0;
+        }
+
+        friend bool
+        operator>(value_type const * lhs, basic_unencoded_rope rhs) noexcept
+        {
+            return boost::text::lexicographical_compare_three_way(
+                       lhs, null_sentinel{}, rhs.begin(), rhs.end()) > 0;
+        }
+
+        friend bool
+        operator>(basic_unencoded_rope lhs, value_type const * rhs) noexcept
+        {
+            return boost::text::lexicographical_compare_three_way(
+                       lhs.begin(), lhs.end(), rhs, null_sentinel{}) > 0;
+        }
+
+        friend bool
+        operator>=(value_type const * lhs, basic_unencoded_rope rhs) noexcept
+        {
+            return boost::text::lexicographical_compare_three_way(
+                       lhs, null_sentinel{}, rhs.begin(), rhs.end()) >= 0;
+        }
+
+        friend bool
+        operator>=(basic_unencoded_rope lhs, value_type const * rhs) noexcept
+        {
+            return boost::text::lexicographical_compare_three_way(
+                       lhs.begin(), lhs.end(), rhs, null_sentinel{}) >= 0;
+        }
+
 #ifndef BOOST_TEXT_DOXYGEN
 
     private:
         template<typename R>
-        unencoded_rope &
+        basic_unencoded_rope &
         replace_shim(unencoded_rope_view const & old_substr, R && r);
 
         template<typename I, typename S>
-        unencoded_rope &
+        basic_unencoded_rope &
         replace_shim(unencoded_rope_view const & old_substr, I first, S last);
 
-        segmented_vector<char, std::string> seg_vec_;
+        segmented_vector<value_type, string> seg_vec_;
 
-        friend struct unencoded_rope_view;
+        friend unencoded_rope_view;
 
 #endif
     };
+
+#if defined(__cpp_lib_concepts)
+
+    /** Returns true iff `lhs` == `rhs`, where `rhs` is an object for which
+        `lhs = rhs` is well-formed. */
+    template<typename Char, typename String, typename T>
+    bool operator==(basic_unencoded_rope<Char, String> lhs, T const & rhs)
+        // clang-format off
+        requires requires { lhs = rhs; } &&
+            (!std::is_same_v<T, basic_unencoded_rope<Char, String>>)
+    // clang-format on
+    {
+        return boost::text::lexicographical_compare_three_way(
+                   std::ranges::begin(lhs),
+                   std::ranges::end(lhs),
+                   std::ranges::begin(rhs),
+                   std::ranges::end(rhs)) == 0;
+    }
+
+    /** Returns true iff `lhs` == `rhs`, where `rhs` is an object for which
+        `rhs = lhs` is well-formed. */
+    template<typename Char, typename String, typename T>
+    bool operator==(T const & lhs, basic_unencoded_rope<Char, String> rhs)
+        // clang-format off
+        requires requires { rhs = lhs; } &&
+            (!std::is_same_v<T, basic_unencoded_rope<Char, String>>)
+    // clang-format on
+    {
+        return boost::text::lexicographical_compare_three_way(
+                   std::ranges::begin(lhs),
+                   std::ranges::end(lhs),
+                   std::ranges::begin(rhs),
+                   std::ranges::end(rhs)) == 0;
+    }
+
+    /** Returns true iff `lhs` != `rhs`, where `rhs` is an object for which
+        `lhs = rhs` is well-formed. */
+    template<typename Char, typename String, typename T>
+    bool operator!=(basic_unencoded_rope<Char, String> lhs, T const & rhs)
+        // clang-format off
+        requires requires { lhs = rhs; } &&
+            (!std::is_same_v<T, basic_unencoded_rope<Char, String>>)
+    // clang-format on
+    {
+        return boost::text::lexicographical_compare_three_way(
+                   std::ranges::begin(lhs),
+                   std::ranges::end(lhs),
+                   std::ranges::begin(rhs),
+                   std::ranges::end(rhs)) != 0;
+    }
+
+    /** Returns true iff `lhs` != `rhs`, where `rhs` is an object for which
+        `rhs = lhs` is well-formed. */
+    template<typename Char, typename String, typename T>
+    bool operator!=(T const & lhs, basic_unencoded_rope<Char, String> rhs)
+        // clang-format off
+        requires requires { rhs = lhs; } &&
+            (!std::is_same_v<T, basic_unencoded_rope<Char, String>>)
+    // clang-format on
+    {
+        return boost::text::lexicographical_compare_three_way(
+                   std::ranges::begin(lhs),
+                   std::ranges::end(lhs),
+                   std::ranges::begin(rhs),
+                   std::ranges::end(rhs)) != 0;
+    }
+
+
+    /** Returns true iff `lhs` < `rhs`, where `rhs` is an object for which
+        `lhs = rhs` is well-formed. */
+    template<typename Char, typename String, typename T>
+    bool operator<(basic_unencoded_rope<Char, String> lhs, T const & rhs)
+        // clang-format off
+        requires requires { lhs = rhs; } &&
+            (!std::is_same_v<T, basic_unencoded_rope<Char, String>>)
+    // clang-format on
+    {
+        return boost::text::lexicographical_compare_three_way(
+                   std::ranges::begin(lhs),
+                   std::ranges::end(lhs),
+                   std::ranges::begin(rhs),
+                   std::ranges::end(rhs)) < 0;
+    }
+
+    /** Returns true iff `lhs` < `rhs`, where `rhs` is an object for which
+        `rhs = lhs` is well-formed. */
+    template<typename Char, typename String, typename T>
+    bool operator<(T const & lhs, basic_unencoded_rope<Char, String> rhs)
+        // clang-format off
+        requires requires { rhs = lhs; } &&
+            (!std::is_same_v<T, basic_unencoded_rope<Char, String>>)
+    // clang-format on
+    {
+        return boost::text::lexicographical_compare_three_way(
+                   std::ranges::begin(lhs),
+                   std::ranges::end(lhs),
+                   std::ranges::begin(rhs),
+                   std::ranges::end(rhs)) < 0;
+    }
+
+    /** Returns true iff `lhs` <= `rhs`, where `rhs` is an object for which
+        `lhs = rhs` is well-formed. */
+    template<typename Char, typename String, typename T>
+    bool operator<=(basic_unencoded_rope<Char, String> lhs, T const & rhs)
+        // clang-format off
+        requires requires { lhs = rhs; } &&
+            (!std::is_same_v<T, basic_unencoded_rope<Char, String>>)
+    // clang-format on
+    {
+        return boost::text::lexicographical_compare_three_way(
+                   std::ranges::begin(lhs),
+                   std::ranges::end(lhs),
+                   std::ranges::begin(rhs),
+                   std::ranges::end(rhs)) <= 0;
+    }
+
+    /** Returns true iff `lhs` <= `rhs`, where `rhs` is an object for which
+        `rhs = lhs` is well-formed. */
+    template<typename Char, typename String, typename T>
+    bool operator<=(T const & lhs, basic_unencoded_rope<Char, String> rhs)
+        // clang-format off
+        requires requires { rhs = lhs; } &&
+            (!std::is_same_v<T, basic_unencoded_rope<Char, String>>)
+    // clang-format on
+    {
+        return boost::text::lexicographical_compare_three_way(
+                   std::ranges::begin(lhs),
+                   std::ranges::end(lhs),
+                   std::ranges::begin(rhs),
+                   std::ranges::end(rhs)) <= 0;
+    }
+
+    /** Returns true iff `lhs` > `rhs`, where `rhs` is an object for which
+        `lhs = rhs` is well-formed. */
+    template<typename Char, typename String, typename T>
+    bool operator>(basic_unencoded_rope<Char, String> lhs, T const & rhs)
+        // clang-format off
+        requires requires { lhs = rhs; } &&
+            (!std::is_same_v<T, basic_unencoded_rope<Char, String>>)
+    // clang-format on
+    {
+        return boost::text::lexicographical_compare_three_way(
+                   std::ranges::begin(lhs),
+                   std::ranges::end(lhs),
+                   std::ranges::begin(rhs),
+                   std::ranges::end(rhs)) > 0;
+    }
+
+    /** Returns true iff `lhs` > `rhs`, where `rhs` is an object for which
+        `rhs = lhs` is well-formed. */
+    template<typename Char, typename String, typename T>
+    bool operator>(T const & lhs, basic_unencoded_rope<Char, String> rhs)
+        // clang-format off
+        requires requires { rhs = lhs; } &&
+            (!std::is_same_v<T, basic_unencoded_rope<Char, String>>)
+    // clang-format on
+    {
+        return boost::text::lexicographical_compare_three_way(
+                   std::ranges::begin(lhs),
+                   std::ranges::end(lhs),
+                   std::ranges::begin(rhs),
+                   std::ranges::end(rhs)) > 0;
+    }
+
+    /** Returns true iff `lhs` >= `rhs`, where `rhs` is an object for which
+        `lhs = rhs` is well-formed. */
+    template<typename Char, typename String, typename T>
+    bool operator>=(basic_unencoded_rope<Char, String> lhs, T const & rhs)
+        // clang-format off
+        requires requires { lhs = rhs; } &&
+            (!std::is_same_v<T, basic_unencoded_rope<Char, String>>)
+    // clang-format on
+    {
+        return boost::text::lexicographical_compare_three_way(
+                   std::ranges::begin(lhs),
+                   std::ranges::end(lhs),
+                   std::ranges::begin(rhs),
+                   std::ranges::end(rhs)) >= 0;
+    }
+
+    /** Returns true iff `lhs` >= `rhs`, where `rhs` is an object for which
+        `rhs = lhs` is well-formed. */
+    template<typename Char, typename String, typename T>
+    bool operator>=(T const & lhs, basic_unencoded_rope<Char, String> rhs)
+        // clang-format off
+        requires requires { rhs = lhs; } &&
+            (!std::is_same_v<T, basic_unencoded_rope<Char, String>>)
+    // clang-format on
+    {
+        return boost::text::lexicographical_compare_three_way(
+                   std::ranges::begin(lhs),
+                   std::ranges::end(lhs),
+                   std::ranges::begin(rhs),
+                   std::ranges::end(rhs)) >= 0;
+    }
+
+#else
+
+    /** Returns true iff `lhs` == `rhs`, where `rhs` is an object for which
+        `lhs = rhs` is well-formed. */
+    template<typename Char, typename String, typename T>
+    auto operator==(basic_unencoded_rope<Char, String> lhs, T const & rhs)
+        -> std::enable_if_t<
+            !std::is_same<T, basic_unencoded_rope<Char, String>>::value,
+            decltype(lhs = lhs, true)>
+    {
+        return boost::text::lexicographical_compare_three_way(
+                   std::begin(lhs),
+                   std::end(lhs),
+                   std::begin(rhs),
+                   std::end(rhs)) == 0;
+    }
+
+    /** Returns true iff `lhs` == `rhs`, where `rhs` is an object for which
+        `rhs = lhs` is well-formed. */
+    template<typename Char, typename String, typename T>
+    auto operator==(T const & lhs, basic_unencoded_rope<Char, String> rhs)
+        -> std::enable_if_t<
+            !std::is_same<T, basic_unencoded_rope<Char, String>>::value,
+            decltype(rhs = lhs, true)>
+    {
+        return boost::text::lexicographical_compare_three_way(
+                   std::begin(lhs),
+                   std::end(lhs),
+                   std::begin(rhs),
+                   std::end(rhs)) == 0;
+    }
+
+    /** Returns true iff `lhs` != `rhs`, where `rhs` is an object for which
+        `lhs = rhs` is well-formed. */
+    template<typename Char, typename String, typename T>
+    auto operator!=(basic_unencoded_rope<Char, String> lhs, T const & rhs)
+        -> std::enable_if_t<
+            !std::is_same<T, basic_unencoded_rope<Char, String>>::value,
+            decltype(lhs = rhs, true)>
+    {
+        return boost::text::lexicographical_compare_three_way(
+                   std::begin(lhs),
+                   std::end(lhs),
+                   std::begin(rhs),
+                   std::end(rhs)) != 0;
+    }
+
+    /** Returns true iff `lhs` != `rhs`, where `rhs` is an object for which
+        `rhs = lhs` is well-formed. */
+    template<typename Char, typename String, typename T>
+    auto operator!=(T const & lhs, basic_unencoded_rope<Char, String> rhs)
+        -> std::enable_if_t<
+            !std::is_same<T, basic_unencoded_rope<Char, String>>::value,
+            decltype(rhs = lhs, true)>
+    {
+        return boost::text::lexicographical_compare_three_way(
+                   std::begin(lhs),
+                   std::end(lhs),
+                   std::begin(rhs),
+                   std::end(rhs)) != 0;
+    }
+
+    /** Returns true iff `lhs` < `rhs`, where `rhs` is an object for which
+        `lhs = rhs` is well-formed. */
+    template<typename Char, typename String, typename T>
+    auto operator<(basic_unencoded_rope<Char, String> lhs, T const & rhs)
+        -> std::enable_if_t<
+            !std::is_same<T, basic_unencoded_rope<Char, String>>::value,
+            decltype(lhs = rhs, true)>
+    {
+        return boost::text::lexicographical_compare_three_way(
+                   std::begin(lhs),
+                   std::end(lhs),
+                   std::begin(rhs),
+                   std::end(rhs)) < 0;
+    }
+
+    /** Returns true iff `lhs` < `rhs`, where `rhs` is an object for which
+        `rhs = lhs` is well-formed. */
+    template<typename Char, typename String, typename T>
+    auto operator<(T const & lhs, basic_unencoded_rope<Char, String> rhs)
+        -> std::enable_if_t<
+            !std::is_same<T, basic_unencoded_rope<Char, String>>::value,
+            decltype(rhs = lhs, true)>
+    {
+        return boost::text::lexicographical_compare_three_way(
+                   std::begin(lhs),
+                   std::end(lhs),
+                   std::begin(rhs),
+                   std::end(rhs)) < 0;
+    }
+
+    /** Returns true iff `lhs` <= `rhs`, where `rhs` is an object for which
+        `lhs = rhs` is well-formed. */
+    template<typename Char, typename String, typename T>
+    auto operator<=(basic_unencoded_rope<Char, String> lhs, T const & rhs)
+        -> std::enable_if_t<
+            !std::is_same<T, basic_unencoded_rope<Char, String>>::value,
+            decltype(lhs = rhs, true)>
+    {
+        return boost::text::lexicographical_compare_three_way(
+                   std::begin(lhs),
+                   std::end(lhs),
+                   std::begin(rhs),
+                   std::end(rhs)) <= 0;
+    }
+
+    /** Returns true iff `lhs` <= `rhs`, where `rhs` is an object for which
+        `rhs = lhs` is well-formed. */
+    template<typename Char, typename String, typename T>
+    auto operator<=(T const & lhs, basic_unencoded_rope<Char, String> rhs)
+        -> std::enable_if_t<
+            !std::is_same<T, basic_unencoded_rope<Char, String>>::value,
+            decltype(rhs = lhs, true)>
+    {
+        return boost::text::lexicographical_compare_three_way(
+                   std::begin(lhs),
+                   std::end(lhs),
+                   std::begin(rhs),
+                   std::end(rhs)) <= 0;
+    }
+
+    /** Returns true iff `lhs` > `rhs`, where `rhs` is an object for which
+        `lhs = rhs` is well-formed. */
+    template<typename Char, typename String, typename T>
+    auto operator>(basic_unencoded_rope<Char, String> lhs, T const & rhs)
+        -> std::enable_if_t<
+            !std::is_same<T, basic_unencoded_rope<Char, String>>::value,
+            decltype(lhs = rhs, true)>
+    {
+        return boost::text::lexicographical_compare_three_way(
+                   std::begin(lhs),
+                   std::end(lhs),
+                   std::begin(rhs),
+                   std::end(rhs)) > 0;
+    }
+
+    /** Returns true iff `lhs` > `rhs`, where `rhs` is an object for which
+        `rhs = lhs` is well-formed. */
+    template<typename Char, typename String, typename T>
+    auto operator>(T const & lhs, basic_unencoded_rope<Char, String> rhs)
+        -> std::enable_if_t<
+            !std::is_same<T, basic_unencoded_rope<Char, String>>::value,
+            decltype(rhs = lhs, true)>
+    {
+        return boost::text::lexicographical_compare_three_way(
+                   std::begin(lhs),
+                   std::end(lhs),
+                   std::begin(rhs),
+                   std::end(rhs)) > 0;
+    }
+
+    /** Returns true iff `lhs` >= `rhs`, where `rhs` is an object for which
+        `lhs = rhs` is well-formed. */
+    template<typename Char, typename String, typename T>
+    auto operator>=(basic_unencoded_rope<Char, String> lhs, T const & rhs)
+        -> std::enable_if_t<
+            !std::is_same<T, basic_unencoded_rope<Char, String>>::value,
+            decltype(lhs = rhs, true)>
+    {
+        return boost::text::lexicographical_compare_three_way(
+                   std::begin(lhs),
+                   std::end(lhs),
+                   std::begin(rhs),
+                   std::end(rhs)) >= 0;
+    }
+
+    /** Returns true iff `lhs` >= `rhs`, where `rhs` is an object for which
+        `rhs = lhs` is well-formed. */
+    template<typename Char, typename String, typename T>
+    auto operator>=(T const & lhs, basic_unencoded_rope<Char, String> rhs)
+        -> std::enable_if_t<
+            !std::is_same<T, basic_unencoded_rope<Char, String>>::value,
+            decltype(rhs = lhs, true)>
+    {
+        return boost::text::lexicographical_compare_three_way(
+                   std::begin(lhs),
+                   std::end(lhs),
+                   std::begin(rhs),
+                   std::end(rhs)) >= 0;
+    }
+
+#endif
 
 }}
 
@@ -433,47 +871,66 @@ namespace boost { namespace text {
 
 namespace boost { namespace text {
 
-    inline unencoded_rope::unencoded_rope(unencoded_rope_view rv)
+    template<typename Char, typename String>
+    basic_unencoded_rope<Char, String>::basic_unencoded_rope(
+        unencoded_rope_view rv)
     {
         insert(begin(), rv);
     }
 
-    inline unencoded_rope & unencoded_rope::operator=(unencoded_rope_view rv)
+    template<typename Char, typename String>
+    basic_unencoded_rope<Char, String> &
+    basic_unencoded_rope<Char, String>::operator=(unencoded_rope_view rv)
     {
-        unencoded_rope temp(rv);
+        basic_unencoded_rope temp(rv);
         swap(temp);
         return *this;
     }
 
-    inline unencoded_rope_view unencoded_rope::
-    operator()(std::ptrdiff_t lo, std::ptrdiff_t hi) const
+    template<typename Char, typename String>
+    basic_unencoded_rope_view<Char, String>
+    basic_unencoded_rope<Char, String>::operator()(
+        std::ptrdiff_t lo, std::ptrdiff_t hi) const
     {
         if (lo < 0)
-            lo += size();
+            lo += this->size();
         if (hi < 0)
-            hi += size();
-        BOOST_ASSERT(0 <= lo && lo <= (std::ptrdiff_t)size());
-        BOOST_ASSERT(0 <= hi && hi <= (std::ptrdiff_t)size());
+            hi += this->size();
+        BOOST_ASSERT(0 <= lo && lo <= (std::ptrdiff_t)this->size());
+        BOOST_ASSERT(0 <= hi && hi <= (std::ptrdiff_t)this->size());
         BOOST_ASSERT(lo <= hi);
         return unencoded_rope_view(*this, lo, hi);
     }
 
-    inline unencoded_rope & unencoded_rope::erase(unencoded_rope_view rv)
+    template<typename Char, typename String>
+    basic_unencoded_rope<Char, String> &
+    basic_unencoded_rope<Char, String>::erase(unencoded_rope_view rv)
     {
         seg_vec_.erase(rv.begin().as_rope_iter(), rv.end().as_rope_iter());
         return *this;
     }
 
-    inline unencoded_rope & unencoded_rope::replace(
+    template<typename Char, typename String>
+    basic_unencoded_rope<Char, String> &
+    basic_unencoded_rope<Char, String>::replace(
         const_iterator first, const_iterator last, unencoded_rope_view rv)
     {
-        seg_vec_.replace(first, last, std::string(rv.begin(), rv.end()));
+        seg_vec_.replace(first, last, String(rv.begin(), rv.end()));
         return *this;
     }
 
+    template<typename Char, typename String>
+    basic_unencoded_rope<Char, String>::
+    operator basic_unencoded_rope_view<Char, String>() const noexcept
+    {
+        return unencoded_rope_view(*this, 0, this->size());
+    }
+
+    template<typename Char, typename String>
     template<typename R>
-    unencoded_rope &
-    unencoded_rope::replace_shim(unencoded_rope_view const & old_substr, R && r)
+    basic_unencoded_rope<Char, String> &
+    basic_unencoded_rope<Char, String>::replace_shim(
+        unencoded_rope_view const & old_substr, R && r)
     {
         replace(
             old_substr.begin().as_rope_iter(),
@@ -482,8 +939,10 @@ namespace boost { namespace text {
         return *this;
     }
 
+    template<typename Char, typename String>
     template<typename I, typename S>
-    unencoded_rope & unencoded_rope::replace_shim(
+    basic_unencoded_rope<Char, String> &
+    basic_unencoded_rope<Char, String>::replace_shim(
         unencoded_rope_view const & old_substr, I first, S last)
     {
         return replace(
@@ -501,27 +960,28 @@ namespace boost { namespace text {
 
 #if defined(__cpp_lib_concepts)
 
-    /** Creates a new `unencoded_rope` object that is the concatenation of `t`
-        and some object `x` for which `ur.insert(ur.end(), x)` is
-        well-formed. */
-    template<typename T>
-    unencoded_rope operator+(unencoded_rope ur, T const & x)
+    /** Creates a new `basic_unencoded_rope` object that is the concatenation
+        of `t` and some object `x` for which `ur = x` is well-formed. */
+    template<typename Char, typename String, typename T>
+    basic_unencoded_rope<Char, String>
+    operator+(basic_unencoded_rope<Char, String> ur, T const & x)
         // clang-format off
-        requires requires { ur.insert(ur.end(), x); }
+        requires requires { ur = x; }
     // clang-format on
     {
         ur.insert(ur.end(), x);
         return ur;
     }
 
-    /** Creates a new `unencoded_rope` object that is the concatenation of `x`
-        and `t`, where `x` is an object for which `ur.insert(ur.begin(), x)`
-        is well-formed. */
-    template<typename T>
-    auto operator+(T const & x, unencoded_rope ur)
+    /** Creates a new `basic_unencoded_rope` object that is the concatenation
+        of `x` and `t`, where `x` is an object for which `ur = x` is
+        well-formed. */
+    template<typename Char, typename String, typename T>
+    basic_unencoded_rope<Char, String>
+    operator+(T const & x, basic_unencoded_rope<Char, String> ur)
         // clang-format off
-        requires requires { ur.insert(ur.begin(), x); } &&
-            (!std::is_same_v<T, unencoded_rope>)
+        requires requires { ur = x; } &&
+            (!std::is_same_v<T, basic_unencoded_rope<Char, String>>)
     // clang-format on
     {
         ur.insert(ur.begin(), x);
@@ -530,24 +990,24 @@ namespace boost { namespace text {
 
 #else
 
-    /** Creates a new `unencoded_rope` object that is the concatenation of `t`
-        and some object `x` for which `ur.insert(ur.end(), x)` is
-        well-formed. */
-    template<typename T>
-    auto operator+(unencoded_rope ur, T const & x)
-        -> decltype(ur.insert(ur.end(), x), unencoded_rope{})
+    /** Creates a new `basic_unencoded_rope` object that is the concatenation
+        of `t` and some object `x` for which `ur = x` is well-formed. */
+    template<typename Char, typename String, typename T>
+    auto operator+(basic_unencoded_rope<Char, String> ur, T const & x)
+        -> decltype(ur = x, basic_unencoded_rope<Char, String>{})
     {
         ur.insert(ur.end(), x);
         return ur;
     }
 
-    /** Creates a new `unencoded_rope` object that is the concatenation of `x`
-        and `t`, where `x` is an object for which `ur.insert(ur.begin(), x)`
-        is well-formed. */
-    template<typename T>
-    auto operator+(T const & x, unencoded_rope ur) -> std::enable_if_t<
-        !std::is_same<T, unencoded_rope>::value,
-        decltype(ur.insert(ur.begin(), x), unencoded_rope{})>
+    /** Creates a new `basic_unencoded_rope` object that is the concatenation
+        of `x` and `t`, where `x` is an object for which `ur = x` is
+        well-formed. */
+    template<typename Char, typename String, typename T>
+    auto operator+(T const & x, basic_unencoded_rope<Char, String> ur)
+        -> std::enable_if_t<
+            !std::is_same<T, basic_unencoded_rope<Char, String>>::value,
+            decltype(ur = x, basic_unencoded_rope<Char, String>{})>
     {
         ur.insert(ur.begin(), x);
         return ur;
@@ -555,13 +1015,11 @@ namespace boost { namespace text {
 
 #endif
 
-    inline unencoded_rope_view::unencoded_rope_view(
-        unencoded_rope const & r) noexcept :
-        ref_(rope_ref(&r.seg_vec_, 0, r.size())), which_(which::r)
-    {}
-
-    inline unencoded_rope_view::unencoded_rope_view(
-        unencoded_rope const & r, size_type lo, size_type hi) :
+    template<typename Char, typename String>
+    basic_unencoded_rope_view<Char, String>::basic_unencoded_rope_view(
+        basic_unencoded_rope<Char, String> const & r,
+        size_type lo,
+        size_type hi) :
         ref_(rope_ref(&r.seg_vec_, lo, hi)), which_(which::r)
     {}
 
@@ -569,7 +1027,7 @@ namespace boost { namespace text {
 
 #ifdef BOOST_TEXT_TESTING
         template<typename T, typename Segment>
-        inline void dump_tree(
+        void dump_tree(
             std::ostream & os,
             node_ptr<T, Segment> const & root,
             int key,
@@ -595,10 +1053,10 @@ namespace boost { namespace text {
 #ifndef BOOST_TEXT_DOXYGEN
 
 namespace std {
-    template<>
-    struct hash<boost::text::unencoded_rope>
+    template<typename Char, typename String>
+    struct hash<boost::text::basic_unencoded_rope<Char, String>>
     {
-        using argument_type = boost::text::unencoded_rope;
+        using argument_type = boost::text::basic_unencoded_rope<Char, String>;
         using result_type = std::size_t;
         result_type operator()(argument_type const & ur) const noexcept
         {

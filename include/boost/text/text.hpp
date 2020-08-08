@@ -599,10 +599,10 @@ namespace boost { namespace text {
             \pre s is normalized FCC. */
         void replace(string && s) noexcept { str_ = std::move(s); }
 
-        /** Appends `r` to `*this`.  `R` may be any type for which
-            `insert(end(), r)` is well-formed. */
+        /** Appends `x` to `*this`.  `T` may be any type for which `*this = x`
+            is well-formed. */
         template<typename T>
-        auto operator+=(T const & x) -> decltype(insert(end(), x), *this)
+        auto operator+=(T const & x) -> decltype(*this = x)
         {
             insert(end(), x);
             return *this;
@@ -892,12 +892,12 @@ namespace boost { namespace text {
 #if defined(__cpp_lib_concepts)
 
     /** Creates a new `basic_text` object that is the concatenation of `t` and
-        some object `x` for which `t.insert(t.end(), x)` is well-formed. */
+        some object `x` for which `t = x` is well-formed. */
     template<nf Normalization, typename String, typename T>
     basic_text<Normalization, String>
     operator+(basic_text<Normalization, String> t, T const & x)
         // clang-format off
-        requires requires { t.insert(t.end(), x); }
+        requires requires { t = x; }
     // clang-format on
     {
         t.insert(t.end(), x);
@@ -905,12 +905,12 @@ namespace boost { namespace text {
     }
 
     /** Creates a new `basic_text` object that is the concatenation of `x` and
-        `t`, where `x` is an object for which `t.insert(t.begin(), x)` is
-        well-formed. */
+        `t`, where `x` is an object for which `t = x` is well-formed. */
     template<nf Normalization, typename String, typename T>
-    auto operator+(T const & x, basic_text<Normalization, String> t)
+    basic_text<Normalization, String>
+    operator+(T const & x, basic_text<Normalization, String> t)
         // clang-format off
-        requires requires { t.insert(t.begin(), x); } &&
+        requires requires { t = x; } &&
             (!std::is_same_v<T, basic_text<Normalization, String>>)
     // clang-format on
     {
@@ -921,24 +921,22 @@ namespace boost { namespace text {
 #else
 
     /** Creates a new `basic_text` object that is the concatenation of `t` and
-        some object `x` for which `t.insert(t.end(), x)` is well-formed. */
+        some object `x` for which `t = x` is well-formed. */
     template<nf Normalization, typename String, typename T>
     auto operator+(basic_text<Normalization, String> t, T const & x)
-        -> decltype(t.insert(t.end(), x), basic_text<Normalization, String>{})
+        -> decltype(t = x, basic_text<Normalization, String>{})
     {
         t.insert(t.end(), x);
         return t;
     }
 
     /** Creates a new `basic_text` object that is the concatenation of `x` and
-        `t`, where `x` is an object for which `t.insert(t.begin(), x)` is
-        well-formed. */
+        `t`, where `x` is an object for which `t = x` is well-formed. */
     template<nf Normalization, typename String, typename T>
     auto operator+(T const & x, basic_text<Normalization, String> t)
         -> std::enable_if_t<
             !std::is_same<T, basic_text<Normalization, String>>::value,
-            decltype(
-                t.insert(t.begin(), x), basic_text<Normalization, String>{})>
+            decltype(t = x, basic_text<Normalization, String>{})>
     {
         t.insert(t.begin(), x);
         return t;

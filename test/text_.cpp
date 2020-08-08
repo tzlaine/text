@@ -539,8 +539,9 @@ TEST(text_tests, test_replace_iter)
 
                 text::text expected(before);
                 expected.insert(expected.end(), final_cp, last);
-                expected +=
-                    text::as_utf8(after.begin().base(), after.end().base());
+                expected.insert(
+                    expected.end(),
+                    text::as_utf8(after.begin().base(), after.end().base()));
 
                 t.replace(substr_first, substr_last, final_cp, last);
                 EXPECT_EQ(t, expected) << "i=" << i << " j=" << j
@@ -623,8 +624,9 @@ TEST(text_tests, test_replace_grapheme_iter)
 
                 text::text expected(before);
                 expected.insert(expected.end(), final_cp, last);
-                expected +=
-                    text::as_utf8(after.begin().base(), after.end().base());
+                expected.insert(
+                    expected.end(),
+                    text::as_utf8(after.begin().base(), after.end().base()));
 
                 t.replace(substr_first, substr_last, final_cp, last);
                 EXPECT_EQ(t, expected) << "i=" << i << " j=" << j

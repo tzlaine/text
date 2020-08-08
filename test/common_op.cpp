@@ -610,10 +610,8 @@ TEST(common_operations, assignment_operators)
         r_sv = sv;
         text::rope r_s;
         r_s = s;
-        text::rope r_ur;
-        r_ur = ur;
-        text::rope r_urv;
-        r_urv = urv;
+        // OK text::rope r_ur;
+        // OK text::rope r_urv;
         text::rope r_t;
         r_t = t;
         text::rope r_tv;
@@ -857,11 +855,11 @@ TEST(common_operations, operator_plus)
         EXPECT_EQ(ur + ur, "urur");
         EXPECT_EQ(ur + urv, "urur");
         EXPECT_EQ(urv + ur, "urur");
-        EXPECT_EQ(ur + t, text::text("urt"));
-        EXPECT_EQ(t + ur, text::text("tur"));
+        // OK EXPECT_EQ(ur + t, text::text("urt"));
+        // OK EXPECT_EQ(t + ur, text::text("tur"));
         // OK ur + tv;
-        EXPECT_EQ(ur + r, text::rope("urr"));
-        EXPECT_EQ(r + ur, text::rope("rur"));
+        // OK EXPECT_EQ(ur + r, text::rope("urr"));
+        // OK EXPECT_EQ(r + ur, text::rope("rur"));
         // OK ur + rv;
     }
 
@@ -876,11 +874,11 @@ TEST(common_operations, operator_plus)
         EXPECT_EQ(urv + ur, "urur");
         EXPECT_EQ(ur + urv, "urur");
         // OK urv + urv;
-        EXPECT_EQ(urv + t, text::text("urt"));
-        EXPECT_EQ(t + urv, text::text("tur"));
+        // OK EXPECT_EQ(urv + t, text::text("urt"));
+        // OK EXPECT_EQ(t + urv, text::text("tur"));
         // OK urv + tv;
-        EXPECT_EQ(urv + r, text::rope("urr"));
-        EXPECT_EQ(r + urv, text::rope("rur"));
+        // OK EXPECT_EQ(urv + r, text::rope("urr"));
+        // OK EXPECT_EQ(r + urv, text::rope("rur"));
         // OK urv + rv;
     }
 
@@ -913,16 +911,16 @@ TEST(common_operations, operator_plus)
         EXPECT_EQ(sv + t, text::text("svt"));
         EXPECT_EQ(t + s, text::text("ts"));
         EXPECT_EQ(s + t, text::text("st"));
-        EXPECT_EQ(t + ur, text::text("tur"));
-        EXPECT_EQ(ur + t, text::text("urt"));
-        EXPECT_EQ(t + urv, text::text("tur"));
-        EXPECT_EQ(urv + t, text::text("urt"));
+        // OK EXPECT_EQ(t + ur, text::text("tur"));
+        // OK EXPECT_EQ(ur + t, text::text("urt"));
+        // OK EXPECT_EQ(t + urv, text::text("tur"));
+        // OK EXPECT_EQ(urv + t, text::text("urt"));
         EXPECT_EQ(t + t, text::text("tt"));
         EXPECT_EQ(t + t, text::text("tt"));
         EXPECT_EQ(t + tv, text::text("tt"));
         EXPECT_EQ(tv + t, text::text("tt"));
-        EXPECT_EQ(t + r, text::rope("tr"));
-        EXPECT_EQ(r + t, text::rope("rt"));
+        // OK EXPECT_EQ(t + r, text::rope("tr"));
+        // OK EXPECT_EQ(r + t, text::rope("rt"));
         EXPECT_EQ(t + rv, text::rope("tr"));
         EXPECT_EQ(rv + t, text::rope("rt"));
     }
@@ -939,10 +937,10 @@ TEST(common_operations, operator_plus)
         EXPECT_EQ(sv + r, text::rope("svr"));
         EXPECT_EQ(r + s, text::rope("rs"));
         EXPECT_EQ(s + r, text::rope("sr"));
-        EXPECT_EQ(r + ur, text::rope("rur"));
-        EXPECT_EQ(ur + r, text::rope("urr"));
-        EXPECT_EQ(r + urv, text::rope("rur"));
-        EXPECT_EQ(urv + r, text::rope("urr"));
+        // OK EXPECT_EQ(r + ur, text::rope("rur"));
+        // OK EXPECT_EQ(ur + r, text::rope("urr"));
+        // OK EXPECT_EQ(r + urv, text::rope("rur"));
+        // OK EXPECT_EQ(urv + r, text::rope("urr"));
         EXPECT_EQ(r + r, text::rope("rr"));
         EXPECT_EQ(r + r, text::rope("rr"));
         EXPECT_EQ(r + tv, text::rope("rt"));
@@ -1166,10 +1164,8 @@ TEST(common_operations, operator_plus_equal)
         t_ = t;
         EXPECT_EQ(t_ += s, text::text("ts"));
         t_ = t;
-        EXPECT_EQ(t_ += ur, text::text("tur"));
-        t_ = t;
-        EXPECT_EQ(t_ += urv, text::text("tur"));
-        t_ = t;
+        // OK EXPECT_EQ(t_ += ur, text::text("tur"));
+        // OK EXPECT_EQ(t_ += urv, text::text("tur"));
         EXPECT_EQ(t_ += t, text::text("tt"));
         t_ = t;
         EXPECT_EQ(t_ += tv, text::text("tt"));
@@ -1194,10 +1190,8 @@ TEST(common_operations, operator_plus_equal)
         r_ = r;
         EXPECT_EQ(r_ += s, text::rope("rs"));
         r_ = r;
-        EXPECT_EQ(r_ += ur, text::rope("rur"));
-        r_ = r;
-        EXPECT_EQ(r_ += urv, text::rope("rur"));
-        r_ = r;
+        // OK EXPECT_EQ(r_ += ur, text::rope("rur"));
+        // OK EXPECT_EQ(r_ += urv, text::rope("rur"));
         EXPECT_EQ(r_ += t, text::rope("rt"));
         r_ = r;
         EXPECT_EQ(r_ += tv, text::rope("rt"));
@@ -1259,10 +1253,8 @@ TEST(common_operations, operator_plus_equal_move)
         t_ = t;
         EXPECT_EQ(t_ += std::move(s), text::text("ts"));
         t_ = t;
-        EXPECT_EQ(t_ += std::move(ur), text::text("tur"));
-        t_ = t;
-        EXPECT_EQ(t_ += std::move(urv), text::text("tur"));
-        t_ = t;
+        // OK EXPECT_EQ(t_ += std::move(ur), text::text("tur"));
+        // OK EXPECT_EQ(t_ += std::move(urv), text::text("tur"));
         EXPECT_EQ(t_ += std::move(t), text::text("tt"));
         t_ = t;
         EXPECT_EQ(t_ += std::move(tv), text::text("tt"));
@@ -1287,10 +1279,8 @@ TEST(common_operations, operator_plus_equal_move)
         r_ = r;
         EXPECT_EQ(r_ += std::move(s), text::rope("rs"));
         r_ = r;
-        EXPECT_EQ(r_ += std::move(ur), text::rope("rur"));
-        r_ = r;
-        EXPECT_EQ(r_ += std::move(urv), text::rope("rur"));
-        r_ = r;
+        // OK EXPECT_EQ(r_ += std::move(ur), text::rope("rur"));
+        // OK EXPECT_EQ(r_ += std::move(urv), text::rope("rur"));
         EXPECT_EQ(r_ += std::move(t), text::rope("rt"));
         r_ = r;
         EXPECT_EQ(r_ += std::move(tv), text::rope("rt"));

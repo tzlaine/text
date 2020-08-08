@@ -6,6 +6,7 @@
 #ifndef BOOST_TEXT_DETAIL_ROPE_ITERATOR_HPP
 #define BOOST_TEXT_DETAIL_ROPE_ITERATOR_HPP
 
+#include <boost/text/unencoded_rope_fwd.hpp>
 #include <boost/text/segmented_vector.hpp>
 
 #include <string>
@@ -13,7 +14,6 @@
 
 namespace boost { namespace text {
 
-    struct unencoded_rope_view;
     struct rope_view;
 
 }}

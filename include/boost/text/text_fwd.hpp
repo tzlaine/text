@@ -35,7 +35,7 @@ namespace boost { namespace text {
     using text = basic_text<nf::fcc, std::string>;
     // TODO: Change this to NFD.
 
-    /** The specialization of `basic_text` that should be used in most
+    /** The specialization of `basic_text_view` that should be used in most
         situations. */
     using text_view = basic_text_view<nf::fcc, char>;
     // TODO: Change this to NFD.
