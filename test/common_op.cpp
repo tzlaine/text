@@ -222,10 +222,8 @@ TEST(common_operations, construction)
         (void)urv_ur;
         text::unencoded_rope_view const urv_urv(urv);
         (void)urv_urv;
-        text::unencoded_rope_view const urv_t(t);
-        (void)urv_t;
-        text::unencoded_rope_view const urv_tv(tv);
-        (void)urv_tv;
+        // OK text::unencoded_rope_view const urv_t(t);
+        // OK text::unencoded_rope_view const urv_tv(tv);
         // OK text::unencoded_rope_view const urv_r(r);
         // OK text::unencoded_rope_view const urv_rv(rv);
     }
@@ -382,10 +380,8 @@ TEST(common_operations, move_construction)
         text::unencoded_rope_view const urv_urv(std::move(urv));
         (void)urv_urv;
         // OK text::unencoded_rope_view const urv_ur(std::move(ur));
-        text::unencoded_rope_view const urv_tv(std::move(tv));
-        (void)urv_tv;
-        text::unencoded_rope_view const urv_t(std::move(t));
-        (void)urv_t;
+        // OK text::unencoded_rope_view const urv_tv(std::move(tv));
+        // OK text::unencoded_rope_view const urv_t(std::move(t));
         // OK text::unencoded_rope_view const urv_rv(rv);
         // OK text::unencoded_rope_view const urv_r(r);
     }
@@ -547,10 +543,8 @@ TEST(common_operations, assignment_operators)
         urv_ur = ur;
         text::unencoded_rope_view urv_urv;
         urv_urv = urv;
-        text::unencoded_rope_view urv_t;
-        urv_t = t;
-        text::unencoded_rope_view urv_tv;
-        urv_tv = tv;
+        // OK text::unencoded_rope_view urv_t;
+        // OK text::unencoded_rope_view urv_tv;
         // OK text::unencoded_rope_view urv_r(r);
         // OK text::unencoded_rope_view urv_rv(rv);
     }

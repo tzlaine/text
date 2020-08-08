@@ -127,15 +127,6 @@ namespace boost { namespace text {
         template<typename ContigCharRange>
         explicit basic_unencoded_rope_view(ContigCharRange const & r);
 
-        // TODO: Remove.
-        /** Constructs a basic_unencoded_rope_view from a range of graphemes
-           over an underlying range of value_type.
-
-            This function only participates in overload resolution if
-            `ContigGraphemeRange` models the ContigGraphemeRange concept. */
-        template<typename ContigGraphemeRange>
-        explicit basic_unencoded_rope_view(ContigGraphemeRange const & r);
-
 #else
 
 #if defined(__cpp_lib_concepts)
@@ -156,22 +147,6 @@ namespace boost { namespace text {
             } else {
                 *this = basic_unencoded_rope_view(
                     string_view(&*std::begin(r), std::end(r) - std::begin(r)));
-            }
-        }
-
-        template<typename ContigGraphemeRange>
-        explicit basic_unencoded_rope_view(
-            ContigGraphemeRange const & r,
-            detail::contig_graph_rng_alg_ret_t<int *, ContigGraphemeRange> =
-                0) :
-            ref_(rope_ref())
-        {
-            if (std::begin(r) == std::end(r)) {
-                *this = basic_unencoded_rope_view();
-            } else {
-                *this = basic_unencoded_rope_view(string_view(
-                    &*std::begin(r).base().base(),
-                    std::end(r).base().base() - std::begin(r).base().base()));
             }
         }
 
@@ -313,14 +288,6 @@ namespace boost { namespace text {
         template<typename ContigCharRange>
         basic_unencoded_rope_view & operator=(ContigCharRange const & r);
 
-        /** Assignment from a range of graphemes over an underlying range of
-            value_type.
-
-            This function only participates in overload resolution if
-            `ContigGraphemeRange` models the ContigGraphemeRange concept. */
-        template<typename ContigGraphemeRange>
-        basic_unencoded_rope_view & operator=(ContigGraphemeRange const & r);
-
 #else
 
 #if defined(__cpp_lib_concepts)
@@ -334,15 +301,6 @@ namespace boost { namespace text {
         auto operator=(R const & r)
             -> detail::contig_rng_alg_ret_t<basic_unencoded_rope_view &, R>
 #endif
-        {
-            return *this = basic_unencoded_rope_view(r);
-        }
-
-        template<typename ContigGraphemeRange>
-        auto operator=(ContigGraphemeRange const & r)
-            -> detail::contig_graph_rng_alg_ret_t<
-                basic_unencoded_rope_view &,
-                ContigGraphemeRange>
         {
             return *this = basic_unencoded_rope_view(r);
         }
