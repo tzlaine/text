@@ -10,6 +10,7 @@
 
 #include <cstddef>
 #include <iterator>
+#include <utility>
 
 
 namespace boost { namespace text {
