@@ -51,7 +51,7 @@ namespace boost { namespace text {
     struct basic_text
     // clang-format on
     {
-        /** The normalization form used in this basic_text. */
+        /** The normalization form used in this `basic_text`. */
         static constexpr nf normalization = Normalization;
 
         /** The type of code unit used in the underlying storage. */
@@ -66,7 +66,7 @@ namespace boost { namespace text {
         using string_view = basic_string_view<char_type>;
 
         /** The specialization of `basic_text_view` with the same
-            normalizaation form and underlying code unit type. */
+            normalization form and underlying code unit type. */
         using text_view = basic_text_view<Normalization, char_type>;
 
         /** The UTF format used in the underlying storage. */
@@ -549,15 +549,15 @@ namespace boost { namespace text {
         replace_result<iterator> replace(
             const_iterator first, const_iterator last, grapheme_ref<CPIter> g);
 
-        /** Inserts the sequence [first, last) into `*this` starting at position
-            `at`. */
+        /** Inserts the sequence `[first, last)` into `*this` starting at
+            position `at`. */
         replace_result<iterator>
         insert(const_iterator at, const_iterator first, const_iterator last)
         {
-            return insert(at, text_view(first, last));
+            return replace(at, at, first, last);
         }
 
-        /** Inserts the sequence of char_type from `x` into `*this` starting
+        /** Inserts the sequence of `char_type` from `x` into `*this` starting
             at position `at`. */
         template<typename T>
         auto insert(const_iterator at, T const & x)

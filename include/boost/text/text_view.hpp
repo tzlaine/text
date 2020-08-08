@@ -114,7 +114,7 @@ namespace boost { namespace text {
             return std::distance(begin(), end());
         }
 
-        /** Swaps *this with rhs. */
+        /** Swaps `*this` with `rhs`. */
         void swap(basic_text_view & rhs) noexcept
         {
             std::swap(first_, rhs.first_);
