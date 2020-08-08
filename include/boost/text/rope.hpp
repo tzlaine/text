@@ -377,7 +377,8 @@ namespace boost { namespace text {
             \pre ur is normalized FCC. */
         void replace(unencoded_rope && ur) noexcept { rope_ = std::move(ur); }
 
-        /** TODO */
+        /** Appends `x` to `*this`.  `T` may be any type for which `*this = x`
+            is well-formed. */
         template<typename T>
         auto operator+=(T && x) -> decltype(*this = std::forward<T>(x))
         {
