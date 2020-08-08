@@ -22,8 +22,6 @@ TEST(unencoded_rope_view, test_empty)
     EXPECT_TRUE(rtv.empty());
     EXPECT_EQ(rtv.size(), 0u);
 
-    EXPECT_EQ(rtv.max_size(), (std::size_t)PTRDIFF_MAX);
-
     EXPECT_EQ(rtv.compare(rtv), 0);
     EXPECT_TRUE(rtv == rtv);
     EXPECT_FALSE(rtv != rtv);
@@ -76,9 +74,6 @@ TEST(unencoded_rope_view, test_non_empty)
     EXPECT_EQ(rtv_ab.size(), 2u);
 
     EXPECT_EQ(rtv_ab[1], 'b');
-
-    EXPECT_EQ(rtv_a.max_size(), (std::size_t)PTRDIFF_MAX);
-    EXPECT_EQ(rtv_ab.max_size(), (std::size_t)PTRDIFF_MAX);
 
     EXPECT_EQ(rtv_a.compare(rtv_ab), -1);
     EXPECT_FALSE(rtv_a == rtv_ab);

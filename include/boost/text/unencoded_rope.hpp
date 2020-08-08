@@ -28,8 +28,6 @@
 
 namespace boost { namespace text {
 
-    /** A mutable sequence of `Char` with copy-on-write semantics.  An
-        `basic_unencoded_rope` is non-contiguous and is not null-terminated. */
     template<typename Char, typename String>
 #if defined(__cpp_lib_concepts)
     // clang-format off
@@ -69,23 +67,25 @@ namespace boost { namespace text {
         basic_unencoded_rope(basic_unencoded_rope const &) = default;
         basic_unencoded_rope(basic_unencoded_rope &&) noexcept = default;
 
-        /** Constructs an basic_unencoded_rope from a null-terminated string. */
+        /** Constructs a basic_unencoded_rope from a null-terminated
+            string. */
         basic_unencoded_rope(value_type const * c_str)
         {
             seg_vec_.insert(begin(), string(c_str));
         }
 
-        /** Constructs an basic_unencoded_rope from an
-         * basic_unencoded_rope_view. */
+        /** Constructs a `basic_unencoded_rope` from a
+            `basic_unencoded_rope_view`. */
         explicit basic_unencoded_rope(unencoded_rope_view rv);
 
-        /** Move-constructs an basic_unencoded_rope from a string. */
+        /** Move-constructs a `basic_unencoded_rope` from a `string`. */
         explicit basic_unencoded_rope(string && s)
         {
             seg_vec_.insert(begin(), std::move(s));
         }
 
-        /** Constructs a basic_unencoded_rope from a range of value_type. */
+        /** Constructs a `basic_unencoded_rope` from a range of
+            `value_type` elements. */
 #if defined(__cpp_lib_concepts)
         template<std::ranges::range R>
         // clang-format off
@@ -100,7 +100,8 @@ namespace boost { namespace text {
             insert(begin(), r);
         }
 
-        /** Constructs an basic_unencoded_rope from a sequence of value_type. */
+        /** Constructs a `basic_unencoded_rope` from a sequence of
+            `value_type`. */
 #if defined(__cpp_lib_concepts)
         template<std::input_iterator I, std::sentinel_for<I> S>
         // clang-format off
@@ -119,10 +120,10 @@ namespace boost { namespace text {
         basic_unencoded_rope &
         operator=(basic_unencoded_rope &&) noexcept = default;
 
-        /** Assignment from an basic_unencoded_rope_view. */
+        /** Assignment from a `basic_unencoded_rope_view`. */
         basic_unencoded_rope & operator=(unencoded_rope_view rv);
 
-        /** Move-assignment from a string. */
+        /** Move-assignment from a `string`. */
         basic_unencoded_rope & operator=(string s)
         {
             basic_unencoded_rope temp(std::move(s));
@@ -160,13 +161,13 @@ namespace boost { namespace text {
             return insert(at, input, input + 1);
         }
 
-        /** Returns a substring of *this as an unencoded_rope_view, taken from
-            the range of value_types at offsets [lo, hi).  If either of lo or
-            hi is a negative value x, x is taken to be an offset from the end,
-            and so x + size() is used instead.
+        /** Returns a substring of `*this` as an `unencoded_rope_view`,
+            comprising the elements at offsets `[lo, hi)`.  If either of `lo`
+            or `hi` is a negative value `x`, `x` is taken to be an offset from
+            the end, and so `x + size()` is used instead.
 
-            These preconditions apply to the values used after size() is added
-            to any negative arguments.
+            These preconditions apply to the values used after `size()` is
+            added to any negative arguments.
 
             \pre 0 <= lo && lo <= size()
             \pre 0 <= hi && lhi <= size()
@@ -174,9 +175,9 @@ namespace boost { namespace text {
         unencoded_rope_view
         operator()(std::ptrdiff_t lo, std::ptrdiff_t hi) const;
 
-        /** Lexicographical compare.  Returns a value < 0 when *this is
-            lexicographically less than rhs, 0 if *this == rhs, and a value >
-            0 if *this is lexicographically greater than rhs. */
+        /** Lexicographical compare.  Returns a value `< 0` when `*this` is
+            lexicographically less than `rhs, `0` if `*this == rhs`, and a
+            value `> 0` if `*this` is lexicographically greater than `rhs`. */
         int compare(basic_unencoded_rope rhs) const noexcept
         {
             if (this->empty())
@@ -187,7 +188,7 @@ namespace boost { namespace text {
 
         operator unencoded_rope_view() const noexcept;
 
-        /** Erases the portion of *this delimited by rv.
+        /** Erases the portion of `*this` delimited by `[first, last)`.
 
             \pre rv.begin() <= rv.begin() && rv.end() <= end() */
         basic_unencoded_rope & erase(const_iterator first, const_iterator last)
@@ -196,13 +197,13 @@ namespace boost { namespace text {
             return *this;
         }
 
-        /** Erases the portion of *this delimited by rv.
+        /** Erases the portion of `*this` delimited by `rv`.
 
             \pre rv.begin() <= rv.begin() && rv.end() <= end() */
         basic_unencoded_rope & erase(unencoded_rope_view rv);
 
-        /** Replaces the portion of *this delimited by old_substr with the
-            sequence of value_type from c_str.
+        /** Replaces the portion of `*this` delimited by `[first, last)` with
+            `c_str`.
 
             \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
         basic_unencoded_rope & replace(
@@ -212,15 +213,15 @@ namespace boost { namespace text {
             return *this;
         }
 
-        /** Replaces the portion of *this delimited by old_substr with the
-            sequence of value_type from rv.
+        /** Replaces the portion of `*this` delimited by `[first, last)` with
+            `rv`.
 
             \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
         basic_unencoded_rope & replace(
             const_iterator first, const_iterator last, unencoded_rope_view rv);
 
-        /** Replaces the portion of *this delimited by old_substr with the
-            sequence of value_type from t by moving the contents of t.
+        /** Replaces the portion of `*this` delimited by `[first, last)` with
+            `s`.
 
             \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
         basic_unencoded_rope &
@@ -230,8 +231,8 @@ namespace boost { namespace text {
             return *this;
         }
 
-        /** Replaces the portion of *this delimited by old_substr with the
-            value_type sequence r.
+        /** Replaces the portion of `*this` delimited by `[first, last)` with
+            `r`.
 
             \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
 #if defined(__cpp_lib_concepts)
@@ -249,8 +250,8 @@ namespace boost { namespace text {
             return *this;
         }
 
-        /** Replaces the portion of *this delimited by old_substr with the
-            value_type sequence [first, last).
+        /** Replaces the portion of `*this` delimited by `[first1, last1)`
+            with `[first2, last2)`.
 
             \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
 #if defined(__cpp_lib_concepts)
@@ -418,8 +419,8 @@ namespace boost { namespace text {
         /** Returns true if `*this` and `other` contain the same root node
             pointer.  This is useful when you want to check for equality
             between two `basic_unencoded_rope`s that are likely to have
-           originated from the same initial `segmented_vector`, and may have
-           since been mutated. */
+            originated from the same initial `basic_unencoded_rope`, and may
+            have since been mutated. */
         bool equal_root(basic_unencoded_rope other) const noexcept
         {
             return seg_vec_.equal_root(other.seg_vec_);

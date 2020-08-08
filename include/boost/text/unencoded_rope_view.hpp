@@ -20,8 +20,6 @@ namespace boost { namespace text {
         struct const_rope_view_iterator;
     }
 
-    /** A reference to a substring of a `basic_unencoded_rope`,
-        `std::string<Char>`, or `std::string_view<Char>`. */
     template<typename Char, typename String>
 #if defined(__cpp_lib_concepts)
     // clang-format off
@@ -59,13 +57,13 @@ namespace boost { namespace text {
             }
         }
 
-        /** Constructs a substring of r, taken from the range of value_types at
-            offsets [lo, hi).  If either of lo or hi is a negative value x, x
-            is taken to be an offset from the end, and so x + size() is used
-            instead.
+        /** Constructs a substring of `r`, comprising the elements at offsets
+            `[lo, hi)`.  If either of `lo` or `hi` is a negative value `x`,
+            `x` is taken to be an offset from the end, and so `x + size()` is
+            used instead.
 
-            These preconditions apply to the values used after size() is added
-            to any negative arguments.
+            These preconditions apply to the values used after `size()` is
+            added to any negative arguments.
 
             \pre 0 <= lo && lo <= r.size()
             \pre 0 <= hi && lhi <= r.size()
@@ -77,22 +75,22 @@ namespace boost { namespace text {
             size_type lo,
             size_type hi);
 
-        /** Constructs an basic_unencoded_rope_view covering the entire given
+        /** Constructs a `basic_unencoded_rope_view` covering the entire given
             string. */
         basic_unencoded_rope_view(string const & s) noexcept :
             ref_(string_view(s.data(), s.size())), which_(which::tv)
         {}
 
-        /** Forbid construction from a temporary string. */
+        /** Forbid construction from a temporary `string`. */
         basic_unencoded_rope_view(string && r) noexcept = delete;
 
-        /** Constructs a substring of s, taken from the range of value_types at
-            offsets [lo, hi).  If either of lo or hi is a negative value x, x
-            is taken to be an offset from the end, and so x + size() is used
-            instead.
+        /** Constructs a substring of `s`, comprising the elements at offsets
+            `[lo, hi)`.  If either of `lo` or `hi` is a negative value `x`,
+            `x` is taken to be an offset from the end, and so `x + size()` is
+            used instead.
 
-            These preconditions apply to the values used after size() is added
-            to any negative arguments.
+            These preconditions apply to the values used after `size()` is
+            added to any negative arguments.
 
             \pre 0 <= lo && lo <= s.size()
             \pre 0 <= hi && lhi <= s.size()
@@ -104,23 +102,24 @@ namespace boost { namespace text {
             ref_(detail::substring(s, lo, hi)), which_(which::tv)
         {}
 
-        /** Constructs an basic_unencoded_rope_view from a null-terminated C
-           string.
+        /** Constructs a `basic_unencoded_rope_view` from a null-terminated C
+            string.
 
             \pre strlen(c_str) <= max_size() */
         basic_unencoded_rope_view(value_type const * c_str) noexcept :
             ref_(string_view(c_str)), which_(which::tv)
         {}
 
-        /** Constructs an basic_unencoded_rope_view covering the entire given
-            string_view. */
+        /** Constructs a `basic_unencoded_rope_view` covering the entire given
+            `string_view`. */
         basic_unencoded_rope_view(string_view sv) noexcept :
             ref_(sv), which_(which::tv)
         {}
 
 #ifdef BOOST_TEXT_DOXYGEN
 
-        /** Constructs a basic_unencoded_rope_view from a range of value_type.
+        /** Constructs a `basic_unencoded_rope_view` from a range of
+            `value_type`.
 
             This function only participates in overload resolution if
             `ContigCharRange` models the ContigCharRange concept. */
@@ -186,13 +185,13 @@ namespace boost { namespace text {
         const_reverse_iterator crbegin() const noexcept { return rbegin(); }
         const_reverse_iterator crend() const noexcept { return rend(); }
 
-        /** Returns a substring of *this, taken from the range of value_types at
-            offsets [lo, hi).  If either of lo or hi is a negative value x, x
-            is taken to be an offset from the end, and so x + size() is used
-            instead.
+        /** Returns a substring of `*this`, comprising the elements at offsets
+            `[lo, hi)`.  If either of `lo` or `hi` is a negative value `x`,
+            `x` is taken to be an offset from the end, and so `x + size()` is
+            used instead.
 
-            These preconditions apply to the values used after size() is added
-            to any negative arguments.
+            These preconditions apply to the values used after `size()` is
+            added to any negative arguments.
 
             \pre 0 <= lo && lo <= size()
             \pre 0 <= hi && lhi <= size()
@@ -218,12 +217,9 @@ namespace boost { namespace text {
             return *this; // This should never execute.
         }
 
-        /** Returns the maximum size a string_view can have. */
-        size_type max_size() const noexcept { return PTRDIFF_MAX; }
-
-        /** Lexicographical compare.  Returns a value < 0 when *this is
-            lexicographically less than rhs, 0 if *this == rhs, and a value >
-            0 if *this is lexicographically greater than rhs. */
+        /** Lexicographical compare.  Returns a value `< 0` when `*this` is
+            lexicographically less than `rhs`, `0` if `*this == rhs`, and a
+            value `> 0` if `*this` is lexicographically greater than `rhs`. */
         int compare(basic_unencoded_rope_view rhs) const noexcept
         {
             if (which_ == which::tv && rhs.which_ == which::tv)
@@ -245,24 +241,24 @@ namespace boost { namespace text {
             return *this;
         }
 
-        /** Assignment from an unencoded_rope. */
+        /** Assignment from a `basic_unencoded_rope`. */
         basic_unencoded_rope_view &
         operator=(basic_unencoded_rope<Char, String> const & r) noexcept
         {
             return *this = basic_unencoded_rope_view(r);
         }
 
-        /** Assignment from a string. */
+        /** Assignment from a `string`. */
         basic_unencoded_rope_view & operator=(string const & s) noexcept
         {
             return *this = basic_unencoded_rope_view(s);
         }
 
-        /** Forbid assignment from an unencoded_rope. */
+        /** Forbid assignment from a `basic_unencoded_rope`. */
         basic_unencoded_rope_view &
         operator=(basic_unencoded_rope<Char, String> && r) noexcept = delete;
 
-        /** Forbid assignment from a string. */
+        /** Forbid assignment from a `string`. */
         basic_unencoded_rope_view & operator=(string && s) noexcept = delete;
 
         /** Assignment from a null-terminated C string.
@@ -273,7 +269,7 @@ namespace boost { namespace text {
             return *this = basic_unencoded_rope_view(c_str);
         }
 
-        /** Assignment from a string_view. */
+        /** Assignment from a `string_view`. */
         basic_unencoded_rope_view & operator=(string_view sv) noexcept
         {
             return *this = basic_unencoded_rope_view(sv);
@@ -281,7 +277,7 @@ namespace boost { namespace text {
 
 #ifdef BOOST_TEXT_DOXYGEN
 
-        /** Assignment from a range of char.
+        /** Assignment from a contiguous range of `value_type` elements.
 
             This function only participates in overload resolution if
             `ContigCharRange` models the ContigCharRange concept. */
