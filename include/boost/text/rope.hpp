@@ -248,15 +248,6 @@ namespace boost { namespace text {
         }
 #endif
 
-        /** Replaces the portion of *this delimited by `[first, last)` with the
-            sequence of char from new_substr.
-
-            \pre !std::less(first.base().base(),
-            begin().base().base()) && !std::less(end().base().base(),
-            last.base().base()) */
-        replace_result<const_iterator> replace(
-            const_iterator first, const_iterator last, rope_view new_substr);
-
         /** Replaves the  portion of *this delimited by `[first, last)` with the
             sequence of char from new_substr.
 
@@ -273,6 +264,15 @@ namespace boost { namespace text {
                 new_substr.end(),
                 insertion_not_normalized);
         }
+
+        /** Replaces the portion of *this delimited by `[first, last)` with the
+            sequence of char from new_substr.
+
+            \pre !std::less(first.base().base(),
+            begin().base().base()) && !std::less(end().base().base(),
+            last.base().base()) */
+        replace_result<const_iterator> replace(
+            const_iterator first, const_iterator last, rope_view new_substr);
 
 #ifdef BOOST_TEXT_DOXYGEN
 

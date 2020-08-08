@@ -350,32 +350,6 @@ namespace boost { namespace text {
                 insertion_not_normalized);
         }
 
-        /** Replaces the portion of `*this` delimited by `[first, last)` with
-            `new_substr`.
-
-            \pre !std::less(first.base().base(), begin().base().base()) &&
-            !std::less(end().base().base(), last.base().base()) */
-        replace_result<iterator> replace(
-            const_iterator first,
-            const_iterator last,
-            basic_text const & new_substr)
-        {
-            return replace_impl(
-                first,
-                last,
-                new_substr.begin().base().base(),
-                new_substr.end().base().base(),
-                insertion_normalized);
-        }
-
-        /** Replaces the portion of `*this` delimited by `[first, last)` with
-            `new_substr`.
-
-            \pre !std::less(first.base().base(), begin().base().base()) &&
-            !std::less(end().base().base(), last.base().base()) */
-        replace_result<iterator> replace(
-            const_iterator first, const_iterator last, text_view new_substr);
-
         /** Replaves the portion of `*this` delimited by `[first, last)` with
             `new_substr`.
 
@@ -824,19 +798,6 @@ namespace boost { namespace text {
             boost::text::transcode_to_utf8(g.begin(), g.end(), buf.data());
         return replace_impl(
             first, last, buf.data(), out, insertion_not_normalized);
-    }
-
-    template<nf Normalization, typename Char, typename String>
-    replace_result<typename basic_text<Normalization, Char, String>::iterator>
-    basic_text<Normalization, Char, String>::replace(
-        const_iterator first, const_iterator last, text_view new_substr)
-    {
-        return replace_impl(
-            first,
-            last,
-            new_substr.begin().base().base(),
-            new_substr.end().base().base(),
-            insertion_normalized);
     }
 
 #endif // Doxygen
