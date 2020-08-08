@@ -1536,41 +1536,38 @@ TEST(common_operations, replace)
     {
         text::rope r_;
 
-        auto end = [&r_]() { return text::rope_view(r_.end(), r_.end()); };
-        auto all = [&r_]() { return text::rope_view(r_.begin(), r_.end()); };
-
         r_ = r;
-        r_.replace(end(), "literal");
+        r_.replace(r_.end(), r_.end(), "literal");
         EXPECT_EQ(r_, text::rope("rliteral"));
         r_ = r;
-        r_.replace(all(), c_str);
+        r_.replace(r_.begin(), r_.end(), c_str);
         EXPECT_EQ(r_, text::rope("c_str"));
         r_ = r;
-        r_.replace(end(), str);
+        r_.replace(r_.end(), r_.end(), str);
         EXPECT_EQ(r_, text::rope("rstr"));
         r_ = r;
-        r_.replace(end(), sv);
+        r_.replace(r_.end(), r_.end(), sv);
         EXPECT_EQ(r_, text::rope("rsv"));
         r_ = r;
-        r_.replace(all(), s);
+        r_.replace(r_.begin(), r_.end(), s);
         EXPECT_EQ(r_, text::rope("s"));
         r_ = r;
-        r_.replace(end(), ur);
+        r_.replace(r_.end(), r_.end(), ur);
         EXPECT_EQ(r_, text::rope("rur"));
         r_ = r;
-        r_.replace(all(), urv);
+        r_.replace(r_.begin(), r_.end(), urv);
         EXPECT_EQ(r_, text::rope("ur"));
         r_ = r;
-        r_.replace(end(), t);
+        r_.replace(r_.end(), r_.end(), t);
         EXPECT_EQ(r_, text::rope("rt"));
         r_ = r;
-        r_.replace(all(), tv);
+        r_.replace(r_.begin(), r_.end(), tv);
         EXPECT_EQ(r_, text::rope("t"));
         r_ = r;
-        r_.replace(end(), r);
+        r_.replace(r_.end(), r_.end(), r);
         EXPECT_EQ(r_, text::rope("rr"));
         r_ = r;
-        r_.replace(all(), rv);
+        r_.replace(r_.begin(), r_.end(), rv);
         EXPECT_EQ(r_, text::rope("r"));
     }
 
