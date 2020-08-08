@@ -13,32 +13,35 @@
 
 namespace boost { namespace text {
 
-    template<nf Normalization, typename T>
+    template<nf Normalization, typename Char>
 #if defined(__cpp_lib_concepts)
-    // clang-format off
-        requires utf8_code_unit<T> || utf16_code_unit<T>
+        // clang-format off
+        requires utf8_code_unit<Char> || utf16_code_unit<Char>
 #endif
     struct basic_text_view;
     // clang-format on
 
-    template<nf Normalization, typename String>
+    template<
+        nf Normalization,
+        typename Char,
+        typename String = std::basic_string<Char>>
 #if defined(__cpp_lib_concepts)
-    // clang-format off
-        requires utf8_code_unit<std::ranges::range_value_t<String>> ||
-                 utf16_code_unit<std::ranges::range_value_t<String>>
+        // clang-format off
+        requires (utf8_code_unit<Char> || utf16_code_unit<Char>) &&
+            std::is_same_v<Char, std::ranges::range_value_t<String>>
 #endif
     struct basic_text;
     // clang-format on
 
     /** The specialization of `basic_text` that should be used in most
         situations. */
-    using text = basic_text<nf::fcc, std::string>;
-    // TODO: Change this to NFD.
+    using text = basic_text<nf::fcc, char>;
+    // TODO: Change this to NFC.
 
     /** The specialization of `basic_text_view` that should be used in most
         situations. */
     using text_view = basic_text_view<nf::fcc, char>;
-    // TODO: Change this to NFD.
+    // TODO: Change this to NFC.
 
     namespace detail {
         template<typename T, typename U, typename R>

@@ -65,6 +65,7 @@ namespace boost { namespace text {
         /** Default ctor. */
         basic_text_view() noexcept : first_(), last_() {}
 
+#if 0
         /** Constructs a `basic_text_view` from a `text`. */
 #if defined(__cpp_lib_concepts)
         template<typename String>
@@ -78,11 +79,12 @@ namespace boost { namespace text {
 #endif
         basic_text_view(basic_text<Normalization, String> const & t) noexcept;
         // clang-format on
+#endif
 
         /** Disallow construction from a temporary `text`. */
-        template<nf Normalization2, typename String>
-        basic_text_view(basic_text<Normalization2, String> && t) noexcept =
-            delete;
+        template<nf Normalization2, typename Char2, typename String>
+        basic_text_view(
+            basic_text<Normalization2, Char2, String> && t) noexcept = delete;
 
         /** Constructs a `basic_text_view` from a `grapheme_view`. */
 #if defined(__cpp_lib_concepts)
@@ -231,6 +233,7 @@ namespace boost { namespace text {
 
 namespace boost { namespace text {
 
+#if 0
     template<nf Normalization, typename Char>
 #if defined(__cpp_lib_concepts)
     template<typename String>
@@ -244,6 +247,7 @@ namespace boost { namespace text {
         basic_text<Normalization, String> const & t) noexcept :
         first_(t.begin()), last_(t.end())
     {}
+#endif
 
     template<nf Normalization, typename Char>
 #if defined(__cpp_lib_concepts)

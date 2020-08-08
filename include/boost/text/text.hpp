@@ -46,11 +46,11 @@ namespace boost { namespace text {
         contiguous null-terminated code units.  The underlying storage is a
         `String`, and is kept in normalization form `Normalization`.  The
         `String` is responsible for maintaining null-termination. */
-    template<nf Normalization, typename String>
+    template<nf Normalization, typename Char, typename String>
 #if defined(__cpp_lib_concepts)
         // clang-format off
-        requires utf8_code_unit<std::ranges::range_value_t<String>> ||
-                 utf16_code_unit<std::ranges::range_value_t<String>>
+        requires (utf8_code_unit<Char> || utf16_code_unit<Char>) &&
+            std::is_same_v<Char, std::ranges::range_value_t<String>>
 #endif
     struct basic_text
     // clang-format on
@@ -58,11 +58,11 @@ namespace boost { namespace text {
         /** The normalization form used in this basic_text. */
         static constexpr nf normalization = Normalization;
 
+        /** The type of code unit used in the underlying storage. */
+        using char_type = Char;
+
         /** The type of the container used as underlying storage. */
         using string = String;
-
-        /** The type of code unit used in the underlying storage. */
-        using char_type = detail::range_value_t<String>;
 
         /** The specialization of `std::basic_string_view` (or
             `boost::basic_string_view` in pre-C++17 code) compatible with
@@ -228,6 +228,8 @@ namespace boost { namespace text {
 
         /** Assignment from a `rope_view`. */
         basic_text & operator=(rope_view rv);
+
+        operator text_view() const noexcept;
 
 
         iterator begin() noexcept
@@ -765,44 +767,52 @@ namespace boost { namespace text {
 
 #ifndef BOOST_TEXT_DOXYGEN
 
-    template<nf Normalization, typename String>
-    basic_text<Normalization, String>::basic_text(text_view tv) :
+    template<nf Normalization, typename Char, typename String>
+    basic_text<Normalization, Char, String>::basic_text(text_view tv) :
         str_(tv.begin().base().base(), tv.end().base().base())
     {}
 
-    template<nf Normalization, typename String>
-    basic_text<Normalization, String>::basic_text(rope_view rv) :
+    template<nf Normalization, typename Char, typename String>
+    basic_text<Normalization, Char, String>::basic_text(rope_view rv) :
         str_(rv.begin().base().base(), rv.end().base().base())
     {}
 
-    template<nf Normalization, typename String>
-    basic_text<Normalization, String> &
-    basic_text<Normalization, String>::operator=(text_view tv)
+    template<nf Normalization, typename Char, typename String>
+    basic_text<Normalization, Char, String> &
+    basic_text<Normalization, Char, String>::operator=(text_view tv)
     {
         str_.assign(tv.begin().base().base(), tv.end().base().base());
         return *this;
     }
 
-    template<nf Normalization, typename String>
-    basic_text<Normalization, String> &
-    basic_text<Normalization, String>::operator=(rope_view rv)
+    template<nf Normalization, typename Char, typename String>
+    basic_text<Normalization, Char, String> &
+    basic_text<Normalization, Char, String>::operator=(rope_view rv)
     {
         str_.assign(rv.begin().base().base(), rv.end().base().base());
         return *this;
     }
 
-    template<nf Normalization, typename String>
-    replace_result<typename basic_text<Normalization, String>::iterator>
-    basic_text<Normalization, String>::replace(
+    template<nf Normalization, typename Char, typename String>
+    basic_text<Normalization, Char, String>::
+    operator basic_text<Normalization, Char, String>::text_view() const noexcept
+    {
+        return {begin(), end()};
+    }
+
+
+    template<nf Normalization, typename Char, typename String>
+    replace_result<typename basic_text<Normalization, Char, String>::iterator>
+    basic_text<Normalization, Char, String>::replace(
         const_iterator first, const_iterator last, grapheme const & g)
     {
         return replace(first, last, grapheme_ref<grapheme::const_iterator>(g));
     }
 
-    template<nf Normalization, typename String>
+    template<nf Normalization, typename Char, typename String>
     template<typename CPIter>
-    replace_result<typename basic_text<Normalization, String>::iterator>
-    basic_text<Normalization, String>::replace(
+    replace_result<typename basic_text<Normalization, Char, String>::iterator>
+    basic_text<Normalization, Char, String>::replace(
         const_iterator first, const_iterator last, grapheme_ref<CPIter> g)
     {
         if (g.empty() && first == last) {
@@ -820,9 +830,9 @@ namespace boost { namespace text {
             first, last, buf.data(), out, insertion_not_normalized);
     }
 
-    template<nf Normalization, typename String>
-    replace_result<typename basic_text<Normalization, String>::iterator>
-    basic_text<Normalization, String>::replace(
+    template<nf Normalization, typename Char, typename String>
+    replace_result<typename basic_text<Normalization, Char, String>::iterator>
+    basic_text<Normalization, Char, String>::replace(
         const_iterator first, const_iterator last, text_view new_substr)
     {
         return replace_impl(
@@ -835,10 +845,11 @@ namespace boost { namespace text {
 
 #endif // Doxygen
 
-    template<nf Normalization, typename String>
+    template<nf Normalization, typename Char, typename String>
     bool operator==(
-        basic_text<Normalization, String> const & lhs,
-        typename basic_text<Normalization, String>::text_view rhs) noexcept
+        basic_text<Normalization, Char, String> const & lhs,
+        typename basic_text<Normalization, Char, String>::text_view
+            rhs) noexcept
     {
         return algorithm::equal(
             lhs.begin().base().base(),
@@ -846,33 +857,34 @@ namespace boost { namespace text {
             rhs.begin().base().base(),
             rhs.end().base().base());
     }
-    template<nf Normalization, typename String>
+    template<nf Normalization, typename Char, typename String>
     bool operator==(
-        typename basic_text<Normalization, String>::text_view lhs,
-        basic_text<Normalization, String> const & rhs) noexcept
+        typename basic_text<Normalization, Char, String>::text_view lhs,
+        basic_text<Normalization, Char, String> const & rhs) noexcept
     {
         return rhs == lhs;
     }
 
-    template<nf Normalization, typename String>
+    template<nf Normalization, typename Char, typename String>
     bool operator!=(
-        basic_text<Normalization, String> const & lhs,
-        typename basic_text<Normalization, String>::text_view rhs) noexcept
+        basic_text<Normalization, Char, String> const & lhs,
+        typename basic_text<Normalization, Char, String>::text_view
+            rhs) noexcept
     {
         return !(lhs == rhs);
     }
-    template<nf Normalization, typename String>
+    template<nf Normalization, typename Char, typename String>
     bool operator!=(
-        typename basic_text<Normalization, String>::text_view lhs,
-        basic_text<Normalization, String> const & rhs) noexcept
+        typename basic_text<Normalization, Char, String>::text_view lhs,
+        basic_text<Normalization, Char, String> const & rhs) noexcept
     {
         return !(lhs == rhs);
     }
 
-    template<nf Normalization, typename String>
+    template<nf Normalization, typename Char, typename String>
     bool operator==(
-        basic_text<Normalization, String> const & lhs,
-        basic_text<Normalization, String> const & rhs) noexcept
+        basic_text<Normalization, Char, String> const & lhs,
+        basic_text<Normalization, Char, String> const & rhs) noexcept
     {
         return algorithm::equal(
             lhs.begin().base().base(),
@@ -881,10 +893,10 @@ namespace boost { namespace text {
             rhs.end().base().base());
     }
 
-    template<nf Normalization, typename String>
+    template<nf Normalization, typename Char, typename String>
     bool operator!=(
-        basic_text<Normalization, String> const & lhs,
-        basic_text<Normalization, String> const & rhs) noexcept
+        basic_text<Normalization, Char, String> const & lhs,
+        basic_text<Normalization, Char, String> const & rhs) noexcept
     {
         return !(lhs == rhs);
     }
@@ -893,9 +905,9 @@ namespace boost { namespace text {
 
     /** Creates a new `basic_text` object that is the concatenation of `t` and
         some object `x` for which `t = x` is well-formed. */
-    template<nf Normalization, typename String, typename T>
-    basic_text<Normalization, String>
-    operator+(basic_text<Normalization, String> t, T const & x)
+    template<nf Normalization, typename Char, typename String, typename T>
+    basic_text<Normalization, Char, String>
+    operator+(basic_text<Normalization, Char, String> t, T const & x)
         // clang-format off
         requires requires { t = x; }
     // clang-format on
@@ -906,12 +918,12 @@ namespace boost { namespace text {
 
     /** Creates a new `basic_text` object that is the concatenation of `x` and
         `t`, where `x` is an object for which `t = x` is well-formed. */
-    template<nf Normalization, typename String, typename T>
-    basic_text<Normalization, String>
-    operator+(T const & x, basic_text<Normalization, String> t)
+    template<nf Normalization, typename Char, typename String, typename T>
+    basic_text<Normalization, Char, String>
+    operator+(T const & x, basic_text<Normalization, Char, String> t)
         // clang-format off
         requires requires { t = x; } &&
-            (!std::is_same_v<T, basic_text<Normalization, String>>)
+            (!std::is_same_v<T, basic_text<Normalization, Char, String>>)
     // clang-format on
     {
         t.insert(t.begin(), x);
@@ -922,9 +934,9 @@ namespace boost { namespace text {
 
     /** Creates a new `basic_text` object that is the concatenation of `t` and
         some object `x` for which `t = x` is well-formed. */
-    template<nf Normalization, typename String, typename T>
-    auto operator+(basic_text<Normalization, String> t, T const & x)
-        -> decltype(t = x, basic_text<Normalization, String>{})
+    template<nf Normalization, typename Char, typename String, typename T>
+    auto operator+(basic_text<Normalization, Char, String> t, T const & x)
+        -> decltype(t = x, basic_text<Normalization, Char, String>{})
     {
         t.insert(t.end(), x);
         return t;
@@ -932,11 +944,11 @@ namespace boost { namespace text {
 
     /** Creates a new `basic_text` object that is the concatenation of `x` and
         `t`, where `x` is an object for which `t = x` is well-formed. */
-    template<nf Normalization, typename String, typename T>
-    auto operator+(T const & x, basic_text<Normalization, String> t)
+    template<nf Normalization, typename Char, typename String, typename T>
+    auto operator+(T const & x, basic_text<Normalization, Char, String> t)
         -> std::enable_if_t<
-            !std::is_same<T, basic_text<Normalization, String>>::value,
-            decltype(t = x, basic_text<Normalization, String>{})>
+            !std::is_same<T, basic_text<Normalization, Char, String>>::value,
+            decltype(t = x, basic_text<Normalization, Char, String>{})>
     {
         t.insert(t.begin(), x);
         return t;
@@ -949,10 +961,11 @@ namespace boost { namespace text {
 #ifndef BOOST_TEXT_DOXYGEN
 
 namespace std {
-    template<boost::text::nf Normalization, typename String>
-    struct hash<boost::text::basic_text<Normalization, String>>
+    template<boost::text::nf Normalization, typename Char, typename String>
+    struct hash<boost::text::basic_text<Normalization, Char, String>>
     {
-        using argument_type = boost::text::basic_text<Normalization, String>;
+        using argument_type =
+            boost::text::basic_text<Normalization, Char, String>;
         using result_type = std::size_t;
         result_type operator()(argument_type const & t) const noexcept
         {

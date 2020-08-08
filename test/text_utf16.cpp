@@ -18,7 +18,7 @@ using namespace boost;
 
 using string16 = std::basic_string<char16_t>;
 using string_view16 = text::basic_string_view<char16_t>;
-using text16 = boost::text::basic_text<boost::text::nf::fcc, string16>;
+using text16 = boost::text::basic_text<boost::text::nf::fcc, char16_t>;
 
 text16 operator"" _t(char16_t const * str, std::size_t len)
 {
