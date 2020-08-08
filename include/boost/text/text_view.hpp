@@ -65,22 +65,6 @@ namespace boost { namespace text {
         /** Default ctor. */
         basic_text_view() noexcept : first_(), last_() {}
 
-#if 0
-        /** Constructs a `basic_text_view` from a `text`. */
-#if defined(__cpp_lib_concepts)
-        template<typename String>
-        // clang-format off
-            requires std::is_same_v<std::ranges::range_value_t<String>, Char>
-#else
-        template<
-            typename String,
-            typename Enable = std::enable_if_t<
-                std::is_same<detail::range_value_t<String>, Char>::value>>
-#endif
-        basic_text_view(basic_text<Normalization, String> const & t) noexcept;
-        // clang-format on
-#endif
-
         /** Disallow construction from a temporary `text`. */
         template<nf Normalization2, typename Char2, typename String>
         basic_text_view(
@@ -232,22 +216,6 @@ namespace boost { namespace text {
 #include <boost/text/text.hpp>
 
 namespace boost { namespace text {
-
-#if 0
-    template<nf Normalization, typename Char>
-#if defined(__cpp_lib_concepts)
-    template<typename String>
-    // clang-format off
-        requires std::is_same_v<std::ranges::range_value_t<String>, Char>
-#else
-    template<typename String, typename Enable>
-#endif
-    basic_text_view<Normalization, Char>::basic_text_view(
-        // clang-format on
-        basic_text<Normalization, String> const & t) noexcept :
-        first_(t.begin()), last_(t.end())
-    {}
-#endif
 
     template<nf Normalization, typename Char>
 #if defined(__cpp_lib_concepts)
