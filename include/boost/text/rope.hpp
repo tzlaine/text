@@ -10,6 +10,7 @@
 #include <boost/text/grapheme.hpp>
 #include <boost/text/grapheme_iterator.hpp>
 #include <boost/text/normalize_algorithm.hpp>
+#include <boost/text/string_view.hpp>
 #include <boost/text/unencoded_rope.hpp>
 #include <boost/text/text_fwd.hpp>
 #include <boost/text/transcode_iterator.hpp>
@@ -278,12 +279,6 @@ namespace boost { namespace text {
         replace_result<const_iterator>
         insert(const_iterator at, grapheme_ref<CPIter> g);
 
-        /** Erases the portion of *this delimited by rv.
-
-            \pre !std::less(rv.begin().base().base(), begin().base().base()) &&
-            !std::less(end().base().base(), rv.end().base().base()) */
-        replace_result<const_iterator> erase(rope_view rv);
-
         /** Erases the portion of *this delimited by [first, last).
 
             \pre first <= last */
@@ -313,7 +308,15 @@ namespace boost { namespace text {
             begin().base().base()) && !std::less(end().base().base(),
             last.base().base()) */
         replace_result<const_iterator> replace(
-            const_iterator first, const_iterator last, string_view new_substr);
+            const_iterator first, const_iterator last, string_view new_substr)
+        {
+            return replace_impl(
+                first,
+                last,
+                new_substr.begin(),
+                new_substr.end(),
+                insertion_not_normalized);
+        }
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -351,15 +354,22 @@ namespace boost { namespace text {
         template<typename CharRange>
         auto
         replace(const_iterator first, const_iterator last, CharRange const & r)
-            -> detail::rng_alg_ret_t<replace_result<const_iterator>, CharRange>;
+            -> detail::rng_alg_ret_t<replace_result<const_iterator>, CharRange>
+        {
+            return replace(first, last, std::begin(r), std::end(r));
+        }
 
-        template<typename CharIter>
+        template<typename CUIter>
         auto replace(
             const_iterator first1,
             const_iterator last1,
-            CharIter first2,
-            CharIter last2) -> detail::
-            char_iter_ret_t<replace_result<const_iterator>, CharIter>;
+            CUIter first2,
+            CUIter last2) -> detail::
+            char_iter_ret_t<replace_result<const_iterator>, CUIter>
+        {
+            return replace_impl(
+                first1, last1, first2, last2, insertion_not_normalized);
+        }
 
 #endif
 
@@ -370,7 +380,10 @@ namespace boost { namespace text {
             begin().base().base()) && !std::less(end().base().base(),
             last.base().base()) */
         replace_result<const_iterator>
-        replace(const_iterator first, const_iterator last, char const * c_str);
+        replace(const_iterator first, const_iterator last, char const * c_str)
+        {
+            return replace(first, last, string_view(c_str));
+        }
 
 #if defined(__cpp_char8_t)
         /** Replaces the portion of *this delimited by `[first, last)` with the
@@ -380,7 +393,10 @@ namespace boost { namespace text {
             begin().base().base()) && !std::less(end().base().base(),
             last.base().base()) */
         replace_result<const_iterator> replace(
-            const_iterator first, const_iterator last, char8_t const * c_str);
+            const_iterator first, const_iterator last, char8_t const * c_str)
+        {
+            return replace(first, last, (char const *)c_str);
+        }
 #endif
 
         /** Replaces the portion of *this delimited by `[first1, last1)` with
@@ -393,7 +409,15 @@ namespace boost { namespace text {
             const_iterator first1,
             const_iterator last1,
             const_iterator first2,
-            const_iterator last2);
+            const_iterator last2)
+        {
+            return replace_impl(
+                first1,
+                last1,
+                first2.base().base(),
+                last2.base().base(),
+                insertion_normalized);
+        }
 
         /** Swaps *this with rhs. */
         void swap(rope & rhs) noexcept { rope_.swap(rhs.rope_); }
@@ -627,15 +651,6 @@ namespace boost { namespace text {
         return insert_impl(at, buf.data(), out, insertion_not_normalized);
     }
 
-    inline replace_result<rope::const_iterator> rope::erase(rope_view rv)
-    {
-        auto const rope_first = rv.begin().base().base().as_rope_iter();
-        auto const rope_last = rv.end().base().base().as_rope_iter();
-        auto const retval =
-            detail::erase_impl<true, nf::fcc>(rope_, rope_first, rope_last);
-        return mutation_result(retval);
-    }
-
     inline replace_result<rope::const_iterator> rope::replace(
         const_iterator first, const_iterator last, rope_view new_substr)
     {
@@ -644,66 +659,6 @@ namespace boost { namespace text {
             last,
             new_substr.begin().base().base(),
             new_substr.end().base().base(),
-            insertion_normalized);
-    }
-
-    inline replace_result<rope::const_iterator> rope::replace(
-        const_iterator first, const_iterator last, string_view new_substr)
-    {
-        return replace_impl(
-            first,
-            last,
-            new_substr.begin(),
-            new_substr.end(),
-            insertion_not_normalized);
-    }
-
-    template<typename CharRange>
-    auto rope::replace(
-        const_iterator first, const_iterator last, CharRange const & r)
-        -> detail::
-            rng_alg_ret_t<replace_result<rope::const_iterator>, CharRange>
-    {
-        return replace(first, last, std::begin(r), std::end(r));
-    }
-
-    inline replace_result<rope::const_iterator>
-    rope::replace(const_iterator first, const_iterator last, char const * str)
-    {
-        return replace(first, last, string_view(str));
-    }
-
-#if defined(__cpp_char8_t)
-    inline replace_result<rope::const_iterator> rope::replace(
-        const_iterator first, const_iterator last, char8_t const * str)
-    {
-        return replace(first, last, (char const *)str);
-    }
-#endif
-
-    template<typename CUIter>
-    auto rope::replace(
-        const_iterator first1,
-        const_iterator last1,
-        CUIter first2,
-        CUIter last2)
-        -> detail::char_iter_ret_t<replace_result<rope::const_iterator>, CUIter>
-    {
-        return replace_impl(
-            first1, last1, first2, last2, insertion_not_normalized);
-    }
-
-    inline replace_result<rope::const_iterator> rope::replace(
-        const_iterator first1,
-        const_iterator last1,
-        const_iterator first2,
-        const_iterator last2)
-    {
-        return replace_impl(
-            first1,
-            last1,
-            first2.base().base(),
-            last2.base().base(),
             insertion_normalized);
     }
 

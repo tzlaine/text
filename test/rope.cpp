@@ -559,15 +559,15 @@ TEST(rope, test_erase)
         for (int i = 0; i <= j; ++i) {
             text::rope t = ct;
             text::rope_view const before(t.begin(), std::next(t.begin(), i));
-            text::rope_view const substr(
-                std::next(t.begin(), i), std::next(t.begin(), j));
-            text::rope const substr_copy(substr);
+            auto const substr_first = std::next(t.begin(), i);
+            auto const substr_last = std::next(t.begin(), j);
+            text::rope const substr_copy(substr_first, substr_last);
             text::rope_view const after(std::next(ct.begin(), j), ct.end());
 
             text::rope expected(before);
             expected += after;
 
-            t.erase(substr);
+            t.erase(substr_first, substr_last);
             EXPECT_EQ(t, expected) << "i=" << i << " j=" << j << " erasing '"
                                    << substr_copy << "'";
         }

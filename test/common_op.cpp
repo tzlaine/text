@@ -1445,7 +1445,7 @@ TEST(common_operations, erase)
         text::rope r_;
 
         r_ = r;
-        r_.erase(text::rope_view(r_.begin(), r_.end()));
+        r_.erase(r_.begin(), r_.end());
         EXPECT_EQ(r_, text::rope(""));
         r_ = r;
         r_.erase(r_.begin(), r_.end());
