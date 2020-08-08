@@ -202,6 +202,52 @@ namespace boost { namespace text {
             return mutation_result(retval);
         }
 
+        /** Replaces the portion of *this delimited by `[first1, last1)` with
+           the sequence `[first2, last2)`.
+
+            \pre !std::less(first1.base().base(),
+            begin().base().base()) && !std::less(end().base().base(),
+            last1.base().base()) */
+        replace_result<const_iterator> replace(
+            const_iterator first1,
+            const_iterator last1,
+            const_iterator first2,
+            const_iterator last2)
+        {
+            return replace_impl(
+                first1,
+                last1,
+                first2.base().base(),
+                last2.base().base(),
+                insertion_normalized);
+        }
+
+        /** Replaces the portion of *this delimited by `[first, last)` with the
+            sequence of char from c_str.
+
+            \pre !std::less(first.base().base(),
+            begin().base().base()) && !std::less(end().base().base(),
+            last.base().base()) */
+        replace_result<const_iterator>
+        replace(const_iterator first, const_iterator last, char const * c_str)
+        {
+            return replace(first, last, string_view(c_str));
+        }
+
+#if defined(__cpp_char8_t)
+        /** Replaces the portion of *this delimited by `[first, last)` with the
+            sequence of char from c_str.
+
+            \pre !std::less(first.base().base(),
+            begin().base().base()) && !std::less(end().base().base(),
+            last.base().base()) */
+        replace_result<const_iterator> replace(
+            const_iterator first, const_iterator last, char8_t const * c_str)
+        {
+            return replace(first, last, (char const *)c_str);
+        }
+#endif
+
         /** Replaces the portion of *this delimited by `[first, last)` with the
             sequence of char from new_substr.
 
@@ -282,52 +328,6 @@ namespace boost { namespace text {
         }
 
 #endif
-
-        /** Replaces the portion of *this delimited by `[first, last)` with the
-            sequence of char from c_str.
-
-            \pre !std::less(first.base().base(),
-            begin().base().base()) && !std::less(end().base().base(),
-            last.base().base()) */
-        replace_result<const_iterator>
-        replace(const_iterator first, const_iterator last, char const * c_str)
-        {
-            return replace(first, last, string_view(c_str));
-        }
-
-#if defined(__cpp_char8_t)
-        /** Replaces the portion of *this delimited by `[first, last)` with the
-            sequence of char from c_str.
-
-            \pre !std::less(first.base().base(),
-            begin().base().base()) && !std::less(end().base().base(),
-            last.base().base()) */
-        replace_result<const_iterator> replace(
-            const_iterator first, const_iterator last, char8_t const * c_str)
-        {
-            return replace(first, last, (char const *)c_str);
-        }
-#endif
-
-        /** Replaces the portion of *this delimited by `[first1, last1)` with
-           the sequence `[first2, last2)`.
-
-            \pre !std::less(first1.base().base(),
-            begin().base().base()) && !std::less(end().base().base(),
-            last1.base().base()) */
-        replace_result<const_iterator> replace(
-            const_iterator first1,
-            const_iterator last1,
-            const_iterator first2,
-            const_iterator last2)
-        {
-            return replace_impl(
-                first1,
-                last1,
-                first2.base().base(),
-                last2.base().base(),
-                insertion_normalized);
-        }
 
         /** Replaces the portion of `*this` delimited by `[first, last)` with
             `g`. */
