@@ -261,6 +261,48 @@ namespace boost { namespace text {
         return true;
     }
 
+    /** Sentinel-friendly version of `std::mismatch()`. */
+    template<
+        typename Iter1,
+        typename Sentinel1,
+        typename Iter2,
+        typename Sentinel2>
+    std::pair<Iter1, Iter2>
+    mismatch(Iter1 first1, Sentinel1 last1, Iter2 first2, Sentinel2 last2)
+    {
+        for (; first1 != last1 && first2 != last2; ++first1, ++first2) {
+            if (*first1 != *first2)
+                break;
+        }
+        return {first1, first2};
+    }
+
+    /** Sentinel-friendly version of
+        `std::lexicographical_compare_three_way()`, except that it returns an
+        `int` instead of a `std::strong_ordering`. */
+    template<
+        typename Iter1,
+        typename Sentinel1,
+        typename Iter2,
+        typename Sentinel2>
+    int lexicographical_compare_three_way(
+        Iter1 first1, Sentinel1 last1, Iter2 first2, Sentinel2 last2)
+    {
+        auto const iters = boost::text::mismatch(first1, last1, first2, last2);
+        if (iters.first == last1) {
+            if (iters.second == last2)
+                return 0;
+            else
+                return -1;
+        } else if (iters.second == last2) {
+            return 1;
+        } else if (*iters.first < *iters.second) {
+            return -1;
+        } else {
+            return 1;
+        }
+    }
+
 }}
 
 #if defined(__cpp_lib_concepts)
