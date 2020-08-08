@@ -86,15 +86,30 @@ namespace boost { namespace text {
         }
 
         /** Constructs a basic_unencoded_rope from a range of value_type. */
-        template<typename Range>
-        explicit basic_unencoded_rope(Range const & r)
+#if defined(__cpp_lib_concepts)
+        template<std::ranges::range R>
+        // clang-format off
+            requires
+            std::is_convertible_v<std::ranges::range_reference_t<R>, value_type>
+#else
+        template<typename R>
+#endif
+        explicit basic_unencoded_rope(R const & r)
+        // clang-format on
         {
             insert(begin(), r);
         }
 
         /** Constructs an basic_unencoded_rope from a sequence of value_type. */
-        template<typename Iter, typename Sentinel>
-        basic_unencoded_rope(Iter first, Sentinel last)
+#if defined(__cpp_lib_concepts)
+        template<std::input_iterator I, std::sentinel_for<I> S>
+        // clang-format off
+            requires std::is_convertible_v<std::iter_reference_t<I>, value_type>
+#else
+        template<typename I, typename S>
+#endif
+        basic_unencoded_rope(I first, S last)
+        // clang-format on
         {
             insert(begin(), first, last);
         }
@@ -219,9 +234,16 @@ namespace boost { namespace text {
             value_type sequence r.
 
             \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
-        template<typename Range>
+#if defined(__cpp_lib_concepts)
+        template<std::ranges::range R>
+        // clang-format off
+            requires
+            std::is_convertible_v<std::ranges::range_reference_t<R>, value_type>
+#else
+        template<typename R>
+#endif
         basic_unencoded_rope &
-        replace(const_iterator first, const_iterator last, Range const & r)
+        replace(const_iterator first, const_iterator last, R const & r)
         {
             seg_vec_.replace(first, last, r.begin(), r.end());
             return *this;
@@ -231,12 +253,18 @@ namespace boost { namespace text {
             value_type sequence [first, last).
 
             \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
-        template<typename Iter, typename Sentinel>
+#if defined(__cpp_lib_concepts)
+        template<std::input_iterator I, std::sentinel_for<I> S>
+        // clang-format off
+            requires std::is_convertible_v<std::iter_reference_t<I>, value_type>
+#else
+        template<typename I, typename S>
+#endif
         basic_unencoded_rope & replace(
             const_iterator first1,
             const_iterator last1,
-            Iter first2,
-            Sentinel last2)
+            I first2,
+            S last2)
         {
             seg_vec_.replace(first1, last1, first2, last2);
             return *this;
@@ -271,14 +299,29 @@ namespace boost { namespace text {
 
 #else
 
+#if defined(__cpp_lib_concepts)
         template<typename R>
+        // clang-format off
+        requires std::ranges::range<R> &&
+            std::is_convertible_v<
+                std::ranges::range_reference_t<R>, value_type> ||
+            std::is_convertible_v<R, value_type const *>
+#else
+        template<typename R>
+#endif
         auto replace(unencoded_rope_view const & old_substr, R && r)
             -> decltype(replace(const_iterator{}, const_iterator{}, r))
         {
             return replace_shim<R>(old_substr, (R &&) r);
         }
 
+#if defined(__cpp_lib_concepts)
+        template<std::input_iterator I, std::sentinel_for<I> S>
+        // clang-format off
+            requires std::is_convertible_v<std::iter_reference_t<I>, value_type>
+#else
         template<typename I, typename S>
+#endif
         auto replace(unencoded_rope_view const & old_substr, I first, S last)
             -> decltype(
                 replace(const_iterator{}, const_iterator{}, first, last))
@@ -317,7 +360,16 @@ namespace boost { namespace text {
 
 #else
 
+#if defined(__cpp_lib_concepts)
         template<typename R>
+        // clang-format off
+            requires std::ranges::range<R> &&
+                std::is_convertible_v<
+                    std::ranges::range_reference_t<R>, value_type> ||
+                std::is_convertible_v<R, value_type const *>
+#else
+        template<typename R>
+#endif
         auto insert(const_iterator at, R && r)
             -> decltype(replace(at, at, std::forward<R>(r)), const_iterator{})
         {
@@ -326,7 +378,13 @@ namespace boost { namespace text {
             return begin() + at_offset;
         }
 
+#if defined(__cpp_lib_concepts)
+        template<std::input_iterator I, std::sentinel_for<I> S>
+        // clang-format off
+            requires std::is_convertible_v<std::iter_reference_t<I>, value_type>
+#else
         template<typename I, typename S>
+#endif
         auto insert(const_iterator at, I first, S last)
             -> decltype(replace(at, at, first, last), const_iterator{})
         {

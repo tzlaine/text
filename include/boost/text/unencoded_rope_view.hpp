@@ -138,10 +138,17 @@ namespace boost { namespace text {
 
 #else
 
-        template<typename ContigCharRange>
+#if defined(__cpp_lib_concepts)
+        template<std::ranges::contiguous_range R>
+        // clang-format off
+            requires std::is_same_v<std::ranges::range_value_t<R>, value_type>
+        explicit basic_unencoded_rope_view(R const & r) :
+        // clang-format on
+#else
+        template<typename R>
         explicit basic_unencoded_rope_view(
-            ContigCharRange const & r,
-            detail::contig_rng_alg_ret_t<int *, ContigCharRange> = 0) :
+            R const & r, detail::contig_rng_alg_ret_t<int *, R> = 0) :
+#endif
             ref_(rope_ref())
         {
             if (std::begin(r) == std::end(r)) {
@@ -316,9 +323,17 @@ namespace boost { namespace text {
 
 #else
 
-        template<typename ContigCharRange>
-        auto operator=(ContigCharRange const & r) -> detail::
-            contig_rng_alg_ret_t<basic_unencoded_rope_view &, ContigCharRange>
+#if defined(__cpp_lib_concepts)
+        template<std::ranges::contiguous_range R>
+        // clang-format off
+            requires std::is_same_v<std::ranges::range_value_t<R>, value_type>
+        basic_unencoded_rope_view & operator=(R const & r)
+        // clang-format on
+#else
+        template<typename R>
+        auto operator=(R const & r)
+            -> detail::contig_rng_alg_ret_t<basic_unencoded_rope_view &, R>
+#endif
         {
             return *this = basic_unencoded_rope_view(r);
         }
