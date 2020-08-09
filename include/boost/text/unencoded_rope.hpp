@@ -554,11 +554,11 @@ namespace boost { namespace text {
             (!std::is_same_v<T, basic_unencoded_rope<Char, String>>)
     // clang-format on
     {
-        return boost::text::lexicographical_compare_three_way(
+        return algorithm::equal(
                    std::ranges::begin(lhs),
                    std::ranges::end(lhs),
                    std::ranges::begin(rhs),
-                   std::ranges::end(rhs)) == 0;
+                   std::ranges::end(rhs));
     }
 
     /** Returns true iff `lhs` == `rhs`, where `rhs` is an object for which
@@ -570,11 +570,11 @@ namespace boost { namespace text {
             (!std::is_same_v<T, basic_unencoded_rope<Char, String>>)
     // clang-format on
     {
-        return boost::text::lexicographical_compare_three_way(
+        return algorithm::equal(
                    std::ranges::begin(lhs),
                    std::ranges::end(lhs),
                    std::ranges::begin(rhs),
-                   std::ranges::end(rhs)) == 0;
+                   std::ranges::end(rhs));
     }
 
     /** Returns true iff `lhs` != `rhs`, where `rhs` is an object for which
@@ -586,11 +586,7 @@ namespace boost { namespace text {
             (!std::is_same_v<T, basic_unencoded_rope<Char, String>>)
     // clang-format on
     {
-        return boost::text::lexicographical_compare_three_way(
-                   std::ranges::begin(lhs),
-                   std::ranges::end(lhs),
-                   std::ranges::begin(rhs),
-                   std::ranges::end(rhs)) != 0;
+        return !(lhs == rhs);
     }
 
     /** Returns true iff `lhs` != `rhs`, where `rhs` is an object for which
@@ -602,13 +598,8 @@ namespace boost { namespace text {
             (!std::is_same_v<T, basic_unencoded_rope<Char, String>>)
     // clang-format on
     {
-        return boost::text::lexicographical_compare_three_way(
-                   std::ranges::begin(lhs),
-                   std::ranges::end(lhs),
-                   std::ranges::begin(rhs),
-                   std::ranges::end(rhs)) != 0;
+        return !(lhs == rhs);
     }
-
 
     /** Returns true iff `lhs` < `rhs`, where `rhs` is an object for which
         `lhs = rhs` is well-formed. */
@@ -748,11 +739,11 @@ namespace boost { namespace text {
             !std::is_same<T, basic_unencoded_rope<Char, String>>::value,
             decltype(lhs = lhs, true)>
     {
-        return boost::text::lexicographical_compare_three_way(
+        return algorithm::equal(
                    std::begin(lhs),
                    std::end(lhs),
                    std::begin(rhs),
-                   std::end(rhs)) == 0;
+                   std::end(rhs));
     }
 
     /** Returns true iff `lhs` == `rhs`, where `rhs` is an object for which
@@ -763,11 +754,11 @@ namespace boost { namespace text {
             !std::is_same<T, basic_unencoded_rope<Char, String>>::value,
             decltype(rhs = lhs, true)>
     {
-        return boost::text::lexicographical_compare_three_way(
+        return algorithm::equal(
                    std::begin(lhs),
                    std::end(lhs),
                    std::begin(rhs),
-                   std::end(rhs)) == 0;
+                   std::end(rhs));
     }
 
     /** Returns true iff `lhs` != `rhs`, where `rhs` is an object for which
@@ -778,11 +769,7 @@ namespace boost { namespace text {
             !std::is_same<T, basic_unencoded_rope<Char, String>>::value,
             decltype(lhs = rhs, true)>
     {
-        return boost::text::lexicographical_compare_three_way(
-                   std::begin(lhs),
-                   std::end(lhs),
-                   std::begin(rhs),
-                   std::end(rhs)) != 0;
+        return !(lhs == rhs);
     }
 
     /** Returns true iff `lhs` != `rhs`, where `rhs` is an object for which
@@ -793,11 +780,7 @@ namespace boost { namespace text {
             !std::is_same<T, basic_unencoded_rope<Char, String>>::value,
             decltype(rhs = lhs, true)>
     {
-        return boost::text::lexicographical_compare_three_way(
-                   std::begin(lhs),
-                   std::end(lhs),
-                   std::begin(rhs),
-                   std::end(rhs)) != 0;
+        return !(lhs == rhs);
     }
 
     /** Returns true iff `lhs` < `rhs`, where `rhs` is an object for which
