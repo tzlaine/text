@@ -38,8 +38,6 @@
 
 namespace boost { namespace text {
 
-    template<typename Iter>
-    struct replace_result;
     struct rope_view;
 
     template<nf Normalization, typename Char, typename String>
@@ -614,6 +612,19 @@ namespace boost { namespace text {
         }
 #endif
 
+        // TODO
+        friend bool
+        operator==(basic_text const & lhs, basic_text const & rhs) noexcept
+        {
+            return std::equal(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+        }
+
+        friend bool
+        operator!=(basic_text const & lhs, basic_text const & rhs) noexcept
+        {
+            return !(lhs == rhs);
+        }
+
 #ifndef BOOST_TEXT_DOXYGEN
 
     private:
@@ -802,61 +813,119 @@ namespace boost { namespace text {
 
 #endif // Doxygen
 
-    template<nf Normalization, typename Char, typename String>
-    bool operator==(
-        basic_text<Normalization, Char, String> const & lhs,
-        typename basic_text<Normalization, Char, String>::text_view
-            rhs) noexcept
+#if defined(__cpp_lib_concepts)
+
+    /** Returns true iff `lhs` == `rhs`, where `rhs` is an object for which
+        `lhs = rhs` is well-formed. */
+    template<nf Normalization, typename Char, typename String, typename T>
+    bool operator==(basic_text<Normalization, Char, String> lhs, T const & rhs)
+        // clang-format off
+        requires requires { lhs = rhs; } &&
+            (!std::is_same_v<T, basic_text<Normalization, Char, String>>)
+    // clang-format on
     {
         return algorithm::equal(
-            lhs.begin().base().base(),
-            lhs.end().base().base(),
-            rhs.begin().base().base(),
-            rhs.end().base().base());
-    }
-    template<nf Normalization, typename Char, typename String>
-    bool operator==(
-        typename basic_text<Normalization, Char, String>::text_view lhs,
-        basic_text<Normalization, Char, String> const & rhs) noexcept
-    {
-        return rhs == lhs;
+                   std::ranges::begin(lhs),
+                   std::ranges::end(lhs),
+                   std::ranges::begin(rhs),
+                   std::ranges::end(rhs));
     }
 
-    template<nf Normalization, typename Char, typename String>
-    bool operator!=(
-        basic_text<Normalization, Char, String> const & lhs,
-        typename basic_text<Normalization, Char, String>::text_view
-            rhs) noexcept
-    {
-        return !(lhs == rhs);
-    }
-    template<nf Normalization, typename Char, typename String>
-    bool operator!=(
-        typename basic_text<Normalization, Char, String>::text_view lhs,
-        basic_text<Normalization, Char, String> const & rhs) noexcept
-    {
-        return !(lhs == rhs);
-    }
-
-    template<nf Normalization, typename Char, typename String>
-    bool operator==(
-        basic_text<Normalization, Char, String> const & lhs,
-        basic_text<Normalization, Char, String> const & rhs) noexcept
+    /** Returns true iff `lhs` == `rhs`, where `rhs` is an object for which
+        `rhs = lhs` is well-formed. */
+    template<nf Normalization, typename Char, typename String, typename T>
+    bool operator==(T const & lhs, basic_text<Normalization, Char, String> rhs)
+        // clang-format off
+        requires requires { rhs = lhs; } &&
+            (!std::is_same_v<T, basic_text<Normalization, Char, String>>)
+    // clang-format on
     {
         return algorithm::equal(
-            lhs.begin().base().base(),
-            lhs.end().base().base(),
-            rhs.begin().base().base(),
-            rhs.end().base().base());
+                   std::ranges::begin(lhs),
+                   std::ranges::end(lhs),
+                   std::ranges::begin(rhs),
+                   std::ranges::end(rhs));
     }
 
-    template<nf Normalization, typename Char, typename String>
-    bool operator!=(
-        basic_text<Normalization, Char, String> const & lhs,
-        basic_text<Normalization, Char, String> const & rhs) noexcept
+    /** Returns true iff `lhs` != `rhs`, where `rhs` is an object for which
+        `lhs = rhs` is well-formed. */
+    template<nf Normalization, typename Char, typename String, typename T>
+    bool operator!=(basic_text<Normalization, Char, String> lhs, T const & rhs)
+        // clang-format off
+        requires requires { lhs = rhs; } &&
+            (!std::is_same_v<T, basic_text<Normalization, Char, String>>)
+    // clang-format on
     {
         return !(lhs == rhs);
     }
+
+    /** Returns true iff `lhs` != `rhs`, where `rhs` is an object for which
+        `rhs = lhs` is well-formed. */
+    template<nf Normalization, typename Char, typename String, typename T>
+    bool operator!=(T const & lhs, basic_text<Normalization, Char, String> rhs)
+        // clang-format off
+        requires requires { rhs = lhs; } &&
+            (!std::is_same_v<T, basic_text<Normalization, Char, String>>)
+    // clang-format on
+    {
+        return !(lhs == rhs);
+    }
+
+#else
+
+    /** Returns true iff `lhs` == `rhs`, where `rhs` is an object for which
+        `lhs = rhs` is well-formed. */
+    template<nf Normalization, typename Char, typename String, typename T>
+    auto operator==(basic_text<Normalization, Char, String> lhs, T const & rhs)
+        -> std::enable_if_t<
+            !std::is_same<T, basic_text<Normalization, Char, String>>::value,
+            decltype(lhs = lhs, true)>
+    {
+        return algorithm::equal(
+                   std::begin(lhs),
+                   std::end(lhs),
+                   std::begin(rhs),
+                   std::end(rhs));
+    }
+
+    /** Returns true iff `lhs` == `rhs`, where `rhs` is an object for which
+        `rhs = lhs` is well-formed. */
+    template<nf Normalization, typename Char, typename String, typename T>
+    auto operator==(T const & lhs, basic_text<Normalization, Char, String> rhs)
+        -> std::enable_if_t<
+            !std::is_same<T, basic_text<Normalization, Char, String>>::value,
+            decltype(rhs = lhs, true)>
+    {
+        return algorithm::equal(
+                   std::begin(lhs),
+                   std::end(lhs),
+                   std::begin(rhs),
+                   std::end(rhs));
+    }
+
+    /** Returns true iff `lhs` != `rhs`, where `rhs` is an object for which
+        `lhs = rhs` is well-formed. */
+    template<nf Normalization, typename Char, typename String, typename T>
+    auto operator!=(basic_text<Normalization, Char, String> lhs, T const & rhs)
+        -> std::enable_if_t<
+            !std::is_same<T, basic_text<Normalization, Char, String>>::value,
+            decltype(lhs = rhs, true)>
+    {
+        return !(lhs == rhs);
+    }
+
+    /** Returns true iff `lhs` != `rhs`, where `rhs` is an object for which
+        `rhs = lhs` is well-formed. */
+    template<nf Normalization, typename Char, typename String, typename T>
+    auto operator!=(T const & lhs, basic_text<Normalization, Char, String> rhs)
+        -> std::enable_if_t<
+            !std::is_same<T, basic_text<Normalization, Char, String>>::value,
+            decltype(rhs = lhs, true)>
+    {
+        return !(lhs == rhs);
+    }
+
+#endif
 
 #if defined(__cpp_lib_concepts)
 
