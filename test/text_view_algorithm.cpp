@@ -3,6 +3,7 @@
 // Distributed under the Boost Software License, Version 1.0. (See
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
+#include <boost/text/text.hpp>
 #include <boost/text/text_view.hpp>
 #include <boost/text/word_break.hpp>
 #include <boost/text/sentence_break.hpp>

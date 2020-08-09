@@ -8,6 +8,7 @@
 
 #include <boost/text/segmented_vector.hpp>
 #include <boost/text/unencoded_rope_fwd.hpp>
+#include <boost/text/rope_fwd.hpp>
 #include <boost/text/detail/rope_iterator.hpp>
 #include <boost/text/detail/rope.hpp>
 
@@ -15,10 +16,6 @@
 
 
 namespace boost { namespace text {
-
-    namespace detail {
-        struct const_rope_view_iterator;
-    }
 
     template<typename Char, typename String>
 #if defined(__cpp_lib_concepts)
@@ -32,7 +29,7 @@ namespace boost { namespace text {
     {
         using value_type = char;
         using size_type = std::size_t;
-        using iterator = detail::const_rope_view_iterator;
+        using iterator = detail::const_rope_view_iterator<Char, String>;
         using const_iterator = iterator;
         using reverse_iterator = stl_interfaces::reverse_iterator<iterator>;
         using const_reverse_iterator = reverse_iterator;
@@ -397,8 +394,12 @@ namespace boost { namespace text {
         ref ref_;
         which which_;
 
-        friend struct basic_unencoded_rope<Char, String>;
-        friend struct rope_view;
+        friend basic_unencoded_rope<Char, String>;
+        friend basic_rope_view<nf::c, Char, String>;
+        friend basic_rope_view<nf::kc, Char, String>;
+        friend basic_rope_view<nf::d, Char, String>;
+        friend basic_rope_view<nf::kd, Char, String>;
+        friend basic_rope_view<nf::fcc, Char, String>;
 #endif
     };
 

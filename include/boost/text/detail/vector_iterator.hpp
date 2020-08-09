@@ -6,18 +6,12 @@
 #ifndef BOOST_TEXT_DETAIL_VECTOR_ITERATOR_ITERATOR_HPP
 #define BOOST_TEXT_DETAIL_VECTOR_ITERATOR_ITERATOR_HPP
 
+#include <boost/text/normalize_fwd.hpp>
 #include <boost/text/segmented_vector_fwd.hpp>
+#include <boost/text/rope_fwd.hpp>
+
 #include <boost/stl_interfaces/iterator_interface.hpp>
 
-#include <iterator>
-
-
-namespace boost { namespace text {
-
-    struct rope;
-    struct rope_view;
-
-}}
 
 namespace boost { namespace text { namespace detail {
 
@@ -65,7 +59,6 @@ namespace boost { namespace text { namespace detail {
             return lhs.n_ - rhs.n_;
         }
 
-    private:
         using segment_type =
             typename segmented_vector<T, Segment>::segment_type;
 
@@ -98,9 +91,6 @@ namespace boost { namespace text { namespace detail {
         std::ptrdiff_t n_;
         mutable leaf_node_t<T, Segment> const * leaf_;
         mutable std::ptrdiff_t leaf_start_;
-
-        friend struct boost::text::rope;
-        friend struct boost::text::rope_view;
     };
 
 }}}

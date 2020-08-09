@@ -95,7 +95,7 @@ boost::text::text cps("out-of-the-box");
 
 // Prints "out - of - the - box".
 for (auto range : boost::text::words(cps)) {
-    std::cout << boost::text::text_view(range) << " ";
+    std::cout << boost::text::text_view(range.begin(), range.end()) << " ";
 }
 std::cout << "\n";
 
@@ -107,7 +107,7 @@ auto const custom_word_prop = [](uint32_t cp) {
 
 // Prints "out-of-the-box".
 for (auto range : boost::text::words(cps, custom_word_prop)) {
-    std::cout << boost::text::text_view(range) << " ";
+    std::cout << boost::text::text_view(range.begin(), range.end()) << " ";
 }
 std::cout << "\n";
 //]
@@ -119,7 +119,7 @@ boost::text::text cps("snake_case camelCase");
 
 // Prints "snake_case   camelCase".
 for (auto range : boost::text::words(cps)) {
-    std::cout << boost::text::text_view(range) << " ";
+    std::cout << boost::text::text_view(range.begin(), range.end()) << " ";
 }
 std::cout << "\n";
 
@@ -140,7 +140,7 @@ auto const identifier_break = [](uint32_t prev_prev,
 // Prints "snake _ case   camel Case".
 for (auto range :
      boost::text::words(cps, boost::text::word_prop, identifier_break)) {
-    std::cout << boost::text::text_view(range) << " ";
+    std::cout << boost::text::text_view(range.begin(), range.end()) << " ";
 }
 std::cout << "\n";
 //]
@@ -232,7 +232,7 @@ for (auto line : boost::text::lines(
              // font.
              return boost::text::estimated_width_of_graphemes(first, last);
          })) {
-    std::cout << boost::text::text_view(line);
+    std::cout << boost::text::text_view(line.begin(), line.end());
     if (!line.hard_break())
         std::cout << "\n";
 }

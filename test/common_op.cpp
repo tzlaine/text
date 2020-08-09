@@ -125,7 +125,7 @@ TEST(common_operations, string_literal_init_initializer_list)
                                                                                \
     text::text const t("t");                                                   \
     (void)t;                                                                   \
-    text::text_view const tv(t.begin(), t.end());                              \
+    text::text_view const tv(t);                                               \
     (void)tv;                                                                  \
     text::rope const r("r");                                                   \
     (void)r;                                                                   \
@@ -151,7 +151,7 @@ TEST(common_operations, string_literal_init_initializer_list)
                                                                                \
     text::text t("t");                                                         \
     (void)t;                                                                   \
-    text::text_view tv(t.cbegin(), t.cend());                                  \
+    text::text_view tv(t);                                                     \
     (void)tv;                                                                  \
     text::rope r("r");                                                         \
     (void)r;                                                                   \

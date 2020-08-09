@@ -7,55 +7,103 @@
 #define BOOST_TEXT_ROPE_VIEW_HPP
 
 #include <boost/text/grapheme_iterator.hpp>
-#include <boost/text/unencoded_rope_view.hpp>
+#include <boost/text/rope_fwd.hpp>
 #include <boost/text/text_fwd.hpp>
 #include <boost/text/transcode_iterator.hpp>
+#include <boost/text/unencoded_rope_view.hpp>
 #include <boost/text/detail/rope_iterator.hpp>
+#include <boost/text/detail/vector_iterator.hpp>
 
 #include <iterator>
 
 
 namespace boost { namespace text {
 
-    struct rope;
-
-    /** A reference to a substring of a rope, text, or text_view. */
-    struct rope_view
+    /** A reference to a substring of a rope, text, or text_view.  The
+        `String` template parameter refers to the type used in a
+        `basic_unencoded_rope` to which this view may refer.  It is otherwise
+        unused. */
+    template<nf Normalization, typename Char, typename String>
+#if defined(__cpp_lib_concepts)
+        // clang-format off
+        requires utf8_code_unit<Char> || utf16_code_unit<Char>
+#endif
+    struct basic_rope_view
+    // clang-format on
     {
-        using value_type =
-            utf32_view<utf_8_to_32_iterator<unencoded_rope_view::const_iterator>>;
+        /** The normalization form used in this `basic_rope_view`. */
+        static constexpr nf normalization = Normalization;
+
+        /** The type of code unit used in the underlying storage of
+            `basic_rope<Normalization, Char, String>`. */
+        using char_type = Char;
+
+        /** The type of the container used in the underlying storage of
+            `basic_rope<Normalization, Char, String>`. */
+        using string = String;
+
+        /** A specialization of `basic_unencoded_rope_view` with the same
+            `char_type` and `string`. */
+        using unencoded_rope_view =
+            basic_unencoded_rope_view<char_type, string>;
+
+        /** A specialization of `basic_text_view` with the same
+            `normalization`, `char_type`, and `string`. */
+        using text_view = basic_text_view<normalization, char_type>;
+
+        /** A specialization of `basic_text` with the same `normalization`,
+            `char_type`, and `string`. */
+        using text = basic_text<normalization, char_type, string>;
+
+        /** The UTF format used in the underlying storage. */
+        static constexpr format utf_format = detail::format_of<char_type>();
+
+        BOOST_TEXT_STATIC_ASSERT_NORMALIZATION();
+        static_assert(
+            utf_format == format::utf8 || utf_format == format::utf16, "");
+
+        using value_type = utf32_view<utf_8_to_32_iterator<
+            detail::const_rope_view_iterator<char_type, string>>>; // TODO:
+                                                                   // select.
         using size_type = std::size_t;
-        using iterator = grapheme_iterator<
-            utf_8_to_32_iterator<unencoded_rope_view::const_iterator>>;
+        using iterator = grapheme_iterator<utf_8_to_32_iterator<
+            detail::const_rope_view_iterator<char_type, string>>>;
         using const_iterator = iterator;
         using reverse_iterator = stl_interfaces::reverse_iterator<iterator>;
         using const_reverse_iterator = reverse_iterator;
 
-        using rope_iterator = grapheme_iterator<
-            utf_8_to_32_iterator<unencoded_rope::const_iterator>>;
-        using const_rope_iterator = grapheme_iterator<
-            utf_8_to_32_iterator<unencoded_rope::const_iterator>>;
+        using rope_iterator = grapheme_iterator<utf_8_to_32_iterator<
+            detail::const_vector_iterator<char_type, string>>>;
+        using const_rope_iterator = grapheme_iterator<utf_8_to_32_iterator<
+            detail::const_vector_iterator<char_type, string>>>;
 
         /** Default ctor. */
-        rope_view() noexcept {}
+        basic_rope_view() noexcept {}
 
-        /** Constructs a rope_view from a text. */
-        rope_view(text const & t) noexcept;
+        /** Constructs a basic_rope_view from a text. */
+        basic_rope_view(text const & t) noexcept;
 
         /** Disable construction from a temporary text. */
-        rope_view(text && t) noexcept = delete;
+        basic_rope_view(text &&) noexcept = delete;
 
-        /** Constructs a rope_view from a text_view. */
-        rope_view(text_view tv) noexcept;
+        /** Constructs a basic_rope_view from a text_view. */
+        basic_rope_view(text_view tv) noexcept;
 
-        /** Constructs a rope_view from a rope. */
-        rope_view(rope const & r) noexcept;
+        /** Constructs a basic_rope_view from a pair of const_rope_iterators.
 
-        /** Disable construction from a temporary rope. */
-        rope_view(rope && r) noexcept = delete;
+            \pre boost::text::normalized<normalization>(first.base(),
+            last.base()) */
+        basic_rope_view(
+            const_rope_iterator first, const_rope_iterator last) noexcept;
 
-        /** Constructs a rope_view from a pair of const_rope_iterators. */
-        rope_view(const_rope_iterator first, const_rope_iterator last) noexcept;
+        /** Assignment from a `text`. */
+        basic_rope_view & operator=(text const & t) noexcept;
+
+        /** Disallow assignment from a `text` rvalue. */
+        basic_rope_view & operator=(text &&) noexcept = delete;
+
+        /** Assignment from a `text_view`. */
+        basic_rope_view & operator=(text_view tv) noexcept;
 
         const_iterator begin() const noexcept;
         const_iterator end() const noexcept;
@@ -88,14 +136,11 @@ namespace boost { namespace text {
             return std::distance(begin(), end());
         }
 
-        /** Returns the maximum size in bytes a rope_view can have. */
-        size_type max_bytes() const noexcept { return PTRDIFF_MAX; }
-
         /** Swaps *this with rhs. */
-        void swap(rope_view & rhs) noexcept;
+        void swap(basic_rope_view & rhs) noexcept;
 
         /** Stream inserter; performs formatted output, in UTF-8 encoding. */
-        friend std::ostream & operator<<(std::ostream & os, rope_view rv)
+        friend std::ostream & operator<<(std::ostream & os, basic_rope_view rv)
         {
             if (os.good()) {
                 auto const size = boost::text::estimated_width_of_graphemes(
@@ -114,7 +159,8 @@ namespace boost { namespace text {
 #if defined(BOOST_TEXT_DOXYGEN) || defined(_MSC_VER)
         /** Stream inserter; performs formatted output, in UTF-16 encoding.
             Defined on Windows only. */
-        friend std::wostream & operator<<(std::wostream & os, rope_view rv)
+        friend std::wostream &
+        operator<<(std::wostream & os, basic_rope_view rv)
         {
             if (os.good()) {
                 auto const size = boost::text::estimated_width_of_graphemes(
@@ -129,28 +175,37 @@ namespace boost { namespace text {
         }
 #endif
 
+        // TODO: other relops
+        friend bool
+        operator==(basic_rope_view lhs, basic_rope_view rhs) noexcept
+        {
+            return lhs.begin() == rhs.begin() && lhs.end() == rhs.end();
+        }
+
+        friend bool
+        operator!=(basic_rope_view lhs, basic_rope_view rhs) noexcept
+        {
+            return !(lhs == rhs);
+        }
+
 #ifndef BOOST_TEXT_DOXYGEN
 
     private:
-        static iterator make_iter(
-            unencoded_rope_view::const_iterator first,
-            unencoded_rope_view::const_iterator it,
-            unencoded_rope_view::const_iterator last) noexcept;
+        using urv_iter = detail::const_rope_view_iterator<char_type, string>;
+        static iterator
+        make_iter(urv_iter first, urv_iter it, urv_iter last) noexcept
+        {
+            return iterator{
+                utf_8_to_32_iterator<urv_iter>{
+                    first, first, last}, // TODO: select.
+                utf_8_to_32_iterator<urv_iter>{first, it, last},
+                utf_8_to_32_iterator<urv_iter>{first, last, last}};
+        }
 
         unencoded_rope_view view_;
 
 #endif
     };
-
-    inline bool operator==(rope_view lhs, rope_view rhs) noexcept
-    {
-        return lhs.begin() == rhs.begin() && lhs.end() == rhs.end();
-    }
-
-    inline bool operator!=(rope_view lhs, rope_view rhs) noexcept
-    {
-        return !(lhs == rhs);
-    }
 
 }}
 
@@ -160,50 +215,69 @@ namespace boost { namespace text {
 
 namespace boost { namespace text {
 
-    inline rope_view::rope_view(text const & t) noexcept :
-        view_(string_view(t.begin().base().base(), t.storage_bytes()))
+    template<nf Normalization, typename Char, typename String>
+    basic_rope_view<Normalization, Char, String>::basic_rope_view(
+        text const & t) noexcept :
+        view_(basic_string_view<char_type>(
+            t.begin().base().base(), t.storage_bytes()))
     {}
 
-    inline rope_view::rope_view(text_view tv) noexcept :
-        view_(string_view(tv.begin().base().base(), tv.storage_bytes()))
+    template<nf Normalization, typename Char, typename String>
+    basic_rope_view<Normalization, Char, String>::basic_rope_view(
+        text_view tv) noexcept :
+        view_(basic_string_view<char_type>(
+            tv.begin().base().base(), tv.storage_bytes()))
     {}
 
-    inline rope_view::rope_view(rope const & r) noexcept : view_(r.rope_) {}
-
-    inline rope_view::rope_view(
+    template<nf Normalization, typename Char, typename String>
+    basic_rope_view<Normalization, Char, String>::basic_rope_view(
         const_rope_iterator first, const_rope_iterator last) noexcept
     {
-        auto const lo =
-            first.base().base() - first.base().base().vec_->begin();
+        BOOST_ASSERT(
+            boost::text::normalized<normalization>(first.base(), last.base()));
+        auto const lo = first.base().base() - first.base().base().vec_->begin();
         auto const hi = last.base().base() - last.base().base().vec_->begin();
         view_ = unencoded_rope_view(first.base().base().vec_, lo, hi);
     }
 
-    inline rope_view::const_iterator rope_view::begin() const noexcept
+    template<nf Normalization, typename Char, typename String>
+    basic_rope_view<Normalization, Char, String> &
+    basic_rope_view<Normalization, Char, String>::operator=(
+        text const & t) noexcept
+    {
+        view_ = basic_string_view<char_type>(
+            t.begin().base().base(), t.storage_bytes());
+        return *this;
+    }
+
+    template<nf Normalization, typename Char, typename String>
+    basic_rope_view<Normalization, Char, String> &
+    basic_rope_view<Normalization, Char, String>::operator=(
+        text_view tv) noexcept
+    {
+        view_ = basic_string_view<char_type>(
+            tv.begin().base().base(), tv.storage_bytes());
+        return *this;
+    }
+
+    template<nf Normalization, typename Char, typename String>
+    typename basic_rope_view<Normalization, Char, String>::const_iterator
+    basic_rope_view<Normalization, Char, String>::begin() const noexcept
     {
         return make_iter(view_.begin(), view_.begin(), view_.end());
     }
-    inline rope_view::const_iterator rope_view::end() const noexcept
+    template<nf Normalization, typename Char, typename String>
+    typename basic_rope_view<Normalization, Char, String>::const_iterator
+    basic_rope_view<Normalization, Char, String>::end() const noexcept
     {
         return make_iter(view_.begin(), view_.end(), view_.end());
     }
 
-    inline rope_view::size_type rope_view::storage_bytes() const noexcept
+    template<nf Normalization, typename Char, typename String>
+    typename basic_rope_view<Normalization, Char, String>::size_type
+    basic_rope_view<Normalization, Char, String>::storage_bytes() const noexcept
     {
         return view_.size();
-    }
-
-    inline rope_view::iterator rope_view::make_iter(
-        unencoded_rope_view::const_iterator first,
-        unencoded_rope_view::const_iterator it,
-        unencoded_rope_view::const_iterator last) noexcept
-    {
-        return iterator{utf_8_to_32_iterator<unencoded_rope_view::const_iterator>{
-                            first, first, last},
-                        utf_8_to_32_iterator<unencoded_rope_view::const_iterator>{
-                            first, it, last},
-                        utf_8_to_32_iterator<unencoded_rope_view::const_iterator>{
-                            first, last, last}};
     }
 
 }}
@@ -211,10 +285,11 @@ namespace boost { namespace text {
 #ifndef BOOST_TEXT_DOXYGEN
 
 namespace std {
-    template<>
-    struct hash<boost::text::rope_view>
+    template<boost::text::nf Normalization, typename Char, typename String>
+    struct hash<boost::text::basic_rope_view<Normalization, Char, String>>
     {
-        using argument_type = boost::text::rope_view;
+        using argument_type =
+            boost::text::basic_rope_view<Normalization, Char, String>;
         using result_type = std::size_t;
         result_type operator()(argument_type const & rv) const noexcept
         {
@@ -228,8 +303,9 @@ namespace std {
 #if defined(__cpp_lib_concepts)
 
 namespace std::ranges {
-    template<>
-    inline constexpr bool enable_borrowed_range<boost::text::rope_view> = true;
+    template<boost::text::nf Normalization, typename Char, typename String>
+    inline constexpr bool enable_borrowed_range<
+        boost::text::basic_rope_view<Normalization, Char, String>> = true;
 }
 
 #endif

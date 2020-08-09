@@ -10,6 +10,7 @@
 #include <boost/text/estimated_width.hpp>
 #include <boost/text/grapheme_iterator.hpp>
 #include <boost/text/grapheme_view.hpp>
+#include <boost/text/normalize.hpp>
 #include <boost/text/utf.hpp>
 #include <boost/text/detail/utility.hpp>
 
@@ -60,25 +61,18 @@ namespace boost { namespace text {
         /** Default ctor. */
         basic_text_view() noexcept : first_(), last_() {}
 
-        /** Disallow construction from a temporary `text`. */
-        template<nf Normalization2, typename Char2, typename String>
-        basic_text_view(
-            basic_text<Normalization2, Char2, String> && t) noexcept = delete;
-
-        /** Constructs a `basic_text_view` from a `grapheme_view`. */
-#if defined(__cpp_lib_concepts)
-        template<code_point_iter CPIter>
-#else
-        template<typename CPIter>
-#endif
-        basic_text_view(grapheme_view<CPIter> range) noexcept;
-
         /** Constructs a `basic_text_view` from a pair of
-            `const_text_iterators`. */
+            `const_text_iterators`.
+
+            \pre boost::text::normalized<normalization>(first.base(),
+            last.base()) */
         basic_text_view(
             const_text_iterator first, const_text_iterator last) noexcept :
             first_(first), last_(last)
-        {}
+        {
+            BOOST_ASSERT(boost::text::normalized<normalization>(
+                first.base(), last.base()));
+        }
 
         const_iterator begin() const noexcept { return first_; }
         const_iterator end() const noexcept { return last_; }
@@ -154,6 +148,18 @@ namespace boost { namespace text {
         }
 #endif
 
+        friend bool
+        operator==(basic_text_view lhs, basic_text_view rhs) noexcept
+        {
+            return std::equal(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+        }
+
+        friend bool
+        operator!=(basic_text_view lhs, basic_text_view rhs) noexcept
+        {
+            return !(lhs == rhs);
+        }
+
 #ifndef BOOST_TEXT_DOXYGEN
 
     private:
@@ -176,52 +182,9 @@ namespace boost { namespace text {
     };
 
     template<nf Normalization, typename Char>
-#if defined(__cpp_lib_concepts)
-        // clang-format off
-        requires utf8_code_unit<Char> || utf16_code_unit<Char>
-#endif
-    bool operator==(
-        basic_text_view<Normalization, Char> lhs,
-        basic_text_view<Normalization, Char> rhs) noexcept
-    // clang-format on
-    {
-        return lhs.begin() == rhs.begin() && lhs.end() == rhs.end();
-    }
-
-    template<nf Normalization, typename Char>
-#if defined(__cpp_lib_concepts)
-        // clang-format off
-        requires utf8_code_unit<Char> || utf16_code_unit<Char>
-#endif
-    bool operator!=(
-        basic_text_view<Normalization, Char> lhs,
-        basic_text_view<Normalization, Char> rhs) noexcept
-    // clang-format on
-    {
-        return !(lhs == rhs);
-    }
-
-    template<nf Normalization, typename Char>
     int operator+(
         basic_text_view<Normalization, Char> const & t,
         Char const * c_str) = delete;
-
-}}
-
-#include <boost/text/text.hpp>
-
-namespace boost { namespace text {
-
-    template<nf Normalization, typename Char>
-#if defined(__cpp_lib_concepts)
-    template<code_point_iter CPIter>
-#else
-    template<typename CPIter>
-#endif
-    basic_text_view<Normalization, Char>::basic_text_view(
-        grapheme_view<CPIter> range) noexcept :
-        first_(range.begin()), last_(range.end())
-    {}
 
 }}
 

@@ -434,64 +434,6 @@ TEST(text_tests, test_replace)
     }
 }
 
-TEST(text_tests, test_replace_grapheme_range)
-{
-    using namespace text::literals;
-
-    text::text const ct0("REP");
-    auto const replacement =
-        text::as_graphemes(ct0.begin().base(), ct0.end().base());
-
-    {
-        text::text t("string");
-        t.replace(t.begin(), t.end(), replacement);
-        EXPECT_EQ(t, "REP"_t);
-    }
-
-    {
-        text::text t("string");
-        t.replace(t.begin(), t.end(), replacement);
-        EXPECT_EQ(t, "REP"_t);
-    }
-
-    {
-        text::text t("string");
-        auto const new_substr = text::as_graphemes(
-            std::next(t.begin(), 2).base(), std::next(t.begin(), 6).base());
-        t.replace(std::next(t.begin(), 0), std::next(t.begin(), 3), new_substr);
-        EXPECT_EQ(t, "ringing"_t);
-    }
-
-    {
-        text::text t("string");
-        auto const new_substr = text::as_graphemes(
-            std::next(t.begin(), 0).base(), std::next(t.begin(), 3).base());
-        t.replace(std::next(t.begin(), 3), std::next(t.begin(), 6), new_substr);
-        EXPECT_EQ(t, "strstr"_t);
-    }
-
-    text::text const ct("string");
-
-    for (std::size_t j = 0, end = ct.distance(); j <= end; ++j) {
-        for (std::size_t i = 0; i <= j; ++i) {
-            text::text t = ct;
-            text::text_view const before(t.begin(), std::next(t.begin(), i));
-            auto const substr_first = std::next(t.begin(), i);
-            auto const substr_last = std::next(t.begin(), j);
-            text::text const substr_copy(substr_first, substr_last);
-            text::text_view const after(std::next(ct.begin(), j), ct.end());
-
-            text::text expected(before);
-            expected += replacement;
-            expected += after;
-
-            t.replace(substr_first, substr_last, replacement);
-            EXPECT_EQ(t, expected) << "i=" << i << " j=" << j << " erasing '"
-                                   << substr_copy << "'";
-        }
-    }
-}
-
 TEST(text_tests, test_replace_iter)
 {
     using namespace text::literals;

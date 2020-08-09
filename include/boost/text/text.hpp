@@ -10,6 +10,7 @@
 #include <boost/text/normalize_algorithm.hpp>
 #include <boost/text/string_view.hpp>
 #include <boost/text/text_fwd.hpp>
+#include <boost/text/rope_fwd.hpp>
 #include <boost/text/utf.hpp>
 #include <boost/text/detail/make_string.hpp>
 #include <boost/text/detail/utility.hpp>
@@ -37,8 +38,6 @@
 #endif
 
 namespace boost { namespace text {
-
-    struct rope_view;
 
     template<nf Normalization, typename Char, typename String>
 #if defined(__cpp_lib_concepts)
@@ -625,6 +624,27 @@ namespace boost { namespace text {
             return !(lhs == rhs);
         }
 
+        // TODO: Other relops
+        friend bool operator==(basic_text const & lhs, text_view rhs) noexcept
+        {
+            return std::equal(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+        }
+
+        friend bool operator==(text_view lhs, basic_text const & rhs) noexcept
+        {
+            return rhs == lhs;
+        }
+
+        friend bool operator!=(basic_text const & lhs, text_view rhs) noexcept
+        {
+            return !(lhs == rhs);
+        }
+
+        friend bool operator!=(text_view lhs, basic_text const & rhs) noexcept
+        {
+            return !(rhs == lhs);
+        }
+
 #ifndef BOOST_TEXT_DOXYGEN
 
     private:
@@ -781,7 +801,6 @@ namespace boost { namespace text {
         return {begin(), end()};
     }
 
-
     template<nf Normalization, typename Char, typename String>
     replace_result<typename basic_text<Normalization, Char, String>::iterator>
     basic_text<Normalization, Char, String>::replace(
@@ -815,6 +834,7 @@ namespace boost { namespace text {
 
 #if defined(__cpp_lib_concepts)
 
+    // TODO: -> inline definition
     /** Returns true iff `lhs` == `rhs`, where `rhs` is an object for which
         `lhs = rhs` is well-formed. */
     template<nf Normalization, typename Char, typename String, typename T>

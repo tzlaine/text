@@ -6,34 +6,26 @@
 #ifndef BOOST_TEXT_DETAIL_ROPE_ITERATOR_HPP
 #define BOOST_TEXT_DETAIL_ROPE_ITERATOR_HPP
 
-#include <boost/text/unencoded_rope_fwd.hpp>
-#include <boost/text/segmented_vector.hpp>
+#include <boost/text/detail/vector_iterator.hpp>
 
-#include <string>
-
-
-namespace boost { namespace text {
-
-    struct rope_view;
-
-}}
 
 namespace boost { namespace text { namespace detail {
 
-    struct const_rope_view_iterator : stl_interfaces::iterator_interface<
-                                          const_rope_view_iterator,
-                                          std::random_access_iterator_tag,
-                                          char,
-                                          char>
+    template<typename Char, typename String>
+    struct const_rope_view_iterator
+        : stl_interfaces::iterator_interface<
+              const_rope_view_iterator<Char, String>,
+              std::random_access_iterator_tag,
+              Char,
+              Char>
     {
-        using const_rope_iterator =
-            segmented_vector<char, std::string>::const_iterator;
+        using const_rope_iterator = const_vector_iterator<Char, String>;
 
         const_rope_view_iterator() noexcept : which_(which::r) {}
         explicit const_rope_view_iterator(const_rope_iterator it) noexcept :
             r_(it), which_(which::r)
         {}
-        explicit const_rope_view_iterator(char const * it) noexcept :
+        explicit const_rope_view_iterator(Char const * it) noexcept :
             tv_(it), which_(which::tv)
         {}
 
@@ -43,7 +35,7 @@ namespace boost { namespace text { namespace detail {
             return r_;
         }
 
-        char operator*() const noexcept
+        Char operator*() const noexcept
         {
             switch (which_) {
             case which::r: return *r_;
@@ -76,7 +68,7 @@ namespace boost { namespace text { namespace detail {
         enum class which { r, tv };
 
         const_rope_iterator r_;
-        char const * tv_;
+        Char const * tv_;
 
         which which_;
     };
