@@ -175,7 +175,6 @@ namespace boost { namespace text {
         }
 #endif
 
-        // TODO: other relops
         friend bool
         operator==(basic_rope_view lhs, basic_rope_view rhs) noexcept
         {
@@ -186,6 +185,56 @@ namespace boost { namespace text {
         operator!=(basic_rope_view lhs, basic_rope_view rhs) noexcept
         {
             return !(lhs == rhs);
+        }
+
+
+        // Comparisons with text.
+
+        friend bool operator==(basic_rope_view const & lhs, text rhs) noexcept
+        {
+            return std::equal(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+        }
+
+        friend bool operator==(text lhs, basic_rope_view const & rhs) noexcept
+        {
+            return rhs == lhs;
+        }
+
+        friend bool operator!=(basic_rope_view const & lhs, text rhs) noexcept
+        {
+            return !(lhs == rhs);
+        }
+
+        friend bool operator!=(text lhs, basic_rope_view const & rhs) noexcept
+        {
+            return !(rhs == lhs);
+        }
+
+
+        // Comparisons with text_view.
+
+        friend bool
+        operator==(basic_rope_view const & lhs, text_view rhs) noexcept
+        {
+            return std::equal(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+        }
+
+        friend bool
+        operator==(text_view lhs, basic_rope_view const & rhs) noexcept
+        {
+            return rhs == lhs;
+        }
+
+        friend bool
+        operator!=(basic_rope_view const & lhs, text_view rhs) noexcept
+        {
+            return !(lhs == rhs);
+        }
+
+        friend bool
+        operator!=(text_view lhs, basic_rope_view const & rhs) noexcept
+        {
+            return !(rhs == lhs);
         }
 
 #ifndef BOOST_TEXT_DOXYGEN

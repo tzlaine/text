@@ -448,7 +448,9 @@ namespace boost { namespace text {
             return !(lhs == rhs);
         }
 
-        // TODO: Other relops.
+
+        // Comparisons with rope_view.
+
         friend bool operator==(basic_rope const & lhs, rope_view rhs) noexcept
         {
             return algorithm::equal(
@@ -472,6 +474,145 @@ namespace boost { namespace text {
         {
             return !(rhs == lhs);
         }
+
+
+        // Comparisons with text.
+
+        friend bool operator==(text const & lhs, basic_rope rhs) noexcept
+        {
+            return algorithm::equal(
+                lhs.begin().base().base(),
+                lhs.end().base().base(),
+                rhs.begin().base().base(),
+                rhs.end().base().base());
+        }
+        friend bool operator==(basic_rope lhs, text const & rhs) noexcept
+        {
+            return rhs == lhs;
+        }
+
+        friend bool operator!=(text const & lhs, basic_rope rhs) noexcept
+        {
+            return !(lhs == rhs);
+        }
+        friend bool operator!=(basic_rope lhs, text const & rhs) noexcept
+        {
+            return !(lhs == rhs);
+        }
+
+
+        // Generic comparisons.
+
+#if defined(__cpp_lib_concepts)
+
+        /** Returns true iff `lhs` == `rhs`, where `rhs` is an object for which
+            `lhs = rhs` is well-formed. */
+        template<typename T>
+        friend bool operator==(basic_rope const & lhs, T const & rhs)
+            // clang-format off
+            requires requires { lhs = rhs; } &&
+                (!std::is_same_v<T, basic_rope>) &&
+                (!std::is_same_v<T, text>)
+        // clang-format on
+        {
+            return algorithm::equal(
+                std::ranges::begin(lhs),
+                std::ranges::end(lhs),
+                std::ranges::begin(rhs),
+                std::ranges::end(rhs));
+        }
+
+        /** Returns true iff `lhs` == `rhs`, where `rhs` is an object for which
+            `rhs = lhs` is well-formed. */
+        template<typename T>
+        friend bool operator==(T const & lhs, basic_rope const & rhs)
+            // clang-format off
+            requires requires { rhs = lhs; } &&
+                (!std::is_same_v<T, basic_rope>) &&
+                (!std::is_same_v<T, text>)
+        // clang-format on
+        {
+            return rhs == lhs;
+        }
+
+        /** Returns true iff `lhs` != `rhs`, where `rhs` is an object for which
+            `lhs = rhs` is well-formed. */
+        template<typename T>
+        friend bool operator!=(basic_rope const & lhs, T const & rhs)
+            // clang-format off
+            requires requires { lhs = rhs; } &&
+                (!std::is_same_v<T, basic_rope>) &&
+                (!std::is_same_v<T, text>)
+        // clang-format on
+        {
+            return !(lhs == rhs);
+        }
+
+        /** Returns true iff `lhs` != `rhs`, where `rhs` is an object for which
+            `rhs = lhs` is well-formed. */
+        template<typename T>
+        friend bool operator!=(T const & lhs, basic_rope const & rhs)
+            // clang-format off
+            requires requires { rhs = lhs; } &&
+                (!std::is_same_v<T, basic_rope>) &&
+                (!std::is_same_v<T, text>)
+        // clang-format on
+        {
+            return !(lhs == rhs);
+        }
+
+#else
+
+        /** Returns true iff `lhs` == `rhs`, where `rhs` is an object for which
+            `lhs = rhs` is well-formed. */
+        template<typename T>
+        friend auto operator==(basic_rope const & lhs, T const & rhs)
+            -> std::enable_if_t<
+                !std::is_same<T, basic_rope>::value &&
+                    !std::is_same<T, text>::value,
+                decltype(lhs = rhs, true)>
+        {
+            return algorithm::equal(
+                std::begin(lhs), std::end(lhs), std::begin(rhs), std::end(rhs));
+        }
+
+        /** Returns true iff `lhs` == `rhs`, where `rhs` is an object for which
+            `rhs = lhs` is well-formed. */
+        template<typename T>
+        friend auto operator==(T const & lhs, basic_rope const & rhs)
+            -> std::enable_if_t<
+                !std::is_same<T, basic_rope>::value &&
+                    !std::is_same<T, text>::value,
+                decltype(rhs = lhs, true)>
+        {
+            return rhs == lhs;
+        }
+
+        /** Returns true iff `lhs` != `rhs`, where `rhs` is an object for which
+            `lhs = rhs` is well-formed. */
+        template<typename T>
+        friend auto operator!=(basic_rope const & lhs, T const & rhs)
+            -> std::enable_if_t<
+                !std::is_same<T, basic_rope>::value &&
+                    !std::is_same<T, text>::value,
+                decltype(lhs = rhs, true)>
+        {
+            return !(lhs == rhs);
+        }
+
+        /** Returns true iff `lhs` != `rhs`, where `rhs` is an object for which
+            `rhs = lhs` is well-formed. */
+        template<typename T>
+        friend auto operator!=(T const & lhs, basic_rope const & rhs)
+            -> std::enable_if_t<
+                !std::is_same<T, basic_rope>::value &&
+                    !std::is_same<T, text>::value,
+                decltype(rhs = lhs, true)>
+        {
+            return !(lhs == rhs);
+        }
+
+#endif
 
 #ifndef BOOST_TEXT_DOXYGEN
 
@@ -680,277 +821,6 @@ namespace boost { namespace text {
 #endif
 
 namespace boost { namespace text {
-
-#if defined(__cpp_lib_concepts)
-
-    // TODO: -> inline definition
-    /** Returns true iff `lhs` == `rhs`, where `rhs` is an object for which
-        `lhs = rhs` is well-formed. */
-    template<nf Normalization, typename Char, typename String, typename T>
-    bool operator==(
-        basic_rope<Normalization, Char, String> const & lhs, T const & rhs)
-        // clang-format off
-        requires requires { lhs = rhs; } &&
-            (!std::is_same_v<T, basic_rope<Normalization, Char, String>>) &&
-            (!std::is_same_v<T, basic_text<Normalization, Char, String>>)
-    // clang-format on
-    {
-        return algorithm::equal(
-                   std::ranges::begin(lhs),
-                   std::ranges::end(lhs),
-                   std::ranges::begin(rhs),
-                   std::ranges::end(rhs));
-    }
-
-    /** Returns true iff `lhs` == `rhs`, where `rhs` is an object for which
-        `rhs = lhs` is well-formed. */
-    template<nf Normalization, typename Char, typename String, typename T>
-    bool operator==(
-        T const & lhs, basic_rope<Normalization, Char, String> const & rhs)
-        // clang-format off
-        requires requires { rhs = lhs; } &&
-            (!std::is_same_v<T, basic_rope<Normalization, Char, String>>) &&
-            (!std::is_same_v<T, basic_text<Normalization, Char, String>>)
-    // clang-format on
-    {
-        return algorithm::equal(
-                   std::ranges::begin(lhs),
-                   std::ranges::end(lhs),
-                   std::ranges::begin(rhs),
-                   std::ranges::end(rhs));
-    }
-
-    /** Returns true iff `lhs` != `rhs`, where `rhs` is an object for which
-        `lhs = rhs` is well-formed. */
-    template<nf Normalization, typename Char, typename String, typename T>
-    bool operator!=(
-        basic_rope<Normalization, Char, String> const & lhs, T const & rhs)
-        // clang-format off
-        requires requires { lhs = rhs; } &&
-            (!std::is_same_v<T, basic_rope<Normalization, Char, String>>) &&
-            (!std::is_same_v<T, basic_text<Normalization, Char, String>>)
-    // clang-format on
-    {
-        return !(lhs == rhs);
-    }
-
-    /** Returns true iff `lhs` != `rhs`, where `rhs` is an object for which
-        `rhs = lhs` is well-formed. */
-    template<nf Normalization, typename Char, typename String, typename T>
-    bool operator!=(
-        T const & lhs, basic_rope<Normalization, Char, String> const & rhs)
-        // clang-format off
-        requires requires { rhs = lhs; } &&
-            (!std::is_same_v<T, basic_rope<Normalization, Char, String>>) &&
-            (!std::is_same_v<T, basic_text<Normalization, Char, String>>)
-    // clang-format on
-    {
-        return !(lhs == rhs);
-    }
-
-#else
-
-    /** Returns true iff `lhs` == `rhs`, where `rhs` is an object for which
-        `lhs = rhs` is well-formed. */
-    template<nf Normalization, typename Char, typename String, typename T>
-    auto operator==(
-        basic_rope<Normalization, Char, String> const & lhs, T const & rhs)
-        -> std::enable_if_t<
-            !std::is_same<T, basic_rope<Normalization, Char, String>>::value &&
-                !std::is_same<T, basic_text<Normalization, Char, String>>::
-                    value,
-            decltype(lhs = lhs, true)>
-    {
-        return algorithm::equal(
-                   std::begin(lhs),
-                   std::end(lhs),
-                   std::begin(rhs),
-                   std::end(rhs));
-    }
-
-    /** Returns true iff `lhs` == `rhs`, where `rhs` is an object for which
-        `rhs = lhs` is well-formed. */
-    template<nf Normalization, typename Char, typename String, typename T>
-    auto operator==(
-        T const & lhs, basic_rope<Normalization, Char, String> const & rhs)
-        -> std::enable_if_t<
-            !std::is_same<T, basic_rope<Normalization, Char, String>>::value &&
-                !std::is_same<T, basic_text<Normalization, Char, String>>::
-                    value,
-            decltype(rhs = lhs, true)>
-    {
-        return algorithm::equal(
-                   std::begin(lhs),
-                   std::end(lhs),
-                   std::begin(rhs),
-                   std::end(rhs));
-    }
-
-    /** Returns true iff `lhs` != `rhs`, where `rhs` is an object for which
-        `lhs = rhs` is well-formed. */
-    template<nf Normalization, typename Char, typename String, typename T>
-    auto operator!=(
-        basic_rope<Normalization, Char, String> const & lhs, T const & rhs)
-        -> std::enable_if_t<
-            !std::is_same<T, basic_rope<Normalization, Char, String>>::value &&
-                !std::is_same<T, basic_text<Normalization, Char, String>>::
-                    value,
-            decltype(lhs = rhs, true)>
-    {
-        return !(lhs == rhs);
-    }
-
-    /** Returns true iff `lhs` != `rhs`, where `rhs` is an object for which
-        `rhs = lhs` is well-formed. */
-    template<nf Normalization, typename Char, typename String, typename T>
-    auto operator!=(
-        T const & lhs, basic_rope<Normalization, Char, String> const & rhs)
-        -> std::enable_if_t<
-            !std::is_same<T, basic_rope<Normalization, Char, String>>::value &&
-                !std::is_same<T, basic_text<Normalization, Char, String>>::
-                    value,
-            decltype(rhs = lhs, true)>
-    {
-        return !(lhs == rhs);
-    }
-
-#endif
-
-    template<nf Normalization, typename Char, typename String>
-    bool operator==(
-        basic_text<Normalization, Char, String> const & lhs,
-        basic_rope_view<Normalization, Char, String> rhs) noexcept
-    {
-        return algorithm::equal(
-            lhs.begin().base().base(),
-            lhs.end().base().base(),
-            rhs.begin().base().base(),
-            rhs.end().base().base());
-    }
-    template<nf Normalization, typename Char, typename String>
-    bool operator==(
-        basic_rope_view<Normalization, Char, String> lhs,
-        basic_text<Normalization, Char, String> const & rhs) noexcept
-    {
-        return rhs == lhs;
-    }
-
-    template<nf Normalization, typename Char, typename String>
-    bool operator!=(
-        basic_text<Normalization, Char, String> const & lhs,
-        basic_rope_view<Normalization, Char, String> rhs) noexcept
-    {
-        return !(lhs == rhs);
-    }
-    template<nf Normalization, typename Char, typename String>
-    bool operator!=(
-        basic_rope_view<Normalization, Char, String> lhs,
-        basic_text<Normalization, Char, String> const & rhs) noexcept
-    {
-        return !(lhs == rhs);
-    }
-
-    template<nf Normalization, typename Char, typename String>
-    bool operator==(
-        basic_text<Normalization, Char, String> const & lhs,
-        basic_rope<Normalization, Char, String> rhs) noexcept
-    {
-        return algorithm::equal(
-            lhs.begin().base().base(),
-            lhs.end().base().base(),
-            rhs.begin().base().base(),
-            rhs.end().base().base());
-    }
-    template<nf Normalization, typename Char, typename String>
-    bool operator==(
-        basic_rope<Normalization, Char, String> lhs,
-        basic_text<Normalization, Char, String> const & rhs) noexcept
-    {
-        return rhs == lhs;
-    }
-
-    template<nf Normalization, typename Char, typename String>
-    bool operator!=(
-        basic_text<Normalization, Char, String> const & lhs,
-        basic_rope<Normalization, Char, String> rhs) noexcept
-    {
-        return !(lhs == rhs);
-    }
-    template<nf Normalization, typename Char, typename String>
-    bool operator!=(
-        basic_rope<Normalization, Char, String> lhs,
-        basic_text<Normalization, Char, String> const & rhs) noexcept
-    {
-        return !(lhs == rhs);
-    }
-
-    template<nf Normalization, typename Char, typename String>
-    bool operator==(
-        basic_rope<Normalization, Char, String> const & lhs,
-        basic_rope_view<Normalization, Char, String> rhs) noexcept
-    {
-        return algorithm::equal(
-            lhs.begin().base().base(),
-            lhs.end().base().base(),
-            rhs.begin().base().base(),
-            rhs.end().base().base());
-    }
-    template<nf Normalization, typename Char, typename String>
-    bool operator==(
-        basic_rope_view<Normalization, Char, String> lhs,
-        basic_rope<Normalization, Char, String> const & rhs) noexcept
-    {
-        return rhs == lhs;
-    }
-
-    template<nf Normalization, typename Char, typename String>
-    bool operator!=(
-        basic_rope<Normalization, Char, String> const & lhs,
-        basic_rope_view<Normalization, Char, String> rhs) noexcept
-    {
-        return !(lhs == rhs);
-    }
-    template<nf Normalization, typename Char, typename String>
-    bool operator!=(
-        basic_rope_view<Normalization, Char, String> lhs,
-        basic_rope<Normalization, Char, String> const & rhs) noexcept
-    {
-        return !(lhs == rhs);
-    }
-
-    template<nf Normalization, typename Char, typename String>
-    bool operator==(
-        basic_text_view<Normalization, Char> lhs,
-        basic_rope_view<Normalization, Char, String> rhs) noexcept
-    {
-        return algorithm::equal(
-            lhs.begin().base().base(),
-            lhs.end().base().base(),
-            rhs.begin().base().base(),
-            rhs.end().base().base());
-    }
-    template<nf Normalization, typename Char, typename String>
-    bool operator==(
-        basic_rope_view<Normalization, Char, String> lhs,
-        basic_text_view<Normalization, Char> rhs) noexcept
-    {
-        return rhs == lhs;
-    }
-
-    template<nf Normalization, typename Char, typename String>
-    bool operator!=(
-        basic_text_view<Normalization, Char> lhs,
-        basic_rope_view<Normalization, Char, String> rhs) noexcept
-    {
-        return !(lhs == rhs);
-    }
-    template<nf Normalization, typename Char, typename String>
-    bool operator!=(
-        basic_rope_view<Normalization, Char, String> lhs,
-        basic_text_view<Normalization, Char> rhs) noexcept
-    {
-        return !(lhs == rhs);
-    }
 
 #if defined(__cpp_lib_concepts)
 
