@@ -8,6 +8,7 @@
 
 #include <boost/text/normalize_fwd.hpp>
 #include <boost/text/concepts.hpp>
+#include <boost/text/transcode_iterator.hpp>
 
 
 namespace boost { namespace text {
@@ -44,6 +45,24 @@ namespace boost { namespace text {
         situations. */
     using rope_view = basic_rope_view<nf::fcc, char>;
     // TODO: Change this to NFC.
+
+    namespace detail {
+        template<typename T, typename Iter, int Size = sizeof(T)>
+        struct rope_transcode_iterator;
+        template<typename T, typename Iter>
+        struct rope_transcode_iterator<T, Iter, 1>
+        {
+            using type = utf_8_to_32_iterator<Iter>;
+        };
+        template<typename T, typename Iter>
+        struct rope_transcode_iterator<T, Iter, 2>
+        {
+            using type = utf_16_to_32_iterator<Iter>;
+        };
+        template<typename T, typename Iter>
+        using rope_transcode_iterator_t =
+            typename rope_transcode_iterator<T, Iter>::type;
+    }
 
 }}
 

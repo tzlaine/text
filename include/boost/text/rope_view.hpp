@@ -9,7 +9,6 @@
 #include <boost/text/grapheme_iterator.hpp>
 #include <boost/text/rope_fwd.hpp>
 #include <boost/text/text_fwd.hpp>
-#include <boost/text/transcode_iterator.hpp>
 #include <boost/text/unencoded_rope_view.hpp>
 #include <boost/text/detail/rope_iterator.hpp>
 #include <boost/text/detail/vector_iterator.hpp>
@@ -62,20 +61,25 @@ namespace boost { namespace text {
         static_assert(
             utf_format == format::utf8 || utf_format == format::utf16, "");
 
-        using value_type = utf32_view<utf_8_to_32_iterator<
-            detail::const_rope_view_iterator<char_type, string>>>; // TODO:
-                                                                   // select.
+        using value_type = utf32_view<detail::rope_transcode_iterator_t<
+            char_type,
+            detail::const_rope_view_iterator<char_type, string>>>;
         using size_type = std::size_t;
-        using iterator = grapheme_iterator<utf_8_to_32_iterator<
+        using iterator = grapheme_iterator<detail::rope_transcode_iterator_t<
+            char_type,
             detail::const_rope_view_iterator<char_type, string>>>;
         using const_iterator = iterator;
         using reverse_iterator = stl_interfaces::reverse_iterator<iterator>;
         using const_reverse_iterator = reverse_iterator;
 
-        using rope_iterator = grapheme_iterator<utf_8_to_32_iterator<
-            detail::const_vector_iterator<char_type, string>>>;
-        using const_rope_iterator = grapheme_iterator<utf_8_to_32_iterator<
-            detail::const_vector_iterator<char_type, string>>>;
+        using rope_iterator =
+            grapheme_iterator<detail::rope_transcode_iterator_t<
+                char_type,
+                detail::const_vector_iterator<char_type, string>>>;
+        using const_rope_iterator =
+            grapheme_iterator<detail::rope_transcode_iterator_t<
+                char_type,
+                detail::const_vector_iterator<char_type, string>>>;
 
         /** Default ctor. */
         basic_rope_view() noexcept {}
@@ -125,9 +129,9 @@ namespace boost { namespace text {
 
         bool empty() const noexcept { return begin() == end(); }
 
-        /** Returns the number of bytes controlled by *this, not including the
-            null terminator. */
-        size_type storage_bytes() const noexcept;
+        /** Returns the number of code units controlled by *this, not
+            including the null terminator. */
+        size_type storage_code_units() const noexcept;
 
         /** Returns the number of graphemes in *this.  This operation is
             O(n). */
@@ -245,10 +249,12 @@ namespace boost { namespace text {
         make_iter(urv_iter first, urv_iter it, urv_iter last) noexcept
         {
             return iterator{
-                utf_8_to_32_iterator<urv_iter>{
-                    first, first, last}, // TODO: select.
-                utf_8_to_32_iterator<urv_iter>{first, it, last},
-                utf_8_to_32_iterator<urv_iter>{first, last, last}};
+                detail::rope_transcode_iterator_t<char_type, urv_iter>{
+                    first, first, last},
+                detail::rope_transcode_iterator_t<char_type, urv_iter>{
+                    first, it, last},
+                detail::rope_transcode_iterator_t<char_type, urv_iter>{
+                    first, last, last}};
         }
 
         unencoded_rope_view view_;
@@ -268,14 +274,14 @@ namespace boost { namespace text {
     basic_rope_view<Normalization, Char, String>::basic_rope_view(
         text const & t) noexcept :
         view_(basic_string_view<char_type>(
-            t.begin().base().base(), t.storage_bytes()))
+            t.begin().base().base(), t.storage_code_units()))
     {}
 
     template<nf Normalization, typename Char, typename String>
     basic_rope_view<Normalization, Char, String>::basic_rope_view(
         text_view tv) noexcept :
         view_(basic_string_view<char_type>(
-            tv.begin().base().base(), tv.storage_bytes()))
+            tv.begin().base().base(), tv.storage_code_units()))
     {}
 
     template<nf Normalization, typename Char, typename String>
@@ -295,7 +301,7 @@ namespace boost { namespace text {
         text const & t) noexcept
     {
         view_ = basic_string_view<char_type>(
-            t.begin().base().base(), t.storage_bytes());
+            t.begin().base().base(), t.storage_code_units());
         return *this;
     }
 
@@ -305,7 +311,7 @@ namespace boost { namespace text {
         text_view tv) noexcept
     {
         view_ = basic_string_view<char_type>(
-            tv.begin().base().base(), tv.storage_bytes());
+            tv.begin().base().base(), tv.storage_code_units());
         return *this;
     }
 
@@ -324,7 +330,8 @@ namespace boost { namespace text {
 
     template<nf Normalization, typename Char, typename String>
     typename basic_rope_view<Normalization, Char, String>::size_type
-    basic_rope_view<Normalization, Char, String>::storage_bytes() const noexcept
+    basic_rope_view<Normalization, Char, String>::storage_code_units()
+        const noexcept
     {
         return view_.size();
     }

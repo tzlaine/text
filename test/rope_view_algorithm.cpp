@@ -668,54 +668,54 @@ TEST(rope_view_algorithm, coll_search_danish)
         table,
         haystack_1,
         needle_1,
-        haystack_1.storage_bytes(),
-        haystack_1.storage_bytes(),
+        haystack_1.storage_code_units(),
+        haystack_1.storage_code_units(),
         __LINE__);
     do_search(table, haystack_1, needle_2, 7, 9, __LINE__);
     do_search(
         table,
         haystack_1,
         needle_3,
-        haystack_1.storage_bytes(),
-        haystack_1.storage_bytes(),
+        haystack_1.storage_code_units(),
+        haystack_1.storage_code_units(),
         __LINE__);
 
     do_search(
         table,
         haystack_2,
         needle_1,
-        haystack_2.storage_bytes(),
-        haystack_2.storage_bytes(),
+        haystack_2.storage_code_units(),
+        haystack_2.storage_code_units(),
         __LINE__);
     do_search(table, haystack_2, needle_2, 7, 9, __LINE__);
     do_search(
         table,
         haystack_2,
         needle_3,
-        haystack_2.storage_bytes(),
-        haystack_2.storage_bytes(),
+        haystack_2.storage_code_units(),
+        haystack_2.storage_code_units(),
         __LINE__);
 
     do_search(
         table,
         haystack_3,
         needle_1,
-        haystack_3.storage_bytes(),
-        haystack_3.storage_bytes(),
+        haystack_3.storage_code_units(),
+        haystack_3.storage_code_units(),
         __LINE__);
     do_search(
         table,
         haystack_3,
         needle_2,
-        haystack_3.storage_bytes(),
-        haystack_3.storage_bytes(),
+        haystack_3.storage_code_units(),
+        haystack_3.storage_code_units(),
         __LINE__);
     do_search(
         table,
         haystack_3,
         needle_3,
-        haystack_3.storage_bytes(),
-        haystack_3.storage_bytes(),
+        haystack_3.storage_code_units(),
+        haystack_3.storage_code_units(),
         __LINE__);
 
     do_search(table, haystack_4, needle_1, 7, 8, __LINE__);
@@ -723,15 +723,15 @@ TEST(rope_view_algorithm, coll_search_danish)
         table,
         haystack_4,
         needle_2,
-        haystack_4.storage_bytes() - 1,
-        haystack_4.storage_bytes() - 1,
+        haystack_4.storage_code_units() - 1,
+        haystack_4.storage_code_units() - 1,
         __LINE__);
     do_search(
         table,
         haystack_4,
         needle_3,
-        haystack_4.storage_bytes() - 1,
-        haystack_4.storage_bytes() - 1,
+        haystack_4.storage_code_units() - 1,
+        haystack_4.storage_code_units() - 1,
         __LINE__);
 
     do_search(table, haystack_5, needle_1, 7, 8, __LINE__);
@@ -739,15 +739,15 @@ TEST(rope_view_algorithm, coll_search_danish)
         table,
         haystack_5,
         needle_2,
-        haystack_5.storage_bytes() - 1,
-        haystack_5.storage_bytes() - 1,
+        haystack_5.storage_code_units() - 1,
+        haystack_5.storage_code_units() - 1,
         __LINE__);
     do_search(
         table,
         haystack_5,
         needle_3,
-        haystack_5.storage_bytes() - 1,
-        haystack_5.storage_bytes() - 1,
+        haystack_5.storage_code_units() - 1,
+        haystack_5.storage_code_units() - 1,
         __LINE__);
 
     // Secondary strength
@@ -806,24 +806,24 @@ TEST(rope_view_algorithm, coll_search_danish)
         table,
         haystack_3,
         needle_1,
-        haystack_3.storage_bytes(),
-        haystack_3.storage_bytes(),
+        haystack_3.storage_code_units(),
+        haystack_3.storage_code_units(),
         __LINE__,
         collation_flags::ignore_case);
     do_search(
         table,
         haystack_3,
         needle_2,
-        haystack_3.storage_bytes(),
-        haystack_3.storage_bytes(),
+        haystack_3.storage_code_units(),
+        haystack_3.storage_code_units(),
         __LINE__,
         collation_flags::ignore_case);
     do_search(
         table,
         haystack_3,
         needle_3,
-        haystack_3.storage_bytes(),
-        haystack_3.storage_bytes(),
+        haystack_3.storage_code_units(),
+        haystack_3.storage_code_units(),
         __LINE__,
         collation_flags::ignore_case);
 

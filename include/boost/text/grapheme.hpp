@@ -22,8 +22,8 @@ namespace boost { namespace text {
     template<typename CPIter>
     struct grapheme_ref;
 
-    /** Returns the number of bytes controlled by g. */
-    int storage_bytes(grapheme const & g) noexcept;
+    /** Returns the number of code_units controlled by g. */
+    int storage_code_units(grapheme const & g) noexcept;
 
     /** An owning sequence of code points that comprise an extended grapheme
         cluster. */
@@ -106,7 +106,7 @@ namespace boost { namespace text {
             return chars_ != other.chars_;
         }
 
-        friend int storage_bytes(grapheme const & g) noexcept
+        friend int storage_code_units(grapheme const & g) noexcept
         {
             return g.chars_.size();
         }
@@ -164,7 +164,7 @@ namespace boost { namespace text {
 
     /** Returns the number of bytes g refers to. */
     template<typename CPIter>
-    int storage_bytes(grapheme_ref<CPIter> g) noexcept
+    int storage_code_units(grapheme_ref<CPIter> g) noexcept
     {
         return std::distance(g.begin().base(), g.end().base());
     }

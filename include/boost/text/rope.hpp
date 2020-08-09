@@ -13,8 +13,8 @@
 #include <boost/text/rope_fwd.hpp>
 #include <boost/text/string_view.hpp>
 #include <boost/text/text_fwd.hpp>
-#include <boost/text/transcode_iterator.hpp>
 #include <boost/text/unencoded_rope.hpp>
+#include <boost/text/detail/make_string.hpp>
 
 #include <iterator>
 
@@ -25,7 +25,7 @@
 #define BOOST_TEXT_CHECK_ROPE_NORMALIZATION()                                  \
     do {                                                                       \
         string str(rope_.begin(), rope_.end());                                \
-        normalize<nf::fcc>(str);                                               \
+        normalize<normalization>(str);                                         \
         BOOST_ASSERT(rope_ == str);                                            \
     } while (false)
 #else
@@ -68,6 +68,10 @@ namespace boost { namespace text {
             `char_type`, and `string`. */
         using text = basic_text<normalization, char_type, string>;
 
+        /** A specialization of `std::basic_string_view` with the same
+            `char_type`. */
+        using string_view = basic_string_view<char_type>;
+
         /** A specialization of `basic_rope_view` with the same
             `normalization`, `char_type`, and `string`. */
         using rope_view = basic_rope_view<normalization, char_type, string>;
@@ -81,10 +85,9 @@ namespace boost { namespace text {
 
         using value_type = grapheme;
         using size_type = std::size_t;
-        using iterator = grapheme_iterator<utf_8_to_32_iterator<
-            detail::const_vector_iterator<char_type, string>>>; // TODO: select
-                                                                // transcoding
-                                                                // here
+        using iterator = grapheme_iterator<detail::rope_transcode_iterator_t<
+            char_type,
+            detail::const_vector_iterator<char_type, string>>>;
         using const_iterator = iterator;
         using reverse_iterator = stl_interfaces::reverse_iterator<iterator>;
         using const_reverse_iterator = reverse_iterator;
@@ -94,7 +97,7 @@ namespace boost { namespace text {
 
         /** Constructs a text from a pair of iterators. */
         basic_rope(const_iterator first, const_iterator last) :
-            rope(first.base().base(), last.base().base())
+            basic_rope(first.base().base(), last.base().base())
         {}
 
         /** Constructs a basic_rope from a null-terminated string. */
@@ -122,11 +125,26 @@ namespace boost { namespace text {
         template<typename CUIter, typename Sentinel>
         basic_rope(CUIter first, Sentinel last);
 
+        /** Constructs a `basic_rope` from a range of graphemes.
+
+            This function only participates in overload resolution if
+            `GraphemeCURange` models the GraphemeCURange concept. */
+        template<typename GraphemeCURange>
+        explicit basic_rope(GraphemeCURange const & r);
+
+        /** Constructs a `basic_rope` from a sequence of graphemes.
+
+            This function only participates in overload resolution if
+            `GraphemeCUIter` models the GraphemeCUIter concept. */
+        template<typename GraphemeCUIter>
+        explicit basic_rope(GraphemeCUIter first, GraphemeCUIter last);
+
 #else
 
         template<typename CURange>
         explicit basic_rope(
-            CURange const & r, detail::rng_alg_ret_t<int *, CURange> = 0) :
+            CURange const & r,
+            detail::cu_rng_alg_ret_t<(int)utf_format, int *, CURange> = 0) :
             rope_(std::begin(r), std::end(r))
         {}
 
@@ -134,7 +152,39 @@ namespace boost { namespace text {
         basic_rope(
             CUIter first,
             Sentinel last,
-            detail::char_iter_ret_t<void *, CUIter> = 0);
+            detail::cu_iter_ret_t<(int)utf_format, void *, CUIter> = 0);
+
+#if defined(__cpp_lib_concepts)
+        template<grapheme_range_code_unit<utf_format> R>
+        explicit basic_rope(R const & r)
+#else
+        template<typename R>
+        explicit basic_rope(
+            R const & r, detail::graph_rng_alg_ret_t<int *, R> = 0)
+#endif
+        {
+            auto str = detail::make_string<string>(
+                r.begin().base().base(), r.end().base().base());
+            boost::text::normalize<normalization>(str);
+            rope_.insert(rope_.begin(), std::move(str));
+        }
+
+#if defined(__cpp_lib_concepts)
+        template<grapheme_iter_code_unit<utf_format> I>
+        explicit basic_rope(I first, I last)
+#else
+        template<typename I>
+        explicit basic_rope(
+            I first,
+            I last,
+            detail::graph_iter_alg_cu_ret_t<(int)utf_format, int *, I> = 0)
+#endif
+        {
+            auto str = detail::make_string<string>(
+                first.base().base(), last.base().base());
+            boost::text::normalize<normalization>(str);
+            rope_.insert(rope_.begin(), std::move(str));
+        }
 
 #endif
 
@@ -189,9 +239,9 @@ namespace boost { namespace text {
         /** Returns true if begin() == end(), false otherwise. */
         bool empty() const noexcept { return rope_.empty(); }
 
-        /** Returns the number of bytes controlled by *this, not including the
-            null terminator. */
-        size_type storage_bytes() const noexcept { return rope_.size(); }
+        /** Returns the number of code units controlled by *this, not
+            including the null terminator. */
+        size_type storage_code_units() const noexcept { return rope_.size(); }
 
         /** Returns the number of graphemes in *this.  This operation is
             O(n). */
@@ -200,8 +250,8 @@ namespace boost { namespace text {
             return std::distance(begin(), end());
         }
 
-        /** Returns the maximum size in bytes a basic_rope can have. */
-        size_type max_bytes() const noexcept { return PTRDIFF_MAX; }
+        /** Returns the maximum size in code units a basic_rope can have. */
+        size_type max_code_units() const noexcept { return PTRDIFF_MAX; }
 
         /** Returns true if *this and rhs contain the same root node pointer.
             This is useful when you want to check for equality between two
@@ -223,8 +273,8 @@ namespace boost { namespace text {
         {
             auto const rope_first = first.base().base();
             auto const rope_last = last.base().base();
-            auto const retval =
-                detail::erase_impl<true, nf::fcc>(rope_, rope_first, rope_last);
+            auto const retval = detail::erase_impl<true, normalization>(
+                rope_, rope_first, rope_last);
             return mutation_result(retval);
         }
 
@@ -322,7 +372,10 @@ namespace boost { namespace text {
         template<typename CURange>
         auto
         replace(const_iterator first, const_iterator last, CURange const & r)
-            -> detail::rng_alg_ret_t<replace_result<const_iterator>, CURange>
+            -> detail::cu_rng_alg_ret_t<
+                (int)utf_format,
+                replace_result<const_iterator>,
+                CURange>
         {
             return replace(first, last, std::begin(r), std::end(r));
         }
@@ -333,7 +386,10 @@ namespace boost { namespace text {
             const_iterator last1,
             CUIter first2,
             CUIter last2)
-            -> detail::char_iter_ret_t<replace_result<const_iterator>, CUIter>
+            -> detail::cu_iter_ret_t<
+                (int)utf_format,
+                replace_result<const_iterator>,
+                CUIter>
         {
             return replace_impl(
                 first1, last1, first2, last2, insertion_not_normalized);
@@ -623,13 +679,16 @@ namespace boost { namespace text {
         make_iter(ur_iter first, ur_iter it, ur_iter last) noexcept
         {
             return const_iterator{
-                utf_8_to_32_iterator<ur_iter>{first, first, last},
-                utf_8_to_32_iterator<ur_iter>{first, it, last},
-                utf_8_to_32_iterator<ur_iter>{first, last, last}};
+                detail::rope_transcode_iterator_t<char_type, ur_iter>{
+                    first, first, last},
+                detail::rope_transcode_iterator_t<char_type, ur_iter>{
+                    first, it, last},
+                detail::rope_transcode_iterator_t<char_type, ur_iter>{
+                    first, last, last}};
         }
 
         using utf32_iter =
-            utf_8_to_32_iterator<ur_iter>; // TODO: select transcoding.
+            detail::rope_transcode_iterator_t<char_type, ur_iter>;
 
         template<typename Iter>
         replace_result<const_iterator>
@@ -682,7 +741,7 @@ namespace boost { namespace text {
                 return {at, at};
             auto const rope_at = at.base().base();
             auto const insertion = boost::text::as_utf32(first, last);
-            auto const retval = detail::replace_impl<true, nf::fcc>(
+            auto const retval = detail::replace_impl<true, normalization>(
                 rope_,
                 rope_at,
                 rope_at,
@@ -701,7 +760,7 @@ namespace boost { namespace text {
             insertion_normalization insertion_norm)
         {
             auto const insertion = boost::text::as_utf32(first2, last2);
-            auto const retval = detail::replace_impl<true, nf::fcc>(
+            auto const retval = detail::replace_impl<true, normalization>(
                 rope_,
                 first1.base().base(),
                 last1.base().base(),
@@ -748,7 +807,9 @@ namespace boost { namespace text {
     template<nf Normalization, typename Char, typename String>
     template<typename CUIter, typename Sentinel>
     basic_rope<Normalization, Char, String>::basic_rope(
-        CUIter first, Sentinel last, detail::char_iter_ret_t<void *, CUIter>) :
+        CUIter first,
+        Sentinel last,
+        detail::cu_iter_ret_t<(int)utf_format, void *, CUIter>) :
         rope_(text(first, last).extract())
     {}
 

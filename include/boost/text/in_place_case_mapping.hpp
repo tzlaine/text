@@ -25,7 +25,7 @@ namespace boost { namespace text {
             t.end().base(),
             boost::text::from_utf32_inserter(s, s.end()),
             lang);
-        if (s.size() < t.storage_bytes()) {
+        if (s.size() < t.storage_code_units()) {
             t = s;
         } else {
             boost::text::normalize<nf::fcc>(s);
@@ -67,7 +67,7 @@ namespace boost { namespace text {
             boost::text::from_utf32_inserter(s, s.end()),
             lang,
             next_word_break);
-        if (s.size() < t.storage_bytes()) {
+        if (s.size() < t.storage_code_units()) {
             t = s;
         } else {
             boost::text::normalize<nf::fcc>(s);
@@ -109,7 +109,7 @@ namespace boost { namespace text {
             t.end().base(),
             boost::text::from_utf32_inserter(s, s.end()),
             lang);
-        if (s.size() < t.storage_bytes()) {
+        if (s.size() < t.storage_code_units()) {
             t = s;
         } else {
             boost::text::normalize<nf::fcc>(s);

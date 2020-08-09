@@ -94,9 +94,9 @@ namespace boost { namespace text {
 
         bool empty() const noexcept { return first_ == last_; }
 
-        /** Returns the number of bytes referred to by `*this`, not including
-            the null terminator. */
-        size_type storage_bytes() const noexcept
+        /** Returns the number of code units referred to by `*this`, not
+            including the null terminator. */
+        size_type storage_code_units() const noexcept
         {
             return last_.base().base() - first_.base().base();
         }
@@ -123,7 +123,7 @@ namespace boost { namespace text {
                     tv.begin().base(), tv.end().base());
                 detail::pad_width_before(os, size);
                 if (os.good())
-                    os.write(tv.begin().base().base(), tv.storage_bytes());
+                    os.write(tv.begin().base().base(), tv.storage_code_units());
                 if (os.good())
                     detail::pad_width_after(os, size);
             }

@@ -40,11 +40,11 @@ TEST(text_utf16, test_empty)
     EXPECT_EQ(t.rend(), t.crend());
 
     EXPECT_TRUE(t.empty());
-    EXPECT_EQ(t.storage_bytes(), 0u);
+    EXPECT_EQ(t.storage_code_units(), 0u);
     EXPECT_EQ(t.distance(), 0u);
     EXPECT_EQ(t.begin(), t.end());
 
-    EXPECT_EQ(t.max_bytes(), (std::size_t)PTRDIFF_MAX);
+    EXPECT_EQ(t.max_code_units(), (std::size_t)PTRDIFF_MAX);
 
     EXPECT_TRUE(t == t);
     EXPECT_FALSE(t != t);
@@ -96,8 +96,8 @@ TEST(text_utf16, test_non_empty_const_interface)
     EXPECT_EQ(t_ab.distance(), 2u);
     EXPECT_GE(t_ab.capacity_bytes(), t_ab.distance());
 
-    EXPECT_EQ(t_a.max_bytes(), (std::size_t)PTRDIFF_MAX);
-    EXPECT_EQ(t_ab.max_bytes(), (std::size_t)PTRDIFF_MAX);
+    EXPECT_EQ(t_a.max_code_units(), (std::size_t)PTRDIFF_MAX);
+    EXPECT_EQ(t_ab.max_code_units(), (std::size_t)PTRDIFF_MAX);
 
     EXPECT_FALSE(t_a == t_ab);
     EXPECT_TRUE(t_a != t_ab);

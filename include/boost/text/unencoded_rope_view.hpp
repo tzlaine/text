@@ -27,7 +27,7 @@ namespace boost { namespace text {
         : stl_interfaces::view_interface<
               basic_unencoded_rope_view<Char, String>>
     {
-        using value_type = char;
+        using value_type = Char;
         using size_type = std::size_t;
         using iterator = detail::const_rope_view_iterator<Char, String>;
         using const_iterator = iterator;

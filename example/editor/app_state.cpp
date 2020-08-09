@@ -387,7 +387,7 @@ namespace {
         state.buffer_.history_.push_back(s);
 
         auto const cursor_grapheme_cus =
-            boost::text::storage_bytes(*cursor_its.cursor_);
+            boost::text::storage_code_units(*cursor_its.cursor_);
         auto line_index = cursor_line(s);
 
         auto line = s.lines_[line_index];
@@ -483,17 +483,17 @@ namespace {
         t.insert(r.begin(), insertion);
         auto const distance = t.distance();
         if (distance == initial_distance + 1) {
-            return {{}, {boost::text::storage_bytes(insertion), 1}};
+            return {{}, {boost::text::storage_code_units(insertion), 1}};
         } else {
             assert(distance == initial_distance);
             int const prev_sizes[2] = {
-                boost::text::storage_bytes(prev_grapheme),
-                boost::text::storage_bytes(next_grapheme)};
+                boost::text::storage_code_units(prev_grapheme),
+                boost::text::storage_code_units(next_grapheme)};
             int const sizes[2] = {
-                boost::text::storage_bytes(*t.begin()),
-                boost::text::storage_bytes(*std::next(t.begin()))};
-            return {{sizes[0] - prev_sizes[0], 0},
-                    {sizes[1] - prev_sizes[1], 0}};
+                boost::text::storage_code_units(*t.begin()),
+                boost::text::storage_code_units(*std::next(t.begin()))};
+            return {
+                {sizes[0] - prev_sizes[0], 0}, {sizes[1] - prev_sizes[1], 0}};
         }
     }
 //]
@@ -518,7 +518,7 @@ namespace {
                                          cursor_its.first_.base().base();
             int const grapheme_offset = snapshot.cursor_pos_.col_;
 
-            if (boost::text::storage_bytes(grapheme) == 1 &&
+            if (boost::text::storage_code_units(grapheme) == 1 &&
                 *grapheme.begin() == '\n') {
                 // Inserting a newline is a special case.  We need to mark the
                 // current line as having a hard break, and tear off all the
@@ -529,9 +529,10 @@ namespace {
                 if (line_index < (std::ptrdiff_t)snapshot.lines_.size())
                     line = snapshot.lines_[line_index];
 
-                line_t const new_line{line.code_units_ - code_unit_offset,
-                                      line.graphemes_ - grapheme_offset,
-                                      line.hard_break_};
+                line_t const new_line{
+                    line.code_units_ - code_unit_offset,
+                    line.graphemes_ - grapheme_offset,
+                    line.hard_break_};
                 snapshot.lines_.insert(
                     snapshot.lines_.begin() + line_index + 1, new_line);
 

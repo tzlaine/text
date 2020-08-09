@@ -272,9 +272,9 @@ namespace boost { namespace text {
         /** Returns true iff `size() == 0`. */
         bool empty() const noexcept { return str_.empty(); }
 
-        /** Returns the number of bytes controlled by `*this`, not including the
-            null terminator. */
-        size_type storage_bytes() const noexcept { return str_.size(); }
+        /** Returns the number of code units controlled by `*this`, not
+            including the null terminator. */
+        size_type storage_code_units() const noexcept { return str_.size(); }
 
         /** Returns the number of bytes of storage currently in use by
             `*this`. */
@@ -287,8 +287,8 @@ namespace boost { namespace text {
             return std::distance(begin(), end());
         }
 
-        /** Returns the maximum size in bytes a `basic_text` can have. */
-        size_type max_bytes() const noexcept { return PTRDIFF_MAX; }
+        /** Returns the maximum size in code units a `basic_text` can have. */
+        size_type max_code_units() const noexcept { return PTRDIFF_MAX; }
 
         /** Clear.
 
