@@ -103,9 +103,7 @@ namespace boost { namespace text {
         {}
 
         /** Constructs a `basic_unencoded_rope_view` from a null-terminated C
-            string.
-
-            \pre strlen(c_str) <= max_size() */
+            string. */
         basic_unencoded_rope_view(value_type const * c_str) noexcept :
             ref_(string_view(c_str)), which_(which::tv)
         {}
@@ -261,9 +259,7 @@ namespace boost { namespace text {
         /** Forbid assignment from a `string`. */
         basic_unencoded_rope_view & operator=(string && s) noexcept = delete;
 
-        /** Assignment from a null-terminated C string.
-
-            \pre strlen(c_str) <= max_size() */
+        /** Assignment from a null-terminated C string. */
         basic_unencoded_rope_view & operator=(value_type const * c_str) noexcept
         {
             return *this = basic_unencoded_rope_view(c_str);
