@@ -36,9 +36,6 @@
 
 namespace boost { namespace text {
 
-    /** A mutable sequence of graphemes with copy-on-write semantics.  A rope
-        is non-contiguous and is not null-terminated.  The underlying storage
-        is an unencoded_rope that is UTF-8-encoded and FCC-normalized. */
     template<nf Normalization, typename Char, typename String>
 #if defined(__cpp_lib_concepts)
         // clang-format off
@@ -94,30 +91,30 @@ namespace boost { namespace text {
         /** Default ctor. */
         basic_rope() {}
 
-        /** Constructs a text from a pair of iterators. */
+        /** Constructs a `basic_rope` from a pair of iterators. */
         basic_rope(const_iterator first, const_iterator last) :
             basic_rope(first.base().base(), last.base().base())
         {}
 
-        /** Constructs a basic_rope from a null-terminated string. */
+        /** Constructs a `basic_rope` from a null-terminated string. */
         basic_rope(char_type const * c_str);
 
-        /** Constructs a basic_rope from a rope_view. */
+        /** Constructs a `basic_rope` from a `rope_view`. */
         explicit basic_rope(rope_view rv);
 
-        /** Constructs a basic_rope from a text. */
+        /** Constructs a `basic_rope` from a `text`. */
         explicit basic_rope(text t);
 
 #ifdef BOOST_TEXT_DOXYGEN
 
-        /** Constructs a basic_rope from a range of char_type.
+        /** Constructs a `basic_rope` from a range of `char_type`.
 
             This function only participates in overload resolution if
             `CURange` models the CURange concept. */
         template<typename CURange>
         explicit basic_rope(CURange const & r);
 
-        /** Constructs a basic_rope from a sequence of char_type.
+        /** Constructs a `basic_rope` from a sequence of `char_type`.
 
             This function only participates in overload resolution if
             `CUIter` models the CUIter concept. */
@@ -195,10 +192,10 @@ namespace boost { namespace text {
             return *this;
         }
 
-        /** Assignment from a rope_view. */
+        /** Assignment from a `rope_view`. */
         basic_rope & operator=(rope_view rv);
 
-        /** Assignment from a string_view. */
+        /** Assignment from a `string_view`. */
         basic_rope & operator=(string_view sv)
         {
             basic_rope temp(sv);
@@ -206,7 +203,7 @@ namespace boost { namespace text {
             return *this;
         }
 
-        /** Move-assignment from a text. */
+        /** Move-assignment from a `text`. */
         basic_rope & operator=(text t);
 
         operator rope_view() const noexcept;
@@ -246,27 +243,27 @@ namespace boost { namespace text {
         const_reverse_iterator crbegin() const noexcept { return rbegin(); }
         const_reverse_iterator crend() const noexcept { return rend(); }
 
-        /** Returns true if begin() == end(), false otherwise. */
+        /** Returns true iff `begin() == end()`. */
         bool empty() const noexcept { return rope_.empty(); }
 
-        /** Returns the number of code units controlled by *this, not
+        /** Returns the number of code units controlled by `*this`, not
             including the null terminator. */
         size_type storage_code_units() const noexcept { return rope_.size(); }
 
-        /** Returns the number of graphemes in *this.  This operation is
+        /** Returns the number of graphemes in `*this`.  This operation is
             O(n). */
         size_type distance() const noexcept
         {
             return std::distance(begin(), end());
         }
 
-        /** Returns the maximum size in code units a basic_rope can have. */
+        /** Returns the maximum size in code units a `basic_rope` can have. */
         size_type max_code_units() const noexcept { return PTRDIFF_MAX; }
 
-        /** Returns true if *this and rhs contain the same root node pointer.
-            This is useful when you want to check for equality between two
-            basic_ropes that are likely to have originated from the same
-            initial basic_rope, and may have since been mutated. */
+        /** Returns true if `*this` and `rhs` contain the same root node
+            pointer.  This is useful when you want to check for equality
+            between two `basic_rope`s that are likely to have originated from
+            the same initial `basic_rope`, and may have since been mutated. */
         bool equal_root(basic_rope rhs) const noexcept
         {
             return rope_.equal_root(rhs.rope_);
@@ -275,7 +272,7 @@ namespace boost { namespace text {
         /** Clear. */
         void clear() noexcept { rope_.clear(); }
 
-        /** Erases the portion of *this delimited by [first, last).
+        /** Erases the portion of `*this` delimited by `[first, last)`.
 
             \pre first <= last */
         replace_result<const_iterator>
@@ -298,11 +295,10 @@ namespace boost { namespace text {
         }
 
         /** Replaces the portion of *this delimited by `[first1, last1)` with
-           the sequence `[first2, last2)`.
+            the sequence `[first2, last2)`.
 
-            \pre !std::less(first1.base().base(),
-            begin().base().base()) && !std::less(end().base().base(),
-            last1.base().base()) */
+            \pre !std::less(first1.base().base(), begin().base().base()) &&
+            !std::less(end().base().base(), last1.base().base()) */
         replace_result<const_iterator> replace(
             const_iterator first1,
             const_iterator last1,
@@ -317,24 +313,22 @@ namespace boost { namespace text {
                 insertion_normalized);
         }
 
-        /** Replaces the portion of *this delimited by `[first, last)` with the
-            sequence of char_type from c_str.
+        /** Replaces the portion of `*this` delimited by `[first, last)` with
+            `c_str`.
 
-            \pre !std::less(first.base().base(),
-            begin().base().base()) && !std::less(end().base().base(),
-            last.base().base()) */
+            \pre !std::less(first.base().base(), begin().base().base()) &&
+            !std::less(end().base().base(), last.base().base()) */
         replace_result<const_iterator> replace(
             const_iterator first, const_iterator last, char_type const * c_str)
         {
             return replace(first, last, string_view(c_str));
         }
 
-        /** Replaves the  portion of *this delimited by `[first, last)` with the
-            sequence of char_type from new_substr.
+        /** Replaves the portion of `*this` delimited by `[first, last)` with
+            `new_substr`.
 
-            \pre !std::less(first.base().base(),
-            begin().base().base()) && !std::less(end().base().base(),
-            last.base().base()) */
+            \pre !std::less(first.base().base(), begin().base().base()) &&
+            !std::less(end().base().base(), last.base().base()) */
         replace_result<const_iterator> replace(
             const_iterator first, const_iterator last, string_view new_substr)
         {
@@ -346,39 +340,36 @@ namespace boost { namespace text {
                 insertion_not_normalized);
         }
 
-        /** Replaces the portion of *this delimited by `[first, last)` with the
-            sequence of char_type from new_substr.
+        /** Replaces the portion of `*this` delimited by `[first, last)` with
+            `new_substr`.
 
-            \pre !std::less(first.base().base(),
-            begin().base().base()) && !std::less(end().base().base(),
-            last.base().base()) */
+            \pre !std::less(first.base().base(), begin().base().base()) &&
+            !std::less(end().base().base(), last.base().base()) */
         replace_result<const_iterator> replace(
             const_iterator first, const_iterator last, rope_view new_substr);
 
 #ifdef BOOST_TEXT_DOXYGEN
 
-        /** Replaces the portion of *this delimited by `[first, last)` with the
-            char_type range r.
+        /** Replaces the portion of `*this` delimited by `[first, last)` with
+            `r`.
 
             This function only participates in overload resolution if
             `CURange` models the CURange concept.
 
-            \pre !std::less(first.base().base(),
-            begin().base().base()) && !std::less(end().base().base(),
-            last.base().base()) */
+            \pre !std::less(first.base().base(), begin().base().base()) &&
+            !std::less(end().base().base(), last.base().base()) */
         template<typename CURange>
         replace_result<const_iterator>
         replace(const_iterator first, const_iterator last, CURange const & r);
 
-        /** Replaces the portion of *this delimited by `[first1, last1)` with
-           the char_type sequence `[first2, last2)`.
+        /** Replaces the portion of `*this` delimited by `[first1, last1)`
+            with `[first2, last2)`.
 
-            This function only participates in overload resolution if
-            `CUIter` models the CUIter concept.
+            This function only participates in overload resolution if `CUIter`
+            models the CUIter concept.
 
-            \pre !std::less(first1.base().base(),
-            begin().base().base()) && !std::less(end().base().base(),
-            last1.base().base()) */
+            \pre !std::less(first1.base().base(), begin().base().base()) &&
+            !std::less(end().base().base(), last1.base().base()) */
         template<typename CUIter>
         replace_result<const_iterator> replace(
             const_iterator first1,
@@ -496,15 +487,16 @@ namespace boost { namespace text {
             replace(end(), end(), first, last);
         }
 
-        /** Swaps *this with rhs. */
+        /** Swaps `*this` with `rhs`. */
         void swap(basic_rope & rhs) noexcept { rope_.swap(rhs.rope_); }
 
-        /** Removes and returns the underlying unencoded_rope from *this. */
+        /** Removes and returns the underlying `unencoded_rope` from
+            `*this`. */
         unencoded_rope extract() && noexcept { return std::move(rope_); }
 
-        /** Replaces the underlying unencoded_rope in *this.
+        /** Replaces the underlying `unencoded_rope` in `*this`.
 
-            \pre ur is normalized FCC. */
+            \pre ur is in normalization form `normalization`. */
         void replace(unencoded_rope && ur) noexcept { rope_ = std::move(ur); }
 
         /** Appends `x` to `*this`.  `T` may be any type for which `*this = x`

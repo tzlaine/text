@@ -639,7 +639,7 @@ namespace boost { namespace text {
 
         /** Replaces the underlying string in `*this`.
 
-            \pre s is normalized FCC. */
+            \pre s is in normalization form NFD or FCC. */
         void replace(string && s) noexcept { str_ = std::move(s); }
 
         /** Appends `x` to `*this`.  `T` may be any type for which `*this = x`

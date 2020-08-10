@@ -18,10 +18,6 @@
 
 namespace boost { namespace text {
 
-    /** A reference to a substring of a rope, text, or text_view.  The
-        `String` template parameter refers to the type used in a
-        `basic_unencoded_rope` to which this view may refer.  It is otherwise
-        unused. */
     template<nf Normalization, typename Char, typename String>
 #if defined(__cpp_lib_concepts)
         // clang-format off
@@ -33,8 +29,8 @@ namespace boost { namespace text {
         /** The normalization form used in this `basic_rope_view`. */
         static constexpr nf normalization = Normalization;
 
-        /** The type of code unit used in the underlying storage of
-            `basic_rope<Normalization, Char, String>`. */
+        /** The type of code unit used in the underlying storage to which this
+            view refers. */
         using char_type = Char;
 
         /** The type of the container used in the underlying storage of
@@ -84,19 +80,20 @@ namespace boost { namespace text {
         /** Default ctor. */
         basic_rope_view() noexcept {}
 
-        /** Constructs a basic_rope_view from a text. */
+        /** Constructs a `basic_rope_view` from a `text`. */
         basic_rope_view(text const & t) noexcept;
 
-        /** Disable construction from a temporary text. */
+        /** Disable construction from a temporary `text`. */
         basic_rope_view(text &&) noexcept = delete;
 
-        /** Constructs a basic_rope_view from a text_view. */
+        /** Constructs a `basic_rope_view` from a `text_view`. */
         basic_rope_view(text_view tv) noexcept;
 
-        /** Constructs a basic_rope_view from a pair of const_rope_iterators.
+        /** Constructs a `basic_rope_view` from a pair of
+            `const_rope_iterators`.
 
-            \pre boost::text::normalized<normalization>(first.base(),
-            last.base()) */
+             \pre boost::text::normalized<normalization>(first.base(),
+             last.base()) */
         basic_rope_view(
             const_rope_iterator first, const_rope_iterator last) noexcept;
 
@@ -129,18 +126,18 @@ namespace boost { namespace text {
 
         bool empty() const noexcept { return begin() == end(); }
 
-        /** Returns the number of code units controlled by *this, not
+        /** Returns the number of code units controlled by `*this`, not
             including the null terminator. */
         size_type storage_code_units() const noexcept;
 
-        /** Returns the number of graphemes in *this.  This operation is
+        /** Returns the number of graphemes in `*this`.  This operation is
             O(n). */
         size_type distance() const noexcept
         {
             return std::distance(begin(), end());
         }
 
-        /** Swaps *this with rhs. */
+        /** Swaps `*this` with `rhs`. */
         void swap(basic_rope_view & rhs) noexcept;
 
         /** Stream inserter; performs formatted output, in UTF-8 encoding. */

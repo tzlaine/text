@@ -13,6 +13,10 @@
 
 namespace boost { namespace text {
 
+    /** A reference to a substring of a `basic_rope`, `basic_text`, or
+        `basic_text_view`.  The `String` template parameter refers to the type
+        used in a `basic_rope` to which this view may refer.  It is otherwise
+        unused. */
     template<
         nf Normalization,
         typename Char,
@@ -24,6 +28,10 @@ namespace boost { namespace text {
     struct basic_rope_view;
     // clang-format on
 
+    /** A mutable sequence of graphemes with copy-on-write semantics.  A
+        `basic_rope` is non-contiguous and is not null-terminated.  The
+        underlying storage is an unencoded_rope that is UTF-8-encoded and kept
+        in normalization form `Normalization`. */
     template<
         nf Normalization,
         typename Char,
