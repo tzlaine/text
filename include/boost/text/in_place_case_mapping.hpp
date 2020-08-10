@@ -28,7 +28,7 @@ namespace boost { namespace text {
         if (s.size() < t.storage_code_units()) {
             t = s;
         } else {
-            boost::text::normalize<nf::fcc>(s);
+            boost::text::normalize<text::normalization>(s);
             t.replace(std::move(s));
         }
     }
@@ -70,7 +70,7 @@ namespace boost { namespace text {
         if (s.size() < t.storage_code_units()) {
             t = s;
         } else {
-            boost::text::normalize<nf::fcc>(s);
+            boost::text::normalize<text::normalization>(s);
             t.replace(std::move(s));
         }
     }
@@ -112,7 +112,7 @@ namespace boost { namespace text {
         if (s.size() < t.storage_code_units()) {
             t = s;
         } else {
-            boost::text::normalize<nf::fcc>(s);
+            boost::text::normalize<text::normalization>(s);
             t.replace(std::move(s));
         }
     }
