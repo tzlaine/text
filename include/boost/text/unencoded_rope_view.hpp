@@ -355,6 +355,12 @@ namespace boost { namespace text {
             return lhs.compare(rhs) >= 0;
         }
 
+        friend void
+        swap(basic_unencoded_rope_view & lhs, basic_unencoded_rope_view & rhs)
+        {
+            lhs.swap(rhs);
+        }
+
 #ifndef BOOST_TEXT_DOXYGEN
 
     private:

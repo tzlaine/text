@@ -525,6 +525,11 @@ namespace boost { namespace text {
                        lhs.begin(), lhs.end(), rhs, null_sentinel{}) >= 0;
         }
 
+        friend void swap(basic_unencoded_rope & lhs, basic_unencoded_rope & rhs)
+        {
+            lhs.swap(rhs);
+        }
+
 #ifndef BOOST_TEXT_DOXYGEN
 
     private:

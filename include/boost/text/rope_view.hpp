@@ -241,6 +241,11 @@ namespace boost { namespace text {
             return !(rhs == lhs);
         }
 
+        friend void swap(basic_rope_view & lhs, basic_rope_view & rhs)
+        {
+            lhs.swap(rhs);
+        }
+
 #ifndef BOOST_TEXT_DOXYGEN
 
     private:

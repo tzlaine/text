@@ -36,9 +36,6 @@
 
 namespace boost { namespace text {
 
-    template<typename Iter>
-    struct replace_result;
-
     /** A mutable sequence of graphemes with copy-on-write semantics.  A rope
         is non-contiguous and is not null-terminated.  The underlying storage
         is an unencoded_rope that is UTF-8-encoded and FCC-normalized. */
@@ -91,6 +88,8 @@ namespace boost { namespace text {
         using const_iterator = iterator;
         using reverse_iterator = stl_interfaces::reverse_iterator<iterator>;
         using const_reverse_iterator = reverse_iterator;
+        using reference = typename const_iterator::reference;
+        using const_reference = reference;
 
         /** Default ctor. */
         basic_rope() {}
@@ -212,6 +211,17 @@ namespace boost { namespace text {
 
         operator rope_view() const noexcept;
 
+        const_reference front() const noexcept { return *begin(); }
+        const_reference back() const noexcept { return *rbegin(); }
+
+        void push_back(grapheme const & g);
+
+        template<typename CPIter>
+        void push_back(grapheme_ref<CPIter> g);
+
+        void pop_back() { erase(std::prev(end())); }
+
+
         const_iterator begin() const noexcept
         {
             return make_iter(rope_.begin(), rope_.begin(), rope_.end());
@@ -276,6 +286,15 @@ namespace boost { namespace text {
             auto const retval = detail::erase_impl<true, normalization>(
                 rope_, rope_first, rope_last);
             return mutation_result(retval);
+        }
+
+        /** Erases the grapheme at position `at`.
+
+            \pre at != end() */
+        replace_result<const_iterator> erase(const_iterator at)
+        {
+            BOOST_ASSERT(at != end());
+            return erase(at, std::next(at));
         }
 
         /** Replaces the portion of *this delimited by `[first1, last1)` with
@@ -432,6 +451,49 @@ namespace boost { namespace text {
             -> decltype(replace(at, at, first, last))
         {
             return replace(at, at, first, last);
+        }
+ 
+        /** Assigns the sequence `[first, last)` to `*this`. */
+        void assign(const_iterator first, const_iterator last)
+        {
+            replace(begin(), end(), first, last);
+        }
+
+        /** Assigns the sequence of `char_type` from `x` to `*this`. */
+        template<typename T>
+        auto assign(T const & x)
+            -> decltype(replace(begin(), end(), x), (void)0)
+        {
+            replace(begin(), end(), x);
+        }
+
+        /** Assigns the sequence `[first, last)` to `*this`. */
+        template<typename I>
+        auto assign(I first, I last)
+            -> decltype(replace(begin(), end(), first, last), (void)0)
+        {
+            replace(begin(), end(), first, last);
+        }
+
+        /** Appends the sequence `[first, last)` to `*this`. */
+        void append(const_iterator first, const_iterator last)
+        {
+            replace(end(), end(), first, last);
+        }
+
+        /** Appends the sequence of `char_type` from `x` to `*this`. */
+        template<typename T>
+        auto append(T const & x) -> decltype(replace(end(), end(), x), (void)0)
+        {
+            replace(end(), end(), x);
+        }
+
+        /** Appends the sequence `[first, last)` to `*this`. */
+        template<typename I>
+        auto append(I first, I last)
+            -> decltype(replace(end(), end(), first, last), (void)0)
+        {
+            replace(end(), end(), first, last);
         }
 
         /** Swaps *this with rhs. */
@@ -670,6 +732,8 @@ namespace boost { namespace text {
 
 #endif
 
+        friend void swap(basic_rope & lhs, basic_rope & rhs) { lhs.swap(rhs); }
+
 #ifndef BOOST_TEXT_DOXYGEN
 
     private:
@@ -836,6 +900,20 @@ namespace boost { namespace text {
     operator basic_rope<Normalization, Char, String>::rope_view() const noexcept
     {
         return {begin(), end()};
+    }
+
+    template<nf Normalization, typename Char, typename String>
+    void basic_rope<Normalization, Char, String>::push_back(grapheme const & g)
+    {
+        replace(end(), end(), g);
+    }
+
+    template<nf Normalization, typename Char, typename String>
+    template<typename CPIter>
+    void
+    basic_rope<Normalization, Char, String>::push_back(grapheme_ref<CPIter> g)
+    {
+        replace(end(), end(), g);
     }
 
     template<nf Normalization, typename Char, typename String>

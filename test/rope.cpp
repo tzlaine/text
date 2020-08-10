@@ -16,6 +16,8 @@
 using namespace boost;
 using namespace text::literals;
 
+template struct text::basic_rope<text::nf::c, char>;
+
 TEST(rope, test_empty)
 {
     text::rope t;
@@ -35,6 +37,8 @@ TEST(rope, test_empty)
 
     t.swap(t);
     EXPECT_TRUE(t == t);
+
+    static_assert(std::is_swappable<text::rope>::value, "");
 
     t.clear();
 
@@ -1237,4 +1241,37 @@ TEST(rope, estimated_width)
     EXPECT_EQ(text::detail::width_implied_by_cp(0xa4cf - 1), 2);
     EXPECT_EQ(text::detail::width_implied_by_cp(0xa4cf), 2);
     EXPECT_EQ(text::detail::width_implied_by_cp(0xa4cf + 1), 1);
+}
+
+TEST(rope, test_front_back)
+{
+    text::rope t("string");
+
+    EXPECT_EQ(t.front(), 's');
+    EXPECT_EQ(t.back(), 'g');
+
+    t.push_back('g');
+    EXPECT_EQ(t, "stringg"_t);
+
+    t.pop_back();
+    EXPECT_EQ(t, "string"_t);
+
+    t.push_back(t.front());
+    EXPECT_EQ(t, "strings"_t);
+}
+
+TEST(rope, test_assign)
+{
+    text::rope t("string");
+
+    t.assign("foo");
+    EXPECT_EQ(t, "foo"_t);
+}
+
+TEST(rope, test_append)
+{
+    text::rope t("string");
+
+    t.append("_foo");
+    EXPECT_EQ(t, "string_foo"_t);
 }

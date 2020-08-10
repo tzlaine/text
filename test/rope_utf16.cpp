@@ -45,6 +45,8 @@ TEST(rope_utf16, test_empty)
     t.swap(t);
     EXPECT_TRUE(t == t);
 
+    static_assert(std::is_swappable<rope16>::value, "");
+
     t.clear();
 
     std::cout << "r=\"" << t << "\"\n";

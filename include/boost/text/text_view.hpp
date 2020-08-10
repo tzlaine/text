@@ -160,6 +160,11 @@ namespace boost { namespace text {
             return !(lhs == rhs);
         }
 
+        friend void swap(basic_text_view & lhs, basic_text_view & rhs)
+        {
+            lhs.swap(rhs);
+        }
+
 #ifndef BOOST_TEXT_DOXYGEN
 
     private:

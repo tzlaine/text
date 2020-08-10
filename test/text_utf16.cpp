@@ -49,6 +49,8 @@ TEST(text_utf16, test_empty)
     EXPECT_TRUE(t == t);
     EXPECT_FALSE(t != t);
 
+    static_assert(std::is_swappable<text16>::value, "");
+
     t.swap(t);
     EXPECT_TRUE(t == t);
 

@@ -16,6 +16,8 @@
 
 using namespace boost;
 
+template struct text::basic_text<text::nf::c, char>;
+
 TEST(text_tests, test_empty)
 {
     text::text t;
@@ -42,6 +44,8 @@ TEST(text_tests, test_empty)
 
     t.swap(t);
     EXPECT_TRUE(t == t);
+
+    static_assert(std::is_swappable<text::text>::value, "");
 
     EXPECT_EQ(t.begin(), begin(t));
     EXPECT_EQ(t.end(), end(t));
@@ -921,4 +925,53 @@ TEST(text, test_sentinel_api)
         text::text s(chars, text::null_sentinel{});
         EXPECT_EQ(s, text::text(chars));
     }
+}
+
+TEST(text_tests, test_data_c_str)
+{
+    text::text t("string");
+    text::text const ct("string");
+
+    EXPECT_EQ(t, t.data());
+    EXPECT_EQ(t, ct.data());
+    EXPECT_EQ(t, ct.c_str());
+}
+
+TEST(text_tests, test_front_back)
+{
+    using namespace text::literals;
+
+    text::text t("string");
+
+    EXPECT_EQ(t.front(), 's');
+    EXPECT_EQ(t.back(), 'g');
+
+    t.push_back('g');
+    EXPECT_EQ(t, "stringg"_t);
+
+    t.pop_back();
+    EXPECT_EQ(t, "string"_t);
+
+    t.push_back(t.front());
+    EXPECT_EQ(t, "strings"_t);
+}
+
+TEST(text_tests, test_assign)
+{
+    using namespace text::literals;
+
+    text::text t("string");
+
+    t.assign("foo");
+    EXPECT_EQ(t, "foo"_t);
+}
+
+TEST(text_tests, test_append)
+{
+    using namespace text::literals;
+
+    text::text t("string");
+
+    t.append("_foo");
+    EXPECT_EQ(t, "string_foo"_t);
 }

@@ -332,6 +332,11 @@ namespace boost { namespace text {
         }
 #endif
 
+        friend void swap(segmented_vector & lhs, segmented_vector & rhs)
+        {
+            lhs.swap(rhs);
+        }
+
 #ifndef BOOST_TEXT_DOXYGEN
 
     private:

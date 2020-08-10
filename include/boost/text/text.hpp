@@ -82,6 +82,8 @@ namespace boost { namespace text {
         using reverse_iterator = stl_interfaces::reverse_iterator<iterator>;
         using const_reverse_iterator =
             stl_interfaces::reverse_iterator<const_iterator>;
+        using reference = typename iterator::reference;
+        using const_reference = typename const_iterator::reference;
 
         /** Default ctor. */
         basic_text() {}
@@ -224,6 +226,26 @@ namespace boost { namespace text {
 
         operator text_view() const noexcept;
 
+        char_type * data() noexcept
+        {
+            return const_cast<char_type *>(str_.data());
+        }
+        char_type const * data() const noexcept { return str_.data(); }
+
+        char_type const * c_str() const noexcept { return str_.data(); }
+
+        const_reference front() const noexcept { return *begin(); }
+        const_reference back() const noexcept { return *rbegin(); }
+
+        reference front() noexcept { return *begin(); }
+        reference back() noexcept { return *rbegin(); }
+
+        void push_back(grapheme const & g);
+
+        template<typename CPIter>
+        void push_back(grapheme_ref<CPIter> g);
+
+        void pop_back() { erase(std::prev(end())); }
 
         iterator begin() noexcept
         {
@@ -307,6 +329,15 @@ namespace boost { namespace text {
             auto const retval = boost::text::normalize_erase<normalization>(
                 str_, str_.begin() + lo, str_.begin() + hi);
             return mutation_result(retval);
+        }
+
+        /** Erases the grapheme at position `at`.
+
+            \pre at != end() */
+        replace_result<iterator> erase(const_iterator at) noexcept
+        {
+            BOOST_ASSERT(at != end());
+            return erase(at, std::next(at));
         }
 
         /** Replaces the portion of `*this` delimited by `[first1, last1)`
@@ -546,6 +577,49 @@ namespace boost { namespace text {
             return replace(at, at, first, last);
         }
 
+        /** Assigns the sequence `[first, last)` to `*this`. */
+        void assign(const_iterator first, const_iterator last)
+        {
+            replace(begin(), end(), first, last);
+        }
+
+        /** Assigns the sequence of `char_type` from `x` to `*this`. */
+        template<typename T>
+        auto assign(T const & x)
+            -> decltype(replace(begin(), end(), x), (void)0)
+        {
+            replace(begin(), end(), x);
+        }
+
+        /** Assigns the sequence `[first, last)` to `*this`. */
+        template<typename I>
+        auto assign(I first, I last)
+            -> decltype(replace(begin(), end(), first, last), (void)0)
+        {
+            replace(begin(), end(), first, last);
+        }
+
+        /** Appends the sequence `[first, last)` to `*this`. */
+        void append(const_iterator first, const_iterator last)
+        {
+            replace(end(), end(), first, last);
+        }
+
+        /** Appends the sequence of `char_type` from `x` to `*this`. */
+        template<typename T>
+        auto append(T const & x) -> decltype(replace(end(), end(), x), (void)0)
+        {
+            replace(end(), end(), x);
+        }
+
+        /** Appends the sequence `[first, last)` to `*this`. */
+        template<typename I>
+        auto append(I first, I last)
+            -> decltype(replace(end(), end(), first, last), (void)0)
+        {
+            replace(end(), end(), first, last);
+        }
+
         /** Reserves storage enough for a string of at least `new_size` bytes.
 
             \post capacity() >= new_size + 1 */
@@ -745,6 +819,8 @@ namespace boost { namespace text {
 
 #endif
 
+        friend void swap(basic_text & lhs, basic_text & rhs) { lhs.swap(rhs); }
+
 #ifndef BOOST_TEXT_DOXYGEN
 
     private:
@@ -899,6 +975,20 @@ namespace boost { namespace text {
     operator basic_text<Normalization, Char, String>::text_view() const noexcept
     {
         return {begin(), end()};
+    }
+
+    template<nf Normalization, typename Char, typename String>
+    void basic_text<Normalization, Char, String>::push_back(grapheme const & g)
+    {
+        replace(end(), end(), g);
+    }
+
+    template<nf Normalization, typename Char, typename String>
+    template<typename CPIter>
+    void
+    basic_text<Normalization, Char, String>::push_back(grapheme_ref<CPIter> g)
+    {
+        replace(end(), end(), g);
     }
 
     template<nf Normalization, typename Char, typename String>
