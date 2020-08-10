@@ -982,7 +982,7 @@ namespace boost { namespace text {
         This function only participates in overload resolution if `CPIter`
         models the CPIter concept.
 
-        \pre `[first, last)` is normalized FCC. */
+        \pre `[first, last)` is normalized NFD or FCC. */
     template<typename CPIter, typename Sentinel>
     text_sort_key collation_sort_key(
         CPIter first,
@@ -1002,7 +1002,7 @@ namespace boost { namespace text {
         This function only participates in overload resolution if `CPIter`
         models the CPIter concept.
 
-        \pre `[first, last)` is normalized FCC. */
+        \pre `[first, last)` is normalized NFD or FCC. */
     template<typename CPIter, typename Sentinel>
     text_sort_key collation_sort_key(
         CPIter first,
@@ -1017,7 +1017,7 @@ namespace boost { namespace text {
         This function only participates in overload resolution if `CPRange`
         models the CPRange concept.
 
-        \pre r is normalized FCC. */
+        \pre r is normalized NFD or FCC. */
     template<typename CPRange>
     text_sort_key collation_sort_key(
         CPRange && r,
@@ -1031,7 +1031,7 @@ namespace boost { namespace text {
         This function only participates in overload resolution if
         `GraphemeRange` models the GraphemeRange concept.
 
-        \pre r is normalized FCC. */
+        \pre r is normalized NFD or FCC. */
     template<typename GraphemeRange>
     text_sort_key collation_sort_key(
         GraphemeRange && r,
@@ -1049,8 +1049,8 @@ namespace boost { namespace text {
         This function only participates in overload resolution if `CPIter1`
         models the CPIter concept.
 
-        \pre `[lhs_first, lhs_last)` is normalized FCC.
-        \pre `[rhs_first, rhs_last)` is normalized FCC. */
+        \pre `[lhs_first, lhs_last)` is normalized NFD or FCC.
+        \pre `[rhs_first, rhs_last)` is normalized NFD or FCC. */
     template<
         typename CPIter1,
         typename Sentinel1,
@@ -1076,8 +1076,8 @@ namespace boost { namespace text {
         This function only participates in overload resolution if `CPIter1`
         models the CPIter concept.
 
-        \pre `[lhs_first, lhs_last)` is normalized FCC.
-        \pre `[rhs_first, rhs_last)` is normalized FCC. */
+        \pre `[lhs_first, lhs_last)` is normalized NFD or FCC.
+        \pre `[rhs_first, rhs_last)` is normalized NFD or FCC. */
     template<
         typename CPIter1,
         typename Sentinel1,
@@ -1099,8 +1099,8 @@ namespace boost { namespace text {
         This function only participates in overload resolution if `CPRange1`
         models the CPRange concept.
 
-        \pre `r1` is normalized FCC.
-        \pre `r2` is normalized FCC. */
+        \pre `r1` is normalized NFD or FCC.
+        \pre `r2` is normalized NFD or FCC. */
     template<typename CPRange1, typename CPRange2>
     int collate(
         CPRange1 const & r1,
@@ -1116,8 +1116,8 @@ namespace boost { namespace text {
         This function only participates in overload resolution if
         `GraphemeRange1` models the GraphemeRange concept.
 
-        \pre `r1` is normalized FCC.
-        \pre `r2` is normalized FCC. */
+        \pre `r1` is normalized NFD or FCC.
+        \pre `r2` is normalized NFD or FCC. */
     template<typename GraphemeRange1, typename GraphemeRange2>
     int collate(
         GraphemeRange1 const & r1,
