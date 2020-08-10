@@ -376,9 +376,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         struct as_utf8_dispatch
         {
             static constexpr auto call(Range r) noexcept
-                -> decltype(as_utf8(std::begin(r), std::end(r)))
+                -> decltype(v1::as_utf8(std::begin(r), std::end(r)))
             {
-                return as_utf8(std::begin(r), std::end(r));
+                return v1::as_utf8(std::begin(r), std::end(r));
             }
         };
 
@@ -386,9 +386,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         struct as_utf8_dispatch<Ptr, true>
         {
             static constexpr auto call(Ptr p) noexcept
-                -> decltype(as_utf8(p, null_sentinel{}))
+                -> decltype(v1::as_utf8(p, null_sentinel{}))
             {
-                return as_utf8(p, null_sentinel{});
+                return v1::as_utf8(p, null_sentinel{});
             }
         };
     }
@@ -425,9 +425,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         struct as_utf16_dispatch
         {
             static constexpr auto call(Range r) noexcept
-                -> decltype(as_utf16(std::begin(r), std::end(r)))
+                -> decltype(v1::as_utf16(std::begin(r), std::end(r)))
             {
-                return as_utf16(std::begin(r), std::end(r));
+                return v1::as_utf16(std::begin(r), std::end(r));
             }
         };
 
@@ -435,9 +435,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         struct as_utf16_dispatch<Ptr, true>
         {
             static constexpr auto call(Ptr p) noexcept
-                -> decltype(as_utf16(p, null_sentinel{}))
+                -> decltype(v1::as_utf16(p, null_sentinel{}))
             {
-                return as_utf16(p, null_sentinel{});
+                return v1::as_utf16(p, null_sentinel{});
             }
         };
     }
@@ -474,9 +474,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         struct as_utf32_dispatch
         {
             static constexpr auto call(Range r) noexcept
-                -> decltype(as_utf32(std::begin(r), std::end(r)))
+                -> decltype(v1::as_utf32(std::begin(r), std::end(r)))
             {
-                return as_utf32(std::begin(r), std::end(r));
+                return v1::as_utf32(std::begin(r), std::end(r));
             }
         };
 
@@ -484,9 +484,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         struct as_utf32_dispatch<Ptr, true>
         {
             static constexpr auto call(Ptr p) noexcept
-                -> decltype(as_utf32(p, null_sentinel{}))
+                -> decltype(v1::as_utf32(p, null_sentinel{}))
             {
-                return as_utf32(p, null_sentinel{});
+                return v1::as_utf32(p, null_sentinel{});
             }
         };
     }
