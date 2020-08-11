@@ -45,7 +45,9 @@ TEST(rope_utf16, test_empty)
     t.swap(t);
     EXPECT_TRUE(t == t);
 
+#if 201703L <= __cplusplus
     static_assert(std::is_swappable<rope16>::value, "");
+#endif
 
     t.clear();
 

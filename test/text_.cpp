@@ -45,7 +45,9 @@ TEST(text_tests, test_empty)
     t.swap(t);
     EXPECT_TRUE(t == t);
 
+#if 201703L <= __cplusplus
     static_assert(std::is_swappable<text::text>::value, "");
+#endif
 
     EXPECT_EQ(t.begin(), begin(t));
     EXPECT_EQ(t.end(), end(t));
