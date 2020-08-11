@@ -123,6 +123,7 @@ add_test_executable(detail_bidi 0)
 add_test_executable(case_mapping 0)
 add_test_executable(case_mapping_api 0)
 add_test_executable(normalization_collation_api 0)
+# TODO add_test_executable(string_algorithm 0)
 
 add_test_executable(break_api 0)
 add_test_executable(text_algorithm 0)
