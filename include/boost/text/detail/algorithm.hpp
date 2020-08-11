@@ -380,6 +380,24 @@ namespace boost { namespace text { namespace detail {
     template<typename T, typename R1>
     using cp_iter_ret_t = typename cp_iter_ret<T, R1>::type;
 
+    template<
+        typename T,
+        typename R1,
+        typename R2,
+        bool R1R2AreCPRanges = is_cp_iter<R1>::value && is_cp_iter<R2>::value>
+    struct cp_iters_ret
+    {
+    };
+
+    template<typename T, typename R1, typename R2>
+    struct cp_iters_ret<T, R1, R2, true>
+    {
+        using type = T;
+    };
+
+    template<typename T, typename R1, typename R2>
+    using cp_iters_ret_t = typename cp_iters_ret<T, R1, R2>::type;
+
 
     template<typename T>
     using is_16_code_unit = std::integral_constant<
@@ -469,6 +487,49 @@ namespace boost { namespace text { namespace detail {
     using cp_rng_alg_ret_t =
         cp_iter_sntl_ret_t<T, iterator_t<R>, sentinel_t<R>>;
 
+    template<
+        typename T,
+        typename CPIter1,
+        typename Sentinel1,
+        typename CPIter2,
+        typename Sentinel2,
+        bool AreCPRanges =
+            is_cp_iter<CPIter1>::value && is_cp_iter<CPIter2>::value &&
+                is_detected<comparable_, CPIter1, Sentinel1>::value &&
+                    is_detected<comparable_, CPIter2, Sentinel2>::value>
+    struct cp_iters_sntls_ret
+    {
+    };
+
+    template<
+        typename T,
+        typename CPIter1,
+        typename Sentinel1,
+        typename CPIter2,
+        typename Sentinel2>
+    struct cp_iters_sntls_ret<T, CPIter1, Sentinel1, CPIter2, Sentinel2, true>
+    {
+        using type = T;
+    };
+
+    template<
+        typename T,
+        typename CPIter1,
+        typename Sentinel1,
+        typename CPIter2,
+        typename Sentinel2>
+    using cp_iters_sntls_ret_t =
+        typename cp_iters_sntls_ret<T, CPIter1, Sentinel1, CPIter2, Sentinel2>::
+            type;
+
+    template<typename T, typename R1, typename R2>
+    using cp_rngs_alg_ret_t = cp_iters_sntls_ret_t<
+        T,
+        iterator_t<R1>,
+        sentinel_t<R1>,
+        iterator_t<R2>,
+        sentinel_t<R2>>;
+
 
     template<int Size, typename T>
     using is_cu_iter =
@@ -517,15 +578,68 @@ namespace boost { namespace text { namespace detail {
     using cu_rng_alg_ret_t = typename cu_rng_alg_ret<Size, T, U, Exclude>::type;
 
 
-    template<int Size, typename T>
-    using is_grapheme_cu_iter = std::integral_constant<
+    template<typename T>
+    using is_grapheme_iter_expr = std::integral_constant<
+        bool,
+        is_cp_iter<
+            remove_cv_ref_t<decltype(std::declval<const T>().base())>>::value>;
+
+    template<typename T>
+    using is_grapheme_iter =
+        detected_or<std::false_type, is_grapheme_iter_expr, T>;
+
+    template<
+        typename T,
+        typename Iter,
+        bool R1IsGraphemeIter = is_grapheme_iter<Iter>::value>
+    struct graph_iter_alg_ret
+    {};
+
+    template<typename T, typename Iter>
+    struct graph_iter_alg_ret<T, Iter, true>
+    {
+        using type = T;
+    };
+
+    template<typename T, typename Iter>
+    using graph_iter_alg_ret_t = typename graph_iter_alg_ret<T, Iter>::type;
+
+    template<
+        typename T,
+        typename Iter1,
+        typename Iter2,
+        bool Iter1Iter2AreGraphemeIter =
+            is_grapheme_iter<Iter1>::value && is_grapheme_iter<Iter2>::value>
+    struct graph_iters_alg_ret
+    {};
+
+    template<typename T, typename Iter1, typename Iter2>
+    struct graph_iters_alg_ret<T, Iter1, Iter2, true>
+    {
+        using type = T;
+    };
+
+    template<typename T, typename Iter1, typename Iter2>
+    using graph_iters_alg_ret_t =
+        typename graph_iters_alg_ret<T, Iter1, Iter2>::type;
+
+
+    template<typename Size, typename T>
+    using is_grapheme_cu_iter_expr = std::integral_constant<
         bool,
         is_cp_iter<
             remove_cv_ref_t<decltype(std::declval<const T>().base())>>::value &&
             is_cu_iter<
-                Size,
+                Size::value,
                 remove_cv_ref_t<decltype(
                     std::declval<const T>().base().base())>>::value>;
+
+    template<int Size, typename T>
+    using is_grapheme_cu_iter = detected_or<
+        std::false_type,
+        is_grapheme_cu_iter_expr,
+        std::integral_constant<int, Size>,
+        T>;
 
     template<
         int Size,
@@ -545,9 +659,8 @@ namespace boost { namespace text { namespace detail {
     using graph_iter_alg_cu_ret_t =
         typename graph_iter_cu_alg_ret<Size, T, R1>::type;
 
-
     template<typename T>
-    using is_grapheme_range = std::integral_constant<
+    using is_grapheme_range_expr = std::integral_constant<
         bool,
         is_cp_iter<remove_cv_ref_t<decltype(
             std::declval<const T>().begin().base())>>::value &&
@@ -556,6 +669,10 @@ namespace boost { namespace text { namespace detail {
             void_<
                 decltype(std::declval<const T>().begin().base().base()),
                 decltype(std::declval<const T>().end().base().base())>::value>;
+
+    template<typename T>
+    using is_grapheme_range =
+        detected_or<std::false_type, is_grapheme_range_expr, T>;
 
     template<
         typename T,
@@ -574,9 +691,131 @@ namespace boost { namespace text { namespace detail {
     using graph_rng_alg_ret_t = typename graph_rng_alg_ret<T, R1>::type;
 
 
+    template<typename T>
+    using is_cp_grapheme_range_expr = std::integral_constant<
+        bool,
+        is_cp_iter<remove_cv_ref_t<decltype(
+            std::declval<const T>().begin().base())>>::value &&
+            is_cp_iter<remove_cv_ref_t<decltype(
+                std::declval<const T>().end().base())>>::value>;
 
     template<typename T>
-    using is_contig_grapheme_range = std::integral_constant<
+    using is_cp_grapheme_range =
+        detected_or<std::false_type, is_cp_grapheme_range_expr, T>;
+
+    template<
+        typename T,
+        typename R1,
+        bool R1IsGraphemeRange = is_grapheme_range<R1>::value>
+    struct cp_graph_rng_alg_ret
+    {};
+
+    template<typename T, typename R1>
+    struct cp_graph_rng_alg_ret<T, R1, true>
+    {
+        using type = T;
+    };
+
+    template<typename T, typename R1>
+    using cp_graph_rng_alg_ret_t = typename cp_graph_rng_alg_ret<T, R1>::type;
+
+    template<
+        typename T,
+        typename R1,
+        typename R2,
+        bool R1R2AreGraphemeRanges =
+            is_cp_grapheme_range<R1>::value && is_cp_grapheme_range<R2>::value>
+    struct graph_rngs_alg_ret
+    {};
+
+    template<typename T, typename R1, typename R2>
+    struct graph_rngs_alg_ret<T, R1, R2, true>
+    {
+        using type = T;
+    };
+
+    template<typename T, typename R1, typename R2>
+    using graph_rngs_alg_ret_t = typename graph_rngs_alg_ret<T, R1, R2>::type;
+
+    template<
+        typename T,
+        typename R1,
+        typename R2,
+        bool R1IsGraphemeRangeButNotR2 =
+            is_cp_grapheme_range<R1>::value && !is_cp_grapheme_range<R2>::value>
+    struct lazy_graph_rng_and_non_alg_ret
+    {};
+
+    template<typename T, typename R1, typename R2>
+    struct lazy_graph_rng_and_non_alg_ret<T, R1, R2, true>
+    {
+        using type = typename T::type;
+    };
+
+    template<typename T, typename R1, typename R2>
+    using lazy_graph_rng_and_non_alg_ret_t =
+        typename lazy_graph_rng_and_non_alg_ret<T, R1, R2>::type;
+
+    template<
+        typename T,
+        typename R1,
+        typename R2,
+        bool R1IsGraphemeRangeButNotR2 =
+            is_cp_grapheme_range<R1>::value && !is_cp_grapheme_range<R2>::value>
+    struct graph_rng_and_non_alg_ret
+    {};
+
+    template<typename T, typename R1, typename R2>
+    struct graph_rng_and_non_alg_ret<T, R1, R2, true>
+    {
+        using type = T;
+    };
+
+    template<typename T, typename R1, typename R2>
+    using graph_rng_and_non_alg_ret_t =
+        typename graph_rng_and_non_alg_ret<T, R1, R2>::type;
+
+    template<
+        typename T,
+        typename R1,
+        typename R2,
+        bool R1R2AreNotGraphemeRanges = !is_cp_grapheme_range<R1>::value &&
+                                        !is_cp_grapheme_range<R2>::value>
+    struct non_graph_rngs_alg_ret
+    {};
+
+    template<typename T, typename R1, typename R2>
+    struct non_graph_rngs_alg_ret<T, R1, R2, true>
+    {
+        using type = T;
+    };
+
+    template<typename T, typename R1, typename R2>
+    using non_graph_rngs_alg_ret_t =
+        typename non_graph_rngs_alg_ret<T, R1, R2>::type;
+
+    template<
+        typename T,
+        typename R1,
+        typename R2,
+        bool R1R2AreNotGraphemeRanges = !is_cp_grapheme_range<R1>::value &&
+                                        !is_cp_grapheme_range<R2>::value>
+    struct lazy_non_graph_rngs_alg_ret
+    {};
+
+    template<typename T, typename R1, typename R2>
+    struct lazy_non_graph_rngs_alg_ret<T, R1, R2, true>
+    {
+        using type = typename T::type;
+    };
+
+    template<typename T, typename R1, typename R2>
+    using lazy_non_graph_rngs_alg_ret_t =
+        typename lazy_non_graph_rngs_alg_ret<T, R1, R2>::type;
+
+
+    template<typename T>
+    using is_contig_grapheme_range_expr = std::integral_constant<
         bool,
         (std::is_same<
              decltype(std::declval<const T>().begin().base().base()),
@@ -590,6 +829,10 @@ namespace boost { namespace text { namespace detail {
              std::is_same<
                  decltype(std::declval<const T>().end().base().base()),
                  char *>::value)>;
+
+    template<typename T>
+    using is_contig_grapheme_range =
+        detected_or<std::false_type, is_contig_grapheme_range_expr, T>;
 
     template<
         typename T,

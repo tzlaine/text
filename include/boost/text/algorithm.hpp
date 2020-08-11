@@ -8,6 +8,8 @@
 
 #include <boost/text/detail/sentinel_tag.hpp>
 
+#include <boost/stl_interfaces/view_interface.hpp>
+
 #include <cstddef>
 #include <iterator>
 #include <utility>
@@ -302,6 +304,86 @@ namespace boost { namespace text {
         } else {
             return 1;
         }
+    }
+
+    /** The view type returned by `boost::text::search()`. */
+    template<typename Iter>
+    struct search_result : stl_interfaces::view_interface<search_result<Iter>>
+    {
+        using iterator = Iter;
+
+        constexpr search_result() noexcept {}
+        constexpr search_result(iterator first, iterator last) noexcept :
+            first_(first), last_(last)
+        {}
+
+        constexpr iterator begin() const noexcept { return first_; }
+        constexpr iterator end() const noexcept { return last_; }
+
+    private:
+        iterator first_;
+        iterator last_;
+    };
+
+    /** Sentinel-friendly version of `std::search()`. */
+    template<
+        typename Iter1,
+        typename Sentinel1,
+        typename Iter2,
+        typename Sentinel2>
+    search_result<Iter1>
+    search(Iter1 first1, Sentinel1 last1, Iter2 first2, Sentinel2 last2)
+    {
+        if (first1 == last1 || first2 == last2)
+            return {first1, first1};
+
+        if (std::next(first2) == last2) {
+            auto const it = text::find(first1, last1, *first2);
+            return {it, std::next(it)};
+        }
+
+        auto it = first1;
+        for (;;) {
+            first1 = text::find(first1, last1, *first2);
+
+            if (first1 == last1)
+                return {first1, first1};
+
+            auto it2 = std::next(first2);
+            it = first1;
+            if (++it == last1)
+                return {it, it};
+
+            while (*it == *it2) {
+                if (++it2 == last2)
+                    return {first1, ++it};
+                if (++it == last1)
+                    return {it, it};
+            }
+
+            ++first1;
+        }
+
+        return {first1, first1};
+    }
+
+    /** Sentinel-friendly version of `std::find_first_of()`. */
+    template<
+        typename Iter1,
+        typename Sentinel1,
+        typename Iter2,
+        typename Sentinel2,
+        typename Pred>
+    Iter1 find_first_of(
+        Iter1 first1, Sentinel1 last1, Iter2 first2, Sentinel2 last2, Pred pred)
+    {
+        for (; first1 != last1; ++first1) {
+            for (auto it = first2; it != last2; ++it) {
+                if (pred(*first1, *it))
+                    return first1;
+            }
+        }
+        return first1;
     }
 
 }}

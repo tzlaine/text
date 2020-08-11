@@ -172,13 +172,32 @@ TEST(str_algo, find)
         EXPECT_TRUE(result.begin() == std::next(here.begin(), 0));
         EXPECT_TRUE(result.end() == std::next(here.begin(), 2));
     }
-#if 0 // TODO: Fix!
+#if __cplusplus <= 201703L // TODO: Fix!
     {
         auto const result = text::find(text::as_graphemes(here_array), "he");
-        // TODO: Tests, obvs.
+        EXPECT_TRUE(result.begin() == here_array + 0);
+        EXPECT_TRUE(result.end() == here_array + 2);
     }
     {
-        auto const result = text::find(u"here", text::as_graphemes(he_array));
+        char const * he_ptr = "he";
+        auto const result = text::find(text::as_graphemes(here_array), he_ptr);
+        EXPECT_TRUE(result.begin() == here_array + 0);
+        EXPECT_TRUE(result.end() == here_array + 2);
+    }
+    {
+        char16_t const here_array[] = {'h', 'e', 'r', 'e'};
+        auto const result =
+            text::find(here_array, text::as_graphemes(he_array));
+        auto const here = text::as_graphemes(here_array);
+        EXPECT_TRUE(result.begin() == std::next(here.begin(), 0));
+        EXPECT_TRUE(result.end() == std::next(here.begin(), 2));
+    }
+    {
+        char16_t const * here_ptr = u"here";
+        auto const result = text::find(here_ptr, text::as_graphemes(he_array));
+        auto const here = text::as_graphemes(here_ptr);
+        EXPECT_TRUE(result.begin() == std::next(here.begin(), 0));
+        EXPECT_TRUE(result.end() == std::next(here.begin(), 2));
     }
 #endif
 }
@@ -272,12 +291,33 @@ TEST(str_algo, rfind)
         EXPECT_TRUE(result.begin() == std::next(here.begin(), 0));
         EXPECT_TRUE(result.end() == std::next(here.begin(), 2));
     }
-#if 0 // TODO: Fix!
+#if __cplusplus <= 201703L // TODO: Fix!
     {
-        auto const result = text::rfind(text::as_graphemes(here_array), "he");
+        auto const here = text::as_graphemes(here_array);
+        auto const result = text::rfind(here, "he");
+        EXPECT_TRUE(result.begin() == std::next(here.begin(), 0));
+        EXPECT_TRUE(result.end() == std::next(here.begin(), 2));
     }
     {
-        auto const result = text::rfind(u"here", text::as_graphemes(he_array));
+        auto const here = text::as_graphemes(here_array);
+        char const * he_ptr = "he";
+        auto const result = text::rfind(here, he_ptr);
+        EXPECT_TRUE(result.begin() == std::next(here.begin(), 0));
+        EXPECT_TRUE(result.end() == std::next(here.begin(), 2));
+    }
+    {
+        char16_t const here_array[] = {'h', 'e', 'r', 'e'};
+        auto const result = text::rfind(here_array, text::as_graphemes(he_array));
+        auto const here = text::as_graphemes(here_array);
+        EXPECT_TRUE(result.begin() == std::next(here.begin(), 0));
+        EXPECT_TRUE(result.end() == std::next(here.begin(), 2));
+    }
+    {
+        char16_t const * here_ptr = u"here";
+        auto const result = text::rfind(here_ptr, text::as_graphemes(he_array));
+        auto const here = text::as_graphemes(here_ptr);
+        EXPECT_TRUE(result.begin() == std::next(here.begin(), 0));
+        EXPECT_TRUE(result.end() == std::next(here.begin(), 2));
     }
 #endif
 }
@@ -407,15 +447,31 @@ TEST(str_algo, find_first_of)
         auto const result = text::find_first_of(here, he);
         EXPECT_TRUE(result == std::next(here.begin(), 0));
     }
-#if 0 // TODO: Fix!
+#if __cplusplus <= 201703L // TODO: Fix!
     {
-        auto const result =
-            text::find_first_of(text::as_graphemes(here_array), "he");
-        // TODO: Tests, obvs.
+        auto const here = text::as_graphemes(here_array);
+        auto const result = text::find_first_of(here, "he");
+        EXPECT_TRUE(result == std::next(here.begin(), 0));
     }
     {
+        auto const here = text::as_graphemes(here_array);
+        char const * he_ptr = "he";
+        auto const result = text::find_first_of(here, he_ptr);
+        EXPECT_TRUE(result == std::next(here.begin(), 0));
+    }
+    {
+        char16_t const here_array[] = {'h', 'e', 'r', 'e'};
         auto const result =
-            text::find_first_of(u"here", text::as_graphemes(he_array));
+            text::find_first_of(here_array, text::as_graphemes(he_array));
+        auto const here = text::as_graphemes(here_array);
+        EXPECT_TRUE(result == std::next(here.begin(), 0));
+    }
+    {
+        char16_t const * here_ptr = u"here";
+        auto const result =
+            text::find_first_of(here_ptr, text::as_graphemes(he_array));
+        auto const here = text::as_graphemes(here_ptr);
+        EXPECT_TRUE(result == std::next(here.begin(), 0));
     }
 #endif
 }
@@ -485,20 +541,35 @@ TEST(str_algo, find_last_of)
         auto const result = text::find_last_of(here, he);
         EXPECT_TRUE(result == std::next(here.begin(), 3));
     }
-#if 0 // TODO: Fix!
+#if __cplusplus <= 201703L // TODO: Fix!
     {
-        auto const result =
-            text::find_last_of(text::as_graphemes(here_array), "he");
-        // TODO: Tests, obvs.
+        auto const here = text::as_graphemes(here_array);
+        auto const result = text::find_last_of(here, "he");
+        EXPECT_TRUE(result == std::next(here.begin(), 3));
     }
     {
+        auto const here = text::as_graphemes(here_array);
+        char const * he_ptr = "he";
+        auto const result = text::find_last_of(here, he_ptr);
+        EXPECT_TRUE(result == std::next(here.begin(), 3));
+    }
+    {
+        char16_t const here_array[] = {'h', 'e', 'r', 'e'};
         auto const result =
-            text::find_last_of(u"here", text::as_graphemes(he_array));
+            text::find_last_of(here_array, text::as_graphemes(he_array));
+        auto const here = text::as_graphemes(here_array);
+        EXPECT_TRUE(result == std::next(here.begin(), 3));
+    }
+    {
+        char16_t const * here_ptr = u"here";
+        auto const result =
+            text::find_last_of(here_ptr, text::as_graphemes(he_array));
+        auto const here = text::as_graphemes(here_ptr);
+        EXPECT_TRUE(result == std::next(here.begin(), 3));
     }
 #endif
 }
 
-#if 0 // TODO: Fix!
 TEST(str_algo, find_first_not_of)
 {
     // Code point iterators.
@@ -540,7 +611,7 @@ TEST(str_algo, find_first_not_of)
     {
         char const * here_ptr = "here";
         auto const result = text::find_first_not_of(here_ptr, "eh");
-        EXPECT_TRUE(result == std::next(text::as_utf32(here_ptr).begin(), 0));
+        EXPECT_TRUE(result == std::next(text::as_utf32(here_ptr).begin(), 2));
     }
     {
         char const * here_ptr = "here";
@@ -629,19 +700,34 @@ TEST(str_algo, find_first_not_of)
         auto const result = text::find_first_not_of(here, he);
         EXPECT_TRUE(result == std::next(here.begin(), 2));
     }
-#if 0 // TODO: Fix!
+#if __cplusplus <= 201703L // TODO: Fix!
     {
-        auto const result =
-            text::find_first_not_of(text::as_graphemes(here_array), "he");
-        // TODO: Tests, obvs.
+        auto const here = text::as_graphemes(here_array);
+        auto const result = text::find_first_not_of(here, "he");
+        EXPECT_TRUE(result == std::next(here.begin(), 2));
     }
     {
+        auto const here = text::as_graphemes(here_array);
+        char const * he_ptr = "he";
+        auto const result = text::find_first_not_of(here, he_ptr);
+        EXPECT_TRUE(result == std::next(here.begin(), 2));
+    }
+    {
+        char16_t const here_array[] = {'h', 'e', 'r', 'e'};
         auto const result =
-            text::find_first_not_of(u"here", text::as_graphemes(he_array));
+            text::find_first_not_of(here_array, text::as_graphemes(he_array));
+        auto const here = text::as_graphemes(here_array);
+        EXPECT_TRUE(result == std::next(here.begin(), 2));
+    }
+    {
+        char16_t const * here_ptr = u"here";
+        auto const result =
+            text::find_first_not_of(here_ptr, text::as_graphemes(he_array));
+        auto const here = text::as_graphemes(here_ptr);
+        EXPECT_TRUE(result == std::next(here.begin(), 2));
     }
 #endif
 }
-#endif
 
 TEST(str_algo, find_last_not_of)
 {
@@ -659,26 +745,26 @@ TEST(str_algo, find_last_not_of)
     {
         char const * here_ptr = "here";
         auto const result = text::find_last_not_of(here_ptr, "eh");
-        EXPECT_TRUE(result == std::next(text::as_utf32(here_ptr).begin(), 3));
+        EXPECT_TRUE(result == std::next(text::as_utf32(here_ptr).begin(), 2));
     }
     {
         char const * here_ptr = "here";
         auto const here = text::as_utf32(here_ptr);
         auto const result = text::find_last_not_of(here, "re");
-        EXPECT_TRUE(result == std::next(here.begin(), 3));
+        EXPECT_TRUE(result == std::next(here.begin(), 0));
     }
     {
         char const * here_ptr = "here";
         auto const he = text::as_utf32("he");
         auto const result = text::find_last_not_of(here_ptr, he);
-        EXPECT_TRUE(result == std::next(text::as_utf32(here_ptr).begin(), 3));
+        EXPECT_TRUE(result == std::next(text::as_utf32(here_ptr).begin(), 2));
     }
     {
         char const * here_ptr = "here";
         auto const here = text::as_utf32(here_ptr);
         auto const he = text::as_utf32("he");
         auto const result = text::find_last_not_of(here, he);
-        EXPECT_TRUE(result == std::next(here.begin(), 3));
+        EXPECT_TRUE(result == std::next(here.begin(), 2));
     }
     {
         text::find_last_not_of(u8"here", u"hea");
@@ -698,7 +784,7 @@ TEST(str_algo, find_last_not_of)
         auto const r2 = text::as_graphemes(he_array);
         auto const result =
             text::find_last_not_of(r1.begin(), r1.end(), r2.begin(), r2.end());
-        EXPECT_TRUE(result == std::next(r1.begin(), 3));
+        EXPECT_TRUE(result == std::next(r1.begin(), 2));
     }
 
     // Grapheme ranges.
@@ -706,17 +792,33 @@ TEST(str_algo, find_last_not_of)
         auto const here = text::as_graphemes(here_array);
         auto const he = text::as_graphemes(he_array);
         auto const result = text::find_last_not_of(here, he);
-        EXPECT_TRUE(result == std::next(here.begin(), 3));
+        EXPECT_TRUE(result == std::next(here.begin(), 2));
     }
-#if 0 // TODO: Fix!
+#if __cplusplus <= 201703L // TODO: Fix!
     {
-        auto const result =
-            text::find_last_not_of(text::as_graphemes(here_array), "he");
-        // TODO: Tests, obvs.
+        auto const here = text::as_graphemes(here_array);
+        auto const result = text::find_last_not_of(here, "he");
+        EXPECT_TRUE(result == std::next(here.begin(), 2));
     }
     {
+        auto const here = text::as_graphemes(here_array);
+        char const * he_ptr = "he";
+        auto const result = text::find_last_not_of(here, he_ptr);
+        EXPECT_TRUE(result == std::next(here.begin(), 2));
+    }
+    {
+        char16_t const here_array[] = {'h', 'e', 'r', 'e'};
         auto const result =
-            text::find_last_not_of(u"here", text::as_graphemes(he_array));
+            text::find_last_not_of(here_array, text::as_graphemes(he_array));
+        auto const here = text::as_graphemes(here_array);
+        EXPECT_TRUE(result == std::next(here.begin(), 2));
+    }
+    {
+        char16_t const * here_ptr = u"here";
+        auto const result =
+            text::find_last_not_of(here_ptr, text::as_graphemes(he_array));
+        auto const here = text::as_graphemes(here_ptr);
+        EXPECT_TRUE(result == std::next(here.begin(), 2));
     }
 #endif
 }
@@ -817,12 +919,20 @@ TEST(str_algo, starts_with)
         EXPECT_TRUE(text::starts_with(
             text::as_graphemes(here_array), text::as_graphemes(he_array)));
     }
-#if 0 // TODO: Fix!
+#if __cplusplus <= 201703L // TODO: Fix!
     {
         EXPECT_TRUE(text::starts_with(text::as_graphemes(here_array), "he"));
     }
     {
+        EXPECT_TRUE(text::starts_with(
+            text::as_graphemes(here_array), (char const *)"he"));
+    }
+    {
         EXPECT_TRUE(text::starts_with(U"here", text::as_graphemes(he_array)));
+    }
+    {
+        EXPECT_TRUE(text::starts_with(
+            (char32_t const *)U"here", text::as_graphemes(he_array)));
     }
 #endif
 }
@@ -887,12 +997,20 @@ TEST(str_algo, ends_with)
         EXPECT_TRUE(text::ends_with(
             text::as_graphemes(here_array), text::as_graphemes(re_array)));
     }
-#if 0 // TODO: Fix!
+#if __cplusplus <= 201703L // TODO: Fix!
     {
         EXPECT_TRUE(text::ends_with(text::as_graphemes(here_array), "re"));
     }
     {
+        EXPECT_TRUE(text::ends_with(
+            text::as_graphemes(here_array), (char const *)"re"));
+    }
+    {
         EXPECT_TRUE(text::ends_with(U"here", text::as_graphemes(re_array)));
+    }
+    {
+        EXPECT_TRUE(text::ends_with(
+            (char32_t const *)U"here", text::as_graphemes(re_array)));
     }
 #endif
 }
@@ -1004,12 +1122,20 @@ TEST(str_algo, contains)
         EXPECT_TRUE(text::contains(
             text::as_graphemes(here_array), text::as_graphemes(he_array)));
     }
-#if 0 // TODO: Fix!
+#if __cplusplus <= 201703L // TODO: Fix!
     {
         EXPECT_TRUE(text::contains(text::as_graphemes(here_array), "he"));
     }
     {
+        EXPECT_TRUE(
+            text::contains(text::as_graphemes(here_array), (char const *)"he"));
+    }
+    {
         EXPECT_TRUE(text::contains(u"here", text::as_graphemes(he_array)));
+    }
+    {
+        EXPECT_TRUE(text::contains(
+            (char16_t const *)u"here", text::as_graphemes(he_array)));
     }
 #endif
 }
