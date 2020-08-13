@@ -1069,7 +1069,7 @@ namespace boost { namespace text {
 #if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
         template<typename I2, typename S2>
         // clang-format off
-        requires std::is_convertible_v<I2, I> && std::is_convertible_v<S2, S>
+        requires std::convertible_to<I2, I> && std::convertible_to<S2, S>
 #else
         template<
             typename I2,
@@ -1372,7 +1372,7 @@ namespace boost { namespace text {
 #if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
         template<typename I2, typename S2>
         // clang-format off
-        requires std::is_convertible_v<I2, I> && std::is_convertible_v<S2, S>
+        requires std::convertible_to<I2, I> && std::convertible_to<S2, S>
 #else
         template<
             typename I2,
@@ -1967,7 +1967,7 @@ namespace boost { namespace text {
 #if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
         template<typename I2, typename S2>
         // clang-format off
-        requires std::is_convertible_v<I2, I> && std::is_convertible_v<S2, S>
+        requires std::convertible_to<I2, I> && std::convertible_to<S2, S>
 #else
         template<
             typename I2,
@@ -2282,7 +2282,7 @@ namespace boost { namespace text {
 #if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
         template<typename I2, typename S2>
         // clang-format off
-        requires std::is_convertible_v<I2, I> && std::is_convertible_v<S2, S>
+        requires std::convertible_to<I2, I> && std::convertible_to<S2, S>
 #else
         template<
             typename I2,
@@ -2692,7 +2692,7 @@ namespace boost { namespace text {
 #if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
         template<typename I2, typename S2>
         // clang-format off
-        requires std::is_convertible_v<I2, I> && std::is_convertible_v<S2, S>
+        requires std::convertible_to<I2, I> && std::convertible_to<S2, S>
 #else
         template<
             typename I2,
@@ -3100,7 +3100,7 @@ namespace boost { namespace text {
 #if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
         template<typename I2, typename S2>
         // clang-format off
-        requires std::is_convertible_v<I2, I> && std::is_convertible_v<S2, S>
+        requires std::convertible_to<I2, I> && std::convertible_to<S2, S>
 #else
         template<
             typename I2,

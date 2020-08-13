@@ -90,7 +90,7 @@ namespace boost { namespace text {
         template<std::ranges::range R>
         // clang-format off
             requires
-            std::is_convertible_v<std::ranges::range_reference_t<R>, value_type>
+            std::convertible_to<std::ranges::range_reference_t<R>, value_type>
 #else
         template<typename R>
 #endif
@@ -105,7 +105,7 @@ namespace boost { namespace text {
 #if defined(__cpp_lib_concepts)
         template<std::input_iterator I, std::sentinel_for<I> S>
         // clang-format off
-            requires std::is_convertible_v<std::iter_reference_t<I>, value_type>
+            requires std::convertible_to<std::iter_reference_t<I>, value_type>
 #else
         template<typename I, typename S>
 #endif
@@ -239,7 +239,7 @@ namespace boost { namespace text {
         template<std::ranges::range R>
         // clang-format off
             requires
-            std::is_convertible_v<std::ranges::range_reference_t<R>, value_type>
+            std::convertible_to<std::ranges::range_reference_t<R>, value_type>
 #else
         template<typename R>
 #endif
@@ -257,7 +257,7 @@ namespace boost { namespace text {
 #if defined(__cpp_lib_concepts)
         template<std::input_iterator I, std::sentinel_for<I> S>
         // clang-format off
-            requires std::is_convertible_v<std::iter_reference_t<I>, value_type>
+            requires std::convertible_to<std::iter_reference_t<I>, value_type>
 #else
         template<typename I, typename S>
 #endif
@@ -304,9 +304,9 @@ namespace boost { namespace text {
         template<typename R>
         // clang-format off
         requires std::ranges::range<R> &&
-            std::is_convertible_v<
+            std::convertible_to<
                 std::ranges::range_reference_t<R>, value_type> ||
-            std::is_convertible_v<R, value_type const *>
+            std::convertible_to<R, value_type const *>
 #else
         template<typename R>
 #endif
@@ -319,7 +319,7 @@ namespace boost { namespace text {
 #if defined(__cpp_lib_concepts)
         template<std::input_iterator I, std::sentinel_for<I> S>
         // clang-format off
-            requires std::is_convertible_v<std::iter_reference_t<I>, value_type>
+            requires std::convertible_to<std::iter_reference_t<I>, value_type>
 #else
         template<typename I, typename S>
 #endif
@@ -365,9 +365,9 @@ namespace boost { namespace text {
         template<typename R>
         // clang-format off
             requires std::ranges::range<R> &&
-                std::is_convertible_v<
+                std::convertible_to<
                     std::ranges::range_reference_t<R>, value_type> ||
-                std::is_convertible_v<R, value_type const *>
+                std::convertible_to<R, value_type const *>
 #else
         template<typename R>
 #endif
@@ -382,7 +382,7 @@ namespace boost { namespace text {
 #if defined(__cpp_lib_concepts)
         template<std::input_iterator I, std::sentinel_for<I> S>
         // clang-format off
-            requires std::is_convertible_v<std::iter_reference_t<I>, value_type>
+            requires std::convertible_to<std::iter_reference_t<I>, value_type>
 #else
         template<typename I, typename S>
 #endif

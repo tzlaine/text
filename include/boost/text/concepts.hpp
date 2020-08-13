@@ -17,7 +17,7 @@
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
     template<typename T, format F>
-    concept code_unit = std::is_integral<T>::value && sizeof(T) == (int)F;
+    concept code_unit = std::integral<T> && sizeof(T) == (int)F;
 
     template<typename T>
     concept utf8_code_unit = code_unit<T, format::utf8>;
