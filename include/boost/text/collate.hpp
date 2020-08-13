@@ -75,23 +75,8 @@ namespace boost { namespace text {
     inline int
     compare(text_sort_key const & lhs, text_sort_key const & rhs) noexcept
     {
-        auto const pair =
-            algorithm::mismatch(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
-        if (pair.first == lhs.end()) {
-            if (pair.second == rhs.end())
-                return 0;
-            return -1;
-        } else {
-            if (pair.second == rhs.end())
-                return 1;
-            auto const lhs_element = *pair.first;
-            auto const rhs_element = *pair.second;
-            if (lhs_element < rhs_element)
-                return -1;
-            if (rhs_element < lhs_element)
-                return 1;
-            return 0;
-        }
+        return boost::text::lexicographical_compare_three_way(
+            lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
     }
 
     inline bool operator==(text_sort_key const & lhs, text_sort_key const & rhs)
