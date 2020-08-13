@@ -249,6 +249,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     {
         return v1::normalized<Normalization>(std::begin(r), std::end(r));
     }
+
 }}}
 
 #if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)

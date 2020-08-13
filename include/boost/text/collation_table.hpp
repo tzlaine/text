@@ -407,8 +407,13 @@ namespace boost { namespace text {
             l2_order_(detail::to_l2_order(flags))
         {}
 
-        template<typename CPRange1, typename CPRange2>
-        bool operator()(CPRange1 const & r1, CPRange2 const & r2) const;
+#if defined(__cpp_lib_concepts)
+        template<code_point_range R1, code_point_range R2>
+#else
+        /** Compares code point ranges `R1` and `R2`. */
+        template<typename R1, typename R2>
+#endif
+        bool operator()(R1 const & r1, R2 const & r2) const;
 
     private:
         collation_table table_;
@@ -1426,9 +1431,12 @@ namespace boost { namespace text {
             size_out);
     }
 
-    template<typename CPRange1, typename CPRange2>
-    bool collation_compare::
-    operator()(CPRange1 const & r1, CPRange2 const & r2) const
+#if defined(__cpp_lib_concepts)
+    template<code_point_range R1, code_point_range R2>
+#else
+    template<typename R1, typename R2>
+#endif
+    bool collation_compare::operator()(R1 const & r1, R2 const & r2) const
     {
         return collate(
                    r1.begin(),

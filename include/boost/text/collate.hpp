@@ -384,8 +384,8 @@ namespace boost { namespace text {
             trie_match_t collation,
             detail::collation_trie_t const & trie)
         {
-            auto nonstarter_last = s2_1_1(first, last, collation);
-            return s2_1_2(first, nonstarter_last, collation, trie);
+            auto nonstarter_last = detail::s2_1_1(first, last, collation);
+            return detail::s2_1_2(first, nonstarter_last, collation, trie);
         }
 
         template<
@@ -420,16 +420,16 @@ namespace boost { namespace text {
                     uint32_t cp = *first++;
                     if (detail::hangul_syllable(cp)) {
                         auto cps = detail::decompose_hangul_syllable<3>(cp);
-                        out =
-                            s2(cps.begin(),
-                               cps.end(),
-                               out,
-                               trie,
-                               collation_elements_first,
-                               lead_byte,
-                               strength,
-                               weighting,
-                               retain_case_bits);
+                        out = detail::s2(
+                            cps.begin(),
+                            cps.end(),
+                            out,
+                            trie,
+                            collation_elements_first,
+                            lead_byte,
+                            strength,
+                            weighting,
+                            retain_case_bits);
                         if (size_out)
                             *(*size_out)++ = 1;
                         continue;
@@ -490,7 +490,7 @@ namespace boost { namespace text {
                 }
 
                 // S2.1
-                collation_ = s2_1(first, last, collation_, trie);
+                collation_ = detail::s2_1(first, last, collation_, trie);
 
                 auto const & collation_value = *trie[collation_];
 
@@ -504,7 +504,7 @@ namespace boost { namespace text {
                 // S2.3
                 if (retain_case_bits == retain_case_bits_t::no &&
                     collation_strength::tertiary <= strength) {
-                    s2_3_case_bits(initial_out, out);
+                    detail::s2_3_case_bits(initial_out, out);
                 }
                 if (weighting != variable_weighting::non_ignorable &&
                     strength != collation_strength::primary) {
@@ -880,11 +880,11 @@ namespace boost { namespace text {
         template<typename Iter, typename Sentinel, typename LeadByteFunc>
         auto collate_impl(
             utf8_tag,
-            Iter lhs_first,
-            Sentinel lhs_last,
+            Iter first1,
+            Sentinel last1,
             utf8_tag,
-            Iter rhs_first,
-            Sentinel rhs_last,
+            Iter first2,
+            Sentinel last2,
             collation_strength strength,
             case_first case_1st,
             case_level case_lvl,
@@ -905,11 +905,11 @@ namespace boost { namespace text {
             typename LeadByteFunc>
         auto collate_impl(
             Tag1,
-            Iter1 lhs_first,
-            Sentinel1 lhs_last,
+            Iter1 first1,
+            Sentinel1 last1,
             Tag2,
-            Iter2 rhs_first,
-            Sentinel2 rhs_last,
+            Iter2 first2,
+            Sentinel2 last2,
             collation_strength strength,
             case_first case_1st,
             case_level case_lvl,
@@ -920,8 +920,8 @@ namespace boost { namespace text {
             collation_element const * ces_first,
             LeadByteFunc const & lead_byte)
         {
-            auto const lhs = boost::text::as_utf32(lhs_first, lhs_last);
-            auto const rhs = boost::text::as_utf32(rhs_first, rhs_last);
+            auto const lhs = boost::text::as_utf32(first1, last1);
+            auto const rhs = boost::text::as_utf32(first2, last2);
             text_sort_key const lhs_sk = detail::collation_sort_key(
                 lhs.begin(),
                 lhs.end(),
@@ -949,10 +949,10 @@ namespace boost { namespace text {
             typename CPIter2,
             typename Sentinel2>
         int collate(
-            CPIter1 lhs_first,
-            Sentinel1 lhs_last,
-            CPIter2 rhs_first,
-            Sentinel2 rhs_last,
+            CPIter1 first1,
+            Sentinel1 last1,
+            CPIter2 first2,
+            Sentinel2 last2,
             collation_strength strength,
             case_first case_1st,
             case_level case_lvl,
@@ -960,6 +960,10 @@ namespace boost { namespace text {
             l2_weight_order l2_order,
             collation_table const & table);
     }
+
+}}
+
+namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -1030,10 +1034,10 @@ namespace boost { namespace text {
         collation_table const & table,
         collation_flags flags = collation_flags::none);
 
-    /** Creates sort keys for `[lhs_first, lhs_last)` and `[rhs_first,
-        rhs_last)`, then returns the result of calling compare() on the
-        keys. Any optional settings such as `case_1st` will be honored, so
-        long as they do not conflict with the settings on the given table.
+    /** Creates sort keys for `[first1, last1)` and `[first2, last2)`, then
+        returns the result of calling compare() on the keys. Any optional
+        settings such as `case_1st` will be honored, so long as they do not
+        conflict with the settings on the given table.
 
         Consider using one of the overloads that takes collation_flags
         instead.
@@ -1041,18 +1045,18 @@ namespace boost { namespace text {
         This function only participates in overload resolution if `CPIter1`
         models the CPIter concept.
 
-        \pre `[lhs_first, lhs_last)` is normalized NFD or FCC.
-        \pre `[rhs_first, rhs_last)` is normalized NFD or FCC. */
+        \pre `[first1, last1)` is normalized NFD or FCC.
+        \pre `[first2, last2)` is normalized NFD or FCC. */
     template<
         typename CPIter1,
         typename Sentinel1,
         typename CPIter2,
         typename Sentinel2>
     int collate(
-        CPIter1 lhs_first,
-        Sentinel1 lhs_last,
-        CPIter2 rhs_first,
-        Sentinel2 rhs_last,
+        CPIter1 first1,
+        Sentinel1 last1,
+        CPIter2 first2,
+        Sentinel2 last2,
         collation_table const & table,
         collation_strength strength = collation_strength::tertiary,
         case_first case_1st = case_first::off,
@@ -1060,26 +1064,26 @@ namespace boost { namespace text {
         variable_weighting weighting = variable_weighting::non_ignorable,
         l2_weight_order l2_order = l2_weight_order::forward);
 
-    /** Creates sort keys for `[lhs_first, lhs_last)` and `[rhs_first,
-        rhs_last)`, then returns the result of calling compare() on the keys.
-        Any optional settings flags will be honored, so long as they do not
-        conflict with the settings on the given table.
+    /** Creates sort keys for `[first1, last1)` and `[first2, last2)`, then
+        returns the result of calling compare() on the keys.  Any optional
+        settings flags will be honored, so long as they do not conflict with
+        the settings on the given table.
 
         This function only participates in overload resolution if `CPIter1`
         models the CPIter concept.
 
-        \pre `[lhs_first, lhs_last)` is normalized NFD or FCC.
-        \pre `[rhs_first, rhs_last)` is normalized NFD or FCC. */
+        \pre `[first1, last1)` is normalized NFD or FCC.
+        \pre `[first2, last2)` is normalized NFD or FCC. */
     template<
         typename CPIter1,
         typename Sentinel1,
         typename CPIter2,
         typename Sentinel2>
     int collate(
-        CPIter1 lhs_first,
-        Sentinel1 lhs_last,
-        CPIter2 rhs_first,
-        Sentinel2 rhs_last,
+        CPIter1 first1,
+        Sentinel1 last1,
+        CPIter2 first2,
+        Sentinel2 last2,
         collation_table const & table,
         collation_flags flags = collation_flags::none);
 
@@ -1118,7 +1122,7 @@ namespace boost { namespace text {
         collation_flags flags = collation_flags::none);
 
 #else
-
+    
     template<typename CPIter, typename Sentinel>
     auto collation_sort_key(
         CPIter first,
@@ -1203,10 +1207,10 @@ namespace boost { namespace text {
         typename CPIter2,
         typename Sentinel2>
     auto collate(
-        CPIter1 lhs_first,
-        Sentinel1 lhs_last,
-        CPIter2 rhs_first,
-        Sentinel2 rhs_last,
+        CPIter1 first1,
+        Sentinel1 last1,
+        CPIter2 first2,
+        Sentinel2 last2,
         collation_table const & table,
         collation_strength strength = collation_strength::tertiary,
         case_first case_1st = case_first::off,
@@ -1216,10 +1220,10 @@ namespace boost { namespace text {
         -> detail::cp_iter_ret_t<int, CPIter1>
     {
         return detail::collate(
-            lhs_first,
-            lhs_last,
-            rhs_first,
-            rhs_last,
+            first1,
+            last1,
+            first2,
+            last2,
             strength,
             case_1st,
             case_lvl,
@@ -1234,19 +1238,19 @@ namespace boost { namespace text {
         typename CPIter2,
         typename Sentinel2>
     auto collate(
-        CPIter1 lhs_first,
-        Sentinel1 lhs_last,
-        CPIter2 rhs_first,
-        Sentinel2 rhs_last,
+        CPIter1 first1,
+        Sentinel1 last1,
+        CPIter2 first2,
+        Sentinel2 last2,
         collation_table const & table,
         collation_flags flags = collation_flags::none)
         -> detail::cp_iter_ret_t<int, CPIter1>
     {
         return detail::collate(
-            lhs_first,
-            lhs_last,
-            rhs_first,
-            rhs_last,
+            first1,
+            last1,
+            first2,
+            last2,
             detail::to_strength(flags),
             detail::to_case_first(flags),
             detail::to_case_level(flags),
@@ -1263,7 +1267,7 @@ namespace boost { namespace text {
         collation_flags flags = collation_flags::none)
         -> detail::cp_rng_alg_ret_t<int, CPRange1>
     {
-        return collate(
+        return v1::collate(
             std::begin(r1),
             std::end(r1),
             std::begin(r2),
@@ -1284,7 +1288,7 @@ namespace boost { namespace text {
         collation_flags flags = collation_flags::none)
         -> detail::graph_rng_alg_ret_t<int, GraphemeRange1>
     {
-        return collate(
+        return v1::collate(
             std::begin(r1).base(),
             std::end(r1).base(),
             std::begin(r2).base(),
@@ -1299,7 +1303,185 @@ namespace boost { namespace text {
 
 #endif
 
-}}
+}}}
+
+#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
+
+namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
+
+    template<code_point_iter I, std::sentinel_for<I> S>
+    text_sort_key collation_sort_key(
+        I first,
+        S last,
+        collation_table const & table,
+        collation_strength strength = collation_strength::tertiary,
+        case_first case_1st = case_first::off,
+        case_level case_lvl = case_level::off,
+        variable_weighting weighting = variable_weighting::non_ignorable,
+        l2_weight_order l2_order = l2_weight_order::forward)
+    {
+        return detail::collation_sort_key(
+            first,
+            last,
+            strength,
+            case_1st,
+            case_lvl,
+            weighting,
+            l2_order,
+            table);
+    }
+
+    template<code_point_iter I, std::sentinel_for<I> S>
+    text_sort_key collation_sort_key(
+        I first,
+        S last,
+        collation_table const & table,
+        collation_flags flags = collation_flags::none)
+    {
+        return detail::collation_sort_key(
+            first,
+            last,
+            detail::to_strength(flags),
+            detail::to_case_first(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags),
+            detail::to_l2_order(flags),
+            table);
+    }
+
+    template<code_point_range R>
+    text_sort_key collation_sort_key(
+        R && r,
+        collation_table const & table,
+        collation_flags flags = collation_flags::none)
+    {
+        return detail::collation_sort_key(
+            std::begin(r),
+            std::end(r),
+            detail::to_strength(flags),
+            detail::to_case_first(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags),
+            detail::to_l2_order(flags),
+            table);
+    }
+
+    template<grapheme_range R>
+    text_sort_key collation_sort_key(
+        R && r,
+        collation_table const & table,
+        collation_flags flags = collation_flags::none)
+    {
+        return detail::collation_sort_key(
+            std::begin(r).base(),
+            std::end(r).base(),
+            detail::to_strength(flags),
+            detail::to_case_first(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags),
+            detail::to_l2_order(flags),
+            table);
+    }
+
+    template<
+        code_point_iter I1,
+        std::sentinel_for<I1> S1,
+        code_point_iter I2,
+        std::sentinel_for<I2> S2>
+    int collate(
+        I1 first1,
+        S1 last1,
+        I2 first2,
+        S2 last2,
+        collation_table const & table,
+        collation_strength strength = collation_strength::tertiary,
+        case_first case_1st = case_first::off,
+        case_level case_lvl = case_level::off,
+        variable_weighting weighting = variable_weighting::non_ignorable,
+        l2_weight_order l2_order = l2_weight_order::forward)
+    {
+        return detail::collate(
+            first1,
+            last1,
+            first2,
+            last2,
+            strength,
+            case_1st,
+            case_lvl,
+            weighting,
+            l2_order,
+            table);
+    }
+
+    template<
+        code_point_iter I1,
+        std::sentinel_for<I1> S1,
+        code_point_iter I2,
+        std::sentinel_for<I2> S2>
+    int collate(
+        I1 first1,
+        S1 last1,
+        I2 first2,
+        S2 last2,
+        collation_table const & table,
+        collation_flags flags = collation_flags::none)
+    {
+        return detail::collate(
+            first1,
+            last1,
+            first2,
+            last2,
+            detail::to_strength(flags),
+            detail::to_case_first(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags),
+            detail::to_l2_order(flags),
+            table);
+    }
+
+    template<code_point_range R1, code_point_range R2>
+    int collate(
+        R1 const & r1,
+        R2 const & r2,
+        collation_table const & table,
+        collation_flags flags = collation_flags::none)
+    {
+        return boost::text::collate(
+            std::begin(r1),
+            std::end(r1),
+            std::begin(r2),
+            std::end(r2),
+            table,
+            detail::to_strength(flags),
+            detail::to_case_first(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags),
+            detail::to_l2_order(flags));
+    }
+
+    template<grapheme_range R1, grapheme_range R2>
+    int collate(
+        R1 const & r1,
+        R2 const & r2,
+        collation_table const & table,
+        collation_flags flags = collation_flags::none)
+    {
+        return boost::text::collate(
+            std::begin(r1).base(),
+            std::end(r1).base(),
+            std::begin(r2).base(),
+            std::end(r2).base(),
+            table,
+            detail::to_strength(flags),
+            detail::to_case_first(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags),
+            detail::to_l2_order(flags));
+    }
+
+}}}
+
+#endif
 
 #include <boost/text/collation_table.hpp>
 
@@ -1428,10 +1610,10 @@ namespace boost { namespace text { namespace detail {
         typename CPIter2,
         typename Sentinel2>
     int collate(
-        CPIter1 lhs_first,
-        Sentinel1 lhs_last,
-        CPIter2 rhs_first,
-        Sentinel2 rhs_last,
+        CPIter1 first1,
+        Sentinel1 last1,
+        CPIter2 first2,
+        Sentinel2 last2,
         collation_strength strength,
         case_first case_1st,
         case_level case_lvl,
@@ -1448,9 +1630,9 @@ namespace boost { namespace text { namespace detail {
         if (table.case_lvl())
             case_lvl = *table.case_lvl();
 
-        auto lhs_u = detail::unpack_iterator_and_sentinel(lhs_first, lhs_last);
-        auto rhs_u = detail::unpack_iterator_and_sentinel(rhs_first, rhs_last);
-        return collate_impl(
+        auto lhs_u = detail::unpack_iterator_and_sentinel(first1, last1);
+        auto rhs_u = detail::unpack_iterator_and_sentinel(first2, last2);
+        return detail::collate_impl(
             lhs_u.tag_,
             lhs_u.f_,
             lhs_u.l_,
@@ -1486,11 +1668,11 @@ namespace boost { namespace text { namespace detail {
     template<typename Iter, typename Sentinel, typename LeadByteFunc>
     auto collate_impl(
         utf8_tag,
-        Iter lhs_first,
-        Sentinel lhs_last,
+        Iter first1,
+        Sentinel last1,
         utf8_tag,
-        Iter rhs_first,
-        Sentinel rhs_last,
+        Iter first2,
+        Sentinel last2,
         collation_strength strength,
         case_first case_1st,
         case_level case_lvl,
@@ -1505,16 +1687,16 @@ namespace boost { namespace text { namespace detail {
         std::cout << "\n\ncollate_impl():\n";
 #endif
 
-        auto lhs_it = lhs_first;
-        auto rhs_it = rhs_first;
+        auto lhs_it = first1;
+        auto rhs_it = first2;
 
         if (l2_order == l2_weight_order::forward) {
             // This is std::ranges::mismatch(), but I can't use that yet.
-            for (; lhs_it != lhs_last && rhs_it != rhs_last;
+            for (; lhs_it != last1 && rhs_it != last2;
                  ++lhs_it, ++rhs_it) {
                 if (*lhs_it != *rhs_it) {
                     // Back up to the start of the current CP.
-                    while (lhs_it != lhs_first) {
+                    while (lhs_it != first1) {
                         --lhs_it;
                         --rhs_it;
                         if (!boost::text::continuation(*lhs_it))
@@ -1523,7 +1705,7 @@ namespace boost { namespace text { namespace detail {
                     break;
                 }
             }
-            if (lhs_it == lhs_last && rhs_it == rhs_last)
+            if (lhs_it == last1 && rhs_it == last2)
                 return 0;
         }
 
@@ -1737,11 +1919,11 @@ namespace boost { namespace text { namespace detail {
 
         // Look for a non-ignorable primary, or the end of each sequence.
 
-        while (lhs_it != lhs_last || rhs_it != rhs_last) {
+        while (lhs_it != last1 || rhs_it != last2) {
             auto prev_l_primaries_size = l_primaries.size();
             auto prev_r_primaries_size = r_primaries.size();
-            auto l_prim = next_primary(lhs_it, lhs_last, l_primaries);
-            auto r_prim = next_primary(rhs_it, rhs_last, r_primaries);
+            auto l_prim = next_primary(lhs_it, last1, l_primaries);
+            auto r_prim = next_primary(rhs_it, last2, r_primaries);
 
 #if BOOST_TEXT_INSTRUMENT_COLLATE_IMPL
             std::cout << "l_prim.cp_=" << std::hex << "0x" << l_prim.cp_
@@ -1756,7 +1938,7 @@ namespace boost { namespace text { namespace detail {
                 std::cout << "backing up the left.\n";
 #endif
                 l_backed_up = back_up_before_nonstarters(
-                    lhs_first,
+                    first1,
                     l_prim.it_,
                     l_prim.cp_,
                     l_prim.lead_primary_,
@@ -1769,7 +1951,7 @@ namespace boost { namespace text { namespace detail {
                 std::cout << "backing up the right.\n";
 #endif
                 r_backed_up = back_up_before_nonstarters(
-                    rhs_first,
+                    first2,
                     r_prim.it_,
                     r_prim.cp_,
                     r_prim.lead_primary_,
@@ -1777,8 +1959,8 @@ namespace boost { namespace text { namespace detail {
                     prev_r_primaries_size);
             }
 
-            if ((l_prim.coll_.leaf || lhs_it == lhs_last) &&
-                (r_prim.coll_.leaf || rhs_it == rhs_last) &&
+            if ((l_prim.coll_.leaf || lhs_it == last1) &&
+                (r_prim.coll_.leaf || rhs_it == last2) &&
                 l_primaries.empty() && r_primaries.empty()) {
                 uint32_t l_primary = l_prim.derived_primary_
                                          ? l_prim.derived_primary_ >> 24
@@ -1817,14 +1999,14 @@ namespace boost { namespace text { namespace detail {
                 std::cout << "before getting primaries:\n";
 
                 std::cout << " left: cps: " << std::hex;
-                auto const l_r = as_utf32(l_prim.it_, lhs_last);
+                auto const l_r = boost::text::as_utf32(l_prim.it_, last1);
                 for (auto cp : l_r) {
                     std::cout << "0x" << cp << " ";
                 }
                 std::cout << "\n";
 
                 std::cout << "right: cps: " << std::hex;
-                auto const r_r = as_utf32(r_prim.it_, rhs_last);
+                auto const r_r = boost::text::as_utf32(r_prim.it_, last2);
                 for (auto cp : r_r) {
                     std::cout << "0x" << cp << " ";
                 }
@@ -1833,26 +2015,26 @@ namespace boost { namespace text { namespace detail {
 #endif
 
             uint32_t l_primary = l_prim.derived_primary_;
-            if (!l_primary && lhs_it != lhs_last) {
+            if (!l_primary && lhs_it != last1) {
 #if BOOST_TEXT_INSTRUMENT_COLLATE_IMPL
                 std::cout << "left get_primary()\n";
 #endif
                 get_primary(
                     l_prim.it_,
-                    lhs_last,
+                    last1,
                     l_prim.cp_,
                     l_prim.coll_,
                     l_backed_up,
                     l_primaries);
             }
             uint32_t r_primary = r_prim.derived_primary_;
-            if (!r_primary && rhs_it != rhs_last) {
+            if (!r_primary && rhs_it != last2) {
 #if BOOST_TEXT_INSTRUMENT_COLLATE_IMPL
                 std::cout << "right get_primary()\n";
 #endif
                 get_primary(
                     r_prim.it_,
-                    rhs_last,
+                    last2,
                     r_prim.cp_,
                     r_prim.coll_,
                     r_backed_up,
@@ -1864,14 +2046,14 @@ namespace boost { namespace text { namespace detail {
                 std::cout << "after getting primaries:\n";
 
                 std::cout << " left: cps: " << std::hex;
-                auto const l_r = as_utf32(l_prim.it_, lhs_last);
+                auto const l_r = boost::text::as_utf32(l_prim.it_, last1);
                 for (auto cp : l_r) {
                     std::cout << "0x" << cp << " ";
                 }
                 std::cout << "\n";
 
                 std::cout << "right: cps: " << std::hex;
-                auto const r_r = as_utf32(r_prim.it_, rhs_last);
+                auto const r_r = boost::text::as_utf32(r_prim.it_, last2);
                 for (auto cp : r_r) {
                     std::cout << "0x" << cp << " ";
                 }
@@ -1919,7 +2101,7 @@ namespace boost { namespace text { namespace detail {
 #endif
                     return 1;
                 }
-            } else if (l_at_end && !r_at_end && lhs_it == lhs_last) {
+            } else if (l_at_end && !r_at_end && lhs_it == last1) {
 #if BOOST_TEXT_INSTRUMENT_COLLATE_IMPL
                 std::cout << "early return -1 (right at end)\n";
                 std::cout << " left: " << std::hex;
@@ -1934,7 +2116,7 @@ namespace boost { namespace text { namespace detail {
                 std::cout << std::dec << "\n";
 #endif
                 return -1;
-            } else if (!l_at_end && r_at_end && rhs_it == rhs_last) {
+            } else if (!l_at_end && r_at_end && rhs_it == last2) {
 #if BOOST_TEXT_INSTRUMENT_COLLATE_IMPL
                 std::cout << "early return 1 (left at end)\n";
                 std::cout << " left: " << std::hex;
@@ -1957,14 +2139,14 @@ namespace boost { namespace text { namespace detail {
             lhs_it = l_prim.it_;
             rhs_it = r_prim.it_;
 
-            BOOST_ASSERT(boost::text::starts_encoded(lhs_it, lhs_last));
-            BOOST_ASSERT(boost::text::starts_encoded(rhs_it, rhs_last));
+            BOOST_ASSERT(boost::text::starts_encoded(lhs_it, last1));
+            BOOST_ASSERT(boost::text::starts_encoded(rhs_it, last2));
 
 #if BOOST_TEXT_INSTRUMENT_COLLATE_IMPL
             std::cout << "**************** at end of loop:\n";
 
             std::cout << " left: cps: " << std::hex;
-            auto const l_r = as_utf32(lhs_it, lhs_last);
+            auto const l_r = boost::text::as_utf32(lhs_it, last1);
             for (auto cp : l_r) {
                 std::cout << "0x" << cp << " ";
             }
@@ -1975,7 +2157,7 @@ namespace boost { namespace text { namespace detail {
             std::cout << "\n";
 
             std::cout << "right: cps: " << std::hex;
-            auto const r_r = as_utf32(rhs_it, rhs_last);
+            auto const r_r = boost::text::as_utf32(rhs_it, last2);
             for (auto cp : r_r) {
                 std::cout << "0x" << cp << " ";
             }
@@ -1991,9 +2173,9 @@ namespace boost { namespace text { namespace detail {
             return 0;
 
         auto const lhs =
-            boost::text::as_utf32(lhs_identical_prefix, lhs_last);
+            boost::text::as_utf32(lhs_identical_prefix, last1);
         auto const rhs =
-            boost::text::as_utf32(rhs_identical_prefix, rhs_last);
+            boost::text::as_utf32(rhs_identical_prefix, last2);
         text_sort_key const lhs_sk = detail::collation_sort_key(
             lhs.begin(),
             lhs.end(),

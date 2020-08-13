@@ -459,9 +459,9 @@ void do_simple_search(
 {
     {
         auto const r = collation_search(str, substr, table, flags);
-        EXPECT_EQ(std::distance(str.cbegin(), r.begin()), expected_first)
+        EXPECT_EQ(std::distance(str.begin(), r.begin()), expected_first)
             << "simple, line " << line;
-        EXPECT_EQ(std::distance(str.cbegin(), r.end()), expected_last)
+        EXPECT_EQ(std::distance(str.begin(), r.end()), expected_last)
             << "simple, line " << line;
     }
     {
@@ -1110,9 +1110,9 @@ void do_simple_word_search(
     {
         auto const r =
             collation_search(str, substr, prev_word_callable_t{}, table, flags);
-        EXPECT_EQ(std::distance(str.cbegin(), r.begin()), expected_first)
+        EXPECT_EQ(std::distance(str.begin(), r.begin()), expected_first)
             << "simple, line " << line;
-        EXPECT_EQ(std::distance(str.cbegin(), r.end()), expected_last)
+        EXPECT_EQ(std::distance(str.begin(), r.end()), expected_last)
             << "simple, line " << line;
     }
     {
