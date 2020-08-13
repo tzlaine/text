@@ -66,7 +66,7 @@ namespace boost { namespace text {
             first_(detail::unpack_iterator_and_sentinel(first, last).f_),
             grapheme_first_(detail::unpack_iterator_and_sentinel(it, last).f_),
             grapheme_last_(detail::unpack_iterator_and_sentinel(
-                               next_grapheme_break(it, last), last)
+                               boost::text::next_grapheme_break(it, last), last)
                                .f_),
             last_(detail::unpack_iterator_and_sentinel(first, last).l_)
         {}
