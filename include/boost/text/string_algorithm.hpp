@@ -880,7 +880,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         template<typename I1, typename S1, typename I2, typename S2>
         std::ranges::subrange<I1> find(I1 first1, S1 last1, I2 first2, S2 last2)
         {
-            return std::ranges::search(first1, last1, first2, last2);
+            return std::ranges::search(
+                first1, last1, first2, last2, std::equal_to{});
         }
 
         template<typename I1, typename I2>
@@ -891,7 +892,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                 std::make_reverse_iterator(last1),
                 std::make_reverse_iterator(first1),
                 std::make_reverse_iterator(last2),
-                std::make_reverse_iterator(first2));
+                std::make_reverse_iterator(first2),
+                std::equal_to{});
             if (result.empty())
                 return {last1, last1};
             return {result.end().base(), result.begin().base()};
@@ -900,7 +902,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         template<typename I1, typename S1, typename I2, typename S2>
         I1 find_first_of(I1 first1, S1 last1, I2 first2, S2 last2)
         {
-            return std::ranges::find_first_of(first1, last1, first2, last2);
+            return std::ranges::find_first_of(
+                first1, last1, first2, last2, std::equal_to{});
         }
 
         template<typename I1, typename I2>
@@ -911,7 +914,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                 std::make_reverse_iterator(last1),
                 last1_,
                 std::make_reverse_iterator(last2),
-                std::make_reverse_iterator(first2));
+                std::make_reverse_iterator(first2),
+                std::equal_to{});
             if (result == last1_)
                 return last1;
             return std::prev(result.base());
@@ -922,7 +926,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         {
             return std::ranges::find_if(
                 first1, last1, [first2, last2](auto const & x) {
-                    return std::ranges::find(first2, last2, x) == last2;
+                    return std::ranges::find_if(
+                               first2, last2, [&x](auto const & y) {
+                                   return x == y;
+                               }) == last2;
                 });
         }
 
@@ -935,7 +942,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             auto const last2 = std::make_reverse_iterator(first2_);
             auto const result = std::ranges::find_if(
                 first1, last1, [first2, last2](auto const & x) {
-                    return std::ranges::find(first2, last2, x) == last2;
+                    return std::ranges::find_if(
+                               first2, last2, [&x](auto const & y) {
+                                   return x == y;
+                               }) == last2;
                 });
             if (result == last1)
                 return last1_;
@@ -945,8 +955,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         template<typename I1, typename S1, typename I2, typename S2>
         bool starts_with(I1 first1, S1 last1, I2 first2, S2 last2)
         {
-            return std::ranges::mismatch(first1, last1, first2, last2).in2 ==
-                   last2;
+            return std::ranges::mismatch(
+                       first1, last1, first2, last2, std::equal_to{})
+                       .in2 == last2;
         }
 
         template<typename I1, typename I2>
@@ -957,7 +968,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                        std::make_reverse_iterator(last1),
                        std::make_reverse_iterator(first1),
                        std::make_reverse_iterator(last2),
-                       target)
+                       target,
+                       std::equal_to{})
                        .in2 == target;
         }
 
@@ -1381,7 +1393,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
             std::ranges::end(r2_));
     }
     template<utf_range_like R1, grapheme_range R2>
-    auto ffind_first_not_of(R1 && r1, R2 && r2)
+    auto find_first_not_of(R1 && r1, R2 && r2)
     {
         auto r1_ =
             boost::text::as_graphemes(detail::as_utf32_no_terminator(r1));
