@@ -442,14 +442,14 @@ namespace boost { namespace text { namespace detail {
         collation_element last_;
         bool simple_;
         bool compressible_;
-    };
 
-    inline bool operator==(reorder_group lhs, reorder_group rhs) noexcept
-    {
-        return !strcmp(lhs.name_, rhs.name_) && lhs.first_ == rhs.first_ &&
-               lhs.last_ == rhs.last_ && lhs.simple_ == rhs.simple_ &&
-               lhs.compressible_ == rhs.compressible_;
-    }
+        friend bool operator==(reorder_group lhs, reorder_group rhs) noexcept
+        {
+            return !strcmp(lhs.name_, rhs.name_) && lhs.first_ == rhs.first_ &&
+                   lhs.last_ == rhs.last_ && lhs.simple_ == rhs.simple_ &&
+                   lhs.compressible_ == rhs.compressible_;
+        }
+    };
 
     BOOST_TEXT_DECL std::array<reorder_group, 145> const &
     make_reorder_groups();

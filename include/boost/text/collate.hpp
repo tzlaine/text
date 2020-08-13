@@ -54,6 +54,44 @@ namespace boost { namespace text {
         const_iterator begin() const noexcept { return storage_.begin(); }
         const_iterator end() const noexcept { return storage_.end(); }
 
+        friend bool
+        operator==(text_sort_key const & lhs, text_sort_key const & rhs)
+        {
+            return algorithm::equal(
+                lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+        }
+
+        friend bool
+        operator!=(text_sort_key const & lhs, text_sort_key const & rhs)
+        {
+            return !(lhs == rhs);
+        }
+
+        friend bool
+        operator<(text_sort_key const & lhs, text_sort_key const & rhs)
+        {
+            return std::lexicographical_compare(
+                lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+        }
+
+        friend bool
+        operator<=(text_sort_key const & lhs, text_sort_key const & rhs)
+        {
+            return !(rhs < lhs);
+        }
+
+        friend bool
+        operator>(text_sort_key const & lhs, text_sort_key const & rhs)
+        {
+            return rhs < lhs;
+        }
+
+        friend bool
+        operator>=(text_sort_key const & lhs, text_sort_key const & rhs)
+        {
+            return !(lhs < rhs);
+        }
+
     private:
         std::vector<uint32_t> storage_;
     };
@@ -77,37 +115,6 @@ namespace boost { namespace text {
     {
         return boost::text::lexicographical_compare_three_way(
             lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
-    }
-
-    inline bool operator==(text_sort_key const & lhs, text_sort_key const & rhs)
-    {
-        return algorithm::equal(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
-    }
-
-    inline bool operator!=(text_sort_key const & lhs, text_sort_key const & rhs)
-    {
-        return !(lhs == rhs);
-    }
-
-    inline bool operator<(text_sort_key const & lhs, text_sort_key const & rhs)
-    {
-        return std::lexicographical_compare(
-            lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
-    }
-
-    inline bool operator<=(text_sort_key const & lhs, text_sort_key const & rhs)
-    {
-        return !(rhs < lhs);
-    }
-
-    inline bool operator>(text_sort_key const & lhs, text_sort_key const & rhs)
-    {
-        return rhs < lhs;
-    }
-
-    inline bool operator>=(text_sort_key const & lhs, text_sort_key const & rhs)
-    {
-        return !(lhs < rhs);
     }
 
     // The code in this file implements the UCA as described in

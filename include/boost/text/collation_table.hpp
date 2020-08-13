@@ -43,20 +43,20 @@ namespace boost { namespace text {
             collation_element first_;
             collation_element last_;
             uint32_t lead_byte_;
+
+            friend bool operator==(
+                nonsimple_script_reorder lhs, nonsimple_script_reorder rhs)
+            {
+                return lhs.first_ == rhs.first_ && lhs.last_ == rhs.last_ &&
+                       lhs.lead_byte_ == rhs.lead_byte_;
+            }
+
+            friend bool operator!=(
+                nonsimple_script_reorder lhs, nonsimple_script_reorder rhs)
+            {
+                return !(lhs == rhs);
+            }
         };
-
-        inline bool
-        operator==(nonsimple_script_reorder lhs, nonsimple_script_reorder rhs)
-        {
-            return lhs.first_ == rhs.first_ && lhs.last_ == rhs.last_ &&
-                   lhs.lead_byte_ == rhs.lead_byte_;
-        }
-
-        inline bool
-        operator!=(nonsimple_script_reorder lhs, nonsimple_script_reorder rhs)
-        {
-            return !(lhs == rhs);
-        }
 
         using nonsimple_reorders_t =
             container::static_vector<nonsimple_script_reorder, 140>;
@@ -166,34 +166,37 @@ namespace boost { namespace text {
             optional<l2_weight_order> l2_order_;
             optional<case_level> case_level_;
             optional<case_first> case_first_;
+
+            friend bool operator==(
+                collation_table_data const & lhs,
+                collation_table_data const & rhs)
+            {
+                return lhs.collation_element_vec_ ==
+                           rhs.collation_element_vec_ &&
+                       ((lhs.collation_elements_ == nullptr) ==
+                        (rhs.collation_elements_ == nullptr)) &&
+                       lhs.trie_ == rhs.trie_ &&
+                       lhs.nonstarter_first_ == rhs.nonstarter_first_ &&
+                       lhs.nonstarter_last_ == rhs.nonstarter_last_ &&
+                       lhs.nonstarter_table_ == rhs.nonstarter_table_ &&
+                       ((lhs.nonstarters_ == nullptr) ==
+                        (rhs.nonstarters_ == nullptr)) &&
+                       lhs.nonsimple_reorders_ == rhs.nonsimple_reorders_ &&
+                       lhs.simple_reorders_ == rhs.simple_reorders_ &&
+                       lhs.strength_ == rhs.strength_ &&
+                       lhs.weighting_ == rhs.weighting_ &&
+                       lhs.l2_order_ == rhs.l2_order_ &&
+                       lhs.case_level_ == rhs.case_level_ &&
+                       lhs.case_first_ == rhs.case_first_;
+            }
+
+            friend bool operator!=(
+                collation_table_data const & lhs,
+                collation_table_data const & rhs)
+            {
+                return !(lhs == rhs);
+            }
         };
-
-        inline bool operator==(
-            collation_table_data const & lhs, collation_table_data const & rhs)
-        {
-            return lhs.collation_element_vec_ == rhs.collation_element_vec_ &&
-                   ((lhs.collation_elements_ == nullptr) ==
-                    (rhs.collation_elements_ == nullptr)) &&
-                   lhs.trie_ == rhs.trie_ &&
-                   lhs.nonstarter_first_ == rhs.nonstarter_first_ &&
-                   lhs.nonstarter_last_ == rhs.nonstarter_last_ &&
-                   lhs.nonstarter_table_ == rhs.nonstarter_table_ &&
-                   ((lhs.nonstarters_ == nullptr) ==
-                    (rhs.nonstarters_ == nullptr)) &&
-                   lhs.nonsimple_reorders_ == rhs.nonsimple_reorders_ &&
-                   lhs.simple_reorders_ == rhs.simple_reorders_ &&
-                   lhs.strength_ == rhs.strength_ &&
-                   lhs.weighting_ == rhs.weighting_ &&
-                   lhs.l2_order_ == rhs.l2_order_ &&
-                   lhs.case_level_ == rhs.case_level_ &&
-                   lhs.case_first_ == rhs.case_first_;
-        }
-
-        inline bool operator!=(
-            collation_table_data const & lhs, collation_table_data const & rhs)
-        {
-            return !(lhs == rhs);
-        }
 
         inline void add_temp_tailoring(
             collation_table_data & table,

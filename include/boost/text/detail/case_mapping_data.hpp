@@ -48,16 +48,16 @@ namespace boost { namespace text { namespace detail {
 
         uint16_t first_;
         uint16_t last_;
-    };
 
-    inline bool operator==(case_elements lhs, case_elements rhs) noexcept
-    {
-        return lhs.first_ == rhs.first_ && lhs.last_ == rhs.last_;
-    }
-    inline bool operator!=(case_elements lhs, case_elements rhs) noexcept
-    {
-        return !(lhs == rhs);
-    }
+        friend bool operator==(case_elements lhs, case_elements rhs) noexcept
+        {
+            return lhs.first_ == rhs.first_ && lhs.last_ == rhs.last_;
+        }
+        friend bool operator!=(case_elements lhs, case_elements rhs) noexcept
+        {
+            return !(lhs == rhs);
+        }
+    };
 
     using case_map_t = std::unordered_map<uint32_t, case_elements>;
 
