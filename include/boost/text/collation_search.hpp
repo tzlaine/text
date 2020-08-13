@@ -43,14 +43,6 @@ namespace boost { namespace text {
         std::convertible_to<std::invoke_result_t<T, I, S>, utf32_view<I>>;
     // clang-format on
 
-    /** The code point iterator type of a grapheme range. */
-    template<typename R>
-    using code_point_iterator_t = decltype(std::declval<R>().begin().base());
-
-    /** The code point sentinel type of a grapheme range. */
-    template<typename R>
-    using code_point_sentinel_t = decltype(std::declval<R>().end().base());
-
 #endif
 
     /** The result type returned from the code point overloads of

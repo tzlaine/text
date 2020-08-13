@@ -95,6 +95,14 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     concept grapheme_range = std::ranges::bidirectional_range<T> &&
         grapheme_iter<std::ranges::iterator_t<T>>;
 
+    /** The code point iterator type of a grapheme range. */
+    template<typename R>
+    using code_point_iterator_t = decltype(std::declval<R>().begin().base());
+
+    /** The code point sentinel type of a grapheme range. */
+    template<typename R>
+    using code_point_sentinel_t = decltype(std::declval<R>().end().base());
+
     template<typename T, format F>
     concept grapheme_iter_code_unit =
         // clang-format off
