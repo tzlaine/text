@@ -19,7 +19,11 @@
 namespace boost { namespace text {
 
     struct grapheme;
-    template<typename CPIter>
+#if defined(__cpp_lib_concepts)
+    template<code_point_iter I>
+#else
+    template<typename I>
+#endif
     struct grapheme_ref;
 
     /** Returns the number of code_units controlled by g. */
@@ -38,8 +42,12 @@ namespace boost { namespace text {
 
             \pre The code points in [first, last) comprise at most one
             grapheme. */
-        template<typename CPIter>
-        grapheme(CPIter first, CPIter last)
+#if defined(__cpp_lib_concepts)
+        template<code_point_iter I, std::sentinel_for<I> S>
+#else
+        template<typename I, typename S>
+#endif
+        grapheme(I first, S last)
         {
             boost::text::transcode_to_utf8(
                 first, last, std::back_inserter(chars_));
@@ -60,8 +68,12 @@ namespace boost { namespace text {
             \pre The code points in r comprise at most one grapheme.
             \pre The code points in [first, last) comprise at most one
             grapheme. */
-        template<typename CPIter>
-        grapheme(utf32_view<CPIter> r)
+#if defined(__cpp_lib_concepts)
+        template<code_point_iter I, std::sentinel_for<I> S>
+#else
+        template<typename I, typename S>
+#endif
+        grapheme(utf32_view<I, S> r)
         {
             boost::text::transcode_to_utf8(
                 r.begin(), r.end(), std::back_inserter(chars_));
@@ -118,10 +130,14 @@ namespace boost { namespace text {
 
     /** A non-owning reference to a range of code points that comprise a
         grapheme. */
-    template<typename CPIter>
-    struct grapheme_ref : utf32_view<CPIter>
+#if defined(__cpp_lib_concepts)
+    template<code_point_iter I>
+#else
+    template<typename I>
+#endif
+    struct grapheme_ref : utf32_view<I>
     {
-        using iterator = CPIter;
+        using iterator = I;
 
         /** Default ctor. */
         constexpr grapheme_ref() noexcept = default;
@@ -130,8 +146,8 @@ namespace boost { namespace text {
 
             \pre The code points in [first, last) comprise at most one
             grapheme. */
-        constexpr grapheme_ref(CPIter first, CPIter last) noexcept :
-            utf32_view<CPIter>(first, last)
+        constexpr grapheme_ref(iterator first, iterator last) noexcept :
+            utf32_view<iterator>(first, last)
         {
             BOOST_ASSERT(boost::text::next_grapheme_break(first, last) == last);
         }
@@ -139,13 +155,13 @@ namespace boost { namespace text {
         /** Constructs *this from r.
 
             \pre The code points in r comprise at most one grapheme. */
-        constexpr grapheme_ref(utf32_view<CPIter> r) noexcept :
+        constexpr grapheme_ref(utf32_view<iterator> r) noexcept :
             grapheme_ref(r.begin(), r.end())
         {}
 
         /** Constructs *this from g. */
         constexpr grapheme_ref(grapheme const & g) noexcept :
-            utf32_view<CPIter>(g.begin(), g.end())
+            utf32_view<iterator>(g.begin(), g.end())
         {}
 
         /** Returns true if lhs the same sequence of code points as rhs. */
@@ -163,56 +179,84 @@ namespace boost { namespace text {
     };
 
     /** Returns the number of bytes g refers to. */
-    template<typename CPIter>
-    int storage_code_units(grapheme_ref<CPIter> g) noexcept
+#if defined(__cpp_lib_concepts)
+    template<code_point_iter I>
+#else
+    template<typename I>
+#endif
+    int storage_code_units(grapheme_ref<I> g) noexcept
     {
         return std::distance(g.begin().base(), g.end().base());
     }
 
     /** Returns true if lhs the same sequence of code points as rhs. */
-    template<typename CPIter1, typename CPIter2>
+#if defined(__cpp_lib_concepts)
+    template<code_point_iter I1, code_point_iter I2>
+#else
+    template<typename I1, typename I2>
+#endif
     constexpr bool
-    operator==(grapheme_ref<CPIter1> lhs, grapheme_ref<CPIter2> rhs) noexcept
+    operator==(grapheme_ref<I1> lhs, grapheme_ref<I2> rhs) noexcept
     {
         return algorithm::equal(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
     }
 
     /** Returns true if lhs the same sequence of code points as rhs. */
-    template<typename CPIter1, typename CPIter2>
+#if defined(__cpp_lib_concepts)
+    template<code_point_iter I1, code_point_iter I2>
+#else
+    template<typename I1, typename I2>
+#endif
     constexpr bool
-    operator!=(grapheme_ref<CPIter1> lhs, grapheme_ref<CPIter2> rhs) noexcept
+    operator!=(grapheme_ref<I1> lhs, grapheme_ref<I2> rhs) noexcept
     {
         return !(lhs == rhs);
     }
 
     /** Returns true if lhs the same sequence of code points as rhs. */
-    template<typename CPIter>
+#if defined(__cpp_lib_concepts)
+    template<code_point_iter I>
+#else
+    template<typename I>
+#endif
     constexpr bool
-    operator==(grapheme const & lhs, grapheme_ref<CPIter> rhs) noexcept
+    operator==(grapheme const & lhs, grapheme_ref<I> rhs) noexcept
     {
         return algorithm::equal(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
     }
 
     /** Returns true if lhs the same sequence of code points as rhs. */
-    template<typename CPIter>
+#if defined(__cpp_lib_concepts)
+    template<code_point_iter I>
+#else
+    template<typename I>
+#endif
     constexpr bool
-    operator==(grapheme_ref<CPIter> lhs, grapheme const & rhs) noexcept
+    operator==(grapheme_ref<I> lhs, grapheme const & rhs) noexcept
     {
         return rhs == lhs;
     }
 
     /** Returns true if lhs the same sequence of code points as rhs. */
-    template<typename CPIter>
+#if defined(__cpp_lib_concepts)
+    template<code_point_iter I>
+#else
+    template<typename I>
+#endif
     constexpr bool
-    operator!=(grapheme const & lhs, grapheme_ref<CPIter> rhs) noexcept
+    operator!=(grapheme const & lhs, grapheme_ref<I> rhs) noexcept
     {
         return !(lhs == rhs);
     }
 
     /** Returns true if lhs the same sequence of code points as rhs. */
-    template<typename CPIter>
+#if defined(__cpp_lib_concepts)
+    template<code_point_iter I>
+#else
+    template<typename I>
+#endif
     constexpr bool
-    operator!=(grapheme_ref<CPIter> rhs, grapheme const & lhs) noexcept
+    operator!=(grapheme_ref<I> rhs, grapheme const & lhs) noexcept
     {
         return !(rhs == lhs);
     }

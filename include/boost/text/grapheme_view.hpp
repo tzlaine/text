@@ -25,12 +25,15 @@ namespace boost { namespace text {
 
     /** A view over graphemes that occur in an underlying sequence of code
         points. */
-    template<typename CPIter, typename Sentinel = CPIter>
-    struct grapheme_view
-        : stl_interfaces::view_interface<grapheme_view<CPIter, Sentinel>>
+#if defined(__cpp_lib_concepts)
+    template<code_point_iter I, std::sentinel_for<I> S = I>
+#else
+    template<typename I, typename S = I>
+#endif
+    struct grapheme_view : stl_interfaces::view_interface<grapheme_view<I, S>>
     {
-        using iterator = grapheme_iterator<CPIter, Sentinel>;
-        using sentinel = detail::gr_view_sentinel_t<CPIter, Sentinel>;
+        using iterator = grapheme_iterator<I, S>;
+        using sentinel = detail::gr_view_sentinel_t<I, S>;
 
         constexpr grapheme_view() : first_(), last_() {}
 
@@ -43,18 +46,27 @@ namespace boost { namespace text {
 
         /** Construct a grapheme view that covers the entirety of the view
             of graphemes that `begin()` and `end()` lie within. */
-        constexpr grapheme_view(CPIter first, Sentinel last) :
+        constexpr grapheme_view(I first, S last) :
             first_(first, first, last),
             last_(detail::make_iter<sentinel>(first, last, last))
         {}
 
         /** Construct a view covering a subset of the view of graphemes that
             `begin()` and `end()` lie within. */
+#if defined(__cpp_lib_concepts)
+        template<code_point_iter I2>
+        // clang-format off
+            requires std::constructible_from<iterator, I2, I2, I2> &&
+                std::constructible_from<sentinel, I2, I2, I2>
+#else
         template<
-            typename I = CPIter,
-            typename S = Sentinel,
-            typename Enable = std::enable_if_t<std::is_same<I, S>::value>>
-        constexpr grapheme_view(I first, I view_first, I view_last, I last) :
+            typename I2 = I,
+            typename S2 = S,
+            typename Enable = std::enable_if_t<std::is_same<I2, S2>::value>>
+#endif
+        constexpr grapheme_view(
+            I2 first, I2 view_first, I2 view_last, I2 last) :
+            // clang-format on
             first_(first, view_first, last),
             last_(first, view_last, last)
         {}
@@ -97,6 +109,10 @@ namespace boost { namespace text {
         sentinel last_;
     };
 
+}}
+
+namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
+
     /** Returns a `grapheme_view` over the data in `[first, last)`, transcoding
         the data if necessary. */
     template<typename Iter, typename Sentinel>
@@ -108,17 +124,18 @@ namespace boost { namespace text {
         return grapheme_view<decltype(r.f_), decltype(r.l_)>(r.f_, r.l_);
     }
 
-    namespace detail {
+    namespace dtl {
         template<
             typename Range,
-            bool Pointer = char_ptr<std::remove_reference_t<Range>>::value ||
-                           _16_ptr<std::remove_reference_t<Range>>::value ||
-                           cp_ptr<std::remove_reference_t<Range>>::value>
+            bool Pointer =
+                detail::char_ptr<std::remove_reference_t<Range>>::value ||
+                detail::_16_ptr<std::remove_reference_t<Range>>::value ||
+                detail::cp_ptr<std::remove_reference_t<Range>>::value>
         struct as_graphemes_dispatch
         {
             static constexpr auto call(Range && r_) noexcept
             {
-                auto r = as_utf32(r_);
+                auto r = boost::text::as_utf32(r_);
                 return grapheme_view<decltype(r.begin()), decltype(r.end())>(
                     r.begin(), r.end());
             }
@@ -129,7 +146,7 @@ namespace boost { namespace text {
         {
             static constexpr auto call(Ptr p) noexcept
             {
-                auto r = as_utf32(p);
+                auto r = boost::text::as_utf32(p);
                 return grapheme_view<decltype(r.begin()), null_sentinel>(
                     r.begin(), null_sentinel{});
             }
@@ -139,13 +156,44 @@ namespace boost { namespace text {
     /** Returns a `grapheme_view` over the data in `r`, transcoding the data
         if necessary. */
     template<typename Range>
-    constexpr auto as_graphemes(Range && r) noexcept
-        -> decltype(detail::as_graphemes_dispatch<Range &&>::call((Range &&) r))
+    constexpr auto as_graphemes(Range && r) noexcept->decltype(
+        dtl::as_graphemes_dispatch<Range &&>::call((Range &&) r))
     {
-        return detail::as_graphemes_dispatch<Range &&>::call((Range &&) r);
+        return dtl::as_graphemes_dispatch<Range &&>::call((Range &&) r);
     }
 
-}}
+}}}
+
+#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
+
+namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
+
+    /** Returns a `grapheme_view` over the data in `[first, last)`, transcoding
+        the data if necessary. */
+    template<utf_iter I, std::sentinel_for<I> S>
+    constexpr auto as_graphemes(I first, S last) noexcept
+    {
+        auto unpacked = detail::unpack_iterator_and_sentinel(first, last);
+        auto r =
+            detail::make_utf32_range_(unpacked.tag_, unpacked.f_, unpacked.l_);
+        return grapheme_view<decltype(r.f_), decltype(r.l_)>(r.f_, r.l_);
+    }
+
+    /** Returns a `grapheme_view` over the data in `r`, transcoding the data
+        if necessary. */
+    template<utf_range_like R>
+    constexpr auto as_graphemes(R && r) noexcept
+    {
+        auto intermediate = boost::text::as_utf32(r);
+        return grapheme_view<
+            std::ranges::iterator_t<decltype(intermediate)>,
+            std::ranges::sentinel_t<decltype(intermediate)>>(
+            intermediate.begin(), intermediate.end());
+    }
+
+}}}
+
+#endif
 
 #if defined(__cpp_lib_concepts)
 
