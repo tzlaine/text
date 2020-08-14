@@ -11,6 +11,7 @@
 #include <boost/text/text_fwd.hpp>
 #include <boost/text/unencoded_rope_view.hpp>
 #include <boost/text/detail/rope_iterator.hpp>
+#include <boost/text/detail/norm_collate.hpp>
 #include <boost/text/detail/vector_iterator.hpp>
 
 #include <iterator>
@@ -263,6 +264,49 @@ namespace boost { namespace text {
 
 #endif
     };
+
+    /** Returns a collation sort key for `str`, using the given collation
+        table.  Any optional settings flags will be honored, so long as they
+        do not conflict with the settings on the given table.
+
+        \note The contents of `str` will be normalized into temporary storage
+        before collation if it is not normalized NFD or FCC; this is required
+        by the Unicode collation algorithm. */
+    template<nf Normalization, typename Char, typename String>
+    text_sort_key collation_sort_key(
+        basic_rope_view<Normalization, Char, String> const & str,
+        collation_table const & table,
+        collation_flags flags = collation_flags::none)
+    {
+        return detail::norm_collation_sort_key<Normalization, Char>(
+            str, table, flags);
+    }
+
+    /** Creates sort keys for `str1` and `str2`, then returns the result of
+        calling `compare()` on the keys.  Any optional settings flags will be
+        honored, so long as they do not conflict with the settings on the
+        given table.
+
+        \note The contents of each `basic_rope_view` will be normalized into
+        temporary storage before collation if it is not normalized NFD or FCC;
+        this is required by the Unicode collation algorithm. */
+    template<
+        nf Normalization1,
+        typename Char1,
+        typename String1,
+        nf Normalization2,
+        typename Char2,
+        typename String2>
+    int collate(
+        basic_rope_view<Normalization1, Char1, String1> const & str1,
+        basic_rope_view<Normalization2, Char2, String2> const & str2,
+        collation_table const & table,
+        collation_flags flags = collation_flags::none)
+    {
+        return detail::
+            norm_collate<Normalization1, Char1, Normalization2, Char2>(
+                str1, str2, table, flags);
+    }
 
 }}
 
