@@ -202,7 +202,7 @@ namespace boost { namespace text { namespace detail {
 
     inline constexpr bool hangul_lv(uint32_t cp) noexcept
     {
-        return hangul_syllable && (cp - SBase) % TCount == 0;
+        return hangul_syllable(cp) && (cp - SBase) % TCount == 0;
     }
 
     // Hangul decomposition as described in Unicode 11.0 Section 3.12.
