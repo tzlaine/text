@@ -636,6 +636,11 @@ namespace boost { namespace text { namespace detail {
     {
         BOOST_TEXT_STATIC_ASSERT_NORMALIZATION();
 
+        if (first == last) {
+            return detail::erase_impl<ForRope, Normalization>(
+                string, str_first, str_last);
+        }
+
         auto const string_cps =
             boost::text::as_utf32(string.begin(), string.end());
         auto const string_cp_first = boost::text::utf32_iterator(
