@@ -617,6 +617,29 @@ In addition to the interface that is used for all the kinds of text
 segmentation, there is an API just for producing grapheme views, similar to
 the one for producing UTF views.  See _as_grs_ for details.
 
+[important _as_grs_ produces `grapheme_view<Iter>`s (where `Iter` is some code
+point iterator).  If you call a standard algorithm in `std::ranges` with two
+`grapheme_view`s of different type, there is a chance that the call will be
+ill-formed.  For example, this:
+
+    grapheme_view<Iter1> v1(/*...*/);
+    grapheme_view<Iter2> v2(/*...*/);
+    std::ranges::search(v1, v2);
+
+may not compile.  The reasons is that the default comparator used by
+`std::ranges::search()` expects the elements of both ranges to be
+equality-comparable.  This means that they have to have a common type that
+both types of elements may be converted to.  If the underlying values iterated
+over in `grapheme_view<Iter1>` and `grapheme_view<Iter2>` are different, a
+common type probably does not exist for the elements of those two views.
+
+As a workaround, you can pass a more permissive comparator, such as `std::equal_to<>`:
+
+    grapheme_view<Iter1> v1(/*...*/);
+    grapheme_view<Iter2> v2(/*...*/);
+    std::ranges::search(v1, v2, std::equal_to<>{});
+]
+
 
 [heading Words]
 
