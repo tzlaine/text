@@ -158,7 +158,7 @@ namespace boost { namespace text {
             cp_and_word_prop() {}
 
             template<typename WordPropFunc>
-            cp_and_word_prop(uint32_t c, WordPropFunc word_prop) :
+            cp_and_word_prop(uint32_t c, WordPropFunc const & word_prop) :
                 cp(c), prop(word_prop(c))
             {}
 
@@ -242,7 +242,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             word_break_state<CPIter> state,
             CPIter first,
             Sentinel last,
-            WordPropFunc word_prop)
+            WordPropFunc const & word_prop)
         {
             if (state.it != first &&
                 !detail::skippable(state.caps[ph::prev].prop) &&
@@ -329,8 +329,8 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             CPIter first,
             CPIter it,
             Sentinel last,
-            WordPropFunc word_prop = WordPropFunc{},
-            WordBreakFunc cp_break = WordBreakFunc{}) noexcept
+            WordPropFunc const & word_prop = WordPropFunc{},
+            WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
         {
             using detail::ph;
             using detail::cp_and_word_prop;
@@ -347,7 +347,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
 
             state.caps[ph::curr] = cp_and_word_prop(*state.it, word_prop);
 
-            // Since cp_break is evaluated unconditionally before the other
+            // Since word_break is evaluated unconditionally before the other
             // rules, we need to do all this here before the special-casing
             // below.
             if (it != first) {
@@ -366,7 +366,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
                         cp_and_word_prop(*std::next(state.it, 2), word_prop);
                 }
             }
-            if (cp_break(
+            if (word_break(
                     state.caps[ph::prev_prev].cp,
                     state.caps[ph::prev].cp,
                     state.caps[ph::curr].cp,
@@ -488,8 +488,8 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
                     state.caps[ph::prev_prev] = cp_and_word_prop();
                 }
 
-                // Check cp_break before anything else.
-                if (cp_break(
+                // Check word_break before anything else.
+                if (word_break(
                         state.caps[ph::prev_prev].cp,
                         state.caps[ph::prev].cp,
                         state.caps[ph::curr].cp,
@@ -669,8 +669,8 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         CPIter next_word_break_impl(
             CPIter first,
             Sentinel last,
-            WordPropFunc word_prop = WordPropFunc{},
-            WordBreakFunc cp_break = WordBreakFunc{}) noexcept
+            WordPropFunc const & word_prop = WordPropFunc{},
+            WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
         {
             using detail::ph;
             using detail::cp_and_word_prop;
@@ -713,8 +713,8 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
                     state.caps[ph::next_next] = cp_and_word_prop();
                 }
 
-                // Check cp_break before anything else.
-                if (cp_break(
+                // Check word_break before anything else.
+                if (word_break(
                         state.caps[ph::prev_prev].cp,
                         state.caps[ph::prev].cp,
                         state.caps[ph::curr].cp,
@@ -856,11 +856,11 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         iterator_t<CPRange> prev_word_break_cr_impl(
             CPRange && range,
             CPIter it,
-            WordPropFunc word_prop = WordPropFunc{},
-            WordBreakFunc cp_break = WordBreakFunc{}) noexcept
+            WordPropFunc const & word_prop = WordPropFunc{},
+            WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
         {
             return detail::prev_word_break_impl(
-                std::begin(range), it, std::end(range), word_prop, cp_break);
+                std::begin(range), it, std::end(range), word_prop, word_break);
         }
 
         template<
@@ -871,8 +871,8 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         iterator_t<GraphemeRange> prev_word_break_gr_impl(
             GraphemeRange && range,
             GraphemeIter it,
-            WordPropFunc word_prop = WordPropFunc{},
-            WordBreakFunc cp_break = WordBreakFunc{}) noexcept
+            WordPropFunc const & word_prop = WordPropFunc{},
+            WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
         {
             using cp_iter_t = decltype(range.begin().base());
             return {
@@ -882,7 +882,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
                     static_cast<cp_iter_t>(it.base()),
                     range.end().base(),
                     word_prop,
-                    cp_break),
+                    word_break),
                 range.end().base()};
         }
 
@@ -894,11 +894,11 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         iterator_t<CPRange> next_word_break_cr_impl(
             CPRange && range,
             CPIter it,
-            WordPropFunc word_prop = WordPropFunc{},
-            WordBreakFunc cp_break = WordBreakFunc{}) noexcept
+            WordPropFunc const & word_prop = WordPropFunc{},
+            WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
         {
             return detail::next_word_break_impl(
-                it, std::end(range), word_prop, cp_break);
+                it, std::end(range), word_prop, word_break);
         }
 
         template<
@@ -909,8 +909,8 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         iterator_t<GraphemeRange> next_word_break_gr_impl(
             GraphemeRange && range,
             GraphemeIter it,
-            WordPropFunc word_prop = WordPropFunc{},
-            WordBreakFunc cp_break = WordBreakFunc{}) noexcept
+            WordPropFunc const & word_prop = WordPropFunc{},
+            WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
         {
             using cp_iter_t = decltype(range.begin().base());
             return {
@@ -919,7 +919,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
                     static_cast<cp_iter_t>(it.base()),
                     range.end().base(),
                     word_prop,
-                    cp_break),
+                    word_break),
                 range.end().base()};
         }
 
@@ -932,13 +932,13 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             CPIter first,
             CPIter it,
             Sentinel last,
-            WordPropFunc word_prop = WordPropFunc{},
-            WordBreakFunc cp_break = WordBreakFunc{}) noexcept
+            WordPropFunc const & word_prop = WordPropFunc{},
+            WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
         {
             if (it == last)
                 return true;
             return detail::prev_word_break_impl(
-                       first, it, last, word_prop, cp_break) == it;
+                       first, it, last, word_prop, word_break) == it;
         }
 
         template<
@@ -949,8 +949,8 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         bool at_word_break_cr_impl(
             CPRange && range,
             CPIter it,
-            WordPropFunc word_prop = WordPropFunc{},
-            WordBreakFunc cp_break = WordBreakFunc{}) noexcept
+            WordPropFunc const & word_prop = WordPropFunc{},
+            WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
         {
             if (it == std::end(range))
                 return true;
@@ -959,7 +959,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
                        it,
                        std::end(range),
                        word_prop,
-                       cp_break) == it;
+                       word_break) == it;
         }
 
         template<
@@ -970,8 +970,8 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         bool at_word_break_gr_impl(
             GraphemeRange && range,
             GraphemeIter it,
-            WordPropFunc word_prop = WordPropFunc{},
-            WordBreakFunc cp_break = WordBreakFunc{}) noexcept
+            WordPropFunc const & word_prop = WordPropFunc{},
+            WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
         {
             if (it == std::end(range))
                 return true;
@@ -982,7 +982,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
                        it_,
                        range.end().base(),
                        word_prop,
-                       cp_break) == it_;
+                       word_break) == it_;
         }
 
         template<
@@ -996,11 +996,11 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
                 -> cp_iter_ret_t<CPIter, CPIter>
             {
                 return detail::next_word_break_impl(
-                    it, last, word_prop_, cp_break_);
+                    it, last, word_prop_, word_break_);
             }
 
             WordPropFunc word_prop_;
-            WordBreakFunc cp_break_;
+            WordBreakFunc word_break_;
         };
 
         template<
@@ -1013,11 +1013,11 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
                 -> cp_iter_ret_t<CPIter, CPIter>
             {
                 return detail::prev_word_break_impl(
-                    first, it, last, word_prop_, cp_break_);
+                    first, it, last, word_prop_, word_break_);
             }
 
             WordPropFunc word_prop_;
-            WordBreakFunc cp_break_;
+            WordBreakFunc word_break_;
         };
 
         template<
@@ -1029,14 +1029,14 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             CPIter first,
             CPIter it,
             Sentinel last,
-            WordPropFunc word_prop = WordPropFunc{},
-            WordBreakFunc cp_break = WordBreakFunc{}) noexcept
+            WordPropFunc const & word_prop = WordPropFunc{},
+            WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
         {
             first = detail::prev_word_break_impl(
-                first, it, last, word_prop, cp_break);
+                first, it, last, word_prop, word_break);
             return utf32_view<CPIter>{
                 first,
-                detail::next_word_break_impl(first, last, word_prop, cp_break)};
+                detail::next_word_break_impl(first, last, word_prop, word_break)};
         }
 
         template<
@@ -1047,15 +1047,15 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         utf32_view<iterator_t<CPRange>> word_cr_impl(
             CPRange && range,
             CPIter it,
-            WordPropFunc word_prop = WordPropFunc{},
-            WordBreakFunc cp_break = WordBreakFunc{}) noexcept
+            WordPropFunc const & word_prop = WordPropFunc{},
+            WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
         {
             auto first = detail::prev_word_break_impl(
-                std::begin(range), it, std::end(range), word_prop, cp_break);
+                std::begin(range), it, std::end(range), word_prop, word_break);
             return utf32_view<iterator_t<CPRange>>{
                 first,
                 detail::next_word_break_impl(
-                    first, std::end(range), word_prop, cp_break)};
+                    first, std::end(range), word_prop, word_break)};
         }
 
         template<
@@ -1066,8 +1066,8 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         auto word_gr_impl(
             GraphemeRange && range,
             GraphemeIter it,
-            WordPropFunc word_prop = WordPropFunc{},
-            WordBreakFunc cp_break = WordBreakFunc{}) noexcept
+            WordPropFunc const & word_prop = WordPropFunc{},
+            WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
             -> grapheme_view<decltype(range.begin().base())>
         {
             using cp_iter_t = decltype(range.begin().base());
@@ -1076,12 +1076,12 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
                 static_cast<cp_iter_t>(it.base()),
                 range.end().base(),
                 word_prop,
-                cp_break);
+                word_break);
             return {
                 range.begin().base(),
                 first,
                 detail::next_word_break_impl(
-                    first, range.end().base(), word_prop, cp_break),
+                    first, range.end().base(), word_prop, word_break),
                 range.end().base()};
         }
 
@@ -1094,7 +1094,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             CPIter first,
             Sentinel last,
             WordPropFunc word_prop = WordPropFunc{},
-            WordBreakFunc cp_break = WordBreakFunc{}) noexcept
+            WordBreakFunc word_break = WordBreakFunc{}) noexcept
             -> lazy_segment_range<
                 CPIter,
                 Sentinel,
@@ -1108,7 +1108,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
                 false>
         {
             next_word_callable<CPIter, Sentinel, WordPropFunc, WordBreakFunc>
-                next{word_prop, cp_break};
+                next{std::move(word_prop), std::move(word_break)};
             return {std::move(next), {first, last}, {last}};
         }
 
@@ -1119,7 +1119,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         auto words_cr_impl(
             CPRange && range,
             WordPropFunc word_prop = WordPropFunc{},
-            WordBreakFunc cp_break = WordBreakFunc{}) noexcept
+            WordBreakFunc word_break = WordBreakFunc{}) noexcept
             -> lazy_segment_range<
                 iterator_t<CPRange>,
                 sentinel_t<CPRange>,
@@ -1134,7 +1134,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
                 sentinel_t<CPRange>,
                 WordPropFunc,
                 WordBreakFunc>
-                next{word_prop, cp_break};
+                next{std::move(word_prop), std::move(word_break)};
             return {
                 std::move(next),
                 {std::begin(range), std::end(range)},
@@ -1148,7 +1148,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         auto words_gr_impl(
             GraphemeRange && range,
             WordPropFunc word_prop = WordPropFunc{},
-            WordBreakFunc cp_break = WordBreakFunc{}) noexcept
+            WordBreakFunc word_break = WordBreakFunc{}) noexcept
             -> lazy_segment_range<
                 decltype(range.begin().base()),
                 decltype(range.begin().base()),
@@ -1165,7 +1165,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
                 cp_iter_t,
                 WordPropFunc,
                 WordBreakFunc>
-                next{word_prop, cp_break};
+                next{std::move(word_prop), std::move(word_break)};
             return {
                 std::move(next),
                 {range.begin().base(), range.end().base()},
@@ -1180,7 +1180,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             CPIter first,
             CPIter last,
             WordPropFunc word_prop = WordPropFunc{},
-            WordBreakFunc cp_break = WordBreakFunc{}) noexcept
+            WordBreakFunc word_break = WordBreakFunc{}) noexcept
             -> lazy_segment_range<
                 CPIter,
                 CPIter,
@@ -1190,7 +1190,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
                 true>
         {
             prev_word_callable<CPIter, WordPropFunc, WordBreakFunc> prev{
-                word_prop, cp_break};
+                std::move(word_prop), std::move(word_break)};
             return {std::move(prev), {first, last, last}, {first, first, last}};
         }
 
@@ -1201,7 +1201,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         auto reversed_words_cr_impl(
             CPRange && range,
             WordPropFunc word_prop = WordPropFunc{},
-            WordBreakFunc cp_break = WordBreakFunc{}) noexcept
+            WordBreakFunc word_break = WordBreakFunc{}) noexcept
             -> lazy_segment_range<
                 iterator_t<CPRange>,
                 sentinel_t<CPRange>,
@@ -1217,7 +1217,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
                 iterator_t<CPRange>,
                 WordPropFunc,
                 WordBreakFunc>
-                prev{word_prop, cp_break};
+                prev{std::move(word_prop), std::move(word_break)};
             return {
                 std::move(prev),
                 {std::begin(range), std::end(range), std::end(range)},
@@ -1231,7 +1231,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         auto reversed_words_gr_impl(
             GraphemeRange && range,
             WordPropFunc word_prop = WordPropFunc{},
-            WordBreakFunc cp_break = WordBreakFunc{}) noexcept
+            WordBreakFunc word_break = WordBreakFunc{}) noexcept
             -> lazy_segment_range<
                 decltype(range.begin().base()),
                 decltype(range.begin().base()),
@@ -1245,7 +1245,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         {
             using cp_iter_t = decltype(range.begin().base());
             prev_word_callable<cp_iter_t, WordPropFunc, WordBreakFunc> prev{
-                word_prop, cp_break};
+                std::move(word_prop), std::move(word_break)};
             return {
                 std::move(prev),
                 {range.begin().base(), range.end().base(), range.end().base()},
@@ -1283,8 +1283,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         CPIter first,
         CPIter it,
         Sentinel last,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{}) noexcept;
+        WordPropFunc const & word_prop = WordPropFunc{},
+        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept;
 
     /** Finds the next word break after `first`.  This will be the first code
         point after the current word, or `last` if no next word exists.
@@ -1307,8 +1307,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     CPIter next_word_break(
         CPIter first,
         Sentinel last,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{}) noexcept;
+        WordPropFunc const & word_prop = WordPropFunc{},
+        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept;
 
     /** Finds the nearest word break at or before before `it`.  If `it ==
         range.begin()`, that is returned.  Otherwise, the first code point of
@@ -1332,8 +1332,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     detail::undefined prev_word_break(
         CPRange && range,
         CPIter it,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{}) noexcept;
+        WordPropFunc const & word_prop = WordPropFunc{},
+        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept;
 
     /** Returns a grapheme_iterator to the nearest word break at or before
         before `it`.  If `it == range.begin()`, that is returned.  Otherwise,
@@ -1357,8 +1357,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     detail::undefined prev_word_break(
         GraphemeRange && range,
         GraphemeIter it,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{}) noexcept;
+        WordPropFunc const & word_prop = WordPropFunc{},
+        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept;
 
     /** Finds the next word break after `it`.  This will be the first code
         point after the current word, or `range.end()` if no next word exists.
@@ -1382,8 +1382,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     detail::undefined next_word_break(
         CPRange && range,
         CPIter it,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{});
+        WordPropFunc const & word_prop = WordPropFunc{},
+        WordBreakFunc const & word_break = WordBreakFunc{});
 
     /** Returns a grapheme_iterator to the next word break after `it`.  This
         will be the first grapheme after the current word, or `range.end()` if
@@ -1408,8 +1408,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     detail::undefined next_word_break(
         GraphemeRange && range,
         GraphemeIter it,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{}) noexcept;
+        WordPropFunc const & word_prop = WordPropFunc{},
+        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept;
 
     /** Returns true iff `it` is at the beginning of a word, or `it == last`.
 
@@ -1430,8 +1430,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         CPIter first,
         CPIter it,
         Sentinel last,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{}) noexcept;
+        WordPropFunc const & word_prop = WordPropFunc{},
+        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept;
 
     /** Returns true iff `it` is at the beginning of a word, or `it ==
         std::end(range)`.
@@ -1447,8 +1447,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     bool at_word_break(
         CPRange && range,
         CPIter it,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{}) noexcept;
+        WordPropFunc const & word_prop = WordPropFunc{},
+        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept;
 
     /** Returns true iff `it` is at the beginning of a word, or `it ==
         std::end(range)`.
@@ -1470,8 +1470,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     bool at_word_break(
         GraphemeRange && range,
         GraphemeIter it,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{}) noexcept;
+        WordPropFunc const & word_prop = WordPropFunc{},
+        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept;
 
 #else
 
@@ -1484,27 +1484,27 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         CPIter first,
         CPIter it,
         Sentinel last,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{}) noexcept
-        -> detail::cp_iter_ret_t<CPIter, CPIter>
-    {
-        return detail::prev_word_break_impl(
-            first, it, last, word_prop, cp_break);
-    }
-
-    template<
-        typename CPIter,
-        typename Sentinel,
-        typename WordPropFunc = word_prop_callable,
-        typename WordBreakFunc = untailored_word_break>
-    auto next_word_break(
-        CPIter first,
-        Sentinel last,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break =
+        WordPropFunc const & word_prop = WordPropFunc{},
+        WordBreakFunc const & word_break =
             WordBreakFunc{}) noexcept->detail::cp_iter_ret_t<CPIter, CPIter>
     {
-        return detail::next_word_break_impl(first, last, word_prop, cp_break);
+        return detail::prev_word_break_impl(
+            first, it, last, word_prop, word_break);
+    }
+
+    template<
+        typename CPIter,
+        typename Sentinel,
+        typename WordPropFunc = word_prop_callable,
+        typename WordBreakFunc = untailored_word_break>
+    auto next_word_break(
+        CPIter first,
+        Sentinel last,
+        WordPropFunc const & word_prop = WordPropFunc{},
+        WordBreakFunc const & word_break =
+            WordBreakFunc{}) noexcept->detail::cp_iter_ret_t<CPIter, CPIter>
+    {
+        return detail::next_word_break_impl(first, last, word_prop, word_break);
     }
 
     template<
@@ -1515,11 +1515,11 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     auto prev_word_break(
         CPRange && range,
         CPIter it,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{}) noexcept->detail::
+        WordPropFunc const & word_prop = WordPropFunc{},
+        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept->detail::
         word_prop_func_ret_t<detail::iterator_t<CPRange>, WordPropFunc, CPRange>
     {
-        return detail::prev_word_break_cr_impl(range, it, word_prop, cp_break);
+        return detail::prev_word_break_cr_impl(range, it, word_prop, word_break);
     }
 
     template<
@@ -1530,14 +1530,14 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     auto prev_word_break(
         GraphemeRange && range,
         GraphemeIter it,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{}) noexcept
+        WordPropFunc const & word_prop = WordPropFunc{},
+        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
         ->detail::graph_word_prop_func_ret_t<
             detail::iterator_t<GraphemeRange>,
             WordPropFunc,
             GraphemeRange>
     {
-        return detail::prev_word_break_gr_impl(range, it, word_prop, cp_break);
+        return detail::prev_word_break_gr_impl(range, it, word_prop, word_break);
     }
 
     template<
@@ -1548,11 +1548,11 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     auto next_word_break(
         CPRange && range,
         CPIter it,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{}) noexcept->detail::
+        WordPropFunc const & word_prop = WordPropFunc{},
+        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept->detail::
         word_prop_func_ret_t<detail::iterator_t<CPRange>, WordPropFunc, CPRange>
     {
-        return detail::next_word_break_cr_impl(range, it, word_prop, cp_break);
+        return detail::next_word_break_cr_impl(range, it, word_prop, word_break);
     }
 
     template<
@@ -1563,14 +1563,14 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     auto next_word_break(
         GraphemeRange && range,
         GraphemeIter it,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{}) noexcept
+        WordPropFunc const & word_prop = WordPropFunc{},
+        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
         ->detail::graph_word_prop_func_ret_t<
             detail::iterator_t<GraphemeRange>,
             WordPropFunc,
             GraphemeRange>
     {
-        return detail::next_word_break_gr_impl(range, it, word_prop, cp_break);
+        return detail::next_word_break_gr_impl(range, it, word_prop, word_break);
     }
 
     template<
@@ -1582,11 +1582,11 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         CPIter first,
         CPIter it,
         Sentinel last,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break =
+        WordPropFunc const & word_prop = WordPropFunc{},
+        WordBreakFunc const & word_break =
             WordBreakFunc{}) noexcept->detail::cp_iter_ret_t<bool, CPIter>
     {
-        return detail::at_word_break_impl(first, it, last, word_prop, cp_break);
+        return detail::at_word_break_impl(first, it, last, word_prop, word_break);
     }
 
     template<
@@ -1597,11 +1597,11 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     auto at_word_break(
         CPRange && range,
         CPIter it,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{}) noexcept
+        WordPropFunc const & word_prop = WordPropFunc{},
+        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
         ->detail::word_prop_func_ret_t<bool, WordPropFunc, CPRange>
     {
-        return detail::at_word_break_cr_impl(range, it, word_prop, cp_break);
+        return detail::at_word_break_cr_impl(range, it, word_prop, word_break);
     }
 
     template<
@@ -1612,11 +1612,11 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     auto at_word_break(
         GraphemeRange && range,
         GraphemeIter it,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{}) noexcept
+        WordPropFunc const & word_prop = WordPropFunc{},
+        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
         ->detail::graph_word_prop_func_ret_t<bool, WordPropFunc, GraphemeRange>
     {
-        return detail::at_word_break_gr_impl(range, it, word_prop, cp_break);
+        return detail::at_word_break_gr_impl(range, it, word_prop, word_break);
     }
 
 #endif
@@ -1631,10 +1631,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         CPIter first,
         CPIter it,
         Sentinel last,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{}) noexcept
+        WordPropFunc const & word_prop = WordPropFunc{},
+        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
     {
-        return detail::word_impl(first, it, last, word_prop, cp_break);
+        return detail::word_impl(first, it, last, word_prop, word_break);
     }
 
 #ifdef BOOST_TEXT_DOXYGEN
@@ -1658,8 +1658,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     detail::undefined word(
         CPRange && range,
         CPIter it,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{}) noexcept;
+        WordPropFunc const & word_prop = WordPropFunc{},
+        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept;
 
     /** Returns grapheme range delimiting the bounds of the word that `it`
         lies within, as a grapheme_view.
@@ -1681,8 +1681,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     detail::undefined word(
         GraphemeRange && range,
         GraphemeIter it,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{}) noexcept;
+        WordPropFunc const & word_prop = WordPropFunc{},
+        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept;
 
     /** Returns a lazy range of the code point ranges delimiting words in
         `[first, last)`.
@@ -1705,7 +1705,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         CPIter first,
         Sentinel last,
         WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{}) noexcept;
+        WordBreakFunc word_break = WordBreakFunc{}) noexcept;
 
     /** Returns a lazy range of the code point ranges delimiting words in
         `range`.
@@ -1726,7 +1726,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     detail::undefined words(
         CPRange && range,
         WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{}) noexcept;
+        WordBreakFunc word_break = WordBreakFunc{}) noexcept;
 
     /** Returns a lazy range of the grapheme ranges delimiting words in
         `range`.
@@ -1747,7 +1747,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     detail::undefined words(
         GraphemeRange && range,
         WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{}) noexcept;
+        WordBreakFunc word_break = WordBreakFunc{}) noexcept;
 
     /** Returns a lazy range of the code point ranges delimiting words in
         `[first, last)`, in reverse.
@@ -1769,7 +1769,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         CPIter first,
         CPIter last,
         WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{}) noexcept;
+        WordBreakFunc word_break = WordBreakFunc{}) noexcept;
 
     /** Returns a lazy range of the code point ranges delimiting words in
         `range`, in reverse.
@@ -1790,7 +1790,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     detail::undefined reversed_words(
         CPRange && range,
         WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{}) noexcept;
+        WordBreakFunc word_break = WordBreakFunc{}) noexcept;
 
     /** Returns a lazy range of the grapheme ranges delimiting words in
         `range`, in reverse.
@@ -1811,7 +1811,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     detail::undefined reversed_words(
         GraphemeRange && range,
         WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{}) noexcept;
+        WordBreakFunc word_break = WordBreakFunc{}) noexcept;
 
 #else
 
@@ -1823,14 +1823,14 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     auto word(
         CPRange && range,
         CPIter it,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{}) noexcept
-        -> detail::word_prop_func_ret_t<
+        WordPropFunc const & word_prop = WordPropFunc{},
+        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
+        ->detail::word_prop_func_ret_t<
             utf32_view<detail::iterator_t<CPRange>>,
             WordPropFunc,
             CPRange>
     {
-        return detail::word_cr_impl(range, it, word_prop, cp_break);
+        return detail::word_cr_impl(range, it, word_prop, word_break);
     }
 
     template<
@@ -1841,14 +1841,14 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     auto word(
         GraphemeRange && range,
         GraphemeIter it,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{}) noexcept
-        -> detail::graph_word_prop_func_ret_t<
+        WordPropFunc const & word_prop = WordPropFunc{},
+        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
+        ->detail::graph_word_prop_func_ret_t<
             grapheme_view<decltype(range.begin().base())>,
             WordPropFunc,
             GraphemeRange>
     {
-        return detail::word_gr_impl(range, it, word_prop, cp_break);
+        return detail::word_gr_impl(range, it, word_prop, word_break);
     }
 
     template<
@@ -1860,8 +1860,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         CPIter first,
         Sentinel last,
         WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{}) noexcept
-        -> detail::cp_iter_sntl_ret_t<
+        WordBreakFunc word_break = WordBreakFunc{}) noexcept
+        ->detail::cp_iter_sntl_ret_t<
             lazy_segment_range<
                 CPIter,
                 Sentinel,
@@ -1876,7 +1876,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             CPIter,
             Sentinel>
     {
-        return detail::words_impl(first, last, word_prop, cp_break);
+        return detail::words_impl(
+            first, last, std::move(word_prop), std::move(word_break));
     }
 
     template<
@@ -1886,8 +1887,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     auto words(
         CPRange && range,
         WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{}) noexcept
-        -> detail::word_prop_func_ret_t<
+        WordBreakFunc word_break = WordBreakFunc{}) noexcept
+        ->detail::word_prop_func_ret_t<
             lazy_segment_range<
                 detail::iterator_t<CPRange>,
                 detail::sentinel_t<CPRange>,
@@ -1899,7 +1900,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             WordPropFunc,
             CPRange>
     {
-        return detail::words_cr_impl(range, word_prop, cp_break);
+        return detail::words_cr_impl(
+            range, std::move(word_prop), std::move(word_break));
     }
 
     template<
@@ -1909,8 +1911,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     auto words(
         GraphemeRange && range,
         WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{}) noexcept
-        -> detail::graph_word_prop_func_ret_t<
+        WordBreakFunc word_break = WordBreakFunc{}) noexcept
+        ->detail::graph_word_prop_func_ret_t<
             lazy_segment_range<
                 decltype(range.begin().base()),
                 decltype(range.begin().base()),
@@ -1923,7 +1925,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             WordPropFunc,
             GraphemeRange>
     {
-        return detail::words_gr_impl(range, word_prop, cp_break);
+        return detail::words_gr_impl(
+            range, std::move(word_prop), std::move(word_break));
     }
 
     template<
@@ -1934,20 +1937,20 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         CPIter first,
         CPIter last,
         WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{}) noexcept
-        -> detail::cp_iter_sntl_ret_t<
+        WordBreakFunc word_break = WordBreakFunc{}) noexcept
+        ->detail::cp_iter_sntl_ret_t<
             lazy_segment_range<
                 CPIter,
                 CPIter,
-                detail::
-                    prev_word_callable<CPIter, WordPropFunc, WordBreakFunc>,
+                detail::prev_word_callable<CPIter, WordPropFunc, WordBreakFunc>,
                 utf32_view<CPIter>,
                 detail::const_reverse_lazy_segment_iterator,
                 true>,
             CPIter,
             CPIter>
     {
-        return detail::reversed_words_impl(first, last, word_prop, cp_break);
+        return detail::reversed_words_impl(
+            first, last, std::move(word_prop), std::move(word_break));
     }
 
     template<
@@ -1957,8 +1960,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     auto reversed_words(
         CPRange && range,
         WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{}) noexcept
-        -> detail::word_prop_func_ret_t<
+        WordBreakFunc word_break = WordBreakFunc{}) noexcept
+        ->detail::word_prop_func_ret_t<
             lazy_segment_range<
                 detail::iterator_t<CPRange>,
                 detail::sentinel_t<CPRange>,
@@ -1972,7 +1975,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             WordPropFunc,
             CPRange>
     {
-        return detail::reversed_words_cr_impl(range, word_prop, cp_break);
+        return detail::reversed_words_cr_impl(
+            range, std::move(word_prop), std::move(word_break));
     }
 
     template<
@@ -1982,8 +1986,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     auto reversed_words(
         GraphemeRange && range,
         WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{}) noexcept
-        -> detail::graph_word_prop_func_ret_t<
+        WordBreakFunc word_break = WordBreakFunc{}) noexcept
+        ->detail::graph_word_prop_func_ret_t<
             lazy_segment_range<
                 decltype(range.begin().base()),
                 decltype(range.begin().base()),
@@ -1997,7 +2001,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
             WordPropFunc,
             GraphemeRange>
     {
-        return detail::reversed_words_gr_impl(range, word_prop, cp_break);
+        return detail::reversed_words_gr_impl(
+            range, std::move(word_prop), std::move(word_break));
     }
 
 #endif
@@ -2034,11 +2039,11 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         I first,
         I it,
         S last,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{}) noexcept
+        WordPropFunc const & word_prop = WordPropFunc{},
+        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
     {
         return detail::prev_word_break_impl(
-            first, it, last, word_prop, cp_break);
+            first, it, last, word_prop, word_break);
     }
 
     template<
@@ -2049,10 +2054,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     I next_word_break(
         I first,
         S last,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{}) noexcept
+        WordPropFunc const & word_prop = WordPropFunc{},
+        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
     {
-        return detail::next_word_break_impl(first, last, word_prop, cp_break);
+        return detail::next_word_break_impl(first, last, word_prop, word_break);
     }
 
     template<
@@ -2062,10 +2067,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     std::ranges::iterator_t<R> prev_word_break(
         R && r,
         std::ranges::iterator_t<R> it,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{}) noexcept
+        WordPropFunc const & word_prop = WordPropFunc{},
+        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
     {
-        return detail::prev_word_break_cr_impl(r, it, word_prop, cp_break);
+        return detail::prev_word_break_cr_impl(r, it, word_prop, word_break);
     }
 
     template<
@@ -2075,10 +2080,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     std::ranges::iterator_t<R> prev_word_break(
         R && r,
         std::ranges::iterator_t<R> it,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{}) noexcept
+        WordPropFunc const & word_prop = WordPropFunc{},
+        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
     {
-        return detail::prev_word_break_gr_impl(r, it, word_prop, cp_break);
+        return detail::prev_word_break_gr_impl(r, it, word_prop, word_break);
     }
 
     template<
@@ -2088,10 +2093,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     std::ranges::iterator_t<R> next_word_break(
         R && r,
         std::ranges::iterator_t<R> it,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{}) noexcept
+        WordPropFunc const & word_prop = WordPropFunc{},
+        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
     {
-        return detail::next_word_break_cr_impl(r, it, word_prop, cp_break);
+        return detail::next_word_break_cr_impl(r, it, word_prop, word_break);
     }
 
     template<
@@ -2101,10 +2106,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     std::ranges::iterator_t<R> next_word_break(
         R && r,
         std::ranges::iterator_t<R> it,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{}) noexcept
+        WordPropFunc const & word_prop = WordPropFunc{},
+        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
     {
-        return detail::next_word_break_gr_impl(r, it, word_prop, cp_break);
+        return detail::next_word_break_gr_impl(r, it, word_prop, word_break);
     }
 
     template<
@@ -2116,10 +2121,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         I first,
         I it,
         S last,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{}) noexcept
+        WordPropFunc const & word_prop = WordPropFunc{},
+        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
     {
-        return detail::at_word_break_impl(first, it, last, word_prop, cp_break);
+        return detail::at_word_break_impl(first, it, last, word_prop, word_break);
     }
 
     template<
@@ -2129,10 +2134,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     bool at_word_break(
         R && r,
         std::ranges::iterator_t<R> it,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{}) noexcept
+        WordPropFunc const & word_prop = WordPropFunc{},
+        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
     {
-        return detail::at_word_break_cr_impl(r, it, word_prop, cp_break);
+        return detail::at_word_break_cr_impl(r, it, word_prop, word_break);
     }
 
     template<
@@ -2142,10 +2147,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     bool at_word_break(
         R && r,
         std::ranges::iterator_t<R> it,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{}) noexcept
+        WordPropFunc const & word_prop = WordPropFunc{},
+        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
     {
-        return detail::at_word_break_gr_impl(r, it, word_prop, cp_break);
+        return detail::at_word_break_gr_impl(r, it, word_prop, word_break);
     }
 
     /** Returns the bounds of the word that `it` lies within. */
@@ -2158,10 +2163,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         I first,
         I it,
         S last,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{}) noexcept
+        WordPropFunc const & word_prop = WordPropFunc{},
+        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
     {
-        return detail::word_impl(first, it, last, word_prop, cp_break);
+        return detail::word_impl(first, it, last, word_prop, word_break);
     }
 
     template<
@@ -2171,10 +2176,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     utf32_view<std::ranges::iterator_t<R>> word(
         R && r,
         std::ranges::iterator_t<R> it,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{}) noexcept
+        WordPropFunc const & word_prop = WordPropFunc{},
+        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
     {
-        return detail::word_cr_impl(r, it, word_prop, cp_break);
+        return detail::word_cr_impl(r, it, word_prop, word_break);
     }
 
     template<
@@ -2184,10 +2189,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     grapheme_view<code_point_iterator_t<R>> word(
         R && r,
         std::ranges::iterator_t<R> it,
-        WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{}) noexcept
+        WordPropFunc const & word_prop = WordPropFunc{},
+        WordBreakFunc const & word_break = WordBreakFunc{}) noexcept
     {
-        return detail::word_gr_impl(r, it, word_prop, cp_break);
+        return detail::word_gr_impl(r, it, word_prop, word_break);
     }
 
     template<
@@ -2199,9 +2204,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         I first,
         S last,
         WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{}) noexcept
+        WordBreakFunc word_break = WordBreakFunc{}) noexcept
     {
-        return detail::words_impl(first, last, word_prop, cp_break);
+        return detail::words_impl(
+            first, last, std::move(word_prop), std::move(word_break));
     }
 
     template<
@@ -2211,9 +2217,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     auto words(
         R && r,
         WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{}) noexcept
+        WordBreakFunc word_break = WordBreakFunc{}) noexcept
     {
-        return detail::words_cr_impl(r, word_prop, cp_break);
+        return detail::words_cr_impl(
+            r, std::move(word_prop), std::move(word_break));
     }
 
     template<
@@ -2223,9 +2230,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     auto words(
         R && r,
         WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{}) noexcept
+        WordBreakFunc word_break = WordBreakFunc{}) noexcept
     {
-        return detail::words_gr_impl(r, word_prop, cp_break);
+        return detail::words_gr_impl(
+            r, std::move(word_prop), std::move(word_break));
     }
 
     template<
@@ -2236,9 +2244,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         I first,
         I last,
         WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{}) noexcept
+        WordBreakFunc word_break = WordBreakFunc{}) noexcept
     {
-        return detail::reversed_words_impl(first, last, word_prop, cp_break);
+        return detail::reversed_words_impl(
+            first, last, std::move(word_prop), std::move(word_break));
     }
 
     template<
@@ -2248,9 +2257,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     auto reversed_words(
         R && r,
         WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{}) noexcept
+        WordBreakFunc word_break = WordBreakFunc{}) noexcept
     {
-        return detail::reversed_words_cr_impl(r, word_prop, cp_break);
+        return detail::reversed_words_cr_impl(
+            r, std::move(word_prop), std::move(word_break));
     }
 
     template<
@@ -2260,9 +2270,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     auto reversed_words(
         R && r,
         WordPropFunc word_prop = WordPropFunc{},
-        WordBreakFunc cp_break = WordBreakFunc{}) noexcept
+        WordBreakFunc word_break = WordBreakFunc{}) noexcept
     {
-        return detail::reversed_words_gr_impl(r, word_prop, cp_break);
+        return detail::reversed_words_gr_impl(
+            r, std::move(word_prop), std::move(word_break));
     }
 
 }}}
