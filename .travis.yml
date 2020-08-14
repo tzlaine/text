@@ -9,20 +9,6 @@ matrix:
 
         - env: CPP=14 MAC_OSX=true BUILD_TYPE=Debug JOBS=4
           os: osx
-          osx_image: xcode7.3
-          compiler: clang
-
-        - env: CPP=14 MAC_OSX=true BUILD_TYPE=Debug JOBS=4
-          os: osx
-          osx_image: xcode8.3
-          compiler: clang
-        - env: CPP=17 MAC_OSX=true BUILD_TYPE=Debug JOBS=4
-          os: osx
-          osx_image: xcode8.3
-          compiler: clang
-
-        - env: CPP=14 MAC_OSX=true BUILD_TYPE=Debug JOBS=4
-          os: osx
           osx_image: xcode9.4
           compiler: clang
         - env: CPP=17 MAC_OSX=true BUILD_TYPE=Debug JOBS=4
@@ -61,8 +47,6 @@ matrix:
             apt:
               packages:
                 - g++-6
-#                - libboost-filesystem-dev
-#                - libboost-system-dev
               sources:
                 - ubuntu-toolchain-r-test
 
