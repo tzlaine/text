@@ -44,13 +44,11 @@ namespace boost { namespace text {
 
     /** The specialization of `basic_text` that should be used in most
         situations. */
-    using text = basic_text<nf::fcc, char>;
-    // TODO: Change this to NFC.
+    using text = basic_text<nf::c, char>;
 
     /** The specialization of `basic_text_view` that should be used in most
         situations. */
-    using text_view = basic_text_view<nf::fcc, char>;
-    // TODO: Change this to NFC.
+    using text_view = basic_text_view<nf::c, char>;
 
     namespace detail {
         template<typename T, typename U, typename R>

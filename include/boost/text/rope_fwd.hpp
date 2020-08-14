@@ -46,13 +46,11 @@ namespace boost { namespace text {
 
     /** The specialization of `basic_rope` that should be used in most
         situations. */
-    using rope = basic_rope<nf::fcc, char>;
-    // TODO: Change this to NFC.
+    using rope = basic_rope<nf::c, char>;
 
     /** The specialization of `basic_rope_view` that should be used in most
         situations. */
-    using rope_view = basic_rope_view<nf::fcc, char>;
-    // TODO: Change this to NFC.
+    using rope_view = basic_rope_view<nf::c, char>;
 
     namespace detail {
         template<typename T, typename Iter, int Size = sizeof(T)>
