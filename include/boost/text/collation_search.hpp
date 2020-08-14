@@ -33,13 +33,13 @@ namespace boost { namespace text {
 
     template<typename T, typename I, typename S>
     // clang-format off
-    concept searcher_break_func = std::regular_invocable<T, I, I, S> &&
+    concept searcher_break_func = std::invocable<T, I, I, S> &&
         std::convertible_to<std::invoke_result_t<T, I, I, S>, I>;
     // clang-format on
 
     template<typename T, typename I, typename S>
     // clang-format off
-    concept searcher = std::regular_invocable<T, I, S> &&
+    concept searcher = std::invocable<T, I, S> &&
         std::convertible_to<std::invoke_result_t<T, I, S>, utf32_view<I>>;
     // clang-format on
 

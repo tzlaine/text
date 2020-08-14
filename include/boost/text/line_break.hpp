@@ -3107,7 +3107,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
     template<typename T, typename I, typename Extent>
-    concept line_break_cp_extent_func = std::regular_invocable<T, I, I> &&
+    concept line_break_cp_extent_func = std::invocable<T, I, I> &&
         std::convertible_to<std::invoke_result_t<T, I, I>, Extent>;
 
     template<code_point_iter I, std::sentinel_for<I> S>
