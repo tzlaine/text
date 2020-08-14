@@ -959,6 +959,12 @@ namespace boost { namespace text {
             variable_weighting weighting,
             l2_weight_order l2_order,
             collation_table const & table);
+
+        template<format F>
+        using collation_norm_buffer_for = std::conditional_t<
+            F == format::utf8,
+            container::small_vector<char, 1024>,
+            container::small_vector<uint16_t, 512>>;
     }
 
 }}
@@ -1043,7 +1049,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         instead.
 
         This function only participates in overload resolution if `CPIter1`
-        models the CPIter concept.
+        and `CPIter2` model the CPIter concept.
 
         \pre `[first1, last1)` is normalized NFD or FCC.
         \pre `[first2, last2)` is normalized NFD or FCC. */
@@ -1070,7 +1076,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         the settings on the given table.
 
         This function only participates in overload resolution if `CPIter1`
-        models the CPIter concept.
+        and `CPIter2` model the CPIter concept.
 
         \pre `[first1, last1)` is normalized NFD or FCC.
         \pre `[first2, last2)` is normalized NFD or FCC. */
@@ -1093,7 +1099,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         given table.
 
         This function only participates in overload resolution if `CPRange1`
-        models the CPRange concept.
+        and `CPRange2` model the CPRange concept.
 
         \pre `r1` is normalized NFD or FCC.
         \pre `r2` is normalized NFD or FCC. */
@@ -1110,7 +1116,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         given table.
 
         This function only participates in overload resolution if
-        `GraphemeRange1` models the GraphemeRange concept.
+        `GraphemeRange1` and `GraphemeRange2` model the GraphemeRange concept.
 
         \pre `r1` is normalized NFD or FCC.
         \pre `r2` is normalized NFD or FCC. */
