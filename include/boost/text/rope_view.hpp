@@ -148,11 +148,9 @@ namespace boost { namespace text {
                 auto const size = boost::text::estimated_width_of_graphemes(
                     rv.begin().base(), rv.end().base());
                 detail::pad_width_before(os, size);
-                if (os.good()) {
-                    std::ostream_iterator<char> out(os);
-                    std::copy(
-                        rv.begin().base().base(), rv.end().base().base(), out);
-                }
+                if (os.good())
+                    os << boost::text::as_utf8(
+                        rv.begin().base().base(), rv.end().base().base());
                 if (os.good())
                     detail::pad_width_after(os, size);
             }
@@ -169,7 +167,8 @@ namespace boost { namespace text {
                     rv.begin().base(), rv.end().base());
                 detail::pad_width_before(os, size);
                 if (os.good())
-                    os << boost::text::as_utf16(rv);
+                    os << boost::text::as_utf16(
+                        rv.begin().base().base(), rv.end().base().base());
                 if (os.good())
                     detail::pad_width_after(os, size);
             }

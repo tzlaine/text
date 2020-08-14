@@ -124,7 +124,8 @@ namespace boost { namespace text {
                     tv.begin().base(), tv.end().base());
                 detail::pad_width_before(os, size);
                 if (os.good())
-                    os.write(tv.begin().base().base(), tv.storage_code_units());
+                    os << boost::text::as_utf8(
+                        tv.begin().base().base(), tv.end().base().base());
                 if (os.good())
                     detail::pad_width_after(os, size);
             }
@@ -141,7 +142,8 @@ namespace boost { namespace text {
                     tv.begin().base(), tv.end().base());
                 detail::pad_width_before(os, size);
                 if (os.good())
-                    os << boost::text::as_utf16(tv.str_);
+                    os << boost::text::as_utf16(
+                        tv.begin().base().base(), tv.end().base().base());
                 if (os.good())
                     detail::pad_width_after(os, size);
             }

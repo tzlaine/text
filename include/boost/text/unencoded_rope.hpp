@@ -245,6 +245,7 @@ namespace boost { namespace text {
 #endif
         basic_unencoded_rope &
         replace(const_iterator first, const_iterator last, R const & r)
+        // clang-format on
         {
             seg_vec_.replace(first, last, r.begin(), r.end());
             return *this;
@@ -266,6 +267,7 @@ namespace boost { namespace text {
             const_iterator last1,
             I first2,
             S last2)
+        // clang-format on
         {
             seg_vec_.replace(first1, last1, first2, last2);
             return *this;
@@ -302,7 +304,7 @@ namespace boost { namespace text {
 
 #if defined(__cpp_lib_concepts)
         template<typename R>
-        // clang-format off
+            // clang-format off
         requires std::ranges::range<R> &&
             std::convertible_to<
                 std::ranges::range_reference_t<R>, value_type> ||
@@ -311,6 +313,7 @@ namespace boost { namespace text {
         template<typename R>
 #endif
         auto replace(unencoded_rope_view const & old_substr, R && r)
+            // clang-format on
             -> decltype(replace(const_iterator{}, const_iterator{}, r))
         {
             return replace_shim<R>(old_substr, (R &&) r);
@@ -324,6 +327,7 @@ namespace boost { namespace text {
         template<typename I, typename S>
 #endif
         auto replace(unencoded_rope_view const & old_substr, I first, S last)
+            // clang-format on
             -> decltype(
                 replace(const_iterator{}, const_iterator{}, first, last))
         {
@@ -363,7 +367,7 @@ namespace boost { namespace text {
 
 #if defined(__cpp_lib_concepts)
         template<typename R>
-        // clang-format off
+            // clang-format off
             requires std::ranges::range<R> &&
                 std::convertible_to<
                     std::ranges::range_reference_t<R>, value_type> ||
@@ -372,6 +376,7 @@ namespace boost { namespace text {
         template<typename R>
 #endif
         auto insert(const_iterator at, R && r)
+            // clang-format on
             -> decltype(replace(at, at, std::forward<R>(r)), const_iterator{})
         {
             auto const at_offset = at - begin();
@@ -387,6 +392,7 @@ namespace boost { namespace text {
         template<typename I, typename S>
 #endif
         auto insert(const_iterator at, I first, S last)
+            // clang-format on
             -> decltype(replace(at, at, first, last), const_iterator{})
         {
             auto const at_offset = at - begin();
@@ -426,17 +432,12 @@ namespace boost { namespace text {
             return seg_vec_.equal_root(other.seg_vec_);
         }
 
-        /** Stream inserter; performs formatted output. */
+        /** Stream inserter; performs unformatted output. */
         friend std::ostream &
         operator<<(std::ostream & os, basic_unencoded_rope r)
         {
-            if (os.good()) {
-                auto const size = r.size();
-                detail::pad_width_before(os, size);
-                if (os.good())
-                    r.seg_vec_.foreach_segment(detail::segment_inserter{os});
-                if (os.good())
-                    detail::pad_width_after(os, size);
+            for (auto c : r) {
+                os << c;
             }
             return os;
         }

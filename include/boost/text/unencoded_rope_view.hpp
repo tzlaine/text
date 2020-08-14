@@ -296,19 +296,12 @@ namespace boost { namespace text {
 
 #endif
 
-        /** Stream inserter; performs formatted output. */
+        /** Stream inserter; performs unformatted output. */
         friend std::ostream &
         operator<<(std::ostream & os, basic_unencoded_rope_view rv)
         {
-            if (os.good()) {
-                auto const size = rv.size();
-                detail::pad_width_before(os, size);
-                if (os.good()) {
-                    std::ostream_iterator<value_type> out(os);
-                    std::copy(rv.begin(), rv.end(), out);
-                }
-                if (os.good())
-                    detail::pad_width_after(os, size);
+            for (auto c : rv) {
+                os << c;
             }
             return os;
         }

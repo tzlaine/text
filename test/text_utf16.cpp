@@ -828,3 +828,48 @@ TEST(text_utf16, test_sentinel_api)
         EXPECT_EQ(s, text16(chars));
     }
 }
+
+TEST(text_utf16, test_formatted_output)
+{
+    {
+        std::ostringstream oss;
+        oss << text16(u"abc") << text16(u"def");
+        EXPECT_EQ(oss.str(), "abcdef");
+    }
+
+    {
+        std::ostringstream oss;
+        oss << std::setw(10) << text16(u"abc");
+        EXPECT_EQ(oss.str(), "       abc");
+    }
+
+    {
+        std::ostringstream oss;
+        oss << std::setw(10) << std::left << std::setfill('*')
+            << text16(u"abc");
+        EXPECT_EQ(oss.str(), "abc*******");
+    }
+
+    {
+        std::ostringstream oss;
+        text16 abc(u"abc");
+        text16 def(u"def");
+        oss << text16::text_view(abc) << text16::text_view(def);
+        EXPECT_EQ(oss.str(), "abcdef");
+    }
+
+    {
+        std::ostringstream oss;
+        text16 abc(u"abc");
+        oss << std::setw(10) << text16::text_view(abc);
+        EXPECT_EQ(oss.str(), "       abc");
+    }
+
+    {
+        std::ostringstream oss;
+        text16 abc(u"abc");
+        oss << std::setw(10) << std::left << std::setfill('*')
+            << text16::text_view(abc);
+        EXPECT_EQ(oss.str(), "abc*******");
+    }
+}

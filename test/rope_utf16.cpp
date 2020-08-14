@@ -1259,3 +1259,48 @@ TEST(rope_utf16, estimated_width)
     EXPECT_EQ(text::detail::width_implied_by_cp(0xa4cf), 2);
     EXPECT_EQ(text::detail::width_implied_by_cp(0xa4cf + 1), 1);
 }
+
+TEST(rope_utf16, test_formatted_output)
+{
+    {
+        std::ostringstream oss;
+        oss << rope16(u"abc") << rope16(u"def");
+        EXPECT_EQ(oss.str(), "abcdef");
+    }
+
+    {
+        std::ostringstream oss;
+        oss << std::setw(10) << rope16(u"abc");
+        EXPECT_EQ(oss.str(), "       abc");
+    }
+
+    {
+        std::ostringstream oss;
+        oss << std::setw(10) << std::left << std::setfill('*')
+            << rope16(u"abc");
+        EXPECT_EQ(oss.str(), "abc*******");
+    }
+
+    {
+        std::ostringstream oss;
+        rope16 abc(u"abc");
+        rope16 def(u"def");
+        oss << rope16::rope_view(abc) << rope16::rope_view(def);
+        EXPECT_EQ(oss.str(), "abcdef");
+    }
+
+    {
+        std::ostringstream oss;
+        rope16 abc(u"abc");
+        oss << std::setw(10) << rope16::rope_view(abc);
+        EXPECT_EQ(oss.str(), "       abc");
+    }
+
+    {
+        std::ostringstream oss;
+        rope16 abc(u"abc");
+        oss << std::setw(10) << std::left << std::setfill('*')
+            << rope16::rope_view(abc);
+        EXPECT_EQ(oss.str(), "abc*******");
+    }
+}

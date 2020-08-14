@@ -978,6 +978,51 @@ TEST(text_tests, test_append)
     EXPECT_EQ(t, "string_foo"_t);
 }
 
+TEST(text_tests, test_formatted_output)
+{
+    {
+        std::ostringstream oss;
+        oss << text::text("abc") << text::text("def");
+        EXPECT_EQ(oss.str(), "abcdef");
+    }
+
+    {
+        std::ostringstream oss;
+        oss << std::setw(10) << text::text("abc");
+        EXPECT_EQ(oss.str(), "       abc");
+    }
+
+    {
+        std::ostringstream oss;
+        oss << std::setw(10) << std::left << std::setfill('*')
+            << text::text("abc");
+        EXPECT_EQ(oss.str(), "abc*******");
+    }
+
+    {
+        std::ostringstream oss;
+        text::text abc("abc");
+        text::text def("def");
+        oss << text::text_view(abc) << text::text_view(def);
+        EXPECT_EQ(oss.str(), "abcdef");
+    }
+
+    {
+        std::ostringstream oss;
+        text::text abc("abc");
+        oss << std::setw(10) << text::text_view(abc);
+        EXPECT_EQ(oss.str(), "       abc");
+    }
+
+    {
+        std::ostringstream oss;
+        text::text abc("abc");
+        oss << std::setw(10) << std::left << std::setfill('*')
+            << text::text_view(abc);
+        EXPECT_EQ(oss.str(), "abc*******");
+    }
+}
+
 TEST(text_tests, test_collation)
 {
     auto const table = text::default_collation_table();

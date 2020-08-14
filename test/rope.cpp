@@ -1278,6 +1278,51 @@ TEST(rope, test_append)
     EXPECT_EQ(t, "string_foo"_t);
 }
 
+TEST(rope, test_formatted_output)
+{
+    {
+        std::ostringstream oss;
+        oss << text::rope("abc") << text::rope("def");
+        EXPECT_EQ(oss.str(), "abcdef");
+    }
+
+    {
+        std::ostringstream oss;
+        oss << std::setw(10) << text::rope("abc");
+        EXPECT_EQ(oss.str(), "       abc");
+    }
+
+    {
+        std::ostringstream oss;
+        oss << std::setw(10) << std::left << std::setfill('*')
+            << text::rope("abc");
+        EXPECT_EQ(oss.str(), "abc*******");
+    }
+
+    {
+        std::ostringstream oss;
+        text::rope abc("abc");
+        text::rope def("def");
+        oss << text::rope_view(abc) << text::rope_view(def);
+        EXPECT_EQ(oss.str(), "abcdef");
+    }
+
+    {
+        std::ostringstream oss;
+        text::rope abc("abc");
+        oss << std::setw(10) << text::rope_view(abc);
+        EXPECT_EQ(oss.str(), "       abc");
+    }
+
+    {
+        std::ostringstream oss;
+        text::rope abc("abc");
+        oss << std::setw(10) << std::left << std::setfill('*')
+            << text::rope_view(abc);
+        EXPECT_EQ(oss.str(), "abc*******");
+    }
+}
+
 TEST(rope, test_collation)
 {
     auto const table = text::default_collation_table();

@@ -755,21 +755,6 @@ TEST(unencoded_rope, test_unformatted_output)
         oss << text::unencoded_rope("abc") << text::unencoded_rope("def");
         EXPECT_EQ(oss.str(), "abcdef");
     }
-
-    {
-        std::ostringstream oss;
-        oss << std::setw(10) << text::unencoded_rope("abc");
-        EXPECT_EQ(oss.str(), "       abc");
-    }
-
-#if 0 // TODO: Fix!
-    {
-        std::ostringstream oss;
-        oss << std::setw(10) << std::left << std::setfill('*')
-            << text::unencoded_rope("abc");
-        EXPECT_EQ(oss.str(), "abc*******");
-    }
-#endif
 }
 
 TEST(unencoded_rope, test_sentinel_api)
