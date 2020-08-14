@@ -11,7 +11,7 @@ _Text_ is composed of two main layers:
 * The _t_ layer
 
 There are a couple of assorted bits that were necessary or useful to have
-around when implementing various parts of _Text_: _segv_ and
+around when implementing various parts of _Text_: _segv_, _ur_, _urv_, and
 _trie_\/_trie_m_\/_trie_s_.
 
 The _t_ layer depends on the Unicode layer.  The Unicode layer can be used
@@ -41,9 +41,10 @@ _Text_ as a Unicode library without using the _t_ layer at all.
 [heading The _t_ Layer]
 
 The _t_ layer is built on top of the Unicode layer.  Its types encode text as
-UTF-8, and maintain FCC normalization.  Much of their implementation is done
-in terms of the algorithms from the Unicode layer.  The types in this layer
-are: _t_, _tv_, _r_, and _rv_.
+UTF-8, and maintain normalization.  Much of their implementation is done in
+terms of the algorithms from the Unicode layer.  The types in this layer are:
+_t_, _tv_, _r_, and _rv_.  It contains templates that can be instantiated with
+different UTF formats, normalization forms, and/or underlying storage.
 
 
 [heading The Assorted Bits]

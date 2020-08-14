@@ -281,13 +281,13 @@ given sequence, UTF-8-encoded.]
 
 [important _u8v_, _u16v_, and _u32v_ are all implemented in terms of C++20's
 `std::ranges::view_interface`.  _Text_ uses a pre-C++20-friendly
-implementation of this from Boost.STLIterfaces.  The implication of using
-`view_interface` is that _u8v_, _u16v_, and _u32v_ all have the fullest
-interface possible, based on the iterator and/or sentinel template parameters
-used to instantiate them.  For instance, if you use a random access iterator
-and no sentinel to instantiate _u32v_, it will have an `operator[]`.  If you
-use a bidirectional iterator instead, it will not have `operator[]`.  See
-`[view.interface]` in the standard for more details.]
+implementation of this from Boost.STLIterfaces for pre-C++20 builds.  The
+implication of using `view_interface` is that _u8v_, _u16v_, and _u32v_ all
+have the fullest interface possible, based on the iterator and/or sentinel
+template parameters used to instantiate them.  For instance, if you use a
+random access iterator to instantiate _u32v_, it will have an `operator[]`.
+If you use a bidirectional iterator instead, it will not have `operator[]`.
+See `[view.interface]` in the standard for more details.]
 
 
 [heading Iterator "Unpacking"]
@@ -323,7 +323,8 @@ given, so that only the bottom-most underlying pointer or iterator is stored:
                                boost::text::utf8_view<std::string::iterator>>::value, "");
 
 Each of these views stores only the unpacked iterator and sentinel, so each
-view is the size of two pointers, and possibly smaller if a sentinel is used.
+view is typically the size of two pointers, and possibly smaller if a sentinel
+is used.
 
 The same unpacking logic is used in `utfN_iterator()`, `from_utfN_inserter()`,
 the transcoding algorithms, and the normalization algorithms.  This allows you
@@ -455,7 +456,9 @@ _Text_ provides algorithms for all four Unicode normalization forms: NFD,
 NFKD, NFC, and NFKC.  In addition, it provides an unofficial fifth
 normalization form called FCC that is described in _tn5_.  FCC is just as
 compact as the most compact official form, NFC, except in a few degenerate
-cases.  FCC is particularly useful when doing collation.
+cases.  FCC is particularly useful when doing collation _emdash_ the collation
+algorithm requires its inputs to be normalized NFD or FCC, and FCC is much
+faster to normalize to.
 
 The algorithm is invoked as `normalize<X>()`, where `X` is one of the
 enumerators of _nf_ ("Normalization Form").  Range and iterator-based
@@ -1031,15 +1034,13 @@ most widely-used normalization form (most European keyboards produce NFC, and
 W3C recommends NFC for all web text).  This means either keeping your data in
 the most interoperable normalization form (NFC), and paying the cost of
 normalization every time you do a collation, or the less interoperable NFD and
-not having to renormalize when collating.  However, there is a variant of the
-default algorithm that is defined in _tn5_ that allows one to use an alternate
-normalization form called FCC.
+not having to renormalize when collating.
 
 FCC is very similar to NFC, except that it is less compact in a few
-cases. _Text_'s collation implementation relies on the inputs being in one of
-the FCC or the NFD normalization forms, so the collation functions require
-inputs to be normalized FCC or NFD.  This happens automatically within the
-text layer types (_t_, _r_, etc.), which use FCC. ]
+cases. _Text_'s collation implementation relies on the inputs being in either
+FCC or NFD, so the collation functions require inputs to be normalized FCC or
+NFD.  This happens automatically when using the collation API specific to the
+text layer types (_t_, _r_, etc.). ]
 
 [heading Associative Container Woes]
 

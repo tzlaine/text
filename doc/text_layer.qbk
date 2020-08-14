@@ -10,24 +10,38 @@ _rv_.  These are directly analogous to _s_, _sv_, _ur_, and _urv_,
 respectively.  In fact, each of the text layer types has a single data member
 _emdash_ an object of the corresponding unencoded type.
 
-Let's consider one of the text layer types in particular, _t_.  It's
+Each of these four types is a typedef of a general-purpose template.  For
+instance, _t_ is a specialization of _bt_ that is normalized NFC, with a code
+unit type of `char`, and using _s_ as the underlying storage.
+
+The `basic_` templates are:
+
+* _bt_
+* _btv_
+* _br_
+* _brv_
+
+Each template can be configured: to maintain one of the five supported
+normalization forms; with a particular underlying code unit type; and, for
+those that have underlying storage (_bt_ and _br_), with the type of storage
+container to use.  The UTF format each template uses is deduced from the code
+point type.  For instance, `char` and `char8_t` imply UTF-8, whereas
+`uint16_t` and `char16_t` imply UTF-16.  These templates do not support
+UTF-32.
+
+For the rest of the documentation, we will focus on the four specializations
+of these templates, _t_, _tv_, _r_, and _rv_.
+
+Let's consider one of these specializations in particular, _t_.  Its
 underlying storage is a _s_, as mentioned before.  The `char`s in the _s_ are
 UTF-8 encoded.  The _cp_ view of those UTF-8 encoded `char`s is available by
 using _8_to_32_iter_.  Since _8_to_32_iter_ generates replacement characters
 when it encounters a broken encoding, no runtime checks ever need to be
 performed on the encoding of the `char`s in a _t_'s _s_ data member.
 
-[note To be absolutely clear, all the text layer types use UTF-8 encoding.
-There are no other options.  Transcoding to UTF-16 is always possible using
-_8_to_16_iter_ and _16_to_8_iter_.]
-
-All the text layer types are kept in the FCC normalization form at all times.
-There is a runtime cost associated with normalizing text that is inserted into
-a text layer type.
-
-[note To be absolutely clear about this as well, there are no other encoding
-options for the text layer types.  Normalization to the four official Unicode
-forms is always available using the Unicode layer normalization algorithms.]
+All the text layer types are kept normalized at all times; the views may be
+initialized only from known-normalized types.  There is a runtime cost
+associated with normalizing text that is inserted into a text layer type.
 
 The text layer types are centered around _grs_ instead of `char`s.  Since
 _grs_ are variable-length, this means that all indexing is done using
@@ -51,7 +65,7 @@ involves allocations.  This also implies that an array of _graphemes_ is
 likely to be wasteful of storage.  If you want a bunch of _grs_, you should
 probably be using a _t_.]
 
-An Individual _gr_, in the form of a _grapheme_ or _gr_ref_, can be inserted
+An individual _gr_, in the form of a _grapheme_ or _gr_ref_, can be inserted
 into a _t_ or _r_.
 
 [note The _gr_ is the unit of work within the text layer.  When using text
@@ -83,7 +97,7 @@ characters:
 There is a problem with basing all your Unicode operations on _grs_.
 Graphemes do not always line up with the text segmentation algorithms.
 Specifically, lines are not guaranteed to end exactly on a _gr_ break (the
-other text breaking algorithms all end on _gr_ breaks).
+other text breaking algorithms all happen to end on _gr_ breaks).
 
 There are two things to note here:
 
@@ -132,18 +146,18 @@ each.  How about the differences?
 * There are no `size()` members.  To implement this would be an `O(N)`
   operation, and so `size()` would be a very misleading name for this.  There
   is instead a `distance()` function that returns the number of _grs_ in
-  `O(N)` time.  There is an `O(1)` member `storage_bytes()` that returns the
-  size (in `char`s) of the underlying storage.
+  `O(N)` time.  There is an `O(1)` member `storage_code_points()` that returns
+  the size (in `char`s) of the underlying storage.
 
 * Since it would imply a maximum number of _grs_, there is no `max_size()`
-  either.  There is instead a `max_bytes()`.
+  either.  There is instead a `max_code_points()`.
 
-* _t_ has a `capacity_bytes()` instead of a `capacity()` member.
+* _t_ has a `capacity_code_points()` instead of a `capacity()` member.
 
 * There are two members that allow you to steal and/or replace the underlying
   storage of the owning text layer types (_t_ and _r_).  `extract()` moves the
   underlying container out, and an overload of `replace()` moves it in.
-  `replace()` requires the moved-in container is normalized FCC and in
+  `replace()` requires that the moved-in container is normalized and in
   _str_safe_.
 
 
