@@ -19,6 +19,7 @@ using namespace boost;
 using string16 = std::basic_string<char16_t>;
 using string_view16 = text::basic_string_view<char16_t>;
 using text16 = boost::text::basic_text<boost::text::nf::fcc, char16_t>;
+using rope16 = boost::text::basic_rope<boost::text::nf::fcc, char16_t>;
 
 text16 operator"" _t(char16_t const * str, std::size_t len)
 {
@@ -307,20 +308,18 @@ TEST(text_utf16, test_insert)
             t.insert(t.end(), *t_0.begin());
             EXPECT_EQ(t, text16(u"g"));
         }
-#if 0 // TODO: Waiting on rope support.
         {
-            text::rope r(u"g");
+            rope16 r(u"g");
             text16 t;
             t.insert(t.end(), *r.begin()); // text::grapheme_ref
             EXPECT_EQ(t, text16(u"g"));
         }
         {
-            text::rope const r(u"g");
+            rope16 const r(u"g");
             text16 t;
             t.insert(t.end(), *r.begin());
             EXPECT_EQ(t, text16(u"g"));
         }
-#endif
         {
             text16 t;
             t.insert(
@@ -331,7 +330,6 @@ TEST(text_utf16, test_insert)
     }
 }
 
-#if 0 // TODO: Waiting on rope_view support.
 TEST(text_utf16, test_erase)
 {
     text16 const ct(u"string");
@@ -340,21 +338,20 @@ TEST(text_utf16, test_erase)
         for (std::size_t i = 0; i <= j; ++i) {
             text16 t = ct;
             text16::text_view const before(t.begin(), std::next(t.begin(), i));
-            text16::text_view const substr(
-                std::next(t.begin(), i), std::next(t.begin(), j));
-            text16 const substr_copy(substr);
+            auto const substr_first = std::next(t.begin(), i);
+            auto const substr_last = std::next(t.begin(), j);
+            text16 const substr_copy(substr_first, substr_last);
             text16::text_view const after(std::next(ct.begin(), j), ct.end());
 
             text16 expected(before);
             expected += after;
 
-            t.erase(substr);
+            t.erase(substr_first, substr_last);
             EXPECT_EQ(t, expected) << "i=" << i << " j=" << j << " erasing '"
                                    << substr_copy << "'";
         }
     }
 }
-#endif
 
 TEST(text_utf16, test_replace)
 {
@@ -391,50 +388,46 @@ TEST(text_utf16, test_replace)
 
     text16 const ct(u"string");
 
-#if 0 // TODO: Waiting on rope_view support.
     for (std::size_t j = 0, end = ct.distance(); j <= end; ++j) {
         for (std::size_t i = 0; i <= j; ++i) {
             text16 t = ct;
             text16::text_view const before(t.begin(), std::next(t.begin(), i));
-            text16::text_view const substr(
-                std::next(t.begin(), i), std::next(t.begin(), j));
-            text16 const substr_copy(substr);
+            auto const substr_first = std::next(t.begin(), i);
+            auto const substr_last = std::next(t.begin(), j);
+            text16 const substr_copy(substr_first, substr_last);
             text16::text_view const after(std::next(ct.begin(), j), ct.end());
 
             text16 expected(before);
             expected += replacement;
             expected += after;
 
-            t.replace(substr, replacement);
+            t.replace(substr_first, substr_last, replacement);
             EXPECT_EQ(t, expected) << "i=" << i << " j=" << j << " erasing '"
                                    << substr_copy << "'";
         }
     }
-#endif
 
     string_view16 const really_long_replacement(
         u"REPREPREPREPREPREPREPREPREPREP");
 
-#if 0 // TODO: Waiting on rope_view support.
     for (std::size_t j = 0, end = ct.distance(); j <= end; ++j) {
         for (std::size_t i = 0; i <= j; ++i) {
             text16 t = ct;
             text16::text_view const before(t.begin(), std::next(t.begin(), i));
-            text16::text_view const substr(
-                std::next(t.begin(), i), std::next(t.begin(), j));
-            text16 const substr_copy(substr);
+            auto const substr_first = std::next(t.begin(), i);
+            auto const substr_last = std::next(t.begin(), j);
+            text16 const substr_copy(substr_first, substr_last);
             text16::text_view const after(std::next(ct.begin(), j), ct.end());
 
             text16 expected(before);
             expected += really_long_replacement;
             expected += after;
 
-            t.replace(substr, really_long_replacement);
+            t.replace(substr_first, substr_last, really_long_replacement);
             EXPECT_EQ(t, expected) << "i=" << i << " j=" << j << " erasing '"
                                    << substr_copy << "'";
         }
     }
-#endif
 }
 
 TEST(text_utf16, test_replace_iter)
@@ -469,23 +462,23 @@ TEST(text_utf16, test_replace_iter)
         EXPECT_EQ(t, u"\u004d\u0430\u4e8c\U00010302"_t);
     }
 
-#if 0 // TODO: Waiting on rope_view support.
     for (std::size_t j = 0, end = ct_string.distance(); j <= end; ++j) {
         for (std::size_t i = 0; i <= j; ++i) {
             {
                 text16 t = ct_string;
                 text16::text_view const before(t.begin(), std::next(t.begin(), i));
-                text16::text_view const substr(
-                    std::next(t.begin(), i), std::next(t.begin(), j));
-                text16 const substr_copy(substr);
+                auto const substr_first = std::next(t.begin(), i);
+                auto const substr_last = std::next(t.begin(), j);
+                text16 const substr_copy(substr_first, substr_last);
                 text16::text_view const after(std::next(t.begin(), j), t.end());
 
                 text16 expected(before);
                 expected.insert(expected.end(), final_cp, last);
-                expected +=
-                    text::as_utf16(after.begin().base(), after.end().base());
+                expected.insert(
+                    expected.end(),
+                    text::as_utf16(after.begin().base(), after.end().base()));
 
-                t.replace(substr, final_cp, last);
+                t.replace(substr_first, substr_last, final_cp, last);
                 EXPECT_EQ(t, expected) << "i=" << i << " j=" << j
                                        << " erasing '" << substr_copy << "'";
             }
@@ -493,22 +486,21 @@ TEST(text_utf16, test_replace_iter)
             {
                 text16 t = ct_string;
                 text16::text_view const before(t.begin(), std::next(t.begin(), i));
-                text16::text_view const substr(
-                    std::next(t.begin(), i), std::next(t.begin(), j));
-                text16 const substr_copy(substr);
+                auto const substr_first = std::next(t.begin(), i);
+                auto const substr_last = std::next(t.begin(), j);
+                text16 const substr_copy(substr_first, substr_last);
                 text16::text_view const after(std::next(t.begin(), j), t.end());
 
                 text16 expected(before);
                 expected.insert(expected.end(), first, last);
                 expected += after;
 
-                t.replace(substr, first, last);
+                t.replace(substr_first, substr_last, first, last);
                 EXPECT_EQ(t, expected) << "i=" << i << " j=" << j
                                        << " erasing '" << substr_copy << "'";
             }
         }
     }
-#endif
 }
 
 TEST(text_utf16, test_replace_iter_large_insertions)
