@@ -31,9 +31,6 @@ constexpr char utf8[11] = {
     0,
 };
 
-// TODO: Error cases that test error handling when processing utf-8 and utf-16
-// inputs.
-
 TEST(transcode_algorthm, from_utf8_non_error)
 {
     // UTF-8 pointer -> UTF-32 pointer
