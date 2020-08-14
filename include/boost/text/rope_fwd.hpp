@@ -19,7 +19,7 @@ namespace boost { namespace text {
         unused. */
     template<
         nf Normalization,
-        typename Char,
+        typename Char = char,
         typename String = std::basic_string<Char>>
 #if defined(__cpp_lib_concepts)
         // clang-format off
@@ -34,7 +34,7 @@ namespace boost { namespace text {
         in normalization form `Normalization`. */
     template<
         nf Normalization,
-        typename Char,
+        typename Char = char,
         typename String = std::basic_string<Char>>
 #if defined(__cpp_lib_concepts)
         // clang-format off

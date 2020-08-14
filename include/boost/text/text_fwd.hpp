@@ -18,7 +18,7 @@ namespace boost { namespace text {
         storage is a `String`, and is kept in normalization form
         `Normalization`.  The `String` is responsible for maintaining
         null-termination. */
-    template<nf Normalization, typename Char>
+    template<nf Normalization, typename Char = char>
 #if defined(__cpp_lib_concepts)
         // clang-format off
         requires utf8_code_unit<Char> || utf16_code_unit<Char>
@@ -32,7 +32,7 @@ namespace boost { namespace text {
         `String` is responsible for maintaining null-termination. */
     template<
         nf Normalization,
-        typename Char,
+        typename Char = char,
         typename String = std::basic_string<Char>>
 #if defined(__cpp_lib_concepts)
         // clang-format off
