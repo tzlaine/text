@@ -39,8 +39,8 @@
 <p>
         Boost.Text includes a collation-aware search API. The benefit of using the
         general-purpose collation mechanism for search is that we get all the collation
-        matching functionality included &#8212; tailoring plus the collation configury
-        (consider case or not, accents or not, etc.).
+        matching functionality included: tailoring plus the collation configury (consider
+        case or not, accents or not, etc.).
       </p>
 <p>
         Our examples will all use this string to search within:
@@ -48,6 +48,7 @@
 <p>
 </p>
 <pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span> <span class="keyword">const</span> <span class="identifier">string</span> <span class="special">=</span>
+    <span class="special">(</span><span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*)</span>
     <span class="identifier">u8</span><span class="string">"&#197;rhus changed the way they spell the name of their town, which has had "</span>
     <span class="identifier">u8</span><span class="string">"the same name for centuries.  What's going on in those city council "</span>
     <span class="identifier">u8</span><span class="string">"meetings?"</span><span class="special">;</span>
@@ -79,8 +80,8 @@
       </p>
 <p>
         That convenience function is equivalent to the code below. Here, we're creating
-        a searcher and passing it to <code class="computeroutput"><span class="identifier">collation_search</span><span class="special">()</span></code>. The reset of the collation search API
-        uses this interface.
+        a searcher and passing it to <code class="computeroutput"><span class="identifier">collation_search</span><span class="special">()</span></code>. The rest of the collation search API uses
+        this interface.
       </p>
 <p>
 </p>

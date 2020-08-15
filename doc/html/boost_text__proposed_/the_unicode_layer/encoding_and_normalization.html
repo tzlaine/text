@@ -25,8 +25,8 @@
       </h5>
 <p>
         Boost.Text provides conversions among the UTF-8, UTF-16, and UTF-32 encodings,
-        via converting iterators. The conversion among UTF formats is referred to
-        as transcoding. The converting iterators are:
+        via converting iterators. The conversion among UTF encoding formats is referred
+        to as transcoding. The converting iterators are:
       </p>
 <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
@@ -112,16 +112,17 @@
 <p>
 </p>
 <pre class="programlisting"><span class="identifier">uint32_t</span> <span class="keyword">const</span> <span class="identifier">utf32</span><span class="special">[]</span> <span class="special">=</span> <span class="special">{</span><span class="number">0x004d</span><span class="special">,</span> <span class="number">0x0430</span><span class="special">,</span> <span class="number">0x4e8c</span><span class="special">,</span> <span class="number">0x10302</span><span class="special">};</span>
-<span class="keyword">char</span> <span class="keyword">const</span> <span class="identifier">utf8</span><span class="special">[]</span> <span class="special">=</span> <span class="special">{</span><span class="number">0x4d</span><span class="special">,</span>
-                     <span class="keyword">char</span><span class="special">(</span><span class="number">0xd0</span><span class="special">),</span>
-                     <span class="keyword">char</span><span class="special">(</span><span class="number">0xb0</span><span class="special">),</span>
-                     <span class="keyword">char</span><span class="special">(</span><span class="number">0xe4</span><span class="special">),</span>
-                     <span class="keyword">char</span><span class="special">(</span><span class="number">0xba</span><span class="special">),</span>
-                     <span class="keyword">char</span><span class="special">(</span><span class="number">0x8c</span><span class="special">),</span>
-                     <span class="keyword">char</span><span class="special">(</span><span class="number">0xf0</span><span class="special">),</span>
-                     <span class="keyword">char</span><span class="special">(</span><span class="number">0x90</span><span class="special">),</span>
-                     <span class="keyword">char</span><span class="special">(</span><span class="number">0x8c</span><span class="special">),</span>
-                     <span class="keyword">char</span><span class="special">(</span><span class="number">0x82</span><span class="special">)};</span>
+<span class="keyword">char</span> <span class="keyword">const</span> <span class="identifier">utf8</span><span class="special">[]</span> <span class="special">=</span> <span class="special">{</span>
+    <span class="number">0x4d</span><span class="special">,</span>
+    <span class="keyword">char</span><span class="special">(</span><span class="number">0xd0</span><span class="special">),</span>
+    <span class="keyword">char</span><span class="special">(</span><span class="number">0xb0</span><span class="special">),</span>
+    <span class="keyword">char</span><span class="special">(</span><span class="number">0xe4</span><span class="special">),</span>
+    <span class="keyword">char</span><span class="special">(</span><span class="number">0xba</span><span class="special">),</span>
+    <span class="keyword">char</span><span class="special">(</span><span class="number">0x8c</span><span class="special">),</span>
+    <span class="keyword">char</span><span class="special">(</span><span class="number">0xf0</span><span class="special">),</span>
+    <span class="keyword">char</span><span class="special">(</span><span class="number">0x90</span><span class="special">),</span>
+    <span class="keyword">char</span><span class="special">(</span><span class="number">0x8c</span><span class="special">),</span>
+    <span class="keyword">char</span><span class="special">(</span><span class="number">0x82</span><span class="special">)};</span>
 <span class="keyword">int</span> <span class="identifier">i</span> <span class="special">=</span> <span class="number">0</span><span class="special">;</span>
 <span class="keyword">for</span> <span class="special">(</span><span class="keyword">auto</span> <span class="identifier">it</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">utf32_iterator</span><span class="special">(</span>
               <span class="identifier">std</span><span class="special">::</span><span class="identifier">begin</span><span class="special">(</span><span class="identifier">utf8</span><span class="special">),</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">begin</span><span class="special">(</span><span class="identifier">utf8</span><span class="special">),</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">end</span><span class="special">(</span><span class="identifier">utf8</span><span class="special">)),</span>
@@ -142,16 +143,17 @@
 <p>
 </p>
 <pre class="programlisting"><span class="identifier">uint32_t</span> <span class="keyword">const</span> <span class="identifier">utf32</span><span class="special">[]</span> <span class="special">=</span> <span class="special">{</span><span class="number">0x004d</span><span class="special">,</span> <span class="number">0x0430</span><span class="special">,</span> <span class="number">0x4e8c</span><span class="special">,</span> <span class="number">0x10302</span><span class="special">};</span>
-<span class="keyword">char</span> <span class="keyword">const</span> <span class="identifier">utf8</span><span class="special">[]</span> <span class="special">=</span> <span class="special">{</span><span class="number">0x4d</span><span class="special">,</span>
-                     <span class="keyword">char</span><span class="special">(</span><span class="number">0xd0</span><span class="special">),</span>
-                     <span class="keyword">char</span><span class="special">(</span><span class="number">0xb0</span><span class="special">),</span>
-                     <span class="keyword">char</span><span class="special">(</span><span class="number">0xe4</span><span class="special">),</span>
-                     <span class="keyword">char</span><span class="special">(</span><span class="number">0xba</span><span class="special">),</span>
-                     <span class="keyword">char</span><span class="special">(</span><span class="number">0x8c</span><span class="special">),</span>
-                     <span class="keyword">char</span><span class="special">(</span><span class="number">0xf0</span><span class="special">),</span>
-                     <span class="keyword">char</span><span class="special">(</span><span class="number">0x90</span><span class="special">),</span>
-                     <span class="keyword">char</span><span class="special">(</span><span class="number">0x8c</span><span class="special">),</span>
-                     <span class="keyword">char</span><span class="special">(</span><span class="number">0x82</span><span class="special">)};</span>
+<span class="keyword">char</span> <span class="keyword">const</span> <span class="identifier">utf8</span><span class="special">[]</span> <span class="special">=</span> <span class="special">{</span>
+    <span class="number">0x4d</span><span class="special">,</span>
+    <span class="keyword">char</span><span class="special">(</span><span class="number">0xd0</span><span class="special">),</span>
+    <span class="keyword">char</span><span class="special">(</span><span class="number">0xb0</span><span class="special">),</span>
+    <span class="keyword">char</span><span class="special">(</span><span class="number">0xe4</span><span class="special">),</span>
+    <span class="keyword">char</span><span class="special">(</span><span class="number">0xba</span><span class="special">),</span>
+    <span class="keyword">char</span><span class="special">(</span><span class="number">0x8c</span><span class="special">),</span>
+    <span class="keyword">char</span><span class="special">(</span><span class="number">0xf0</span><span class="special">),</span>
+    <span class="keyword">char</span><span class="special">(</span><span class="number">0x90</span><span class="special">),</span>
+    <span class="keyword">char</span><span class="special">(</span><span class="number">0x8c</span><span class="special">),</span>
+    <span class="keyword">char</span><span class="special">(</span><span class="number">0x82</span><span class="special">)};</span>
 <span class="keyword">int</span> <span class="identifier">i</span> <span class="special">=</span> <span class="number">0</span><span class="special">;</span>
 <span class="keyword">for</span> <span class="special">(</span><span class="keyword">auto</span> <span class="identifier">cp</span> <span class="special">:</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">as_utf32</span><span class="special">(</span><span class="identifier">utf8</span><span class="special">))</span> <span class="special">{</span>
     <span class="identifier">assert</span><span class="special">(</span><span class="identifier">cp</span> <span class="special">==</span> <span class="identifier">utf32</span><span class="special">[</span><span class="identifier">i</span><span class="special">++]);</span>
@@ -159,54 +161,47 @@
 </pre>
 <p>
       </p>
-<div class="note"><table border="0" summary="Note">
-<tr>
-<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../images/note.png"></td>
-<th align="left">Note</th>
-</tr>
-<tr><td align="left" valign="top"><p>
-          A make-function is provided for each to-encoding; <code class="computeroutput"><span class="identifier">utf16_iterator</span><span class="special">(</span><span class="identifier">a</span><span class="special">,</span>
-          <span class="identifier">b</span><span class="special">,</span>
-          <span class="identifier">c</span><span class="special">)</span></code>
-          returns: a <code class="computeroutput"><a class="link" href="../../boost/text/utf_8_to_16_iterator.html" title="Struct template utf_8_to_16_iterator">utf_8_to_16_iterator</a></code> if
-          <code class="computeroutput"><span class="identifier">a</span></code>, <code class="computeroutput"><span class="identifier">b</span></code>,
-          and <code class="computeroutput"><span class="identifier">c</span></code> are iterators to
-          UTF-8 code units; a <code class="computeroutput"><a class="link" href="../../boost/text/utf_32_to_16_iterator.html" title="Struct template utf_32_to_16_iterator">utf_32_to_16_iterator</a></code> if
-          <code class="computeroutput"><span class="identifier">a</span></code>, <code class="computeroutput"><span class="identifier">b</span></code>,
-          and <code class="computeroutput"><span class="identifier">c</span></code> are iterators to
-          UTF-32 code units (i.e. code points); and <code class="computeroutput"><span class="identifier">b</span></code>
-          otherwise. See the section on <a class="link" href="encoding_and_normalization.html#boost_text__proposed_.the_unicode_layer.encoding_and_normalization.iterator__quot_unpacking_quot_">iterator
-          unpacking</a> for details.
-        </p></td></tr>
-</table></div>
 <p>
         All the transcoding iterators are bidirectional. When each one is dereferenced,
         it may read multiple values from the underlying input range. For instance,
-        a <code class="computeroutput"><span class="identifier">utf_8_to_32_iterator</span> <span class="identifier">i</span></code>
+        a <code class="computeroutput"><span class="identifier">utf_8_to_32_iterator</span> <span class="identifier">it</span></code>
         has to read 1-4 code units to produce a code point when performing the operation
-        <code class="computeroutput"><span class="special">*</span><span class="identifier">i</span></code>.
+        <code class="computeroutput"><span class="special">*</span><span class="identifier">it</span></code>.
         Therefore, each of these iterators requires the endpoints of the underlying
         range, to ensure that reads outside the underlying range generate replacement
         characters instead of undefined behavior.
       </p>
 <p>
         All the transcoding iterators still exhibit undefined behavior when incrementing
-        past the end of the underlying range, or decrementing before the beginning
-        of the underlying range. The generation of replacment characters only happens
-        in cases where the number of code units is variable and there is an incomplete
-        sequence of code units right at the beginning or end.
+        past the end of, or decrementing before the beginning of, the underlying
+        range. The generation of replacment characters only happens in cases where
+        the number of code units is variable and there is an incomplete sequence
+        of code units right at the beginning or end.
       </p>
 <p>
         For instance, if you have a sequence of UTF-8 that consists of a single broken
         code point sequence:
       </p>
+<p>
+</p>
 <pre class="programlisting"><span class="comment">// That the full UTF-8 encoding for U+8D00 is 0xe8, 0xb4, 0x80.</span>
-<span class="keyword">unsigned</span> <span class="keyword">char</span> <span class="keyword">const</span> <span class="identifier">broken_utf8_for_0x8d00</span><span class="special">[]</span> <span class="special">=</span> <span class="special">{</span> <span class="number">0xe8</span><span class="special">,</span> <span class="number">0xb4</span> <span class="comment">/* Incomplete! */</span><span class="special">};</span>
-<span class="keyword">auto</span> <span class="keyword">const</span> <span class="identifier">it</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">utf32_iterator</span><span class="special">(</span>
+<span class="keyword">char</span> <span class="keyword">const</span> <span class="identifier">broken_utf8_for_0x8d00</span><span class="special">[]</span> <span class="special">=</span> <span class="special">{</span>
+    <span class="keyword">char</span><span class="special">(</span><span class="number">0xe8</span><span class="special">),</span> <span class="keyword">char</span><span class="special">(</span><span class="number">0xb4</span><span class="special">)</span> <span class="comment">/* Incomplete! */</span><span class="special">};</span>
+<span class="keyword">auto</span> <span class="identifier">it</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">utf32_iterator</span><span class="special">(</span>
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">begin</span><span class="special">(</span><span class="identifier">broken_utf8_for_0x8d00</span><span class="special">),</span>
-    <span class="identifier">std</span><span class="special">::</span><span class="identifier">end</span><span class="special">(</span><span class="identifier">broken_utf8_for_0x8d00</span><span class="special">),</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">begin</span><span class="special">(</span><span class="identifier">broken_utf8_for_0x8d00</span><span class="special">),</span>
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">end</span><span class="special">(</span><span class="identifier">broken_utf8_for_0x8d00</span><span class="special">));</span>
+
+<span class="identifier">assert</span><span class="special">(*</span><span class="identifier">it</span> <span class="special">==</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">replacement_character</span><span class="special">());</span>
+
+<span class="comment">// --it; // Undefined behavior!</span>
+<span class="special">++</span><span class="identifier">it</span><span class="special">;</span> <span class="comment">// Ok.  Incrementing through a broken sequence is defined.</span>
+<span class="comment">// ++it; // Undefined behavior!  A subsequent increment past the end is not defined.</span>
+
+<span class="special">}</span>
 </pre>
+<p>
+      </p>
 <p>
         then <code class="computeroutput"><span class="special">*</span><span class="identifier">it</span></code>
         will produce a replacement character, and the behavior of <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">next</span><span class="special">(</span><span class="identifier">it</span><span class="special">)</span></code>
@@ -252,23 +247,32 @@
 <li class="listitem">
             <code class="computeroutput"><span class="identifier">utf_N_to_M_insert_iterator</span></code>
             - This is analogous to <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">insert_iterator</span></code>,
-            but also does the <code class="computeroutput"><span class="identifier">N</span></code> to
-            <code class="computeroutput"><span class="identifier">M</span></code> transcoding. You can
-            create one using <code class="computeroutput"><span class="identifier">from_utfN_inserter</span></code>.
+            but also does UTF-<code class="computeroutput"><span class="identifier">N</span></code> to
+            UTF-<code class="computeroutput"><span class="identifier">M</span></code> transcoding. You
+            can create one using <code class="computeroutput"><span class="identifier">from_utfN_inserter</span></code>;
+            <code class="computeroutput"><span class="identifier">M</span></code> is deduced from the
+            size of the <code class="computeroutput"><span class="identifier">value_type</span></code>
+            of the container.
           </li>
 <li class="listitem">
             <code class="computeroutput"><span class="identifier">utf_N_to_M_front_insert_iterator</span></code>
             - This is analogous to <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">front_insert_iterator</span></code>,
-            but also does the <code class="computeroutput"><span class="identifier">N</span></code> to
-            <code class="computeroutput"><span class="identifier">M</span></code> transcoding. You can
-            create one using <code class="computeroutput"><span class="identifier">from_utfN_front_inserter</span></code>.
+            but also does UTF-<code class="computeroutput"><span class="identifier">N</span></code> to
+            UTF-<code class="computeroutput"><span class="identifier">M</span></code> transcoding. You
+            can create one using <code class="computeroutput"><span class="identifier">from_utfN_front_inserter</span></code>;
+            <code class="computeroutput"><span class="identifier">M</span></code> is deduced from the
+            size of the <code class="computeroutput"><span class="identifier">value_type</span></code>
+            of the container.
           </li>
 <li class="listitem">
             <code class="computeroutput"><span class="identifier">utf_N_to_M_back_insert_iterator</span></code>
             - This is analogous to <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">back_insert_iterator</span></code>,
-            but also does the <code class="computeroutput"><span class="identifier">N</span></code> to
-            <code class="computeroutput"><span class="identifier">M</span></code> transcoding. You can
-            create one using <code class="computeroutput"><span class="identifier">from_utfN_back_inserter</span></code>.
+            but also does UTF-<code class="computeroutput"><span class="identifier">N</span></code> to
+            UTF-<code class="computeroutput"><span class="identifier">M</span></code> transcoding. You
+            can create one using <code class="computeroutput"><span class="identifier">from_utfN_back_inserter</span></code>;
+            <code class="computeroutput"><span class="identifier">M</span></code> is deduced from the
+            size of the <code class="computeroutput"><span class="identifier">value_type</span></code>
+            of the container.
           </li>
 </ul></div>
 <h5>
@@ -289,8 +293,8 @@
       </h5>
 <p>
         Using transcoding iterators directly is a bit verbose and tedious. Also,
-        when you use two transcoding iterators as a range/view, it may be the size
-        of 6 underlying itertors!
+        when you use two transcoding iterators as an iterator pair, it may be the
+        size of 6 underlying itertors!
       </p>
 <p>
         So, both for convenience and for size optimization, Boost.Text provides view
@@ -321,7 +325,8 @@
     <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">as_utf32</span><span class="special">(</span><span class="identifier">str</span><span class="special">.</span><span class="identifier">c_str</span><span class="special">(),</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">null_sentinel</span><span class="special">{});</span>
 </pre>
 <p>
-        To support null-terminated strings, you can just pass a pointer to <code class="computeroutput"><span class="identifier">as_utfN</span><span class="special">()</span></code>:
+        These functions also support null-terminated strings; you can just pass a
+        pointer to <code class="computeroutput"><span class="identifier">as_utfN</span><span class="special">()</span></code>:
       </p>
 <pre class="programlisting"><span class="keyword">auto</span> <span class="keyword">const</span> <span class="identifier">range_1</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">as_utf32</span><span class="special">(</span><span class="string">"text"</span><span class="special">);</span>         <span class="comment">// char const *</span>
 <span class="keyword">auto</span> <span class="keyword">const</span> <span class="identifier">range_2</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">as_utf32</span><span class="special">(</span><span class="identifier">u8</span><span class="string">"more text"</span><span class="special">);</span>  <span class="comment">// char8_t const *, in C++20 and later</span>
@@ -345,7 +350,7 @@
 </tr>
 <tr><td align="left" valign="top"><p>
           Though it does not produce a <code class="computeroutput"><span class="identifier">utfN_view</span></code>,
-          there is a related function <code class="computeroutput"><a class="link" href="../../boost/text/to_string_idm21052.html" title="Function template to_string">to_string()</a></code>,
+          there is a related function <code class="computeroutput">to_string()</code>,
           which takes two UTF-32 iterators and returns a <code class="computeroutput">std::string</code> containing the given
           sequence, UTF-8-encoded.
         </p></td></tr>
@@ -360,14 +365,14 @@
           <code class="computeroutput"><a class="link" href="../../boost/text/utf16_view.html" title="Struct template utf16_view">utf16_view</a></code>,
           and <code class="computeroutput"><a class="link" href="../../boost/text/utf32_view.html" title="Struct template utf32_view">utf32_view</a></code>
           are all implemented in terms of C++20's <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">ranges</span><span class="special">::</span><span class="identifier">view_interface</span></code>.
-          Boost.Text uses a pre-C++20-friendly implementation of this from Boost.STLIterfaces.
-          The implication of using <code class="computeroutput"><span class="identifier">view_interface</span></code>
+          Boost.Text uses a pre-C++20-friendly implementation of this from Boost.STLIterfaces
+          for pre-C++20 builds. The implication of using <code class="computeroutput"><span class="identifier">view_interface</span></code>
           is that <code class="computeroutput"><a class="link" href="../../boost/text/utf8_view.html" title="Struct template utf8_view">utf8_view</a></code>,
           <code class="computeroutput"><a class="link" href="../../boost/text/utf16_view.html" title="Struct template utf16_view">utf16_view</a></code>,
           and <code class="computeroutput"><a class="link" href="../../boost/text/utf32_view.html" title="Struct template utf32_view">utf32_view</a></code>
           all have the fullest interface possible, based on the iterator and/or sentinel
           template parameters used to instantiate them. For instance, if you use
-          a random access iterator and no sentinel to instantiate <code class="computeroutput"><a class="link" href="../../boost/text/utf32_view.html" title="Struct template utf32_view">utf32_view</a></code>, it will have
+          a random access iterator to instantiate <code class="computeroutput"><a class="link" href="../../boost/text/utf32_view.html" title="Struct template utf32_view">utf32_view</a></code>, it will have
           an <code class="computeroutput"><span class="keyword">operator</span><span class="special">[]</span></code>.
           If you use a bidirectional iterator instead, it will not have <code class="computeroutput"><span class="keyword">operator</span><span class="special">[]</span></code>.
           See <code class="computeroutput"><span class="special">[</span><span class="identifier">view</span><span class="special">.</span><span class="identifier">interface</span><span class="special">]</span></code> in the standard for more details.
@@ -404,11 +409,13 @@
 <span class="special">&gt;(</span><span class="identifier">to_16_first</span><span class="special">,</span> <span class="identifier">to_16_last</span><span class="special">,</span> <span class="identifier">to_16_last</span><span class="special">);</span>
 
 <span class="keyword">auto</span> <span class="identifier">range</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">as_utf8</span><span class="special">(</span><span class="identifier">to_32_first</span><span class="special">,</span> <span class="identifier">to_32_last</span><span class="special">);</span>
-<span class="keyword">static_assert</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">is_same</span><span class="special">&lt;</span><span class="keyword">decltype</span><span class="special">(</span><span class="identifier">range</span><span class="special">),</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">utf8_view</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">::</span><span class="identifier">iterator</span><span class="special">&gt;&gt;::</span><span class="identifier">value</span><span class="special">,</span> <span class="string">""</span><span class="special">);</span>
+<span class="keyword">static_assert</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">is_same</span><span class="special">&lt;</span><span class="keyword">decltype</span><span class="special">(</span><span class="identifier">range</span><span class="special">),</span>
+                           <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">utf8_view</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">::</span><span class="identifier">iterator</span><span class="special">&gt;&gt;::</span><span class="identifier">value</span><span class="special">,</span> <span class="string">""</span><span class="special">);</span>
 </pre>
 <p>
         Each of these views stores only the unpacked iterator and sentinel, so each
-        view is the size of two pointers, and possibly smaller if a sentinel is used.
+        view is typically the size of two pointers, and possibly smaller if a sentinel
+        is used.
       </p>
 <p>
         The same unpacking logic is used in <code class="computeroutput"><span class="identifier">utfN_iterator</span><span class="special">()</span></code>, <code class="computeroutput"><span class="identifier">from_utfN_inserter</span><span class="special">()</span></code>, the transcoding algorithms, and the normalization
@@ -438,13 +445,13 @@
       </p>
 <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
-            <code class="computeroutput"><a class="link" href="../../boost/text/v1/transcode_to_utf8_idm22269.html" title="Function template transcode_to_utf8">transcode_to_utf8()</a></code>
+            <code class="computeroutput"><a class="link" href="../../boost/text/v1/transcode_to_utf8_idm22600.html" title="Function template transcode_to_utf8">transcode_to_utf8()</a></code>
           </li>
 <li class="listitem">
-            <code class="computeroutput"><a class="link" href="../../boost/text/v1/transcode_to_utf1_idm22299.html" title="Function template transcode_to_utf16">transcode_to_utf16()</a></code>
+            <code class="computeroutput"><a class="link" href="../../boost/text/v1/transcode_to_utf1_idm22630.html" title="Function template transcode_to_utf16">transcode_to_utf16()</a></code>
           </li>
 <li class="listitem">
-            <code class="computeroutput"><a class="link" href="../../boost/text/v1/transcode_to_utf3_idm22329.html" title="Function template transcode_to_utf32">transcode_to_utf32()</a></code>
+            <code class="computeroutput"><a class="link" href="../../boost/text/v1/transcode_to_utf3_idm22660.html" title="Function template transcode_to_utf32">transcode_to_utf32()</a></code>
           </li>
 </ul></div>
 <p>
@@ -457,7 +464,8 @@
         These are fully generic algorithms, and there are overloads that take iterator-sentinel
         pairs as well as ones that take ranges. Also, the transcode algorithms unpack
         the iterators that they are given, which can be a large optimization. See
-        the description of unpacking in the section on transcode views for details.
+        the <a class="link" href="encoding_and_normalization.html#boost_text__proposed_.the_unicode_layer.encoding_and_normalization.iterator__quot_unpacking_quot_">iterator
+        unpacking</a> section for details.
       </p>
 <div class="important"><table border="0" summary="Important">
 <tr>
@@ -533,6 +541,65 @@
       </p>
 <h5>
 <a name="boost_text__proposed_.the_unicode_layer.encoding_and_normalization.h8"></a>
+        <span class="phrase"><a name="boost_text__proposed_.the_unicode_layer.encoding_and_normalization.the_stream_safe_format"></a></span><a class="link" href="encoding_and_normalization.html#boost_text__proposed_.the_unicode_layer.encoding_and_normalization.the_stream_safe_format">The
+        Stream-Safe Format</a>
+      </h5>
+<p>
+        Unicode text often contains sequences in which a noncombining code point
+        (e.g. 'A') is followed by one or more combining code points (e.g. some number
+        of umlauts). It is valid to have an 'A' followed by 100 million umlauts.
+        This is valid but not useful. Unicode specifies something called the <a href="https://unicode.org/reports/tr15/#Stream_Safe_Text_Format" target="_top">Stream-Safe
+        Format</a>. This format inserts extra code points between combiners to
+        ensure that there are never more than 30 combiners in a row. In practice,
+        you should never need anywhere near that number.
+      </p>
+<p>
+        Boost.Text provides an API for putting text in a <a href="https://unicode.org/reports/tr15/#Stream_Safe_Text_Format" target="_top">Stream-Safe
+        Format</a>:
+      </p>
+<pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">uint32_t</span><span class="special">&gt;</span> <span class="identifier">code_points</span> <span class="special">=</span> <span class="comment">/* ... */</span><span class="special">;</span>
+<span class="keyword">auto</span> <span class="identifier">it</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">stream_safe</span><span class="special">(</span><span class="identifier">code_points</span><span class="special">);</span>
+<span class="identifier">code_points</span><span class="special">.</span><span class="identifier">erase</span><span class="special">(</span><span class="identifier">it</span><span class="special">.</span><span class="identifier">base</span><span class="special">(),</span> <span class="identifier">code_points</span><span class="special">.</span><span class="identifier">end</span><span class="special">());</span>
+<span class="identifier">assert</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">is_safe_stream</span><span class="special">(</span><span class="identifier">code_points</span><span class="special">));</span>
+</pre>
+<p>
+        There is also a lazy-range API:
+      </p>
+<pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">uint32_t</span><span class="special">&gt;</span> <span class="identifier">code_points</span> <span class="special">=</span> <span class="comment">/* ... */</span><span class="special">;</span>
+<span class="keyword">auto</span> <span class="keyword">const</span> <span class="identifier">stream_safe_view</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">as_stream_safe</span><span class="special">(</span><span class="identifier">code_points</span><span class="special">);</span>
+</pre>
+<p>
+        These operations do not implement the <a href="https://unicode.org/reports/tr15/#Stream_Safe_Text_Format" target="_top">Stream-Safe
+        Format</a> algorithm described on the Unicode web site. Instead, it takes
+        the much simpler approach of allowing only at most 8 combiners after any
+        noncombiner. The rest are truncated.
+      </p>
+<div class="important"><table border="0" summary="Important">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Important]" src="../../images/important.png"></td>
+<th align="left">Important</th>
+</tr>
+<tr><td align="left" valign="top">
+<p>
+          Long sequences of combining characters create a problem for algorithms
+          like normalization or grapheme breaking; the grapheme breaking algorithm
+          may be required to look ahead a very long way in order to determine how
+          to handle the current grapheme. To address this, Unicode allows a conforming
+          implementation to assume that a sequence of code points contains graphemes
+          of at most 32 code points. This is known as the <a href="https://unicode.org/reports/tr15/#Stream_Safe_Text_Format" target="_top">Stream-Safe
+          Format</a> assumption; Boost.Text makes this assumption.
+        </p>
+<p>
+          If you give Boost.Text algorithms a code point sequence with graphemes
+          longer than 32 code points, you will get undefined behavior. This poses
+          a security problem. To address this, use the stream-safe API (e.g. <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">as_stream_safe</span><span class="special">()</span></code>),
+          or use the container-modifying free functions to normalize, render stream-safe,
+          and erase/insert/replace in one call.
+        </p>
+</td></tr>
+</table></div>
+<h5>
+<a name="boost_text__proposed_.the_unicode_layer.encoding_and_normalization.h9"></a>
         <span class="phrase"><a name="boost_text__proposed_.the_unicode_layer.encoding_and_normalization.normalization"></a></span><a class="link" href="encoding_and_normalization.html#boost_text__proposed_.the_unicode_layer.encoding_and_normalization.normalization">Normalization</a>
       </h5>
 <p>
@@ -541,7 +608,8 @@
         form called FCC that is described in <a href="https://unicode.org/notes/tn5" target="_top">Unicode
         Technical Note #5</a>. FCC is just as compact as the most compact official
         form, NFC, except in a few degenerate cases. FCC is particularly useful when
-        doing collation.
+        doing collation &#8212; the collation algorithm requires its inputs to be
+        normalized NFD or FCC, and FCC is much faster to normalize to.
       </p>
 <p>
         The algorithm is invoked as <code class="computeroutput"><span class="identifier">normalize</span><span class="special">&lt;</span><span class="identifier">X</span><span class="special">&gt;()</span></code>,
@@ -563,8 +631,7 @@
 <span class="special">{</span>
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">uint32_t</span><span class="special">&gt;</span> <span class="identifier">nfc</span><span class="special">;</span>
     <span class="comment">// Iterator interface.</span>
-    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">normalize</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">nf</span><span class="special">::</span><span class="identifier">c</span><span class="special">&gt;(</span>
-        <span class="identifier">nfd</span><span class="special">.</span><span class="identifier">begin</span><span class="special">(),</span> <span class="identifier">nfd</span><span class="special">.</span><span class="identifier">end</span><span class="special">(),</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">back_inserter</span><span class="special">(</span><span class="identifier">nfc</span><span class="special">));</span>
+    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">normalize</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">nf</span><span class="special">::</span><span class="identifier">c</span><span class="special">&gt;(</span><span class="identifier">nfd</span><span class="special">.</span><span class="identifier">begin</span><span class="special">(),</span> <span class="identifier">nfd</span><span class="special">.</span><span class="identifier">end</span><span class="special">(),</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">back_inserter</span><span class="special">(</span><span class="identifier">nfc</span><span class="special">));</span>
     <span class="comment">// Range interface.</span>
     <span class="identifier">assert</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">normalized</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">nf</span><span class="special">::</span><span class="identifier">c</span><span class="special">&gt;(</span><span class="identifier">nfc</span><span class="special">));</span>
 <span class="special">}</span>
@@ -584,13 +651,103 @@
         in-place normalization functions as well, in <a class="link" href="../../header/boost/text/normalize_string_hpp.html" title="Header &lt;boost/text/normalize_string.hpp&gt;">normalize_string.hpp</a>.
       </p>
 <p>
+        There is also an API for normalizing a code point sequence and appending
+        the result to a container:
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="comment">// &#4365;&#4452;&#9676;&#820;&#4526; HANGUL SYLLABLE JJYAE, COMBINING TILDE OVERLAY, HANGUL JONGSEONG TIKEUT</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">array</span><span class="special">&lt;</span><span class="identifier">uint32_t</span><span class="special">,</span> <span class="number">4</span><span class="special">&gt;</span> <span class="keyword">const</span> <span class="identifier">nfd</span> <span class="special">=</span> <span class="special">{{</span> <span class="number">0x110D</span><span class="special">,</span> <span class="number">0x1164</span><span class="special">,</span> <span class="number">0x0334</span><span class="special">,</span> <span class="number">0x11AE</span> <span class="special">}};</span>
+<span class="comment">// Iterator interface.</span>
+<span class="identifier">assert</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">normalized</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">nf</span><span class="special">::</span><span class="identifier">d</span><span class="special">&gt;(</span><span class="identifier">nfd</span><span class="special">.</span><span class="identifier">begin</span><span class="special">(),</span> <span class="identifier">nfd</span><span class="special">.</span><span class="identifier">end</span><span class="special">()));</span>
+
+<span class="special">{</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">uint32_t</span><span class="special">&gt;</span> <span class="identifier">nfc</span><span class="special">;</span>
+    <span class="comment">// Iterator interface.</span>
+    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">normalize</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">nf</span><span class="special">::</span><span class="identifier">c</span><span class="special">&gt;(</span><span class="identifier">nfd</span><span class="special">.</span><span class="identifier">begin</span><span class="special">(),</span> <span class="identifier">nfd</span><span class="special">.</span><span class="identifier">end</span><span class="special">(),</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">back_inserter</span><span class="special">(</span><span class="identifier">nfc</span><span class="special">));</span>
+    <span class="comment">// Range interface.</span>
+    <span class="identifier">assert</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">normalized</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">nf</span><span class="special">::</span><span class="identifier">c</span><span class="special">&gt;(</span><span class="identifier">nfc</span><span class="special">));</span>
+<span class="special">}</span>
+
+<span class="special">{</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">uint32_t</span><span class="special">&gt;</span> <span class="identifier">nfc</span><span class="special">;</span>
+    <span class="comment">// Range interface.</span>
+    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">normalize</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">nf</span><span class="special">::</span><span class="identifier">c</span><span class="special">&gt;(</span><span class="identifier">nfd</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">back_inserter</span><span class="special">(</span><span class="identifier">nfc</span><span class="special">));</span>
+    <span class="comment">// Range interface.</span>
+    <span class="identifier">assert</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">normalized</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">nf</span><span class="special">::</span><span class="identifier">c</span><span class="special">&gt;(</span><span class="identifier">nfc</span><span class="special">));</span>
+<span class="special">}</span>
+</pre>
+<p>
+      </p>
+<p>
+        This is much more performant than the <code class="computeroutput"><span class="identifier">normalize</span><span class="special">()</span></code> function, because the output iterator used
+        by <code class="computeroutput"><span class="identifier">normalize</span><span class="special">()</span></code>
+        slows things down quite a bit &#8212; <code class="computeroutput"><span class="identifier">normalize</span><span class="special">()</span></code> can be factors slower than <code class="computeroutput"><span class="identifier">normalize_append</span><span class="special">()</span></code>.
+        <code class="computeroutput"><span class="identifier">normalize_append</span><span class="special">()</span></code>
+        will only append to UTF-8 and UTF-16 containers (UTF-32-encoded containers
+        are very uncommon, and so are not supported).
+      </p>
+<p>
         [<br> ote When you're working entirely within a UTF-8 encoding (on both
         sides of the normalization operation), the most efficient version of the
         normalization API is <code class="computeroutput"><span class="identifier">normalize_append</span><span class="special">(</span><span class="identifier">a</span><span class="special">,</span>
-        <span class="identifier">b</span><span class="special">)</span></code>,
-        where <code class="computeroutput"><span class="identifier">a</span></code> and <code class="computeroutput"><span class="identifier">b</span></code> are iterators over an underlying sequence
-        of UTF-8. You can find these interfaces in <a class="link" href="../../header/boost/text/normalize_string_hpp.html" title="Header &lt;boost/text/normalize_string.hpp&gt;">normalize_string.hpp</a>
-        if that's your use case. ]
+        <span class="identifier">b</span><span class="special">,</span> <span class="identifier">str</span><span class="special">)</span></code>, where
+        <code class="computeroutput"><span class="identifier">a</span></code> and <code class="computeroutput"><span class="identifier">b</span></code>
+        are iterators over an underlying sequence of UTF-8. ]
+      </p>
+<h5>
+<a name="boost_text__proposed_.the_unicode_layer.encoding_and_normalization.h10"></a>
+        <span class="phrase"><a name="boost_text__proposed_.the_unicode_layer.encoding_and_normalization.container_modifying_normalization_api"></a></span><a class="link" href="encoding_and_normalization.html#boost_text__proposed_.the_unicode_layer.encoding_and_normalization.container_modifying_normalization_api">Container-Modifying
+        Normalization API</a>
+      </h5>
+<p>
+        If you need to insert text into a <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span></code>
+        or other STL-compatible container, you can use the erase/insert/replace API,
+        found in <a class="link" href="../../header/boost/text/normalize_algorithm_hpp.html" title="Header &lt;boost/text/normalize_algorithm.hpp&gt;">normalize_algorithm.hpp</a>:
+      </p>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem">
+            <code class="computeroutput"><a class="link" href="../../boost/text/v1/normalize_erase.html" title="Function template normalize_erase">normalize_erase()</a></code>
+          </li>
+<li class="listitem">
+            <code class="computeroutput"><a class="link" href="../../boost/text/v1/normalize_insert_idm19133.html" title="Function template normalize_insert">normalize_insert()</a></code>
+          </li>
+<li class="listitem">
+            <code class="computeroutput"><a class="link" href="../../boost/text/v1/normalize_replace.html" title="Function template normalize_replace">normalize_replace()</a></code>
+          </li>
+</ul></div>
+<p>
+        There are iterator and range overloads of each. Each one:
+      </p>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem">
+            normalizes the inserted text (if text is being inserted);
+          </li>
+<li class="listitem">
+            places the inserted text in <a href="https://unicode.org/reports/tr15/#Stream_Safe_Text_Format" target="_top">Stream-Safe
+            Format</a> (if text is being inserted);
+          </li>
+<li class="listitem">
+            performs the erase/insert/replace operation on the string;
+          </li>
+<li class="listitem">
+            ensures that the result is in <a href="https://unicode.org/reports/tr15/#Stream_Safe_Text_Format" target="_top">Stream-Safe
+            Format</a> (if text is being erased); and
+          </li>
+<li class="listitem">
+            normalizes the code points on either side of the affected subsequence
+            within the string.
+          </li>
+</ul></div>
+<p>
+        This last step is necessary because insertions and erasures may create situations
+        in which code points which may combine are now next to each other, when they
+        were not before.
+      </p>
+<p>
+        This API is like the <code class="computeroutput"><span class="identifier">normalize_append</span><span class="special">()</span></code> overloads in that it may operate on UTF-8
+        or UTF-16 containers, and deduces the UTF from the size of the mutated container's
+        <code class="computeroutput"><span class="identifier">value_type</span></code>.
       </p>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>

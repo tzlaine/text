@@ -18,10 +18,20 @@
 <a name="boost_text__proposed_.configuration"></a><a class="link" href="configuration.html" title="Configuration">Configuration</a>
 </h2></div></div></div>
 <p>
-      You can define <code class="computeroutput"><a class="link" href="../BOOST_TEXT_STRING_idm17146.html" title="Macro BOOST_TEXT_STRING_INSERT_MAX">BOOST_TEXT_STRING_INSERT_MAX</a></code>
-      to be the size in bytes that you want as the limit on the size of <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code>
-      and <code class="computeroutput"><a class="link" href="../boost/text/rope.html" title="Struct rope">rope</a></code>
+      You can define <code class="computeroutput"><a class="link" href="../BOOST_TEXT_STRING_idm18091.html" title="Macro BOOST_TEXT_STRING_INSERT_MAX">BOOST_TEXT_STRING_INSERT_MAX</a></code>
+      to be the size in bytes that you want as the limit on the size of <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope.html" title="Type definition unencoded_rope">unencoded_rope</a></code>
+      and <code class="computeroutput"><a class="link" href="../boost/text/rope.html" title="Type definition rope">rope</a></code>
       nodes when doing in-place insertions.
+    </p>
+<p>
+      Boost.Text will automatically use concepts to constrain templates when building
+      in C++20 mode, if the compiler defines <code class="computeroutput"><span class="identifier">__cpp_lib_concepts</span></code>.
+      To disable the use of concepts, define <code class="computeroutput">BOOST_TEXT_DISABLE_CONCEPTS</code>.
+    </p>
+<p>
+      Boost.Text will automatically use coroutines when building in C++20 mode, if
+      the compiler defines <code class="computeroutput"><span class="identifier">__cpp_coroutines</span></code>.
+      To disable the use of coroutines, define <code class="computeroutput">BOOST_TEXT_DISABLE_COROUTINES</code>.
     </p>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>

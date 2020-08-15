@@ -1,0 +1,236 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Struct template basic_rope_view</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="up" href="../../header/boost/text/rope_view_hpp.html" title="Header &lt;boost/text/rope_view.hpp&gt;">
+<link rel="prev" href="../../header/boost/text/rope_view_hpp.html" title="Header &lt;boost/text/rope_view.hpp&gt;">
+<link rel="next" href="collation_sort_ke_idm20708.html" title="Function template collation_sort_key">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="../../header/boost/text/rope_view_hpp.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/rope_view_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="collation_sort_ke_idm20708.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="refentry">
+<a name="boost.text.basic_rope_view"></a><div class="titlepage"></div>
+<div class="refnamediv">
+<h2><span class="refentrytitle">Struct template basic_rope_view</span></h2>
+<p>boost::text::basic_rope_view</p>
+</div>
+<h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
+<div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="comment">// In header: &lt;<a class="link" href="../../header/boost/text/rope_view_hpp.html" title="Header &lt;boost/text/rope_view.hpp&gt;">boost/text/rope_view.hpp</a>&gt;
+
+</span><span class="keyword">template</span><span class="special">&lt;</span><span class="identifier">nf</span> Normalization<span class="special">,</span> <span class="keyword">typename</span> Char<span class="special">,</span> <span class="keyword">typename</span> String<span class="special">&gt;</span> 
+<span class="keyword">struct</span> <a class="link" href="basic_rope_view.html" title="Struct template basic_rope_view">basic_rope_view</a> <span class="special">{</span>
+  <span class="comment">// <a class="link" href="basic_rope_view.html#boost.text.basic_rope_viewtypes">types</a></span>
+  <span class="keyword">typedef</span> <span class="identifier">Char</span>                                           <a class="link" href="basic_rope_view.html#boost.text.basic_rope_view.char_type"><span class="identifier">char_type</span></a><span class="special">;</span>             
+  <span class="keyword">typedef</span> <span class="identifier">String</span>                                         <a class="link" href="basic_rope_view.html#boost.text.basic_rope_view.string"><span class="identifier">string</span></a><span class="special">;</span>                
+  <span class="keyword">typedef</span> <a class="link" href="basic_unencoded_rope_view.html" title="Struct template basic_unencoded_rope_view">basic_unencoded_rope_view</a><span class="special">&lt;</span> <span class="identifier">char_type</span><span class="special">,</span> <span class="identifier">string</span> <span class="special">&gt;</span> <a class="link" href="basic_rope_view.html#boost.text.basic_rope_view.unencoded_rope_view"><span class="identifier">unencoded_rope_view</span></a><span class="special">;</span>   
+  <span class="keyword">typedef</span> <a class="link" href="basic_text_view.html" title="Struct template basic_text_view">basic_text_view</a><span class="special">&lt;</span> <span class="identifier">normalization</span><span class="special">,</span> <span class="identifier">char_type</span> <span class="special">&gt;</span>    <a class="link" href="basic_rope_view.html#boost.text.basic_rope_view.text_view"><span class="identifier">text_view</span></a><span class="special">;</span>             
+  <span class="keyword">typedef</span> <a class="link" href="basic_text.html" title="Struct template basic_text">basic_text</a><span class="special">&lt;</span> <span class="identifier">normalization</span><span class="special">,</span> <span class="identifier">char_type</span><span class="special">,</span> <span class="identifier">string</span> <span class="special">&gt;</span> <a class="link" href="basic_rope_view.html#boost.text.basic_rope_view.text"><span class="identifier">text</span></a><span class="special">;</span>                  
+  <span class="keyword">typedef</span> <span class="emphasis"><em><span class="identifier">unspecified</span></em></span>                                    <a name="boost.text.basic_rope_view.value_type"></a><span class="identifier">value_type</span><span class="special">;</span>            
+  <span class="keyword">typedef</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span>                                    <a name="boost.text.basic_rope_view.size_type"></a><span class="identifier">size_type</span><span class="special">;</span>             
+  <span class="keyword">typedef</span> <span class="emphasis"><em><span class="identifier">unspecified</span></em></span>                                    <a name="boost.text.basic_rope_view.iterator"></a><span class="identifier">iterator</span><span class="special">;</span>              
+  <span class="keyword">typedef</span> <span class="identifier">iterator</span>                                       <a name="boost.text.basic_rope_view.const_iterator"></a><span class="identifier">const_iterator</span><span class="special">;</span>        
+  <span class="keyword">typedef</span> <span class="identifier">stl_interfaces</span><span class="special">::</span><span class="identifier">reverse_iterator</span><span class="special">&lt;</span> <span class="identifier">iterator</span> <span class="special">&gt;</span>   <a name="boost.text.basic_rope_view.reverse_iterator"></a><span class="identifier">reverse_iterator</span><span class="special">;</span>      
+  <span class="keyword">typedef</span> <span class="identifier">reverse_iterator</span>                               <a name="boost.text.basic_rope_view.const_reverse_iterator"></a><span class="identifier">const_reverse_iterator</span><span class="special">;</span>
+  <span class="keyword">typedef</span> <span class="emphasis"><em><span class="identifier">unspecified</span></em></span>                                    <a name="boost.text.basic_rope_view.rope_iterator"></a><span class="identifier">rope_iterator</span><span class="special">;</span>         
+  <span class="keyword">typedef</span> <span class="emphasis"><em><span class="identifier">unspecified</span></em></span>                                    <a name="boost.text.basic_rope_view.const_rope_iterator"></a><span class="identifier">const_rope_iterator</span><span class="special">;</span>   
+
+  <span class="comment">// <a class="link" href="basic_rope_view.html#boost.text.basic_rope_viewconstruct-copy-destruct">construct/copy/destruct</a></span>
+  <a class="link" href="basic_rope_view.html#idm20627-bb"><span class="identifier">basic_rope_view</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <a class="link" href="basic_rope_view.html#idm20630-bb"><span class="identifier">basic_rope_view</span></a><span class="special">(</span><span class="identifier">text</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <a class="link" href="basic_rope_view.html#idm20638-bb"><span class="identifier">basic_rope_view</span></a><span class="special">(</span><span class="identifier">text</span> <span class="special">&amp;&amp;</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="basic_rope_view.html#idm20644-bb"><span class="identifier">basic_rope_view</span></a><span class="special">(</span><span class="identifier">text_view</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <a class="link" href="basic_rope_view.html#idm20652-bb"><span class="identifier">basic_rope_view</span></a><span class="special">(</span><span class="identifier">const_rope_iterator</span><span class="special">,</span> <span class="identifier">const_rope_iterator</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <a class="link" href="basic_rope_view.html" title="Struct template basic_rope_view">basic_rope_view</a> <span class="special">&amp;</span> <a class="link" href="basic_rope_view.html#idm20665-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><span class="identifier">text</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <a class="link" href="basic_rope_view.html" title="Struct template basic_rope_view">basic_rope_view</a> <span class="special">&amp;</span> <a class="link" href="basic_rope_view.html#idm20673-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><span class="identifier">text</span> <span class="special">&amp;&amp;</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="basic_rope_view.html" title="Struct template basic_rope_view">basic_rope_view</a> <span class="special">&amp;</span> <a class="link" href="basic_rope_view.html#idm20681-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><span class="identifier">text_view</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+
+  <span class="comment">// <a class="link" href="basic_rope_view.html#idm20587-bb">public member functions</a></span>
+   <a class="link" href="basic_rope_view.html#idm20588-bb"><span class="identifier">BOOST_TEXT_STATIC_ASSERT_NORMALIZATION</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">const_iterator</span> <a class="link" href="basic_rope_view.html#idm20590-bb"><span class="identifier">begin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_iterator</span> <a class="link" href="basic_rope_view.html#idm20592-bb"><span class="identifier">end</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_iterator</span> <a class="link" href="basic_rope_view.html#idm20594-bb"><span class="identifier">cbegin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_iterator</span> <a class="link" href="basic_rope_view.html#idm20596-bb"><span class="identifier">cend</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_reverse_iterator</span> <a class="link" href="basic_rope_view.html#idm20598-bb"><span class="identifier">rbegin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_reverse_iterator</span> <a class="link" href="basic_rope_view.html#idm20600-bb"><span class="identifier">rend</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_reverse_iterator</span> <a class="link" href="basic_rope_view.html#idm20602-bb"><span class="identifier">crbegin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_reverse_iterator</span> <a class="link" href="basic_rope_view.html#idm20604-bb"><span class="identifier">crend</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">bool</span> <a class="link" href="basic_rope_view.html#idm20606-bb"><span class="identifier">empty</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">size_type</span> <a class="link" href="basic_rope_view.html#idm20608-bb"><span class="identifier">storage_code_units</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">size_type</span> <a class="link" href="basic_rope_view.html#idm20613-bb"><span class="identifier">distance</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="basic_rope_view.html#idm20618-bb"><span class="identifier">swap</span></a><span class="special">(</span><a class="link" href="basic_rope_view.html" title="Struct template basic_rope_view">basic_rope_view</a> <span class="special">&amp;</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+
+  <span class="comment">// <a class="link" href="basic_rope_view.html#idm20689-bb">friend functions</a></span>
+  <span class="keyword">friend</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span> <a class="link" href="basic_rope_view.html#idm20690-bb"><span class="keyword">operator</span><span class="special">&lt;&lt;</span></a><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span><span class="special">,</span> <a class="link" href="basic_rope_view.html" title="Struct template basic_rope_view">basic_rope_view</a><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">friend</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">wostream</span> <span class="special">&amp;</span> <a class="link" href="basic_rope_view.html#idm20699-bb"><span class="keyword">operator</span><span class="special">&lt;&lt;</span></a><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">wostream</span> <span class="special">&amp;</span><span class="special">,</span> <a class="link" href="basic_rope_view.html" title="Struct template basic_rope_view">basic_rope_view</a><span class="special">)</span><span class="special">;</span>
+
+  <span class="comment">// <a class="link" href="basic_rope_view.html#boost.text.basic_rope_viewpublic-data-members">public data members</a></span>
+  <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="identifier">nf</span> <a class="link" href="basic_rope_view.html#boost.text.basic_rope_view.normalization"><span class="identifier">normalization</span></a><span class="special">;</span>
+  <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="identifier">format</span> <a class="link" href="basic_rope_view.html#boost.text.basic_rope_view.utf_format"><span class="identifier">utf_format</span></a><span class="special">;</span>
+<span class="special">}</span><span class="special">;</span></pre></div>
+<div class="refsect1">
+<a name="idm32785"></a><h2>Description</h2>
+<p>A reference to a substring of a <code class="computeroutput"><a class="link" href="basic_rope.html" title="Struct template basic_rope">basic_rope</a></code>, <code class="computeroutput"><a class="link" href="basic_text.html" title="Struct template basic_text">basic_text</a></code>, or <code class="computeroutput"><a class="link" href="basic_text_view.html" title="Struct template basic_text_view">basic_text_view</a></code>. The <code class="computeroutput">String</code> template parameter refers to the type used in a <code class="computeroutput"><a class="link" href="basic_rope.html" title="Struct template basic_rope">basic_rope</a></code> to which this view may refer. It is otherwise unused. </p>
+<div class="refsect2">
+<a name="idm32797"></a><h3>
+<a name="boost.text.basic_rope_viewtypes"></a><code class="computeroutput">basic_rope_view</code> 
+        public
+       types</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem">
+<p>
+<span class="keyword">typedef</span> <span class="identifier">Char</span> <a name="boost.text.basic_rope_view.char_type"></a><span class="identifier">char_type</span><span class="special">;</span></p>
+<p>The type of code unit used in the underlying storage to which this view refers. </p>
+</li>
+<li class="listitem">
+<p>
+<span class="keyword">typedef</span> <span class="identifier">String</span> <a name="boost.text.basic_rope_view.string"></a><span class="identifier">string</span><span class="special">;</span></p>
+<p>The type of the container used in the underlying storage of <code class="computeroutput"><a class="link" href="basic_rope.html" title="Struct template basic_rope">basic_rope</a>&lt;Normalization, Char, String&gt;</code>. </p>
+</li>
+<li class="listitem">
+<p>
+<span class="keyword">typedef</span> <a class="link" href="basic_unencoded_rope_view.html" title="Struct template basic_unencoded_rope_view">basic_unencoded_rope_view</a><span class="special">&lt;</span> <span class="identifier">char_type</span><span class="special">,</span> <span class="identifier">string</span> <span class="special">&gt;</span> <a name="boost.text.basic_rope_view.unencoded_rope_view"></a><span class="identifier">unencoded_rope_view</span><span class="special">;</span></p>
+<p>A specialization of <code class="computeroutput"><a class="link" href="basic_unencoded_rope_view.html" title="Struct template basic_unencoded_rope_view">basic_unencoded_rope_view</a></code> with the same <code class="computeroutput">char_type</code> and <code class="computeroutput">string</code>. </p>
+</li>
+<li class="listitem">
+<p>
+<span class="keyword">typedef</span> <a class="link" href="basic_text_view.html" title="Struct template basic_text_view">basic_text_view</a><span class="special">&lt;</span> <span class="identifier">normalization</span><span class="special">,</span> <span class="identifier">char_type</span> <span class="special">&gt;</span> <a name="boost.text.basic_rope_view.text_view"></a><span class="identifier">text_view</span><span class="special">;</span></p>
+<p>A specialization of <code class="computeroutput"><a class="link" href="basic_text_view.html" title="Struct template basic_text_view">basic_text_view</a></code> with the same <code class="computeroutput">normalization</code>, <code class="computeroutput">char_type</code>, and <code class="computeroutput">string</code>. </p>
+</li>
+<li class="listitem">
+<p>
+<span class="keyword">typedef</span> <a class="link" href="basic_text.html" title="Struct template basic_text">basic_text</a><span class="special">&lt;</span> <span class="identifier">normalization</span><span class="special">,</span> <span class="identifier">char_type</span><span class="special">,</span> <span class="identifier">string</span> <span class="special">&gt;</span> <a name="boost.text.basic_rope_view.text"></a><span class="identifier">text</span><span class="special">;</span></p>
+<p>A specialization of <code class="computeroutput"><a class="link" href="basic_text.html" title="Struct template basic_text">basic_text</a></code> with the same <code class="computeroutput">normalization</code>, <code class="computeroutput">char_type</code>, and <code class="computeroutput">string</code>. </p>
+</li>
+</ol></div>
+</div>
+<div class="refsect2">
+<a name="idm32875"></a><h3>
+<a name="boost.text.basic_rope_viewconstruct-copy-destruct"></a><code class="computeroutput">basic_rope_view</code> 
+        public
+       construct/copy/destruct</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem">
+<pre class="literallayout"><a name="idm20627-bb"></a><span class="identifier">basic_rope_view</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>Default ctor. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a name="idm20630-bb"></a><span class="identifier">basic_rope_view</span><span class="special">(</span><span class="identifier">text</span> <span class="keyword">const</span> <span class="special">&amp;</span> t<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>Constructs a <code class="computeroutput"><code class="computeroutput"><a class="link" href="basic_rope_view.html" title="Struct template basic_rope_view">basic_rope_view</a></code></code> from a <code class="computeroutput">text</code>. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a name="idm20638-bb"></a><span class="identifier">basic_rope_view</span><span class="special">(</span><span class="identifier">text</span> <span class="special">&amp;&amp;</span><span class="special">)</span><span class="special">;</span></pre>
+<p>Disable construction from a temporary <code class="computeroutput">text</code>. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a name="idm20644-bb"></a><span class="identifier">basic_rope_view</span><span class="special">(</span><span class="identifier">text_view</span> tv<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>Constructs a <code class="computeroutput"><code class="computeroutput"><a class="link" href="basic_rope_view.html" title="Struct template basic_rope_view">basic_rope_view</a></code></code> from a <code class="computeroutput">text_view</code>. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a name="idm20652-bb"></a><span class="identifier">basic_rope_view</span><span class="special">(</span><span class="identifier">const_rope_iterator</span> first<span class="special">,</span> <span class="identifier">const_rope_iterator</span> last<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>Constructs a <code class="computeroutput"><code class="computeroutput"><a class="link" href="basic_rope_view.html" title="Struct template basic_rope_view">basic_rope_view</a></code></code> from a pair of <code class="computeroutput">const_rope_iterators</code>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0" class="variablelist compact">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term">Requires:</span></p></td>
+<td><p>boost::text::normalized&lt;normalization&gt;(first.base(), last.base()) </p></td>
+</tr></tbody>
+</table></div>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a class="link" href="basic_rope_view.html" title="Struct template basic_rope_view">basic_rope_view</a> <span class="special">&amp;</span> <a name="idm20665-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><span class="identifier">text</span> <span class="keyword">const</span> <span class="special">&amp;</span> t<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>Assignment from a <code class="computeroutput">text</code>. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a class="link" href="basic_rope_view.html" title="Struct template basic_rope_view">basic_rope_view</a> <span class="special">&amp;</span> <a name="idm20673-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><span class="identifier">text</span> <span class="special">&amp;&amp;</span><span class="special">)</span><span class="special">;</span></pre>
+<p>Disallow assignment from a <code class="computeroutput">text</code> rvalue. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a class="link" href="basic_rope_view.html" title="Struct template basic_rope_view">basic_rope_view</a> <span class="special">&amp;</span> <a name="idm20681-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><span class="identifier">text_view</span> tv<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>Assignment from a <code class="computeroutput">text_view</code>. </p>
+</li>
+</ol></div>
+</div>
+<div class="refsect2">
+<a name="idm33004"></a><h3>
+<a name="idm20587-bb"></a><code class="computeroutput">basic_rope_view</code> public member functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem"><pre class="literallayout"> <a name="idm20588-bb"></a><span class="identifier">BOOST_TEXT_STATIC_ASSERT_NORMALIZATION</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idm20590-bb"></a><span class="identifier">begin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idm20592-bb"></a><span class="identifier">end</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idm20594-bb"></a><span class="identifier">cbegin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idm20596-bb"></a><span class="identifier">cend</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_reverse_iterator</span> <a name="idm20598-bb"></a><span class="identifier">rbegin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_reverse_iterator</span> <a name="idm20600-bb"></a><span class="identifier">rend</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_reverse_iterator</span> <a name="idm20602-bb"></a><span class="identifier">crbegin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_reverse_iterator</span> <a name="idm20604-bb"></a><span class="identifier">crend</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">bool</span> <a name="idm20606-bb"></a><span class="identifier">empty</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem">
+<pre class="literallayout"><span class="identifier">size_type</span> <a name="idm20608-bb"></a><span class="identifier">storage_code_units</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>Returns the number of code units controlled by <code class="computeroutput">*this</code>, not including the null terminator. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="identifier">size_type</span> <a name="idm20613-bb"></a><span class="identifier">distance</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>Returns the number of graphemes in <code class="computeroutput">*this</code>. This operation is O(n). </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">void</span> <a name="idm20618-bb"></a><span class="identifier">swap</span><span class="special">(</span><a class="link" href="basic_rope_view.html" title="Struct template basic_rope_view">basic_rope_view</a> <span class="special">&amp;</span> rhs<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>Swaps <code class="computeroutput">*this</code> with <code class="computeroutput">rhs</code>. </p>
+</li>
+</ol></div>
+</div>
+<div class="refsect2">
+<a name="idm33157"></a><h3>
+<a name="idm20689-bb"></a><code class="computeroutput">basic_rope_view</code> friend functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">friend</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span> <a name="idm20690-bb"></a><span class="keyword">operator</span><span class="special">&lt;&lt;</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span> os<span class="special">,</span> <a class="link" href="basic_rope_view.html" title="Struct template basic_rope_view">basic_rope_view</a> rv<span class="special">)</span><span class="special">;</span></pre>
+<p>Stream inserter; performs formatted output, in UTF-8 encoding. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">friend</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">wostream</span> <span class="special">&amp;</span> <a name="idm20699-bb"></a><span class="keyword">operator</span><span class="special">&lt;&lt;</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">wostream</span> <span class="special">&amp;</span> os<span class="special">,</span> <a class="link" href="basic_rope_view.html" title="Struct template basic_rope_view">basic_rope_view</a> rv<span class="special">)</span><span class="special">;</span></pre>
+<p>Stream inserter; performs formatted output, in UTF-16 encoding. Defined on Windows only. </p>
+</li>
+</ol></div>
+</div>
+<div class="refsect2">
+<a name="idm33204"></a><h3>
+<a name="boost.text.basic_rope_viewpublic-data-members"></a><code class="computeroutput">basic_rope_view</code> 
+        public
+       public data members</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="identifier">nf</span> <a name="boost.text.basic_rope_view.normalization"></a><span class="identifier">normalization</span><span class="special">;</span></pre>
+<p>The normalization form used in this <code class="computeroutput"><a class="link" href="basic_rope_view.html" title="Struct template basic_rope_view">basic_rope_view</a></code>. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="identifier">format</span> <a name="boost.text.basic_rope_view.utf_format"></a><span class="identifier">utf_format</span><span class="special">;</span></pre>
+<p>The UTF format used in the underlying storage. </p>
+</li>
+</ol></div>
+</div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2018 T. Zachary Laine<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="../../header/boost/text/rope_view_hpp.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/rope_view_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="collation_sort_ke_idm20708.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

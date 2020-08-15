@@ -37,12 +37,13 @@
       methods (smaller is better). The input was around half a megabyte of text from
       Wikipedia. "Iterators" is using <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">copy</span></code> from
       <code class="computeroutput"><a class="link" href="../boost/text/utf_8_to_16_iterator.html" title="Struct template utf_8_to_16_iterator">utf_8_to_16_iterator</a></code>
-      to a pointer; "Algorithm std::back_inserter" is using <span class="underline">tc_8_to_16</span>
-      in the SIMD code path, and outputting to a <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">back_insert_iterator</span></code>;
-      "Algorithm using SIMD" is using <span class="underline">tc_8_to_16</span>
-      from pointer to pointer in the SIMD-using code path; "Algorithm using
-      SIMD" is using <span class="underline">tc_8_to_16</span> from pointer
-      to pointer in the non-SIMD code path; and "ICU" is is using <code class="computeroutput"><span class="identifier">UnicodeString</span><span class="special">::</span><span class="identifier">fromUTF8</span><span class="special">()</span></code>.
+      to a pointer; "Algorithm std::back_inserter" is using <code class="computeroutput"><a class="link" href="../boost/text/v1/transcode_to_utf1_idm22630.html" title="Function template transcode_to_utf16">transcode_to_utf16()</a></code> in the SIMD code path, and
+      outputting to a <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">back_insert_iterator</span></code>; "Algorithm using
+      SIMD" is using <code class="computeroutput"><a class="link" href="../boost/text/v1/transcode_to_utf1_idm22630.html" title="Function template transcode_to_utf16">transcode_to_utf16()</a></code>
+      from pointer to pointer in the SIMD-using code path; "Algorithm no SIMD"
+      is using <code class="computeroutput"><a class="link" href="../boost/text/v1/transcode_to_utf1_idm22630.html" title="Function template transcode_to_utf16">transcode_to_utf16()</a></code>
+      from pointer to pointer in the non-SIMD code path; and "ICU" is is
+      using <code class="computeroutput"><span class="identifier">UnicodeString</span><span class="special">::</span><span class="identifier">fromUTF8</span><span class="special">()</span></code>.
     </p>
 <p>
       <span class="inlinemediaobject"><object type="image/svg+xml" data="../../../doc/utf_8_to_16_perf.svg" width="500" height="150"></object></span>
@@ -113,16 +114,16 @@
       <span class="phrase"><a name="boost_text__proposed_.performance_considerations.nfc"></a></span><a class="link" href="performance_considerations.html#boost_text__proposed_.performance_considerations.nfc">NFC</a>
     </h4>
 <p>
-      Here are the relative timings NFC normalization of UTF-8 strings (smaller is
-      better). The input was around half a megabyte of text from Wikipedia. "Algorithm
-      with back-inserter" is using <code class="computeroutput"><span class="identifier">normalize_to_nfc</span><span class="special">(</span><span class="identifier">as_utf32</span><span class="special">(</span><span class="identifier">input</span><span class="special">),</span>
+      Here are the relative timings for NFC normalization of UTF-8 strings (smaller
+      is better). The input was around half a megabyte of text from Wikipedia. "Algorithm
+      with back-inserter" is using <code class="computeroutput"><span class="identifier">normalize</span><span class="special">&lt;</span><span class="identifier">nf</span><span class="special">::</span><span class="identifier">c</span><span class="special">&gt;(</span><span class="identifier">as_utf32</span><span class="special">(</span><span class="identifier">input</span><span class="special">),</span>
       <span class="identifier">utf_32_to_8_back_inserter</span><span class="special">(</span><span class="identifier">output</span><span class="special">))</span></code>
       -- this is the slowest code path, since it uses a back-inserter; "String
-      append" uses <code class="computeroutput"><span class="identifier">normalize_to_fcc_append_utf8</span><span class="special">()</span></code>, with pointers used for input and output;
-      "ICU" is the UTF-8-specific normalization algorithm from ICU; and
-      "ICU UTF-16" is the UTF-16 normalization algorithm from ICU. "ICU
-      UTF-16" normalizes in UTF-16, not UTF-8; it is shown here because it is
-      the fastest code path for ICU.
+      append" uses <code class="computeroutput"><span class="identifier">normalize_append</span><span class="special">&lt;</span><span class="identifier">nf</span><span class="special">::</span><span class="identifier">fcc</span><span class="special">&gt;()</span></code>,
+      with pointers used for input and output; "ICU" is the UTF-8-specific
+      normalization algorithm from ICU; and "ICU UTF-16" is the UTF-16
+      normalization algorithm from ICU. "ICU UTF-16" normalizes in UTF-16,
+      not UTF-8; it is shown here because it is the fastest code path for ICU.
     </p>
 <p>
       These charts represent four scenarios: half normalize European languages (English
@@ -245,7 +246,7 @@
     </h4>
 <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
           Using atomic operations for rope ref counts does not seem to incur much
-          cost. In perf tests, copying a <code class="computeroutput"><a class="link" href="../boost/text/rope.html" title="Struct rope">rope</a></code> is 8ns with non-atomic
+          cost. In perf tests, copying a <code class="computeroutput"><a class="link" href="../boost/text/rope.html" title="Type definition rope">rope</a></code> is 8ns with non-atomic
           ints, vs. 9-10ns with atomic ints. Comparison was done on MacOS.
         </li></ul></div>
 </div>

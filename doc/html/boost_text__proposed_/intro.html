@@ -34,31 +34,18 @@
       <span class="phrase"><a name="boost_text__proposed_.intro.features"></a></span><a class="link" href="intro.html#boost_text__proposed_.intro.features">Features</a>
     </h4>
 <p>
-      - Iterators converting UTF-8 to and from UTF-16 and UTF-32.
+      - Iterators, views, and algorithms that convert among UTF-8, UTF-16, and UTF-32.
     </p>
 <p>
       - An implementation of the Unicode algorithms for dealing with encodings, normalization,
-      etc. It is not necessary to use any of Boost.Text's string types to make use
-      of the Unicode algorithms.
+      text segmentation, etc.
     </p>
 <p>
       - A family of types for use in Unicode-aware text processing. This includes
-      <code class="computeroutput"><a class="link" href="../boost/text/text.html" title="Struct text">text</a></code>,
-      <code class="computeroutput"><a class="link" href="../boost/text/text_view.html" title="Struct text_view">text_view</a></code>,
-      <code class="computeroutput"><a class="link" href="../boost/text/rope.html" title="Struct rope">rope</a></code>,
-      and <code class="computeroutput"><a class="link" href="../boost/text/rope_view.html" title="Struct rope_view">rope_view</a></code>.
-    </p>
-<p>
-      - A family of types to analogous to <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span></code>,
-      to show the integration of strings with Unicode-aware text types (these are
-      required simply because I can't hack such integration support into <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span></code>).
-      This includes <code class="computeroutput">std::string</code>,
-      <code class="computeroutput">std::string_view</code>,
-      <span class="underline">rsv</span>, <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code>, and <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a></code>.
-    </p>
-<p>
-      - Substrings of each of the string-like types above can be had with no copies
-      or allocations using a Python-like slicing interface.
+      <code class="computeroutput"><a class="link" href="../boost/text/text.html" title="Type definition text">text</a></code>,
+      <code class="computeroutput"><a class="link" href="../boost/text/text_view.html" title="Type definition text_view">text_view</a></code>,
+      <code class="computeroutput"><a class="link" href="../boost/text/rope.html" title="Type definition rope">rope</a></code>,
+      and <code class="computeroutput"><a class="link" href="../boost/text/rope_view.html" title="Type definition rope_view">rope_view</a></code>.
     </p>
 <p>
       - Code simplicity -- none of the above string or text types is a template.

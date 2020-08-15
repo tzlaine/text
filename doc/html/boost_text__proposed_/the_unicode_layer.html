@@ -36,15 +36,16 @@
       <span class="emphasis"><em><span class="bold"><strong>-- Everyone</strong></span></em></span>
     </p>
 <p>
-      Unicode is hard to implement; the algorithms are crazy. Even as just a user
-      of Unicode, it can be difficult to understand how one is supposed to use Unicode
-      correctly. The text layer types do much of what is described in this section,
-      but nicely out of view. Unless you need to use many different normalization
-      and/or encoding forms, feel free to skip those portions of this section.
+      Unicode is hard to implement; the algorithms are crazy. Even as a user of Unicode,
+      it can be difficult to understand how one is supposed to use Unicode correctly.
+      The <code class="computeroutput"><a class="link" href="../boost/text/text.html" title="Type definition text">text</a></code>
+      layer types do much of what is described in this section, but nicely out of
+      view. Unless you need to use many different normalization and/or encoding forms,
+      feel free to skip those portions of this section.
     </p>
 <p>
       A primary design goal of the Unicode layer of Boost.Text is usability. To that
-      end, the data model is a simple as possible.
+      end, the data model is as simple as possible.
     </p>
 <h4>
 <a name="boost_text__proposed_.the_unicode_layer.h0"></a>
@@ -56,27 +57,27 @@
       A <span class="emphasis"><em>code unit</em></span> is the lowest-level datum-type in your Unicode
       data. Examples are a <code class="computeroutput"><span class="keyword">char</span></code> in UTF-8
       and a <code class="computeroutput"><span class="identifier">uint32_t</span></code> in UTF-32. A
-      <span class="emphasis"><em>code point</em></span> is a 32-bit unsigned value that represents
+      <span class="emphasis"><em>code point</em></span> is a 32-bit integral value that represents
       a single Unicode value. Examples are U+0041 "A" "LATIN CAPITAL
       LETTER A" and U+0308 "&#168;" "COMBINING DIAERESIS".
     </p>
 <p>
       There are four different Unicode normalization forms. Normalization is necessary
       because Unicode requires that certain combinations of code points be considered
-      identical. For instance, the two code points U+0041 U+0308 appear like this:
-      "A&#776;", and the code point U+00C4 appears like this: "A&#776;".
-      Since these two sequences are not visually distinct, all the algorithms must
-      treat them as the same thing. Therefore, that <code class="computeroutput"><span class="identifier">u8</span><span class="string">"\U00000041\U00000308"</span> <span class="special">==</span>
+      identical. For instance, the two code points mentioned above, U+0041 U+0308,
+      appear like this: "A&#776;", and the code point U+00C4 appears like this:
+      "A&#776;". Since these two sequences are not visually distinct, all the
+      algorithms must treat them as the same thing. Therefore, <code class="computeroutput"><span class="identifier">u8</span><span class="string">"\U00000041\U00000308"</span> <span class="special">==</span>
       <span class="identifier">u8</span><span class="string">"\U000000C4"</span></code>
       must evaluate to <code class="computeroutput"><span class="keyword">true</span></code> for the
       purposes of Unicode. Normalizations exist to put strings of code points into
-      canonical forms.
+      canonical forms that can be bitwise compared.
     </p>
 <p>
       An <span class="emphasis"><em>extended grapheme cluster</em></span>, or just <span class="emphasis"><em>grapheme</em></span>,
       is a sequence of code points that appears to the end-user to be a single character.
-      For example, the code points from before (U+0041 U+0308) form a grapheme, since
-      they appear when rendered to be the single character "A&#776;".
+      For example, the code points (U+0041 U+0308) form a grapheme, since they appear
+      when rendered to be the single character "A&#776;".
     </p>
 <h4>
 <a name="boost_text__proposed_.the_unicode_layer.h1"></a>
@@ -116,8 +117,8 @@
       layer algorithms that take <a class="link" href="concepts.html#boost_text__proposed_.concepts.graphemerange">GraphemeRange</a>
       and <a class="link" href="concepts.html#boost_text__proposed_.concepts.graphemeiterator">GraphemeIterator</a>
       parameters. This provides convenient compatibility with the text layer types,
-      like <code class="computeroutput"><a class="link" href="../boost/text/text.html" title="Struct text">text</a></code>
-      and <code class="computeroutput"><a class="link" href="../boost/text/rope.html" title="Struct rope">rope</a></code>.
+      like <code class="computeroutput"><a class="link" href="../boost/text/text.html" title="Type definition text">text</a></code>
+      and <code class="computeroutput"><a class="link" href="../boost/text/rope.html" title="Type definition rope">rope</a></code>.
     </p>
 <h4>
 <a name="boost_text__proposed_.the_unicode_layer.h3"></a>
@@ -130,7 +131,7 @@
       the algorithms in this section may allocate memory. However, Boost.Text makes
       extensive use of <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">container</span><span class="special">::</span><span class="identifier">small_vector</span><span class="special">&lt;&gt;</span></code>s
       for these side buffers. The end result is that though these algorithms <span class="emphasis"><em>may</em></span>
-      allocate memory, in practice they seldom if ever do.
+      allocate memory, in practice they seldom do, if ever.
     </p>
 <h4>
 <a name="boost_text__proposed_.the_unicode_layer.h4"></a>
@@ -148,14 +149,14 @@
       it associates with code points. For instance, the word breaking algorithm is
       concerned with single quotes and double quotes, and so has a property for each,
       but other punctuation is spread out among its other properties. It has no property
-      that maps to something like "punctuation".
+      that maps to something like "punctuation" in a general sense.
     </p>
 <p>
       So if you want to know if a code point is whitespace or not, you might have
       to look it up on a Unicode reference website (and implement a function for
       yourself), or see if the whitespace code points covered by one of the Unicode
       algorithms fits your needs and use that algorithm's <code class="computeroutput"><span class="special">*</span><span class="identifier">_prop</span><span class="special">()</span></code> function
-      (e.g. <code class="computeroutput"><a class="link" href="../boost/text/word_prop.html" title="Function word_prop">word_prop</a></code>).
+      (e.g. <code class="computeroutput">word_prop</code>).
     </p>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>

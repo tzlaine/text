@@ -5,13 +5,13 @@
 <link rel="stylesheet" href="../../boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
 <link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
-<link rel="up" href="../../header/boost/text/segmented_vector_hpp.html" title="Header &lt;boost/text/segmented_vector.hpp&gt;">
-<link rel="prev" href="../../header/boost/text/segmented_vector_hpp.html" title="Header &lt;boost/text/segmented_vector.hpp&gt;">
-<link rel="next" href="../../header/boost/text/sentence_break_hpp.html" title="Header &lt;boost/text/sentence_break.hpp&gt;">
+<link rel="up" href="../../header/boost/text/segmented_vector_fwd_hpp.html" title="Header &lt;boost/text/segmented_vector_fwd.hpp&gt;">
+<link rel="prev" href="../../header/boost/text/segmented_vector_fwd_hpp.html" title="Header &lt;boost/text/segmented_vector_fwd.hpp&gt;">
+<link rel="next" href="../../header/boost/text/stream_safe_hpp.html" title="Header &lt;boost/text/stream_safe.hpp&gt;">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <div class="spirit-nav">
-<a accesskey="p" href="../../header/boost/text/segmented_vector_hpp.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/segmented_vector_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="../../header/boost/text/sentence_break_hpp.html"><img src="../../images/next.png" alt="Next"></a>
+<a accesskey="p" href="../../header/boost/text/segmented_vector_fwd_hpp.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/segmented_vector_fwd_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="../../header/boost/text/stream_safe_hpp.html"><img src="../../images/next.png" alt="Next"></a>
 </div>
 <div class="refentry">
 <a name="boost.text.segmented_vector"></a><div class="titlepage"></div>
@@ -20,70 +20,58 @@
 <p>boost::text::segmented_vector</p>
 </div>
 <h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
-<div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="comment">// In header: &lt;<a class="link" href="../../header/boost/text/segmented_vector_hpp.html" title="Header &lt;boost/text/segmented_vector.hpp&gt;">boost/text/segmented_vector.hpp</a>&gt;
+<div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="comment">// In header: &lt;<a class="link" href="../../header/boost/text/segmented_vector_fwd_hpp.html" title="Header &lt;boost/text/segmented_vector_fwd.hpp&gt;">boost/text/segmented_vector_fwd.hpp</a>&gt;
 
-</span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> T<span class="special">&gt;</span> 
+</span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> T<span class="special">,</span> <span class="keyword">typename</span> Segment<span class="special">&gt;</span> 
 <span class="keyword">struct</span> <a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> <span class="special">{</span>
-  <span class="comment">// types</span>
-  <span class="keyword">typedef</span> <span class="emphasis"><em><span class="identifier">unspecified</span></em></span>                                        <a name="boost.text.segmented_vector.iterator"></a><span class="identifier">iterator</span><span class="special">;</span>              
-  <span class="keyword">typedef</span> <span class="emphasis"><em><span class="identifier">unspecified</span></em></span>                                        <a name="boost.text.segmented_vector.const_iterator"></a><span class="identifier">const_iterator</span><span class="special">;</span>        
-  <span class="keyword">typedef</span> <span class="identifier">stl_interfaces</span><span class="special">::</span><span class="identifier">reverse_iterator</span><span class="special">&lt;</span> <span class="identifier">iterator</span> <span class="special">&gt;</span>       <a name="boost.text.segmented_vector.reverse_iterator"></a><span class="identifier">reverse_iterator</span><span class="special">;</span>      
-  <span class="keyword">typedef</span> <span class="identifier">stl_interfaces</span><span class="special">::</span><span class="identifier">reverse_iterator</span><span class="special">&lt;</span> <span class="identifier">const_iterator</span> <span class="special">&gt;</span> <a name="boost.text.segmented_vector.const_reverse_iterator"></a><span class="identifier">const_reverse_iterator</span><span class="special">;</span>
-  <span class="keyword">typedef</span> <span class="identifier">T</span>                                                  <a name="boost.text.segmented_vector.value_type"></a><span class="identifier">value_type</span><span class="special">;</span>            
-  <span class="keyword">typedef</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ptrdiff_t</span>                                     <a name="boost.text.segmented_vector.size_type"></a><span class="identifier">size_type</span><span class="special">;</span>             
-
   <span class="comment">// <a class="link" href="segmented_vector.html#boost.text.segmented_vectorconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <a class="link" href="segmented_vector.html#idm20696-bb"><span class="identifier">segmented_vector</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <a class="link" href="segmented_vector.html#idm20702-bb"><span class="identifier">segmented_vector</span></a><span class="special">(</span><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span> <span class="special">=</span> <span class="keyword">default</span><span class="special">;</span>
-  <a class="link" href="segmented_vector.html#idm20706-bb"><span class="identifier">segmented_vector</span></a><span class="special">(</span><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> <span class="special">&amp;&amp;</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Iter<span class="special">,</span> <span class="keyword">typename</span> Sentinel<span class="special">&gt;</span> <a class="link" href="segmented_vector.html#idm20710-bb"><span class="identifier">segmented_vector</span></a><span class="special">(</span><span class="identifier">Iter</span><span class="special">,</span> <span class="identifier">Sentinel</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="segmented_vector.html#idm20718-bb"><span class="identifier">segmented_vector</span></a><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">initializer_list</span><span class="special">&lt;</span> <span class="identifier">T</span> <span class="special">&gt;</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> <span class="special">&amp;</span> <a class="link" href="segmented_vector.html#idm20721-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span> <span class="special">=</span> <span class="keyword">default</span><span class="special">;</span>
-  <a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> <span class="special">&amp;</span> <a class="link" href="segmented_vector.html#idm20727-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> <span class="special">&amp;&amp;</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> <span class="special">&amp;</span> <a class="link" href="segmented_vector.html#idm20733-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">initializer_list</span><span class="special">&lt;</span> <span class="identifier">T</span> <span class="special">&gt;</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="segmented_vector.html#idm20975-bb"><span class="identifier">segmented_vector</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">explicit</span> <a class="link" href="segmented_vector.html#idm20982-bb"><span class="identifier">segmented_vector</span></a><span class="special">(</span><span class="identifier">size_type</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">explicit</span> <a class="link" href="segmented_vector.html#idm20985-bb"><span class="identifier">segmented_vector</span></a><span class="special">(</span><span class="identifier">size_type</span><span class="special">,</span> <span class="identifier">T</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Iter<span class="special">,</span> <span class="keyword">typename</span> Sentinel<span class="special">&gt;</span> <a class="link" href="segmented_vector.html#idm20990-bb"><span class="identifier">segmented_vector</span></a><span class="special">(</span><span class="identifier">Iter</span><span class="special">,</span> <span class="identifier">Sentinel</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="segmented_vector.html#idm20998-bb"><span class="identifier">segmented_vector</span></a><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">initializer_list</span><span class="special">&lt;</span> <span class="identifier">T</span> <span class="special">&gt;</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="segmented_vector.html#idm21001-bb"><span class="identifier">segmented_vector</span></a><span class="special">(</span><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span> <span class="special">=</span> <span class="keyword">default</span><span class="special">;</span>
+  <a class="link" href="segmented_vector.html#idm21005-bb"><span class="identifier">segmented_vector</span></a><span class="special">(</span><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> <span class="special">&amp;&amp;</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> <span class="special">&amp;</span> <a class="link" href="segmented_vector.html#idm21009-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span> <span class="special">=</span> <span class="keyword">default</span><span class="special">;</span>
+  <a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> <span class="special">&amp;</span> <a class="link" href="segmented_vector.html#idm21015-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> <span class="special">&amp;&amp;</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="segmented_vector.html#idm21021-bb"><span class="special">~</span><span class="identifier">segmented_vector</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="segmented_vector.html#idm20513-bb">public member functions</a></span>
-  <span class="identifier">const_iterator</span> <a class="link" href="segmented_vector.html#idm20514-bb"><span class="identifier">begin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="identifier">const_iterator</span> <a class="link" href="segmented_vector.html#idm20516-bb"><span class="identifier">end</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="identifier">const_reverse_iterator</span> <a class="link" href="segmented_vector.html#idm20518-bb"><span class="identifier">rbegin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="identifier">const_reverse_iterator</span> <a class="link" href="segmented_vector.html#idm20520-bb"><span class="identifier">rend</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="keyword">bool</span> <a class="link" href="segmented_vector.html#idm20522-bb"><span class="identifier">empty</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="identifier">size_type</span> <a class="link" href="segmented_vector.html#idm20524-bb"><span class="identifier">size</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="keyword">const</span> <span class="identifier">T</span> <span class="special">&amp;</span> <a class="link" href="segmented_vector.html#idm20526-bb"><span class="keyword">operator</span><span class="special">[</span><span class="special">]</span></a><span class="special">(</span><span class="identifier">size_type</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="identifier">size_type</span> <a class="link" href="segmented_vector.html#idm20536-bb"><span class="identifier">max_size</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="keyword">int</span> <a class="link" href="segmented_vector.html#idm20541-bb"><span class="identifier">compare</span></a><span class="special">(</span><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="keyword">bool</span> <a class="link" href="segmented_vector.html#idm20548-bb"><span class="keyword">operator</span><span class="special">==</span></a><span class="special">(</span><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="keyword">bool</span> <a class="link" href="segmented_vector.html#idm20553-bb"><span class="keyword">operator</span><span class="special">!=</span></a><span class="special">(</span><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="keyword">bool</span> <a class="link" href="segmented_vector.html#idm20558-bb"><span class="keyword">operator</span><span class="special">&lt;</span></a><span class="special">(</span><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="keyword">bool</span> <a class="link" href="segmented_vector.html#idm20563-bb"><span class="keyword">operator</span><span class="special">&lt;=</span></a><span class="special">(</span><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="keyword">bool</span> <a class="link" href="segmented_vector.html#idm20568-bb"><span class="keyword">operator</span><span class="special">&gt;</span></a><span class="special">(</span><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="keyword">bool</span> <a class="link" href="segmented_vector.html#idm20573-bb"><span class="keyword">operator</span><span class="special">&gt;=</span></a><span class="special">(</span><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="keyword">bool</span> <a class="link" href="segmented_vector.html#idm20578-bb"><span class="identifier">equal_root</span></a><span class="special">(</span><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="keyword">void</span> <a class="link" href="segmented_vector.html#idm20586-bb"><span class="identifier">clear</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> <span class="special">&amp;</span> <a class="link" href="segmented_vector.html#idm20588-bb"><span class="identifier">push_back</span></a><span class="special">(</span><span class="identifier">T</span><span class="special">)</span><span class="special">;</span>
-  <span class="identifier">const_iterator</span> <a class="link" href="segmented_vector.html#idm20595-bb"><span class="identifier">insert</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">T</span><span class="special">)</span><span class="special">;</span>
-  <span class="identifier">const_iterator</span> <a class="link" href="segmented_vector.html#idm20603-bb"><span class="identifier">insert</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span> <span class="identifier">T</span> <span class="special">&gt;</span><span class="special">)</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="segmented_vector.html#idm20800-bb">public member functions</a></span>
+  <span class="identifier">const_iterator</span> <a class="link" href="segmented_vector.html#idm20801-bb"><span class="identifier">begin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_iterator</span> <a class="link" href="segmented_vector.html#idm20803-bb"><span class="identifier">end</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">size_type</span> <a class="link" href="segmented_vector.html#idm20805-bb"><span class="identifier">size</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">size_type</span> <a class="link" href="segmented_vector.html#idm20807-bb"><span class="identifier">max_size</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="segmented_vector.html#idm20809-bb"><span class="identifier">resize</span></a><span class="special">(</span><span class="identifier">size_type</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="segmented_vector.html#idm20813-bb"><span class="identifier">resize</span></a><span class="special">(</span><span class="identifier">size_type</span><span class="special">,</span> <span class="identifier">T</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Iter<span class="special">,</span> <span class="keyword">typename</span> Sentinel<span class="special">&gt;</span> <span class="keyword">void</span> <a class="link" href="segmented_vector.html#idm20819-bb"><span class="identifier">assign</span></a><span class="special">(</span><span class="identifier">Iter</span><span class="special">,</span> <span class="identifier">Sentinel</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Iter<span class="special">&gt;</span> <span class="keyword">void</span> <a class="link" href="segmented_vector.html#idm20828-bb"><span class="identifier">assign</span></a><span class="special">(</span><span class="identifier">size_type</span><span class="special">,</span> <span class="identifier">T</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span><span class="special">...</span> Args<span class="special">&gt;</span> <span class="identifier">const_reference</span> <a class="link" href="segmented_vector.html#idm20836-bb"><span class="identifier">emplace_front</span></a><span class="special">(</span><span class="identifier">Args</span> <span class="special">&amp;&amp;</span><span class="special">...</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span><span class="special">...</span> Args<span class="special">&gt;</span> <span class="identifier">const_reference</span> <a class="link" href="segmented_vector.html#idm20843-bb"><span class="identifier">emplace_back</span></a><span class="special">(</span><span class="identifier">Args</span> <span class="special">&amp;&amp;</span><span class="special">...</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span><span class="special">...</span> Args<span class="special">&gt;</span> 
+    <span class="identifier">const_iterator</span> <a class="link" href="segmented_vector.html#idm20850-bb"><span class="identifier">emplace</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">Args</span> <span class="special">&amp;&amp;</span><span class="special">...</span><span class="special">)</span><span class="special">;</span>
   <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Iter<span class="special">,</span> <span class="keyword">typename</span> Sentinel<span class="special">&gt;</span> 
-    <span class="identifier">const_iterator</span> <a class="link" href="segmented_vector.html#idm20611-bb"><span class="identifier">insert</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">Iter</span><span class="special">,</span> <span class="identifier">Sentinel</span><span class="special">)</span><span class="special">;</span>
-  <span class="identifier">const_iterator</span> <a class="link" href="segmented_vector.html#idm20624-bb"><span class="identifier">erase</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">)</span><span class="special">;</span>
-  <span class="identifier">const_iterator</span> <a class="link" href="segmented_vector.html#idm20633-bb"><span class="identifier">erase</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">const_iterator</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> <span class="special">&amp;</span> <a class="link" href="segmented_vector.html#idm20644-bb"><span class="identifier">replace</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">T</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> <span class="special">&amp;</span> <a class="link" href="segmented_vector.html#idm20656-bb"><span class="identifier">replace</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span> <span class="identifier">T</span> <span class="special">&gt;</span><span class="special">)</span><span class="special">;</span>
+    <span class="identifier">const_iterator</span> <a class="link" href="segmented_vector.html#idm20859-bb"><span class="identifier">insert</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">Iter</span><span class="special">,</span> <span class="identifier">Sentinel</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">const_iterator</span> <a class="link" href="segmented_vector.html#idm20870-bb"><span class="identifier">insert</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">segment_type</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">const_iterator</span> <a class="link" href="segmented_vector.html#idm20876-bb"><span class="identifier">erase</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">const_iterator</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="segmented_vector.html#idm20882-bb"><span class="identifier">swap</span></a><span class="special">(</span><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">bool</span> <a class="link" href="segmented_vector.html#idm20887-bb"><span class="identifier">equal_root</span></a><span class="special">(</span><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> <span class="special">&amp;</span> <a class="link" href="segmented_vector.html#idm20900-bb"><span class="identifier">replace</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">T</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> <span class="special">&amp;</span> <a class="link" href="segmented_vector.html#idm20920-bb"><span class="identifier">replace</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">segment_type</span><span class="special">)</span><span class="special">;</span>
   <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Iter<span class="special">,</span> <span class="keyword">typename</span> Sentinel<span class="special">&gt;</span> 
-    <a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> <span class="special">&amp;</span> <a class="link" href="segmented_vector.html#idm20670-bb"><span class="identifier">replace</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">Iter</span><span class="special">,</span> <span class="identifier">Sentinel</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">void</span> <a class="link" href="segmented_vector.html#idm20689-bb"><span class="identifier">swap</span></a><span class="special">(</span><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+    <a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> <span class="special">&amp;</span> <a class="link" href="segmented_vector.html#idm20940-bb"><span class="identifier">replace</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">Iter</span><span class="special">,</span> <span class="identifier">Sentinel</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Fn<span class="special">&gt;</span> <span class="keyword">void</span> <a class="link" href="segmented_vector.html#idm20964-bb"><span class="identifier">foreach_segment</span></a><span class="special">(</span><span class="identifier">Fn</span> <span class="special">&amp;&amp;</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="idm34465"></a><h2>Description</h2>
-<p>A sequence of T with discontiguous storage. This data strucutre is a generalization of <a class="link" href="unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a> to non-char sequences. </p>
+<a name="idm33824"></a><h2>Description</h2>
+<p>A sequence container of <code class="computeroutput">T</code> with discontiguous storage. Insertion and erasure are efficient at any position within the sequence, and copies of the entire container are extremely cheap. The elements are immutable. In order to "mutate" one, use the single-element overload of <code class="computeroutput">replace()</code>. </p>
 <div class="refsect2">
-<a name="idm34469"></a><h3>
+<a name="idm33829"></a><h3>
 <a name="boost.text.segmented_vectorconstruct-copy-destruct"></a><code class="computeroutput">segmented_vector</code> 
         public
        construct/copy/destruct</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
 <li class="listitem">
-<pre class="literallayout"><a name="idm20696-bb"></a><span class="identifier">segmented_vector</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<pre class="literallayout"><a name="idm20975-bb"></a><span class="identifier">segmented_vector</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
 <p>Default ctor.</p>
 <p>
 </p>
@@ -94,33 +82,52 @@
 </colgroup>
 <tbody><tr>
 <td><p><span class="term">Postconditions:</span></p></td>
-<td><p>size() == 0 &amp;&amp; begin() == end() </p></td>
+<td><p><code class="computeroutput">size() == 0 &amp;&amp; begin() == end()</code> </p></td>
 </tr></tbody>
 </table></div>
 </li>
-<li class="listitem"><pre class="literallayout"><a name="idm20702-bb"></a><span class="identifier">segmented_vector</span><span class="special">(</span><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> <span class="keyword">const</span> <span class="special">&amp;</span> rhs<span class="special">)</span> <span class="special">=</span> <span class="keyword">default</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><a name="idm20706-bb"></a><span class="identifier">segmented_vector</span><span class="special">(</span><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> <span class="special">&amp;&amp;</span> rhs<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">explicit</span> <a name="idm20982-bb"></a><span class="identifier">segmented_vector</span><span class="special">(</span><span class="identifier">size_type</span> n<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">explicit</span> <a name="idm20985-bb"></a><span class="identifier">segmented_vector</span><span class="special">(</span><span class="identifier">size_type</span> n<span class="special">,</span> <span class="identifier">T</span> <span class="keyword">const</span> <span class="special">&amp;</span> x<span class="special">)</span><span class="special">;</span></pre></li>
 <li class="listitem"><pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Iter<span class="special">,</span> <span class="keyword">typename</span> Sentinel<span class="special">&gt;</span> 
-  <a name="idm20710-bb"></a><span class="identifier">segmented_vector</span><span class="special">(</span><span class="identifier">Iter</span> first<span class="special">,</span> <span class="identifier">Sentinel</span> last<span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><a name="idm20718-bb"></a><span class="identifier">segmented_vector</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">initializer_list</span><span class="special">&lt;</span> <span class="identifier">T</span> <span class="special">&gt;</span> il<span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> <span class="special">&amp;</span> <a name="idm20721-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> <span class="keyword">const</span> <span class="special">&amp;</span> rhs<span class="special">)</span> <span class="special">=</span> <span class="keyword">default</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> <span class="special">&amp;</span> <a name="idm20727-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> <span class="special">&amp;&amp;</span> rhs<span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> <span class="special">&amp;</span> <a name="idm20733-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">initializer_list</span><span class="special">&lt;</span> <span class="identifier">T</span> <span class="special">&gt;</span> il<span class="special">)</span><span class="special">;</span></pre></li>
+  <a name="idm20990-bb"></a><span class="identifier">segmented_vector</span><span class="special">(</span><span class="identifier">Iter</span> first<span class="special">,</span> <span class="identifier">Sentinel</span> last<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idm20998-bb"></a><span class="identifier">segmented_vector</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">initializer_list</span><span class="special">&lt;</span> <span class="identifier">T</span> <span class="special">&gt;</span> il<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idm21001-bb"></a><span class="identifier">segmented_vector</span><span class="special">(</span><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span> <span class="special">=</span> <span class="keyword">default</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idm21005-bb"></a><span class="identifier">segmented_vector</span><span class="special">(</span><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> <span class="special">&amp;&amp;</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> <span class="special">&amp;</span> <a name="idm21009-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span> <span class="special">=</span> <span class="keyword">default</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> <span class="special">&amp;</span> <a name="idm21015-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> <span class="special">&amp;&amp;</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idm21021-bb"></a><span class="special">~</span><span class="identifier">segmented_vector</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
 </ol></div>
 </div>
 <div class="refsect2">
-<a name="idm34590"></a><h3>
-<a name="idm20513-bb"></a><code class="computeroutput">segmented_vector</code> public member functions</h3>
+<a name="idm33967"></a><h3>
+<a name="idm20800-bb"></a><code class="computeroutput">segmented_vector</code> public member functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idm20514-bb"></a><span class="identifier">begin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idm20516-bb"></a><span class="identifier">end</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="identifier">const_reverse_iterator</span> <a name="idm20518-bb"></a><span class="identifier">rbegin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="identifier">const_reverse_iterator</span> <a name="idm20520-bb"></a><span class="identifier">rend</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="keyword">bool</span> <a name="idm20522-bb"></a><span class="identifier">empty</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="identifier">size_type</span> <a name="idm20524-bb"></a><span class="identifier">size</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idm20801-bb"></a><span class="identifier">begin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idm20803-bb"></a><span class="identifier">end</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">size_type</span> <a name="idm20805-bb"></a><span class="identifier">size</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">size_type</span> <a name="idm20807-bb"></a><span class="identifier">max_size</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">void</span> <a name="idm20809-bb"></a><span class="identifier">resize</span><span class="special">(</span><span class="identifier">size_type</span> sz<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">void</span> <a name="idm20813-bb"></a><span class="identifier">resize</span><span class="special">(</span><span class="identifier">size_type</span> sz<span class="special">,</span> <span class="identifier">T</span> <span class="keyword">const</span> <span class="special">&amp;</span> x<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Iter<span class="special">,</span> <span class="keyword">typename</span> Sentinel<span class="special">&gt;</span> 
+  <span class="keyword">void</span> <a name="idm20819-bb"></a><span class="identifier">assign</span><span class="special">(</span><span class="identifier">Iter</span> first<span class="special">,</span> <span class="identifier">Sentinel</span> last<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Iter<span class="special">&gt;</span> <span class="keyword">void</span> <a name="idm20828-bb"></a><span class="identifier">assign</span><span class="special">(</span><span class="identifier">size_type</span> n<span class="special">,</span> <span class="identifier">T</span> <span class="keyword">const</span> <span class="special">&amp;</span> x<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span><span class="special">...</span> Args<span class="special">&gt;</span> <span class="identifier">const_reference</span> <a name="idm20836-bb"></a><span class="identifier">emplace_front</span><span class="special">(</span><span class="identifier">Args</span> <span class="special">&amp;&amp;</span><span class="special">...</span> args<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span><span class="special">...</span> Args<span class="special">&gt;</span> <span class="identifier">const_reference</span> <a name="idm20843-bb"></a><span class="identifier">emplace_back</span><span class="special">(</span><span class="identifier">Args</span> <span class="special">&amp;&amp;</span><span class="special">...</span> args<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span><span class="special">...</span> Args<span class="special">&gt;</span> 
+  <span class="identifier">const_iterator</span> <a name="idm20850-bb"></a><span class="identifier">emplace</span><span class="special">(</span><span class="identifier">const_iterator</span> at<span class="special">,</span> <span class="identifier">Args</span> <span class="special">&amp;&amp;</span><span class="special">...</span> args<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Iter<span class="special">,</span> <span class="keyword">typename</span> Sentinel<span class="special">&gt;</span> 
+  <span class="identifier">const_iterator</span> <a name="idm20859-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="identifier">const_iterator</span> at<span class="special">,</span> <span class="identifier">Iter</span> first<span class="special">,</span> <span class="identifier">Sentinel</span> last<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idm20870-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="identifier">const_iterator</span> at<span class="special">,</span> <span class="identifier">segment_type</span> v<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idm20876-bb"></a><span class="identifier">erase</span><span class="special">(</span><span class="identifier">const_iterator</span> first<span class="special">,</span> <span class="identifier">const_iterator</span> last<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">void</span> <a name="idm20882-bb"></a><span class="identifier">swap</span><span class="special">(</span><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> <span class="special">&amp;</span> other<span class="special">)</span><span class="special">;</span></pre></li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">const</span> <span class="identifier">T</span> <span class="special">&amp;</span> <a name="idm20526-bb"></a><span class="keyword">operator</span><span class="special">[</span><span class="special">]</span><span class="special">(</span><span class="identifier">size_type</span> n<span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
-<p>Returns a const reference to the *element of this at index n, or the char at index -n when n &lt; 0.</p>
+<pre class="literallayout"><span class="keyword">bool</span> <a name="idm20887-bb"></a><span class="identifier">equal_root</span><span class="special">(</span><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> other<span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>Returns true if <code class="computeroutput">*this</code> and <code class="computeroutput">other</code> contain the same root node pointer. This is useful when you want to check for equality between two <code class="computeroutput"><code class="computeroutput"><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a></code></code>s that are likely to have originated from the same initial <code class="computeroutput"><code class="computeroutput"><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a></code></code>, and may have since been mutated. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> <span class="special">&amp;</span> <a name="idm20900-bb"></a><span class="identifier">replace</span><span class="special">(</span><span class="identifier">const_iterator</span> at<span class="special">,</span> <span class="identifier">T</span> t<span class="special">)</span><span class="special">;</span></pre>
+<p>Replaces the element at position <code class="computeroutput">at</code> with <code class="computeroutput">t</code>, by moving <code class="computeroutput">t</code>.</p>
+<p>If <code class="computeroutput">*this</code> hold the only reference to the underlying data, this is more efficient than calling <code class="computeroutput">erase()</code> in combination with <code class="computeroutput">insert()</code>.</p>
 <p>
 </p>
 <div class="variablelist"><table border="0" class="variablelist compact">
@@ -130,99 +137,14 @@
 </colgroup>
 <tbody><tr>
 <td><p><span class="term">Requires:</span></p></td>
-<td><p>0 &lt;= n &amp;&amp; n &lt;= size() || 0 &lt;= -n &amp;&amp; -n &lt;= size() <br>
- </p></td>
-</tr></tbody>
-</table></div>
-</li>
-<li class="listitem">
-<pre class="literallayout"><span class="identifier">size_type</span> <a name="idm20536-bb"></a><span class="identifier">max_size</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
-<p>Returns the maximum size a <code class="computeroutput"><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a></code> can have. </p>
-</li>
-<li class="listitem">
-<pre class="literallayout"><span class="keyword">int</span> <a name="idm20541-bb"></a><span class="identifier">compare</span><span class="special">(</span><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> rhs<span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
-<p>Lexicographical compare. Returns a value &lt; 0 when *this is lexicographically less than rhs, 0 if *this == rhs, and a value &gt; 0 if *this is lexicographically greater than rhs. </p>
-</li>
-<li class="listitem"><pre class="literallayout"><span class="keyword">bool</span> <a name="idm20548-bb"></a><span class="keyword">operator</span><span class="special">==</span><span class="special">(</span><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> rhs<span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="keyword">bool</span> <a name="idm20553-bb"></a><span class="keyword">operator</span><span class="special">!=</span><span class="special">(</span><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> rhs<span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="keyword">bool</span> <a name="idm20558-bb"></a><span class="keyword">operator</span><span class="special">&lt;</span><span class="special">(</span><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> rhs<span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="keyword">bool</span> <a name="idm20563-bb"></a><span class="keyword">operator</span><span class="special">&lt;=</span><span class="special">(</span><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> rhs<span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="keyword">bool</span> <a name="idm20568-bb"></a><span class="keyword">operator</span><span class="special">&gt;</span><span class="special">(</span><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> rhs<span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="keyword">bool</span> <a name="idm20573-bb"></a><span class="keyword">operator</span><span class="special">&gt;=</span><span class="special">(</span><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> rhs<span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem">
-<pre class="literallayout"><span class="keyword">bool</span> <a name="idm20578-bb"></a><span class="identifier">equal_root</span><span class="special">(</span><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> rhs<span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
-<p>Returns true if *this and rhs contain the same root node pointer. This is useful when you want to check for equality between two segmented_vectors that are likely to have originated from the same initial <code class="computeroutput"><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a></code>, and may have since been mutated. </p>
-</li>
-<li class="listitem"><pre class="literallayout"><span class="keyword">void</span> <a name="idm20586-bb"></a><span class="identifier">clear</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem">
-<pre class="literallayout"><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> <span class="special">&amp;</span> <a name="idm20588-bb"></a><span class="identifier">push_back</span><span class="special">(</span><span class="identifier">T</span> t<span class="special">)</span><span class="special">;</span></pre>
-<p>Inserts t into *this at offset size() by moving t. </p>
-</li>
-<li class="listitem">
-<pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idm20595-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="identifier">const_iterator</span> at<span class="special">,</span> <span class="identifier">T</span> t<span class="special">)</span><span class="special">;</span></pre>
-<p>Inserts t into *this at offset at by moving t. </p>
-</li>
-<li class="listitem">
-<pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idm20603-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="identifier">const_iterator</span> at<span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span> <span class="identifier">T</span> <span class="special">&gt;</span> t<span class="special">)</span><span class="special">;</span></pre>
-<p>Inserts the sequence of T from t into *this starting at offset at, by moving the contents of t. </p>
-</li>
-<li class="listitem">
-<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Iter<span class="special">,</span> <span class="keyword">typename</span> Sentinel<span class="special">&gt;</span> 
-  <span class="identifier">const_iterator</span> <a name="idm20611-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="identifier">const_iterator</span> at<span class="special">,</span> <span class="identifier">Iter</span> first<span class="special">,</span> <span class="identifier">Sentinel</span> last<span class="special">)</span><span class="special">;</span></pre>
-<p>Inserts the T sequence [first, last) into *this starting at position at. </p>
-</li>
-<li class="listitem">
-<pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idm20624-bb"></a><span class="identifier">erase</span><span class="special">(</span><span class="identifier">const_iterator</span> at<span class="special">)</span><span class="special">;</span></pre>
-<p>Erases the element at position at.</p>
-<p>
-</p>
-<div class="variablelist"><table border="0" class="variablelist compact">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody><tr>
-<td><p><span class="term">Requires:</span></p></td>
-<td><p>begin() &lt;= at &amp;&amp; at &lt; end() </p></td>
-</tr></tbody>
-</table></div>
-</li>
-<li class="listitem">
-<pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idm20633-bb"></a><span class="identifier">erase</span><span class="special">(</span><span class="identifier">const_iterator</span> first<span class="special">,</span> <span class="identifier">const_iterator</span> last<span class="special">)</span><span class="special">;</span></pre>
-<p>Erases the portion of *this delimited by [first, last).</p>
-<p>
-</p>
-<div class="variablelist"><table border="0" class="variablelist compact">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody><tr>
-<td><p><span class="term">Requires:</span></p></td>
-<td><p>first &lt;= last </p></td>
-</tr></tbody>
-</table></div>
-</li>
-<li class="listitem">
-<pre class="literallayout"><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> <span class="special">&amp;</span> <a name="idm20644-bb"></a><span class="identifier">replace</span><span class="special">(</span><span class="identifier">const_iterator</span> at<span class="special">,</span> <span class="identifier">T</span> t<span class="special">)</span><span class="special">;</span></pre>
-<p>Replaces the element at position at with t, by moving t.</p>
-<p>
-</p>
-<div class="variablelist"><table border="0" class="variablelist compact">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody><tr>
-<td><p><span class="term">Requires:</span></p></td>
-<td><p>begin() &lt;= old_substr.begin() &amp;&amp; old_substr.end() &lt;= end() </p></td>
+<td><p><code class="computeroutput">begin() &lt;= old_substr.begin() &amp;&amp; old_substr.end() &lt;= end()</code> </p></td>
 </tr></tbody>
 </table></div>
 </li>
 <li class="listitem">
 <pre class="literallayout"><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> <span class="special">&amp;</span> 
-<a name="idm20656-bb"></a><span class="identifier">replace</span><span class="special">(</span><span class="identifier">const_iterator</span> first<span class="special">,</span> <span class="identifier">const_iterator</span> last<span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span> <span class="identifier">T</span> <span class="special">&gt;</span> t<span class="special">)</span><span class="special">;</span></pre>
-<p>Replaces the portion of *this delimited by old_substr with the sequence of T from t by moving the contents of t.</p>
+<a name="idm20920-bb"></a><span class="identifier">replace</span><span class="special">(</span><span class="identifier">const_iterator</span> first<span class="special">,</span> <span class="identifier">const_iterator</span> last<span class="special">,</span> <span class="identifier">segment_type</span> v<span class="special">)</span><span class="special">;</span></pre>
+<p>Replaces the portion of <code class="computeroutput">*this</code> delimited by <code class="computeroutput">[first, last)</code> with the sequence of <code class="computeroutput">T</code> from <code class="computeroutput">v</code> by moving the contents of <code class="computeroutput">v</code>.</p>
 <p>
 </p>
 <div class="variablelist"><table border="0" class="variablelist compact">
@@ -232,16 +154,16 @@
 </colgroup>
 <tbody><tr>
 <td><p><span class="term">Requires:</span></p></td>
-<td><p>begin() &lt;= old_substr.begin() &amp;&amp; old_substr.end() &lt;= end() </p></td>
+<td><p><code class="computeroutput">begin() &lt;= old_substr.begin() &amp;&amp; old_substr.end() &lt;= end()</code> </p></td>
 </tr></tbody>
 </table></div>
 </li>
 <li class="listitem">
 <pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Iter<span class="special">,</span> <span class="keyword">typename</span> Sentinel<span class="special">&gt;</span> 
   <a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> <span class="special">&amp;</span> 
-  <a name="idm20670-bb"></a><span class="identifier">replace</span><span class="special">(</span><span class="identifier">const_iterator</span> old_first<span class="special">,</span> <span class="identifier">const_iterator</span> old_last<span class="special">,</span> <span class="identifier">Iter</span> new_first<span class="special">,</span> 
+  <a name="idm20940-bb"></a><span class="identifier">replace</span><span class="special">(</span><span class="identifier">const_iterator</span> old_first<span class="special">,</span> <span class="identifier">const_iterator</span> old_last<span class="special">,</span> <span class="identifier">Iter</span> new_first<span class="special">,</span> 
           <span class="identifier">Sentinel</span> new_last<span class="special">)</span><span class="special">;</span></pre>
-<p>Replaces the portion of *this delimited by [old_first, old_last) with the T sequence [new_first, new_last).</p>
+<p>Replaces the portion of <code class="computeroutput">*this</code> delimited by <code class="computeroutput">[old_first, old_last)</code> with the <code class="computeroutput">T</code> sequence <code class="computeroutput">[new_first, new_last)</code>.</p>
 <p>
 </p>
 <div class="variablelist"><table border="0" class="variablelist compact">
@@ -251,13 +173,25 @@
 </colgroup>
 <tbody><tr>
 <td><p><span class="term">Requires:</span></p></td>
-<td><p>begin() &lt;= old_substr.begin() &amp;&amp; old_substr.end() &lt;= end() </p></td>
+<td><p><code class="computeroutput">begin() &lt;= old_substr.begin() &amp;&amp; old_substr.end() &lt;= end()</code> </p></td>
 </tr></tbody>
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">void</span> <a name="idm20689-bb"></a><span class="identifier">swap</span><span class="special">(</span><a class="link" href="segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a> <span class="special">&amp;</span> rhs<span class="special">)</span><span class="special">;</span></pre>
-<p>Swaps *this with rhs. </p>
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Fn<span class="special">&gt;</span> <span class="keyword">void</span> <a name="idm20964-bb"></a><span class="identifier">foreach_segment</span><span class="special">(</span><span class="identifier">Fn</span> <span class="special">&amp;&amp;</span> f<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
+<p>Visits each segment s of *this and calls f(s). Each segment is a string_view. Depending of the operation performed on each segment, this may be more efficient than iterating over [begin(), end()).</p>
+<p>
+</p>
+<div class="variablelist"><table border="0" class="variablelist compact">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term">Requires:</span></p></td>
+<td><p>Fn is an invocable accepting an iterator and a sentinel. </p></td>
+</tr></tbody>
+</table></div>
 </li>
 </ol></div>
 </div>
@@ -273,7 +207,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="../../header/boost/text/segmented_vector_hpp.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/segmented_vector_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="../../header/boost/text/sentence_break_hpp.html"><img src="../../images/next.png" alt="Next"></a>
+<a accesskey="p" href="../../header/boost/text/segmented_vector_fwd_hpp.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/segmented_vector_fwd_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="../../header/boost/text/stream_safe_hpp.html"><img src="../../images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

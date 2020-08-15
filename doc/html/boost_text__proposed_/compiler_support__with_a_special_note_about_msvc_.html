@@ -20,7 +20,7 @@
 </h2></div></div></div>
 <p>
       Boost.Text is written against the C++14 standard. Specifically, Boost.Text
-      takes advantage of C++14 constexpr support for much of <code class="computeroutput"><a class="link" href="../boost/text/text_view.html" title="Struct text_view">text_view</a></code>'s implementation.
+      takes advantage of C++14 constexpr support for much of <code class="computeroutput"><a class="link" href="../boost/text/text_view.html" title="Type definition text_view">text_view</a></code>'s implementation.
     </p>
 <p>
       Clang versions 3.6 and later (which corresponds to XCode versions 6.4 or later),
@@ -44,6 +44,28 @@
         this is <code class="computeroutput"><span class="special">/</span><span class="identifier">source</span><span class="special">-</span><span class="identifier">charset</span><span class="special">:</span><span class="identifier">utf</span><span class="special">-</span><span class="number">8</span></code>. Your life will be that much sweeter if you
         use the more thorough-going flag <code class="computeroutput"><span class="special">/</span><span class="identifier">utf8</span></code> instead. This latter flag changes
         the execution encoding as well.
+      </p></td></tr>
+</table></div>
+<h4>
+<a name="boost_text__proposed_.compiler_support__with_a_special_note_about_msvc_.h0"></a>
+      <span class="phrase"><a name="boost_text__proposed_.compiler_support__with_a_special_note_about_msvc_.c__20_support"></a></span><a class="link" href="compiler_support__with_a_special_note_about_msvc_.html#boost_text__proposed_.compiler_support__with_a_special_note_about_msvc_.c__20_support">C++20
+      Support</a>
+    </h4>
+<p>
+      The C++20 interfaces provided by Boost.Text are only available when compiling
+      in C++20 mode. At the time of this writing, only GCC 10 is known to work in
+      C++20 mode.
+    </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+        At the time of this writing, the C++20 interfaces include functions in the
+        <code class="computeroutput"><span class="identifier">v2</span></code> namespace and all the
+        types associated with transcoding and normalization. Eventually, all the
+        interfaces will be concept-constrained.
       </p></td></tr>
 </table></div>
 </div>

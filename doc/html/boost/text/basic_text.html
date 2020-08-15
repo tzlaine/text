@@ -1,0 +1,610 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Struct template basic_text</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="up" href="../../header/boost/text/text_fwd_hpp.html" title="Header &lt;boost/text/text_fwd.hpp&gt;">
+<link rel="prev" href="../../header/boost/text/text_fwd_hpp.html" title="Header &lt;boost/text/text_fwd.hpp&gt;">
+<link rel="next" href="text.html" title="Type definition text">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="../../header/boost/text/text_fwd_hpp.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/text_fwd_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="text.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="refentry">
+<a name="boost.text.basic_text"></a><div class="titlepage"></div>
+<div class="refnamediv">
+<h2><span class="refentrytitle">Struct template basic_text</span></h2>
+<p>boost::text::basic_text</p>
+</div>
+<h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
+<div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="comment">// In header: &lt;<a class="link" href="../../header/boost/text/text_fwd_hpp.html" title="Header &lt;boost/text/text_fwd.hpp&gt;">boost/text/text_fwd.hpp</a>&gt;
+
+</span><span class="keyword">template</span><span class="special">&lt;</span><span class="identifier">nf</span> Normalization<span class="special">,</span> <span class="keyword">typename</span> Char<span class="special">,</span> <span class="keyword">typename</span> String<span class="special">&gt;</span> 
+<span class="keyword">struct</span> <a class="link" href="basic_text.html" title="Struct template basic_text">basic_text</a> <span class="special">{</span>
+  <span class="comment">// <a class="link" href="basic_text.html#boost.text.basic_textconstruct-copy-destruct">construct/copy/destruct</a></span>
+  <a class="link" href="basic_text.html#idm21980-bb"><span class="identifier">basic_text</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="basic_text.html#idm21983-bb"><span class="identifier">basic_text</span></a><span class="special">(</span><a class="link" href="basic_text.html" title="Struct template basic_text">basic_text</a> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span> <span class="special">=</span> <span class="keyword">default</span><span class="special">;</span>
+  <a class="link" href="basic_text.html#idm21987-bb"><span class="identifier">basic_text</span></a><span class="special">(</span><a class="link" href="basic_text.html" title="Struct template basic_text">basic_text</a> <span class="special">&amp;&amp;</span><span class="special">)</span> <span class="special">=</span> <span class="keyword">default</span><span class="special">;</span>
+  <a class="link" href="basic_text.html#idm21991-bb"><span class="identifier">basic_text</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">const_iterator</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="basic_text.html#idm22000-bb"><span class="identifier">basic_text</span></a><span class="special">(</span><span class="identifier">char_type</span> <span class="keyword">const</span> <span class="special">*</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">explicit</span> <a class="link" href="basic_text.html#idm22007-bb"><span class="identifier">basic_text</span></a><span class="special">(</span><span class="identifier">text_view</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">explicit</span> <a class="link" href="basic_text.html#idm22015-bb"><span class="identifier">basic_text</span></a><span class="special">(</span><span class="identifier">rope_view</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CURange<span class="special">&gt;</span> <span class="keyword">explicit</span> <a class="link" href="basic_text.html#idm22023-bb"><span class="identifier">basic_text</span></a><span class="special">(</span><span class="identifier">CURange</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CUIter<span class="special">,</span> <span class="keyword">typename</span> Sentinel<span class="special">&gt;</span> <a class="link" href="basic_text.html#idm22035-bb"><span class="identifier">basic_text</span></a><span class="special">(</span><span class="identifier">CUIter</span><span class="special">,</span> <span class="identifier">Iter</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> GraphemeCURange<span class="special">&gt;</span> 
+    <span class="keyword">explicit</span> <a class="link" href="basic_text.html#idm22050-bb"><span class="identifier">basic_text</span></a><span class="special">(</span><span class="identifier">GraphemeCURange</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> GraphemeCUIter<span class="special">&gt;</span> 
+    <span class="keyword">explicit</span> <a class="link" href="basic_text.html#idm22061-bb"><span class="identifier">basic_text</span></a><span class="special">(</span><span class="identifier">GraphemeCUIter</span><span class="special">,</span> <span class="identifier">GraphemeCUIter</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="basic_text.html" title="Struct template basic_text">basic_text</a> <span class="special">&amp;</span> <a class="link" href="basic_text.html#idm22074-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><a class="link" href="basic_text.html" title="Struct template basic_text">basic_text</a> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span> <span class="special">=</span> <span class="keyword">default</span><span class="special">;</span>
+  <a class="link" href="basic_text.html" title="Struct template basic_text">basic_text</a> <span class="special">&amp;</span> <a class="link" href="basic_text.html#idm22080-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><a class="link" href="basic_text.html" title="Struct template basic_text">basic_text</a> <span class="special">&amp;&amp;</span><span class="special">)</span> <span class="special">=</span> <span class="keyword">default</span><span class="special">;</span>
+  <a class="link" href="basic_text.html" title="Struct template basic_text">basic_text</a> <span class="special">&amp;</span> <a class="link" href="basic_text.html#idm22086-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><span class="identifier">char_type</span> <span class="keyword">const</span> <span class="special">*</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="basic_text.html" title="Struct template basic_text">basic_text</a> <span class="special">&amp;</span> <a class="link" href="basic_text.html#idm22093-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><span class="identifier">string_view</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="basic_text.html" title="Struct template basic_text">basic_text</a> <span class="special">&amp;</span> <a class="link" href="basic_text.html#idm22101-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><span class="identifier">text_view</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="basic_text.html" title="Struct template basic_text">basic_text</a> <span class="special">&amp;</span> <a class="link" href="basic_text.html#idm22109-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><span class="identifier">rope_view</span><span class="special">)</span><span class="special">;</span>
+
+  <span class="comment">// <a class="link" href="basic_text.html#idm21512-bb">public member functions</a></span>
+   <a class="link" href="basic_text.html#idm21513-bb"><span class="identifier">BOOST_TEXT_STATIC_ASSERT_NORMALIZATION</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="basic_text.html#idm21515-bb"><span class="keyword">operator</span> <span class="identifier">text_view</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">char_type</span> <span class="special">*</span> <a class="link" href="basic_text.html#idm21517-bb"><span class="identifier">data</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">const</span> <span class="identifier">char_type</span> <span class="special">*</span> <a class="link" href="basic_text.html#idm21519-bb"><span class="identifier">data</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">const</span> <span class="identifier">char_type</span> <span class="special">*</span> <a class="link" href="basic_text.html#idm21521-bb"><span class="identifier">c_str</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_reference</span> <a class="link" href="basic_text.html#idm21523-bb"><span class="identifier">front</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_reference</span> <a class="link" href="basic_text.html#idm21525-bb"><span class="identifier">back</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">reference</span> <a class="link" href="basic_text.html#idm21527-bb"><span class="identifier">front</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">reference</span> <a class="link" href="basic_text.html#idm21529-bb"><span class="identifier">back</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="basic_text.html#idm21531-bb"><span class="identifier">push_back</span></a><span class="special">(</span><a class="link" href="grapheme.html" title="Struct grapheme">grapheme</a> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CPIter<span class="special">&gt;</span> <span class="keyword">void</span> <a class="link" href="basic_text.html#idm21536-bb"><span class="identifier">push_back</span></a><span class="special">(</span><a class="link" href="grapheme_ref.html" title="Struct template grapheme_ref">grapheme_ref</a><span class="special">&lt;</span> <span class="identifier">CPIter</span> <span class="special">&gt;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="basic_text.html#idm21543-bb"><span class="identifier">pop_back</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">iterator</span> <a class="link" href="basic_text.html#idm21545-bb"><span class="identifier">begin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">iterator</span> <a class="link" href="basic_text.html#idm21547-bb"><span class="identifier">end</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_iterator</span> <a class="link" href="basic_text.html#idm21549-bb"><span class="identifier">begin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_iterator</span> <a class="link" href="basic_text.html#idm21551-bb"><span class="identifier">end</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_iterator</span> <a class="link" href="basic_text.html#idm21553-bb"><span class="identifier">cbegin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_iterator</span> <a class="link" href="basic_text.html#idm21555-bb"><span class="identifier">cend</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">reverse_iterator</span> <a class="link" href="basic_text.html#idm21557-bb"><span class="identifier">rbegin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">reverse_iterator</span> <a class="link" href="basic_text.html#idm21559-bb"><span class="identifier">rend</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_reverse_iterator</span> <a class="link" href="basic_text.html#idm21561-bb"><span class="identifier">rbegin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_reverse_iterator</span> <a class="link" href="basic_text.html#idm21563-bb"><span class="identifier">rend</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_reverse_iterator</span> <a class="link" href="basic_text.html#idm21565-bb"><span class="identifier">crbegin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_reverse_iterator</span> <a class="link" href="basic_text.html#idm21567-bb"><span class="identifier">crend</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">bool</span> <a class="link" href="basic_text.html#idm21569-bb"><span class="identifier">empty</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">size_type</span> <a class="link" href="basic_text.html#idm21574-bb"><span class="identifier">storage_code_units</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">size_type</span> <a class="link" href="basic_text.html#idm21579-bb"><span class="identifier">capacity_bytes</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">size_type</span> <a class="link" href="basic_text.html#idm21584-bb"><span class="identifier">distance</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">size_type</span> <a class="link" href="basic_text.html#idm21589-bb"><span class="identifier">max_code_units</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="basic_text.html#idm21595-bb"><span class="identifier">clear</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <a class="link" href="replace_result.html" title="Struct template replace_result">replace_result</a><span class="special">&lt;</span> <span class="identifier">iterator</span> <span class="special">&gt;</span> <a class="link" href="basic_text.html#idm21602-bb"><span class="identifier">erase</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">const_iterator</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <a class="link" href="replace_result.html" title="Struct template replace_result">replace_result</a><span class="special">&lt;</span> <span class="identifier">iterator</span> <span class="special">&gt;</span> <a class="link" href="basic_text.html#idm21616-bb"><span class="identifier">erase</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <a class="link" href="replace_result.html" title="Struct template replace_result">replace_result</a><span class="special">&lt;</span> <span class="identifier">iterator</span> <span class="special">&gt;</span> 
+  <a class="link" href="basic_text.html#idm21627-bb"><span class="identifier">replace</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">const_iterator</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="replace_result.html" title="Struct template replace_result">replace_result</a><span class="special">&lt;</span> <span class="identifier">iterator</span> <span class="special">&gt;</span> 
+  <a class="link" href="basic_text.html#idm21646-bb"><span class="identifier">replace</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">char_type</span> <span class="keyword">const</span> <span class="special">*</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="replace_result.html" title="Struct template replace_result">replace_result</a><span class="special">&lt;</span> <span class="identifier">iterator</span> <span class="special">&gt;</span> 
+  <a class="link" href="basic_text.html#idm21663-bb"><span class="identifier">replace</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">string_view</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="replace_result.html" title="Struct template replace_result">replace_result</a><span class="special">&lt;</span> <span class="identifier">iterator</span> <span class="special">&gt;</span> 
+  <a class="link" href="basic_text.html#idm21680-bb"><span class="identifier">replace</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">rope_view</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CURange<span class="special">&gt;</span> 
+    <a class="link" href="replace_result.html" title="Struct template replace_result">replace_result</a><span class="special">&lt;</span> <span class="identifier">iterator</span> <span class="special">&gt;</span> 
+    <a class="link" href="basic_text.html#idm21697-bb"><span class="identifier">replace</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">CURange</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CUIter<span class="special">&gt;</span> 
+    <a class="link" href="replace_result.html" title="Struct template replace_result">replace_result</a><span class="special">&lt;</span> <span class="identifier">iterator</span> <span class="special">&gt;</span> 
+    <a class="link" href="basic_text.html#idm21718-bb"><span class="identifier">replace</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">CUIter</span><span class="special">,</span> <span class="identifier">CUIter</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> GraphemeCURange<span class="special">&gt;</span> 
+    <a class="link" href="replace_result.html" title="Struct template replace_result">replace_result</a><span class="special">&lt;</span> <span class="identifier">iterator</span> <span class="special">&gt;</span> 
+    <a class="link" href="basic_text.html#idm21741-bb"><span class="identifier">replace</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">GraphemeCURange</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> GraphemeCUIter<span class="special">&gt;</span> 
+    <a class="link" href="replace_result.html" title="Struct template replace_result">replace_result</a><span class="special">&lt;</span> <span class="identifier">iterator</span> <span class="special">&gt;</span> 
+    <a class="link" href="basic_text.html#idm21762-bb"><span class="identifier">replace</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">GraphemeCUIter</span><span class="special">,</span> <span class="identifier">GraphemeCUIter</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="replace_result.html" title="Struct template replace_result">replace_result</a><span class="special">&lt;</span> <span class="identifier">iterator</span> <span class="special">&gt;</span> 
+  <a class="link" href="basic_text.html#idm21785-bb"><span class="identifier">replace</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">const_iterator</span><span class="special">,</span> <a class="link" href="grapheme.html" title="Struct grapheme">grapheme</a> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CPIter<span class="special">&gt;</span> 
+    <a class="link" href="replace_result.html" title="Struct template replace_result">replace_result</a><span class="special">&lt;</span> <span class="identifier">iterator</span> <span class="special">&gt;</span> 
+    <a class="link" href="basic_text.html#idm21800-bb"><span class="identifier">replace</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">const_iterator</span><span class="special">,</span> <a class="link" href="grapheme_ref.html" title="Struct template grapheme_ref">grapheme_ref</a><span class="special">&lt;</span> <span class="identifier">CPIter</span> <span class="special">&gt;</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="replace_result.html" title="Struct template replace_result">replace_result</a><span class="special">&lt;</span> <span class="identifier">iterator</span> <span class="special">&gt;</span> 
+  <a class="link" href="basic_text.html#idm21817-bb"><span class="identifier">insert</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">const_iterator</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> T<span class="special">&gt;</span> <span class="keyword">auto</span> <a class="link" href="basic_text.html#idm21831-bb"><span class="identifier">insert</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">T</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> I<span class="special">&gt;</span> <span class="keyword">auto</span> <a class="link" href="basic_text.html#idm21845-bb"><span class="identifier">insert</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">I</span><span class="special">,</span> <span class="identifier">I</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="basic_text.html#idm21860-bb"><span class="identifier">assign</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">const_iterator</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> T<span class="special">&gt;</span> <span class="keyword">auto</span> <a class="link" href="basic_text.html#idm21870-bb"><span class="identifier">assign</span></a><span class="special">(</span><span class="identifier">T</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> I<span class="special">&gt;</span> <span class="keyword">auto</span> <a class="link" href="basic_text.html#idm21881-bb"><span class="identifier">assign</span></a><span class="special">(</span><span class="identifier">I</span><span class="special">,</span> <span class="identifier">I</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="basic_text.html#idm21893-bb"><span class="identifier">append</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">const_iterator</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> T<span class="special">&gt;</span> <span class="keyword">auto</span> <a class="link" href="basic_text.html#idm21903-bb"><span class="identifier">append</span></a><span class="special">(</span><span class="identifier">T</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> I<span class="special">&gt;</span> <span class="keyword">auto</span> <a class="link" href="basic_text.html#idm21914-bb"><span class="identifier">append</span></a><span class="special">(</span><span class="identifier">I</span><span class="special">,</span> <span class="identifier">I</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="basic_text.html#idm21926-bb"><span class="identifier">reserve</span></a><span class="special">(</span><span class="identifier">size_type</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="basic_text.html#idm21936-bb"><span class="identifier">shrink_to_fit</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="basic_text.html#idm21945-bb"><span class="identifier">swap</span></a><span class="special">(</span><a class="link" href="basic_text.html" title="Struct template basic_text">basic_text</a> <span class="special">&amp;</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">string</span> <a class="link" href="basic_text.html#idm21953-bb"><span class="identifier">extract</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="basic_text.html#idm21958-bb"><span class="identifier">replace</span></a><span class="special">(</span><span class="identifier">string</span> <span class="special">&amp;&amp;</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> T<span class="special">&gt;</span> <span class="keyword">auto</span> <a class="link" href="basic_text.html#idm21968-bb"><span class="keyword">operator</span><span class="special">+=</span></a><span class="special">(</span><span class="identifier">T</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+
+  <span class="comment">// <a class="link" href="basic_text.html#idm22117-bb">friend functions</a></span>
+  <span class="keyword">friend</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span> <a class="link" href="basic_text.html#idm22118-bb"><span class="keyword">operator</span><span class="special">&lt;&lt;</span></a><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span><span class="special">,</span> <a class="link" href="basic_text.html" title="Struct template basic_text">basic_text</a> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">friend</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">wostream</span> <span class="special">&amp;</span> <a class="link" href="basic_text.html#idm22127-bb"><span class="keyword">operator</span><span class="special">&lt;&lt;</span></a><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">wostream</span> <span class="special">&amp;</span><span class="special">,</span> <a class="link" href="basic_text.html" title="Struct template basic_text">basic_text</a> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> T<span class="special">&gt;</span> <span class="keyword">friend</span> <span class="keyword">auto</span> <a class="link" href="basic_text.html#idm22136-bb"><span class="keyword">operator</span><span class="special">==</span></a><span class="special">(</span><a class="link" href="basic_text.html" title="Struct template basic_text">basic_text</a> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">T</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> T<span class="special">&gt;</span> <span class="keyword">friend</span> <span class="keyword">auto</span> <a class="link" href="basic_text.html#idm22151-bb"><span class="keyword">operator</span><span class="special">==</span></a><span class="special">(</span><span class="identifier">T</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">,</span> <a class="link" href="basic_text.html" title="Struct template basic_text">basic_text</a> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> T<span class="special">&gt;</span> <span class="keyword">friend</span> <span class="keyword">auto</span> <a class="link" href="basic_text.html#idm22166-bb"><span class="keyword">operator</span><span class="special">!=</span></a><span class="special">(</span><a class="link" href="basic_text.html" title="Struct template basic_text">basic_text</a> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">T</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> T<span class="special">&gt;</span> <span class="keyword">friend</span> <span class="keyword">auto</span> <a class="link" href="basic_text.html#idm22181-bb"><span class="keyword">operator</span><span class="special">!=</span></a><span class="special">(</span><span class="identifier">T</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">,</span> <a class="link" href="basic_text.html" title="Struct template basic_text">basic_text</a> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+<span class="special">}</span><span class="special">;</span></pre></div>
+<div class="refsect1">
+<a name="idm36995"></a><h2>Description</h2>
+<p>A mutable sequence of graphemes over an underlying container of contiguous null-terminated code units. The underlying storage is a <code class="computeroutput">String</code>, and is kept in normalization form <code class="computeroutput">Normalization</code>. The <code class="computeroutput">String</code> is responsible for maintaining null-termination. </p>
+<div class="refsect2">
+<a name="idm37001"></a><h3>
+<a name="boost.text.basic_textconstruct-copy-destruct"></a><code class="computeroutput">basic_text</code> 
+        public
+       construct/copy/destruct</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem">
+<pre class="literallayout"><a name="idm21980-bb"></a><span class="identifier">basic_text</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>
+<p>Default ctor. </p>
+</li>
+<li class="listitem"><pre class="literallayout"><a name="idm21983-bb"></a><span class="identifier">basic_text</span><span class="special">(</span><a class="link" href="basic_text.html" title="Struct template basic_text">basic_text</a> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span> <span class="special">=</span> <span class="keyword">default</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idm21987-bb"></a><span class="identifier">basic_text</span><span class="special">(</span><a class="link" href="basic_text.html" title="Struct template basic_text">basic_text</a> <span class="special">&amp;&amp;</span><span class="special">)</span> <span class="special">=</span> <span class="keyword">default</span><span class="special">;</span></pre></li>
+<li class="listitem">
+<pre class="literallayout"><a name="idm21991-bb"></a><span class="identifier">basic_text</span><span class="special">(</span><span class="identifier">const_iterator</span> first<span class="special">,</span> <span class="identifier">const_iterator</span> last<span class="special">)</span><span class="special">;</span></pre>
+<p>Constructs a <code class="computeroutput"><code class="computeroutput"><a class="link" href="basic_text.html" title="Struct template basic_text">basic_text</a></code></code> from a pair of iterators. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a name="idm22000-bb"></a><span class="identifier">basic_text</span><span class="special">(</span><span class="identifier">char_type</span> <span class="keyword">const</span> <span class="special">*</span> c_str<span class="special">)</span><span class="special">;</span></pre>
+<p>Constructs a <code class="computeroutput"><code class="computeroutput"><a class="link" href="basic_text.html" title="Struct template basic_text">basic_text</a></code></code> from a null-terminated string. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">explicit</span> <a name="idm22007-bb"></a><span class="identifier">basic_text</span><span class="special">(</span><span class="identifier">text_view</span> tv<span class="special">)</span><span class="special">;</span></pre>
+<p>Constructs a <code class="computeroutput"><code class="computeroutput"><a class="link" href="basic_text.html" title="Struct template basic_text">basic_text</a></code></code> from a <code class="computeroutput">text_view</code>. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">explicit</span> <a name="idm22015-bb"></a><span class="identifier">basic_text</span><span class="special">(</span><span class="identifier">rope_view</span> rv<span class="special">)</span><span class="special">;</span></pre>
+<p>Constructs a <code class="computeroutput"><code class="computeroutput"><a class="link" href="basic_text.html" title="Struct template basic_text">basic_text</a></code></code> from a <code class="computeroutput">rope_view</code>. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CURange<span class="special">&gt;</span> <span class="keyword">explicit</span> <a name="idm22023-bb"></a><span class="identifier">basic_text</span><span class="special">(</span><span class="identifier">CURange</span> <span class="keyword">const</span> <span class="special">&amp;</span> r<span class="special">)</span><span class="special">;</span></pre>
+<p>Constructs a <code class="computeroutput"><code class="computeroutput"><a class="link" href="basic_text.html" title="Struct template basic_text">basic_text</a></code></code> from a range of <code class="computeroutput">char_type</code>.</p>
+<p>This function only participates in overload resolution if <code class="computeroutput">CURange</code> models the CURange concept. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CUIter<span class="special">,</span> <span class="keyword">typename</span> Sentinel<span class="special">&gt;</span> 
+  <a name="idm22035-bb"></a><span class="identifier">basic_text</span><span class="special">(</span><span class="identifier">CUIter</span> first<span class="special">,</span> <span class="identifier">Iter</span> CUlast<span class="special">)</span><span class="special">;</span></pre>
+<p>Constructs a <code class="computeroutput"><code class="computeroutput"><a class="link" href="basic_text.html" title="Struct template basic_text">basic_text</a></code></code> from a sequence of <code class="computeroutput">char_type</code>.</p>
+<p>This function only participates in overload resolution if <code class="computeroutput">CUIter</code> models the CUIter concept. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> GraphemeCURange<span class="special">&gt;</span> 
+  <span class="keyword">explicit</span> <a name="idm22050-bb"></a><span class="identifier">basic_text</span><span class="special">(</span><span class="identifier">GraphemeCURange</span> <span class="keyword">const</span> <span class="special">&amp;</span> r<span class="special">)</span><span class="special">;</span></pre>
+<p>Constructs a <code class="computeroutput"><code class="computeroutput"><a class="link" href="basic_text.html" title="Struct template basic_text">basic_text</a></code></code> from a range of graphemes.</p>
+<p>This function only participates in overload resolution if <code class="computeroutput">GraphemeCURange</code> models the GraphemeCURange concept. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> GraphemeCUIter<span class="special">&gt;</span> 
+  <span class="keyword">explicit</span> <a name="idm22061-bb"></a><span class="identifier">basic_text</span><span class="special">(</span><span class="identifier">GraphemeCUIter</span> first<span class="special">,</span> <span class="identifier">GraphemeCUIter</span> last<span class="special">)</span><span class="special">;</span></pre>
+<p>Constructs a <code class="computeroutput"><code class="computeroutput"><a class="link" href="basic_text.html" title="Struct template basic_text">basic_text</a></code></code> from a sequence of graphemes.</p>
+<p>This function only participates in overload resolution if <code class="computeroutput">GraphemeCUIter</code> models the GraphemeCUIter concept. </p>
+</li>
+<li class="listitem"><pre class="literallayout"><a class="link" href="basic_text.html" title="Struct template basic_text">basic_text</a> <span class="special">&amp;</span> <a name="idm22074-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><a class="link" href="basic_text.html" title="Struct template basic_text">basic_text</a> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span> <span class="special">=</span> <span class="keyword">default</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a class="link" href="basic_text.html" title="Struct template basic_text">basic_text</a> <span class="special">&amp;</span> <a name="idm22080-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><a class="link" href="basic_text.html" title="Struct template basic_text">basic_text</a> <span class="special">&amp;&amp;</span><span class="special">)</span> <span class="special">=</span> <span class="keyword">default</span><span class="special">;</span></pre></li>
+<li class="listitem">
+<pre class="literallayout"><a class="link" href="basic_text.html" title="Struct template basic_text">basic_text</a> <span class="special">&amp;</span> <a name="idm22086-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><span class="identifier">char_type</span> <span class="keyword">const</span> <span class="special">*</span> c_str<span class="special">)</span><span class="special">;</span></pre>
+<p>Assignment from a null-terminated string. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a class="link" href="basic_text.html" title="Struct template basic_text">basic_text</a> <span class="special">&amp;</span> <a name="idm22093-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><span class="identifier">string_view</span> sv<span class="special">)</span><span class="special">;</span></pre>
+<p>Assignment from a <code class="computeroutput">string_view</code>. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a class="link" href="basic_text.html" title="Struct template basic_text">basic_text</a> <span class="special">&amp;</span> <a name="idm22101-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><span class="identifier">text_view</span> tv<span class="special">)</span><span class="special">;</span></pre>
+<p>Assignment from a <code class="computeroutput">text_view</code>. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a class="link" href="basic_text.html" title="Struct template basic_text">basic_text</a> <span class="special">&amp;</span> <a name="idm22109-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><span class="identifier">rope_view</span> rv<span class="special">)</span><span class="special">;</span></pre>
+<p>Assignment from a <code class="computeroutput">rope_view</code>. </p>
+</li>
+</ol></div>
+</div>
+<div class="refsect2">
+<a name="idm37279"></a><h3>
+<a name="idm21512-bb"></a><code class="computeroutput">basic_text</code> public member functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem"><pre class="literallayout"> <a name="idm21513-bb"></a><span class="identifier">BOOST_TEXT_STATIC_ASSERT_NORMALIZATION</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idm21515-bb"></a><span class="keyword">operator</span> <span class="identifier">text_view</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">char_type</span> <span class="special">*</span> <a name="idm21517-bb"></a><span class="identifier">data</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">const</span> <span class="identifier">char_type</span> <span class="special">*</span> <a name="idm21519-bb"></a><span class="identifier">data</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">const</span> <span class="identifier">char_type</span> <span class="special">*</span> <a name="idm21521-bb"></a><span class="identifier">c_str</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_reference</span> <a name="idm21523-bb"></a><span class="identifier">front</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_reference</span> <a name="idm21525-bb"></a><span class="identifier">back</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">reference</span> <a name="idm21527-bb"></a><span class="identifier">front</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">reference</span> <a name="idm21529-bb"></a><span class="identifier">back</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">void</span> <a name="idm21531-bb"></a><span class="identifier">push_back</span><span class="special">(</span><a class="link" href="grapheme.html" title="Struct grapheme">grapheme</a> <span class="keyword">const</span> <span class="special">&amp;</span> g<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CPIter<span class="special">&gt;</span> <span class="keyword">void</span> <a name="idm21536-bb"></a><span class="identifier">push_back</span><span class="special">(</span><a class="link" href="grapheme_ref.html" title="Struct template grapheme_ref">grapheme_ref</a><span class="special">&lt;</span> <span class="identifier">CPIter</span> <span class="special">&gt;</span> g<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">void</span> <a name="idm21543-bb"></a><span class="identifier">pop_back</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">iterator</span> <a name="idm21545-bb"></a><span class="identifier">begin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">iterator</span> <a name="idm21547-bb"></a><span class="identifier">end</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idm21549-bb"></a><span class="identifier">begin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idm21551-bb"></a><span class="identifier">end</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idm21553-bb"></a><span class="identifier">cbegin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idm21555-bb"></a><span class="identifier">cend</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">reverse_iterator</span> <a name="idm21557-bb"></a><span class="identifier">rbegin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">reverse_iterator</span> <a name="idm21559-bb"></a><span class="identifier">rend</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_reverse_iterator</span> <a name="idm21561-bb"></a><span class="identifier">rbegin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_reverse_iterator</span> <a name="idm21563-bb"></a><span class="identifier">rend</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_reverse_iterator</span> <a name="idm21565-bb"></a><span class="identifier">crbegin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_reverse_iterator</span> <a name="idm21567-bb"></a><span class="identifier">crend</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">bool</span> <a name="idm21569-bb"></a><span class="identifier">empty</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>Returns true iff <code class="computeroutput">size() == 0</code>. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="identifier">size_type</span> <a name="idm21574-bb"></a><span class="identifier">storage_code_units</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>Returns the number of code units controlled by <code class="computeroutput">*this</code>, not including the null terminator. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="identifier">size_type</span> <a name="idm21579-bb"></a><span class="identifier">capacity_bytes</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>Returns the number of bytes of storage currently in use by <code class="computeroutput">*this</code>. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="identifier">size_type</span> <a name="idm21584-bb"></a><span class="identifier">distance</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>Returns the number of graphemes in <code class="computeroutput">*this</code>. This operation is O(n). </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="identifier">size_type</span> <a name="idm21589-bb"></a><span class="identifier">max_code_units</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>Returns the maximum size in code units a <code class="computeroutput"><code class="computeroutput"><a class="link" href="basic_text.html" title="Struct template basic_text">basic_text</a></code></code> can have. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">void</span> <a name="idm21595-bb"></a><span class="identifier">clear</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>Clear.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0" class="variablelist compact">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term">Postconditions:</span></p></td>
+<td><p>size() == 0 &amp;&amp; capacity() == 0; begin(), end() delimit an empty string </p></td>
+</tr></tbody>
+</table></div>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a class="link" href="replace_result.html" title="Struct template replace_result">replace_result</a><span class="special">&lt;</span> <span class="identifier">iterator</span> <span class="special">&gt;</span> 
+<a name="idm21602-bb"></a><span class="identifier">erase</span><span class="special">(</span><span class="identifier">const_iterator</span> first<span class="special">,</span> <span class="identifier">const_iterator</span> last<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>Erases the portion of <code class="computeroutput">*this</code> delimited by <code class="computeroutput">[first, last)</code>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0" class="variablelist compact">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term">Requires:</span></p></td>
+<td><p>first &lt;= last </p></td>
+</tr></tbody>
+</table></div>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a class="link" href="replace_result.html" title="Struct template replace_result">replace_result</a><span class="special">&lt;</span> <span class="identifier">iterator</span> <span class="special">&gt;</span> <a name="idm21616-bb"></a><span class="identifier">erase</span><span class="special">(</span><span class="identifier">const_iterator</span> at<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>Erases the grapheme at position <code class="computeroutput">at</code>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0" class="variablelist compact">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term">Requires:</span></p></td>
+<td><p>at != end() </p></td>
+</tr></tbody>
+</table></div>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a class="link" href="replace_result.html" title="Struct template replace_result">replace_result</a><span class="special">&lt;</span> <span class="identifier">iterator</span> <span class="special">&gt;</span> 
+<a name="idm21627-bb"></a><span class="identifier">replace</span><span class="special">(</span><span class="identifier">const_iterator</span> first1<span class="special">,</span> <span class="identifier">const_iterator</span> last1<span class="special">,</span> <span class="identifier">const_iterator</span> first2<span class="special">,</span> 
+        <span class="identifier">const_iterator</span> last2<span class="special">)</span><span class="special">;</span></pre>
+<p>Replaces the portion of <code class="computeroutput">*this</code> delimited by <code class="computeroutput">[first1, last1)</code> with the sequence <code class="computeroutput">[first2, last2)</code>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0" class="variablelist compact">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term">Requires:</span></p></td>
+<td><p>!std::less(first1.base().base(), begin().base().base()) &amp;&amp; !std::less(end().base().base(), last1.base().base()) </p></td>
+</tr></tbody>
+</table></div>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a class="link" href="replace_result.html" title="Struct template replace_result">replace_result</a><span class="special">&lt;</span> <span class="identifier">iterator</span> <span class="special">&gt;</span> 
+<a name="idm21646-bb"></a><span class="identifier">replace</span><span class="special">(</span><span class="identifier">const_iterator</span> first<span class="special">,</span> <span class="identifier">const_iterator</span> last<span class="special">,</span> 
+        <span class="identifier">char_type</span> <span class="keyword">const</span> <span class="special">*</span> new_substr<span class="special">)</span><span class="special">;</span></pre>
+<p>Replaces the portion of <code class="computeroutput">*this</code> delimited by <code class="computeroutput">[first, last)</code> with <code class="computeroutput">new_substr</code>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0" class="variablelist compact">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term">Requires:</span></p></td>
+<td><p>!std::less(first.base().base(), begin().base().base()) &amp;&amp; !std::less(end().base().base(), last.base().base()) </p></td>
+</tr></tbody>
+</table></div>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a class="link" href="replace_result.html" title="Struct template replace_result">replace_result</a><span class="special">&lt;</span> <span class="identifier">iterator</span> <span class="special">&gt;</span> 
+<a name="idm21663-bb"></a><span class="identifier">replace</span><span class="special">(</span><span class="identifier">const_iterator</span> first<span class="special">,</span> <span class="identifier">const_iterator</span> last<span class="special">,</span> <span class="identifier">string_view</span> new_substr<span class="special">)</span><span class="special">;</span></pre>
+<p>Replaves the portion of <code class="computeroutput">*this</code> delimited by <code class="computeroutput">[first, last)</code> with <code class="computeroutput">new_substr</code>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0" class="variablelist compact">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term">Requires:</span></p></td>
+<td><p>!std::less(first.base().base(), begin().base().base()) &amp;&amp; !std::less(end().base().base(), last.base().base()) </p></td>
+</tr></tbody>
+</table></div>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a class="link" href="replace_result.html" title="Struct template replace_result">replace_result</a><span class="special">&lt;</span> <span class="identifier">iterator</span> <span class="special">&gt;</span> 
+<a name="idm21680-bb"></a><span class="identifier">replace</span><span class="special">(</span><span class="identifier">const_iterator</span> first<span class="special">,</span> <span class="identifier">const_iterator</span> last<span class="special">,</span> <span class="identifier">rope_view</span> new_substr<span class="special">)</span><span class="special">;</span></pre>
+<p>Replaces the portion of <code class="computeroutput">*this</code> delimited by <code class="computeroutput">[first, last)</code> with <code class="computeroutput">new_substr</code>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0" class="variablelist compact">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term">Requires:</span></p></td>
+<td><p>!std::less(first.base().base(), begin().base().base()) &amp;&amp; !std::less(end().base().base(), last.base().base()) </p></td>
+</tr></tbody>
+</table></div>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CURange<span class="special">&gt;</span> 
+  <a class="link" href="replace_result.html" title="Struct template replace_result">replace_result</a><span class="special">&lt;</span> <span class="identifier">iterator</span> <span class="special">&gt;</span> 
+  <a name="idm21697-bb"></a><span class="identifier">replace</span><span class="special">(</span><span class="identifier">const_iterator</span> first<span class="special">,</span> <span class="identifier">const_iterator</span> last<span class="special">,</span> <span class="identifier">CURange</span> <span class="keyword">const</span> <span class="special">&amp;</span> r<span class="special">)</span><span class="special">;</span></pre>
+<p>Replaces the portion of <code class="computeroutput">*this</code> delimited by <code class="computeroutput">[first, last)</code> with <code class="computeroutput">r</code>.</p>
+<p>This function only participates in overload resolution if <code class="computeroutput">CURange</code> models the CURange concept.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0" class="variablelist compact">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term">Requires:</span></p></td>
+<td><p>!std::less(first.base().base(), begin().base().base()) &amp;&amp; !std::less(end().base().base(), last.base().base()) </p></td>
+</tr></tbody>
+</table></div>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CUIter<span class="special">&gt;</span> 
+  <a class="link" href="replace_result.html" title="Struct template replace_result">replace_result</a><span class="special">&lt;</span> <span class="identifier">iterator</span> <span class="special">&gt;</span> 
+  <a name="idm21718-bb"></a><span class="identifier">replace</span><span class="special">(</span><span class="identifier">const_iterator</span> first1<span class="special">,</span> <span class="identifier">const_iterator</span> last1<span class="special">,</span> <span class="identifier">CUIter</span> first2<span class="special">,</span> 
+          <span class="identifier">CUIter</span> last2<span class="special">)</span><span class="special">;</span></pre>
+<p>Replaces the portion of <code class="computeroutput">*this</code> delimited by <code class="computeroutput">[first1, last1)</code> with <code class="computeroutput">[first2, last2)</code>.</p>
+<p>This function only participates in overload resolution if <code class="computeroutput">CUIter</code> models the CUIter concept.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0" class="variablelist compact">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term">Requires:</span></p></td>
+<td><p>!std::less(first.base().base(), begin().base().base()) &amp;&amp; !std::less(end().base().base(), last.base().base()) </p></td>
+</tr></tbody>
+</table></div>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> GraphemeCURange<span class="special">&gt;</span> 
+  <a class="link" href="replace_result.html" title="Struct template replace_result">replace_result</a><span class="special">&lt;</span> <span class="identifier">iterator</span> <span class="special">&gt;</span> 
+  <a name="idm21741-bb"></a><span class="identifier">replace</span><span class="special">(</span><span class="identifier">const_iterator</span> first<span class="special">,</span> <span class="identifier">const_iterator</span> last<span class="special">,</span> 
+          <span class="identifier">GraphemeCURange</span> <span class="keyword">const</span> <span class="special">&amp;</span> r<span class="special">)</span><span class="special">;</span></pre>
+<p>Replaces the portion of <code class="computeroutput">*this</code> delimited by <code class="computeroutput">[first, last)</code> with <code class="computeroutput">r</code>.</p>
+<p>This function only participates in overload resolution if <code class="computeroutput">GraphemeCURange</code> models the GraphemeCURange concept.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0" class="variablelist compact">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term">Requires:</span></p></td>
+<td><p>!std::less(first.base().base(), begin().base().base()) &amp;&amp; !std::less(end().base().base(), last.base().base()) </p></td>
+</tr></tbody>
+</table></div>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> GraphemeCUIter<span class="special">&gt;</span> 
+  <a class="link" href="replace_result.html" title="Struct template replace_result">replace_result</a><span class="special">&lt;</span> <span class="identifier">iterator</span> <span class="special">&gt;</span> 
+  <a name="idm21762-bb"></a><span class="identifier">replace</span><span class="special">(</span><span class="identifier">const_iterator</span> first1<span class="special">,</span> <span class="identifier">const_iterator</span> last1<span class="special">,</span> <span class="identifier">GraphemeCUIter</span> first2<span class="special">,</span> 
+          <span class="identifier">GraphemeCUIter</span> last2<span class="special">)</span><span class="special">;</span></pre>
+<p>Replaces the portion of <code class="computeroutput">*this</code> delimited by <code class="computeroutput">[first1, last1)</code> with <code class="computeroutput">[first2, last2)</code>.</p>
+<p>This function only participates in overload resolution if <code class="computeroutput">GraphemeCUIter</code> models the GraphemeCUIter concept.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0" class="variablelist compact">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term">Requires:</span></p></td>
+<td><p>!std::less(first.base().base(), begin().base().base()) &amp;&amp; !std::less(end().base().base(), last.base().base()) </p></td>
+</tr></tbody>
+</table></div>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a class="link" href="replace_result.html" title="Struct template replace_result">replace_result</a><span class="special">&lt;</span> <span class="identifier">iterator</span> <span class="special">&gt;</span> 
+<a name="idm21785-bb"></a><span class="identifier">replace</span><span class="special">(</span><span class="identifier">const_iterator</span> first<span class="special">,</span> <span class="identifier">const_iterator</span> last<span class="special">,</span> <a class="link" href="grapheme.html" title="Struct grapheme">grapheme</a> <span class="keyword">const</span> <span class="special">&amp;</span> g<span class="special">)</span><span class="special">;</span></pre>
+<p>Replaces the portion of <code class="computeroutput">*this</code> delimited by <code class="computeroutput">[first, last)</code> with <code class="computeroutput">g</code>. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CPIter<span class="special">&gt;</span> 
+  <a class="link" href="replace_result.html" title="Struct template replace_result">replace_result</a><span class="special">&lt;</span> <span class="identifier">iterator</span> <span class="special">&gt;</span> 
+  <a name="idm21800-bb"></a><span class="identifier">replace</span><span class="special">(</span><span class="identifier">const_iterator</span> first<span class="special">,</span> <span class="identifier">const_iterator</span> last<span class="special">,</span> <a class="link" href="grapheme_ref.html" title="Struct template grapheme_ref">grapheme_ref</a><span class="special">&lt;</span> <span class="identifier">CPIter</span> <span class="special">&gt;</span> g<span class="special">)</span><span class="special">;</span></pre>
+<p>Replaces the portion of <code class="computeroutput">*this</code> delimited by <code class="computeroutput">[first, last)</code> with <code class="computeroutput">g</code>. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a class="link" href="replace_result.html" title="Struct template replace_result">replace_result</a><span class="special">&lt;</span> <span class="identifier">iterator</span> <span class="special">&gt;</span> 
+<a name="idm21817-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="identifier">const_iterator</span> at<span class="special">,</span> <span class="identifier">const_iterator</span> first<span class="special">,</span> <span class="identifier">const_iterator</span> last<span class="special">)</span><span class="special">;</span></pre>
+<p>Inserts the sequence <code class="computeroutput">[first, last)</code> into <code class="computeroutput">*this</code> starting at position <code class="computeroutput">at</code>. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> T<span class="special">&gt;</span> <span class="keyword">auto</span> <a name="idm21831-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="identifier">const_iterator</span> at<span class="special">,</span> <span class="identifier">T</span> <span class="keyword">const</span> <span class="special">&amp;</span> x<span class="special">)</span><span class="special">;</span></pre>
+<p>Inserts the sequence of <code class="computeroutput">char_type</code> from <code class="computeroutput">x</code> into <code class="computeroutput">*this</code> starting at position <code class="computeroutput">at</code>. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> I<span class="special">&gt;</span> <span class="keyword">auto</span> <a name="idm21845-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="identifier">const_iterator</span> at<span class="special">,</span> <span class="identifier">I</span> first<span class="special">,</span> <span class="identifier">I</span> last<span class="special">)</span><span class="special">;</span></pre>
+<p>Inserts the sequence <code class="computeroutput">[first, last)</code> into <code class="computeroutput">*this</code> starting at position <code class="computeroutput">at</code>. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">void</span> <a name="idm21860-bb"></a><span class="identifier">assign</span><span class="special">(</span><span class="identifier">const_iterator</span> first<span class="special">,</span> <span class="identifier">const_iterator</span> last<span class="special">)</span><span class="special">;</span></pre>
+<p>Assigns the sequence <code class="computeroutput">[first, last)</code> to <code class="computeroutput">*this</code>. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> T<span class="special">&gt;</span> <span class="keyword">auto</span> <a name="idm21870-bb"></a><span class="identifier">assign</span><span class="special">(</span><span class="identifier">T</span> <span class="keyword">const</span> <span class="special">&amp;</span> x<span class="special">)</span><span class="special">;</span></pre>
+<p>Assigns the sequence of <code class="computeroutput">char_type</code> from <code class="computeroutput">x</code> to <code class="computeroutput">*this</code>. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> I<span class="special">&gt;</span> <span class="keyword">auto</span> <a name="idm21881-bb"></a><span class="identifier">assign</span><span class="special">(</span><span class="identifier">I</span> first<span class="special">,</span> <span class="identifier">I</span> last<span class="special">)</span><span class="special">;</span></pre>
+<p>Assigns the sequence <code class="computeroutput">[first, last)</code> to <code class="computeroutput">*this</code>. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">void</span> <a name="idm21893-bb"></a><span class="identifier">append</span><span class="special">(</span><span class="identifier">const_iterator</span> first<span class="special">,</span> <span class="identifier">const_iterator</span> last<span class="special">)</span><span class="special">;</span></pre>
+<p>Appends the sequence <code class="computeroutput">[first, last)</code> to <code class="computeroutput">*this</code>. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> T<span class="special">&gt;</span> <span class="keyword">auto</span> <a name="idm21903-bb"></a><span class="identifier">append</span><span class="special">(</span><span class="identifier">T</span> <span class="keyword">const</span> <span class="special">&amp;</span> x<span class="special">)</span><span class="special">;</span></pre>
+<p>Appends the sequence of <code class="computeroutput">char_type</code> from <code class="computeroutput">x</code> to <code class="computeroutput">*this</code>. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> I<span class="special">&gt;</span> <span class="keyword">auto</span> <a name="idm21914-bb"></a><span class="identifier">append</span><span class="special">(</span><span class="identifier">I</span> first<span class="special">,</span> <span class="identifier">I</span> last<span class="special">)</span><span class="special">;</span></pre>
+<p>Appends the sequence <code class="computeroutput">[first, last)</code> to <code class="computeroutput">*this</code>. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">void</span> <a name="idm21926-bb"></a><span class="identifier">reserve</span><span class="special">(</span><span class="identifier">size_type</span> new_size<span class="special">)</span><span class="special">;</span></pre>
+<p>Reserves storage enough for a string of at least <code class="computeroutput">new_size</code> bytes.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0" class="variablelist compact">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term">Postconditions:</span></p></td>
+<td><p>capacity() &gt;= new_size + 1 </p></td>
+</tr></tbody>
+</table></div>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">void</span> <a name="idm21936-bb"></a><span class="identifier">shrink_to_fit</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>
+<p>Reduces storage used by <code class="computeroutput">*this</code> to just the amount necessary to contain <code class="computeroutput">size()</code> chars.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0" class="variablelist compact">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term">Postconditions:</span></p></td>
+<td><p>capacity() == 0 || capacity() == size() + 1 </p></td>
+</tr></tbody>
+</table></div>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">void</span> <a name="idm21945-bb"></a><span class="identifier">swap</span><span class="special">(</span><a class="link" href="basic_text.html" title="Struct template basic_text">basic_text</a> <span class="special">&amp;</span> rhs<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>Swaps <code class="computeroutput">*this</code> with rhs. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="identifier">string</span> <a name="idm21953-bb"></a><span class="identifier">extract</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>
+<p>Removes and returns the underlying string from <code class="computeroutput">*this</code>. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">void</span> <a name="idm21958-bb"></a><span class="identifier">replace</span><span class="special">(</span><span class="identifier">string</span> <span class="special">&amp;&amp;</span> s<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>Replaces the underlying string in <code class="computeroutput">*this</code>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0" class="variablelist compact">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term">Requires:</span></p></td>
+<td><p>s is in normalization form NFD or FCC. </p></td>
+</tr></tbody>
+</table></div>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> T<span class="special">&gt;</span> <span class="keyword">auto</span> <a name="idm21968-bb"></a><span class="keyword">operator</span><span class="special">+=</span><span class="special">(</span><span class="identifier">T</span> <span class="keyword">const</span> <span class="special">&amp;</span> x<span class="special">)</span><span class="special">;</span></pre>
+<p>Appends <code class="computeroutput">x</code> to <code class="computeroutput">*this</code>. <code class="computeroutput">T</code> may be any type for which <code class="computeroutput">*this = x</code> is well-formed. </p>
+</li>
+</ol></div>
+</div>
+<div class="refsect2">
+<a name="idm38259"></a><h3>
+<a name="idm22117-bb"></a><code class="computeroutput">basic_text</code> friend functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">friend</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span> <a name="idm22118-bb"></a><span class="keyword">operator</span><span class="special">&lt;&lt;</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span> os<span class="special">,</span> <a class="link" href="basic_text.html" title="Struct template basic_text">basic_text</a> <span class="keyword">const</span> <span class="special">&amp;</span> t<span class="special">)</span><span class="special">;</span></pre>
+<p>Stream inserter; performs formatted output, in UTF-8 encoding. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">friend</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">wostream</span> <span class="special">&amp;</span> <a name="idm22127-bb"></a><span class="keyword">operator</span><span class="special">&lt;&lt;</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">wostream</span> <span class="special">&amp;</span> os<span class="special">,</span> <a class="link" href="basic_text.html" title="Struct template basic_text">basic_text</a> <span class="keyword">const</span> <span class="special">&amp;</span> t<span class="special">)</span><span class="special">;</span></pre>
+<p>Stream inserter; performs formatted output, in UTF-16 encoding. Defined on Windows only. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> T<span class="special">&gt;</span> 
+  <span class="keyword">friend</span> <span class="keyword">auto</span> <a name="idm22136-bb"></a><span class="keyword">operator</span><span class="special">==</span><span class="special">(</span><a class="link" href="basic_text.html" title="Struct template basic_text">basic_text</a> <span class="keyword">const</span> <span class="special">&amp;</span> lhs<span class="special">,</span> <span class="identifier">T</span> <span class="keyword">const</span> <span class="special">&amp;</span> rhs<span class="special">)</span><span class="special">;</span></pre>
+<p>Returns true iff <code class="computeroutput">lhs</code> == <code class="computeroutput">rhs</code>, where <code class="computeroutput">rhs</code> is an object for which <code class="computeroutput">lhs = rhs</code> is well-formed. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> T<span class="special">&gt;</span> 
+  <span class="keyword">friend</span> <span class="keyword">auto</span> <a name="idm22151-bb"></a><span class="keyword">operator</span><span class="special">==</span><span class="special">(</span><span class="identifier">T</span> <span class="keyword">const</span> <span class="special">&amp;</span> lhs<span class="special">,</span> <a class="link" href="basic_text.html" title="Struct template basic_text">basic_text</a> <span class="keyword">const</span> <span class="special">&amp;</span> rhs<span class="special">)</span><span class="special">;</span></pre>
+<p>Returns true iff <code class="computeroutput">lhs</code> == <code class="computeroutput">rhs</code>, where <code class="computeroutput">rhs</code> is an object for which <code class="computeroutput">rhs = lhs</code> is well-formed. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> T<span class="special">&gt;</span> 
+  <span class="keyword">friend</span> <span class="keyword">auto</span> <a name="idm22166-bb"></a><span class="keyword">operator</span><span class="special">!=</span><span class="special">(</span><a class="link" href="basic_text.html" title="Struct template basic_text">basic_text</a> <span class="keyword">const</span> <span class="special">&amp;</span> lhs<span class="special">,</span> <span class="identifier">T</span> <span class="keyword">const</span> <span class="special">&amp;</span> rhs<span class="special">)</span><span class="special">;</span></pre>
+<p>Returns true iff <code class="computeroutput">lhs</code> != <code class="computeroutput">rhs</code>, where <code class="computeroutput">rhs</code> is an object for which <code class="computeroutput">lhs = rhs</code> is well-formed. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> T<span class="special">&gt;</span> 
+  <span class="keyword">friend</span> <span class="keyword">auto</span> <a name="idm22181-bb"></a><span class="keyword">operator</span><span class="special">!=</span><span class="special">(</span><span class="identifier">T</span> <span class="keyword">const</span> <span class="special">&amp;</span> lhs<span class="special">,</span> <a class="link" href="basic_text.html" title="Struct template basic_text">basic_text</a> <span class="keyword">const</span> <span class="special">&amp;</span> rhs<span class="special">)</span><span class="special">;</span></pre>
+<p>Returns true iff <code class="computeroutput">lhs</code> != <code class="computeroutput">rhs</code>, where <code class="computeroutput">rhs</code> is an object for which <code class="computeroutput">rhs = lhs</code> is well-formed. </p>
+</li>
+</ol></div>
+</div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2018 T. Zachary Laine<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="../../header/boost/text/text_fwd_hpp.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/text_fwd_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="text.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

@@ -6,22 +6,31 @@
 <meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
 <link rel="home" href="../../../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
 <link rel="up" href="../../../reference.html" title="Reference">
-<link rel="prev" href="../../../boost/text/operator___idm17716.html" title="Function template operator!=">
-<link rel="next" href="../../../boost/text/grapheme_view.html" title="Struct template grapheme_view">
+<link rel="prev" href="../../../boost/text/grapheme_iterator.html" title="Struct template grapheme_iterator">
+<link rel="next" href="../../../boost/text/v1/dtl/as_graphemes_dispatch.html" title="Struct template as_graphemes_dispatch">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <div class="spirit-nav">
-<a accesskey="p" href="../../../boost/text/operator___idm17716.html"><img src="../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../../reference.html"><img src="../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../images/home.png" alt="Home"></a><a accesskey="n" href="../../../boost/text/grapheme_view.html"><img src="../../../images/next.png" alt="Next"></a>
+<a accesskey="p" href="../../../boost/text/grapheme_iterator.html"><img src="../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../../reference.html"><img src="../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../images/home.png" alt="Home"></a><a accesskey="n" href="../../../boost/text/v1/dtl/as_graphemes_dispatch.html"><img src="../../../images/next.png" alt="Next"></a>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="header.boost.text.grapheme_view_hpp"></a>Header &lt;<a href="../../../../../boost/text/grapheme_view.hpp" target="_top">boost/text/grapheme_view.hpp</a>&gt;</h3></div></div></div>
 <pre class="synopsis"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
   <span class="keyword">namespace</span> <span class="identifier">text</span> <span class="special">{</span>
-    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CPIter<span class="special">,</span> <span class="keyword">typename</span> Sentinel <span class="special">=</span> <span class="identifier">CPIter</span><span class="special">&gt;</span> <span class="keyword">struct</span> <a class="link" href="../../../boost/text/grapheme_view.html" title="Struct template grapheme_view">grapheme_view</a><span class="special">;</span>
-    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Iter<span class="special">,</span> <span class="keyword">typename</span> Sentinel<span class="special">&gt;</span> 
-      <span class="keyword">constexpr</span> <span class="keyword">auto</span> <a class="link" href="../../../boost/text/as_graphemes_idm17789.html" title="Function template as_graphemes"><span class="identifier">as_graphemes</span></a><span class="special">(</span><span class="identifier">Iter</span><span class="special">,</span> <span class="identifier">Sentinel</span><span class="special">)</span><span class="special">;</span>
-    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Range<span class="special">&gt;</span> <span class="keyword">constexpr</span> <span class="keyword">auto</span> <a class="link" href="../../../boost/text/as_graphemes_idm17803.html" title="Function template as_graphemes"><span class="identifier">as_graphemes</span></a><span class="special">(</span><span class="identifier">Range</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> I<span class="special">,</span> <span class="keyword">typename</span> S <span class="special">=</span> <span class="identifier">I</span><span class="special">&gt;</span> <span class="keyword">struct</span> <a class="link" href="../../../boost/text/grapheme_view.html" title="Struct template grapheme_view">grapheme_view</a><span class="special">;</span>
+    <span class="keyword">namespace</span> <span class="identifier">v1</span> <span class="special">{</span>
+      <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Iter<span class="special">,</span> <span class="keyword">typename</span> Sentinel<span class="special">&gt;</span> 
+        <span class="keyword">constexpr</span> <span class="keyword">auto</span> <a class="link" href="../../../boost/text/v1/as_graphemes_idm18814.html" title="Function template as_graphemes"><span class="identifier">as_graphemes</span></a><span class="special">(</span><span class="identifier">Iter</span><span class="special">,</span> <span class="identifier">Sentinel</span><span class="special">)</span><span class="special">;</span>
+      <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Range<span class="special">&gt;</span> <span class="keyword">constexpr</span> <span class="keyword">auto</span> <a class="link" href="../../../boost/text/v1/as_graphemes_idm18828.html" title="Function template as_graphemes"><span class="identifier">as_graphemes</span></a><span class="special">(</span><span class="identifier">Range</span> <span class="special">&amp;&amp;</span><span class="special">)</span><span class="special">;</span>
+      <span class="keyword">namespace</span> <span class="identifier">dtl</span> <span class="special">{</span>
+        <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Range<span class="special">,</span> 
+                 <span class="keyword">bool</span> Pointer <span class="special">=</span> <span class="identifier">detail</span><span class="special">::</span><span class="identifier">char_ptr</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">remove_reference_t</span><span class="special">&lt;</span><span class="identifier">Range</span><span class="special">&gt;&gt;</span><span class="special">::</span><span class="identifier">value</span> <span class="special">||</span> <span class="identifier">detail</span><span class="special">::</span><span class="identifier">_16_ptr</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">remove_reference_t</span><span class="special">&lt;</span><span class="identifier">Range</span><span class="special">&gt;&gt;</span><span class="special">::</span><span class="identifier">value</span> <span class="special">||</span> <span class="identifier">detail</span><span class="special">::</span><span class="identifier">cp_ptr</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">remove_reference_t</span><span class="special">&lt;</span><span class="identifier">Range</span><span class="special">&gt;&gt;</span><span class="special">::</span><span class="identifier">value</span><span class="special">&gt;</span> 
+          <span class="keyword">struct</span> <a class="link" href="../../../boost/text/v1/dtl/as_graphemes_dispatch.html" title="Struct template as_graphemes_dispatch">as_graphemes_dispatch</a><span class="special">;</span>
+
+        <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Ptr<span class="special">&gt;</span> <span class="keyword">struct</span> <a class="link" href="../../../boost/text/v1/dtl/as_graphemes_disp_idm18803.html" title="Struct template as_graphemes_dispatch&lt;Ptr, true&gt;">as_graphemes_dispatch</a><span class="special">&lt;</span><span class="identifier">Ptr</span><span class="special">,</span> <span class="keyword">true</span><span class="special">&gt;</span><span class="special">;</span>
+      <span class="special">}</span>
+    <span class="special">}</span>
   <span class="special">}</span>
 <span class="special">}</span></pre>
 </div>
@@ -35,7 +44,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="../../../boost/text/operator___idm17716.html"><img src="../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../../reference.html"><img src="../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../images/home.png" alt="Home"></a><a accesskey="n" href="../../../boost/text/grapheme_view.html"><img src="../../../images/next.png" alt="Next"></a>
+<a accesskey="p" href="../../../boost/text/grapheme_iterator.html"><img src="../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../../reference.html"><img src="../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../images/home.png" alt="Home"></a><a accesskey="n" href="../../../boost/text/v1/dtl/as_graphemes_dispatch.html"><img src="../../../images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

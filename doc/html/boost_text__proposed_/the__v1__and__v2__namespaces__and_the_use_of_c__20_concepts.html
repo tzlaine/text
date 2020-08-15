@@ -44,6 +44,12 @@
       building in C++14 or C++17 modes, and <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">v2</span><span class="special">::</span><span class="identifier">foo</span></code>
       when building in C++20 or later.
     </p>
+<p>
+      If you are using an early C++20 implementation that claims to have concept
+      support, but that breaks when you build Boost.Text's C++20 code, you can disable
+      the <code class="computeroutput"><span class="identifier">v2</span></code> namespace by defining
+      <code class="computeroutput">BOOST_TEXT_DISABLE_CONCEPTS</code>.
+    </p>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>

@@ -1,0 +1,180 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Struct template basic_text_view</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="up" href="../../header/boost/text/text_view_hpp.html" title="Header &lt;boost/text/text_view.hpp&gt;">
+<link rel="prev" href="../../header/boost/text/text_view_hpp.html" title="Header &lt;boost/text/text_view.hpp&gt;">
+<link rel="next" href="collation_sort_ke_idm22331.html" title="Function template collation_sort_key">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="../../header/boost/text/text_view_hpp.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/text_view_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="collation_sort_ke_idm22331.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="refentry">
+<a name="boost.text.basic_text_view"></a><div class="titlepage"></div>
+<div class="refnamediv">
+<h2><span class="refentrytitle">Struct template basic_text_view</span></h2>
+<p>boost::text::basic_text_view</p>
+</div>
+<h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
+<div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="comment">// In header: &lt;<a class="link" href="../../header/boost/text/text_view_hpp.html" title="Header &lt;boost/text/text_view.hpp&gt;">boost/text/text_view.hpp</a>&gt;
+
+</span><span class="keyword">template</span><span class="special">&lt;</span><span class="identifier">nf</span> Normalization<span class="special">,</span> <span class="keyword">typename</span> Char<span class="special">&gt;</span> 
+<span class="keyword">struct</span> <a class="link" href="basic_text_view.html" title="Struct template basic_text_view">basic_text_view</a> <span class="special">{</span>
+  <span class="comment">// <a class="link" href="basic_text_view.html#boost.text.basic_text_viewtypes">types</a></span>
+  <span class="keyword">typedef</span> <span class="identifier">Char</span>                                               <a class="link" href="basic_text_view.html#boost.text.basic_text_view.char_type"><span class="identifier">char_type</span></a><span class="special">;</span>             
+  <span class="keyword">typedef</span> <span class="emphasis"><em><span class="identifier">unspecified</span></em></span>                                        <a name="boost.text.basic_text_view.value_type"></a><span class="identifier">value_type</span><span class="special">;</span>            
+  <span class="keyword">typedef</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span>                                        <a name="boost.text.basic_text_view.size_type"></a><span class="identifier">size_type</span><span class="special">;</span>             
+  <span class="keyword">typedef</span> <span class="emphasis"><em><span class="identifier">unspecified</span></em></span>                                        <a name="boost.text.basic_text_view.iterator"></a><span class="identifier">iterator</span><span class="special">;</span>              
+  <span class="keyword">typedef</span> <span class="identifier">iterator</span>                                           <a name="boost.text.basic_text_view.const_iterator"></a><span class="identifier">const_iterator</span><span class="special">;</span>        
+  <span class="keyword">typedef</span> <span class="identifier">stl_interfaces</span><span class="special">::</span><span class="identifier">reverse_iterator</span><span class="special">&lt;</span> <span class="identifier">const_iterator</span> <span class="special">&gt;</span> <a name="boost.text.basic_text_view.reverse_iterator"></a><span class="identifier">reverse_iterator</span><span class="special">;</span>      
+  <span class="keyword">typedef</span> <span class="identifier">reverse_iterator</span>                                   <a name="boost.text.basic_text_view.const_reverse_iterator"></a><span class="identifier">const_reverse_iterator</span><span class="special">;</span>
+  <span class="keyword">typedef</span> <span class="emphasis"><em><span class="identifier">unspecified</span></em></span>                                        <a name="boost.text.basic_text_view.text_iterator"></a><span class="identifier">text_iterator</span><span class="special">;</span>         
+  <span class="keyword">typedef</span> <span class="identifier">const_iterator</span>                                     <a name="boost.text.basic_text_view.const_text_iterator"></a><span class="identifier">const_text_iterator</span><span class="special">;</span>   
+
+  <span class="comment">// <a class="link" href="basic_text_view.html#boost.text.basic_text_viewconstruct-copy-destruct">construct/copy/destruct</a></span>
+  <a class="link" href="basic_text_view.html#idm22296-bb"><span class="identifier">basic_text_view</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <a class="link" href="basic_text_view.html#idm22299-bb"><span class="identifier">basic_text_view</span></a><span class="special">(</span><span class="identifier">const_text_iterator</span><span class="special">,</span> <span class="identifier">const_text_iterator</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+
+  <span class="comment">// <a class="link" href="basic_text_view.html#idm22256-bb">public member functions</a></span>
+   <a class="link" href="basic_text_view.html#idm22257-bb"><span class="identifier">BOOST_TEXT_STATIC_ASSERT_NORMALIZATION</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">const_iterator</span> <a class="link" href="basic_text_view.html#idm22259-bb"><span class="identifier">begin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_iterator</span> <a class="link" href="basic_text_view.html#idm22261-bb"><span class="identifier">end</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_iterator</span> <a class="link" href="basic_text_view.html#idm22263-bb"><span class="identifier">cbegin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_iterator</span> <a class="link" href="basic_text_view.html#idm22265-bb"><span class="identifier">cend</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_reverse_iterator</span> <a class="link" href="basic_text_view.html#idm22267-bb"><span class="identifier">rbegin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_reverse_iterator</span> <a class="link" href="basic_text_view.html#idm22269-bb"><span class="identifier">rend</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_reverse_iterator</span> <a class="link" href="basic_text_view.html#idm22271-bb"><span class="identifier">crbegin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_reverse_iterator</span> <a class="link" href="basic_text_view.html#idm22273-bb"><span class="identifier">crend</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">bool</span> <a class="link" href="basic_text_view.html#idm22275-bb"><span class="identifier">empty</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">size_type</span> <a class="link" href="basic_text_view.html#idm22277-bb"><span class="identifier">storage_code_units</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">size_type</span> <a class="link" href="basic_text_view.html#idm22282-bb"><span class="identifier">distance</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="basic_text_view.html#idm22287-bb"><span class="identifier">swap</span></a><span class="special">(</span><a class="link" href="basic_text_view.html" title="Struct template basic_text_view">basic_text_view</a> <span class="special">&amp;</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+
+  <span class="comment">// <a class="link" href="basic_text_view.html#idm22312-bb">friend functions</a></span>
+  <span class="keyword">friend</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span> <a class="link" href="basic_text_view.html#idm22313-bb"><span class="keyword">operator</span><span class="special">&lt;&lt;</span></a><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span><span class="special">,</span> <a class="link" href="basic_text_view.html" title="Struct template basic_text_view">basic_text_view</a><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">friend</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">wostream</span> <span class="special">&amp;</span> <a class="link" href="basic_text_view.html#idm22322-bb"><span class="keyword">operator</span><span class="special">&lt;&lt;</span></a><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">wostream</span> <span class="special">&amp;</span><span class="special">,</span> <a class="link" href="basic_text_view.html" title="Struct template basic_text_view">basic_text_view</a><span class="special">)</span><span class="special">;</span>
+
+  <span class="comment">// <a class="link" href="basic_text_view.html#boost.text.basic_text_viewpublic-data-members">public data members</a></span>
+  <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="identifier">nf</span> <a class="link" href="basic_text_view.html#boost.text.basic_text_view.normalization"><span class="identifier">normalization</span></a><span class="special">;</span>
+  <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="identifier">format</span> <a class="link" href="basic_text_view.html#boost.text.basic_text_view.utf_format"><span class="identifier">utf_format</span></a><span class="special">;</span>
+<span class="special">}</span><span class="special">;</span></pre></div>
+<div class="refsect1">
+<a name="idm38841"></a><h2>Description</h2>
+<p>A reference to a constant sequence of graphemes over an underlying container of contiguous null-terminated code units. The underlying storage is a <code class="computeroutput">String</code>, and is kept in normalization form <code class="computeroutput">Normalization</code>. The <code class="computeroutput">String</code> is responsible for maintaining null-termination. </p>
+<div class="refsect2">
+<a name="idm38847"></a><h3>
+<a name="boost.text.basic_text_viewtypes"></a><code class="computeroutput">basic_text_view</code> 
+        public
+       types</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+<p>
+<span class="keyword">typedef</span> <span class="identifier">Char</span> <a name="boost.text.basic_text_view.char_type"></a><span class="identifier">char_type</span><span class="special">;</span></p>
+<p>The type of code unit used in the underlying storage. </p>
+</li></ol></div>
+</div>
+<div class="refsect2">
+<a name="idm38860"></a><h3>
+<a name="boost.text.basic_text_viewconstruct-copy-destruct"></a><code class="computeroutput">basic_text_view</code> 
+        public
+       construct/copy/destruct</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem">
+<pre class="literallayout"><a name="idm22296-bb"></a><span class="identifier">basic_text_view</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>Default ctor. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a name="idm22299-bb"></a><span class="identifier">basic_text_view</span><span class="special">(</span><span class="identifier">const_text_iterator</span> first<span class="special">,</span> <span class="identifier">const_text_iterator</span> last<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>Constructs a <code class="computeroutput"><code class="computeroutput"><a class="link" href="basic_text_view.html" title="Struct template basic_text_view">basic_text_view</a></code></code> from a pair of <code class="computeroutput">const_text_iterators</code>.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0" class="variablelist compact">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term">Requires:</span></p></td>
+<td><p>boost::text::normalized&lt;normalization&gt;(first.base(), last.base()) </p></td>
+</tr></tbody>
+</table></div>
+</li>
+</ol></div>
+</div>
+<div class="refsect2">
+<a name="idm38898"></a><h3>
+<a name="idm22256-bb"></a><code class="computeroutput">basic_text_view</code> public member functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem"><pre class="literallayout"> <a name="idm22257-bb"></a><span class="identifier">BOOST_TEXT_STATIC_ASSERT_NORMALIZATION</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idm22259-bb"></a><span class="identifier">begin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idm22261-bb"></a><span class="identifier">end</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idm22263-bb"></a><span class="identifier">cbegin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idm22265-bb"></a><span class="identifier">cend</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_reverse_iterator</span> <a name="idm22267-bb"></a><span class="identifier">rbegin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_reverse_iterator</span> <a name="idm22269-bb"></a><span class="identifier">rend</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_reverse_iterator</span> <a name="idm22271-bb"></a><span class="identifier">crbegin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_reverse_iterator</span> <a name="idm22273-bb"></a><span class="identifier">crend</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">bool</span> <a name="idm22275-bb"></a><span class="identifier">empty</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem">
+<pre class="literallayout"><span class="identifier">size_type</span> <a name="idm22277-bb"></a><span class="identifier">storage_code_units</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>Returns the number of code units referred to by <code class="computeroutput">*this</code>, not including the null terminator. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="identifier">size_type</span> <a name="idm22282-bb"></a><span class="identifier">distance</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>Returns the number of graphemes in <code class="computeroutput">*this</code>. This operation is O(n). </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">void</span> <a name="idm22287-bb"></a><span class="identifier">swap</span><span class="special">(</span><a class="link" href="basic_text_view.html" title="Struct template basic_text_view">basic_text_view</a> <span class="special">&amp;</span> rhs<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>Swaps <code class="computeroutput">*this</code> with <code class="computeroutput">rhs</code>. </p>
+</li>
+</ol></div>
+</div>
+<div class="refsect2">
+<a name="idm39051"></a><h3>
+<a name="idm22312-bb"></a><code class="computeroutput">basic_text_view</code> friend functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">friend</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span> <a name="idm22313-bb"></a><span class="keyword">operator</span><span class="special">&lt;&lt;</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span> os<span class="special">,</span> <a class="link" href="basic_text_view.html" title="Struct template basic_text_view">basic_text_view</a> tv<span class="special">)</span><span class="special">;</span></pre>
+<p>Stream inserter; performs formatted output, in UTF-8 encoding. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">friend</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">wostream</span> <span class="special">&amp;</span> <a name="idm22322-bb"></a><span class="keyword">operator</span><span class="special">&lt;&lt;</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">wostream</span> <span class="special">&amp;</span> os<span class="special">,</span> <a class="link" href="basic_text_view.html" title="Struct template basic_text_view">basic_text_view</a> tv<span class="special">)</span><span class="special">;</span></pre>
+<p>Stream inserter; performs formatted output, in UTF-16 encoding. Defined on Windows only. </p>
+</li>
+</ol></div>
+</div>
+<div class="refsect2">
+<a name="idm39098"></a><h3>
+<a name="boost.text.basic_text_viewpublic-data-members"></a><code class="computeroutput">basic_text_view</code> 
+        public
+       public data members</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="identifier">nf</span> <a name="boost.text.basic_text_view.normalization"></a><span class="identifier">normalization</span><span class="special">;</span></pre>
+<p>The normalization form used in this <code class="computeroutput"><a class="link" href="basic_text_view.html" title="Struct template basic_text_view">basic_text_view</a></code>. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="identifier">format</span> <a name="boost.text.basic_text_view.utf_format"></a><span class="identifier">utf_format</span><span class="special">;</span></pre>
+<p>The UTF format used in the underlying storage. </p>
+</li>
+</ol></div>
+</div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2018 T. Zachary Laine<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="../../header/boost/text/text_view_hpp.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/text_view_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="collation_sort_ke_idm22331.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>
