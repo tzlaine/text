@@ -211,6 +211,7 @@
 [include intro.qbk]
 [include overview.qbk]
 [include unicode_layer.qbk]
+[include ropes.qbk]
 [include text_layer.qbk]
 [include performance.qbk]
 [include segmented_vector.qbk]
