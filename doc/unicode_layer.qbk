@@ -625,9 +625,11 @@ point iterator).  If you call a standard algorithm in `std::ranges` with two
 `grapheme_view`s of different type, there is a chance that the call will be
 ill-formed.  For example, this:
 
-    grapheme_view<Iter1> v1(/*...*/);
-    grapheme_view<Iter2> v2(/*...*/);
-    std::ranges::search(v1, v2);
+``
+grapheme_view<Iter1> v1(/*...*/);
+grapheme_view<Iter2> v2(/*...*/);
+std::ranges::search(v1, v2);
+``
 
 may not compile.  The reasons is that the default comparator used by
 `std::ranges::search()` expects the elements of both ranges to be
@@ -638,9 +640,11 @@ common type probably does not exist for the elements of those two views.
 
 As a workaround, you can pass a more permissive comparator, such as `std::equal_to<>`:
 
-    grapheme_view<Iter1> v1(/*...*/);
-    grapheme_view<Iter2> v2(/*...*/);
-    std::ranges::search(v1, v2, std::equal_to<>{});
+``
+grapheme_view<Iter1> v1(/*...*/);
+grapheme_view<Iter2> v2(/*...*/);
+std::ranges::search(v1, v2, std::equal_to<>{});
+``
 ]
 
 

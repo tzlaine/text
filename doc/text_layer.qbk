@@ -218,7 +218,7 @@ this.
     [[text with copy-on-write semantics] [_r_]]
 
     [[function parameters that may bind to, _tvs_, or _ts_] [_tv_]]
-    [[function parameters that may bind to, _tvs_, _ts_, _rs_, or _rvs] [_rv_]]
+    [[function parameters that may bind to, _tvs_, _ts_, _rs_, or _rvs_] [_rv_]]
 ]
 
 [endsect]
