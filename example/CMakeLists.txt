@@ -15,7 +15,7 @@ endmacro()
 
 add_sample(code_point_to_utf8)
 
-add_sample(utf8)
+add_sample(transcoding)
 add_sample(normalize)
 add_sample(breaks)
 add_sample(case_mapping)

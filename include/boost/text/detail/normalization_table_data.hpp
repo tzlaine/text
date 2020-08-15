@@ -219,10 +219,10 @@ namespace boost { namespace text { namespace detail {
             if (first == last)
                 return 0;
             int32_t cp = *--last;
-            if (text::low_surrogate(cp)) {
+            if (boost::text::low_surrogate(cp)) {
                 uint16_t cu = 0;
                 if (first != last &&
-                    text::high_surrogate(cu = *std::prev(last))) {
+                    boost::text::high_surrogate(cu = *std::prev(last))) {
                     --last;
                     cp = detail::surrogates_to_cp(cu, cp);
                 }

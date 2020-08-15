@@ -7,1062 +7,997 @@
 #define BOOST_TEXT_UNENCODED_ROPE_HPP
 
 #include <boost/text/algorithm.hpp>
+#include <boost/text/estimated_width.hpp>
+#include <boost/text/segmented_vector.hpp>
+#include <boost/text/transcode_view.hpp>
+#include <boost/text/unencoded_rope_fwd.hpp>
 #include <boost/text/detail/iterator.hpp>
 #include <boost/text/detail/rope.hpp>
+#include <boost/text/detail/rope_iterator.hpp>
 
 #include <boost/algorithm/cxx14/equal.hpp>
 
 #ifdef BOOST_TEXT_TESTING
 #include <iostream>
+#else
+#include <iosfwd>
 #endif
+
+#include <string>
 
 
 namespace boost { namespace text {
 
-    struct unencoded_rope_view;
-
-    namespace detail {
-        struct const_rope_iterator;
-        using const_reverse_rope_iterator =
-            stl_interfaces::reverse_iterator<const_rope_iterator>;
-    }
-
-    /** A mutable sequence of char with copy-on-write semantics.  An
-        unencoded_rope is non-contiguous and is not null-terminated. */
-    struct unencoded_rope
+    template<typename Char, typename String>
+#if BOOST_TEXT_USE_CONCEPTS
+    // clang-format off
+        requires std::is_same_v<Char, std::ranges::range_value_t<String>>
+#endif
+    struct basic_unencoded_rope
+        // clang-format on
+        : boost::stl_interfaces::sequence_container_interface<
+              basic_unencoded_rope<Char, String>,
+              boost::stl_interfaces::element_layout::discontiguous>
     {
-        using value_type = char;
+        using value_type = Char;
+        using pointer = value_type *;
+        using const_pointer = value_type const *;
+        using reference = value_type const &;
+        using const_reference = reference;
         using size_type = std::size_t;
-        using iterator = detail::const_rope_iterator;
-        using const_iterator = detail::const_rope_iterator;
-        using reverse_iterator = detail::const_reverse_rope_iterator;
-        using const_reverse_iterator = detail::const_reverse_rope_iterator;
+        using difference_type = std::ptrdiff_t;
+        using iterator = detail::const_vector_iterator<value_type, String>;
+        using const_iterator = iterator;
+        using reverse_iterator = stl_interfaces::reverse_iterator<iterator>;
+        using const_reverse_iterator = reverse_iterator;
+
+        using string = String;
+        using string_view = basic_string_view<Char>;
+
+        /** The specialization of `unencoded_rope_view` with the same
+            `value_type` and `string`. */
+        using unencoded_rope_view =
+            basic_unencoded_rope_view<value_type, string>;
 
         /** Default ctor.
 
             \post size() == 0 && begin() == end() */
-        unencoded_rope() noexcept : ptr_(nullptr) {}
+        basic_unencoded_rope() noexcept {}
 
-        unencoded_rope(unencoded_rope const & rhs) = default;
-        unencoded_rope(unencoded_rope && rhs) noexcept = default;
+        basic_unencoded_rope(basic_unencoded_rope const &) = default;
+        basic_unencoded_rope(basic_unencoded_rope &&) noexcept = default;
 
-        /** Constructs an unencoded_rope from a null-terminated string. */
-        unencoded_rope(char const * c_str);
+        /** Constructs a basic_unencoded_rope from a null-terminated
+            string. */
+        basic_unencoded_rope(value_type const * c_str)
+        {
+            seg_vec_.insert(begin(), string(c_str));
+        }
 
-        /** Constructs an unencoded_rope from an unencoded_rope_view. */
-        explicit unencoded_rope(unencoded_rope_view rv);
+        /** Constructs a `basic_unencoded_rope` from a
+            `basic_unencoded_rope_view`. */
+        explicit basic_unencoded_rope(unencoded_rope_view rv);
 
-        /** Move-constructs an unencoded_rope from a string. */
-        explicit unencoded_rope(std::string && s) :
-            ptr_(detail::make_node(std::move(s)))
-        {}
+        /** Move-constructs a `basic_unencoded_rope` from a `string`. */
+        explicit basic_unencoded_rope(string && s)
+        {
+            seg_vec_.insert(begin(), std::move(s));
+        }
 
-#ifdef BOOST_TEXT_DOXYGEN
-
-        /** Constructs a unencoded_rope from a range of char.
-
-            This function only participates in overload resolution if
-            `CharRange` models the CharRange concept. */
-        template<typename CharRange>
-        explicit unencoded_rope(CharRange const & r);
-
-        /** Constructs an unencoded_rope from a sequence of char.
-
-            This function only participates in overload resolution if
-            `CharIter` models the CharIter concept. */
-        template<typename CharIter, typename Sentinel>
-        unencoded_rope(CharIter first, Sentinel last);
-
-        /** Constructs a unencoded_rope from a range of graphemes over an
-            underlying range of char.
-
-            This function only participates in overload resolution if
-            `GraphemeRange` models the GraphemeRange concept. */
-        template<typename GraphemeRange>
-        explicit unencoded_rope(GraphemeRange const & r);
-
+        /** Constructs a `basic_unencoded_rope` from a range of
+            `value_type` elements. */
+#if BOOST_TEXT_USE_CONCEPTS
+        template<std::ranges::range R>
+        // clang-format off
+            requires
+            std::convertible_to<std::ranges::range_reference_t<R>, value_type>
 #else
-
-        template<typename CharRange>
-        explicit unencoded_rope(
-            CharRange const & r, detail::rng_alg_ret_t<int *, CharRange> = 0) :
-            ptr_()
-        {
-            insert(0, r);
-        }
-
-        template<typename CharIter, typename Sentinel>
-        unencoded_rope(
-            CharIter first,
-            Sentinel last,
-            detail::char_iter_ret_t<void *, CharIter> = 0) :
-            ptr_()
-        {
-            insert(0, first, last);
-        }
-
-        template<typename GraphemeRange>
-        explicit unencoded_rope(
-            GraphemeRange const & r,
-            detail::graph_rng_alg_ret_t<int *, GraphemeRange> = 0)
-        {
-            insert(0, std::begin(r).base().base(), std::end(r).base().base());
-        }
-
+        template<typename R>
 #endif
-
-        unencoded_rope & operator=(unencoded_rope const & rhs) = default;
-        unencoded_rope & operator=(unencoded_rope && rhs) noexcept = default;
-
-        /** Assignment from an unencoded_rope_view. */
-        unencoded_rope & operator=(unencoded_rope_view rv);
-
-        /** Move-assignment from a string. */
-        unencoded_rope & operator=(std::string && s)
+        explicit basic_unencoded_rope(R const & r)
+        // clang-format on
         {
-            unencoded_rope temp(std::move(s));
+            insert(begin(), r);
+        }
+
+        /** Constructs a `basic_unencoded_rope` from a sequence of
+            `value_type`. */
+#if BOOST_TEXT_USE_CONCEPTS
+        template<std::input_iterator I, std::sentinel_for<I> S>
+        // clang-format off
+            requires std::convertible_to<std::iter_reference_t<I>, value_type>
+#else
+        template<typename I, typename S>
+#endif
+        basic_unencoded_rope(I first, S last)
+        // clang-format on
+        {
+            insert(begin(), first, last);
+        }
+
+        basic_unencoded_rope &
+        operator=(basic_unencoded_rope const &) = default;
+        basic_unencoded_rope &
+        operator=(basic_unencoded_rope &&) noexcept = default;
+
+        /** Assignment from a `basic_unencoded_rope_view`. */
+        basic_unencoded_rope & operator=(unencoded_rope_view rv);
+
+        /** Move-assignment from a `string`. */
+        basic_unencoded_rope & operator=(string s)
+        {
+            basic_unencoded_rope temp(std::move(s));
             swap(temp);
             return *this;
         }
 
         /** Assignment from a null-terminated string. */
-        unencoded_rope & operator=(char const * c_str);
-
-#ifdef BOOST_TEXT_DOXYGEN
-
-        /** Assignment from a range of char.
-
-            This function only participates in overload resolution if
-            `CharRange` models the CharRange concept. */
-        template<typename CharRange>
-        unencoded_rope & operator=(CharRange const & r);
-
-        /** Assignment from a range of graphemes over an underlying range of
-            char.
-
-            This function only participates in overload resolution if
-            `GraphemeRange` models the GraphemeRange concept. */
-        template<typename GraphemeRange>
-        unencoded_rope & operator=(GraphemeRange const & r);
-
-#else
-
-        template<typename CharRange>
-        auto operator=(CharRange const & r)
-            -> detail::rng_alg_ret_t<unencoded_rope &, CharRange>
+        basic_unencoded_rope & operator=(value_type const * c_str)
         {
-            unencoded_rope temp(r);
+            basic_unencoded_rope temp(c_str);
             swap(temp);
             return *this;
         }
 
-        template<typename GraphemeRange>
-        auto operator=(GraphemeRange const & r)
-            -> detail::graph_rng_alg_ret_t<unencoded_rope &, GraphemeRange>
+        const_iterator begin() noexcept { return seg_vec_.begin(); }
+        const_iterator end() noexcept { return seg_vec_.end(); }
+
+        size_type max_size() const noexcept { return seg_vec_.max_size(); }
+
+        template<typename... Args>
+        const_reference emplace_front(Args &&... args)
         {
-            unencoded_rope temp(r);
-            swap(temp);
-            return *this;
+            return *emplace(begin(), (Args &&) args...);
+        }
+        template<typename... Args>
+        const_reference emplace_back(Args &&... args)
+        {
+            return *emplace(end(), (Args &&) args...);
+        }
+        template<typename... Args>
+        const_iterator emplace(const_iterator at, Args &&... args)
+        {
+            value_type input[1] = {value_type{(Args &&) args...}};
+            return insert(at, input, input + 1);
         }
 
-#endif
+        /** Returns a substring of `*this` as an `unencoded_rope_view`,
+            comprising the elements at offsets `[lo, hi)`.  If either of `lo`
+            or `hi` is a negative value `x`, `x` is taken to be an offset from
+            the end, and so `x + size()` is used instead.
 
-        const_iterator begin() const noexcept;
-        const_iterator end() const noexcept;
-
-        const_iterator cbegin() const noexcept;
-        const_iterator cend() const noexcept;
-
-        const_reverse_iterator rbegin() const noexcept;
-        const_reverse_iterator rend() const noexcept;
-
-        const_reverse_iterator crbegin() const noexcept;
-        const_reverse_iterator crend() const noexcept;
-
-        bool empty() const noexcept { return size() == 0; }
-
-        size_type size() const noexcept { return detail::size(ptr_.get()); }
-
-        /** Returns the char (not a reference) of *this at index i, or the
-            char at index -i when i < 0.
-
-            \pre 0 <= i && i <= size() || 0 <= -i && -i <= size()  */
-        char operator[](size_type i) const noexcept
-        {
-            BOOST_ASSERT(ptr_);
-            BOOST_ASSERT(i < size());
-            detail::found_char found;
-            detail::find_char(ptr_, i, found);
-            return found.c_;
-        }
-
-        /** Returns a substring of *this as an unencoded_rope_view, taken from
-            the range of chars at offsets [lo, hi).  If either of lo or hi is a
-            negative value x, x is taken to be an offset from the end, and so x
-            + size() is used instead.
-
-            These preconditions apply to the values used after size() is added
-            to any negative arguments.
+            These preconditions apply to the values used after `size()` is
+            added to any negative arguments.
 
             \pre 0 <= lo && lo <= size()
             \pre 0 <= hi && lhi <= size()
             \pre lo <= hi */
-        unencoded_rope_view operator()(std::ptrdiff_t lo, std::ptrdiff_t hi) const;
+        unencoded_rope_view
+        operator()(std::ptrdiff_t lo, std::ptrdiff_t hi) const;
 
-        /** Returns a substring of *this as an unencoded_rope_view, taken from
-            the first cut chars when cut => 0, or the last -cut chars when cut <
-            0.
-
-            \pre 0 <= cut && cut <= size() || 0 <= -cut && -cut <= size() */
-        unencoded_rope_view operator()(std::ptrdiff_t cut) const;
-
-        /** Returns the maximum size an unencoded_rope can have. */
-        size_type max_size() const noexcept { return PTRDIFF_MAX; }
-
-        /** Visits each segment s of *this and calls f(s).  Each segment is a
-            string_view.  Depending of the operation performed on each
-            segment, this may be more efficient than iterating over [begin(),
-            end()).
-
-            \pre Fn is an Invocable accepting a single argument of any of the
-            types listed above. */
-        template<typename Fn>
-        void foreach_segment(Fn && f) const
+        /** Lexicographical compare.  Returns a value `< 0` when `*this` is
+            lexicographically less than `rhs, `0` if `*this == rhs`, and a
+            value `> 0` if `*this` is lexicographically greater than `rhs`. */
+        int compare(basic_unencoded_rope rhs) const noexcept
         {
-            detail::foreach_leaf(
-                ptr_, [&](detail::leaf_node_t<detail::rope_tag> const * leaf) {
-                    switch (leaf->which_) {
-                    case detail::which::t:
-                        f(string_view(leaf->as_string()));
-                        break;
-                    case detail::which::ref:
-                        f(leaf->as_reference().ref_);
-                        break;
-                    default: BOOST_ASSERT(!"unhandled rope node case"); break;
-                    }
-                    return true;
-                });
+            if (this->empty())
+                return rhs.empty() ? 0 : -1;
+            return boost::text::lexicographical_compare_three_way(
+                begin(), end(), rhs.begin(), rhs.end());
         }
 
-        /** Lexicographical compare.  Returns a value < 0 when *this is
-            lexicographically less than rhs, 0 if *this == rhs, and a value >
-            0 if *this is lexicographically greater than rhs. */
-        int compare(unencoded_rope rhs) const noexcept;
+        operator unencoded_rope_view() const noexcept;
 
-        /** Returns true if *this and rhs contain the same root node pointer.
-            This is useful when you want to check for equality between two
-            unencoded_ropes that are likely to have originated from the same
-            initial unencoded_rope, and may have since been mutated. */
-        bool equal_root(unencoded_rope rhs) const noexcept
-        {
-            return ptr_ == rhs.ptr_;
-        }
-
-        void clear() noexcept { ptr_ = detail::node_ptr<detail::rope_tag>(); }
-
-        /** Inserts the null-terminated string into *this starting at offset
-            at. */
-        unencoded_rope & insert(size_type at, char const * c_str);
-
-        /** Inserts the null-terminated string into *this starting at position
-            at. */
-        const_iterator insert(const_iterator at, char const * c_str);
-
-        /** Inserts the sequence of char from rv into *this starting at offset
-            at. */
-        unencoded_rope & insert(size_type at, unencoded_rope_view rv);
-
-        /** Inserts the sequence of char from rv into *this starting at
-            position at. */
-        const_iterator insert(const_iterator at, unencoded_rope_view rv);
-
-        /** Inserts the sequence of char from t into *this starting at offset
-            at, by moving the contents of t. */
-        unencoded_rope & insert(size_type at, std::string && s)
-        {
-            return insert_impl(at, std::move(s), would_not_allocate);
-        }
-
-        /** Inserts the sequence of char from t into *this starting at
-            position at, by moving the contents of t. */
-        const_iterator insert(const_iterator at, std::string && s);
-
-#ifdef BOOST_TEXT_DOXYGEN
-
-        /** Inserts the char sequence r into *this starting at offset at.
-
-            This function only participates in overload resolution if
-            `CharRange` models the CharRange concept. */
-        template<typename CharRange>
-        auto insert(size_type at, CharRange const & r);
-
-        /** Inserts the char sequence r into *this starting at position at.
-
-            This function only participates in overload resolution if
-            `CharRange` models the CharRange concept. */
-        template<typename CharRange>
-        auto insert(const_iterator at, CharRange const & r);
-
-        /** Inserts the char sequence [first, last) into *this starting at
-            offset at.
-
-            This function only participates in overload resolution if
-            `CharIter` models the CharIter concept. */
-        template<typename CharIter, typename Sentinel>
-        unencoded_rope & insert(size_type at, CharIter first, Sentinel last);
-
-        /** Inserts the char sequence [first, last) into *this starting at
-            position at.
-
-            This function only participates in overload resolution if
-            `CharIter` models the CharIter concept. */
-        template<typename CharIter, typename Sentinel>
-        unencoded_rope &
-        insert(const_iterator at, CharIter first, Sentinel last);
-
-#else
-
-        template<typename CharRange>
-        auto insert(size_type at, CharRange const & r)
-            -> detail::rng_alg_ret_t<unencoded_rope &, CharRange, string_view>;
-
-        template<typename CharRange>
-        auto insert(const_iterator at, CharRange const & r)
-            -> detail::rng_alg_ret_t<const_iterator, CharRange, string_view>;
-
-        template<typename CharIter, typename Sentinel>
-        auto insert(size_type at, CharIter first, Sentinel last)
-            -> detail::char_iter_ret_t<unencoded_rope &, CharIter>;
-
-        template<typename CharIter, typename Sentinel>
-        auto insert(const_iterator at, CharIter first, Sentinel last)
-            -> detail::char_iter_ret_t<const_iterator, CharIter>;
-
-#endif
-
-        /** Erases the portion of *this delimited by rv.
+        /** Erases the portion of `*this` delimited by `[first, last)`.
 
             \pre rv.begin() <= rv.begin() && rv.end() <= end() */
-        unencoded_rope & erase(unencoded_rope_view rv);
-
-        /** Erases the portion of *this delimited by [first, last).
-
-            \pre first <= last */
-        const_iterator erase(const_iterator first, const_iterator last);
-
-        /** Replaces the portion of *this delimited by old_substr with the
-            sequence of char from c_str.
-
-            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
-        unencoded_rope &
-        replace(unencoded_rope_view old_substr, char const * c_str);
-
-        /** Replaces the portion of *this delimited by old_substr with the
-            sequence of char from rv.
-
-            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
-        unencoded_rope &
-        replace(unencoded_rope_view old_substr, unencoded_rope_view rv);
-
-        /** Replaces the portion of *this delimited by old_substr with the
-            sequence of char from t by moving the contents of t.
-
-            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
-        unencoded_rope & replace(unencoded_rope_view old_substr, std::string && s);
-
-#ifdef BOOST_TEXT_DOXYGEN
-
-        /** Replaces the portion of *this delimited by old_substr with the
-            char sequence r.
-
-            This function only participates in overload resolution if
-            `CharRange` models the CharRange concept.
-
-            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
-        template<typename CharRange>
-        auto replace(unencoded_rope_view old_substr, CharRange const & r);
-
-        /** Replaces the portion of *this delimited by old_substr with the
-            char sequence [first, last).
-
-            This function only participates in overload resolution if
-            `CharIter` models the CharIter concept.
-
-            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
-        template<typename CharIter, typename Sentinel>
-        unencoded_rope &
-        replace(unencoded_rope_view old_substr, CharIter first, Sentinel last);
-
-        /** Replaces the portion of *this delimited by [old_first, old_last)
-            with the char sequence [new_first, new_last).
-
-            This function only participates in overload resolution if
-            `CharIter` models the CharIter concept.
-
-           \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
-        template<typename CharIter, typename Sentinel>
-        unencoded_rope & replace(
-            const_iterator old_first,
-            const_iterator old_last,
-            CharIter new_first,
-            Sentinel new_last);
-
-#else
-
-        template<typename CharRange>
-        auto replace(unencoded_rope_view old_substr, CharRange const & r)
-            -> detail::rng_alg_ret_t<unencoded_rope &, CharRange, string_view>;
-
-        template<typename CharIter, typename Sentinel>
-        auto
-        replace(unencoded_rope_view old_substr, CharIter first, Sentinel last)
-            -> detail::char_iter_ret_t<unencoded_rope &, CharIter>;
-
-        template<typename CharIter, typename Sentinel>
-        auto replace(
-            const_iterator old_first,
-            const_iterator old_last,
-            CharIter new_first,
-            Sentinel new_last)
-            -> detail::char_iter_ret_t<unencoded_rope &, CharIter>;
-
-#endif
-
-        /** Swaps *this with rhs. */
-        void swap(unencoded_rope & rhs) noexcept { ptr_.swap(rhs.ptr_); }
-
-        /** Appends c_str to *this. */
-        unencoded_rope & operator+=(char const * c_str);
-
-        /** Appends rv to *this. */
-        unencoded_rope & operator+=(unencoded_rope_view rv);
-
-        /** Appends r to *this, by moving its contents into *this. */
-        unencoded_rope & operator+=(unencoded_rope && r)
+        basic_unencoded_rope & erase(const_iterator first, const_iterator last)
         {
-            detail::interior_node_t<detail::rope_tag> * new_root = nullptr;
-            detail::node_ptr<detail::rope_tag> new_root_ptr(
-                new_root = detail::new_interior_node<detail::rope_tag>());
-            new_root->keys_.push_back(size());
-            new_root->keys_.push_back(size() + r.size());
-            new_root->children_.push_back(std::move(ptr_));
-            new_root->children_.push_back(std::move(r.ptr_));
-            ptr_ = std::move(new_root_ptr);
+            seg_vec_.erase(first, last);
             return *this;
         }
 
-        /** Appends t to *this, by moving its contents into *this. */
-        unencoded_rope & operator+=(std::string && s);
+        /** Erases the portion of `*this` delimited by `rv`.
 
+            \pre rv.begin() <= rv.begin() && rv.end() <= end() */
+        basic_unencoded_rope & erase(unencoded_rope_view rv);
+
+        /** Replaces the portion of `*this` delimited by `[first, last)` with
+            `c_str`.
+
+            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
+        basic_unencoded_rope & replace(
+            const_iterator first, const_iterator last, value_type const * c_str)
+        {
+            seg_vec_.replace(first, last, string(c_str));
+            return *this;
+        }
+
+        /** Replaces the portion of `*this` delimited by `[first, last)` with
+            `rv`.
+
+            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
+        basic_unencoded_rope & replace(
+            const_iterator first, const_iterator last, unencoded_rope_view rv);
+
+        /** Replaces the portion of `*this` delimited by `[first, last)` with
+            `s`.
+
+            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
+        basic_unencoded_rope &
+        replace(const_iterator first, const_iterator last, string && s)
+        {
+            seg_vec_.replace(first, last, std::move(s));
+            return *this;
+        }
+
+        /** Replaces the portion of `*this` delimited by `[first, last)` with
+            `r`.
+
+            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
+#if BOOST_TEXT_USE_CONCEPTS
+        template<std::ranges::range R>
+        // clang-format off
+            requires
+            std::convertible_to<std::ranges::range_reference_t<R>, value_type>
+#else
+        template<typename R>
+#endif
+        basic_unencoded_rope &
+        replace(const_iterator first, const_iterator last, R const & r)
+        // clang-format on
+        {
+            seg_vec_.replace(first, last, r.begin(), r.end());
+            return *this;
+        }
+
+        /** Replaces the portion of `*this` delimited by `[first1, last1)`
+            with `[first2, last2)`.
+
+            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
+#if BOOST_TEXT_USE_CONCEPTS
+        template<std::input_iterator I, std::sentinel_for<I> S>
+        // clang-format off
+            requires std::convertible_to<std::iter_reference_t<I>, value_type>
+#else
+        template<typename I, typename S>
+#endif
+        basic_unencoded_rope & replace(
+            const_iterator first1,
+            const_iterator last1,
+            I first2,
+            S last2)
+        // clang-format on
+        {
+            seg_vec_.replace(first1, last1, first2, last2);
+            return *this;
+        }
 
 #ifdef BOOST_TEXT_DOXYGEN
 
-        /** Append r to *this.
+        /** Replaces the portion of `*this` delimited by `old_substr` with
+            `r`.
 
             This function only participates in overload resolution if
-            `CharRange` models the CharRange concept. */
-        template<typename CharRange>
-        unencoded_rope & operator+=(CharRange const & r);
+            `replace(old_substr.begin().as_rope_iter(),
+            old_substr.end().as_rope_iter(), std::forward<Range>(r))` is
+            well-formed.
+
+            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
+        template<typename Range>
+        basic_unencoded_rope &
+        replace(unencoded_rope_view old_substr, Range && r);
+
+        /** Replaces the portion of `*this` delimited by `old_substr` with
+            `[first, last)`.
+
+            This function only participates in overload resolution if
+            `replace(old_substr.begin().as_rope_iter(),
+            old_substr.end().as_rope_iter(), first, last)` is well-formed.
+
+            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
+        template<typename Iter, typename Sentinel>
+        basic_unencoded_rope &
+        replace(unencoded_rope_view old_substr, Iter first, Sentinel last);
 
 #else
 
-        template<typename CharRange>
-        auto operator+=(CharRange const & r)
-            -> detail::rng_alg_ret_t<unencoded_rope, CharRange, std::string>
+#if BOOST_TEXT_USE_CONCEPTS
+        template<typename R>
+            // clang-format off
+        requires std::ranges::range<R> &&
+            std::convertible_to<
+                std::ranges::range_reference_t<R>, value_type> ||
+            std::convertible_to<R, value_type const *>
+#else
+        template<typename R>
+#endif
+        auto replace(unencoded_rope_view const & old_substr, R && r)
+            // clang-format on
+            -> decltype(replace(const_iterator{}, const_iterator{}, r))
         {
-            return insert(size(), std::begin(r), std::end(r));
+            return replace_shim<R>(old_substr, (R &&) r);
+        }
+
+#if BOOST_TEXT_USE_CONCEPTS
+        template<std::input_iterator I, std::sentinel_for<I> S>
+        // clang-format off
+            requires std::convertible_to<std::iter_reference_t<I>, value_type>
+#else
+        template<typename I, typename S>
+#endif
+        auto replace(unencoded_rope_view const & old_substr, I first, S last)
+            // clang-format on
+            -> decltype(
+                replace(const_iterator{}, const_iterator{}, first, last))
+        {
+            return replace_shim<I, S>(old_substr, first, last);
         }
 
 #endif
 
-        /** Stream inserter; performs formatted output. */
-        friend std::ostream & operator<<(std::ostream & os, unencoded_rope r)
+#ifdef BOOST_TEXT_DOXYGEN
+
+        /** Inserts `r` into `*this` at position `at`.
+
+            This function only participates in overload resolution if
+            `replace(at, at, std::forward<Range>(r))` is well-formed.
+
+            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
+        template<typename Range>
+        const_iterator insert(const_iterator at, Range && r);
+
+        /** Inserts `[first, last)` into `*this` at position `at`.
+
+            This function only participates in overload resolution if
+            `replace(at, at, first, last)` is well-formed.
+
+            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
+        template<typename Iter, typename Sentinel>
+        const_iterator insert(const_iterator at, Iter first, Sentinel last);
+
+        /** Appends `x` to `*this`.
+
+            This function only participates in overload resolution if
+            `*this = std::forward<T>(x)` is well-formed. */
+        template<typename T>
+        basic_unencoded_rope & operator+=(T && x);
+
+#else
+
+#if BOOST_TEXT_USE_CONCEPTS
+        template<typename R>
+            // clang-format off
+            requires std::ranges::range<R> &&
+                std::convertible_to<
+                    std::ranges::range_reference_t<R>, value_type> ||
+                std::convertible_to<R, value_type const *>
+#else
+        template<typename R>
+#endif
+        auto insert(const_iterator at, R && r)
+            // clang-format on
+            -> decltype(replace(at, at, std::forward<R>(r)), const_iterator{})
         {
-            r.foreach_segment(detail::segment_inserter{os});
+            auto const at_offset = at - begin();
+            replace(at, at, std::forward<R>(r));
+            return begin() + at_offset;
+        }
+
+#if BOOST_TEXT_USE_CONCEPTS
+        template<std::input_iterator I, std::sentinel_for<I> S>
+        // clang-format off
+            requires std::convertible_to<std::iter_reference_t<I>, value_type>
+#else
+        template<typename I, typename S>
+#endif
+        auto insert(const_iterator at, I first, S last)
+            // clang-format on
+            -> decltype(replace(at, at, first, last), const_iterator{})
+        {
+            auto const at_offset = at - begin();
+            replace(at, at, first, last);
+            return begin() + at_offset;
+        }
+
+        template<typename T>
+        auto operator+=(T && x) -> decltype(*this = std::forward<T>(x))
+        {
+            insert(end(), std::forward<T>(x));
+            return *this;
+        }
+
+#endif
+
+        void swap(basic_unencoded_rope & other)
+        {
+            seg_vec_.swap(other.seg_vec_);
+        }
+
+        using base_type = boost::stl_interfaces::sequence_container_interface<
+            basic_unencoded_rope<Char, String>,
+            boost::stl_interfaces::element_layout::discontiguous>;
+        using base_type::begin;
+        using base_type::end;
+        using base_type::insert;
+        using base_type::erase;
+
+        /** Returns true if `*this` and `other` contain the same root node
+            pointer.  This is useful when you want to check for equality
+            between two `basic_unencoded_rope`s that are likely to have
+            originated from the same initial `basic_unencoded_rope`, and may
+            have since been mutated. */
+        bool equal_root(basic_unencoded_rope other) const noexcept
+        {
+            return seg_vec_.equal_root(other.seg_vec_);
+        }
+
+        /** Stream inserter; performs unformatted output. */
+        friend std::ostream &
+        operator<<(std::ostream & os, basic_unencoded_rope r)
+        {
+            for (auto c : r) {
+                os << c;
+            }
             return os;
         }
 
-#ifdef BOOST_TEXT_TESTING
-        friend void dump_tree(std::ostream & os, unencoded_rope const & r)
+        friend bool
+        operator==(value_type const * lhs, basic_unencoded_rope rhs) noexcept
         {
-            if (r.empty())
-                os << "[EMPTY]\n";
-            else
-                detail::dump_tree(os, r.ptr_);
+            return boost::text::lexicographical_compare_three_way(
+                       lhs, null_sentinel{}, rhs.begin(), rhs.end()) == 0;
         }
-#endif
+
+        friend bool
+        operator==(basic_unencoded_rope lhs, value_type const * rhs) noexcept
+        {
+            return boost::text::lexicographical_compare_three_way(
+                       lhs.begin(), lhs.end(), rhs, null_sentinel{}) == 0;
+        }
+
+        friend bool
+        operator!=(value_type const * lhs, basic_unencoded_rope rhs) noexcept
+        {
+            return boost::text::lexicographical_compare_three_way(
+                       lhs, null_sentinel{}, rhs.begin(), rhs.end()) != 0;
+        }
+
+        friend bool
+        operator!=(basic_unencoded_rope lhs, value_type const * rhs) noexcept
+        {
+            return boost::text::lexicographical_compare_three_way(
+                       lhs.begin(), lhs.end(), rhs, null_sentinel{}) != 0;
+        }
+
+        friend bool
+        operator<(value_type const * lhs, basic_unencoded_rope rhs) noexcept
+        {
+            return boost::text::lexicographical_compare_three_way(
+                       lhs, null_sentinel{}, rhs.begin(), rhs.end()) < 0;
+        }
+
+        friend bool
+        operator<(basic_unencoded_rope lhs, value_type const * rhs) noexcept
+        {
+            return boost::text::lexicographical_compare_three_way(
+                       lhs.begin(), lhs.end(), rhs, null_sentinel{}) < 0;
+        }
+
+        friend bool
+        operator<=(value_type const * lhs, basic_unencoded_rope rhs) noexcept
+        {
+            return boost::text::lexicographical_compare_three_way(
+                       lhs, null_sentinel{}, rhs.begin(), rhs.end()) <= 0;
+        }
+
+        friend bool
+        operator<=(basic_unencoded_rope lhs, value_type const * rhs) noexcept
+        {
+            return boost::text::lexicographical_compare_three_way(
+                       lhs.begin(), lhs.end(), rhs, null_sentinel{}) <= 0;
+        }
+
+        friend bool
+        operator>(value_type const * lhs, basic_unencoded_rope rhs) noexcept
+        {
+            return boost::text::lexicographical_compare_three_way(
+                       lhs, null_sentinel{}, rhs.begin(), rhs.end()) > 0;
+        }
+
+        friend bool
+        operator>(basic_unencoded_rope lhs, value_type const * rhs) noexcept
+        {
+            return boost::text::lexicographical_compare_three_way(
+                       lhs.begin(), lhs.end(), rhs, null_sentinel{}) > 0;
+        }
+
+        friend bool
+        operator>=(value_type const * lhs, basic_unencoded_rope rhs) noexcept
+        {
+            return boost::text::lexicographical_compare_three_way(
+                       lhs, null_sentinel{}, rhs.begin(), rhs.end()) >= 0;
+        }
+
+        friend bool
+        operator>=(basic_unencoded_rope lhs, value_type const * rhs) noexcept
+        {
+            return boost::text::lexicographical_compare_three_way(
+                       lhs.begin(), lhs.end(), rhs, null_sentinel{}) >= 0;
+        }
+
+        friend void swap(basic_unencoded_rope & lhs, basic_unencoded_rope & rhs)
+        {
+            lhs.swap(rhs);
+        }
 
 #ifndef BOOST_TEXT_DOXYGEN
 
     private:
-        enum allocation_note_t { would_allocate, would_not_allocate };
+        template<typename R>
+        basic_unencoded_rope &
+        replace_shim(unencoded_rope_view const & old_substr, R && r);
 
-#ifdef BOOST_TEXT_TESTING
-    public:
-#endif
-        explicit unencoded_rope(
-            detail::node_ptr<detail::rope_tag> const & node) :
-            ptr_(node)
-        {}
-#ifdef BOOST_TEXT_TESTING
-    private:
-#endif
+        template<typename I, typename S>
+        basic_unencoded_rope &
+        replace_shim(unencoded_rope_view const & old_substr, I first, S last);
 
-        bool self_reference(unencoded_rope_view rv) const;
+        segmented_vector<value_type, string> seg_vec_;
 
-        struct string_insertion
-        {
-            explicit operator bool() const { return string_ != nullptr; }
-
-            std::string * string_;
-            detail::found_leaf<detail::rope_tag> found_;
-        };
-
-        string_insertion mutable_insertion_leaf(
-            size_type at,
-            std::ptrdiff_t delta,
-            allocation_note_t allocation_note)
-        {
-            if (!ptr_)
-                return string_insertion{nullptr};
-
-            detail::found_leaf<detail::rope_tag> found;
-            if (0 < delta && at == size()) {
-                detail::find_leaf(ptr_, at - 1, found);
-                ++found.offset_;
-            } else {
-                detail::find_leaf(ptr_, at, found);
-            }
-
-            for (auto node : found.path_) {
-                if (1 < node->refs_)
-                    return string_insertion{nullptr};
-            }
-
-            if (1 < found.leaf_->get()->refs_)
-                return string_insertion{nullptr};
-
-            if (found.leaf_->as_leaf()->which_ == detail::which::t) {
-                std::string & t =
-                    const_cast<std::string &>(found.leaf_->as_leaf()->as_string());
-                auto const inserted_size = t.size() + delta;
-                if (delta < 0 && t.size() < found.offset_ + -delta)
-                    return string_insertion{nullptr};
-                if ((0 < inserted_size && inserted_size <= t.capacity()) ||
-                    (allocation_note == would_allocate &&
-                     inserted_size <= detail::string_insert_max)) {
-                    return string_insertion{&t, found};
-                }
-            }
-
-            return string_insertion{nullptr};
-        }
-
-        template<typename T>
-        unencoded_rope &
-        insert_impl(size_type at, T && t, allocation_note_t allocation_note)
-        {
-            BOOST_ASSERT(0 <= at && at <= size());
-
-            if (t.empty())
-                return *this;
-
-            if (string_insertion insertion =
-                    mutable_insertion_leaf(at, t.size(), allocation_note)) {
-                auto const t_size = t.size();
-                detail::bump_along_path_to_leaf(ptr_, at, t_size);
-                insertion.string_->insert(
-                    insertion.string_->begin() + insertion.found_.offset_,
-                    t.begin(),
-                    t.end());
-            } else {
-                ptr_ = detail::btree_insert(
-                    ptr_, at, detail::make_node(std::forward<T>(t)));
-            }
-
-            return *this;
-        }
-
-        detail::node_ptr<detail::rope_tag> ptr_;
-
-        friend struct detail::const_rope_iterator;
-        friend struct unencoded_rope_view;
+        friend unencoded_rope_view;
 
 #endif
     };
 
+#if BOOST_TEXT_USE_CONCEPTS
+
+    /** Returns true iff `lhs` == `rhs`, where `rhs` is an object for which
+        `lhs = rhs` is well-formed. */
+    template<typename Char, typename String, typename T>
+    bool operator==(basic_unencoded_rope<Char, String> lhs, T const & rhs)
+        // clang-format off
+        requires requires { lhs = rhs; } &&
+            (!std::is_same_v<T, basic_unencoded_rope<Char, String>>)
+    // clang-format on
+    {
+        return algorithm::equal(
+                   std::ranges::begin(lhs),
+                   std::ranges::end(lhs),
+                   std::ranges::begin(rhs),
+                   std::ranges::end(rhs));
+    }
+
+    /** Returns true iff `lhs` == `rhs`, where `rhs` is an object for which
+        `rhs = lhs` is well-formed. */
+    template<typename Char, typename String, typename T>
+    bool operator==(T const & lhs, basic_unencoded_rope<Char, String> rhs)
+        // clang-format off
+        requires requires { rhs = lhs; } &&
+            (!std::is_same_v<T, basic_unencoded_rope<Char, String>>)
+    // clang-format on
+    {
+        return algorithm::equal(
+                   std::ranges::begin(lhs),
+                   std::ranges::end(lhs),
+                   std::ranges::begin(rhs),
+                   std::ranges::end(rhs));
+    }
+
+    /** Returns true iff `lhs` != `rhs`, where `rhs` is an object for which
+        `lhs = rhs` is well-formed. */
+    template<typename Char, typename String, typename T>
+    bool operator!=(basic_unencoded_rope<Char, String> lhs, T const & rhs)
+        // clang-format off
+        requires requires { lhs = rhs; } &&
+            (!std::is_same_v<T, basic_unencoded_rope<Char, String>>)
+    // clang-format on
+    {
+        return !(lhs == rhs);
+    }
+
+    /** Returns true iff `lhs` != `rhs`, where `rhs` is an object for which
+        `rhs = lhs` is well-formed. */
+    template<typename Char, typename String, typename T>
+    bool operator!=(T const & lhs, basic_unencoded_rope<Char, String> rhs)
+        // clang-format off
+        requires requires { rhs = lhs; } &&
+            (!std::is_same_v<T, basic_unencoded_rope<Char, String>>)
+    // clang-format on
+    {
+        return !(lhs == rhs);
+    }
+
+    /** Returns true iff `lhs` < `rhs`, where `rhs` is an object for which
+        `lhs = rhs` is well-formed. */
+    template<typename Char, typename String, typename T>
+    bool operator<(basic_unencoded_rope<Char, String> lhs, T const & rhs)
+        // clang-format off
+        requires requires { lhs = rhs; } &&
+            (!std::is_same_v<T, basic_unencoded_rope<Char, String>>)
+    // clang-format on
+    {
+        return boost::text::lexicographical_compare_three_way(
+                   std::ranges::begin(lhs),
+                   std::ranges::end(lhs),
+                   std::ranges::begin(rhs),
+                   std::ranges::end(rhs)) < 0;
+    }
+
+    /** Returns true iff `lhs` < `rhs`, where `rhs` is an object for which
+        `rhs = lhs` is well-formed. */
+    template<typename Char, typename String, typename T>
+    bool operator<(T const & lhs, basic_unencoded_rope<Char, String> rhs)
+        // clang-format off
+        requires requires { rhs = lhs; } &&
+            (!std::is_same_v<T, basic_unencoded_rope<Char, String>>)
+    // clang-format on
+    {
+        return boost::text::lexicographical_compare_three_way(
+                   std::ranges::begin(lhs),
+                   std::ranges::end(lhs),
+                   std::ranges::begin(rhs),
+                   std::ranges::end(rhs)) < 0;
+    }
+
+    /** Returns true iff `lhs` <= `rhs`, where `rhs` is an object for which
+        `lhs = rhs` is well-formed. */
+    template<typename Char, typename String, typename T>
+    bool operator<=(basic_unencoded_rope<Char, String> lhs, T const & rhs)
+        // clang-format off
+        requires requires { lhs = rhs; } &&
+            (!std::is_same_v<T, basic_unencoded_rope<Char, String>>)
+    // clang-format on
+    {
+        return boost::text::lexicographical_compare_three_way(
+                   std::ranges::begin(lhs),
+                   std::ranges::end(lhs),
+                   std::ranges::begin(rhs),
+                   std::ranges::end(rhs)) <= 0;
+    }
+
+    /** Returns true iff `lhs` <= `rhs`, where `rhs` is an object for which
+        `rhs = lhs` is well-formed. */
+    template<typename Char, typename String, typename T>
+    bool operator<=(T const & lhs, basic_unencoded_rope<Char, String> rhs)
+        // clang-format off
+        requires requires { rhs = lhs; } &&
+            (!std::is_same_v<T, basic_unencoded_rope<Char, String>>)
+    // clang-format on
+    {
+        return boost::text::lexicographical_compare_three_way(
+                   std::ranges::begin(lhs),
+                   std::ranges::end(lhs),
+                   std::ranges::begin(rhs),
+                   std::ranges::end(rhs)) <= 0;
+    }
+
+    /** Returns true iff `lhs` > `rhs`, where `rhs` is an object for which
+        `lhs = rhs` is well-formed. */
+    template<typename Char, typename String, typename T>
+    bool operator>(basic_unencoded_rope<Char, String> lhs, T const & rhs)
+        // clang-format off
+        requires requires { lhs = rhs; } &&
+            (!std::is_same_v<T, basic_unencoded_rope<Char, String>>)
+    // clang-format on
+    {
+        return boost::text::lexicographical_compare_three_way(
+                   std::ranges::begin(lhs),
+                   std::ranges::end(lhs),
+                   std::ranges::begin(rhs),
+                   std::ranges::end(rhs)) > 0;
+    }
+
+    /** Returns true iff `lhs` > `rhs`, where `rhs` is an object for which
+        `rhs = lhs` is well-formed. */
+    template<typename Char, typename String, typename T>
+    bool operator>(T const & lhs, basic_unencoded_rope<Char, String> rhs)
+        // clang-format off
+        requires requires { rhs = lhs; } &&
+            (!std::is_same_v<T, basic_unencoded_rope<Char, String>>)
+    // clang-format on
+    {
+        return boost::text::lexicographical_compare_three_way(
+                   std::ranges::begin(lhs),
+                   std::ranges::end(lhs),
+                   std::ranges::begin(rhs),
+                   std::ranges::end(rhs)) > 0;
+    }
+
+    /** Returns true iff `lhs` >= `rhs`, where `rhs` is an object for which
+        `lhs = rhs` is well-formed. */
+    template<typename Char, typename String, typename T>
+    bool operator>=(basic_unencoded_rope<Char, String> lhs, T const & rhs)
+        // clang-format off
+        requires requires { lhs = rhs; } &&
+            (!std::is_same_v<T, basic_unencoded_rope<Char, String>>)
+    // clang-format on
+    {
+        return boost::text::lexicographical_compare_three_way(
+                   std::ranges::begin(lhs),
+                   std::ranges::end(lhs),
+                   std::ranges::begin(rhs),
+                   std::ranges::end(rhs)) >= 0;
+    }
+
+    /** Returns true iff `lhs` >= `rhs`, where `rhs` is an object for which
+        `rhs = lhs` is well-formed. */
+    template<typename Char, typename String, typename T>
+    bool operator>=(T const & lhs, basic_unencoded_rope<Char, String> rhs)
+        // clang-format off
+        requires requires { rhs = lhs; } &&
+            (!std::is_same_v<T, basic_unencoded_rope<Char, String>>)
+    // clang-format on
+    {
+        return boost::text::lexicographical_compare_three_way(
+                   std::ranges::begin(lhs),
+                   std::ranges::end(lhs),
+                   std::ranges::begin(rhs),
+                   std::ranges::end(rhs)) >= 0;
+    }
+
+#else
+
+    /** Returns true iff `lhs` == `rhs`, where `rhs` is an object for which
+        `lhs = rhs` is well-formed. */
+    template<typename Char, typename String, typename T>
+    auto operator==(basic_unencoded_rope<Char, String> lhs, T const & rhs)
+        -> std::enable_if_t<
+            !std::is_same<T, basic_unencoded_rope<Char, String>>::value,
+            decltype(lhs = lhs, true)>
+    {
+        return algorithm::equal(
+                   std::begin(lhs),
+                   std::end(lhs),
+                   std::begin(rhs),
+                   std::end(rhs));
+    }
+
+    /** Returns true iff `lhs` == `rhs`, where `rhs` is an object for which
+        `rhs = lhs` is well-formed. */
+    template<typename Char, typename String, typename T>
+    auto operator==(T const & lhs, basic_unencoded_rope<Char, String> rhs)
+        -> std::enable_if_t<
+            !std::is_same<T, basic_unencoded_rope<Char, String>>::value,
+            decltype(rhs = lhs, true)>
+    {
+        return algorithm::equal(
+                   std::begin(lhs),
+                   std::end(lhs),
+                   std::begin(rhs),
+                   std::end(rhs));
+    }
+
+    /** Returns true iff `lhs` != `rhs`, where `rhs` is an object for which
+        `lhs = rhs` is well-formed. */
+    template<typename Char, typename String, typename T>
+    auto operator!=(basic_unencoded_rope<Char, String> lhs, T const & rhs)
+        -> std::enable_if_t<
+            !std::is_same<T, basic_unencoded_rope<Char, String>>::value,
+            decltype(lhs = rhs, true)>
+    {
+        return !(lhs == rhs);
+    }
+
+    /** Returns true iff `lhs` != `rhs`, where `rhs` is an object for which
+        `rhs = lhs` is well-formed. */
+    template<typename Char, typename String, typename T>
+    auto operator!=(T const & lhs, basic_unencoded_rope<Char, String> rhs)
+        -> std::enable_if_t<
+            !std::is_same<T, basic_unencoded_rope<Char, String>>::value,
+            decltype(rhs = lhs, true)>
+    {
+        return !(lhs == rhs);
+    }
+
+    /** Returns true iff `lhs` < `rhs`, where `rhs` is an object for which
+        `lhs = rhs` is well-formed. */
+    template<typename Char, typename String, typename T>
+    auto operator<(basic_unencoded_rope<Char, String> lhs, T const & rhs)
+        -> std::enable_if_t<
+            !std::is_same<T, basic_unencoded_rope<Char, String>>::value,
+            decltype(lhs = rhs, true)>
+    {
+        return boost::text::lexicographical_compare_three_way(
+                   std::begin(lhs),
+                   std::end(lhs),
+                   std::begin(rhs),
+                   std::end(rhs)) < 0;
+    }
+
+    /** Returns true iff `lhs` < `rhs`, where `rhs` is an object for which
+        `rhs = lhs` is well-formed. */
+    template<typename Char, typename String, typename T>
+    auto operator<(T const & lhs, basic_unencoded_rope<Char, String> rhs)
+        -> std::enable_if_t<
+            !std::is_same<T, basic_unencoded_rope<Char, String>>::value,
+            decltype(rhs = lhs, true)>
+    {
+        return boost::text::lexicographical_compare_three_way(
+                   std::begin(lhs),
+                   std::end(lhs),
+                   std::begin(rhs),
+                   std::end(rhs)) < 0;
+    }
+
+    /** Returns true iff `lhs` <= `rhs`, where `rhs` is an object for which
+        `lhs = rhs` is well-formed. */
+    template<typename Char, typename String, typename T>
+    auto operator<=(basic_unencoded_rope<Char, String> lhs, T const & rhs)
+        -> std::enable_if_t<
+            !std::is_same<T, basic_unencoded_rope<Char, String>>::value,
+            decltype(lhs = rhs, true)>
+    {
+        return boost::text::lexicographical_compare_three_way(
+                   std::begin(lhs),
+                   std::end(lhs),
+                   std::begin(rhs),
+                   std::end(rhs)) <= 0;
+    }
+
+    /** Returns true iff `lhs` <= `rhs`, where `rhs` is an object for which
+        `rhs = lhs` is well-formed. */
+    template<typename Char, typename String, typename T>
+    auto operator<=(T const & lhs, basic_unencoded_rope<Char, String> rhs)
+        -> std::enable_if_t<
+            !std::is_same<T, basic_unencoded_rope<Char, String>>::value,
+            decltype(rhs = lhs, true)>
+    {
+        return boost::text::lexicographical_compare_three_way(
+                   std::begin(lhs),
+                   std::end(lhs),
+                   std::begin(rhs),
+                   std::end(rhs)) <= 0;
+    }
+
+    /** Returns true iff `lhs` > `rhs`, where `rhs` is an object for which
+        `lhs = rhs` is well-formed. */
+    template<typename Char, typename String, typename T>
+    auto operator>(basic_unencoded_rope<Char, String> lhs, T const & rhs)
+        -> std::enable_if_t<
+            !std::is_same<T, basic_unencoded_rope<Char, String>>::value,
+            decltype(lhs = rhs, true)>
+    {
+        return boost::text::lexicographical_compare_three_way(
+                   std::begin(lhs),
+                   std::end(lhs),
+                   std::begin(rhs),
+                   std::end(rhs)) > 0;
+    }
+
+    /** Returns true iff `lhs` > `rhs`, where `rhs` is an object for which
+        `rhs = lhs` is well-formed. */
+    template<typename Char, typename String, typename T>
+    auto operator>(T const & lhs, basic_unencoded_rope<Char, String> rhs)
+        -> std::enable_if_t<
+            !std::is_same<T, basic_unencoded_rope<Char, String>>::value,
+            decltype(rhs = lhs, true)>
+    {
+        return boost::text::lexicographical_compare_three_way(
+                   std::begin(lhs),
+                   std::end(lhs),
+                   std::begin(rhs),
+                   std::end(rhs)) > 0;
+    }
+
+    /** Returns true iff `lhs` >= `rhs`, where `rhs` is an object for which
+        `lhs = rhs` is well-formed. */
+    template<typename Char, typename String, typename T>
+    auto operator>=(basic_unencoded_rope<Char, String> lhs, T const & rhs)
+        -> std::enable_if_t<
+            !std::is_same<T, basic_unencoded_rope<Char, String>>::value,
+            decltype(lhs = rhs, true)>
+    {
+        return boost::text::lexicographical_compare_three_way(
+                   std::begin(lhs),
+                   std::end(lhs),
+                   std::begin(rhs),
+                   std::end(rhs)) >= 0;
+    }
+
+    /** Returns true iff `lhs` >= `rhs`, where `rhs` is an object for which
+        `rhs = lhs` is well-formed. */
+    template<typename Char, typename String, typename T>
+    auto operator>=(T const & lhs, basic_unencoded_rope<Char, String> rhs)
+        -> std::enable_if_t<
+            !std::is_same<T, basic_unencoded_rope<Char, String>>::value,
+            decltype(rhs = lhs, true)>
+    {
+        return boost::text::lexicographical_compare_three_way(
+                   std::begin(lhs),
+                   std::end(lhs),
+                   std::begin(rhs),
+                   std::end(rhs)) >= 0;
+    }
+
+#endif
+
 }}
 
-#include <boost/text/detail/rope_iterator.hpp>
 #include <boost/text/unencoded_rope_view.hpp>
-#include <boost/text/detail/make_string.hpp>
 
 #ifndef BOOST_TEXT_DOXYGEN
 
 namespace boost { namespace text {
 
-    inline unencoded_rope::unencoded_rope(char const * c_str) : ptr_(nullptr)
+    template<typename Char, typename String>
+    basic_unencoded_rope<Char, String>::basic_unencoded_rope(
+        unencoded_rope_view rv)
     {
-        insert(0, unencoded_rope_view(c_str));
+        insert(begin(), rv);
     }
 
-    inline unencoded_rope::unencoded_rope(unencoded_rope_view rv) :
-        ptr_(nullptr)
+    template<typename Char, typename String>
+    basic_unencoded_rope<Char, String> &
+    basic_unencoded_rope<Char, String>::operator=(unencoded_rope_view rv)
     {
-        insert(0, rv);
-    }
-
-    inline int unencoded_rope::compare(unencoded_rope rhs) const noexcept
-    {
-        return unencoded_rope_view(*this).compare(rhs);
-    }
-
-    inline unencoded_rope & unencoded_rope::operator=(unencoded_rope_view rv)
-    {
-        detail::node_ptr<detail::rope_tag> extra_ref;
-        if (self_reference(rv))
-            extra_ref = ptr_;
-
-        unencoded_rope temp(rv);
+        basic_unencoded_rope temp(rv);
         swap(temp);
         return *this;
     }
 
-    inline unencoded_rope & unencoded_rope::operator=(char const * c_str)
-    {
-        unencoded_rope temp(c_str);
-        swap(temp);
-        return *this;
-    }
-
-    inline unencoded_rope &
-    unencoded_rope::insert(size_type at, char const * c_str)
-    {
-        return insert(at, unencoded_rope_view(c_str));
-    }
-
-    inline unencoded_rope::const_iterator
-    unencoded_rope::insert(const_iterator at, char const * c_str)
-    {
-        auto const offset = at - begin();
-        insert(at - begin(), unencoded_rope_view(c_str));
-        return begin() + offset;
-    }
-
-    inline unencoded_rope &
-    unencoded_rope::insert(size_type at, unencoded_rope_view rv)
-    {
-        BOOST_ASSERT(0 <= at && at <= size());
-
-        if (rv.empty())
-            return *this;
-
-        detail::node_ptr<detail::rope_tag> extra_ref;
-        if (self_reference(rv))
-            extra_ref = ptr_;
-
-        if (rv.which_ == unencoded_rope_view::which::tv) {
-            string_view tv = rv.ref_.tv_;
-            bool const tv_null_terminated = !tv.empty() && tv.back() == '\0';
-            if (tv_null_terminated)
-                tv = detail::substring(tv, 0, -1);
-            return insert_impl(at, tv, would_allocate);
-        }
-
-        bool const rv_null_terminated =
-            !rv.empty() && rv[rv.size() - 1] == '\0';
-        if (rv_null_terminated)
-            rv = rv(0, -1);
-
-        unencoded_rope_view::rope_ref rope_ref = rv.ref_.r_;
-
-        detail::found_leaf<detail::rope_tag> found_lo;
-        detail::find_leaf(rope_ref.r_->ptr_, rope_ref.lo_, found_lo);
-        detail::leaf_node_t<detail::rope_tag> const * const leaf_lo =
-            found_lo.leaf_->as_leaf();
-
-        // If the entire unencoded_rope_view lies within a single segment,
-        // slice off the appropriate part of that segment.
-        if (found_lo.offset_ + rv.size() <= detail::size(leaf_lo)) {
-            ptr_ = detail::btree_insert(
-                ptr_,
-                at,
-                detail::slice_leaf(
-                    *found_lo.leaf_,
-                    found_lo.offset_,
-                    found_lo.offset_ + rv.size()));
-            return *this;
-        }
-
-        detail::found_leaf<detail::rope_tag> found_hi;
-        detail::find_leaf(rope_ref.r_->ptr_, rope_ref.hi_, found_hi);
-
-        bool before_lo = true;
-        detail::foreach_leaf(
-            rope_ref.r_->ptr_,
-            [&](detail::leaf_node_t<detail::rope_tag> const * leaf) {
-                if (leaf == found_lo.leaf_->as_leaf()) {
-                    detail::node_ptr<detail::rope_tag> node;
-                    if (found_lo.offset_ != 0) {
-                        node = detail::slice_leaf(
-                            *found_lo.leaf_,
-                            found_lo.offset_,
-                            detail::size(leaf));
-                    } else {
-                        node = detail::node_ptr<detail::rope_tag>(leaf);
-                    }
-                    auto const node_size = detail::size(node.get());
-                    ptr_ = detail::btree_insert(ptr_, at, std::move(node));
-                    at += node_size;
-                    before_lo = false;
-                    return true; // continue
-                }
-
-                if (before_lo)
-                    return true; // continue
-
-                if (leaf == found_hi.leaf_->as_leaf()) {
-                    if (found_hi.offset_ != 0) {
-                        ptr_ = detail::btree_insert(
-                            ptr_,
-                            at,
-                            detail::slice_leaf(
-                                *found_hi.leaf_, 0, found_hi.offset_));
-
-                        at += found_hi.offset_;
-                    }
-
-                    return false; // break
-                }
-
-                ptr_ = detail::btree_insert(
-                    ptr_, at, detail::node_ptr<detail::rope_tag>(leaf));
-                at += detail::size(leaf);
-
-                return true;
-            });
-
-        return *this;
-    }
-
-    inline unencoded_rope::const_iterator
-    unencoded_rope::insert(const_iterator at, unencoded_rope_view rv)
-    {
-        auto const offset = at - begin();
-        insert(at - begin(), rv);
-        return begin() + offset;
-    }
-
-    inline unencoded_rope::const_iterator
-    unencoded_rope::insert(const_iterator at, std::string && s)
-    {
-        auto const offset = at - begin();
-        insert_impl(at - begin(), std::move(s), would_not_allocate);
-        return begin() + offset;
-    }
-
-    template<typename CharRange>
-    auto unencoded_rope::insert(size_type at, CharRange const & r)
-        -> detail::rng_alg_ret_t<unencoded_rope &, CharRange, string_view>
-    {
-        insert(at, std::begin(r), std::end(r));
-        return *this;
-    }
-
-    template<typename CharRange>
-    auto unencoded_rope::insert(const_iterator at, CharRange const & r)
-        -> detail::rng_alg_ret_t<const_iterator, CharRange, string_view>
-    {
-        auto const offset = at - this->begin();
-        insert(at, std::begin(r), std::end(r));
-        return this->begin() + offset;
-    }
-
-    template<typename CharIter, typename Sentinel>
-    auto unencoded_rope::insert(size_type at, CharIter first, Sentinel last)
-        -> detail::char_iter_ret_t<unencoded_rope &, CharIter>
-    {
-        BOOST_ASSERT(0 <= at && at <= size());
-
-        if (first == last)
-            return *this;
-
-        ptr_ = detail::btree_insert(
-            ptr_, at, detail::make_node(detail::make_string(first, last)));
-
-        return *this;
-    }
-
-    template<typename CharIter, typename Sentinel>
-    auto
-    unencoded_rope::insert(const_iterator at, CharIter first, Sentinel last)
-        -> detail::char_iter_ret_t<const_iterator, CharIter>
-    {
-        BOOST_ASSERT(begin() <= at && at <= end());
-
-        if (first == last)
-            return at;
-
-        auto const offset = at - begin();
-        ptr_ = detail::btree_insert(
-            ptr_,
-            at - begin(),
-            detail::make_node(detail::make_string(first, last)));
-        return begin() + offset;
-    }
-
-    inline unencoded_rope & unencoded_rope::erase(unencoded_rope_view rv)
-    {
-        BOOST_ASSERT(self_reference(rv));
-
-        unencoded_rope_view::rope_ref rope_ref = rv.ref_.r_;
-
-        BOOST_ASSERT(0 <= rope_ref.lo_ && rope_ref.lo_ <= size());
-        BOOST_ASSERT(0 <= rope_ref.hi_ && rope_ref.hi_ <= size());
-        BOOST_ASSERT(rope_ref.lo_ <= rope_ref.hi_);
-
-        if (rope_ref.lo_ == rope_ref.hi_)
-            return *this;
-
-        bool const rv_null_terminated =
-            !rv.empty() && rv[rv.size() - 1] == '\0';
-        if (rv_null_terminated)
-            rv = rv(0, -1);
-
-        if (string_insertion insertion = mutable_insertion_leaf(
-                rope_ref.lo_, -(std::ptrdiff_t)rv.size(), would_not_allocate)) {
-            auto const rv_size = rv.size();
-            detail::bump_along_path_to_leaf(ptr_, rope_ref.lo_, -rv_size);
-            auto const erase_first =
-                insertion.string_->begin() + insertion.found_.offset_;
-            insertion.string_->erase(erase_first, erase_first + rv_size);
-        } else {
-            ptr_ = detail::btree_erase(ptr_, rope_ref.lo_, rope_ref.hi_);
-        }
-
-        return *this;
-    }
-
-    inline unencoded_rope::const_iterator
-    unencoded_rope::erase(const_iterator first, const_iterator last)
-    {
-        BOOST_ASSERT(first <= last);
-        BOOST_ASSERT(begin() <= first && last <= end());
-
-        if (first == last)
-            return first;
-
-        auto const offset = first - begin();
-
-        auto const lo = first - begin();
-        auto const hi = last - begin();
-        if (string_insertion insertion = mutable_insertion_leaf(
-                lo, -std::ptrdiff_t(hi - lo), would_not_allocate)) {
-            auto const size = hi - lo;
-            detail::bump_along_path_to_leaf(ptr_, lo, -size);
-            auto const erase_first =
-                insertion.string_->begin() + insertion.found_.offset_;
-            insertion.string_->erase(erase_first, erase_first + size);
-        } else {
-            ptr_ = detail::btree_erase(ptr_, lo, hi);
-        }
-
-        return begin() + offset;
-    }
-
-    inline unencoded_rope &
-    unencoded_rope::replace(unencoded_rope_view old_substr, char const * c_str)
-    {
-        return replace(old_substr, unencoded_rope_view(c_str));
-    }
-
-    inline unencoded_rope & unencoded_rope::replace(
-        unencoded_rope_view old_substr, unencoded_rope_view rv)
-    {
-        BOOST_ASSERT(self_reference(old_substr));
-
-        detail::node_ptr<detail::rope_tag> extra_ref;
-        unencoded_rope extra_rope;
-        if (self_reference(rv)) {
-            extra_ref = ptr_;
-            extra_rope = unencoded_rope(extra_ref);
-            unencoded_rope_view::rope_ref rope_ref = rv.ref_.r_;
-            rv = unencoded_rope_view(extra_rope, rope_ref.lo_, rope_ref.hi_);
-        }
-
-        return erase(old_substr).insert(old_substr.ref_.r_.lo_, rv);
-    }
-
-    inline unencoded_rope &
-    unencoded_rope::replace(unencoded_rope_view old_substr, std::string && s)
-    {
-        return erase(old_substr).insert(old_substr.ref_.r_.lo_, std::move(s));
-    }
-
-    template<typename CharRange>
-    auto
-    unencoded_rope::replace(unencoded_rope_view old_substr, CharRange const & r)
-        -> detail::rng_alg_ret_t<unencoded_rope &, CharRange, string_view>
-    {
-        return replace(old_substr, std::begin(r), std::end(r));
-    }
-
-    template<typename CharIter, typename Sentinel>
-    auto unencoded_rope::replace(
-        unencoded_rope_view old_substr, CharIter first, Sentinel last)
-        -> detail::char_iter_ret_t<unencoded_rope &, CharIter>
-    {
-        BOOST_ASSERT(self_reference(old_substr));
-        BOOST_ASSERT(0 <= old_substr.size());
-        const_iterator const old_first = old_substr.begin().as_rope_iter();
-        return replace(old_first, old_first + old_substr.size(), first, last);
-    }
-
-    template<typename CharIter, typename Sentinel>
-    auto unencoded_rope::replace(
-        const_iterator old_first,
-        const_iterator old_last,
-        CharIter new_first,
-        Sentinel new_last)
-        -> detail::char_iter_ret_t<unencoded_rope &, CharIter>
-    {
-        BOOST_ASSERT(old_first <= old_last);
-        BOOST_ASSERT(begin() <= old_first && old_last <= end());
-        auto const it = erase(old_first, old_last);
-        insert(it, new_first, new_last);
-        return *this;
-    }
-
-    inline unencoded_rope & unencoded_rope::operator+=(char const * c_str)
-    {
-        return insert(size(), unencoded_rope_view(c_str));
-    }
-
-    inline unencoded_rope & unencoded_rope::operator+=(unencoded_rope_view rv)
-    {
-        return insert(size(), rv);
-    }
-
-    inline unencoded_rope & unencoded_rope::operator+=(std::string && s)
-    {
-        return insert(size(), std::move(s));
-    }
-
-    inline unencoded_rope::const_iterator unencoded_rope::begin() const noexcept
-    {
-        return const_iterator(*this, 0);
-    }
-    inline unencoded_rope::const_iterator unencoded_rope::end() const noexcept
-    {
-        return const_iterator(*this, size());
-    }
-
-    inline unencoded_rope::const_iterator unencoded_rope::cbegin() const
-        noexcept
-    {
-        return begin();
-    }
-    inline unencoded_rope::const_iterator unencoded_rope::cend() const noexcept
-    {
-        return end();
-    }
-
-    inline unencoded_rope::const_reverse_iterator unencoded_rope::rbegin() const
-        noexcept
-    {
-        return const_reverse_iterator(end());
-    }
-    inline unencoded_rope::const_reverse_iterator unencoded_rope::rend() const
-        noexcept
-    {
-        return const_reverse_iterator(begin());
-    }
-
-    inline unencoded_rope::const_reverse_iterator
-    unencoded_rope::crbegin() const noexcept
-    {
-        return rbegin();
-    }
-    inline unencoded_rope::const_reverse_iterator unencoded_rope::crend() const
-        noexcept
-    {
-        return rend();
-    }
-
-    inline unencoded_rope_view unencoded_rope::
-    operator()(std::ptrdiff_t lo, std::ptrdiff_t hi) const
+    template<typename Char, typename String>
+    basic_unencoded_rope_view<Char, String>
+    basic_unencoded_rope<Char, String>::operator()(
+        std::ptrdiff_t lo, std::ptrdiff_t hi) const
     {
         if (lo < 0)
-            lo += size();
+            lo += this->size();
         if (hi < 0)
-            hi += size();
-        BOOST_ASSERT(0 <= lo && lo <= (std::ptrdiff_t)size());
-        BOOST_ASSERT(0 <= hi && hi <= (std::ptrdiff_t)size());
+            hi += this->size();
+        BOOST_ASSERT(0 <= lo && lo <= (std::ptrdiff_t)this->size());
+        BOOST_ASSERT(0 <= hi && hi <= (std::ptrdiff_t)this->size());
         BOOST_ASSERT(lo <= hi);
         return unencoded_rope_view(*this, lo, hi);
     }
 
-    inline unencoded_rope_view
-    unencoded_rope::operator()(std::ptrdiff_t cut) const
+    template<typename Char, typename String>
+    basic_unencoded_rope<Char, String> &
+    basic_unencoded_rope<Char, String>::erase(unencoded_rope_view rv)
     {
-        size_type lo = 0;
-        size_type hi = cut;
-        if (cut < 0) {
-            lo = cut + size();
-            hi = size();
-        }
-        BOOST_ASSERT(0 <= lo && lo <= size());
-        BOOST_ASSERT(0 <= hi && hi <= size());
-        return unencoded_rope_view(*this, lo, hi);
+        seg_vec_.erase(rv.begin().as_rope_iter(), rv.end().as_rope_iter());
+        return *this;
     }
 
-    inline unencoded_rope::const_iterator
-    begin(unencoded_rope const & r) noexcept
+    template<typename Char, typename String>
+    basic_unencoded_rope<Char, String> &
+    basic_unencoded_rope<Char, String>::replace(
+        const_iterator first, const_iterator last, unencoded_rope_view rv)
     {
-        return r.begin();
-    }
-    inline unencoded_rope::const_iterator end(unencoded_rope const & r) noexcept
-    {
-        return r.end();
-    }
-
-    inline unencoded_rope::const_iterator
-    cbegin(unencoded_rope const & r) noexcept
-    {
-        return r.cbegin();
-    }
-    inline unencoded_rope::const_iterator
-    cend(unencoded_rope const & r) noexcept
-    {
-        return r.cend();
+        seg_vec_.replace(first, last, String(rv.begin(), rv.end()));
+        return *this;
     }
 
-    inline unencoded_rope::const_reverse_iterator
-    rbegin(unencoded_rope const & r) noexcept
+    template<typename Char, typename String>
+    basic_unencoded_rope<Char, String>::
+    operator basic_unencoded_rope_view<Char, String>() const noexcept
     {
-        return r.rbegin();
-    }
-    inline unencoded_rope::const_reverse_iterator
-    rend(unencoded_rope const & r) noexcept
-    {
-        return r.rend();
+        return unencoded_rope_view(*this, 0, this->size());
     }
 
-    inline unencoded_rope::const_reverse_iterator
-    crbegin(unencoded_rope const & r) noexcept
+    template<typename Char, typename String>
+    template<typename R>
+    basic_unencoded_rope<Char, String> &
+    basic_unencoded_rope<Char, String>::replace_shim(
+        unencoded_rope_view const & old_substr, R && r)
     {
-        return r.crbegin();
-    }
-    inline unencoded_rope::const_reverse_iterator
-    crend(unencoded_rope const & r) noexcept
-    {
-        return r.crend();
+        replace(
+            old_substr.begin().as_rope_iter(),
+            old_substr.end().as_rope_iter(),
+            (R &&) r);
+        return *this;
     }
 
-    inline bool unencoded_rope::self_reference(unencoded_rope_view rv) const
+    template<typename Char, typename String>
+    template<typename I, typename S>
+    basic_unencoded_rope<Char, String> &
+    basic_unencoded_rope<Char, String>::replace_shim(
+        unencoded_rope_view const & old_substr, I first, S last)
     {
-        return rv.which_ == unencoded_rope_view::which::r &&
-               rv.ref_.r_.r_ == this;
+        return replace(
+            old_substr.begin().as_rope_iter(),
+            old_substr.end().as_rope_iter(),
+            first,
+            last);
     }
 
 }}
@@ -1071,561 +1006,80 @@ namespace boost { namespace text {
 
 namespace boost { namespace text {
 
-    inline bool
-    operator==(char const * lhs, unencoded_rope const & rhs) noexcept
+#if BOOST_TEXT_USE_CONCEPTS
+
+    /** Creates a new `basic_unencoded_rope` object that is the concatenation
+        of `t` and some object `x` for which `ur = x` is well-formed. */
+    template<typename Char, typename String, typename T>
+    basic_unencoded_rope<Char, String>
+    operator+(basic_unencoded_rope<Char, String> ur, T const & x)
+        // clang-format off
+        requires requires { ur = x; }
+    // clang-format on
     {
-        return algorithm::equal(
-            lhs, lhs + std::strlen(lhs), rhs.begin(), rhs.end());
-    }
-    inline bool
-    operator==(unencoded_rope const & lhs, char const * rhs) noexcept
-    {
-        return rhs == lhs;
+        ur.insert(ur.end(), x);
+        return ur;
     }
 
-    inline bool
-    operator!=(char const * lhs, unencoded_rope const & rhs) noexcept
+    /** Creates a new `basic_unencoded_rope` object that is the concatenation
+        of `x` and `t`, where `x` is an object for which `ur = x` is
+        well-formed. */
+    template<typename Char, typename String, typename T>
+    basic_unencoded_rope<Char, String>
+    operator+(T const & x, basic_unencoded_rope<Char, String> ur)
+        // clang-format off
+        requires requires { ur = x; } &&
+            (!std::is_same_v<T, basic_unencoded_rope<Char, String>>)
+    // clang-format on
     {
-        return !(lhs == rhs);
+        ur.insert(ur.begin(), x);
+        return ur;
     }
-    inline bool
-    operator!=(unencoded_rope const & lhs, char const * rhs) noexcept
-    {
-        return rhs != lhs;
-    }
-
-    inline bool operator<(char const * lhs, unencoded_rope const & rhs) noexcept
-    {
-        return detail::generalized_compare(
-                   lhs, lhs + std::strlen(lhs), rhs.begin(), rhs.end()) < 0;
-    }
-    inline bool operator<(unencoded_rope const & lhs, char const * rhs) noexcept
-    {
-        return detail::generalized_compare(
-                   lhs.begin(), lhs.end(), rhs, rhs + std::strlen(rhs)) < 0;
-    }
-
-    inline bool
-    operator<=(char const * lhs, unencoded_rope const & rhs) noexcept
-    {
-        return lhs < rhs || lhs == rhs;
-    }
-    inline bool
-    operator<=(unencoded_rope const & lhs, char const * rhs) noexcept
-    {
-        return lhs < rhs || lhs == rhs;
-    }
-
-    inline bool operator>(char const * lhs, unencoded_rope const & rhs) noexcept
-    {
-        return rhs < lhs;
-    }
-    inline bool operator>(unencoded_rope const & lhs, char const * rhs) noexcept
-    {
-        return rhs < lhs;
-    }
-
-    inline bool
-    operator>=(char const * lhs, unencoded_rope const & rhs) noexcept
-    {
-        return rhs <= lhs;
-    }
-    inline bool
-    operator>=(unencoded_rope const & lhs, char const * rhs) noexcept
-    {
-        return rhs <= lhs;
-    }
-
-    template<typename CharRange>
-    auto operator==(CharRange const & lhs, unencoded_rope const & rhs) noexcept
-        -> detail::rng_alg_ret_t<bool, CharRange, std::string>
-    {
-        return algorithm::equal(
-            std::begin(lhs), std::end(lhs), rhs.begin(), rhs.end());
-    }
-    template<typename CharRange>
-    auto operator==(unencoded_rope const & lhs, CharRange const & rhs) noexcept
-        -> detail::rng_alg_ret_t<bool, CharRange, unencoded_rope>
-    {
-        return algorithm::equal(
-            lhs.begin(), lhs.end(), std::begin(rhs), std::end(rhs));
-    }
-
-    template<typename CharRange>
-    auto operator!=(CharRange const & lhs, unencoded_rope const & rhs) noexcept
-        -> detail::rng_alg_ret_t<bool, CharRange, std::string>
-    {
-        return !(lhs == rhs);
-    }
-    template<typename CharRange>
-    auto operator!=(unencoded_rope const & lhs, CharRange const & rhs) noexcept
-        -> detail::rng_alg_ret_t<bool, CharRange, unencoded_rope>
-    {
-        return rhs != lhs;
-    }
-
-    template<typename CharRange>
-    auto operator<(CharRange const & lhs, unencoded_rope const & rhs) noexcept
-        -> detail::rng_alg_ret_t<bool, CharRange, std::string>
-    {
-        return detail::generalized_compare(
-                   std::begin(lhs), std::end(lhs), rhs.begin(), rhs.end()) < 0;
-    }
-    template<typename CharRange>
-    auto operator<(unencoded_rope const & lhs, CharRange const & rhs) noexcept
-        -> detail::rng_alg_ret_t<bool, CharRange, unencoded_rope>
-    {
-        return detail::generalized_compare(
-                   lhs.begin(), lhs.end(), std::begin(rhs), std::end(rhs)) < 0;
-    }
-
-    template<typename CharRange>
-    auto operator<=(CharRange const & lhs, unencoded_rope const & rhs) noexcept
-        -> detail::rng_alg_ret_t<bool, CharRange, std::string>
-    {
-        return lhs < rhs || lhs == rhs;
-    }
-    template<typename CharRange>
-    auto operator<=(unencoded_rope const & lhs, CharRange const & rhs) noexcept
-        -> detail::rng_alg_ret_t<bool, CharRange, unencoded_rope>
-    {
-        return lhs < rhs || lhs == rhs;
-    }
-
-    template<typename CharRange>
-    auto operator>(CharRange const & lhs, unencoded_rope const & rhs) noexcept
-        -> detail::rng_alg_ret_t<bool, CharRange, std::string>
-    {
-        return rhs < lhs;
-    }
-    template<typename CharRange>
-    auto operator>(unencoded_rope const & lhs, CharRange const & rhs) noexcept
-        -> detail::rng_alg_ret_t<bool, CharRange, unencoded_rope>
-    {
-        return rhs < lhs;
-    }
-
-    template<typename CharRange>
-    auto operator>=(CharRange const & lhs, unencoded_rope const & rhs) noexcept
-        -> detail::rng_alg_ret_t<bool, CharRange, std::string>
-    {
-        return rhs <= lhs;
-    }
-    template<typename CharRange>
-    auto operator>=(unencoded_rope const & lhs, CharRange const & rhs) noexcept
-        -> detail::rng_alg_ret_t<bool, CharRange, unencoded_rope>
-    {
-        return rhs <= lhs;
-    }
-
-    /** Creates a new unencoded_rope object that is the concatenation of r
-        and c_str. */
-    inline unencoded_rope operator+(unencoded_rope r, char const * c_str)
-    {
-        return r += string_view(c_str);
-    }
-
-    /** Creates a new unencoded_rope object that is the concatenation of c_str
-        and r. */
-    inline unencoded_rope operator+(char const * c_str, unencoded_rope r)
-    {
-        return r.insert(0, c_str);
-    }
-
-    /** Creates a new unencoded_rope object that is the concatenation of r
-        and r2. */
-    inline unencoded_rope operator+(unencoded_rope r, unencoded_rope r2)
-    {
-        return r += r2;
-    }
-
-    /** Creates a new unencoded_rope object that is the concatenation of r
-       and rv. */
-    inline unencoded_rope operator+(unencoded_rope r, unencoded_rope_view rv)
-    {
-        return r += rv;
-    }
-
-    /** Creates a new unencoded_rope object that is the concatenation of rv
-       and r. */
-    inline unencoded_rope operator+(unencoded_rope_view rv, unencoded_rope r)
-    {
-        return r.insert(0, rv);
-    }
-
-    /** Creates a new unencoded_rope object that is the concatenation of r
-        and t, by moving the contents of t into the result. */
-    inline unencoded_rope operator+(unencoded_rope r, std::string && s)
-    {
-        return r += std::move(s);
-    }
-
-    /** Creates a new unencoded_rope object that is the concatenation of t
-        and r, by moving the contents of t into the result. */
-    inline unencoded_rope operator+(std::string && s, unencoded_rope r)
-    {
-        return r.insert(0, std::move(s));
-    }
-
-#ifdef BOOST_TEXT_DOXYGEN
-
-    /** Creates a new unencoded_rope object that is the concatenation of ur
-        and r.
-
-        This function only participates in overload resolution if
-        `CharRange` models the CharRange concept. */
-    template<typename CharRange>
-    unencoded_rope & operator+(unencoded_rope ur, CharRange const & r);
-
-    /** Creates a new unencoded_rope object that is the concatenation of r
-        and ur.
-
-        This function only participates in overload resolution if
-        `CharRange` models the CharRange concept. */
-    template<typename CharRange>
-    unencoded_rope & operator+(CharRange const & r, unencoded_rope const & ur);
 
 #else
 
-    template<typename CharRange>
-    auto operator+(unencoded_rope ur, CharRange const & r)
-        -> detail::rng_alg_ret_t<unencoded_rope, CharRange, std::string>
+    /** Creates a new `basic_unencoded_rope` object that is the concatenation
+        of `t` and some object `x` for which `ur = x` is well-formed. */
+    template<typename Char, typename String, typename T>
+    auto operator+(basic_unencoded_rope<Char, String> ur, T const & x)
+        -> decltype(ur = x, basic_unencoded_rope<Char, String>{})
     {
-        return ur += r;
+        ur.insert(ur.end(), x);
+        return ur;
     }
 
-    template<typename CharRange>
-    auto operator+(CharRange const & r, unencoded_rope ur)
-        -> detail::rng_alg_ret_t<unencoded_rope, CharRange, std::string>
+    /** Creates a new `basic_unencoded_rope` object that is the concatenation
+        of `x` and `t`, where `x` is an object for which `ur = x` is
+        well-formed. */
+    template<typename Char, typename String, typename T>
+    auto operator+(T const & x, basic_unencoded_rope<Char, String> ur)
+        -> std::enable_if_t<
+            !std::is_same<T, basic_unencoded_rope<Char, String>>::value,
+            decltype(ur = x, basic_unencoded_rope<Char, String>{})>
     {
-        return ur.insert(0, std::begin(r), std::end(r));
+        ur.insert(ur.begin(), x);
+        return ur;
     }
 
 #endif
 
-
-    inline unencoded_rope_view::unencoded_rope_view(
-        unencoded_rope const & r) noexcept :
-        ref_(rope_ref(&r, 0, r.size())),
-        which_(which::r)
+    template<typename Char, typename String>
+    basic_unencoded_rope_view<Char, String>::basic_unencoded_rope_view(
+        basic_unencoded_rope<Char, String> const & r,
+        size_type lo,
+        size_type hi) :
+        ref_(rope_ref(&r.seg_vec_, lo, hi)), which_(which::r)
     {}
-
-    inline unencoded_rope_view::unencoded_rope_view(
-        unencoded_rope_view const & other) noexcept :
-        ref_(string_view()),
-        which_(other.which_)
-    {
-        switch (which_) {
-        case which::r: ref_.r_ = other.ref_.r_; break;
-        case which::tv: ref_.tv_ = other.ref_.tv_; break;
-        }
-    }
-
-    inline unencoded_rope_view::unencoded_rope_view(
-        unencoded_rope const & r, size_type lo, size_type hi) :
-        ref_(rope_ref(&r, lo, hi)),
-        which_(which::r)
-    {}
-
-    inline unencoded_rope_view::unencoded_rope_view(std::string const & s) noexcept :
-        ref_(string_view(s.data(), s.size())),
-        which_(which::tv)
-    {}
-
-    inline unencoded_rope_view::unencoded_rope_view(
-        std::string const & s, size_type lo, size_type hi) :
-        ref_(detail::substring(s, lo, hi)), which_(which::tv)
-    {}
-
-    template<typename ContigCharRange>
-    unencoded_rope_view::unencoded_rope_view(
-        ContigCharRange const & r,
-        detail::contig_rng_alg_ret_t<int *, ContigCharRange>) :
-        ref_(rope_ref())
-    {
-        if (std::begin(r) == std::end(r)) {
-            *this = unencoded_rope_view();
-        } else {
-            *this = unencoded_rope_view(
-                string_view(&*std::begin(r), std::end(r) - std::begin(r)));
-        }
-    }
-
-    template<typename ContigGraphemeRange>
-    unencoded_rope_view::unencoded_rope_view(
-        ContigGraphemeRange const & r,
-        detail::contig_graph_rng_alg_ret_t<int *, ContigGraphemeRange>) :
-        ref_(rope_ref())
-    {
-        if (std::begin(r) == std::end(r)) {
-            *this = unencoded_rope_view();
-        } else {
-            *this = unencoded_rope_view(string_view(
-                &*std::begin(r).base().base(),
-                std::end(r).base().base() - std::begin(r).base().base()));
-        }
-    }
-
-    inline unencoded_rope_view::const_iterator
-    unencoded_rope_view::begin() const noexcept
-    {
-        switch (which_) {
-        case which::r:
-            return const_iterator(
-                detail::const_rope_iterator(ref_.r_.r_, ref_.r_.lo_));
-        case which::tv: return const_iterator(ref_.tv_.begin());
-        }
-        return const_iterator(); // This should never execute.
-    }
-
-    inline unencoded_rope_view::const_iterator unencoded_rope_view::end() const
-        noexcept
-    {
-        switch (which_) {
-        case which::r:
-            return const_iterator(
-                detail::const_rope_iterator(ref_.r_.r_, ref_.r_.hi_));
-        case which::tv: return const_iterator(ref_.tv_.end());
-        }
-        return const_iterator(); // This should never execute.
-    }
-
-    inline unencoded_rope_view::const_iterator
-    unencoded_rope_view::cbegin() const noexcept
-    {
-        return begin();
-    }
-    inline unencoded_rope_view::const_iterator unencoded_rope_view::cend() const
-        noexcept
-    {
-        return end();
-    }
-
-    inline unencoded_rope_view::const_reverse_iterator
-    unencoded_rope_view::rbegin() const noexcept
-    {
-        return const_reverse_iterator(end());
-    }
-    inline unencoded_rope_view::const_reverse_iterator
-    unencoded_rope_view::rend() const noexcept
-    {
-        return const_reverse_iterator(begin());
-    }
-
-    inline unencoded_rope_view::const_reverse_iterator
-    unencoded_rope_view::crbegin() const noexcept
-    {
-        return rbegin();
-    }
-    inline unencoded_rope_view::const_reverse_iterator
-    unencoded_rope_view::crend() const noexcept
-    {
-        return rend();
-    }
-
-    inline bool unencoded_rope_view::empty() const noexcept
-    {
-        return begin() == end();
-    }
-
-    inline unencoded_rope_view::size_type unencoded_rope_view::size() const
-        noexcept
-    {
-        return end() - begin();
-    }
-
-    inline char unencoded_rope_view::operator[](size_type i) const noexcept
-    {
-        BOOST_ASSERT(i < size());
-        return begin()[i];
-    }
-
-    inline unencoded_rope_view unencoded_rope_view::
-    operator()(std::ptrdiff_t lo, std::ptrdiff_t hi) const
-    {
-        if (lo < 0)
-            lo += size();
-        if (hi < 0)
-            hi += size();
-        BOOST_ASSERT(0 <= lo && lo <= (std::ptrdiff_t)size());
-        BOOST_ASSERT(0 <= hi && hi <= (std::ptrdiff_t)size());
-        BOOST_ASSERT(lo <= hi);
-        switch (which_) {
-        case which::r:
-            return unencoded_rope_view(
-                ref_.r_.r_, ref_.r_.lo_ + lo, ref_.r_.lo_ + hi);
-        case which::tv:
-            return unencoded_rope_view(detail::substring(ref_.tv_, lo, hi));
-        }
-        return *this; // This should never execute.
-    }
-
-    namespace detail {
-
-        template<typename Fn>
-        void apply_to_segment(
-            detail::leaf_node_t<detail::rope_tag> const * leaf,
-            std::ptrdiff_t lo,
-            std::ptrdiff_t hi,
-            Fn const & f)
-        {
-            switch (leaf->which_) {
-            case detail::which::t:
-                f(detail::substring(leaf->as_string(), lo, hi));
-                break;
-            case detail::which::ref:
-                f(detail::substring(leaf->as_reference().ref_, lo, hi));
-                break;
-            default: BOOST_ASSERT(!"unhandled rope node case"); break;
-            }
-        }
-    }
-
-    template<typename Fn>
-    void unencoded_rope_view::foreach_segment(Fn && f) const
-    {
-        if (which_ == which::tv) {
-            f(ref_.tv_);
-            return;
-        }
-
-        rope_ref r_ref = ref_.r_;
-
-        if (!r_ref.r_)
-            return;
-
-        detail::found_leaf<detail::rope_tag> found_lo;
-        detail::find_leaf(r_ref.r_->ptr_, r_ref.lo_, found_lo);
-
-        detail::found_leaf<detail::rope_tag> found_hi;
-        detail::find_leaf(r_ref.r_->ptr_, r_ref.hi_, found_hi);
-
-        if (found_lo.leaf_->as_leaf() == found_hi.leaf_->as_leaf()) {
-            detail::apply_to_segment(
-                found_lo.leaf_->as_leaf(),
-                found_lo.offset_,
-                found_hi.offset_,
-                f);
-            return;
-        }
-
-        bool before_lo = true;
-        detail::foreach_leaf(
-            r_ref.r_->ptr_,
-            [&](detail::leaf_node_t<detail::rope_tag> const * leaf) {
-                if (before_lo) {
-                    if (leaf == found_lo.leaf_->as_leaf()) {
-                        auto const leaf_size = detail::size(leaf);
-                        detail::apply_to_segment(
-                            leaf, found_lo.offset_, leaf_size, f);
-                        before_lo = false;
-                    }
-                    return true; // continue
-                }
-
-                if (leaf == found_hi.leaf_->as_leaf()) {
-                    if (found_hi.offset_ != 0)
-                        detail::apply_to_segment(leaf, 0, found_hi.offset_, f);
-                    return false; // break
-                }
-
-                auto const leaf_size = detail::size(leaf);
-                detail::apply_to_segment(leaf, 0, leaf_size, f);
-
-                return true;
-            });
-    }
-
-    inline unencoded_rope_view & unencoded_rope_view::
-    operator=(unencoded_rope_view const & other) noexcept
-    {
-        which_ = other.which_;
-        switch (which_) {
-        case which::r: ref_.r_ = other.ref_.r_; break;
-        case which::tv: ref_.tv_ = other.ref_.tv_; break;
-        }
-        return *this;
-    }
-
-    inline unencoded_rope_view::iterator begin(unencoded_rope_view rv) noexcept
-    {
-        return rv.begin();
-    }
-    inline unencoded_rope_view::iterator end(unencoded_rope_view rv) noexcept
-    {
-        return rv.end();
-    }
-
-    inline unencoded_rope_view::iterator cbegin(unencoded_rope_view rv) noexcept
-    {
-        return rv.cbegin();
-    }
-    inline unencoded_rope_view::iterator cend(unencoded_rope_view rv) noexcept
-    {
-        return rv.cend();
-    }
-
-    inline unencoded_rope_view::reverse_iterator
-    rbegin(unencoded_rope_view rv) noexcept
-    {
-        return rv.rbegin();
-    }
-    inline unencoded_rope_view::reverse_iterator
-    rend(unencoded_rope_view rv) noexcept
-    {
-        return rv.rend();
-    }
-
-    inline unencoded_rope_view::reverse_iterator
-    crbegin(unencoded_rope_view rv) noexcept
-    {
-        return rv.crbegin();
-    }
-    inline unencoded_rope_view::reverse_iterator
-    crend(unencoded_rope_view rv) noexcept
-    {
-        return rv.crend();
-    }
-
-    inline int unencoded_rope_view::compare(unencoded_rope_view rhs) const
-        noexcept
-    {
-        if (which_ == which::tv && rhs.which_ == which::tv)
-            return ref_.tv_.compare(rhs.ref_.tv_);
-
-        if (empty())
-            return rhs.empty() ? 0 : -1;
-
-        auto const iters =
-            algorithm::mismatch(begin(), end(), rhs.begin(), rhs.end());
-        if (iters.first == end()) {
-            if (iters.second == rhs.end())
-                return 0;
-            else
-                return -1;
-        } else if (iters.second == rhs.end()) {
-            return 1;
-        } else if (*iters.first < *iters.second) {
-            return -1;
-        } else {
-            return 1;
-        }
-    }
-
-
-    /** Stream inserter; performs unformatted output. */
-    inline std::ostream & operator<<(std::ostream & os, unencoded_rope_view rv)
-    {
-        rv.foreach_segment(detail::segment_inserter{os});
-        return os;
-    }
 
     namespace detail {
 
 #ifdef BOOST_TEXT_TESTING
-        template<typename T>
-        inline void dump_tree(
-            std::ostream & os, node_ptr<T> const & root, int key, int indent)
+        template<typename T, typename Segment>
+        void dump_tree(
+            std::ostream & os,
+            node_ptr<T, Segment> const & root,
+            int key,
+            int indent)
         {
             os << std::string(indent * 4, ' ')
                << (root->leaf_ ? "LEAF" : "INTR") << " @0x" << std::hex
@@ -1647,10 +1101,10 @@ namespace boost { namespace text {
 #ifndef BOOST_TEXT_DOXYGEN
 
 namespace std {
-    template<>
-    struct hash<boost::text::unencoded_rope>
+    template<typename Char, typename String>
+    struct hash<boost::text::basic_unencoded_rope<Char, String>>
     {
-        using argument_type = boost::text::unencoded_rope;
+        using argument_type = boost::text::basic_unencoded_rope<Char, String>;
         using result_type = std::size_t;
         result_type operator()(argument_type const & ur) const noexcept
         {

@@ -5,39 +5,28 @@
  /]
 [section An Overview of Boost.Text]
 
-_Text_ is composed of three main layers:
+_Text_ is composed of two main layers:
 
-* The _s_ layer
 * The Unicode layer
 * The _t_ layer
 
 There are a couple of assorted bits that were necessary or useful to have
-around when implementing various parts of _Text_: _segv_ and
+around when implementing various parts of _Text_: _segv_, _ur_, _urv_, and
 _trie_\/_trie_m_\/_trie_s_.
 
-The _t_ layer depends on both the Unicode layer and the _s_ layer.  There are
-no other dependencies.  The Unicode layer can be used without touching the
-other layers, and the _s_ layer can be used without touching the other layers:
-
-[$../../doc/layers.svg]
-
-
-[heading The _s_ Layer]
-
-The types in this layer are encoding-agnostic.  Together, they form an
-ecosystem of types that constitutes a `std::string`-like type, including some
-complimentary types like ropes and rope views.  The types in this layer are:
-_s_, _sv_, _rsv_, _ur_, and _urv_.
+The _t_ layer depends on the Unicode layer.  The Unicode layer can be used
+without touching the _t_ layer.
 
 
 [heading The Unicode Layer]
 
-This layer provides a few Unicode-related utility types, but is primarily
-comprised of the Unicode algorithms.  These algorithms are done in the style
-of the standard algorithms, with range-friendly interfaces.  There are
+The Unicode layer provides a few Unicode-related utility types, but is
+primarily comprised of the Unicode algorithms.  These algorithms are done in
+the style of the standard algorithms, with range-friendly interfaces.  For
+each of the unicode algorithms there is a corresponding lazy view.  There are
 algorithms for these Unicode operations:
 
-* UTF-8 <-> UTF-16, UTF-8 <-> UTF-32
+* Transcoding among UTF-8, UTF-16, and UTF-32
 * Normalization, including the four Unicode normalization forms, plus the FCC form from _tn5_
 * Text segmentation (line breaks, word breaks, etc.)
 * Case mapping (`to_upper()`, `is_lower()`, etc.)
@@ -45,17 +34,17 @@ algorithms for these Unicode operations:
 * Collation-aware searching, including caseless searching
 * The Unicode Bidirectional Algorithm, for laying out text that includes both left-to-right and right-to-left text
 
-These algorithms are independent of the other two layers; it is possible to
-use _Text_ as a Unicode library without using the either of the _s_ or _t_
-layers.
+These algorithms are independent of the _t_ layer; it is possible to use
+_Text_ as a Unicode library without using the _t_ layer at all.
 
 
 [heading The _t_ Layer]
 
-This layer is built on top of the Unicode layer.  Its types encode text as
-UTF-8, and maintain FCC normalization.  Much of their implementation is done
-in terms of the algorithms from the Unicode layer.  The types in this layer
-are: _t_, _tv_, _r_, and _rv_.
+The _t_ layer is built on top of the Unicode layer.  Its types encode text as
+UTF-8, and maintain normalization.  Much of their implementation is done in
+terms of the algorithms from the Unicode layer.  The types in this layer are:
+_t_, _tv_, _r_, and _rv_.  It contains templates that can be instantiated with
+different UTF formats, normalization forms, and/or underlying storage.
 
 
 [heading The Assorted Bits]
@@ -83,10 +72,10 @@ fine in C++20 and later, but is not fine in earlier versions of standard.  In
 fact, in earlier versions proxy iterators are not iterators at all, by the
 standard's formal definition.
 
-This does not come up as a real problem very much in practice.  I have yet to
-run into any code that does not compile or that does not work due to the use
-of these proxy iterators, but it is a potential problem about which you should
-know.  Consider yourself warned.
+This is not a problem in practice; I have yet to run into any code that does
+not compile, or that does not work in some other way, due to the use of these
+proxy iterators, but it is a theoretical problem about which you should know.
+Consider yourself warned.
 
 [endsect]
 
@@ -107,5 +96,9 @@ The net result for you as a user is that, for some function or type `foo` with
 `v1` and `v2` versions, you can use `boost::text::foo`, and you will get
 `boost::text::v1::foo` when building in C++14 or C++17 modes, and
 `boost::text::v2::foo` when building in C++20 or later.
+
+If you are using an early C++20 implementation that claims to have concept
+support, but that breaks when you build _Text_'s C++20 code, you can disable
+the `v2` namespace by defining _disable_concepts_m_.
 
 [endsect]

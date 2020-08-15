@@ -59,9 +59,8 @@ namespace {
         std::vector<char> buf;
         std::ptrdiff_t pos = snapshot.first_char_index_;
         auto line_first = snapshot.first_row_;
-        auto const line_last = (std::min)(
-            (ptrdiff_t)line_first + screen_size.row_ - 2,
-            snapshot.lines_.size());
+        auto const line_last = std::min<std::ptrdiff_t>(
+            line_first + screen_size.row_ - 2, snapshot.lines_.size());
         for (; line_first != line_last; ++line_first) {
             auto const line = snapshot.lines_[line_first];
             auto first = snapshot.content_.begin().base().base() + pos;

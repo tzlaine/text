@@ -265,7 +265,6 @@ TEST(transcode_insert_iterator, utf8_inserters_long)
     }
 }
 
-#if 0 // TODO: UTF-8
 TEST(transcode_insert_iterator, utf8_inserters_errors)
 {
     std::vector<uint16_t> cus = {
@@ -311,4 +310,3 @@ TEST(transcode_insert_iterator, utf8_inserters_errors)
         EXPECT_EQ(result, expected_cps_deque);
     }
 }
-#endif

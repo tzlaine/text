@@ -11,6 +11,7 @@
 
 //[ collation_search_string
 boost::text::text const string =
+    (char const *)
     u8"Århus changed the way they spell the name of their town, which has had "
     u8"the same name for centuries.  What's going on in those city council "
     u8"meetings?";

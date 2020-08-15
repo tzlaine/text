@@ -237,9 +237,10 @@ namespace boost { namespace text { namespace detail {
             auto next_cp = [](uint16_t const *& first,
                               uint16_t const * last) -> int32_t {
                 int32_t cp = *first++;
-                if (text::high_surrogate(cp)) {
+                if (boost::text::high_surrogate(cp)) {
                     uint16_t cu = 0;
-                    if (first != last && text::low_surrogate(cu = *first)) {
+                    if (first != last &&
+                        boost::text::low_surrogate(cu = *first)) {
                         ++first;
                         cp = detail::surrogates_to_cp(cp, cu);
                     }
@@ -346,8 +347,8 @@ namespace boost { namespace text { namespace detail {
         {
             code_point_last_ = code_point_first_;
             uint16_t c = *--code_point_first_;
-            if (text::low_surrogate(c) && begin() < code_point_first_ &&
-                text::high_surrogate(*(code_point_first_ - 1))) {
+            if (boost::text::low_surrogate(c) && begin() < code_point_first_ &&
+                boost::text::high_surrogate(*(code_point_first_ - 1))) {
                 --code_point_first_;
             }
         }
@@ -358,8 +359,8 @@ namespace boost { namespace text { namespace detail {
                 return 0;
             int32_t c = *--code_point_first_;
             uint16_t c2;
-            if (text::low_surrogate(c) && begin() < code_point_first_ &&
-                text::high_surrogate(c2 = *(code_point_first_ - 1))) {
+            if (boost::text::low_surrogate(c) && begin() < code_point_first_ &&
+                boost::text::high_surrogate(c2 = *(code_point_first_ - 1))) {
                 --code_point_first_;
                 c = detail::surrogates_to_cp(c2, c);
             }
@@ -391,7 +392,7 @@ namespace boost { namespace text { namespace detail {
         while (first != last) {
             while (first != last && out != out_last) {
                 int32_t c = *first++;
-                if (text::high_surrogate(c))
+                if (boost::text::high_surrogate(c))
                     c = detail::surrogates_to_cp(c, *first++);
                 out = detail::write_cp_utf8(c, out);
             }
@@ -447,7 +448,8 @@ namespace boost { namespace text { namespace detail {
     template<typename CharIter, typename Sentinel>
     int32_t jamo_t_minus_base(CharIter first, Sentinel last) noexcept
     {
-        if (3 <= text::distance(first, last) && (uint8_t)*first == 0xe1) {
+        if (3 <= boost::text::distance(first, last) &&
+            (uint8_t)*first == 0xe1) {
             if ((uint8_t)first[1] == 0x86) {
                 uint8_t t = first[2];
                 if (0xa8 <= t && t <= 0xbf)
@@ -799,12 +801,13 @@ namespace boost { namespace text { namespace detail {
                     table.most_decomp_yes_and_zero_cc(
                         norm16 = table.trie.fast_bmp_get(c))) {
                     ++first;
-                } else if (!text::high_surrogate(c)) {
+                } else if (!boost::text::high_surrogate(c)) {
                     break;
                 } else {
                     uint16_t c2;
                     auto next = std::next(first);
-                    if (next != last && text::low_surrogate(c2 = *next)) {
+                    if (next != last &&
+                        boost::text::low_surrogate(c2 = *next)) {
                         c = detail::surrogates_to_cp(c, c2);
                         norm16 = table.trie.fast_supp_get(c);
                         if (table.most_decomp_yes_and_zero_cc(norm16))
@@ -878,11 +881,12 @@ namespace boost { namespace text { namespace detail {
                     ++first;
                 } else {
                     prev_first = first++;
-                    if (!text::high_surrogate(c)) {
+                    if (!boost::text::high_surrogate(c)) {
                         break;
                     } else {
                         uint16_t c2 = 0;
-                        if (first != last && text::low_surrogate(c2 = *first)) {
+                        if (first != last &&
+                            boost::text::low_surrogate(c2 = *first)) {
                             ++first;
                             c = detail::surrogates_to_cp(c, c2);
                             norm16 = table.trie.fast_supp_get(c);

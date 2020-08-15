@@ -7,9 +7,7 @@
 #define BOOST_TEXT_NORMALIZE_HPP
 
 #include <boost/text/algorithm.hpp>
-#if defined(__cpp_lib_concepts)
 #include <boost/text/concepts.hpp>
-#endif
 #include <boost/text/transcode_algorithm.hpp>
 #include <boost/text/transcode_iterator.hpp>
 #include <boost/text/transcode_view.hpp>
@@ -185,73 +183,6 @@ namespace boost { namespace text {
             CPIter,
             Sentinel,
             OutIter>::type;
-
-        template<typename OutIter>
-        OutIter stream_safe_cp(int & nonstarters, uint32_t cp, OutIter out)
-        {
-            auto decomp = compatible_decompose(cp);
-            uint32_t const degenerate_decomposition[1] = {cp};
-            auto const decomposition_first =
-                decomp.empty() ? std::begin(degenerate_decomposition)
-                               : decomp.first_;
-            auto const decomposition_last =
-                decomp.empty() ? std::end(degenerate_decomposition)
-                               : decomp.last_;
-            auto const starter_first = std::find_if(
-                decomposition_first, decomposition_last, [](auto cp) {
-                    return detail::ccc(cp) == 0;
-                });
-            int const initial_nonstarters = starter_first - decomposition_first;
-            if (30 < nonstarters + initial_nonstarters) {
-                *out = 0x034f; // U+034F COMBINING GRAPHEME JOINER (CGJ)
-                ++out;
-                nonstarters = 0;
-            }
-            *out = cp;
-            ++out;
-            if (starter_first == decomposition_last) {
-                nonstarters += decomposition_last - decomposition_first;
-            } else {
-                auto const starter_last_minus_one = find_if_backward(
-                    starter_first, decomposition_last, [](auto cp) {
-                        return detail::ccc(cp) == 0;
-                    });
-                auto const nonstarter_first =
-                    starter_last_minus_one +
-                    (starter_last_minus_one == decomposition_last ? 0 : 1);
-                nonstarters += decomposition_last - nonstarter_first;
-            }
-            return out;
-        }
-    }
-
-    /** Writes sequence `[first, last)` to `out`, ensuring Stream-Safe Text
-        Format.
-
-        This function only participates in overload resolution if `CPIter`
-        models the CPIter concept.
-
-        \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
-    template<typename CPIter, typename Sentinel, typename OutIter>
-    auto stream_safe_copy(CPIter first, Sentinel last, OutIter out)
-        -> detail::cp_iter_ret_t<OutIter, CPIter>
-    {
-        int nonstarters = 0;
-        for (; first != last; ++first) {
-            auto const cp = *first;
-            out = detail::stream_safe_cp(nonstarters, cp, out);
-        }
-        return out;
-    }
-
-    /** Writes sequence `[first, last)` to `out`, ensuring Stream-Safe Text
-        Format.
-
-        \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
-    template<typename CPRange, typename OutIter>
-    OutIter stream_safe_copy(CPRange const & r, OutIter out)
-    {
-        return boost::text::stream_safe_copy(std::begin(r), std::end(r), out);
     }
 
 }}
@@ -287,7 +218,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
         \see https://unicode.org/notes/tn5 */
     template<nf Normalization, typename CPRange, typename OutIter>
-    OutIter normalize(CPRange const & r, OutIter out)
+    OutIter normalize(CPRange && r, OutIter out)
     {
         return v1::normalize<Normalization>(std::begin(r), std::end(r), out);
     }
@@ -314,17 +245,16 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     /** Returns true iff the given sequence of code points is in Unicode
         normalization form `Normalization`. */
     template<nf Normalization, typename CPRange>
-    bool normalized(CPRange const & r) noexcept
+    bool normalized(CPRange && r) noexcept
     {
         return v1::normalized<Normalization>(std::begin(r), std::end(r));
     }
+
 }}}
 
-#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
+#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
-
-    // TODO: stream-safe functions, once they are stable.
 
     /** Writes sequence `[first, last)` in Unicode normalization form
         `Normalization` to `out`.
@@ -332,10 +262,10 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         \see https://unicode.org/notes/tn5 */
     template<
         nf Normalization,
-        u32_iter I,
+        code_point_iter I,
         std::sentinel_for<I> S,
         std::output_iterator<uint32_t> O>
-    auto normalize(I first, S last, O out)
+    O normalize(I first, S last, O out)
     {
         BOOST_TEXT_STATIC_ASSERT_NORMALIZATION();
         detail::normalization_appender_t<Normalization, I, S, O> appender(out);
@@ -348,8 +278,11 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         `out`.
 
         \see https://unicode.org/notes/tn5 */
-    template<nf Normalization, u32_range R, std::output_iterator<uint32_t> O>
-    O normalize(R const & r, O out)
+    template<
+        nf Normalization,
+        code_point_range R,
+        std::output_iterator<uint32_t> O>
+    O normalize(R && r, O out)
     {
         return boost::text::normalize<Normalization>(
             std::ranges::begin(r), std::ranges::end(r), out);
@@ -359,8 +292,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         normalization form `Normalization`.
 
         \see https://unicode.org/notes/tn5 */
-    template<nf Normalization, u32_iter I, std::sentinel_for<I> S>
-    auto normalized(I first, S last) noexcept
+    template<nf Normalization, code_point_iter I, std::sentinel_for<I> S>
+    bool normalized(I first, S last) noexcept
     {
         BOOST_TEXT_STATIC_ASSERT_NORMALIZATION();
         detail::null_appender appender;
@@ -371,8 +304,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
     /** Returns true iff the given sequence of code points is in Unicode
         normalization form `Normalization`. */
-    template<nf Normalization, u32_range R>
-    bool normalized(R const & r) noexcept
+    template<nf Normalization, code_point_range R>
+    bool normalized(R && r) noexcept
     {
         return boost::text::normalized<Normalization>(
             std::ranges::begin(r), std::ranges::end(r));

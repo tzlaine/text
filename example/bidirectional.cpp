@@ -6,6 +6,7 @@
 #include <boost/text/bidirectional.hpp>
 #include <boost/text/text.hpp>
 #include <boost/text/rope.hpp>
+#include <boost/text/estimated_width.hpp>
 
 #include <boost/config.hpp>
 
@@ -16,10 +17,9 @@
 struct extent_callable
 {
     template<typename CPIter>
-    int operator()(CPIter first, CPIter last) const noexcept
+    std::ptrdiff_t operator()(CPIter first, CPIter last) const noexcept
     {
-        boost::text::grapheme_view<CPIter> range(first, last);
-        return std::distance(range.begin(), range.end());
+        return boost::text::estimated_width_of_graphemes(first, last);
     }
 };
 //]
@@ -36,6 +36,7 @@ int main ()
 boost::text::text const RTL_order_arabic = "مرحبا ، عالم ثنائي الاتجاه";
 
 boost::text::text const memory_order_text =
+    (char const *)
     u8"When I type \"Hello, bidirectional world\" into Google translate "
     u8"English->Arabic, it produces \"هاجتالا يئانث ملاع ، ابحرم\".  I have no "
     u8"idea if it's correct.\n";
@@ -61,6 +62,7 @@ std::cout << bidirectional_text;
 {
 //[ bidi_with_line_breaks
 boost::text::text const memory_order_text =
+    (char const *)
     u8"When I type \"Hello, bidirectional world\" into Google translate "
     u8"English->Arabic, it produces \"هاجتالا يئانث ملاع ، ابحرم\".  I have no "
     u8"idea if it's correct.\n";

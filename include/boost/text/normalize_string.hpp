@@ -6,9 +6,7 @@
 #ifndef BOOST_TEXT_NORMALIZE_STRING_HPP
 #define BOOST_TEXT_NORMALIZE_STRING_HPP
 
-#if defined(__cpp_lib_concepts)
 #include <boost/text/concepts.hpp>
-#endif
 #include <boost/text/normalize.hpp>
 #include <boost/text/transcode_view.hpp>
 #include <boost/text/detail/normalize.hpp>
@@ -188,7 +186,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         The output is UTF-8 if `sizeof(*s.begin()) == 1`, and UTF-16
         otherwise. */
     template<nf Normalization, typename CPRange, typename String>
-    void normalize_append(CPRange const & r, String & s)
+    void normalize_append(CPRange && r, String & s)
     {
         return boost::text::v1::normalize_append<Normalization>(
             std::begin(r), std::end(r), s);
@@ -213,7 +211,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
 }}}
 
-#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
+#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
@@ -222,7 +220,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         otherwise. */
     template<
         nf Normalization,
-        code_point_iterator I,
+        code_point_iter I,
         std::sentinel_for<I> S,
         utf_string String>
     inline void normalize_append(I first, S last, String & s)
@@ -236,7 +234,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     /** Appends `r` in normalization form `Normalization` to `s`.  The output
         is UTF-8 if `sizeof(*s.begin()) == 1`, and UTF-16 otherwise. */
     template<nf Normalization, code_point_range R, utf_string String>
-    inline void normalize_append(R const & r, String & s)
+    inline void normalize_append(R && r, String & s)
     {
         return boost::text::normalize_append<Normalization>(
             std::begin(r), std::end(r), s);

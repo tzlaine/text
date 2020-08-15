@@ -72,7 +72,7 @@ boost::text::collation_table default_table =
     boost::text::default_collation_table();
 
 // The Danish town of Arrhus changed the town's name in 2010.  Go figure.
-boost::text::text const aarhus_old = u8"Århus";
+boost::text::text const aarhus_old = "Århus";
 boost::text::text const aarhus_new = "Aarhus";
 
 // This is fine for one-off comparisons.  Beware though that creating sort
@@ -84,8 +84,9 @@ int const collation =
 // considered after the primary weights of the characters.
 assert(0 < collation);
 
-// This is a more common case -- generate keys for your two sequences, keep them
-// somewhere, and compare them later.
+// If you know the strings are very long-lived, it may make more sense to
+// generate keys for your two sequences, keep them somewhere, and compare them
+// later.
 boost::text::text_sort_key aarhus_new_key =
     boost::text::collation_sort_key(aarhus_new, default_table);
 boost::text::text_sort_key aarhus_old_key =
@@ -101,7 +102,7 @@ assert(boost::text::compare(aarhus_old_key, aarhus_new_key) > 0);
 boost::text::collation_table da_table = boost::text::tailored_collation_table(
     boost::text::data::da::standard_collation_tailoring());
 
-boost::text::text const aarhus_old = u8"Århus";
+boost::text::text const aarhus_old = "Århus";
 std::array<uint32_t, 6> const aarhus_new = {{'A', 'a', 'r', 'h', 'u', 's'}};
 
 boost::text::text_sort_key aarhus_new_key =
@@ -126,13 +127,13 @@ using namespace boost::text::literals;
 int result = 0;
 
 // No configuration, which implies tertiary strength.
-result = boost::text::collate(u8"resume"_t, u8"RÉSUMÉ"_t, default_table);
+result = boost::text::collate("resume"_t, "RÉSUMÉ"_t, default_table);
 assert(result < 0);
 
 // Ignore everything but the letters themselves.
 result = boost::text::collate(
-    u8"resume"_t,
-    u8"RÉSUMÉ"_t,
+    "resume"_t,
+    "RÉSUMÉ"_t,
     default_table,
     boost::text::collation_flags::ignore_accents |
         boost::text::collation_flags::ignore_case |
@@ -141,50 +142,50 @@ assert(result == 0);
 
 // Ignore accents; case is still considered of course.
 result = boost::text::collate(
-    u8"resume"_t,
-    u8"Résumé"_t,
+    "resume"_t,
+    "Résumé"_t,
     default_table,
     boost::text::collation_flags::ignore_accents);
 assert(result < 0);
 result = boost::text::collate(
-    u8"resume"_t,
-    u8"résumé"_t,
+    "resume"_t,
+    "résumé"_t,
     default_table,
     boost::text::collation_flags::ignore_accents);
 assert(result == 0);
 
 // Ignore case; accents are still considered of course.
 result = boost::text::collate(
-    u8"résumé"_t,
-    u8"Résumé"_t,
+    "résumé"_t,
+    "Résumé"_t,
     default_table,
     boost::text::collation_flags::ignore_case);
 assert(result == 0);
 result = boost::text::collate(
-    u8"résumé"_t,
-    u8"Resume"_t,
+    "résumé"_t,
+    "Resume"_t,
     default_table,
     boost::text::collation_flags::ignore_case);
 assert(result > 0);
 
 // Say you want to put one case explicitly before or after the other:
 result = boost::text::collate(
-    u8"Resume"_t,
-    u8"resume"_t,
+    "Resume"_t,
+    "resume"_t,
     default_table,
     boost::text::collation_flags::upper_case_first);
 assert(result < 0);
 result = boost::text::collate(
-    u8"Resume"_t,
-    u8"resume"_t,
+    "Resume"_t,
+    "resume"_t,
     default_table,
     boost::text::collation_flags::lower_case_first);
 assert(result > 0);
 
 // You can also completely ignore punctuation.
 result = boost::text::collate(
-    u8"ellipsis"_t,
-    u8"ellips...is"_t,
+    "ellipsis"_t,
+    "ellips...is"_t,
     default_table,
     boost::text::collation_flags::ignore_punctuation);
 assert(result == 0);
@@ -196,8 +197,8 @@ assert(result == 0);
 boost::text::collation_table da_table = boost::text::tailored_collation_table(
     boost::text::data::da::standard_collation_tailoring());
 
-boost::text::text const aarhus_old = u8"Århus";
-boost::text::text const aarhus_new = u8"Aarhus";
+boost::text::text const aarhus_old = "Århus";
+boost::text::text const aarhus_new = "Aarhus";
 
 boost::container::flat_multiset<boost::text::text> set1; // So far so good, ...
 // set1.insert(aarhus_old);                              // Nope! There's no operator<.
@@ -260,8 +261,8 @@ std::cout << "\n";
 boost::text::collation_table da_table = boost::text::tailored_collation_table(
     boost::text::data::da::standard_collation_tailoring());
 
-boost::text::text const aarhus_old = u8"Århus";
-boost::text::text const aarhus_new = u8"Aarhus";
+boost::text::text const aarhus_old = "Århus";
+boost::text::text const aarhus_new = "Aarhus";
 
 // This works.
 std::unordered_multiset<boost::text::text> set;
@@ -298,8 +299,8 @@ assert(text_view_set.size() == 2);
 boost::text::collation_table da_table = boost::text::tailored_collation_table(
     boost::text::data::da::standard_collation_tailoring());
 
-boost::text::text const aarhus_old = u8"Århus";
-boost::text::text const aarhus_new = u8"Aarhus";
+boost::text::text const aarhus_old = "Århus";
+boost::text::text const aarhus_new = "Aarhus";
 
 std::vector<boost::text::text> text_vec = {aarhus_new, aarhus_old};
 // std::sort(text_vec.begin(), text_vec.end()); // Error!  No operator<.

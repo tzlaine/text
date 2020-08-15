@@ -55,12 +55,12 @@ namespace boost { namespace text { namespace detail {
         {
             cp = *--last;
             int32_t index;
-            if (!text::surrogate(cp)) {
+            if (!boost::text::surrogate(cp)) {
                 index = fast_index_(cp);
             } else {
                 uint16_t c2;
-                if (text::low_surrogate(cp) && last != first &&
-                    text::high_surrogate(c2 = *std::prev(last))) {
+                if (boost::text::low_surrogate(cp) && last != first &&
+                    boost::text::high_surrogate(c2 = *std::prev(last))) {
                     --last;
                     cp = detail::surrogates_to_cp(c2, cp);
                     index = small_index_(cp);
@@ -118,12 +118,12 @@ namespace boost { namespace text { namespace detail {
         {
             cp = *first++;
             int32_t index;
-            if (!text::surrogate(cp)) {
+            if (!boost::text::surrogate(cp)) {
                 index = fast_index_(cp);
             } else {
                 uint16_t c2;
-                if (text::high_surrogate(cp) && first != last &&
-                    text::low_surrogate(c2 = *first)) {
+                if (boost::text::high_surrogate(cp) && first != last &&
+                    boost::text::low_surrogate(c2 = *first)) {
                     ++first;
                     cp = detail::surrogates_to_cp(cp, c2);
                     index = small_index_(cp);
@@ -205,9 +205,9 @@ namespace boost { namespace text { namespace detail {
             CharIter it, int32_t start, int32_t * pi, int32_t c) noexcept
         {
             int32_t i = *pi;
-            if (text::continuation(c) && i > start) {
+            if (boost::text::continuation(c) && i > start) {
                 uint8_t b1 = it[--i];
-                if (text::lead_code_unit(b1)) {
+                if (boost::text::lead_code_unit(b1)) {
                     if (b1 < 0xe0) {
                         *pi = i;
                         return ((b1 - 0xc0) << 6) | (c & 0x3f);
@@ -217,7 +217,7 @@ namespace boost { namespace text { namespace detail {
                         *pi = i;
                         return -1;
                     }
-                } else if (text::continuation(b1) && i > start) {
+                } else if (boost::text::continuation(b1) && i > start) {
                     c &= 0x3f;
                     uint8_t b2 = it[--i];
                     if (0xe0 <= b2 && b2 <= 0xf4) {
@@ -232,7 +232,7 @@ namespace boost { namespace text { namespace detail {
                             *pi = i;
                             return -1;
                         }
-                    } else if (text::continuation(b2) && i > start) {
+                    } else if (boost::text::continuation(b2) && i > start) {
                         uint8_t b3 = it[--i];
                         if (0xf0 <= b3 && b3 <= 0xf4) {
                             b3 &= 7;

@@ -11,20 +11,20 @@
 
 namespace boost { namespace text { namespace detail {
 
-    template<typename CharIter>
+    template<typename String, typename CharIter>
     auto make_string(CharIter first, CharIter last)
     {
-        return std::string(first, last);
+        return String(first, last);
     }
-    template<typename CharIter>
+    template<typename String, typename CharIter>
     auto make_string(CharIter first, boost::text::null_sentinel)
     {
-        return std::string(first);
+        return String(first);
     }
-    template<typename CharIter, typename Sentinel>
+    template<typename String, typename CharIter, typename Sentinel>
     auto make_string(CharIter first, Sentinel last)
     {
-        return std::string(
+        return String(
             first, std::next(first, boost::text::distance(first, last)));
     }
 

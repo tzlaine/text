@@ -22,6 +22,18 @@
 #    define BOOST_TEXT_STRING_INSERT_MAX 4096
 #endif
 
+#if defined(__cpp_lib_concepts) && !defined(BOOST_TEXT_DISABLE_CONCEPTS)
+#    define BOOST_TEXT_USE_CONCEPTS 1
+#else
+#    define BOOST_TEXT_USE_CONCEPTS 0
+#endif
+
+#if defined(__cpp_coroutines) && !defined(BOOST_TEXT_DISABLE_COROUTINES)
+#    define BOOST_TEXT_USE_COROUTINES 1
+#else
+#    define BOOST_TEXT_USE_COROUTINES 0
+#endif
+
 #ifndef BOOST_TEXT_DOXYGEN
 
 // The inline namespaces v1 and v2 represent pre- and post-C++20.  v1 is
@@ -29,7 +41,7 @@
 // Note that this only applies to code for which a v2 namespace alternative
 // exists.  Some instances of the v1 namespace may still be inline, if there
 // is no v2 version of its contents.
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
 #    define BOOST_TEXT_NAMESPACE_V1 namespace v1
 #    define BOOST_TEXT_NAMESPACE_V2 inline namespace v2
 #else

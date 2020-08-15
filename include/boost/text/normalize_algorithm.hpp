@@ -7,10 +7,9 @@
 #define BOOST_TEXT_NORMALIZE_ALGORITHM_HPP
 
 #include <boost/text/algorithm.hpp>
-#if defined(__cpp_lib_concepts)
 #include <boost/text/concepts.hpp>
-#endif
 #include <boost/text/normalize_fwd.hpp>
+#include <boost/text/stream_safe.hpp>
 #include <boost/text/detail/algorithm.hpp>
 
 #include <boost/stl_interfaces/view_interface.hpp>
@@ -52,6 +51,7 @@ namespace boost { namespace text {
 
     namespace detail {
         template<
+            bool ForRope,
             nf Normalization,
             typename String,
             typename StringIter,
@@ -64,7 +64,11 @@ namespace boost { namespace text {
             Iter last,
             insertion_normalization insertion_norm);
 
-        template<nf Normalization, typename String, typename StringIter>
+        template<
+            bool ForRope,
+            nf Normalization,
+            typename String,
+            typename StringIter>
         replace_result<StringIter>
         erase_impl(String & string, StringIter first, StringIter last);
     }
@@ -77,15 +81,19 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         indicating the changed portion of `string`.  Note that the replacement
         operation may mutate some code points just before or just after the
         inserted sequence.  The output is UTF-8 if `sizeof(*s.begin()) == 1`,
-        and UTF-16 otherwise.  The inserted string is not normalized if
-        `insertion_norm` is `insertion_normalized`.  The code points at either
-        end of the insertion may need to be normalized, regardless of whether
-        the inserted string does.
+        and UTF-16 otherwise.  The inserted string is normalized and put into
+        stream-safe format if `insertion_norm` is `insertion_not_normalized`.
+        The code points at either end of the insertion may need to be
+        normalized, regardless of whether the inserted string does.
 
         This function only participates in overload resolution if `CPIter`
         models the CPIter concept.
 
-        \pre `string` is in normalization form `Normalization`. */
+        \pre `string` is in normalization form `Normalization`.
+        \pre `string` is stream-safe format.
+        \pre `str_first` and `str_last` are at code point boundaries.
+
+        \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<
         nf Normalization,
         typename String,
@@ -100,7 +108,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         insertion_normalization insertion_norm = insertion_not_normalized)
         ->detail::cp_iter_ret_t<replace_result<StringIter>, CPIter>
     {
-        return detail::replace_impl<Normalization>(
+        return detail::replace_impl<false, Normalization>(
             string, str_first, str_last, first, last, insertion_norm);
     }
 
@@ -109,14 +117,19 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         that the insertion operation may mutate some code points just before
         or just after the inserted sequence.  The output is UTF-8 if
         `sizeof(*s.begin()) == 1`, and UTF-16 otherwise.  The inserted string
-        is not normalized if `insertion_norm` is `insertion_normalized`.  The
-        code points at either end of the insertion may need to be normalized,
-        regardless of whether the inserted string does.
+        is normalized and put into stream-safe format if `insertion_norm` is
+        `insertion_not_normalized`.  The code points at either end of the
+        insertion may need to be normalized, regardless of whether the
+        inserted string does.
 
         This function only participates in overload resolution if `CPIter`
         models the CPIter concept.
 
-        \pre `string` is in normalization form `Normalization`. */
+        \pre `string` is in normalization form `Normalization`.
+        \pre `string` is stream-safe format.
+        \pre `at` is at a code point boundary.
+
+        \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<
         nf Normalization,
         typename String,
@@ -132,7 +145,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     {
         if (first == last)
             return {at, at};
-        return detail::replace_impl<Normalization>(
+        return detail::replace_impl<false, Normalization>(
             string, at, at, first, last, insertion_norm);
     }
 
@@ -140,12 +153,16 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
         indicating the changed portion of `string`.  Note that the insertion
         operation may mutate some code points just before or just after the
         inserted sequence.  The output is UTF-8 if `sizeof(*s.begin()) == 1`,
-        and UTF-16 otherwise.  The inserted string is not normalized if
-        `insertion_norm` is `insertion_normalized`.  The code points at either
-        end of the insertion may need to be normalized, regardless of whether
-        the inserted string does.
+        and UTF-16 otherwise.  The inserted string is normalized and put into
+        stream-safe format if `insertion_norm` is `insertion_not_normalized`.
+        The code points at either end of the insertion may need to be
+        normalized, regardless of whether the inserted string does.
 
-        \pre `string` is in normalization form `Normalization`. */
+        \pre `string` is in normalization form `Normalization`.
+        \pre `string` is stream-safe format.
+        \pre `at` is at a code point boundary.
+
+        \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<
         nf Normalization,
         typename String,
@@ -154,21 +171,25 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     replace_result<StringIter> normalize_insert(
         String & string,
         StringIter at,
-        CPRange const & r,
+        CPRange && r,
         insertion_normalization insertion_norm = insertion_not_normalized)
     {
         if (std::begin(r) == std::end(r))
             return {at, at};
-        return detail::replace_impl<Normalization>(
+        return detail::replace_impl<false, Normalization>(
             string, at, at, std::begin(r), std::end(r), insertion_norm);
     }
 
     /** Erases the subsequence `[str_first, str_last)` within `string`,
-        returning a view indicating the changed portion of `string`.  Note
-        that the insertion operation may mutate some code points just before
-        or just after the erased sequence.
+        maintaining stream-safe format.  Returns a view indicating the changed
+        portion of `string`.  Note that the insertion operation may mutate
+        some code points just before or just after the erased sequence.
 
-        \pre `string` is in normalization form `Normalization`. */
+        \pre `string` is in normalization form `Normalization`.
+        \pre `string` is stream-safe format.
+        \pre `str_first` and `str_last` are at code point boundaries.
+
+        \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<
         nf Normalization,
         typename String,
@@ -176,12 +197,13 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
     replace_result<StringIter> normalize_erase(
         String & string, StringIter str_first, StringIter str_last)
     {
-        return detail::erase_impl<Normalization>(string, str_first, str_last);
+        return detail::erase_impl<false, Normalization>(
+            string, str_first, str_last);
     }
 
 }}}
 
-#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
+#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
@@ -190,16 +212,20 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         indicating the changed portion of `string`.  Note that the replacement
         operation may mutate some code points just before or just after the
         inserted sequence.  The output is UTF-8 if `sizeof(*s.begin()) == 1`,
-        and UTF-16 otherwise.  The inserted string is not normalized if
-        `insertion_norm` is `insertion_normalized`.  The code points at either
-        end of the insertion may need to be normalized, regardless of whether
-        the inserted string does.
+        and UTF-16 otherwise.  The inserted string is normalized and put into
+        stream-safe format if `insertion_norm` is `insertion_not_normalized`.
+        The code points at either end of the insertion may need to be
+        normalized, regardless of whether the inserted string does.
 
-        \pre `string` is in normalization form `Normalization`. */
+        \pre `string` is in normalization form `Normalization`.
+        \pre `string` is stream-safe format.
+        \pre `str_first` and `str_last` are at code point boundaries.
+
+        \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<
         nf Normalization,
         utf_string String,
-        code_point_iterator I,
+        code_point_iter I,
         typename StringIter = std::ranges::iterator_t<String>>
     replace_result<StringIter> normalize_replace(
         String & string,
@@ -209,7 +235,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         I last,
         insertion_normalization insertion_norm = insertion_not_normalized)
     {
-        return detail::replace_impl<Normalization>(
+        return detail::replace_impl<false, Normalization>(
             string, str_first, str_last, first, last, insertion_norm);
     }
 
@@ -218,15 +244,20 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         that the insertion operation may mutate some code points just before
         or just after the inserted sequence.  The output is UTF-8 if
         `sizeof(*s.begin()) == 1`, and UTF-16 otherwise.  The inserted string
-        is not normalized if `insertion_norm` is `insertion_normalized`.  The
-        code points at either end of the insertion may need to be normalized,
-        regardless of whether the inserted string does.
+        is normalized and put into stream-safe format if `insertion_norm` is
+        `insertion_not_normalized`.  The code points at either end of the
+        insertion may need to be normalized, regardless of whether the
+        inserted string does.
 
-        \pre `string` is in normalization form `Normalization`. */
+        \pre `string` is in normalization form `Normalization`.
+        \pre `string` is stream-safe format.
+        \pre `at` is at a code point boundary.
+
+        \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<
         nf Normalization,
         utf_string String,
-        code_point_iterator I,
+        code_point_iter I,
         typename StringIter = std::ranges::iterator_t<String>>
     replace_result<StringIter> normalize_insert(
         String & string,
@@ -237,7 +268,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     {
         if (first == last)
             return {at, at};
-        return detail::replace_impl<Normalization>(
+        return detail::replace_impl<false, Normalization>(
             string, at, at, first, last, insertion_norm);
     }
 
@@ -245,12 +276,16 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         indicating the changed portion of `string`.  Note that the insertion
         operation may mutate some code points just before or just after the
         inserted sequence.  The output is UTF-8 if `sizeof(*s.begin()) == 1`,
-        and UTF-16 otherwise.  The inserted string is not normalized if
-        `insertion_norm` is `insertion_normalized`.  The code points at either
-        end of the insertion may need to be normalized, regardless of whether
-        the inserted string does.
+        and UTF-16 otherwise.  The inserted string is normalized and put into
+        stream-safe format if `insertion_norm` is `insertion_not_normalized`.
+        The code points at either end of the insertion may need to be
+        normalized, regardless of whether the inserted string does.
 
-        \pre `string` is in normalization form `Normalization`. */
+        \pre `string` is in normalization form `Normalization`.
+        \pre `string` is stream-safe format.
+        \pre `at` is at a code point boundary.
+
+        \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<
         nf Normalization,
         utf_string String,
@@ -259,12 +294,12 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     replace_result<StringIter> normalize_insert(
         String & string,
         StringIter at,
-        R const & r,
+        R && r,
         insertion_normalization insertion_norm = insertion_not_normalized)
     {
         if (std::ranges::begin(r) == std::ranges::end(r))
             return {at, at};
-        return detail::replace_impl<Normalization>(
+        return detail::replace_impl<false, Normalization>(
             string,
             at,
             at,
@@ -274,11 +309,15 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     }
 
     /** Erases the subsequence `[str_first, str_last)` within `string`,
-        returning a view indicating the changed portion of `string`.  Note
-        that the insertion operation may mutate some code points just before
-        or just after the erased sequence.
+        maintaining stream-safe format.  Returns a view indicating the changed
+        portion of `string`.  Note that the insertion operation may mutate
+        some code points just before or just after the erased sequence.
 
-        \pre `string` is in normalization form `Normalization`. */
+        \pre `string` is in normalization form `Normalization`.
+        \pre `string` is stream-safe format.
+        \pre `str_first` and `str_last` are at code point boundaries.
+
+        \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     template<
         nf Normalization,
         utf_string String,
@@ -286,7 +325,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     replace_result<StringIter> normalize_erase(
         String & string, StringIter str_first, StringIter str_last)
     {
-        return detail::erase_impl<Normalization>(string, str_first, str_last);
+        return detail::erase_impl<false, Normalization>(
+            string, str_first, str_last);
     }
 
 }}}
@@ -441,45 +481,75 @@ namespace boost { namespace text { namespace detail {
             iterator(last, r1.end(), r2.begin(), 0));
     }
 
-    template<typename String, typename CPIter, typename Buffer>
-    replace_result<typename String::iterator> string_buffer_replace(
-        String & string, CPIter first_, CPIter last_, Buffer const & buffer)
+    template<bool ForRope>
+    struct string_buffer_replace_impl
     {
-        auto const unpacked =
-            boost::text::detail::unpack_iterator_and_sentinel(first_, last_);
-        BOOST_ASSERT((std::is_same<
-                      decltype(unpacked.tag_),
-                      decltype(detail::unpack_iterator_and_sentinel(
-                                   string.begin(), string.end())
-                                   .tag_)>::value));
-        auto const first = unpacked.f_;
-        auto const last = unpacked.l_;
-        auto const replaceable_size = std::distance(first, last);
-        if ((std::ptrdiff_t)buffer.size() <= replaceable_size) {
-            auto const it = std::copy(buffer.begin(), buffer.end(), first);
-            string.erase(it, last);
-            return {first, it};
-        } else {
-            auto const copy_last = buffer.begin() + replaceable_size;
-            std::copy(buffer.begin(), copy_last, first);
-            // This dance is here because somehow libstdc++ in the Travis
-            // build environment thinks it's being built as C++98 code, in
-            // which std::string::insert() returns void.  This works around
-            // that.
-            auto const insertion_offset = last - string.begin();
-            string.insert(last, copy_last, buffer.end());
-            auto const it = string.begin() + insertion_offset;
-            return {
-                std::prev(it, replaceable_size),
-                std::next(it, buffer.end() - copy_last)};
+        template<typename String, typename CPIter, typename Buffer>
+        static replace_result<typename String::iterator> call(
+            String & string, CPIter first_, CPIter last_, Buffer const & buffer)
+        {
+            auto const unpacked =
+                boost::text::detail::unpack_iterator_and_sentinel(
+                    first_, last_);
+            BOOST_ASSERT((std::is_same<
+                          decltype(unpacked.tag_),
+                          decltype(detail::unpack_iterator_and_sentinel(
+                                       string.begin(), string.end())
+                                       .tag_)>::value));
+            auto const first = unpacked.f_;
+            auto const last = unpacked.l_;
+            auto const replaceable_size = std::distance(first, last);
+            if ((std::ptrdiff_t)buffer.size() <= replaceable_size) {
+                auto const it = std::copy(buffer.begin(), buffer.end(), first);
+                string.erase(it, last);
+                return {first, it};
+            } else {
+                auto const copy_last = buffer.begin() + replaceable_size;
+                std::copy(buffer.begin(), copy_last, first);
+                // This dance is here because somehow libstdc++ in the Travis
+                // build environment thinks it's being built as C++98 code, in
+                // which std::string::insert() returns void.  This works around
+                // that.
+                auto const insertion_offset = last - string.begin();
+                string.insert(last, copy_last, buffer.end());
+                auto const it = string.begin() + insertion_offset;
+                return {
+                    std::prev(it, replaceable_size),
+                    std::next(it, buffer.end() - copy_last)};
+            }
         }
-    }
+    };
 
-        template<typename String>
-        using normalized_insert_buffer_t = std::conditional_t<
-            sizeof(*std::declval<String>().begin()) == 1,
-            container::small_vector<char, 1024>,
-            container::small_vector<uint16_t, 512>>;
+    template<>
+    struct string_buffer_replace_impl<true>
+    {
+        template<typename String, typename CPIter, typename Buffer>
+        static replace_result<typename String::iterator> call(
+            String & string, CPIter first_, CPIter last_, Buffer const & buffer)
+        {
+            auto const unpacked =
+                boost::text::detail::unpack_iterator_and_sentinel(
+                    first_, last_);
+            BOOST_ASSERT((std::is_same<
+                          decltype(unpacked.tag_),
+                          decltype(detail::unpack_iterator_and_sentinel(
+                                       string.begin(), string.end())
+                                       .tag_)>::value));
+            auto const first = unpacked.f_;
+            auto const last = unpacked.l_;
+            auto const first_offset = first - string.begin();
+            string.replace(first, last, buffer.begin(), buffer.end());
+            return {
+                std::next(string.begin(), first_offset),
+                std::next(string.begin(), first_offset + buffer.size())};
+        }
+    };
+
+    template<typename String>
+    using normalized_insert_buffer_t = std::conditional_t<
+        sizeof(*std::declval<String>().begin()) == 1,
+        container::small_vector<char, 1024>,
+        container::small_vector<uint16_t, 512>>;
 
     template<
         typename Buffer,
@@ -505,18 +575,8 @@ namespace boost { namespace text { namespace detail {
         }
     };
 
-    // TODO: This needs to change to normalizing the middle
-    // (inserted/replaced bits) first into buffer A, then the prefix into
-    // a separate buffer B, then the suffix after the middle into A.  This
-    // is needed becasue otherwise all-at-once operation happens almost
-    // always, and that's a much slower code path than just doing the
-    // middle by itself.  Alternatively, document that this is the
-    // behavior, and that inserting long sections of NFD into NFC
-    // containers impies worse performance than pre-normalizing and then
-    // inserting.  Of course, this should be measured before making such a
-    // change (or even a claim).
-
     template<
+        bool ForRope,
         typename StringIter,
         typename Buffer,
         typename String,
@@ -548,7 +608,8 @@ namespace boost { namespace text { namespace detail {
                 .base() -
             buffer.end();
 
-        auto const replaced_range = detail::string_buffer_replace(
+        detail::string_buffer_replace_impl<ForRope> string_buffer_replace;
+        auto const replaced_range = string_buffer_replace.call(
             string,
             string_prefix_range.begin(),
             string_suffix_range.end(),
@@ -560,6 +621,7 @@ namespace boost { namespace text { namespace detail {
     }
 
     template<
+        bool ForRope,
         nf Normalization,
         typename String,
         typename StringIter,
@@ -573,6 +635,11 @@ namespace boost { namespace text { namespace detail {
         insertion_normalization insertion_norm)
     {
         BOOST_TEXT_STATIC_ASSERT_NORMALIZATION();
+
+        if (first == last) {
+            return detail::erase_impl<ForRope, Normalization>(
+                string, str_first, str_last);
+        }
 
         auto const string_cps =
             boost::text::as_utf32(string.begin(), string.end());
@@ -621,9 +688,11 @@ namespace boost { namespace text { namespace detail {
                 string_suffix_range,
                 lo_cons_view.begin(),
                 string_suffix_range.end());
-            boost::text::normalize_append<Normalization>(cons_view, buffer);
+            boost::text::normalize_append<Normalization>(
+                boost::text::as_stream_safe(cons_view), buffer);
         } else {
-            boost::text::normalize_append<Normalization>(lo_cons_view, buffer);
+            boost::text::normalize_append<Normalization>(
+                boost::text::as_stream_safe(lo_cons_view), buffer);
         }
 
         auto const insertion_last_stable =
@@ -637,7 +706,9 @@ namespace boost { namespace text { namespace detail {
                     buffer, insertion_first_stable, insertion_last_stable);
             } else {
                 boost::text::normalize_append<Normalization>(
-                    insertion_first_stable, insertion_last_stable, buffer);
+                    boost::text::as_stream_safe(
+                        insertion_first_stable, insertion_last_stable),
+                    buffer);
             }
         }
 
@@ -648,14 +719,20 @@ namespace boost { namespace text { namespace detail {
             insertion_last_stable,
             string_suffix_range.end());
 
-        if (!all_at_once)
-            boost::text::normalize_append<Normalization>(hi_cons_view, buffer);
+        if (!all_at_once) {
+            boost::text::normalize_append<Normalization>(
+                boost::text::as_stream_safe(hi_cons_view), buffer);
+        }
 
-        return detail::replace_erase_impl_suffix<StringIter>(
+        return detail::replace_erase_impl_suffix<ForRope, StringIter>(
             string, buffer, string_prefix_range, string_suffix_range);
     }
 
-    template<nf Normalization, typename String, typename StringIter>
+    template<
+        bool ForRope,
+        nf Normalization,
+        typename String,
+        typename StringIter>
     replace_result<StringIter>
     erase_impl(String & string, StringIter first, StringIter last)
     {
@@ -694,12 +771,32 @@ namespace boost { namespace text { namespace detail {
             string_suffix_range,
             string_prefix_range.begin(),
             string_suffix_range.end());
-        boost::text::normalize_append<Normalization>(cons_view, buffer);
+        boost::text::normalize_append<Normalization>(
+            boost::text::as_stream_safe(cons_view), buffer);
 
-        return detail::replace_erase_impl_suffix<StringIter>(
+        return detail::replace_erase_impl_suffix<ForRope, StringIter>(
             string, buffer, string_prefix_range, string_suffix_range);
     }
 
 }}}
+
+#if BOOST_TEXT_USE_CONCEPTS
+
+namespace std::ranges {
+    template<typename Iter>
+    inline constexpr bool
+        enable_borrowed_range<boost::text::replace_result<Iter>> = true;
+
+    template<typename CPIter>
+    inline constexpr bool enable_borrowed_range<
+        boost::text::detail::stable_cps_result_t<CPIter>> = true;
+
+    template<typename T, typename R1, typename R2>
+    inline constexpr bool
+        enable_borrowed_range<boost::text::detail::cons_view_t<T, R1, R2>> =
+            true;
+}
+
+#endif
 
 #endif

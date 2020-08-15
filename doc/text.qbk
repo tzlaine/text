@@ -24,7 +24,7 @@
 
 [/ Imports ]
 
-[import ../example/utf8.cpp]
+[import ../example/transcoding.cpp]
 [import ../example/normalize.cpp]
 [import ../example/breaks.cpp]
 [import ../example/case_mapping.cpp]
@@ -106,7 +106,15 @@
 [def _tc_to_16_      [funcref boost::text::v1::transcode_to_utf16  `transcode_to_utf16()`]]
 [def _tc_to_32_      [funcref boost::text::v1::transcode_to_utf32  `transcode_to_utf32()`]]
 
+[def _norm_erase_          [funcref boost::text::v1::normalize_erase  `normalize_erase()`]]
+[def _norm_insert_         [funcref boost::text::v1::normalize_insert  `normalize_insert()`]]
+[def _norm_replace_        [funcref boost::text::v1::normalize_replace  `normalize_replace()`]]
+
 [def _norm_str_header_     [link header.boost.text.normalize_string_hpp normalize_string.hpp]]
+[def _norm_algo_header_    [link header.boost.text.normalize_algorithm_hpp normalize_algorithm.hpp]]
+[def _table_ser_           [link header.boost.text.table_serialization_hpp table_serialization.hpp]]
+[def _save_load_table_     [link header.boost.text.save_load_table_hpp save_load_table.hpp]]
+[def _concepts_            [link header.boost.text.concepts_hpp concepts.hpp]]
 
 [def _line_brk_res_        [classref boost::text::line_break_result `line_break_result`]]
 [def _line_brk_cp_v_       [classref boost::text::line_break_cp_view `line_break_cp_view`]]
@@ -128,19 +136,20 @@
 [def _sort_key_            [classref boost::text::text_sort_key `text_sort_key`]]
 [def _sort_keys_           [classref boost::text::text_sort_key `text_sort_keys`]]
 
-[def _table_ser_           [link header.boost.text.table_serialization_hpp table_serialization.hpp]]
-[def _save_load_table_     [link header.boost.text.save_load_table_hpp save_load_table.hpp]]
-
 [def _bidi_cp_subrng_      [classref boost::text::bidirectional_cp_subrange `bidirectional_cp_subrange`]]
 [def _bidi_gr_subrng_      [classref boost::text::bidirectional_grapheme_subrange `bidirectional_grapheme_subrange`]]
 
 [def _t_                   [classref boost::text::text `text`]]
+[def _bt_                  [classref boost::text::basic_text `basic_text`]]
 [def _ts_                  [classref boost::text::text `text`s]]
 [def _tv_                  [classref boost::text::text_view `text_view`]]
+[def _btv_                 [classref boost::text::basic_text_view `basic_text_view`]]
 [def _tvs_                 [classref boost::text::text_view `text_view`s]]
 [def _r_                   [classref boost::text::rope `rope`]]
+[def _br_                  [classref boost::text::basic_rope `basic_rope`]]
 [def _rs_                  [classref boost::text::rope `rope`s]]
 [def _rv_                  [classref boost::text::rope_view `rope_view`]]
+[def _brv_                 [classref boost::text::basic_rope_view `basic_rope_view`]]
 [def _rvs_                 [classref boost::text::rope_view `rope_view`s]]
 
 [def _gr_ref_              [classref boost::text::grapheme_ref `grapheme_ref`]]
@@ -175,8 +184,9 @@
 
 [def _bm_searcher_         [classref boost::text::boyer_moore_collation_searcher `boyer_moore_collation_searcher`]]
 
-[def _thread_unsafe_m_     [macroref BOOST_TEXT_THREAD_UNSAFE]]
-[def _string_max_m_        [macroref BOOST_TEXT_STRING_INSERT_MAX]]
+[def _string_max_m_         [macroref BOOST_TEXT_STRING_INSERT_MAX]]
+[def _disable_concepts_m_   [macroref BOOST_TEXT_DISABLE_CONCEPTS]]
+[def _disable_coroutines_m_ [macroref BOOST_TEXT_DISABLE_CONCEPTS]]
 
 [def _ce_                  `constexpr`]
 
@@ -203,6 +213,7 @@
 [include intro.qbk]
 [include overview.qbk]
 [include unicode_layer.qbk]
+[include ropes.qbk]
 [include text_layer.qbk]
 [include performance.qbk]
 [include segmented_vector.qbk]

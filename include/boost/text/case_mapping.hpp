@@ -574,8 +574,8 @@ namespace boost { namespace text {
                 if (find_it != last && detail::cased(*find_it))
                     return final_sigma_state_t::none;
 
-                find_it = boost::text::find_if_backward(
-                    first, it, [](uint32_t cp) {
+                find_it =
+                    boost::text::find_if_backward(first, it, [](uint32_t cp) {
                         return !detail::case_ignorable(cp);
                     });
                 if (find_it != it && detail::cased(*find_it))
@@ -801,7 +801,7 @@ namespace boost { namespace text {
         This function only participates in overload resolution if `CPRange`
         models the CPRange concept. */
     template<typename CPRange>
-    bool is_lower(CPRange const & range) noexcept;
+    bool is_lower(CPRange && range) noexcept;
 
     /** Returns true if no grapheme in `range` would change in a call to
         to_lower(), and false otherwise.
@@ -809,19 +809,19 @@ namespace boost { namespace text {
         This function only participates in overload resolution if
         `GraphemeRange` models the GraphemeRange concept. */
     template<typename GraphemeRange>
-    bool is_lower(GraphemeRange const & range) noexcept;
+    bool is_lower(GraphemeRange && range) noexcept;
 
 #else
 
     template<typename CPRange>
-    auto is_lower(CPRange const & range) noexcept
+    auto is_lower(CPRange && range) noexcept
         -> detail::cp_rng_alg_ret_t<bool, CPRange>
     {
         return is_lower(std::begin(range), std::end(range));
     }
 
     template<typename GraphemeRange>
-    auto is_lower(GraphemeRange const & range) noexcept
+    auto is_lower(GraphemeRange && range) noexcept
         -> detail::graph_rng_alg_ret_t<bool, GraphemeRange>
     {
         return is_lower(range.begin().base(), range.end().base());
@@ -860,7 +860,7 @@ namespace boost { namespace text {
         models the CPRange concept. */
     template<typename CPRange, typename OutIter>
     OutIter to_lower(
-        CPRange const & range,
+        CPRange && range,
         OutIter out,
         case_language lang = case_language::other) noexcept;
 
@@ -872,7 +872,7 @@ namespace boost { namespace text {
         `GraphemeRange` models the GraphemeRange concept. */
     template<typename GraphemeRange, typename OutIter>
     OutIter to_lower(
-        GraphemeRange const & range,
+        GraphemeRange && range,
         OutIter out,
         case_language lang = case_language::other) noexcept;
 
@@ -880,7 +880,7 @@ namespace boost { namespace text {
 
     template<typename CPRange, typename OutIter>
     auto to_lower(
-        CPRange const & range,
+        CPRange && range,
         OutIter out,
         case_language lang = case_language::other) noexcept
         -> detail::cp_rng_alg_ret_t<OutIter, CPRange>
@@ -891,7 +891,7 @@ namespace boost { namespace text {
 
     template<typename GraphemeRange, typename OutIter>
     auto to_lower(
-        GraphemeRange const & range,
+        GraphemeRange && range,
         OutIter out,
         case_language lang = case_language::other) noexcept
         -> detail::graph_rng_alg_ret_t<OutIter, GraphemeRange>
@@ -947,8 +947,8 @@ namespace boost { namespace text {
     template<
         typename CPRange,
         typename NextWordBreakFunc = next_word_break_callable>
-   bool is_title(
-        CPRange const & range,
+    bool is_title(
+        CPRange && range,
         NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept;
 
     /** Returns true if no grapheme in `range` would change in a call to
@@ -965,7 +965,7 @@ namespace boost { namespace text {
         typename GraphemeRange,
         typename NextWordBreakFunc = next_word_break_callable>
     bool is_title(
-        GraphemeRange const & range,
+        GraphemeRange && range,
         NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept;
 
 #else
@@ -974,7 +974,7 @@ namespace boost { namespace text {
         typename CPRange,
         typename NextWordBreakFunc = next_word_break_callable>
     auto is_title(
-        CPRange const & range,
+        CPRange && range,
         NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept
         -> detail::cp_rng_alg_ret_t<bool, CPRange>
     {
@@ -986,7 +986,7 @@ namespace boost { namespace text {
         typename GraphemeRange,
         typename NextWordBreakFunc = next_word_break_callable>
     auto is_title(
-        GraphemeRange const & range,
+        GraphemeRange && range,
         NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept
         -> detail::graph_rng_alg_ret_t<bool, GraphemeRange>
     {
@@ -1050,7 +1050,7 @@ namespace boost { namespace text {
         typename OutIter,
         typename NextWordBreakFunc = next_word_break_callable>
     OutIter to_title(
-        CPRange const & range,
+        CPRange && range,
         OutIter out,
         case_language lang = case_language::other,
         NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept;
@@ -1071,7 +1071,7 @@ namespace boost { namespace text {
         typename OutIter,
         typename NextWordBreakFunc = next_word_break_callable>
     OutIter to_title(
-        GraphemeRange const & range,
+        GraphemeRange && range,
         OutIter out,
         case_language lang = case_language::other,
         NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept;
@@ -1083,7 +1083,7 @@ namespace boost { namespace text {
         typename OutIter,
         typename NextWordBreakFunc = next_word_break_callable>
     auto to_title(
-        CPRange const & range,
+        CPRange && range,
         OutIter out,
         case_language lang = case_language::other,
         NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept
@@ -1103,7 +1103,7 @@ namespace boost { namespace text {
         typename OutIter,
         typename NextWordBreakFunc = next_word_break_callable>
     auto to_title(
-        GraphemeRange const & range,
+        GraphemeRange && range,
         OutIter out,
         case_language lang = case_language::other,
         NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept
@@ -1138,7 +1138,7 @@ namespace boost { namespace text {
         This function only participates in overload resolution if `CPRange`
         models the CPRange concept. */
     template<typename CPRange>
-    bool is_upper(CPRange const & range) noexcept;
+    bool is_upper(CPRange && range) noexcept;
 
     /** Returns true if no grapheme in `range` would change in a call to
         to_upper(), and false otherwise.
@@ -1146,23 +1146,22 @@ namespace boost { namespace text {
         This function only participates in overload resolution if
         `GraphemeRange` models the GraphemeRange concept. */
     template<typename GraphemeRange>
-    bool is_upper(GraphemeRange const & range) noexcept;
+    bool is_upper(GraphemeRange && range) noexcept;
 
 #else
 
     template<typename CPRange>
-    auto is_upper(CPRange const & range) noexcept
+    auto is_upper(CPRange && range) noexcept
         -> detail::cp_rng_alg_ret_t<bool, CPRange>
     {
         return boost::text::is_upper(std::begin(range), std::end(range));
     }
 
     template<typename GraphemeRange>
-    auto is_upper(GraphemeRange const & range) noexcept
+    auto is_upper(GraphemeRange && range) noexcept
         -> detail::graph_rng_alg_ret_t<bool, GraphemeRange>
     {
-        return boost::text::is_upper(
-            range.begin().base(), range.end().base());
+        return boost::text::is_upper(range.begin().base(), range.end().base());
     }
 
 #endif
@@ -1198,7 +1197,7 @@ namespace boost { namespace text {
         models the CPRange concept. */
     template<typename CPRange, typename OutIter>
     OutIter to_upper(
-        CPRange const & range,
+        CPRange && range,
         OutIter out,
         case_language lang = case_language::other) noexcept;
 
@@ -1210,7 +1209,7 @@ namespace boost { namespace text {
         `GraphemeRange` models the GraphemeRange concept. */
     template<typename GraphemeRange, typename OutIter>
     OutIter to_upper(
-        GraphemeRange const & range,
+        GraphemeRange && range,
         OutIter out,
         case_language lang = case_language::other) noexcept;
 
@@ -1218,7 +1217,7 @@ namespace boost { namespace text {
 
     template<typename CPRange, typename OutIter>
     auto to_upper(
-        CPRange const & range,
+        CPRange && range,
         OutIter out,
         case_language lang = case_language::other) noexcept
         -> detail::cp_rng_alg_ret_t<OutIter, CPRange>
@@ -1229,7 +1228,7 @@ namespace boost { namespace text {
 
     template<typename GraphemeRange, typename OutIter>
     auto to_upper(
-        GraphemeRange const & range,
+        GraphemeRange && range,
         OutIter out,
         case_language lang = case_language::other) noexcept
         -> detail::graph_rng_alg_ret_t<OutIter, GraphemeRange>

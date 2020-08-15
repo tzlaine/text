@@ -43,20 +43,20 @@ namespace boost { namespace text {
             collation_element first_;
             collation_element last_;
             uint32_t lead_byte_;
+
+            friend bool operator==(
+                nonsimple_script_reorder lhs, nonsimple_script_reorder rhs)
+            {
+                return lhs.first_ == rhs.first_ && lhs.last_ == rhs.last_ &&
+                       lhs.lead_byte_ == rhs.lead_byte_;
+            }
+
+            friend bool operator!=(
+                nonsimple_script_reorder lhs, nonsimple_script_reorder rhs)
+            {
+                return !(lhs == rhs);
+            }
         };
-
-        inline bool
-        operator==(nonsimple_script_reorder lhs, nonsimple_script_reorder rhs)
-        {
-            return lhs.first_ == rhs.first_ && lhs.last_ == rhs.last_ &&
-                   lhs.lead_byte_ == rhs.lead_byte_;
-        }
-
-        inline bool
-        operator!=(nonsimple_script_reorder lhs, nonsimple_script_reorder rhs)
-        {
-            return !(lhs == rhs);
-        }
 
         using nonsimple_reorders_t =
             container::static_vector<nonsimple_script_reorder, 140>;
@@ -166,34 +166,37 @@ namespace boost { namespace text {
             optional<l2_weight_order> l2_order_;
             optional<case_level> case_level_;
             optional<case_first> case_first_;
+
+            friend bool operator==(
+                collation_table_data const & lhs,
+                collation_table_data const & rhs)
+            {
+                return lhs.collation_element_vec_ ==
+                           rhs.collation_element_vec_ &&
+                       ((lhs.collation_elements_ == nullptr) ==
+                        (rhs.collation_elements_ == nullptr)) &&
+                       lhs.trie_ == rhs.trie_ &&
+                       lhs.nonstarter_first_ == rhs.nonstarter_first_ &&
+                       lhs.nonstarter_last_ == rhs.nonstarter_last_ &&
+                       lhs.nonstarter_table_ == rhs.nonstarter_table_ &&
+                       ((lhs.nonstarters_ == nullptr) ==
+                        (rhs.nonstarters_ == nullptr)) &&
+                       lhs.nonsimple_reorders_ == rhs.nonsimple_reorders_ &&
+                       lhs.simple_reorders_ == rhs.simple_reorders_ &&
+                       lhs.strength_ == rhs.strength_ &&
+                       lhs.weighting_ == rhs.weighting_ &&
+                       lhs.l2_order_ == rhs.l2_order_ &&
+                       lhs.case_level_ == rhs.case_level_ &&
+                       lhs.case_first_ == rhs.case_first_;
+            }
+
+            friend bool operator!=(
+                collation_table_data const & lhs,
+                collation_table_data const & rhs)
+            {
+                return !(lhs == rhs);
+            }
         };
-
-        inline bool operator==(
-            collation_table_data const & lhs, collation_table_data const & rhs)
-        {
-            return lhs.collation_element_vec_ == rhs.collation_element_vec_ &&
-                   ((lhs.collation_elements_ == nullptr) ==
-                    (rhs.collation_elements_ == nullptr)) &&
-                   lhs.trie_ == rhs.trie_ &&
-                   lhs.nonstarter_first_ == rhs.nonstarter_first_ &&
-                   lhs.nonstarter_last_ == rhs.nonstarter_last_ &&
-                   lhs.nonstarter_table_ == rhs.nonstarter_table_ &&
-                   ((lhs.nonstarters_ == nullptr) ==
-                    (rhs.nonstarters_ == nullptr)) &&
-                   lhs.nonsimple_reorders_ == rhs.nonsimple_reorders_ &&
-                   lhs.simple_reorders_ == rhs.simple_reorders_ &&
-                   lhs.strength_ == rhs.strength_ &&
-                   lhs.weighting_ == rhs.weighting_ &&
-                   lhs.l2_order_ == rhs.l2_order_ &&
-                   lhs.case_level_ == rhs.case_level_ &&
-                   lhs.case_first_ == rhs.case_first_;
-        }
-
-        inline bool operator!=(
-            collation_table_data const & lhs, collation_table_data const & rhs)
-        {
-            return !(lhs == rhs);
-        }
 
         inline void add_temp_tailoring(
             collation_table_data & table,
@@ -404,8 +407,13 @@ namespace boost { namespace text {
             l2_order_(detail::to_l2_order(flags))
         {}
 
-        template<typename CPRange1, typename CPRange2>
-        bool operator()(CPRange1 const & r1, CPRange2 const & r2) const;
+#if BOOST_TEXT_USE_CONCEPTS
+        template<code_point_range R1, code_point_range R2>
+#else
+        /** Compares code point ranges `R1` and `R2`. */
+        template<typename R1, typename R2>
+#endif
+        bool operator()(R1 const & r1, R2 const & r2) const;
 
     private:
         collation_table table_;
@@ -429,7 +437,7 @@ namespace boost { namespace text {
                         collation_elements_ptr()),
                     trie_values(collation_elements_ptr())[i].end(
                         collation_elements_ptr()));
-                retval = retval.push_back(element);
+                retval.push_back(element);
 #if BOOST_TEXT_TAILORING_INSTRUMENTATION
                 if (trie_keys()[i].size_ == 1 &&
                     *trie_keys()[i].begin() == 0xe5b) {
@@ -1423,9 +1431,12 @@ namespace boost { namespace text {
             size_out);
     }
 
-    template<typename CPRange1, typename CPRange2>
-    bool collation_compare::
-    operator()(CPRange1 const & r1, CPRange2 const & r2) const
+#if BOOST_TEXT_USE_CONCEPTS
+    template<code_point_range R1, code_point_range R2>
+#else
+    template<typename R1, typename R2>
+#endif
+    bool collation_compare::operator()(R1 const & r1, R2 const & r2) const
     {
         return collate(
                    r1.begin(),

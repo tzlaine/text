@@ -162,7 +162,213 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
             auto const rhs_int = static_cast<int>(rhs);
             return grapheme_breaks[lhs_int][rhs_int];
         }
+
+        template<typename CPIter, typename Sentinel>
+        CPIter prev_grapheme_break_impl(
+            CPIter first, CPIter it, Sentinel last) noexcept
+        {
+            if (it == first)
+                return it;
+
+            if (it == last && --it == first)
+                return it;
+
+            grapheme_break_state<CPIter> state;
+            state.it = it;
+            state.prop = boost::text::grapheme_prop(*state.it);
+            state.prev_prop = boost::text::grapheme_prop(*std::prev(state.it));
+            state.emoji_state = grapheme_break_emoji_state_t::none;
+
+            for (; state.it != first; state = prev(state)) {
+                state.prev_prop =
+                    boost::text::grapheme_prop(*std::prev(state.it));
+
+                // When we see an RI, back up to the first RI so we can see what
+                // emoji state we're supposed to be in here.
+                if (state.emoji_state == grapheme_break_emoji_state_t::none &&
+                    state.prop == grapheme_property::Regional_Indicator) {
+                    int ris_before = 0;
+                    boost::text::find_if_not_backward(
+                        first, state.it, [&ris_before](uint32_t cp) {
+                            bool const ri =
+                                grapheme_prop(cp) ==
+                                grapheme_property::Regional_Indicator;
+                            if (ri)
+                                ++ris_before;
+                            return ri;
+                        });
+                    state.emoji_state =
+                        (ris_before % 2 == 0)
+                            ? grapheme_break_emoji_state_t::first_emoji
+                            : grapheme_break_emoji_state_t::second_emoji;
+                }
+
+                // GB11
+                if (state.prev_prop == grapheme_property::ZWJ &&
+                    state.prop == grapheme_property::ExtPict &&
+                    detail::gb11_prefix(first, std::prev(state.it))) {
+                    continue;
+                }
+
+                if (state.emoji_state ==
+                    grapheme_break_emoji_state_t::first_emoji) {
+                    if (state.prev_prop ==
+                        grapheme_property::Regional_Indicator) {
+                        state.emoji_state =
+                            grapheme_break_emoji_state_t::second_emoji;
+                        return state.it;
+                    } else {
+                        state.emoji_state = grapheme_break_emoji_state_t::none;
+                    }
+                } else if (
+                    state.emoji_state ==
+                        grapheme_break_emoji_state_t::second_emoji &&
+                    state.prev_prop == grapheme_property::Regional_Indicator) {
+                    state.emoji_state =
+                        grapheme_break_emoji_state_t::first_emoji;
+                    continue;
+                }
+
+                if (detail::table_grapheme_break(state.prev_prop, state.prop))
+                    return state.it;
+            }
+
+            return first;
+        }
+
+        template<typename CPIter, typename Sentinel>
+        CPIter next_grapheme_break_impl(CPIter first, Sentinel last) noexcept
+        {
+            if (first == last)
+                return first;
+
+            grapheme_break_state<CPIter> state;
+            state.it = first;
+
+            if (++state.it == last)
+                return state.it;
+
+            state.prev_prop = boost::text::grapheme_prop(*std::prev(state.it));
+            state.prop = boost::text::grapheme_prop(*state.it);
+
+            state.emoji_state =
+                state.prev_prop == grapheme_property::Regional_Indicator
+                    ? grapheme_break_emoji_state_t::first_emoji
+                    : grapheme_break_emoji_state_t::none;
+
+            for (; state.it != last; state = next(state)) {
+                state.prop = boost::text::grapheme_prop(*state.it);
+
+                // GB11
+                if (state.prev_prop == grapheme_property::ZWJ &&
+                    state.prop == grapheme_property::ExtPict &&
+                    detail::gb11_prefix(first, std::prev(state.it))) {
+                    continue;
+                }
+
+                if (state.emoji_state ==
+                    grapheme_break_emoji_state_t::first_emoji) {
+                    if (state.prop == grapheme_property::Regional_Indicator) {
+                        state.emoji_state = grapheme_break_emoji_state_t::none;
+                        continue;
+                    } else {
+                        state.emoji_state = grapheme_break_emoji_state_t::none;
+                    }
+                } else if (
+                    state.prop == grapheme_property::Regional_Indicator) {
+                    state.emoji_state =
+                        grapheme_break_emoji_state_t::first_emoji;
+                }
+
+                if (detail::table_grapheme_break(state.prev_prop, state.prop))
+                    return state.it;
+            }
+
+            return state.it;
+        }
+
+        template<typename CPIter, typename Sentinel>
+        struct next_grapheme_callable
+        {
+            CPIter operator()(CPIter it, Sentinel last) const noexcept
+            {
+                return detail::next_grapheme_break_impl(it, last);
+            }
+        };
+
+        template<typename CPIter>
+        struct prev_grapheme_callable
+        {
+            CPIter operator()(CPIter first, CPIter it, CPIter last) const
+                noexcept
+            {
+                return detail::prev_grapheme_break_impl(first, it, last);
+            }
+        };
+
+        template<typename CPIter, typename Sentinel>
+        lazy_segment_range<
+            CPIter,
+            Sentinel,
+            next_grapheme_callable<CPIter, Sentinel>>
+        graphemes_impl(CPIter first, Sentinel last) noexcept
+        {
+            next_grapheme_callable<CPIter, Sentinel> next;
+            return {std::move(next), {first, last}, {last}};
+        }
+
+        template<typename CPRange>
+        lazy_segment_range<
+            iterator_t<CPRange>,
+            sentinel_t<CPRange>,
+            next_grapheme_callable<iterator_t<CPRange>, sentinel_t<CPRange>>>
+        graphemes_impl(CPRange && range) noexcept
+        {
+            next_grapheme_callable<
+                iterator_t<CPRange>,
+                sentinel_t<CPRange>>
+                next;
+            return {
+                std::move(next),
+                {std::begin(range), std::end(range)},
+                {std::end(range)}};
+        }
+
+        template<typename CPIter>
+        lazy_segment_range<
+            CPIter,
+            CPIter,
+            prev_grapheme_callable<CPIter>,
+            utf32_view<CPIter>,
+            const_reverse_lazy_segment_iterator,
+            true>
+        reversed_graphemes_impl(CPIter first, CPIter last) noexcept
+        {
+            prev_grapheme_callable<CPIter> prev;
+            return {std::move(prev), {first, last, last}, {first, first, last}};
+        }
+
+        template<typename CPRange>
+        lazy_segment_range<
+            iterator_t<CPRange>,
+            sentinel_t<CPRange>,
+            prev_grapheme_callable<iterator_t<CPRange>>,
+            utf32_view<iterator_t<CPRange>>,
+            const_reverse_lazy_segment_iterator,
+            true>
+        reversed_graphemes_impl(CPRange && range) noexcept
+        {
+            prev_grapheme_callable<iterator_t<CPRange>> prev;
+            return {
+                std::move(prev),
+                {std::begin(range), std::end(range), std::end(range)},
+                {std::begin(range), std::begin(range), std::end(range)}};
+        }
     }
+
+}}
+
+namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -194,7 +400,7 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
         This function only participates in overload resolution if `CPRange`
         models the CPRange concept. */
     template<typename CPRange, typename CPIter>
-    detail::undefined prev_grapheme_break(CPRange & range, CPIter it) noexcept;
+    detail::undefined prev_grapheme_break(CPRange && range, CPIter it) noexcept;
 
     /** Finds the next grapheme break after `it`.  This will be the first code
         point after the current grapheme, or `range.end()` if no next grapheme
@@ -205,7 +411,7 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
 
         \pre `it` is at the beginning of a grapheme. */
     template<typename CPRange, typename CPIter>
-    detail::undefined next_grapheme_break(CPRange & range, CPIter it) noexcept;
+    detail::undefined next_grapheme_break(CPRange && range, CPIter it) noexcept;
 
     /** Returns true iff `it` is at the beginning of a grapheme, or `it ==
         last`.
@@ -221,194 +427,7 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
         This function only participates in overload resolution if `CPRange`
         models the CPRange concept. */
     template<typename CPRange, typename CPIter>
-    bool at_grapheme_break(CPRange & range, CPIter it) noexcept;
-
-#else
-
-    template<typename CPIter, typename Sentinel>
-    auto prev_grapheme_break(CPIter first, CPIter it, Sentinel last) noexcept
-        -> detail::cp_iter_ret_t<CPIter, CPIter>
-    {
-        if (it == first)
-            return it;
-
-        if (it == last && --it == first)
-            return it;
-
-        detail::grapheme_break_state<CPIter> state;
-        state.it = it;
-        state.prop = boost::text::grapheme_prop(*state.it);
-        state.prev_prop = boost::text::grapheme_prop(*std::prev(state.it));
-        state.emoji_state = detail::grapheme_break_emoji_state_t::none;
-
-        for (; state.it != first; state = prev(state)) {
-            state.prev_prop =
-                boost::text::grapheme_prop(*std::prev(state.it));
-
-            // When we see an RI, back up to the first RI so we can see what
-            // emoji state we're supposed to be in here.
-            if (state.emoji_state ==
-                    detail::grapheme_break_emoji_state_t::none &&
-                state.prop == grapheme_property::Regional_Indicator) {
-                int ris_before = 0;
-                boost::text::find_if_not_backward(
-                    first, state.it, [&ris_before](uint32_t cp) {
-                        bool const ri = grapheme_prop(cp) ==
-                                        grapheme_property::Regional_Indicator;
-                        if (ri)
-                            ++ris_before;
-                        return ri;
-                    });
-                state.emoji_state =
-                    (ris_before % 2 == 0)
-                        ? detail::grapheme_break_emoji_state_t::first_emoji
-                        : detail::grapheme_break_emoji_state_t::second_emoji;
-            }
-
-            // GB11
-            if (state.prev_prop == grapheme_property::ZWJ &&
-                state.prop == grapheme_property::ExtPict &&
-                detail::gb11_prefix(first, std::prev(state.it))) {
-                continue;
-            }
-
-            if (state.emoji_state ==
-                detail::grapheme_break_emoji_state_t::first_emoji) {
-                if (state.prev_prop == grapheme_property::Regional_Indicator) {
-                    state.emoji_state =
-                        detail::grapheme_break_emoji_state_t::second_emoji;
-                    return state.it;
-                } else {
-                    state.emoji_state =
-                        detail::grapheme_break_emoji_state_t::none;
-                }
-            } else if (
-                state.emoji_state ==
-                    detail::grapheme_break_emoji_state_t::second_emoji &&
-                state.prev_prop == grapheme_property::Regional_Indicator) {
-                state.emoji_state =
-                    detail::grapheme_break_emoji_state_t::first_emoji;
-                continue;
-            }
-
-            if (detail::table_grapheme_break(state.prev_prop, state.prop))
-                return state.it;
-        }
-
-        return first;
-    }
-
-    template<typename CPIter, typename Sentinel>
-    auto next_grapheme_break(CPIter first, Sentinel last) noexcept
-        -> detail::cp_iter_ret_t<CPIter, CPIter>
-    {
-        if (first == last)
-            return first;
-
-        detail::grapheme_break_state<CPIter> state;
-        state.it = first;
-
-        if (++state.it == last)
-            return state.it;
-
-        state.prev_prop = boost::text::grapheme_prop(*std::prev(state.it));
-        state.prop = boost::text::grapheme_prop(*state.it);
-
-        state.emoji_state =
-            state.prev_prop == grapheme_property::Regional_Indicator
-                ? detail::grapheme_break_emoji_state_t::first_emoji
-                : detail::grapheme_break_emoji_state_t::none;
-
-        for (; state.it != last; state = next(state)) {
-            state.prop = boost::text::grapheme_prop(*state.it);
-
-            // GB11
-            if (state.prev_prop == grapheme_property::ZWJ &&
-                state.prop == grapheme_property::ExtPict &&
-                detail::gb11_prefix(first, std::prev(state.it))) {
-                continue;
-            }
-
-            if (state.emoji_state ==
-                detail::grapheme_break_emoji_state_t::first_emoji) {
-                if (state.prop == grapheme_property::Regional_Indicator) {
-                    state.emoji_state =
-                        detail::grapheme_break_emoji_state_t::none;
-                    continue;
-                } else {
-                    state.emoji_state =
-                        detail::grapheme_break_emoji_state_t::none;
-                }
-            } else if (state.prop == grapheme_property::Regional_Indicator) {
-                state.emoji_state =
-                    detail::grapheme_break_emoji_state_t::first_emoji;
-            }
-
-            if (detail::table_grapheme_break(state.prev_prop, state.prop))
-                return state.it;
-        }
-
-        return state.it;
-    }
-
-    template<typename CPRange, typename CPIter>
-    auto prev_grapheme_break(CPRange & range, CPIter it) noexcept
-        -> detail::cp_rng_alg_ret_t<detail::iterator_t<CPRange>, CPRange>
-    {
-        return boost::text::prev_grapheme_break(
-            std::begin(range), it, std::end(range));
-    }
-
-    template<typename CPRange, typename CPIter>
-    auto next_grapheme_break(CPRange & range, CPIter it) noexcept
-        -> detail::cp_rng_alg_ret_t<detail::iterator_t<CPRange>, CPRange>
-    {
-        return boost::text::next_grapheme_break(it, std::end(range));
-    }
-
-    template<typename CPIter, typename Sentinel>
-    auto at_grapheme_break(CPIter first, CPIter it, Sentinel last) noexcept
-        -> detail::cp_iter_ret_t<bool, CPIter>
-    {
-        if (it == last)
-            return true;
-        return prev_grapheme_break(first, it, last) == it;
-    }
-
-    template<typename CPRange, typename CPIter>
-    auto at_grapheme_break(CPRange & range, CPIter it) noexcept
-        -> detail::cp_rng_alg_ret_t<bool, CPRange>
-    {
-        if (it == std::end(range))
-            return true;
-        return prev_grapheme_break(std::begin(range), it, std::end(range)) ==
-               it;
-    }
-
-#endif
-
-    namespace detail {
-        template<typename CPIter, typename Sentinel>
-        struct next_grapheme_callable
-        {
-            CPIter operator()(CPIter it, Sentinel last) const noexcept
-            {
-                return boost::text::next_grapheme_break(it, last);
-            }
-        };
-
-        template<typename CPIter>
-        struct prev_grapheme_callable
-        {
-            CPIter operator()(CPIter first, CPIter it, CPIter last) const
-                noexcept
-            {
-                return boost::text::prev_grapheme_break(first, it, last);
-            }
-        };
-    }
-
-#ifdef BOOST_TEXT_DOXYGEN
+    bool at_grapheme_break(CPRange && range, CPIter it) noexcept;
 
     /** Returns a lazy range of the code point ranges delimiting graphemes in
         `[first, last)`. */
@@ -418,7 +437,7 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
     /** Returns a lazy range of the code point ranges delimiting graphemes in
         `range`. */
     template<typename CPRange>
-    detail::undefined graphemes(CPRange & range) noexcept;
+    detail::undefined graphemes(CPRange && range) noexcept;
 
     /** Returns a lazy range of the code point ranges delimiting graphemes in
         `[first, last)`, in reverse. */
@@ -428,69 +447,187 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
     /** Returns a lazy range of the code point ranges delimiting graphemes in
         `range`, in reverse. */
     template<typename CPRange>
-    detail::undefined reversed_graphemes(CPRange & range) noexcept;
+    detail::undefined reversed_graphemes(CPRange && range) noexcept;
 
 #else
 
     template<typename CPIter, typename Sentinel>
-    lazy_segment_range<
-        CPIter,
-        Sentinel,
-        detail::next_grapheme_callable<CPIter, Sentinel>>
-    graphemes(CPIter first, Sentinel last) noexcept
+    auto prev_grapheme_break(CPIter first, CPIter it, Sentinel last) noexcept
+        -> detail::cp_iter_ret_t<CPIter, CPIter>
     {
-        detail::next_grapheme_callable<CPIter, Sentinel> next;
-        return {std::move(next), {first, last}, {last}};
+        return detail::prev_grapheme_break_impl(first, it, last);
+    }
+
+    template<typename CPIter, typename Sentinel>
+    auto next_grapheme_break(CPIter first, Sentinel last) noexcept
+        -> detail::cp_iter_ret_t<CPIter, CPIter>
+    {
+        return detail::next_grapheme_break_impl(first, last);
+    }
+
+    template<typename CPRange, typename CPIter>
+    auto prev_grapheme_break(CPRange && range, CPIter it) noexcept
+        -> detail::cp_rng_alg_ret_t<detail::iterator_t<CPRange>, CPRange>
+    {
+        return v1::prev_grapheme_break(std::begin(range), it, std::end(range));
+    }
+
+    template<typename CPRange, typename CPIter>
+    auto next_grapheme_break(CPRange && range, CPIter it) noexcept
+        -> detail::cp_rng_alg_ret_t<detail::iterator_t<CPRange>, CPRange>
+    {
+        return v1::next_grapheme_break(it, std::end(range));
+    }
+
+    template<typename CPIter, typename Sentinel>
+    auto at_grapheme_break(CPIter first, CPIter it, Sentinel last) noexcept
+        -> detail::cp_iter_ret_t<bool, CPIter>
+    {
+        if (it == last)
+            return true;
+        return v1::prev_grapheme_break(first, it, last) == it;
+    }
+
+    template<typename CPRange, typename CPIter>
+    auto at_grapheme_break(CPRange && range, CPIter it) noexcept
+        -> detail::cp_rng_alg_ret_t<bool, CPRange>
+    {
+        if (it == std::end(range))
+            return true;
+        return v1::prev_grapheme_break(
+                   std::begin(range), it, std::end(range)) == it;
+    }
+
+    template<typename CPIter, typename Sentinel>
+    auto graphemes(CPIter first, Sentinel last) noexcept->decltype(
+        detail::graphemes_impl(first, last))
+    {
+        return detail::graphemes_impl(first, last);
     }
 
     template<typename CPRange>
-    auto graphemes(CPRange & range) noexcept -> lazy_segment_range<
-        detail::iterator_t<CPRange>,
-        detail::sentinel_t<CPRange>,
-        detail::next_grapheme_callable<
-            detail::iterator_t<CPRange>,
-            detail::sentinel_t<CPRange>>>
+    auto graphemes(CPRange && range) noexcept->decltype(
+        detail::graphemes_impl(range))
     {
-        detail::next_grapheme_callable<
-            detail::iterator_t<CPRange>,
-            detail::sentinel_t<CPRange>>
-            next;
-        return {std::move(next),
-                {std::begin(range), std::end(range)},
-                {std::end(range)}};
+        return detail::graphemes_impl(range);
     }
 
     template<typename CPIter>
-    lazy_segment_range<
-        CPIter,
-        CPIter,
-        detail::prev_grapheme_callable<CPIter>,
-        utf32_view<CPIter>,
-        detail::const_reverse_lazy_segment_iterator,
-        true>
-    reversed_graphemes(CPIter first, CPIter last) noexcept
+    auto reversed_graphemes(CPIter first, CPIter last) noexcept->decltype(
+        detail::reversed_graphemes_impl(first, last))
     {
-        detail::prev_grapheme_callable<CPIter> prev;
-        return {std::move(prev), {first, last, last}, {first, first, last}};
+        return detail::reversed_graphemes_impl(first, last);
     }
 
     template<typename CPRange>
-    auto reversed_graphemes(CPRange & range) noexcept -> lazy_segment_range<
-        detail::iterator_t<CPRange>,
-        detail::sentinel_t<CPRange>,
-        detail::prev_grapheme_callable<detail::iterator_t<CPRange>>,
-        utf32_view<detail::iterator_t<CPRange>>,
-        detail::const_reverse_lazy_segment_iterator,
-        true>
+    auto reversed_graphemes(CPRange && range) noexcept->decltype(
+        detail::reversed_graphemes_impl(range))
     {
-        detail::prev_grapheme_callable<detail::iterator_t<CPRange>> prev;
-        return {std::move(prev),
-                {std::begin(range), std::end(range), std::end(range)},
-                {std::begin(range), std::begin(range), std::end(range)}};
+        return detail::reversed_graphemes_impl(range);
     }
 
 #endif
 
-}}
+}}}
+
+#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
+
+namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
+
+    template<code_point_iter I, std::sentinel_for<I> S>
+    I prev_grapheme_break(I first, I it, S last) noexcept
+    {
+        return detail::prev_grapheme_break_impl(first, it, last);
+    }
+
+    template<code_point_iter I, std::sentinel_for<I> S>
+    I next_grapheme_break(I first, S last) noexcept
+    {
+        return detail::next_grapheme_break_impl(first, last);
+    }
+
+    template<code_point_range R>
+    std::ranges::iterator_t<R> prev_grapheme_break(
+        R && range, std::ranges::iterator_t<R> it) noexcept
+    {
+        return boost::text::prev_grapheme_break(
+            std::begin(range), it, std::end(range));
+    }
+
+    template<code_point_range R>
+    std::ranges::iterator_t<R> next_grapheme_break(
+        R && range, std::ranges::iterator_t<R> it) noexcept
+    {
+        return boost::text::next_grapheme_break(it, std::end(range));
+    }
+
+    template<code_point_iter I, std::sentinel_for<I> S>
+    bool at_grapheme_break(I first, I it, S last) noexcept
+    {
+        if (it == last)
+            return true;
+        return boost::text::prev_grapheme_break(first, it, last) == it;
+    }
+
+    template<code_point_range R>
+    bool at_grapheme_break(R && range, std::ranges::iterator_t<R> it) noexcept
+    {
+        if (it == std::end(range))
+            return true;
+        return boost::text::prev_grapheme_break(
+                   std::begin(range), it, std::end(range)) == it;
+    }
+
+    template<code_point_iter I, std::sentinel_for<I> S>
+    lazy_segment_range<I, S, detail::next_grapheme_callable<I, S>> graphemes(
+        I first, S last) noexcept
+    {
+        return detail::graphemes_impl(first, last);
+    }
+
+    template<code_point_range R>
+    lazy_segment_range<
+        std::ranges::iterator_t<R>,
+        std::ranges::sentinel_t<R>,
+        detail::next_grapheme_callable<
+            std::ranges::iterator_t<R>,
+            std::ranges::sentinel_t<R>>>
+        graphemes(R && range) noexcept
+    {
+        return detail::graphemes_impl(range);
+    }
+
+    template<code_point_iter I>
+    lazy_segment_range<
+        I,
+        I,
+        detail::prev_grapheme_callable<I>,
+        utf32_view<I>,
+        detail::const_reverse_lazy_segment_iterator,
+        true>
+    reversed_graphemes(I first, I last)
+    {
+        return detail::reversed_graphemes_impl(first, last);
+    }
+
+    template<code_point_range R>
+    // clang-format off
+        requires std::ranges::common_range<R>
+    lazy_segment_range<
+        // clang-format on
+        std::ranges::iterator_t<R>,
+        std::ranges::sentinel_t<R>,
+        detail::prev_grapheme_callable<std::ranges::iterator_t<R>>,
+        utf32_view<std::ranges::iterator_t<R>>,
+        detail::const_reverse_lazy_segment_iterator,
+        true>
+        reversed_graphemes(R && range) noexcept
+    {
+        return detail::reversed_graphemes_impl(range);
+    }
+
+}}}
+
+#endif
 
 #endif

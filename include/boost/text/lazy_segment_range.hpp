@@ -214,4 +214,24 @@ namespace boost { namespace text {
 
 }}
 
+#if BOOST_TEXT_USE_CONCEPTS
+
+namespace std::ranges {
+    template<
+        typename CPIter,
+        typename Sentinel,
+        typename NextFunc,
+        typename CPRange,
+        template<class, class, class, class>
+        class IteratorTemplate>
+    inline constexpr bool enable_borrowed_range<boost::text::lazy_segment_range<
+        CPIter,
+        Sentinel,
+        NextFunc,
+        CPRange,
+        IteratorTemplate>> = true;
+}
+
+#endif
+
 #endif

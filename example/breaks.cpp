@@ -8,6 +8,7 @@
 #include <boost/text/line_break.hpp>
 #include <boost/text/text.hpp>
 #include <boost/text/string_utility.hpp>
+#include <boost/text/estimated_width.hpp>
 
 #include <iostream>
 
@@ -57,7 +58,7 @@ std::cout << "\n";
 // Using GraphemeRange/GraphemeIterator overloads...
 boost::text::text cps("The quick (\"brown\") fox can’t jump 32.3 feet, right?");
 
-auto const first = cps.cbegin();
+auto const first = cps.begin();
 
 auto at_or_before_1 = boost::text::prev_word_break(cps, std::next(first, 1));
 assert(at_or_before_1 == std::next(first, 0));
@@ -94,7 +95,7 @@ boost::text::text cps("out-of-the-box");
 
 // Prints "out - of - the - box".
 for (auto range : boost::text::words(cps)) {
-    std::cout << boost::text::text_view(range) << " ";
+    std::cout << boost::text::text_view(range.begin(), range.end()) << " ";
 }
 std::cout << "\n";
 
@@ -106,7 +107,7 @@ auto const custom_word_prop = [](uint32_t cp) {
 
 // Prints "out-of-the-box".
 for (auto range : boost::text::words(cps, custom_word_prop)) {
-    std::cout << boost::text::text_view(range) << " ";
+    std::cout << boost::text::text_view(range.begin(), range.end()) << " ";
 }
 std::cout << "\n";
 //]
@@ -118,12 +119,12 @@ boost::text::text cps("snake_case camelCase");
 
 // Prints "snake_case   camelCase".
 for (auto range : boost::text::words(cps)) {
-    std::cout << boost::text::text_view(range) << " ";
+    std::cout << boost::text::text_view(range.begin(), range.end()) << " ";
 }
 std::cout << "\n";
 
-// Break up words into chunks as if they were identifiers in a popular
-// programming language.
+// Break up words into chunks as if they were parts of identifiers in a
+// popular programming language.
 auto const identifier_break = [](uint32_t prev_prev,
                                  uint32_t prev,
                                  uint32_t curr,
@@ -139,7 +140,7 @@ auto const identifier_break = [](uint32_t prev_prev,
 // Prints "snake _ case   camel Case".
 for (auto range :
      boost::text::words(cps, boost::text::word_prop, identifier_break)) {
-    std::cout << boost::text::text_view(range) << " ";
+    std::cout << boost::text::text_view(range.begin(), range.end()) << " ";
 }
 std::cout << "\n";
 //]
@@ -223,15 +224,15 @@ for (auto line : boost::text::lines(
          cps,
          60,
          [](boost::text::text::const_iterator::iterator_type first,
-            boost::text::text::const_iterator::iterator_type last) {
-             // The width of this chunk of text.  For out purposes here, each
-             // grapheme in the chunk has a fixed width of 1.
-             boost::text::grapheme_view<
-                 boost::text::text::const_iterator::iterator_type>
-                 range(first, last);
-             return std::distance(range.begin(), range.end());
+            boost::text::text::const_iterator::iterator_type last)
+             -> std::ptrdiff_t {
+             // estimated_width_of_graphemes() uses the same table-based width
+             // determination that std::format() uses.  You can use anything
+             // here, even the width of individual code points in a particular
+             // font.
+             return boost::text::estimated_width_of_graphemes(first, last);
          })) {
-    std::cout << boost::text::text_view(line);
+    std::cout << boost::text::text_view(line.begin(), line.end());
     if (!line.hard_break())
         std::cout << "\n";
 }

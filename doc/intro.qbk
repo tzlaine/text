@@ -11,22 +11,13 @@ _emdash_ including those who know next to nothing about Unicode.
 
 [heading Features]
 
-- Iterators converting UTF-8 to and from UTF-16 and UTF-32.
+- Iterators, views, and algorithms that convert among UTF-8, UTF-16, and UTF-32.
 
 - An implementation of the Unicode algorithms for dealing with encodings,
-  normalization, etc.  It is not necessary to use any of _Text_'s string types
-  to make use of the Unicode algorithms.
+  normalization, text segmentation, etc.
 
 - A family of types for use in Unicode-aware text processing.  This includes
   _t_, _tv_, _r_, and _rv_.
-
-- A family of types to analogous to `std::string`, to show the integration of
-  strings with Unicode-aware text types (these are required simply because I
-  can't hack such integration support into `std::string`).  This includes _s_,
-  _sv_, _rsv_, _ur_, and _urv_.
-
-- Substrings of each of the string-like types above can be had with no copies
-  or allocations using a Python-like slicing interface.
 
 - Code simplicity -- none of the above string or text types is a template.
 
