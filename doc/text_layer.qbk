@@ -201,4 +201,24 @@ erase/insert/replace to return a single iterator, the view returned is
 implicitly convertible to a single iterator; the view's `begin()` is used for
 this.
 
+[heading Picking the Right String Type]
+
+[table Picking the Right Text Type
+    [[If I want ...] [... my text type is:]]
+
+    [[a reference to some text that will outlive the reference, without allocating] [_tv_]]
+
+    [[mutable text with efficient mutation at the end of the string] [_t_]]
+    [[mutable text with efficient mutation at any point in the string] [_r_]]
+    [[text with contiguous storage] [_tv_ or _t_]]
+    [[a null-terminated underlying string] [_t_]]
+    [[mutable text the size of a single pointer] [_r_]]
+    [[thread-safe text] [_r_]]
+    [[text with the small-object optimization] [_t_]]
+    [[text with copy-on-write semantics] [_r_]]
+
+    [[function parameters that may bind to, _tvs_, or _ts_] [_tv_]]
+    [[function parameters that may bind to, _tvs_, _ts_, _rs_, or _rvs] [_rv_]]
+]
+
 [endsect]
