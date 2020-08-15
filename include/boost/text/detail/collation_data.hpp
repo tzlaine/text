@@ -589,7 +589,7 @@ namespace boost { namespace text { namespace detail {
 
 }}}
 
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
 
 namespace std::ranges {
     template<int N>

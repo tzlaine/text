@@ -16,7 +16,7 @@ namespace boost { namespace text {
         template parameter refers to the type used in a `basic_unencoded_rope`
         to which this view may refer.  It is otherwise unused. */
     template<typename Char, typename String = std::basic_string<Char>>
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
     // clang-format off
         requires std::is_same_v<Char, std::ranges::range_value_t<String>>
 #endif
@@ -28,7 +28,7 @@ namespace boost { namespace text {
         end).  A `basic_unencoded_rope` is non-contiguous and is not
         null-terminated. */
     template<typename Char, typename String = std::basic_string<Char>>
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
     // clang-format off
         requires std::is_same_v<Char, std::ranges::range_value_t<String>>
 #endif

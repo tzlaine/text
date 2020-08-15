@@ -150,7 +150,7 @@ namespace boost { namespace text {
     }
 
     /** A view over UTF-8 code units. */
-#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
+#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
     template<utf8_iter I, std::sentinel_for<I> S = I>
 #else
     template<typename I, typename S = I>
@@ -218,7 +218,7 @@ namespace boost { namespace text {
     };
 
     /** A view over UTF-16 code units. */
-#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
+#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
     template<utf16_iter I, std::sentinel_for<I> S = I>
 #else
     template<typename I, typename S = I>
@@ -286,7 +286,7 @@ namespace boost { namespace text {
     };
 
     /** A view over UTF-32 code units. */
-#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
+#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
     template<utf32_iter I, std::sentinel_for<I> S = I>
 #else
     template<typename I, typename S = I>
@@ -504,7 +504,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
 }}}
 
-#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
+#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 

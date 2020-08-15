@@ -184,7 +184,9 @@
 
 [def _bm_searcher_         [classref boost::text::boyer_moore_collation_searcher `boyer_moore_collation_searcher`]]
 
-[def _string_max_m_        [macroref BOOST_TEXT_STRING_INSERT_MAX]]
+[def _string_max_m_         [macroref BOOST_TEXT_STRING_INSERT_MAX]]
+[def _disable_concepts_m_   [macroref BOOST_TEXT_DISABLE_CONCEPTS]]
+[def _disable_coroutines_m_ [macroref BOOST_TEXT_DISABLE_CONCEPTS]]
 
 [def _ce_                  `constexpr`]
 

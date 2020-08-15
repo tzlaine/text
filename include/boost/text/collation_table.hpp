@@ -407,7 +407,7 @@ namespace boost { namespace text {
             l2_order_(detail::to_l2_order(flags))
         {}
 
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
         template<code_point_range R1, code_point_range R2>
 #else
         /** Compares code point ranges `R1` and `R2`. */
@@ -1431,7 +1431,7 @@ namespace boost { namespace text {
             size_out);
     }
 
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
     template<code_point_range R1, code_point_range R2>
 #else
     template<typename R1, typename R2>

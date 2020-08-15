@@ -117,7 +117,7 @@ namespace boost { namespace text {
         a sequence of code points.
 
         \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
-#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
+#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
     template<code_point_iter I, std::sentinel_for<I> S = I>
 #else
     template<typename I, typename S = I>
@@ -234,7 +234,7 @@ namespace boost { namespace text {
 
         \see https://unicode.org/reports/tr15/#Stream_Safe_Text_Format */
     // clang-format off
-#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
+#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
     template<typename I, std::sentinel_for<I> S = I>
         requires detail::is_stream_safe_iter<I>::value
 #else
@@ -416,7 +416,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
 }}}
 
-#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
+#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 

@@ -19,7 +19,7 @@ namespace boost { namespace text {
         `Normalization`.  The `String` is responsible for maintaining
         null-termination. */
     template<nf Normalization, typename Char = char>
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
         // clang-format off
         requires utf8_code_unit<Char> || utf16_code_unit<Char>
 #endif
@@ -34,7 +34,7 @@ namespace boost { namespace text {
         nf Normalization,
         typename Char = char,
         typename String = std::basic_string<Char>>
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
         // clang-format off
         requires (utf8_code_unit<Char> || utf16_code_unit<Char>) &&
             std::is_same_v<Char, std::ranges::range_value_t<String>>

@@ -5,7 +5,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 #include <gtest/gtest.h>
 
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
 
 #include <boost/text/concepts.hpp>
 #include <boost/text/grapheme_view.hpp>

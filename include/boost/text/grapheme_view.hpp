@@ -25,7 +25,7 @@ namespace boost { namespace text {
 
     /** A view over graphemes that occur in an underlying sequence of code
         points. */
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
     template<code_point_iter I, std::sentinel_for<I> S = I>
 #else
     template<typename I, typename S = I>
@@ -53,7 +53,7 @@ namespace boost { namespace text {
 
         /** Construct a view covering a subset of the view of graphemes that
             `begin()` and `end()` lie within. */
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
         template<code_point_iter I2>
         // clang-format off
             requires std::constructible_from<iterator, I2, I2, I2> &&
@@ -164,7 +164,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
 }}}
 
-#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
+#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
@@ -195,7 +195,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
 #endif
 
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
 
 namespace std::ranges {
     template<typename CPIter, typename Sentinel>

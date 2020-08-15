@@ -214,7 +214,7 @@ namespace boost { namespace text {
 
 }}
 
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
 
 namespace std::ranges {
     template<

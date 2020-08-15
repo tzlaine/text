@@ -28,7 +28,7 @@
 
 namespace boost { namespace text {
 
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
     // concepts, etc.
 
     template<typename T, typename I, typename S>
@@ -47,7 +47,7 @@ namespace boost { namespace text {
 
     /** The result type returned from the code point overloads of
         `collation_search()`. */
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
     template<code_point_iter I, std::sentinel_for<I> S = I>
 #else
     template<typename I, typename S = I>
@@ -248,7 +248,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 }}}
 
 
-#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
+#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
@@ -935,7 +935,7 @@ namespace boost { namespace text {
         collation search API. */
     struct cp_break
     {
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
         template<code_point_iter I, std::sentinel_for<I> S>
 #else
         template<typename I, typename S>
@@ -955,7 +955,7 @@ namespace boost { namespace text {
 
         BreakFunc must be an invocable type whose signature is `CPIter (CPIter
         first, CPIter it, Sentinel last)`. */
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
     template<
         code_point_iter I,
         std::sentinel_for<I> S,
@@ -998,7 +998,7 @@ namespace boost { namespace text {
         /** Returns a code point range indicating the matching subsequence
             within `[first, last)` in which this searcher's pattern was
             found. The range will be empty if no match exists. */
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
         template<code_point_iter I2, std::sentinel_for<I2> S2>
 #else
         template<typename I2, typename S2>
@@ -1037,7 +1037,7 @@ namespace boost { namespace text {
 
         BreakFunc must be an invocable type whose signature is `CPIter (CPIter
         first, CPIter it, Sentinel last)`. */
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
     template<
         code_point_iter I,
         std::sentinel_for<I> S,
@@ -1094,7 +1094,7 @@ namespace boost { namespace text {
         /** Returns a code point range indicating the matching subsequence
             within `[first, last)` in which this searcher's pattern was
             found. The range will be empty if no match exists.*/
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
         template<code_point_iter I2, std::sentinel_for<I2> S2>
 #else
         template<typename I2, typename S2>
@@ -1137,7 +1137,7 @@ namespace boost { namespace text {
 
         BreakFunc must be an invocable type whose signature is `CPIter (CPIter
         first, CPIter it, Sentinel last)`. */
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
     template<
         code_point_iter I,
         std::sentinel_for<I> S,
@@ -1189,7 +1189,7 @@ namespace boost { namespace text {
         /** Returns a code point range indicating the matching subsequence
             within `[first, last)` in which this searcher's pattern was
             found. The range will be empty if no match exists.*/
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
         template<code_point_iter I2, std::sentinel_for<I2> S2>
 #else
         template<typename I2, typename S2>
@@ -2042,7 +2042,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 }}}
 
 
-#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
+#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
@@ -2749,7 +2749,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 }}}
 
 
-#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
+#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
@@ -2890,7 +2890,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
 #endif
 
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
 
 namespace std::ranges {
     template<typename Iter, typename Sentinel>

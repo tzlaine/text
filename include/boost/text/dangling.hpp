@@ -9,7 +9,7 @@
 #include <boost/text/config.hpp>
 
 
-#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
+#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
 
 namespace boost::text {
     template<std::ranges::range R, std::ranges::view V>

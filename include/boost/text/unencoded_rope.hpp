@@ -29,7 +29,7 @@
 namespace boost { namespace text {
 
     template<typename Char, typename String>
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
     // clang-format off
         requires std::is_same_v<Char, std::ranges::range_value_t<String>>
 #endif
@@ -86,7 +86,7 @@ namespace boost { namespace text {
 
         /** Constructs a `basic_unencoded_rope` from a range of
             `value_type` elements. */
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
         template<std::ranges::range R>
         // clang-format off
             requires
@@ -102,7 +102,7 @@ namespace boost { namespace text {
 
         /** Constructs a `basic_unencoded_rope` from a sequence of
             `value_type`. */
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
         template<std::input_iterator I, std::sentinel_for<I> S>
         // clang-format off
             requires std::convertible_to<std::iter_reference_t<I>, value_type>
@@ -235,7 +235,7 @@ namespace boost { namespace text {
             `r`.
 
             \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
         template<std::ranges::range R>
         // clang-format off
             requires
@@ -255,7 +255,7 @@ namespace boost { namespace text {
             with `[first2, last2)`.
 
             \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
         template<std::input_iterator I, std::sentinel_for<I> S>
         // clang-format off
             requires std::convertible_to<std::iter_reference_t<I>, value_type>
@@ -302,7 +302,7 @@ namespace boost { namespace text {
 
 #else
 
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
         template<typename R>
             // clang-format off
         requires std::ranges::range<R> &&
@@ -319,7 +319,7 @@ namespace boost { namespace text {
             return replace_shim<R>(old_substr, (R &&) r);
         }
 
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
         template<std::input_iterator I, std::sentinel_for<I> S>
         // clang-format off
             requires std::convertible_to<std::iter_reference_t<I>, value_type>
@@ -365,7 +365,7 @@ namespace boost { namespace text {
 
 #else
 
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
         template<typename R>
             // clang-format off
             requires std::ranges::range<R> &&
@@ -384,7 +384,7 @@ namespace boost { namespace text {
             return begin() + at_offset;
         }
 
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
         template<std::input_iterator I, std::sentinel_for<I> S>
         // clang-format off
             requires std::convertible_to<std::iter_reference_t<I>, value_type>
@@ -549,7 +549,7 @@ namespace boost { namespace text {
 #endif
     };
 
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
 
     /** Returns true iff `lhs` == `rhs`, where `rhs` is an object for which
         `lhs = rhs` is well-formed. */
@@ -1006,7 +1006,7 @@ namespace boost { namespace text {
 
 namespace boost { namespace text {
 
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
 
     /** Creates a new `basic_unencoded_rope` object that is the concatenation
         of `t` and some object `x` for which `ur = x` is well-formed. */

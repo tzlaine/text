@@ -38,7 +38,7 @@
 namespace boost { namespace text {
 
     template<nf Normalization, typename Char, typename String>
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
         // clang-format off
         requires (utf8_code_unit<Char> || utf16_code_unit<Char>) &&
             std::is_same_v<Char, std::ranges::range_value_t<String>>
@@ -151,7 +151,7 @@ namespace boost { namespace text {
             Sentinel last,
             detail::cu_iter_ret_t<(int)utf_format, void *, CUIter> = 0);
 
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
         template<grapheme_range_code_unit<utf_format> R>
         explicit basic_rope(R const & r)
 #else
@@ -166,7 +166,7 @@ namespace boost { namespace text {
             rope_.insert(rope_.begin(), std::move(str));
         }
 
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
         template<grapheme_iter_code_unit<utf_format> I>
         explicit basic_rope(I first, I last)
 #else
@@ -614,7 +614,7 @@ namespace boost { namespace text {
 
         // Generic comparisons.
 
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
 
         /** Returns true iff `lhs` == `rhs`, where `rhs` is an object for which
             `lhs = rhs` is well-formed. */
@@ -997,7 +997,7 @@ namespace boost { namespace text {
 
 namespace boost { namespace text {
 
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
 
     /** Creates a new `basic_rope` object that is the concatenation of `t` and
        some object `x` for which `r = x` is well-formed. */

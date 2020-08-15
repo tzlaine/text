@@ -18,7 +18,7 @@
 namespace boost { namespace text {
 
     template<typename Char, typename String>
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
     // clang-format off
         requires std::is_same_v<Char, std::ranges::range_value_t<String>>
 #endif
@@ -123,7 +123,7 @@ namespace boost { namespace text {
 
 #else
 
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
         template<std::ranges::contiguous_range R>
         // clang-format off
             requires std::is_same_v<std::ranges::range_value_t<R>, value_type>
@@ -279,7 +279,7 @@ namespace boost { namespace text {
 
 #else
 
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
         template<std::ranges::contiguous_range R>
         // clang-format off
             requires std::is_same_v<std::ranges::range_value_t<R>, value_type>
@@ -433,7 +433,7 @@ namespace std {
 
 #endif
 
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
 
 namespace std::ranges {
     template<typename Char, typename String>

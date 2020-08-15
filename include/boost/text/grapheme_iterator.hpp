@@ -22,7 +22,7 @@ namespace boost { namespace text {
 
     /** A bidirectional filtering iterator that iterates over the extended
         grapheme clusters in a sequence of code points. */
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
     template<code_point_iter I, std::sentinel_for<I> S = I>
 #else
     template<typename I, typename S = I>
@@ -38,7 +38,7 @@ namespace boost { namespace text {
         using iterator_type = I;
         using sentinel_type = S;
 
-#if !defined(__cpp_lib_concepts)
+#if !BOOST_TEXT_USE_CONCEPTS
         static_assert(
             detail::is_cp_iter<I>::value,
             "I must be a code point iterator");
@@ -71,7 +71,7 @@ namespace boost { namespace text {
             last_(detail::unpack_iterator_and_sentinel(first, last).l_)
         {}
 
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
         template<code_point_iter I2, std::sentinel_for<I2> S2>
         // clang-format off
             requires std::convertible_to<I2, I> && std::convertible_to<S2, S>
@@ -179,7 +179,7 @@ namespace boost { namespace text {
         cu_iterator grapheme_last_;
         cu_sentinel last_;
 
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
         template<code_point_iter I2, std::sentinel_for<I2> S2>
 #else
         template<typename I2, typename S2>

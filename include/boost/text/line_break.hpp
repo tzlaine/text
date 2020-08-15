@@ -157,7 +157,7 @@ namespace boost { namespace text {
 
     /** A range of code points that delimit a pair of line break
         boundaries. */
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
     template<code_point_iter I>
 #else
     template<typename I>
@@ -178,7 +178,7 @@ namespace boost { namespace text {
     };
 
     /** A range of graphemes that delimit a pair of line break boundaries. */
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
     template<code_point_iter I>
 #else
     template<typename I>
@@ -2292,7 +2292,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 }}}
 
 
-#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
+#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
@@ -3102,7 +3102,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
 }}}
 
-#if defined(BOOST_TEXT_DOXYGEN) || defined(__cpp_lib_concepts)
+#if defined(BOOST_TEXT_DOXYGEN) || BOOST_TEXT_USE_CONCEPTS
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 

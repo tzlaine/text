@@ -19,7 +19,7 @@
 namespace boost { namespace text {
 
     struct grapheme;
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
     template<code_point_iter I>
 #else
     template<typename I>
@@ -42,7 +42,7 @@ namespace boost { namespace text {
 
             \pre The code points in [first, last) comprise at most one
             grapheme. */
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
         template<code_point_iter I, std::sentinel_for<I> S>
 #else
         template<typename I, typename S>
@@ -68,7 +68,7 @@ namespace boost { namespace text {
             \pre The code points in r comprise at most one grapheme.
             \pre The code points in [first, last) comprise at most one
             grapheme. */
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
         template<code_point_iter I, std::sentinel_for<I> S>
 #else
         template<typename I, typename S>
@@ -130,7 +130,7 @@ namespace boost { namespace text {
 
     /** A non-owning reference to a range of code points that comprise a
         grapheme. */
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
     template<code_point_iter I>
 #else
     template<typename I>
@@ -179,7 +179,7 @@ namespace boost { namespace text {
     };
 
     /** Returns the number of bytes g refers to. */
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
     template<code_point_iter I>
 #else
     template<typename I>
@@ -190,7 +190,7 @@ namespace boost { namespace text {
     }
 
     /** Returns true if lhs the same sequence of code points as rhs. */
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
     template<code_point_iter I1, code_point_iter I2>
 #else
     template<typename I1, typename I2>
@@ -202,7 +202,7 @@ namespace boost { namespace text {
     }
 
     /** Returns true if lhs the same sequence of code points as rhs. */
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
     template<code_point_iter I1, code_point_iter I2>
 #else
     template<typename I1, typename I2>
@@ -214,7 +214,7 @@ namespace boost { namespace text {
     }
 
     /** Returns true if lhs the same sequence of code points as rhs. */
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
     template<code_point_iter I>
 #else
     template<typename I>
@@ -226,7 +226,7 @@ namespace boost { namespace text {
     }
 
     /** Returns true if lhs the same sequence of code points as rhs. */
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
     template<code_point_iter I>
 #else
     template<typename I>
@@ -238,7 +238,7 @@ namespace boost { namespace text {
     }
 
     /** Returns true if lhs the same sequence of code points as rhs. */
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
     template<code_point_iter I>
 #else
     template<typename I>
@@ -250,7 +250,7 @@ namespace boost { namespace text {
     }
 
     /** Returns true if lhs the same sequence of code points as rhs. */
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
     template<code_point_iter I>
 #else
     template<typename I>

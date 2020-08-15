@@ -41,7 +41,7 @@
 namespace boost { namespace text {
 
     template<nf Normalization, typename Char, typename String>
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
         // clang-format off
         requires (utf8_code_unit<Char> || utf16_code_unit<Char>) &&
             std::is_same_v<Char, std::ranges::range_value_t<String>>
@@ -141,7 +141,7 @@ namespace boost { namespace text {
 
 #else
 
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
         template<code_unit_range<utf_format> R>
         explicit basic_text(R const & r) :
 #else
@@ -155,7 +155,7 @@ namespace boost { namespace text {
             boost::text::normalize<normalization>(str_);
         }
 
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
         template<code_unit_iterator<utf_format> I, std::sentinel_for<I> S>
         basic_text(I first, S last) :
 #else
@@ -170,7 +170,7 @@ namespace boost { namespace text {
             boost::text::normalize<normalization>(str_);
         }
 
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
         template<grapheme_range_code_unit<utf_format> R>
         explicit basic_text(R const & r) :
 #else
@@ -184,7 +184,7 @@ namespace boost { namespace text {
             boost::text::normalize<normalization>(str_);
         }
 
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
         template<grapheme_iter_code_unit<utf_format> I>
         explicit basic_text(I first, I last) :
 #else
@@ -463,7 +463,7 @@ namespace boost { namespace text {
 
 #else
 
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
         template<code_unit_range<utf_format> R>
         replace_result<iterator>
         replace(const_iterator first, const_iterator last, R const & r)
@@ -481,7 +481,7 @@ namespace boost { namespace text {
         }
 #endif
 
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
         template<code_unit_iterator<utf_format> I>
         replace_result<iterator>
         replace(const_iterator first1, const_iterator last1, I first2, I last2)
@@ -497,7 +497,7 @@ namespace boost { namespace text {
                 first1, last1, first2, last2, insertion_not_normalized);
         }
 
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
         template<grapheme_range_code_unit<utf_format> R>
         replace_result<iterator>
         replace(const_iterator first, const_iterator last, R const & r)
@@ -517,7 +517,7 @@ namespace boost { namespace text {
         }
 #endif
 
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
         template<grapheme_iter_code_unit<utf_format> I>
         replace_result<iterator>
         replace(const_iterator first1, const_iterator last1, I first2, I last2)
@@ -721,7 +721,7 @@ namespace boost { namespace text {
             return !(rhs == lhs);
         }
 
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
 
         /** Returns true iff `lhs` == `rhs`, where `rhs` is an object for which
             `lhs = rhs` is well-formed. */
@@ -1066,7 +1066,7 @@ namespace boost { namespace text {
 
 #endif // Doxygen
 
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
 
     /** Creates a new `basic_text` object that is the concatenation of `t` and
         some object `x` for which `t = x` is well-formed. */

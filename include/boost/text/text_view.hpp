@@ -25,7 +25,7 @@
 namespace boost { namespace text {
 
     template<nf Normalization, typename Char>
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
         // clang-format off
         requires utf8_code_unit<Char> || utf16_code_unit<Char>
 #endif
@@ -254,7 +254,7 @@ namespace std {
 
 #endif
 
-#if defined(__cpp_lib_concepts)
+#if BOOST_TEXT_USE_CONCEPTS
 
 namespace std::ranges {
     template<boost::text::nf Normalization, typename Char>

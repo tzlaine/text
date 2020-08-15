@@ -97,4 +97,8 @@ The net result for you as a user is that, for some function or type `foo` with
 `boost::text::v1::foo` when building in C++14 or C++17 modes, and
 `boost::text::v2::foo` when building in C++20 or later.
 
+If you are using an early C++20 implementation that claims to have concept
+support, but that breaks when you build _Text_'s C++20 code, you can disable
+the `v2` namespace by defining _disable_concepts_m_.
+
 [endsect]
