@@ -264,6 +264,21 @@ namespace boost { namespace text {
         return true;
     }
 
+    /** Sentinel-friendly version of `std::equal()`. */
+    template<
+        typename Iter1,
+        typename Sentinel1,
+        typename Iter2,
+        typename Sentinel2>
+    bool equal(Iter1 first1, Sentinel1 last1, Iter2 first2, Sentinel2 last2)
+    {
+        for (; first1 != last1 && first2 != last2; ++first1, ++first2) {
+            if (*first1 != *first2)
+                return false;
+        }
+        return first1 == last1 && first2 == last2;
+    }
+
     /** Sentinel-friendly version of `std::mismatch()`. */
     template<
         typename Iter1,

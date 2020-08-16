@@ -42,10 +42,12 @@ namespace boost { namespace text { namespace detail {
 
 #endif
 
-        inline void insert_fill_chars(std::ostream & os, std::streamsize n)
+        template<typename OStream>
+        void insert_fill_chars(OStream & os, std::streamsize n)
         {
             int const chunk_size = 8;
-            char fill_chars[chunk_size];
+            using char_type = typename OStream::char_type;
+            char_type fill_chars[chunk_size];
             std::fill_n(fill_chars, chunk_size, os.fill());
             for (; chunk_size <= n && os.good(); n -= chunk_size) {
                 os.write(fill_chars, chunk_size);
@@ -54,7 +56,8 @@ namespace boost { namespace text { namespace detail {
                 os.write(fill_chars, n);
         }
 
-        inline void pad_width_before(std::ostream & os, std::streamsize size)
+        template<typename OStream>
+        void pad_width_before(OStream & os, std::streamsize size)
         {
             const bool align_left =
                 (os.flags() & std::ostream::adjustfield) == std::ostream::left;
@@ -65,7 +68,8 @@ namespace boost { namespace text { namespace detail {
             os.width(0);
         }
 
-        inline void pad_width_after(std::ostream & os, std::streamsize size)
+        template<typename OStream>
+        void pad_width_after(OStream & os, std::streamsize size)
         {
             const bool align_left =
                 (os.flags() & std::ostream::adjustfield) == std::ostream::left;

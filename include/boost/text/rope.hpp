@@ -207,7 +207,10 @@ namespace boost { namespace text {
         /** Move-assignment from a `text`. */
         basic_rope & operator=(text t);
 
-        operator rope_view() const noexcept;
+        operator rope_view() const noexcept
+        {
+            return rope_view(begin(), end());
+        }
 
         const_reference front() const noexcept { return *begin(); }
         const_reference back() const noexcept { return *rbegin(); }
@@ -587,6 +590,34 @@ namespace boost { namespace text {
         }
 
 
+        // Comparisons with char_type const *.
+
+        friend bool
+        operator==(basic_rope const & lhs, char_type const * rhs) noexcept
+        {
+            return boost::text::equal(
+                lhs.begin(), lhs.end(), rhs, null_sentinel{});
+        }
+
+        friend bool
+        operator==(char_type const * lhs, basic_rope const & rhs) noexcept
+        {
+            return rhs == lhs;
+        }
+
+        friend bool
+        operator!=(basic_rope const & lhs, char_type const * rhs) noexcept
+        {
+            return !(lhs == rhs);
+        }
+
+        friend bool
+        operator!=(char_type const * lhs, basic_rope const & rhs) noexcept
+        {
+            return !(rhs == lhs);
+        }
+
+
         // Comparisons with text.
 
         friend bool operator==(text const & lhs, basic_rope rhs) noexcept
@@ -607,6 +638,31 @@ namespace boost { namespace text {
             return !(lhs == rhs);
         }
         friend bool operator!=(basic_rope lhs, text const & rhs) noexcept
+        {
+            return !(lhs == rhs);
+        }
+
+
+        // Comparisons with text_view.
+
+        friend bool operator==(text_view const & lhs, basic_rope rhs) noexcept
+        {
+            return algorithm::equal(
+                lhs.begin().base().base(),
+                lhs.end().base().base(),
+                rhs.begin().base().base(),
+                rhs.end().base().base());
+        }
+        friend bool operator==(basic_rope lhs, text_view const & rhs) noexcept
+        {
+            return rhs == lhs;
+        }
+
+        friend bool operator!=(text_view const & lhs, basic_rope rhs) noexcept
+        {
+            return !(lhs == rhs);
+        }
+        friend bool operator!=(basic_rope lhs, text_view const & rhs) noexcept
         {
             return !(lhs == rhs);
         }
@@ -929,13 +985,6 @@ namespace boost { namespace text {
         basic_rope temp(std::move(t));
         swap(temp);
         return *this;
-    }
-
-    template<nf Normalization, typename Char, typename String>
-    basic_rope<Normalization, Char, String>::
-    operator basic_rope<Normalization, Char, String>::rope_view() const noexcept
-    {
-        return {begin(), end()};
     }
 
     template<nf Normalization, typename Char, typename String>

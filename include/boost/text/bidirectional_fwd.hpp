@@ -6,6 +6,8 @@
 #ifndef BOOST_TEXT_BIDIRECTIONAL_FWD_HPP
 #define BOOST_TEXT_BIDIRECTIONAL_FWD_HPP
 
+#include <cstdint>
+
 
 namespace boost { namespace text {
 
