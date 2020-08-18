@@ -645,7 +645,19 @@ namespace boost { namespace text {
 
         // Comparisons with text_view.
 
-        friend bool operator==(text_view const & lhs, basic_rope rhs) noexcept
+#if BOOST_TEXT_USE_CONCEPTS
+        template<typename Char2>
+        // clang-format off
+            requires std::is_same_v<Char2, char_type>
+        friend bool
+        // clang-format on
+#else
+        template<typename Char2>
+        friend std::enable_if_t<std::is_same<Char2, char_type>::value, bool>
+#endif
+        operator==(
+            basic_text_view<Normalization, Char2> const & lhs,
+            basic_rope rhs) noexcept
         {
             return algorithm::equal(
                 lhs.begin().base().base(),
@@ -653,16 +665,52 @@ namespace boost { namespace text {
                 rhs.begin().base().base(),
                 rhs.end().base().base());
         }
-        friend bool operator==(basic_rope lhs, text_view const & rhs) noexcept
+#if BOOST_TEXT_USE_CONCEPTS
+        template<typename Char2>
+        // clang-format off
+            requires std::is_same_v<Char2, char_type>
+        friend bool
+        // clang-format on
+#else
+        template<typename Char2>
+        friend std::enable_if_t<std::is_same<Char2, char_type>::value, bool>
+#endif
+        operator==(
+            basic_rope lhs,
+            basic_text_view<Normalization, Char2> const & rhs) noexcept
         {
             return rhs == lhs;
         }
 
-        friend bool operator!=(text_view const & lhs, basic_rope rhs) noexcept
+#if BOOST_TEXT_USE_CONCEPTS
+        template<typename Char2>
+        // clang-format off
+            requires std::is_same_v<Char2, char_type>
+        friend bool
+        // clang-format on
+#else
+        template<typename Char2>
+        friend std::enable_if_t<std::is_same<Char2, char_type>::value, bool>
+#endif
+        operator!=(
+            basic_text_view<Normalization, Char2> const & lhs,
+            basic_rope rhs) noexcept
         {
             return !(lhs == rhs);
         }
-        friend bool operator!=(basic_rope lhs, text_view const & rhs) noexcept
+#if BOOST_TEXT_USE_CONCEPTS
+        template<typename Char2>
+        // clang-format off
+            requires std::is_same_v<Char2, char_type>
+        friend bool
+        // clang-format on
+#else
+        template<typename Char2>
+        friend std::enable_if_t<std::is_same<Char2, char_type>::value, bool>
+#endif
+        operator!=(
+            basic_rope lhs,
+            basic_text_view<Normalization, Char2> const & rhs) noexcept
         {
             return !(lhs == rhs);
         }
