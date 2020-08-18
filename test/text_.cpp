@@ -1028,30 +1028,30 @@ TEST(text_tests, test_collation)
     auto const table = text::default_collation_table();
 
     {
-        text::basic_text<text::nf::c> nfc("rôle");
-        text::basic_text<text::nf::d> nfd("rôle");
+        text::basic_text<text::nf::c> nfc((char const *)u8"rôle");
+        text::basic_text<text::nf::d> nfd((char const *)u8"rôle");
         EXPECT_EQ(
             text::collation_sort_key(nfc, table),
             text::collation_sort_key(nfd, table));
     }
     {
-        text::basic_text<text::nf::d> lhs("role");
-        text::basic_text<text::nf::d> rhs("rôle");
+        text::basic_text<text::nf::d> lhs((char const *)u8"role");
+        text::basic_text<text::nf::d> rhs((char const *)u8"rôle");
         EXPECT_EQ(text::collate(lhs, rhs, table), -1);
     }
     {
-        text::basic_text<text::nf::c> lhs("role");
-        text::basic_text<text::nf::d> rhs("rôle");
+        text::basic_text<text::nf::c> lhs((char const *)u8"role");
+        text::basic_text<text::nf::d> rhs((char const *)u8"rôle");
         EXPECT_EQ(text::collate(lhs, rhs, table), -1);
     }
     {
-        text::basic_text<text::nf::d> lhs("role");
-        text::basic_text<text::nf::c> rhs("rôle");
+        text::basic_text<text::nf::d> lhs((char const *)u8"role");
+        text::basic_text<text::nf::c> rhs((char const *)u8"rôle");
         EXPECT_EQ(text::collate(lhs, rhs, table), -1);
     }
     {
-        text::basic_text<text::nf::c> lhs("role");
-        text::basic_text<text::nf::c> rhs("rôle");
+        text::basic_text<text::nf::c> lhs((char const *)u8"role");
+        text::basic_text<text::nf::c> rhs((char const *)u8"rôle");
         EXPECT_EQ(text::collate(lhs, rhs, table), -1);
     }
 }
@@ -1090,56 +1090,56 @@ TEST(text_tests, test_collation_utf16)
 
     {
         text::basic_text<text::nf::c, char16_t> nfc(u"rôle");
-        text::basic_text<text::nf::d, char> nfd("rôle");
+        text::basic_text<text::nf::d, char> nfd((char const *)u8"rôle");
         EXPECT_EQ(
             text::collation_sort_key(nfc, table),
             text::collation_sort_key(nfd, table));
     }
     {
         text::basic_text<text::nf::d, char16_t> lhs(u"role");
-        text::basic_text<text::nf::d, char> rhs("rôle");
+        text::basic_text<text::nf::d, char> rhs((char const *)u8"rôle");
         EXPECT_EQ(text::collate(lhs, rhs, table), -1);
     }
     {
         text::basic_text<text::nf::c, char16_t> lhs(u"role");
-        text::basic_text<text::nf::d, char> rhs("rôle");
+        text::basic_text<text::nf::d, char> rhs((char const *)u8"rôle");
         EXPECT_EQ(text::collate(lhs, rhs, table), -1);
     }
     {
         text::basic_text<text::nf::d, char16_t> lhs(u"role");
-        text::basic_text<text::nf::c, char> rhs("rôle");
+        text::basic_text<text::nf::c, char> rhs((char const *)u8"rôle");
         EXPECT_EQ(text::collate(lhs, rhs, table), -1);
     }
     {
         text::basic_text<text::nf::c, char16_t> lhs(u"role");
-        text::basic_text<text::nf::c, char> rhs("rôle");
+        text::basic_text<text::nf::c, char> rhs((char const *)u8"rôle");
         EXPECT_EQ(text::collate(lhs, rhs, table), -1);
     }
 
     {
-        text::basic_text<text::nf::c, char> nfc("rôle");
+        text::basic_text<text::nf::c, char> nfc((char const *)u8"rôle");
         text::basic_text<text::nf::d, char16_t> nfd(u"rôle");
         EXPECT_EQ(
             text::collation_sort_key(nfc, table),
             text::collation_sort_key(nfd, table));
     }
     {
-        text::basic_text<text::nf::d, char> lhs("role");
+        text::basic_text<text::nf::d, char> lhs((char const *)u8"role");
         text::basic_text<text::nf::d, char16_t> rhs(u"rôle");
         EXPECT_EQ(text::collate(lhs, rhs, table), -1);
     }
     {
-        text::basic_text<text::nf::c, char> lhs("role");
+        text::basic_text<text::nf::c, char> lhs((char const *)u8"role");
         text::basic_text<text::nf::d, char16_t> rhs(u"rôle");
         EXPECT_EQ(text::collate(lhs, rhs, table), -1);
     }
     {
-        text::basic_text<text::nf::d, char> lhs("role");
+        text::basic_text<text::nf::d, char> lhs((char const *)u8"role");
         text::basic_text<text::nf::c, char16_t> rhs(u"rôle");
         EXPECT_EQ(text::collate(lhs, rhs, table), -1);
     }
     {
-        text::basic_text<text::nf::c, char> lhs("role");
+        text::basic_text<text::nf::c, char> lhs((char const *)u8"role");
         text::basic_text<text::nf::c, char16_t> rhs(u"rôle");
         EXPECT_EQ(text::collate(lhs, rhs, table), -1);
     }
@@ -1150,8 +1150,8 @@ TEST(text_tests, test_view_collation)
     auto const table = text::default_collation_table();
 
     {
-        text::basic_text<text::nf::c> nfc_("rôle");
-        text::basic_text<text::nf::d> nfd_("rôle");
+        text::basic_text<text::nf::c> nfc_((char const *)u8"rôle");
+        text::basic_text<text::nf::d> nfd_((char const *)u8"rôle");
         text::basic_text_view<text::nf::c> nfc(nfc_);
         text::basic_text_view<text::nf::d> nfd(nfd_);
         EXPECT_EQ(
@@ -1159,29 +1159,29 @@ TEST(text_tests, test_view_collation)
             text::collation_sort_key(nfd, table));
     }
     {
-        text::basic_text<text::nf::d> lhs_("role");
-        text::basic_text<text::nf::d> rhs_("rôle");
+        text::basic_text<text::nf::d> lhs_((char const *)u8"role");
+        text::basic_text<text::nf::d> rhs_((char const *)u8"rôle");
         text::basic_text_view<text::nf::d> lhs(lhs_);
         text::basic_text_view<text::nf::d> rhs(rhs_);
         EXPECT_EQ(text::collate(lhs, rhs, table), -1);
     }
     {
-        text::basic_text<text::nf::c> lhs_("role");
-        text::basic_text<text::nf::d> rhs_("rôle");
+        text::basic_text<text::nf::c> lhs_((char const *)u8"role");
+        text::basic_text<text::nf::d> rhs_((char const *)u8"rôle");
         text::basic_text_view<text::nf::c> lhs(lhs_);
         text::basic_text_view<text::nf::d> rhs(rhs_);
         EXPECT_EQ(text::collate(lhs, rhs, table), -1);
     }
     {
-        text::basic_text<text::nf::d> lhs_("role");
-        text::basic_text<text::nf::c> rhs_("rôle");
+        text::basic_text<text::nf::d> lhs_((char const *)u8"role");
+        text::basic_text<text::nf::c> rhs_((char const *)u8"rôle");
         text::basic_text_view<text::nf::d> lhs(lhs_);
         text::basic_text_view<text::nf::c> rhs(rhs_);
         EXPECT_EQ(text::collate(lhs, rhs, table), -1);
     }
     {
-        text::basic_text<text::nf::c> lhs_("role");
-        text::basic_text<text::nf::c> rhs_("rôle");
+        text::basic_text<text::nf::c> lhs_((char const *)u8"role");
+        text::basic_text<text::nf::c> rhs_((char const *)u8"rôle");
         text::basic_text_view<text::nf::c> lhs(lhs_);
         text::basic_text_view<text::nf::c> rhs(rhs_);
         EXPECT_EQ(text::collate(lhs, rhs, table), -1);
@@ -1232,7 +1232,7 @@ TEST(text_tests, test_view_collation_utf16)
 
     {
         text::basic_text<text::nf::c, char16_t> nfc_(u"rôle");
-        text::basic_text<text::nf::d, char> nfd_("rôle");
+        text::basic_text<text::nf::d, char> nfd_((char const *)u8"rôle");
         text::basic_text_view<text::nf::c, char16_t> nfc(nfc_);
         text::basic_text_view<text::nf::d, char> nfd(nfd_);
         EXPECT_EQ(
@@ -1241,35 +1241,35 @@ TEST(text_tests, test_view_collation_utf16)
     }
     {
         text::basic_text<text::nf::d, char16_t> lhs_(u"role");
-        text::basic_text<text::nf::d, char> rhs_("rôle");
+        text::basic_text<text::nf::d, char> rhs_((char const *)u8"rôle");
         text::basic_text_view<text::nf::d, char16_t> lhs(lhs_);
         text::basic_text_view<text::nf::d, char> rhs(rhs_);
         EXPECT_EQ(text::collate(lhs, rhs, table), -1);
     }
     {
         text::basic_text<text::nf::c, char16_t> lhs_(u"role");
-        text::basic_text<text::nf::d, char> rhs_("rôle");
+        text::basic_text<text::nf::d, char> rhs_((char const *)u8"rôle");
         text::basic_text_view<text::nf::c, char16_t> lhs(lhs_);
         text::basic_text_view<text::nf::d, char> rhs(rhs_);
         EXPECT_EQ(text::collate(lhs, rhs, table), -1);
     }
     {
         text::basic_text<text::nf::d, char16_t> lhs_(u"role");
-        text::basic_text<text::nf::c, char> rhs_("rôle");
+        text::basic_text<text::nf::c, char> rhs_((char const *)u8"rôle");
         text::basic_text_view<text::nf::d, char16_t> lhs(lhs_);
         text::basic_text_view<text::nf::c, char> rhs(rhs_);
         EXPECT_EQ(text::collate(lhs, rhs, table), -1);
     }
     {
         text::basic_text<text::nf::c, char16_t> lhs_(u"role");
-        text::basic_text<text::nf::c, char> rhs_("rôle");
+        text::basic_text<text::nf::c, char> rhs_((char const *)u8"rôle");
         text::basic_text_view<text::nf::c, char16_t> lhs(lhs_);
         text::basic_text_view<text::nf::c, char> rhs(rhs_);
         EXPECT_EQ(text::collate(lhs, rhs, table), -1);
     }
 
     {
-        text::basic_text<text::nf::c, char> nfc_("rôle");
+        text::basic_text<text::nf::c, char> nfc_((char const *)u8"rôle");
         text::basic_text<text::nf::d, char16_t> nfd_(u"rôle");
         text::basic_text_view<text::nf::c, char> nfc(nfc_);
         text::basic_text_view<text::nf::d, char16_t> nfd(nfd_);
@@ -1278,28 +1278,28 @@ TEST(text_tests, test_view_collation_utf16)
             text::collation_sort_key(nfd, table));
     }
     {
-        text::basic_text<text::nf::d, char> lhs_("role");
+        text::basic_text<text::nf::d, char> lhs_((char const *)u8"role");
         text::basic_text<text::nf::d, char16_t> rhs_(u"rôle");
         text::basic_text_view<text::nf::d, char> lhs(lhs_);
         text::basic_text_view<text::nf::d, char16_t> rhs(rhs_);
         EXPECT_EQ(text::collate(lhs, rhs, table), -1);
     }
     {
-        text::basic_text<text::nf::c, char> lhs_("role");
+        text::basic_text<text::nf::c, char> lhs_((char const *)u8"role");
         text::basic_text<text::nf::d, char16_t> rhs_(u"rôle");
         text::basic_text_view<text::nf::c, char> lhs(lhs_);
         text::basic_text_view<text::nf::d, char16_t> rhs(rhs_);
         EXPECT_EQ(text::collate(lhs, rhs, table), -1);
     }
     {
-        text::basic_text<text::nf::d, char> lhs_("role");
+        text::basic_text<text::nf::d, char> lhs_((char const *)u8"role");
         text::basic_text<text::nf::c, char16_t> rhs_(u"rôle");
         text::basic_text_view<text::nf::d, char> lhs(lhs_);
         text::basic_text_view<text::nf::c, char16_t> rhs(rhs_);
         EXPECT_EQ(text::collate(lhs, rhs, table), -1);
     }
     {
-        text::basic_text<text::nf::c, char> lhs_("role");
+        text::basic_text<text::nf::c, char> lhs_((char const *)u8"role");
         text::basic_text<text::nf::c, char16_t> rhs_(u"rôle");
         text::basic_text_view<text::nf::c, char> lhs(lhs_);
         text::basic_text_view<text::nf::c, char16_t> rhs(rhs_);
