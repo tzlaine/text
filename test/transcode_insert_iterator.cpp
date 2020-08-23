@@ -268,11 +268,11 @@ TEST(transcode_insert_iterator, utf8_inserters_long)
 TEST(transcode_insert_iterator, utf8_inserters_errors)
 {
     std::vector<uint16_t> cus = {
-        text::low_surrogate_min,  // -> replacement
-        text::high_surrogate_min, // -> replacement, due to next CU
-        text::high_surrogate_min, // -> ok
-        text::low_surrogate_min,  // -> ok
-        text::high_surrogate_min, // -> replacement, due to next CU
+        (uint16_t)text::low_surrogate_min,  // -> replacement
+        (uint16_t)text::high_surrogate_min, // -> replacement, due to next CU
+        (uint16_t)text::high_surrogate_min, // -> ok
+        (uint16_t)text::low_surrogate_min,  // -> ok
+        (uint16_t)text::high_surrogate_min, // -> replacement, due to next CU
         0,
     };
     std::vector<uint32_t> expected_cps = {
