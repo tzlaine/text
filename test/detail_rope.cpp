@@ -57,7 +57,7 @@ TEST(rope_detail, test_make_node)
 
         EXPECT_EQ(size(p.get()), t.size());
         EXPECT_EQ(p.as_leaf()->as_seg(), t);
-        EXPECT_NE(p.as_leaf()->as_seg().begin(), t.begin());
+        EXPECT_NE(&*p.as_leaf()->as_seg().begin(), &*t.begin());
     }
 
     {

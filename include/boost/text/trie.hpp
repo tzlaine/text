@@ -956,7 +956,7 @@ namespace boost { namespace text {
             const_iterator
             lower_bound(key_element const & e, Compare const &) const noexcept
             {
-                return children_.begin() + e;
+                return children_.empty() ? children_.end() : children_.begin() + e;
             }
             template<typename Compare>
             const_iterator

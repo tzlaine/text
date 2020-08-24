@@ -50,12 +50,17 @@ void do_simple_search(
     using sentinel_cp_range = utf32_view<sentinel_cp_range_iter, null_sentinel>;
 
     sentinel_cp_range str_cp_range{
-        sentinel_cp_range_iter(
-            &*str.begin().base(), &*str.begin().base(), null_sentinel{}),
+        str.empty()
+            ? sentinel_cp_range_iter("", "", null_sentinel{})
+            : sentinel_cp_range_iter(
+                  &*str.begin().base(), &*str.begin().base(), null_sentinel{}),
         null_sentinel{}};
     sentinel_cp_range substr_cp_range{
-        sentinel_cp_range_iter(
-            &*substr.begin().base(), &*substr.begin().base(), null_sentinel{}),
+        substr.empty() ? sentinel_cp_range_iter("", "", null_sentinel{})
+                       : sentinel_cp_range_iter(
+                             &*substr.begin().base(),
+                             &*substr.begin().base(),
+                             null_sentinel{}),
         null_sentinel{}};
 
     {
@@ -114,12 +119,17 @@ void do_boyer_moore_search(
     using sentinel_cp_range = utf32_view<sentinel_cp_range_iter, null_sentinel>;
 
     sentinel_cp_range str_cp_range{
-        sentinel_cp_range_iter(
-            &*str.begin().base(), &*str.begin().base(), null_sentinel{}),
+        str.empty()
+            ? sentinel_cp_range_iter("", "", null_sentinel{})
+            : sentinel_cp_range_iter(
+                  &*str.begin().base(), &*str.begin().base(), null_sentinel{}),
         null_sentinel{}};
     sentinel_cp_range substr_cp_range{
-        sentinel_cp_range_iter(
-            &*substr.begin().base(), &*substr.begin().base(), null_sentinel{}),
+        substr.empty() ? sentinel_cp_range_iter("", "", null_sentinel{})
+                       : sentinel_cp_range_iter(
+                             &*substr.begin().base(),
+                             &*substr.begin().base(),
+                             null_sentinel{}),
         null_sentinel{}};
 
     {
@@ -171,12 +181,17 @@ void do_boyer_moore_horspool_search(
     using sentinel_cp_range = utf32_view<sentinel_cp_range_iter, null_sentinel>;
 
     sentinel_cp_range str_cp_range{
-        sentinel_cp_range_iter(
-            &*str.begin().base(), &*str.begin().base(), null_sentinel{}),
+        str.empty()
+            ? sentinel_cp_range_iter("", "", null_sentinel{})
+            : sentinel_cp_range_iter(
+                  &*str.begin().base(), &*str.begin().base(), null_sentinel{}),
         null_sentinel{}};
     sentinel_cp_range substr_cp_range{
-        sentinel_cp_range_iter(
-            &*substr.begin().base(), &*substr.begin().base(), null_sentinel{}),
+        substr.empty() ? sentinel_cp_range_iter("", "", null_sentinel{})
+                       : sentinel_cp_range_iter(
+                             &*substr.begin().base(),
+                             &*substr.begin().base(),
+                             null_sentinel{}),
         null_sentinel{}};
 
     {

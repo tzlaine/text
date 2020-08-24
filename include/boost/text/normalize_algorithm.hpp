@@ -500,9 +500,9 @@ namespace boost { namespace text { namespace detail {
             auto const last = unpacked.l_;
             auto const replaceable_size = std::distance(first, last);
             if ((std::ptrdiff_t)buffer.size() <= replaceable_size) {
-                auto const it = std::copy(buffer.begin(), buffer.end(), first);
-                string.erase(it, last);
-                return {first, it};
+                auto it = std::copy(buffer.begin(), buffer.end(), first);
+                it = string.erase(it, last);
+                return {std::prev(it, buffer.size()), it};
             } else {
                 auto const copy_last = buffer.begin() + replaceable_size;
                 std::copy(buffer.begin(), copy_last, first);
