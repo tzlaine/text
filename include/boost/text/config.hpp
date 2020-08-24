@@ -11,6 +11,10 @@
 // Included for definition of __cpp_lib_concepts.
 #include <iterator>
 
+#if 202002L <= __cplusplus && __has_include(<coroutine>)
+#include <coroutine>
+#endif
+
 
 /** When you insert into a rope, the incoming sequence may be inserted as a
     new segment, or if it falls within an existing string-segment, it may be
@@ -28,7 +32,8 @@
 #    define BOOST_TEXT_USE_CONCEPTS 0
 #endif
 
-#if defined(__cpp_coroutines) && !defined(BOOST_TEXT_DISABLE_COROUTINES)
+#if 202002L <= __cplusplus && defined(__cpp_lib_coroutine) &&                  \
+    !defined(BOOST_TEXT_DISABLE_COROUTINES)
 #    define BOOST_TEXT_USE_COROUTINES 1
 #else
 #    define BOOST_TEXT_USE_COROUTINES 0

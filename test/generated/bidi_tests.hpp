@@ -19,6 +19,20 @@ bidi_levels(CPIter first, CPIter last, int paragraph_embedding_level = -1)
 
     std::vector<int> retval;
 
+#if BOOST_TEXT_USE_COROUTINES
+
+    auto r = detail::bidi_subranges<int, detail::bidi_mode::level_test>(
+        first,
+        last,
+        paragraph_embedding_level,
+        detail::bidi_next_hard_line_break_callable{});
+
+    for (auto x : r) {
+        retval.push_back(x);
+    }
+
+#else
+
     detail::bidi_subrange_state<
         CPIter,
         CPIter,
@@ -36,6 +50,8 @@ bidi_levels(CPIter first, CPIter last, int paragraph_embedding_level = -1)
         ++out;
     }
 
+#endif
+
     return retval;
 }
 
@@ -47,16 +63,35 @@ std::vector<int> bidi_reordered_indices(
 
     std::vector<int> retval;
 
+#if BOOST_TEXT_USE_COROUTINES
+
+    auto r = detail::bidi_subranges<
+        bidirectional_cp_subrange<CPIter>,
+        detail::bidi_mode::reorder_test>(
+        first,
+        last,
+        paragraph_embedding_level,
+        detail::bidi_next_hard_line_break_callable{});
+
+    for (auto subrange : r) {
+        for (auto cp : subrange) {
+            retval.push_back(cp);
+        }
+    }
+
+#else
+
     detail::bidi_subrange_state<
         CPIter,
         CPIter,
         detail::bidi_next_hard_line_break_callable,
         bidirectional_cp_subrange<CPIter>,
         detail::bidi_mode::reorder_test>
-        state{first,
-              last,
-              paragraph_embedding_level,
-              detail::bidi_next_hard_line_break_callable{}};
+        state{
+            first,
+            last,
+            paragraph_embedding_level,
+            detail::bidi_next_hard_line_break_callable{}};
 
     while (!state.at_end()) {
         auto const subrange = state.get_value();
@@ -64,6 +99,8 @@ std::vector<int> bidi_reordered_indices(
             retval.push_back(cp);
         }
     }
+
+#endif
 
     return retval;
 }

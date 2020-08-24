@@ -19,6 +19,16 @@ set(LIMIT_TESTING_FOR_CI false CACHE BOOL "Timeouts kinda suck, so...")
 set(LIMIT_TESTING_FOR_APPVEYOR false CACHE BOOL
     "Boost is installed, but linking to built Boost libs is problematic")
 
+try_compile(
+    fcoroutines_supported
+    ${CMAKE_BINARY_DIR}
+    ${CMAKE_SOURCE_DIR}/cmake/fcoroutines.cpp
+    COMPILE_DEFINITIONS -fcoroutines -std=c++20
+)
+if (fcoroutines_supported)
+    add_definitions(-fcoroutines)
+endif()
+
 set(warnings_flag)
 if (NOT MSVC)
     set(warnings_flag -Wall)

@@ -14,6 +14,7 @@
 #include <boost/text/detail/normalization_data.hpp>
 #include <boost/text/detail/bidirectional.hpp>
 #include <boost/text/detail/iterator.hpp>
+#include <boost/text/detail/generator.hpp>
 
 #include <boost/optional.hpp>
 #include <boost/container/small_vector.hpp>
@@ -451,7 +452,7 @@ namespace boost { namespace text {
         // https://unicode.org/reports/tr9/#BD13
         template<typename CPIter>
         inline run_sequences_t<CPIter> find_run_sequences(
-            props_and_embeddings_t<CPIter> & pae, all_runs_t<CPIter> & all_runs)
+            props_and_embeddings_t<CPIter> const & pae, all_runs_t<CPIter> & all_runs)
         {
             run_sequences_t<CPIter> retval;
             if (pae.empty())
@@ -500,7 +501,7 @@ namespace boost { namespace text {
         template<typename CPIter>
         inline void find_sos_eos(
             run_sequences_t<CPIter> & run_sequences,
-            props_and_embeddings_t<CPIter> & paes,
+            props_and_embeddings_t<CPIter> const & paes,
             int paragraph_embedding_level)
         {
             if (run_sequences.empty())
@@ -522,8 +523,11 @@ namespace boost { namespace text {
                 auto const run_seq_back_pae_it =
                     std::prev(it->runs().back().end());
 
+                using pae_const_iter =
+                    typename props_and_embeddings_t<CPIter>::const_iterator;
                 if (!detail::isolate_initiator(run_seq_back_pae_it->prop()) ||
-                    detail::has_matching_pdi(run_seq_back_pae_it, paes.end())) {
+                    detail::has_matching_pdi(
+                        pae_const_iter(run_seq_back_pae_it), paes.end())) {
                     auto const next_it = it->runs().back().end();
                     if (next_it != paes.end())
                         next_embedding = next_it->embedding_;
@@ -1602,6 +1606,298 @@ namespace boost { namespace text {
 
         enum class bidi_mode { general, level_test, reorder_test };
 
+        template<typename Paragraph, typename CPIter>
+        void get_props_and_embeddings(
+            Paragraph const & paragraph,
+            props_and_embeddings_t<CPIter> & props_and_embeddings,
+            int & paragraph_embedding_level)
+        {
+            using props_and_embeddings_type = props_and_embeddings_t<CPIter>;
+
+            using vec_t =
+                container::static_vector<bidi_state_t, bidi_max_depth + 2>;
+            using stack_t = std::stack<bidi_state_t, vec_t>;
+
+            auto next_odd = [](stack_t const & stack) {
+                auto retval = stack.top().embedding_ + 1;
+                if (detail::even(retval))
+                    ++retval;
+                return retval;
+            };
+            auto next_even = [](stack_t const & stack) {
+                auto retval = stack.top().embedding_ + 1;
+                if (detail::odd(retval))
+                    ++retval;
+                return retval;
+            };
+
+            auto prop_from_top =
+                [](stack_t const & stack,
+                   props_and_embeddings_type & props_and_embeddings) {
+                    if (stack.top().directional_override_ ==
+                        directional_override_t::left_to_right) {
+                        props_and_embeddings.back().prop_ =
+                            (uint8_t)bidi_property::L;
+                    } else if (
+                        stack.top().directional_override_ ==
+                        directional_override_t::right_to_left) {
+                        props_and_embeddings.back().prop_ =
+                            (uint8_t)bidi_property::R;
+                    }
+                };
+
+            // https://unicode.org/reports/tr9/#X5a
+            auto x5a = [&](stack_t & stack,
+                           props_and_embeddings_type & props_and_embeddings,
+                           int & overflow_isolates,
+                           int overflow_embedding,
+                           int & valid_isolates) {
+                prop_from_top(stack, props_and_embeddings);
+                auto const next_odd_embedding_level = next_odd(stack);
+                if (next_odd_embedding_level <= bidi_max_depth &&
+                    !overflow_isolates && !overflow_embedding) {
+                    ++valid_isolates;
+                    stack.push(bidi_state_t{
+                        next_odd_embedding_level,
+                        directional_override_t::neutral,
+                        true});
+                } else {
+                    ++overflow_isolates;
+                }
+            };
+
+            // https://unicode.org/reports/tr9/#X5b
+            auto x5b = [&](stack_t & stack,
+                           props_and_embeddings_type & props_and_embeddings,
+                           int & overflow_isolates,
+                           int overflow_embedding,
+                           int & valid_isolates) {
+                prop_from_top(stack, props_and_embeddings);
+                auto const next_even_embedding_level = next_even(stack);
+                if (next_even_embedding_level <= bidi_max_depth &&
+                    !overflow_isolates && !overflow_embedding) {
+                    ++valid_isolates;
+                    stack.push(bidi_state_t{
+                        next_even_embedding_level,
+                        directional_override_t::neutral,
+                        true});
+                } else {
+                    ++overflow_isolates;
+                }
+            };
+
+            auto const para_first = paragraph.begin();
+            auto const para_last = paragraph.end();
+
+            if (paragraph_embedding_level < 0) {
+                paragraph_embedding_level =
+                    detail::p2_p3(para_first, para_last);
+            }
+
+            // https://unicode.org/reports/tr9/#X1
+            stack_t stack;
+            stack.push(bidi_state_t{
+                paragraph_embedding_level,
+                directional_override_t::neutral,
+                false});
+            int overflow_isolates = 0;
+            int overflow_embedding = 0;
+            int valid_isolates = 0;
+
+            // https://unicode.org/reports/tr9/#X2 through #X5
+            auto explicits = [&](int next_embedding_level,
+                                 directional_override_t directional_override) {
+                if (next_embedding_level <= bidi_max_depth &&
+                    !overflow_isolates && !overflow_embedding) {
+                    stack.push(bidi_state_t{
+                        next_embedding_level, directional_override, false});
+                } else if (!overflow_isolates) {
+                    ++overflow_embedding;
+                }
+            };
+
+            for (auto it = para_first; it != para_last; ++it) {
+                auto const prop = boost::text::bidi_prop(*it);
+                props_and_embeddings.push_back(prop_and_embedding_t<CPIter>{
+                    it, stack.top().embedding_, (uint8_t)prop, false, false});
+
+                switch (prop) {
+                case bidi_property::RLE:
+                    // https://unicode.org/reports/tr9/#X2
+                    explicits(next_odd(stack), directional_override_t::neutral);
+                    break;
+
+                case bidi_property::LRE:
+                    // https://unicode.org/reports/tr9/#X3
+                    explicits(
+                        next_even(stack), directional_override_t::neutral);
+                    break;
+
+                case bidi_property::RLO:
+                    // https://unicode.org/reports/tr9/#X4
+                    explicits(
+                        next_odd(stack), directional_override_t::right_to_left);
+                    break;
+
+                case bidi_property::LRO:
+                    // https://unicode.org/reports/tr9/#X5
+                    explicits(
+                        next_even(stack),
+                        directional_override_t::left_to_right);
+                    break;
+
+                case bidi_property::RLI:
+                    // https://unicode.org/reports/tr9/#X5a
+                    x5a(stack,
+                        props_and_embeddings,
+                        overflow_isolates,
+                        overflow_embedding,
+                        valid_isolates);
+                    break;
+                case bidi_property::LRI:
+                    // https://unicode.org/reports/tr9/#X5b
+                    x5b(stack,
+                        props_and_embeddings,
+                        overflow_isolates,
+                        overflow_embedding,
+                        valid_isolates);
+                    break;
+                case bidi_property::FSI:
+                    // https://unicode.org/reports/tr9/#X5c
+                    if (detail::p2_p3(
+                            std::next(it),
+                            detail::matching_pdi(it, para_last)) == 1) {
+                        x5a(stack,
+                            props_and_embeddings,
+                            overflow_isolates,
+                            overflow_embedding,
+                            valid_isolates);
+                    } else {
+                        x5b(stack,
+                            props_and_embeddings,
+                            overflow_isolates,
+                            overflow_embedding,
+                            valid_isolates);
+                    }
+                    break;
+
+                case bidi_property::PDI:
+                    // https://unicode.org/reports/tr9/#X6a
+                    if (0 < overflow_isolates) {
+                        --overflow_isolates;
+                    } else if (!valid_isolates) {
+                        props_and_embeddings.back().unmatched_pdi_ = true;
+                    } else {
+                        overflow_embedding = 0;
+                        while (!stack.top().directional_isolate_) {
+                            stack.pop();
+                        }
+                        BOOST_ASSERT(!stack.empty());
+                        stack.pop();
+                        --valid_isolates;
+                    }
+                    BOOST_ASSERT(!stack.empty());
+                    props_and_embeddings.back().embedding_ =
+                        stack.top().embedding_;
+                    prop_from_top(stack, props_and_embeddings);
+                    break;
+
+                case bidi_property::PDF:
+                    // https://unicode.org/reports/tr9/#X7
+                    if (!overflow_isolates) {
+                        if (0 < overflow_embedding) {
+                            --overflow_embedding;
+                        } else if (
+                            !stack.top().directional_isolate_ &&
+                            2u <= stack.size()) {
+                            stack.pop();
+                        }
+                    }
+                    break;
+
+                case bidi_property::B:
+                    props_and_embeddings.back().embedding_ =
+                        paragraph_embedding_level;
+                    break;
+
+                case bidi_property::BN: break;
+
+                default:
+                    // https://unicode.org/reports/tr9/#X6
+                    prop_from_top(stack, props_and_embeddings);
+                    break;
+                }
+            }
+
+            // https://unicode.org/reports/tr9/#X9
+            props_and_embeddings.erase(
+                std::remove_if(
+                    props_and_embeddings.begin(),
+                    props_and_embeddings.end(),
+                    [](prop_and_embedding_t<CPIter> pae) {
+                        return pae.prop() == bidi_property::RLE ||
+                               pae.prop() == bidi_property::LRE ||
+                               pae.prop() == bidi_property::RLO ||
+                               pae.prop() == bidi_property::LRO ||
+                               pae.prop() == bidi_property::PDF ||
+                               pae.prop() == bidi_property::BN;
+                    }),
+                props_and_embeddings.end());
+
+            // https://unicode.org/reports/tr9/#X10
+            auto all_runs = detail::find_all_runs<CPIter>(
+                props_and_embeddings.begin(),
+                props_and_embeddings.end(),
+                false);
+            auto run_sequences =
+                detail::find_run_sequences(props_and_embeddings, all_runs);
+
+            detail::find_sos_eos(
+                run_sequences, props_and_embeddings, paragraph_embedding_level);
+            for (auto & run_sequence : run_sequences) {
+                w1(run_sequence);
+                w2(run_sequence);
+                w3(run_sequence);
+                w4(run_sequence);
+                w5(run_sequence);
+                w6(run_sequence);
+                w7(run_sequence);
+
+                auto const bracket_pairs =
+                    detail::find_bracket_pairs(run_sequence);
+                n0(run_sequence, bracket_pairs);
+                n1(run_sequence);
+                n2(run_sequence);
+
+                detail::i1_i2(run_sequence);
+            }
+        }
+
+        struct mirrored
+        {
+            mirrored(int & mirror_index) : mirror_index_(mirror_index) {}
+
+            bool operator()(uint32_t cp) const noexcept
+            {
+                mirror_index_ = detail::bidi_mirroring(cp);
+                return mirror_index_ != -1;
+            }
+
+            template<typename CPIter2>
+            bool operator()(grapheme_ref<CPIter2> grapheme) const noexcept
+            {
+                BOOST_ASSERT(!grapheme.empty());
+                if (std::next(grapheme.begin()) != grapheme.end())
+                    return false;
+                mirror_index_ = detail::bidi_mirroring(*grapheme.begin());
+                return mirror_index_ != -1;
+            }
+
+            int & mirror_index_;
+        };
+
+#if !BOOST_TEXT_USE_COROUTINES
+
         template<
             typename CPIter,
             typename Sentinel,
@@ -1644,10 +1940,6 @@ namespace boost { namespace text {
                 next_reordered_run();
             }
 
-            using vec_t =
-                container::static_vector<bidi_state_t, bidi_max_depth + 2>;
-            using stack_t = std::stack<bidi_state_t, vec_t>;
-
             using paragraphs_t = lazy_segment_range<
                 CPIter,
                 Sentinel,
@@ -1677,75 +1969,6 @@ namespace boost { namespace text {
 
             void next_paragraph(bool initial_call = false)
             {
-                using props_and_embeddings_type =
-                    props_and_embeddings_t<CPIter>;
-
-                auto next_odd = [](stack_t const & stack) {
-                    auto retval = stack.top().embedding_ + 1;
-                    if (detail::even(retval))
-                        ++retval;
-                    return retval;
-                };
-                auto next_even = [](stack_t const & stack) {
-                    auto retval = stack.top().embedding_ + 1;
-                    if (detail::odd(retval))
-                        ++retval;
-                    return retval;
-                };
-
-                auto prop_from_top =
-                    [](stack_t const & stack,
-                       props_and_embeddings_type & props_and_embeddings) {
-                        if (stack.top().directional_override_ ==
-                            directional_override_t::left_to_right) {
-                            props_and_embeddings.back().prop_ =
-                                (uint8_t)bidi_property::L;
-                        } else if (
-                            stack.top().directional_override_ ==
-                            directional_override_t::right_to_left) {
-                            props_and_embeddings.back().prop_ =
-                                (uint8_t)bidi_property::R;
-                        }
-                    };
-
-                // https://unicode.org/reports/tr9/#X5a
-                auto x5a = [&](stack_t & stack,
-                               props_and_embeddings_type & props_and_embeddings,
-                               int & overflow_isolates,
-                               int overflow_embedding,
-                               int & valid_isolates) {
-                    prop_from_top(stack, props_and_embeddings);
-                    auto const next_odd_embedding_level = next_odd(stack);
-                    if (next_odd_embedding_level <= bidi_max_depth &&
-                        !overflow_isolates && !overflow_embedding) {
-                        ++valid_isolates;
-                        stack.push(bidi_state_t{next_odd_embedding_level,
-                                                directional_override_t::neutral,
-                                                true});
-                    } else {
-                        ++overflow_isolates;
-                    }
-                };
-
-                // https://unicode.org/reports/tr9/#X5b
-                auto x5b = [&](stack_t & stack,
-                               props_and_embeddings_type & props_and_embeddings,
-                               int & overflow_isolates,
-                               int overflow_embedding,
-                               int & valid_isolates) {
-                    prop_from_top(stack, props_and_embeddings);
-                    auto const next_even_embedding_level = next_even(stack);
-                    if (next_even_embedding_level <= bidi_max_depth &&
-                        !overflow_isolates && !overflow_embedding) {
-                        ++valid_isolates;
-                        stack.push(bidi_state_t{next_even_embedding_level,
-                                                directional_override_t::neutral,
-                                                true});
-                    } else {
-                        ++overflow_isolates;
-                    }
-                };
-
                 if (!initial_call)
                     next_line_ = std::move(lines_).next_func();
 
@@ -1754,197 +1977,10 @@ namespace boost { namespace text {
                 auto paragraph = *paragraphs_it_;
                 ++paragraphs_it_;
 
-                auto const para_first = paragraph.begin();
-                auto const para_last = paragraph.end();
-
-                if (paragraph_embedding_level_ < 0)
-                    paragraph_embedding_level_ = p2_p3(para_first, para_last);
-
-                // https://unicode.org/reports/tr9/#X1
-                stack_t stack;
-                stack.push(bidi_state_t{paragraph_embedding_level_,
-                                        directional_override_t::neutral,
-                                        false});
-                int overflow_isolates = 0;
-                int overflow_embedding = 0;
-                int valid_isolates = 0;
-
-                // https://unicode.org/reports/tr9/#X2 through #X5
-                auto explicits =
-                    [&](int next_embedding_level,
-                        directional_override_t directional_override) {
-                        if (next_embedding_level <= bidi_max_depth &&
-                            !overflow_isolates && !overflow_embedding) {
-                            stack.push(bidi_state_t{next_embedding_level,
-                                                    directional_override,
-                                                    false});
-                        } else if (!overflow_isolates) {
-                            ++overflow_embedding;
-                        }
-                    };
-
-                for (auto it = para_first; it != para_last; ++it) {
-                    auto const prop = boost::text::bidi_prop(*it);
-                    props_and_embeddings_.push_back(
-                        prop_and_embedding_t<CPIter>{it,
-                                                     stack.top().embedding_,
-                                                     (uint8_t)prop,
-                                                     false,
-                                                     false});
-
-                    switch (prop) {
-                    case bidi_property::RLE:
-                        // https://unicode.org/reports/tr9/#X2
-                        explicits(
-                            next_odd(stack), directional_override_t::neutral);
-                        break;
-
-                    case bidi_property::LRE:
-                        // https://unicode.org/reports/tr9/#X3
-                        explicits(
-                            next_even(stack), directional_override_t::neutral);
-                        break;
-
-                    case bidi_property::RLO:
-                        // https://unicode.org/reports/tr9/#X4
-                        explicits(
-                            next_odd(stack),
-                            directional_override_t::right_to_left);
-                        break;
-
-                    case bidi_property::LRO:
-                        // https://unicode.org/reports/tr9/#X5
-                        explicits(
-                            next_even(stack),
-                            directional_override_t::left_to_right);
-                        break;
-
-                    case bidi_property::RLI:
-                        // https://unicode.org/reports/tr9/#X5a
-                        x5a(stack,
-                            props_and_embeddings_,
-                            overflow_isolates,
-                            overflow_embedding,
-                            valid_isolates);
-                        break;
-                    case bidi_property::LRI:
-                        // https://unicode.org/reports/tr9/#X5b
-                        x5b(stack,
-                            props_and_embeddings_,
-                            overflow_isolates,
-                            overflow_embedding,
-                            valid_isolates);
-                        break;
-                    case bidi_property::FSI:
-                        // https://unicode.org/reports/tr9/#X5c
-                        if (detail::p2_p3(
-                                std::next(it),
-                                detail::matching_pdi(it, para_last)) == 1) {
-                            x5a(stack,
-                                props_and_embeddings_,
-                                overflow_isolates,
-                                overflow_embedding,
-                                valid_isolates);
-                        } else {
-                            x5b(stack,
-                                props_and_embeddings_,
-                                overflow_isolates,
-                                overflow_embedding,
-                                valid_isolates);
-                        }
-                        break;
-
-                    case bidi_property::PDI:
-                        // https://unicode.org/reports/tr9/#X6a
-                        if (0 < overflow_isolates) {
-                            --overflow_isolates;
-                        } else if (!valid_isolates) {
-                            props_and_embeddings_.back().unmatched_pdi_ = true;
-                        } else {
-                            overflow_embedding = 0;
-                            while (!stack.top().directional_isolate_) {
-                                stack.pop();
-                            }
-                            BOOST_ASSERT(!stack.empty());
-                            stack.pop();
-                            --valid_isolates;
-                        }
-                        BOOST_ASSERT(!stack.empty());
-                        props_and_embeddings_.back().embedding_ =
-                            stack.top().embedding_;
-                        prop_from_top(stack, props_and_embeddings_);
-                        break;
-
-                    case bidi_property::PDF:
-                        // https://unicode.org/reports/tr9/#X7
-                        if (!overflow_isolates) {
-                            if (0 < overflow_embedding) {
-                                --overflow_embedding;
-                            } else if (
-                                !stack.top().directional_isolate_ &&
-                                2u <= stack.size()) {
-                                stack.pop();
-                            }
-                        }
-                        break;
-
-                    case bidi_property::B:
-                        props_and_embeddings_.back().embedding_ =
-                            paragraph_embedding_level_;
-                        break;
-
-                    case bidi_property::BN: break;
-
-                    default:
-                        // https://unicode.org/reports/tr9/#X6
-                        prop_from_top(stack, props_and_embeddings_);
-                        break;
-                    }
-                }
-
-                // https://unicode.org/reports/tr9/#X9
-                props_and_embeddings_.erase(
-                    std::remove_if(
-                        props_and_embeddings_.begin(),
-                        props_and_embeddings_.end(),
-                        [](prop_and_embedding_t<CPIter> pae) {
-                            return pae.prop() == bidi_property::RLE ||
-                                   pae.prop() == bidi_property::LRE ||
-                                   pae.prop() == bidi_property::RLO ||
-                                   pae.prop() == bidi_property::LRO ||
-                                   pae.prop() == bidi_property::PDF ||
-                                   pae.prop() == bidi_property::BN;
-                        }),
-                    props_and_embeddings_.end());
-
-                // https://unicode.org/reports/tr9/#X10
-                auto all_runs = find_all_runs<CPIter>(
-                    props_and_embeddings_.begin(),
-                    props_and_embeddings_.end(),
-                    false);
-                auto run_sequences =
-                    detail::find_run_sequences(props_and_embeddings_, all_runs);
-
-                detail::find_sos_eos(
-                    run_sequences,
+                detail::get_props_and_embeddings(
+                    paragraph,
                     props_and_embeddings_,
                     paragraph_embedding_level_);
-                for (auto & run_sequence : run_sequences) {
-                    w1(run_sequence);
-                    w2(run_sequence);
-                    w3(run_sequence);
-                    w4(run_sequence);
-                    w5(run_sequence);
-                    w6(run_sequence);
-                    w7(run_sequence);
-
-                    auto const bracket_pairs = detail::find_bracket_pairs(run_sequence);
-                    n0(run_sequence, bracket_pairs);
-                    n1(run_sequence);
-                    n2(run_sequence);
-
-                    detail::i1_i2(run_sequence);
-                }
 
                 lines_ = lines_t{
                     std::move(next_line_),
@@ -2082,7 +2118,7 @@ namespace boost { namespace text {
                 ++state.lines_it_;
 
                 // The level test requires L1 only, and produces int embedding
-                // values instead of reordered_runs, so jsut produce output
+                // values instead of reordered_runs, so just produce output
                 // values here directly.
                 detail::l1(line, state.paragraph_embedding_level_);
 
@@ -2156,29 +2192,6 @@ namespace boost { namespace text {
                 NextLineBreakFunc,
                 OutValueType,
                 bidi_mode::general>;
-
-            struct mirrored
-            {
-                mirrored(int & mirror_index) : mirror_index_(mirror_index) {}
-
-                bool operator()(uint32_t cp) const noexcept
-                {
-                    mirror_index_ = detail::bidi_mirroring(cp);
-                    return mirror_index_ != -1;
-                }
-
-                template<typename CPIter2>
-                bool operator()(grapheme_ref<CPIter2> grapheme) const noexcept
-                {
-                    BOOST_ASSERT(!grapheme.empty());
-                    if (std::next(grapheme.begin()) != grapheme.end())
-                        return false;
-                    mirror_index_ = detail::bidi_mirroring(*grapheme.begin());
-                    return mirror_index_ != -1;
-                }
-
-                int & mirror_index_;
-            };
 
             static void run(state_t & state)
             {
@@ -2340,6 +2353,191 @@ namespace boost { namespace text {
             }
         };
 
+#endif
+
+#if BOOST_TEXT_USE_COROUTINES
+
+        template<
+            typename OutValueType,
+            bidi_mode Mode = bidi_mode::general,
+            typename CPIter,
+            typename Sentinel,
+            typename NextLineBreakFunc = bidi_next_hard_line_break_callable>
+        generator<OutValueType> bidi_subranges(
+            CPIter first,
+            Sentinel last,
+            int paragraph_embedding_level,
+            NextLineBreakFunc next = NextLineBreakFunc{})
+        {
+            using pae_cp_iterator = props_and_embeddings_cp_iterator<CPIter>;
+            using next_t = next_line_break_t<
+                NextLineBreakFunc,
+                line_break_result<pae_cp_iterator>,
+                pae_cp_iterator>;
+            using lines_t = lazy_segment_range<
+                line_break_result<pae_cp_iterator>,
+                pae_cp_iterator,
+                next_t,
+                line_break_cp_view<pae_cp_iterator>>;
+
+            next_t next_line(std::move(next));
+            props_and_embeddings_t<CPIter> props_and_embeddings;
+
+            auto const paragraphs = boost::text::paragraphs(first, last);
+            for (auto paragraph : paragraphs) {
+                props_and_embeddings.clear();
+                detail::get_props_and_embeddings(
+                    paragraph, props_and_embeddings, paragraph_embedding_level);
+
+                lines_t lines{
+                    std::move(next_line),
+                    {line_break_result<pae_cp_iterator>{
+                         pae_cp_iterator{props_and_embeddings.begin()}, false},
+                     pae_cp_iterator{props_and_embeddings.end()}},
+                    {pae_cp_iterator{props_and_embeddings.end()}}};
+                for (auto line : lines) {
+                    detail::l1(line, paragraph_embedding_level);
+
+                    if constexpr (Mode == bidi_mode::level_test) {
+                        for (auto it = line.begin(), end = line.end();
+                             it != end;
+                             ++it) {
+                            co_yield int(it.base()->embedding_);
+                        }
+                        continue;
+                    }
+
+                    // https://unicode.org/reports/tr9/#L2
+                    all_runs_t<CPIter> line_all_runs =
+                        detail::find_all_runs<CPIter>(
+                            line.begin().base(), line.end().base(), true);
+
+                    reordered_runs_t<CPIter> reordered_runs =
+                        detail::l2(line_all_runs);
+
+                    if constexpr (Mode == bidi_mode::general) {
+                        detail::l3(reordered_runs);
+                    }
+
+                    auto const break_at_end_of_line =
+                        line.hard_break() ? bidi_line_break_kind::hard
+                                          : bidi_line_break_kind::allowed;
+
+                    for (auto run_it = reordered_runs.begin(),
+                              run_last = reordered_runs.end();
+                         run_it != run_last;
+                         ++run_it) {
+                        auto run = *run_it;
+
+                        if constexpr (Mode == bidi_mode::general) {
+                            auto const line_break =
+                                std::next(run_it) == run_last
+                                    ? break_at_end_of_line
+                                    : bidi_line_break_kind::none;
+
+                            auto const cp_first = run.begin()->it_;
+                            auto const cp_last =
+                                run.begin() == run.end()
+                                    ? cp_first
+                                    : std::next(std::prev(run.end())->it_);
+
+                            if (run.reversed()) {
+                                // https://unicode.org/reports/tr9/#L4
+
+                                auto out_value = OutValueType{
+                                    stl_interfaces::make_reverse_iterator(
+                                        cp_last),
+                                    stl_interfaces::make_reverse_iterator(
+                                        cp_first)};
+
+                                auto out_first = out_value.begin();
+                                auto out_last = out_value.end();
+
+                                // If this run's directionality is R (aka odd,
+                                // aka reversed), produce 1-code-point ranges
+                                // for the mirrored code points in the run, if
+                                // any.
+                                while (out_first != out_last) {
+                                    int mirror_index = -1;
+                                    auto it = std::find_if(
+                                        out_first,
+                                        out_last,
+                                        mirrored(mirror_index));
+                                    if (it == out_last)
+                                        break;
+
+                                    // If we found a reversible CP, emit any
+                                    // preceding CPs first.
+                                    if (it != out_first)
+                                        co_yield OutValueType{out_first, it};
+
+                                    auto const break_ =
+                                        std::next(it) == out_last
+                                            ? line_break
+                                            : bidi_line_break_kind::none;
+
+                                    // Emit the reversed CP.
+                                    co_yield OutValueType{
+                                        fwd_rev_cp_iter<CPIter>{
+                                            bidi_mirroreds().begin() +
+                                                mirror_index,
+                                            fwd_rev_cp_iter_kind::
+                                                mirror_array_it},
+                                        fwd_rev_cp_iter<CPIter>{
+                                            bidi_mirroreds().begin() +
+                                                mirror_index + 1,
+                                            fwd_rev_cp_iter_kind::
+                                                mirror_array_it},
+                                        break_};
+
+                                    // Increment for the next iteration.
+                                    out_value = OutValueType{++it, out_last};
+                                    out_first = out_value.begin();
+                                }
+
+                                if (!out_value.empty()) {
+                                    co_yield OutValueType{
+                                        out_value.begin(),
+                                        out_value.end(),
+                                        line_break};
+                                }
+                            } else {
+                                co_yield OutValueType{
+                                    cp_first, cp_last, line_break};
+                            }
+                        } else if constexpr (Mode == bidi_mode::level_test) {
+                            // The level test just outputs a level value for
+                            // each CP left at the end of L1, so it produces
+                            // values in next_line(). Nothing to do here.
+                        } else {
+                            // The reorder test does not use L3 or L4.
+
+                            auto const cp_first = run.begin()->it_;
+                            auto const cp_last =
+                                run.begin() == run.end()
+                                    ? cp_first
+                                    : std::next(std::prev(run.end())->it_);
+
+                            if (run.reversed()) {
+                                co_yield OutValueType{
+                                    stl_interfaces::make_reverse_iterator(
+                                        cp_last),
+                                    stl_interfaces::make_reverse_iterator(
+                                        cp_first),
+                                    break_at_end_of_line};
+                            } else {
+                                co_yield OutValueType{
+                                    cp_first, cp_last, break_at_end_of_line};
+                            }
+                        }
+                    }
+                }
+                next_line = std::move(lines).next_func();
+            }
+        }
+
+#else
+
         template<
             typename CPIter,
             typename Sentinel,
@@ -2398,13 +2596,29 @@ namespace boost { namespace text {
                 NextLineBreakFunc,
                 ResultType> * state_;
         };
+
+#endif
     }
+
+
+#if !defined(BOOST_TEXT_DOXYGEN) && BOOST_TEXT_USE_COROUTINES
+
+    template<
+        typename CPIter,
+        typename Sentinel,
+        typename ResultType,
+        typename NextLineBreakFunc = detail::bidi_next_hard_line_break_callable>
+    using lazy_bidi_segment_range = detail::generator<ResultType>;
+
+#else
 
     /** Represents a range of non-overlapping subranges.  Each subrange is a
         sequence of code points that are all in a consistent direction
         (left-to-right or right-to-left).  Each subrange is lazily produced;
         an output subrange is not produced until a lazy range iterator is
-        dereferenced. */
+        dereferenced.  If C++20 coroutines are available (determined by
+        whether `__cpp_coroutines` is defined), `lazy_bidi_segment_range` will
+        be an alias for a generator of `ResultType` elements. */
     template<
         typename CPIter,
         typename Sentinel,
@@ -2435,6 +2649,8 @@ namespace boost { namespace text {
             bidi_subrange_state<CPIter, Sentinel, NextLineBreakFunc, ResultType>
                 state_;
     };
+
+#endif
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -2645,7 +2861,12 @@ namespace boost { namespace text {
             Sentinel,
             bidirectional_cp_subrange<CPIter>>
     {
+#if BOOST_TEXT_USE_COROUTINES
+        return detail::bidi_subranges<bidirectional_cp_subrange<CPIter>>(
+            first, last, paragraph_embedding_level);
+#else
         return {first, last, paragraph_embedding_level};
+#endif
     }
 
     template<typename CPRange>
@@ -2658,7 +2879,13 @@ namespace boost { namespace text {
                 bidirectional_cp_subrange<detail::iterator_t<CPRange>>>,
             CPRange>
     {
+#if BOOST_TEXT_USE_COROUTINES
+        return detail::bidi_subranges<
+            bidirectional_cp_subrange<detail::iterator_t<CPRange>>>(
+            std::begin(range), std::end(range), paragraph_embedding_level);
+#else
         return {std::begin(range), std::end(range), paragraph_embedding_level};
+#endif
     }
 
     template<typename GraphemeRange>
@@ -2672,9 +2899,17 @@ namespace boost { namespace text {
                     GraphemeRange const>::iterator_type>>,
             GraphemeRange>
     {
+#if BOOST_TEXT_USE_COROUTINES
+        return detail::bidi_subranges<bidirectional_grapheme_subrange<
+            typename detail::iterator_t<GraphemeRange const>::iterator_type>>(
+            range.begin().base(),
+            range.end().base(),
+            paragraph_embedding_level);
+#else
         return {range.begin().base(),
                 range.end().base(),
                 paragraph_embedding_level};
+#endif
     }
 
     template<
@@ -2700,7 +2935,12 @@ namespace boost { namespace text {
         detail::
             next_allowed_line_break_within_extent_callable<Extent, CPExtentFunc>
                 next{max_extent, std::move(cp_extent), break_overlong_lines};
+#if BOOST_TEXT_USE_COROUTINES
+        return detail::bidi_subranges<bidirectional_cp_subrange<CPIter>>(
+            first, last, paragraph_embedding_level, std::move(next));
+#else
         return {first, last, paragraph_embedding_level, std::move(next)};
+#endif
     }
 
     template<typename CPRange, typename Extent, typename CPExtentFunc>
@@ -2723,10 +2963,19 @@ namespace boost { namespace text {
         detail::
             next_allowed_line_break_within_extent_callable<Extent, CPExtentFunc>
                 next{max_extent, std::move(cp_extent), break_overlong_lines};
+#if BOOST_TEXT_USE_COROUTINES
+        return detail::bidi_subranges<
+            bidirectional_cp_subrange<detail::iterator_t<CPRange>>>(
+            std::begin(range),
+            std::end(range),
+            paragraph_embedding_level,
+            std::move(next));
+#else
         return {std::begin(range),
                 std::end(range),
                 paragraph_embedding_level,
                 std::move(next)};
+#endif
     }
 
     template<typename GraphemeRange, typename Extent, typename CPExtentFunc>
@@ -2750,10 +2999,19 @@ namespace boost { namespace text {
         detail::
             next_allowed_line_break_within_extent_callable<Extent, CPExtentFunc>
                 next{max_extent, std::move(cp_extent), break_overlong_lines};
+#if BOOST_TEXT_USE_COROUTINES
+        return detail::bidi_subranges<bidirectional_grapheme_subrange<
+            typename detail::iterator_t<GraphemeRange const>::iterator_type>>(
+            range.begin().base(),
+            range.end().base(),
+            paragraph_embedding_level,
+            std::move(next));
+#else
         return {range.begin().base(),
                 range.end().base(),
                 paragraph_embedding_level,
                 std::move(next)};
+#endif
     }
 
 #endif
