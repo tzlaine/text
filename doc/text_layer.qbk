@@ -30,7 +30,7 @@ point type.  For instance, `char` and `char8_t` imply UTF-8, whereas
 UTF-32.
 
 For the rest of the documentation, we will focus on the four specializations
-of these templates, _t_, _tv_, _r_, and _rv_.
+of these templates that _Text_ provides: _t_, _tv_, _r_, and _rv_.
 
 Let's consider one of these specializations in particular, _t_.  Its
 underlying storage is a _s_, as mentioned before.  The `char`s in the _s_ are
@@ -42,6 +42,9 @@ performed on the encoding of the `char`s in a _t_'s _s_ data member.
 All the text layer types are kept normalized at all times; the views may be
 initialized only from known-normalized types.  There is a runtime cost
 associated with normalizing text that is inserted into a text layer type.
+
+_t_ and _r_ are also kept in _str_safe_; _tv_ and _rv_ may be initialized only
+from known-stream-safe types.
 
 The text layer types are centered around _grs_ instead of `char`s.  Since
 _grs_ are variable-length, this means that all indexing is done using
@@ -113,8 +116,8 @@ There are two things to note here:
 
 As mentioned before, this layer has four types (_t_, _tv_, _r_, and _rv_) that
 are directly analogous to the four major unencoded types that they use for
-storage (_s_, _sv_, _ur_, and _urv_).  The high-level semantics of these types
-is the same:
+storage (_s_, _sv_, _ur_, and _urv_).  The high-level semantics of these
+uderlying types is the same:
 
 * _s_ and _t_ are owning and contiguous.
 * _sv_ and _tv_ and non-owning and contiguous.
@@ -217,8 +220,8 @@ this.
     [[text with the small-object optimization] [_t_]]
     [[text with copy-on-write semantics] [_r_]]
 
-    [[function parameters that may bind to, _tvs_, or _ts_] [_tv_]]
-    [[function parameters that may bind to, _tvs_, _ts_, _rs_, or _rvs_] [_rv_]]
+    [[function parameters that may bind to _tvs_ or _ts_] [_tv_]]
+    [[function parameters that may bind to _tvs_, _ts_, _rs_, or _rvs_] [_rv_]]
 ]
 
 [endsect]

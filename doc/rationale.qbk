@@ -5,47 +5,7 @@
  /]
 [section Rationale]
 
-[heading Size and Index Types]
-
-Signed values as sizes are advantageous for a number of reasons:
-
-# When doing math with sizes, intermediate values can be negative (which makes
-  sense), instead of wrapping around to a very large value (which does not).
-
-# Optimizers produce better code generation in more situations for signed
-  values.
-
-# Signed values lead naturally to the negative-indexable slicing that _Text_
-  uses.
-
-This last point is particularly important.  I think that negative indexing
-should be allowed on all random access ranges.
-
-
-[heading `char const *` Iterators]
-
-_s_ and _sv_ both use `char const *` as their forward iterator types.  This
-allows interoperability with C strings and arrays of `char`.
-
-
-[heading Where Are `data()`, `c_str()`, `front()`, and `back()`?]
-
-_s_ does not have any of these, even though `std::string` does.  Since
-`string::iterator` is just `char const *`, and _s_ is always null-terminated,
-`data()`, `c_str()`, and `begin()` are synonyms.  Synonyms bad.  Small
-interfaces good.
-
-
-[heading Inserting Null Terminated Sequences]
-
-The _s_ inserting interfaces (`insert()` and `replace()`) remove explicit null
-terminators from inserted _svs_ and _rsvs_, because leaving them in is almost
-certainly an error.  This can still be accomplished by directly writing
-through the index operator or an iterator, or by inserting
-`string_view("\0")`.
-
-
-[heading _s_, _t_, _ur_ and _r_ Are Implicitly Convertible from `char const *`.]
+[heading _t_, _r_ Are Implicitly Convertible from `char const *`.]
 
 I find that the syntactic overhead of bringing UDLs into scope and then using
 them to be too high in some cases.  Aggregate initialization including
@@ -56,22 +16,14 @@ string-like objects is one of those:
     [[``
     using namespace boost::text::literals;
 
-    std::array<boost::text::string, 3> = {{ "foo"_s, "bar"_s, "baz"_s }};
+    std::array<boost::text::text, 3> = {{ "foo"_t, "bar"_t, "baz"_t }};
 ``]
     [``
-    std::array<boost::text::string, 3> = {{ "foo", "bar", "baz" }};
+    std::array<boost::text::text, 3> = {{ "foo", "bar", "baz" }};
 ``]]
 ]
 
 I find the implicit-conversion code much more natural.
-
-
-[heading None of the _Text_ String Types Does Formatted Output]
-
-This is necessary because a single `char` is not a code point, and a even
-single code point does not correspond to a single formatted output glyph.
-This means that the layout/spacing of the output is not something _Text_ can
-determine.  Higher-level code must deal with such issues.
 
 
 [heading Unicode Algorithm Tailoring]
