@@ -31,15 +31,15 @@
   <span class="keyword">typedef</span> <span class="identifier">S</span> <a name="boost.text.stream_safe_view.sentinel"></a><span class="identifier">sentinel</span><span class="special">;</span>
 
   <span class="comment">// <a class="link" href="stream_safe_view.html#boost.text.stream_safe_viewconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <a class="link" href="stream_safe_view.html#idm21087-bb"><span class="identifier">stream_safe_view</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <a class="link" href="stream_safe_view.html#idm21088-bb"><span class="identifier">stream_safe_view</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">sentinel</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <a class="link" href="stream_safe_view.html#idm21131-bb"><span class="identifier">stream_safe_view</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <a class="link" href="stream_safe_view.html#idm21132-bb"><span class="identifier">stream_safe_view</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">sentinel</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="stream_safe_view.html#idm21082-bb">public member functions</a></span>
-  <span class="keyword">constexpr</span> <span class="identifier">iterator</span> <a class="link" href="stream_safe_view.html#idm21083-bb"><span class="identifier">begin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="keyword">constexpr</span> <span class="identifier">sentinel</span> <a class="link" href="stream_safe_view.html#idm21085-bb"><span class="identifier">end</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="stream_safe_view.html#idm21126-bb">public member functions</a></span>
+  <span class="keyword">constexpr</span> <span class="identifier">iterator</span> <a class="link" href="stream_safe_view.html#idm21127-bb"><span class="identifier">begin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">constexpr</span> <span class="identifier">sentinel</span> <a class="link" href="stream_safe_view.html#idm21129-bb"><span class="identifier">end</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="idm35226"></a><h2>Description</h2>
+<a name="idm35308"></a><h2>Description</h2>
 <p>A view that adapts a non-stream safe sequence of code points to a stream-safe sequence of code points.</p>
 <p><span class="bold"><strong>See Also:</strong></span></p>
 <p><a href="https://unicode.org/reports/tr15/#Stream_Safe_Text_Format" target="_top">https://unicode.org/reports/tr15/#Stream_Safe_Text_Format</a> </p>
@@ -48,21 +48,21 @@
 <p>
 </p>
 <div class="refsect2">
-<a name="idm35234"></a><h3>
+<a name="idm35316"></a><h3>
 <a name="boost.text.stream_safe_viewconstruct-copy-destruct"></a><code class="computeroutput">stream_safe_view</code> 
         public
        construct/copy/destruct</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><a name="idm21087-bb"></a><span class="identifier">stream_safe_view</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><a name="idm21088-bb"></a><span class="identifier">stream_safe_view</span><span class="special">(</span><span class="identifier">iterator</span> first<span class="special">,</span> <span class="identifier">sentinel</span> last<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idm21131-bb"></a><span class="identifier">stream_safe_view</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idm21132-bb"></a><span class="identifier">stream_safe_view</span><span class="special">(</span><span class="identifier">iterator</span> first<span class="special">,</span> <span class="identifier">sentinel</span> last<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
 </ol></div>
 </div>
 <div class="refsect2">
-<a name="idm35260"></a><h3>
-<a name="idm21082-bb"></a><code class="computeroutput">stream_safe_view</code> public member functions</h3>
+<a name="idm35342"></a><h3>
+<a name="idm21126-bb"></a><code class="computeroutput">stream_safe_view</code> public member functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><span class="keyword">constexpr</span> <span class="identifier">iterator</span> <a name="idm21083-bb"></a><span class="identifier">begin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="keyword">constexpr</span> <span class="identifier">sentinel</span> <a name="idm21085-bb"></a><span class="identifier">end</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">constexpr</span> <span class="identifier">iterator</span> <a name="idm21127-bb"></a><span class="identifier">begin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">constexpr</span> <span class="identifier">sentinel</span> <a name="idm21129-bb"></a><span class="identifier">end</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
 </ol></div>
 </div>
 </div>

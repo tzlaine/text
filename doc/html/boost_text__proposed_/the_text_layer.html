@@ -63,10 +63,7 @@
     </p>
 <p>
       For the rest of the documentation, we will focus on the four specializations
-      of these templates, <code class="computeroutput"><a class="link" href="../boost/text/text.html" title="Type definition text">text</a></code>,
-      <code class="computeroutput"><a class="link" href="../boost/text/text_view.html" title="Type definition text_view">text_view</a></code>,
-      <code class="computeroutput"><a class="link" href="../boost/text/rope.html" title="Type definition rope">rope</a></code>,
-      and <code class="computeroutput"><a class="link" href="../boost/text/rope_view.html" title="Type definition rope_view">rope_view</a></code>.
+      of these templates that Boost.Text provides: <code class="computeroutput"><a class="link" href="../boost/text/text.html" title="Type definition text">text</a></code>, <code class="computeroutput"><a class="link" href="../boost/text/text_view.html" title="Type definition text_view">text_view</a></code>, <code class="computeroutput"><a class="link" href="../boost/text/rope.html" title="Type definition rope">rope</a></code>, and <code class="computeroutput"><a class="link" href="../boost/text/rope_view.html" title="Type definition rope_view">rope_view</a></code>.
     </p>
 <p>
       Let's consider one of these specializations in particular, <code class="computeroutput"><a class="link" href="../boost/text/text.html" title="Type definition text">text</a></code>. Its underlying storage
@@ -85,6 +82,14 @@
       All the text layer types are kept normalized at all times; the views may be
       initialized only from known-normalized types. There is a runtime cost associated
       with normalizing text that is inserted into a text layer type.
+    </p>
+<p>
+      <code class="computeroutput"><a class="link" href="../boost/text/text.html" title="Type definition text">text</a></code>
+      and <code class="computeroutput"><a class="link" href="../boost/text/rope.html" title="Type definition rope">rope</a></code>
+      are also kept in <a href="https://unicode.org/reports/tr15/#Stream_Safe_Text_Format" target="_top">Stream-Safe
+      Format</a>; <code class="computeroutput"><a class="link" href="../boost/text/text_view.html" title="Type definition text_view">text_view</a></code>
+      and <code class="computeroutput"><a class="link" href="../boost/text/rope_view.html" title="Type definition rope_view">rope_view</a></code>
+      may be initialized only from known-stream-safe types.
     </p>
 <p>
       The text layer types are centered around graphemes instead of <code class="computeroutput"><span class="keyword">char</span></code>s. Since graphemes are variable-length,
@@ -283,7 +288,7 @@
       analogous to the four major unencoded types that they use for storage (<code class="computeroutput">std::string</code>, <code class="computeroutput">std::string_view</code>,
       <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope.html" title="Type definition unencoded_rope">unencoded_rope</a></code>,
       and <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope_view.html" title="Type definition unencoded_rope_view">unencoded_rope_view</a></code>).
-      The high-level semantics of these types is the same:
+      The high-level semantics of these underlying types is the same:
     </p>
 <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
@@ -555,7 +560,7 @@
 <tr>
 <td>
               <p>
-                function parameters that may bind to, <code class="computeroutput"><a class="link" href="../boost/text/text_view.html" title="Type definition text_view">text_views</a></code>, or <code class="computeroutput"><a class="link" href="../boost/text/text.html" title="Type definition text">texts</a></code>
+                function parameters that may bind to <code class="computeroutput"><a class="link" href="../boost/text/text_view.html" title="Type definition text_view">text_views</a></code> or <code class="computeroutput"><a class="link" href="../boost/text/text.html" title="Type definition text">texts</a></code>
               </p>
             </td>
 <td>
@@ -567,7 +572,7 @@
 <tr>
 <td>
               <p>
-                function parameters that may bind to, <code class="computeroutput"><a class="link" href="../boost/text/text_view.html" title="Type definition text_view">text_views</a></code>, <code class="computeroutput"><a class="link" href="../boost/text/text.html" title="Type definition text">texts</a></code>,
+                function parameters that may bind to <code class="computeroutput"><a class="link" href="../boost/text/text_view.html" title="Type definition text_view">text_views</a></code>, <code class="computeroutput"><a class="link" href="../boost/text/text.html" title="Type definition text">texts</a></code>,
                 <code class="computeroutput"><a class="link" href="../boost/text/rope.html" title="Type definition rope">ropes</a></code>,
                 or <code class="computeroutput"><a class="link" href="../boost/text/rope_view.html" title="Type definition rope_view">rope_views</a></code>
               </p>

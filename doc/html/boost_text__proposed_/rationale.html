@@ -18,75 +18,8 @@
 </h2></div></div></div>
 <h4>
 <a name="boost_text__proposed_.rationale.h0"></a>
-      <span class="phrase"><a name="boost_text__proposed_.rationale.size_and_index_types"></a></span><a class="link" href="rationale.html#boost_text__proposed_.rationale.size_and_index_types">Size
-      and Index Types</a>
-    </h4>
-<p>
-      Signed values as sizes are advantageous for a number of reasons:
-    </p>
-<div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem">
-          When doing math with sizes, intermediate values can be negative (which
-          makes sense), instead of wrapping around to a very large value (which does
-          not).
-        </li>
-<li class="listitem">
-          Optimizers produce better code generation in more situations for signed
-          values.
-        </li>
-<li class="listitem">
-          Signed values lead naturally to the negative-indexable slicing that Boost.Text
-          uses.
-        </li>
-</ol></div>
-<p>
-      This last point is particularly important. I think that negative indexing should
-      be allowed on all random access ranges.
-    </p>
-<h4>
-<a name="boost_text__proposed_.rationale.h1"></a>
-      <span class="phrase"><a name="boost_text__proposed_.rationale._code__phrase_role__keyword__char__phrase___phrase_role__keyword__const__phrase___phrase_role__special_____phrase___code__iterators"></a></span><a class="link" href="rationale.html#boost_text__proposed_.rationale._code__phrase_role__keyword__char__phrase___phrase_role__keyword__const__phrase___phrase_role__special_____phrase___code__iterators"><code class="computeroutput"><span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span></code> Iterators</a>
-    </h4>
-<p>
-      <code class="computeroutput">std::string</code>
-      and <code class="computeroutput">std::string_view</code>
-      both use <code class="computeroutput"><span class="keyword">char</span> <span class="keyword">const</span>
-      <span class="special">*</span></code> as their forward iterator types. This
-      allows interoperability with C strings and arrays of <code class="computeroutput"><span class="keyword">char</span></code>.
-    </p>
-<h4>
-<a name="boost_text__proposed_.rationale.h2"></a>
-      <span class="phrase"><a name="boost_text__proposed_.rationale.where_are__code__phrase_role__identifier__data__phrase__phrase_role__special______phrase___code____code__phrase_role__identifier__c_str__phrase__phrase_role__special______phrase___code____code__phrase_role__identifier__front__phrase__phrase_role__special______phrase___code___and__code__phrase_role__identifier__back__phrase__phrase_role__special______phrase___code__"></a></span><a class="link" href="rationale.html#boost_text__proposed_.rationale.where_are__code__phrase_role__identifier__data__phrase__phrase_role__special______phrase___code____code__phrase_role__identifier__c_str__phrase__phrase_role__special______phrase___code____code__phrase_role__identifier__front__phrase__phrase_role__special______phrase___code___and__code__phrase_role__identifier__back__phrase__phrase_role__special______phrase___code__">Where
-      Are <code class="computeroutput"><span class="identifier">data</span><span class="special">()</span></code>,
-      <code class="computeroutput"><span class="identifier">c_str</span><span class="special">()</span></code>,
-      <code class="computeroutput"><span class="identifier">front</span><span class="special">()</span></code>,
-      and <code class="computeroutput"><span class="identifier">back</span><span class="special">()</span></code>?</a>
-    </h4>
-<p>
-      <code class="computeroutput">std::string</code>
-      does not have any of these, even though <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span></code>
-      does. Since <code class="computeroutput"><span class="identifier">string</span><span class="special">::</span><span class="identifier">iterator</span></code> is just <code class="computeroutput"><span class="keyword">char</span>
-      <span class="keyword">const</span> <span class="special">*</span></code>,
-      and <code class="computeroutput">std::string</code>
-      is always null-terminated, <code class="computeroutput"><span class="identifier">data</span><span class="special">()</span></code>, <code class="computeroutput"><span class="identifier">c_str</span><span class="special">()</span></code>, and <code class="computeroutput"><span class="identifier">begin</span><span class="special">()</span></code> are synonyms. Synonyms bad. Small interfaces
-      good.
-    </p>
-<h4>
-<a name="boost_text__proposed_.rationale.h3"></a>
-      <span class="phrase"><a name="boost_text__proposed_.rationale.inserting_null_terminated_sequences"></a></span><a class="link" href="rationale.html#boost_text__proposed_.rationale.inserting_null_terminated_sequences">Inserting
-      Null Terminated Sequences</a>
-    </h4>
-<p>
-      The <code class="computeroutput">std::string</code>
-      inserting interfaces (<code class="computeroutput"><span class="identifier">insert</span><span class="special">()</span></code> and <code class="computeroutput"><span class="identifier">replace</span><span class="special">()</span></code>) remove explicit null terminators from inserted
-      <code class="computeroutput">std::string_views</code>
-      and <span class="underline">rsvs</span>, because leaving them in is
-      almost certainly an error. This can still be accomplished by directly writing
-      through the index operator or an iterator, or by inserting <code class="computeroutput"><span class="identifier">string_view</span><span class="special">(</span><span class="string">"\0"</span><span class="special">)</span></code>.
-    </p>
-<h4>
-<a name="boost_text__proposed_.rationale.h4"></a>
-      <span class="phrase"><a name="boost_text__proposed_.rationale._classname_alt__std__string___code__phrase_role__identifier__std__phrase__phrase_role__special______phrase__phrase_role__identifier__string__phrase___code___classname____classname_alt__boost__text__text___code__phrase_role__identifier__text__phrase___code___classname____classname_alt__boost__text__unencoded_rope___code__phrase_role__identifier__unencoded_rope__phrase___code___classname__and__classname_alt__boost__text__rope___code__phrase_role__identifier__rope__phrase___code___classname__are_implicitly_convertible_from__code__phrase_role__keyword__char__phrase___phrase_role__keyword__const__phrase___phrase_role__special_____phrase___code__"></a></span><a class="link" href="rationale.html#boost_text__proposed_.rationale._classname_alt__std__string___code__phrase_role__identifier__std__phrase__phrase_role__special______phrase__phrase_role__identifier__string__phrase___code___classname____classname_alt__boost__text__text___code__phrase_role__identifier__text__phrase___code___classname____classname_alt__boost__text__unencoded_rope___code__phrase_role__identifier__unencoded_rope__phrase___code___classname__and__classname_alt__boost__text__rope___code__phrase_role__identifier__rope__phrase___code___classname__are_implicitly_convertible_from__code__phrase_role__keyword__char__phrase___phrase_role__keyword__const__phrase___phrase_role__special_____phrase___code__"><code class="computeroutput">std::string</code>, text, unencoded_rope and rope
+      <span class="phrase"><a name="boost_text__proposed_.rationale._classname_alt__boost__text__text___code__phrase_role__identifier__text__phrase___code___classname____classname_alt__boost__text__rope___code__phrase_role__identifier__rope__phrase___code___classname__are_implicitly_convertible_from__code__phrase_role__keyword__char__phrase___phrase_role__keyword__const__phrase___phrase_role__special_____phrase___code__"></a></span><a class="link" href="rationale.html#boost_text__proposed_.rationale._classname_alt__boost__text__text___code__phrase_role__identifier__text__phrase___code___classname____classname_alt__boost__text__rope___code__phrase_role__identifier__rope__phrase___code___classname__are_implicitly_convertible_from__code__phrase_role__keyword__char__phrase___phrase_role__keyword__const__phrase___phrase_role__special_____phrase___code__">text,
+      rope
       Are Implicitly Convertible from <code class="computeroutput"><span class="keyword">char</span>
       <span class="keyword">const</span> <span class="special">*</span></code>.</a>
     </h4>
@@ -120,7 +53,7 @@
 </p>
 <pre class="programlisting"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">literals</span><span class="special">;</span>
 
-<span class="identifier">std</span><span class="special">::</span><span class="identifier">array</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">string</span><span class="special">,</span> <span class="number">3</span><span class="special">&gt;</span> <span class="special">=</span> <span class="special">{{</span> <span class="string">"foo"</span><span class="identifier">_s</span><span class="special">,</span> <span class="string">"bar"</span><span class="identifier">_s</span><span class="special">,</span> <span class="string">"baz"</span><span class="identifier">_s</span> <span class="special">}};</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">array</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span><span class="special">,</span> <span class="number">3</span><span class="special">&gt;</span> <span class="special">=</span> <span class="special">{{</span> <span class="string">"foo"</span><span class="identifier">_t</span><span class="special">,</span> <span class="string">"bar"</span><span class="identifier">_t</span><span class="special">,</span> <span class="string">"baz"</span><span class="identifier">_t</span> <span class="special">}};</span>
 </pre>
 <p>
               </p>
@@ -128,7 +61,7 @@
 <td>
               <p>
 </p>
-<pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">array</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">string</span><span class="special">,</span> <span class="number">3</span><span class="special">&gt;</span> <span class="special">=</span> <span class="special">{{</span> <span class="string">"foo"</span><span class="special">,</span> <span class="string">"bar"</span><span class="special">,</span> <span class="string">"baz"</span> <span class="special">}};</span>
+<pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">array</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span><span class="special">,</span> <span class="number">3</span><span class="special">&gt;</span> <span class="special">=</span> <span class="special">{{</span> <span class="string">"foo"</span><span class="special">,</span> <span class="string">"bar"</span><span class="special">,</span> <span class="string">"baz"</span> <span class="special">}};</span>
 </pre>
 <p>
               </p>
@@ -140,19 +73,7 @@
       I find the implicit-conversion code much more natural.
     </p>
 <h4>
-<a name="boost_text__proposed_.rationale.h5"></a>
-      <span class="phrase"><a name="boost_text__proposed_.rationale.none_of_the_boost_text_string_types_does_formatted_output"></a></span><a class="link" href="rationale.html#boost_text__proposed_.rationale.none_of_the_boost_text_string_types_does_formatted_output">None
-      of the Boost.Text String Types Does Formatted Output</a>
-    </h4>
-<p>
-      This is necessary because a single <code class="computeroutput"><span class="keyword">char</span></code>
-      is not a code point, and a even single code point does not correspond to a
-      single formatted output glyph. This means that the layout/spacing of the output
-      is not something Boost.Text can determine. Higher-level code must deal with
-      such issues.
-    </p>
-<h4>
-<a name="boost_text__proposed_.rationale.h6"></a>
+<a name="boost_text__proposed_.rationale.h1"></a>
       <span class="phrase"><a name="boost_text__proposed_.rationale.unicode_algorithm_tailoring"></a></span><a class="link" href="rationale.html#boost_text__proposed_.rationale.unicode_algorithm_tailoring">Unicode
       Algorithm Tailoring</a>
     </h4>
@@ -195,7 +116,7 @@
         </li>
 </ul></div>
 <h4>
-<a name="boost_text__proposed_.rationale.h7"></a>
+<a name="boost_text__proposed_.rationale.h2"></a>
       <span class="phrase"><a name="boost_text__proposed_.rationale.boost_text_does_not_use_allocators"></a></span><a class="link" href="rationale.html#boost_text__proposed_.rationale.boost_text_does_not_use_allocators">Boost.Text
       Does Not Use allocators</a>
     </h4>

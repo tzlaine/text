@@ -445,13 +445,13 @@
       </p>
 <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
-            <code class="computeroutput"><a class="link" href="../../boost/text/v1/transcode_to_utf8_idm22600.html" title="Function template transcode_to_utf8">transcode_to_utf8()</a></code>
+            <code class="computeroutput"><a class="link" href="../../boost/text/v1/transcode_to_utf8_idm22644.html" title="Function template transcode_to_utf8">transcode_to_utf8()</a></code>
           </li>
 <li class="listitem">
-            <code class="computeroutput"><a class="link" href="../../boost/text/v1/transcode_to_utf1_idm22630.html" title="Function template transcode_to_utf16">transcode_to_utf16()</a></code>
+            <code class="computeroutput"><a class="link" href="../../boost/text/v1/transcode_to_utf1_idm22674.html" title="Function template transcode_to_utf16">transcode_to_utf16()</a></code>
           </li>
 <li class="listitem">
-            <code class="computeroutput"><a class="link" href="../../boost/text/v1/transcode_to_utf3_idm22660.html" title="Function template transcode_to_utf32">transcode_to_utf32()</a></code>
+            <code class="computeroutput"><a class="link" href="../../boost/text/v1/transcode_to_utf3_idm22704.html" title="Function template transcode_to_utf32">transcode_to_utf32()</a></code>
           </li>
 </ul></div>
 <p>
@@ -594,7 +594,8 @@
           longer than 32 code points, you will get undefined behavior. This poses
           a security problem. To address this, use the stream-safe API (e.g. <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">as_stream_safe</span><span class="special">()</span></code>),
           or use the container-modifying free functions to normalize, render stream-safe,
-          and erase/insert/replace in one call.
+          and erase/insert/replace in one call. See the <a class="link" href="encoding_and_normalization.html#boost_text__proposed_.the_unicode_layer.encoding_and_normalization.container_modifying_normalization_api">Container-Modifying
+          Normalization API</a> section for details.
         </p>
 </td></tr>
 </table></div>
@@ -687,14 +688,24 @@
         will only append to UTF-8 and UTF-16 containers (UTF-32-encoded containers
         are very uncommon, and so are not supported).
       </p>
-<p>
-        [<br> ote When you're working entirely within a UTF-8 encoding (on both
-        sides of the normalization operation), the most efficient version of the
-        normalization API is <code class="computeroutput"><span class="identifier">normalize_append</span><span class="special">(</span><span class="identifier">a</span><span class="special">,</span>
-        <span class="identifier">b</span><span class="special">,</span> <span class="identifier">str</span><span class="special">)</span></code>, where
-        <code class="computeroutput"><span class="identifier">a</span></code> and <code class="computeroutput"><span class="identifier">b</span></code>
-        are iterators over an underlying sequence of UTF-8. ]
-      </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+          When you're working entirely within a UTF-8 encoding (on both sides of
+          the normalization operation), the most efficient version of the normalization
+          API is <code class="computeroutput"><span class="identifier">normalize_append</span><span class="special">(</span><span class="identifier">a</span><span class="special">,</span>
+          <span class="identifier">b</span><span class="special">,</span>
+          <span class="identifier">str</span><span class="special">)</span></code>,
+          where <code class="computeroutput"><span class="identifier">a</span></code> and <code class="computeroutput"><span class="identifier">b</span></code> are iterators over an underlying sequence
+          of UTF-8, and <code class="computeroutput"><span class="identifier">str</span></code> is a
+          container of integral type <code class="computeroutput"><span class="identifier">T</span></code>,
+          where <code class="computeroutput"><span class="keyword">sizeof</span><span class="special">(</span><span class="identifier">T</span><span class="special">)</span> <span class="special">==</span>
+          <span class="number">1</span></code>.
+        </p></td></tr>
+</table></div>
 <h5>
 <a name="boost_text__proposed_.the_unicode_layer.encoding_and_normalization.h10"></a>
         <span class="phrase"><a name="boost_text__proposed_.the_unicode_layer.encoding_and_normalization.container_modifying_normalization_api"></a></span><a class="link" href="encoding_and_normalization.html#boost_text__proposed_.the_unicode_layer.encoding_and_normalization.container_modifying_normalization_api">Container-Modifying
@@ -710,7 +721,7 @@
             <code class="computeroutput"><a class="link" href="../../boost/text/v1/normalize_erase.html" title="Function template normalize_erase">normalize_erase()</a></code>
           </li>
 <li class="listitem">
-            <code class="computeroutput"><a class="link" href="../../boost/text/v1/normalize_insert_idm19133.html" title="Function template normalize_insert">normalize_insert()</a></code>
+            <code class="computeroutput"><a class="link" href="../../boost/text/v1/normalize_insert_idm19177.html" title="Function template normalize_insert">normalize_insert()</a></code>
           </li>
 <li class="listitem">
             <code class="computeroutput"><a class="link" href="../../boost/text/v1/normalize_replace.html" title="Function template normalize_replace">normalize_replace()</a></code>
