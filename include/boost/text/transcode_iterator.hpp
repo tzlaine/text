@@ -192,7 +192,7 @@ namespace boost { namespace text {
         point, returns the number of code units occupied by that code point
         (in the range `[1, 2]`).  Returns a negative value if `first_unit` is
         not a valid initial UTF-16 code unit. */
-    BOOST_TEXT_CXX14_CONSTEXPR int
+    inline BOOST_TEXT_CXX14_CONSTEXPR int
     utf16_code_units(uint16_t first_unit) noexcept
     {
         if (boost::text::low_surrogate(first_unit))

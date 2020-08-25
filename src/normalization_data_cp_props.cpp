@@ -17180,7 +17180,7 @@ return {{
     {
         std::unordered_map<uint32_t, cp_props> retval;
         container::small_vector<unsigned char, 256> buf;
-        auto const & compressed = data();
+        constexpr auto compressed = data();
         lzw_decompress(
             compressed.begin(),
             compressed.end(),

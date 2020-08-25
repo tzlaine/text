@@ -53,7 +53,7 @@
 #if defined(__GNUC__) && __GNUC__ < 6 && !defined(__clang__)
 #    define BOOST_TEXT_CXX14_CONSTEXPR
 #    define BOOST_TEXT_NO_CXX14_CONSTEXPR
-#elif defined(_MSC_VER) && _MSC_VER <= 1915
+#elif defined(_MSC_VER) && _MSC_VER <= 1916
 #    define BOOST_TEXT_CXX14_CONSTEXPR
 #    define BOOST_TEXT_NO_CXX14_CONSTEXPR
 #else

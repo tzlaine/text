@@ -447,7 +447,9 @@ If you give _Text_ algorithms a _cp_ sequence with _grs_ longer than 32 _cps_,
 you will get undefined behavior.  This poses a security problem.  To address
 this, use the stream-safe API (e.g. `boost::text::as_stream_safe()`), or use
 the container-modifying free functions to normalize, render stream-safe, and
-erase/insert/replace in one call. ]
+erase/insert/replace in one call.  See the [link
+boost_text__proposed_.the_unicode_layer.encoding_and_normalization.container_modifying_normalization_api
+Container-Modifying Normalization API] section for details. ]
 
 
 [heading Normalization]
@@ -482,10 +484,11 @@ output iterator used by `normalize()` slows things down quite a bit _emdash_
 `normalize_append()` will only append to UTF-8 and UTF-16 containers
 (UTF-32-encoded containers are very uncommon, and so are not supported).
 
-[\note When you're working entirely within a UTF-8 encoding (on both sides of
+[note When you're working entirely within a UTF-8 encoding (on both sides of
 the normalization operation), the most efficient version of the normalization
 API is `normalize_append(a, b, str)`, where `a` and `b` are iterators over an
-underlying sequence of UTF-8. ]
+underlying sequence of UTF-8, and `str` is a container of integral type `T`,
+where `sizeof(T) == 1`. ]
 
 
 [heading Container-Modifying Normalization API]

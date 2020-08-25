@@ -225,7 +225,10 @@ namespace boost { namespace text {
         /** Assignment from a `rope_view`. */
         basic_text & operator=(rope_view rv);
 
-        operator text_view() const noexcept;
+        operator text_view() const noexcept
+        {
+            return text_view(begin(), end());
+        }
 
         char_type * data() noexcept
         {
@@ -721,6 +724,33 @@ namespace boost { namespace text {
             return !(rhs == lhs);
         }
 
+
+        // Comparisons with char_type const *.
+
+        friend bool
+        operator==(basic_text const & lhs, char_type const * rhs) noexcept
+        {
+            return boost::text::equal(lhs.begin(), lhs.end(), rhs, null_sentinel{});
+        }
+
+        friend bool
+        operator==(char_type const * lhs, basic_text const & rhs) noexcept
+        {
+            return rhs == lhs;
+        }
+
+        friend bool
+        operator!=(basic_text const & lhs, char_type const * rhs) noexcept
+        {
+            return !(lhs == rhs);
+        }
+
+        friend bool
+        operator!=(char_type const * lhs, basic_text const & rhs) noexcept
+        {
+            return !(rhs == lhs);
+        }
+
 #if BOOST_TEXT_USE_CONCEPTS
 
         /** Returns true iff `lhs` == `rhs`, where `rhs` is an object for which
@@ -1012,13 +1042,6 @@ namespace boost { namespace text {
     {
         str_.assign(rv.begin().base().base(), rv.end().base().base());
         return *this;
-    }
-
-    template<nf Normalization, typename Char, typename String>
-    basic_text<Normalization, Char, String>::
-    operator basic_text<Normalization, Char, String>::text_view() const noexcept
-    {
-        return {begin(), end()};
     }
 
     template<nf Normalization, typename Char, typename String>

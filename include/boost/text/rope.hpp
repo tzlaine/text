@@ -207,7 +207,10 @@ namespace boost { namespace text {
         /** Move-assignment from a `text`. */
         basic_rope & operator=(text t);
 
-        operator rope_view() const noexcept;
+        operator rope_view() const noexcept
+        {
+            return rope_view(begin(), end());
+        }
 
         const_reference front() const noexcept { return *begin(); }
         const_reference back() const noexcept { return *rbegin(); }
@@ -587,6 +590,34 @@ namespace boost { namespace text {
         }
 
 
+        // Comparisons with char_type const *.
+
+        friend bool
+        operator==(basic_rope const & lhs, char_type const * rhs) noexcept
+        {
+            return boost::text::equal(
+                lhs.begin(), lhs.end(), rhs, null_sentinel{});
+        }
+
+        friend bool
+        operator==(char_type const * lhs, basic_rope const & rhs) noexcept
+        {
+            return rhs == lhs;
+        }
+
+        friend bool
+        operator!=(basic_rope const & lhs, char_type const * rhs) noexcept
+        {
+            return !(lhs == rhs);
+        }
+
+        friend bool
+        operator!=(char_type const * lhs, basic_rope const & rhs) noexcept
+        {
+            return !(rhs == lhs);
+        }
+
+
         // Comparisons with text.
 
         friend bool operator==(text const & lhs, basic_rope rhs) noexcept
@@ -607,6 +638,79 @@ namespace boost { namespace text {
             return !(lhs == rhs);
         }
         friend bool operator!=(basic_rope lhs, text const & rhs) noexcept
+        {
+            return !(lhs == rhs);
+        }
+
+
+        // Comparisons with text_view.
+
+#if BOOST_TEXT_USE_CONCEPTS
+        template<typename Char2>
+        // clang-format off
+            requires std::is_same_v<Char2, char_type>
+        friend bool
+        // clang-format on
+#else
+        template<typename Char2>
+        friend std::enable_if_t<std::is_same<Char2, char_type>::value, bool>
+#endif
+        operator==(
+            basic_text_view<Normalization, Char2> const & lhs,
+            basic_rope rhs) noexcept
+        {
+            return algorithm::equal(
+                lhs.begin().base().base(),
+                lhs.end().base().base(),
+                rhs.begin().base().base(),
+                rhs.end().base().base());
+        }
+#if BOOST_TEXT_USE_CONCEPTS
+        template<typename Char2>
+        // clang-format off
+            requires std::is_same_v<Char2, char_type>
+        friend bool
+        // clang-format on
+#else
+        template<typename Char2>
+        friend std::enable_if_t<std::is_same<Char2, char_type>::value, bool>
+#endif
+        operator==(
+            basic_rope lhs,
+            basic_text_view<Normalization, Char2> const & rhs) noexcept
+        {
+            return rhs == lhs;
+        }
+
+#if BOOST_TEXT_USE_CONCEPTS
+        template<typename Char2>
+        // clang-format off
+            requires std::is_same_v<Char2, char_type>
+        friend bool
+        // clang-format on
+#else
+        template<typename Char2>
+        friend std::enable_if_t<std::is_same<Char2, char_type>::value, bool>
+#endif
+        operator!=(
+            basic_text_view<Normalization, Char2> const & lhs,
+            basic_rope rhs) noexcept
+        {
+            return !(lhs == rhs);
+        }
+#if BOOST_TEXT_USE_CONCEPTS
+        template<typename Char2>
+        // clang-format off
+            requires std::is_same_v<Char2, char_type>
+        friend bool
+        // clang-format on
+#else
+        template<typename Char2>
+        friend std::enable_if_t<std::is_same<Char2, char_type>::value, bool>
+#endif
+        operator!=(
+            basic_rope lhs,
+            basic_text_view<Normalization, Char2> const & rhs) noexcept
         {
             return !(lhs == rhs);
         }
@@ -929,13 +1033,6 @@ namespace boost { namespace text {
         basic_rope temp(std::move(t));
         swap(temp);
         return *this;
-    }
-
-    template<nf Normalization, typename Char, typename String>
-    basic_rope<Normalization, Char, String>::
-    operator basic_rope<Normalization, Char, String>::rope_view() const noexcept
-    {
-        return {begin(), end()};
     }
 
     template<nf Normalization, typename Char, typename String>
