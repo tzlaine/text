@@ -117,7 +117,7 @@ There are two things to note here:
 As mentioned before, this layer has four types (_t_, _tv_, _r_, and _rv_) that
 are directly analogous to the four major unencoded types that they use for
 storage (_s_, _sv_, _ur_, and _urv_).  The high-level semantics of these
-uderlying types is the same:
+underlying types is the same:
 
 * _s_ and _t_ are owning and contiguous.
 * _sv_ and _tv_ and non-owning and contiguous.
