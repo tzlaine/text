@@ -53,7 +53,7 @@ std::string get_utf8_text(bool european)
     }
 }
 
-int std_string_compare(std::string const & lhs, std::string const & rhs)
+int string_compare(std::string const & lhs, std::string const & rhs)
 {
     return strcmp(lhs.c_str(), rhs.c_str());
 }
@@ -61,8 +61,7 @@ int std_string_compare(std::string const & lhs, std::string const & rhs)
 boost::text::collation_table const table =
     boost::text::default_collation_table();
 
-std::vector<std::string> std_strings;
-std::vector<std::string> text_strings;
+std::vector<std::string> strings;
 #ifndef NO_ICU
 std::vector<U_NAMESPACE_QUALIFIER UnicodeString> icu_strings;
 
@@ -72,40 +71,40 @@ U_NAMESPACE_QUALIFIER Collator * coll =
 #endif
 
 
-void BM_std_string_compare(benchmark::State & state)
+void BM_string_lex_compare(benchmark::State & state)
 {
-    auto const * str0 = &std_strings[0];
+    auto const * str0 = &strings[0];
     while (state.KeepRunning()) {
-        for (auto const & x : std_strings) {
-            benchmark::DoNotOptimize(std_string_compare(x, *str0));
-            benchmark::DoNotOptimize(std_string_compare(*str0, x));
+        for (auto const & x : strings) {
+            benchmark::DoNotOptimize(string_compare(x, *str0));
+            benchmark::DoNotOptimize(string_compare(*str0, x));
             str0 = &x;
         }
     }
 }
 
-void BM_std_string_sort(benchmark::State & state)
+void BM_string_lex_sort(benchmark::State & state)
 {
-    std::vector<std::string> local_std_strings = std_strings;
+    std::vector<std::string> local_strings = strings;
     while (state.KeepRunning()) {
         state.PauseTiming();
-        local_std_strings = std_strings;
+        local_strings = strings;
         state.ResumeTiming();
         std::sort(
-            local_std_strings.begin(),
-            local_std_strings.end(),
+            local_strings.begin(),
+            local_strings.end(),
             [](std::string const & lhs, std::string const & rhs) {
-                return std_string_compare(lhs, rhs) < 0;
+                return string_compare(lhs, rhs) < 0;
             });
         benchmark::ClobberMemory();
     }
 }
 
-void BM_text_string_compare(benchmark::State & state)
+void BM_string_collate(benchmark::State & state)
 {
-    auto str0 = boost::text::as_utf32(text_strings[0]);
+    auto str0 = boost::text::as_utf32(strings[0]);
     while (state.KeepRunning()) {
-        for (auto & x : text_strings) {
+        for (auto & x : strings) {
             benchmark::DoNotOptimize(
                 boost::text::collate(boost::text::as_utf32(x), str0, table));
             benchmark::DoNotOptimize(
@@ -115,26 +114,26 @@ void BM_text_string_compare(benchmark::State & state)
     }
 }
 
-void BM_text_string_make_key(benchmark::State & state)
+void BM_string_make_collation_key(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        for (auto const & x : text_strings) {
+        for (auto const & x : strings) {
             benchmark::DoNotOptimize(boost::text::collation_sort_key(
                 boost::text::as_utf32(x), table));
         }
     }
 }
 
-void BM_text_string_sort(benchmark::State & state)
+void BM_string_collation_sort(benchmark::State & state)
 {
-    std::vector<std::string> local_text_strings = text_strings;
+    std::vector<std::string> local_strings = strings;
     while (state.KeepRunning()) {
         state.PauseTiming();
-        local_text_strings = text_strings;
+        local_strings = strings;
         state.ResumeTiming();
         std::sort(
-            local_text_strings.begin(),
-            local_text_strings.end(),
+            local_strings.begin(),
+            local_strings.end(),
             [](std::string const & lhs,
                std::string const & rhs) {
                 return boost::text::collate(
@@ -147,7 +146,7 @@ void BM_text_string_sort(benchmark::State & state)
 }
 
 #ifndef NO_ICU
-void BM_icu_string_compare(benchmark::State & state)
+void BM_icu_string_collate(benchmark::State & state)
 {
     auto const * str0 = &icu_strings[0];
     while (state.KeepRunning()) {
@@ -159,7 +158,7 @@ void BM_icu_string_compare(benchmark::State & state)
     }
 }
 
-void BM_icu_string_make_key(benchmark::State & state)
+void BM_icu_string_make_collation_key(benchmark::State & state)
 {
     U_NAMESPACE_QUALIFIER CollationKey key;
     while (state.KeepRunning()) {
@@ -170,7 +169,7 @@ void BM_icu_string_make_key(benchmark::State & state)
     }
 }
 
-void BM_icu_string_sort(benchmark::State & state)
+void BM_icu_string_collation_sort(benchmark::State & state)
 {
     std::vector<U_NAMESPACE_QUALIFIER UnicodeString> local_icu_strings =
         icu_strings;
@@ -190,11 +189,11 @@ void BM_icu_string_sort(benchmark::State & state)
     }
 }
 
-void BM_icu_string_compare_utf8(benchmark::State & state)
+void BM_icu_string_collate_utf8(benchmark::State & state)
 {
-    U_NAMESPACE_QUALIFIER StringPiece str0(std_strings[0]);
+    U_NAMESPACE_QUALIFIER StringPiece str0(strings[0]);
     while (state.KeepRunning()) {
-        for (auto const & x_ : std_strings) {
+        for (auto const & x_ : strings) {
             U_NAMESPACE_QUALIFIER StringPiece x(x_);
             UErrorCode ec = U_ZERO_ERROR;
             benchmark::DoNotOptimize(coll->compareUTF8(x, str0, ec));
@@ -205,16 +204,16 @@ void BM_icu_string_compare_utf8(benchmark::State & state)
     }
 }
 
-void BM_icu_string_sort_utf8(benchmark::State & state)
+void BM_icu_string_collation_sort_utf8(benchmark::State & state)
 {
-    std::vector<std::string> local_std_strings = std_strings;
+    std::vector<std::string> local_strings = strings;
     while (state.KeepRunning()) {
         state.PauseTiming();
-        local_std_strings = std_strings;
+        local_strings = strings;
         state.ResumeTiming();
         std::sort(
-            local_std_strings.begin(),
-            local_std_strings.end(),
+            local_strings.begin(),
+            local_strings.end(),
             [](std::string const & lhs_, std::string & rhs_) {
                 U_NAMESPACE_QUALIFIER StringPiece lhs(lhs_);
                 U_NAMESPACE_QUALIFIER StringPiece rhs(rhs_);
@@ -227,17 +226,17 @@ void BM_icu_string_sort_utf8(benchmark::State & state)
 }
 #endif
 
-BENCHMARK(BM_std_string_compare);
-BENCHMARK(BM_std_string_sort);
-BENCHMARK(BM_text_string_compare);
-BENCHMARK(BM_text_string_make_key);
-BENCHMARK(BM_text_string_sort);
+BENCHMARK(BM_string_lex_compare);
+BENCHMARK(BM_string_lex_sort);
+BENCHMARK(BM_string_collate);
+BENCHMARK(BM_string_make_collation_key);
+BENCHMARK(BM_string_collation_sort);
 #ifndef NO_ICU
-BENCHMARK(BM_icu_string_compare);
-BENCHMARK(BM_icu_string_make_key);
-BENCHMARK(BM_icu_string_sort);
-BENCHMARK(BM_icu_string_compare_utf8);
-BENCHMARK(BM_icu_string_sort_utf8);
+BENCHMARK(BM_icu_string_collate);
+BENCHMARK(BM_icu_string_make_collation_key);
+BENCHMARK(BM_icu_string_collation_sort);
+BENCHMARK(BM_icu_string_collate_utf8);
+BENCHMARK(BM_icu_string_collation_sort_utf8);
 #endif
 
 std::string usage_string()
@@ -277,10 +276,7 @@ int main(int argc, char ** argv)
         for (std::ptrdiff_t i = 0; i + size_and_stride.first <
                                    (std::ptrdiff_t)file_contents.size() / 500;
              i += size_and_stride.second) {
-            std_strings.push_back(std::string(
-                contents_first + i,
-                contents_first + i + size_and_stride.first));
-            text_strings.push_back(std::string(
+            strings.push_back(std::string(
                 contents_first + i,
                 contents_first + i + size_and_stride.first));
 #ifndef NO_ICU
