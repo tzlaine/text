@@ -440,8 +440,8 @@
 <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span> <span class="keyword">const</span> <span class="identifier">aarhus_old</span> <span class="special">=</span> <span class="string">"&#197;rhus"</span><span class="special">;</span>
 <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span> <span class="keyword">const</span> <span class="identifier">aarhus_new</span> <span class="special">=</span> <span class="string">"Aarhus"</span><span class="special">;</span>
 
-<span class="identifier">boost</span><span class="special">::</span><span class="identifier">container</span><span class="special">::</span><span class="identifier">flat_multiset</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span><span class="special">&gt;</span> <span class="identifier">set1</span><span class="special">;</span> <span class="comment">// So far so good, ...</span>
-<span class="comment">// set1.insert(aarhus_old);                              // Nope! There's no operator&lt;.</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">multiset</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span><span class="special">&gt;</span> <span class="identifier">set1</span><span class="special">;</span> <span class="comment">// So far so good, ...</span>
+<span class="comment">// set1.insert(aarhus_old);            // Nope! There's no operator&lt;.</span>
 </pre>
 <p>
       </p>
@@ -472,7 +472,7 @@
       </p>
 <p>
 </p>
-<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">container</span><span class="special">::</span><span class="identifier">flat_multiset</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span><span class="special">,</span> <span class="identifier">text_cmp</span><span class="special">&gt;</span> <span class="identifier">set2</span><span class="special">;</span>
+<pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">multiset</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span><span class="special">,</span> <span class="identifier">text_cmp</span><span class="special">&gt;</span> <span class="identifier">set2</span><span class="special">;</span>
 <span class="identifier">set2</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span><span class="identifier">aarhus_old</span><span class="special">);</span>  <span class="comment">// Yay!</span>
 <span class="identifier">set2</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span><span class="identifier">aarhus_new</span><span class="special">);</span>
 
@@ -514,8 +514,7 @@
       </p>
 <p>
 </p>
-<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">container</span><span class="special">::</span><span class="identifier">flat_multiset</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span><span class="special">,</span> <span class="identifier">text_coll_cmp</span><span class="special">&gt;</span> <span class="identifier">set3</span><span class="special">(</span>
-    <span class="identifier">text_coll_cmp</span><span class="special">{</span><span class="identifier">da_table</span><span class="special">});</span>
+<pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">multiset</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span><span class="special">,</span> <span class="identifier">text_coll_cmp</span><span class="special">&gt;</span> <span class="identifier">set3</span><span class="special">(</span><span class="identifier">text_coll_cmp</span><span class="special">{</span><span class="identifier">da_table</span><span class="special">});</span>
 <span class="identifier">set3</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span><span class="identifier">aarhus_old</span><span class="special">);</span>
 <span class="identifier">set3</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span><span class="identifier">aarhus_new</span><span class="special">);</span>
 
@@ -550,11 +549,11 @@
         Let's look at how much overhead we've incurred by doing all this repetitive
         collation. Below is the result of running a pair of perf tests. The first
         test is insertion of <code class="computeroutput"><span class="identifier">N</span></code> code
-        point sequences into a <code class="computeroutput"><span class="identifier">flat_multiset</span></code>
+        point sequences into a <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">multiset</span></code>
         that just does binary comparison, like <code class="computeroutput"><span class="identifier">set2</span></code>
         in the example above. The second inserts the same <code class="computeroutput"><span class="identifier">N</span></code>
-        sequences into a <code class="computeroutput"><span class="identifier">flat_multiset</span></code>
-        that does collation and throws away the keys, like <code class="computeroutput"><span class="identifier">set3</span></code>
+        sequences into a <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">multiset</span></code> that does collation and throws
+        away the keys, like <code class="computeroutput"><span class="identifier">set3</span></code>
         in the other example above.
       </p>
 <div class="table">
@@ -597,17 +596,17 @@
               </td>
 <td>
                 <p>
-                  5963 ns
+                  4968 ns
                 </p>
               </td>
 <td>
                 <p>
-                  24777 ns
+                  8680 ns
                 </p>
               </td>
 <td>
                 <p>
-                  0.241
+                  0.572
                 </p>
               </td>
 </tr>
@@ -619,17 +618,17 @@
               </td>
 <td>
                 <p>
-                  52369 ns
+                  53410 ns
                 </p>
               </td>
 <td>
                 <p>
-                  210472 ns
+                  82759 ns
                 </p>
               </td>
 <td>
                 <p>
-                  0.249
+                  0.645
                 </p>
               </td>
 </tr>
@@ -641,17 +640,17 @@
               </td>
 <td>
                 <p>
-                  1009486 ns
+                  791259 ns
                 </p>
               </td>
 <td>
                 <p>
-                  3777195 ns
+                  1232150 ns
                 </p>
               </td>
 <td>
                 <p>
-                  0.267
+                  0.642
                 </p>
               </td>
 </tr>
@@ -663,17 +662,17 @@
               </td>
 <td>
                 <p>
-                  27348577 ns
+                  9450019 ns
                 </p>
               </td>
 <td>
                 <p>
-                  64371370 ns
+                  14795779 ns
                 </p>
               </td>
 <td>
                 <p>
-                  0.425
+                  0.639
                 </p>
               </td>
 </tr>
@@ -685,17 +684,17 @@
               </td>
 <td>
                 <p>
-                  51425527 ns
+                  20675781 ns
                 </p>
               </td>
 <td>
                 <p>
-                  133293696 ns
+                  32193859 ns
                 </p>
               </td>
 <td>
                 <p>
-                  0.386
+                  0.642
                 </p>
               </td>
 </tr>
@@ -703,7 +702,7 @@
 </table></div>
 </div>
 <br class="table-break"><p>
-        So the collation is truly a large cost! But wait, isn't all that transcoding
+        So the collation is a significant cost. But wait, isn't all that transcoding
         from UTF-8 to UTF-32 taking up a lot of time? We can do better that the code
         point binary comparison above by doing <code class="computeroutput"><span class="keyword">char</span></code>
         binary comparison instead:
@@ -729,7 +728,7 @@
       </p>
 <p>
 </p>
-<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">container</span><span class="special">::</span><span class="identifier">flat_multiset</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span><span class="special">,</span> <span class="identifier">text_cmp_2</span><span class="special">&gt;</span> <span class="identifier">set4</span><span class="special">;</span>
+<pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">multiset</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span><span class="special">,</span> <span class="identifier">text_cmp_2</span><span class="special">&gt;</span> <span class="identifier">set4</span><span class="special">;</span>
 <span class="identifier">set4</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span><span class="identifier">aarhus_old</span><span class="special">);</span>
 <span class="identifier">set4</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span><span class="identifier">aarhus_new</span><span class="special">);</span>
 
@@ -786,17 +785,17 @@
               </td>
 <td>
                 <p>
-                  5963 ns
+                  4968 ns
                 </p>
               </td>
 <td>
                 <p>
-                  5341 ns
+                  4743 ns
                 </p>
               </td>
 <td>
                 <p>
-                  1.12
+                  1.05
                 </p>
               </td>
 </tr>
@@ -808,17 +807,17 @@
               </td>
 <td>
                 <p>
-                  52369 ns
+                  53410 ns
                 </p>
               </td>
 <td>
                 <p>
-                  52008 ns
+                  51537 ns
                 </p>
               </td>
 <td>
                 <p>
-                  1.01
+                  1.04
                 </p>
               </td>
 </tr>
@@ -830,17 +829,17 @@
               </td>
 <td>
                 <p>
-                  1009486 ns
+                  791259 ns
                 </p>
               </td>
 <td>
                 <p>
-                  917452 ns
+                  759093 ns
                 </p>
               </td>
 <td>
                 <p>
-                  1.1
+                  1.04
                 </p>
               </td>
 </tr>
@@ -852,17 +851,17 @@
               </td>
 <td>
                 <p>
-                  27348577 ns
+                  9450019 ns
                 </p>
               </td>
 <td>
                 <p>
-                  26544606 ns
+                  8932070 ns
                 </p>
               </td>
 <td>
                 <p>
-                  1.03
+                  1.06
                 </p>
               </td>
 </tr>
@@ -874,17 +873,17 @@
               </td>
 <td>
                 <p>
-                  51425527 ns
+                  20675781 ns
                 </p>
               </td>
 <td>
                 <p>
-                  49242103 ns
+                  19541320 ns
                 </p>
               </td>
 <td>
                 <p>
-                  1.04
+                  1.06
                 </p>
               </td>
 </tr>
@@ -896,179 +895,13 @@
         to a few percent.
       </p>
 <p>
-        A better way to go is probably to directly associate the sort key with each
-        sequence in a map:
+        The cost of generating a collation sort key that can be used in comparison
+        after comparison is very large. It is roughly an order of magnitude slower
+        than comparing two strings.
       </p>
 <p>
-</p>
-<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">container</span><span class="special">::</span><span class="identifier">flat_multimap</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text_sort_key</span><span class="special">,</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span><span class="special">&gt;</span> <span class="identifier">map</span><span class="special">;</span>
-<span class="identifier">map</span><span class="special">.</span><span class="identifier">emplace</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">collation_sort_key</span><span class="special">(</span><span class="identifier">aarhus_old</span><span class="special">,</span> <span class="identifier">da_table</span><span class="special">),</span> <span class="identifier">aarhus_old</span><span class="special">);</span>
-<span class="identifier">map</span><span class="special">.</span><span class="identifier">emplace</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">collation_sort_key</span><span class="special">(</span><span class="identifier">aarhus_new</span><span class="special">,</span> <span class="identifier">da_table</span><span class="special">),</span> <span class="identifier">aarhus_new</span><span class="special">);</span>
-
-<span class="comment">// Prints "&#197;rhus Aarhus", and performs well.</span>
-<span class="keyword">for</span> <span class="special">(</span><span class="keyword">auto</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">pair</span> <span class="special">:</span> <span class="identifier">map</span><span class="special">)</span> <span class="special">{</span>
-    <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">pair</span><span class="special">.</span><span class="identifier">second</span> <span class="special">&lt;&lt;</span> <span class="string">" "</span><span class="special">;</span>
-<span class="special">}</span>
-<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"\n"</span><span class="special">;</span>
-</pre>
-<p>
-      </p>
-<p>
-        Here we compare the map-based approach to the faster binary comparison approach
-        from before:
-      </p>
-<div class="table">
-<a name="boost_text__proposed_.the_unicode_layer.collation.t3"></a><p class="title"><b>Table&#160;1.7.&#160;`char` Binary Comparison Flat Set Vs. Flat Map</b></p>
-<div class="table-contents"><table class="table" summary="`char` Binary Comparison Flat Set Vs. Flat Map">
-<colgroup>
-<col>
-<col>
-<col>
-<col>
-</colgroup>
-<thead><tr>
-<th>
-                <p>
-                  N
-                </p>
-              </th>
-<th>
-                <p>
-                  Set
-                </p>
-              </th>
-<th>
-                <p>
-                  Map
-                </p>
-              </th>
-<th>
-                <p>
-                  Set / Map
-                </p>
-              </th>
-</tr></thead>
-<tbody>
-<tr>
-<td>
-                <p>
-                  16
-                </p>
-              </td>
-<td>
-                <p>
-                  5341 ns
-                </p>
-              </td>
-<td>
-                <p>
-                  5579 ns
-                </p>
-              </td>
-<td>
-                <p>
-                  0.957
-                </p>
-              </td>
-</tr>
-<tr>
-<td>
-                <p>
-                  64
-                </p>
-              </td>
-<td>
-                <p>
-                  52008 ns
-                </p>
-              </td>
-<td>
-                <p>
-                  30262 ns
-                </p>
-              </td>
-<td>
-                <p>
-                  1.72
-                </p>
-              </td>
-</tr>
-<tr>
-<td>
-                <p>
-                  512
-                </p>
-              </td>
-<td>
-                <p>
-                  917452 ns
-                </p>
-              </td>
-<td>
-                <p>
-                  511895 ns
-                </p>
-              </td>
-<td>
-                <p>
-                  1.79
-                </p>
-              </td>
-</tr>
-<tr>
-<td>
-                <p>
-                  4096
-                </p>
-              </td>
-<td>
-                <p>
-                  26544606 ns
-                </p>
-              </td>
-<td>
-                <p>
-                  22397834 ns
-                </p>
-              </td>
-<td>
-                <p>
-                  1.19
-                </p>
-              </td>
-</tr>
-<tr>
-<td>
-                <p>
-                  8192
-                </p>
-              </td>
-<td>
-                <p>
-                  49242103 ns
-                </p>
-              </td>
-<td>
-                <p>
-                  37479917 ns
-                </p>
-              </td>
-<td>
-                <p>
-                  1.31
-                </p>
-              </td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<br class="table-break"><p>
-        The map version even does better than the set that uses the faster, <code class="computeroutput"><span class="keyword">char</span></code>-based, binary comparison.
-      </p>
-<p>
-        In all these tests, I've intentionally chosen to use multisets and multimaps,
-        because otherwise the map-based approach above has an unfair advantage, or
-        a bug, depending on your use case.
+        In all these tests, I've intentionally chosen to use multisets and multimaps.
+        Maps and sets have an unfair advantage, or a bug, depending on your use case.
       </p>
 <p>
         If you use a map instead of a multimap, you will not insert a value that
@@ -1101,9 +934,11 @@
             directly, though it's not a large effect.
           </li>
 <li class="listitem">
-            You should use a container that retains the sort keys once they are generated
-            if you <span class="bold"><strong>do</strong></span> care about the sort order
-            being collation-correct.
+            If you <span class="bold"><strong>do</strong></span> care about the sort order
+            being collation-correct, you should only use a container that retains
+            the sort keys if the sort keys are very long-lived, and are used very
+            often &#8212; often enough to justify the 10x increased cost of generating
+            a full sort key.
           </li>
 </ul></div>
 <h5>
@@ -1158,65 +993,6 @@
         Hashing is your friend. Hashing containers sidestep the question of misleading
         orderings ("Is this order collation-correct?") completely, because
         they are unordered.
-      </p>
-<h5>
-<a name="boost_text__proposed_.the_unicode_layer.collation.h5"></a>
-        <span class="phrase"><a name="boost_text__proposed_.the_unicode_layer.collation.sorting_woes"></a></span><a class="link" href="collation.html#boost_text__proposed_.the_unicode_layer.collation.sorting_woes">Sorting
-        Woes</a>
-      </h5>
-<p>
-        Ok, so we've seen a reasonable container-based approach to getting code point
-        sequences that are sorted in a collation-correct way. What if you just want
-        to collation-sort a sequence of code point sequences? As with our earliest
-        container efforts before, the straightforward approach does not work:
-      </p>
-<p>
-</p>
-<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">collation_table</span> <span class="identifier">da_table</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">tailored_collation_table</span><span class="special">(</span>
-    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">data</span><span class="special">::</span><span class="identifier">da</span><span class="special">::</span><span class="identifier">standard_collation_tailoring</span><span class="special">());</span>
-
-<span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span> <span class="keyword">const</span> <span class="identifier">aarhus_old</span> <span class="special">=</span> <span class="string">"&#197;rhus"</span><span class="special">;</span>
-<span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span> <span class="keyword">const</span> <span class="identifier">aarhus_new</span> <span class="special">=</span> <span class="string">"Aarhus"</span><span class="special">;</span>
-
-<span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span><span class="special">&gt;</span> <span class="identifier">text_vec</span> <span class="special">=</span> <span class="special">{</span><span class="identifier">aarhus_new</span><span class="special">,</span> <span class="identifier">aarhus_old</span><span class="special">};</span>
-<span class="comment">// std::sort(text_vec.begin(), text_vec.end()); // Error!  No operator&lt;.</span>
-</pre>
-<p>
-      </p>
-<p>
-        However, we can just drag around the sort keys, though it's a bit more work:
-      </p>
-<p>
-</p>
-<pre class="programlisting"><span class="keyword">using</span> <span class="identifier">key_and_text</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text_sort_key</span><span class="special">,</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span><span class="special">&gt;;</span>
-<span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">key_and_text</span><span class="special">&gt;</span> <span class="identifier">key_and_text_vec</span><span class="special">;</span>
-<span class="identifier">std</span><span class="special">::</span><span class="identifier">transform</span><span class="special">(</span>
-    <span class="identifier">text_vec</span><span class="special">.</span><span class="identifier">begin</span><span class="special">(),</span>
-    <span class="identifier">text_vec</span><span class="special">.</span><span class="identifier">end</span><span class="special">(),</span>
-    <span class="identifier">std</span><span class="special">::</span><span class="identifier">back_inserter</span><span class="special">(</span><span class="identifier">key_and_text_vec</span><span class="special">),</span>
-    <span class="special">[</span><span class="identifier">da_table</span><span class="special">](</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">t</span><span class="special">)</span> <span class="special">{</span>
-        <span class="keyword">return</span> <span class="identifier">key_and_text</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">collation_sort_key</span><span class="special">(</span><span class="identifier">t</span><span class="special">,</span> <span class="identifier">da_table</span><span class="special">),</span> <span class="identifier">t</span><span class="special">);</span>
-    <span class="special">});</span>
-<span class="identifier">std</span><span class="special">::</span><span class="identifier">sort</span><span class="special">(</span>
-    <span class="identifier">key_and_text_vec</span><span class="special">.</span><span class="identifier">begin</span><span class="special">(),</span>
-    <span class="identifier">key_and_text_vec</span><span class="special">.</span><span class="identifier">end</span><span class="special">(),</span>
-    <span class="special">[](</span><span class="identifier">key_and_text</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">lhs</span><span class="special">,</span> <span class="identifier">key_and_text</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">rhs</span><span class="special">)</span> <span class="special">{</span>
-        <span class="keyword">return</span> <span class="identifier">lhs</span><span class="special">.</span><span class="identifier">first</span> <span class="special">&lt;</span> <span class="identifier">rhs</span><span class="special">.</span><span class="identifier">first</span><span class="special">;</span>
-    <span class="special">});</span>
-
-<span class="comment">// Prints "&#197;rhus Aarhus".</span>
-<span class="keyword">for</span> <span class="special">(</span><span class="keyword">auto</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">pair</span> <span class="special">:</span> <span class="identifier">key_and_text_vec</span><span class="special">)</span> <span class="special">{</span>
-    <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">pair</span><span class="special">.</span><span class="identifier">second</span> <span class="special">&lt;&lt;</span> <span class="string">" "</span><span class="special">;</span>
-<span class="special">}</span>
-<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"\n"</span><span class="special">;</span>
-</pre>
-<p>
-      </p>
-<p>
-        This is something close to the optimal approach, as clunky as it is. Alternatively,
-        we could sort the <code class="computeroutput"><a class="link" href="../../boost/text/text.html" title="Type definition text">texts</a></code>
-        using a comparator that does a lookup in some side data structure containing
-        keys, but that seems even more clunky.
       </p>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
