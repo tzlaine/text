@@ -7,10 +7,9 @@
 #include <boost/text/text.hpp>
 #include <boost/text/data/da.hpp>
 
-#include <boost/container/flat_set.hpp>
-#include <boost/container/flat_map.hpp>
-
 #include <iostream>
+#include <map>
+#include <set>
 #include <unordered_map>
 #include <unordered_set>
 
@@ -200,13 +199,13 @@ boost::text::collation_table da_table = boost::text::tailored_collation_table(
 boost::text::text const aarhus_old = "Århus";
 boost::text::text const aarhus_new = "Aarhus";
 
-boost::container::flat_multiset<boost::text::text> set1; // So far so good, ...
-// set1.insert(aarhus_old);                              // Nope! There's no operator<.
+std::multiset<boost::text::text> set1; // So far so good, ...
+// set1.insert(aarhus_old);            // Nope! There's no operator<.
 
 //]
 
 //[ collation_set_2
-boost::container::flat_multiset<boost::text::text, text_cmp> set2;
+std::multiset<boost::text::text, text_cmp> set2;
 set2.insert(aarhus_old);  // Yay!
 set2.insert(aarhus_new);
 
@@ -218,8 +217,7 @@ std::cout << "\n";
 //]
 
 //[ collation_set_3
-boost::container::flat_multiset<boost::text::text, text_coll_cmp> set3(
-    text_coll_cmp{da_table});
+std::multiset<boost::text::text, text_coll_cmp> set3(text_coll_cmp{da_table});
 set3.insert(aarhus_old);
 set3.insert(aarhus_new);
 
@@ -231,7 +229,7 @@ std::cout << "\n";
 //]
 
 //[ collation_set_4
-boost::container::flat_multiset<boost::text::text, text_cmp_2> set4;
+std::multiset<boost::text::text, text_cmp_2> set4;
 set4.insert(aarhus_old);
 set4.insert(aarhus_new);
 
@@ -244,7 +242,7 @@ std::cout << "\n";
 //]
 
 //[ collation_map
-boost::container::flat_multimap<boost::text::text_sort_key, boost::text::text> map;
+std::multimap<boost::text::text_sort_key, boost::text::text> map;
 map.emplace(boost::text::collation_sort_key(aarhus_old, da_table), aarhus_old);
 map.emplace(boost::text::collation_sort_key(aarhus_new, da_table), aarhus_new);
 
@@ -291,43 +289,6 @@ std::unordered_multiset<boost::text::text_view> text_view_set;
 text_view_set.insert(aarhus_old);
 text_view_set.insert(aarhus_new);
 assert(text_view_set.size() == 2);
-//]
-}
-
-{
-//[ collation_sorting_1
-boost::text::collation_table da_table = boost::text::tailored_collation_table(
-    boost::text::data::da::standard_collation_tailoring());
-
-boost::text::text const aarhus_old = "Århus";
-boost::text::text const aarhus_new = "Aarhus";
-
-std::vector<boost::text::text> text_vec = {aarhus_new, aarhus_old};
-// std::sort(text_vec.begin(), text_vec.end()); // Error!  No operator<.
-//]
-
-//[ collation_sorting_2
-using key_and_text = std::pair<boost::text::text_sort_key, boost::text::text>;
-std::vector<key_and_text> key_and_text_vec;
-std::transform(
-    text_vec.begin(),
-    text_vec.end(),
-    std::back_inserter(key_and_text_vec),
-    [da_table](boost::text::text const & t) {
-        return key_and_text(boost::text::collation_sort_key(t, da_table), t);
-    });
-std::sort(
-    key_and_text_vec.begin(),
-    key_and_text_vec.end(),
-    [](key_and_text const & lhs, key_and_text const & rhs) {
-        return lhs.first < rhs.first;
-    });
-
-// Prints "Århus Aarhus".
-for (auto const & pair : key_and_text_vec) {
-    std::cout << pair.second << " ";
-}
-std::cout << "\n";
 //]
 }
 

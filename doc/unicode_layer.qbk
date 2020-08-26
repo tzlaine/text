@@ -1090,9 +1090,9 @@ therefore does not allow *implicit* ordering of sequences of _cps_.]
 
 Let's look at how much overhead we've incurred by doing all this repetitive
 collation.  Below is the result of running a pair of perf tests.  The first
-test is insertion of `N` _cp_ sequences into a `flat_multiset` that just does
+test is insertion of `N` _cp_ sequences into a `std::multiset` that just does
 binary comparison, like `set2` in the example above.  The second inserts the
-same `N` sequences into a `flat_multiset` that does collation and throws away
+same `N` sequences into a `std::multiset` that does collation and throws away
 the keys, like `set3` in the other example above.
 
 [/ Before you can generate the tables below:
@@ -1100,17 +1100,19 @@ the keys, like `set3` in the other example above.
 /]
 
 [/ ./make_perf_table.py DATA BM_set_inserts_binary_compare_text_naive,CodePointBinaryComparison BM_set_inserts_collate,FullCollation /]
+
 [table Code Point Binary Comparison Vs. Unretained Key Collation
     [ [N] [Code Point Binary Comparison] [Full Collation] [Code Point Binary Comparison / Full Collation] ]
-    [ [16] [5963 ns] [24777 ns] [0.241] ]
-    [ [64] [52369 ns] [210472 ns] [0.249] ]
-    [ [512] [1009486 ns] [3777195 ns] [0.267] ]
-    [ [4096] [27348577 ns] [64371370 ns] [0.425] ]
-    [ [8192] [51425527 ns] [133293696 ns] [0.386] ]
+    [ [16] [4968 ns] [8680 ns] [0.572] ]
+    [ [64] [53410 ns] [82759 ns] [0.645] ]
+    [ [512] [791259 ns] [1232150 ns] [0.642] ]
+    [ [4096] [9450019 ns] [14795779 ns] [0.639] ]
+    [ [8192] [20675781 ns] [32193859 ns] [0.642] ]
 ]
 
-So the collation is truly a large cost!  But wait, isn't all that transcoding
-from UTF-8 to UTF-32 taking up a lot of time?  We can do better that the code point binary comparison above by doing `char` binary comparison instead:
+So the collation is a significant cost.  But wait, isn't all that transcoding
+from UTF-8 to UTF-32 taking up a lot of time?  We can do better that the code
+point binary comparison above by doing `char` binary comparison instead:
 
 [collation_text_cmp]
 
@@ -1119,42 +1121,25 @@ from UTF-8 to UTF-32 taking up a lot of time?  We can do better that the code po
 And here are the two binary comparison approaches compared to each other:
 
 [/ ./make_perf_table.py DATA BM_set_inserts_binary_compare_text_naive,CodePointBinaryComparison BM_set_inserts_binary_compare_text,CharBinaryComparison /]
+
 [table Code Point Binary Comparison Vs. `char` Binary Comparison (Tree Set)
     [ [N] [Code Point Binary Comparison] [`char` Binary Comparison] [Code Point Binary Comparison / `char` Binary Comparison] ]
-    [ [16] [5963 ns] [5341 ns] [1.12] ]
-    [ [64] [52369 ns] [52008 ns] [1.01] ]
-    [ [512] [1009486 ns] [917452 ns] [1.1] ]
-    [ [4096] [27348577 ns] [26544606 ns] [1.03] ]
-    [ [8192] [51425527 ns] [49242103 ns] [1.04] ]
+    [ [16] [4968 ns] [4743 ns] [1.05] ]
+    [ [64] [53410 ns] [51537 ns] [1.04] ]
+    [ [512] [791259 ns] [759093 ns] [1.04] ]
+    [ [4096] [9450019 ns] [8932070 ns] [1.06] ]
+    [ [8192] [20675781 ns] [19541320 ns] [1.06] ]
 ]
 
 Interestingly, getting rid of UTF-8 -> UTF-32 transcoding only amounts to a
 few percent.
 
-A better way to go is probably to directly associate the sort key with each
-sequence in a map:
+The cost of generating a collation sort key that can be used in comparison
+after comparison is very large.  It is roughly an order of magnitude slower
+than comparing two strings.
 
-[collation_map]
-
-Here we compare the map-based approach to the faster binary comparison
-approach from before:
-
-[/ ./make_perf_table.py DATA BM_set_inserts_binary_compare_text,Set BM_map_inserts,Map /]
-[table `char` Binary Comparison Flat Set Vs. Flat Map
-    [ [N] [Set] [Map] [Set / Map] ]
-    [ [16] [5341 ns] [5579 ns] [0.957] ]
-    [ [64] [52008 ns] [30262 ns] [1.72] ]
-    [ [512] [917452 ns] [511895 ns] [1.79] ]
-    [ [4096] [26544606 ns] [22397834 ns] [1.19] ]
-    [ [8192] [49242103 ns] [37479917 ns] [1.31] ]
-]
-
-The map version even does better than the set that uses the faster,
-`char`-based, binary comparison.
-
-In all these tests, I've intentionally chosen to use multisets and multimaps,
-because otherwise the map-based approach above has an unfair advantage, or a
-bug, depending on your use case.
+In all these tests, I've intentionally chosen to use multisets and multimaps.
+Maps and sets have an unfair advantage, or a bug, depending on your use case.
 
 If you use a map instead of a multimap, you will not insert a value that has
 the same sort key as an element already in the map, even if that _cp_ sequence
@@ -1176,8 +1161,10 @@ As with everything else associated with Unicode, it's complicated:
 * If you do binary comparisons of UTF-8 encoded types, consider comparing the
   bytes of the underlying `char`s directly, though it's not a large effect.
 
-* You should use a container that retains the sort keys once they are
-  generated if you *do* care about the sort order being collation-correct.
+* If you *do* care about the sort order being collation-correct, you should
+  only use a container that retains the sort keys if the sort keys are very
+  long-lived, and are used very often _emdash_ often enough to justify the 10x
+  increased cost of generating a full sort key.
 
 [heading Hashing Containers]
 
@@ -1190,23 +1177,6 @@ the unordered associative containers then?
 Hashing is your friend.  Hashing containers sidestep the question of
 misleading orderings ("Is this order collation-correct?") completely, because
 they are unordered.
-
-[heading Sorting Woes]
-
-Ok, so we've seen a reasonable container-based approach to getting _cp_
-sequences that are sorted in a collation-correct way.  What if you just want
-to collation-sort a sequence of _cp_ sequences?  As with our earliest
-container efforts before, the straightforward approach does not work:
-
-[collation_sorting_1]
-
-However, we can just drag around the sort keys, though it's a bit more work:
-
-[collation_sorting_2]
-
-This is something close to the optimal approach, as clunky as it is.
-Alternatively, we could sort the _ts_ using a comparator that does a lookup in
-some side data structure containing keys, but that seems even more clunky.
 
 [endsect]
 

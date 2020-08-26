@@ -36,7 +36,7 @@ struct text_cmp
         boost::text::text const & lhs, boost::text::text const & rhs) const
         noexcept
     {
-        // Binary comparison of code point values.
+        // Binary comparison of code points.
         return std::lexicographical_compare(
             lhs.begin().base(),
             lhs.end().base(),
@@ -53,7 +53,7 @@ struct text_cmp_2
         boost::text::text const & lhs, boost::text::text const & rhs) const
         noexcept
     {
-        // Binary comparison of code point values.
+        // Binary comparison of code units.
         return std::lexicographical_compare(
             lhs.begin().base().base(),
             lhs.end().base().base(),
