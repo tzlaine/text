@@ -16,10 +16,11 @@ namespace boost { namespace text { namespace detail {
     {
         return String(first, last);
     }
-    template<typename String, typename CharIter>
-    auto make_string(CharIter first, boost::text::null_sentinel)
+    template<typename String, typename Char>
+    auto make_string(Char const * first, boost::text::null_sentinel)
     {
-        return String(first);
+        basic_string_view<Char> sv(first);
+        return String(sv.begin(), sv.end());
     }
     template<typename String, typename CharIter, typename Sentinel>
     auto make_string(CharIter first, Sentinel last)

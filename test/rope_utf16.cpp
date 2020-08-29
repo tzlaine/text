@@ -18,7 +18,8 @@ using namespace boost;
 
 using text_view16 =
     boost::text::basic_text_view<boost::text::nf::fcc, char16_t>;
-using rope16 = boost::text::basic_rope<boost::text::nf::fcc, char16_t>;
+using rope16 = boost::text::
+    basic_rope<boost::text::nf::fcc, char16_t, std::vector<char16_t>>;
 
 rope16 operator"" _t(char16_t const * str, std::size_t len)
 {
@@ -54,7 +55,7 @@ TEST(rope_utf16, test_empty)
     std::cout << "r=\"" << t << "\"\n";
 
     {
-        rope16 t2(rope16::string{u""});
+        rope16 t2(rope16::string{});
         EXPECT_TRUE(t == t2);
     }
 }
@@ -128,7 +129,8 @@ TEST(rope_utf16, test_ctors)
     EXPECT_EQ(t2, u""_t);
     EXPECT_EQ(u""_t, t2);
 
-    rope16::string const s(u"An old-school string");
+    char16_t const str_array[] = u"An old-school string";
+    rope16::string const s(std::begin(str_array), std::end(str_array) - 1);
     rope16 t5{rope16::string(s)};
     EXPECT_EQ(t5, u"An old-school string"_t);
     EXPECT_EQ(u"An old-school string"_t, t5);
@@ -235,7 +237,8 @@ TEST(rope_utf16, test_assignment)
     }
 
     {
-        rope16::string const s(u"An old-school string");
+        char16_t const str_array[] = u"An old-school string";
+        rope16::string const s(std::begin(str_array), std::end(str_array) - 1);
         rope16 t;
         t = rope16::string(s);
         EXPECT_EQ(t, u"An old-school string"_t);
@@ -329,8 +332,9 @@ TEST(rope_utf16, test_misc)
 
 TEST(rope_utf16, test_substr)
 {
-    rope16 const r = rope16(u"When writing a specialization, ") +
-                     rope16::string(u"be careful about its location; ") +
+    char16_t const str_array[] = u"be careful about its location; ";
+    rope16::string const s(std::begin(str_array), std::end(str_array) - 1);
+    rope16 const r = rope16(u"When writing a specialization, ") + s +
                      rope16::string_view(
                          u"or to make it compile will be such a trial as to "
                          u"kindle its self-immolation") +

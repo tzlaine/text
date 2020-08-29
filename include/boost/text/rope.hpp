@@ -204,6 +204,14 @@ namespace boost { namespace text {
             return *this;
         }
 
+        /** Assignment from a `string`. */
+        basic_rope & operator=(string s)
+        {
+            basic_rope temp(std::move(s));
+            swap(temp);
+            return *this;
+        }
+
         /** Move-assignment from a `text`. */
         basic_rope & operator=(text t);
 

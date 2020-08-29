@@ -98,8 +98,10 @@ namespace boost { namespace text {
         {}
 
         /** Constructs a `basic_text` from a null-terminated string. */
-        basic_text(char_type const * c_str) : str_(c_str)
+        basic_text(char_type const * c_str)
         {
+            auto const sv = string_view(c_str);
+            str_.assign(sv.begin(), sv.end());
             boost::text::normalize<normalization>(str_);
         }
 
