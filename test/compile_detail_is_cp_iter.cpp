@@ -51,9 +51,6 @@ static_assert(
 static_assert(!text::detail::is_cp_iter<char *>{}, "");
 static_assert(!text::detail::is_cp_iter<char const *>{}, "");
 
-static_assert(!text::detail::is_cp_iter<int *>{}, "");
-static_assert(!text::detail::is_cp_iter<int const *>{}, "");
-
 static_assert(!text::detail::is_cp_iter<text::basic_string_view<char>::iterator>{}, "");
 static_assert(
     !text::detail::is_cp_iter<text::basic_string_view<char>::const_iterator>{}, "");
@@ -121,7 +118,7 @@ static_assert(
 
 static_assert(!text::detail::is_cp_iter<char>{}, "");
 static_assert(!text::detail::is_cp_iter<int>{}, "");
+#ifdef _MSC_VER
 static_assert(!text::detail::is_cp_iter<wchar_t *>{}, "");
-static_assert(!text::detail::is_cp_iter<std::vector<int>::iterator>{}, "");
+#endif
 static_assert(!text::detail::is_cp_iter<wchar_t[5]>{}, "");
-static_assert(!text::detail::is_cp_iter<int[5]>{}, "");
