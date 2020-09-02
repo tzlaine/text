@@ -125,16 +125,16 @@ namespace boost { namespace text {
         /** Constructs a `basic_rope` from a range of graphemes.
 
             This function only participates in overload resolution if
-            `GraphemeCURange` models the GraphemeCURange concept. */
-        template<typename GraphemeCURange>
-        explicit basic_rope(GraphemeCURange const & r);
+            `GraphemeRangeCU` models the GraphemeRangeCU concept. */
+        template<typename GraphemeRangeCU>
+        explicit basic_rope(GraphemeRangeCU const & r);
 
         /** Constructs a `basic_rope` from a sequence of graphemes.
 
             This function only participates in overload resolution if
-            `GraphemeCUIter` models the GraphemeCUIter concept. */
-        template<typename GraphemeCUIter>
-        explicit basic_rope(GraphemeCUIter first, GraphemeCUIter last);
+            `GraphemeIterCU` models the GraphemeIterCU concept. */
+        template<typename GraphemeIterCU>
+        explicit basic_rope(GraphemeIterCU first, GraphemeIterCU last);
 
 #else
 

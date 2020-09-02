@@ -16,6 +16,8 @@
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
+    //[ concepts_concepts
+
     template<typename T, format F>
     concept code_unit = std::integral<T> && sizeof(T) == (int)F;
 
@@ -95,11 +97,9 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
     concept grapheme_range = std::ranges::bidirectional_range<T> &&
         grapheme_iter<std::ranges::iterator_t<T>>;
 
-    /** The code point iterator type of a grapheme range. */
     template<typename R>
     using code_point_iterator_t = decltype(std::declval<R>().begin().base());
 
-    /** The code point sentinel type of a grapheme range. */
     template<typename R>
     using code_point_sentinel_t = decltype(std::declval<R>().end().base());
 
@@ -174,6 +174,8 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
         utf16_pointer<std::remove_reference_t<T>> ||
         utf32_pointer<std::remove_reference_t<T>>;
     // clang-format on
+
+    //]
 
 }}}
 
