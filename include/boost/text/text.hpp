@@ -98,8 +98,10 @@ namespace boost { namespace text {
         {}
 
         /** Constructs a `basic_text` from a null-terminated string. */
-        basic_text(char_type const * c_str) : str_(c_str)
+        basic_text(char_type const * c_str)
         {
+            auto const sv = string_view(c_str);
+            str_.assign(sv.begin(), sv.end());
             boost::text::normalize<normalization>(str_);
         }
 
@@ -128,16 +130,16 @@ namespace boost { namespace text {
         /** Constructs a `basic_text` from a range of graphemes.
 
             This function only participates in overload resolution if
-            `GraphemeCURange` models the GraphemeCURange concept. */
-        template<typename GraphemeCURange>
-        explicit basic_text(GraphemeCURange const & r);
+            `GraphemeRangeCU` models the GraphemeRangeCU concept. */
+        template<typename GraphemeRangeCU>
+        explicit basic_text(GraphemeRangeCU const & r);
 
         /** Constructs a `basic_text` from a sequence of graphemes.
 
             This function only participates in overload resolution if
-            `GraphemeCUIter` models the GraphemeCUIter concept. */
-        template<typename GraphemeCUIter>
-        explicit basic_text(GraphemeCUIter first, GraphemeCUIter last);
+            `GraphemeIterCU` models the GraphemeIterCU concept. */
+        template<typename GraphemeIterCU>
+        explicit basic_text(GraphemeIterCU first, GraphemeIterCU last);
 
 #else
 
@@ -439,30 +441,30 @@ namespace boost { namespace text {
             `r`.
 
             This function only participates in overload resolution if
-            `GraphemeCURange` models the GraphemeCURange concept.
+            `GraphemeRangeCU` models the GraphemeRangeCU concept.
 
             \pre !std::less(first.base().base(), begin().base().base()) &&
             !std::less(end().base().base(), last.base().base()) */
-        template<typename GraphemeCURange>
+        template<typename GraphemeRangeCU>
         replace_result<iterator> replace(
             const_iterator first,
             const_iterator last,
-            GraphemeCURange const & r);
+            GraphemeRangeCU const & r);
 
         /** Replaces the portion of `*this` delimited by `[first1, last1)`
             with `[first2, last2)`.
 
             This function only participates in overload resolution if
-            `GraphemeCUIter` models the GraphemeCUIter concept.
+            `GraphemeIterCU` models the GraphemeIterCU concept.
 
             \pre !std::less(first.base().base(), begin().base().base()) &&
             !std::less(end().base().base(), last.base().base()) */
-        template<typename GraphemeCUIter>
+        template<typename GraphemeIterCU>
         replace_result<iterator> replace(
             const_iterator first1,
             const_iterator last1,
-            GraphemeCUIter first2,
-            GraphemeCUIter last2);
+            GraphemeIterCU first2,
+            GraphemeIterCU last2);
 
 #else
 

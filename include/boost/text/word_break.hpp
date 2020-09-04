@@ -2013,6 +2013,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V1 {
 
 namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
 
+    //[ word_break_concepts
     template<typename T>
     concept word_prop_func = std::invocable<T, uint32_t> &&
         std::convertible_to<std::invoke_result_t<T, uint32_t>, word_property>;
@@ -2029,6 +2030,7 @@ namespace boost { namespace text { BOOST_TEXT_NAMESPACE_V2 {
                     uint32_t,
                     uint32_t>,
                 bool>;
+    //]
 
     template<
         code_point_iter I,

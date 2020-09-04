@@ -347,10 +347,8 @@ namespace boost { namespace text { namespace detail {
 
 
     template<typename T>
-    using is_code_point = std::integral_constant<
-        bool,
-        (std::is_unsigned<T>::value && std::is_integral<T>::value &&
-         sizeof(T) == 4)>;
+    using is_code_point = std::
+        integral_constant<bool, (std::is_integral<T>::value && sizeof(T) == 4)>;
 
     template<typename T>
     using has_deref_and_incr =
@@ -400,10 +398,8 @@ namespace boost { namespace text { namespace detail {
 
 
     template<typename T>
-    using is_16_code_unit = std::integral_constant<
-        bool,
-        (std::is_unsigned<T>::value && std::is_integral<T>::value &&
-         sizeof(T) == 2)>;
+    using is_16_code_unit = std::
+        integral_constant<bool, (std::is_integral<T>::value && sizeof(T) == 2)>;
 
     template<typename T>
     using is_16_iter = std::integral_constant<

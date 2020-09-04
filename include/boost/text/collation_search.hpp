@@ -31,17 +31,17 @@ namespace boost { namespace text {
 #if BOOST_TEXT_USE_CONCEPTS
     // concepts, etc.
 
-    template<typename T, typename I, typename S>
-    // clang-format off
-    concept searcher_break_func = std::invocable<T, I, I, S> &&
-        std::convertible_to<std::invoke_result_t<T, I, I, S>, I>;
-    // clang-format on
+    //[ collation_search_concepts
 
     template<typename T, typename I, typename S>
-    // clang-format off
+    concept searcher_break_func = std::invocable<T, I, I, S> &&
+        std::convertible_to<std::invoke_result_t<T, I, I, S>, I>;
+
+    template<typename T, typename I, typename S>
     concept searcher = std::invocable<T, I, S> &&
         std::convertible_to<std::invoke_result_t<T, I, S>, utf32_view<I>>;
-    // clang-format on
+
+    //]
 
 #endif
 
